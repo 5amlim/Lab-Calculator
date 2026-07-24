@@ -115,3 +115,15 @@ See `DATA_AUDIT.md` and `SOURCES.txt` for review details.
 ## Version 2.8 preferred volume highlight
 
 Preferred volume is now visually emphasized in the test library, selected-test summary, and printout. Minimum volume remains visible beneath it as secondary information.
+
+
+## Specimen type colors
+
+The website and printed summary now distinguish:
+
+- Serum: amber
+- Plasma: blue
+- RBCs: red
+- Whole blood: burgundy
+
+RBCs means an isolated red-cell specimen or red-cell fraction. Whole blood means the cellular and plasma components remain together in the original collection tube.

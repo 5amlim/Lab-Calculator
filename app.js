@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
-  const DB_KEY = 'questLabCalculator.database.v3';
-  const LEGACY_DB_KEYS = ['questLabCalculator.database.v2', 'questLabCalculator.database.v1'];
+  const DB_KEY = 'questLabCalculator.database.v4';
+  const LEGACY_DB_KEYS = ['questLabCalculator.database.v3', 'questLabCalculator.database.v2', 'questLabCalculator.database.v1'];
   const SELECTED_KEY = 'questLabCalculator.selected.v1';
   const LABEL_KEY = 'questLabCalculator.orderLabel.v1';
   const PAGE_STEP = 80;
@@ -126,7 +126,7 @@
       id: String(record.id || `custom-${Date.now()}-${index}`),
       questCode: String(record.questCode ?? '').trim(),
       testName: String(record.testName ?? '').trim(),
-      specimenType: String(record.specimenType || 'Other / Verify'),
+      specimenType: normalizeSpecimenType(record.specimenType),
       drawContainer: String(record.drawContainer || 'Verify Quest Instructions'),
       alternativeContainer: String(record.alternativeContainer || ''),
       transportContainer: cleanTransportContainer(record.transportContainer),
@@ -150,6 +150,31 @@
       .replace(/^labeled\s+transport\s+tube$/i, 'Transport tube')
       .replace(/\blabeled transport tube\b/gi, 'transport tube')
       .replace(/\s{2,}/g, ' ');
+  }
+
+
+  function normalizeSpecimenType(value) {
+    const original = String(value || 'Other / Verify').trim();
+    const normalized = original.toLowerCase();
+    if (/^(rbc|rbcs|red blood cell|red blood cells|erythrocyte|erythrocytes)$/.test(normalized)) return 'RBCs';
+    if (normalized === 'serum') return 'Serum';
+    if (normalized === 'plasma') return 'Plasma';
+    if (normalized === 'whole blood' || normalized === 'wholeblood') return 'Whole Blood';
+    return original || 'Other / Verify';
+  }
+
+  function specimenClass(specimenType) {
+    const value = normalizeSpecimenType(specimenType).toLowerCase();
+    if (value === 'serum') return 'specimen-serum';
+    if (value === 'plasma') return 'specimen-plasma';
+    if (value === 'rbcs') return 'specimen-rbc';
+    if (value === 'whole blood') return 'specimen-whole-blood';
+    return 'specimen-other';
+  }
+
+  function specimenBadge(specimenType, extraClass = '') {
+    const label = normalizeSpecimenType(specimenType);
+    return `<span class="specimen-badge ${specimenClass(label)} ${extraClass}">${escapeHtml(label)}</span>`;
   }
 
   function parseQueries(text) {
@@ -248,7 +273,7 @@
     return `<div class="batch-row ${blocked ? 'unmatched' : ''}">
       <div class="batch-query">${escapeHtml(row.query)}</div>
       <div class="batch-match"><strong>${escapeHtml(displayCode(best.test))} · ${escapeHtml(best.test.testName)}</strong>
-        <small>${blocked ? 'Marked do not perform. ' : ''}${escapeHtml(best.test.specimenType)} · ${escapeHtml(best.test.drawContainer)}${alternatives ? `<br>Other matches: ${escapeHtml(alternatives)}` : ''}</small>
+        <small>${blocked ? 'Marked do not perform. ' : ''}${specimenBadge(best.test.specimenType)} · ${escapeHtml(best.test.drawContainer)}${alternatives ? `<br>Other matches: ${escapeHtml(alternatives)}` : ''}</small>
       </div>
       <button class="mini-button" data-action="add" data-id="${escapeAttr(best.test.id)}" ${blocked ? 'disabled' : ''}>${selectedIds.includes(best.test.id) ? 'Added' : 'Add'}</button>
     </div>`;
@@ -281,7 +306,7 @@
     return `<tr>
       <td class="code-cell">${escapeHtml(displayCode(test))}</td>
       <td><div class="test-name">${escapeHtml(test.testName)}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
-      <td><span class="badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span><div class="subtext">${escapeHtml(test.specimenType)}${test.alternativeContainer ? ` · Alt: ${escapeHtml(test.alternativeContainer)}` : ''}</div></td>
+      <td><span class="badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span><div class="subtext specimen-line">${specimenBadge(test.specimenType)}${test.alternativeContainer ? ` <span>· Alt: ${escapeHtml(test.alternativeContainer)}</span>` : ''}</div></td>
       <td><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td>
       <td><span class="preferred-volume-chip">${escapeHtml(test.preferredVolume || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(test.minimumVolume || '—')}</div></td>
       <td class="row-actions">
@@ -374,7 +399,7 @@
     els.selectedList.innerHTML = tests.map(test => `
       <article class="selected-card">
         <div class="selected-card-top">
-          <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</div><div class="subtext">${escapeHtml(test.specimenType)} · <span class="preferred-volume-inline">Preferred ${escapeHtml(test.preferredVolume || 'verify')}</span> · Minimum ${escapeHtml(test.minimumVolume || 'verify')}</div></div>
+          <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</div><div class="subtext specimen-line">${specimenBadge(test.specimenType)} <span>·</span> <span class="preferred-volume-inline">Preferred ${escapeHtml(test.preferredVolume || 'verify')}</span> <span>· Minimum ${escapeHtml(test.minimumVolume || 'verify')}</span></div></div>
           <div><a class="mini-button edit" href="${escapeAttr(questUrl(test))}" target="_blank" rel="noreferrer">Quest ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove" data-action="remove" data-id="${escapeAttr(test.id)}">Remove</button></div>
         </div>
         <div class="selected-details">
@@ -410,7 +435,7 @@
     els.drawPlan.className = 'draw-plan';
     els.drawPlan.innerHTML = groups.map(group => {
       const volume = group.volumeCount ? ` · listed minimum total ${formatMl(group.minimumMl)}` : '';
-      return `<div class="draw-card"><strong class="tube ${tubeClass(group.container)}">${escapeHtml(group.container)}</strong><strong>${group.tests.length} ${group.tests.length === 1 ? 'test' : 'tests'}</strong><div class="draw-meta">${escapeHtml(Array.from(group.specimenTypes).join(', '))}${volume}</div><div class="draw-meta">Verify dedicated-tube requirements</div></div>`;
+      return `<div class="draw-card"><strong class="tube ${tubeClass(group.container)}">${escapeHtml(group.container)}</strong><strong>${group.tests.length} ${group.tests.length === 1 ? 'test' : 'tests'}</strong><div class="draw-meta specimen-line">${Array.from(group.specimenTypes).map(type => specimenBadge(type)).join(' ')}${volume ? `<span>${escapeHtml(volume)}</span>` : ''}</div><div class="draw-meta">Verify dedicated-tube requirements</div></div>`;
     }).join('');
   }
 
@@ -467,10 +492,12 @@
       ['Refrigerated', 'temp-refrigerated'],
       ['Frozen', 'temp-frozen']
     ];
+    const specimens = ['Serum', 'Plasma', 'RBCs', 'Whole Blood'];
     return `<section class="print-color-legend">
       <div class="print-legend-group"><strong>Tube colors</strong>${tubeItems.map(([label, cls]) => `<span class="print-legend-chip tube ${cls}">${escapeHtml(label)}</span>`).join('')}</div>
       <div class="print-legend-group"><strong>Transport temperature</strong>${temperatures.map(([label, cls]) => `<span class="print-legend-chip ${cls}">${escapeHtml(label)}</span>`).join('')}</div>
-      <div class="print-legend-note">Always confirm the additive and container on the tube label. Color is a visual aid only.</div>
+      <div class="print-legend-group print-specimen-legend"><strong>Specimen</strong>${specimens.map(type => specimenBadge(type, 'print-specimen-badge')).join('')}</div>
+      <div class="print-legend-note">Serum, plasma, RBCs, and whole blood are distinct specimen types. Always confirm the additive and container on the tube label. Color is a visual aid only.</div>
     </section>`;
   }
 
@@ -587,7 +614,7 @@
     }
 
     const target = [code ? `Quest code: ${code}` : '', name ? `Test name: ${name}` : ''].filter(Boolean).join('\n');
-    const prompt = `Search the official Quest Diagnostics Test Directory only for the test below. Do not guess. If a field is unavailable or unclear, use an empty string or "Verify". Return exactly one JSON object and no explanatory text. Do not include patient information.\n\n${target}\n\nUse this exact structure:\n{\n  "questCode": "",\n  "testName": "",\n  "specimenType": "Serum | Plasma | Whole Blood | Urine | Stool | Swab | Saliva | CSF | Body Fluid | Other / Verify",\n  "drawContainer": "",\n  "alternativeContainer": "",\n  "transportContainer": "",\n  "preferredVolume": "",\n  "minimumVolume": "",\n  "transportTemperature": "Room Temperature | Refrigerated | Frozen | Room / Refrigerated | Mixed | Not specified",\n  "transportTemperatureRaw": "",\n  "stability": "",\n  "spin": "Yes | No | Verify",\n  "specialInstructions": "Include all special collection, processing, transfer, timing, protection, and rejection instructions",\n  "sourceUrl": "Official Quest page URL"\n}`;
+    const prompt = `Search the official Quest Diagnostics Test Directory only for the test below. Do not guess. If a field is unavailable or unclear, use an empty string or "Verify". Return exactly one JSON object and no explanatory text. Do not include patient information.\n\n${target}\n\nUse this exact structure:\n{\n  "questCode": "",\n  "testName": "",\n  "specimenType": "Serum | Plasma | RBCs | Whole Blood | Urine | Stool | Swab | Saliva | CSF | Body Fluid | Other / Verify",\n  "drawContainer": "",\n  "alternativeContainer": "",\n  "transportContainer": "",\n  "preferredVolume": "",\n  "minimumVolume": "",\n  "transportTemperature": "Room Temperature | Refrigerated | Frozen | Room / Refrigerated | Mixed | Not specified",\n  "transportTemperatureRaw": "",\n  "stability": "",\n  "spin": "Yes | No | Verify",\n  "specialInstructions": "Include all special collection, processing, transfer, timing, protection, and rejection instructions",\n  "sourceUrl": "Official Quest page URL"\n}`;
 
     const chatWindow = window.open('https://chatgpt.com/', '_blank', 'noopener,noreferrer');
     const copied = await copyText(prompt);
@@ -738,14 +765,14 @@
         <div><h1 class="print-title">Lab Collection Summary</h1><div class="print-subtitle">${label ? escapeHtml(label) : 'Quest send-out workflow'}</div></div>
         <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<br>${tests.length} selected tests</div>
       </div>
-      <div class="print-plan">${groups.map(group => `<div class="print-plan-card"><strong class="print-plan-container tube ${tubeClass(group.container)}">${escapeHtml(group.container)}</strong>${group.tests.length} ${group.tests.length === 1 ? 'test' : 'tests'} · ${escapeHtml(Array.from(group.specimenTypes).join(', '))}${group.volumeCount ? `<br>Listed minimum total: ${escapeHtml(formatMl(group.minimumMl))}` : ''}</div>`).join('')}</div>
+      <div class="print-plan">${groups.map(group => `<div class="print-plan-card"><strong class="print-plan-container tube ${tubeClass(group.container)}">${escapeHtml(group.container)}</strong>${group.tests.length} ${group.tests.length === 1 ? 'test' : 'tests'}<div class="print-specimen-list">${Array.from(group.specimenTypes).map(type => specimenBadge(type, 'print-specimen-badge')).join('')}</div>${group.volumeCount ? `<br>Listed minimum total: ${escapeHtml(formatMl(group.minimumMl))}` : ''}</div>`).join('')}</div>
       ${printColorLegend()}
       ${printOrderOfDraw(tests)}
       ${alerts.length ? `<div class="print-alerts">${alerts.map(alert => `<div>${escapeHtml(alert.text)}</div>`).join('')}</div>` : ''}
       <table class="print-table">
         <colgroup><col style="width:6%"><col style="width:14%"><col style="width:7%"><col style="width:10%"><col style="width:10%"><col style="width:5%"><col style="width:8%"><col style="width:7%"><col style="width:8%"><col style="width:25%"></colgroup>
         <thead><tr><th>Code</th><th>Test</th><th>Specimen</th><th>Draw container</th><th>Transport tube</th><th>Spin</th><th>Temperature</th><th>Volume</th><th>Stability</th><th>Special handling</th></tr></thead>
-        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><strong>${escapeHtml(test.testName)}</strong>${test.alternativeContainer ? `<br>Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span>` : ''}</td><td>${escapeHtml(test.specimenType)}</td><td><span class="print-tube-badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span></td><td><span class="print-tube-badge tube ${tubeClass(test.transportContainer || '')}">${escapeHtml(test.transportContainer || 'Verify')}</span></td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">Preferred: ${escapeHtml(test.preferredVolume || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(test.minimumVolume || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
+        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><strong>${escapeHtml(test.testName)}</strong>${test.alternativeContainer ? `<br>Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span>` : ''}</td><td>${specimenBadge(test.specimenType, 'print-specimen-badge')}</td><td><span class="print-tube-badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span></td><td><span class="print-tube-badge tube ${tubeClass(test.transportContainer || '')}">${escapeHtml(test.transportContainer || 'Verify')}</span></td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">Preferred: ${escapeHtml(test.preferredVolume || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(test.minimumVolume || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
       </table>
       <div class="print-footer"><strong>Missing entry?</strong> Contact Sam for any missing entries you would like added. Verify current specimen requirements, service-area availability, and rejection criteria in the official Quest Test Directory before collection. Order-of-draw sources: Quest Diagnostics; pink is grouped with the EDTA step based on BD tube labeling. “Listed minimum total” is a simple sum of parseable minimum-volume fields, not a recommendation for tube count or specimen sharing.</div>`;
     window.print();

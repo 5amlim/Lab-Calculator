@@ -296,3 +296,41 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     line-height: 1.2;
   }
 }
+
+
+/* Distinct specimen types */
+.specimen-line { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.specimen-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 0.68rem;
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.specimen-serum { background: transparent; color: #8a5a00; border-color: transparent; }
+.specimen-plasma { background: transparent; color: #00658f; border-color: transparent; }
+.specimen-rbc { background: transparent; color: #a3211c; border-color: transparent; }
+.specimen-whole-blood { background: transparent; color: #7b1e45; border-color: transparent; }
+.specimen-other { background: transparent; color: #59666c; border-color: transparent; }
+.print-specimen-list { display: flex; flex-wrap: wrap; gap: 2px; margin-top: 3px; }
+
+@media print {
+  .print-specimen-legend { grid-column: 1 / -1; }
+  .print-specimen-badge {
+    padding: 0;
+    font-size: 6.5px;
+    line-height: 1.15;
+    border: 0;
+    background: transparent !important;
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+  .print-specimen-list { margin-top: 2px; gap: 2px; }
+}
