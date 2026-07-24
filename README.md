@@ -1,76 +1,93 @@
 # Quest Lab Calculator — GitHub Pages Edition
 
-A static, browser-based batch search and print tool built from `Quest Lab Calculator (3).xlsx`.
+A static, browser-based tool for finding multiple Quest tests, adding missing tests, building a draw plan, and printing a specimen collection summary with a nurse order-of-draw guide and color-coded tubes and transport temperatures.
 
-This edition uses **no Supabase, server, API, login, or external database**. GitHub Pages hosts the files, and the browser handles searching, editing, printing, and local storage.
+This edition uses no Supabase, server, login, or shared live database.
 
 ## Files to upload
 
-Upload everything in this folder to the root of one GitHub repository:
+Upload these files to the root of one GitHub repository:
 
 - `index.html`
 - `styles.css`
 - `app.js`
 - `data.js`
-- `data.json`
 - `.nojekyll`
 
-`data.js` is the published master test list used when the website opens.
+`data.js` contains the published master test list.
 
 ## Publish with GitHub Pages
 
-1. Create a new GitHub repository.
+1. Create or open your GitHub repository.
 2. Choose **Add file → Upload files**.
-3. Upload all files from this folder, not the outer folder itself.
-4. Commit the files to the `main` branch.
+3. Upload the files listed above.
+4. Commit them to the `main` branch.
 5. Open **Settings → Pages**.
 6. Under **Build and deployment**, select **Deploy from a branch**.
-7. Choose `main` and `/ (root)`, then save.
-8. GitHub will display the public website address after deployment.
+7. Select `main` and `/ (root)`, then save.
 
-## Add or edit a test locally
+## Normal staff workflow
 
-1. Open the published website.
-2. Select **+ Add test**, or select **Edit** beside an existing test.
-3. Save the record.
+1. Paste test names or Quest codes into **Find tests**.
+2. Select **Add best matches**.
+3. Review the draw plan, nurse order of draw, and selected test details.
+4. When a test is missing, select **Add missing test**.
+5. Enter or look up the collection details.
+6. Keep **Add this test to the current collection summary** checked.
+7. Save, review, and select **Print summary / Save PDF**.
+8. In the print dialog, enable **Background graphics** when available for the strongest color output. Tube and temperature labels remain readable without color.
 
-The change is immediately available in that browser. It is stored in browser `localStorage` until you publish it to GitHub.
+## ChatGPT-assisted lookup
 
-## Publish your edits for everyone
+The add-test form includes an optional helper:
 
-1. After making edits, select **Export GitHub data.js**.
-2. Your browser downloads a new file named `data.js`.
-3. In the GitHub repository, open the existing `data.js` file.
-4. Choose the pencil/edit control, or use **Add file → Upload files** and upload the replacement file.
-5. Commit the replacement to `main`.
-6. GitHub Pages republishes the website automatically.
+1. Enter a test name or Quest code.
+2. Open **Use ChatGPT to help find a missing test**.
+3. Select **Copy request and open ChatGPT**.
+4. Paste the copied request into ChatGPT.
+5. Copy ChatGPT's structured answer.
+6. Paste it into the calculator and select **Fill the form from this answer**.
+7. Verify every field against the official Quest Test Directory before saving.
 
-New visitors receive the updated list. A browser that has its own saved edits keeps those local edits and merges in newly published records. Use **Reset** in the app to discard local overrides and return fully to the latest published `data.js` list.
+This is a guided copy-and-paste workflow. It does not place an OpenAI API key in the public GitHub repository.
 
-## Backups
+## Save and publish changes
 
-- **Export backup JSON** saves the complete current database as a `.json` backup.
-- **Import database** merges a JSON backup into the browser database.
-- **Export GitHub data.js** creates the file intended for publishing through GitHub.
+Manually added or edited tests are first saved in the current browser.
 
-Keep a JSON backup before large changes.
+To publish those changes for all users:
 
-## Included features
+1. Open **Website maintenance and backup** near the bottom of the Test Library.
+2. Select **Create website update file**.
+3. The browser downloads a replacement file named `data.js`.
+4. Replace the existing `data.js` file in GitHub.
+5. Commit the change.
+6. GitHub Pages republishes the updated list.
 
-- 253 spreadsheet records preloaded
-- Search by Quest code or test name
-- Batch paste and best-match selection
-- Editable and custom records
-- Tube and temperature color coding
-- Draw-plan summary
-- Print-friendly landscape collection sheet
-- CSV summary export
-- JSON backup/import
-- Publishable `data.js` export
+## Maintenance buttons
 
-## Limitations
+- **Download backup:** Saves the complete current test list as a backup file.
+- **Restore saved backup:** Loads a previously downloaded backup.
+- **Create website update file:** Creates the `data.js` file used to publish changes through GitHub.
+- **Discard local changes:** Returns that browser to the current published test list.
 
-- GitHub Pages cannot accept shared live edits. Publishing a replacement `data.js` is the manual shared-update workflow.
+## Important limitations
+
+- GitHub Pages cannot receive shared live edits. Changes become shared only after replacing `data.js` in GitHub.
 - Do not enter patient names, dates of birth, results, medical record numbers, or other PHI.
-- Verify current collection requirements and service-area availability in the official Quest Test Directory before collection.
-- Spreadsheet-derived mappings may require manual verification.
+- ChatGPT-assisted information can be incomplete or incorrect.
+- The nurse order-of-draw guide follows the Quest Diagnostics published sequence: cultures, light blue citrate, gold/SST, red serum, green heparin, lavender/pink EDTA, royal blue EDTA, gray fluoride, then yellow ACD last.
+- If a winged collection set is used and light blue is first, use a citrate discard tube to fill tubing dead space before the test tube.
+- Always confirm tube additives on the label and follow facility policy and test-specific Quest instructions.
+- Contact Sam for any missing entries you would like added.
+- Verify current collection requirements, service-area availability, and rejection criteria in the official Quest Test Directory before collection.
+
+## Print color guide
+
+The printed summary color-codes the draw container, transfer container, alternate container, nurse order of draw, and transport temperature. A compact legend is included on the printout. Room temperature is yellow, refrigerated is blue, and frozen is purple. Staff should still read the printed labels and confirm tube additives directly on the tube label.
+
+## Version 2.4 update
+
+- Removed the word **“labeled”** from generic transport-tube entries.
+- Simplified the form and print labels to **Transport tube / container** and **Transport tube**.
+- Automatically cleans the old wording from records previously saved in a staff member’s browser.

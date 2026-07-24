@@ -10,12 +10,12 @@
 <body>
   <header class="app-header no-print">
     <div>
-      <div class="eyebrow">LOCAL WORKFLOW TOOL</div>
+      <div class="eyebrow">SPECIMEN COLLECTION WORKFLOW</div>
       <h1>Quest Lab Calculator</h1>
-      <p>Search multiple tests, build a collection summary, and print a clean handoff.</p>
+      <p>Search multiple tests, add anything missing, and print a clean collection summary.</p>
     </div>
     <div class="header-actions">
-      <span class="privacy-pill">Runs locally in your browser</span>
+      <span class="privacy-pill">No patient information • Runs in this browser</span>
       <a class="button secondary" href="https://testdirectory.questdiagnostics.com/" target="_blank" rel="noreferrer">Open Quest Directory ↗</a>
     </div>
   </header>
@@ -25,7 +25,7 @@
       <div class="panel search-panel">
         <div class="panel-heading">
           <div>
-            <h2>Find tests</h2>
+            <h2>1. Find tests</h2>
             <p>Paste one test name or Quest code per line. Exact codes are prioritized.</p>
           </div>
           <div class="record-count" id="recordCount">0 tests</div>
@@ -35,10 +35,11 @@
         <textarea id="searchInput" rows="5" placeholder="Examples:&#10;211&#10;Hemoglobin A1c&#10;Quantiferon Gold TB"></textarea>
         <div class="search-actions">
           <button class="button primary" id="addBestButton">Add best matches</button>
-          <button class="button secondary" id="previewButton">Preview matches</button>
+          <button class="button secondary" id="previewButton">Review matches</button>
           <button class="button ghost" id="clearSearchButton">Clear</button>
         </div>
-        <div class="search-hint">Tip: For a panel of 20 tests, paste the list with one test per line, then choose <strong>Add best matches</strong>.</div>
+        <div class="search-hint">For a panel of 20 tests, paste the complete list and select <strong>Add best matches</strong>. Review the collection summary before printing.</div>
+        <div class="contact-banner"><strong>Can’t find a test?</strong> Contact Sam for any missing entries you would like added.</div>
       </div>
 
       <div id="batchResults" class="panel batch-panel hidden" aria-live="polite"></div>
@@ -47,18 +48,14 @@
         <div class="panel-heading library-heading">
           <div>
             <h2>Test library</h2>
-            <p>Imported from your spreadsheet. Edit locally, then export <strong>GitHub data.js</strong> to publish changes for everyone.</p>
+            <p>Search the full list or add a missing test. Manually added tests are saved in this browser.</p>
           </div>
           <div class="library-actions">
-            <button class="button secondary" id="addTestButton">+ Add test</button>
-            <button class="button ghost" id="exportDbButton">Export backup JSON</button>
-            <button class="button ghost" id="exportSeedButton">Export GitHub data.js</button>
-            <label class="button ghost file-button">Import database<input type="file" id="importDbInput" accept="application/json,.json"></label>
-            <button class="button danger-ghost" id="resetDbButton">Reset</button>
+            <button class="button secondary" id="addTestButton">+ Add missing test</button>
           </div>
         </div>
         <div class="filter-row">
-          <input id="libraryFilter" type="search" placeholder="Filter the full library by code, name, tube, specimen, or temperature">
+          <input id="libraryFilter" type="search" placeholder="Filter by code, name, tube, specimen, or temperature">
           <select id="tempFilter" aria-label="Filter by temperature">
             <option value="">All temperatures</option>
             <option value="Room Temperature">Room temperature</option>
@@ -87,6 +84,22 @@
           <span id="libraryStatus"></span>
           <button class="button ghost" id="loadMoreButton">Load more</button>
         </div>
+
+        <details class="maintenance-tools">
+          <summary>Website maintenance and backup</summary>
+          <div class="maintenance-content">
+            <p>Most lab staff will not need these tools. Use them to protect changes or update the published GitHub website.</p>
+            <div class="maintenance-actions">
+              <button class="button secondary" id="exportDbButton">Download backup</button>
+              <label class="button secondary file-button">Restore saved backup<input type="file" id="importDbInput" accept="application/json,.json"></label>
+              <button class="button secondary" id="exportSeedButton">Create website update file</button>
+              <button class="button danger-ghost" id="resetDbButton">Discard local changes</button>
+            </div>
+            <div class="maintenance-help">
+              To publish additions for everyone: select <strong>Create website update file</strong>, then replace the existing <code>data.js</code> file in GitHub with the downloaded file.
+            </div>
+          </div>
+        </details>
       </div>
     </section>
 
@@ -109,16 +122,32 @@
         <div id="drawPlan" class="draw-plan empty-state">Add tests to see the draw plan.</div>
       </div>
 
+      <div class="summary-section order-of-draw-section">
+        <div class="summary-heading">
+          <h3>Order of draw for nurses</h3>
+          <a class="reference-link" href="https://www.questdiagnostics.com/content/dam/corporate/restricted/documents/test-center/order_of_draw/order_of_draw.pdf" target="_blank" rel="noreferrer">Quest reference ↗</a>
+        </div>
+        <div id="orderOfDraw" class="order-of-draw" aria-label="Standard blood tube order of draw"></div>
+        <div class="order-of-draw-note">
+          <strong>Butterfly collection:</strong> If a light-blue citrate tube is the first specimen, draw a partially filled citrate discard tube first to fill the tubing dead space, then fill the test tube completely.<br>
+          <strong>Important:</strong> Confirm the additive on the tube label. Do not rely on stopper color alone. This sequence applies when collecting multiple blood tubes; follow test-specific Quest instructions and facility policy.
+        </div>
+      </div>
+
       <div class="summary-section">
-        <h3>Tests</h3>
+        <div class="summary-heading">
+          <h3>Tests</h3>
+          <button class="mini-button" id="addSelectedTestButton">+ Add missing test</button>
+        </div>
         <div id="selectedList" class="selected-list empty-state">No tests selected.</div>
       </div>
 
       <div class="order-actions">
         <button class="button primary wide" id="printButton">Print summary / Save PDF</button>
-        <button class="button secondary wide" id="exportSummaryButton">Export summary CSV</button>
+        <button class="button secondary wide" id="exportSummaryButton">Download summary spreadsheet</button>
       </div>
-      <p class="disclaimer">Verify current requirements in the official Quest Test Directory before collection. Local edits and spreadsheet-derived mappings may not reflect service-area changes.</p>
+      <div class="contact-summary"><strong>Missing an entry?</strong> Contact Sam for any missing entries you would like added.</div>
+      <p class="disclaimer">Verify current requirements in the official Quest Test Directory before collection. Manually entered and ChatGPT-assisted information must be reviewed before use.</p>
     </aside>
   </main>
 
@@ -129,36 +158,53 @@
       <div class="dialog-header">
         <div>
           <div class="eyebrow">TEST RECORD</div>
-          <h2 id="dialogTitle">Add test</h2>
+          <h2 id="dialogTitle">Add missing test</h2>
+          <p class="dialog-subtitle">Enter the collection details below, then save the test to the current summary.</p>
         </div>
         <button type="button" class="icon-button" id="closeDialogButton" aria-label="Close">×</button>
       </div>
       <input type="hidden" id="testId">
       <div class="form-grid">
-        <label>Quest code<input id="questCode" required></label>
-        <label>Test name<input id="testName" required></label>
+        <label>Quest code <span class="optional">optional if unknown</span><input id="questCode" placeholder="Example: 496"></label>
+        <label>Test name<input id="testName" required placeholder="Exact Quest test name"></label>
+
+        <details class="ai-helper full-width">
+          <summary>Use ChatGPT to help find a missing test</summary>
+          <div class="ai-helper-content">
+            <p>Enter a test name or code above. This helper copies a structured lookup request and opens ChatGPT. Paste ChatGPT’s answer below to fill the form.</p>
+            <div class="ai-actions">
+              <button type="button" class="button secondary" id="openQuestFromDialogButton">Search official Quest directory ↗</button>
+              <button type="button" class="button primary" id="copyAiPromptButton">Copy request and open ChatGPT ↗</button>
+            </div>
+            <label>Paste ChatGPT’s answer here<textarea id="aiResult" rows="5" placeholder="Paste the JSON answer returned by ChatGPT"></textarea></label>
+            <button type="button" class="button secondary" id="applyAiResultButton">Fill the form from this answer</button>
+            <p class="helper-warning">Do not enter patient information. ChatGPT can make mistakes, so verify every field against the official Quest page before collection.</p>
+          </div>
+        </details>
+
         <label>Specimen type<select id="specimenType">
           <option>Serum</option><option>Plasma</option><option>Whole Blood</option><option>Urine</option><option>Stool</option><option>Swab</option><option>Saliva</option><option>CSF</option><option>Body Fluid</option><option>Other / Verify</option>
         </select></label>
-        <label>Draw container<input id="drawContainer" placeholder="SST / Gold"></label>
-        <label>Alternative container<input id="alternativeContainer" placeholder="Optional"></label>
-        <label>Transfer / transport container<input id="transportContainer" placeholder="Labeled transport tube"></label>
-        <label>Preferred volume<input id="preferredVolume" placeholder="1 mL serum"></label>
-        <label>Minimum volume<input id="minimumVolume" placeholder="0.5 mL"></label>
+        <label>Draw container<input id="drawContainer" placeholder="SST / Gold, Lavender EDTA, Green Heparin, etc."></label>
+        <label>Alternative container<input id="alternativeContainer" placeholder="Optional alternative"></label>
+        <label>Transport tube / container<input id="transportContainer" placeholder="Example: transport tube"></label>
+        <label>Preferred volume<input id="preferredVolume" placeholder="Example: 1 mL serum"></label>
+        <label>Minimum volume<input id="minimumVolume" placeholder="Example: 0.5 mL"></label>
         <label>Transport temperature<select id="transportTemperature">
           <option>Room Temperature</option><option>Refrigerated</option><option>Frozen</option><option>Room / Refrigerated</option><option>Mixed</option><option>Not specified</option>
         </select></label>
-        <label>Raw temperature wording<input id="transportTemperatureRaw"></label>
-        <label>Stability / viability<input id="stability" placeholder="7 days"></label>
+        <label>Exact temperature wording<input id="transportTemperatureRaw" placeholder="Optional wording from Quest"></label>
+        <label>Stability / viability<input id="stability" placeholder="Example: 7 days refrigerated"></label>
         <label>Spin?<select id="spin"><option>Yes</option><option>No</option><option>Verify</option></select></label>
-        <label class="full-width">Special handling and collection notes<textarea id="specialInstructions" rows="5"></textarea></label>
+        <label class="full-width">Special handling and collection notes<textarea id="specialInstructions" rows="5" placeholder="Include timing, mixing, light protection, freezing, labeling, rejection criteria, or dedicated tube requirements."></textarea></label>
+        <label class="check-label full-width" id="addToSummaryRow"><input type="checkbox" id="addToSummary" checked> Add this test to the current collection summary</label>
         <label class="check-label full-width"><input type="checkbox" id="blockedStatus"> Mark as do not perform / blocked</label>
       </div>
       <div class="dialog-actions">
-        <button type="button" class="button danger-ghost hidden" id="deleteTestButton">Delete custom entry</button>
+        <button type="button" class="button danger-ghost hidden" id="deleteTestButton">Delete manually added test</button>
         <span class="dialog-spacer"></span>
         <button type="button" class="button secondary" id="cancelDialogButton">Cancel</button>
-        <button type="submit" class="button primary">Save test</button>
+        <button type="submit" class="button primary" id="saveTestButton">Save test</button>
       </div>
     </form>
   </dialog>
