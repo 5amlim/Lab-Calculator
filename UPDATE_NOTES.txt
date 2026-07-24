@@ -1,6 +1,5 @@
-Quest Lab Calculator v3.1
+Quest Lab Calculator v3.2
 
-- Changed specimen-type styling from filled highlights to colored text.
-- Serum, plasma, RBCs, and whole blood remain visually distinct on screen and in print.
-- Removed specimen badge backgrounds, borders, and pill shapes.
-- Kept tube and transport-temperature color coding unchanged.
+- Increased specimen-type text size in the printed collection table.
+- Increased specimen-type text size in the printed draw plan and specimen legend.
+- Kept specimen colors and all other print formatting unchanged.

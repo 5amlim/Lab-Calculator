@@ -1,2 +1,2 @@
-Quest Lab Calculator v3.1
-Specimen text-color update
+Quest Lab Calculator v3.2
+Larger specimen-type text in printout
