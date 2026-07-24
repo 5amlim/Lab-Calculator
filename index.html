@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quest Lab Calculator</title>
+  <meta name="description" content="Batch-search and print-friendly specimen collection planning from a local Quest test directory spreadsheet.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header no-print">
+    <div>
+      <div class="eyebrow">LOCAL WORKFLOW TOOL</div>
+      <h1>Quest Lab Calculator</h1>
+      <p>Search multiple tests, build a collection summary, and print a clean handoff.</p>
+    </div>
+    <div class="header-actions">
+      <span class="privacy-pill">Runs locally in your browser</span>
+      <a class="button secondary" href="https://testdirectory.questdiagnostics.com/" target="_blank" rel="noreferrer">Open Quest Directory ↗</a>
+    </div>
+  </header>
+
+  <main class="app-shell no-print">
+    <section class="workspace">
+      <div class="panel search-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>Find tests</h2>
+            <p>Paste one test name or Quest code per line. Exact codes are prioritized.</p>
+          </div>
+          <div class="record-count" id="recordCount">0 tests</div>
+        </div>
+
+        <label for="searchInput" class="field-label">Test names or codes</label>
+        <textarea id="searchInput" rows="5" placeholder="Examples:&#10;211&#10;Hemoglobin A1c&#10;Quantiferon Gold TB"></textarea>
+        <div class="search-actions">
+          <button class="button primary" id="addBestButton">Add best matches</button>
+          <button class="button secondary" id="previewButton">Preview matches</button>
+          <button class="button ghost" id="clearSearchButton">Clear</button>
+        </div>
+        <div class="search-hint">Tip: For a panel of 20 tests, paste the list with one test per line, then choose <strong>Add best matches</strong>.</div>
+      </div>
+
+      <div id="batchResults" class="panel batch-panel hidden" aria-live="polite"></div>
+
+      <div class="panel library-panel">
+        <div class="panel-heading library-heading">
+          <div>
+            <h2>Test library</h2>
+            <p>Imported from your spreadsheet. Edit locally, then export <strong>GitHub data.js</strong> to publish changes for everyone.</p>
+          </div>
+          <div class="library-actions">
+            <button class="button secondary" id="addTestButton">+ Add test</button>
+            <button class="button ghost" id="exportDbButton">Export backup JSON</button>
+            <button class="button ghost" id="exportSeedButton">Export GitHub data.js</button>
+            <label class="button ghost file-button">Import database<input type="file" id="importDbInput" accept="application/json,.json"></label>
+            <button class="button danger-ghost" id="resetDbButton">Reset</button>
+          </div>
+        </div>
+        <div class="filter-row">
+          <input id="libraryFilter" type="search" placeholder="Filter the full library by code, name, tube, specimen, or temperature">
+          <select id="tempFilter" aria-label="Filter by temperature">
+            <option value="">All temperatures</option>
+            <option value="Room Temperature">Room temperature</option>
+            <option value="Refrigerated">Refrigerated</option>
+            <option value="Frozen">Frozen</option>
+            <option value="Not specified">Not specified</option>
+          </select>
+          <label class="check-label"><input type="checkbox" id="showBlocked"> Show “do not perform” entries</label>
+        </div>
+        <div class="table-wrap">
+          <table class="library-table">
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Test</th>
+                <th>Specimen / draw tube</th>
+                <th>Temperature</th>
+                <th>Minimum</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="libraryBody"></tbody>
+          </table>
+        </div>
+        <div class="pagination-row">
+          <span id="libraryStatus"></span>
+          <button class="button ghost" id="loadMoreButton">Load more</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel order-panel">
+      <div class="order-top">
+        <div>
+          <div class="eyebrow">COLLECTION SUMMARY</div>
+          <h2>Selected tests <span id="selectedCount">0</span></h2>
+        </div>
+        <button class="button ghost" id="clearOrderButton">Clear all</button>
+      </div>
+
+      <label for="orderLabel" class="field-label">Optional visit/order label</label>
+      <input id="orderLabel" type="text" placeholder="Example: Executive physical panel">
+
+      <div id="collectionAlerts" class="alerts"></div>
+
+      <div class="summary-section">
+        <h3>Draw plan</h3>
+        <div id="drawPlan" class="draw-plan empty-state">Add tests to see the draw plan.</div>
+      </div>
+
+      <div class="summary-section">
+        <h3>Tests</h3>
+        <div id="selectedList" class="selected-list empty-state">No tests selected.</div>
+      </div>
+
+      <div class="order-actions">
+        <button class="button primary wide" id="printButton">Print summary / Save PDF</button>
+        <button class="button secondary wide" id="exportSummaryButton">Export summary CSV</button>
+      </div>
+      <p class="disclaimer">Verify current requirements in the official Quest Test Directory before collection. Local edits and spreadsheet-derived mappings may not reflect service-area changes.</p>
+    </aside>
+  </main>
+
+  <section id="printSheet" class="print-sheet" aria-hidden="true"></section>
+
+  <dialog id="testDialog">
+    <form method="dialog" id="testForm">
+      <div class="dialog-header">
+        <div>
+          <div class="eyebrow">TEST RECORD</div>
+          <h2 id="dialogTitle">Add test</h2>
+        </div>
+        <button type="button" class="icon-button" id="closeDialogButton" aria-label="Close">×</button>
+      </div>
+      <input type="hidden" id="testId">
+      <div class="form-grid">
+        <label>Quest code<input id="questCode" required></label>
+        <label>Test name<input id="testName" required></label>
+        <label>Specimen type<select id="specimenType">
+          <option>Serum</option><option>Plasma</option><option>Whole Blood</option><option>Urine</option><option>Stool</option><option>Swab</option><option>Saliva</option><option>CSF</option><option>Body Fluid</option><option>Other / Verify</option>
+        </select></label>
+        <label>Draw container<input id="drawContainer" placeholder="SST / Gold"></label>
+        <label>Alternative container<input id="alternativeContainer" placeholder="Optional"></label>
+        <label>Transfer / transport container<input id="transportContainer" placeholder="Labeled transport tube"></label>
+        <label>Preferred volume<input id="preferredVolume" placeholder="1 mL serum"></label>
+        <label>Minimum volume<input id="minimumVolume" placeholder="0.5 mL"></label>
+        <label>Transport temperature<select id="transportTemperature">
+          <option>Room Temperature</option><option>Refrigerated</option><option>Frozen</option><option>Room / Refrigerated</option><option>Mixed</option><option>Not specified</option>
+        </select></label>
+        <label>Raw temperature wording<input id="transportTemperatureRaw"></label>
+        <label>Stability / viability<input id="stability" placeholder="7 days"></label>
+        <label>Spin?<select id="spin"><option>Yes</option><option>No</option><option>Verify</option></select></label>
+        <label class="full-width">Special handling and collection notes<textarea id="specialInstructions" rows="5"></textarea></label>
+        <label class="check-label full-width"><input type="checkbox" id="blockedStatus"> Mark as do not perform / blocked</label>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" class="button danger-ghost hidden" id="deleteTestButton">Delete custom entry</button>
+        <span class="dialog-spacer"></span>
+        <button type="button" class="button secondary" id="cancelDialogButton">Cancel</button>
+        <button type="submit" class="button primary">Save test</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

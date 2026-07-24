@@ -1,0 +1,17 @@
+GITHUB PAGES UPLOAD
+
+1. Create a GitHub repository.
+2. Upload every file in this folder to the repository root.
+3. Commit to main.
+4. Go to Settings > Pages.
+5. Select Deploy from a branch.
+6. Select main and /(root), then Save.
+
+TO PUBLISH DATABASE CHANGES
+
+1. Add or edit tests on the website.
+2. Click "Export GitHub data.js".
+3. Replace data.js in your GitHub repository with the downloaded file.
+4. Commit the change. GitHub Pages updates automatically.
+
+This version has no Supabase and no shared live database.
