@@ -91,3 +91,16 @@ The printed summary color-codes the draw container, transfer container, alternat
 - Removed the word **“labeled”** from generic transport-tube entries.
 - Simplified the form and print labels to **Transport tube / container** and **Transport tube**.
 - Automatically cleans the old wording from records previously saved in a staff member’s browser.
+
+## Version 2.5 data cleanup
+
+- Converted red-top serum tests that previously displayed “Verify Quest Instructions” into clear draw, clot, spin, and transfer steps.
+- Corrected Quest code 90567 to show: red top, clot, centrifuge, transfer serum to a transport tube, room-temperature transport.
+- Updated similar hormone, drug-level, autoimmune, and specialty serum tests with clearer collection workflows.
+- Corrected several volume, temperature, specimen-type, and spelling inconsistencies.
+- Refreshed published records in staff browsers while preserving manually added custom tests.
+- Flagged legacy Troponin T code 34483 for verification instead of displaying an unverified red-top workflow.
+
+
+## Version 2.6 print cleanup
+The printed temperature column now shows only the color-coded standardized temperature badge. Duplicate raw labels such as “Room Temp” or “FROZEN” are no longer printed.

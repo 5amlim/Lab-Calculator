@@ -1,1 +1,1 @@
-Quest Lab Calculator v2.4 - Cleaner transport tube wording and browser-data migration
+Quest Lab Calculator v2.6 - Simplified print temperatures

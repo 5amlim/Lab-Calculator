@@ -240,7 +240,6 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-plan-container { display: inline-flex !important; align-items: center; width: fit-content; }
   .print-inline-tube { display: inline-flex; align-items: center; position: relative; font-weight: 750; }
   .print-temp-badge { font-size: 7px; white-space: normal; }
-  .print-temp-raw { display: inline-block; margin-top: 2px; color: #4f5b61; font-size: 6.8px; line-height: 1.2; }
   .print-order-tube { display: inline-flex !important; align-items: center; position: relative; min-height: 14px; }
 
   /* Strong outlines make categories readable if background graphics are disabled. */

@@ -1,7 +1,8 @@
 (() => {
   'use strict';
 
-  const DB_KEY = 'questLabCalculator.database.v1';
+  const DB_KEY = 'questLabCalculator.database.v2';
+  const LEGACY_DB_KEY = 'questLabCalculator.database.v1';
   const SELECTED_KEY = 'questLabCalculator.selected.v1';
   const LABEL_KEY = 'questLabCalculator.orderLabel.v1';
   const PAGE_STEP = 80;
@@ -99,13 +100,23 @@
   function loadDatabase() {
     const seed = (window.SEED_TESTS || []).map(normalizeRecord);
     const stored = loadJson(DB_KEY, null);
-    if (!Array.isArray(stored) || !stored.length) return seed;
+    if (Array.isArray(stored) && stored.length) {
+      const merged = new Map(seed.map(test => [databaseKey(test), test]));
+      stored.map(normalizeRecord).forEach(test => merged.set(databaseKey(test), test));
+      return Array.from(merged.values());
+    }
 
-    // Merge newly published GitHub records into an existing browser database.
-    // Local edits win when a code/name pair already exists.
+    // v2.5 refreshes published records so corrected collection instructions replace
+    // older cached copies, while preserving tests staff manually added in v1.
+    const legacy = loadJson(LEGACY_DB_KEY, null);
+    if (!Array.isArray(legacy) || !legacy.length) return seed;
     const merged = new Map(seed.map(test => [databaseKey(test), test]));
-    stored.map(normalizeRecord).forEach(test => merged.set(databaseKey(test), test));
-    return Array.from(merged.values());
+    legacy.map(normalizeRecord)
+      .filter(test => test.id.startsWith('custom-') || test.source === 'Custom entry')
+      .forEach(test => merged.set(databaseKey(test), test));
+    const migrated = Array.from(merged.values());
+    localStorage.setItem(DB_KEY, JSON.stringify(migrated));
+    return migrated;
   }
 
   function databaseKey(test) {
@@ -473,7 +484,7 @@
       if (/own tube|dedicated tube|needs own tube|two separate|full tube|required on label|draw waste|discard tube/.test(note)) alerts.push({ type: 'warning', text: `${test.testName}: dedicated tube, fill, labeling, or discard instructions may apply.` });
       if (/immediately|freeze immediately|centrifuge immediately|stat/.test(note)) alerts.push({ type: 'warning', text: `${test.testName}: time-sensitive processing noted.` });
       if (/protect from light|amber|wrap.*foil/.test(note)) alerts.push({ type: 'warning', text: `${test.testName}: protect from light.` });
-      if (/cannot be done on housecall|do not refrigerate|unacceptable|reject/.test(note)) alerts.push({ type: 'danger', text: `${test.testName}: collection or rejection restriction noted.` });
+      if (/cannot be done on housecall|do not refrigerate|unacceptable|reject|not found in the current directory|verify the active quest test code/.test(note)) alerts.push({ type: 'danger', text: `${test.testName}: collection or rejection restriction noted.` });
     });
     const seen = new Set();
     return alerts.filter(alert => {
@@ -736,7 +747,7 @@
       <table class="print-table">
         <colgroup><col style="width:6%"><col style="width:14%"><col style="width:7%"><col style="width:10%"><col style="width:10%"><col style="width:5%"><col style="width:8%"><col style="width:7%"><col style="width:8%"><col style="width:25%"></colgroup>
         <thead><tr><th>Code</th><th>Test</th><th>Specimen</th><th>Draw container</th><th>Transport tube</th><th>Spin</th><th>Temperature</th><th>Minimum</th><th>Stability</th><th>Special handling</th></tr></thead>
-        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><strong>${escapeHtml(test.testName)}</strong>${test.alternativeContainer ? `<br>Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span>` : ''}</td><td>${escapeHtml(test.specimenType)}</td><td><span class="print-tube-badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span></td><td><span class="print-tube-badge tube ${tubeClass(test.transportContainer || '')}">${escapeHtml(test.transportContainer || 'Verify')}</span></td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span>${test.transportTemperatureRaw && test.transportTemperatureRaw !== test.transportTemperature ? `<br><span class="print-temp-raw">${escapeHtml(test.transportTemperatureRaw)}</span>` : ''}</td><td>${escapeHtml(test.minimumVolume || 'Verify')}<br>Preferred: ${escapeHtml(test.preferredVolume || '—')}</td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
+        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><strong>${escapeHtml(test.testName)}</strong>${test.alternativeContainer ? `<br>Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span>` : ''}</td><td>${escapeHtml(test.specimenType)}</td><td><span class="print-tube-badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span></td><td><span class="print-tube-badge tube ${tubeClass(test.transportContainer || '')}">${escapeHtml(test.transportContainer || 'Verify')}</span></td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td>${escapeHtml(test.minimumVolume || 'Verify')}<br>Preferred: ${escapeHtml(test.preferredVolume || '—')}</td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
       </table>
       <div class="print-footer"><strong>Missing entry?</strong> Contact Sam for any missing entries you would like added. Verify current specimen requirements, service-area availability, and rejection criteria in the official Quest Test Directory before collection. Order-of-draw sources: Quest Diagnostics; pink is grouped with the EDTA step based on BD tube labeling. “Listed minimum total” is a simple sum of parseable minimum-volume fields, not a recommendation for tube count or specimen sharing.</div>`;
     window.print();

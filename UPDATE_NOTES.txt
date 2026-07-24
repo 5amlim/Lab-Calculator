@@ -1,0 +1,11 @@
+Quest Lab Calculator v2.6
+
+Printout cleanup:
+- Removed the secondary raw temperature line from the printed collection table.
+- Temperature now appears only once as the color-coded badge.
+- This removes duplicates such as “Frozen / FROZEN” and “Room Temperature / Room Temp.”
+- Detailed raw temperature wording remains available in the test database and CSV export.
+
+Uploading:
+Replace all existing GitHub files with the files in this package, then commit to main.
+GitHub Pages will redeploy automatically.
