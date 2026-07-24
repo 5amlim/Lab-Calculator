@@ -1,11 +1,23 @@
-Quest Lab Calculator v2.6
+Quest Lab Calculator v2.9
 
-Printout cleanup:
-- Removed the secondary raw temperature line from the printed collection table.
-- Temperature now appears only once as the color-coded badge.
-- This removes duplicates such as “Frozen / FROZEN” and “Room Temperature / Room Temp.”
-- Detailed raw temperature wording remains available in the test database and CSV export.
+- Reduced the preferred-volume highlight font size on screen and in the printout.
+- Kept the yellow highlight and minimum-volume formatting unchanged.
 
-Uploading:
-Replace all existing GitHub files with the files in this package, then commit to main.
-GitHub Pages will redeploy automatically.
+Quest Lab Calculator v2.8
+
+- Highlighted preferred volume in the test library, selected-test summary, and printed collection table.
+- Renamed the printed volume column from Minimum to Volume.
+- Kept minimum volume visible as secondary information beneath the preferred volume.
+
+Quest Lab Calculator v2.7
+
+- Corrected 83 SST records so routine tests show submit spun SST/gold tube instead of a generic transport tube.
+- Retained verified transfer-tube exceptions, including TSI, homocysteine, Cardio IQ tests, testosterone MS, calcitriol, reverse T3, TRAb, and selected specialty panels.
+- Added one-click Search Quest links for tests missing from the local database.
+- Clarified that the built-in database is a curated local list, not the complete Quest menu.
+- Updated browser database migration so published data corrections replace older cached built-in records while preserving manually added tests.
+- Fixed duplicate selection behavior.
+
+- Corrected Mercury, RBCs (3102): remove plasma and submit refrigerated RBCs in the original EDTA trace-metal-free royal blue tube.
+- Corrected Procalcitonin (16265): preferred red-top collection, clot/centrifuge, transfer serum, and refrigerate; SST and specified plasma tubes remain alternatives.
+- Corrected von Willebrand Screen (90271): prepare and freeze three platelet-poor plasma aliquots.

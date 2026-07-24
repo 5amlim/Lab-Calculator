@@ -1,28 +1,37 @@
-ORDER OF DRAW SOURCES
+Official sources reviewed for v2.7
 
-Quest Diagnostics - Blood Collection: Order of Draw
-https://www.questdiagnostics.com/content/dam/corporate/restricted/documents/test-center/order_of_draw/order_of_draw.pdf
+Quest Test Directory overview and specimen guidance
+- https://testdirectory.questdiagnostics.com/
+- https://www.questdiagnostics.com/healthcare-professionals/test-directory/specimen-handling/specimen-collection
+- https://www.questdiagnostics.com/healthcare-professionals/test-directory/specimen-handling/laboratory-general
 
-Quest Diagnostics - Specimen Collection Tubes
-https://www.questdiagnostics.com/content/dam/corporate/restricted/documents/test-center/specimen_collection_tubes/specimen_collection_tubes.pdf
+Representative SST-primary records
+- 10231 Comprehensive Metabolic Panel
+- 905 Uric Acid
+- 4698 CA 19-9
+- 8475 Hepatitis B Surface Antibody
+- 34879 Methylmalonic Acid
+- 5059 Maternal Serum AFP
+- 549 Immunofixation, Serum
+- 7083 Immunoglobulins Panel, Serum
+- 746 Prolactin
+- 91431 HIV-1/2 Ag/Ab, 4th Generation
 
-The website includes a concise nursing reference. Always follow current test-specific Quest instructions and your facility policy.
+Verified transfer-tube exceptions
+- 14966 Testosterone, Free, Bioavailable and Total, MS
+- 16558 Calcitriol 1,25-Dihydroxyvitamin D
+- 90963 T3 Reverse, LC/MS/MS
+- 91735 Cardio IQ Vitamin D, 25-Hydroxy
+- 38683 TRAb
+- 30551 TSI
+- 31789 Homocysteine
+- 91729 Cardio IQ Lipoprotein(a)
+- 91737 Cardio IQ hs-CRP
+- 36378 ANAlyzeR panel
 
-BD - EDTA tubes (lavender, tan and pink tops)
-https://www.bd.com/en-us/support/alerts-and-notices-landing-page/bd-edta-tubes-and-lithium-heparin-tubes-instructions-for-use-update
+Important: Quest requirements can vary by service area and may change. The official current test page remains the source of truth.
 
-Data cleanup review (accessed 2026-07-24):
-https://testdirectory.questdiagnostics.com/test/test-detail/90567/dihydrotestosterone
-https://testdirectory.questdiagnostics.com/test/test-detail/17180/17-hydroxyprogesterone
-https://testdirectory.questdiagnostics.com/test/test-detail/17182/androstenedione
-https://testdirectory.questdiagnostics.com/test/test-detail/17183/progesterone-lc-ms
-https://testdirectory.questdiagnostics.com/test/test-detail/22060/lamotrigine
-https://testdirectory.questdiagnostics.com/test/test-detail/23244/estrone
-https://testdirectory.questdiagnostics.com/test/test-detail/34883/estriol-serum
-https://testdirectory.questdiagnostics.com/test/test-detail/36378/analyzer-ana-ifa-with-reflex-titerpattern-systemic-autoimmune-panel-1
-https://testdirectory.questdiagnostics.com/test/test-detail/37077/cortisol-free-and-total-lcms
-https://testdirectory.questdiagnostics.com/test/test-detail/95856/
-https://testdirectory.questdiagnostics.com/test/test-detail/19894/dhea-dehydroepiandrosterone-unconjugated
-https://testdirectory.questdiagnostics.com/test/test-detail/31493/pregnenolone-lcms
-https://testdirectory.questdiagnostics.com/test/test-detail/34257/herpes-simplex-virus-type-1-and-2-dna-qualitative-real-time-pcr
-https://testdirectory.questdiagnostics.com/test/test-detail/8579/vancomycin-trough
+Additional official records corrected
+- 3102 Mercury, RBCs
+- 16265 Procalcitonin
+- 90271 von Willebrand Screen (Quest Bleeding and Thrombosis Test Menu)

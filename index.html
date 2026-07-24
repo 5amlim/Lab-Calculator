@@ -12,7 +12,7 @@
     <div>
       <div class="eyebrow">SPECIMEN COLLECTION WORKFLOW</div>
       <h1>Quest Lab Calculator</h1>
-      <p>Search multiple tests, add anything missing, and print a clean collection summary.</p>
+      <p>Search multiple tests, use the live Quest directory for anything missing, and print a clean collection summary.</p>
     </div>
     <div class="header-actions">
       <span class="privacy-pill">No patient information • Runs in this browser</span>
@@ -39,6 +39,7 @@
           <button class="button ghost" id="clearSearchButton">Clear</button>
         </div>
         <div class="search-hint">For a panel of 20 tests, paste the complete list and select <strong>Add best matches</strong>. Review the collection summary before printing.</div>
+        <div class="search-hint"><strong>Coverage:</strong> This website stores a curated local list. When a test is not found, use <strong>Search Quest</strong> to search the full official directory.</div>
         <div class="contact-banner"><strong>Can’t find a test?</strong> Contact Sam for any missing entries you would like added.</div>
       </div>
 
@@ -48,7 +49,7 @@
         <div class="panel-heading library-heading">
           <div>
             <h2>Test library</h2>
-            <p>Search the full list or add a missing test. Manually added tests are saved in this browser.</p>
+            <p>Search the curated local list or add a missing test. Manually added tests are saved in this browser.</p>
           </div>
           <div class="library-actions">
             <button class="button secondary" id="addTestButton">+ Add missing test</button>
@@ -73,7 +74,7 @@
                 <th>Test</th>
                 <th>Specimen / draw tube</th>
                 <th>Temperature</th>
-                <th>Minimum</th>
+                <th>Preferred volume</th>
                 <th></th>
               </tr>
             </thead>
@@ -147,7 +148,7 @@
         <button class="button secondary wide" id="exportSummaryButton">Download summary spreadsheet</button>
       </div>
       <div class="contact-summary"><strong>Missing an entry?</strong> Contact Sam for any missing entries you would like added.</div>
-      <p class="disclaimer">Verify current requirements in the official Quest Test Directory before collection. Manually entered and ChatGPT-assisted information must be reviewed before use.</p>
+      <p class="disclaimer">The local list is not the complete Quest menu. Verify current requirements and service-area availability in the official Quest Test Directory before collection. Manually entered and ChatGPT-assisted information must be reviewed before use.</p>
     </aside>
   </main>
 

@@ -1,1 +1,2 @@
-Quest Lab Calculator v2.6 - Simplified print temperatures
+Quest Lab Calculator v2.9
+Preferred volume font refinement: 2026-07-24

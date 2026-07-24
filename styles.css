@@ -249,3 +249,50 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .temp-mixed { color: #554242 !important; background: #eee5e5 !important; border-color: #9f8585 !important; }
   .temp-unknown { color: #4f585d !important; background: #eceff1 !important; border-color: #9aa6ac !important; }
 }
+
+.batch-unmatched-actions { display: flex; gap: 0.45rem; flex-wrap: wrap; justify-content: flex-end; }
+
+
+/* Preferred volume emphasis */
+.preferred-volume-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 7px;
+  border: 1px solid #d7a92d;
+  border-radius: 7px;
+  background: #fff4bd;
+  color: #624600;
+  font-weight: 900;
+  font-size: 0.78rem;
+  line-height: 1.2;
+}
+.preferred-volume-inline {
+  display: inline-block;
+  padding: 2px 5px;
+  border-radius: 5px;
+  background: #fff4bd;
+  color: #624600;
+  font-weight: 850;
+  font-size: 0.78rem;
+}
+
+@media print {
+  .print-preferred-volume {
+    display: inline-block;
+    padding: 2px 4px;
+    border: 1px solid #bd8d16;
+    border-radius: 4px;
+    background: #fff0a8 !important;
+    color: #523b00 !important;
+    font-weight: 900;
+    font-size: 6.4px;
+    line-height: 1.2;
+  }
+  .print-minimum-volume {
+    display: inline-block;
+    margin-top: 2px;
+    color: #59666c;
+    font-size: 7.2px;
+    line-height: 1.2;
+  }
+}
