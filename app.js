@@ -4,7 +4,6 @@
   const DB_KEY = 'questLabCalculator.database.v8';
   const LEGACY_DB_KEYS = ['questLabCalculator.database.v7', 'questLabCalculator.database.v6', 'questLabCalculator.database.v5', 'questLabCalculator.database.v4', 'questLabCalculator.database.v3', 'questLabCalculator.database.v2', 'questLabCalculator.database.v1'];
   const SELECTED_KEY = 'questLabCalculator.selected.v1';
-  const LABEL_KEY = 'questLabCalculator.orderLabel.v1';
   const PAGE_STEP = 80;
   const SST_USABLE_ML_PER_TUBE = 2;
   const ORDER_OF_DRAW = [
@@ -47,7 +46,6 @@
   init();
 
   function init() {
-    els.orderLabel.value = localStorage.getItem(LABEL_KEY) || '';
     bindEvents();
     renderAll();
   }
@@ -74,7 +72,6 @@
     els.addTestButton.addEventListener('click', () => openDialog(null, { addToSummary: true }));
     els.addSelectedTestButton.addEventListener('click', () => openDialog(null, { addToSummary: true }));
     els.clearOrderButton.addEventListener('click', clearOrder);
-    els.orderLabel.addEventListener('input', () => localStorage.setItem(LABEL_KEY, els.orderLabel.value));
     els.printButton.addEventListener('click', printSummary);
     els.exportSummaryButton.addEventListener('click', exportSummaryCsv);
     els.closeDialogButton.addEventListener('click', closeDialog);
@@ -1027,19 +1024,24 @@
         <div class="print-for-tests"><b>For tests:</b><ul>${testReferences(item.tests)}</ul></div>
       </article>`).join('')}</div>
 
-      <div class="print-logistics-subheading">What to submit after processing</div>
-      <div class="print-bag-grid">${bags.map(bag => {
-        const contents = buildSubmissionContents(bag);
-        const totalContainers = contents.reduce((sum, item) => sum + item.count, 0);
-        return `<article class="print-bag-card ${bag.className}">
-          <div class="print-bag-card-header"><div><strong>${escapeHtml(bag.label)}</strong><span>Keep separate from other temperatures</span></div><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div>
-          <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
-            <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span></div>
-            ${item.detail ? `<div class="print-submit-item-detail">${escapeHtml(item.detail)}</div>` : ''}
-            <div class="print-for-tests"><b>For tests:</b><ul>${testReferences(item.tests)}</ul></div>
-          </div>`).join('')}</div>
-        </article>`;
-      }).join('')}</div>
+      <section class="print-submit-section">
+        <div class="print-submit-heading">
+          <strong>What to submit after processing</strong>
+          <span>Keep each temperature group in its own transport bag.</span>
+        </div>
+        <div class="print-bag-grid">${bags.map(bag => {
+          const contents = buildSubmissionContents(bag);
+          const totalContainers = contents.reduce((sum, item) => sum + item.count, 0);
+          return `<article class="print-bag-card ${bag.className}">
+            <div class="print-bag-card-header"><div><strong>${escapeHtml(bag.label)}</strong><span>Keep separate from other temperatures</span></div><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div>
+            <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
+              <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span></div>
+              ${item.detail ? `<div class="print-submit-item-detail">${escapeHtml(item.detail)}</div>` : ''}
+              <div class="print-for-tests"><b>For tests:</b><ul>${testReferences(item.tests)}</ul></div>
+            </div>`).join('')}</div>
+          </article>`;
+        }).join('')}</div>
+      </section>
       <div class="print-bag-note"><strong>Planning rules:</strong> SST collection assumes 2 mL of usable serum/plasma per tube and rounds up independently by transport temperature. Routine non-SST blood tubes are estimated as one tube per test unless the record specifies more. Spot urine tests add one sterile urine cup for initial collection; timed or 24-hour urine collections follow their test-specific container instructions. Submission contents reflect the processed specimen or transport container and identify the tests assigned to each item. Specimens submitted in their original collection tube keep the same tube badge and are marked “submit in original tube.” Verify specialty, dedicated-tube, aliquot, and actual-yield requirements before collection.</div>
     </section>`;
   }
@@ -1052,9 +1054,10 @@
     const label = els.orderLabel.value.trim();
     els.printSheet.innerHTML = `
       <div class="print-header">
-        <div><h1 class="print-title">Lab Collection Summary</h1><div class="print-subtitle">${label ? escapeHtml(label) : 'Quest send-out workflow'}</div></div>
+        <div><h1 class="print-title">Lab Collection Summary</h1><div class="print-subtitle">Quest send-out workflow</div></div>
         <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<br>${tests.length} selected tests</div>
       </div>
+      <div class="print-patient-banner"><span>Name / MRN</span><strong>${label ? escapeHtml(label) : '________________________________'}</strong></div>
       ${alerts.length ? `<div class="print-alerts">${alerts.map(alert => `<div>${escapeHtml(alert.text)}</div>`).join('')}</div>` : ''}
       <table class="print-table">
         <colgroup><col style="width:6%"><col style="width:14%"><col style="width:7%"><col style="width:10%"><col style="width:10%"><col style="width:5%"><col style="width:8%"><col style="width:7%"><col style="width:8%"><col style="width:25%"></colgroup>

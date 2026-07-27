@@ -1,5 +1,6 @@
-Quest Lab Calculator v5.3
+Version 5.5
 
-- Increased the print font size for “Collection and submission plan.”
-- Added a distinct teal-accented heading panel to separate the plan from the rest of the printout.
-- Kept all collection, submission, calculation, and on-screen cart behavior unchanged.
+- Changed the cart field label to Name / MRN.
+- Added a prominent Name / MRN banner near the top of the printout.
+- Name / MRN is not persisted in browser storage.
+- All other v5.4 behavior is unchanged.

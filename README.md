@@ -1,4 +1,11 @@
-## Version 5.3 updates
+## Version 5.5 updates
+
+- Renamed **Optional visit/order label** to **Name / MRN**.
+- The Name / MRN is displayed prominently near the top of the printout.
+- Patient identifiers are not saved to browser storage and clear when the page is reloaded.
+- All other website and print behavior remains unchanged.
+
+## Version 5.4 updates
 
 - The print heading **Collection and submission plan** is larger, bolder, and visually separated with a teal accent panel.
 - All other website and print behavior remains unchanged.
