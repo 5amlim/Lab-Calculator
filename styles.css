@@ -490,12 +490,29 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-logistics-heading {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    gap: 12px;
-    margin-bottom: 7px;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 9px;
+    padding: 8px 10px;
+    border-left: 6px solid #1e5963;
+    border-bottom: 1px solid #b9c9cc;
+    border-radius: 4px;
+    background: #edf7f8 !important;
   }
-  .print-logistics-heading strong { color: #1f363d; font-size: 11px; }
-  .print-logistics-heading span { color: #59666c; font-size: 7.3px; text-align: right; }
+  .print-logistics-heading strong {
+    color: #173f46;
+    font-size: 16px;
+    line-height: 1.05;
+    font-weight: 950;
+    letter-spacing: .01em;
+  }
+  .print-logistics-heading span {
+    max-width: 360px;
+    color: #4e6269;
+    font-size: 7.5px;
+    line-height: 1.3;
+    text-align: right;
+  }
   .print-logistics-totals {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1fr);

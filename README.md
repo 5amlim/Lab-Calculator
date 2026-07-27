@@ -1,4 +1,15 @@
-## Version 4.8 updates
+## Version 5.3 updates
+
+- The print heading **Collection and submission plan** is larger, bolder, and visually separated with a teal accent panel.
+- All other website and print behavior remains unchanged.
+
+## Version 5.0 updates
+
+- Added a print-only **Processing instructions** section above **What to submit after processing**.
+- Processing steps are grouped by transport-temperature bag.
+- Each step identifies whether to centrifuge, keep the original tube, transfer/aliquot the specimen, the number of processed containers to prepare, the destination bag, and the related tests.
+
+## Version 4.9 updates
 
 - Quest code 363 Copper now displays **Acid-Washed / Metal-Free Plasma Transport Tube** in the transport bag.
 - It intentionally uses the neutral specialty-container badge.
@@ -26,7 +37,9 @@
 - Quest code **70049** uses a dedicated **Aptima Multitest (orange label)** badge.
 - The standard urinalysis preservative tube remains the separate red/yellow swirl urine tube.
 
-# Quest Lab Calculator v4.1
+# Quest Lab Calculator
+
+**Version 5.2** v4.1
 
 **v3.8:** The printout now keeps the same tube badge when a specimen is submitted in its original collection tube. Original-tube submissions clearly identify the specimen inside, such as “Royal Blue EDTA · Whole Blood · Submit in original tube” for arsenic. Transferred serum, plasma, and RBC specimens continue to use transport-tube labels.
 
@@ -77,3 +90,12 @@ The custom draw-container text box is always visible below the dropdown. Staff c
 ### v4.7 badge refinement
 
 Acid-washed, acid-rinsed, metal-free, and trace-metal transport containers use the neutral transport-tube badge. They do not use the green-top-third serum/plasma badge. Standard serum, plasma, and platelet-poor plasma transport tubes remain green-top-third.
+
+## Version 5.1 print cleanup
+
+The printout no longer includes the separate Processing instructions section or the repetitive tube-summary and color-legend tiles at the top. Collection counts and tube badges remain in **What to collect**, and processed contents remain in **What to submit after processing**.
+
+
+## Version 5.2
+
+The on-screen test cart and collection summary are restored. The printout remains streamlined as in v5.1.

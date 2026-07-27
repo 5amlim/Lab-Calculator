@@ -1,4 +1,5 @@
-Version 4.8
-- Copper code 363 now clearly displays an Acid-Washed / Metal-Free Plasma Transport Tube in the submission bag.
-- The badge remains neutral because this is a specialty trace-metal container, not a standard green-top plasma transport tube.
-- The source remains clearly identified as plasma from the Royal Blue trace-metal tube.
+Quest Lab Calculator v5.3
+
+- Increased the print font size for “Collection and submission plan.”
+- Added a distinct teal-accented heading panel to separate the plan from the rest of the printout.
+- Kept all collection, submission, calculation, and on-screen cart behavior unchanged.

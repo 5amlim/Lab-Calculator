@@ -476,36 +476,6 @@
     </section>`;
   }
 
-  function printColorLegend() {
-    const tubeItems = [
-      ['Gold / SST', 'tube-sst'],
-      ['Lavender EDTA', 'tube-lavender'],
-      ['Green heparin', 'tube-green'],
-      ['Red serum', 'tube-red'],
-      ['Light blue citrate', 'tube-blue'],
-      ['Royal blue', 'tube-royal'],
-      ['Gray fluoride / oxalate (blood)', 'tube-gray'],
-      ['Sterile urine cup', 'tube-urine-cup'],
-      ['Red/Yellow swirl UA preservative', 'tube-ua-swirl'],
-      ['Gray urine culture preservative', 'tube-urine-culture'],
-      ['Pink EDTA', 'tube-pink'],
-      ['Yellow ACD', 'tube-yellow'],
-      ['Aptima Multitest (orange label)', 'tube-aptima']
-    ];
-    const temperatures = [
-      ['Room temperature', 'temp-room'],
-      ['Refrigerated', 'temp-refrigerated'],
-      ['Frozen', 'temp-frozen']
-    ];
-    const specimens = ['Serum', 'Plasma', 'RBCs', 'Whole Blood'];
-    return `<section class="print-color-legend">
-      <div class="print-legend-group"><strong>Tube colors</strong>${tubeItems.map(([label, cls]) => `<span class="print-legend-chip tube ${cls}">${escapeHtml(label)}</span>`).join('')}</div>
-      <div class="print-legend-group"><strong>Transport temperature</strong>${temperatures.map(([label, cls]) => `<span class="print-legend-chip ${cls}">${escapeHtml(label)}</span>`).join('')}</div>
-      <div class="print-legend-group print-specimen-legend"><strong>Specimen</strong>${specimens.map(type => specimenBadge(type, 'print-specimen-badge')).join('')}</div>
-      <div class="print-legend-note">Serum, plasma, RBCs, and whole blood are distinct specimen types. Always confirm the additive and container on the tube label. Color is a visual aid only.</div>
-    </section>`;
-  }
-
   function collectAlerts(tests) {
     const alerts = [];
     tests.forEach(test => {
@@ -1048,6 +1018,8 @@
         <div class="print-submit-bags">${bagLabels}</div>
       </div>
 
+      ${printOrderOfDraw(tests)}
+
       <div class="print-logistics-subheading">What to collect</div>
       <div class="print-collection-grid">${collectionItems.map(item => `<article class="print-collection-card">
         <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span></div>
@@ -1076,7 +1048,6 @@
   function printSummary() {
     const tests = selectedTests();
     if (!tests.length) return showToast('Add at least one test before printing.');
-    const groups = buildDrawGroups(tests);
     const alerts = collectAlerts(tests);
     const label = els.orderLabel.value.trim();
     els.printSheet.innerHTML = `
@@ -1084,9 +1055,6 @@
         <div><h1 class="print-title">Lab Collection Summary</h1><div class="print-subtitle">${label ? escapeHtml(label) : 'Quest send-out workflow'}</div></div>
         <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<br>${tests.length} selected tests</div>
       </div>
-      <div class="print-plan">${groups.map(group => `<div class="print-plan-card"><strong class="print-plan-container tube ${tubeClass(group.container)}">${escapeHtml(group.container)}</strong>${group.tests.length} ${group.tests.length === 1 ? 'test' : 'tests'}<div class="print-specimen-list">${Array.from(group.specimenTypes).map(type => specimenBadge(type, 'print-specimen-badge')).join('')}</div>${group.volumeCount ? `<br>Listed minimum total: ${escapeHtml(formatMl(group.minimumMl))}` : ''}</div>`).join('')}</div>
-      ${printColorLegend()}
-      ${printOrderOfDraw(tests)}
       ${alerts.length ? `<div class="print-alerts">${alerts.map(alert => `<div>${escapeHtml(alert.text)}</div>`).join('')}</div>` : ''}
       <table class="print-table">
         <colgroup><col style="width:6%"><col style="width:14%"><col style="width:7%"><col style="width:10%"><col style="width:10%"><col style="width:5%"><col style="width:8%"><col style="width:7%"><col style="width:8%"><col style="width:25%"></colgroup>
@@ -1094,7 +1062,7 @@
         <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><strong>${escapeHtml(test.testName)}</strong>${test.alternativeContainer ? `<br>Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span>` : ''}</td><td>${specimenBadge(test.specimenType, 'print-specimen-badge')}</td><td><span class="print-tube-badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span></td><td>${printContainerBadges(test)}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">Preferred: ${escapeHtml(test.preferredVolume || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(test.minimumVolume || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
       </table>
       ${printCollectionSubmissionPlan(tests)}
-      <div class="print-footer"><strong>Missing entry?</strong> Contact Sam for any missing entries you would like added. <strong>Source check:</strong> For every swab and transport tube, confirm the specimen source, such as throat swab, serum from SST, or plasma from Lavender EDTA. Verify current specimen requirements, service-area availability, rejection criteria, dedicated-tube requirements, and actual specimen yield in the official Quest Test Directory before collection. Order-of-draw sources: Quest Diagnostics; pink is grouped with the EDTA step based on BD tube labeling. “Listed minimum total” is a simple sum of parseable minimum-volume fields. The SST estimate uses the preferred volume when parseable, otherwise the minimum volume, and keeps transport temperatures separate.</div>`;
+      <div class="print-footer"><strong>Missing entry?</strong> Contact Sam for any missing entries you would like added. <strong>Source check:</strong> For every swab and transport tube, confirm the specimen source, such as throat swab, serum from SST, or plasma from Lavender EDTA. Verify current specimen requirements, service-area availability, rejection criteria, dedicated-tube requirements, and actual specimen yield in the official Quest Test Directory before collection. Order-of-draw sources: Quest Diagnostics; pink is grouped with the EDTA step based on BD tube labeling. The SST estimate uses the preferred volume when parseable, otherwise the minimum volume, and keeps transport temperatures separate.</div>`;
     window.print();
   }
 
