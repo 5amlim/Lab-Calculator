@@ -89,8 +89,11 @@ tr:hover td { background: #fbfdfd; }
 .tube-blue::before { background: #75b7e6; }
 .tube-royal::before { background: #3458a5; }
 .tube-gray::before { background: #8c969d; }
+.tube-urine-culture::before { background: repeating-linear-gradient(135deg, #8c969d 0 4px, #d9dee1 4px 7px); border-style: dashed; }
 .tube-pink::before { background: #e9a4c4; }
 .tube-yellow::before { background: #f1d85b; }
+.tube-ua-swirl::before { background: repeating-linear-gradient(135deg, #d95851 0 3px, #f1d85b 3px 6px); }
+.tube-ua-pair::before { background: linear-gradient(180deg, #d95851 0 30%, #f1d85b 30% 62%, #8c969d 62% 100%); }
 .order-panel { position: sticky; top: 18px; padding: 20px; max-height: calc(100vh - 36px); overflow: auto; }
 .order-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 14px; }
 #selectedCount { display: inline-flex; min-width: 25px; height: 25px; align-items: center; justify-content: center; border-radius: 999px; background: var(--brand-soft); color: var(--brand); font-size: 12px; vertical-align: 2px; }
@@ -157,31 +160,13 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-footer { margin-top: 8px; border-top: 1px solid #ccd5d9; padding-top: 5px; font-size: 7.5px; color: #59666c; }
 }
 
-/* Staff-friendly maintenance, manual entry, and ChatGPT helper */
+/* Staff-friendly manual entry */
 .summary-heading { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
 .summary-heading h3 { margin-bottom: 0; }
 .dialog-subtitle { margin: 5px 0 0; color: var(--muted); font-size: 12px; }
 .optional { color: var(--muted); font-size: 10px; font-weight: 600; }
-.maintenance-tools { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 14px; }
-.maintenance-tools > summary, .ai-helper > summary { cursor: pointer; color: #38515b; font-size: 12px; font-weight: 800; list-style-position: outside; }
-.maintenance-content { margin-top: 12px; padding: 14px; border-radius: 12px; background: #f7f9fa; border: 1px solid var(--line); }
-.maintenance-content p { margin-bottom: 11px; color: var(--muted); font-size: 12px; }
-.maintenance-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.maintenance-help { margin-top: 11px; color: #52636c; font-size: 11px; line-height: 1.5; }
-.maintenance-help code { padding: 2px 5px; border-radius: 5px; background: #e8edef; font-size: 10px; }
-.ai-helper { border: 1px solid #c9dde1; border-radius: 12px; background: #f4fafb; padding: 12px 14px; }
-.ai-helper[open] > summary { margin-bottom: 12px; }
-.ai-helper-content { display: grid; gap: 11px; }
-.ai-helper-content p { margin: 0; color: #53666f; font-size: 12px; line-height: 1.5; }
-.ai-helper-content label { display: grid; gap: 7px; color: #35454f; font-size: 12px; font-weight: 760; }
-.ai-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.helper-warning { padding: 9px 10px; border-left: 4px solid #dda94a; border-radius: 7px; background: #fff8e8; color: #725519 !important; font-size: 11px !important; }
-#aiResult { resize: vertical; min-height: 105px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11px; }
-@media (max-width: 720px) {
-  .summary-heading { align-items: flex-start; }
-  .maintenance-actions, .ai-actions { display: grid; }
-  .maintenance-actions .button, .ai-actions .button { width: 100%; }
-}
+.dialog-lookup-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 11px 12px; border: 1px solid #c9dde1; border-radius: 12px; background: #f4fafb; }
+.dialog-lookup-row span { flex: 1 1 240px; color: #53666f; font-size: 12px; line-height: 1.45; }
 
 .contact-banner {
   margin-top: 12px;
@@ -209,6 +194,8 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 .contact-summary { margin-top: 13px; padding: 9px 10px; border: 1px solid var(--line); border-radius: 9px; background: #f7f9fa; color: #42545c; font-size: 10px; line-height: 1.4; }
 
 @media (max-width: 720px) {
+  .dialog-lookup-row { align-items: stretch; }
+  .dialog-lookup-row .button { width: 100%; }
   .order-step { grid-template-columns: 24px 1fr auto; }
   .order-additive { grid-column: 2 / -1; }
   .order-selected { grid-column: 3; grid-row: 1; }
@@ -334,4 +321,320 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     -webkit-print-color-adjust: exact !important;
   }
   .print-specimen-list { margin-top: 2px; gap: 2px; }
+}
+
+/* Print-only transport bag plan and SST tube estimate */
+@media print {
+  .print-bag-plan {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 2px solid #1e5963;
+  }
+  .print-bag-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 7px;
+  }
+  .print-bag-heading > div:first-child strong {
+    display: block;
+    color: #1f363d;
+    font-size: 11px;
+  }
+  .print-bag-heading > div:first-child span {
+    display: block;
+    margin-top: 2px;
+    color: #59666c;
+    font-size: 7.5px;
+  }
+  .print-sst-total {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 165px;
+    padding: 6px 9px;
+    border: 2px solid #9b6c00;
+    border-radius: 7px;
+    background: #fff0a8 !important;
+    color: #523b00 !important;
+  }
+  .print-sst-total span {
+    flex: 1;
+    font-size: 8px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+  .print-sst-total strong {
+    font-size: 20px;
+    line-height: 1;
+  }
+  .print-bag-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+  .print-bag-card {
+    border: 1.5px solid #aebbc0;
+    border-radius: 7px;
+    padding: 7px;
+    break-inside: avoid;
+    background: #fff;
+  }
+  .print-bag-card.bag-room { border-color: #c99c12; background: #fffaf0 !important; }
+  .print-bag-card.bag-refrigerated { border-color: #4b9dce; background: #f2f9ff !important; }
+  .print-bag-card.bag-frozen { border-color: #7d66c8; background: #f8f5ff !important; }
+  .print-bag-card.bag-mixed, .print-bag-card.bag-verify { border-color: #8d969b; background: #f7f8f9 !important; }
+  .print-bag-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #cfd8dc;
+  }
+  .print-bag-card-header > div:first-child strong {
+    display: block;
+    color: #1f363d;
+    font-size: 9.5px;
+  }
+  .print-bag-card-header > div:first-child span {
+    color: #59666c;
+    font-size: 7px;
+  }
+  .print-bag-sst-count {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 6px;
+    border: 1px solid #9b6c00;
+    border-radius: 5px;
+    background: #fff0a8 !important;
+    color: #523b00 !important;
+    white-space: nowrap;
+  }
+  .print-bag-sst-count span {
+    font-size: 6.8px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+  .print-bag-sst-count strong {
+    font-size: 13px;
+    line-height: 1;
+  }
+  .print-bag-items {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3px 8px;
+    margin: 6px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .print-bag-items li {
+    min-width: 0;
+    padding-bottom: 3px;
+    border-bottom: 1px dotted #cfd8dc;
+    font-size: 7px;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+  .print-bag-items li > strong {
+    display: block;
+    color: #263b42;
+    font-size: 7.2px;
+  }
+  .print-bag-items li > span {
+    display: block;
+    margin-top: 1px;
+    color: #59666c;
+  }
+  .print-bag-calculation {
+    margin-top: 5px;
+    padding-top: 4px;
+    border-top: 1px solid #d7dfe2;
+    color: #4e5a60;
+    font-size: 6.8px;
+    font-weight: 750;
+    line-height: 1.3;
+  }
+  .print-bag-note {
+    margin-top: 6px;
+    color: #4e5a60;
+    font-size: 7px;
+    line-height: 1.35;
+  }
+}
+
+/* v3.7 urine collection badge and print-only collection/submission plan */
+.tube-urine-cup::before {
+  width: 12px;
+  height: 11px;
+  border-radius: 2px 2px 5px 5px;
+  background: linear-gradient(180deg, #ffffff 0 28%, #dcecf1 28% 100%);
+  border: 1.5px solid #6f8d98;
+}
+.tube-transport::before {
+  background: linear-gradient(180deg, #f4f7f8 0 28%, #cfdde2 28% 100%);
+  border-color: #718991;
+}
+
+@media print {
+  .print-logistics-plan {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 2px solid #1e5963;
+    break-inside: auto;
+  }
+  .print-logistics-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 7px;
+  }
+  .print-logistics-heading strong { color: #1f363d; font-size: 11px; }
+  .print-logistics-heading span { color: #59666c; font-size: 7.3px; text-align: right; }
+  .print-logistics-totals {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 6px;
+    align-items: stretch;
+    margin-bottom: 8px;
+  }
+  .print-total-box {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+    gap: 1px 7px;
+    min-width: 105px;
+    padding: 6px 8px;
+    border: 2px solid #27636d;
+    border-radius: 7px;
+    background: #eaf5f6 !important;
+    color: #173f46 !important;
+  }
+  .print-total-box > span {
+    grid-column: 1 / -1;
+    font-size: 7.2px;
+    font-weight: 950;
+    letter-spacing: .05em;
+  }
+  .print-total-box > strong { font-size: 20px; line-height: 1; }
+  .print-total-box > small { font-size: 7px; font-weight: 800; line-height: 1.15; }
+  .print-total-box.submit-total {
+    border-color: #6e579e;
+    background: #f1edff !important;
+    color: #35245d !important;
+  }
+  .print-collect-chips, .print-submit-bags {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 4px;
+    padding: 5px 6px;
+    border: 1px solid #c7d2d6;
+    border-radius: 7px;
+    background: #fafbfb !important;
+  }
+  .print-collect-chip, .print-bag-pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 19px;
+    padding: 3px 6px 3px 17px;
+    border: 1px solid #aebbc0;
+    border-radius: 999px;
+    background: #fff !important;
+    color: #263b42 !important;
+    font-size: 7px;
+    font-weight: 850;
+    position: relative;
+  }
+  .print-collect-chip b { margin-right: 3px; font-size: 9px; }
+  .print-bag-pill { padding-left: 7px; }
+  .print-bag-pill.bag-room { border-color: #c99c12; background: #fff0a8 !important; color: #5f4305 !important; }
+  .print-bag-pill.bag-refrigerated { border-color: #4b9dce; background: #d9efff !important; color: #0c4f76 !important; }
+  .print-bag-pill.bag-frozen { border-color: #7d66c8; background: #e8e0ff !important; color: #392371 !important; }
+  .print-bag-pill.bag-mixed, .print-bag-pill.bag-verify { border-color: #8d969b; background: #eceff1 !important; color: #4f585d !important; }
+  .print-logistics-subheading {
+    margin: 7px 0 5px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #9fb2b8;
+    color: #1f363d;
+    font-size: 9px;
+    font-weight: 950;
+    text-transform: uppercase;
+    letter-spacing: .035em;
+  }
+  .print-collection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .print-collection-card {
+    padding: 6px;
+    border: 1px solid #b9c6ca;
+    border-radius: 6px;
+    background: #fff !important;
+    break-inside: avoid;
+  }
+  .print-container-count {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #d5dde0;
+  }
+  .print-container-count > strong {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 21px;
+    height: 21px;
+    border-radius: 999px;
+    background: #dceff1 !important;
+    color: #174b54 !important;
+    font-size: 12px;
+  }
+  .print-container-count > span { font-size: 8px; font-weight: 900; }
+  .print-container-detail { margin-top: 4px; color: #53636b; font-size: 6.7px; line-height: 1.25; }
+  .print-for-tests { margin-top: 4px; color: #425159; font-size: 6.7px; line-height: 1.25; }
+  .print-for-tests > b { font-size: 6.8px; }
+  .print-for-tests ul { margin: 2px 0 0 11px; padding: 0; }
+  .print-for-tests li { margin: 0 0 1px; }
+  .print-bag-container-total {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 3px 6px;
+    border: 1px solid #87999f;
+    border-radius: 5px;
+    background: #fff !important;
+    white-space: nowrap;
+  }
+  .print-bag-container-total strong { font-size: 13px; }
+  .print-bag-container-total span { font-size: 6.5px; font-weight: 850; text-transform: uppercase; }
+  .print-submit-content { display: grid; gap: 4px; margin-top: 5px; }
+  .print-submit-item {
+    padding: 4px 5px;
+    border: 1px solid #d0d9dc;
+    border-radius: 5px;
+    background: rgba(255,255,255,.82) !important;
+    break-inside: avoid;
+  }
+  .print-submit-item-title { display: flex; align-items: center; gap: 5px; }
+  .print-submit-item-title > strong {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: #e3eaed !important;
+    color: #263b42 !important;
+    font-size: 10px;
+  }
+  .print-submit-item-title > span { font-size: 7.5px; font-weight: 900; }
+  .print-tube-badge + br + .print-tube-badge { margin-top: 3px; }
 }

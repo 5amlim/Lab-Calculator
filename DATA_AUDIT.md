@@ -100,3 +100,19 @@ Quest advertises more than 3,500 tests, with service-area-specific availability 
 - `91735` — Cardio IQ® Vitamin D, 25-Hydroxy: official Quest page correction
 - `38683` — TRAb (TSH Receptor Binding Antibody): official Quest page correction
 - `36378` — Analyzer ANA with reflex panel: official Quest page correction
+
+## Version 3.5 correction
+
+- `3020` — Urinalysis, Complete, with Reflex to Culture: corrected the workflow to require both a red/yellow swirl-top urinalysis preservative tube and a gray-top urine culture preservative tube. Both tubes must be filled to their marked lines and submitted.
+
+
+## v3.6 correction
+
+Quest code 3020 now distinguishes the gray-top **urine culture preservative tube** from the gray fluoride/oxalate **blood** tube. Urine specimens are excluded from the blood order-of-draw detector.
+
+
+## v3.7 workflow update
+
+- Quest code 3020 is modeled as collection into a sterile urine cup, followed by transfer into the red/yellow swirl-top UA preservative tube and the gray-top urine culture preservative tube.
+- The gray urine culture tube remains distinct from gray fluoride/oxalate blood tubes.
+- Print calculations now separate initial collection containers from processed submission containers and group submission by transport temperature.

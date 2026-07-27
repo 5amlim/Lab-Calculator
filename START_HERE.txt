@@ -1,37 +1,5 @@
-QUEST LAB CALCULATOR — UPLOAD TO GITHUB
+QUEST LAB CALCULATOR v3.7
 
-1. Unzip this package.
-2. Open your GitHub repository.
-3. Choose Add file > Upload files.
-4. Upload these files:
-   - index.html
-   - styles.css
-   - app.js
-   - data.js
-   - .nojekyll
-5. Commit the files to main.
-6. Open Settings > Pages.
-7. Choose Deploy from a branch, main, and /(root).
-8. Save.
+Upload every file in this folder to the root of the GitHub repository and commit to main.
 
-NEW STAFF WORKFLOW
-
-- Search multiple tests at once.
-- Use Add missing test when a test is not found.
-- The new test can be added directly to the current print summary.
-- The optional ChatGPT helper can copy a lookup request, open ChatGPT,
-  and use the pasted structured answer to fill the form.
-- The summary and printout include the nurse order of draw.
-- Printed tube types and transport temperatures are color-coded with a legend.
-- Enable Background graphics in the print dialog for the strongest color output.
-- Contact Sam for any missing entries you would like added.
-
-TO PUBLISH TEST-LIST CHANGES FOR EVERYONE
-
-1. Open Website maintenance and backup in the calculator.
-2. Click Create website update file.
-3. Replace data.js in GitHub with the downloaded data.js.
-4. Commit the change.
-
-Do not enter patient information. Verify all collection details in the official
-Quest Test Directory before use.
+The printout separates TOTAL TO COLLECT from TOTAL TO SUBMIT. Spot urine tests add a sterile urine cup; processed urine preservative tubes appear under the correct transport bag and never in blood order of draw.

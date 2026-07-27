@@ -1,5 +1,11 @@
-Quest Lab Calculator v3.2
+VERSION 3.7
 
-- Increased specimen-type text size in the printed collection table.
-- Increased specimen-type text size in the printed draw plan and specimen legend.
-- Kept specimen colors and all other print formatting unchanged.
+- Added a dedicated red/yellow swirl-top urinalysis preservative tube badge.
+- Added a separate sterile urine cup badge.
+- Spot urine orders now automatically include one sterile urine cup for initial collection.
+- The printout now separates TOTAL TO COLLECT from TOTAL TO SUBMIT.
+- TOTAL TO COLLECT counts blood tubes and patient collection containers, including the temperature-aware SST calculation.
+- TOTAL TO SUBMIT counts transport bags by temperature and lists processed contents inside each bag.
+- Every collection and submission item identifies the Quest tests it supports.
+- UA with reflex to culture now shows sterile cup collection, then separate red/yellow swirl UA and gray-top urine culture preservative tubes for submission.
+- Urine devices remain excluded from the blood order of draw.

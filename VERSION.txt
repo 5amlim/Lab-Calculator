@@ -1,2 +1,1 @@
-Quest Lab Calculator v3.2
-Larger specimen-type text in printout
+Quest Lab Calculator v3.7
