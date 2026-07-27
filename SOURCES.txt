@@ -35,3 +35,5 @@ Additional official records corrected
 - 3102 Mercury, RBCs
 - 16265 Procalcitonin
 - 90271 von Willebrand Screen (Quest Bleeding and Thrombosis Test Menu)
+
+Quest test 70049, Neisseria gonorrhoeae RNA, TMA, Throat: https://testdirectory.questdiagnostics.com/test/test-detail/70049/neisseria-gonorrhoeae-rna-tma-throat?cc=MASTER&q=70049

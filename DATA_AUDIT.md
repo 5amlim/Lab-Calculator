@@ -1,3 +1,8 @@
+# v4.5 display correction
+
+- Platelet-poor plasma is classified as a plasma subtype for specimen text styling and transport-tube badge selection.
+- Its specific label is preserved; only the visual badge is standardized with serum/plasma transport tubes.
+
 # Data audit — v2.7
 
 This update corrected SST handling and added full-directory lookup links.
@@ -126,3 +131,17 @@ Quest code 3020 now distinguishes the gray-top **urine culture preservative tube
 - Mercury, RBCs (3102) is shown as Royal Blue EDTA containing RBCs, submitted in the original tube after processing as directed.
 - Whole-blood lavender, green-heparin, pink-EDTA, royal-blue, and light-blue original-tube workflows receive the same treatment when the record states no transfer or an original/primary tube.
 - Routine spun SST specimens that remain in the gel tube continue to be pooled by temperature for tube-count planning, while the submission badge now explicitly says the spun serum remains in the original SST.
+
+## v4.4 source clarification
+
+Manual swab and transport-tube entries now carry a visible reminder to document the exact source. Generic swabs are flagged as requiring source clarification. Examples include throat swab, serum from SST, and plasma from Lavender EDTA.
+
+## v4.7 badge correction
+
+- Acid-washed / metal-free transport tubes are displayed with the neutral transport badge, regardless of whether the specimen is serum or plasma.
+- Green-top-third transport badges remain reserved for standard serum, plasma, and platelet-poor plasma transport tubes.
+
+
+## v4.8 copper submission clarification
+
+- `363` — Copper: the bag label now explicitly says **Acid-Washed / Metal-Free Plasma Transport Tube**. The badge remains neutral because Quest requires a specialty acid-washed or metal-free vial. The specimen source remains plasma from a Royal Blue trace-metal tube.

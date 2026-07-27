@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
-  const DB_KEY = 'questLabCalculator.database.v6';
-  const LEGACY_DB_KEYS = ['questLabCalculator.database.v5', 'questLabCalculator.database.v4', 'questLabCalculator.database.v3', 'questLabCalculator.database.v2', 'questLabCalculator.database.v1'];
+  const DB_KEY = 'questLabCalculator.database.v8';
+  const LEGACY_DB_KEYS = ['questLabCalculator.database.v7', 'questLabCalculator.database.v6', 'questLabCalculator.database.v5', 'questLabCalculator.database.v4', 'questLabCalculator.database.v3', 'questLabCalculator.database.v2', 'questLabCalculator.database.v1'];
   const SELECTED_KEY = 'questLabCalculator.selected.v1';
   const LABEL_KEY = 'questLabCalculator.orderLabel.v1';
   const PAGE_STEP = 80;
@@ -160,8 +160,8 @@
 
   function specimenClass(specimenType) {
     const value = normalizeSpecimenType(specimenType).toLowerCase();
-    if (value === 'serum') return 'specimen-serum';
-    if (value === 'plasma') return 'specimen-plasma';
+    if (/\bserum\b/.test(value)) return 'specimen-serum';
+    if (/\bplasma\b/.test(value)) return 'specimen-plasma';
     if (value === 'rbcs') return 'specimen-rbc';
     if (value === 'whole blood') return 'specimen-whole-blood';
     return 'specimen-other';
@@ -489,7 +489,8 @@
       ['Red/Yellow swirl UA preservative', 'tube-ua-swirl'],
       ['Gray urine culture preservative', 'tube-urine-culture'],
       ['Pink EDTA', 'tube-pink'],
-      ['Yellow', 'tube-yellow']
+      ['Yellow ACD', 'tube-yellow'],
+      ['Aptima Multitest (orange label)', 'tube-aptima']
     ];
     const temperatures = [
       ['Room temperature', 'temp-room'],
@@ -764,6 +765,7 @@
       'tube-royal': 'Royal Blue',
       'tube-gray': 'Gray Fluoride / Oxalate Blood Tube',
       'tube-yellow': 'Yellow ACD',
+      'tube-aptima': 'Aptima Multitest Transport Tube (orange label)',
       'tube-urine-cup': 'Sterile Urine Cup',
       'tube-ua-swirl': 'Red/Yellow Swirl UA Preservative Tube',
       'tube-urine-culture': 'Gray-Top Urine Culture Preservative Tube'
@@ -837,6 +839,7 @@
     if (/red/i.test(draw)) return 'Red Top';
     if (/light blue|citrate/i.test(draw)) return 'Light Blue Citrate';
     if (/royal/i.test(draw)) return 'Royal Blue';
+    if (/aptima/i.test(draw)) return 'Aptima Multitest';
     return draw && !/^verify/i.test(draw) ? draw : '';
   }
 
@@ -850,6 +853,58 @@
 
   function titleCaseSpecimen(value) {
     return String(value || 'Specimen').replace(/\b\w/g, char => char.toUpperCase());
+  }
+
+  function specificSpecimenSource(test) {
+    const stated = String(test.specimenType || '').trim();
+    const normalized = normalizeSpecimenType(stated);
+    const text = `${test.testName || ''} ${test.preferredVolume || ''} ${test.minimumVolume || ''} ${test.specialInstructions || ''}`.toLowerCase();
+    const swabSources = [
+      [/nasopharyngeal|\bnp swab\b/, 'Nasopharyngeal swab'],
+      [/anterior nasal|nares|nasal swab/, 'Nasal swab'],
+      [/throat|pharyn|tonsil/, 'Throat swab'],
+      [/vaginal/, 'Vaginal swab'],
+      [/endocervical/, 'Endocervical swab'],
+      [/cervical swab/, 'Cervical swab'],
+      [/urethral/, 'Urethral swab'],
+      [/rectal/, 'Rectal swab'],
+      [/lesion/, 'Lesion swab'],
+      [/wound/, 'Wound swab'],
+      [/buccal|cheek/, 'Buccal swab'],
+      [/oral swab|mouth swab/, 'Oral swab'],
+      [/conjunctival|eye swab/, 'Conjunctival swab']
+    ];
+
+    if (/swab/i.test(stated) || /swab/.test(text)) {
+      for (const [pattern, label] of swabSources) {
+        if (pattern.test(text)) return label;
+      }
+      if (stated && !/^swab$/i.test(stated)) return titleCaseSpecimen(stated);
+      return 'Swab — source must be clarified';
+    }
+
+    return titleCaseSpecimen(normalized || stated || 'Specimen');
+  }
+
+  function transportTubeClass(test, container) {
+    const value = String(container || '').toLowerCase();
+    const specimen = normalizeSpecimenType(test.specimenType).toLowerCase();
+    const specimenAndContainer = `${specimen} ${value}`;
+    const isStandardSerumOrPlasma = /\b(?:serum|plasma)\b/.test(specimenAndContainer);
+    const isSpecialtyMetalContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal/.test(value);
+
+    if (/aptima/.test(value)) return 'tube-aptima';
+
+    // Specialty acid-washed/metal-free tubes must stay neutral, regardless of specimen type.
+    if (isSpecialtyMetalContainer) return 'tube-transport';
+
+    if (/transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/.test(value)) {
+      // Serum, plasma, and platelet-poor plasma use the green-top transport badge.
+      return isStandardSerumOrPlasma
+        ? 'tube-transport tube-transport-green-top'
+        : 'tube-transport';
+    }
+    return tubeClass(container);
   }
 
   function isOriginalContainerSubmission(test) {
@@ -868,14 +923,18 @@
 
   function originalContainerSubmission(test) {
     const draw = String(test.drawContainer || 'Original collection container').trim();
-    const specimen = titleCaseSpecimen(test.specimenType);
-    const processing = String(test.spin || '').toLowerCase() === 'yes' ? 'Process as directed; submit in original tube' : 'Submit in original tube';
+    const sourceSpecimen = specificSpecimenSource(test);
+    const isAptima70049 = String(test.questCode || '').trim() === '70049';
+    const label = isAptima70049 ? 'Aptima' : draw;
+    const processing = isAptima70049
+      ? `${sourceSpecimen} · Submit as Aptima`
+      : (String(test.spin || '').toLowerCase() === 'yes' ? 'Process as directed; submit in original tube' : 'Submit in original tube');
     return {
-      key: `original|${normalizeSearch(draw)}|${normalizeSearch(specimen)}`,
-      label: draw,
+      key: `original|${normalizeSearch(label)}|${normalizeSearch(sourceSpecimen)}`,
+      label,
       className: tubeClass(draw),
       count: explicitSubmissionCount(test),
-      detail: `${specimen} · ${processing}`,
+      detail: isAptima70049 ? processing : `${sourceSpecimen} · ${processing}`,
       originalTube: true
     };
   }
@@ -892,24 +951,31 @@
 
     if (isOriginalContainerSubmission(test)) return [originalContainerSubmission(test)];
 
-    const specimen = titleCaseSpecimen(test.specimenType);
-    const source = shortDrawSource(test);
+    const specimen = titleCaseSpecimen(normalizeSpecimenType(test.specimenType));
+    const sourceSpecimen = specificSpecimenSource(test);
+    const sourceTube = shortDrawSource(test);
     if (/transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/i.test(transport)) {
+      const sourcePhrase = sourceTube ? `${specimen} from ${sourceTube}` : sourceSpecimen;
+      const isSwab = /swab/i.test(sourceSpecimen);
+      const isSpecialtyMetalContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal/i.test(transport);
+      const label = isSwab
+        ? 'Swab Transport Tube'
+        : (isSpecialtyMetalContainer ? `Acid-Washed / Metal-Free ${specimen} Transport Tube` : `${specimen} Transport Tube`);
       return [{
-        key: `transport|${normalizeSearch(specimen)}|${normalizeSearch(source)}`,
-        label: `${specimen} Transport Tube${source ? ` (from ${source})` : ''}`,
-        className: 'tube-transport',
+        key: `transport|${normalizeSearch(sourcePhrase)}|${normalizeSearch(transport)}`,
+        label,
+        className: transportTubeClass(test, transport),
         count: explicitSubmissionCount(test),
-        detail: `${specimen} transferred after processing`
+        detail: isSwab ? `${sourceSpecimen} in transport tube` : sourcePhrase
       }];
     }
 
     return [{
-      key: `container|${normalizeSearch(transport)}`,
+      key: `container|${normalizeSearch(transport)}|${normalizeSearch(sourceSpecimen)}`,
       label: transport || 'Verify Submission Container',
-      className: tubeClass(transport),
+      className: transportTubeClass(test, transport),
       count: explicitSubmissionCount(test),
-      detail: specimen
+      detail: sourceSpecimen
     }];
   }
 
@@ -952,13 +1018,19 @@
     return uniqueTests(tests).map(test => `<li><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)}</li>`).join('');
   }
 
-  function printContainerBadges(container) {
-    const value = String(container || '').trim();
+  function printContainerBadges(test) {
+    const value = String(test.transportContainer || '').trim();
     const lower = value.toLowerCase();
     if ((/red\s*\/\s*yellow|red-yellow|swirl/.test(lower)) && /gray|grey/.test(lower) && /urine|culture/.test(lower)) {
       return `<span class="print-tube-badge tube tube-ua-swirl">Red/Yellow Swirl UA Tube</span><br><span class="print-tube-badge tube tube-urine-culture">Gray-Top Urine Culture Tube</span>`;
     }
-    return `<span class="print-tube-badge tube ${tubeClass(value)}">${escapeHtml(value || 'Verify')}</span>`;
+    const sourceSpecimen = specificSpecimenSource(test);
+    const sourceTube = shortDrawSource(test);
+    const specimen = titleCaseSpecimen(normalizeSpecimenType(test.specimenType));
+    const sourceText = /transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/i.test(value)
+      ? (/swab/i.test(sourceSpecimen) ? sourceSpecimen : (sourceTube ? `${specimen} from ${sourceTube}` : sourceSpecimen))
+      : sourceSpecimen;
+    return `<span class="print-tube-badge tube ${transportTubeClass(test, value)}">${escapeHtml(value || 'Verify')}</span>${sourceText ? `<div class="print-transport-source">${escapeHtml(sourceText)}</div>` : ''}`;
   }
 
   function printCollectionSubmissionPlan(tests) {
@@ -1019,10 +1091,10 @@
       <table class="print-table">
         <colgroup><col style="width:6%"><col style="width:14%"><col style="width:7%"><col style="width:10%"><col style="width:10%"><col style="width:5%"><col style="width:8%"><col style="width:7%"><col style="width:8%"><col style="width:25%"></colgroup>
         <thead><tr><th>Code</th><th>Test</th><th>Specimen</th><th>Draw container</th><th>Transport tube</th><th>Spin</th><th>Temperature</th><th>Volume</th><th>Stability</th><th>Special handling</th></tr></thead>
-        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><strong>${escapeHtml(test.testName)}</strong>${test.alternativeContainer ? `<br>Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span>` : ''}</td><td>${specimenBadge(test.specimenType, 'print-specimen-badge')}</td><td><span class="print-tube-badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span></td><td>${printContainerBadges(test.transportContainer || 'Verify')}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">Preferred: ${escapeHtml(test.preferredVolume || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(test.minimumVolume || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
+        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><strong>${escapeHtml(test.testName)}</strong>${test.alternativeContainer ? `<br>Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span>` : ''}</td><td>${specimenBadge(test.specimenType, 'print-specimen-badge')}</td><td><span class="print-tube-badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span></td><td>${printContainerBadges(test)}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">Preferred: ${escapeHtml(test.preferredVolume || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(test.minimumVolume || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
       </table>
       ${printCollectionSubmissionPlan(tests)}
-      <div class="print-footer"><strong>Missing entry?</strong> Contact Sam for any missing entries you would like added. Verify current specimen requirements, service-area availability, rejection criteria, dedicated-tube requirements, and actual specimen yield in the official Quest Test Directory before collection. Order-of-draw sources: Quest Diagnostics; pink is grouped with the EDTA step based on BD tube labeling. “Listed minimum total” is a simple sum of parseable minimum-volume fields. The SST estimate uses the preferred volume when parseable, otherwise the minimum volume, and keeps transport temperatures separate.</div>`;
+      <div class="print-footer"><strong>Missing entry?</strong> Contact Sam for any missing entries you would like added. <strong>Source check:</strong> For every swab and transport tube, confirm the specimen source, such as throat swab, serum from SST, or plasma from Lavender EDTA. Verify current specimen requirements, service-area availability, rejection criteria, dedicated-tube requirements, and actual specimen yield in the official Quest Test Directory before collection. Order-of-draw sources: Quest Diagnostics; pink is grouped with the EDTA step based on BD tube labeling. “Listed minimum total” is a simple sum of parseable minimum-volume fields. The SST estimate uses the preferred volume when parseable, otherwise the minimum volume, and keeps transport temperatures separate.</div>`;
     window.print();
   }
 
@@ -1065,6 +1137,7 @@
 
   function tubeClass(container) {
     const value = String(container || '').toLowerCase();
+    if (/aptima/.test(value)) return 'tube-aptima';
     if (/sterile\s+urine\s+cup|urine\s+collection\s+cup/.test(value)) return 'tube-urine-cup';
     if (/blood culture|culture bottle|bactec|\bsps\b/.test(value)) return 'tube-culture';
     if (value.includes('red/yellow') && (value.includes('gray') || value.includes('grey'))) return 'tube-ua-pair';

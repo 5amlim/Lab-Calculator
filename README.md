@@ -1,3 +1,31 @@
+## Version 4.8 updates
+
+- Quest code 363 Copper now displays **Acid-Washed / Metal-Free Plasma Transport Tube** in the transport bag.
+- It intentionally uses the neutral specialty-container badge.
+- The source is shown as **Plasma from Royal Blue**.
+
+
+- **Platelet-poor plasma** uses the same green-top-third transport-tube badge as other serum/plasma transport tubes.
+- The printed label remains **Platelet-Poor Plasma Transport Tube** so the specimen type is explicit.
+
+## Version 4.4 updates
+
+- Swab and transport-tube entries identify their specimen source, such as **throat swab**, **serum from SST**, or **plasma from Lavender EDTA**.
+- The Add/Edit Missing Test form includes a source-clarification reminder.
+- Generic swabs are labeled **source must be clarified** until the collection source is documented.
+- Serum/plasma transport-tube badges use a green top third.
+
+## Version 4.3 updates
+
+- Quest code **70049** now displays **Aptima** in the submission section with **Submit as Aptima**.
+- The collection section still identifies the Aptima Multitest tube with the orange label.
+
+## Version 4.2 updates
+
+- Yellow blood tubes are labeled **Yellow ACD**.
+- Quest code **70049** uses a dedicated **Aptima Multitest (orange label)** badge.
+- The standard urinalysis preservative tube remains the separate red/yellow swirl urine tube.
+
 # Quest Lab Calculator v4.1
 
 **v3.8:** The printout now keeps the same tube badge when a specimen is submitted in its original collection tube. Original-tube submissions clearly identify the specimen inside, such as “Royal Blue EDTA · Whole Blood · Submit in original tube” for arsenic. Transferred serum, plasma, and RBC specimens continue to use transport-tube labels.
@@ -45,3 +73,7 @@ Choose **Other / manually type** in the Draw container dropdown to enter an unco
 
 ## Manual draw container
 The custom draw-container text box is always visible below the dropdown. Staff can either select **Other / manually type** first or simply start typing; the calculator automatically selects Other and saves the typed container.
+
+### v4.7 badge refinement
+
+Acid-washed, acid-rinsed, metal-free, and trace-metal transport containers use the neutral transport-tube badge. They do not use the green-top-third serum/plasma badge. Standard serum, plasma, and platelet-poor plasma transport tubes remain green-top-third.

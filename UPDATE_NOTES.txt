@@ -1,42 +1,4 @@
-QUEST LAB CALCULATOR v4.1
-
-- Fixed the custom draw-container workflow.
-- The manual text field is now always visible directly below the Draw container dropdown.
-- Typing in the manual field automatically selects “Other / manually type.”
-- The field becomes required when Other is selected.
-- All other calculator features remain unchanged.
-
-Quest Lab Calculator v4.0
-
-- Renamed the final Draw container option to “Other / manually type.”
-- Selecting it reveals a required text field for any uncommon tube, cup, swab, or collection kit.
-- Existing custom container values remain editable.
-- All other calculator behavior remains unchanged.
-
-VERSION 3.9
-
-- Changed Draw container in Add missing test/Edit test to a dropdown.
-- Added standard blood, urine, stool, swab, and specialty collection-container options.
-- Added Other / not listed for uncommon containers while preserving existing custom values.
-- All v3.8 collection, processing, bag, print, and tube-badge behavior remains unchanged.
-
-VERSION 3.8
-
-- In “What to submit after processing,” specimens kept in their original collection tube retain the same tube badge used in “What to collect.”
-- Original-tube submissions now state the specimen and clearly say “Submit in original tube.”
-- Example: Arsenic, Blood displays Royal Blue EDTA with “Whole Blood · Submit in original tube.”
-- Spun SST specimens submitted in the gel tube display the Gold/SST badge with “Serum · spun · submit in original tube.”
-- Transferred serum, plasma, and RBC specimens continue to display a transport-tube badge and their source tube.
-- All v3.7 collection, urine, transport-bag, search, and print features remain unchanged.
-
-VERSION 3.7
-
-- Added a dedicated red/yellow swirl-top urinalysis preservative tube badge.
-- Added a separate sterile urine cup badge.
-- Spot urine orders now automatically include one sterile urine cup for initial collection.
-- The printout now separates TOTAL TO COLLECT from TOTAL TO SUBMIT.
-- TOTAL TO COLLECT counts blood tubes and patient collection containers, including the temperature-aware SST calculation.
-- TOTAL TO SUBMIT counts transport bags by temperature and lists processed contents inside each bag.
-- Every collection and submission item identifies the Quest tests it supports.
-- UA with reflex to culture now shows sterile cup collection, then separate red/yellow swirl UA and gray-top urine culture preservative tubes for submission.
-- Urine devices remain excluded from the blood order of draw.
+Version 4.8
+- Copper code 363 now clearly displays an Acid-Washed / Metal-Free Plasma Transport Tube in the submission bag.
+- The badge remains neutral because this is a specialty trace-metal container, not a standard green-top plasma transport tube.
+- The source remains clearly identified as plasma from the Royal Blue trace-metal tube.

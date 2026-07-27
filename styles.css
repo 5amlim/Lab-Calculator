@@ -92,6 +92,7 @@ tr:hover td { background: #fbfdfd; }
 .tube-urine-culture::before { background: repeating-linear-gradient(135deg, #8c969d 0 4px, #d9dee1 4px 7px); border-style: dashed; }
 .tube-pink::before { background: #e9a4c4; }
 .tube-yellow::before { background: #f1d85b; }
+.tube-aptima::before { background: repeating-linear-gradient(180deg, #f39a3d 0 6px, #fff 6px 9px); border-color: #bd6819; }
 .tube-ua-swirl::before { background: repeating-linear-gradient(135deg, #d95851 0 3px, #f1d85b 3px 6px); }
 .tube-ua-pair::before { background: linear-gradient(180deg, #d95851 0 30%, #f1d85b 30% 62%, #8c969d 62% 100%); }
 .order-panel { position: sticky; top: 18px; padding: 20px; max-height: calc(100vh - 36px); overflow: auto; }
@@ -672,4 +673,34 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 .custom-draw-container-row .optional {
   font-weight: 600;
   color: #687a82;
+}
+
+/* v4.4 source clarification for manually added swabs and transferred specimens */
+.source-clarification-note {
+  padding: 10px 12px;
+  border: 1px solid #d4a72c;
+  border-radius: 10px;
+  background: #fff9df;
+  color: #604b0a;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+.source-clarification-note strong {
+  color: #493800;
+}
+
+/* v4.4: serum/plasma transport tubes use a green top third; source is printed below. */
+.tube-transport-green-top::before {
+  background: linear-gradient(180deg, #3f9b59 0 33.333%, #f4f7f8 33.333% 100%);
+  border-color: #557b62;
+}
+
+@media print {
+  .print-transport-source {
+    margin-top: 2px;
+    color: #45565d;
+    font-size: 6.8px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
 }
