@@ -636,5 +636,14 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     font-size: 10px;
   }
   .print-submit-item-title > span { font-size: 7.5px; font-weight: 900; }
+  .print-submit-item-detail {
+    margin: 3px 0 0 23px;
+    color: #425159;
+    font-size: 6.9px;
+    font-weight: 850;
+    line-height: 1.25;
+  }
+  .print-submit-item.original-tube-submit { border-color: #82979e; }
+  .print-submit-item.original-tube-submit .print-submit-item-detail { color: #194f59; }
   .print-tube-badge + br + .print-tube-badge { margin-top: 3px; }
 }

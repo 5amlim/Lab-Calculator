@@ -116,3 +116,13 @@ Quest code 3020 now distinguishes the gray-top **urine culture preservative tube
 - Quest code 3020 is modeled as collection into a sterile urine cup, followed by transfer into the red/yellow swirl-top UA preservative tube and the gray-top urine culture preservative tube.
 - The gray urine culture tube remains distinct from gray fluoride/oxalate blood tubes.
 - Print calculations now separate initial collection containers from processed submission containers and group submission by transport temperature.
+
+
+## v3.8 original-tube submission display
+
+- The print submission plan now distinguishes original collection tubes from transferred aliquots.
+- Original-tube submissions retain the original tube color badge and display the specimen inside.
+- Arsenic, Blood (269) is shown as Royal Blue EDTA containing whole blood, submitted in the original tube.
+- Mercury, RBCs (3102) is shown as Royal Blue EDTA containing RBCs, submitted in the original tube after processing as directed.
+- Whole-blood lavender, green-heparin, pink-EDTA, royal-blue, and light-blue original-tube workflows receive the same treatment when the record states no transfer or an original/primary tube.
+- Routine spun SST specimens that remain in the gel tube continue to be pooled by temperature for tube-count planning, while the submission badge now explicitly says the spun serum remains in the original SST.

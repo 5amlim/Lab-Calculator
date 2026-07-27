@@ -846,24 +846,59 @@
     return match ? Math.max(numberWordValue(match[1]), 1) : 1;
   }
 
+  function titleCaseSpecimen(value) {
+    return String(value || 'Specimen').replace(/\b\w/g, char => char.toUpperCase());
+  }
+
+  function isOriginalContainerSubmission(test) {
+    const draw = String(test.drawContainer || '').trim();
+    const transport = finalTransportContainer(test);
+    const combined = `${transport} ${test.specialInstructions || ''}`.toLowerCase();
+    if (!draw || /^do not collect$/i.test(draw) || /^n\/?a$/i.test(transport)) return false;
+
+    const drawClass = tubeClass(draw);
+    const transportClass = tubeClass(transport);
+    const explicitOriginal = /no transfer|original tube|same tube|primary tube|do not open|unopened|submit (?:the )?(?:spun )?(?:original|collection|primary) tube|leave .* in (?:the )?original tube/.test(combined);
+    const matchingTube = Boolean(drawClass && transportClass && drawClass === transportClass)
+      && !/transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/.test(combined);
+    return explicitOriginal || matchingTube;
+  }
+
+  function originalContainerSubmission(test) {
+    const draw = String(test.drawContainer || 'Original collection container').trim();
+    const specimen = titleCaseSpecimen(test.specimenType);
+    const processing = String(test.spin || '').toLowerCase() === 'yes' ? 'Process as directed; submit in original tube' : 'Submit in original tube';
+    return {
+      key: `original|${normalizeSearch(draw)}|${normalizeSearch(specimen)}`,
+      label: draw,
+      className: tubeClass(draw),
+      count: explicitSubmissionCount(test),
+      detail: `${specimen} · ${processing}`,
+      originalTube: true
+    };
+  }
+
   function splitSubmissionContainers(test) {
     const transport = finalTransportContainer(test);
     const combined = `${transport} ${test.specialInstructions || ''}`.toLowerCase();
     if (String(test.questCode || '') === '3020' || (/red\s*\/\s*yellow|red-yellow|swirl/.test(combined) && /gray|grey/.test(combined) && /urine|culture/.test(combined))) {
       return [
-        { key: 'ua-swirl', label: 'Red/Yellow Swirl UA Preservative Tube', className: 'tube-ua-swirl', count: 1 },
-        { key: 'urine-culture', label: 'Gray-Top Urine Culture Preservative Tube', className: 'tube-urine-culture', count: 1 }
+        { key: 'ua-swirl', label: 'Red/Yellow Swirl UA Preservative Tube', className: 'tube-ua-swirl', count: 1, detail: 'Urine in preservative tube' },
+        { key: 'urine-culture', label: 'Gray-Top Urine Culture Preservative Tube', className: 'tube-urine-culture', count: 1, detail: 'Urine in culture preservative tube' }
       ];
     }
 
-    const specimen = String(test.specimenType || 'Specimen').replace(/\b\w/g, char => char.toUpperCase());
+    if (isOriginalContainerSubmission(test)) return [originalContainerSubmission(test)];
+
+    const specimen = titleCaseSpecimen(test.specimenType);
     const source = shortDrawSource(test);
     if (/transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/i.test(transport)) {
       return [{
         key: `transport|${normalizeSearch(specimen)}|${normalizeSearch(source)}`,
         label: `${specimen} Transport Tube${source ? ` (from ${source})` : ''}`,
         className: 'tube-transport',
-        count: explicitSubmissionCount(test)
+        count: explicitSubmissionCount(test),
+        detail: `${specimen} transferred after processing`
       }];
     }
 
@@ -871,7 +906,8 @@
       key: `container|${normalizeSearch(transport)}`,
       label: transport || 'Verify Submission Container',
       className: tubeClass(transport),
-      count: explicitSubmissionCount(test)
+      count: explicitSubmissionCount(test),
+      detail: specimen
     }];
   }
 
@@ -887,9 +923,11 @@
     if (spunEstimate.totalTubes > 0) {
       items.set('sst-spun', {
         key: 'sst-spun',
-        label: 'SST / Gold (spun)',
+        label: 'SST / Gold',
         className: 'tube-sst',
         count: spunEstimate.totalTubes,
+        detail: 'Serum · spun · submit in original tube',
+        originalTube: true,
         tests: uniqueTests(spunSstTests)
       });
     }
@@ -899,7 +937,8 @@
       splitSubmissionContainers(test).forEach(container => {
         if (!items.has(container.key)) items.set(container.key, { ...container, tests: [] });
         const item = items.get(container.key);
-        item.count += items.get(container.key).tests.length ? container.count : 0;
+        item.count += item.tests.length ? container.count : 0;
+        if (!item.detail && container.detail) item.detail = container.detail;
         item.tests.push(test);
       });
     });
@@ -948,13 +987,14 @@
         const totalContainers = contents.reduce((sum, item) => sum + item.count, 0);
         return `<article class="print-bag-card ${bag.className}">
           <div class="print-bag-card-header"><div><strong>${escapeHtml(bag.label)}</strong><span>Keep separate from other temperatures</span></div><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div>
-          <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item">
+          <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
             <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span></div>
+            ${item.detail ? `<div class="print-submit-item-detail">${escapeHtml(item.detail)}</div>` : ''}
             <div class="print-for-tests"><b>For tests:</b><ul>${testReferences(item.tests)}</ul></div>
           </div>`).join('')}</div>
         </article>`;
       }).join('')}</div>
-      <div class="print-bag-note"><strong>Planning rules:</strong> SST collection assumes 2 mL of usable serum/plasma per tube and rounds up independently by transport temperature. Routine non-SST blood tubes are estimated as one tube per test unless the record specifies more. Spot urine tests add one sterile urine cup for initial collection; timed or 24-hour urine collections follow their test-specific container instructions. Submission contents reflect the processed specimen or transport container and identify the tests assigned to each item. Verify specialty, dedicated-tube, aliquot, and actual-yield requirements before collection.</div>
+      <div class="print-bag-note"><strong>Planning rules:</strong> SST collection assumes 2 mL of usable serum/plasma per tube and rounds up independently by transport temperature. Routine non-SST blood tubes are estimated as one tube per test unless the record specifies more. Spot urine tests add one sterile urine cup for initial collection; timed or 24-hour urine collections follow their test-specific container instructions. Submission contents reflect the processed specimen or transport container and identify the tests assigned to each item. Specimens submitted in their original collection tube keep the same tube badge and are marked “submit in original tube.” Verify specialty, dedicated-tube, aliquot, and actual-yield requirements before collection.</div>
     </section>`;
   }
 

@@ -1,3 +1,12 @@
+VERSION 3.8
+
+- In “What to submit after processing,” specimens kept in their original collection tube retain the same tube badge used in “What to collect.”
+- Original-tube submissions now state the specimen and clearly say “Submit in original tube.”
+- Example: Arsenic, Blood displays Royal Blue EDTA with “Whole Blood · Submit in original tube.”
+- Spun SST specimens submitted in the gel tube display the Gold/SST badge with “Serum · spun · submit in original tube.”
+- Transferred serum, plasma, and RBC specimens continue to display a transport-tube badge and their source tube.
+- All v3.7 collection, urine, transport-bag, search, and print features remain unchanged.
+
 VERSION 3.7
 
 - Added a dedicated red/yellow swirl-top urinalysis preservative tube badge.

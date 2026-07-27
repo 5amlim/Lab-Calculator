@@ -1,4 +1,4 @@
-QUEST LAB CALCULATOR v3.7
+QUEST LAB CALCULATOR v3.8
 
 Upload every file in this folder to the root of the GitHub repository and commit to main.
 
