@@ -160,7 +160,31 @@
         <label>Specimen type<select id="specimenType">
           <option>Serum</option><option>Plasma</option><option>RBCs</option><option>Whole Blood</option><option>Urine</option><option>Stool</option><option>Swab</option><option>Saliva</option><option>CSF</option><option>Body Fluid</option><option>Other / Verify</option>
         </select></label>
-        <label>Draw container<input id="drawContainer" placeholder="SST / Gold, Lavender EDTA, Green Heparin, etc."></label>
+        <label>Draw container<select id="drawContainer" required>
+          <option value="">Choose a collection container</option>
+          <option>SST / Gold</option>
+          <option>Red Top</option>
+          <option>Lavender EDTA</option>
+          <option>Pink EDTA</option>
+          <option>Green Heparin</option>
+          <option>Light Blue Citrate</option>
+          <option>Royal Blue EDTA</option>
+          <option>Royal Blue Trace Metal</option>
+          <option>Royal Blue</option>
+          <option>Yellow Top</option>
+          <option>Gray Fluoride/Oxalate</option>
+          <option>Sterile Urine Cup</option>
+          <option>Red/Yellow Swirl UA Preservative Tube</option>
+          <option>Gray-Top Urine Culture Preservative Tube</option>
+          <option>Urine Container</option>
+          <option>Stool Container</option>
+          <option>Swab / Collection Kit</option>
+          <option>Viral transport media (VCM/M4)</option>
+          <option>Do Not Collect</option>
+          <option>Verify Quest Instructions</option>
+          <option value="__other__">Other / manually type</option>
+        </select></label>
+        <label id="customDrawContainerRow" class="custom-draw-container-row">Custom draw container <span class="optional">use when Other is selected</span><input id="customDrawContainer" placeholder="Type any tube, cup, swab, or collection kit" autocomplete="off"><span class="field-help">Typing here automatically selects “Other / manually type.”</span></label>
         <label>Alternative container<input id="alternativeContainer" placeholder="Optional alternative"></label>
         <label>Transport tube / container<input id="transportContainer" placeholder="Example: transport tube"></label>
         <label>Preferred volume<input id="preferredVolume" placeholder="Example: 1 mL serum"></label>

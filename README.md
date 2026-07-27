@@ -1,4 +1,4 @@
-# Quest Lab Calculator v3.8
+# Quest Lab Calculator v4.1
 
 **v3.8:** The printout now keeps the same tube badge when a specimen is submitted in its original collection tube. Original-tube submissions clearly identify the specimen inside, such as “Royal Blue EDTA · Whole Blood · Submit in original tube” for arsenic. Transferred serum, plasma, and RBC specimens continue to use transport-tube labels.
 
@@ -37,3 +37,11 @@ Upload all files to the repository root, then configure **Settings → Pages** t
 ## Version 3.5
 
 Quest code 3020 now clearly shows the required red/yellow swirl-top UA preservative tube plus the gray-top urine culture preservative tube. The printed summary also includes a transport bag plan. Room-temperature, refrigerated, frozen, and mixed/verify specimens are kept separate. SST tube estimates use a planning assumption of 2 mL usable serum/plasma per SST, round up within each temperature group, and keep dedicated/full-tube requirements separate. Staff must verify specialty instructions and actual specimen yield before collection.
+
+
+## Manual container entry
+Choose **Other / manually type** in the Draw container dropdown to enter an uncommon tube, cup, swab, or collection kit.
+
+
+## Manual draw container
+The custom draw-container text box is always visible below the dropdown. Staff can either select **Other / manually type** first or simply start typing; the calculator automatically selects Other and saves the typed container.

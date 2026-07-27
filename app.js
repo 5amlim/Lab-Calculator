@@ -32,7 +32,7 @@
     printSheet: $('printSheet'), testDialog: $('testDialog'), testForm: $('testForm'), dialogTitle: $('dialogTitle'),
     closeDialogButton: $('closeDialogButton'), cancelDialogButton: $('cancelDialogButton'), deleteTestButton: $('deleteTestButton'),
     saveTestButton: $('saveTestButton'), testId: $('testId'), questCode: $('questCode'), testName: $('testName'), specimenType: $('specimenType'),
-    drawContainer: $('drawContainer'), alternativeContainer: $('alternativeContainer'), transportContainer: $('transportContainer'),
+    drawContainer: $('drawContainer'), customDrawContainer: $('customDrawContainer'), customDrawContainerRow: $('customDrawContainerRow'), alternativeContainer: $('alternativeContainer'), transportContainer: $('transportContainer'),
     preferredVolume: $('preferredVolume'), minimumVolume: $('minimumVolume'), transportTemperature: $('transportTemperature'),
     transportTemperatureRaw: $('transportTemperatureRaw'), stability: $('stability'), spin: $('spin'),
     specialInstructions: $('specialInstructions'), blockedStatus: $('blockedStatus'), addToSummary: $('addToSummary'),
@@ -82,6 +82,8 @@
     els.testForm.addEventListener('submit', saveTestFromForm);
     els.deleteTestButton.addEventListener('click', deleteCustomTest);
     els.openQuestFromDialogButton.addEventListener('click', openQuestFromDialog);
+    els.drawContainer.addEventListener('change', toggleCustomDrawContainer);
+    els.customDrawContainer.addEventListener('input', handleCustomDrawContainerInput);
   }
 
   function renderAll() {
@@ -534,7 +536,7 @@
     els.questCode.value = record.questCode;
     els.testName.value = record.testName;
     setSelectValue(els.specimenType, record.specimenType, 'Other / Verify');
-    els.drawContainer.value = record.drawContainer === 'Verify Quest Instructions' && !isExisting ? '' : record.drawContainer;
+    setDrawContainerValue(record.drawContainer === 'Verify Quest Instructions' && !isExisting ? '' : record.drawContainer);
     els.alternativeContainer.value = record.alternativeContainer;
     els.transportContainer.value = record.transportContainer;
     els.preferredVolume.value = record.preferredVolume;
@@ -566,7 +568,7 @@
       questCode: els.questCode.value,
       testName: els.testName.value,
       specimenType: els.specimenType.value,
-      drawContainer: els.drawContainer.value || 'Verify Quest Instructions',
+      drawContainer: selectedDrawContainer(),
       alternativeContainer: els.alternativeContainer.value,
       transportContainer: els.transportContainer.value,
       preferredVolume: els.preferredVolume.value,
@@ -1089,6 +1091,45 @@
 
   function formatMl(value) {
     return `${Number(value.toFixed(2))} mL`;
+  }
+
+  function setDrawContainerValue(value) {
+    const normalized = String(value || '').trim();
+    const hasOption = Array.from(els.drawContainer.options).some(option => option.value === normalized);
+    if (hasOption) {
+      els.drawContainer.value = normalized;
+      els.customDrawContainer.value = '';
+    } else if (normalized) {
+      els.drawContainer.value = '__other__';
+      els.customDrawContainer.value = normalized;
+    } else {
+      els.drawContainer.value = '';
+      els.customDrawContainer.value = '';
+    }
+    toggleCustomDrawContainer();
+  }
+
+  function toggleCustomDrawContainer() {
+    const isOther = els.drawContainer.value === '__other__';
+    // Keep the manual field visible at all times so it is easy for staff to find.
+    els.customDrawContainerRow.classList.remove('hidden');
+    els.customDrawContainer.required = isOther;
+    els.customDrawContainerRow.classList.toggle('is-active', isOther);
+    if (isOther) setTimeout(() => els.customDrawContainer.focus(), 0);
+  }
+
+  function handleCustomDrawContainerInput() {
+    if (els.customDrawContainer.value.trim()) {
+      els.drawContainer.value = '__other__';
+      toggleCustomDrawContainer();
+    }
+  }
+
+  function selectedDrawContainer() {
+    if (els.drawContainer.value === '__other__') {
+      return els.customDrawContainer.value.trim() || 'Verify Quest Instructions';
+    }
+    return els.drawContainer.value || 'Verify Quest Instructions';
   }
 
   function setSelectValue(select, value, fallback) {

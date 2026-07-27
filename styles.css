@@ -647,3 +647,29 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-submit-item.original-tube-submit .print-submit-item-detail { color: #194f59; }
   .print-tube-badge + br + .print-tube-badge { margin-top: 3px; }
 }
+
+.field-help {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--muted, #64748b);
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+/* v4.1 reliable manual draw-container entry */
+.custom-draw-container-row {
+  padding: 10px 11px;
+  border: 1px dashed #b9c9ce;
+  border-radius: 10px;
+  background: #f8fbfc;
+}
+.custom-draw-container-row.is-active {
+  border-style: solid;
+  border-color: #397d88;
+  background: #eef8f9;
+}
+.custom-draw-container-row .optional {
+  font-weight: 600;
+  color: #687a82;
+}
