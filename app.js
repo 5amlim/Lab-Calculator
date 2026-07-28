@@ -406,7 +406,7 @@
     els.selectedList.innerHTML = tests.map(test => `
       <article class="selected-card">
         <div class="selected-card-top">
-          <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</div><div class="subtext specimen-line">${specimenBadge(test.specimenType)} <span>·</span> <span class="preferred-volume-inline">Preferred ${escapeHtml(test.preferredVolume || 'verify')}</span> <span>· Minimum ${escapeHtml(test.minimumVolume || 'verify')}</span></div></div>
+          <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</div><div class="subtext specimen-line">${specimenBadge(test.specimenType)} <span>·</span> <span class="preferred-volume-inline">Preferred ${escapeHtml(test.preferredVolume || 'verify')}</span> <span>· Minimum ${escapeHtml(test.minimumVolume || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}</div>
           <div><a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove" data-action="remove" data-id="${escapeAttr(test.id)}">Remove</button></div>
         </div>
         <div class="selected-details">
@@ -486,6 +486,38 @@
       <div class="print-order-strip">${ORDER_OF_DRAW.map(step => `<div class="print-order-step ${selectedCategories.has(step.key) ? 'is-selected' : ''}"><span class="print-order-number">${step.number}</span><strong class="print-order-tube tube ${step.tubeClass}">${escapeHtml(step.label)}</strong><span>${escapeHtml(step.additive)}</span></div>`).join('')}</div>
       <div class="print-order-note"><strong>Butterfly:</strong> If light blue is first, use a partially filled citrate discard tube to fill tubing dead space, then fill the test tube completely. Confirm additives on tube labels; do not rely on stopper color alone. Follow test-specific official instructions and facility policy.</div>
     </section>`;
+  }
+
+  function fastingRequirement(test) {
+    const instructions = String(test.specialInstructions || '').trim();
+    const combined = `${test.testName || ''} ${instructions}`.toLowerCase();
+    if (!/\bfasting\b|\bnon-fasting\b|\bovernight fast\b|\bfast for\b/.test(combined)) return null;
+
+    let level = 'verify';
+    if (/fasting (?:is )?(?:required|mandatory)|requires? (?:a )?fasting specimen|must (?:be )?fast|non-fasting[^.]{0,80}(?:unacceptable|rejected)|overnight fast[^.]{0,50}(?:required|mandatory)/.test(combined)) {
+      level = 'required';
+    } else if (/fasting (?:is )?(?:preferred|recommended)|(?:preferred|recommended)[^.]{0,40}fasting|overnight fasting (?:is )?(?:preferred|recommended)/.test(combined)) {
+      level = 'preferred';
+    }
+
+    const sentences = instructions.split(/(?:\.\s+|;\s+)/).map(value => value.trim()).filter(Boolean);
+    const sentence = sentences.find(value => /\bfasting\b|\bnon-fasting\b|\bovernight fast\b|\bfast for\b/i.test(value));
+    const label = level === 'required' ? 'Fasting required' : level === 'preferred' ? 'Fasting preferred' : 'Fasting instructions — verify';
+    return {
+      level,
+      label,
+      note: sentence || 'Fasting instructions are noted in the collection requirements.'
+    };
+  }
+
+  function fastingBadge(test, className = '') {
+    const requirement = fastingRequirement(test);
+    if (!requirement) return '';
+    return `<span class="fasting-badge fasting-${requirement.level} ${className}">${escapeHtml(requirement.label)}</span>`;
+  }
+
+  function fastingRequirementsForTests(tests) {
+    return tests.map(test => ({ test, requirement: fastingRequirement(test) })).filter(item => item.requirement);
   }
 
   function collectAlerts(tests) {
@@ -1020,6 +1052,11 @@
     const collectionItems = buildCollectionPlan(tests, bags);
     const totalCollect = collectionItems.reduce((sum, item) => sum + item.count, 0);
     const bagLabels = bags.map(bag => `<span class="print-bag-pill ${bag.className}">${escapeHtml(bag.label)}</span>`).join('');
+    const fastingItems = fastingRequirementsForTests(tests);
+    const fastingPanel = fastingItems.length ? `<div class="print-fasting-panel">
+      <div class="print-fasting-panel-title"><strong>Fasting instructions</strong><span>Confirm before collection</span></div>
+      <div class="print-fasting-list">${fastingItems.map(({ test, requirement }) => `<div class="print-fasting-item fasting-${requirement.level}"><span class="print-fasting-status">${escapeHtml(requirement.label)}</span><div><strong>${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</strong><small>${escapeHtml(requirement.note)}</small></div></div>`).join('')}</div>
+    </div>` : '';
 
     return `<section class="print-logistics-plan">
       <div class="print-logistics-heading"><strong>Collection and submission plan</strong><span>Collection containers are separated from processed specimens placed into transport bags.</span></div>
@@ -1029,6 +1066,7 @@
         <div class="print-total-box submit-total"><span>TOTAL TO SUBMIT</span><strong>${bags.length}</strong><small>${bags.length === 1 ? 'transport bag' : 'transport bags'}</small></div>
         <div class="print-submit-bags">${bagLabels}</div>
       </div>
+      ${fastingPanel}
 
       ${printOrderOfDraw(tests)}
 
@@ -1075,7 +1113,7 @@
       <table class="print-table">
         <colgroup><col style="width:6%"><col style="width:14%"><col style="width:7%"><col style="width:10%"><col style="width:10%"><col style="width:5%"><col style="width:8%"><col style="width:7%"><col style="width:8%"><col style="width:25%"></colgroup>
         <thead><tr><th>Code</th><th>Test</th><th>Specimen</th><th>Draw container</th><th>Transport tube</th><th>Spin</th><th>Temperature</th><th>Volume</th><th>Stability</th><th>Special handling</th></tr></thead>
-        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><strong>${escapeHtml(test.testName)}</strong>${test.alternativeContainer ? `<br>Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span>` : ''}</td><td>${specimenBadge(test.specimenType, 'print-specimen-badge')}</td><td><span class="print-tube-badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span></td><td>${printContainerBadges(test)}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">Preferred: ${escapeHtml(test.preferredVolume || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(test.minimumVolume || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
+        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><strong>${escapeHtml(test.testName)}</strong>${fastingBadge(test, 'print-test-fasting-badge')}${test.alternativeContainer ? `<br>Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span>` : ''}</td><td>${specimenBadge(test.specimenType, 'print-specimen-badge')}</td><td><span class="print-tube-badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span></td><td>${printContainerBadges(test)}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">Preferred: ${escapeHtml(test.preferredVolume || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(test.minimumVolume || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
       </table>
       ${printCollectionSubmissionPlan(tests)}
       <div class="print-footer"><strong>Missing entry?</strong> Contact Sam for any missing entries you would like added. <strong>Source check:</strong> For every swab and transport tube, confirm the specimen source, such as throat swab, serum from SST, or plasma from Lavender EDTA. Verify current specimen requirements, service-area availability, rejection criteria, dedicated-tube requirements, and actual specimen yield in the official test directory before collection. Order-of-draw sources: the official order-of-draw reference; pink is grouped with the EDTA step based on BD tube labeling. The SST estimate uses the preferred volume when parseable, otherwise the minimum volume, and keeps transport temperatures separate.</div>

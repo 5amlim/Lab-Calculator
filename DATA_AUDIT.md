@@ -12,3 +12,7 @@
 - 37859 — Complement Component C3, C4, CH50: red-top serum, split into two frozen transport tubes within 1 hour.
 - 90559 — Very Long Chain Fatty Acids: fasting red-top serum preferred, transfer and freeze; EDTA plasma alternative.
 - 94612 — Copper-Free, Serum/Plasma: trace-metal-free royal-blue collection, transfer to acid-washed/trace-metal-free vial, room temperature.
+
+## Version 6.4 display update
+
+Fasting instructions are now surfaced from existing test records. The calculator distinguishes required, preferred, and verify statuses, lists the affected tests beside Total to Collect on the printout, and marks the same tests in the summary list.

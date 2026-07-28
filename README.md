@@ -1,3 +1,11 @@
+## Version 6.4 updates
+
+- Added a prominent fasting-instructions panel directly below **Total to Collect** on the printout.
+- The panel identifies whether fasting is **required** or **preferred** and lists each affected test code and name.
+- Added fasting badges to the on-screen selected-test summary and the printed test list.
+- Fasting details are pulled from each test's collection instructions.
+- All version 6.3 test additions and workflow rules remain unchanged.
+
 ## Version 6.3 updates
 
 - Added test codes **36562**, **37859**, **90559**, and **94612** from the current official test directory.
@@ -80,6 +88,11 @@ Contact Sam for any missing entries you would like added or for corrections to e
 ## GitHub Pages publishing
 
 Upload all files to the repository root, then configure **Settings → Pages** to deploy from the `main` branch and `/ (root)` folder. Committing replacement files to `main` triggers a new deployment.
+
+
+## Fasting alerts
+
+When a selected test record states that fasting is required or preferred, the printout displays a prominent fasting panel beside the collection totals. The panel identifies the affected test code and test name and repeats the relevant fasting note. A fasting badge also appears in the selected-test summary and printed test list.
 
 ## Ownership and hosting
 

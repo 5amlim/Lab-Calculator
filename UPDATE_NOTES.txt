@@ -1,6 +1,7 @@
-Version 6.3
+Version 6.4
 
-- Added test codes 36562, 37859, 90559, and 94612 using current official directory requirements.
-- Code 36562 is blocked for onsite collection because it requires clotting at 37°C in a water bath, incubator, heat block, or heel warmer.
-- Added clear draw, processing, transport-container, volume, temperature, and rejection instructions for the three active tests.
-- Published data refresh preserves staff-created custom tests.
+- Added a print-only fasting instructions panel directly below Total to Collect.
+- The panel states whether fasting is required or preferred and identifies each affected test by code and name.
+- Added fasting badges to affected tests in the on-screen selected-test summary and printed test list.
+- The fasting note is extracted from the test's collection instructions so staff can see the specific requirement.
+- All v6.3 collection, tube, bag, and legal-notice features remain unchanged.

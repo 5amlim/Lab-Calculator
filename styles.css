@@ -766,3 +766,87 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     line-height: 1.2;
   }
 }
+
+/* v6.4 fasting requirements in the selected summary and print collection plan */
+.fasting-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-top: 5px;
+  padding: 3px 7px;
+  border: 1px solid;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: .015em;
+}
+.fasting-required { color: #842b22; background: #fff0ed; border-color: #e3a29a; }
+.fasting-preferred { color: #6b4b05; background: #fff8d9; border-color: #dfc260; }
+.fasting-verify { color: #4d5960; background: #f0f3f4; border-color: #c7d0d4; }
+.selected-fasting-badge { margin-top: 5px; }
+
+@media print {
+  .print-fasting-panel {
+    display: grid;
+    grid-template-columns: 126px minmax(0, 1fr);
+    gap: 7px;
+    margin: -1px 0 8px;
+    padding: 6px 7px;
+    border: 2px solid #d19b24;
+    border-radius: 7px;
+    background: #fff9df !important;
+    break-inside: avoid;
+  }
+  .print-fasting-panel-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 7px;
+    border-right: 1px solid #d8bd72;
+    color: #5d4309;
+  }
+  .print-fasting-panel-title strong {
+    font-size: 10px;
+    font-weight: 950;
+    text-transform: uppercase;
+    letter-spacing: .035em;
+  }
+  .print-fasting-panel-title span { margin-top: 2px; font-size: 6.8px; font-weight: 800; }
+  .print-fasting-list { display: grid; gap: 3px; }
+  .print-fasting-item {
+    display: grid;
+    grid-template-columns: 91px minmax(0, 1fr);
+    gap: 6px;
+    align-items: start;
+    padding: 3px 5px;
+    border: 1px solid #dcc778;
+    border-radius: 5px;
+    background: #fffdf2 !important;
+  }
+  .print-fasting-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 18px;
+    padding: 2px 4px;
+    border: 1px solid;
+    border-radius: 999px;
+    font-size: 6.7px;
+    font-weight: 950;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .print-fasting-item.fasting-required .print-fasting-status { color: #842b22; background: #ffe8e3 !important; border-color: #d99389; }
+  .print-fasting-item.fasting-preferred .print-fasting-status { color: #6b4b05; background: #fff2b7 !important; border-color: #d4b23e; }
+  .print-fasting-item.fasting-verify .print-fasting-status { color: #4d5960; background: #edf1f2 !important; border-color: #bdc7cb; }
+  .print-fasting-item strong { display: block; color: #3c340e; font-size: 7.5px; line-height: 1.2; }
+  .print-fasting-item small { display: block; margin-top: 1px; color: #5d552d; font-size: 6.4px; line-height: 1.22; }
+  .print-test-fasting-badge {
+    display: inline-flex;
+    margin: 3px 0 0;
+    padding: 2px 4px;
+    font-size: 6.4px;
+    break-inside: avoid;
+  }
+}
