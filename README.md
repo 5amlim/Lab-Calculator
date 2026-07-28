@@ -1,9 +1,9 @@
-## Version 5.5 updates
+## Version 5.6 updates
 
-- Renamed **Optional visit/order label** to **Name / MRN**.
-- The Name / MRN is displayed prominently near the top of the printout.
-- Patient identifiers are not saved to browser storage and clear when the page is reloaded.
-- All other website and print behavior remains unchanged.
+- Removed the **Name / MRN** field and all patient-information entry from the website and printout.
+- Added an independent ownership notice stating that the calculator and source code were developed by Sam Hay as a personal project, are hosted on Sam Hay’s personal account, and are maintained as Sam Hay’s personal property rather than employer-owned work product.
+- Added the ownership notice to both the website and printed summary.
+- All other v5.5 behavior remains unchanged.
 
 ## Version 5.4 updates
 
@@ -46,7 +46,7 @@
 
 # Quest Lab Calculator
 
-**Version 5.2** v4.1
+**Version 5.6**
 
 **v3.8:** The printout now keeps the same tube badge when a specimen is submitted in its original collection tube. Original-tube submissions clearly identify the specimen inside, such as “Royal Blue EDTA · Whole Blood · Submit in original tube” for arsenic. Transferred serum, plasma, and RBC specimens continue to use transport-tube labels.
 
@@ -74,9 +74,13 @@ Contact Sam for any missing entries you would like added or for corrections to e
 
 Upload all files to the repository root, then configure **Settings → Pages** to deploy from the `main` branch and `/ (root)` folder. Committing replacement files to `main` triggers a new deployment.
 
+## Ownership and hosting
+
+This calculator and its source code were independently developed by **Sam Hay** as a personal project, are hosted on Sam Hay’s personal account, and are maintained as Sam Hay’s personal property. They are not employer-owned work product.
+
 ## Important
 
-- Do not enter patient information.
+- The calculator does not include patient-information entry fields. Do not add patient identifiers to manual test records or notes.
 - The local list is curated and is not the complete Quest menu.
 - Verify current collection requirements and service-area availability in the official Quest Test Directory before collection.
 - Confirm tube additives from the label, not stopper color alone.

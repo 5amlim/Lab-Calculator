@@ -115,6 +115,8 @@ tr:hover td { background: #fbfdfd; }
 .alert.danger { border-left-color: #cf665a; background: #fff1ef; color: #7d332d; }
 .order-actions { display: grid; gap: 8px; margin-top: 20px; }
 .disclaimer { margin: 13px 2px 0; color: #74828a; font-size: 10px; line-height: 1.45; }
+.ownership-notice { max-width: 1512px; margin: -20px auto 34px; padding: 13px 16px; border: 1px solid rgba(13,102,114,.24); border-left: 4px solid var(--brand); border-radius: 10px; background: rgba(255,255,255,.78); color: #4f626c; font-size: 11px; line-height: 1.5; display: flex; gap: 7px; flex-wrap: wrap; }
+.ownership-notice strong { color: var(--brand-dark); }
 dialog { border: 0; border-radius: 17px; padding: 0; width: min(850px, calc(100vw - 28px)); box-shadow: 0 30px 90px rgba(20,40,50,.28); }
 dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 #testForm { padding: 22px; }
@@ -149,9 +151,6 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-header { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; border-bottom: 2px solid #1e5963; padding-bottom: 9px; margin-bottom: 10px; }
   .print-title { font-size: 22px; margin: 0 0 3px; }
   .print-subtitle, .print-meta { font-size: 10px; color: #4e5a60; }
-  .print-patient-banner { display: flex; align-items: baseline; gap: 12px; margin: 0 0 10px; padding: 8px 11px; border: 2px solid #1e5963; border-radius: 7px; background: #eef8f9; break-inside: avoid; }
-  .print-patient-banner span { flex: 0 0 auto; font-size: 10px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: #1e5963; }
-  .print-patient-banner strong { flex: 1; font-size: 16px; line-height: 1.2; color: #102f35; overflow-wrap: anywhere; }
   .print-plan { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 10px; }
   .print-plan-card { border: 1px solid #cfd8dc; border-radius: 6px; padding: 6px 7px; font-size: 9px; break-inside: avoid; }
   .print-plan-card strong { display: block; font-size: 10px; margin-bottom: 2px; }
@@ -162,6 +161,7 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-table td { padding: 5px 4px; vertical-align: top; overflow-wrap: anywhere; }
   .print-table tr { break-inside: avoid; }
   .print-footer { margin-top: 8px; border-top: 1px solid #ccd5d9; padding-top: 5px; font-size: 7.5px; color: #59666c; }
+  .print-ownership { margin-top: 5px; padding: 5px 7px; border-left: 3px solid #1e5963; background: #f1f7f8; font-size: 7.3px; line-height: 1.35; color: #42545c; break-inside: avoid; }
 }
 
 /* Staff-friendly manual entry */

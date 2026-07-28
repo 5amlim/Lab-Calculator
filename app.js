@@ -27,7 +27,7 @@
     addTestButton: $('addTestButton'), addSelectedTestButton: $('addSelectedTestButton'),
     selectedCount: $('selectedCount'), selectedList: $('selectedList'),
     drawPlan: $('drawPlan'), orderOfDraw: $('orderOfDraw'), collectionAlerts: $('collectionAlerts'), clearOrderButton: $('clearOrderButton'),
-    orderLabel: $('orderLabel'), printButton: $('printButton'), exportSummaryButton: $('exportSummaryButton'),
+    printButton: $('printButton'), exportSummaryButton: $('exportSummaryButton'),
     printSheet: $('printSheet'), testDialog: $('testDialog'), testForm: $('testForm'), dialogTitle: $('dialogTitle'),
     closeDialogButton: $('closeDialogButton'), cancelDialogButton: $('cancelDialogButton'), deleteTestButton: $('deleteTestButton'),
     saveTestButton: $('saveTestButton'), testId: $('testId'), questCode: $('questCode'), testName: $('testName'), specimenType: $('specimenType'),
@@ -1051,13 +1051,11 @@
     const tests = selectedTests();
     if (!tests.length) return showToast('Add at least one test before printing.');
     const alerts = collectAlerts(tests);
-    const label = els.orderLabel.value.trim();
     els.printSheet.innerHTML = `
       <div class="print-header">
         <div><h1 class="print-title">Lab Collection Summary</h1><div class="print-subtitle">Quest send-out workflow</div></div>
         <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<br>${tests.length} selected tests</div>
       </div>
-      <div class="print-patient-banner"><span>Name / MRN</span><strong>${label ? escapeHtml(label) : '________________________________'}</strong></div>
       ${alerts.length ? `<div class="print-alerts">${alerts.map(alert => `<div>${escapeHtml(alert.text)}</div>`).join('')}</div>` : ''}
       <table class="print-table">
         <colgroup><col style="width:6%"><col style="width:14%"><col style="width:7%"><col style="width:10%"><col style="width:10%"><col style="width:5%"><col style="width:8%"><col style="width:7%"><col style="width:8%"><col style="width:25%"></colgroup>
@@ -1065,7 +1063,8 @@
         <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><strong>${escapeHtml(test.testName)}</strong>${test.alternativeContainer ? `<br>Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span>` : ''}</td><td>${specimenBadge(test.specimenType, 'print-specimen-badge')}</td><td><span class="print-tube-badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span></td><td>${printContainerBadges(test)}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">Preferred: ${escapeHtml(test.preferredVolume || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(test.minimumVolume || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
       </table>
       ${printCollectionSubmissionPlan(tests)}
-      <div class="print-footer"><strong>Missing entry?</strong> Contact Sam for any missing entries you would like added. <strong>Source check:</strong> For every swab and transport tube, confirm the specimen source, such as throat swab, serum from SST, or plasma from Lavender EDTA. Verify current specimen requirements, service-area availability, rejection criteria, dedicated-tube requirements, and actual specimen yield in the official Quest Test Directory before collection. Order-of-draw sources: Quest Diagnostics; pink is grouped with the EDTA step based on BD tube labeling. The SST estimate uses the preferred volume when parseable, otherwise the minimum volume, and keeps transport temperatures separate.</div>`;
+      <div class="print-footer"><strong>Missing entry?</strong> Contact Sam for any missing entries you would like added. <strong>Source check:</strong> For every swab and transport tube, confirm the specimen source, such as throat swab, serum from SST, or plasma from Lavender EDTA. Verify current specimen requirements, service-area availability, rejection criteria, dedicated-tube requirements, and actual specimen yield in the official Quest Test Directory before collection. Order-of-draw sources: Quest Diagnostics; pink is grouped with the EDTA step based on BD tube labeling. The SST estimate uses the preferred volume when parseable, otherwise the minimum volume, and keeps transport temperatures separate.</div>
+      <div class="print-ownership"><strong>Independent personal project:</strong> This calculator and its source code were independently developed by Sam Hay, are hosted on Sam Hay’s personal account, and are maintained as Sam Hay’s personal property. They are not employer-owned work product.</div>`;
     window.print();
   }
 
