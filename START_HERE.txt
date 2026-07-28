@@ -1,7 +1,7 @@
-Quest Lab Calculator v5.8
+Lab Collection Calculator v6.0
 
-Upload all files in this folder to the root of the GitHub repository and commit the changes to the main branch.
+Upload every file in this folder to the root of your GitHub repository.
+Replace files with the same names, commit to the main branch, and GitHub Pages will republish automatically.
 
-This version adds “Copyright © 2026 Sam Hay. All rights reserved.” to the website and printout, includes a proprietary LICENSE.md file, and includes a WORKPLACE_USE_AGREEMENT_TEMPLATE.md for organizations that receive permission to use the calculator.
-
-No patient-information field is included. Calculator workflow, data, and print features remain unchanged from v5.7.
+The website is static and stores manual edits in the individual browser.
+The official directory links remain available for verification of current requirements.

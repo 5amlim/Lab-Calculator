@@ -18,7 +18,7 @@
 
 ## Version 4.9 updates
 
-- Quest code 363 Copper now displays **Acid-Washed / Metal-Free Plasma Transport Tube** in the transport bag.
+- Test code 363 Copper now displays **Acid-Washed / Metal-Free Plasma Transport Tube** in the transport bag.
 - It intentionally uses the neutral specialty-container badge.
 - The source is shown as **Plasma from Royal Blue**.
 
@@ -35,16 +35,16 @@
 
 ## Version 4.3 updates
 
-- Quest code **70049** now displays **Aptima** in the submission section with **Submit as Aptima**.
+- Test code **70049** now displays **Aptima** in the submission section with **Submit as Aptima**.
 - The collection section still identifies the Aptima Multitest tube with the orange label.
 
 ## Version 4.2 updates
 
 - Yellow blood tubes are labeled **Yellow ACD**.
-- Quest code **70049** uses a dedicated **Aptima Multitest (orange label)** badge.
+- Test code **70049** uses a dedicated **Aptima Multitest (orange label)** badge.
 - The standard urinalysis preservative tube remains the separate red/yellow swirl urine tube.
 
-# Quest Lab Calculator
+# Lab Collection Calculator
 
 **Version 5.6**
 
@@ -53,15 +53,15 @@
 **v3.7:** The printout separates what staff collect from the patient from what staff submit after processing. Spot urine orders automatically add one sterile urine cup, and UA with culture displays separate red/yellow swirl UA and gray-top urine culture tube badges. Each transport-temperature bag lists its processed contents and the tests assigned to them.
 
 
-Static GitHub Pages website for searching multiple Quest tests, building a specimen collection summary, and printing a nurse- and lab-friendly workflow.
+Static GitHub Pages website for searching multiple laboratory tests, building a specimen collection summary, and printing a nurse- and lab-friendly workflow.
 
 ## Staff workflow
 
-1. Enter one Quest test code or test name per line.
+1. Enter one test code or test name per line.
 2. Select **Add best matches**.
 3. Review the draw tube, specimen type, processing, preferred and minimum volume, transport temperature, and special handling instructions.
 4. Use **Add missing test** when a test is not in the local list.
-5. Verify missing or specialty tests in the official Quest Test Directory.
+5. Verify missing or specialty tests in the official test directory.
 6. Select **Print summary / Save PDF**.
 
 The printout includes tube colors, temperature colors, specimen-type text colors, preferred volume, order of draw, a clearly counted Total to Collect section, and a temperature-separated Total to Submit bag plan.
@@ -76,7 +76,7 @@ Upload all files to the repository root, then configure **Settings → Pages** t
 
 ## Ownership and hosting
 
-Independently developed and maintained by **Sam Hay** as a personal software project and hosted through a personally controlled account. Use by any organization is subject to separate authorization and does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay.
+Independently developed and maintained by **Sam Hay** as a personal software project and hosted through a personally controlled account. Use by any organization is subject to separate authorization and does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay at any time and for any reason.
 
 ## Copyright and licensing
 
@@ -85,14 +85,14 @@ Copyright © 2026 Sam Hay. All rights reserved. No license or ownership interest
 ## Important
 
 - The calculator does not include patient-information entry fields. Do not add patient identifiers to manual test records or notes.
-- The local list is curated and is not the complete Quest menu.
-- Verify current collection requirements and service-area availability in the official Quest Test Directory before collection.
+- The local list is curated and is not the complete test menu.
+- Verify current collection requirements and service-area availability in the official test directory before collection.
 - Confirm tube additives from the label, not stopper color alone.
 - Follow facility policy and test-specific instructions.
 
 ## Version 3.5
 
-Quest code 3020 now clearly shows the required red/yellow swirl-top UA preservative tube plus the gray-top urine culture preservative tube. The printed summary also includes a transport bag plan. Room-temperature, refrigerated, frozen, and mixed/verify specimens are kept separate. SST tube estimates use a planning assumption of 2 mL usable serum/plasma per SST, round up within each temperature group, and keep dedicated/full-tube requirements separate. Staff must verify specialty instructions and actual specimen yield before collection.
+Test code 3020 now clearly shows the required red/yellow swirl-top UA preservative tube plus the gray-top urine culture preservative tube. The printed summary also includes a transport bag plan. Room-temperature, refrigerated, frozen, and mixed/verify specimens are kept separate. SST tube estimates use a planning assumption of 2 mL usable serum/plasma per SST, round up within each temperature group, and keep dedicated/full-tube requirements separate. Staff must verify specialty instructions and actual specimen yield before collection.
 
 
 ## Manual container entry
@@ -118,4 +118,4 @@ The on-screen test cart and collection summary are restored. The printout remain
 
 ## Version 5.9 update
 
-The website footer now includes a visible **Download Workplace Use Agreement** link. The link downloads `WORKPLACE_USE_AGREEMENT_TEMPLATE.md`, which remains bundled with the GitHub Pages files.
+The website footer now includes a visible **Download Workplace Use Agreement (PDF)** link. The link downloads `Sam_Hay_Workplace_Use_Agreement.pdf`. The editable Markdown template remains bundled as `WORKPLACE_USE_AGREEMENT_TEMPLATE.md`.

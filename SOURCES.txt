@@ -1,6 +1,6 @@
 Official sources reviewed for v2.7
 
-Quest Test Directory overview and specimen guidance
+Official test directory overview and specimen guidance
 - https://testdirectory.questdiagnostics.com/
 - https://www.questdiagnostics.com/healthcare-professionals/test-directory/specimen-handling/specimen-collection
 - https://www.questdiagnostics.com/healthcare-professionals/test-directory/specimen-handling/laboratory-general
@@ -29,11 +29,11 @@ Verified transfer-tube exceptions
 - 91737 Cardio IQ hs-CRP
 - 36378 ANAlyzeR panel
 
-Important: Quest requirements can vary by service area and may change. The official current test page remains the source of truth.
+Important: Test requirements can vary by service area and may change. The current official test page remains the source of truth.
 
 Additional official records corrected
 - 3102 Mercury, RBCs
 - 16265 Procalcitonin
-- 90271 von Willebrand Screen (Quest Bleeding and Thrombosis Test Menu)
+- 90271 von Willebrand Screen (bleeding and thrombosis reference menu)
 
-Quest test 70049, Neisseria gonorrhoeae RNA, TMA, Throat: https://testdirectory.questdiagnostics.com/test/test-detail/70049/neisseria-gonorrhoeae-rna-tma-throat?cc=MASTER&q=70049
+Test 70049, Neisseria gonorrhoeae RNA, TMA, Throat: https://testdirectory.questdiagnostics.com/test/test-detail/70049/neisseria-gonorrhoeae-rna-tma-throat?cc=MASTER&q=70049

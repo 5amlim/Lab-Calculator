@@ -4,7 +4,7 @@ This Software Ownership Acknowledgment and Limited Use License Agreement (the �
 
 ## 1. Software
 
-“Software” means the Quest Lab Calculator and its related source code, user interface, workflow logic, documentation, test-record structure, updates, and original materials provided or hosted by Owner. Third-party data, trademarks, and materials are excluded from Owner’s claimed ownership and remain subject to their respective owners’ rights.
+“Software” means the Lab Collection Calculator and its related source code, user interface, workflow logic, documentation, test-record structure, updates, and original materials provided or hosted by Owner. Third-party data, trademarks, and materials are excluded from Owner’s claimed ownership and remain subject to their respective owners’ rights.
 
 ## 2. Ownership acknowledgment
 
@@ -39,7 +39,7 @@ Organization shall not, and shall not permit another person to:
 
 The hosted Software is maintained through an account controlled by Owner. Organization receives access to the hosted service, not possession or ownership of the hosting account, repository, or source code.
 
-Owner may modify, suspend, or withdraw hosted access upon **[10] days’ written notice**, or immediately if Owner reasonably believes continued access creates a security, legal, patient-safety, intellectual-property, or material breach risk. Organization is responsible for maintaining an alternative workflow and business-continuity process.
+Owner may modify, suspend, or withdraw hosted access at any time and for any reason, with or without prior notice. Organization is responsible for maintaining an alternative workflow and business-continuity process.
 
 ## 6. Clinical and operational responsibility
 
@@ -54,7 +54,7 @@ The Software is a workflow aid and is not a laboratory information system, medic
 
 ## 7. Third-party materials
 
-Quest Diagnostics and other third-party names, trademarks, test information, and materials remain the property of their respective owners. This Agreement does not grant Organization rights in third-party materials. Neither Owner nor the Software represents sponsorship by or affiliation with Quest Diagnostics. Organization shall comply with applicable third-party terms and independently determine whether its intended use requires additional permission.
+Third-party laboratory names, trademarks, test information, and materials remain the property of their respective owners. This Agreement does not grant Organization rights in third-party materials. Neither Owner nor the Software represents sponsorship by, endorsement by, or affiliation with any reference laboratory or directory provider. Organization shall comply with applicable third-party terms and independently determine whether its intended use requires additional permission.
 
 ## 8. Feedback
 

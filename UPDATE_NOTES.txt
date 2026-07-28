@@ -1,12 +1,6 @@
-VERSION 5.9
-- Added a visible Download Workplace Use Agreement link to the website footer.
-- The agreement downloads from WORKPLACE_USE_AGREEMENT_TEMPLATE.md.
-- All calculator behavior and print logic remain unchanged.
+Lab Collection Calculator v6.1
 
-Quest Lab Calculator v5.8
-
-- Added “Copyright © 2026 Sam Hay. All rights reserved.” to the website and printed summary.
-- Clarified that no license or ownership interest is granted without Sam Hay’s express written authorization.
-- Added a proprietary LICENSE.md file.
-- Added a reusable WORKPLACE_USE_AGREEMENT_TEMPLATE.md for organizational use.
-- All calculator workflow and print features remain unchanged from v5.7.
+- Added a downloadable PDF version of the Workplace Use Agreement.
+- Updated the ownership notice to state that hosted access may be modified, suspended, or withdrawn at any time and for any reason.
+- Updated the agreement hosting clause to match.
+- All calculator, print, bag, badge, and data features remain unchanged.

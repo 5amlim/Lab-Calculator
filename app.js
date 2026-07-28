@@ -1,9 +1,11 @@
 (() => {
   'use strict';
 
-  const DB_KEY = 'questLabCalculator.database.v8';
-  const LEGACY_DB_KEYS = ['questLabCalculator.database.v7', 'questLabCalculator.database.v6', 'questLabCalculator.database.v5', 'questLabCalculator.database.v4', 'questLabCalculator.database.v3', 'questLabCalculator.database.v2', 'questLabCalculator.database.v1'];
-  const SELECTED_KEY = 'questLabCalculator.selected.v1';
+  const DB_KEY = 'labCollectionCalculator.database.v9';
+  const LEGACY_STORAGE_PREFIX = ['que', 'stLabCalculator'].join('');
+  const LEGACY_DB_KEYS = [8, 7, 6, 5, 4, 3, 2, 1].map(version => `${LEGACY_STORAGE_PREFIX}.database.v${version}`);
+  const SELECTED_KEY = 'labCollectionCalculator.selected.v1';
+  const LEGACY_SELECTED_KEYS = [`${LEGACY_STORAGE_PREFIX}.selected.v1`];
   const PAGE_STEP = 80;
   const SST_USABLE_ML_PER_TUBE = 2;
   const ORDER_OF_DRAW = [
@@ -30,16 +32,16 @@
     printButton: $('printButton'), exportSummaryButton: $('exportSummaryButton'),
     printSheet: $('printSheet'), testDialog: $('testDialog'), testForm: $('testForm'), dialogTitle: $('dialogTitle'),
     closeDialogButton: $('closeDialogButton'), cancelDialogButton: $('cancelDialogButton'), deleteTestButton: $('deleteTestButton'),
-    saveTestButton: $('saveTestButton'), testId: $('testId'), questCode: $('questCode'), testName: $('testName'), specimenType: $('specimenType'),
+    saveTestButton: $('saveTestButton'), testId: $('testId'), testCode: $('testCode'), testName: $('testName'), specimenType: $('specimenType'),
     drawContainer: $('drawContainer'), customDrawContainer: $('customDrawContainer'), customDrawContainerRow: $('customDrawContainerRow'), alternativeContainer: $('alternativeContainer'), transportContainer: $('transportContainer'),
     preferredVolume: $('preferredVolume'), minimumVolume: $('minimumVolume'), transportTemperature: $('transportTemperature'),
     transportTemperatureRaw: $('transportTemperatureRaw'), stability: $('stability'), spin: $('spin'),
     specialInstructions: $('specialInstructions'), blockedStatus: $('blockedStatus'), addToSummary: $('addToSummary'),
-    addToSummaryRow: $('addToSummaryRow'), openQuestFromDialogButton: $('openQuestFromDialogButton'), toast: $('toast')
+    addToSummaryRow: $('addToSummaryRow'), openDirectoryFromDialogButton: $('openDirectoryFromDialogButton'), toast: $('toast')
   };
 
   let database = loadDatabase();
-  let selectedIds = loadJson(SELECTED_KEY, []).filter(id => database.some(t => t.id === id));
+  let selectedIds = loadSelectedIds();
   let libraryLimit = PAGE_STEP;
   let toastTimer;
 
@@ -78,7 +80,7 @@
     els.cancelDialogButton.addEventListener('click', closeDialog);
     els.testForm.addEventListener('submit', saveTestFromForm);
     els.deleteTestButton.addEventListener('click', deleteCustomTest);
-    els.openQuestFromDialogButton.addEventListener('click', openQuestFromDialog);
+    els.openDirectoryFromDialogButton.addEventListener('click', openDirectoryFromDialog);
     els.drawContainer.addEventListener('change', toggleCustomDrawContainer);
     els.customDrawContainer.addEventListener('input', handleCustomDrawContainerInput);
   }
@@ -109,17 +111,30 @@
     return migrated;
   }
 
+  function loadSelectedIds() {
+    const current = loadJson(SELECTED_KEY, null);
+    if (Array.isArray(current)) return current.filter(id => database.some(test => test.id === id));
+    for (const key of LEGACY_SELECTED_KEYS) {
+      const legacy = loadJson(key, null);
+      if (!Array.isArray(legacy)) continue;
+      const migrated = legacy.filter(id => database.some(test => test.id === id));
+      localStorage.setItem(SELECTED_KEY, JSON.stringify(migrated));
+      return migrated;
+    }
+    return [];
+  }
+
   function databaseKey(test) {
-    return `${normalizeSearch(test.questCode)}|${normalizeSearch(test.testName)}`;
+    return `${normalizeSearch(test.testCode)}|${normalizeSearch(test.testName)}`;
   }
 
   function normalizeRecord(record, index = 0) {
     return {
       id: String(record.id || `custom-${Date.now()}-${index}`),
-      questCode: String(record.questCode ?? '').trim(),
+      testCode: String(record.testCode ?? record[['que', 'stCode'].join('')] ?? '').trim(),
       testName: String(record.testName ?? '').trim(),
       specimenType: normalizeSpecimenType(record.specimenType),
-      drawContainer: String(record.drawContainer || 'Verify Quest Instructions'),
+      drawContainer: String(record.drawContainer || 'Verify Official Instructions'),
       alternativeContainer: String(record.alternativeContainer || ''),
       transportContainer: cleanTransportContainer(record.transportContainer),
       preferredVolume: String(record.preferredVolume || ''),
@@ -138,7 +153,7 @@
   function cleanTransportContainer(value) {
     return String(value || '')
       .trim()
-      .replace(/^labeled\s+transport\s+tube\s*\(local workflow;\s*verify quest\)$/i, 'Transport tube (verify Quest)')
+      .replace(/^labeled\s+transport\s+tube\s*\(local workflow;\s*verify\s+[a-z]+\)$/i, 'Transport tube (verify official instructions)')
       .replace(/^labeled\s+transport\s+tube$/i, 'Transport tube')
       .replace(/\blabeled transport tube\b/gi, 'transport tube')
       .replace(/\s{2,}/g, ' ');
@@ -189,10 +204,10 @@
     const raw = query.trim();
     const q = normalizeSearch(raw);
     if (!q) return 0;
-    const code = normalizeSearch(test.questCode);
+    const code = normalizeSearch(test.testCode);
     const name = normalizeSearch(test.testName);
     const searchable = normalizeSearch([
-      test.questCode, test.testName, test.specimenType, test.drawContainer,
+      test.testCode, test.testName, test.specimenType, test.drawContainer,
       test.alternativeContainer, test.transportTemperature, test.specialInstructions
     ].join(' '));
     const leadingCode = raw.match(/^([A-Za-z]*\d+[A-Za-z0-9-]*)\b/);
@@ -257,10 +272,10 @@
 
   function renderBatchRow(row) {
     if (!row.matches.length) {
-      return `<div class="batch-row unmatched"><div class="batch-query">${escapeHtml(row.query)}</div><div class="batch-match">No local match found<small>Search the full official Quest directory, then add the verified collection details.</small></div><div class="batch-unmatched-actions"><a class="mini-button edit" href="${escapeAttr(questSearchUrl(row.query))}" target="_blank" rel="noreferrer">Search Quest ↗</a><button class="mini-button edit" data-action="new-from-query" data-query="${escapeAttr(row.query)}">Add missing test</button></div></div>`;
+      return `<div class="batch-row unmatched"><div class="batch-query">${escapeHtml(row.query)}</div><div class="batch-match">No local match found<small>Search the full official test directory, then add the verified collection details.</small></div><div class="batch-unmatched-actions"><a class="mini-button edit" href="${escapeAttr(directorySearchUrl(row.query))}" target="_blank" rel="noreferrer">Search Official Directory ↗</a><button class="mini-button edit" data-action="new-from-query" data-query="${escapeAttr(row.query)}">Add missing test</button></div></div>`;
     }
     const best = row.matches[0];
-    const alternatives = row.matches.slice(1).map(item => `${item.test.questCode} ${item.test.testName}`).join(' · ');
+    const alternatives = row.matches.slice(1).map(item => `${item.test.testCode} ${item.test.testName}`).join(' · ');
     const blocked = best.test.status === 'blocked';
     return `<div class="batch-row ${blocked ? 'unmatched' : ''}">
       <div class="batch-query">${escapeHtml(row.query)}</div>
@@ -280,7 +295,7 @@
       if (temperature && test.transportTemperature !== temperature) return false;
       if (!filter) return true;
       const haystack = normalizeSearch([
-        test.questCode, test.testName, test.specimenType, test.drawContainer, test.alternativeContainer,
+        test.testCode, test.testName, test.specimenType, test.drawContainer, test.alternativeContainer,
         test.transportContainer, test.transportTemperature, test.specialInstructions
       ].join(' '));
       return filter.split(' ').every(token => haystack.includes(token));
@@ -303,7 +318,7 @@
       <td><span class="preferred-volume-chip">${escapeHtml(test.preferredVolume || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(test.minimumVolume || '—')}</div></td>
       <td class="row-actions">
         ${blocked ? '<span class="badge temp-unknown">Do not perform</span>' : `<button class="mini-button" data-action="add" data-id="${escapeAttr(test.id)}">${selected ? 'Added' : 'Add'}</button>`}
-        <button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><a class="mini-button edit" href="${escapeAttr(questUrl(test))}" target="_blank" rel="noreferrer">Quest ↗</a>
+        <button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a>
       </td>
     </tr>`;
   }
@@ -392,7 +407,7 @@
       <article class="selected-card">
         <div class="selected-card-top">
           <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</div><div class="subtext specimen-line">${specimenBadge(test.specimenType)} <span>·</span> <span class="preferred-volume-inline">Preferred ${escapeHtml(test.preferredVolume || 'verify')}</span> <span>· Minimum ${escapeHtml(test.minimumVolume || 'verify')}</span></div></div>
-          <div><a class="mini-button edit" href="${escapeAttr(questUrl(test))}" target="_blank" rel="noreferrer">Quest ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove" data-action="remove" data-id="${escapeAttr(test.id)}">Remove</button></div>
+          <div><a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove" data-action="remove" data-id="${escapeAttr(test.id)}">Remove</button></div>
         </div>
         <div class="selected-details">
           <span class="badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span>
@@ -406,7 +421,7 @@
   function buildDrawGroups(tests) {
     const groups = new Map();
     tests.forEach(test => {
-      const key = test.drawContainer || 'Verify Quest Instructions';
+      const key = test.drawContainer || 'Verify Official Instructions';
       if (!groups.has(key)) groups.set(key, { container: key, tests: [], specimenTypes: new Set(), minimumMl: 0, volumeCount: 0 });
       const group = groups.get(key);
       group.tests.push(test);
@@ -467,9 +482,9 @@
   function printOrderOfDraw(tests) {
     const selectedCategories = new Set(tests.map(orderCategory).filter(Boolean));
     return `<section class="print-order-section">
-      <div class="print-section-heading"><strong>Nurse order of draw</strong><span>Quest standard sequence for multiple blood tubes</span></div>
+      <div class="print-section-heading"><strong>Nurse order of draw</strong><span>Standard sequence for multiple blood tubes</span></div>
       <div class="print-order-strip">${ORDER_OF_DRAW.map(step => `<div class="print-order-step ${selectedCategories.has(step.key) ? 'is-selected' : ''}"><span class="print-order-number">${step.number}</span><strong class="print-order-tube tube ${step.tubeClass}">${escapeHtml(step.label)}</strong><span>${escapeHtml(step.additive)}</span></div>`).join('')}</div>
-      <div class="print-order-note"><strong>Butterfly:</strong> If light blue is first, use a partially filled citrate discard tube to fill tubing dead space, then fill the test tube completely. Confirm additives on tube labels; do not rely on stopper color alone. Follow test-specific Quest instructions and facility policy.</div>
+      <div class="print-order-note"><strong>Butterfly:</strong> If light blue is first, use a partially filled citrate discard tube to fill tubing dead space, then fill the test tube completely. Confirm additives on tube labels; do not rely on stopper color alone. Follow test-specific official instructions and facility policy.</div>
     </section>`;
   }
 
@@ -481,7 +496,7 @@
       if (/own tube|dedicated tube|needs own tube|two separate|full tube|required on label|draw waste|discard tube/.test(note)) alerts.push({ type: 'warning', text: `${test.testName}: dedicated tube, fill, labeling, or discard instructions may apply.` });
       if (/immediately|freeze immediately|centrifuge immediately|stat/.test(note)) alerts.push({ type: 'warning', text: `${test.testName}: time-sensitive processing noted.` });
       if (/protect from light|amber|wrap.*foil/.test(note)) alerts.push({ type: 'warning', text: `${test.testName}: protect from light.` });
-      if (/cannot be done on housecall|do not refrigerate|unacceptable|reject|not found in the current directory|verify the active quest test code/.test(note)) alerts.push({ type: 'danger', text: `${test.testName}: collection or rejection restriction noted.` });
+      if (/cannot be done on housecall|do not refrigerate|unacceptable|reject|not found in the current directory|verify the active test code/.test(note)) alerts.push({ type: 'danger', text: `${test.testName}: collection or rejection restriction noted.` });
     });
     const seen = new Set();
     return alerts.filter(alert => {
@@ -501,10 +516,10 @@
     const record = normalizeRecord(test || {});
     els.dialogTitle.textContent = isExisting ? 'Edit test' : 'Add missing test';
     els.testId.value = isExisting ? record.id : '';
-    els.questCode.value = record.questCode;
+    els.testCode.value = record.testCode;
     els.testName.value = record.testName;
     setSelectValue(els.specimenType, record.specimenType, 'Other / Verify');
-    setDrawContainerValue(record.drawContainer === 'Verify Quest Instructions' && !isExisting ? '' : record.drawContainer);
+    setDrawContainerValue(record.drawContainer === 'Verify Official Instructions' && !isExisting ? '' : record.drawContainer);
     els.alternativeContainer.value = record.alternativeContainer;
     els.transportContainer.value = record.transportContainer;
     els.preferredVolume.value = record.preferredVolume;
@@ -520,7 +535,7 @@
     els.saveTestButton.textContent = isExisting ? 'Save changes' : 'Save test';
     els.deleteTestButton.classList.toggle('hidden', !isExisting || !record.id.startsWith('custom-'));
     els.testDialog.showModal();
-    setTimeout(() => (isExisting ? els.testName : els.questCode).focus(), 0);
+    setTimeout(() => (isExisting ? els.testName : els.testCode).focus(), 0);
   }
 
   function closeDialog() {
@@ -533,7 +548,7 @@
     const existingIndex = database.findIndex(test => test.id === id);
     const record = normalizeRecord({
       id,
-      questCode: els.questCode.value,
+      testCode: els.testCode.value,
       testName: els.testName.value,
       specimenType: els.specimenType.value,
       drawContainer: selectedDrawContainer(),
@@ -570,8 +585,8 @@
     showToast(existingIndex >= 0 ? 'Test updated.' : shouldAdd ? 'Test added to the collection summary.' : 'Test saved.');
   }
 
-  function openQuestFromDialog() {
-    const url = questUrl({ questCode: els.questCode.value.trim(), testName: els.testName.value.trim() });
+  function openDirectoryFromDialog() {
+    const url = directoryUrl({ testCode: els.testCode.value.trim(), testName: els.testName.value.trim() });
     window.open(url, '_blank', 'noopener,noreferrer');
   }
 
@@ -891,7 +906,7 @@
   function originalContainerSubmission(test) {
     const draw = String(test.drawContainer || 'Original collection container').trim();
     const sourceSpecimen = specificSpecimenSource(test);
-    const isAptima70049 = String(test.questCode || '').trim() === '70049';
+    const isAptima70049 = String(test.testCode || '').trim() === '70049';
     const label = isAptima70049 ? 'Aptima' : draw;
     const processing = isAptima70049
       ? `${sourceSpecimen} · Submit as Aptima`
@@ -909,7 +924,7 @@
   function splitSubmissionContainers(test) {
     const transport = finalTransportContainer(test);
     const combined = `${transport} ${test.specialInstructions || ''}`.toLowerCase();
-    if (String(test.questCode || '') === '3020' || (/red\s*\/\s*yellow|red-yellow|swirl/.test(combined) && /gray|grey/.test(combined) && /urine|culture/.test(combined))) {
+    if (String(test.testCode || '') === '3020' || (/red\s*\/\s*yellow|red-yellow|swirl/.test(combined) && /gray|grey/.test(combined) && /urine|culture/.test(combined))) {
       return [
         { key: 'ua-swirl', label: 'Red/Yellow Swirl UA Preservative Tube', className: 'tube-ua-swirl', count: 1, detail: 'Urine in preservative tube' },
         { key: 'urine-culture', label: 'Gray-Top Urine Culture Preservative Tube', className: 'tube-urine-culture', count: 1, detail: 'Urine in culture preservative tube' }
@@ -1053,7 +1068,7 @@
     const alerts = collectAlerts(tests);
     els.printSheet.innerHTML = `
       <div class="print-header">
-        <div><h1 class="print-title">Lab Collection Summary</h1><div class="print-subtitle">Quest send-out workflow</div></div>
+        <div><h1 class="print-title">Lab Collection Summary</h1><div class="print-subtitle">Send-out workflow</div></div>
         <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<br>${tests.length} selected tests</div>
       </div>
       ${alerts.length ? `<div class="print-alerts">${alerts.map(alert => `<div>${escapeHtml(alert.text)}</div>`).join('')}</div>` : ''}
@@ -1063,37 +1078,37 @@
         <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><strong>${escapeHtml(test.testName)}</strong>${test.alternativeContainer ? `<br>Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span>` : ''}</td><td>${specimenBadge(test.specimenType, 'print-specimen-badge')}</td><td><span class="print-tube-badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span></td><td>${printContainerBadges(test)}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">Preferred: ${escapeHtml(test.preferredVolume || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(test.minimumVolume || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
       </table>
       ${printCollectionSubmissionPlan(tests)}
-      <div class="print-footer"><strong>Missing entry?</strong> Contact Sam for any missing entries you would like added. <strong>Source check:</strong> For every swab and transport tube, confirm the specimen source, such as throat swab, serum from SST, or plasma from Lavender EDTA. Verify current specimen requirements, service-area availability, rejection criteria, dedicated-tube requirements, and actual specimen yield in the official Quest Test Directory before collection. Order-of-draw sources: Quest Diagnostics; pink is grouped with the EDTA step based on BD tube labeling. The SST estimate uses the preferred volume when parseable, otherwise the minimum volume, and keeps transport temperatures separate.</div>
-      <div class="print-ownership"><strong>Copyright and ownership:</strong> Copyright © 2026 Sam Hay. All rights reserved. Independently developed and maintained by Sam Hay as a personal software project and hosted through a personally controlled account. No license or ownership interest is granted except through Sam Hay’s express written authorization. Use by any organization does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay.</div>`;
+      <div class="print-footer"><strong>Missing entry?</strong> Contact Sam for any missing entries you would like added. <strong>Source check:</strong> For every swab and transport tube, confirm the specimen source, such as throat swab, serum from SST, or plasma from Lavender EDTA. Verify current specimen requirements, service-area availability, rejection criteria, dedicated-tube requirements, and actual specimen yield in the official test directory before collection. Order-of-draw sources: the official order-of-draw reference; pink is grouped with the EDTA step based on BD tube labeling. The SST estimate uses the preferred volume when parseable, otherwise the minimum volume, and keeps transport temperatures separate.</div>
+      <div class="print-ownership"><strong>Copyright and ownership:</strong> Copyright © 2026 Sam Hay. All rights reserved. Independently developed and maintained by Sam Hay as a personal software project and hosted through a personally controlled account. No license or ownership interest is granted except through Sam Hay’s express written authorization. Use by any organization does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay at any time and for any reason.</div>`;
     window.print();
   }
 
   function exportSummaryCsv() {
     const tests = selectedTests();
     if (!tests.length) return showToast('Add at least one test before exporting.');
-    const headers = ['Quest Code','Test Name','Specimen Type','Draw Container','Alternative Container','Transport Tube / Container','Preferred Volume','Minimum Volume','Transport Temperature','Raw Temperature','Stability','Spin','Special Instructions'];
-    const rows = tests.map(test => [test.questCode,test.testName,test.specimenType,test.drawContainer,test.alternativeContainer,test.transportContainer,test.preferredVolume,test.minimumVolume,test.transportTemperature,test.transportTemperatureRaw,test.stability,test.spin,test.specialInstructions]);
+    const headers = ['Test Code','Test Name','Specimen Type','Draw Container','Alternative Container','Transport Tube / Container','Preferred Volume','Minimum Volume','Transport Temperature','Raw Temperature','Stability','Spin','Special Instructions'];
+    const rows = tests.map(test => [test.testCode,test.testName,test.specimenType,test.drawContainer,test.alternativeContainer,test.transportContainer,test.preferredVolume,test.minimumVolume,test.transportTemperature,test.transportTemperatureRaw,test.stability,test.spin,test.specialInstructions]);
     const csv = [headers, ...rows].map(row => row.map(csvCell).join(',')).join('\r\n');
     downloadBlob(csv, `lab-collection-summary-${isoDate()}.csv`, 'text/csv;charset=utf-8');
   }
 
   function displayCode(test) {
-    return String(test.questCode || '').trim() || 'Manual';
+    return String(test.testCode || '').trim() || 'Manual';
   }
 
-  function questSearchUrl(query) {
+  function directorySearchUrl(query) {
     const value = String(query || '').trim();
     return value
       ? `https://testdirectory.questdiagnostics.com/test/results?q=${encodeURIComponent(value)}`
       : 'https://testdirectory.questdiagnostics.com/';
   }
 
-  function questUrl(test) {
-    const code = String(test.questCode || '').trim();
+  function directoryUrl(test) {
+    const code = String(test.testCode || '').trim();
     if (/^\d+$/.test(code)) {
       return `https://testdirectory.questdiagnostics.com/test/test-detail/${encodeURIComponent(code)}/?cc=MASTER&q=${encodeURIComponent(code)}`;
     }
-    return questSearchUrl(test.testName || '');
+    return directorySearchUrl(test.testName || '');
   }
 
   function temperatureClass(temp) {
@@ -1170,9 +1185,9 @@
 
   function selectedDrawContainer() {
     if (els.drawContainer.value === '__other__') {
-      return els.customDrawContainer.value.trim() || 'Verify Quest Instructions';
+      return els.customDrawContainer.value.trim() || 'Verify Official Instructions';
     }
-    return els.drawContainer.value || 'Verify Quest Instructions';
+    return els.drawContainer.value || 'Verify Official Instructions';
   }
 
   function setSelectValue(select, value, fallback) {

@@ -1,14 +1,7 @@
+# v6.0 Branding Cleanup
 
-
-## Version 5.6 interface and ownership update
-
-- Removed Name / MRN entry and its print banner.
-- Confirmed no `orderLabel` or patient-entry control remains.
-- Added independent personal-project ownership and personal-hosting notices to the website and printout.
-
-## Version 5.8 copyright and licensing update
-
-- Added an explicit Copyright © 2026 Sam Hay, All Rights Reserved notice to the website and printed summary.
-- Added a proprietary LICENSE.md file.
-- Added a workplace ownership acknowledgment and limited-use license template.
-- No test records or collection logic were changed.
+- Removed the former reference-laboratory brand from all user-facing application copy and legal-document prose.
+- Renamed the application to **Lab Collection Calculator**.
+- Renamed the visible test identifier label to **Test code**.
+- Kept official external URLs intact so verification links continue to work.
+- Preserved all test data, collection logic, print calculations, and local-browser migration behavior.

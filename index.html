@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Quest Lab Calculator</title>
-  <meta name="description" content="Batch-search and print-friendly specimen collection planning from a local Quest test directory spreadsheet.">
+  <title>Lab Collection Calculator</title>
+  <meta name="description" content="Batch-search and print-friendly specimen collection planning from a curated local test directory.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="app-header no-print">
     <div>
       <div class="eyebrow">SPECIMEN COLLECTION WORKFLOW</div>
-      <h1>Quest Lab Calculator</h1>
-      <p>Search multiple tests, use the live Quest directory for anything missing, and print a clean collection summary.</p>
+      <h1>Lab Collection Calculator</h1>
+      <p>Search multiple tests, use the official directory for anything missing, and print a clean collection summary.</p>
     </div>
     <div class="header-actions">
       <span class="privacy-pill">No patient information fields • Runs in this browser</span>
-      <a class="button secondary" href="https://testdirectory.questdiagnostics.com/" target="_blank" rel="noreferrer">Open Quest Directory ↗</a>
+      <a class="button secondary" href="https://testdirectory.questdiagnostics.com/" target="_blank" rel="noreferrer">Open Official Directory ↗</a>
     </div>
   </header>
 
@@ -26,7 +26,7 @@
         <div class="panel-heading">
           <div>
             <h2>1. Find tests</h2>
-            <p>Paste one test name or Quest code per line. Exact codes are prioritized.</p>
+            <p>Paste one test name or test code per line. Exact codes are prioritized.</p>
           </div>
           <div class="record-count" id="recordCount">0 tests</div>
         </div>
@@ -39,7 +39,7 @@
           <button class="button ghost" id="clearSearchButton">Clear</button>
         </div>
         <div class="search-hint">For a panel of 20 tests, paste the complete list and select <strong>Add best matches</strong>. Review the collection summary before printing.</div>
-        <div class="search-hint"><strong>Coverage:</strong> This website stores a curated local list. When a test is not found, use <strong>Search Quest</strong> to search the full official directory.</div>
+        <div class="search-hint"><strong>Coverage:</strong> This website stores a curated local list. When a test is not found, use <strong>Search Official Directory</strong> to search the full official directory.</div>
         <div class="contact-banner"><strong>Can’t find a test?</strong> Contact Sam for any missing entries you would like added.</div>
       </div>
 
@@ -108,12 +108,12 @@
       <div class="summary-section order-of-draw-section">
         <div class="summary-heading">
           <h3>Order of draw for nurses</h3>
-          <a class="reference-link" href="https://www.questdiagnostics.com/content/dam/corporate/restricted/documents/test-center/order_of_draw/order_of_draw.pdf" target="_blank" rel="noreferrer">Quest reference ↗</a>
+          <a class="reference-link" href="https://www.questdiagnostics.com/content/dam/corporate/restricted/documents/test-center/order_of_draw/order_of_draw.pdf" target="_blank" rel="noreferrer">Order-of-draw reference ↗</a>
         </div>
         <div id="orderOfDraw" class="order-of-draw" aria-label="Standard blood tube order of draw"></div>
         <div class="order-of-draw-note">
           <strong>Butterfly collection:</strong> If a light-blue citrate tube is the first specimen, draw a partially filled citrate discard tube first to fill the tubing dead space, then fill the test tube completely.<br>
-          <strong>Important:</strong> Confirm the additive on the tube label. Do not rely on stopper color alone. This sequence applies when collecting multiple blood tubes; follow test-specific Quest instructions and facility policy.
+          <strong>Important:</strong> Confirm the additive on the tube label. Do not rely on stopper color alone. This sequence applies when collecting multiple blood tubes; follow test-specific official instructions and facility policy.
         </div>
       </div>
 
@@ -130,16 +130,16 @@
         <button class="button secondary wide" id="exportSummaryButton">Download summary spreadsheet</button>
       </div>
       <div class="contact-summary"><strong>Missing an entry?</strong> Contact Sam for any missing entries you would like added.</div>
-      <p class="disclaimer">The local list is not the complete Quest menu. Verify current requirements and service-area availability in the official Quest Test Directory before collection. Manually entered information must be reviewed before use.</p>
+      <p class="disclaimer">The local list is not the complete test menu. Verify current requirements and service-area availability in the official test directory before collection. Manually entered information must be reviewed before use.</p>
     </aside>
   </main>
 
   <footer class="ownership-notice no-print" role="contentinfo">
     <div class="ownership-copy">
       <strong>Copyright and ownership notice</strong>
-      <span>Copyright © 2026 Sam Hay. All rights reserved. Independently developed and maintained by Sam Hay as a personal software project and hosted through a personally controlled account. No license or ownership interest is granted except through Sam Hay’s express written authorization. Use by any organization does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay.</span>
+      <span>Copyright © 2026 Sam Hay. All rights reserved. Independently developed and maintained by Sam Hay as a personal software project and hosted through a personally controlled account. No license or ownership interest is granted except through Sam Hay’s express written authorization. Use by any organization does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay at any time and for any reason.</span>
     </div>
-    <a class="agreement-download" href="WORKPLACE_USE_AGREEMENT_TEMPLATE.md" download="Sam_Hay_Workplace_Use_Agreement.md">Download Workplace Use Agreement</a>
+    <a class="agreement-download" href="Sam_Hay_Workplace_Use_Agreement.pdf" download="Sam_Hay_Workplace_Use_Agreement.pdf">Download Workplace Use Agreement (PDF)</a>
   </footer>
 
   <section id="printSheet" class="print-sheet" aria-hidden="true"></section>
@@ -156,11 +156,11 @@
       </div>
       <input type="hidden" id="testId">
       <div class="form-grid">
-        <label>Quest code <span class="optional">optional if unknown</span><input id="questCode" placeholder="Example: 496"></label>
-        <label>Test name<input id="testName" required placeholder="Exact Quest test name"></label>
+        <label>Test code <span class="optional">optional if unknown</span><input id="testCode" placeholder="Example: 496"></label>
+        <label>Test name<input id="testName" required placeholder="Exact test name"></label>
         <div class="dialog-lookup-row full-width">
-          <button type="button" class="button secondary" id="openQuestFromDialogButton">Search official Quest directory ↗</button>
-          <span>Use the official Quest directory to verify collection details before saving a missing test.</span>
+          <button type="button" class="button secondary" id="openDirectoryFromDialogButton">Search official test directory ↗</button>
+          <span>Use the official test directory to verify collection details before saving a missing test.</span>
         </div>
 
         <label>Specimen type<select id="specimenType">
@@ -188,7 +188,7 @@
           <option>Aptima Multitest Transport Tube (orange label)</option>
           <option>Viral transport media (VCM/M4)</option>
           <option>Do Not Collect</option>
-          <option>Verify Quest Instructions</option>
+          <option>Verify Official Instructions</option>
           <option value="__other__">Other / manually type</option>
         </select></label>
         <label id="customDrawContainerRow" class="custom-draw-container-row">Custom draw container <span class="optional">use when Other is selected</span><input id="customDrawContainer" placeholder="Type any tube, cup, swab, or collection kit" autocomplete="off"><span class="field-help">Typing here automatically selects “Other / manually type.”</span></label>
@@ -200,7 +200,7 @@
         <label>Transport temperature<select id="transportTemperature">
           <option>Room Temperature</option><option>Refrigerated</option><option>Frozen</option><option>Room / Refrigerated</option><option>Mixed</option><option>Not specified</option>
         </select></label>
-        <label>Exact temperature wording<input id="transportTemperatureRaw" placeholder="Optional wording from Quest"></label>
+        <label>Exact temperature wording<input id="transportTemperatureRaw" placeholder="Optional wording from the official directory"></label>
         <label>Stability / viability<input id="stability" placeholder="Example: 7 days refrigerated"></label>
         <label>Spin?<select id="spin"><option>Yes</option><option>No</option><option>Verify</option></select></label>
         <label class="full-width">Special handling and collection notes<textarea id="specialInstructions" rows="5" placeholder="Include timing, mixing, light protection, freezing, labeling, rejection criteria, or dedicated tube requirements."></textarea></label>
