@@ -1,8 +1,12 @@
-Version 5.6
+VERSION 5.9
+- Added a visible Download Workplace Use Agreement link to the website footer.
+- The agreement downloads from WORKPLACE_USE_AGREEMENT_TEMPLATE.md.
+- All calculator behavior and print logic remain unchanged.
 
-- Removed the Name / MRN field and patient-information banner.
-- The website no longer provides any patient-information entry field.
-- Added an ownership notice identifying the calculator and source code as Sam Hay’s independently developed personal project.
-- States that the website is hosted on Sam Hay’s personal account and maintained as Sam Hay’s personal property, not employer-owned work product.
-- Added the notice to the website and printout.
-- All other v5.5 behavior is unchanged.
+Quest Lab Calculator v5.8
+
+- Added “Copyright © 2026 Sam Hay. All rights reserved.” to the website and printed summary.
+- Clarified that no license or ownership interest is granted without Sam Hay’s express written authorization.
+- Added a proprietary LICENSE.md file.
+- Added a reusable WORKPLACE_USE_AGREEMENT_TEMPLATE.md for organizational use.
+- All calculator workflow and print features remain unchanged from v5.7.

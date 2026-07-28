@@ -1,5 +1,7 @@
-QUEST LAB CALCULATOR v5.6
+Quest Lab Calculator v5.8
 
-Upload every file in this folder to the root of the GitHub repository and commit to main.
+Upload all files in this folder to the root of the GitHub repository and commit the changes to the main branch.
 
-This version removes patient-information entry fields and adds an independent ownership notice stating that the calculator is Sam Hay’s personal project, is hosted on Sam Hay’s personal account, and is maintained as Sam Hay’s personal property.
+This version adds “Copyright © 2026 Sam Hay. All rights reserved.” to the website and printout, includes a proprietary LICENSE.md file, and includes a WORKPLACE_USE_AGREEMENT_TEMPLATE.md for organizations that receive permission to use the calculator.
+
+No patient-information field is included. Calculator workflow, data, and print features remain unchanged from v5.7.

@@ -1,7 +1,7 @@
 ## Version 5.6 updates
 
 - Removed the **Name / MRN** field and all patient-information entry from the website and printout.
-- Added an independent ownership notice stating that the calculator and source code were developed by Sam Hay as a personal project, are hosted on Sam Hay’s personal account, and are maintained as Sam Hay’s personal property rather than employer-owned work product.
+- Updated the independent-project notice to state that organizational use requires separate authorization, does not itself transfer ownership, and that access to the personally hosted version may be withdrawn.
 - Added the ownership notice to both the website and printed summary.
 - All other v5.5 behavior remains unchanged.
 
@@ -76,7 +76,11 @@ Upload all files to the repository root, then configure **Settings → Pages** t
 
 ## Ownership and hosting
 
-This calculator and its source code were independently developed by **Sam Hay** as a personal project, are hosted on Sam Hay’s personal account, and are maintained as Sam Hay’s personal property. They are not employer-owned work product.
+Independently developed and maintained by **Sam Hay** as a personal software project and hosted through a personally controlled account. Use by any organization is subject to separate authorization and does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay.
+
+## Copyright and licensing
+
+Copyright © 2026 Sam Hay. All rights reserved. No license or ownership interest is granted without express written authorization. See `LICENSE.md` for the proprietary notice and `WORKPLACE_USE_AGREEMENT_TEMPLATE.md` for a reusable organizational license template.
 
 ## Important
 
@@ -110,3 +114,8 @@ The printout no longer includes the separate Processing instructions section or 
 ## Version 5.2
 
 The on-screen test cart and collection summary are restored. The printout remains streamlined as in v5.1.
+
+
+## Version 5.9 update
+
+The website footer now includes a visible **Download Workplace Use Agreement** link. The link downloads `WORKPLACE_USE_AGREEMENT_TEMPLATE.md`, which remains bundled with the GitHub Pages files.

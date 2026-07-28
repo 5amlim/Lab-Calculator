@@ -1064,7 +1064,7 @@
       </table>
       ${printCollectionSubmissionPlan(tests)}
       <div class="print-footer"><strong>Missing entry?</strong> Contact Sam for any missing entries you would like added. <strong>Source check:</strong> For every swab and transport tube, confirm the specimen source, such as throat swab, serum from SST, or plasma from Lavender EDTA. Verify current specimen requirements, service-area availability, rejection criteria, dedicated-tube requirements, and actual specimen yield in the official Quest Test Directory before collection. Order-of-draw sources: Quest Diagnostics; pink is grouped with the EDTA step based on BD tube labeling. The SST estimate uses the preferred volume when parseable, otherwise the minimum volume, and keeps transport temperatures separate.</div>
-      <div class="print-ownership"><strong>Independent personal project:</strong> This calculator and its source code were independently developed by Sam Hay, are hosted on Sam Hay’s personal account, and are maintained as Sam Hay’s personal property. They are not employer-owned work product.</div>`;
+      <div class="print-ownership"><strong>Copyright and ownership:</strong> Copyright © 2026 Sam Hay. All rights reserved. Independently developed and maintained by Sam Hay as a personal software project and hosted through a personally controlled account. No license or ownership interest is granted except through Sam Hay’s express written authorization. Use by any organization does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay.</div>`;
     window.print();
   }
 
