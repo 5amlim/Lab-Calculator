@@ -1,8 +1,11 @@
-Version 6.5
+Version 6.6
 
-- Corrected SST collection-tube estimation so a preferred volume alone cannot make one test count as more than one SST.
-- Multiple SSTs are now counted for one test only when the collection instructions explicitly require multiple, dedicated, separate, or full SST tubes.
-- For test codes 498, 8472, and 91431 together, the calculator now estimates no more than 3 SST tubes.
-- Test codes 17169 and 36126 each contribute no more than one SST unless explicit instructions are later added.
-- Transport tubes and aliquots remain counted separately in the submission plan.
-- All v6.4 fasting alerts, collection, bag, ownership, and agreement features remain unchanged.
+Fasting preparation audit
+
+- Reviewed all 257 built-in test records for fasting requirements or recommendations.
+- Added explicit Fasting required or Fasting preferred data to 27 verified records.
+- Fasting alerts identify the affected test code, test name, and preparation instruction in the selected-test summary and printout.
+- Added fasting flags for tests including C-peptide, insulin, iron studies, metabolic panels, NMR testing, CTx, selected micronutrients, selected fatty-acid/cardiometabolic tests, the large ANA reflex panel, and other verified specialty tests.
+- Standard lipid panels remain unflagged because their current directory instructions do not require fasting when ordered as a lipid panel.
+- Improved the fasting detector to prioritize verified structured data and recognize additional fasting wording.
+- Requirements can vary by test version and service area; staff should verify unusual or changed orders in the current official directory.

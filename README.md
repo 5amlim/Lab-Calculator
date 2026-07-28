@@ -1,9 +1,13 @@
-## Version 6.5 updates
+## Version 6.6 updates
 
-- Fixed inflated SST collection counts caused by preferred volumes greater than 2 mL.
-- One test now contributes no more than one SST collection tube unless its instructions explicitly require multiple, dedicated, separate, or full SST tubes.
-- Codes 498, 8472, and 91431 together now estimate 3 SST tubes.
-- Required post-processing transport tubes and aliquots remain separate from collection-tube counts.
+### Fasting preparation audit
+
+- Reviewed all 257 built-in records for fasting requirements and recommendations.
+- Added structured fasting status and instructions to 27 verified tests.
+- Fasting notices appear in the selected-test summary and in the printout near Total to Collect, with the affected test code and name.
+- Standard lipid panels remain unflagged because fasting is not required when they are ordered as lipid panels.
+- Improved recognition of wording such as “fast 12 hours,” “fasting state,” and “fasting recommended but not required.”
+- See `DATA_AUDIT.md` for the full list of flagged records and audit limitations.
 
 ## Version 6.4 updates
 

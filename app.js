@@ -1,9 +1,10 @@
 (() => {
   'use strict';
 
-  const DB_KEY = 'labCollectionCalculator.database.v10';
+  const DB_KEY = 'labCollectionCalculator.database.v11';
+  const PRIOR_DB_KEYS = ['labCollectionCalculator.database.v10'];
   const LEGACY_STORAGE_PREFIX = ['que', 'stLabCalculator'].join('');
-  const LEGACY_DB_KEYS = [9, 8, 7, 6, 5, 4, 3, 2, 1].map(version => `${LEGACY_STORAGE_PREFIX}.database.v${version}`);
+  const LEGACY_DB_KEYS = [...PRIOR_DB_KEYS, ...[9, 8, 7, 6, 5, 4, 3, 2, 1].map(version => `${LEGACY_STORAGE_PREFIX}.database.v${version}`)];
   const SELECTED_KEY = 'labCollectionCalculator.selected.v1';
   const LEGACY_SELECTED_KEYS = [`${LEGACY_STORAGE_PREFIX}.selected.v1`];
   const PAGE_STEP = 80;
@@ -144,6 +145,8 @@
       stability: String(record.stability || ''),
       spin: String(record.spin || 'Verify'),
       specialInstructions: String(record.specialInstructions || ''),
+      fastingStatus: ['required', 'preferred'].includes(String(record.fastingStatus || '').toLowerCase()) ? String(record.fastingStatus).toLowerCase() : '',
+      fastingInstructions: String(record.fastingInstructions || '').trim(),
       status: record.status === 'blocked' ? 'blocked' : 'active',
       source: String(record.source || 'Custom entry'),
       sourceRow: record.sourceRow || null
@@ -489,19 +492,28 @@
   }
 
   function fastingRequirement(test) {
+    const explicitLevel = String(test.fastingStatus || '').toLowerCase();
+    if (explicitLevel === 'required' || explicitLevel === 'preferred') {
+      return {
+        level: explicitLevel,
+        label: explicitLevel === 'required' ? 'Fasting required' : 'Fasting preferred',
+        note: String(test.fastingInstructions || '').trim() || (explicitLevel === 'required' ? 'Fasting is required.' : 'Fasting is preferred.')
+      };
+    }
+
     const instructions = String(test.specialInstructions || '').trim();
     const combined = `${test.testName || ''} ${instructions}`.toLowerCase();
-    if (!/\bfasting\b|\bnon-fasting\b|\bovernight fast\b|\bfast for\b/.test(combined)) return null;
+    if (!/\bfasting\b|\bnon-fasting\b|\bovernight fast\b|\bfast for\b|\bfast overnight\b|\bfasting state\b/.test(combined)) return null;
 
     let level = 'verify';
-    if (/fasting (?:is )?(?:required|mandatory)|requires? (?:a )?fasting specimen|must (?:be )?fast|non-fasting[^.]{0,80}(?:unacceptable|rejected)|overnight fast[^.]{0,50}(?:required|mandatory)/.test(combined)) {
+    if (/fasting (?:is )?(?:required|mandatory)|requires? (?:a )?fasting specimen|must (?:be )?fast|patient should fast|patients? in (?:a )?fasting state|non-fasting[^.]{0,80}(?:unacceptable|rejected)|overnight fast[^.]{0,50}(?:required|mandatory)|fast for \d+/.test(combined)) {
       level = 'required';
-    } else if (/fasting (?:is )?(?:preferred|recommended)|(?:preferred|recommended)[^.]{0,40}fasting|overnight fasting (?:is )?(?:preferred|recommended)/.test(combined)) {
+    } else if (/fasting (?:is )?(?:preferred|recommended)|(?:preferred|recommended)[^.]{0,40}fasting|overnight fasting (?:is )?(?:preferred|recommended)|fasting is recommended but not required/.test(combined)) {
       level = 'preferred';
     }
 
     const sentences = instructions.split(/(?:\.\s+|;\s+)/).map(value => value.trim()).filter(Boolean);
-    const sentence = sentences.find(value => /\bfasting\b|\bnon-fasting\b|\bovernight fast\b|\bfast for\b/i.test(value));
+    const sentence = sentences.find(value => /\bfasting\b|\bnon-fasting\b|\bovernight fast\b|\bfast for\b|\bfast overnight\b|\bfasting state\b/i.test(value));
     const label = level === 'required' ? 'Fasting required' : level === 'preferred' ? 'Fasting preferred' : 'Fasting instructions — verify';
     return {
       level,

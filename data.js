@@ -260,10 +260,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room Temp",
     "stability": "4 Days",
     "spin": "Yes",
-    "specialInstructions": "SST→transport",
+    "specialInstructions": "Fast for 12 hours before collection. SST→transport",
     "status": "active",
     "source": "Lab Collection Calculator spreadsheet",
-    "sourceRow": 15
+    "sourceRow": 15,
+    "fastingStatus": "required",
+    "fastingInstructions": "Fast for 12 hours before collection."
   },
   {
     "id": "seed-16",
@@ -488,10 +490,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Refrigerated",
     "stability": "7 Days",
     "spin": "Yes",
-    "specialInstructions": "SST→transport (must have its own tube - label)",
+    "specialInstructions": "Fasting specimen required. SST→transport (must have its own tube - label)",
     "status": "active",
     "source": "Lab Collection Calculator spreadsheet",
-    "sourceRow": 27
+    "sourceRow": 27,
+    "fastingStatus": "required",
+    "fastingInstructions": "Fasting specimen required."
   },
   {
     "id": "seed-28",
@@ -507,10 +511,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room Temp",
     "stability": "6 Days",
     "spin": "Yes",
-    "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
+    "specialInstructions": "Collect in the morning from a fasting patient. Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
     "source": "Official directory reviewed 2026-07-24",
-    "sourceRow": 28
+    "sourceRow": 28,
+    "fastingStatus": "required",
+    "fastingInstructions": "Collect in the morning from a fasting patient."
   },
   {
     "id": "seed-29",
@@ -719,7 +725,9 @@ window.SEED_TESTS = [
     "specialInstructions": "Overnight fasting is preferred. Allow blood to clot, centrifuge, and submit the spun SST/gold-top tube.",
     "status": "active",
     "source": "Official directory reviewed 2026-07-24",
-    "sourceRow": 39
+    "sourceRow": 39,
+    "fastingStatus": "preferred",
+    "fastingInstructions": "Overnight fasting is preferred."
   },
   {
     "id": "seed-40",
@@ -1248,10 +1256,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room temp",
     "stability": "6 days",
     "spin": "Yes",
-    "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
+    "specialInstructions": "Collect in the morning from a fasting patient. Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
     "source": "Official directory reviewed 2026-07-24",
-    "sourceRow": 67
+    "sourceRow": 67,
+    "fastingStatus": "required",
+    "fastingInstructions": "Collect in the morning from a fasting patient."
   },
   {
     "id": "seed-68",
@@ -1533,10 +1543,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room Temp",
     "stability": "6 days",
     "spin": "Yes",
-    "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
+    "specialInstructions": "Collect in the morning from a fasting patient. Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
     "source": "Official directory reviewed 2026-07-24",
-    "sourceRow": 82
+    "sourceRow": 82,
+    "fastingStatus": "required",
+    "fastingInstructions": "Collect in the morning from a fasting patient."
   },
   {
     "id": "seed-83",
@@ -1761,10 +1773,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room temp",
     "stability": "72 hrs",
     "spin": "Yes",
-    "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
+    "specialInstructions": "Fasting is preferred. Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
     "source": "Official directory reviewed 2026-07-24",
-    "sourceRow": 94
+    "sourceRow": 94,
+    "fastingStatus": "preferred",
+    "fastingInstructions": "Fasting is preferred."
   },
   {
     "id": "seed-95",
@@ -1780,10 +1794,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room temp",
     "stability": "72 hrs",
     "spin": "Yes",
-    "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
+    "specialInstructions": "Fasting is preferred. Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
     "source": "Official directory reviewed 2026-07-24",
-    "sourceRow": 95
+    "sourceRow": 95,
+    "fastingStatus": "preferred",
+    "fastingInstructions": "Fasting is preferred."
   },
   {
     "id": "seed-96",
@@ -2711,10 +2727,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "Room temperature: unacceptable; Refrigerated: 7 days; Frozen: 8 days",
     "spin": "Yes",
-    "specialInstructions": "Draw three full 8.5 mL SST/gold-top tubes. Allow to clot for 30–60 minutes, then centrifuge each tube for 15 minutes at 1250–1600 RCF. If red-top tubes are used instead, transfer serum to transport tubes. Refrigerate.",
+    "specialInstructions": "Overnight fasting is preferred. Draw three full 8.5 mL SST/gold-top tubes. Allow to clot for 30–60 minutes, then centrifuge each tube for 15 minutes at 1250–1600 RCF. If red-top tubes are used instead, transfer serum to transport tubes. Refrigerate.",
     "status": "active",
     "source": "Official directory reviewed 2026-07-24",
-    "sourceRow": 144
+    "sourceRow": 144,
+    "fastingStatus": "preferred",
+    "fastingInstructions": "Overnight fasting is preferred."
   },
   {
     "id": "seed-145",
@@ -2825,10 +2843,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Refrigerated (unacceptable room temp)",
     "stability": "7 days",
     "spin": "Yes",
-    "specialInstructions": "Red→transport\n1. Gently invert draw tube 5X (DO NOT SHAKE).\n2. Let blood clot for 30-60 minutes at room temperature.\n3. Centrifuge for 10 minutes.\n4. Aliquot top layer from red-top draw tube and place SERUM in transport tube and dispose of draw tube. Label the transport tube as \"No Additive Serum Red\". ONLY ship No Additive Serum in transport tube.\n5. Store and transport refrigerated. It is acceptable to store frozen and ship refrigerated. Do not ship frozen on dry ice.",
+    "specialInstructions": "Fast for 12 hours before collection. Red→transport\n1. Gently invert draw tube 5X (DO NOT SHAKE).\n2. Let blood clot for 30-60 minutes at room temperature.\n3. Centrifuge for 10 minutes.\n4. Aliquot top layer from red-top draw tube and place SERUM in transport tube and dispose of draw tube. Label the transport tube as \"No Additive Serum Red\". ONLY ship No Additive Serum in transport tube.\n5. Store and transport refrigerated. It is acceptable to store frozen and ship refrigerated. Do not ship frozen on dry ice.",
     "status": "active",
     "source": "Lab Collection Calculator spreadsheet",
-    "sourceRow": 150
+    "sourceRow": 150,
+    "fastingStatus": "required",
+    "fastingInstructions": "Fast for 12 hours before collection."
   },
   {
     "id": "seed-151",
@@ -2844,10 +2864,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Refrigerated (unacceptable room temp)",
     "stability": "7 days",
     "spin": "Yes",
-    "specialInstructions": "Red→transport\n1. Gently invert draw tube 5X (DO NOT SHAKE).\n2. Let blood clot for 30-60 minutes at room temperature.\n3. Centrifuge for 10 minutes.\n4. Aliquot top layer from red-top draw tube and place SERUM in transport tube and dispose of draw tube. Label the transport tube as \"No Additive Serum Red\". ONLY ship No Additive Serum in transport tube.\n5. Store and transport refrigerated. It is acceptable to store frozen and ship refrigerated. Do not ship frozen on dry ice.",
+    "specialInstructions": "Fast for 12 hours before collection. Red→transport\n1. Gently invert draw tube 5X (DO NOT SHAKE).\n2. Let blood clot for 30-60 minutes at room temperature.\n3. Centrifuge for 10 minutes.\n4. Aliquot top layer from red-top draw tube and place SERUM in transport tube and dispose of draw tube. Label the transport tube as \"No Additive Serum Red\". ONLY ship No Additive Serum in transport tube.\n5. Store and transport refrigerated. It is acceptable to store frozen and ship refrigerated. Do not ship frozen on dry ice.",
     "status": "active",
     "source": "Lab Collection Calculator spreadsheet",
-    "sourceRow": 151
+    "sourceRow": 151,
+    "fastingStatus": "required",
+    "fastingInstructions": "Fast for 12 hours before collection."
   },
   {
     "id": "seed-152",
@@ -3015,10 +3037,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room Temp",
     "stability": "7 days",
     "spin": "Yes",
-    "specialInstructions": "Lavender- EDTA (Centrifuge sample to separate plasma from cells. Transfer plasma to a plastic specimen transport container and mark the specimen type as plasma on the container)",
+    "specialInstructions": "Fasting is preferred but not required. Lavender- EDTA (Centrifuge sample to separate plasma from cells. Transfer plasma to a plastic specimen transport container and mark the specimen type as plasma on the container)",
     "status": "active",
     "source": "Lab Collection Calculator spreadsheet",
-    "sourceRow": 160
+    "sourceRow": 160,
+    "fastingStatus": "preferred",
+    "fastingInstructions": "Fasting is preferred but not required."
   },
   {
     "id": "seed-161",
@@ -3110,10 +3134,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Refrigerated",
     "stability": "7 Days",
     "spin": "Yes",
-    "specialInstructions": "SST→transport (must have its own tube - Label)",
+    "specialInstructions": "Fasting specimen required. SST→transport (must have its own tube - Label)",
     "status": "active",
     "source": "Lab Collection Calculator spreadsheet",
-    "sourceRow": 165
+    "sourceRow": 165,
+    "fastingStatus": "required",
+    "fastingInstructions": "Fasting specimen required."
   },
   {
     "id": "seed-166",
@@ -3224,10 +3250,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Refrigerated",
     "stability": "70 days",
     "spin": "No",
-    "specialInstructions": "Lavender - EDTA\n1. Collect and label sample according to standard protocols.\n2. Gently invert tube 8-10 times immediately after draw. DO NOT SHAKE.\n3. Do not centrifuge.\n4. Store and transport refrigerated.",
+    "specialInstructions": "Fasting is preferred but not required. Lavender - EDTA\n1. Collect and label sample according to standard protocols.\n2. Gently invert tube 8-10 times immediately after draw. DO NOT SHAKE.\n3. Do not centrifuge.\n4. Store and transport refrigerated.",
     "status": "active",
     "source": "Lab Collection Calculator spreadsheet",
-    "sourceRow": 171
+    "sourceRow": 171,
+    "fastingStatus": "preferred",
+    "fastingInstructions": "Fasting is preferred but not required."
   },
   {
     "id": "seed-172",
@@ -3300,10 +3328,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Refrigerated",
     "stability": "23 days",
     "spin": "Yes",
-    "specialInstructions": "SST→transport",
+    "specialInstructions": "Fast overnight and avoid fish and seafood the day before collection. SST→transport",
     "status": "active",
     "source": "Lab Collection Calculator spreadsheet",
-    "sourceRow": 175
+    "sourceRow": 175,
+    "fastingStatus": "required",
+    "fastingInstructions": "Fast overnight and avoid fish and seafood the day before collection."
   },
   {
     "id": "seed-176",
@@ -3376,10 +3406,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room temp",
     "stability": "5 days",
     "spin": "Yes",
-    "specialInstructions": "SST→transport",
+    "specialInstructions": "Overnight fasting is preferred. SST→transport",
     "status": "active",
     "source": "Lab Collection Calculator spreadsheet",
-    "sourceRow": 179
+    "sourceRow": 179,
+    "fastingStatus": "preferred",
+    "fastingInstructions": "Overnight fasting is preferred."
   },
   {
     "id": "seed-180",
@@ -3398,7 +3430,9 @@ window.SEED_TESTS = [
     "specialInstructions": "Allow blood to clot, centrifuge, and submit the spun SST/gold-top tube. Overnight fasting is preferred.",
     "status": "active",
     "source": "Official directory reviewed 2026-07-24",
-    "sourceRow": 180
+    "sourceRow": 180,
+    "fastingStatus": "preferred",
+    "fastingInstructions": "Overnight fasting is preferred."
   },
   {
     "id": "seed-181",
@@ -3528,10 +3562,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Frozen",
     "stability": "35 ays",
     "spin": "Yes",
-    "specialInstructions": "2 mL whole blood collected in an EDTA (lavender-top) tube - protected from light",
+    "specialInstructions": "Overnight fasting is required. 2 mL whole blood collected in an EDTA (lavender-top) tube - protected from light",
     "status": "active",
     "source": "Lab Collection Calculator spreadsheet",
-    "sourceRow": 187
+    "sourceRow": 187,
+    "fastingStatus": "required",
+    "fastingInstructions": "Overnight fasting is required."
   },
   {
     "id": "seed-188",
@@ -3737,10 +3773,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "FROZEN",
     "stability": "90 days",
     "spin": "Yes",
-    "specialInstructions": "SST→Allow blood to clot (30-60 minutes) at room temperature → Centrifuge and separate the serum from the cells → transfer serum to a clean transport tube. Freeze as soon as possible",
+    "specialInstructions": "Fast for at least 12 hours and collect in the morning, preferably between 8:00 and 10:00 AM. SST→Allow blood to clot (30-60 minutes) at room temperature → Centrifuge and separate the serum from the cells → transfer serum to a clean transport tube. Freeze as soon as possible",
     "status": "active",
     "source": "Lab Collection Calculator spreadsheet",
-    "sourceRow": 198
+    "sourceRow": 198,
+    "fastingStatus": "required",
+    "fastingInstructions": "Fast for at least 12 hours and collect in the morning, preferably between 8:00 and 10:00 AM."
   },
   {
     "id": "seed-199",
@@ -3797,7 +3835,9 @@ window.SEED_TESTS = [
     "specialInstructions": "Overnight fasting is preferred. Collect in a red-top tube (no gel), allow to clot, centrifuge, transfer serum to a transport tube, and freeze. Specify age and sex on the requisition. SST is not acceptable.",
     "status": "active",
     "source": "Official test directory reviewed 2026-07-24",
-    "sourceRow": 201
+    "sourceRow": 201,
+    "fastingStatus": "preferred",
+    "fastingInstructions": "Overnight fasting is preferred."
   },
   {
     "id": "seed-202",
@@ -4725,10 +4765,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "XXX",
     "stability": "XXX",
     "spin": "XXX",
-    "specialInstructions": "Do not perform at SH",
+    "specialInstructions": "Overnight fasting is preferred. Avoid fruit and vitamin C supplements for 24 hours before collection. Do not perform at SH",
     "status": "blocked",
     "source": "Lab Collection Calculator spreadsheet",
-    "sourceRow": 250
+    "sourceRow": 250,
+    "fastingStatus": "preferred",
+    "fastingInstructions": "Overnight fasting is preferred. Avoid fruit and vitamin C supplements for 24 hours before collection."
   },
   {
     "id": "seed-251",
@@ -4744,10 +4786,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "XXX",
     "stability": "XXX",
     "spin": "XXX",
-    "specialInstructions": "Do not perform at SH",
+    "specialInstructions": "Overnight fasting is required. Do not perform at SH",
     "status": "blocked",
     "source": "Lab Collection Calculator spreadsheet",
-    "sourceRow": 251
+    "sourceRow": 251,
+    "fastingStatus": "required",
+    "fastingInstructions": "Overnight fasting is required."
   },
   {
     "id": "seed-252",
@@ -4763,10 +4807,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "XXX",
     "stability": "XXX",
     "spin": "XXX",
-    "specialInstructions": "Do not perform at SH",
+    "specialInstructions": "Overnight fasting is required. Do not perform at SH",
     "status": "blocked",
     "source": "Lab Collection Calculator spreadsheet",
-    "sourceRow": 252
+    "sourceRow": 252,
+    "fastingStatus": "required",
+    "fastingInstructions": "Overnight fasting is required."
   },
   {
     "id": "seed-253",
@@ -4782,10 +4828,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "XXX",
     "stability": "XXX",
     "spin": "XXX",
-    "specialInstructions": "Do not perform at SH",
+    "specialInstructions": "Fasting is recommended but not required. Do not perform at SH",
     "status": "blocked",
     "source": "Lab Collection Calculator spreadsheet",
-    "sourceRow": 253
+    "sourceRow": 253,
+    "fastingStatus": "preferred",
+    "fastingInstructions": "Fasting is recommended but not required."
   },
   {
     "id": "seed-254",
@@ -4820,10 +4868,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room temperature",
     "stability": "Room temperature: 14 days; Refrigerated: 14 days; Frozen: 30 days",
     "spin": "No onsite collection",
-    "specialInstructions": "DO NOT COLLECT ONSITE. This test requires a fasting specimen in a red-top tube (no gel) and the blood must clot for 1 hour at 37°C in a water bath, incubator, heat block, or heel warmer before centrifugation. Our site cannot incubate tubes or use a hot bath. Refer the patient to a collection site that can perform the required 37°C handling. SST is unacceptable.",
+    "specialInstructions": "Fasting specimen required. DO NOT COLLECT ONSITE. This test requires a fasting specimen in a red-top tube (no gel) and the blood must clot for 1 hour at 37°C in a water bath, incubator, heat block, or heel warmer before centrifugation. Our site cannot incubate tubes or use a hot bath. Refer the patient to a collection site that can perform the required 37°C handling. SST is unacceptable.",
     "status": "blocked",
     "source": "Official directory reviewed 2026-07-28",
-    "sourceRow": 255
+    "sourceRow": 255,
+    "fastingStatus": "required",
+    "fastingInstructions": "Fasting specimen required."
   },
   {
     "id": "seed-256",
@@ -4842,7 +4892,9 @@ window.SEED_TESTS = [
     "specialInstructions": "Overnight fasting is preferred. Draw without anticoagulant in a red-top tube and allow to clot. Centrifuge, split the serum into 2 separate transport tubes, and freeze both within 1 hour of collection. Submit both tubes frozen. Do not submit refrigerated, room-temperature, or thawed specimens.",
     "status": "active",
     "source": "Official directory reviewed 2026-07-28",
-    "sourceRow": 256
+    "sourceRow": 256,
+    "fastingStatus": "preferred",
+    "fastingInstructions": "Overnight fasting is preferred."
   },
   {
     "id": "seed-257",
@@ -4858,10 +4910,12 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Frozen",
     "stability": "Refrigerated: 7 days; Frozen: 28 days; room temperature is unacceptable",
     "spin": "Yes",
-    "specialInstructions": "Overnight fasting is required for adults; no alcohol for 24 hours before collection. For pediatric patients, collect before the next meal or scheduled feeding. Draw in a red-top tube with no gel, allow to clot, centrifuge, transfer serum to a transport tube, and freeze. Lavender EDTA plasma is an alternative. Patient age and gender are required. SST, hemolyzed, lipemic, and non-fasting adult specimens are unacceptable.",
+    "specialInstructions": "Overnight fasting is required for adults. For pediatric patients, collect before the next meal or scheduled feeding. Draw in a red-top tube with no gel, allow to clot, centrifuge, transfer serum to a transport tube, and freeze. Lavender EDTA plasma is an alternative. Patient age and gender are required. SST, hemolyzed, lipemic, and non-fasting adult specimens are unacceptable.",
     "status": "active",
     "source": "Official directory reviewed 2026-07-28",
-    "sourceRow": 257
+    "sourceRow": 257,
+    "fastingStatus": "required",
+    "fastingInstructions": "Overnight fasting is required for adults. For pediatric patients, collect before the next meal or scheduled feeding."
   },
   {
     "id": "seed-258",

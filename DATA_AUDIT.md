@@ -1,17 +1,53 @@
-# Version 6.5 Tube-Count Audit
+# Version 6.6 Fasting Preparation Audit
 
-## Corrected SST estimation rule
+## Scope
 
-The previous estimator could count a single test as two SST collection tubes when its preferred serum volume exceeded the calculator's 2 mL usable-volume assumption. The estimator now caps each test's volume contribution at one SST unless the record explicitly requires multiple, dedicated, separate, or full SST tubes.
+All 257 built-in test records were reviewed for fasting-related patient preparation. Records with plausible fasting considerations were checked against current official test-directory entries or current performing-laboratory instructions.
 
-## Reviewed test codes
+## Results
 
-- 498 — Hepatitis B Surface Antigen with Reflex Confirmation
-- 8472 — Hepatitis C Antibody with Reflex to HCV, RNA, Quantitative, Real-Time PCR
-- 91431 — HIV-1/2 Antigen and Antibodies, Fourth Generation, with Reflexes
-- 17169 — Herpes Simplex Virus 1 and 2 (IgG), with Reflex to HSV-2 Inhibition
-- 36126 — RPR (Diagnosis) with Reflex to Titer and Treponema pallidum Antibody, IA
+- 15 records are explicitly marked **Fasting required**.
+- 12 records are explicitly marked **Fasting preferred**.
+- Records whose current instructions state no preparation, no fasting requirement, or no fasting preference remain unflagged.
+- Standard lipid panels remain unflagged because fasting is not required when they are ordered as lipid panels.
 
-For codes 498, 8472, and 91431 selected together at room temperature, the collection estimate is now 3 SST tubes, not 6–7 tubes. Codes 17169 and 36126 each add no more than one SST unless a future verified instruction explicitly requires more.
+## Required fasting records
 
-Transport tubes required after centrifugation are still shown separately under what to submit after processing.
+- 372 — C-Peptide
+- 561 — Insulin
+- 571 — Iron, Total
+- 5616 — Iron/TIBC and Ferritin Panel
+- 7573 — Iron, Total and TIBC
+- 37847 — Lipoprotein Fractionation, NMR
+- 37849 — Lipoprotein Fractionation, NMR with Lipid Panel
+- 91731 — Cardio IQ Insulin
+- 17406 — Collagen Type I C-Telopeptide (CTx)
+- 10189 — Micronutrient Vitamin B1
+- 94154 — TMAO
+- Vitamin E — blocked/local do-not-perform record
+- Vitamin B6 — blocked/local do-not-perform record
+- 36562 — Cryoglobulin, do not collect onsite
+- 90559 — Very Long Chain Fatty Acids
+
+## Preferred fasting records
+
+- 10165 — Basic Metabolic Panel
+- 10231 — Comprehensive Metabolic Panel
+- 746 — Prolactin
+- 549 — Immunofixation, Serum
+- 747 — Serum Protein Electrophoresis
+- 19894 — DHEA, Unconjugated
+- 37859 — Complement C3, C4, CH50
+- 92701 — OmegaCheck
+- 91001 — Omega-3 and Omega-6 Fatty Acids
+- Vitamin C — blocked/local do-not-perform record
+- 36378 — ANAlyzeR ANA Reflex Panel
+- ADMA/SDMA — blocked/local do-not-perform record
+
+## Display behavior
+
+The calculator stores verified fasting status separately from free-text notes. The selected-test summary and printed collection plan show the status, preparation instruction, test code, and test name.
+
+## Limitations
+
+Directory requirements may change and can differ by service area or orderable test version. This audit records the instructions verified for the current built-in test list; staff should confirm unusual, specialty, or recently changed orders in the current official directory.
