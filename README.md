@@ -118,4 +118,4 @@ The on-screen test cart and collection summary are restored. The printout remain
 
 ## Version 5.9 update
 
-The website footer now includes a visible **Download Workplace Use Agreement (PDF)** link. The link downloads `Sam_Hay_Workplace_Use_Agreement.pdf`. The editable Markdown template remains bundled as `WORKPLACE_USE_AGREEMENT_TEMPLATE.md`.
+The website footer now includes a visible **Download Editable Workplace Use Agreement** link. The link downloads `Sam_Hay_Workplace_Use_Agreement.docx`, which can be edited in Microsoft Word, Google Docs, or compatible software. The Markdown template remains bundled as `WORKPLACE_USE_AGREEMENT_TEMPLATE.md`.

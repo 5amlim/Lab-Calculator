@@ -1,6 +1,4 @@
-Lab Collection Calculator v6.1
-
-- Added a downloadable PDF version of the Workplace Use Agreement.
-- Updated the ownership notice to state that hosted access may be modified, suspended, or withdrawn at any time and for any reason.
-- Updated the agreement hosting clause to match.
-- All calculator, print, bag, badge, and data features remain unchanged.
+Version 6.2
+- Replaced the PDF agreement download with an editable Word document (.docx).
+- Kept the editable Markdown agreement template.
+- Calculator features and data are unchanged.
