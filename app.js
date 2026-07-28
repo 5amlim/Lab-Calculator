@@ -708,11 +708,14 @@
       const plannedMl = preferredMl === null ? fallbackMl : preferredMl;
       const explicitCount = explicitSstTubeCount(test);
 
+      // A preferred specimen volume alone must never make one test count as
+      // more than one collection SST. Only explicit collection instructions
+      // such as “2 SST tubes,” “separate tube,” or “dedicated tube” can add
+      // additional collection tubes for a single test.
       if (requiresDedicatedSst(test)) {
-        const calculated = plannedMl === null ? 1 : Math.ceil(plannedMl / SST_USABLE_ML_PER_TUBE);
-        dedicatedTubes += Math.max(explicitCount, calculated, 1);
+        dedicatedTubes += Math.max(explicitCount, 1);
       } else if (plannedMl !== null) {
-        sharedMl += plannedMl;
+        sharedMl += Math.min(plannedMl, SST_USABLE_ML_PER_TUBE);
       } else {
         unmeasuredTubes += 1;
         unmeasuredTests.push(test.testName);

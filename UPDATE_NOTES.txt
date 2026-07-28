@@ -1,7 +1,8 @@
-Version 6.4
+Version 6.5
 
-- Added a print-only fasting instructions panel directly below Total to Collect.
-- The panel states whether fasting is required or preferred and identifies each affected test by code and name.
-- Added fasting badges to affected tests in the on-screen selected-test summary and printed test list.
-- The fasting note is extracted from the test's collection instructions so staff can see the specific requirement.
-- All v6.3 collection, tube, bag, and legal-notice features remain unchanged.
+- Corrected SST collection-tube estimation so a preferred volume alone cannot make one test count as more than one SST.
+- Multiple SSTs are now counted for one test only when the collection instructions explicitly require multiple, dedicated, separate, or full SST tubes.
+- For test codes 498, 8472, and 91431 together, the calculator now estimates no more than 3 SST tubes.
+- Test codes 17169 and 36126 each contribute no more than one SST unless explicit instructions are later added.
+- Transport tubes and aliquots remain counted separately in the submission plan.
+- All v6.4 fasting alerts, collection, bag, ownership, and agreement features remain unchanged.

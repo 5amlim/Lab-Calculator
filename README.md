@@ -1,3 +1,10 @@
+## Version 6.5 updates
+
+- Fixed inflated SST collection counts caused by preferred volumes greater than 2 mL.
+- One test now contributes no more than one SST collection tube unless its instructions explicitly require multiple, dedicated, separate, or full SST tubes.
+- Codes 498, 8472, and 91431 together now estimate 3 SST tubes.
+- Required post-processing transport tubes and aliquots remain separate from collection-tube counts.
+
 ## Version 6.4 updates
 
 - Added a prominent fasting-instructions panel directly below **Total to Collect** on the printout.

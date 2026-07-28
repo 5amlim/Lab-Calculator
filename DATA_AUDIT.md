@@ -1,18 +1,17 @@
-# v6.0 Branding Cleanup
+# Version 6.5 Tube-Count Audit
 
-- Removed the former reference-laboratory brand from all user-facing application copy and legal-document prose.
-- Renamed the application to **Lab Collection Calculator**.
-- Renamed the visible test identifier label to **Test code**.
-- Kept official external URLs intact so verification links continue to work.
-- Preserved all test data, collection logic, print calculations, and local-browser migration behavior.
+## Corrected SST estimation rule
 
-## 2026-07-28 additions
+The previous estimator could count a single test as two SST collection tubes when its preferred serum volume exceeded the calculator's 2 mL usable-volume assumption. The estimator now caps each test's volume contribution at one SST unless the record explicitly requires multiple, dedicated, separate, or full SST tubes.
 
-- 36562 — Cryoglobulin (% Cryocrit), Serum: blocked onsite because required 37°C clot incubation is unavailable.
-- 37859 — Complement Component C3, C4, CH50: red-top serum, split into two frozen transport tubes within 1 hour.
-- 90559 — Very Long Chain Fatty Acids: fasting red-top serum preferred, transfer and freeze; EDTA plasma alternative.
-- 94612 — Copper-Free, Serum/Plasma: trace-metal-free royal-blue collection, transfer to acid-washed/trace-metal-free vial, room temperature.
+## Reviewed test codes
 
-## Version 6.4 display update
+- 498 — Hepatitis B Surface Antigen with Reflex Confirmation
+- 8472 — Hepatitis C Antibody with Reflex to HCV, RNA, Quantitative, Real-Time PCR
+- 91431 — HIV-1/2 Antigen and Antibodies, Fourth Generation, with Reflexes
+- 17169 — Herpes Simplex Virus 1 and 2 (IgG), with Reflex to HSV-2 Inhibition
+- 36126 — RPR (Diagnosis) with Reflex to Titer and Treponema pallidum Antibody, IA
 
-Fasting instructions are now surfaced from existing test records. The calculator distinguishes required, preferred, and verify statuses, lists the affected tests beside Total to Collect on the printout, and marks the same tests in the summary list.
+For codes 498, 8472, and 91431 selected together at room temperature, the collection estimate is now 3 SST tubes, not 6–7 tubes. Codes 17169 and 36126 each add no more than one SST unless a future verified instruction explicitly requires more.
+
+Transport tubes required after centrifugation are still shown separately under what to submit after processing.
