@@ -1,9 +1,9 @@
 (() => {
   'use strict';
 
-  const DB_KEY = 'labCollectionCalculator.database.v9';
+  const DB_KEY = 'labCollectionCalculator.database.v10';
   const LEGACY_STORAGE_PREFIX = ['que', 'stLabCalculator'].join('');
-  const LEGACY_DB_KEYS = [8, 7, 6, 5, 4, 3, 2, 1].map(version => `${LEGACY_STORAGE_PREFIX}.database.v${version}`);
+  const LEGACY_DB_KEYS = [9, 8, 7, 6, 5, 4, 3, 2, 1].map(version => `${LEGACY_STORAGE_PREFIX}.database.v${version}`);
   const SELECTED_KEY = 'labCollectionCalculator.selected.v1';
   const LEGACY_SELECTED_KEYS = [`${LEGACY_STORAGE_PREFIX}.selected.v1`];
   const PAGE_STEP = 80;

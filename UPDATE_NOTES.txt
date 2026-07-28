@@ -1,4 +1,6 @@
-Version 6.2
-- Replaced the PDF agreement download with an editable Word document (.docx).
-- Kept the editable Markdown agreement template.
-- Calculator features and data are unchanged.
+Version 6.3
+
+- Added test codes 36562, 37859, 90559, and 94612 using current official directory requirements.
+- Code 36562 is blocked for onsite collection because it requires clotting at 37°C in a water bath, incubator, heat block, or heel warmer.
+- Added clear draw, processing, transport-container, volume, temperature, and rejection instructions for the three active tests.
+- Published data refresh preserves staff-created custom tests.

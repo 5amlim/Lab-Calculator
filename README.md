@@ -1,3 +1,10 @@
+## Version 6.3 updates
+
+- Added test codes **36562**, **37859**, **90559**, and **94612** from the current official test directory.
+- **36562 Cryoglobulin (% Cryocrit), Serum** is marked **Do Not Collect Onsite** because it requires the specimen to clot for 1 hour at 37°C in a water bath, incubator, heat block, or heel warmer.
+- Added collection and processing details for frozen complement serum aliquots, very-long-chain fatty acids, and copper-free serum/plasma.
+- The database refresh preserves staff-created custom tests.
+
 ## Version 5.6 updates
 
 - Removed the **Name / MRN** field and all patient-information entry from the website and printout.
