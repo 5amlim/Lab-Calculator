@@ -220,7 +220,8 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-order-step { min-height: 39px; border: 1px solid #d4dcdf; border-radius: 4px; padding: 4px 3px; font-size: 6.8px; line-height: 1.2; background: #fafbfb; }
   .print-order-step.is-selected { border: 1.5px solid #2e6973; background: #eaf5f6; }
   .print-order-step strong { display: block; margin: 2px 0 1px; font-size: 7.2px; }
-  .print-order-step span:last-child { color: #59666c; }
+  .print-order-step .order-tube-group { display: flex; margin: 2px 0 2px; }
+  .print-order-additive { display: block; clear: both; margin-top: 2px; color: #59666c; }
   .print-order-number { display: inline-flex; width: 12px; height: 12px; align-items: center; justify-content: center; border-radius: 999px; background: #dfe7e9; font-weight: 900; color: #213940; }
   .print-order-note { margin-top: 5px; color: #4e5a60; font-size: 7px; line-height: 1.3; }
 }

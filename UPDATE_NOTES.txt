@@ -1,7 +1,6 @@
-Version 7.0
-- Corrected trace-metal transport-tube source labels so Royal Blue EDTA is never shown as Lavender EDTA and Royal Blue No Additive is never shown as Red Top.
-- Code 363 Copper now shows plasma from Royal Blue EDTA (purple stripe).
-- Code 16599 Iodine, Serum/Plasma now shows serum from Royal Blue No Additive (red stripe).
-- Grouped Royal Blue EDTA, Royal Blue No Additive, and Royal Blue Sodium Heparin into one Royal Blue nurse order-of-draw step.
-- Royal Blue No Additive is no longer grouped with ordinary Red Top tubes.
-- Audited and corrected all built-in trace-metal / royal-blue records, including Magnesium RBC, Lead, Mercury, Copper RBC, Selenium Blood, Zinc RBC, Selenium RBC, and Copper-Free Serum/Plasma.
+Version 7.1
+
+- Print-only order-of-draw layout cleanup.
+- Tube color/name and additive now appear on separate lines.
+- Existing verify wording was retained.
+- No data or collection logic changed.

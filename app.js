@@ -505,7 +505,7 @@
     const selectedCategories = new Set(tests.map(orderCategory).filter(Boolean));
     return `<section class="print-order-section">
       <div class="print-section-heading"><strong>Nurse order of draw</strong><span>Standard sequence for multiple blood tubes</span></div>
-      <div class="print-order-strip">${ORDER_OF_DRAW.map(step => `<div class="print-order-step ${selectedCategories.has(step.key) ? 'is-selected' : ''}"><span class="print-order-number">${step.number}</span>${orderTubeMarkup(step, true)}<span>${escapeHtml(step.additive)}</span></div>`).join('')}</div>
+      <div class="print-order-strip">${ORDER_OF_DRAW.map(step => `<div class="print-order-step ${selectedCategories.has(step.key) ? 'is-selected' : ''}"><span class="print-order-number">${step.number}</span>${orderTubeMarkup(step, true)}<span class="print-order-additive">${escapeHtml(step.additive)}</span></div>`).join('')}</div>
       <div class="print-order-note"><strong>Butterfly:</strong> If light blue is first, use a partially filled citrate discard tube to fill tubing dead space, then fill the test tube completely. Confirm additives on tube labels; do not rely on stopper color alone. Follow test-specific official instructions and facility policy.</div>
     </section>`;
   }

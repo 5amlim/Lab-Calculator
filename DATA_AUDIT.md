@@ -108,3 +108,8 @@ This audit covers the calculator’s current built-in test list, not every test 
 - Confirmed 363 Copper and 16599 Iodine require an acid-washed/metal-free transport vial after separation from their Royal Blue source tubes.
 - Confirmed 94612 Copper-Free uses Royal Blue No Additive serum or Royal Blue EDTA plasma followed by an acid-washed/trace-metal-free vial.
 
+
+
+## Version 7.1 display-only update
+
+The printed order-of-draw cards now place the tube color/name and additive on separate lines. Existing verify wording and all data logic remain unchanged.
