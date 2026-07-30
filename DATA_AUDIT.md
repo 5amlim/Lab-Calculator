@@ -84,7 +84,27 @@ This audit covers the calculator’s current built-in test list, not every test 
 - Fixed a browser-data migration issue that could leave older built-in tube labels in place.
 - Order-of-draw detection now reads the preferred draw container only. Alternative containers do not imply that an additional tube should be drawn.
 - Green Sodium Heparin and Green Lithium Heparin as the preferred draw tube activate the heparin step.
-- Royal Blue EDTA tubes are labeled with a purple stripe and follow the Royal Blue EDTA order-of-draw step.
-- Royal Blue No Additive tubes are labeled with a red stripe and follow the serum/no-additive step.
-- Royal Blue Sodium Heparin remains additive-specific and follows the heparin step.
+- Royal Blue EDTA tubes are labeled with a purple stripe.
+- Royal Blue No Additive tubes are labeled with a red stripe.
+- Royal Blue Sodium Heparin remains additive-specific.
+- Superseded in v7.0: all Royal Blue tubes now appear together in one dedicated Royal Blue order-of-draw step.
 - Staff should verify the additive on the tube label and not rely on stopper color alone.
+
+## Royal-blue source and order-of-draw correction — 2026-07-30
+
+- Corrected a matching-order defect that caused Royal Blue EDTA (purple stripe) to display as Lavender EDTA in processed-specimen source text.
+- Corrected a matching-order defect that caused Royal Blue No Additive (red stripe) to display as Red Top in processed-specimen source text.
+- Code 363 Copper now identifies the processed specimen as plasma from Royal Blue EDTA (purple stripe).
+- Code 16599 Iodine, Serum/Plasma now identifies the processed specimen as serum from Royal Blue No Additive (red stripe).
+- All royal-blue tubes are grouped together in the nurse order-of-draw panel; the stripe/additive remains explicit on each tube badge.
+
+## Comprehensive Royal Blue / trace-metal audit — 2026-07-30
+
+- Reviewed every built-in record containing a Royal Blue or trace-metal collection instruction.
+- Corrected source attribution so processed specimens retain the exact original collection tube: Royal Blue EDTA (purple stripe), Royal Blue No Additive (red stripe), or Royal Blue Sodium Heparin.
+- Consolidated all Royal Blue tubes into one nurse order-of-draw step; individual collection and submission badges still identify the stripe and additive.
+- Corrected 623 Magnesium, RBC to the packed-RBC workflow: Lavender EDTA or Royal Blue Sodium Heparin collection, centrifuge, discard plasma, transfer RBCs to a trace-element/metal-free vial, refrigerate.
+- Corrected 599 Lead (Venous), 6296 Selenium Blood, 6354 Zinc RBC, 3481 Copper RBC, and 17133 Selenium RBC collection/processing details.
+- Confirmed 363 Copper and 16599 Iodine require an acid-washed/metal-free transport vial after separation from their Royal Blue source tubes.
+- Confirmed 94612 Copper-Free uses Royal Blue No Additive serum or Royal Blue EDTA plasma followed by an acid-washed/trace-metal-free vial.
+

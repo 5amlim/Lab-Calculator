@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
-  const DB_KEY = 'labCollectionCalculator.database.v14';
-  const PRIOR_DB_KEYS = ['labCollectionCalculator.database.v13', 'labCollectionCalculator.database.v12', 'labCollectionCalculator.database.v11'];
+  const DB_KEY = 'labCollectionCalculator.database.v16';
+  const PRIOR_DB_KEYS = ['labCollectionCalculator.database.v15', 'labCollectionCalculator.database.v14', 'labCollectionCalculator.database.v13', 'labCollectionCalculator.database.v12', 'labCollectionCalculator.database.v11'];
   const LEGACY_STORAGE_PREFIX = ['que', 'stLabCalculator'].join('');
   const LEGACY_DB_KEYS = [...PRIOR_DB_KEYS, ...[9, 8, 7, 6, 5, 4, 3, 2, 1].map(version => `${LEGACY_STORAGE_PREFIX}.database.v${version}`)];
   const SELECTED_KEY = 'labCollectionCalculator.selected.v1';
@@ -13,18 +13,16 @@
     { key: 'culture', number: 1, label: 'Blood cultures', additive: 'See bottle label', tubeClass: 'tube-culture' },
     { key: 'citrate', number: 2, label: 'Light blue', additive: 'Sodium citrate', tubeClass: 'tube-blue' },
     { key: 'sst', number: 3, label: 'Gold / SST', additive: 'Gel, serum', tubeClass: 'tube-sst' },
-    {
-      key: 'serum',
-      number: 4,
-      label: 'Red',
-      additive: 'No additive, serum',
-      tubeClass: 'tube-red',
-      secondaryLabel: 'Royal blue red stripe',
-      secondaryTubeClass: 'tube-royal-no-additive'
-    },
+    { key: 'serum', number: 4, label: 'Red', additive: 'No additive, serum', tubeClass: 'tube-red' },
     { key: 'heparin', number: 5, label: 'Green', additive: 'Sodium or lithium heparin — verify test', tubeClass: 'tube-green' },
     { key: 'edta', number: 6, label: 'Lavender / Pink', additive: 'EDTA', tubeClass: 'tube-lavender' },
-    { key: 'royal', number: 7, label: 'Royal blue purple stripe', additive: 'EDTA', tubeClass: 'tube-royal-edta' },
+    {
+      key: 'royal',
+      number: 7,
+      label: 'Royal blue',
+      additive: 'Trace-metal tube — verify stripe / additive',
+      tubeClass: 'tube-royal'
+    },
     { key: 'gray', number: 8, label: 'Gray', additive: 'Fluoride / oxalate', tubeClass: 'tube-gray' },
     { key: 'acd', number: 9, label: 'Yellow ACD', additive: 'Citrate ACD — draw last', tubeClass: 'tube-yellow' }
   ];
@@ -469,13 +467,9 @@
     if (/light blue|sodium citrate|coagulation tube/.test(value)) return 'citrate';
     if (/acid citrate dextrose|\bacd\b/.test(value)) return 'acd';
 
-    // Royal-blue tubes are ordered by additive, not by stopper color alone.
-    if (/royal blue|royal-blue/.test(value)) {
-      if (/no additive|red stripe|red strip|serum/.test(value)) return 'serum';
-      if (/heparin|green band|green stripe/.test(value)) return 'heparin';
-      if (/edta|purple stripe|purple strip|lavender stripe|lavender strip/.test(value)) return 'royal';
-      return 'royal';
-    }
+    // Keep all royal-blue trace-metal tubes together in one dedicated step.
+    // The stripe/additive still appears on each test and tube badge.
+    if (/royal blue|royal-blue/.test(value)) return 'royal';
 
     if (/gray|grey|fluoride|oxalate/.test(value)) return 'gray';
     if (/sst|gold|serum separator|red\s*\/\s*black/.test(value)) return 'sst';
@@ -894,6 +888,16 @@
 
   function shortDrawSource(test) {
     const draw = String(test.drawContainer || '').trim();
+
+    // Match royal-blue tubes before generic EDTA or red-top rules. Otherwise
+    // "Royal Blue EDTA" becomes Lavender EDTA and "red stripe" becomes Red Top.
+    if (/royal blue|royal-blue/i.test(draw)) {
+      if (/edta|purple stripe|purple strip|lavender stripe|lavender strip/i.test(draw)) return 'Royal Blue EDTA (purple stripe)';
+      if (/no additive|red stripe|red strip/i.test(draw)) return 'Royal Blue No Additive (red stripe)';
+      if (/heparin|green band|green stripe/i.test(draw)) return 'Royal Blue Sodium Heparin';
+      return 'Royal Blue — verify additive';
+    }
+
     if (/sst|gold/i.test(draw)) return 'SST';
     if (/lavender|edta/i.test(draw)) return 'Lavender EDTA';
     if (/sodium\s+heparin/i.test(draw)) return 'Green Sodium Heparin';
@@ -901,10 +905,6 @@
     if (/green|heparin/i.test(draw)) return 'Green Heparin — verify additive';
     if (/red/i.test(draw)) return 'Red Top';
     if (/light blue|citrate/i.test(draw)) return 'Light Blue Citrate';
-    if (/royal/i.test(draw) && /edta|purple stripe|purple strip|lavender stripe|lavender strip/i.test(draw)) return 'Royal Blue EDTA (purple stripe)';
-    if (/royal/i.test(draw) && /no additive|red stripe|red strip/i.test(draw)) return 'Royal Blue No Additive (red stripe)';
-    if (/royal/i.test(draw) && /heparin|green band|green stripe/i.test(draw)) return 'Royal Blue Sodium Heparin';
-    if (/royal/i.test(draw)) return 'Royal Blue — verify additive';
     if (/aptima/i.test(draw)) return 'Aptima Multitest';
     return draw && !/^verify/i.test(draw) ? draw : '';
   }

@@ -1,9 +1,15 @@
+## Version 7.0
+
+- Corrected processed-specimen source labels for Royal Blue EDTA (purple stripe) and Royal Blue No Additive (red stripe).
+- All royal-blue trace-metal tubes now appear together in one Royal Blue nurse order-of-draw step.
+- Royal Blue No Additive is no longer shown beside ordinary Red Top tubes.
+
 ## Version 6.9 updates
 
 - Fixed nurse order-of-draw activation for Green Sodium Heparin and Green Lithium Heparin when they are the preferred draw tube.
 - Alternative containers no longer create unnecessary order-of-draw highlights.
 - Added separate Royal Blue badges for EDTA with a purple stripe and no-additive with a red stripe.
-- Royal Blue tubes now follow order of draw by additive: no-additive with serum; EDTA with the Royal Blue EDTA step; heparin with the heparin step.
+- Superseded in v7.0: all Royal Blue tubes are grouped in one dedicated Royal Blue order-of-draw step, while their stripe/additive remains explicit on the tube badge.
 - Increased the browser database version so published corrections replace stale built-in records while preserving custom entries.
 
 - Audited every built-in record that mentions green heparin against the current Quest Test Directory.
@@ -85,7 +91,7 @@
 
 # Lab Collection Calculator
 
-**Version 5.6**
+**Version 7.0**
 
 **v3.8:** The printout now keeps the same tube badge when a specimen is submitted in its original collection tube. Original-tube submissions clearly identify the specimen inside, such as “Royal Blue EDTA · Whole Blood · Submit in original tube” for arsenic. Transferred serum, plasma, and RBC specimens continue to use transport-tube labels.
 
@@ -173,3 +179,10 @@ The calculator now distinguishes Green Sodium Heparin from Green Lithium Heparin
 ### Version 6.9 tube-additive update
 
 The nurse order-of-draw panel distinguishes the tube additive rather than relying only on stopper color. Green sodium-heparin and lithium-heparin tubes trigger the heparin step when they are the preferred draw container. Royal Blue EDTA (purple stripe) and Royal Blue No Additive (red stripe) have separate badges and order-of-draw behavior. Alternative containers are listed with the test but do not add unnecessary tubes to the draw plan.
+## Version 7.0 Royal Blue correction
+
+- All Royal Blue additives are grouped in one nurse order-of-draw step.
+- Individual badges continue to identify EDTA with purple stripe, no additive with red stripe, and sodium heparin.
+- Processed specimen labels now preserve the exact Royal Blue source tube instead of shortening them to Lavender EDTA or Red Top.
+- All built-in Royal Blue and trace-metal records were reviewed and corrected where needed.
+

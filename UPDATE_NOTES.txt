@@ -1,10 +1,7 @@
-Version 6.9
-- Fixed nurse order-of-draw detection for Green Sodium Heparin and Green Lithium Heparin.
-- The order-of-draw plan now uses the preferred draw container only; alternative tubes do not create extra draw steps.
-- Green sodium or lithium heparin as the primary tube highlights step 5.
-- Split Royal Blue tubes into additive-specific labels and badges:
-  - Royal Blue EDTA (purple stripe)
-  - Royal Blue No Additive (red stripe)
-  - Royal Blue Sodium Heparin — verify label
-- Royal Blue No Additive follows the serum/no-additive position; Royal Blue EDTA follows the royal-blue EDTA position.
-- Bumped the browser database version so corrected built-in records refresh while preserving staff-created tests.
+Version 7.0
+- Corrected trace-metal transport-tube source labels so Royal Blue EDTA is never shown as Lavender EDTA and Royal Blue No Additive is never shown as Red Top.
+- Code 363 Copper now shows plasma from Royal Blue EDTA (purple stripe).
+- Code 16599 Iodine, Serum/Plasma now shows serum from Royal Blue No Additive (red stripe).
+- Grouped Royal Blue EDTA, Royal Blue No Additive, and Royal Blue Sodium Heparin into one Royal Blue nurse order-of-draw step.
+- Royal Blue No Additive is no longer grouped with ordinary Red Top tubes.
+- Audited and corrected all built-in trace-metal / royal-blue records, including Magnesium RBC, Lead, Mercury, Copper RBC, Selenium Blood, Zinc RBC, Selenium RBC, and Copper-Free Serum/Plasma.
