@@ -1,6 +1,5 @@
-Version 7.1
+Version 7.2
 
-- Print-only order-of-draw layout cleanup.
-- Tube color/name and additive now appear on separate lines.
-- Existing verify wording was retained.
-- No data or collection logic changed.
+- Royal Blue uses a solid Royal Blue tube badge in the nurse order-of-draw section only.
+- Stripe-specific Royal Blue badges remain unchanged in collection, processing, and submission sections.
+- No data, tube-count, or order-of-draw logic changed.

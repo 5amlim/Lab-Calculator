@@ -855,3 +855,9 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     break-inside: avoid;
   }
 }
+
+/* v7.2: Order-of-draw uses one solid Royal Blue badge. Stripe/additive badges remain elsewhere. */
+.order-tube.tube-royal::before,
+.print-order-tube.tube-royal::before {
+  background: #3458a5;
+}

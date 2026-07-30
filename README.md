@@ -1,3 +1,9 @@
+## Version 7.2
+
+- The nurse order-of-draw uses a solid Royal Blue badge for the grouped Royal Blue step.
+- Stripe-specific Royal Blue badges remain visible everywhere outside order of draw.
+- No collection logic or test data changed.
+
 ## Version 7.1
 
 - Corrected processed-specimen source labels for Royal Blue EDTA (purple stripe) and Royal Blue No Additive (red stripe).
