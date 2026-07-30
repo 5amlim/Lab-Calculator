@@ -37,3 +37,15 @@ Additional official records corrected
 - 90271 von Willebrand Screen (bleeding and thrombosis reference menu)
 
 Test 70049, Neisseria gonorrhoeae RNA, TMA, Throat: https://testdirectory.questdiagnostics.com/test/test-detail/70049/neisseria-gonorrhoeae-rna-tma-throat?cc=MASTER&q=70049
+
+
+Version 6.9 additive and order-of-draw verification
+- Quest Specimen Collection Tubes: https://www.questdiagnostics.com/content/dam/corporate/restricted/documents/test-center/specimen_collection_tubes/specimen_collection_tubes.pdf
+- Quest Blood Collection Order of Draw: https://www.questdiagnostics.com/content/dam/corporate/restricted/documents/test-center/order_of_draw/order_of_draw.pdf
+- 363 Copper
+- 3481 Copper, RBC
+- 6354 Zinc, RBC
+- 17133 Selenium, RBC
+- 94612 Copper-Free, Serum/Plasma
+
+Royal-blue tube appearance is a visual aid only. Confirm the additive on the tube label and do not rely on stopper or stripe color alone.

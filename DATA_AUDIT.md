@@ -77,3 +77,14 @@ Directory requirements may change and can differ by service area or orderable te
 - 22060 — Lamotrigine: sodium heparin plasma accepted; lithium heparin is not listed. Red-top serum is preferred.
 
 This audit covers the calculator’s current built-in test list, not every test offered by Quest. Quest requirements can vary by service area and may change.
+
+
+## Order-of-draw and Royal Blue audit — 2026-07-30
+
+- Fixed a browser-data migration issue that could leave older built-in tube labels in place.
+- Order-of-draw detection now reads the preferred draw container only. Alternative containers do not imply that an additional tube should be drawn.
+- Green Sodium Heparin and Green Lithium Heparin as the preferred draw tube activate the heparin step.
+- Royal Blue EDTA tubes are labeled with a purple stripe and follow the Royal Blue EDTA order-of-draw step.
+- Royal Blue No Additive tubes are labeled with a red stripe and follow the serum/no-additive step.
+- Royal Blue Sodium Heparin remains additive-specific and follows the heparin step.
+- Staff should verify the additive on the tube label and not rely on stopper color alone.

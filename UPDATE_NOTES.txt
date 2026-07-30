@@ -1,6 +1,10 @@
-Version 6.8
-- Verified every built-in test that uses or accepts green heparin against the current official Quest Test Directory.
-- Separates tests that require/prefer green heparin from tests that accept it only as an alternative.
-- Specifies sodium versus lithium heparin for every verified alternative.
-- Corrected Lamotrigine (22060) to sodium heparin only; lithium heparin is not listed as an alternative.
-- Preserves staff-created custom tests during migration.
+Version 6.9
+- Fixed nurse order-of-draw detection for Green Sodium Heparin and Green Lithium Heparin.
+- The order-of-draw plan now uses the preferred draw container only; alternative tubes do not create extra draw steps.
+- Green sodium or lithium heparin as the primary tube highlights step 5.
+- Split Royal Blue tubes into additive-specific labels and badges:
+  - Royal Blue EDTA (purple stripe)
+  - Royal Blue No Additive (red stripe)
+  - Royal Blue Sodium Heparin — verify label
+- Royal Blue No Additive follows the serum/no-additive position; Royal Blue EDTA follows the royal-blue EDTA position.
+- Bumped the browser database version so corrected built-in records refresh while preserving staff-created tests.

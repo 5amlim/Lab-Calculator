@@ -1,4 +1,10 @@
-## Version 6.8 updates
+## Version 6.9 updates
+
+- Fixed nurse order-of-draw activation for Green Sodium Heparin and Green Lithium Heparin when they are the preferred draw tube.
+- Alternative containers no longer create unnecessary order-of-draw highlights.
+- Added separate Royal Blue badges for EDTA with a purple stripe and no-additive with a red stripe.
+- Royal Blue tubes now follow order of draw by additive: no-additive with serum; EDTA with the Royal Blue EDTA step; heparin with the heparin step.
+- Increased the browser database version so published corrections replace stale built-in records while preserving custom entries.
 
 - Audited every built-in record that mentions green heparin against the current Quest Test Directory.
 - Required/preferred collection: 528 uses Green Sodium Heparin as preferred (EDTA or Yellow ACD also accepted); 14596 requires sodium heparin with green top preferred; 36970 requires a no-gel Green Lithium Heparin tube.
@@ -162,3 +168,8 @@ The website footer now includes a visible **Download Editable Workplace Use Agre
 ## Green heparin differentiation (v6.7)
 
 The calculator now distinguishes Green Sodium Heparin from Green Lithium Heparin in the database, collection plan, submission plan, search results, and manual-entry dropdown. HLA-B27 Antigen (528) and Chromosome Analysis, Blood (14596) use sodium heparin. QuantiFERON-TB Gold Plus, 1 Tube (36970) uses no-gel lithium heparin.
+
+
+### Version 6.9 tube-additive update
+
+The nurse order-of-draw panel distinguishes the tube additive rather than relying only on stopper color. Green sodium-heparin and lithium-heparin tubes trigger the heparin step when they are the preferred draw container. Royal Blue EDTA (purple stripe) and Royal Blue No Additive (red stripe) have separate badges and order-of-draw behavior. Alternative containers are listed with the test but do not add unnecessary tubes to the draw plan.

@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
-  const DB_KEY = 'labCollectionCalculator.database.v13';
-  const PRIOR_DB_KEYS = ['labCollectionCalculator.database.v12', 'labCollectionCalculator.database.v11'];
+  const DB_KEY = 'labCollectionCalculator.database.v14';
+  const PRIOR_DB_KEYS = ['labCollectionCalculator.database.v13', 'labCollectionCalculator.database.v12', 'labCollectionCalculator.database.v11'];
   const LEGACY_STORAGE_PREFIX = ['que', 'stLabCalculator'].join('');
   const LEGACY_DB_KEYS = [...PRIOR_DB_KEYS, ...[9, 8, 7, 6, 5, 4, 3, 2, 1].map(version => `${LEGACY_STORAGE_PREFIX}.database.v${version}`)];
   const SELECTED_KEY = 'labCollectionCalculator.selected.v1';
@@ -13,10 +13,18 @@
     { key: 'culture', number: 1, label: 'Blood cultures', additive: 'See bottle label', tubeClass: 'tube-culture' },
     { key: 'citrate', number: 2, label: 'Light blue', additive: 'Sodium citrate', tubeClass: 'tube-blue' },
     { key: 'sst', number: 3, label: 'Gold / SST', additive: 'Gel, serum', tubeClass: 'tube-sst' },
-    { key: 'serum', number: 4, label: 'Red', additive: 'No gel, serum', tubeClass: 'tube-red' },
+    {
+      key: 'serum',
+      number: 4,
+      label: 'Red',
+      additive: 'No additive, serum',
+      tubeClass: 'tube-red',
+      secondaryLabel: 'Royal blue red stripe',
+      secondaryTubeClass: 'tube-royal-no-additive'
+    },
     { key: 'heparin', number: 5, label: 'Green', additive: 'Sodium or lithium heparin — verify test', tubeClass: 'tube-green' },
     { key: 'edta', number: 6, label: 'Lavender / Pink', additive: 'EDTA', tubeClass: 'tube-lavender' },
-    { key: 'royal', number: 7, label: 'Royal blue', additive: 'EDTA — verify label', tubeClass: 'tube-royal' },
+    { key: 'royal', number: 7, label: 'Royal blue purple stripe', additive: 'EDTA', tubeClass: 'tube-royal-edta' },
     { key: 'gray', number: 8, label: 'Gray', additive: 'Fluoride / oxalate', tubeClass: 'tube-gray' },
     { key: 'acd', number: 9, label: 'Yellow ACD', additive: 'Citrate ACD — draw last', tubeClass: 'tube-yellow' }
   ];
@@ -450,17 +458,25 @@
   }
 
   function orderCategory(test) {
-    // The order-of-draw panel is for blood collection tubes only. Urine culture
-    // preservative tubes may also have gray caps, but they are not fluoride/oxalate
-    // blood tubes and must never appear in the blood-tube order of draw.
+    // The order-of-draw panel reflects the preferred/selected collection tube only.
+    // Alternative containers are shown with the test but do not add extra tubes to
+    // the nurse draw plan.
     const specimen = String(test.specimenType || '').toLowerCase();
     if (/urine|stool|swab|saliva|semen|csf|cerebrospinal|tissue/.test(specimen)) return null;
 
-    const value = `${test.drawContainer || ''} ${test.alternativeContainer || ''}`.toLowerCase();
+    const value = String(test.drawContainer || '').toLowerCase();
     if (/blood culture|culture bottle|bactec|\bsps\b/.test(value)) return 'culture';
     if (/light blue|sodium citrate|coagulation tube/.test(value)) return 'citrate';
     if (/acid citrate dextrose|\bacd\b/.test(value)) return 'acd';
-    if (/royal blue/.test(value)) return 'royal';
+
+    // Royal-blue tubes are ordered by additive, not by stopper color alone.
+    if (/royal blue|royal-blue/.test(value)) {
+      if (/no additive|red stripe|red strip|serum/.test(value)) return 'serum';
+      if (/heparin|green band|green stripe/.test(value)) return 'heparin';
+      if (/edta|purple stripe|purple strip|lavender stripe|lavender strip/.test(value)) return 'royal';
+      return 'royal';
+    }
+
     if (/gray|grey|fluoride|oxalate/.test(value)) return 'gray';
     if (/sst|gold|serum separator|red\s*\/\s*black/.test(value)) return 'sst';
     if (/green|heparin|\bpst\b/.test(value)) return 'heparin';
@@ -469,13 +485,22 @@
     return null;
   }
 
+  function orderTubeMarkup(step, printMode = false) {
+    const prefix = printMode ? 'print-order-tube' : 'order-tube';
+    const primary = `<span class="${prefix} tube ${step.tubeClass}">${escapeHtml(step.label)}</span>`;
+    const secondary = step.secondaryLabel
+      ? `<span class="${prefix} tube ${step.secondaryTubeClass}">${escapeHtml(step.secondaryLabel)}</span>`
+      : '';
+    return `<span class="order-tube-group">${primary}${secondary}</span>`;
+  }
+
   function renderOrderOfDraw(tests) {
     const selectedCategories = new Set(tests.map(orderCategory).filter(Boolean));
     els.orderOfDraw.innerHTML = ORDER_OF_DRAW.map(step => {
       const selected = selectedCategories.has(step.key);
       return `<div class="order-step ${selected ? 'is-selected' : ''}">
         <span class="order-number">${step.number}</span>
-        <span class="order-tube tube ${step.tubeClass}">${escapeHtml(step.label)}</span>
+        ${orderTubeMarkup(step)}
         <span class="order-additive">${escapeHtml(step.additive)}</span>
         ${selected ? '<span class="order-selected">IN DRAW PLAN</span>' : ''}
       </div>`;
@@ -486,7 +511,7 @@
     const selectedCategories = new Set(tests.map(orderCategory).filter(Boolean));
     return `<section class="print-order-section">
       <div class="print-section-heading"><strong>Nurse order of draw</strong><span>Standard sequence for multiple blood tubes</span></div>
-      <div class="print-order-strip">${ORDER_OF_DRAW.map(step => `<div class="print-order-step ${selectedCategories.has(step.key) ? 'is-selected' : ''}"><span class="print-order-number">${step.number}</span><strong class="print-order-tube tube ${step.tubeClass}">${escapeHtml(step.label)}</strong><span>${escapeHtml(step.additive)}</span></div>`).join('')}</div>
+      <div class="print-order-strip">${ORDER_OF_DRAW.map(step => `<div class="print-order-step ${selectedCategories.has(step.key) ? 'is-selected' : ''}"><span class="print-order-number">${step.number}</span>${orderTubeMarkup(step, true)}<span>${escapeHtml(step.additive)}</span></div>`).join('')}</div>
       <div class="print-order-note"><strong>Butterfly:</strong> If light blue is first, use a partially filled citrate discard tube to fill tubing dead space, then fill the test tube completely. Confirm additives on tube labels; do not rely on stopper color alone. Follow test-specific official instructions and facility policy.</div>
     </section>`;
   }
@@ -795,7 +820,10 @@
           ? 'Green Lithium Heparin'
           : 'Green Heparin — verify additive',
       'tube-red': 'Red Top',
-      'tube-royal': 'Royal Blue',
+      'tube-royal-edta': 'Royal Blue EDTA (purple stripe)',
+      'tube-royal-no-additive': 'Royal Blue No Additive (red stripe)',
+      'tube-royal-heparin': 'Royal Blue Sodium Heparin',
+      'tube-royal': 'Royal Blue — verify additive',
       'tube-gray': 'Gray Fluoride / Oxalate Blood Tube',
       'tube-yellow': 'Yellow ACD',
       'tube-aptima': 'Aptima Multitest Transport Tube (orange label)',
@@ -873,7 +901,10 @@
     if (/green|heparin/i.test(draw)) return 'Green Heparin — verify additive';
     if (/red/i.test(draw)) return 'Red Top';
     if (/light blue|citrate/i.test(draw)) return 'Light Blue Citrate';
-    if (/royal/i.test(draw)) return 'Royal Blue';
+    if (/royal/i.test(draw) && /edta|purple stripe|purple strip|lavender stripe|lavender strip/i.test(draw)) return 'Royal Blue EDTA (purple stripe)';
+    if (/royal/i.test(draw) && /no additive|red stripe|red strip/i.test(draw)) return 'Royal Blue No Additive (red stripe)';
+    if (/royal/i.test(draw) && /heparin|green band|green stripe/i.test(draw)) return 'Royal Blue Sodium Heparin';
+    if (/royal/i.test(draw)) return 'Royal Blue — verify additive';
     if (/aptima/i.test(draw)) return 'Aptima Multitest';
     return draw && !/^verify/i.test(draw) ? draw : '';
   }
@@ -1189,10 +1220,17 @@
     if (value.includes('red/yellow') || value.includes('swirl')) return 'tube-ua-swirl';
     if (value.includes('sst') || value.includes('gold')) return 'tube-sst';
     if (value.includes('lavender')) return 'tube-lavender';
+
+    if (/royal blue|royal-blue/.test(value)) {
+      if (/no additive|red stripe|red strip/.test(value)) return 'tube-royal-no-additive';
+      if (/heparin|green band|green stripe/.test(value)) return 'tube-royal-heparin';
+      if (/edta|purple stripe|purple strip|lavender stripe|lavender strip/.test(value)) return 'tube-royal-edta';
+      return 'tube-royal';
+    }
+
     if (value.includes('heparin') || value.includes('green')) return 'tube-green';
     if (value.includes('red')) return 'tube-red';
     if (value.includes('light blue') || value.includes('citrate')) return 'tube-blue';
-    if (value.includes('royal')) return 'tube-royal';
     if (value.includes('gray') || value.includes('grey')) return 'tube-gray';
     if (value.includes('pink')) return 'tube-pink';
     if (value.includes('yellow')) return 'tube-yellow';

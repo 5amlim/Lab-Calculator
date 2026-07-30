@@ -87,7 +87,10 @@ tr:hover td { background: #fbfdfd; }
 .tube-green::before { background: #56a66d; }
 .tube-red::before { background: #d95851; }
 .tube-blue::before { background: #75b7e6; }
-.tube-royal::before { background: #3458a5; }
+.tube-royal::before { background: repeating-linear-gradient(180deg, #3458a5 0 5px, #d6dde4 5px 7px); }
+.tube-royal-edta::before { background: linear-gradient(180deg, #3458a5 0 32%, #8d58aa 32% 47%, #3458a5 47% 100%); }
+.tube-royal-no-additive::before { background: linear-gradient(180deg, #3458a5 0 32%, #d95851 32% 47%, #3458a5 47% 100%); }
+.tube-royal-heparin::before { background: linear-gradient(180deg, #3458a5 0 32%, #56a66d 32% 47%, #3458a5 47% 100%); }
 .tube-gray::before { background: #8c969d; }
 .tube-urine-culture::before { background: repeating-linear-gradient(135deg, #8c969d 0 4px, #d9dee1 4px 7px); border-style: dashed; }
 .tube-pink::before { background: #e9a4c4; }
@@ -96,6 +99,7 @@ tr:hover td { background: #fbfdfd; }
 .tube-ua-swirl::before { background: repeating-linear-gradient(135deg, #d95851 0 3px, #f1d85b 3px 6px); }
 .tube-ua-pair::before { background: linear-gradient(180deg, #d95851 0 30%, #f1d85b 30% 62%, #8c969d 62% 100%); }
 .order-panel { position: sticky; top: 18px; padding: 20px; max-height: calc(100vh - 36px); overflow: auto; }
+.order-tube-group { display: inline-flex; flex-wrap: wrap; gap: 4px; align-items: center; }
 .order-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 14px; }
 #selectedCount { display: inline-flex; min-width: 25px; height: 25px; align-items: center; justify-content: center; border-radius: 999px; background: var(--brand-soft); color: var(--brand); font-size: 12px; vertical-align: 2px; }
 .summary-section { margin-top: 19px; }
