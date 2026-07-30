@@ -1,11 +1,6 @@
-Version 6.6
-
-Fasting preparation audit
-
-- Reviewed all 257 built-in test records for fasting requirements or recommendations.
-- Added explicit Fasting required or Fasting preferred data to 27 verified records.
-- Fasting alerts identify the affected test code, test name, and preparation instruction in the selected-test summary and printout.
-- Added fasting flags for tests including C-peptide, insulin, iron studies, metabolic panels, NMR testing, CTx, selected micronutrients, selected fatty-acid/cardiometabolic tests, the large ANA reflex panel, and other verified specialty tests.
-- Standard lipid panels remain unflagged because their current directory instructions do not require fasting when ordered as a lipid panel.
-- Improved the fasting detector to prioritize verified structured data and recognize additional fasting wording.
-- Requirements can vary by test version and service area; staff should verify unusual or changed orders in the current official directory.
+Version 6.8
+- Verified every built-in test that uses or accepts green heparin against the current official Quest Test Directory.
+- Separates tests that require/prefer green heparin from tests that accept it only as an alternative.
+- Specifies sodium versus lithium heparin for every verified alternative.
+- Corrected Lamotrigine (22060) to sodium heparin only; lithium heparin is not listed as an alternative.
+- Preserves staff-created custom tests during migration.

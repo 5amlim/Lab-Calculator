@@ -1,3 +1,10 @@
+## Version 6.8 updates
+
+- Audited every built-in record that mentions green heparin against the current Quest Test Directory.
+- Required/preferred collection: 528 uses Green Sodium Heparin as preferred (EDTA or Yellow ACD also accepted); 14596 requires sodium heparin with green top preferred; 36970 requires a no-gel Green Lithium Heparin tube.
+- Alternative-only collection: 16265, 17180, 17182, 17183, 19894, and 8579 accept either sodium or lithium heparin plasma; 22060 accepts sodium heparin only.
+- The calculator now spells out the additive instead of using a generic Green Heparin alternative.
+
 ## Version 6.6 updates
 
 ### Fasting preparation audit
@@ -150,3 +157,8 @@ The on-screen test cart and collection summary are restored. The printout remain
 ## Version 5.9 update
 
 The website footer now includes a visible **Download Editable Workplace Use Agreement** link. The link downloads `Sam_Hay_Workplace_Use_Agreement.docx`, which can be edited in Microsoft Word, Google Docs, or compatible software. The Markdown template remains bundled as `WORKPLACE_USE_AGREEMENT_TEMPLATE.md`.
+
+
+## Green heparin differentiation (v6.7)
+
+The calculator now distinguishes Green Sodium Heparin from Green Lithium Heparin in the database, collection plan, submission plan, search results, and manual-entry dropdown. HLA-B27 Antigen (528) and Chromosome Analysis, Blood (14596) use sodium heparin. QuantiFERON-TB Gold Plus, 1 Tube (36970) uses no-gel lithium heparin.

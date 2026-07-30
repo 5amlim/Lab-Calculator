@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
-  const DB_KEY = 'labCollectionCalculator.database.v11';
-  const PRIOR_DB_KEYS = ['labCollectionCalculator.database.v10'];
+  const DB_KEY = 'labCollectionCalculator.database.v13';
+  const PRIOR_DB_KEYS = ['labCollectionCalculator.database.v12', 'labCollectionCalculator.database.v11'];
   const LEGACY_STORAGE_PREFIX = ['que', 'stLabCalculator'].join('');
   const LEGACY_DB_KEYS = [...PRIOR_DB_KEYS, ...[9, 8, 7, 6, 5, 4, 3, 2, 1].map(version => `${LEGACY_STORAGE_PREFIX}.database.v${version}`)];
   const SELECTED_KEY = 'labCollectionCalculator.selected.v1';
@@ -14,7 +14,7 @@
     { key: 'citrate', number: 2, label: 'Light blue', additive: 'Sodium citrate', tubeClass: 'tube-blue' },
     { key: 'sst', number: 3, label: 'Gold / SST', additive: 'Gel, serum', tubeClass: 'tube-sst' },
     { key: 'serum', number: 4, label: 'Red', additive: 'No gel, serum', tubeClass: 'tube-red' },
-    { key: 'heparin', number: 5, label: 'Green', additive: 'Heparin', tubeClass: 'tube-green' },
+    { key: 'heparin', number: 5, label: 'Green', additive: 'Sodium or lithium heparin — verify test', tubeClass: 'tube-green' },
     { key: 'edta', number: 6, label: 'Lavender / Pink', additive: 'EDTA', tubeClass: 'tube-lavender' },
     { key: 'royal', number: 7, label: 'Royal blue', additive: 'EDTA — verify label', tubeClass: 'tube-royal' },
     { key: 'gray', number: 8, label: 'Gray', additive: 'Fluoride / oxalate', tubeClass: 'tube-gray' },
@@ -789,7 +789,11 @@
       'tube-blue': 'Light Blue Citrate',
       'tube-lavender': 'Lavender EDTA',
       'tube-pink': 'Pink EDTA',
-      'tube-green': 'Green Heparin',
+      'tube-green': /sodium\s+heparin/i.test(draw)
+        ? 'Green Sodium Heparin'
+        : /lithium\s+heparin/i.test(draw)
+          ? 'Green Lithium Heparin'
+          : 'Green Heparin — verify additive',
       'tube-red': 'Red Top',
       'tube-royal': 'Royal Blue',
       'tube-gray': 'Gray Fluoride / Oxalate Blood Tube',
@@ -864,7 +868,9 @@
     const draw = String(test.drawContainer || '').trim();
     if (/sst|gold/i.test(draw)) return 'SST';
     if (/lavender|edta/i.test(draw)) return 'Lavender EDTA';
-    if (/green|heparin/i.test(draw)) return 'Green Heparin';
+    if (/sodium\s+heparin/i.test(draw)) return 'Green Sodium Heparin';
+    if (/lithium\s+heparin/i.test(draw)) return 'Green Lithium Heparin';
+    if (/green|heparin/i.test(draw)) return 'Green Heparin — verify additive';
     if (/red/i.test(draw)) return 'Red Top';
     if (/light blue|citrate/i.test(draw)) return 'Light Blue Citrate';
     if (/royal/i.test(draw)) return 'Royal Blue';
