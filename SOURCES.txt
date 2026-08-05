@@ -49,3 +49,8 @@ Version 6.9 additive and order-of-draw verification
 - 94612 Copper-Free, Serum/Plasma
 
 Royal-blue tube appearance is a visual aid only. Confirm the additive on the tube label and do not rely on stopper or stripe color alone.
+
+
+Version 7.3 cytokine additions
+- 34473 Interleukin-6 (IL-6), Serum: https://testdirectory.questdiagnostics.com/test/test-detail/34473/?cc=MASTER
+- 34485 Tumor Necrosis Factor-Alpha, Highly Sensitive: https://testdirectory.questdiagnostics.com/test/test-detail/34485/tumor-necrosis-factor-alpha-highly-sensitive?cc=MASTER

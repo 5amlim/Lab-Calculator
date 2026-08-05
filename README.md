@@ -1,3 +1,10 @@
+## Version 7.3
+
+- Added 34473 Interleukin-6 (IL-6), Serum.
+- Added 34485 Tumor Necrosis Factor-Alpha, Highly Sensitive.
+- Both entries include draw container, centrifugation/transfer instructions, frozen transport, preferred/minimum volume, and relevant preparation notes.
+- Built-in data refreshes while preserving custom staff entries.
+
 ## Version 7.2
 
 - The nurse order-of-draw uses a solid Royal Blue badge for the grouped Royal Blue step.

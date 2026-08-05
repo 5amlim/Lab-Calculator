@@ -1,5 +1,6 @@
-Version 7.2
+Version 7.3
 
-- Royal Blue uses a solid Royal Blue tube badge in the nurse order-of-draw section only.
-- Stripe-specific Royal Blue badges remain unchanged in collection, processing, and submission sections.
-- No data, tube-count, or order-of-draw logic changed.
+- Added test code 34473 — Interleukin-6 (IL-6), Serum.
+- Added test code 34485 — Tumor Necrosis Factor-Alpha, Highly Sensitive.
+- Added current collection, processing, volume, transport-temperature, stability, and preparation notes.
+- Increased the browser database version so the two new built-in records appear while preserving staff-created custom tests.

@@ -113,3 +113,9 @@ This audit covers the calculator’s current built-in test list, not every test 
 ## Version 7.1 display-only update
 
 The printed order-of-draw cards now place the tube color/name and additive on separate lines. Existing verify wording and all data logic remain unchanged.
+
+
+## Cytokine test additions — 2026-08-05
+
+- 34473 — Interleukin-6 (IL-6), Serum: 1 mL frozen serum (minimum 0.5 mL); no biotin for 48 hours; centrifuge, transfer serum, freeze immediately; do not thaw; consistent collection time recommended for longitudinal comparison. Current Quest-referral collection guidance uses SST/Gold, with Red Top acceptable.
+- 34485 — Tumor Necrosis Factor-Alpha, Highly Sensitive: plain Red Top with no gel; 1 mL serum (minimum 0.5 mL); clot 10–15 minutes, centrifuge, transfer serum, freeze immediately; SST rejected; room-temperature and refrigerated transport unacceptable.
