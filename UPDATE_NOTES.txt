@@ -1,6 +1,5 @@
-Version 7.3
-
-- Added test code 34473 — Interleukin-6 (IL-6), Serum.
-- Added test code 34485 — Tumor Necrosis Factor-Alpha, Highly Sensitive.
-- Added current collection, processing, volume, transport-temperature, stability, and preparation notes.
-- Increased the browser database version so the two new built-in records appear while preserving staff-created custom tests.
+Version 7.4
+- Corrected test 945 Zinc to Royal Blue EDTA (purple stripe) as the preferred collection tube, with Royal Blue Sodium Heparin also accepted for plasma and Royal Blue No Additive (red stripe) for serum.
+- Audited all 259 built-in records for Royal Blue/EDTA/red-top source-classification conflicts.
+- Confirmed Royal Blue source detection is prioritized before generic EDTA/red/heparin rules in the summary, order of draw, and transport-bag logic.
+- Bumped browser database version so corrected built-in records refresh while preserving custom entries.

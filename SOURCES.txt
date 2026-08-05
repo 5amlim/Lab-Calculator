@@ -54,3 +54,11 @@ Royal-blue tube appearance is a visual aid only. Confirm the additive on the tub
 Version 7.3 cytokine additions
 - 34473 Interleukin-6 (IL-6), Serum: https://testdirectory.questdiagnostics.com/test/test-detail/34473/?cc=MASTER
 - 34485 Tumor Necrosis Factor-Alpha, Highly Sensitive: https://testdirectory.questdiagnostics.com/test/test-detail/34485/tumor-necrosis-factor-alpha-highly-sensitive?cc=MASTER
+
+Version 7.4 tube-source consistency audit
+- 945 Zinc: https://testdirectory.questdiagnostics.com/test/test-detail/945/zinc?cc=MASTER
+- 363 Copper: https://testdirectory.questdiagnostics.com/test/test-detail/363/?cc=MASTER
+- 599 Lead (Venous): https://testdirectory.questdiagnostics.com/test/test-detail/599/?cc=MASTER
+- 636 Mercury, Blood: https://testdirectory.questdiagnostics.com/test/test-detail/636/?cc=MASTER
+- 6354 Zinc, RBC: https://testdirectory.questdiagnostics.com/test/test-detail/6354/?cc=MASTER
+- Quest tube/source parsing was audited across all 259 built-in records, with Royal Blue matching prioritized before generic EDTA, red-top, or heparin matching.

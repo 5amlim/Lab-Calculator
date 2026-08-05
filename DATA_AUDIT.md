@@ -119,3 +119,22 @@ The printed order-of-draw cards now place the tube color/name and additive on se
 
 - 34473 — Interleukin-6 (IL-6), Serum: 1 mL frozen serum (minimum 0.5 mL); no biotin for 48 hours; centrifuge, transfer serum, freeze immediately; do not thaw; consistent collection time recommended for longitudinal comparison. Current Quest-referral collection guidance uses SST/Gold, with Red Top acceptable.
 - 34485 — Tumor Necrosis Factor-Alpha, Highly Sensitive: plain Red Top with no gel; 1 mL serum (minimum 0.5 mL); clot 10–15 minutes, centrifuge, transfer serum, freeze immediately; SST rejected; room-temperature and refrigerated transport unacceptable.
+
+
+## Version 7.4 full tube-source consistency audit
+
+Audited all 259 built-in records for the class of error where a specific collection tube can be reduced to a generic additive/color in the selected summary, nurse order of draw, or submission bag.
+
+Key correction:
+- 945 Zinc: preferred plasma is collected in Royal Blue EDTA (purple stripe) or Royal Blue Sodium Heparin; serum alternative is Royal Blue No Additive (red stripe). Separated plasma/serum is transferred to an acid-washed or metal-free vial. The prior record incorrectly labeled the preferred draw as Lavender EDTA.
+
+Logic checks across the full built-in database:
+- Royal Blue EDTA is classified as Royal Blue, never generic Lavender EDTA.
+- Royal Blue No Additive is classified as Royal Blue, never generic Red Top.
+- Royal Blue Sodium Heparin is classified as Royal Blue for order-of-draw grouping.
+- All Royal Blue variants remain grouped in the single Royal Blue order-of-draw step.
+- Stripe/additive-specific badges remain visible outside the order-of-draw step.
+- Acid-washed/metal-free transport vials remain neutral transport badges and show the exact source tube when known.
+- Standard serum/plasma/platelet-poor-plasma transport tubes retain the green-top transport badge.
+
+This was a full structural consistency audit of the built-in database for tube/source classification. Current official test pages remain the source of truth for service-area-specific requirements.
