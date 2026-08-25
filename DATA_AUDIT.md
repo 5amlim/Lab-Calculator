@@ -1,3 +1,7 @@
+## Version 7.6 audit
+- Quest code 19826 Coenzyme Q10 verified 2026-08-14 against the official directory.
+- Preferred: 1 mL serum from SST; minimum 0.3 mL. Protect from direct light. Amber transport tube; refrigerated transport. Same-day shipment preferred; if not shipped same day, foil-wrap or transfer to amber tube.
+
 # Version 6.6 Fasting Preparation Audit
 
 ## Scope
@@ -138,3 +142,7 @@ Logic checks across the full built-in database:
 - Standard serum/plasma/platelet-poor-plasma transport tubes retain the green-top transport badge.
 
 This was a full structural consistency audit of the built-in database for tube/source classification. Current official test pages remain the source of truth for service-area-specific requirements.
+
+
+### Quest code 1715
+- Protein, Total, Random Urine with Creatinine: preferred 10 mL well-mixed random urine, no preservative. Calculator collection container set to Sterile Urine Cup; transport container plastic urine container; yellow-top urinalysis transport tube retained as alternative.

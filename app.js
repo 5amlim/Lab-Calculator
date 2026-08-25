@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
-  const DB_KEY = 'labCollectionCalculator.database.v18';
-  const PRIOR_DB_KEYS = ['labCollectionCalculator.database.v17', 'labCollectionCalculator.database.v16', 'labCollectionCalculator.database.v15', 'labCollectionCalculator.database.v14', 'labCollectionCalculator.database.v13', 'labCollectionCalculator.database.v12', 'labCollectionCalculator.database.v11'];
+  const DB_KEY = 'labCollectionCalculator.database.v20';
+  const PRIOR_DB_KEYS = ['labCollectionCalculator.database.v19', 'labCollectionCalculator.database.v18', 'labCollectionCalculator.database.v17', 'labCollectionCalculator.database.v16', 'labCollectionCalculator.database.v15', 'labCollectionCalculator.database.v14', 'labCollectionCalculator.database.v13', 'labCollectionCalculator.database.v12', 'labCollectionCalculator.database.v11'];
   const LEGACY_STORAGE_PREFIX = ['que', 'stLabCalculator'].join('');
   const LEGACY_DB_KEYS = [...PRIOR_DB_KEYS, ...[9, 8, 7, 6, 5, 4, 3, 2, 1].map(version => `${LEGACY_STORAGE_PREFIX}.database.v${version}`)];
   const SELECTED_KEY = 'labCollectionCalculator.selected.v1';
@@ -960,6 +960,7 @@
     const isSpecialtyMetalContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal/.test(value);
 
     if (/aptima/.test(value)) return 'tube-aptima';
+    if (/amber|protect from light|light[- ]?protected/.test(value)) return 'tube-amber';
 
     // Specialty acid-washed/metal-free tubes must stay neutral, regardless of specimen type.
     if (isSpecialtyMetalContainer) return 'tube-transport';
@@ -1020,6 +1021,18 @@
     const specimen = titleCaseSpecimen(normalizeSpecimenType(test.specimenType));
     const sourceSpecimen = specificSpecimenSource(test);
     const sourceTube = shortDrawSource(test);
+
+    if (/amber|protect from light|light[- ]?protected/i.test(transport)) {
+      const sourcePhrase = sourceTube ? `${specimen} from ${sourceTube}` : sourceSpecimen;
+      return [{
+        key: `amber|${normalizeSearch(sourcePhrase)}|${normalizeSearch(transport)}`,
+        label: `Amber ${specimen} Transport Tube — Protect From Light`,
+        className: 'tube-amber',
+        count: explicitSubmissionCount(test),
+        detail: sourcePhrase
+      }];
+    }
+
     if (/transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/i.test(transport)) {
       const sourcePhrase = sourceTube ? `${specimen} from ${sourceTube}` : sourceSpecimen;
       const isSwab = /swab/i.test(sourceSpecimen);

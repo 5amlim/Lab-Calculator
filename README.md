@@ -1,3 +1,7 @@
+## Version 7.6
+- Corrected Quest code 19826 Coenzyme Q10 light-protection and amber transport requirements.
+- Added amber transport-tube handling to the printed submission plan.
+
 ## Version 7.3
 
 - Added 34473 Interleukin-6 (IL-6), Serum.

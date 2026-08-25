@@ -861,3 +861,10 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 .print-order-tube.tube-royal::before {
   background: #3458a5;
 }
+
+
+/* v7.5: amber transport tube for light-sensitive specimens. */
+.tube-amber::before {
+  background: linear-gradient(180deg, #8a5a14 0 33.333%, #d6a64a 33.333% 100%);
+  border-color: #6f4810;
+}

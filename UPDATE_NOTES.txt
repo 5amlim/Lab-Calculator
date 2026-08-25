@@ -1,3 +1,9 @@
+Version 7.6
+- Updated test 19826 Coenzyme Q10 to the current official collection requirements: 1 mL SST serum preferred, 0.3 mL minimum, refrigerated transport, and direct-light protection.
+- The submission plan now identifies an Amber Serum Transport Tube — Protect From Light instead of a generic serum transport tube.
+- Added an amber tube badge for light-sensitive transport containers.
+- Bumped browser database version so the corrected built-in record refreshes while preserving custom entries.
+
 Version 7.4
 - Corrected test 945 Zinc to Royal Blue EDTA (purple stripe) as the preferred collection tube, with Royal Blue Sodium Heparin also accepted for plasma and Royal Blue No Additive (red stripe) for serum.
 - Audited all 259 built-in records for Royal Blue/EDTA/red-top source-classification conflicts.
