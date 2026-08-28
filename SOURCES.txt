@@ -62,3 +62,10 @@ Version 7.4 tube-source consistency audit
 - 636 Mercury, Blood: https://testdirectory.questdiagnostics.com/test/test-detail/636/?cc=MASTER
 - 6354 Zinc, RBC: https://testdirectory.questdiagnostics.com/test/test-detail/6354/?cc=MASTER
 - Quest tube/source parsing was audited across all 259 built-in records, with Royal Blue matching prioritized before generic EDTA, red-top, or heparin matching.
+
+Version 7.7 immune-serology additions / verification
+- 16963 Streptococcus pneumoniae Antibody (IgG) (23 Serotypes), MAID — Quest/Nichols Institute current directory entry reviewed 2026-08-27.
+- 35135 Haemophilus influenzae Type b Antibody (IgG) — Quest/Nichols Institute current directory entry reviewed 2026-08-27.
+- 7083 Immunoglobulins Panel, Serum — official Quest Test Directory current entry reviewed 2026-08-27.
+- 34042 Diphtheria and Tetanus Antitoxoids — Quest/Nichols Institute current directory entry reviewed 2026-08-27; requires two separate submitted serum aliquots.
+- 37847 and 37849 Lipoprotein Fractionation, NMR records corrected to refrigerated transport; room-temperature transport is unacceptable.
