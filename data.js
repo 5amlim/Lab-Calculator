@@ -10,12 +10,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1.5 mL Plasma",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Frozen",
-    "transportTemperatureRaw": "FROZEN",
+    "transportTemperatureRaw": "Frozen",
     "stability": "28 days",
     "spin": "Yes",
     "specialInstructions": "Lavender (EDTA) → transport. Centrifuge immediately after collection to separate plasma from cells. Transfer plasma to a plastic specimen transport container and mark the specimen type as plasma on the container. Freeze immediately. (Cannot be done on housecall)",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 2
   },
   {
@@ -29,12 +29,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 Days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 3
   },
   {
@@ -48,12 +48,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 4
   },
   {
@@ -67,12 +67,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "14 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 204
   },
   {
@@ -86,12 +86,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 5
   },
   {
@@ -105,12 +105,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 6
   },
   {
@@ -124,12 +124,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL serum",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "3 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 229
   },
   {
@@ -143,12 +143,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.4 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "8 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 234
   },
   {
@@ -162,12 +162,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL serum",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "3 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 228
   },
   {
@@ -181,12 +181,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 7
   },
   {
@@ -200,12 +200,12 @@ window.SEED_TESTS = [
     "preferredVolume": "4 mL Whole Blood",
     "minimumVolume": "2 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "No",
     "specialInstructions": "Avoid seafood for 48 hours before collection. Collect whole blood in a trace-metal-free Royal Blue EDTA tube (purple stripe) and submit in the original tube at room temperature. Do not freeze.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 8
   },
   {
@@ -219,12 +219,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "Room Temp 24 hours, Refrigerated 72 hours",
     "spin": "Yes",
     "specialInstructions": "SST **Protect from light by wrapping a spun SST in foil or transferring serum/plasma to an amber transport vial",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 9
   },
   {
@@ -238,12 +238,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL serum",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 10
   },
   {
@@ -257,12 +257,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL Serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 11
   },
   {
@@ -276,12 +276,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL Serum",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 Days",
     "spin": "Yes",
     "specialInstructions": "SST (Let clot and spin immediately with the cap on. Do not open tube. Ship the unopened gel barrier tube at room temperature.)",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 12
   },
   {
@@ -295,12 +295,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "5 Days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 194
   },
   {
@@ -314,12 +314,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL plasma",
     "minimumVolume": "0.7 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "5 days",
     "spin": "Yes",
     "specialInstructions": "Preferred: collect plasma in a trace-metal-free Royal Blue EDTA tube (purple stripe) or Royal Blue Sodium Heparin tube. Serum in a trace-metal-free Royal Blue No Additive tube (red stripe) is an alternative. Centrifuge within 2 hours and transfer separated plasma or serum to a plastic acid-washed or metal-free vial.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 13
   },
   {
@@ -333,12 +333,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 14
   },
   {
@@ -352,12 +352,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 Days",
     "spin": "Yes",
     "specialInstructions": "Fast for 12 hours before collection. SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 15,
     "fastingStatus": "required",
     "fastingInstructions": "Fast for 12 hours before collection."
@@ -373,12 +373,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "72 hours",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 16
   },
   {
@@ -392,12 +392,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 Days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 17
   },
   {
@@ -411,12 +411,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1.5 mL serum",
     "minimumVolume": "1.5 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerate",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "14 Days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 18
   },
   {
@@ -430,12 +430,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 19
   },
   {
@@ -448,13 +448,13 @@ window.SEED_TESTS = [
     "transportContainer": "SST / Gold (spun)",
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
-    "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerate",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 20
   },
   {
@@ -468,12 +468,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL whole blood",
     "minimumVolume": "0.2 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "5 days",
     "spin": "No",
     "specialInstructions": "Lavender- EDTA",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 21
   },
   {
@@ -487,12 +487,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 Days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 22
   },
   {
@@ -506,12 +506,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 23
   },
   {
@@ -525,12 +525,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL Whole blood",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "No",
     "specialInstructions": "Lavender- EDTA",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 24
   },
   {
@@ -544,12 +544,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL Serum",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 25
   },
   {
@@ -568,7 +568,7 @@ window.SEED_TESTS = [
     "spin": "No",
     "specialInstructions": "Collect 5 mL whole blood in a sodium heparin green-top tube and submit in the original tube at room temperature. Lavender EDTA or Yellow ACD are acceptable alternatives. Lithium heparin is not acceptable.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 209
   },
   {
@@ -582,12 +582,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL Serum",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "72 hours",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 26
   },
   {
@@ -601,12 +601,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "14 Days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 208
   },
   {
@@ -620,12 +620,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot, centrifuge, and submit the spun SST/gold-top tube. Overnight fasting is preferred.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 180,
     "fastingStatus": "preferred",
     "fastingInstructions": "Overnight fasting is preferred."
@@ -641,12 +641,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "7 Days",
     "spin": "Yes",
     "specialInstructions": "Fasting specimen required. SST→transport (must have its own tube - label)",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 27,
     "fastingStatus": "required",
     "fastingInstructions": "Fasting specimen required."
@@ -662,12 +662,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "6 Days",
     "spin": "Yes",
     "specialInstructions": "Collect in the morning from a fasting patient. Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 28,
     "fastingStatus": "required",
     "fastingInstructions": "Collect in the morning from a fasting patient."
@@ -683,12 +683,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "14 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 29
   },
   {
@@ -702,12 +702,12 @@ window.SEED_TESTS = [
     "preferredVolume": "3 mL Whole Blood",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "5 days",
     "spin": "No",
     "specialInstructions": "Collect whole blood in a K2 EDTA tan-top or trace-metal-free Royal Blue EDTA tube (purple stripe). Sodium-heparin lead-free tan or Royal Blue Sodium Heparin tubes are alternatives. Use powderless gloves and lead-free collection materials. Submit the collection tube at room temperature; Lavender EDTA is not acceptable.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 30
   },
   {
@@ -721,12 +721,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "8 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 31
   },
   {
@@ -740,12 +740,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 Days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 32
   },
   {
@@ -759,12 +759,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 33
   },
   {
@@ -778,12 +778,12 @@ window.SEED_TESTS = [
     "preferredVolume": "0.5 mL packed RBCs",
     "minimumVolume": "0.2 mL RBCs",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Patient should avoid vitamins and mineral or herbal supplements for at least 1 week before collection. Preferred packed RBC workflow: collect in Lavender EDTA or Royal Blue Sodium Heparin, centrifuge within 2 hours, discard plasma, and transfer packed RBCs to a trace-element and metal-free transport tube. Whole blood may be accepted from Lavender EDTA, Royal Blue EDTA (purple stripe), or Royal Blue Sodium Heparin; do not centrifuge when submitting whole blood.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 34
   },
   {
@@ -797,12 +797,12 @@ window.SEED_TESTS = [
     "preferredVolume": "4 mL Whole Blood",
     "minimumVolume": "2 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "7 days",
     "spin": "No",
     "specialInstructions": "Avoid seafood for 48 hours before collection. Collect whole blood in a trace-metal-free Royal Blue EDTA tube (purple stripe); Royal Blue Sodium Heparin is an alternative. Carefully clean the skin and avoid worksite collection. Submit in the original tube. Do not freeze.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 35
   },
   {
@@ -816,12 +816,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL Serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "5 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 36
   },
   {
@@ -835,12 +835,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "72 hours",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 37
   },
   {
@@ -854,12 +854,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "72 hours (refrigerated 7 days)",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 38
   },
   {
@@ -873,12 +873,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "5 days",
     "spin": "Yes",
     "specialInstructions": "Overnight fasting is preferred. Allow blood to clot, centrifuge, and submit the spun SST/gold-top tube.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 39,
     "fastingStatus": "preferred",
     "fastingInstructions": "Overnight fasting is preferred."
@@ -894,12 +894,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL serum",
     "minimumVolume": "1.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "5 days",
     "spin": "Yes",
     "specialInstructions": "Overnight fasting is preferred. SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 179,
     "fastingStatus": "preferred",
     "fastingInstructions": "Overnight fasting is preferred."
@@ -915,12 +915,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 40
   },
   {
@@ -933,13 +933,13 @@ window.SEED_TESTS = [
     "transportContainer": "No transfer unless directed",
     "preferredVolume": "Full tube",
     "minimumVolume": "Full tube",
-    "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerate",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "48 Hours",
     "spin": "No",
     "specialInstructions": "Lavender- EDTA",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 41
   },
   {
@@ -953,12 +953,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.6 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 42
   },
   {
@@ -972,12 +972,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 43
   },
   {
@@ -991,12 +991,12 @@ window.SEED_TESTS = [
     "preferredVolume": "Full tube",
     "minimumVolume": "2 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "24 hours (Must Send STAT)",
     "spin": "No",
     "specialInstructions": "Lavender- EDTA (Must send STAT)",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 44
   },
   {
@@ -1010,12 +1010,12 @@ window.SEED_TESTS = [
     "preferredVolume": "4 mL whole blood",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "No",
     "specialInstructions": "EDTA (lavender-top) tube",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 219
   },
   {
@@ -1029,12 +1029,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.3 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 45
   },
   {
@@ -1048,12 +1048,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 46
   },
   {
@@ -1067,12 +1067,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 47
   },
   {
@@ -1086,12 +1086,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL Serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "5 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 48
   },
   {
@@ -1105,12 +1105,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 205
   },
   {
@@ -1124,12 +1124,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.7 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 49
   },
   {
@@ -1143,12 +1143,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "72 Hours",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 50
   },
   {
@@ -1162,12 +1162,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 51
   },
   {
@@ -1186,7 +1186,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Preferred plasma: collect in a trace-metal-free Royal Blue EDTA tube (purple stripe) or Royal Blue Sodium Heparin tube. Alternative serum: collect in a trace-metal-free Royal Blue No Additive tube (red stripe). Separate plasma or serum from cells within 2 hours, then transfer the separated specimen to a plastic acid-washed or metal-free vial. Reject specimens submitted in non-trace-element or non-acid-washed containers.",
     "status": "active",
-    "source": "Official directory reviewed 2026-08-05",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 52
   },
   {
@@ -1200,12 +1200,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 196
   },
   {
@@ -1219,12 +1219,12 @@ window.SEED_TESTS = [
     "preferredVolume": "Full tube",
     "minimumVolume": "1 mL whole blood",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "48 hrs",
     "spin": "No",
     "specialInstructions": "Lavender- EDTA",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 53
   },
   {
@@ -1238,12 +1238,12 @@ window.SEED_TESTS = [
     "preferredVolume": "UA tube: 10 mL; culture tube: 4 mL",
     "minimumVolume": "Fill UA tube to its indicated line; fill gray-top urine culture tube to its marked line",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temperature",
+    "transportTemperatureRaw": "Preserved: Room temperature\nUnpreserved: Refrigerated (cold packs)",
     "stability": "Verify current official directory",
     "spin": "No",
     "specialInstructions": "Collect urine in a sterile urine cup first. Then fill and submit both preservative tubes from the same specimen: 1) red/yellow swirl-top urinalysis preservative tube for UA, and 2) gray-top urine culture preservative tube for culture. The gray urine culture tube is NOT the gray fluoride/oxalate blood tube and is not part of the blood order of draw. Fill each urine tube to its marked line. Both tubes are required for UA with reflex to culture.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-27",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 54
   },
   {
@@ -1262,7 +1262,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Collect in an EDTA trace metal-free royal blue-top tube. Centrifuge and separate plasma within 2 hours. Leave the RBCs in the original tube, replace the stopper, and refrigerate. Do not freeze. Do not use a heparin tube.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 55
   },
   {
@@ -1276,12 +1276,12 @@ window.SEED_TESTS = [
     "preferredVolume": "0.5 mL RBCs",
     "minimumVolume": "0.3 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 Days",
     "spin": "Yes",
     "specialInstructions": "Collect red blood cells in a trace-metal-free Royal Blue EDTA tube (purple stripe). Centrifuge to separate plasma and submit the RBCs in the original Royal Blue EDTA tube. Lavender EDTA, Royal Blue Sodium Heparin, Green Sodium Heparin, Tan Sodium Heparin, or Green Lithium Heparin may be accepted alternatives.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 56
   },
   {
@@ -1295,12 +1295,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 Days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 57
   },
   {
@@ -1314,12 +1314,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "5 Days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 58
   },
   {
@@ -1333,12 +1333,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 59
   },
   {
@@ -1352,12 +1352,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 197
   },
   {
@@ -1371,12 +1371,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL Serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 60
   },
   {
@@ -1390,12 +1390,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL Serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 61
   },
   {
@@ -1409,12 +1409,12 @@ window.SEED_TESTS = [
     "preferredVolume": "Full tube (draw discard tube)",
     "minimumVolume": "Full tube",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "24 hrs",
     "spin": "No",
     "specialInstructions": "Light Blue- Sodium Citrate",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 62
   },
   {
@@ -1428,12 +1428,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "14 Days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it. Confirm all required maternal and gestational information is included with the order.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 215
   },
   {
@@ -1447,12 +1447,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "10 Days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 63
   },
   {
@@ -1466,12 +1466,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 64
   },
   {
@@ -1485,12 +1485,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL serum",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 65
   },
   {
@@ -1504,12 +1504,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 66
   },
   {
@@ -1523,12 +1523,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL serum",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "6 days",
     "spin": "Yes",
     "specialInstructions": "Collect in the morning from a fasting patient. Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 67,
     "fastingStatus": "required",
     "fastingInstructions": "Collect in the morning from a fasting patient."
@@ -1544,12 +1544,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL serum",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "8 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 230
   },
   {
@@ -1563,12 +1563,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL whole blood",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "14 days",
     "spin": "No",
     "specialInstructions": "Collect whole blood in a trace-metal-free Royal Blue EDTA tube (purple stripe); Royal Blue Sodium Heparin is an alternative. Carefully clean the skin before venipuncture and avoid worksite collection. Submit in the original tube at room temperature.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 68
   },
   {
@@ -1582,12 +1582,12 @@ window.SEED_TESTS = [
     "preferredVolume": "0.5 mL",
     "minimumVolume": "0.3 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Collect red blood cells in a trace-metal-free Royal Blue EDTA tube (purple stripe). Centrifuge, discard plasma, and transfer packed RBCs to a trace-element and metal-free plastic transport vial. Lavender EDTA, Royal Blue Sodium Heparin, Green Sodium Heparin, Tan Sodium Heparin, or Green Lithium Heparin may be accepted alternatives.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 69
   },
   {
@@ -1601,12 +1601,12 @@ window.SEED_TESTS = [
     "preferredVolume": "Full tube",
     "minimumVolume": "1 mL whole blood",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "48 hrs",
     "spin": "No",
     "specialInstructions": "Lavender- EDTA",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 70
   },
   {
@@ -1620,12 +1620,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.8 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 Days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 71
   },
   {
@@ -1638,13 +1638,13 @@ window.SEED_TESTS = [
     "transportContainer": "Transport tube",
     "preferredVolume": "1 mL Serum",
     "minimumVolume": "0.5 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperature": "Not specified",
+    "transportTemperatureRaw": "Current Quest MASTER record unavailable; verify active code and local service-area instructions",
     "stability": "7 days",
     "spin": "Yes",
-    "specialInstructions": "SST→transport",
+    "specialInstructions": "Current Quest MASTER directory record was unavailable during the 2026-09-02 audit. Verify the active code and local service-area instructions before collection. SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory unavailable 2026-09-02",
     "sourceRow": 72
   },
   {
@@ -1658,12 +1658,12 @@ window.SEED_TESTS = [
     "preferredVolume": "10 mL urine",
     "minimumVolume": "2 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 Days",
     "spin": "No",
     "specialInstructions": "Plastic urine container - no preservative",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 73
   },
   {
@@ -1677,12 +1677,12 @@ window.SEED_TESTS = [
     "preferredVolume": "10 mL urine",
     "minimumVolume": "2 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temperature",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "Room temperature 4 days; refrigerated 5 days; frozen 30 days",
     "spin": "No",
     "specialInstructions": "Collect a well-mixed random urine specimen in a sterile urine cup with no preservative. Preferred specimen: 10 mL random urine, no preservative. Alternative: urinalysis transport tube (yellow-top, blue fill line, preservative tube). Reject acidified urine.",
     "status": "active",
-    "source": "Official directory verification 2026-08-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": null
   },
   {
@@ -1696,12 +1696,12 @@ window.SEED_TESTS = [
     "preferredVolume": "0.3 mL serum",
     "minimumVolume": "0.2 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "24. Hours",
     "spin": "Yes",
     "specialInstructions": "2 spun amber Microtainer® serum separator tubes (SSTs) or wrap 2 spun Microtainer® serum separator tubes (SSTs) in foil. PROTECT FROM LIGHT",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 74
   },
   {
@@ -1715,12 +1715,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.7 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 75
   },
   {
@@ -1734,12 +1734,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1.5 mL serum",
     "minimumVolume": "0.7 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 76
   },
   {
@@ -1753,12 +1753,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "36 hours",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 77
   },
   {
@@ -1772,12 +1772,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temperature; service-area transport may vary",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "Room temperature 72 hours; refrigerated 7 days; frozen 90 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot, centrifuge, and submit the spun SST/gold-top tube. Current official directory lists SST as the transport container.",
     "status": "active",
-    "source": "Official directory reviewed 2026-08-27",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 207
   },
   {
@@ -1791,12 +1791,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL serum",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "5 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 182
   },
   {
@@ -1810,12 +1810,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL serum",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 78
   },
   {
@@ -1829,12 +1829,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room Temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 79
   },
   {
@@ -1848,12 +1848,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "48 hours",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 80
   },
   {
@@ -1867,12 +1867,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL serum",
     "minimumVolume": "1.2 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 81
   },
   {
@@ -1886,12 +1886,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "6 days",
     "spin": "Yes",
     "specialInstructions": "Collect in the morning from a fasting patient. Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 82,
     "fastingStatus": "required",
     "fastingInstructions": "Collect in the morning from a fasting patient."
@@ -1907,12 +1907,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "48 Hours",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 83
   },
   {
@@ -1926,12 +1926,12 @@ window.SEED_TESTS = [
     "preferredVolume": "5 mL",
     "minimumVolume": "5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "72 hours",
     "spin": "No",
     "specialInstructions": "Pink top EDTA, Lavender EDTA is alternative",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 84
   },
   {
@@ -1945,12 +1945,12 @@ window.SEED_TESTS = [
     "preferredVolume": "10 mL urine",
     "minimumVolume": "1 mL urine",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Preserved: Room temperature\nUnpreserved: Refrigerated (cold packs)",
     "stability": "72 hours",
     "spin": "No",
     "specialInstructions": "Collect urine in a sterile urine cup, then transfer to the red/yellow swirl-top urinalysis preservative tube. Fill the preservative tube to its marked fill line. This urine preservative tube is not a yellow ACD blood tube.",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 85
   },
   {
@@ -1964,12 +1964,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "6 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 181
   },
   {
@@ -1983,12 +1983,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 86
   },
   {
@@ -2002,12 +2002,12 @@ window.SEED_TESTS = [
     "preferredVolume": "4 mL serum",
     "minimumVolume": "3 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "72 hours",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 87
   },
   {
@@ -2021,12 +2021,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "5 Days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 199
   },
   {
@@ -2045,7 +2045,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Collect as a trough immediately before the next dose. Use a red-top tube (no gel), allow to clot, centrifuge, and transfer serum to a transport tube. SST is not acceptable.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 233
   },
   {
@@ -2059,12 +2059,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 88
   },
   {
@@ -2078,12 +2078,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1.5 mL serum",
     "minimumVolume": "0.7 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 89
   },
   {
@@ -2097,12 +2097,12 @@ window.SEED_TESTS = [
     "preferredVolume": "Full Tube",
     "minimumVolume": "Full Tube",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "72 hours",
     "spin": "No",
     "specialInstructions": "Light Blue- Sodium Citrate",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 90
   },
   {
@@ -2116,12 +2116,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL Serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 91
   },
   {
@@ -2135,12 +2135,12 @@ window.SEED_TESTS = [
     "preferredVolume": "Full tube",
     "minimumVolume": "Full tube",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "48 hrs",
     "spin": "No",
     "specialInstructions": "Light Blue- Sodium Citrate",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 92
   },
   {
@@ -2154,12 +2154,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 Swab",
     "minimumVolume": "1 Swab",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "30 Days",
     "spin": "No",
     "specialInstructions": "1 vaginal swab collected in Aptima® Multitest Transport Tube",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 210
   },
   {
@@ -2173,12 +2173,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 Days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 93
   },
   {
@@ -2192,12 +2192,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "72 hrs",
     "spin": "Yes",
     "specialInstructions": "Fasting is preferred. Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 94,
     "fastingStatus": "preferred",
     "fastingInstructions": "Fasting is preferred."
@@ -2218,7 +2218,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Overnight fasting is required. 2 mL whole blood collected in an EDTA (lavender-top) tube - protected from light",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 187,
     "fastingStatus": "required",
     "fastingInstructions": "Overnight fasting is required."
@@ -2234,12 +2234,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "72 hrs",
     "spin": "Yes",
     "specialInstructions": "Fasting is preferred. Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 95,
     "fastingStatus": "preferred",
     "fastingInstructions": "Fasting is preferred."
@@ -2254,13 +2254,13 @@ window.SEED_TESTS = [
     "transportContainer": "SST / Gold (spun)",
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
-    "transportTemperature": "Room / Refrigerated",
-    "transportTemperatureRaw": "Room temp/ refrigerate",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "room 24 hr",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 96
   },
   {
@@ -2274,12 +2274,12 @@ window.SEED_TESTS = [
     "preferredVolume": "5 mL serum",
     "minimumVolume": "2.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "72 hrs",
     "spin": "Yes",
     "specialInstructions": "SST→transport (Recommend 2 tubes)",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 97
   },
   {
@@ -2293,12 +2293,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL Serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 98
   },
   {
@@ -2312,12 +2312,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL serum",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "14 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 236
   },
   {
@@ -2331,12 +2331,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL serum",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 223
   },
   {
@@ -2350,12 +2350,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 99
   },
   {
@@ -2369,12 +2369,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL",
     "minimumVolume": "0.3 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "5 days",
     "spin": "Yes",
     "specialInstructions": "Lavender- EDTA → centrifuge → Plasma to transport tube Label as PLASMA.",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 202
   },
   {
@@ -2388,12 +2388,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 swab or 2 mlurine in Aptima Tube",
     "minimumVolume": "1 swab or 2 mlurine in Aptima Tube",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "30 Days",
     "spin": "No",
     "specialInstructions": "1 vaginal swab in Aptima® Transport Tube or 1 endocervical or urethral swab in Aptima® Transport Tube or 2 mL urine in Aptima® Transport Tube",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 211
   },
   {
@@ -2407,13 +2407,14 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "3 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot and centrifuge. Submit the spun SST as a dedicated tube. Verify current PrEP panel and service-area instructions.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
-    "sourceRow": 192
+    "source": "Quest MASTER directory verified 2026-09-02",
+    "sourceRow": 192,
+    "specialLabeling": "Patient identifier; submit only for HIV testing. If plasma is submitted, label it PLASMA."
   },
   {
     "id": "seed-191",
@@ -2426,13 +2427,14 @@ window.SEED_TESTS = [
     "preferredVolume": "1.6 mL",
     "minimumVolume": "0.8 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "3 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot and centrifuge. Submit the spun SST as a dedicated tube. Verify current PrEP panel and service-area instructions.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
-    "sourceRow": 191
+    "source": "Quest MASTER directory verified 2026-09-02",
+    "sourceRow": 191,
+    "specialLabeling": "Patient identifier; submit only for HIV testing. If plasma is submitted, label it PLASMA."
   },
   {
     "id": "seed-189",
@@ -2445,12 +2447,12 @@ window.SEED_TESTS = [
     "preferredVolume": "4 mL",
     "minimumVolume": "3 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "5 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 189
   },
   {
@@ -2464,12 +2466,12 @@ window.SEED_TESTS = [
     "preferredVolume": "4 mL",
     "minimumVolume": "3 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "3 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 190
   },
   {
@@ -2483,12 +2485,12 @@ window.SEED_TESTS = [
     "preferredVolume": "3 mL",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 Days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 193
   },
   {
@@ -2502,12 +2504,12 @@ window.SEED_TESTS = [
     "preferredVolume": "30 mL",
     "minimumVolume": "20 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "30 days",
     "spin": "No",
     "specialInstructions": "first-catch urine (a maximum of 20-30 mL of the initial urine stream) into a urine collection cup free of any preservatives. 2 mL of urine specimen must be transferred into the Aptima Specimen Transport within 24 hours of collection and before being assayed. Use the tube provided in the urine specimen collection kit. The fluid (urine plus transport media) level in the urine transport tube must fall within the clear pane of the tube label.",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 188
   },
   {
@@ -2521,12 +2523,12 @@ window.SEED_TESTS = [
     "preferredVolume": "0.7 mL",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "5 days",
     "spin": "Yes",
     "specialInstructions": "Lavender- EDTA → centrifuge → Plasma to transport tube Label as PLASMA.",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 203
   },
   {
@@ -2540,12 +2542,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 200
   },
   {
@@ -2564,7 +2566,7 @@ window.SEED_TESTS = [
     "spin": "No",
     "specialInstructions": "Collect 5 mL whole blood in a sodium heparin green-top tube and submit in the original tube at room temperature. Sodium heparin royal-blue or lead-free tan-top tubes are acceptable alternatives. Do not freeze.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 232
   },
   {
@@ -2583,7 +2585,7 @@ window.SEED_TESTS = [
     "spin": "No",
     "specialInstructions": "Stool, standard container",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 221
   },
   {
@@ -2597,12 +2599,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL serum",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "Refrigerated (cold packs)",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 225
   },
   {
@@ -2616,12 +2618,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL serum",
     "minimumVolume": "2 mL serum",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "48 hours",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 224
   },
   {
@@ -2635,12 +2637,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2.8 mL serum",
     "minimumVolume": "1.3 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport (Allow blood to clot at room temperature, centrifuge, and remove serum from the gel immediately (not to exceed 48 hours) by pouring serum into a plastic transport tube.)",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 100
   },
   {
@@ -2654,12 +2656,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.4 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 235
   },
   {
@@ -2673,12 +2675,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "10 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 101
   },
   {
@@ -2691,13 +2693,13 @@ window.SEED_TESTS = [
     "transportContainer": "Transport tube",
     "preferredVolume": "1 mL Serum",
     "minimumVolume": "0.8 mL",
-    "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 103
   },
   {
@@ -2711,12 +2713,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 102
   },
   {
@@ -2730,12 +2732,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport (Allow blood to clot at room temperature, centrifuge, and remove serum from the gel immediately (not to exceed 48 hours) by pouring serum into a plastic transport tube.)",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 104
   },
   {
@@ -2749,12 +2751,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL",
     "minimumVolume": "1.5 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "7 Days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 226
   },
   {
@@ -2773,7 +2775,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Preferred: red top. Allow to clot fully at room temperature. Within 1 hour, centrifuge at 2,000 rpm for 10 minutes, immediately transfer serum to a clean plastic screw-cap transport tube, and refrigerate. SST, EDTA plasma, and heparin plasma are listed alternatives; verify the current official page for your service area.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 105
   },
   {
@@ -2787,12 +2789,12 @@ window.SEED_TESTS = [
     "preferredVolume": "0.5 mL serum",
     "minimumVolume": "0.3 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerate",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "7 Days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 106
   },
   {
@@ -2806,12 +2808,12 @@ window.SEED_TESTS = [
     "preferredVolume": "0.6 mL serum",
     "minimumVolume": "0.25 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "28 days",
     "spin": "Yes",
     "specialInstructions": "SST→ clot 30 min→transport",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 107
   },
   {
@@ -2825,12 +2827,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temperature; refrigerated acceptable; frozen unacceptable",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "Room temperature: 10 days; refrigerated: 10 days; frozen: unacceptable",
     "spin": "Yes",
     "specialInstructions": "Collect serum in a trace-metal-free Royal Blue No Additive tube (red stripe) or plasma in a trace-metal-free Royal Blue EDTA tube (purple stripe). Centrifuge, separate serum or plasma from cells, and transfer it to an acid-washed vial or another trace-element-free container. Do not freeze.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 108
   },
   {
@@ -2849,7 +2851,7 @@ window.SEED_TESTS = [
     "spin": "No",
     "specialInstructions": "Stool, standard container",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 222
   },
   {
@@ -2863,12 +2865,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL whole blood",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "No",
     "specialInstructions": "Lavender - EDTA",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 109
   },
   {
@@ -2882,12 +2884,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL whole blood",
     "minimumVolume": "1 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated (Reject if RT or frozen)",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "7 days",
     "spin": "No",
     "specialInstructions": "Collect whole blood in a trace-element collection tube: Royal Blue EDTA (purple stripe) is preferred. Royal Blue Sodium Heparin, Lavender EDTA, or Green Sodium Heparin may be accepted. Avoid hemolysis, refrigerate, and submit in the original Royal Blue EDTA tube. Do not freeze.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 110
   },
   {
@@ -2901,12 +2903,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL serum",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 111
   },
   {
@@ -2925,7 +2927,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Collect in a red-top tube (no gel). Allow the blood to clot, centrifuge, and transfer the serum to a transport tube. Refrigerate. Do not submit an SST or glass tube.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 112
   },
   {
@@ -2939,12 +2941,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.25 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "72 hours",
     "spin": "Yes",
     "specialInstructions": "Collect in a red-top tube (no gel). Allow the blood to clot, centrifuge, and transfer the serum to a transport tube. An early-morning specimen is preferred. Do not submit an SST or glass tube.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 113
   },
   {
@@ -2963,7 +2965,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Collect in a red-top tube (no gel). Allow the blood to clot for 10–15 minutes, centrifuge, and transfer the serum to a transport tube. SST is not acceptable.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 114
   },
   {
@@ -2977,12 +2979,12 @@ window.SEED_TESTS = [
     "preferredVolume": "0.8 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 115
   },
   {
@@ -2996,12 +2998,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Frozen",
-    "transportTemperatureRaw": "FROZEN",
+    "transportTemperatureRaw": "Frozen",
     "stability": "90 days",
     "spin": "Yes",
     "specialInstructions": "Fast for at least 12 hours and collect in the morning, preferably between 8:00 and 10:00 AM. SST→Allow blood to clot (30-60 minutes) at room temperature → Centrifuge and separate the serum from the cells → transfer serum to a clean transport tube. Freeze as soon as possible",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 198,
     "fastingStatus": "required",
     "fastingInstructions": "Fast for at least 12 hours and collect in the morning, preferably between 8:00 and 10:00 AM."
@@ -3016,13 +3018,13 @@ window.SEED_TESTS = [
     "transportContainer": "Transport tube",
     "preferredVolume": "2 mL serum",
     "minimumVolume": "0.6 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen • Room temperature acceptable if received within 72 hours",
     "stability": "72 hours",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 116
   },
   {
@@ -3036,12 +3038,12 @@ window.SEED_TESTS = [
     "preferredVolume": "5 mL whole blood",
     "minimumVolume": "3 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "8 days",
     "spin": "No",
     "specialInstructions": "Lavender - EDTA",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 117
   },
   {
@@ -3055,12 +3057,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2.8 mL serum",
     "minimumVolume": "1.3 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport (Allow blood to clot at room temperature, centrifuge, and remove serum from the gel immediately (not to exceed 48 hours) by pouring serum into a plastic transport tube.)",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 118
   },
   {
@@ -3079,7 +3081,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Do not take Coenzyme Q10 supplements the morning of collection. Gently invert SST 5 times (do not shake), allow blood to clot for 30 minutes at room temperature, then centrifuge for 10 minutes. Specimen must be protected from direct light. Same-day shipment is preferred. If not shipped the same day, wrap the specimen in foil or transfer serum to an amber transport tube. Store and transport refrigerated. Specimens not shipped the same day without light protection are unacceptable.",
     "status": "active",
-    "source": "Official directory reviewed 2026-08-14",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 238
   },
   {
@@ -3098,7 +3100,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Overnight fasting is preferred. Collect in a red-top tube (no gel), allow to clot, centrifuge, transfer serum to a transport tube, and freeze. Specify age and sex on the requisition. SST is not acceptable.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 201,
     "fastingStatus": "preferred",
     "fastingInstructions": "Overnight fasting is preferred."
@@ -3113,13 +3115,13 @@ window.SEED_TESTS = [
     "transportContainer": "Transport tube",
     "preferredVolume": "5 mL serum",
     "minimumVolume": "1 mL serum",
-    "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 231
   },
   {
@@ -3133,12 +3135,12 @@ window.SEED_TESTS = [
     "preferredVolume": "0.3 mL serum",
     "minimumVolume": "0.2 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "24. Hours",
     "spin": "Yes",
     "specialInstructions": "2 spun amber Microtainer® serum separator tubes (SST) PROTECT FROM LIGHT",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 119
   },
   {
@@ -3157,7 +3159,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Collect 30–60 minutes before the next dose at steady state. Use a red-top tube (no gel), allow to clot, centrifuge, and transfer serum to a transport tube. SST is not acceptable.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 120
   },
   {
@@ -3176,7 +3178,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Collect in a red-top tube (no gel). Allow the blood to clot, centrifuge, and transfer serum to a transport tube. Specify age and sex on the requisition. SST is not acceptable.",
     "status": "active",
-    "source": "Official test directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 121
   },
   {
@@ -3190,12 +3192,12 @@ window.SEED_TESTS = [
     "preferredVolume": "0.5 mL Serum",
     "minimumVolume": "0.2 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Red (no gel)→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 122
   },
   {
@@ -3214,7 +3216,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Collect serum in a red-top tube. Allow the blood to clot, centrifuge, and transfer serum to a transport tube.",
     "status": "active",
-    "source": "Official test directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 123
   },
   {
@@ -3233,7 +3235,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Allow serum to clot and centrifuge. Separate serum into a transport tube and refrigerate on cold packs. Room-temperature specimens are unacceptable.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 183
   },
   {
@@ -3247,12 +3249,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 124
   },
   {
@@ -3265,13 +3267,13 @@ window.SEED_TESTS = [
     "transportContainer": "Transport tube",
     "preferredVolume": "2 mL serum",
     "minimumVolume": "0.6 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen • Room temperature acceptable if received within 72 hours",
     "stability": "72 hours",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 125
   },
   {
@@ -3290,7 +3292,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Collect in a red-top tube with no additives. Allow the blood to clot for 30 minutes at room temperature, centrifuge, transfer serum to a transport tube, and freeze as soon as possible. SST is not acceptable.",
     "status": "active",
-    "source": "Official test directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 206
   },
   {
@@ -3304,13 +3306,14 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "Refrigerate the specimen for 30 minutes after collection, then centrifuge as soon as possible. For red-top or plasma specimens, transfer serum/plasma to a plastic transport tube. For SST, ensure complete gel separation and verify current service-area instructions.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
-    "sourceRow": 126
+    "source": "Quest MASTER directory verified 2026-09-02",
+    "sourceRow": 126,
+    "specialLabeling": "Mark the transport tube specimen type as SERUM."
   },
   {
     "id": "seed-127",
@@ -3322,13 +3325,13 @@ window.SEED_TESTS = [
     "transportContainer": "No transfer unless directed",
     "preferredVolume": "Full tube",
     "minimumVolume": "1 mL",
-    "transportTemperature": "Room / Refrigerated",
-    "transportTemperatureRaw": "Room Temp (Do not refrigerate)",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "48 Hours",
     "spin": "No",
     "specialInstructions": "Lavender- EDTA",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 127
   },
   {
@@ -3342,12 +3345,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1.5 mL serum",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 128
   },
   {
@@ -3361,12 +3364,12 @@ window.SEED_TESTS = [
     "preferredVolume": "0.3 mL serum",
     "minimumVolume": "0.2 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "24. Hours",
     "spin": "Yes",
     "specialInstructions": "2 spun amber Microtainer® serum separator tubes (SST) PROTECT FROM LIGHT",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 129
   },
   {
@@ -3380,12 +3383,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 195
   },
   {
@@ -3404,7 +3407,7 @@ window.SEED_TESTS = [
     "spin": "No",
     "specialInstructions": "Swab the lesion and place the swab in viral transport media such as VCM or M4, or in an Aptima Unisex Collection device. Do not centrifuge.",
     "status": "active",
-    "source": "Official test directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 220
   },
   {
@@ -3417,13 +3420,13 @@ window.SEED_TESTS = [
     "transportContainer": "Transport tube",
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperature": "Not specified",
+    "transportTemperatureRaw": "Current Quest MASTER record unavailable; verify active code and local service-area instructions",
     "stability": "7 days",
     "spin": "Yes",
-    "specialInstructions": "SST→transport",
+    "specialInstructions": "Current Quest MASTER directory record was unavailable during the 2026-09-02 audit. Verify the active code and local service-area instructions before collection. SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory unavailable 2026-09-02",
     "sourceRow": 130
   },
   {
@@ -3437,12 +3440,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 Days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 131
   },
   {
@@ -3456,12 +3459,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL Serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 132
   },
   {
@@ -3480,7 +3483,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "No biotin supplements for 48 hours before the blood draw. Allow the specimen to clot, centrifuge to separate serum from cells, transfer serum to a transport tube, and freeze immediately. Do not thaw. Cytokine levels may show diurnal variation; for longitudinal comparison, collect at a consistent time of day. Current official directory lists 1 mL frozen serum (minimum 0.5 mL); current Quest-referral collection guidance uses SST/Gold with Red Top as an alternative. Availability may vary by service area.",
     "status": "active",
-    "source": "Official directory reviewed 2026-08-05",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 259
   },
   {
@@ -3494,12 +3497,12 @@ window.SEED_TESTS = [
     "preferredVolume": "Verify",
     "minimumVolume": "Verify",
     "transportTemperature": "Not specified",
-    "transportTemperatureRaw": "Verify current official listing",
+    "transportTemperatureRaw": "Current Quest MASTER record unavailable; verify active code and local service-area instructions",
     "stability": "Verify",
     "spin": "Verify",
-    "specialInstructions": "Test code 34483 was not found in the current directory during this review. Do not rely on the prior red-top instruction. Verify the active test code and collection requirements before drawing.",
+    "specialInstructions": "Current Quest MASTER directory record was unavailable during the 2026-09-02 audit. Verify the active code and local service-area instructions before collection. Test code 34483 was not found in the current directory during this review. Do not rely on the prior red-top instruction. Verify the active test code and collection requirements before drawing.",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory unavailable 2026-09-02",
     "sourceRow": 133
   },
   {
@@ -3518,7 +3521,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Collect in a plain red-top tube with no gel. Allow blood to clot for 10–15 minutes at room temperature, centrifuge, separate serum from cells, transfer serum to a clean transport tube, and freeze as soon as possible. SST is unacceptable. Cytokine levels may show diurnal variation; for longitudinal comparison, collect at a consistent time of day. The official directory notes this test is for research use only and for patients previously diagnosed with T-cell lymphoma. Availability may vary by service area.",
     "status": "active",
-    "source": "Official directory reviewed 2026-08-05",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 260
   },
   {
@@ -3531,13 +3534,13 @@ window.SEED_TESTS = [
     "transportContainer": "SST / Gold (spun)",
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperature": "Not specified",
+    "transportTemperatureRaw": "Current Quest MASTER record unavailable; verify active code and local service-area instructions",
     "stability": "4 days",
     "spin": "Yes",
-    "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
+    "specialInstructions": "Current Quest MASTER directory record was unavailable during the 2026-09-02 audit. Verify the active code and local service-area instructions before collection. Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory unavailable 2026-09-02",
     "sourceRow": 134
   },
   {
@@ -3551,12 +3554,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 Days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 135
   },
   {
@@ -3570,12 +3573,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL serum",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot, centrifuge, and submit the spun SST/gold-top tube. The official directory lists SST as the transport container.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 136
   },
   {
@@ -3594,7 +3597,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Collect in a red-top tube (no gel). Allow the blood to clot, centrifuge, and transfer serum to a transport tube. SST is not acceptable.",
     "status": "active",
-    "source": "Official test directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 137
   },
   {
@@ -3607,13 +3610,13 @@ window.SEED_TESTS = [
     "transportContainer": "Transport tube",
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
-    "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 138
   },
   {
@@ -3627,13 +3630,14 @@ window.SEED_TESTS = [
     "preferredVolume": "1.5 mL plasma",
     "minimumVolume": "1 mL plasma",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerate",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "72 hours",
     "spin": "Yes",
     "specialInstructions": "Lavender- EDTA → centrifuge → Plasma to transport tube Label as PLASMA.",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
-    "sourceRow": 139
+    "source": "Quest MASTER directory verified 2026-09-02",
+    "sourceRow": 139,
+    "specialLabeling": "Label the transport tube PLASMA."
   },
   {
     "id": "seed-140",
@@ -3646,12 +3650,12 @@ window.SEED_TESTS = [
     "preferredVolume": "3 mL serum",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 140
   },
   {
@@ -3665,12 +3669,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.7 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 141
   },
   {
@@ -3684,12 +3688,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1.8 mL serum",
     "minimumVolume": "0.9 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport (Allow blood to clot at room temperature, centrifuge, and remove serum from the gel immediately (not to exceed 48 hours) by pouring serum into a plastic transport tube.)",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 142
   },
   {
@@ -3703,12 +3707,12 @@ window.SEED_TESTS = [
     "preferredVolume": "5 mL serum",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "72 hours",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 143
   },
   {
@@ -3727,7 +3731,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Overnight fasting is preferred. Draw three full 8.5 mL SST/gold-top tubes. Allow to clot for 30–60 minutes, then centrifuge each tube for 15 minutes at 1250–1600 RCF. If red-top tubes are used instead, transfer serum to transport tubes. Refrigerate.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 144,
     "fastingStatus": "preferred",
     "fastingInstructions": "Overnight fasting is preferred."
@@ -3748,7 +3752,7 @@ window.SEED_TESTS = [
     "spin": "No onsite collection",
     "specialInstructions": "Fasting specimen required. DO NOT COLLECT ONSITE. This test requires a fasting specimen in a red-top tube (no gel) and the blood must clot for 1 hour at 37°C in a water bath, incubator, heat block, or heel warmer before centrifugation. Our site cannot incubate tubes or use a hot bath. Refer the patient to a collection site that can perform the required 37°C handling. SST is unacceptable.",
     "status": "blocked",
-    "source": "Official directory reviewed 2026-07-28",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 255,
     "fastingStatus": "required",
     "fastingInstructions": "Fasting specimen required."
@@ -3763,13 +3767,13 @@ window.SEED_TESTS = [
     "transportContainer": "Transport tube",
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
-    "transportTemperature": "Room / Refrigerated",
-    "transportTemperatureRaw": "Room temp/ refrigerate",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "14 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 145
   },
   {
@@ -3788,13 +3792,13 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "EDTA (lavender-top) → Immediately centrifuge → freeze in transport tube",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 237
   },
   {
     "id": "seed-146",
     "testCode": "36970",
-    "testName": "Quantiferon Gold TB (TIME and DATE Required on label)",
+    "testName": "QuantiFERON-TB Gold Plus, 1 Tube",
     "specimenType": "Whole Blood",
     "drawContainer": "Green Lithium Heparin (no gel, 6 mL)",
     "alternativeContainer": "",
@@ -3802,12 +3806,12 @@ window.SEED_TESTS = [
     "preferredVolume": "6 mL whole blood",
     "minimumVolume": "6 mL whole blood",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated 2–8°C",
-    "stability": "48 hours refrigerated. Must be in Light-Protection Transport bag",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
+    "stability": "Room temperature: unacceptable; refrigerated: 48 hours; frozen: unacceptable",
     "spin": "No",
-    "specialInstructions": "Collect at least 6 mL whole blood in a no-gel lithium heparin green-top tube. Gently invert several times to mix, record collection time and date, refrigerate at 2–8°C, and submit in the original tube. Do not substitute sodium heparin.",
+    "specialInstructions": "Collect at least 6 mL whole blood in a no-gel lithium heparin green-top tube. Gently invert several times to dissolve the heparin, refrigerate at 2–8°C, and submit in the original tube. Do not use the four-tube QuantiFERON collection kit or a gel-barrier lithium heparin tube.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 146
   },
   {
@@ -3826,7 +3830,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Collect in a red-top tube (no gel), allow to clot, and centrifuge. Aliquot serum into two separate transport tubes, with 1 mL preferred (0.7 mL minimum) in each tube. Record the collection time. SST is not acceptable.",
     "status": "active",
-    "source": "Official test directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 147
   },
   {
@@ -3840,12 +3844,12 @@ window.SEED_TESTS = [
     "preferredVolume": "0.5 mL serum",
     "minimumVolume": "0.3 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerate",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "6 Days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 148
   },
   {
@@ -3864,7 +3868,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Lavender- EDTA → centrifuge → Plasma to transport tube and freeze within 1 hr",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 149
   },
   {
@@ -3878,15 +3882,16 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL serum",
     "minimumVolume": "1 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated; room temperature unacceptable",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Fast for 12 hours before collection. Red→transport\n1. Gently invert draw tube 5X (DO NOT SHAKE).\n2. Let blood clot for 30-60 minutes at room temperature.\n3. Centrifuge for 10 minutes.\n4. Aliquot top layer from red-top draw tube and place SERUM in transport tube and dispose of draw tube. Label the transport tube as \"No Additive Serum Red\". ONLY ship No Additive Serum in transport tube.\n5. Store and transport refrigerated. It is acceptable to store frozen and ship refrigerated. Do not ship frozen on dry ice.",
     "status": "active",
-    "source": "Official directory reviewed 2026-08-27",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 150,
     "fastingStatus": "required",
-    "fastingInstructions": "Fast for 12 hours before collection."
+    "fastingInstructions": "Fast for 12 hours before collection.",
+    "specialLabeling": "Label the transport tube “No Additive Serum Red”."
   },
   {
     "id": "seed-151",
@@ -3899,15 +3904,16 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL serum",
     "minimumVolume": "1.5 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated; room temperature unacceptable",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Fast for 12 hours before collection. Red→transport\n1. Gently invert draw tube 5X (DO NOT SHAKE).\n2. Let blood clot for 30-60 minutes at room temperature.\n3. Centrifuge for 10 minutes.\n4. Aliquot top layer from red-top draw tube and place SERUM in transport tube and dispose of draw tube. Label the transport tube as \"No Additive Serum Red\". ONLY ship No Additive Serum in transport tube.\n5. Store and transport refrigerated. It is acceptable to store frozen and ship refrigerated. Do not ship frozen on dry ice.",
     "status": "active",
-    "source": "Official directory reviewed 2026-08-27",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 151,
     "fastingStatus": "required",
-    "fastingInstructions": "Fast for 12 hours before collection."
+    "fastingInstructions": "Fast for 12 hours before collection.",
+    "specialLabeling": "Label the transport tube “No Additive Serum Red”."
   },
   {
     "id": "seed-256",
@@ -3925,7 +3931,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Overnight fasting is preferred. Draw without anticoagulant in a red-top tube and allow to clot. Centrifuge, split the serum into 2 separate transport tubes, and freeze both within 1 hour of collection. Submit both tubes frozen. Do not submit refrigerated, room-temperature, or thawed specimens.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-28",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 256,
     "fastingStatus": "preferred",
     "fastingInstructions": "Overnight fasting is preferred."
@@ -3941,12 +3947,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport. Allow serum to clot at room temperature. Serum must be separated from the cells or gel barrier within 1 hour of collection and poured into a transport vial",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 184
   },
   {
@@ -3960,12 +3966,12 @@ window.SEED_TESTS = [
     "preferredVolume": "30 mL urine",
     "minimumVolume": "7 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "5 Days",
     "spin": "No",
     "specialInstructions": "Urine collected in urine collection container",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 152
   },
   {
@@ -3979,12 +3985,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 217
   },
   {
@@ -3997,13 +4003,13 @@ window.SEED_TESTS = [
     "transportContainer": "Transport tube",
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperature": "Not specified",
+    "transportTemperatureRaw": "Current Quest MASTER record unavailable; verify active code and local service-area instructions",
     "stability": "4 days",
     "spin": "Yes",
-    "specialInstructions": "SST→transport",
+    "specialInstructions": "Current Quest MASTER directory record was unavailable during the 2026-09-02 audit. Verify the active code and local service-area instructions before collection. SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory unavailable 2026-09-02",
     "sourceRow": 153
   },
   {
@@ -4017,12 +4023,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.7 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 154
   },
   {
@@ -4036,12 +4042,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 swab",
     "minimumVolume": "1 swab",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "30 Days",
     "spin": "No",
     "specialInstructions": "1 throat swab submitted in Aptima® Multitest transport tube",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 213
   },
   {
@@ -4060,7 +4066,7 @@ window.SEED_TESTS = [
     "spin": "No",
     "specialInstructions": "Use the Aptima Multitest transport tube with the orange label. Swab the tonsils and posterior pharynx without touching other areas of the mouth. Place the swab into the Aptima tube, break the shaft at the score line, recap tightly, and submit as Aptima. Do not place 2 swabs in one tube.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-27",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 212
   },
   {
@@ -4074,12 +4080,12 @@ window.SEED_TESTS = [
     "preferredVolume": "3 mL serum",
     "minimumVolume": "1.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 155
   },
   {
@@ -4098,7 +4104,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Collect 3.2% sodium citrate light blue-top tubes. Prepare platelet-poor plasma according to the validated coagulation workflow, divide into three separate aliquots, and freeze promptly. The official directory lists three 1 mL frozen aliquots (three 0.5 mL minimum).",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 227
   },
   {
@@ -4112,12 +4118,12 @@ window.SEED_TESTS = [
     "preferredVolume": "3 mL",
     "minimumVolume": "1.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 214
   },
   {
@@ -4131,12 +4137,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.2 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "14 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 156
   },
   {
@@ -4155,7 +4161,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Overnight fasting is required for adults. For pediatric patients, collect before the next meal or scheduled feeding. Draw in a red-top tube with no gel, allow to clot, centrifuge, transfer serum to a transport tube, and freeze. Lavender EDTA plasma is an alternative. Patient age and gender are required. SST, hemolyzed, lipemic, and non-fasting adult specimens are unacceptable.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-28",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 257,
     "fastingStatus": "required",
     "fastingInstructions": "Overnight fasting is required for adults. For pediatric patients, collect before the next meal or scheduled feeding."
@@ -4176,7 +4182,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Collect in a red-top tube (no gel). Allow the blood to clot, centrifuge, and transfer serum to a transport tube. SST and plasma are not acceptable.",
     "status": "active",
-    "source": "Official test directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 157
   },
   {
@@ -4195,7 +4201,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Collect in a red-top tube (no gel). Allow the blood to clot, centrifuge, and transfer serum to a transport tube. SST and plasma are not acceptable.",
     "status": "active",
-    "source": "Official test directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 158
   },
   {
@@ -4209,12 +4215,12 @@ window.SEED_TESTS = [
     "preferredVolume": "0.5 mL serum",
     "minimumVolume": "0.3 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST → allow to clot at room temperature → centrifuge → transport tube",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 159
   },
   {
@@ -4227,13 +4233,13 @@ window.SEED_TESTS = [
     "transportContainer": "Transport tube",
     "preferredVolume": "2 mL plasma",
     "minimumVolume": "0.6 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperature": "Not specified",
+    "transportTemperatureRaw": "Current Quest MASTER record unavailable; verify active code and local service-area instructions",
     "stability": "7 days",
     "spin": "Yes",
-    "specialInstructions": "Fasting is preferred but not required. Lavender- EDTA (Centrifuge sample to separate plasma from cells. Transfer plasma to a plastic specimen transport container and mark the specimen type as plasma on the container)",
+    "specialInstructions": "Current Quest MASTER directory record was unavailable during the 2026-09-02 audit. Verify the active code and local service-area instructions before collection. Fasting is preferred but not required. Lavender- EDTA (Centrifuge sample to separate plasma from cells. Transfer plasma to a plastic specimen transport container and mark the specimen type as plasma on the container)",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory unavailable 2026-09-02",
     "sourceRow": 160,
     "fastingStatus": "preferred",
     "fastingInstructions": "Fasting is preferred but not required."
@@ -4248,13 +4254,13 @@ window.SEED_TESTS = [
     "transportContainer": "Transport tube",
     "preferredVolume": "2.7 mL serum",
     "minimumVolume": "1.1 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "4 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport (Place the specimen in a refrigerator for 30 minutes after collection. Centrifuge the specimen as soon as possible after complete clot formation has taken place. Do not place barrier tubes in an ice bath as freezing may prevent the barrier gel from adequately separating serum from cells)",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 161
   },
   {
@@ -4268,13 +4274,14 @@ window.SEED_TESTS = [
     "preferredVolume": "3 mL serum",
     "minimumVolume": "2 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "72 hrs",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot and centrifuge. Submit the spun SST as a dedicated tube for HIV testing. Verify current service-area instructions.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
-    "sourceRow": 162
+    "source": "Quest MASTER directory verified 2026-09-02",
+    "sourceRow": 162,
+    "specialLabeling": "Patient identifier; submit only for HIV testing. If plasma is submitted, label it PLASMA."
   },
   {
     "id": "seed-163",
@@ -4287,12 +4294,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 163
   },
   {
@@ -4311,7 +4318,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot, centrifuge, separate serum into a transport tube, and refrigerate on cold packs.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 164
   },
   {
@@ -4325,12 +4332,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "7 Days",
     "spin": "Yes",
     "specialInstructions": "Fasting specimen required. SST→transport (must have its own tube - Label)",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 165,
     "fastingStatus": "required",
     "fastingInstructions": "Fasting specimen required."
@@ -4346,12 +4353,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL Whole blood",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "7 days",
     "spin": "No",
     "specialInstructions": "Lavender- EDTA",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 166
   },
   {
@@ -4370,7 +4377,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "SST→allow blood to clot at room temperature →transport tube",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 167
   },
   {
@@ -4389,7 +4396,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot, centrifuge, separate serum into a transport tube, and refrigerate on cold packs.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 168
   },
   {
@@ -4403,12 +4410,12 @@ window.SEED_TESTS = [
     "preferredVolume": "5 mL",
     "minimumVolume": "2 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "14 days",
     "spin": "No",
     "specialInstructions": "Lavender- EDTA",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 169
   },
   {
@@ -4422,12 +4429,12 @@ window.SEED_TESTS = [
     "preferredVolume": "4 mL serum",
     "minimumVolume": "2 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "Room Temp 24 hours, Refrigerated 7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 170
   },
   {
@@ -4441,12 +4448,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL serum",
     "minimumVolume": "1 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "14 days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 185
   },
   {
@@ -4460,12 +4467,12 @@ window.SEED_TESTS = [
     "preferredVolume": "0.5 mL whole blood",
     "minimumVolume": "0.1 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "70 days",
     "spin": "No",
     "specialInstructions": "Fasting is preferred but not required. Lavender - EDTA\n1. Collect and label sample according to standard protocols.\n2. Gently invert tube 8-10 times immediately after draw. DO NOT SHAKE.\n3. Do not centrifuge.\n4. Store and transport refrigerated.",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 171,
     "fastingStatus": "preferred",
     "fastingInstructions": "Fasting is preferred but not required."
@@ -4481,12 +4488,12 @@ window.SEED_TESTS = [
     "preferredVolume": "10 mL urine",
     "minimumVolume": "2 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 Days",
     "spin": "No",
     "specialInstructions": "Plastic urine container - no preservative",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 172
   },
   {
@@ -4500,12 +4507,12 @@ window.SEED_TESTS = [
     "preferredVolume": "0.5 mL plasma",
     "minimumVolume": "0.3 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "7 days refrigerated",
     "spin": "Yes",
     "specialInstructions": "Lavender- EDTA\n1. Collect and label sample according to standard protocols.\n2. Gently invert tube 8-10 times immediately after draw.\n3. Do not shake.\n4. Centrifuge for 10 minutes.\n5. Aliquot top layer from lavender top draw tube and place plasma into transport tube. Discard draw tube.\n6. Label the transport tube EDTA plasma.\n7. Store and ship refrigerated.",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 186
   },
   {
@@ -4519,12 +4526,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "14 Days",
     "spin": "Yes",
     "specialInstructions": "Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it. Confirm all required maternal and gestational information is included with the order.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 216
   },
   {
@@ -4538,12 +4545,12 @@ window.SEED_TESTS = [
     "preferredVolume": "0.5 mL serum",
     "minimumVolume": "0.3 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "21 Days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 173
   },
   {
@@ -4557,12 +4564,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1.5 mL serum",
     "minimumVolume": "0.6 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 174
   },
   {
@@ -4576,12 +4583,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "23 days",
     "spin": "Yes",
     "specialInstructions": "Fast overnight and avoid fish and seafood the day before collection. SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 175,
     "fastingStatus": "required",
     "fastingInstructions": "Fast overnight and avoid fish and seafood the day before collection."
@@ -4597,12 +4604,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "28 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 176
   },
   {
@@ -4616,12 +4623,12 @@ window.SEED_TESTS = [
     "preferredVolume": "3 mL whole blood",
     "minimumVolume": "1.5 mL",
     "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "7 days",
     "spin": "No",
     "specialInstructions": "EDTA (lavender-top) tube",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 218
   },
   {
@@ -4635,12 +4642,12 @@ window.SEED_TESTS = [
     "preferredVolume": "1 mL serum",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temp",
+    "transportTemperatureRaw": "Room temperature",
     "stability": "26 days",
     "spin": "Yes",
     "specialInstructions": "SST→transport",
     "status": "active",
-    "source": "Lab Collection Calculator spreadsheet",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 177
   },
   {
@@ -4659,7 +4666,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Preferred: collect serum in a trace-metal-free Royal Blue No Additive tube (red stripe). Alternative: collect plasma in a trace-metal-free Royal Blue EDTA tube (purple stripe). Promptly centrifuge and transfer serum or plasma into an acid-washed or trace-metal-free plastic screw-cap vial. Do not use SST or PST gel tubes.",
     "status": "active",
-    "source": "Official directory reviewed 2026-07-30",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 258
   },
   {
@@ -4673,12 +4680,12 @@ window.SEED_TESTS = [
     "preferredVolume": "2 mL serum",
     "minimumVolume": "1 mL",
     "transportTemperature": "Frozen",
-    "transportTemperatureRaw": "Frozen; ship on dry ice",
+    "transportTemperatureRaw": "Frozen",
     "stability": "Room temperature: unacceptable; Refrigerated: 7 days; Frozen: 10 weeks",
     "spin": "Yes",
     "specialInstructions": "Collect serum in a red-top tube. Allow the blood to clot for 30 minutes, centrifuge at 3000 rpm for 10 minutes, transfer serum to a transport tube, and freeze immediately. Ship frozen on dry ice. Mark the bag as frozen.",
     "status": "active",
-    "source": "Official test directory reviewed 2026-07-24",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 178
   },
   {
@@ -5009,7 +5016,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Collect serum, allow to clot, and centrifuge. Gold/SST is used for routine serum collection; plain Red Top is an acceptable serum alternative. If PRE/POST vaccination testing is planned, the official instructions recommend drawing two PRE tubes, saving one PRE serum sample frozen, and sending the other for testing.",
     "status": "active",
-    "source": "Official directory / Nichols Institute reviewed 2026-08-27",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": null
   },
   {
@@ -5028,7 +5035,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Collect serum, allow to clot, centrifuge, then transfer 1 mL serum to a clean plastic screw-cap transport vial. Gold/SST is suitable for routine serum collection; plain Red Top may also be used for serum collection.",
     "status": "active",
-    "source": "Official directory / Nichols Institute reviewed 2026-08-27",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": null
   },
   {
@@ -5047,7 +5054,7 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Collect serum in Gold/SST; plain Red Top is an acceptable serum alternative. Allow to clot and centrifuge. After separation, aliquot 2 mL serum into EACH of 2 separate plastic transport tubes. The two-tube requirement applies to submitted serum aliquots; it does not automatically mean two phlebotomy tubes if one collection tube yields adequate serum.",
     "status": "active",
-    "source": "Official directory / Nichols Institute reviewed 2026-08-27",
+    "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": null
   }
 ];

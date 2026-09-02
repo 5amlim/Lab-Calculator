@@ -1,3 +1,15 @@
+## Version 8.0
+
+- Audited all 245 unique numeric test codes against the Quest MASTER Test Directory on 2026-09-02; 239 current records resolved and 6 unresolved codes are now marked for verification instead of retaining an unverified transport temperature.
+- Refreshed the exact transport-temperature wording for every resolved numeric record.
+- Corrected 623 to refrigerated with cold packs, 32499 to room temperature, and 37847/37849 to refrigerated with cold packs.
+- Corrected additional categorical temperature errors found during the full audit, including Folate Serum, Reticulocyte Count, hepatic function panel, EBV antibody panel, PSA tests, celiac panel, Candida antibody, TSH antibody, and Methylmalonic Acid with Homocysteine.
+- Added a small, low-emphasis label note inside the applicable submission-container card. Only test-specific labeling content is shown.
+- Added structured labeling instructions for 13595, 13600, 31789, 35202, 37847, 37849, and 91431.
+- Updated QuantiFERON-TB Gold Plus 1 Tube to match the current MASTER listing; unsupported date/time-label and light-protection claims were removed.
+- Added `QUEST_TEMPERATURE_AUDIT_2026-09-02.csv`, with one row for every built-in record and its verification status.
+- The browser database version was increased so these published corrections replace stale built-ins while preserving custom entries.
+
 ## Version 7.9
 
 - Compatible Lavender EDTA and Red Top collection tubes are now pooled by specimen workflow and transport temperature.

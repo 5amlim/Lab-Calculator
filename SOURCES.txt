@@ -1,5 +1,14 @@
 Official sources reviewed for v2.7
 
+Version 8.0 full transport-temperature audit
+- Quest MASTER Test Directory API records for all 245 unique numeric codes in the built-in database, reviewed 2026-09-02.
+- Quest Test Directory: https://testdirectory.questdiagnostics.com/
+- 623 Magnesium, RBC: https://testdirectory.questdiagnostics.com/test/test-detail/623/magnesium-rbc?cc=MASTER
+- 32499 CBC, Platelet Count, RDW and Differential (REFL): https://testdirectory.questdiagnostics.com/test/test-detail/32499/cbc-platelet-count-rdw-and-differential-refl?cc=MASTER
+- 37847 Lipoprotein Fractionation, NMR: https://testdirectory.questdiagnostics.com/test/test-detail/37847/lipoprotein-fractionation-nmr?cc=MASTER
+- 37849 Lipoprotein Fractionation, NMR with Lipid Panel: https://testdirectory.questdiagnostics.com/test/test-detail/37849/lipoprotein-fractionation-nmr-with-lipid-panel-triglycerideshdl-c?cc=MASTER
+- All resolved records were read from the Quest MASTER detail endpoint with the official order code. Six unresolved codes are documented in DATA_AUDIT.md and are marked for verification in the app.
+
 Official test directory overview and specimen guidance
 - https://testdirectory.questdiagnostics.com/
 - https://www.questdiagnostics.com/healthcare-professionals/test-directory/specimen-handling/specimen-collection

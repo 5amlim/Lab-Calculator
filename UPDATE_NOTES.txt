@@ -1,3 +1,14 @@
+Version 8.0
+- Audited 245 unique numeric test codes against the Quest MASTER Test Directory on 2026-09-02.
+- 239 codes returned a current MASTER record. Exact transport-temperature wording was refreshed for all resolved records.
+- Six codes did not return a current MASTER record and are now marked Not specified / verify instead of retaining unverified temperatures: 6447, 34329, 34483, 34499, 39749, and 91001.
+- Corrected the categorical transport temperature for 11 resolved records: 466, 793, 10256, 15447, 17569, 19955, 31348, 32499, 34897, 36577, and 91003.
+- Confirmed 623, 37847, and 37849 as Refrigerated (cold packs).
+- Added compact bag-summary label notes for seven tests with specific labeling content: 13595, 13600, 31789, 35202, 37847, 37849, and 91431.
+- Generic instructions such as “label appropriately,” standard-protocol labeling, and collection-kit color names are not promoted into bag warnings.
+- Updated QuantiFERON-TB Gold Plus, 1 Tube to the current MASTER wording and removed date/time-label and light-protection statements that are not present in that listing.
+- Increased the browser database version while preserving custom staff entries.
+
 Version 7.9
 - Added system-wide pooling for compatible Lavender EDTA and Red Top collection tubes.
 - Lavender whole-blood submissions are calculated separately from Lavender tubes that must be centrifuged for plasma or RBC preparation.

@@ -1,3 +1,19 @@
+## Version 8.0 transport-temperature and special-label audit
+
+- Audit date: 2026-09-02.
+- Scope: all 263 built-in records.
+- The 247 records with numeric codes represent 245 unique Quest codes. Each unique code was queried against the current Quest MASTER Test Directory.
+- 239 unique codes returned a current MASTER record. The exact `TransportTemperature` value was copied into the raw-temperature field for every resolved record, with only obvious source typos/spacing normalized for display.
+- Six codes did not return a MASTER record: 6447, 34329, 34483, 34499, 39749, and 91001. Their temperature is now `Not specified`, and each record tells staff to verify the active code and service-area instructions.
+- The remaining 16 records are local `XXX` do-not-collect placeholders without an order code; no Quest temperature was inferred for them.
+- Eleven resolved records required a categorical temperature correction: 466, 793, 10256, 15447, 17569, 19955, 31348, 32499, 34897, 36577, and 91003.
+- Quest codes 3020 and 7909 list preserved urine at room temperature and unpreserved urine refrigerated. The calculator's modeled workflows use preservative tubes, so their bag category remains Room Temperature while the raw field retains both official conditions.
+- Quest codes 17569 and 31348 list Frozen, with room temperature acceptable only when received within 72 hours. The bag category is Frozen and the complete condition remains visible in the raw field.
+- Specific label text was separated from general handling instructions and added for 13595, 13600, 31789, 35202, 37847, 37849, and 91431.
+- Generic labeling statements and collection-device color descriptions were intentionally excluded from the compact bag label note.
+- `QUEST_TEMPERATURE_AUDIT_2026-09-02.csv` provides a record-by-record audit trail for all 263 built-ins.
+- Service-area requirements may differ from MASTER. The active service-area test page remains the final source of truth before collection.
+
 ## Version 7.9 collection-pooling correction
 
 - This release changes collection and submission counting logic only; no built-in test requirements were changed.

@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
-  const DB_KEY = 'labCollectionCalculator.database.v21';
-  const PRIOR_DB_KEYS = ['labCollectionCalculator.database.v20', 'labCollectionCalculator.database.v19', 'labCollectionCalculator.database.v18', 'labCollectionCalculator.database.v17', 'labCollectionCalculator.database.v16', 'labCollectionCalculator.database.v15', 'labCollectionCalculator.database.v14', 'labCollectionCalculator.database.v13', 'labCollectionCalculator.database.v12', 'labCollectionCalculator.database.v11'];
+  const DB_KEY = 'labCollectionCalculator.database.v22';
+  const PRIOR_DB_KEYS = ['labCollectionCalculator.database.v21', 'labCollectionCalculator.database.v20', 'labCollectionCalculator.database.v19', 'labCollectionCalculator.database.v18', 'labCollectionCalculator.database.v17', 'labCollectionCalculator.database.v16', 'labCollectionCalculator.database.v15', 'labCollectionCalculator.database.v14', 'labCollectionCalculator.database.v13', 'labCollectionCalculator.database.v12', 'labCollectionCalculator.database.v11'];
   const LEGACY_STORAGE_PREFIX = ['que', 'stLabCalculator'].join('');
   const LEGACY_DB_KEYS = [...PRIOR_DB_KEYS, ...[9, 8, 7, 6, 5, 4, 3, 2, 1].map(version => `${LEGACY_STORAGE_PREFIX}.database.v${version}`)];
   const SELECTED_KEY = 'labCollectionCalculator.selected.v1';
@@ -45,7 +45,7 @@
     drawContainer: $('drawContainer'), customDrawContainer: $('customDrawContainer'), customDrawContainerRow: $('customDrawContainerRow'), alternativeContainer: $('alternativeContainer'), transportContainer: $('transportContainer'),
     preferredVolume: $('preferredVolume'), minimumVolume: $('minimumVolume'), transportTemperature: $('transportTemperature'),
     transportTemperatureRaw: $('transportTemperatureRaw'), stability: $('stability'), spin: $('spin'),
-    specialInstructions: $('specialInstructions'), blockedStatus: $('blockedStatus'), addToSummary: $('addToSummary'),
+    specialLabeling: $('specialLabeling'), specialInstructions: $('specialInstructions'), blockedStatus: $('blockedStatus'), addToSummary: $('addToSummary'),
     addToSummaryRow: $('addToSummaryRow'), openDirectoryFromDialogButton: $('openDirectoryFromDialogButton'), toast: $('toast')
   };
 
@@ -152,6 +152,7 @@
       transportTemperatureRaw: String(record.transportTemperatureRaw || ''),
       stability: String(record.stability || ''),
       spin: String(record.spin || 'Verify'),
+      specialLabeling: String(record.specialLabeling || '').trim(),
       specialInstructions: String(record.specialInstructions || ''),
       fastingStatus: ['required', 'preferred'].includes(String(record.fastingStatus || '').toLowerCase()) ? String(record.fastingStatus).toLowerCase() : '',
       fastingInstructions: String(record.fastingInstructions || '').trim(),
@@ -219,7 +220,7 @@
     const name = normalizeSearch(test.testName);
     const searchable = normalizeSearch([
       test.testCode, test.testName, test.specimenType, test.drawContainer,
-      test.alternativeContainer, test.transportTemperature, test.specialInstructions
+      test.alternativeContainer, test.transportTemperature, test.specialLabeling, test.specialInstructions
     ].join(' '));
     const leadingCode = raw.match(/^([A-Za-z]*\d+[A-Za-z0-9-]*)\b/);
 
@@ -307,7 +308,7 @@
       if (!filter) return true;
       const haystack = normalizeSearch([
         test.testCode, test.testName, test.specimenType, test.drawContainer, test.alternativeContainer,
-        test.transportContainer, test.transportTemperature, test.specialInstructions
+        test.transportContainer, test.transportTemperature, test.specialLabeling, test.specialInstructions
       ].join(' '));
       return filter.split(' ').every(token => haystack.includes(token));
     });
@@ -593,6 +594,7 @@
     els.transportTemperatureRaw.value = record.transportTemperatureRaw;
     els.stability.value = record.stability;
     setSelectValue(els.spin, record.spin, 'Verify');
+    els.specialLabeling.value = record.specialLabeling;
     els.specialInstructions.value = record.specialInstructions;
     els.blockedStatus.checked = record.status === 'blocked';
     els.addToSummary.checked = options.addToSummary !== false;
@@ -625,6 +627,7 @@
       transportTemperatureRaw: els.transportTemperatureRaw.value,
       stability: els.stability.value,
       spin: els.spin.value,
+      specialLabeling: els.specialLabeling.value,
       specialInstructions: els.specialInstructions.value,
       status: els.blockedStatus.checked ? 'blocked' : 'active',
       source: existingIndex >= 0 ? database[existingIndex].source : 'Custom entry',
@@ -676,7 +679,10 @@
 
 
   function transportBagInfo(test) {
-    const value = `${test.transportTemperature || ''} ${test.transportTemperatureRaw || ''}`.toLowerCase();
+    const normalized = String(test.transportTemperature || '').trim();
+    const value = (normalized && normalized !== 'Not specified'
+      ? normalized
+      : test.transportTemperatureRaw || '').toLowerCase();
     const hasRoom = /room|ambient/.test(value);
     const hasRefrigerated = /refriger|2\s*[-–]\s*8|chill|cold/.test(value);
     const hasFrozen = /frozen|freeze/.test(value);
@@ -1306,6 +1312,18 @@
     return uniqueTests(tests).map(test => `<li><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)}</li>`).join('');
   }
 
+  function printLabelingNotes(tests) {
+    const grouped = new Map();
+    uniqueTests(tests).forEach(test => {
+      const note = String(test.specialLabeling || '').trim();
+      if (!note) return;
+      if (!grouped.has(note)) grouped.set(note, []);
+      grouped.get(note).push(displayCode(test));
+    });
+    if (!grouped.size) return '';
+    return `<div class="print-label-notes">${Array.from(grouped.entries()).map(([note, codes]) => `<div class="print-label-note"><span>Label</span><div>${escapeHtml(note)} <small>${escapeHtml(codes.join(', '))}</small></div></div>`).join('')}</div>`;
+  }
+
   function printContainerBadges(test) {
     const value = String(test.transportContainer || '').trim();
     const lower = value.toLowerCase();
@@ -1364,6 +1382,7 @@
             <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
               <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span></div>
               ${item.detail ? `<div class="print-submit-item-detail">${escapeHtml(item.detail)}</div>` : ''}
+              ${printLabelingNotes(item.tests)}
               <div class="print-for-tests"><b>For tests:</b><ul>${testReferences(item.tests)}</ul></div>
             </div>`).join('')}</div>
           </article>`;
@@ -1398,8 +1417,8 @@
   function exportSummaryCsv() {
     const tests = selectedTests();
     if (!tests.length) return showToast('Add at least one test before exporting.');
-    const headers = ['Test Code','Test Name','Specimen Type','Draw Container','Alternative Container','Transport Tube / Container','Preferred Volume','Minimum Volume','Transport Temperature','Raw Temperature','Stability','Spin','Special Instructions'];
-    const rows = tests.map(test => [test.testCode,test.testName,test.specimenType,test.drawContainer,test.alternativeContainer,test.transportContainer,test.preferredVolume,test.minimumVolume,test.transportTemperature,test.transportTemperatureRaw,test.stability,test.spin,test.specialInstructions]);
+    const headers = ['Test Code','Test Name','Specimen Type','Draw Container','Alternative Container','Transport Tube / Container','Preferred Volume','Minimum Volume','Transport Temperature','Raw Temperature','Stability','Spin','Special Labeling','Special Instructions'];
+    const rows = tests.map(test => [test.testCode,test.testName,test.specimenType,test.drawContainer,test.alternativeContainer,test.transportContainer,test.preferredVolume,test.minimumVolume,test.transportTemperature,test.transportTemperatureRaw,test.stability,test.spin,test.specialLabeling,test.specialInstructions]);
     const csv = [headers, ...rows].map(row => row.map(csvCell).join(',')).join('\r\n');
     downloadBlob(csv, `lab-collection-summary-${isoDate()}.csv`, 'text/csv;charset=utf-8');
   }
