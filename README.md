@@ -1,3 +1,9 @@
+## Version 7.8
+
+- Fixed the SST collection estimator so original-submit SSTs and SSTs used to create transfer/aliquot specimens are counted as separate collection workflows.
+- This prevents under-collection when the submission plan contains both original SST tubes and serum/plasma transport tubes sourced from SST.
+- SST volume sharing still occurs within each workflow, with the existing rule that one test does not generate more than one collection tube unless explicitly stated.
+
 ## Version 7.6
 - Corrected Quest code 19826 Coenzyme Q10 light-protection and amber transport requirements.
 - Added amber transport-tube handling to the printed submission plan.

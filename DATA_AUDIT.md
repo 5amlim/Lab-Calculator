@@ -1,3 +1,9 @@
+## Version 7.8 calculation correction
+
+- This release changes collection-count logic only; no built-in test specimen requirements were changed.
+- SSTs submitted in the original tube are now estimated separately from SSTs used as source material for transferred/aliquoted serum or plasma.
+- Regression case: 34429 T3 Free, 58984 TSH and Free T4, 7260 Thyroid Peroxidase and Thyroglobulin Antibodies, 10124 hs-CRP, and 809 ESR now produce 3 Gold/SST + 1 Lavender EDTA for collection, while the room-temperature submission bag contains 2 original SSTs + 1 serum transport tube + 1 Lavender EDTA tube.
+
 ## Version 7.7 additions and verification
 - Added 16963 — Streptococcus pneumoniae Antibody (IgG) (23 Serotypes), MAID: serum, 0.5 mL preferred, 0.25 mL minimum, room-temperature transport; special PRE/POST vaccination note retained.
 - Added 35135 — Haemophilus influenzae Type b Antibody (IgG): serum, 1 mL preferred, 0.2 mL minimum, plastic screw-cap serum transport vial, room-temperature transport.
