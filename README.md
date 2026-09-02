@@ -1,3 +1,11 @@
+## Version 7.9
+
+- Compatible Lavender EDTA and Red Top collection tubes are now pooled by specimen workflow and transport temperature.
+- Whole-blood Lavender tubes are kept separate from Lavender tubes used to prepare plasma or RBC specimens.
+- Original collection tubes are never treated as available source tubes for separate transport aliquots.
+- A listed volume alone cannot create more than one collection tube for one test. Additional tubes of the same kind require explicit multiple-tube, dedicated-tube, or full-tube instructions.
+- Different required tube types remain separate.
+
 ## Version 7.8
 
 - Fixed the SST collection estimator so original-submit SSTs and SSTs used to create transfer/aliquot specimens are counted as separate collection workflows.
@@ -165,7 +173,7 @@ Copyright © 2026 Sam Hay. All rights reserved. No license or ownership interest
 
 ## Version 3.5
 
-Test code 3020 now clearly shows the required red/yellow swirl-top UA preservative tube plus the gray-top urine culture preservative tube. The printed summary also includes a transport bag plan. Room-temperature, refrigerated, frozen, and mixed/verify specimens are kept separate. SST tube estimates use a planning assumption of 2 mL usable serum/plasma per SST, round up within each temperature group, and keep dedicated/full-tube requirements separate. Staff must verify specialty instructions and actual specimen yield before collection.
+Test code 3020 now clearly shows the required red/yellow swirl-top UA preservative tube plus the gray-top urine culture preservative tube. The printed summary also includes a transport bag plan. Room-temperature, refrigerated, frozen, and mixed/verify specimens are kept separate. SST, Lavender EDTA, and Red Top tubes pool only within compatible specimen workflows and temperature groups. Planning uses 2 mL of usable serum/plasma/processed specimen per source tube and 4 mL of whole blood per Lavender tube. Original-submit tubes, transfer-source tubes, dedicated/full tubes, and different tube types remain separate. One test is capped at one tube of the same kind unless multiple tubes are explicitly required. Staff must verify specialty instructions and actual specimen yield before collection.
 
 
 ## Manual container entry
@@ -215,4 +223,3 @@ The nurse order-of-draw panel distinguishes the tube additive rather than relyin
 - Individual badges continue to identify EDTA with purple stripe, no additive with red stripe, and sodium heparin.
 - Processed specimen labels now preserve the exact Royal Blue source tube instead of shortening them to Lavender EDTA or Red Top.
 - All built-in Royal Blue and trace-metal records were reviewed and corrected where needed.
-

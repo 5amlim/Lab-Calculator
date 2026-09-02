@@ -9,6 +9,8 @@
   const LEGACY_SELECTED_KEYS = [`${LEGACY_STORAGE_PREFIX}.selected.v1`];
   const PAGE_STEP = 80;
   const SST_USABLE_ML_PER_TUBE = 2;
+  const PROCESSED_SPECIMEN_USABLE_ML_PER_TUBE = 2;
+  const WHOLE_BLOOD_USABLE_ML_PER_TUBE = 4;
   const ORDER_OF_DRAW = [
     { key: 'culture', number: 1, label: 'Blood cultures', additive: 'See bottle label', tubeClass: 'tube-culture' },
     { key: 'citrate', number: 2, label: 'Light blue', additive: 'Sodium citrate', tubeClass: 'tube-blue' },
@@ -712,12 +714,18 @@
     if (numeric) return Number(numeric[1]);
     const words = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6 };
     const wordMatch = text.match(/\b(one|two|three|four|five|six)\s+(?:full\s+)?(?:gold\s*\/\s*)?sst\s+tubes?\b/);
-    return wordMatch ? words[wordMatch[1]] : 0;
+    if (wordMatch) return words[wordMatch[1]];
+    const describedTubes = text.match(/(?<![\d.])\b(\d+|one|two|three|four|five|six)\s+(?:[a-z0-9.®/()_-]+\s+){0,10}tubes\b/);
+    if (describedTubes && /sst|gold|serum separator|microtainer/.test(describedTubes[0]) && !/transport|aliquot|cryovial|vial/.test(describedTubes[0])) {
+      return Math.max(numberWordValue(describedTubes[1]), 1);
+    }
+    const genericCount = explicitCollectionCount(test);
+    return genericCount > 1 ? genericCount : 0;
   }
 
   function requiresDedicatedSst(test) {
     const text = `${test.drawContainer || ''} ${test.transportContainer || ''} ${test.specialInstructions || ''}`.toLowerCase();
-    return /dedicated|own tube|separate (?:sst|gold|tube)|do not share|full sst|full gold|each tube|individual tube/.test(text)
+    return /dedicated|own tube|separate (?:sst|gold|tube)|do not share|full tube|full sst|full gold|each tube|individual tube/.test(text)
       || explicitSstTubeCount(test) > 0;
   }
 
@@ -786,6 +794,96 @@
     };
   }
 
+  function isLavenderDraw(test) {
+    return tubeClass(test.drawContainer) === 'tube-lavender';
+  }
+
+  function isRedTopDraw(test) {
+    return tubeClass(test.drawContainer) === 'tube-red';
+  }
+
+  function pooledCollectionMaterial(test) {
+    const specimen = normalizeSpecimenType(test.specimenType);
+    const volumeText = `${test.preferredVolume || ''} ${test.minimumVolume || ''}`.toLowerCase();
+    if (/whole\s*blood/.test(volumeText) || specimen === 'Whole Blood') return 'whole blood';
+    if (specimen === 'Plasma') return 'plasma';
+    if (specimen === 'Serum') return 'serum';
+    if (specimen === 'RBCs') return 'RBCs';
+    return String(specimen || 'specimen').toLowerCase();
+  }
+
+  function pooledCollectionPath(test) {
+    return isOriginalContainerSubmission(test) ? 'original' : 'transfer';
+  }
+
+  function pooledCollectionCapacity(material) {
+    return material === 'whole blood'
+      ? WHOLE_BLOOD_USABLE_ML_PER_TUBE
+      : PROCESSED_SPECIMEN_USABLE_ML_PER_TUBE;
+  }
+
+  function requiresDedicatedCollectionTube(test) {
+    const text = `${test.drawContainer || ''} ${test.preferredVolume || ''} ${test.minimumVolume || ''} ${test.specialInstructions || ''}`.toLowerCase();
+    return /\bdedicated(?:\s+collection)?\s+tube\b|\bown\s+tube\b|\bdo\s+not\s+share\b|\bfull\s+(?:lavender|red(?:-top)?|edta|collection)?\s*tube\b|\b(?:each|individual)\s+(?:lavender|red(?:-top)?|edta|collection)\s+tube\b/.test(text)
+      || explicitCollectionCount(test) > 1;
+  }
+
+  function pooledTubeEstimateForTests(tests, material) {
+    const capacityMl = pooledCollectionCapacity(material);
+    let sharedMl = 0;
+    let dedicatedTubes = 0;
+    let unmeasuredTubes = 0;
+
+    tests.forEach(test => {
+      const preferredMl = parseVolumeMl(test.preferredVolume);
+      const fallbackMl = preferredMl === null ? parseVolumeMl(test.minimumVolume) : null;
+      const plannedMl = preferredMl === null ? fallbackMl : preferredMl;
+      const explicitCount = explicitCollectionCount(test);
+
+      // One test never creates multiple draw tubes solely because of its listed
+      // volume. Extra tubes are added only for an explicit collection count or
+      // a dedicated/full-tube instruction.
+      if (requiresDedicatedCollectionTube(test)) {
+        dedicatedTubes += Math.max(explicitCount, 1);
+      } else if (plannedMl !== null) {
+        sharedMl += Math.min(plannedMl, capacityMl);
+      } else {
+        unmeasuredTubes += 1;
+      }
+    });
+
+    const sharedTubes = sharedMl > 0 ? Math.ceil(sharedMl / capacityMl) : 0;
+    return {
+      capacityMl,
+      sharedMl,
+      sharedTubes,
+      dedicatedTubes,
+      unmeasuredTubes,
+      totalTubes: sharedTubes + dedicatedTubes + unmeasuredTubes
+    };
+  }
+
+  function pooledCollectionEstimateForTests(tests, matchesTube) {
+    const groups = new Map();
+    tests.filter(matchesTube).forEach(test => {
+      const material = pooledCollectionMaterial(test);
+      const path = pooledCollectionPath(test);
+      const key = `${path}|${normalizeSearch(material)}`;
+      if (!groups.has(key)) groups.set(key, { key, path, material, tests: [] });
+      groups.get(key).tests.push(test);
+    });
+
+    const estimatedGroups = Array.from(groups.values()).map(group => ({
+      ...group,
+      estimate: pooledTubeEstimateForTests(group.tests, group.material)
+    }));
+
+    return {
+      groups: estimatedGroups,
+      totalTubes: estimatedGroups.reduce((sum, group) => sum + group.estimate.totalTubes, 0)
+    };
+  }
+
   function buildTransportBagPlan(tests) {
     const bags = new Map();
     tests.forEach(test => {
@@ -796,7 +894,12 @@
 
     return Array.from(bags.values())
       .sort((a, b) => a.order - b.order)
-      .map(bag => ({ ...bag, sstEstimate: sstCollectionEstimateForTests(bag.tests) }));
+      .map(bag => ({
+        ...bag,
+        sstEstimate: sstCollectionEstimateForTests(bag.tests),
+        lavenderEstimate: pooledCollectionEstimateForTests(bag.tests, isLavenderDraw),
+        redTopEstimate: pooledCollectionEstimateForTests(bag.tests, isRedTopDraw)
+      }));
   }
 
   function isUrineTest(test) {
@@ -863,7 +966,49 @@
     const countPattern = '(\\d+|one|two|three|four|five|six|seven|eight)';
     let match = draw.match(new RegExp(`\\b${countPattern}\\s+(?:full\\s+)?(?:[a-z][a-z /-]{0,35}\\s+)?(?:tubes?|bottles?|containers?)\\b`));
     if (!match) match = note.match(new RegExp(`\\b(?:draw|collect|use|requires?)\\D{0,18}${countPattern}\\s+(?:full\\s+)?(?:[a-z][a-z /-]{0,35}\\s+)?(?:tubes?|bottles?|containers?)\\b`));
+    if (!match) {
+      const genericPattern = new RegExp(`(?<![\\d.])\\b${countPattern}\\s+(?:[a-z0-9.®/()_-]+\\s+){0,8}?(?:tubes?|bottles?|containers?)\\b`, 'g');
+      for (const candidate of note.matchAll(genericPattern)) {
+        const phrase = candidate[0];
+        const nearby = note.slice(Math.max(0, candidate.index - 24), candidate.index + phrase.length);
+        if (/\bm\s*l\b/.test(phrase) || /transport|aliquot|cryovial|vial|submit(?:ted|ting)?|\bnot\s+automatically\b|\b(?:does?|do)\s+not\b/.test(nearby)) continue;
+        match = candidate;
+        break;
+      }
+    }
     return match ? Math.max(numberWordValue(match[1]), 1) : 1;
+  }
+
+  function pooledCollectionGroupLabel(group) {
+    if (group.path === 'original') {
+      return group.material === 'whole blood' ? 'whole blood' : `original ${group.material}`;
+    }
+    return `source for ${group.material}`;
+  }
+
+  function addPooledCollectionItem(items, tests, bags, options) {
+    const matchingTests = tests.filter(options.matchesTube);
+    const total = bags.reduce((sum, bag) => sum + bag[options.estimateKey].totalTubes, 0);
+    if (!total) return;
+
+    const detail = bags
+      .filter(bag => bag[options.estimateKey].totalTubes > 0)
+      .map(bag => {
+        const parts = bag[options.estimateKey].groups
+          .filter(group => group.estimate.totalTubes > 0)
+          .map(group => `${group.estimate.totalTubes} ${pooledCollectionGroupLabel(group)}`);
+        return `${bag.label.replace(/ bag$/i, '')}: ${parts.join(' + ')}`;
+      })
+      .join(' · ');
+
+    items.push({
+      key: options.key,
+      label: options.label,
+      className: options.className,
+      count: total,
+      tests: uniqueTests(matchingTests),
+      detail
+    });
   }
 
   function buildCollectionPlan(tests, bags) {
@@ -883,6 +1028,22 @@
       items.push({ key: 'sst', label: 'Gold / SST', className: 'tube-sst', count: totalSst, tests: uniqueTests(sstTests), detail: breakdown });
     }
 
+    addPooledCollectionItem(items, tests, bags, {
+      key: 'lavender',
+      label: 'Lavender EDTA',
+      className: 'tube-lavender',
+      estimateKey: 'lavenderEstimate',
+      matchesTube: isLavenderDraw
+    });
+
+    addPooledCollectionItem(items, tests, bags, {
+      key: 'red-top',
+      label: 'Red Top',
+      className: 'tube-red',
+      estimateKey: 'redTopEstimate',
+      matchesTube: isRedTopDraw
+    });
+
     const spotUrineTests = tests.filter(test => isUrineTest(test) && !isTimedUrineTest(test));
     if (spotUrineTests.length) {
       items.push({
@@ -898,6 +1059,7 @@
     const grouped = new Map();
     tests.forEach(test => {
       if (isSstDraw(test)) return;
+      if (isLavenderDraw(test) || isRedTopDraw(test)) return;
       if (isUrineTest(test) && !isTimedUrineTest(test)) return;
       const info = canonicalCollectionContainer(test);
       if (!grouped.has(info.key)) grouped.set(info.key, { ...info, count: 0, tests: [], detail: '' });
@@ -1106,8 +1268,28 @@
       });
     }
 
+    [
+      { estimate: bag.lavenderEstimate, label: 'Lavender EDTA', className: 'tube-lavender' },
+      { estimate: bag.redTopEstimate, label: 'Red Top', className: 'tube-red' }
+    ].forEach(pool => {
+      pool.estimate.groups
+        .filter(group => group.path === 'original' && group.estimate.totalTubes > 0)
+        .forEach(group => {
+          items.set(`pooled-original|${pool.className}|${group.key}`, {
+            key: `pooled-original|${pool.className}|${group.key}`,
+            label: pool.label,
+            className: pool.className,
+            count: group.estimate.totalTubes,
+            detail: `${titleCaseSpecimen(group.material)} · Submit in original tube`,
+            originalTube: true,
+            tests: uniqueTests(group.tests)
+          });
+        });
+    });
+
     bag.tests.forEach(test => {
       if (isSpunSstSubmission(test)) return;
+      if ((isLavenderDraw(test) || isRedTopDraw(test)) && isOriginalContainerSubmission(test)) return;
       splitSubmissionContainers(test).forEach(container => {
         if (!items.has(container.key)) items.set(container.key, { ...container, tests: [] });
         const item = items.get(container.key);
@@ -1187,7 +1369,7 @@
           </article>`;
         }).join('')}</div>
       </section>
-      <div class="print-bag-note"><strong>Planning rules:</strong> SST collection assumes 2 mL of usable serum/plasma per tube and rounds up independently by transport temperature and processing path. SSTs that must be submitted in the original tube are counted separately from SSTs used as the source for transferred or aliquoted serum. Routine non-SST blood tubes are estimated as one tube per test unless the record specifies more. Spot urine tests add one sterile urine cup for initial collection; timed or 24-hour urine collections follow their test-specific container instructions. Submission contents reflect the processed specimen or transport container and identify the tests assigned to each item. Specimens submitted in their original collection tube keep the same tube badge and are marked “submit in original tube.” Verify specialty, dedicated-tube, aliquot, and actual-yield requirements before collection.</div>
+      <div class="print-bag-note"><strong>Planning rules:</strong> SST, Lavender EDTA, and Red Top tubes are pooled only when their specimen workflow and transport temperature are compatible. Whole-blood Lavender tubes remain separate from Lavender tubes that must be centrifuged for plasma or RBCs. Tubes submitted intact are counted separately from tubes used as the source for transferred or aliquoted specimens. Planning assumes 2 mL of usable serum/plasma/processed specimen per source tube and 4 mL of whole blood per Lavender tube. One test never creates more than one tube of the same kind solely because of its listed volume; additional same-kind tubes are counted only when the record explicitly requires multiple, dedicated, or full tubes. Different required tube kinds remain separate. Spot urine tests add one sterile urine cup for initial collection; timed or 24-hour urine collections follow their test-specific container instructions. Verify specialty instructions and actual specimen yield before collection.</div>
     </section>`;
   }
 

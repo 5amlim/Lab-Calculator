@@ -1,3 +1,12 @@
+Version 7.9
+- Added system-wide pooling for compatible Lavender EDTA and Red Top collection tubes.
+- Lavender whole-blood submissions are calculated separately from Lavender tubes that must be centrifuged for plasma or RBC preparation.
+- Red Top serum source tubes pool only within compatible processing and transport-temperature groups.
+- Original-tube submissions and source tubes for transferred specimens remain separate in both collection and submission counts.
+- One test cannot generate more than one tube of the same kind from volume alone; extra same-kind tubes require an explicit multiple-tube, dedicated-tube, or full-tube instruction.
+- Improved recognition of explicit multiple SST instructions, including spun Microtainer and sized SST wording, without treating multiple transport aliquots as multiple phlebotomy tubes.
+- No built-in test requirements or order-of-draw rules changed.
+
 Version 7.8
 - Corrected SST collection counting when a selection mixes original-SST submissions with serum/plasma transfers from SST.
 - Original-submit SSTs and source-for-transfer SSTs are now estimated separately, preventing transferred specimens from borrowing capacity from tubes that must remain in the submission bag.

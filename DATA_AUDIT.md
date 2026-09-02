@@ -1,3 +1,13 @@
+## Version 7.9 collection-pooling correction
+
+- This release changes collection and submission counting logic only; no built-in test requirements were changed.
+- Compatible Lavender EDTA whole-blood tests can share one collection tube when their combined planned volume fits and no test requires a full or dedicated tube.
+- Lavender whole-blood submissions are kept separate from Lavender source tubes used to prepare plasma or RBC specimens.
+- Compatible Red Top serum tests can share collection source tubes within the same transport-temperature group; their required transport aliquots remain separately listed for submission.
+- Original-submit Lavender or Red Top tubes are pooled consistently in both the collection count and the bag contents.
+- A single test is capped at one collection tube of the same kind based on volume alone. Multiple tubes are permitted only for explicit collection counts, full/dedicated requirements, or different required tube types.
+- Regression checks include compatible whole-blood Lavender pooling, Lavender whole blood versus plasma separation, Red Top serum pooling, temperature separation, full-tube handling, two-aliquot submission cases, and explicit two- or three-SST collection instructions.
+
 ## Version 7.8 calculation correction
 
 - This release changes collection-count logic only; no built-in test specimen requirements were changed.
