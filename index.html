@@ -52,7 +52,7 @@
             <p>Search the curated local list or add a missing test. Manually added tests are saved in this browser.</p>
           </div>
           <div class="library-actions">
-            <button class="button secondary" id="addTestButton">+ Add missing test</button>
+            <button class="button secondary" id="addTestButton">+ Add missing tests</button>
           </div>
         </div>
         <div class="filter-row">
@@ -101,13 +101,15 @@
 
       <section class="summary-section tests-summary" id="testsOverviewSection" aria-labelledby="testsOverviewTitle">
         <div class="tests-summary-header">
-          <div class="tests-summary-heading">
-            <span class="tests-summary-title" id="testsOverviewTitle">Tests</span>
-            <span class="tests-summary-count" id="testsOverviewSummary">0 tests</span>
+          <div class="tests-summary-heading-block">
+            <div class="tests-summary-heading">
+              <span class="tests-summary-title" id="testsOverviewTitle">Tests</span>
+              <span class="tests-summary-count" id="testsOverviewSummary">0 tests</span>
+            </div>
+            <button class="mini-button edit tests-details-toggle" id="testsDetailsButton" type="button" aria-expanded="false" aria-controls="testsOverviewList testsDetailsPanel">Show details</button>
           </div>
           <div class="tests-summary-actions">
-            <button class="mini-button edit" id="testsDetailsButton" type="button" aria-expanded="false" aria-controls="testsOverviewList testsDetailsPanel">Show details</button>
-            <button class="mini-button" id="addSelectedTestButton" type="button">+ Add missing test</button>
+            <button class="mini-button" id="addSelectedTestButton" type="button">+ Add missing tests</button>
             <button class="mini-button remove" id="clearOrderButton" type="button">Clear all</button>
           </div>
         </div>

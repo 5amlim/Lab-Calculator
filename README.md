@@ -1,3 +1,13 @@
+## Version 10.0
+- Moved the Show details / Hide details control directly below the Tests heading and selected-test count.
+- Kept Add missing tests and Clear all together on the right side of the Tests header.
+- Test summary and detail-toggle behavior are unchanged.
+
+## Version 9.9
+- Main manual-entry action buttons now read **Add missing tests** for consistent wording.
+- The manual-entry dialog still adds one verified test record at a time.
+- No calculator logic changed.
+
 ## Version 9.6
 - Changed the top Tests overview in the Test Cart from collapsible to always visible.
 - Restyled the Tests overview as a compact receipt-style list with test code and test name only.
