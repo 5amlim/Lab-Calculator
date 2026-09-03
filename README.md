@@ -1,4 +1,4 @@
-## Version 8.9
+## Version 9.0
 - Add Missing Test now requires Test code, Test name, Specimen type, Draw container, Transport tube / container, and Transport temperature.
 - `Not specified` remains a valid Transport temperature selection.
 - Minimum volume remains optional.
@@ -294,3 +294,7 @@ The nurse order-of-draw panel distinguishes the tube additive rather than relyin
 - Reorganized Add Missing Test into clearer required sections plus collapsible optional details.
 - Custom draw-container typing is hidden unless Other / manually type is selected.
 - Required-field validation is unchanged; minimum volume remains optional.
+
+
+### v9.0 print footer refinement
+- Copyright and ownership notice now uses a compact full border in print, with a white background so it does not create a large gray block.

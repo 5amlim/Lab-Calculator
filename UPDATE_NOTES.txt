@@ -1,3 +1,7 @@
+Version 9.0
+- Put the printed copyright and ownership notice inside a compact full border.
+- Removed the gray fill from that print notice so the box only frames the text.
+
 Version 8.9
 - Add Missing Test requires Test code, Test name, Specimen type, Draw container, Transport tube / container, and Transport temperature before saving.
 - Not specified is accepted as a valid transport-temperature choice.
