@@ -1,3 +1,12 @@
+## Version 8.3
+
+- Serum prepared from a standard SST is now shown simply as `Serum`; an SST source label appears only when the test specifically requires it.
+- Plasma always receives a label reminder and includes its source tube when known.
+- RBCs retain source-tube labels. Urine and stool receive specimen-type labels, and swabs show the collection site when it can be identified.
+- Serum from special-color or additive tubes, such as Royal Blue No Additive, retains its source label.
+- Shortened the print footnotes and standardized the instruction to `Submit in original tube`.
+- The browser database version was increased so the revised wording reaches existing installations while preserving custom entries.
+
 ## Version 8.2
 
 - Fasting badges in the printed test table now always appear on their own line beneath the test name.

@@ -1,3 +1,11 @@
+Version 8.3
+- Standard SST serum is displayed as Serum without a generic SST source reminder.
+- Plasma always receives a label reminder, with its source tube included when known.
+- RBC, urine, stool, and swab labeling remains automatic; swabs include the collection site when available.
+- Serum prepared from special-color or additive tubes keeps its source label, and explicit test-specific label instructions remain unchanged.
+- Removed the Before collecting footer line, shortened the remaining footnotes, and standardized Submit in original tube wording.
+- Increased the browser database version while preserving custom staff entries.
+
 Version 8.2
 - Fasting badges now stay on their own line below each test name in the printed table.
 - Replaced the dense planning footnotes with short, plain-language sections for tube sharing, tube counts, labels, urine collection, and final checks.

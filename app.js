@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
-  const DB_KEY = 'labCollectionCalculator.database.v22';
-  const PRIOR_DB_KEYS = ['labCollectionCalculator.database.v21', 'labCollectionCalculator.database.v20', 'labCollectionCalculator.database.v19', 'labCollectionCalculator.database.v18', 'labCollectionCalculator.database.v17', 'labCollectionCalculator.database.v16', 'labCollectionCalculator.database.v15', 'labCollectionCalculator.database.v14', 'labCollectionCalculator.database.v13', 'labCollectionCalculator.database.v12', 'labCollectionCalculator.database.v11'];
+  const DB_KEY = 'labCollectionCalculator.database.v23';
+  const PRIOR_DB_KEYS = ['labCollectionCalculator.database.v22', 'labCollectionCalculator.database.v21', 'labCollectionCalculator.database.v20', 'labCollectionCalculator.database.v19', 'labCollectionCalculator.database.v18', 'labCollectionCalculator.database.v17', 'labCollectionCalculator.database.v16', 'labCollectionCalculator.database.v15', 'labCollectionCalculator.database.v14', 'labCollectionCalculator.database.v13', 'labCollectionCalculator.database.v12', 'labCollectionCalculator.database.v11'];
   const LEGACY_STORAGE_PREFIX = ['que', 'stLabCalculator'].join('');
   const LEGACY_DB_KEYS = [...PRIOR_DB_KEYS, ...[9, 8, 7, 6, 5, 4, 3, 2, 1].map(version => `${LEGACY_STORAGE_PREFIX}.database.v${version}`)];
   const SELECTED_KEY = 'labCollectionCalculator.selected.v1';
@@ -1153,6 +1153,16 @@
     return titleCaseSpecimen(normalized || stated || 'Specimen');
   }
 
+  function specimenSourceDetail(test) {
+    const specimen = titleCaseSpecimen(normalizeSpecimenType(test.specimenType));
+    const sourceSpecimen = specificSpecimenSource(test);
+    const sourceTube = shortDrawSource(test);
+
+    if (/swab/i.test(sourceSpecimen)) return sourceSpecimen;
+    if (/serum/i.test(specimen) && /^sst$/i.test(sourceTube)) return specimen;
+    return sourceTube ? `${specimen} from ${sourceTube}` : sourceSpecimen;
+  }
+
   function transportTubeClass(test, container) {
     const value = String(container || '').toLowerCase();
     const specimen = normalizeSpecimenType(test.specimenType).toLowerCase();
@@ -1221,10 +1231,9 @@
 
     const specimen = titleCaseSpecimen(normalizeSpecimenType(test.specimenType));
     const sourceSpecimen = specificSpecimenSource(test);
-    const sourceTube = shortDrawSource(test);
 
     if (/amber|protect from light|light[- ]?protected/i.test(transport)) {
-      const sourcePhrase = sourceTube ? `${specimen} from ${sourceTube}` : sourceSpecimen;
+      const sourcePhrase = specimenSourceDetail(test);
       return [{
         key: `amber|${normalizeSearch(sourcePhrase)}|${normalizeSearch(transport)}`,
         label: `Amber ${specimen} Transport Tube — Protect From Light`,
@@ -1235,7 +1244,7 @@
     }
 
     if (/transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/i.test(transport)) {
-      const sourcePhrase = sourceTube ? `${specimen} from ${sourceTube}` : sourceSpecimen;
+      const sourcePhrase = specimenSourceDetail(test);
       const isSwab = /swab/i.test(sourceSpecimen);
       const isSpecialtyMetalContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal/i.test(transport);
       const label = isSwab
@@ -1320,16 +1329,20 @@
 
   function derivedSpecimenSourceLabel(test, item) {
     const sourceTube = shortDrawSource(test);
-    if (!sourceTube) return '';
-
     const specimen = titleCaseSpecimen(normalizeSpecimenType(test.specimenType));
     const lowerSpecimen = specimen.toLowerCase();
-    if (/\brbcs?\b|red blood cell/.test(lowerSpecimen)) return `RBCs from ${sourceTube}`;
-    if (item.originalTube) return '';
-    if (/plasma/.test(lowerSpecimen)) return `${specimen} from ${sourceTube}`;
+    const sourceSpecimen = specificSpecimenSource(test);
+
+    if (/\brbcs?\b|red blood cell/.test(lowerSpecimen)) return sourceTube ? `RBCs from ${sourceTube}` : 'RBCs';
+    if (/plasma/.test(lowerSpecimen)) return sourceTube ? `${specimen} from ${sourceTube}` : specimen;
+    if (/urine|stool|swab|saliva|semen|csf|cerebrospinal|tissue/.test(lowerSpecimen) || /swab/i.test(sourceSpecimen)) {
+      return sourceSpecimen;
+    }
+    if (!sourceTube || item.originalTube) return '';
 
     const specialSerumSource = /sst|gold|blue|pink|lavender|edta|heparin|citrate|acd|gray|grey|tan|green/i.test(sourceTube);
-    if (/serum/.test(lowerSpecimen) && specialSerumSource && !/^red top$/i.test(sourceTube)) {
+    const standardSerumSource = /^(?:sst|gold|red top)$/i.test(sourceTube);
+    if (/serum/.test(lowerSpecimen) && specialSerumSource && !standardSerumSource) {
       return `${specimen} from ${sourceTube}`;
     }
     return '';
@@ -1344,7 +1357,7 @@
     const onlyPlasmaType = /(?:mark|label).*(?:specimen type|tube).*plasma/.test(text)
       && !/patient|hiv|no additive|identifier/.test(text);
     if (onlySerumType && derivedText.startsWith('serum from ')) return false;
-    if (onlyPlasmaType && derivedText.includes('plasma from ')) return false;
+    if (onlyPlasmaType && /^.*plasma(?: from |$)/.test(derivedText)) return false;
     return true;
   }
 
@@ -1372,10 +1385,8 @@
       return `<span class="print-tube-badge tube tube-ua-swirl">Red/Yellow Swirl UA Tube</span><br><span class="print-tube-badge tube tube-urine-culture">Gray-Top Urine Culture Tube</span>`;
     }
     const sourceSpecimen = specificSpecimenSource(test);
-    const sourceTube = shortDrawSource(test);
-    const specimen = titleCaseSpecimen(normalizeSpecimenType(test.specimenType));
     const sourceText = /transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/i.test(value)
-      ? (/swab/i.test(sourceSpecimen) ? sourceSpecimen : (sourceTube ? `${specimen} from ${sourceTube}` : sourceSpecimen))
+      ? specimenSourceDetail(test)
       : sourceSpecimen;
     return `<span class="print-tube-badge tube ${transportTubeClass(test, value)}">${escapeHtml(value || 'Verify')}</span>${sourceText ? `<div class="print-transport-source">${escapeHtml(sourceText)}</div>` : ''}`;
   }
@@ -1432,8 +1443,8 @@
       <div class="print-bag-note">
         <div><strong>Tube sharing:</strong> Compatible SST, Lavender EDTA, and Red Top tubes can be shared across tests only when the processing steps and temperature match. Lavender whole blood stays separate from Lavender tubes used for plasma or RBCs. Tubes sent whole also stay separate from tubes used to prepare aliquots.</div>
         <div><strong>Tube counts:</strong> Estimates allow 2 mL of usable serum, plasma, or processed specimen per source tube and 4 mL of whole blood per Lavender tube. A test adds only one tube of each type unless its instructions call for multiple, dedicated, or full tubes. Different tube types are counted separately.</div>
-        <div><strong>Labels and urine:</strong> Label reminders are shown for RBCs and for serum or plasma prepared from additive or special-color tubes. One sterile cup is included for a spot urine test; follow the listed container instructions for timed or 24-hour collections.</div>
-        <div><strong>Final check:</strong> Confirm special handling and the needed specimen volume in the official test directory before collecting.</div>
+        <div><strong>Labels:</strong> Plasma and RBCs include the source tube. Urine and stool show the specimen type, and swabs include the collection site when available. Serum from SST is shown as Serum unless the test gives a specific label instruction. Serum from a special-color or additive tube keeps its source.</div>
+        <div><strong>Urine:</strong> One sterile cup is included for a spot urine test. Follow the listed container instructions for timed or 24-hour collections.</div>
       </div>
     </section>`;
   }
@@ -1456,9 +1467,8 @@
       </table>
       ${printCollectionSubmissionPlan(tests)}
       <div class="print-footer">
-        <div><strong>Before collecting:</strong> Check the official test directory for current requirements, local availability, rejection criteria, dedicated-tube rules, and specimen volume.</div>
-        <div><strong>Check the label:</strong> Confirm the source on every swab and transport tube—for example, throat swab, serum from SST, or plasma from Lavender EDTA.</div>
-        <div><strong>Count notes:</strong> Pink tubes are grouped with EDTA in the order of draw. SST counts use the preferred volume when available; otherwise they use the minimum volume. Each temperature is counted separately.</div>
+        <div><strong>Labels:</strong> Mark plasma and RBCs with the source tube. Label urine and stool by specimen type, and include the collection site for swabs, such as throat. Serum from SST can be labeled Serum unless the test gives a specific instruction.</div>
+        <div><strong>Counts:</strong> Pink tubes are grouped with EDTA in the order of draw. SST counts use the preferred volume when available, otherwise the minimum. Temperatures are counted separately.</div>
         <div><strong>Missing test?</strong> Contact Sam to have it added.</div>
       </div>
       <div class="print-ownership"><strong>Copyright and ownership:</strong> Copyright © 2026 Sam Hay. All rights reserved. Independently developed and maintained by Sam Hay as a personal software project and hosted through a personally controlled account. No license or ownership interest is granted except through Sam Hay’s express written authorization. Use by any organization does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay at any time and for any reason.</div>`;

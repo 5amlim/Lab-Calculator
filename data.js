@@ -203,7 +203,7 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room temperature",
     "stability": "7 days",
     "spin": "No",
-    "specialInstructions": "Avoid seafood for 48 hours before collection. Collect whole blood in a trace-metal-free Royal Blue EDTA tube (purple stripe) and submit in the original tube at room temperature. Do not freeze.",
+    "specialInstructions": "Avoid seafood for 48 hours before collection. Collect whole blood in a trace-metal-free Royal Blue EDTA tube (purple stripe) and submit in original tube at room temperature. Do not freeze.",
     "status": "active",
     "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 8
@@ -566,7 +566,7 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room temperature",
     "stability": "5 days",
     "spin": "No",
-    "specialInstructions": "Collect 5 mL whole blood in a sodium heparin green-top tube and submit in the original tube at room temperature. Lavender EDTA or Yellow ACD are acceptable alternatives. Lithium heparin is not acceptable.",
+    "specialInstructions": "Collect 5 mL whole blood in a sodium heparin green-top tube and submit in original tube at room temperature. Lavender EDTA or Yellow ACD are acceptable alternatives. Lithium heparin is not acceptable.",
     "status": "active",
     "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 209
@@ -800,7 +800,7 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "7 days",
     "spin": "No",
-    "specialInstructions": "Avoid seafood for 48 hours before collection. Collect whole blood in a trace-metal-free Royal Blue EDTA tube (purple stripe); Royal Blue Sodium Heparin is an alternative. Carefully clean the skin and avoid worksite collection. Submit in the original tube. Do not freeze.",
+    "specialInstructions": "Avoid seafood for 48 hours before collection. Collect whole blood in a trace-metal-free Royal Blue EDTA tube (purple stripe); Royal Blue Sodium Heparin is an alternative. Carefully clean the skin and avoid worksite collection. Submit in original tube. Do not freeze.",
     "status": "active",
     "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 35
@@ -1566,7 +1566,7 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room temperature",
     "stability": "14 days",
     "spin": "No",
-    "specialInstructions": "Collect whole blood in a trace-metal-free Royal Blue EDTA tube (purple stripe); Royal Blue Sodium Heparin is an alternative. Carefully clean the skin before venipuncture and avoid worksite collection. Submit in the original tube at room temperature.",
+    "specialInstructions": "Collect whole blood in a trace-metal-free Royal Blue EDTA tube (purple stripe); Royal Blue Sodium Heparin is an alternative. Carefully clean the skin before venipuncture and avoid worksite collection. Submit in original tube at room temperature.",
     "status": "active",
     "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 68
@@ -2564,7 +2564,7 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room temperature",
     "stability": "",
     "spin": "No",
-    "specialInstructions": "Collect 5 mL whole blood in a sodium heparin green-top tube and submit in the original tube at room temperature. Sodium heparin royal-blue or lead-free tan-top tubes are acceptable alternatives. Do not freeze.",
+    "specialInstructions": "Collect 5 mL whole blood in a sodium heparin green-top tube and submit in original tube at room temperature. Sodium heparin royal-blue or lead-free tan-top tubes are acceptable alternatives. Do not freeze.",
     "status": "active",
     "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 232
@@ -3809,7 +3809,7 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "Room temperature: unacceptable; refrigerated: 48 hours; frozen: unacceptable",
     "spin": "No",
-    "specialInstructions": "Collect at least 6 mL whole blood in a no-gel lithium heparin green-top tube. Gently invert several times to dissolve the heparin, refrigerate at 2–8°C, and submit in the original tube. Do not use the four-tube QuantiFERON collection kit or a gel-barrier lithium heparin tube.",
+    "specialInstructions": "Collect at least 6 mL whole blood in a no-gel lithium heparin green-top tube. Gently invert several times to dissolve the heparin, refrigerate at 2–8°C, and submit in original tube. Do not use the four-tube QuantiFERON collection kit or a gel-barrier lithium heparin tube.",
     "status": "active",
     "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 146

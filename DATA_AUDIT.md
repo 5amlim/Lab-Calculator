@@ -1,3 +1,12 @@
+## Version 8.3 label-display refinement
+
+- Standard SST serum is displayed as `Serum` without an automatic `Serum from SST` label reminder.
+- An SST source label is still shown when the test has an explicit label instruction.
+- Plasma always receives a label reminder and includes the source tube when it is known.
+- RBCs retain their source-tube reminder, including original-tube submissions.
+- Urine and stool receive specimen-type reminders. Swabs receive the specific collection site when it can be identified, or a prompt to clarify the source.
+- Serum from special-color or additive tubes retains its source label.
+
 ## Version 8.1 automatic specimen-source labeling
 
 - This is a system-wide display rule rather than a list of one-off test edits.
