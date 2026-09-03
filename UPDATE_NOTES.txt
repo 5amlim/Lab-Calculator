@@ -1,8 +1,7 @@
-Version 10.0
-- Reorganized the Tests action buttons into a two-row layout.
-- Add missing tests and Clear all share the top row.
-- Show details / Hide details sits directly below and spans the combined width of both top buttons.
-- No test, collection, calculation, or print logic changed.
+Version 10.1
+- Test removal controls now show a trash-can icon by default and expand to Remove on hover or keyboard focus.
+- Draw plan cards now follow the Order of draw tube sequence; non-blood collection containers appear after blood tubes.
+- The Order of draw collapsible card itself is unchanged.
 
 Version 9.9
 - Changed the main Add missing test action labels to Add missing tests for consistent wording.

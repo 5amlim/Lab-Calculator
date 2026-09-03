@@ -73,6 +73,30 @@ tr:hover td { background: #fbfdfd; }
 .mini-button { display: inline-block; text-decoration: none; border: 0; background: #e8f3f4; color: var(--brand-dark); border-radius: 7px; padding: 7px 9px; font-size: 11px; font-weight: 800; margin-left: 4px; }
 .mini-button.edit { background: #f1f3f5; color: #52636c; }
 .mini-button.remove { background: #f9eeee; color: var(--danger); }
+
+.remove-flex {
+  width: 34px;
+  min-width: 34px;
+  height: 30px;
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: width .16s ease, min-width .16s ease, padding .16s ease, background-color .16s ease;
+}
+.remove-flex .remove-icon,
+.remove-flex .remove-text { display: inline-flex; align-items: center; justify-content: center; }
+.remove-flex .remove-icon { width: 16px; opacity: 1; transition: width .12s ease, opacity .12s ease; }
+.remove-flex .remove-icon svg { width: 15px; height: 15px; fill: currentColor; }
+.remove-flex .remove-text { max-width: 0; opacity: 0; overflow: hidden; font-weight: 800; transition: max-width .14s ease, opacity .12s ease; }
+@media (hover: hover) and (pointer: fine) {
+  .remove-flex:hover,
+  .remove-flex:focus-visible { width: 74px; min-width: 74px; padding: 0 9px; }
+  .remove-flex:hover .remove-icon,
+  .remove-flex:focus-visible .remove-icon { width: 0; opacity: 0; }
+  .remove-flex:hover .remove-text,
+  .remove-flex:focus-visible .remove-text { max-width: 56px; opacity: 1; }
+}
 .mini-button:disabled { opacity: .45; cursor: not-allowed; }
 .pagination-row { justify-content: space-between; margin-top: 12px; color: var(--muted); font-size: 12px; }
 .badge { display: inline-flex; gap: 5px; align-items: center; border-radius: 999px; padding: 5px 8px; font-size: 10px; line-height: 1; font-weight: 850; border: 1px solid transparent; }

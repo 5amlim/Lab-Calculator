@@ -1,7 +1,7 @@
-## Version 10.0
-- Moved the Show details / Hide details control directly below the Tests heading and selected-test count.
-- Kept Add missing tests and Clear all together on the right side of the Tests header.
-- Test summary and detail-toggle behavior are unchanged.
+## Version 10.1
+- Replaced always-visible Remove text in the Tests summary and detail cards with a compact trash-can control that expands to **Remove** on hover or keyboard focus.
+- Sorted Draw plan collection cards by the same blood-tube sequence used in Order of draw; non-blood containers follow afterward.
+- Kept the Order of draw collapsible card and its content unchanged.
 
 ## Version 9.9
 - Main manual-entry action buttons now read **Add missing tests** for consistent wording.

@@ -501,7 +501,7 @@
       <article class="selected-card">
         <div class="selected-card-top">
           <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</div><div class="subtext specimen-line">${specimenBadge(test.specimenType)} <span>·</span> <span class="preferred-volume-inline">Preferred ${escapeHtml(test.preferredVolume || 'verify')}</span> <span>· Minimum ${escapeHtml(test.minimumVolume || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}</div>
-          <div><a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove" data-action="remove" data-id="${escapeAttr(test.id)}">Remove</button></div>
+          <div><a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove remove-flex" data-action="remove" data-id="${escapeAttr(test.id)}" type="button" aria-label="Remove ${escapeAttr(test.testName)}"><span class="remove-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M9 3h6l1 2h4v2H4V5h4l1-2Zm-2 6h10l-.7 11H7.7L7 9Zm3 2v7h2v-7h-2Zm4 0v7h2v-7h-2Z"/></svg></span><span class="remove-text">Remove</span></button></div>
         </div>
         <div class="selected-details">
           <span class="badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span>
@@ -533,7 +533,7 @@
           <strong class="tests-overview-code">${escapeHtml(displayCode(test))}</strong>
           <span class="tests-overview-name">${escapeHtml(test.testName)}</span>
         </div>
-        <button class="mini-button remove tests-overview-remove" type="button" data-action="remove" data-id="${escapeAttr(test.id)}" aria-label="Remove ${escapeAttr(test.testName)}">Remove</button>
+        <button class="mini-button remove remove-flex tests-overview-remove" type="button" data-action="remove" data-id="${escapeAttr(test.id)}" aria-label="Remove ${escapeAttr(test.testName)}"><span class="remove-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M9 3h6l1 2h4v2H4V5h4l1-2Zm-2 6h10l-.7 11H7.7L7 9Zm3 2v7h2v-7h-2Zm4 0v7h2v-7h-2Z"/></svg></span><span class="remove-text">Remove</span></button>
       </div>`).join('');
   }
 
@@ -548,7 +548,15 @@
       const ml = parseSimpleMl(test.minimumVolume);
       if (ml !== null) { group.minimumMl += ml; group.volumeCount += 1; }
     });
-    return Array.from(groups.values()).sort((a, b) => a.container.localeCompare(b.container));
+    const orderIndex = new Map(ORDER_OF_DRAW.map((step, index) => [step.key, index]));
+    return Array.from(groups.values()).sort((a, b) => {
+      const aCategory = orderCategory(a.tests[0]);
+      const bCategory = orderCategory(b.tests[0]);
+      const aOrder = aCategory !== null && orderIndex.has(aCategory) ? orderIndex.get(aCategory) : Number.MAX_SAFE_INTEGER;
+      const bOrder = bCategory !== null && orderIndex.has(bCategory) ? orderIndex.get(bCategory) : Number.MAX_SAFE_INTEGER;
+      if (aOrder !== bOrder) return aOrder - bOrder;
+      return a.container.localeCompare(b.container);
+    });
   }
 
   function renderDrawPlan(tests) {
