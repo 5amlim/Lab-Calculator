@@ -1,4 +1,4 @@
-## Version 8.8
+## Version 8.9
 - Add Missing Test now requires Test code, Test name, Specimen type, Draw container, Transport tube / container, and Transport temperature.
 - `Not specified` remains a valid Transport temperature selection.
 - Minimum volume remains optional.
@@ -287,3 +287,10 @@ The nurse order-of-draw panel distinguishes the tube additive rather than relyin
 - Individual badges continue to identify EDTA with purple stripe, no additive with red stripe, and sodium heparin.
 - Processed specimen labels now preserve the exact Royal Blue source tube instead of shortening them to Lavender EDTA or Red Top.
 - All built-in Royal Blue and trace-metal records were reviewed and corrected where needed.
+
+### v8.9 UI cleanup
+- Reverted the printed copyright notice to the compact gray block used before v8.8.
+- Kept the printed missing-test contact line as plain bold text.
+- Reorganized Add Missing Test into clearer required sections plus collapsible optional details.
+- Custom draw-container typing is hidden unless Other / manually type is selected.
+- Required-field validation is unchanged; minimum volume remains optional.

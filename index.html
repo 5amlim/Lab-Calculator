@@ -155,61 +155,92 @@
         <button type="button" class="icon-button" id="closeDialogButton" aria-label="Close">×</button>
       </div>
       <input type="hidden" id="testId">
-      <div class="form-grid">
-        <label>Test code <span class="required-field">required</span><input id="testCode" required placeholder="Example: 496"></label>
-        <label>Test name <span class="required-field">required</span><input id="testName" required placeholder="Exact test name"></label>
-        <div class="dialog-lookup-row full-width">
-          <button type="button" class="button secondary" id="openDirectoryFromDialogButton">Search official test directory ↗</button>
-          <span>Use the official test directory to verify collection details before saving a missing test.</span>
-        </div>
+      <div class="dialog-required-note"><span aria-hidden="true">*</span> Required fields</div>
 
-        <label>Specimen type <span class="required-field">required</span><select id="specimenType" required>
-          <option value="">Choose a specimen type</option><option>Serum</option><option>Plasma</option><option>RBCs</option><option>Whole Blood</option><option>Urine</option><option>Stool</option><option>Swab</option><option>Saliva</option><option>CSF</option><option>Body Fluid</option><option>Other / Verify</option>
-        </select></label>
-        <label>Draw container <span class="required-field">required</span><select id="drawContainer" required>
-          <option value="">Choose a collection container</option>
-          <option>SST / Gold</option>
-          <option>Red Top</option>
-          <option>Lavender EDTA</option>
-          <option>Pink EDTA</option>
-          <option>Green Sodium Heparin</option>
-          <option>Green Lithium Heparin</option>
-          <option>Green Heparin — verify additive</option>
-          <option>Light Blue Citrate</option>
-          <option>Royal Blue EDTA (purple stripe)</option>
-          <option>Royal Blue No Additive (red stripe)</option>
-          <option>Royal Blue Sodium Heparin — verify label</option>
-          <option>Royal Blue — verify additive</option>
-          <option>Yellow ACD (blood tube)</option>
-          <option>Gray Fluoride/Oxalate</option>
-          <option>Sterile Urine Cup</option>
-          <option>Red/Yellow Swirl UA Preservative Tube</option>
-          <option>Gray-Top Urine Culture Preservative Tube</option>
-          <option>Urine Container</option>
-          <option>Stool Container</option>
-          <option>Swab / Collection Kit</option>
-          <option>Aptima Multitest Transport Tube (orange label)</option>
-          <option>Viral transport media (VCM/M4)</option>
-          <option>Do Not Collect</option>
-          <option>Verify Official Instructions</option>
-          <option value="__other__">Other / manually type</option>
-        </select></label>
-        <label id="customDrawContainerRow" class="custom-draw-container-row">Custom draw container <span class="optional">available only when Other is selected</span><input id="customDrawContainer" disabled placeholder="Select Other / manually type first" autocomplete="off"><span class="field-help">Select “Other / manually type” above to enter a custom tube, cup, swab, or collection kit.</span></label>
-        <label>Alternative container<input id="alternativeContainer" placeholder="Optional alternative"></label>
-        <label>Transport tube / container <span class="required-field">required</span><input id="transportContainer" required placeholder="Example: transport tube"></label>
-        <div class="source-clarification-note full-width" role="note"><strong>Add the specimen label staff will need.</strong> Label plasma and RBCs with the source tube. Label urine and stool by specimen type, and include the collection site for swabs, such as throat. Serum from SST can stay Serum unless the test gives a specific label instruction.</div>
-        <label>Preferred volume<input id="preferredVolume" placeholder="Example: 1 mL serum"></label>
-        <label>Minimum volume<input id="minimumVolume" placeholder="Example: 0.5 mL"></label>
-        <label>Transport temperature <span class="required-field">required</span><select id="transportTemperature" required>
-          <option value="">Choose a transport temperature</option><option>Room Temperature</option><option>Refrigerated</option><option>Frozen</option><option>Room / Refrigerated</option><option>Mixed</option><option>Not specified</option>
-        </select></label>
-        <label>Exact temperature wording<input id="transportTemperatureRaw" placeholder="Optional wording from the official directory"></label>
-        <label>Stability / viability<input id="stability" placeholder="Example: 7 days refrigerated"></label>
-        <label>Spin?<select id="spin"><option>Yes</option><option>No</option><option>Verify</option></select></label>
-        <label class="full-width">Special label for submission <span class="optional">shown quietly in the bag summary</span><input id="specialLabeling" placeholder="Example: Label transport tube PLASMA"></label>
-        <label class="full-width">Special handling and collection notes<textarea id="specialInstructions" rows="5" placeholder="Include timing, mixing, light protection, freezing, labeling, rejection criteria, or dedicated tube requirements."></textarea></label>
-        <label class="check-label full-width" id="addToSummaryRow"><input type="checkbox" id="addToSummary" checked> Add this test to the current collection summary</label>
-        <label class="check-label full-width"><input type="checkbox" id="blockedStatus"> Mark as do not perform / blocked</label>
+      <div class="dialog-form-sections">
+        <section class="form-section" aria-labelledby="testInfoHeading">
+          <div class="form-section-heading">
+            <div>
+              <h3 id="testInfoHeading">Test info</h3>
+              <p>Identify the exact test being added.</p>
+            </div>
+            <button type="button" class="directory-text-button" id="openDirectoryFromDialogButton">Verify in official directory ↗</button>
+          </div>
+          <div class="form-grid form-grid-compact">
+            <label>Test code <span class="required-mark" aria-hidden="true">*</span><input id="testCode" required placeholder="Example: 496"></label>
+            <label>Test name <span class="required-mark" aria-hidden="true">*</span><input id="testName" required placeholder="Exact test name"></label>
+          </div>
+        </section>
+
+        <section class="form-section" aria-labelledby="collectionInfoHeading">
+          <div class="form-section-heading">
+            <div>
+              <h3 id="collectionInfoHeading">Collection &amp; transport</h3>
+              <p>Complete the required specimen and shipping details.</p>
+            </div>
+          </div>
+          <div class="form-grid form-grid-compact">
+            <label>Specimen type <span class="required-mark" aria-hidden="true">*</span><select id="specimenType" required>
+              <option value="">Choose a specimen type</option><option>Serum</option><option>Plasma</option><option>RBCs</option><option>Whole Blood</option><option>Urine</option><option>Stool</option><option>Swab</option><option>Saliva</option><option>CSF</option><option>Body Fluid</option><option>Other / Verify</option>
+            </select></label>
+            <label>Draw container <span class="required-mark" aria-hidden="true">*</span><select id="drawContainer" required>
+              <option value="">Choose a collection container</option>
+              <option>SST / Gold</option>
+              <option>Red Top</option>
+              <option>Lavender EDTA</option>
+              <option>Pink EDTA</option>
+              <option>Green Sodium Heparin</option>
+              <option>Green Lithium Heparin</option>
+              <option>Green Heparin — verify additive</option>
+              <option>Light Blue Citrate</option>
+              <option>Royal Blue EDTA (purple stripe)</option>
+              <option>Royal Blue No Additive (red stripe)</option>
+              <option>Royal Blue Sodium Heparin — verify label</option>
+              <option>Royal Blue — verify additive</option>
+              <option>Yellow ACD (blood tube)</option>
+              <option>Gray Fluoride/Oxalate</option>
+              <option>Sterile Urine Cup</option>
+              <option>Red/Yellow Swirl UA Preservative Tube</option>
+              <option>Gray-Top Urine Culture Preservative Tube</option>
+              <option>Urine Container</option>
+              <option>Stool Container</option>
+              <option>Swab / Collection Kit</option>
+              <option>Aptima Multitest Transport Tube (orange label)</option>
+              <option>Viral transport media (VCM/M4)</option>
+              <option>Do Not Collect</option>
+              <option>Verify Official Instructions</option>
+              <option value="__other__">Other / manually type</option>
+            </select></label>
+            <label id="customDrawContainerRow" class="custom-draw-container-row full-width hidden">Custom draw container <span class="required-mark" aria-hidden="true">*</span><input id="customDrawContainer" disabled placeholder="Type any tube, cup, swab, or collection kit" autocomplete="off"></label>
+            <label>Transport tube / container <span class="required-mark" aria-hidden="true">*</span><input id="transportContainer" required placeholder="Example: serum transport tube"></label>
+            <label>Transport temperature <span class="required-mark" aria-hidden="true">*</span><select id="transportTemperature" required>
+              <option value="">Choose a transport temperature</option><option>Room Temperature</option><option>Refrigerated</option><option>Frozen</option><option>Room / Refrigerated</option><option>Mixed</option><option>Not specified</option>
+            </select></label>
+            <div class="source-clarification-note full-width" role="note"><strong>Label reminder:</strong> plasma and RBCs include the source tube; urine and stool use the specimen type; swabs include the collection site when available.</div>
+          </div>
+        </section>
+
+        <details class="form-section optional-details" id="optionalDetails">
+          <summary>
+            <span>Optional details</span>
+            <small>Volumes, stability, special handling, and alternatives</small>
+          </summary>
+          <div class="form-grid form-grid-compact optional-details-grid">
+            <label>Alternative container<input id="alternativeContainer" placeholder="Optional alternative"></label>
+            <label>Preferred volume<input id="preferredVolume" placeholder="Example: 1 mL serum"></label>
+            <label>Minimum volume<input id="minimumVolume" placeholder="Example: 0.5 mL"></label>
+            <label>Exact temperature wording<input id="transportTemperatureRaw" placeholder="Optional wording from the official directory"></label>
+            <label>Stability / viability<input id="stability" placeholder="Example: 7 days refrigerated"></label>
+            <label>Spin?<select id="spin"><option>Yes</option><option>No</option><option>Verify</option></select></label>
+            <label class="full-width">Special label for submission <span class="optional">shown quietly in the bag summary</span><input id="specialLabeling" placeholder="Example: Label transport tube PLASMA"></label>
+            <label class="full-width">Special handling and collection notes<textarea id="specialInstructions" rows="4" placeholder="Timing, mixing, light protection, freezing, rejection criteria, or dedicated tube requirements."></textarea></label>
+          </div>
+        </details>
+
+        <div class="form-status-options">
+          <label class="check-label" id="addToSummaryRow"><input type="checkbox" id="addToSummary" checked> Add this test to the current collection summary</label>
+          <label class="check-label"><input type="checkbox" id="blockedStatus"> Mark as do not perform / blocked</label>
+        </div>
       </div>
       <div class="dialog-actions">
         <button type="button" class="button danger-ghost hidden" id="deleteTestButton">Delete manually added test</button>

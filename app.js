@@ -46,7 +46,7 @@
     preferredVolume: $('preferredVolume'), minimumVolume: $('minimumVolume'), transportTemperature: $('transportTemperature'),
     transportTemperatureRaw: $('transportTemperatureRaw'), stability: $('stability'), spin: $('spin'),
     specialLabeling: $('specialLabeling'), specialInstructions: $('specialInstructions'), blockedStatus: $('blockedStatus'), addToSummary: $('addToSummary'),
-    addToSummaryRow: $('addToSummaryRow'), openDirectoryFromDialogButton: $('openDirectoryFromDialogButton'), toast: $('toast')
+    addToSummaryRow: $('addToSummaryRow'), optionalDetails: $('optionalDetails'), openDirectoryFromDialogButton: $('openDirectoryFromDialogButton'), toast: $('toast')
   };
 
   let database = loadDatabase();
@@ -667,6 +667,7 @@
     els.addToSummaryRow.classList.toggle('hidden', isExisting);
     els.saveTestButton.textContent = isExisting ? 'Save changes' : 'Save test';
     els.deleteTestButton.classList.toggle('hidden', !isExisting || !record.id.startsWith('custom-'));
+    if (els.optionalDetails) els.optionalDetails.open = isExisting;
     els.testDialog.showModal();
     setTimeout(() => (isExisting ? els.testName : els.testCode).focus(), 0);
   }
@@ -1646,14 +1647,12 @@
 
   function toggleCustomDrawContainer() {
     const isOther = els.drawContainer.value === '__other__';
-    els.customDrawContainerRow.classList.remove('hidden');
+    els.customDrawContainerRow.classList.toggle('hidden', !isOther);
     els.customDrawContainer.disabled = !isOther;
     els.customDrawContainer.required = isOther;
     els.customDrawContainerRow.classList.toggle('is-active', isOther);
-    els.customDrawContainerRow.classList.toggle('is-disabled', !isOther);
-    els.customDrawContainer.placeholder = isOther
-      ? 'Type any tube, cup, swab, or collection kit'
-      : 'Select Other / manually type first';
+    els.customDrawContainerRow.classList.remove('is-disabled');
+    els.customDrawContainer.placeholder = 'Type any tube, cup, swab, or collection kit';
     if (!isOther) els.customDrawContainer.value = '';
     if (isOther) setTimeout(() => els.customDrawContainer.focus(), 0);
   }

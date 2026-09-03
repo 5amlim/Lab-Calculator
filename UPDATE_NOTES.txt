@@ -1,4 +1,4 @@
-Version 8.8
+Version 8.9
 - Add Missing Test requires Test code, Test name, Specimen type, Draw container, Transport tube / container, and Transport temperature before saving.
 - Not specified is accepted as a valid transport-temperature choice.
 - Minimum volume is optional.
@@ -93,3 +93,7 @@ Version 7.4
 - Audited all 259 built-in records for Royal Blue/EDTA/red-top source-classification conflicts.
 - Confirmed Royal Blue source detection is prioritized before generic EDTA/red/heparin rules in the summary, order of draw, and transport-bag logic.
 - Bumped browser database version so corrected built-in records refresh while preserving custom entries.
+
+- Reverted print copyright styling to a compact text-sized block.
+- Simplified the Add Missing Test dialog into grouped required and optional sections.
+- Custom draw-container field now appears only when Other / manually type is selected.

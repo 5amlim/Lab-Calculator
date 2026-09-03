@@ -172,8 +172,8 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-footer { margin-top: 8px; border-top: 1px solid #ccd5d9; padding-top: 5px; font-size: 7.5px; line-height: 1.35; color: #59666c; }
   .print-footer > div + div { margin-top: 2px; }
   .print-missing-test { display: block; margin-top: 4px !important; padding: 0; border: 0; background: transparent !important; color: #27383f; font-weight: 900; }
-  .print-ownership { margin-top: 5px; padding: 0; background: transparent !important; font-size: 7.3px; line-height: 1.55; color: #42545c; break-inside: avoid; }
-  .print-ownership span { background: #f1f7f8 !important; padding: 2px 4px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .print-ownership { display: inline-block; width: fit-content; max-width: 92%; margin-top: 5px; padding: 4px 6px; border-left: 3px solid #1e5963; border-radius: 3px; background: #f1f7f8 !important; font-size: 7.3px; line-height: 1.35; color: #42545c; break-inside: avoid; }
+  .print-ownership span { background: transparent !important; padding: 0; }
 }
 
 /* Staff-friendly manual entry */
@@ -954,4 +954,109 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 .batch-missing-list li span { color: #785c28; }
 @media (max-width: 720px) {
   .batch-missing-list li { grid-template-columns: 1fr; gap: 2px; }
+}
+
+
+/* v8.9 cleaner missing-test form */
+#testForm { padding: 20px 22px 18px; }
+.dialog-header { margin-bottom: 8px; }
+.dialog-required-note {
+  margin: 0 0 13px;
+  color: #6b7780;
+  font-size: 10.5px;
+  font-weight: 700;
+}
+.dialog-required-note span,
+.required-mark { color: #a23b35; font-weight: 900; }
+.dialog-form-sections { display: grid; gap: 12px; }
+.form-section {
+  border: 1px solid #dce5e8;
+  border-radius: 12px;
+  background: #fff;
+  padding: 13px 14px;
+}
+.form-section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 11px;
+}
+.form-section-heading h3 { margin: 0 0 2px; font-size: 13px; }
+.form-section-heading p { margin: 0; color: var(--muted); font-size: 10.5px; line-height: 1.35; }
+.form-grid-compact { gap: 10px 12px; }
+.form-grid-compact label { gap: 5px; }
+.form-grid-compact input,
+.form-grid-compact select,
+.form-grid-compact textarea { padding: 9px 10px; border-radius: 8px; }
+.directory-text-button {
+  border: 0;
+  background: transparent;
+  color: var(--brand-dark);
+  padding: 2px 0;
+  font-size: 10.5px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+.directory-text-button:hover,
+.directory-text-button:focus-visible { text-decoration: underline; }
+.custom-draw-container-row {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.custom-draw-container-row.is-active {
+  border: 0;
+  background: transparent;
+}
+.source-clarification-note {
+  padding: 7px 9px;
+  border: 0;
+  border-radius: 7px;
+  background: #f6f8f9;
+  color: #61717a;
+  font-size: 10.5px;
+  line-height: 1.4;
+}
+.source-clarification-note strong { color: #45575f; }
+.optional-details { padding: 0; overflow: hidden; }
+.optional-details summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  color: #35454f;
+  font-size: 12px;
+  font-weight: 850;
+}
+.optional-details summary::-webkit-details-marker { display: none; }
+.optional-details summary::after { content: 'Show'; color: var(--brand-dark); font-size: 10px; font-weight: 850; }
+.optional-details[open] summary::after { content: 'Hide'; }
+.optional-details summary small {
+  flex: 1;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 600;
+}
+.optional-details[open] summary { border-bottom: 1px solid #e5ebee; }
+.optional-details-grid { padding: 12px 14px 14px; }
+.form-status-options {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 1px 2px 0;
+  color: #4e6069;
+  font-size: 11px;
+}
+.form-status-options .check-label { font-weight: 650; }
+.dialog-actions { margin-top: 14px; padding-top: 12px; border-top: 1px solid #e5ebee; }
+@media (max-width: 720px) {
+  .form-section-heading { flex-direction: column; }
+  .directory-text-button { white-space: normal; }
+  .optional-details summary { align-items: flex-start; flex-wrap: wrap; }
+  .optional-details summary small { flex-basis: 100%; }
 }
