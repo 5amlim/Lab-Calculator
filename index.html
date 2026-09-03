@@ -167,8 +167,8 @@
             <button type="button" class="directory-text-button" id="openDirectoryFromDialogButton">Verify in official directory ↗</button>
           </div>
           <div class="form-grid form-grid-compact">
-            <label>Test code <span class="required-mark" aria-hidden="true">*</span><input id="testCode" required placeholder="Example: 496"></label>
-            <label>Test name <span class="required-mark" aria-hidden="true">*</span><input id="testName" required placeholder="Exact test name"></label>
+            <label><span class="form-label-text">Test code <span class="required-mark" aria-hidden="true">*</span></span><input id="testCode" required placeholder="Example: 496"></label>
+            <label><span class="form-label-text">Test name <span class="required-mark" aria-hidden="true">*</span></span><input id="testName" required placeholder="Exact test name"></label>
           </div>
         </section>
 
@@ -180,10 +180,10 @@
             </div>
           </div>
           <div class="form-grid form-grid-compact">
-            <label>Specimen type <span class="required-mark" aria-hidden="true">*</span><select id="specimenType" required>
+            <label><span class="form-label-text">Specimen type <span class="required-mark" aria-hidden="true">*</span></span><select id="specimenType" required>
               <option value="">Choose a specimen type</option><option>Serum</option><option>Plasma</option><option>RBCs</option><option>Whole Blood</option><option>Urine</option><option>Stool</option><option>Swab</option><option>Saliva</option><option>CSF</option><option>Body Fluid</option><option>Other / Verify</option>
             </select></label>
-            <label>Draw container <span class="required-mark" aria-hidden="true">*</span><select id="drawContainer" required>
+            <label><span class="form-label-text">Draw container <span class="required-mark" aria-hidden="true">*</span></span><select id="drawContainer" required>
               <option value="">Choose a collection container</option>
               <option>SST / Gold</option>
               <option>Red Top</option>
@@ -211,9 +211,9 @@
               <option>Verify Official Instructions</option>
               <option value="__other__">Other / manually type</option>
             </select></label>
-            <label id="customDrawContainerRow" class="custom-draw-container-row full-width hidden">Custom draw container <span class="required-mark" aria-hidden="true">*</span><input id="customDrawContainer" disabled placeholder="Type any tube, cup, swab, or collection kit" autocomplete="off"></label>
-            <label>Transport tube / container <span class="required-mark" aria-hidden="true">*</span><input id="transportContainer" required placeholder="Example: serum transport tube"></label>
-            <label>Transport temperature <span class="required-mark" aria-hidden="true">*</span><select id="transportTemperature" required>
+            <label id="customDrawContainerRow" class="custom-draw-container-row full-width hidden"><span class="form-label-text">Custom draw container <span class="required-mark" aria-hidden="true">*</span></span><input id="customDrawContainer" disabled placeholder="Type any tube, cup, swab, or collection kit" autocomplete="off"></label>
+            <label><span class="form-label-text">Transport tube / container <span class="required-mark" aria-hidden="true">*</span></span><input id="transportContainer" required placeholder="Example: serum transport tube"></label>
+            <label><span class="form-label-text">Transport temperature <span class="required-mark" aria-hidden="true">*</span></span><select id="transportTemperature" required>
               <option value="">Choose a transport temperature</option><option>Room Temperature</option><option>Refrigerated</option><option>Frozen</option><option>Room / Refrigerated</option><option>Mixed</option><option>Not specified</option>
             </select></label>
             <div class="source-clarification-note full-width" role="note"><strong>Label reminder:</strong> plasma and RBCs include the source tube; urine and stool use the specimen type; swabs include the collection site when available.</div>

@@ -1,3 +1,8 @@
+Version 9.2
+- Required stars in Add Missing Test now appear inline with labels.
+- Form placeholder/prompt text is lighter for clearer visual hierarchy.
+- No calculator logic changed.
+
 Version 9.1
 - Renamed the printed Counts note to Order of draw.
 - Removed the repeated SST volume-count sentence from the printed footer.

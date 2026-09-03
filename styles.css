@@ -987,6 +987,16 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 .form-section-heading p { margin: 0; color: var(--muted); font-size: 10.5px; line-height: 1.35; }
 .form-grid-compact { gap: 10px 12px; }
 .form-grid-compact label { gap: 5px; }
+.form-label-text { display: inline-flex; align-items: baseline; gap: 4px; width: fit-content; }
+#testForm input::placeholder,
+#testForm textarea::placeholder {
+  color: #aeb8be;
+  opacity: 1;
+  font-weight: 500;
+}
+#testForm select:invalid { color: #98a4ab; font-weight: 600; }
+#testForm select option { color: var(--ink); font-weight: 500; }
+#testForm select option[value=""] { color: #aeb8be; }
 .form-grid-compact input,
 .form-grid-compact select,
 .form-grid-compact textarea { padding: 9px 10px; border-radius: 8px; }

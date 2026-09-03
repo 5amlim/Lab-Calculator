@@ -1,4 +1,9 @@
-## Version 9.1
+## Version 9.2
+
+- Add Missing Test required stars now sit inline with their field labels.
+- Placeholder and unselected prompt text in the Add Missing Test form is lighter so it is visually distinct from entered values.
+- No validation, collection, or calculation logic changed.
+
 - Printed footer now uses **Order of draw:** instead of **Counts:**.
 - Removed the repeated SST volume-count sentence and the divider line above the footer notes.
 - Print background is forced to white below the copyright notice.
