@@ -1,3 +1,8 @@
+Version 10.3
+- Draw plan cards now show both the number of tests and estimated collection containers needed.
+- The container estimate reuses the calculator's existing collection-count logic.
+- No specimen requirements, order-of-draw rules, or print calculations were changed.
+
 Version 10.1
 - Test removal controls now show a trash-can icon by default and expand to Remove on hover or keyboard focus.
 - Draw plan cards now follow the Order of draw tube sequence; non-blood collection containers appear after blood tubes.

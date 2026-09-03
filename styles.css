@@ -131,8 +131,14 @@ tr:hover td { background: #fbfdfd; }
 .draw-plan { display: grid; gap: 8px; }
 .draw-card { border: 1px solid var(--line); border-radius: 11px; padding: 10px 11px; display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; }
 .draw-card strong { font-size: 13px; }
+.draw-counts { display: inline-flex; align-items: center; justify-content: flex-end; gap: 7px; white-space: nowrap; color: var(--text); }
+.draw-container-badge { display: inline-flex; align-items: center; min-height: 24px; padding: 2px 8px; border: 1px solid rgba(13,102,114,.20); border-radius: 999px; background: var(--brand-soft); color: var(--brand-dark) !important; font-size: 11px !important; font-weight: 850 !important; line-height: 1; }
 .draw-meta { color: var(--muted); font-size: 11px; }
 .draw-card .specimen-line { grid-column: 1 / -1; }
+@media (max-width: 520px) {
+  .draw-card { grid-template-columns: 1fr; }
+  .draw-counts { justify-content: flex-start; }
+}
 .tests-summary {
   margin-top: 10px;
   border: 1px solid var(--line);

@@ -1,3 +1,8 @@
+## Version 10.3
+- Added the estimated number of collection containers beside the test count on each Draw plan card.
+- Container counts use the existing collection-planning logic, including pooling, dedicated-tube requirements, and separate transport-temperature workflows.
+- Kept the Draw plan order and the collapsible Order of draw card unchanged.
+
 ## Version 10.1
 - Replaced always-visible Remove text in the Tests summary and detail cards with a compact trash-can control that expands to **Remove** on hover or keyboard focus.
 - Sorted Draw plan collection cards by the same blood-tube sequence used in Order of draw; non-blood containers follow afterward.

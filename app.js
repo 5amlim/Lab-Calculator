@@ -559,6 +559,12 @@
     });
   }
 
+  function drawGroupContainerCount(group) {
+    const groupBags = buildTransportBagPlan(group.tests);
+    return buildCollectionPlan(group.tests, groupBags)
+      .reduce((sum, item) => sum + (Number(item.count) || 0), 0);
+  }
+
   function renderDrawPlan(tests) {
     if (!tests.length) {
       els.drawPlanSummary.textContent = 'No collection types';
@@ -571,7 +577,10 @@
     els.drawPlan.className = 'draw-plan';
     els.drawPlan.innerHTML = groups.map(group => {
       const volume = group.volumeCount ? ` · listed minimum total ${formatMl(group.minimumMl)}` : '';
-      return `<div class="draw-card"><strong class="tube ${tubeClass(group.container)}">${escapeHtml(group.container)}</strong><strong>${group.tests.length} ${group.tests.length === 1 ? 'test' : 'tests'}</strong><div class="draw-meta specimen-line">${Array.from(group.specimenTypes).map(type => specimenBadge(type)).join(' ')}${volume ? `<span>${escapeHtml(volume)}</span>` : ''}</div></div>`;
+      const containerCount = drawGroupContainerCount(group);
+      const testLabel = `${group.tests.length} ${group.tests.length === 1 ? 'test' : 'tests'}`;
+      const containerLabel = `${containerCount} ${containerCount === 1 ? 'container' : 'containers'}`;
+      return `<div class="draw-card"><strong class="tube ${tubeClass(group.container)}">${escapeHtml(group.container)}</strong><div class="draw-counts"><strong>${escapeHtml(testLabel)}</strong><strong class="draw-container-badge">${escapeHtml(containerLabel)}</strong></div><div class="draw-meta specimen-line">${Array.from(group.specimenTypes).map(type => specimenBadge(type)).join(' ')}${volume ? `<span>${escapeHtml(volume)}</span>` : ''}</div></div>`;
     }).join('');
   }
 
