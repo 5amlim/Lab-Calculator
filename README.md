@@ -1,4 +1,7 @@
-## Version 9.2
+## Version 9.3
+
+- Changed the multi-test search hint from “20 tests” to “multiple tests.”
+- Simplified the Add Missing Test label reminder wording.
 
 - Add Missing Test required stars now sit inline with their field labels.
 - Placeholder and unselected prompt text in the Add Missing Test form is lighter so it is visually distinct from entered values.
