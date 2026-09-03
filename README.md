@@ -338,3 +338,8 @@ The nurse order-of-draw panel distinguishes the tube additive rather than relyin
 - The Tests summary is always visible and each row now has a Remove button.
 - A Details button reveals/hides the full test cards in place.
 - Add missing test is available directly from the Tests header.
+
+### v9.8 cart layout
+- The Tests section switches between the compact test summary and the full test-detail cards rather than displaying both at once.
+- Use **Show details** / **Hide details** to flip between the two views.
+- **Clear all** is in the Tests action row beside **Add missing test**.

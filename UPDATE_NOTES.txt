@@ -137,3 +137,7 @@ v9.7
 - Consolidated Tests summary and details into one cart section.
 - Added per-test Remove buttons to the compact Tests summary.
 - Added Details toggle and Add missing test actions to the Tests header.
+
+v9.8
+- Changed the Tests area to a true summary/details view toggle: Show details replaces the compact summary with the full test cards, and Hide details returns to the compact summary.
+- Moved Clear all into the Tests action row, immediately to the right of Add missing test.

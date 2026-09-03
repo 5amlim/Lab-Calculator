@@ -94,7 +94,6 @@
           <div class="eyebrow">TEST CART · COLLECTION SUMMARY</div>
           <h2>Selected tests <span id="selectedCount">0</span></h2>
         </div>
-        <button class="button ghost" id="clearOrderButton">Clear all</button>
       </div>
 
 
@@ -107,8 +106,9 @@
             <span class="tests-summary-count" id="testsOverviewSummary">0 tests</span>
           </div>
           <div class="tests-summary-actions">
-            <button class="mini-button edit" id="testsDetailsButton" type="button" aria-expanded="false" aria-controls="testsDetailsPanel">Details</button>
+            <button class="mini-button edit" id="testsDetailsButton" type="button" aria-expanded="false" aria-controls="testsOverviewList testsDetailsPanel">Show details</button>
             <button class="mini-button" id="addSelectedTestButton" type="button">+ Add missing test</button>
+            <button class="mini-button remove" id="clearOrderButton" type="button">Clear all</button>
           </div>
         </div>
         <div id="testsOverviewList" class="tests-overview-list empty-state">No tests selected.</div>

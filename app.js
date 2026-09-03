@@ -438,10 +438,12 @@
   }
 
   function toggleTestsDetails() {
-    const isHidden = els.testsDetailsPanel.classList.toggle('hidden');
-    els.testsDetailsPanel.setAttribute('aria-hidden', isHidden ? 'true' : 'false');
-    els.testsDetailsButton.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
-    els.testsDetailsButton.textContent = isHidden ? 'Details' : 'Hide details';
+    const showingDetails = els.testsDetailsPanel.classList.contains('hidden');
+    els.testsOverviewList.classList.toggle('hidden', showingDetails);
+    els.testsDetailsPanel.classList.toggle('hidden', !showingDetails);
+    els.testsDetailsPanel.setAttribute('aria-hidden', showingDetails ? 'false' : 'true');
+    els.testsDetailsButton.setAttribute('aria-expanded', showingDetails ? 'true' : 'false');
+    els.testsDetailsButton.textContent = showingDetails ? 'Hide details' : 'Show details';
   }
 
   function addSelected(id, rerender = true) {
@@ -513,11 +515,13 @@
   function renderTestsOverview(tests) {
     els.testsOverviewSummary.textContent = `${tests.length} ${tests.length === 1 ? 'test' : 'tests'}`;
     els.testsDetailsButton.disabled = !tests.length;
+    els.clearOrderButton.disabled = !tests.length;
     if (!tests.length) {
+      els.testsOverviewList.classList.remove('hidden');
       els.testsDetailsPanel.classList.add('hidden');
       els.testsDetailsPanel.setAttribute('aria-hidden', 'true');
       els.testsDetailsButton.setAttribute('aria-expanded', 'false');
-      els.testsDetailsButton.textContent = 'Details';
+      els.testsDetailsButton.textContent = 'Show details';
       els.testsOverviewList.className = 'tests-overview-list empty-state';
       els.testsOverviewList.textContent = 'No tests selected.';
       return;
