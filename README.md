@@ -1,3 +1,16 @@
+## Version 8.6
+- Multi-test searches now call out every search term that was not added or did not produce a reliable local match.
+- After **Add best matches**, a dedicated **Not added** box lists each missed test name/code and the reason.
+- Searches that are already selected are treated as accounted for rather than incorrectly reported as missing.
+- No test records, collection calculations, pooling, processing, or labeling rules changed.
+
+## Version 8.5
+- Removed duplicate Labels explanatory footer text while keeping all actual specimen-label badges and rules unchanged.
+- Improved visibility of total/selected test counts on screen and in print.
+- Highlighted Missing a test? Contact Sam callouts.
+- Made the copyright/ownership background more compact.
+- No collection or test-requirement logic changed.
+
 ## Version 8.4
 
 - Restored `Serum from SST` in the bag/submission detail so staff can see where the serum came from.

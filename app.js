@@ -257,29 +257,94 @@
       return;
     }
 
-    const rows = queries.map(query => ({ query, matches: findMatches(query, 3) }));
+    const rows = queries.map(query => ({ query, matches: findMatches(query, 3), outcome: 'review' }));
+    let added = 0;
+
     if (addBest) {
-      let added = 0;
       rows.forEach(row => {
         const best = row.matches[0];
-        if (best && best.score >= 330 && best.test.status !== 'blocked') {
-          if (addSelected(best.test.id, false)) added += 1;
+        if (!best) {
+          row.outcome = 'no-match';
+          return;
+        }
+        if (best.test.status === 'blocked') {
+          row.outcome = 'blocked';
+          return;
+        }
+        if (best.score < 330) {
+          row.outcome = 'low-confidence';
+          return;
+        }
+        if (selectedIds.includes(best.test.id)) {
+          row.outcome = 'already-selected';
+          return;
+        }
+        if (addSelected(best.test.id, false)) {
+          row.outcome = 'added';
+          added += 1;
+        } else {
+          row.outcome = 'not-added';
         }
       });
       saveSelected();
       renderOrder();
-      showToast(`${added} ${added === 1 ? 'test' : 'tests'} added to the summary.`);
+    } else {
+      rows.forEach(row => {
+        const best = row.matches[0];
+        if (!best) row.outcome = 'no-match';
+        else if (best.test.status === 'blocked') row.outcome = 'blocked';
+        else if (best.score < 330) row.outcome = 'low-confidence';
+      });
     }
 
     const matchedCount = rows.filter(row => row.matches.length).length;
+    const unresolved = rows.filter(row => ['no-match', 'blocked', 'low-confidence', 'not-added'].includes(row.outcome));
+    const resultSummary = renderBatchResultSummary(rows, addBest);
+
+    if (addBest) {
+      const alreadySelected = rows.filter(row => row.outcome === 'already-selected').length;
+      const accountedFor = added + alreadySelected;
+      if (unresolved.length) {
+        showToast(`${accountedFor} ${accountedFor === 1 ? 'test is' : 'tests are'} in the summary. ${unresolved.length} not added — see list.`);
+      } else {
+        showToast(`All ${rows.length} ${rows.length === 1 ? 'test is' : 'tests are'} in the summary.`);
+      }
+    }
+
     els.batchResults.classList.remove('hidden');
     els.batchResults.innerHTML = `
       <div class="panel-heading">
         <div><h2>Batch matches</h2><p>${matchedCount} of ${rows.length} lines found a possible match. Review ambiguous names before collection.</p></div>
       </div>
+      ${resultSummary}
       <div class="batch-grid">
         ${rows.map(renderBatchRow).join('')}
       </div>`;
+  }
+
+  function renderBatchResultSummary(rows, addBest) {
+    if (rows.length < 2) return '';
+
+    const unresolved = rows.filter(row => ['no-match', 'blocked', 'low-confidence', 'not-added'].includes(row.outcome));
+    if (!unresolved.length) {
+      if (!addBest) return '';
+      return `<div class="batch-status batch-status-success"><strong>All ${rows.length} searches are in the summary.</strong><span>No tests were missed.</span></div>`;
+    }
+
+    const label = addBest ? 'Not added' : 'Needs attention';
+    return `<div class="batch-status batch-status-warning">
+      <div class="batch-status-heading"><strong>${label} (${unresolved.length})</strong><span>${addBest ? 'These searches were not added to the collection summary.' : 'These searches did not return a reliable local match.'}</span></div>
+      <ul class="batch-missing-list">
+        ${unresolved.map(row => `<li><strong>${escapeHtml(row.query)}</strong><span>${escapeHtml(batchOutcomeReason(row.outcome))}</span></li>`).join('')}
+      </ul>
+    </div>`;
+  }
+
+  function batchOutcomeReason(outcome) {
+    if (outcome === 'no-match') return 'No local match found';
+    if (outcome === 'low-confidence') return 'Possible match was too uncertain to add automatically';
+    if (outcome === 'blocked') return 'Matched a do-not-perform entry';
+    return 'Could not be added';
   }
 
   function renderBatchRow(row) {
@@ -1443,7 +1508,6 @@
       <div class="print-bag-note">
         <div><strong>Tube sharing:</strong> Compatible SST, Lavender EDTA, and Red Top tubes can be shared across tests only when the processing steps and temperature match. Lavender whole blood stays separate from Lavender tubes used for plasma or RBCs. Tubes sent whole also stay separate from tubes used to prepare aliquots.</div>
         <div><strong>Tube counts:</strong> Estimates allow 2 mL of usable serum, plasma, or processed specimen per source tube and 4 mL of whole blood per Lavender tube. A test adds only one tube of each type unless its instructions call for multiple, dedicated, or full tubes. Different tube types are counted separately.</div>
-        <div><strong>Labels:</strong> The bag shows Serum from SST to identify the source. No Label reminder is shown for SST serum unless the test specifically requires it. Plasma and RBCs include the source tube. Urine and stool show the specimen type, and swabs include the collection site when available. Serum from a special-color or additive tube keeps its source.</div>
         <div><strong>Urine:</strong> One sterile cup is included for a spot urine test. Follow the listed container instructions for timed or 24-hour collections.</div>
       </div>
     </section>`;
@@ -1457,7 +1521,7 @@
     els.printSheet.innerHTML = `
       <div class="print-header">
         <div><h1 class="print-title">Lab Collection Summary</h1><div class="print-subtitle">Send-out workflow</div></div>
-        <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<br>${tests.length} selected tests</div>
+        <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<span class="print-selected-count">${tests.length} selected ${tests.length === 1 ? 'test' : 'tests'}</span></div>
       </div>
       ${alerts.length ? `<div class="print-alerts">${alerts.map(alert => `<div>${escapeHtml(alert.text)}</div>`).join('')}</div>` : ''}
       <table class="print-table">
@@ -1467,9 +1531,8 @@
       </table>
       ${printCollectionSubmissionPlan(tests)}
       <div class="print-footer">
-        <div><strong>Labels:</strong> The bag shows Serum from SST to identify the source. No Label reminder is shown for SST serum unless the test specifically requires it. Mark plasma and RBCs with the source tube. Label urine and stool by specimen type, and include the collection site for swabs, such as throat.</div>
         <div><strong>Counts:</strong> Pink tubes are grouped with EDTA in the order of draw. SST counts use the preferred volume when available, otherwise the minimum. Temperatures are counted separately.</div>
-        <div><strong>Missing test?</strong> Contact Sam to have it added.</div>
+        <div class="print-missing-test"><strong>Missing a test?</strong> <b>Contact Sam</b> to have it added.</div>
       </div>
       <div class="print-ownership"><strong>Copyright and ownership:</strong> Copyright © 2026 Sam Hay. All rights reserved. Independently developed and maintained by Sam Hay as a personal software project and hosted through a personally controlled account. No license or ownership interest is granted except through Sam Hay’s express written authorization. Use by any organization does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay at any time and for any reason.</div>`;
     window.print();

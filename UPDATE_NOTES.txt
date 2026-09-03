@@ -1,3 +1,17 @@
+Version 8.6
+- Multi-test searches now show a dedicated Not added / Needs attention summary for any search terms that were missed.
+- The summary lists each original test name or code that was not added and explains whether no local match was found, the possible match was too uncertain, or the entry is marked do not perform.
+- Add best matches now confirms when every searched test is already in or successfully added to the collection summary.
+- Matching, test records, collection counts, pooling, processing, and labeling rules are unchanged.
+
+Version 8.5
+- Removed the duplicate Labels explanations from the printed footer and collection/submission footnotes.
+- Made the on-screen local test total and selected-test count more prominent.
+- Added a clear selected-test-count badge to the printed summary header.
+- Restyled Missing a test? Contact Sam callouts so they stand out from surrounding footer and help text.
+- Tightened the copyright/ownership treatment so the shaded background sits around the notice instead of spanning the full footer area.
+- No test records, specimen rules, tube counts, pooling, processing, or labeling logic changed.
+
 Version 8.4
 - Restored Serum from SST in the bag/submission detail.
 - Standard SST serum does not show a Label badge unless the test explicitly requires labeling.
