@@ -1,3 +1,18 @@
+Version 8.2
+- Fasting badges now stay on their own line below each test name in the printed table.
+- Replaced the dense planning footnotes with short, plain-language sections for tube sharing, tube counts, labels, urine collection, and final checks.
+- Split the print footer into four quick checks instead of one long paragraph.
+- No collection logic or built-in test data changed.
+
+Version 8.1
+- Added automatic source-label reminders in each applicable submission-container card.
+- RBC specimens identify the collection source even when submitted in the original tube.
+- Transferred plasma identifies its source tube, including Lavender EDTA, Pink EDTA, Royal Blue EDTA, Light Blue Citrate, heparin, ACD, and other recognized additives.
+- Transferred serum identifies SST/Gold and special-color sources such as Royal Blue No Additive.
+- Ordinary Red Top serum is excluded from the generic source-label rule unless a test has a specific label instruction.
+- Specific label requirements remain authoritative and are combined without duplicating generic SERUM or PLASMA wording.
+- Regression coverage now checks Lavender EDTA plasma, SST serum, Royal Blue EDTA plasma, Royal Blue No Additive serum, Light Blue Citrate platelet-poor plasma, transferred packed RBCs, and original-tube RBC specimens.
+
 Version 8.0
 - Audited 245 unique numeric test codes against the Quest MASTER Test Directory on 2026-09-02.
 - 239 codes returned a current MASTER record. Exact transport-temperature wording was refreshed for all resolved records.

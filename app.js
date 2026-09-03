@@ -1093,13 +1093,19 @@
       return 'Royal Blue — verify additive';
     }
 
+    if (/light blue|sodium citrate|citrate/i.test(draw)) return 'Light Blue Citrate';
+    if (/blue/i.test(draw) && /edta/i.test(draw)) return 'Blue Top EDTA';
+    if (/blue/i.test(draw) && /serum|no additive/i.test(draw)) return 'Blue Top No Additive (serum)';
+    if (/pink/i.test(draw)) return 'Pink EDTA';
+    if (/tan/i.test(draw) && /edta/i.test(draw)) return 'Tan EDTA';
     if (/sst|gold/i.test(draw)) return 'SST';
     if (/lavender|edta/i.test(draw)) return 'Lavender EDTA';
     if (/sodium\s+heparin/i.test(draw)) return 'Green Sodium Heparin';
     if (/lithium\s+heparin/i.test(draw)) return 'Green Lithium Heparin';
     if (/green|heparin/i.test(draw)) return 'Green Heparin — verify additive';
     if (/red/i.test(draw)) return 'Red Top';
-    if (/light blue|citrate/i.test(draw)) return 'Light Blue Citrate';
+    if (/yellow|acd/i.test(draw)) return 'Yellow ACD';
+    if (/gray|grey|fluoride|oxalate/i.test(draw)) return 'Gray Fluoride/Oxalate';
     if (/aptima/i.test(draw)) return 'Aptima Multitest';
     return draw && !/^verify/i.test(draw) ? draw : '';
   }
@@ -1312,10 +1318,45 @@
     return uniqueTests(tests).map(test => `<li><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)}</li>`).join('');
   }
 
-  function printLabelingNotes(tests) {
+  function derivedSpecimenSourceLabel(test, item) {
+    const sourceTube = shortDrawSource(test);
+    if (!sourceTube) return '';
+
+    const specimen = titleCaseSpecimen(normalizeSpecimenType(test.specimenType));
+    const lowerSpecimen = specimen.toLowerCase();
+    if (/\brbcs?\b|red blood cell/.test(lowerSpecimen)) return `RBCs from ${sourceTube}`;
+    if (item.originalTube) return '';
+    if (/plasma/.test(lowerSpecimen)) return `${specimen} from ${sourceTube}`;
+
+    const specialSerumSource = /sst|gold|blue|pink|lavender|edta|heparin|citrate|acd|gray|grey|tan|green/i.test(sourceTube);
+    if (/serum/.test(lowerSpecimen) && specialSerumSource && !/^red top$/i.test(sourceTube)) {
+      return `${specimen} from ${sourceTube}`;
+    }
+    return '';
+  }
+
+  function explicitLabelAddsInformation(explicit, derived) {
+    if (!explicit || !derived) return Boolean(explicit);
+    const text = explicit.toLowerCase();
+    const derivedText = derived.toLowerCase();
+    const onlySerumType = /(?:mark|label).*(?:specimen type|tube).*serum/.test(text)
+      && !/patient|hiv|no additive|identifier/.test(text);
+    const onlyPlasmaType = /(?:mark|label).*(?:specimen type|tube).*plasma/.test(text)
+      && !/patient|hiv|no additive|identifier/.test(text);
+    if (onlySerumType && derivedText.startsWith('serum from ')) return false;
+    if (onlyPlasmaType && derivedText.includes('plasma from ')) return false;
+    return true;
+  }
+
+  function printLabelingNotes(item) {
     const grouped = new Map();
-    uniqueTests(tests).forEach(test => {
-      const note = String(test.specialLabeling || '').trim();
+    uniqueTests(item.tests).forEach(test => {
+      const derived = derivedSpecimenSourceLabel(test, item);
+      const explicit = String(test.specialLabeling || '').trim();
+      const parts = [];
+      if (derived) parts.push(derived);
+      if (explicitLabelAddsInformation(explicit, derived)) parts.push(explicit);
+      const note = parts.join(' · ');
       if (!note) return;
       if (!grouped.has(note)) grouped.set(note, []);
       grouped.get(note).push(displayCode(test));
@@ -1382,13 +1423,18 @@
             <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
               <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span></div>
               ${item.detail ? `<div class="print-submit-item-detail">${escapeHtml(item.detail)}</div>` : ''}
-              ${printLabelingNotes(item.tests)}
+              ${printLabelingNotes(item)}
               <div class="print-for-tests"><b>For tests:</b><ul>${testReferences(item.tests)}</ul></div>
             </div>`).join('')}</div>
           </article>`;
         }).join('')}</div>
       </section>
-      <div class="print-bag-note"><strong>Planning rules:</strong> SST, Lavender EDTA, and Red Top tubes are pooled only when their specimen workflow and transport temperature are compatible. Whole-blood Lavender tubes remain separate from Lavender tubes that must be centrifuged for plasma or RBCs. Tubes submitted intact are counted separately from tubes used as the source for transferred or aliquoted specimens. Planning assumes 2 mL of usable serum/plasma/processed specimen per source tube and 4 mL of whole blood per Lavender tube. One test never creates more than one tube of the same kind solely because of its listed volume; additional same-kind tubes are counted only when the record explicitly requires multiple, dedicated, or full tubes. Different required tube kinds remain separate. Spot urine tests add one sterile urine cup for initial collection; timed or 24-hour urine collections follow their test-specific container instructions. Verify specialty instructions and actual specimen yield before collection.</div>
+      <div class="print-bag-note">
+        <div><strong>Tube sharing:</strong> Compatible SST, Lavender EDTA, and Red Top tubes can be shared across tests only when the processing steps and temperature match. Lavender whole blood stays separate from Lavender tubes used for plasma or RBCs. Tubes sent whole also stay separate from tubes used to prepare aliquots.</div>
+        <div><strong>Tube counts:</strong> Estimates allow 2 mL of usable serum, plasma, or processed specimen per source tube and 4 mL of whole blood per Lavender tube. A test adds only one tube of each type unless its instructions call for multiple, dedicated, or full tubes. Different tube types are counted separately.</div>
+        <div><strong>Labels and urine:</strong> Label reminders are shown for RBCs and for serum or plasma prepared from additive or special-color tubes. One sterile cup is included for a spot urine test; follow the listed container instructions for timed or 24-hour collections.</div>
+        <div><strong>Final check:</strong> Confirm special handling and the needed specimen volume in the official test directory before collecting.</div>
+      </div>
     </section>`;
   }
 
@@ -1406,10 +1452,15 @@
       <table class="print-table">
         <colgroup><col style="width:6%"><col style="width:14%"><col style="width:7%"><col style="width:10%"><col style="width:10%"><col style="width:5%"><col style="width:8%"><col style="width:7%"><col style="width:8%"><col style="width:25%"></colgroup>
         <thead><tr><th>Code</th><th>Test</th><th>Specimen</th><th>Draw container</th><th>Transport tube</th><th>Spin</th><th>Temperature</th><th>Volume</th><th>Stability</th><th>Special handling</th></tr></thead>
-        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><strong>${escapeHtml(test.testName)}</strong>${fastingBadge(test, 'print-test-fasting-badge')}${test.alternativeContainer ? `<br>Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span>` : ''}</td><td>${specimenBadge(test.specimenType, 'print-specimen-badge')}</td><td><span class="print-tube-badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span></td><td>${printContainerBadges(test)}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">Preferred: ${escapeHtml(test.preferredVolume || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(test.minimumVolume || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
+        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><div class="print-test-name-stack"><strong>${escapeHtml(test.testName)}</strong>${fastingBadge(test, 'print-test-fasting-badge')}</div>${test.alternativeContainer ? `<div class="print-test-alternative">Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span></div>` : ''}</td><td>${specimenBadge(test.specimenType, 'print-specimen-badge')}</td><td><span class="print-tube-badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span></td><td>${printContainerBadges(test)}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">Preferred: ${escapeHtml(test.preferredVolume || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(test.minimumVolume || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
       </table>
       ${printCollectionSubmissionPlan(tests)}
-      <div class="print-footer"><strong>Missing entry?</strong> Contact Sam for any missing entries you would like added. <strong>Source check:</strong> For every swab and transport tube, confirm the specimen source, such as throat swab, serum from SST, or plasma from Lavender EDTA. Verify current specimen requirements, service-area availability, rejection criteria, dedicated-tube requirements, and actual specimen yield in the official test directory before collection. Order-of-draw sources: the official order-of-draw reference; pink is grouped with the EDTA step based on BD tube labeling. The SST estimate uses the preferred volume when parseable, otherwise the minimum volume, and keeps transport temperatures separate.</div>
+      <div class="print-footer">
+        <div><strong>Before collecting:</strong> Check the official test directory for current requirements, local availability, rejection criteria, dedicated-tube rules, and specimen volume.</div>
+        <div><strong>Check the label:</strong> Confirm the source on every swab and transport tube—for example, throat swab, serum from SST, or plasma from Lavender EDTA.</div>
+        <div><strong>Count notes:</strong> Pink tubes are grouped with EDTA in the order of draw. SST counts use the preferred volume when available; otherwise they use the minimum volume. Each temperature is counted separately.</div>
+        <div><strong>Missing test?</strong> Contact Sam to have it added.</div>
+      </div>
       <div class="print-ownership"><strong>Copyright and ownership:</strong> Copyright © 2026 Sam Hay. All rights reserved. Independently developed and maintained by Sam Hay as a personal software project and hosted through a personally controlled account. No license or ownership interest is granted except through Sam Hay’s express written authorization. Use by any organization does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay at any time and for any reason.</div>`;
     window.print();
   }

@@ -1,3 +1,12 @@
+## Version 8.1 automatic specimen-source labeling
+
+- This is a system-wide display rule rather than a list of one-off test edits.
+- RBC specimens display `RBCs from [source tube]`, including original-tube submissions.
+- Transferred plasma displays `[plasma type] from [source tube]` for EDTA, citrate, heparin, ACD, and other recognized additive or special-color sources.
+- Transferred serum displays `Serum from [source tube]` for SST/Gold and special-color sources such as Royal Blue No Additive.
+- An ordinary Red Top source does not generate an extra generic reminder unless the official test record has its own specific label requirement.
+- Explicit official label instructions are retained and merged with the automatic source wording without duplicating plain SERUM or PLASMA instructions.
+
 ## Version 8.0 transport-temperature and special-label audit
 
 - Audit date: 2026-09-02.
