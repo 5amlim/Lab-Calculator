@@ -331,3 +331,10 @@ The nurse order-of-draw panel distinguishes the tube additive rather than relyin
 
 ### v9.0 print footer refinement
 - Copyright and ownership notice now uses a compact full border in print, with a white background so it does not create a large gray block.
+
+
+### v9.7 cart cleanup
+- Consolidated the Tests overview and detailed test cards into one section.
+- The Tests summary is always visible and each row now has a Remove button.
+- A Details button reveals/hides the full test cards in place.
+- Add missing test is available directly from the Tests header.

@@ -100,27 +100,22 @@
 
       <div id="collectionAlerts" class="alerts"></div>
 
-      <section class="summary-section tests-receipt" id="testsOverviewSection" aria-labelledby="testsOverviewTitle">
-        <div class="tests-receipt-header">
-          <span class="tests-receipt-title" id="testsOverviewTitle">Tests</span>
-          <span class="tests-receipt-count" id="testsOverviewSummary">0 tests</span>
+      <section class="summary-section tests-summary" id="testsOverviewSection" aria-labelledby="testsOverviewTitle">
+        <div class="tests-summary-header">
+          <div class="tests-summary-heading">
+            <span class="tests-summary-title" id="testsOverviewTitle">Tests</span>
+            <span class="tests-summary-count" id="testsOverviewSummary">0 tests</span>
+          </div>
+          <div class="tests-summary-actions">
+            <button class="mini-button edit" id="testsDetailsButton" type="button" aria-expanded="false" aria-controls="testsDetailsPanel">Details</button>
+            <button class="mini-button" id="addSelectedTestButton" type="button">+ Add missing test</button>
+          </div>
         </div>
         <div id="testsOverviewList" class="tests-overview-list empty-state">No tests selected.</div>
-      </section>
-
-      <details class="summary-section cart-collapse" id="testsSection">
-        <summary class="cart-collapse-summary">
-          <span class="cart-collapse-title">Test details</span>
-          <span class="cart-collapse-meta" id="testsSummary">0 tests</span>
-          <span class="cart-collapse-action" aria-hidden="true"></span>
-        </summary>
-        <div class="cart-collapse-body">
-          <div class="cart-collapse-toolbar cart-collapse-toolbar-end">
-            <button class="mini-button" id="addSelectedTestButton">+ Add missing test</button>
-          </div>
+        <div id="testsDetailsPanel" class="tests-details-panel hidden" aria-hidden="true">
           <div id="selectedList" class="selected-list empty-state">No tests selected.</div>
         </div>
-      </details>
+      </section>
 
       <details class="summary-section cart-collapse" id="drawPlanSection">
         <summary class="cart-collapse-summary">

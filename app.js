@@ -35,8 +35,8 @@
     previewButton: $('previewButton'), clearSearchButton: $('clearSearchButton'), batchResults: $('batchResults'),
     libraryFilter: $('libraryFilter'), tempFilter: $('tempFilter'), showBlocked: $('showBlocked'),
     libraryBody: $('libraryBody'), libraryStatus: $('libraryStatus'), loadMoreButton: $('loadMoreButton'),
-    addTestButton: $('addTestButton'), addSelectedTestButton: $('addSelectedTestButton'),
-    selectedCount: $('selectedCount'), selectedList: $('selectedList'), testsSummary: $('testsSummary'), testsOverviewList: $('testsOverviewList'), testsOverviewSummary: $('testsOverviewSummary'),
+    addTestButton: $('addTestButton'), addSelectedTestButton: $('addSelectedTestButton'), testsDetailsButton: $('testsDetailsButton'), testsDetailsPanel: $('testsDetailsPanel'),
+    selectedCount: $('selectedCount'), selectedList: $('selectedList'), testsOverviewList: $('testsOverviewList'), testsOverviewSummary: $('testsOverviewSummary'),
     drawPlan: $('drawPlan'), drawPlanSummary: $('drawPlanSummary'), orderOfDraw: $('orderOfDraw'), orderOfDrawSummary: $('orderOfDrawSummary'), collectionAlerts: $('collectionAlerts'), clearOrderButton: $('clearOrderButton'),
     printButton: $('printButton'), exportSummaryButton: $('exportSummaryButton'),
     printSheet: $('printSheet'), testDialog: $('testDialog'), testForm: $('testForm'), dialogTitle: $('dialogTitle'),
@@ -80,8 +80,10 @@
     els.libraryBody.addEventListener('click', handleLibraryClick);
     els.batchResults.addEventListener('click', handleBatchClick);
     els.selectedList.addEventListener('click', handleSelectedClick);
+    els.testsOverviewList.addEventListener('click', handleTestsOverviewClick);
     els.addTestButton.addEventListener('click', () => openDialog(null, { addToSummary: true }));
     els.addSelectedTestButton.addEventListener('click', () => openDialog(null, { addToSummary: true }));
+    els.testsDetailsButton.addEventListener('click', toggleTestsDetails);
     els.clearOrderButton.addEventListener('click', clearOrder);
     els.printButton.addEventListener('click', printSummary);
     els.exportSummaryButton.addEventListener('click', exportSummaryCsv);
@@ -429,6 +431,19 @@
     if (button.dataset.action === 'edit') openDialog(database.find(test => test.id === button.dataset.id));
   }
 
+  function handleTestsOverviewClick(event) {
+    const button = event.target.closest('button[data-action="remove"]');
+    if (!button) return;
+    removeSelected(button.dataset.id);
+  }
+
+  function toggleTestsDetails() {
+    const isHidden = els.testsDetailsPanel.classList.toggle('hidden');
+    els.testsDetailsPanel.setAttribute('aria-hidden', isHidden ? 'true' : 'false');
+    els.testsDetailsButton.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
+    els.testsDetailsButton.textContent = isHidden ? 'Details' : 'Hide details';
+  }
+
   function addSelected(id, rerender = true) {
     const test = database.find(item => item.id === id);
     if (!test || test.status === 'blocked') return false;
@@ -470,7 +485,6 @@
   function renderOrder() {
     const tests = selectedTests();
     els.selectedCount.textContent = tests.length;
-    els.testsSummary.textContent = `${tests.length} ${tests.length === 1 ? 'test' : 'tests'}`;
     renderTestsOverview(tests);
     renderDrawPlan(tests);
     renderOrderOfDraw(tests);
@@ -498,7 +512,12 @@
 
   function renderTestsOverview(tests) {
     els.testsOverviewSummary.textContent = `${tests.length} ${tests.length === 1 ? 'test' : 'tests'}`;
+    els.testsDetailsButton.disabled = !tests.length;
     if (!tests.length) {
+      els.testsDetailsPanel.classList.add('hidden');
+      els.testsDetailsPanel.setAttribute('aria-hidden', 'true');
+      els.testsDetailsButton.setAttribute('aria-expanded', 'false');
+      els.testsDetailsButton.textContent = 'Details';
       els.testsOverviewList.className = 'tests-overview-list empty-state';
       els.testsOverviewList.textContent = 'No tests selected.';
       return;
@@ -506,8 +525,11 @@
     els.testsOverviewList.className = 'tests-overview-list';
     els.testsOverviewList.innerHTML = tests.map(test => `
       <div class="tests-overview-row">
-        <strong class="tests-overview-code">${escapeHtml(displayCode(test))}</strong>
-        <span class="tests-overview-name">${escapeHtml(test.testName)}</span>
+        <div class="tests-overview-ident">
+          <strong class="tests-overview-code">${escapeHtml(displayCode(test))}</strong>
+          <span class="tests-overview-name">${escapeHtml(test.testName)}</span>
+        </div>
+        <button class="mini-button remove tests-overview-remove" type="button" data-action="remove" data-id="${escapeAttr(test.id)}" aria-label="Remove ${escapeAttr(test.testName)}">Remove</button>
       </div>`).join('');
   }
 

@@ -131,3 +131,9 @@ Version 7.4
 - Reverted print copyright styling to a compact text-sized block.
 - Simplified the Add Missing Test dialog into grouped required and optional sections.
 - Custom draw-container field now appears only when Other / manually type is selected.
+
+
+v9.7
+- Consolidated Tests summary and details into one cart section.
+- Added per-test Remove buttons to the compact Tests summary.
+- Added Details toggle and Add missing test actions to the Tests header.
