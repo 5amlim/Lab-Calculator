@@ -1,3 +1,10 @@
+## Version 8.4
+
+- Restored `Serum from SST` in the bag/submission detail so staff can see where the serum came from.
+- Standard SST serum does not receive a `Label` badge unless the test has an explicit labeling instruction.
+- Plasma, RBC, urine, stool, swab, and special-source serum label rules are unchanged.
+- Collection counts, pooling, processing, and test requirements are unchanged.
+
 ## Version 8.3
 
 - Serum prepared from a standard SST is now shown simply as `Serum`; an SST source label appears only when the test specifically requires it.

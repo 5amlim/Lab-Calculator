@@ -1159,7 +1159,7 @@
     const sourceTube = shortDrawSource(test);
 
     if (/swab/i.test(sourceSpecimen)) return sourceSpecimen;
-    if (/serum/i.test(specimen) && /^sst$/i.test(sourceTube)) return specimen;
+    if (/serum/i.test(specimen) && /^sst$/i.test(sourceTube)) return `${specimen} from SST`;
     return sourceTube ? `${specimen} from ${sourceTube}` : sourceSpecimen;
   }
 
@@ -1283,7 +1283,7 @@
         label: 'SST / Gold',
         className: 'tube-sst',
         count: spunEstimate.totalTubes,
-        detail: 'Serum · spun · submit in original tube',
+        detail: 'Serum from SST · spun · submit in original tube',
         originalTube: true,
         tests: uniqueTests(spunSstTests)
       });
@@ -1443,7 +1443,7 @@
       <div class="print-bag-note">
         <div><strong>Tube sharing:</strong> Compatible SST, Lavender EDTA, and Red Top tubes can be shared across tests only when the processing steps and temperature match. Lavender whole blood stays separate from Lavender tubes used for plasma or RBCs. Tubes sent whole also stay separate from tubes used to prepare aliquots.</div>
         <div><strong>Tube counts:</strong> Estimates allow 2 mL of usable serum, plasma, or processed specimen per source tube and 4 mL of whole blood per Lavender tube. A test adds only one tube of each type unless its instructions call for multiple, dedicated, or full tubes. Different tube types are counted separately.</div>
-        <div><strong>Labels:</strong> Plasma and RBCs include the source tube. Urine and stool show the specimen type, and swabs include the collection site when available. Serum from SST is shown as Serum unless the test gives a specific label instruction. Serum from a special-color or additive tube keeps its source.</div>
+        <div><strong>Labels:</strong> The bag shows Serum from SST to identify the source. No Label reminder is shown for SST serum unless the test specifically requires it. Plasma and RBCs include the source tube. Urine and stool show the specimen type, and swabs include the collection site when available. Serum from a special-color or additive tube keeps its source.</div>
         <div><strong>Urine:</strong> One sterile cup is included for a spot urine test. Follow the listed container instructions for timed or 24-hour collections.</div>
       </div>
     </section>`;
@@ -1467,7 +1467,7 @@
       </table>
       ${printCollectionSubmissionPlan(tests)}
       <div class="print-footer">
-        <div><strong>Labels:</strong> Mark plasma and RBCs with the source tube. Label urine and stool by specimen type, and include the collection site for swabs, such as throat. Serum from SST can be labeled Serum unless the test gives a specific instruction.</div>
+        <div><strong>Labels:</strong> The bag shows Serum from SST to identify the source. No Label reminder is shown for SST serum unless the test specifically requires it. Mark plasma and RBCs with the source tube. Label urine and stool by specimen type, and include the collection site for swabs, such as throat.</div>
         <div><strong>Counts:</strong> Pink tubes are grouped with EDTA in the order of draw. SST counts use the preferred volume when available, otherwise the minimum. Temperatures are counted separately.</div>
         <div><strong>Missing test?</strong> Contact Sam to have it added.</div>
       </div>

@@ -1,3 +1,9 @@
+Version 8.4
+- Restored Serum from SST in the bag/submission detail.
+- Standard SST serum does not show a Label badge unless the test explicitly requires labeling.
+- Existing plasma, RBC, urine, stool, swab, and special-source serum label reminders are unchanged.
+- No collection-count, pooling, processing, or built-in test requirement changes.
+
 Version 8.3
 - Standard SST serum is displayed as Serum without a generic SST source reminder.
 - Plasma always receives a label reminder, with its source tube included when known.
