@@ -1,3 +1,10 @@
+Version 9.1
+- Renamed the printed Counts note to Order of draw.
+- Removed the repeated SST volume-count sentence from the printed footer.
+- Removed the divider line above the print footer notes.
+- Forced the print page, body, and print sheet background to white so no gray area appears below the copyright notice.
+- No collection, pooling, processing, labeling, or test-data logic changed.
+
 Version 9.0
 - Put the printed copyright and ownership notice inside a compact full border.
 - Removed the gray fill from that print notice so the box only frames the text.

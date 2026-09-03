@@ -1,3 +1,9 @@
+## Version 9.1
+- Printed footer now uses **Order of draw:** instead of **Counts:**.
+- Removed the repeated SST volume-count sentence and the divider line above the footer notes.
+- Print background is forced to white below the copyright notice.
+- No test records, collection calculations, pooling, processing, or labeling rules changed.
+
 ## Version 9.0
 - Add Missing Test now requires Test code, Test name, Specimen type, Draw container, Transport tube / container, and Transport temperature.
 - `Not specified` remains a valid Transport temperature selection.
