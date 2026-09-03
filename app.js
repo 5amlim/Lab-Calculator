@@ -91,7 +91,6 @@
     els.deleteTestButton.addEventListener('click', deleteCustomTest);
     els.openDirectoryFromDialogButton.addEventListener('click', openDirectoryFromDialog);
     els.drawContainer.addEventListener('change', toggleCustomDrawContainer);
-    els.customDrawContainer.addEventListener('input', handleCustomDrawContainerInput);
   }
 
   function renderAll() {
@@ -649,13 +648,15 @@
     els.testId.value = isExisting ? record.id : '';
     els.testCode.value = record.testCode;
     els.testName.value = record.testName;
-    setSelectValue(els.specimenType, record.specimenType, 'Other / Verify');
+    if (isExisting) setSelectValue(els.specimenType, record.specimenType, 'Other / Verify');
+    else els.specimenType.value = '';
     setDrawContainerValue(record.drawContainer === 'Verify Official Instructions' && !isExisting ? '' : record.drawContainer);
     els.alternativeContainer.value = record.alternativeContainer;
     els.transportContainer.value = record.transportContainer;
     els.preferredVolume.value = record.preferredVolume;
     els.minimumVolume.value = record.minimumVolume;
-    setSelectValue(els.transportTemperature, record.transportTemperature, 'Not specified');
+    if (isExisting) setSelectValue(els.transportTemperature, record.transportTemperature, 'Not specified');
+    else els.transportTemperature.value = '';
     els.transportTemperatureRaw.value = record.transportTemperatureRaw;
     els.stability.value = record.stability;
     setSelectValue(els.spin, record.spin, 'Verify');
@@ -698,9 +699,23 @@
       source: existingIndex >= 0 ? database[existingIndex].source : 'Custom entry',
       sourceRow: existingIndex >= 0 ? database[existingIndex].sourceRow : null
     });
-    if (!record.testName) {
-      showToast('Enter a test name before saving.');
-      els.testName.focus();
+    const requiredFields = [
+      { element: els.testCode, value: els.testCode.value.trim(), message: 'Enter a test code before saving.' },
+      { element: els.testName, value: els.testName.value.trim(), message: 'Enter a test name before saving.' },
+      { element: els.specimenType, value: els.specimenType.value, message: 'Select a specimen type before saving.' },
+      { element: els.drawContainer, value: selectedDrawContainer(true), message: 'Select a draw container before saving.' },
+      { element: els.transportContainer, value: els.transportContainer.value.trim(), message: 'Enter a transport tube or container before saving.' },
+      { element: els.transportTemperature, value: els.transportTemperature.value, message: 'Select a transport temperature before saving.' }
+    ];
+    if (els.drawContainer.value === '__other__' && !els.customDrawContainer.value.trim()) {
+      showToast('Enter the custom draw container before saving.');
+      els.customDrawContainer.focus();
+      return;
+    }
+    const missingField = requiredFields.find(field => !field.value);
+    if (missingField) {
+      showToast(missingField.message);
+      missingField.element.focus();
       return;
     }
     if (existingIndex >= 0) database[existingIndex] = record;
@@ -1631,25 +1646,23 @@
 
   function toggleCustomDrawContainer() {
     const isOther = els.drawContainer.value === '__other__';
-    // Keep the manual field visible at all times so it is easy for staff to find.
     els.customDrawContainerRow.classList.remove('hidden');
+    els.customDrawContainer.disabled = !isOther;
     els.customDrawContainer.required = isOther;
     els.customDrawContainerRow.classList.toggle('is-active', isOther);
+    els.customDrawContainerRow.classList.toggle('is-disabled', !isOther);
+    els.customDrawContainer.placeholder = isOther
+      ? 'Type any tube, cup, swab, or collection kit'
+      : 'Select Other / manually type first';
+    if (!isOther) els.customDrawContainer.value = '';
     if (isOther) setTimeout(() => els.customDrawContainer.focus(), 0);
   }
 
-  function handleCustomDrawContainerInput() {
-    if (els.customDrawContainer.value.trim()) {
-      els.drawContainer.value = '__other__';
-      toggleCustomDrawContainer();
-    }
-  }
-
-  function selectedDrawContainer() {
+  function selectedDrawContainer(strict = false) {
     if (els.drawContainer.value === '__other__') {
-      return els.customDrawContainer.value.trim() || 'Verify Official Instructions';
+      return els.customDrawContainer.value.trim() || (strict ? '' : 'Verify Official Instructions');
     }
-    return els.drawContainer.value || 'Verify Official Instructions';
+    return els.drawContainer.value || (strict ? '' : 'Verify Official Instructions');
   }
 
   function setSelectValue(select, value, fallback) {

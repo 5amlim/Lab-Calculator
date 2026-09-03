@@ -180,6 +180,14 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 .summary-heading h3 { margin-bottom: 0; }
 .dialog-subtitle { margin: 5px 0 0; color: var(--muted); font-size: 12px; }
 .optional { color: var(--muted); font-size: 10px; font-weight: 600; }
+
+.required-field {
+  color: #9b2c2c;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .035em;
+}
 .dialog-lookup-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 11px 12px; border: 1px solid #c9dde1; border-radius: 12px; background: #f4fafb; }
 .dialog-lookup-row span { flex: 1 1 240px; color: #53666f; font-size: 12px; line-height: 1.45; }
 
@@ -785,6 +793,16 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 .custom-draw-container-row .optional {
   font-weight: 600;
   color: #687a82;
+}
+
+.custom-draw-container-row.is-disabled {
+  opacity: 0.68;
+  background: #f5f7f8;
+}
+.custom-draw-container-row input:disabled {
+  cursor: not-allowed;
+  background: #edf1f2;
+  color: #718087;
 }
 
 /* v4.4 source clarification for manually added swabs and transferred specimens */

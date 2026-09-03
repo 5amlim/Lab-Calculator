@@ -1,3 +1,10 @@
+## Version 8.7
+- Add Missing Test now requires Test code, Test name, Specimen type, Draw container, Transport tube / container, and Transport temperature.
+- `Not specified` remains a valid Transport temperature selection.
+- Minimum volume remains optional.
+- The custom draw-container text field is disabled unless `Other / manually type` is selected.
+- No test records, collection calculations, pooling, processing, or labeling rules changed.
+
 ## Version 8.6
 - Multi-test searches now call out every search term that was not added or did not produce a reliable local match.
 - After **Add best matches**, a dedicated **Not added** box lists each missed test name/code and the reason.
