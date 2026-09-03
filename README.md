@@ -1,3 +1,10 @@
+## Version 9.5
+- Moved test information above Draw plan and Order of draw in the Test Cart.
+- Added a compact collapsible Tests list that shows only test code and test name.
+- Kept the existing full test cards in a separate collapsible Test details section.
+- Removed the repeated “Verify dedicated-tube requirements” text from Draw plan cards.
+- No collection, pooling, processing, labeling, order-of-draw, or print logic changed.
+
 ## Version 9.4
 
 - Converted Draw plan, Order of draw, and Tests in the Test Cart into compact click-to-expand sections.

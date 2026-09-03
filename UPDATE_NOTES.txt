@@ -1,3 +1,10 @@
+Version 9.5
+- Test Cart now places Tests and Test details above Draw plan and Order of draw.
+- Added a compact collapsible Tests list with test code and test name only.
+- Full test cards remain available in the separate collapsible Test details section.
+- Removed Verify dedicated-tube requirements from Draw plan cards.
+- No collection, pooling, processing, labeling, order-of-draw, or print logic changed.
+
 Version 9.4
 - Test Cart Draw plan, Order of draw, and Tests are now collapsible.
 - Compact headers show collection-type, blood-tube-type, and selected-test counts while collapsed.

@@ -36,7 +36,7 @@
     libraryFilter: $('libraryFilter'), tempFilter: $('tempFilter'), showBlocked: $('showBlocked'),
     libraryBody: $('libraryBody'), libraryStatus: $('libraryStatus'), loadMoreButton: $('loadMoreButton'),
     addTestButton: $('addTestButton'), addSelectedTestButton: $('addSelectedTestButton'),
-    selectedCount: $('selectedCount'), selectedList: $('selectedList'), testsSummary: $('testsSummary'),
+    selectedCount: $('selectedCount'), selectedList: $('selectedList'), testsSummary: $('testsSummary'), testsOverviewList: $('testsOverviewList'), testsOverviewSummary: $('testsOverviewSummary'),
     drawPlan: $('drawPlan'), drawPlanSummary: $('drawPlanSummary'), orderOfDraw: $('orderOfDraw'), orderOfDrawSummary: $('orderOfDrawSummary'), collectionAlerts: $('collectionAlerts'), clearOrderButton: $('clearOrderButton'),
     printButton: $('printButton'), exportSummaryButton: $('exportSummaryButton'),
     printSheet: $('printSheet'), testDialog: $('testDialog'), testForm: $('testForm'), dialogTitle: $('dialogTitle'),
@@ -471,6 +471,7 @@
     const tests = selectedTests();
     els.selectedCount.textContent = tests.length;
     els.testsSummary.textContent = `${tests.length} ${tests.length === 1 ? 'test' : 'tests'}`;
+    renderTestsOverview(tests);
     renderDrawPlan(tests);
     renderOrderOfDraw(tests);
     renderAlerts(tests);
@@ -493,6 +494,21 @@
         </div>
         ${test.specialInstructions ? `<div class="selected-note">${escapeHtml(truncate(test.specialInstructions, 190))}</div>` : ''}
       </article>`).join('');
+  }
+
+  function renderTestsOverview(tests) {
+    els.testsOverviewSummary.textContent = `${tests.length} ${tests.length === 1 ? 'test' : 'tests'}`;
+    if (!tests.length) {
+      els.testsOverviewList.className = 'tests-overview-list empty-state';
+      els.testsOverviewList.textContent = 'No tests selected.';
+      return;
+    }
+    els.testsOverviewList.className = 'tests-overview-list';
+    els.testsOverviewList.innerHTML = tests.map(test => `
+      <div class="tests-overview-row">
+        <strong class="tests-overview-code">${escapeHtml(displayCode(test))}</strong>
+        <span class="tests-overview-name">${escapeHtml(test.testName)}</span>
+      </div>`).join('');
   }
 
   function buildDrawGroups(tests) {
@@ -521,7 +537,7 @@
     els.drawPlan.className = 'draw-plan';
     els.drawPlan.innerHTML = groups.map(group => {
       const volume = group.volumeCount ? ` · listed minimum total ${formatMl(group.minimumMl)}` : '';
-      return `<div class="draw-card"><strong class="tube ${tubeClass(group.container)}">${escapeHtml(group.container)}</strong><strong>${group.tests.length} ${group.tests.length === 1 ? 'test' : 'tests'}</strong><div class="draw-meta specimen-line">${Array.from(group.specimenTypes).map(type => specimenBadge(type)).join(' ')}${volume ? `<span>${escapeHtml(volume)}</span>` : ''}</div><div class="draw-meta">Verify dedicated-tube requirements</div></div>`;
+      return `<div class="draw-card"><strong class="tube ${tubeClass(group.container)}">${escapeHtml(group.container)}</strong><strong>${group.tests.length} ${group.tests.length === 1 ? 'test' : 'tests'}</strong><div class="draw-meta specimen-line">${Array.from(group.specimenTypes).map(type => specimenBadge(type)).join(' ')}${volume ? `<span>${escapeHtml(volume)}</span>` : ''}</div></div>`;
     }).join('');
   }
 
