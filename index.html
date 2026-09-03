@@ -100,30 +100,49 @@
 
       <div id="collectionAlerts" class="alerts"></div>
 
-      <div class="summary-section">
-        <h3>Draw plan</h3>
-        <div id="drawPlan" class="draw-plan empty-state">Add tests to see the draw plan.</div>
-      </div>
+      <details class="summary-section cart-collapse" id="drawPlanSection">
+        <summary class="cart-collapse-summary">
+          <span class="cart-collapse-title">Draw plan</span>
+          <span class="cart-collapse-meta" id="drawPlanSummary">No collection types</span>
+          <span class="cart-collapse-action" aria-hidden="true"></span>
+        </summary>
+        <div class="cart-collapse-body">
+          <div id="drawPlan" class="draw-plan empty-state">Add tests to see the draw plan.</div>
+        </div>
+      </details>
 
-      <div class="summary-section order-of-draw-section">
-        <div class="summary-heading">
-          <h3>Order of draw for nurses</h3>
-          <a class="reference-link" href="https://www.questdiagnostics.com/content/dam/corporate/restricted/documents/test-center/order_of_draw/order_of_draw.pdf" target="_blank" rel="noreferrer">Order-of-draw reference ↗</a>
+      <details class="summary-section cart-collapse order-of-draw-section" id="orderOfDrawSection">
+        <summary class="cart-collapse-summary">
+          <span class="cart-collapse-title">Order of draw</span>
+          <span class="cart-collapse-meta" id="orderOfDrawSummary">No blood tubes</span>
+          <span class="cart-collapse-action" aria-hidden="true"></span>
+        </summary>
+        <div class="cart-collapse-body">
+          <div class="cart-collapse-toolbar">
+            <span class="cart-collapse-subtitle">For nurses</span>
+            <a class="reference-link" href="https://www.questdiagnostics.com/content/dam/corporate/restricted/documents/test-center/order_of_draw/order_of_draw.pdf" target="_blank" rel="noreferrer">Order-of-draw reference ↗</a>
+          </div>
+          <div id="orderOfDraw" class="order-of-draw" aria-label="Standard blood tube order of draw"></div>
+          <div class="order-of-draw-note">
+            <strong>Butterfly collection:</strong> If a light-blue citrate tube is the first specimen, draw a partially filled citrate discard tube first to fill the tubing dead space, then fill the test tube completely.<br>
+            <strong>Important:</strong> Confirm the additive on the tube label. Do not rely on stopper color alone. This sequence applies when collecting multiple blood tubes; follow test-specific official instructions and facility policy.
+          </div>
         </div>
-        <div id="orderOfDraw" class="order-of-draw" aria-label="Standard blood tube order of draw"></div>
-        <div class="order-of-draw-note">
-          <strong>Butterfly collection:</strong> If a light-blue citrate tube is the first specimen, draw a partially filled citrate discard tube first to fill the tubing dead space, then fill the test tube completely.<br>
-          <strong>Important:</strong> Confirm the additive on the tube label. Do not rely on stopper color alone. This sequence applies when collecting multiple blood tubes; follow test-specific official instructions and facility policy.
-        </div>
-      </div>
+      </details>
 
-      <div class="summary-section">
-        <div class="summary-heading">
-          <h3>Tests</h3>
-          <button class="mini-button" id="addSelectedTestButton">+ Add missing test</button>
+      <details class="summary-section cart-collapse" id="testsSection">
+        <summary class="cart-collapse-summary">
+          <span class="cart-collapse-title">Tests</span>
+          <span class="cart-collapse-meta" id="testsSummary">0 selected</span>
+          <span class="cart-collapse-action" aria-hidden="true"></span>
+        </summary>
+        <div class="cart-collapse-body">
+          <div class="cart-collapse-toolbar cart-collapse-toolbar-end">
+            <button class="mini-button" id="addSelectedTestButton">+ Add missing test</button>
+          </div>
+          <div id="selectedList" class="selected-list empty-state">No tests selected.</div>
         </div>
-        <div id="selectedList" class="selected-list empty-state">No tests selected.</div>
-      </div>
+      </details>
 
       <div class="order-actions">
         <button class="button primary wide" id="printButton">Print summary / Save PDF</button>

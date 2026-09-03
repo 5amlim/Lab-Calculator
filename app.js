@@ -36,8 +36,8 @@
     libraryFilter: $('libraryFilter'), tempFilter: $('tempFilter'), showBlocked: $('showBlocked'),
     libraryBody: $('libraryBody'), libraryStatus: $('libraryStatus'), loadMoreButton: $('loadMoreButton'),
     addTestButton: $('addTestButton'), addSelectedTestButton: $('addSelectedTestButton'),
-    selectedCount: $('selectedCount'), selectedList: $('selectedList'),
-    drawPlan: $('drawPlan'), orderOfDraw: $('orderOfDraw'), collectionAlerts: $('collectionAlerts'), clearOrderButton: $('clearOrderButton'),
+    selectedCount: $('selectedCount'), selectedList: $('selectedList'), testsSummary: $('testsSummary'),
+    drawPlan: $('drawPlan'), drawPlanSummary: $('drawPlanSummary'), orderOfDraw: $('orderOfDraw'), orderOfDrawSummary: $('orderOfDrawSummary'), collectionAlerts: $('collectionAlerts'), clearOrderButton: $('clearOrderButton'),
     printButton: $('printButton'), exportSummaryButton: $('exportSummaryButton'),
     printSheet: $('printSheet'), testDialog: $('testDialog'), testForm: $('testForm'), dialogTitle: $('dialogTitle'),
     closeDialogButton: $('closeDialogButton'), cancelDialogButton: $('cancelDialogButton'), deleteTestButton: $('deleteTestButton'),
@@ -470,6 +470,7 @@
   function renderOrder() {
     const tests = selectedTests();
     els.selectedCount.textContent = tests.length;
+    els.testsSummary.textContent = `${tests.length} ${tests.length === 1 ? 'test' : 'tests'}`;
     renderDrawPlan(tests);
     renderOrderOfDraw(tests);
     renderAlerts(tests);
@@ -510,11 +511,13 @@
 
   function renderDrawPlan(tests) {
     if (!tests.length) {
+      els.drawPlanSummary.textContent = 'No collection types';
       els.drawPlan.className = 'draw-plan empty-state';
       els.drawPlan.textContent = 'Add tests to see the draw plan.';
       return;
     }
     const groups = buildDrawGroups(tests);
+    els.drawPlanSummary.textContent = `${groups.length} collection ${groups.length === 1 ? 'type' : 'types'}`;
     els.drawPlan.className = 'draw-plan';
     els.drawPlan.innerHTML = groups.map(group => {
       const volume = group.volumeCount ? ` · listed minimum total ${formatMl(group.minimumMl)}` : '';
@@ -557,6 +560,9 @@
 
   function renderOrderOfDraw(tests) {
     const selectedCategories = new Set(tests.map(orderCategory).filter(Boolean));
+    els.orderOfDrawSummary.textContent = selectedCategories.size
+      ? `${selectedCategories.size} blood tube ${selectedCategories.size === 1 ? 'type' : 'types'} used`
+      : 'No blood tubes';
     els.orderOfDraw.innerHTML = ORDER_OF_DRAW.map(step => {
       const selected = selectedCategories.has(step.key);
       return `<div class="order-step ${selected ? 'is-selected' : ''}">

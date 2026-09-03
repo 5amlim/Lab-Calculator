@@ -1,3 +1,9 @@
+## Version 9.4
+
+- Converted Draw plan, Order of draw, and Tests in the Test Cart into compact click-to-expand sections.
+- Collapsed headers keep useful totals visible: collection types, blood tube types in the draw sequence, and selected test count.
+- Sections start collapsed to reduce visual clutter; print output and collection logic are unchanged.
+
 ## Version 9.3
 
 - Changed the multi-test search hint from “20 tests” to “multiple tests.”

@@ -1071,3 +1071,97 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .optional-details summary { align-items: flex-start; flex-wrap: wrap; }
   .optional-details summary small { flex-basis: 100%; }
 }
+
+/* Compact collapsible test-cart sections */
+.cart-collapse {
+  margin-top: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+.cart-collapse > summary {
+  list-style: none;
+}
+.cart-collapse > summary::-webkit-details-marker {
+  display: none;
+}
+.cart-collapse-summary {
+  min-height: 46px;
+  padding: 10px 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.cart-collapse-summary:hover {
+  background: #f8fafb;
+}
+.cart-collapse-summary:focus-visible {
+  outline: 2px solid rgba(13,102,114,.45);
+  outline-offset: -2px;
+}
+.cart-collapse-title {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 900;
+}
+.cart-collapse-meta {
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+.cart-collapse-action {
+  min-width: 32px;
+  color: var(--brand-dark);
+  font-size: 10px;
+  font-weight: 900;
+  text-align: right;
+}
+.cart-collapse-action::after { content: "Show"; }
+.cart-collapse[open] .cart-collapse-action::after { content: "Hide"; }
+.cart-collapse[open] .cart-collapse-summary {
+  border-bottom: 1px solid var(--line);
+  background: #fbfcfd;
+}
+.cart-collapse-body {
+  padding: 11px 12px 12px;
+}
+.cart-collapse-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+.cart-collapse-toolbar-end {
+  justify-content: flex-end;
+}
+.cart-collapse-subtitle {
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 800;
+}
+.cart-collapse .draw-plan,
+.cart-collapse .selected-list,
+.cart-collapse .order-of-draw {
+  margin: 0;
+}
+
+@media (max-width: 520px) {
+  .cart-collapse-summary {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .cart-collapse-meta {
+    grid-column: 1;
+    grid-row: 2;
+    white-space: normal;
+  }
+  .cart-collapse-action {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}
