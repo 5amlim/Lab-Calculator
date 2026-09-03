@@ -171,8 +171,9 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-table tr { break-inside: avoid; }
   .print-footer { margin-top: 8px; border-top: 1px solid #ccd5d9; padding-top: 5px; font-size: 7.5px; line-height: 1.35; color: #59666c; }
   .print-footer > div + div { margin-top: 2px; }
-  .print-missing-test { display: inline-block; margin-top: 4px !important; padding: 3px 6px; border: 1px solid #a8c5ca; border-left: 3px solid #1e5963; border-radius: 4px; background: #edf7f8 !important; color: #274a52; font-weight: 750; }
-  .print-ownership { width: fit-content; max-width: 92%; margin-top: 5px; padding: 4px 6px; border-left: 3px solid #1e5963; border-radius: 3px; background: #f1f7f8; font-size: 7.3px; line-height: 1.35; color: #42545c; break-inside: avoid; }
+  .print-missing-test { display: block; margin-top: 4px !important; padding: 0; border: 0; background: transparent !important; color: #27383f; font-weight: 900; }
+  .print-ownership { margin-top: 5px; padding: 0; background: transparent !important; font-size: 7.3px; line-height: 1.55; color: #42545c; break-inside: avoid; }
+  .print-ownership span { background: #f1f7f8 !important; padding: 2px 4px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 }
 
 /* Staff-friendly manual entry */

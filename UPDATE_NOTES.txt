@@ -1,4 +1,4 @@
-Version 8.7
+Version 8.8
 - Add Missing Test requires Test code, Test name, Specimen type, Draw container, Transport tube / container, and Transport temperature before saving.
 - Not specified is accepted as a valid transport-temperature choice.
 - Minimum volume is optional.
