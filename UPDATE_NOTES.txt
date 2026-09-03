@@ -155,3 +155,8 @@ v9.7
 v9.8
 - Changed the Tests area to a true summary/details view toggle: Show details replaces the compact summary with the full test cards, and Hide details returns to the compact summary.
 - Moved Clear all into the Tests action row, immediately to the right of Add missing test.
+
+Version 10.4
+- Moved the per-group test count beneath the draw-container name in Draw plan.
+- Styled the test count smaller and muted gray so it stays secondary to the tube/container name.
+- Kept the collection-container count as the compact badge on the right.

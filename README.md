@@ -358,3 +358,8 @@ The nurse order-of-draw panel distinguishes the tube additive rather than relyin
 - The Tests section switches between the compact test summary and the full test-detail cards rather than displaying both at once.
 - Use **Show details** / **Hide details** to flip between the two views.
 - **Clear all** is in the Tests action row beside **Add missing test**.
+
+
+### v10.4 Draw plan hierarchy
+- Draw-plan test counts now appear directly beneath the tube/container name in smaller muted text.
+- Container totals remain highlighted in the compact badge on the right.

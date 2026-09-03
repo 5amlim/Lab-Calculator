@@ -129,15 +129,16 @@ tr:hover td { background: #fbfdfd; }
 #selectedCount { display: inline-flex; min-width: 32px; height: 32px; padding: 0 8px; align-items: center; justify-content: center; border: 1.5px solid rgba(13,102,114,.28); border-radius: 999px; background: var(--brand-soft); color: var(--brand-dark); font-size: 15px; font-weight: 950; vertical-align: 1px; box-shadow: 0 2px 8px rgba(13,102,114,.08); }
 .summary-section { margin-top: 19px; }
 .draw-plan { display: grid; gap: 8px; }
-.draw-card { border: 1px solid var(--line); border-radius: 11px; padding: 10px 11px; display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; }
+.draw-card { border: 1px solid var(--line); border-radius: 11px; padding: 10px 11px; display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: start; }
 .draw-card strong { font-size: 13px; }
-.draw-counts { display: inline-flex; align-items: center; justify-content: flex-end; gap: 7px; white-space: nowrap; color: var(--text); }
-.draw-container-badge { display: inline-flex; align-items: center; min-height: 24px; padding: 2px 8px; border: 1px solid rgba(13,102,114,.20); border-radius: 999px; background: var(--brand-soft); color: var(--brand-dark) !important; font-size: 11px !important; font-weight: 850 !important; line-height: 1; }
+.draw-title-block { min-width: 0; display: grid; gap: 2px; align-content: start; }
+.draw-title-block > .tube { width: fit-content; }
+.draw-test-count { color: var(--muted); font-size: 10px; font-weight: 700; line-height: 1.2; padding-left: 18px; }
+.draw-container-badge { display: inline-flex; align-items: center; align-self: center; min-height: 24px; padding: 2px 8px; border: 1px solid rgba(13,102,114,.20); border-radius: 999px; background: var(--brand-soft); color: var(--brand-dark) !important; font-size: 11px !important; font-weight: 850 !important; line-height: 1; white-space: nowrap; }
 .draw-meta { color: var(--muted); font-size: 11px; }
 .draw-card .specimen-line { grid-column: 1 / -1; }
 @media (max-width: 520px) {
-  .draw-card { grid-template-columns: 1fr; }
-  .draw-counts { justify-content: flex-start; }
+  .draw-card { grid-template-columns: minmax(0,1fr) auto; }
 }
 .tests-summary {
   margin-top: 10px;

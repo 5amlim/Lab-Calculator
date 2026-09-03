@@ -580,7 +580,7 @@
       const containerCount = drawGroupContainerCount(group);
       const testLabel = `${group.tests.length} ${group.tests.length === 1 ? 'test' : 'tests'}`;
       const containerLabel = `${containerCount} ${containerCount === 1 ? 'container' : 'containers'}`;
-      return `<div class="draw-card"><strong class="tube ${tubeClass(group.container)}">${escapeHtml(group.container)}</strong><div class="draw-counts"><strong>${escapeHtml(testLabel)}</strong><strong class="draw-container-badge">${escapeHtml(containerLabel)}</strong></div><div class="draw-meta specimen-line">${Array.from(group.specimenTypes).map(type => specimenBadge(type)).join(' ')}${volume ? `<span>${escapeHtml(volume)}</span>` : ''}</div></div>`;
+      return `<div class="draw-card"><div class="draw-title-block"><strong class="tube ${tubeClass(group.container)}">${escapeHtml(group.container)}</strong><span class="draw-test-count">${escapeHtml(testLabel)}</span></div><strong class="draw-container-badge">${escapeHtml(containerLabel)}</strong><div class="draw-meta specimen-line">${Array.from(group.specimenTypes).map(type => specimenBadge(type)).join(' ')}${volume ? `<span>${escapeHtml(volume)}</span>` : ''}</div></div>`;
     }).join('');
   }
 
