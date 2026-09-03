@@ -1,3 +1,9 @@
+Version 9.6
+- The top Tests overview is now always visible and no longer collapsible.
+- Tests are shown in a compact receipt-style code/name list.
+- Test details remains collapsible.
+- No collection, pooling, processing, labeling, order-of-draw, or print logic changed.
+
 Version 9.5
 - Test Cart now places Tests and Test details above Draw plan and Order of draw.
 - Added a compact collapsible Tests list with test code and test name only.

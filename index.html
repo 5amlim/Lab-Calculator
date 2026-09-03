@@ -100,16 +100,13 @@
 
       <div id="collectionAlerts" class="alerts"></div>
 
-      <details class="summary-section cart-collapse" id="testsOverviewSection">
-        <summary class="cart-collapse-summary">
-          <span class="cart-collapse-title">Tests</span>
-          <span class="cart-collapse-meta" id="testsOverviewSummary">0 tests</span>
-          <span class="cart-collapse-action" aria-hidden="true"></span>
-        </summary>
-        <div class="cart-collapse-body">
-          <div id="testsOverviewList" class="tests-overview-list empty-state">No tests selected.</div>
+      <section class="summary-section tests-receipt" id="testsOverviewSection" aria-labelledby="testsOverviewTitle">
+        <div class="tests-receipt-header">
+          <span class="tests-receipt-title" id="testsOverviewTitle">Tests</span>
+          <span class="tests-receipt-count" id="testsOverviewSummary">0 tests</span>
         </div>
-      </details>
+        <div id="testsOverviewList" class="tests-overview-list empty-state">No tests selected.</div>
+      </section>
 
       <details class="summary-section cart-collapse" id="testsSection">
         <summary class="cart-collapse-summary">

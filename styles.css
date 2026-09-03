@@ -108,11 +108,49 @@ tr:hover td { background: #fbfdfd; }
 .draw-card strong { font-size: 13px; }
 .draw-meta { color: var(--muted); font-size: 11px; }
 .draw-card .specimen-line { grid-column: 1 / -1; }
-.tests-overview-list { display: grid; gap: 0; }
-.tests-overview-row { display: grid; grid-template-columns: minmax(54px, auto) minmax(0, 1fr); gap: 9px; align-items: baseline; padding: 7px 2px; border-bottom: 1px solid #edf1f3; }
+.tests-receipt {
+  margin-top: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+.tests-receipt-header {
+  min-height: 44px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px dashed #cfd8dc;
+  background: #fbfcfd;
+}
+.tests-receipt-title { color: var(--ink); font-size: 14px; font-weight: 900; }
+.tests-receipt-count { color: var(--muted); font-size: 10.5px; font-weight: 800; white-space: nowrap; }
+.tests-overview-list { display: grid; gap: 0; padding: 4px 12px 6px; }
+.tests-overview-row {
+  display: grid;
+  grid-template-columns: minmax(62px, max-content) minmax(0, 1fr);
+  gap: 12px;
+  align-items: baseline;
+  padding: 7px 0;
+  border-bottom: 1px dashed #e0e6e9;
+}
 .tests-overview-row:last-child { border-bottom: 0; }
-.tests-overview-code { color: var(--brand-dark); font-size: 11px; font-weight: 900; white-space: nowrap; }
-.tests-overview-name { color: var(--ink); font-size: 11.5px; line-height: 1.35; min-width: 0; }
+.tests-overview-code {
+  color: var(--brand-dark);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 10.5px;
+  font-weight: 900;
+  white-space: nowrap;
+  letter-spacing: .01em;
+}
+.tests-overview-name { color: var(--ink); font-size: 11.5px; line-height: 1.35; min-width: 0; text-align: right; }
+.tests-receipt .empty-state { padding: 12px; text-align: left; }
+@media (max-width: 520px) {
+  .tests-overview-row { grid-template-columns: minmax(54px, max-content) minmax(0, 1fr); gap: 9px; }
+  .tests-overview-name { text-align: left; }
+}
 .selected-list { display: grid; gap: 8px; }
 .selected-card { border: 1px solid var(--line); border-radius: 11px; padding: 10px; }
 .selected-card-top { display: flex; justify-content: space-between; gap: 10px; }
