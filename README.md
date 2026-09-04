@@ -363,3 +363,16 @@ The nurse order-of-draw panel distinguishes the tube additive rather than relyin
 ### v10.4 Draw plan hierarchy
 - Draw-plan test counts now appear directly beneath the tube/container name in smaller muted text.
 - Container totals remain highlighted in the compact badge on the right.
+
+
+
+### v10.6 local availability correction
+- Quest 1635 — Calcium, 24-Hour Urine with Creatinine is now marked **Do not perform at SH**.
+- Quest requires acidification with 25 mL of 6N HCl, which is not available onsite.
+- The test remains searchable so staff can see that it is intentionally blocked instead of treating it as a missing test.
+
+### v10.5 test addition
+- Added Quest 1635 — Calcium, 24-Hour Urine with Creatinine.
+- Collection: 24-hour urine, refrigerated during/after collection, with 25 mL 6N HCl to maintain pH <2.
+- Submission: well-mixed 10 mL aliquot preferred (2 mL minimum) in a plastic screw-cap container; room-temperature transport.
+- Record total 24-hour volume and collection duration on the specimen container and requisition.

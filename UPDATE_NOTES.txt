@@ -1,3 +1,13 @@
+Version 10.6
+- Changed Quest 1635 Calcium, 24-Hour Urine with Creatinine to Do not perform at SH.
+- Reason: Quest requires 25 mL of 6N HCl preservative for the 24-hour collection, and HCl is not available onsite.
+- Bumped the browser database version so the blocked status replaces the v10.5 built-in record while preserving manually added tests.
+
+Version 10.5
+- Added Quest test 1635 Calcium, 24-Hour Urine with Creatinine.
+- Added current 24-hour urine collection, acidification, volume, transport, stability, and total-volume/duration labeling instructions from Quest JDOS.
+- Bumped the browser database version so the new built-in test appears while preserving manually added tests.
+
 Version 10.3
 - Draw plan cards now show both the number of tests and estimated collection containers needed.
 - The container estimate reuses the calculator's existing collection-count logic.
