@@ -1,3 +1,7 @@
+## v10.21
+- Restored **Show details** to the compact button treatment.
+- All other v10.20 behavior is unchanged.
+
 # Interface update
 
 This edition updates the interface of the supplied v10.6 calculator.
