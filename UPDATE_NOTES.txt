@@ -28,3 +28,9 @@ Lab Collection Calculator v10.13
 v10.18
 - Cart remove controls remain compact × buttons and expand to “Delete” on hover/focus.
 - Expanded remove controls overlay long test names with an opaque background instead of shifting the row layout.
+
+v10.19
+- Tightened the Tests cart header so the title/count and actions read as one compact top row.
+- Reduced the visual weight of Clear all.
+- Made Show details a smaller centered secondary control with less vertical spacing.
+- No calculation, test-data, or printout changes.
