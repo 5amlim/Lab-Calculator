@@ -213,3 +213,125 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     }
   }
 }
+
+/* v10.17: keep the cart title/actions on one row and center Show details below them. */
+@media screen {
+  .tests-summary-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: 10px;
+    row-gap: 8px;
+  }
+  .tests-summary-heading-block {
+    grid-column: 1;
+    grid-row: 1;
+    width: auto;
+  }
+  .tests-summary-actions {
+    grid-column: 2;
+    grid-row: 1;
+    width: auto;
+    max-width: none;
+    margin-left: 0;
+    flex-wrap: nowrap;
+  }
+  .tests-details-toggle {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-self: center;
+    width: 42%;
+    min-width: 112px;
+    max-width: 190px;
+    margin: 0;
+  }
+  @media (max-width: 520px) {
+    .tests-summary-header {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+    }
+    .tests-summary-heading-block {
+      width: auto;
+    }
+    .tests-summary-actions {
+      width: auto;
+      justify-content: flex-end;
+      flex-wrap: nowrap;
+    }
+    .tests-details-toggle {
+      width: 50%;
+      max-width: 170px;
+    }
+  }
+}
+
+
+
+/* v10.18: compact remove buttons expand to Delete on hover without pushing long test names. */
+@media screen {
+  .remove-flex {
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    white-space: nowrap;
+    background: #fff;
+    transition: width .16s ease, min-width .16s ease, padding .16s ease, background-color .15s ease, border-color .15s ease, color .15s ease, box-shadow .15s ease;
+  }
+  .remove-flex .remove-icon,
+  .remove-flex .remove-text {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .remove-flex .remove-icon {
+    width: 16px;
+    opacity: 1;
+    transition: width .12s ease, opacity .12s ease;
+  }
+  .remove-flex .remove-text {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    font-weight: 800;
+    transition: max-width .14s ease, opacity .12s ease;
+  }
+
+  /* The compact cart row keeps its layout fixed. The expanded control overlays text,
+     and its solid background cleanly masks anything beneath it. */
+  .tests-overview-row { position: relative; grid-template-columns: minmax(0, 1fr); }
+  .tests-overview-ident { padding-right: 38px; }
+  .tests-overview-remove {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .remove-flex:hover,
+    .remove-flex:focus-visible {
+      width: 72px;
+      min-width: 72px;
+      padding: 0 10px;
+      background: #fff4f3;
+      border-color: #e2aaa5;
+      color: #9b3d37;
+      box-shadow: -8px 0 12px rgba(255,255,255,.92);
+      z-index: 5;
+    }
+    .remove-flex:hover .remove-icon,
+    .remove-flex:focus-visible .remove-icon {
+      width: 0;
+      opacity: 0;
+    }
+    .remove-flex:hover .remove-text,
+    .remove-flex:focus-visible .remove-text {
+      max-width: 50px;
+      opacity: 1;
+    }
+    .tests-overview-remove:hover,
+    .tests-overview-remove:focus-visible {
+      transform: translateY(-50%);
+    }
+  }
+}

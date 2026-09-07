@@ -52,12 +52,13 @@
 
         <div class="filter-row">
           <label class="library-search"><span class="field-label">Search tests</span><input id="libraryFilter" type="search" placeholder="Test name or code" autocomplete="off"></label>
-          <select id="tempFilter" aria-label="Filter by temperature">
-            <option value="">All temperatures</option>
-            <option value="Room Temperature">Room temperature</option>
-            <option value="Refrigerated">Refrigerated</option>
-            <option value="Frozen">Frozen</option>
-            <option value="Not specified">Not specified</option>
+          <select id="specimenFilter" aria-label="Filter by specimen type">
+            <option value="">All specimen types</option>
+            <option value="Blood">Blood (serum / plasma / whole blood)</option>
+            <option value="Urine">Urine</option>
+            <option value="Stool">Stool</option>
+            <option value="Swab">Swab</option>
+            <option value="Other">Other</option>
           </select>
           <label class="check-label"><input type="checkbox" id="showBlocked"> Show “do not perform” entries</label>
         </div>
@@ -105,12 +106,12 @@
               <span class="tests-summary-title" id="testsOverviewTitle">Tests</span>
               <span class="tests-summary-count" id="testsOverviewSummary">0 tests</span>
             </div>
-            <button class="mini-button edit tests-details-toggle" id="testsDetailsButton" type="button" aria-expanded="false" aria-controls="testsOverviewList testsDetailsPanel">Show details</button>
           </div>
           <div class="tests-summary-actions">
             <button class="mini-button" id="addSelectedTestButton" type="button">+ Add a missing test</button>
             <button class="mini-button remove" id="clearOrderButton" type="button">Clear all</button>
           </div>
+          <button class="mini-button edit tests-details-toggle" id="testsDetailsButton" type="button" aria-expanded="false" aria-controls="testsOverviewList testsDetailsPanel">Show details</button>
         </div>
         <div id="testsOverviewList" class="tests-overview-list empty-state">No tests selected.</div>
         <div id="testsDetailsPanel" class="tests-details-panel hidden" aria-hidden="true">
