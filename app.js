@@ -1570,18 +1570,18 @@
     </div>` : '';
 
     return `<section class="print-logistics-plan">
-      <div class="print-logistics-heading"><strong>Collection plan</strong><span>Check the test instructions below before collecting.</span></div>
+      <div class="print-logistics-heading"><strong>Collection and submission plan</strong><span>Collection containers are separated from processed specimens placed into transport bags.</span></div>
       <div class="print-logistics-totals">
         <div class="print-total-box collect-total"><span>TOTAL TO COLLECT</span><strong>${totalCollect}</strong><small>tubes / collection containers</small></div>
         <div class="print-collect-chips">${collectionItems.map(item => `<span class="print-collect-chip tube ${item.className}"><b>${item.count}</b> ${escapeHtml(item.label)}</span>`).join('')}</div>
-        <div class="print-total-box submit-total"><span>BAGS TO PREPARE</span><strong>${bags.length}</strong><small>${bags.length === 1 ? 'transport bag' : 'transport bags'}</small></div>
+        <div class="print-total-box submit-total"><span>TOTAL TO SUBMIT</span><strong>${bags.length}</strong><small>${bags.length === 1 ? 'transport bag' : 'transport bags'}</small></div>
         <div class="print-submit-bags">${bagLabels}</div>
       </div>
       ${fastingPanel}
 
       ${printOrderOfDraw(tests)}
 
-      <div class="print-logistics-subheading">1. Draw / collect</div>
+      <div class="print-logistics-subheading">What to collect</div>
       <div class="print-collection-grid">${collectionItems.map(item => `<article class="print-collection-card">
         <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span></div>
         ${item.detail ? `<div class="print-container-detail">${escapeHtml(item.detail)}</div>` : ''}
@@ -1590,7 +1590,7 @@
 
       <section class="print-submit-section">
         <div class="print-submit-heading">
-          <strong>2. Process and pack</strong>
+          <strong>What to submit after processing</strong>
           <span>Keep each temperature group in its own transport bag.</span>
         </div>
         <div class="print-bag-grid">${bags.map(bag => {
@@ -1608,8 +1608,8 @@
         }).join('')}</div>
       </section>
       <div class="print-bag-note">
-        <div><strong>Tube sharing:</strong> Compatible SST, Lavender EDTA, and Red Top tubes can be shared across tests only when the processing steps and temperature match. Lavender whole blood stays separate from Lavender tubes used for plasma or RBCs. Tubes sent whole also stay separate from tubes used to prepare aliquots. For serum transferred from SSTs, draw one source SST per transport tube.</div>
-        <div><strong>Tube counts:</strong> Estimates allow 2 mL of usable serum, plasma, or processed specimen per source tube and 4 mL of whole blood per Lavender tube. SSTs used for transfer are counted one per transport tube. Other draw counts follow the existing pooling estimates and any multiple, dedicated, or full-tube instructions. Different tube types are counted separately.</div>
+        <div><strong>Tube sharing:</strong> Compatible SST, Lavender EDTA, and Red Top tubes can be shared across tests only when the processing steps and temperature match. Lavender whole blood stays separate from Lavender tubes used for plasma or RBCs. Tubes sent whole also stay separate from tubes used to prepare aliquots.</div>
+        <div><strong>Tube counts:</strong> Estimates allow 2 mL of usable serum, plasma, or processed specimen per source tube and 4 mL of whole blood per Lavender tube. A test adds only one tube of each type unless its instructions call for multiple, dedicated, or full tubes. Different tube types are counted separately.</div>
         <div><strong>Urine:</strong> One sterile cup is included for a spot urine test. Follow the listed container instructions for timed or 24-hour collections.</div>
       </div>
     </section>`;
@@ -1622,31 +1622,16 @@
     const alerts = collectAlerts(tests);
     els.printSheet.innerHTML = `
       <div class="print-header">
-        <div><h1 class="print-title">Lab Collection Summary</h1><div class="print-subtitle">Draw • Process • Pack</div></div>
+        <div><h1 class="print-title">Lab Collection Summary</h1><div class="print-subtitle">Send-out workflow</div></div>
         <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<span class="print-selected-count">${tests.length} selected ${tests.length === 1 ? 'test' : 'tests'}</span></div>
       </div>
       ${alerts.length ? `<div class="print-alerts">${alerts.map(alert => `<div>${escapeHtml(alert.text)}</div>`).join('')}</div>` : ''}
+      <table class="print-table">
+        <colgroup><col style="width:6%"><col style="width:14%"><col style="width:7%"><col style="width:10%"><col style="width:10%"><col style="width:5%"><col style="width:8%"><col style="width:7%"><col style="width:8%"><col style="width:25%"></colgroup>
+        <thead><tr><th>Code</th><th>Test</th><th>Specimen</th><th>Draw container</th><th>Transport tube</th><th>Spin</th><th>Temperature</th><th>Volume</th><th>Stability</th><th>Special handling</th></tr></thead>
+        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><div class="print-test-name-stack"><strong>${escapeHtml(test.testName)}</strong>${fastingBadge(test, 'print-test-fasting-badge')}</div>${test.alternativeContainer ? `<div class="print-test-alternative">Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span></div>` : ''}</td><td>${specimenBadge(test.specimenType, 'print-specimen-badge')}</td><td><span class="print-tube-badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span></td><td>${printContainerBadges(test)}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">Preferred: ${escapeHtml(test.preferredVolume || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(test.minimumVolume || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
+      </table>
       ${printCollectionSubmissionPlan(tests)}
-      <section class="print-test-instructions">
-        <h2 class="print-section-title">3. Test instructions</h2>
-        <p class="print-section-help">Check volumes, timing, processing, and special handling for each test. “Verify” means the detail is not available in this list.</p>
-        ${tests.map(test => `<article class="print-test-card">
-          <h3><span class="print-test-code">${escapeHtml(displayCode(test))}</span> ${escapeHtml(test.testName)} ${fastingBadge(test, 'print-test-fasting-badge')}</h3>
-          <dl class="print-test-facts">
-            <div><dt>Specimen</dt><dd>${escapeHtml(test.specimenType || 'Verify')}</dd></div>
-            <div><dt>Draw container</dt><dd>${escapeHtml(test.drawContainer || 'Verify')}</dd></div>
-            <div><dt>Submit in</dt><dd>${printContainerBadges(test)}</dd></div>
-            <div><dt>Volume</dt><dd>Preferred: ${escapeHtml(test.preferredVolume || 'Verify')}<br>Minimum: ${escapeHtml(test.minimumVolume || 'Verify')}</dd></div>
-            <div><dt>Processing / temperature</dt><dd>Spin: ${escapeHtml(test.spin || 'Verify')}<br>${escapeHtml(test.transportTemperature || 'Verify')}${test.transportTemperatureRaw && test.transportTemperatureRaw !== test.transportTemperature ? `<br>${escapeHtml(test.transportTemperatureRaw)}` : ''}</dd></div>
-            <div><dt>Stability</dt><dd>${escapeHtml(test.stability || 'Verify')}</dd></div>
-          </dl>
-          ${test.alternativeContainer ? `<p class="print-test-note"><strong>Alternative container:</strong> ${escapeHtml(test.alternativeContainer)}</p>` : ''}
-          ${test.specialLabeling ? `<p class="print-test-note"><strong>Label:</strong> ${escapeHtml(test.specialLabeling)}</p>` : ''}
-          ${test.fastingInstructions ? `<p class="print-test-note"><strong>Fasting:</strong> ${escapeHtml(test.fastingInstructions)}</p>` : ''}
-          <p class="print-test-note"><strong>Collection / handling:</strong> ${escapeHtml(test.specialInstructions || 'No additional instructions listed. Check the official directory.')}</p>
-        </article>`).join('')}
-      </section>
-      <p class="print-verification-note"><strong>Before collection:</strong> Verify current test requirements and local availability in the official directory. Follow test-specific instructions and facility policy. Check manually added records before use.</p>
       <div class="print-footer">
         <div><strong>Order of draw:</strong> Pink tubes are grouped with EDTA. Temperatures are counted separately.</div>
         <div class="print-missing-test"><strong>Missing a test?</strong> <b>Contact Sam</b> to have it added.</div>

@@ -7,7 +7,6 @@
   <meta name="description" content="Batch-search and print-friendly specimen collection planning from a curated local test directory.">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="experience.css">
-  <link rel="stylesheet" href="print.css" media="print">
 </head>
 <body>
   <a class="skip-link" href="#libraryFilter">Skip to test search</a>
@@ -23,8 +22,6 @@
 
   <main class="app-shell no-print">
     <section class="workspace">
-      <div id="batchResults" class="panel batch-panel hidden" aria-live="polite"></div>
-
       <div class="panel library-panel">
         <div class="panel-heading library-heading">
           <div>
@@ -50,6 +47,8 @@
           <p class="search-hint" id="batchHint">Use test codes when available. Check the matches before collecting. <span class="keyboard-hint">⌘ / Ctrl + Enter to add</span></p>
         </div>
       </section>
+
+        <div id="batchResults" class="panel batch-panel hidden" aria-live="polite"></div>
 
         <div class="filter-row">
           <label class="library-search"><span class="field-label">Search tests</span><input id="libraryFilter" type="search" placeholder="Test name or code" autocomplete="off"></label>
