@@ -1,3 +1,8 @@
+v10.11
+- The Collection and submission plan now starts on the next printed page after the test table, regardless of how many pages the test table uses.
+- Updated search guidance to: “Use test codes when available. Check the matches before printing/collecting.”
+- Screen UI and calculation/pooling logic are otherwise unchanged.
+
 v10.10
 - Print: Collection and submission plan now always starts on a new page.
 - Screen UI and calculation logic unchanged from v10.9.
