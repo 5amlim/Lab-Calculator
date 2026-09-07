@@ -17,3 +17,9 @@ Validation: JavaScript syntax; unique and complete element references; represent
 
 ## Neutral interface wording
 Removed the laboratory brand name from visible interface labels and record wording, including printed collection notes and previously saved browser records. Directory destinations, source attribution, test identifiers, and collection requirements remain intact.
+
+## SST transfer counts
+Each transport container prepared from an SST now has its own source SST in collection totals. Explicit higher SST draw counts are preserved. Original-submit SST, Lavender EDTA, and Red Top pooling remain unchanged. Checked every individual and paired SST record and the full library, grouped by transport temperature. The reported seven-test example now requires four SSTs and one Lavender EDTA tube.
+
+## Print layout
+Printouts now start with collection counts and the draw/pack plan, followed by labeled instructions for each test. Includes volumes, stability, full handling notes, exact temperature wording, alternative containers, fasting instructions, and labels. Dedicated print.css improves readability and allows long sections to flow across pages. Calculation and content checks passed; browser print pagination has not been visually verified.

@@ -1,0 +1,57 @@
+/* Reading order: draw, process and pack, then complete test instructions. */
+@page { size: landscape; margin: 12mm; }
+@media print {
+  .print-sheet { font-size:10pt; line-height:1.4; color:#172b35; }
+  .print-title { font-size:21pt; }
+  .print-subtitle,.print-meta,.print-selected-count { font-size:9pt; }
+  .print-header { margin-bottom:12pt; padding-bottom:8pt; }
+  .print-logistics-plan { margin-top:8pt; padding-top:0; border-top:0; }
+  .print-logistics-heading { padding:8pt 10pt; break-after:avoid; }
+  .print-logistics-heading strong { font-size:14pt; }
+  .print-logistics-heading span { font-size:9pt; max-width:45%; }
+  .print-logistics-totals { grid-template-columns:auto 1fr auto 1fr; gap:8pt; break-inside:avoid; }
+  .print-total-box > span,.print-total-box > small { font-size:8pt; }
+  .print-total-box > strong { font-size:20pt; }
+  .print-collect-chip,.print-bag-pill,.print-collect-chip b { font-size:9pt; }
+  .print-section-title,.print-logistics-subheading,.print-submit-heading { font-size:13pt; margin:14pt 0 7pt; padding:6pt 8pt; letter-spacing:0; text-transform:none; break-after:avoid; border-bottom:2px solid #285c67; }
+  .print-submit-heading strong { font-size:13pt; }
+  .print-submit-heading span { font-size:9pt; }
+  .print-collection-grid,.print-bag-grid { display:block; }
+  .print-collection-card { margin:0 0 8pt; padding:8pt 10pt; break-inside:auto; }
+  .print-container-count,.print-bag-card-header,.print-submit-item-title { break-after:avoid; }
+  .print-container-count > span,.print-submit-item-title > span { font-size:10pt; }
+  .print-container-count > strong,.print-submit-item-title > strong { font-size:13pt; }
+  .print-container-detail,.print-for-tests,.print-for-tests > b { font-size:9pt; line-height:1.4; }
+  .print-for-tests ul { margin:3pt 0 0; list-style:none; }
+  .print-for-tests li { display:inline; }
+  .print-for-tests li + li::before { content:' • '; padding:0 4pt; }
+  .print-submit-section { break-inside:auto; page-break-inside:auto; }
+  .print-bag-card { margin:0 0 10pt; padding:9pt; break-inside:auto; page-break-inside:auto; }
+  .print-bag-card-header > div:first-child strong { font-size:12pt; }
+  .print-bag-card-header > div:first-child span,.print-bag-container-total span { font-size:8pt; }
+  .print-bag-container-total strong { font-size:14pt; }
+  .print-submit-content { display:block; }
+  .print-submit-item { padding:8pt; margin-top:6pt; break-inside:auto; }
+  .print-submit-item-detail,.print-label-notes,.print-label-note,.print-label-note small { font-size:9pt; line-height:1.4; }
+  .print-label-note > span { font-size:8pt; }
+  .print-bag-note,.print-footer,.print-verification-note { font-size:9pt; line-height:1.45; }
+  .print-bag-note > div { margin-top:5pt; }
+  .print-fasting-panel,.print-fasting-item { break-inside:auto; }
+  .print-fasting-panel-title strong { font-size:11pt; }
+  .print-fasting-panel-title span,.print-fasting-status,.print-fasting-item strong,.print-fasting-item small { font-size:9pt; line-height:1.4; }
+  .print-alerts { font-size:10pt; }
+  .print-test-instructions { margin-top:16pt; }
+  .print-section-help { font-size:9pt; margin:0 0 9pt; break-after:avoid; }
+  .print-test-card { border:1px solid #b7c6ce; border-radius:5pt; padding:10pt; margin-bottom:10pt; break-inside:avoid; }
+  .print-test-card h3 { font-size:12pt; margin:0 0 8pt; padding-bottom:6pt; border-bottom:1px solid #d6e0e5; break-after:avoid; }
+  .print-test-code { color:#164f5d; margin-right:5pt; }
+  .print-test-facts { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8pt 14pt; margin:0 0 8pt; }
+  .print-test-facts > div { break-inside:avoid; }
+  .print-test-facts dt { font-size:8pt; font-weight:700; color:#465c68; }
+  .print-test-facts dd { margin:2pt 0 0; font-size:10pt; overflow-wrap:anywhere; }
+  .print-test-note { font-size:10pt; line-height:1.45; margin:5pt 0 0; overflow-wrap:anywhere; orphans:3; widows:3; }
+  .print-test-card .print-tube-badge,.print-test-card .print-transport-source,.print-test-fasting-badge { font-size:9pt; }
+  .print-verification-note { border-left:3px solid #285c67; padding:7pt 10pt; background:#f1f5f7; }
+  .print-ownership { font-size:7pt; max-width:100%; }
+  .print-order-note { font-size:9pt; }
+}
