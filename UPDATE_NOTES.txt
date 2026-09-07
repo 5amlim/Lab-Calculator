@@ -34,3 +34,8 @@ v10.19
 - Reduced the visual weight of Clear all.
 - Made Show details a smaller centered secondary control with less vertical spacing.
 - No calculation, test-data, or printout changes.
+
+v10.20
+- Restyled Show details as a lightweight disclosure control aligned beneath Tests.
+- Added a down/up chevron to make the control clearly expandable/collapsible without presenting it as another button.
+- No changes to calculations, test data, or print layout.
