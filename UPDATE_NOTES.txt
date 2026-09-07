@@ -1,3 +1,15 @@
+v10.24
+- Corrected original-tube specimen wording for 4914 PT/INR and PTT (STAT), 8659 D-Dimer, Quantitative, and 8847 PT/INR (STAT): preferred room-temperature submission is a full, unopened Light Blue Sodium Citrate whole-blood tube, so the calculator no longer labels those original tubes as plasma.
+- Corrected 467 Folate, RBC to Whole Blood in the original Lavender EDTA tube and added protect-from-light handling.
+- Audited all built-in non-spun original-tube blood records; no other serum/plasma/RBC original-tube specimen mismatches were found. Tests that truly require separated plasma or RBC aliquots remain unchanged.
+- UI, pooling/grouping rules, and print layout are otherwise unchanged from v10.23.
+
+v10.23
+- Normalized ordinary serum/plasma transport-tube synonyms so compatible submissions can share one card within the same temperature bag.
+- Specialty containers remain strictly separate, including acid-washed, acid-rinsed, metal-free, trace-metal, amber/light-protected, Aptima, preservative, cryovial, glass, and other distinct container types.
+- Tests explicitly requiring multiple separate submission tubes remain their own submission card.
+- Collection pooling and all other UI/print behavior are unchanged.
+
 v10.22
 - Made Show details smaller and aligned it directly under Tests.
 - Added a disclosure arrow: ▾ Show details / ▴ Hide details.

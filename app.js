@@ -1364,6 +1364,30 @@
     return tubeClass(container);
   }
 
+  function submissionTransportGroupingKey(test, transport) {
+    const raw = normalizeSearch(transport)
+      .replace(/^\d+\s*(?:x|×)?\s*(?:separate\s+)?/, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    const specimen = normalizeSpecimenType(test.specimenType).toLowerCase();
+    const specialContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal|amber|protect from light|light[- ]?protected|aptima|preservative|cryovial|glass|royal blue|trace element/.test(raw);
+    const genericTransport = /^(?:(?:serum|plasma)\s+)?(?:plastic\s+)?transport\s+tubes?$/.test(raw);
+
+    // Normalize only ordinary generic serum/plasma transport tubes. Specialty
+    // containers (acid-washed, metal-free, amber, cryovial, etc.) retain their
+    // exact container identity and can never merge into the standard green-top group.
+    if (!specialContainer && /^(?:serum|plasma)$/.test(specimen) && genericTransport) {
+      const standardKey = `standard-${specimen}-transport`;
+      // Tests that explicitly require multiple separate submission tubes remain
+      // their own card so that requirement is not obscured by pooling.
+      return explicitSubmissionCount(test) > 1
+        ? `${standardKey}|dedicated-${normalizeSearch(displayCode(test))}`
+        : standardKey;
+    }
+
+    return raw;
+  }
+
   function isOriginalContainerSubmission(test) {
     const draw = String(test.drawContainer || '').trim();
     const transport = finalTransportContainer(test);
@@ -1430,7 +1454,7 @@
         ? 'Swab Transport Tube'
         : (isSpecialtyMetalContainer ? `Acid-Washed / Metal-Free ${specimen} Transport Tube` : `${specimen} Transport Tube`);
       return [{
-        key: `transport|${normalizeSearch(sourcePhrase)}|${normalizeSearch(transport)}`,
+        key: `transport|${normalizeSearch(sourcePhrase)}|${submissionTransportGroupingKey(test, transport)}`,
         label,
         className: transportTubeClass(test, transport),
         count: explicitSubmissionCount(test),

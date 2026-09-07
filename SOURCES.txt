@@ -78,3 +78,11 @@ Version 7.7 immune-serology additions / verification
 - 7083 Immunoglobulins Panel, Serum — official Quest Test Directory current entry reviewed 2026-08-27.
 - 34042 Diphtheria and Tetanus Antitoxoids — Quest/Nichols Institute current directory entry reviewed 2026-08-27; requires two separate submitted serum aliquots.
 - 37847 and 37849 Lipoprotein Fractionation, NMR records corrected to refrigerated transport; room-temperature transport is unacceptable.
+Version 10.24 original-tube specimen audit
+- Quest Bleeding and Thrombosis Test Menu: Prothrombin Time with INR (8847) accepts a room-temperature full, unopened 3.2% sodium citrate light-blue tube; frozen platelet-poor plasma is an alternative.
+  https://www.questdiagnostics.com/content/dam/corporate/unrestricted/documents/Bleeding-and-Thrombosis-Test-Menu.PDF
+- Quest IntelliTest Manager: D-Dimer, Quantitative (8659) preferred specimen is one full unopened 3.2% sodium citrate light-blue tube; frozen plasma is acceptable.
+  https://intellitestmanager.questdiagnostics.com/home/output/211597
+- Quest Test Directory / previously verified MASTER record for 4914 supports the full original light-blue tube workflow used by this calculator.
+- Folate, RBC (467) whole-blood Lavender EDTA primary-tube handling was cross-checked against Quest-performing laboratory test catalogs and the Quest MASTER record already included in the calculator.
+
