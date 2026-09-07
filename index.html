@@ -6,57 +6,54 @@
   <title>Lab Collection Calculator</title>
   <meta name="description" content="Batch-search and print-friendly specimen collection planning from a curated local test directory.">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="experience.css">
 </head>
 <body>
+  <a class="skip-link" href="#libraryFilter">Skip to test search</a>
   <header class="app-header no-print">
     <div>
-      <div class="eyebrow">SPECIMEN COLLECTION WORKFLOW</div>
+      <div class="eyebrow">COLLECTION TOOLS</div>
       <h1>Lab Collection Calculator</h1>
-      <p>Search multiple tests, use the official directory for anything missing, and print a clean collection summary.</p>
+      <p>Choose tests and print collection instructions.</p>
     </div>
     <div class="header-actions">
-      <span class="privacy-pill">No patient information fields • Runs in this browser</span>
-      <a class="button secondary" href="https://testdirectory.questdiagnostics.com/" target="_blank" rel="noreferrer">Open Official Directory ↗</a>
+      <span class="privacy-pill">No patient information required</span>
+      <a class="button secondary" href="https://testdirectory.questdiagnostics.com/" target="_blank" rel="noreferrer">Official directory ↗</a>
     </div>
   </header>
 
   <main class="app-shell no-print">
     <section class="workspace">
-      <div class="panel search-panel">
-        <div class="panel-heading">
-          <div>
-            <h2>1. Find tests</h2>
-            <p>Paste one test name or test code per line. Exact codes are prioritized.</p>
-          </div>
-          <div class="record-count" id="recordCount">0 tests</div>
-        </div>
-
-        <label for="searchInput" class="field-label">Test names or codes</label>
-        <textarea id="searchInput" rows="5" placeholder="Examples:&#10;211&#10;Hemoglobin A1c&#10;Quantiferon Gold TB"></textarea>
-        <div class="search-actions">
-          <button class="button primary" id="addBestButton">Add best matches</button>
-          <button class="button secondary" id="previewButton">Review matches</button>
-          <button class="button ghost" id="clearSearchButton">Clear</button>
-        </div>
-        <div class="search-hint">For multiple tests, paste the complete list and select <strong>Add best matches</strong>. Review the collection summary before printing.</div>
-        <div class="search-hint"><strong>Coverage:</strong> This website stores a curated local list. When a test is not found, use <strong>Search Official Directory</strong> to search the full official directory.</div>
-        <div class="contact-banner"><strong>Missing a test?</strong><span><b>Contact Sam</b> to have it added.</span></div>
-      </div>
-
       <div id="batchResults" class="panel batch-panel hidden" aria-live="polite"></div>
 
       <div class="panel library-panel">
         <div class="panel-heading library-heading">
           <div>
-            <h2>Test library</h2>
-            <p>Search the curated local list or add a missing test. Manually added tests are saved in this browser.</p>
+            <div class="eyebrow">1. SELECT TESTS</div>
+            <h2>Find tests</h2>
+            <p>Search by test name, code, specimen, or tube.</p>
           </div>
           <div class="library-actions">
-            <button class="button secondary" id="addTestButton">+ Add missing tests</button>
+            <div class="record-count" id="recordCount">0 tests</div>
+            <button class="button secondary" id="addTestButton">+ Add a missing test</button>
           </div>
         </div>
+      <section class="panel search-panel" id="batchEntry" aria-labelledby="batchEntryTitle">
+        <div class="batch-entry-heading"><h3 id="batchEntryTitle">Add a list of tests</h3></div>
+        <div class="batch-entry-body">
+          <label for="searchInput" class="field-label">One test name or code per line</label>
+          <textarea id="searchInput" rows="4" placeholder="211&#10;Hemoglobin A1c&#10;Quantiferon Gold TB" aria-describedby="batchHint"></textarea>
+          <div class="search-actions">
+            <button class="button primary" id="addBestButton">Add best matches</button>
+            <button class="button secondary" id="previewButton">Review matches</button>
+            <button class="button ghost" id="clearSearchButton">Clear</button>
+          </div>
+          <p class="search-hint" id="batchHint">Use test codes when available. Check the matches before collecting. <span class="keyboard-hint">⌘ / Ctrl + Enter to add</span></p>
+        </div>
+      </section>
+
         <div class="filter-row">
-          <input id="libraryFilter" type="search" placeholder="Filter by code, name, tube, specimen, or temperature">
+          <label class="library-search"><span class="field-label">Search tests</span><input id="libraryFilter" type="search" placeholder="Test name or code" autocomplete="off"></label>
           <select id="tempFilter" aria-label="Filter by temperature">
             <option value="">All temperatures</option>
             <option value="Room Temperature">Room temperature</option>
@@ -75,24 +72,25 @@
                 <th>Specimen / draw tube</th>
                 <th>Temperature</th>
                 <th>Preferred volume</th>
-                <th></th>
+                <th><span class="sr-only">Actions</span></th>
               </tr>
             </thead>
             <tbody id="libraryBody"></tbody>
           </table>
         </div>
+        <p class="library-help">Can’t find a test? <a href="https://testdirectory.questdiagnostics.com/" target="_blank" rel="noreferrer">Check the official directory ↗</a> or contact Sam to have it added.</p>
         <div class="pagination-row">
-          <span id="libraryStatus"></span>
-          <button class="button ghost" id="loadMoreButton">Load more</button>
+          <span id="libraryStatus" role="status"></span>
+          <button class="button ghost" id="loadMoreButton">Show more tests</button>
         </div>
       </div>
     </section>
 
-    <aside class="panel order-panel">
+    <aside class="panel order-panel" id="collectionSummary" tabindex="-1">
       <div class="order-top">
         <div>
-          <div class="eyebrow">TEST CART · COLLECTION SUMMARY</div>
-          <h2>Selected tests <span id="selectedCount">0</span></h2>
+          <div class="eyebrow">2. CHECK SUMMARY</div>
+          <h2>Collection summary <span id="selectedCount">0</span></h2>
         </div>
       </div>
 
@@ -109,7 +107,7 @@
             <button class="mini-button edit tests-details-toggle" id="testsDetailsButton" type="button" aria-expanded="false" aria-controls="testsOverviewList testsDetailsPanel">Show details</button>
           </div>
           <div class="tests-summary-actions">
-            <button class="mini-button" id="addSelectedTestButton" type="button">+ Add missing tests</button>
+            <button class="mini-button" id="addSelectedTestButton" type="button">+ Add a missing test</button>
             <button class="mini-button remove" id="clearOrderButton" type="button">Clear all</button>
           </div>
         </div>
@@ -119,7 +117,7 @@
         </div>
       </section>
 
-      <details class="summary-section cart-collapse" id="drawPlanSection">
+      <details class="summary-section cart-collapse" id="drawPlanSection" open>
         <summary class="cart-collapse-summary">
           <span class="cart-collapse-title">Draw plan</span>
           <span class="cart-collapse-meta" id="drawPlanSummary">No collection types</span>
@@ -138,7 +136,7 @@
         </summary>
         <div class="cart-collapse-body">
           <div class="cart-collapse-toolbar">
-            <span class="cart-collapse-subtitle">For nurses</span>
+            <span class="cart-collapse-subtitle">Tube sequence</span>
             <a class="reference-link" href="https://www.questdiagnostics.com/content/dam/corporate/restricted/documents/test-center/order_of_draw/order_of_draw.pdf" target="_blank" rel="noreferrer">Order-of-draw reference ↗</a>
           </div>
           <div id="orderOfDraw" class="order-of-draw" aria-label="Standard blood tube order of draw"></div>
@@ -150,20 +148,21 @@
       </details>
 
       <div class="order-actions">
-        <button class="button primary wide" id="printButton">Print summary / Save PDF</button>
-        <button class="button secondary wide" id="exportSummaryButton">Download summary spreadsheet</button>
+        <button class="button primary wide" id="printButton">Print / Save PDF</button>
+        <button class="button secondary wide" id="exportSummaryButton">Download spreadsheet</button>
       </div>
-      <div class="contact-summary"><strong>Missing a test?</strong><span><b>Contact Sam</b> to have it added.</span></div>
-      <p class="disclaimer">The local list is not the complete test menu. Verify current requirements and service-area availability in the official test directory before collection. Manually entered information must be reviewed before use.</p>
+      
+      <p class="disclaimer">This list does not include every test. Before collecting, check the official directory for current requirements and availability in your area. Check any manually added details before use.</p>
     </aside>
   </main>
 
+  <a class="mobile-summary no-print" href="#collectionSummary">View summary <span id="mobileCount">0 tests</span><span aria-hidden="true">↓</span></a>
   <footer class="ownership-notice no-print" role="contentinfo">
     <div class="ownership-copy">
       <strong>Copyright and ownership notice</strong>
       <span>Copyright © 2026 Sam Hay. All rights reserved. Independently developed and maintained by Sam Hay as a personal software project and hosted through a personally controlled account. No license or ownership interest is granted except through Sam Hay’s express written authorization. Use by any organization does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay at any time and for any reason.</span>
     </div>
-    <a class="agreement-download" href="Sam_Hay_Workplace_Use_Agreement.docx" download="Sam_Hay_Workplace_Use_Agreement.docx">Download Editable Workplace Use Agreement</a>
+    <a class="agreement-download" href="Sam_Hay_Workplace_Use_Agreement.docx" download="Sam_Hay_Workplace_Use_Agreement.docx">Download workplace use agreement</a>
   </footer>
 
   <section id="printSheet" class="print-sheet" aria-hidden="true"></section>
@@ -174,7 +173,7 @@
         <div>
           <div class="eyebrow">TEST RECORD</div>
           <h2 id="dialogTitle">Add missing test</h2>
-          <p class="dialog-subtitle">Enter the collection details below, then save the test to the current summary.</p>
+          <p class="dialog-subtitle">Enter the test details from the official directory.</p>
         </div>
         <button type="button" class="icon-button" id="closeDialogButton" aria-label="Close">×</button>
       </div>
@@ -186,7 +185,7 @@
           <div class="form-section-heading">
             <div>
               <h3 id="testInfoHeading">Test info</h3>
-              <p>Identify the exact test being added.</p>
+              <p>Use the code and name from the directory.</p>
             </div>
             <button type="button" class="directory-text-button" id="openDirectoryFromDialogButton">Verify in official directory ↗</button>
           </div>
@@ -200,7 +199,7 @@
           <div class="form-section-heading">
             <div>
               <h3 id="collectionInfoHeading">Collection &amp; transport</h3>
-              <p>Complete the required specimen and shipping details.</p>
+              <p>Enter the specimen and transport requirements.</p>
             </div>
           </div>
           <div class="form-grid form-grid-compact">
@@ -256,7 +255,7 @@
             <label>Exact temperature wording<input id="transportTemperatureRaw" placeholder="Optional wording from the official directory"></label>
             <label>Stability / viability<input id="stability" placeholder="Example: 7 days refrigerated"></label>
             <label>Spin?<select id="spin"><option>Yes</option><option>No</option><option>Verify</option></select></label>
-            <label class="full-width">Special label for submission <span class="optional">shown quietly in the bag summary</span><input id="specialLabeling" placeholder="Example: Label transport tube PLASMA"></label>
+            <label class="full-width">Special label for submission <span class="optional">appears in the bag summary</span><input id="specialLabeling" placeholder="Example: Label transport tube PLASMA"></label>
             <label class="full-width">Special handling and collection notes<textarea id="specialInstructions" rows="4" placeholder="Timing, mixing, light protection, freezing, rejection criteria, or dedicated tube requirements."></textarea></label>
           </div>
         </details>

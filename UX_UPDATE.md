@@ -1,0 +1,19 @@
+# Interface update
+
+This edition updates the interface of the supplied v10.6 calculator.
+
+- Search-first workspace with compact expandable batch entry.
+- Distinct collection summary and expanded draw plan.
+- Mobile test cards and a shortcut to the collection summary.
+- Clear selected states, readable controls, keyboard focus, and empty states.
+- Print and spreadsheet export stay disabled until tests are selected.
+- Local library pages show 30 results at a time.
+
+The curated data, specimen rules, storage keys, custom test editor, and print layout are preserved. Existing saved records remain available when replacing the application on the same browser and origin. A different preview URL has separate browser storage.
+
+Replace index.html and app.js, and add experience.css alongside styles.css. Or use the complete folder. Open index.html to run locally, or upload the folder contents to your existing static host. No installation is required.
+
+Validation: JavaScript syntax; unique and complete element references; representative search equivalence; selected-test operations; draw-plan, alert, and printed-summary equivalence against v10.6; batch entry; empty search results; disabled empty export controls; byte-for-byte unchanged data.js. Browser visual and interaction testing has not been performed. Clinical content was not re-audited in this interface update.
+
+## Neutral interface wording
+Removed the laboratory brand name from visible interface labels and record wording, including printed collection notes and previously saved browser records. Directory destinations, source attribution, test identifiers, and collection requirements remain intact.

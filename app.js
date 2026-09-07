@@ -7,7 +7,7 @@
   const LEGACY_DB_KEYS = [...PRIOR_DB_KEYS, ...[9, 8, 7, 6, 5, 4, 3, 2, 1].map(version => `${LEGACY_STORAGE_PREFIX}.database.v${version}`)];
   const SELECTED_KEY = 'labCollectionCalculator.selected.v1';
   const LEGACY_SELECTED_KEYS = [`${LEGACY_STORAGE_PREFIX}.selected.v1`];
-  const PAGE_STEP = 80;
+  const PAGE_STEP = 30;
   const SST_USABLE_ML_PER_TUBE = 2;
   const PROCESSED_SPECIMEN_USABLE_ML_PER_TUBE = 2;
   const WHOLE_BLOOD_USABLE_ML_PER_TUBE = 4;
@@ -138,7 +138,23 @@
     return `${normalizeSearch(test.testCode)}|${normalizeSearch(test.testName)}`;
   }
 
+  // Neutral wording also applies to records already saved in this browser.
+  // Keep identifiers and source attribution intact.
+  function interfaceWording(value) {
+    return String(value ?? '')
+      .replace(/\bQuest(?:\s+Diagnostics)?[- ]referral\b/gi, 'referral')
+      .replace(/\bQuest(?:\s+Diagnostics)?\s+MASTER\b/gi, 'official')
+      .replace(/\bQuest(?:\s+Diagnostics)?(?:[’']s)?\b/gi, 'the laboratory');
+  }
+
   function normalizeRecord(record, index = 0) {
+    record = { ...record };
+    for (const key of ['testName', 'specimenType', 'drawContainer', 'alternativeContainer',
+      'transportContainer', 'preferredVolume', 'minimumVolume', 'transportTemperature',
+      'transportTemperatureRaw', 'stability', 'spin', 'specialLabeling',
+      'specialInstructions', 'fastingInstructions']) {
+      if (record[key] != null) record[key] = interfaceWording(record[key]);
+    }
     return {
       id: String(record.id || `custom-${Date.now()}-${index}`),
       testCode: String(record.testCode ?? record[['que', 'stCode'].join('')] ?? '').trim(),
@@ -315,7 +331,7 @@
     els.batchResults.classList.remove('hidden');
     els.batchResults.innerHTML = `
       <div class="panel-heading">
-        <div><h2>Batch matches</h2><p>${matchedCount} of ${rows.length} lines found a possible match. Review ambiguous names before collection.</p></div>
+        <div><h2>Matches for your list</h2><p>${matchedCount} of ${rows.length} entries have possible matches. Check that each match is the test you need.</p></div>
       </div>
       ${resultSummary}
       <div class="batch-grid">
@@ -329,12 +345,12 @@
     const unresolved = rows.filter(row => ['no-match', 'blocked', 'low-confidence', 'not-added'].includes(row.outcome));
     if (!unresolved.length) {
       if (!addBest) return '';
-      return `<div class="batch-status batch-status-success"><strong>All ${rows.length} searches are in the summary.</strong><span>No tests were missed.</span></div>`;
+      return `<div class="batch-status batch-status-success"><strong>Matches for all ${rows.length} entries are in the summary.</strong><span>Check the selected tests before collecting.</span></div>`;
     }
 
     const label = addBest ? 'Not added' : 'Needs attention';
     return `<div class="batch-status batch-status-warning">
-      <div class="batch-status-heading"><strong>${label} (${unresolved.length})</strong><span>${addBest ? 'These searches were not added to the collection summary.' : 'These searches did not return a reliable local match.'}</span></div>
+      <div class="batch-status-heading"><strong>${label} (${unresolved.length})</strong><span>${addBest ? 'These entries were not added to the summary.' : 'Check these entries; no clear match was found.'}</span></div>
       <ul class="batch-missing-list">
         ${unresolved.map(row => `<li><strong>${escapeHtml(row.query)}</strong><span>${escapeHtml(batchOutcomeReason(row.outcome))}</span></li>`).join('')}
       </ul>
@@ -343,14 +359,14 @@
 
   function batchOutcomeReason(outcome) {
     if (outcome === 'no-match') return 'No local match found';
-    if (outcome === 'low-confidence') return 'Possible match was too uncertain to add automatically';
-    if (outcome === 'blocked') return 'Matched a do-not-perform entry';
+    if (outcome === 'low-confidence') return 'Check the match before adding';
+    if (outcome === 'blocked') return 'This test is marked “do not perform”';
     return 'Could not be added';
   }
 
   function renderBatchRow(row) {
     if (!row.matches.length) {
-      return `<div class="batch-row unmatched"><div class="batch-query">${escapeHtml(row.query)}</div><div class="batch-match">No local match found<small>Search the full official test directory, then add the verified collection details.</small></div><div class="batch-unmatched-actions"><a class="mini-button edit" href="${escapeAttr(directorySearchUrl(row.query))}" target="_blank" rel="noreferrer">Search Official Directory ↗</a><button class="mini-button edit" data-action="new-from-query" data-query="${escapeAttr(row.query)}">Add missing test</button></div></div>`;
+      return `<div class="batch-row unmatched"><div class="batch-query">${escapeHtml(row.query)}</div><div class="batch-match">No local match found<small>Check the official directory, then enter the collection details.</small></div><div class="batch-unmatched-actions"><a class="mini-button edit" href="${escapeAttr(directorySearchUrl(row.query))}" target="_blank" rel="noreferrer">Search Official Directory ↗</a><button class="mini-button edit" data-action="new-from-query" data-query="${escapeAttr(row.query)}">Add missing test</button></div></div>`;
     }
     const best = row.matches[0];
     const alternatives = row.matches.slice(1).map(item => `${item.test.testCode} ${item.test.testName}`).join(' · ');
@@ -388,14 +404,14 @@
   function renderLibraryRow(test) {
     const selected = selectedIds.includes(test.id);
     const blocked = test.status === 'blocked';
-    return `<tr>
-      <td class="code-cell">${escapeHtml(displayCode(test))}</td>
-      <td><div class="test-name">${escapeHtml(test.testName)}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
-      <td><span class="badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span><div class="subtext specimen-line">${specimenBadge(test.specimenType)}${test.alternativeContainer ? ` <span>· Alt: ${escapeHtml(test.alternativeContainer)}</span>` : ''}</div></td>
-      <td><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td>
-      <td><span class="preferred-volume-chip">${escapeHtml(test.preferredVolume || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(test.minimumVolume || '—')}</div></td>
-      <td class="row-actions">
-        ${blocked ? '<span class="badge temp-unknown">Do not perform</span>' : `<button class="mini-button" data-action="add" data-id="${escapeAttr(test.id)}">${selected ? 'Added' : 'Add'}</button>`}
+    return `<tr class="${selected ? 'is-selected' : ''}">
+      <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
+      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
+      <td data-label="Specimen / tube"><span class="badge tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span><div class="subtext specimen-line">${specimenBadge(test.specimenType)}${test.alternativeContainer ? ` <span>· Alt: ${escapeHtml(test.alternativeContainer)}</span>` : ''}</div></td>
+      <td data-label="Temperature"><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td>
+      <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(test.preferredVolume || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(test.minimumVolume || '—')}</div></td>
+      <td class="row-actions" data-label="Actions">
+        ${blocked ? '<span class="badge temp-unknown">Do not perform</span>' : `<button class="mini-button" data-action="add" data-id="${escapeAttr(test.id)}" ${selected ? 'disabled' : ''} aria-label="${selected ? 'Added' : 'Add'} ${escapeAttr(test.testName)}">${selected ? '✓ Added' : '+ Add'}</button>`}
         <button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a>
       </td>
     </tr>`;
@@ -487,6 +503,9 @@
   function renderOrder() {
     const tests = selectedTests();
     els.selectedCount.textContent = tests.length;
+    $('mobileCount').textContent = `${tests.length} ${tests.length === 1 ? 'test' : 'tests'}`;
+    els.printButton.disabled = !tests.length;
+    els.exportSummaryButton.disabled = !tests.length;
     renderTestsOverview(tests);
     renderDrawPlan(tests);
     renderOrderOfDraw(tests);
@@ -523,7 +542,7 @@
       els.testsDetailsButton.setAttribute('aria-expanded', 'false');
       els.testsDetailsButton.textContent = 'Show details';
       els.testsOverviewList.className = 'tests-overview-list empty-state';
-      els.testsOverviewList.textContent = 'No tests selected.';
+      els.testsOverviewList.innerHTML = '<div class="empty-symbol" aria-hidden="true">＋</div><strong>No tests selected</strong><p>Select Add next to a test to include it here.</p>';
       return;
     }
     els.testsOverviewList.className = 'tests-overview-list';
