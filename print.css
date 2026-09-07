@@ -5,7 +5,7 @@
   .print-title { font-size:21pt; }
   .print-subtitle,.print-meta,.print-selected-count { font-size:9pt; }
   .print-header { margin-bottom:12pt; padding-bottom:8pt; }
-  .print-logistics-plan { margin-top:8pt; padding-top:0; border-top:0; }
+  .print-logistics-plan { margin-top:8pt; padding-top:0; border-top:0; break-before:page; page-break-before:always; }
   .print-logistics-heading { padding:8pt 10pt; break-after:avoid; }
   .print-logistics-heading strong { font-size:14pt; }
   .print-logistics-heading span { font-size:9pt; max-width:45%; }

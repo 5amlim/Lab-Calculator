@@ -1,4 +1,8 @@
-v10.9
+v10.10
+- Print: Collection and submission plan now always starts on a new page.
+- Screen UI and calculation logic unchanged from v10.9.
+
+v10.10
 - Moved the Matches/results card directly below the batch test-entry area so reviewed matches are visible without scrolling past the test library.
 - Print layout remains unchanged from v10.7/v10.8.
 
