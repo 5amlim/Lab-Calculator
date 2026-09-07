@@ -34,7 +34,7 @@
     recordCount: $('recordCount'), searchInput: $('searchInput'), addBestButton: $('addBestButton'),
     previewButton: $('previewButton'), clearSearchButton: $('clearSearchButton'), batchResults: $('batchResults'),
     libraryFilter: $('libraryFilter'), tempFilter: $('tempFilter'), showBlocked: $('showBlocked'),
-    libraryBody: $('libraryBody'), libraryStatus: $('libraryStatus'), loadMoreButton: $('loadMoreButton'),
+    libraryBody: $('libraryBody'), libraryStatus: $('libraryStatus'), loadMoreButton: $('loadMoreButton'), loadMoreInlineButton: $('loadMoreInlineButton'),
     addTestButton: $('addTestButton'), addSelectedTestButton: $('addSelectedTestButton'), testsDetailsButton: $('testsDetailsButton'), testsDetailsPanel: $('testsDetailsPanel'),
     selectedCount: $('selectedCount'), selectedList: $('selectedList'), testsOverviewList: $('testsOverviewList'), testsOverviewSummary: $('testsOverviewSummary'),
     drawPlan: $('drawPlan'), drawPlanSummary: $('drawPlanSummary'), orderOfDraw: $('orderOfDraw'), orderOfDrawSummary: $('orderOfDrawSummary'), collectionAlerts: $('collectionAlerts'), clearOrderButton: $('clearOrderButton'),
@@ -77,6 +77,7 @@
     els.tempFilter.addEventListener('change', () => { libraryLimit = PAGE_STEP; renderLibrary(); });
     els.showBlocked.addEventListener('change', () => { libraryLimit = PAGE_STEP; renderLibrary(); });
     els.loadMoreButton.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
+    els.loadMoreInlineButton?.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
     els.libraryBody.addEventListener('click', handleLibraryClick);
     els.batchResults.addEventListener('click', handleBatchClick);
     els.selectedList.addEventListener('click', handleSelectedClick);
@@ -398,7 +399,9 @@
     const shown = filtered.slice(0, libraryLimit);
     els.libraryBody.innerHTML = shown.length ? shown.map(renderLibraryRow).join('') : `<tr><td colspan="6" class="empty-state">No tests match these filters.</td></tr>`;
     els.libraryStatus.textContent = `Showing ${shown.length} of ${filtered.length}`;
-    els.loadMoreButton.classList.toggle('hidden', shown.length >= filtered.length);
+    const allLibraryTestsShown = shown.length >= filtered.length;
+    els.loadMoreButton.classList.toggle('hidden', allLibraryTestsShown);
+    els.loadMoreInlineButton?.classList.toggle('hidden', allLibraryTestsShown);
   }
 
   function renderLibraryRow(test) {
@@ -1560,7 +1563,7 @@
     if (!isTransferSubmission(test)) return '';
     const source = canonicalCollectionContainer(test);
     if (!source.label || !source.className) return '';
-    return `<span class="print-source-tube-badge tube ${source.className}">${escapeHtml(source.label)}</span>`;
+    return `<span class="print-source-tube-badge tube ${source.className}">From ${escapeHtml(source.label)}</span>`;
   }
 
   function printSubmissionSourceBadges(item) {
@@ -1573,7 +1576,7 @@
       badges.set(`${source.className}|${source.label}`, source);
     });
     if (!badges.size) return '';
-    return `<span class="print-source-badges">${Array.from(badges.values()).map(source => `<span class="print-source-tube-badge tube ${source.className}">${escapeHtml(source.label)}</span>`).join('')}</span>`;
+    return `<span class="print-source-badges">${Array.from(badges.values()).map(source => `<span class="print-source-tube-badge tube ${source.className}">From ${escapeHtml(source.label)}</span>`).join('')}</span>`;
   }
 
   function printSubmissionItemDetail(item) {
@@ -1587,7 +1590,7 @@
     const lower = value.toLowerCase();
     const sourceBadge = printTransferSourceBadge(test);
     if ((/red\s*\/\s*yellow|red-yellow|swirl/.test(lower)) && /gray|grey/.test(lower) && /urine|culture/.test(lower)) {
-      return `<span class="print-tube-badge tube tube-ua-swirl">Red/Yellow Swirl UA Tube</span><br><span class="print-tube-badge tube tube-urine-culture">Gray-Top Urine Culture Tube</span>${sourceBadge ? `<div class="print-transport-source">From ${sourceBadge}</div>` : ''}`;
+      return `<span class="print-tube-badge tube tube-ua-swirl">Red/Yellow Swirl UA Tube</span><br><span class="print-tube-badge tube tube-urine-culture">Gray-Top Urine Culture Tube</span>${sourceBadge ? `<div class="print-transport-source">${sourceBadge}</div>` : ''}`;
     }
     const sourceSpecimen = specificSpecimenSource(test);
     const sourceText = /transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/i.test(value)

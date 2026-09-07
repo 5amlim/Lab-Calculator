@@ -1,3 +1,8 @@
+v10.14
+- Source-container badges in print now explicitly say “From …” to distinguish them from submission containers.
+- Library count and primary Show more tests control returned outside the scroll box.
+- Added a second Show more tests control at the bottom of the scrollable list.
+
 Lab Collection Calculator v10.13
 
 - Draw plan is collapsed by default on screen.

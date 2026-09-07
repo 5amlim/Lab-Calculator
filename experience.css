@@ -135,11 +135,15 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
   @media (max-width:700px) { .header-actions { padding-left:0; } }
 }
 
-/* v10.12: keep library pagination inside the scrollable test list. */
+
+/* v10.14: keep status/main pagination outside the scroll box, with a second load-more control at the end of the scroll. */
 @media screen {
-  .table-wrap > .pagination-row {
-    margin-top: 0;
-    padding: 12px;
+  .scroll-load-more-row {
+    display: flex;
+    justify-content: center;
+    padding: 14px 12px 16px;
+    border-top: 1px solid var(--line);
     background: #fff;
   }
+  .scroll-load-more-row .button { min-width: 150px; }
 }
