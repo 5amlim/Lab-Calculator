@@ -134,3 +134,12 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
   .header-title { border-left:0; padding-left:0; }
   @media (max-width:700px) { .header-actions { padding-left:0; } }
 }
+
+/* v10.12: keep library pagination inside the scrollable test list. */
+@media screen {
+  .table-wrap > .pagination-row {
+    margin-top: 0;
+    padding: 12px;
+    background: #fff;
+  }
+}

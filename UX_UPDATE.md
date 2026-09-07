@@ -23,3 +23,7 @@ Each transport container prepared from an SST now has its own source SST in coll
 
 ## Print layout
 Printouts now start with collection counts and the draw/pack plan, followed by labeled instructions for each test. Includes volumes, stability, full handling notes, exact temperature wording, alternative containers, fasting instructions, and labels. Dedicated print.css improves readability and allows long sections to flow across pages. Calculation and content checks passed; browser print pagination has not been visually verified.
+
+## v10.13
+- Draw plan now starts collapsed to reduce visual clutter.
+- Printed transfer workflows now show a small visual badge for the source collection container (for example, SST/Gold or Sterile Urine Cup) next to the source text.

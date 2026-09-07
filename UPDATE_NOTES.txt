@@ -1,17 +1,6 @@
-v10.11
-- The Collection and submission plan now starts on the next printed page after the test table, regardless of how many pages the test table uses.
-- Updated search guidance to: “Use test codes when available. Check the matches before printing/collecting.”
-- Screen UI and calculation/pooling logic are otherwise unchanged.
+Lab Collection Calculator v10.13
 
-v10.10
-- Print: Collection and submission plan now always starts on a new page.
-- Screen UI and calculation logic unchanged from v10.9.
-
-v10.10
-- Moved the Matches/results card directly below the batch test-entry area so reviewed matches are visible without scrolling past the test library.
-- Print layout remains unchanged from v10.7/v10.8.
-
-Version 10.8
-- On-screen UI updated to match the supplied Lab Collection Calculator reference.
-- Collection calculation logic updated to match the supplied reference, including SST source-tube handling for transferred serum.
-- Print layout and print renderer preserved from v10.7.
+- Draw plan is collapsed by default on screen.
+- Printout adds a smaller source-container badge beside transferred specimen source text, including SST/Gold sources and sterile urine cups.
+- Main submission-container badges remain primary; source-container badges are intentionally smaller.
+- Collection calculations and pooling logic are unchanged from v10.12.

@@ -868,6 +868,36 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-submit-item.original-tube-submit { border-color: #82979e; }
   .print-submit-item.original-tube-submit .print-submit-item-detail { color: #194f59; }
   .print-tube-badge + br + .print-tube-badge { margin-top: 3px; }
+  .print-source-badges {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 3px;
+    margin-left: 5px;
+    vertical-align: middle;
+  }
+  .print-source-tube-badge {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    min-height: 12px;
+    margin-left: 5px;
+    padding: 1px 4px 1px 13px;
+    border: 1px solid #b8c4c8;
+    border-radius: 999px;
+    background: #f7f9fa !important;
+    color: #43525a !important;
+    font-size: 5.8px;
+    font-weight: 850;
+    line-height: 1.1;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  .print-source-tube-badge.tube::before {
+    width: 5px;
+    height: 10px;
+    left: 4px;
+  }
 }
 
 .field-help {

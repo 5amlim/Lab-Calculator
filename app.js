@@ -1545,17 +1545,55 @@
     return `<div class="print-label-notes">${Array.from(grouped.entries()).map(([note, codes]) => `<div class="print-label-note"><span>Label</span><div>${escapeHtml(note)} <small>${escapeHtml(codes.join(', '))}</small></div></div>`).join('')}</div>`;
   }
 
+  function isTransferSubmission(test) {
+    if (isOriginalContainerSubmission(test)) return false;
+    const value = finalTransportContainer(test);
+    const lower = value.toLowerCase();
+    const source = canonicalCollectionContainer(test);
+    const transportClass = transportTubeClass(test, value);
+    if (/transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off|preservative/i.test(value)) return true;
+    if (isUrineTest(test) && !isTimedUrineTest(test) && source.className === 'tube-urine-cup') return true;
+    return Boolean(source.className && transportClass && source.className !== transportClass);
+  }
+
+  function printTransferSourceBadge(test) {
+    if (!isTransferSubmission(test)) return '';
+    const source = canonicalCollectionContainer(test);
+    if (!source.label || !source.className) return '';
+    return `<span class="print-source-tube-badge tube ${source.className}">${escapeHtml(source.label)}</span>`;
+  }
+
+  function printSubmissionSourceBadges(item) {
+    if (item.originalTube) return '';
+    const badges = new Map();
+    uniqueTests(item.tests).forEach(test => {
+      if (!isTransferSubmission(test)) return;
+      const source = canonicalCollectionContainer(test);
+      if (!source.label || !source.className) return;
+      badges.set(`${source.className}|${source.label}`, source);
+    });
+    if (!badges.size) return '';
+    return `<span class="print-source-badges">${Array.from(badges.values()).map(source => `<span class="print-source-tube-badge tube ${source.className}">${escapeHtml(source.label)}</span>`).join('')}</span>`;
+  }
+
+  function printSubmissionItemDetail(item) {
+    const badges = printSubmissionSourceBadges(item);
+    if (!item.detail && !badges) return '';
+    return `<div class="print-submit-item-detail">${item.detail ? escapeHtml(item.detail) : ''}${badges}</div>`;
+  }
+
   function printContainerBadges(test) {
     const value = String(test.transportContainer || '').trim();
     const lower = value.toLowerCase();
+    const sourceBadge = printTransferSourceBadge(test);
     if ((/red\s*\/\s*yellow|red-yellow|swirl/.test(lower)) && /gray|grey/.test(lower) && /urine|culture/.test(lower)) {
-      return `<span class="print-tube-badge tube tube-ua-swirl">Red/Yellow Swirl UA Tube</span><br><span class="print-tube-badge tube tube-urine-culture">Gray-Top Urine Culture Tube</span>`;
+      return `<span class="print-tube-badge tube tube-ua-swirl">Red/Yellow Swirl UA Tube</span><br><span class="print-tube-badge tube tube-urine-culture">Gray-Top Urine Culture Tube</span>${sourceBadge ? `<div class="print-transport-source">From ${sourceBadge}</div>` : ''}`;
     }
     const sourceSpecimen = specificSpecimenSource(test);
     const sourceText = /transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/i.test(value)
       ? specimenSourceDetail(test)
       : sourceSpecimen;
-    return `<span class="print-tube-badge tube ${transportTubeClass(test, value)}">${escapeHtml(value || 'Verify')}</span>${sourceText ? `<div class="print-transport-source">${escapeHtml(sourceText)}</div>` : ''}`;
+    return `<span class="print-tube-badge tube ${transportTubeClass(test, value)}">${escapeHtml(value || 'Verify')}</span>${sourceText ? `<div class="print-transport-source">${escapeHtml(sourceText)}${sourceBadge}</div>` : ''}`;
   }
 
   function printCollectionSubmissionPlan(tests) {
@@ -1600,7 +1638,7 @@
             <div class="print-bag-card-header"><div><strong>${escapeHtml(bag.label)}</strong><span>Keep separate from other temperatures</span></div><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div>
             <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
               <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span></div>
-              ${item.detail ? `<div class="print-submit-item-detail">${escapeHtml(item.detail)}</div>` : ''}
+              ${printSubmissionItemDetail(item)}
               ${printLabelingNotes(item)}
               <div class="print-for-tests"><b>For tests:</b><ul>${testReferences(item.tests)}</ul></div>
             </div>`).join('')}</div>
