@@ -471,7 +471,7 @@
     els.testsDetailsPanel.classList.toggle('hidden', !showingDetails);
     els.testsDetailsPanel.setAttribute('aria-hidden', showingDetails ? 'false' : 'true');
     els.testsDetailsButton.setAttribute('aria-expanded', showingDetails ? 'true' : 'false');
-    els.testsDetailsButton.textContent = showingDetails ? 'Hide details' : 'Show details';
+    els.testsDetailsButton.textContent = showingDetails ? '▴ Hide details' : '▾ Show details';
   }
 
   function addSelected(id, rerender = true) {
@@ -552,7 +552,7 @@
       els.testsDetailsPanel.classList.add('hidden');
       els.testsDetailsPanel.setAttribute('aria-hidden', 'true');
       els.testsDetailsButton.setAttribute('aria-expanded', 'false');
-      els.testsDetailsButton.textContent = 'Show details';
+      els.testsDetailsButton.textContent = '▾ Show details';
       els.testsOverviewList.className = 'tests-overview-list empty-state';
       els.testsOverviewList.innerHTML = '<div class="empty-symbol" aria-hidden="true">＋</div><strong>No tests selected</strong><p>Select Add next to a test, or enter names or codes in the box and select Add best matches.</p>';
       return;

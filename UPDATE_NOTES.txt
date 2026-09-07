@@ -1,3 +1,8 @@
+v10.22
+- Made Show details smaller and aligned it directly under Tests.
+- Added a disclosure arrow: ▾ Show details / ▴ Hide details.
+- No calculation, test-data, or printout changes.
+
 v10.21
 - Restored Show details to the compact button style from v10.19.
 - No calculation, test-data, or printout changes.

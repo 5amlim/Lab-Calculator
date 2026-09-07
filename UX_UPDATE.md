@@ -1,3 +1,8 @@
+# v10.22 UI update
+- **Show details** is now a smaller button aligned directly under **Tests**.
+- Added a disclosure arrow that flips between **▾ Show details** and **▴ Hide details**.
+- No calculation, test-data, or printout changes.
+
 ## v10.21
 - Restored **Show details** to the compact button treatment.
 - All other v10.20 behavior is unchanged.
