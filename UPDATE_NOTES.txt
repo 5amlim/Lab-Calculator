@@ -1,3 +1,8 @@
+v10.29 - 2026-09-14
+- Expanded Show details cards now use a static text Delete button instead of the circular X/remove hover toggle.
+- Collapsed test-summary remove controls are unchanged and still use the existing X-to-Delete hover behavior.
+- No test-data, collection, processing, badge, container, or calculation changes.
+
 v10.28 - 2026-09-14
 - Re-reviewed all Do Not Perform entries under expanded onsite capability rule.
 - Released compatible tests and replaced legacy XXX placeholders with verified Quest codes.

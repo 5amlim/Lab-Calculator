@@ -74,6 +74,14 @@ tr:hover td { background: #fbfdfd; }
 .mini-button.edit { background: #f1f3f5; color: #52636c; }
 .mini-button.remove { background: #f9eeee; color: var(--danger); }
 
+.selected-card-delete {
+  width: auto;
+  min-width: 0;
+  height: 30px;
+  padding: 0 10px;
+  white-space: nowrap;
+}
+
 .remove-flex {
   width: 34px;
   min-width: 34px;
