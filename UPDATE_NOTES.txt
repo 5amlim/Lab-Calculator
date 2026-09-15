@@ -1,3 +1,10 @@
+v10.27
+- Expanded the Quest collection library by 124 additional current order codes that map to existing clinic collection/processing workflows.
+- Added compatible SST/serum, Red Top transferred serum, EDTA/heparin/ACD whole blood, frozen plasma/serum, sodium-citrate plasma, trace-metal, and Aptima swab workflows.
+- No existing badge, draw-container, or transport-container names were changed or added. Tests requiring unconfirmed/special collection devices, pathology/cytology/Pap workflows, invasive body fluids, or incompatible processing were not added.
+- Added QUEST_ADDITIONS_v10.27_2026-09-14.csv with every added code and its mapped workflow/source.
+- Quest order codes can vary by service area; the active service-area Test Directory remains the final source of truth before collection.
+
 v10.26
 - Fixed stale browser-database caching so newly added built-in tests (including 38813) load immediately. Existing staff-created custom tests are preserved during migration.
 

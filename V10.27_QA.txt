@@ -1,0 +1,11 @@
+Lab Collection Calculator v10.27 QA
+Date: 2026-09-14
+
+Starting records: 272
+Added records: 124
+Final records: 396
+New draw-container names: None
+New transport-container names: None
+Database key: labCollectionCalculator.database.v27
+Prior DB migration includes v26: Yes
+Pathology/Pap additions: None intentionally
