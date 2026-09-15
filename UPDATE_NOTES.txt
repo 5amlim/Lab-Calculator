@@ -1,3 +1,9 @@
+v10.28 - 2026-09-14
+- Re-reviewed all Do Not Perform entries under expanded onsite capability rule.
+- Released compatible tests and replaced legacy XXX placeholders with verified Quest codes.
+- Legacy code 19817 is collectable; current Quest replacement code 13966 added.
+- Remaining blocked tests are limited to unsupported special handling/preservative requirements.
+
 v10.27
 - Expanded the Quest collection library by 124 additional current order codes that map to existing clinic collection/processing workflows.
 - Added compatible SST/serum, Red Top transferred serum, EDTA/heparin/ACD whole blood, frozen plasma/serum, sodium-citrate plasma, trace-metal, and Aptima swab workflows.
