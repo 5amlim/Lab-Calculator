@@ -1,3 +1,10 @@
+## Version 10.25 requisition additions
+
+- Compared all 16 codes on the 9/14/2026 requisition against v10.24. Eight were already present and eight were missing.
+- Added missing codes 7197, 2692, 36733, 7903, 545, 683, 19817, and 38813.
+- Code 19817 is intentionally stored as blocked/do-not-perform because Quest discontinued it in 2024; the calculator points staff to the recommended replacement code 13966.
+- No existing test requirements, pooling rules, grouping rules, UI, or print layout were changed.
+
 ## Version 8.3 label-display refinement
 
 - Standard SST serum is displayed as `Serum` without an automatic `Serum from SST` label reminder.

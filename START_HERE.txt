@@ -1,4 +1,4 @@
-Lab Collection Calculator v6.0
+Lab Collection Calculator v10.25
 
 Upload every file in this folder to the root of your GitHub repository.
 Replace files with the same names, commit to the main branch, and GitHub Pages will republish automatically.

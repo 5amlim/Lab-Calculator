@@ -1,3 +1,12 @@
+v10.25
+- Added the 8 tests from the 9/14/2026 requisition that were not already in the calculator: 7197, 2692, 36733, 7903, 545, 683, 19817, and 38813.
+- Added 38813 Total Glutathione in Whole Blood as a dedicated full Yellow ACD-B whole-blood tube, refrigerated, no centrifugation.
+- Added 7197 Lymphocyte Subset Panel 1 as a dedicated full Lavender EDTA whole-blood tube at room temperature; a separate EDTA tube is required if a CBC is also ordered.
+- Added 2692 Herpes Simplex Virus Culture with viral transport media, source documentation, and refrigerated transport.
+- Added serum workflows for 36733 ANCA Vasculitides, 7903 Immunoglobulin G Subclasses Panel, 545 Immunoglobulin M (IgM), and 683 ACE.
+- Added legacy code 19817 as a blocked/do-not-perform entry because Quest discontinued it effective 5/28/2024 and recommends 13966 as the replacement.
+- Existing requisition codes already present in v10.24 were left unchanged. UI, pooling, grouping, and print layout are unchanged.
+
 v10.24
 - Corrected original-tube specimen wording for 4914 PT/INR and PTT (STAT), 8659 D-Dimer, Quantitative, and 8847 PT/INR (STAT): preferred room-temperature submission is a full, unopened Light Blue Sodium Citrate whole-blood tube, so the calculator no longer labels those original tubes as plasma.
 - Corrected 467 Folate, RBC to Whole Blood in the original Lavender EDTA tube and added protect-from-light handling.
