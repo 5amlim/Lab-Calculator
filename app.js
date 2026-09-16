@@ -276,6 +276,8 @@
       drawContainer: String(record.drawContainer || 'Verify Official Instructions'),
       alternativeContainer: String(record.alternativeContainer || ''),
       additionalDrawRequirements: normalizeAdditionalDrawRequirements(record.additionalDrawRequirements),
+      collectionCount: Number(record.collectionCount) > 1 ? Math.floor(Number(record.collectionCount)) : 1,
+      submissionCount: Number(record.submissionCount) > 1 ? Math.floor(Number(record.submissionCount)) : 1,
       transportContainer: cleanTransportContainer(record.transportContainer),
       preferredVolume: String(record.preferredVolume || ''),
       minimumVolume: String(record.minimumVolume || ''),
@@ -1323,6 +1325,7 @@
       'tube-gray': 'Gray Fluoride / Oxalate Blood Tube',
       'tube-yellow': 'Yellow ACD',
       'tube-aptima': 'Aptima Multitest Transport Tube (orange label)',
+      'tube-total-fix': 'Total-Fix® Transport Vial',
       'tube-urine-cup': 'Sterile Urine Cup',
       'tube-ua-swirl': 'Red/Yellow Swirl UA Preservative Tube',
       'tube-urine-culture': 'Gray-Top Urine Culture Preservative Tube'
@@ -1338,22 +1341,33 @@
   }
 
   function explicitCollectionCount(test) {
+    const structured = Math.floor(Number(test.collectionCount) || 1);
+    if (structured > 1) return structured;
+
     const draw = String(test.drawContainer || '').toLowerCase();
     const note = String(test.specialInstructions || '').toLowerCase();
     const countPattern = '(\\d+|one|two|three|four|five|six|seven|eight)';
-    let match = draw.match(new RegExp(`\\b${countPattern}\\s+(?:full\\s+)?(?:[a-z][a-z /-]{0,35}\\s+)?(?:tubes?|bottles?|containers?)\\b`));
-    if (!match) match = note.match(new RegExp(`\\b(?:draw|collect|use|requires?)\\D{0,18}${countPattern}\\s+(?:full\\s+)?(?:[a-z][a-z /-]{0,35}\\s+)?(?:tubes?|bottles?|containers?)\\b`));
-    if (!match) {
-      const genericPattern = new RegExp(`(?<![\\d.])\\b${countPattern}\\s+(?:[a-z0-9.®/()_-]+\\s+){0,8}?(?:tubes?|bottles?|containers?)\\b`, 'g');
-      for (const candidate of note.matchAll(genericPattern)) {
-        const phrase = candidate[0];
-        const nearby = note.slice(Math.max(0, candidate.index - 24), candidate.index + phrase.length);
-        if (/\bm\s*l\b/.test(phrase) || /transport|aliquot|cryovial|vial|submit(?:ted|ting)?|\bnot\s+automatically\b|\b(?:does?|do)\s+not\b/.test(nearby)) continue;
-        match = candidate;
-        break;
-      }
+
+    // A count in the structured draw-container field is reliable when the number
+    // directly describes tubes/bottles/containers. Do not infer counts from specimen
+    // mass, time, RCF/RPM, tube dimensions, identifiers, test codes, or K2 additive text.
+    const drawPattern = new RegExp(`(?:^|\\s)${countPattern}\\s*(?:x|×)?\\s*(?:full\\s+|separate\\s+|standard\\s+){0,2}(?:[a-z][a-z /-]{0,24}\\s+)?(?:tubes?|bottles?|containers?)\\b`);
+    const drawMatch = draw.match(drawPattern);
+    if (drawMatch && !/\\b(?:ml|g|gram|grams|mg|mm|cm|hours?|hrs?|minutes?|mins?|days?|rcf|rpm)\\b/.test(drawMatch[0])) {
+      return Math.max(numberWordValue(drawMatch[1]), 1);
     }
-    return match ? Math.max(numberWordValue(match[1]), 1) : 1;
+
+    // Free text is intentionally strict. Only explicit instructions such as
+    // “Draw 3 tubes” or “Collect 4 separate EDTA tubes” create extra collection
+    // tubes. This prevents phrases like “10 g ... into the container”, “2 hours”,
+    // “1600 RCF”, “K2 EDTA”, and “two patient identifiers” from changing counts.
+    const actionPattern = new RegExp(`\\b(?:draw|collect|use|requires?|obtain)\\s+(?:blood\\s+(?:in|into)\\s+)?${countPattern}\\s*(?:x|×)?\\s*(?:full\\s+|separate\\s+|standard\\s+){0,2}(?:[a-z][a-z /-]{0,24}\\s+)?(?:tubes?|bottles?|containers?)\\b`);
+    const actionMatch = note.match(actionPattern);
+    if (actionMatch && !/\\b(?:ml|g|gram|grams|mg|mm|cm|hours?|hrs?|minutes?|mins?|days?|rcf|rpm|identifiers?)\\b/.test(actionMatch[0])) {
+      return Math.max(numberWordValue(actionMatch[1]), 1);
+    }
+
+    return 1;
   }
 
   function pooledCollectionGroupLabel(group) {
@@ -1385,6 +1399,47 @@
       count: total,
       tests: uniqueTests(matchingTests),
       detail
+    });
+  }
+
+  function isAdditionalPoolableBloodDraw(test) {
+    const specimen = String(test.specimenType || '').toLowerCase();
+    if (!/blood|plasma|serum|rbcs?|platelet/.test(specimen)) return false;
+    const cls = tubeClass(test.drawContainer);
+    return ['tube-blue', 'tube-green', 'tube-pink', 'tube-tan', 'tube-royal', 'tube-royal-edta',
+      'tube-royal-no-additive', 'tube-royal-heparin', 'tube-gray', 'tube-yellow'].includes(cls);
+  }
+
+  function addAdditionalPooledBloodItems(items, tests, bags) {
+    const containerGroups = new Map();
+    tests.filter(isAdditionalPoolableBloodDraw).forEach(test => {
+      const info = canonicalCollectionContainer(test);
+      if (!containerGroups.has(info.key)) containerGroups.set(info.key, { ...info, tests: [] });
+      containerGroups.get(info.key).tests.push(test);
+    });
+
+    containerGroups.forEach(containerGroup => {
+      let total = 0;
+      const details = [];
+      bags.forEach(bag => {
+        const bagTests = bag.tests.filter(test => containerGroup.tests.includes(test));
+        if (!bagTests.length) return;
+        const estimate = pooledCollectionEstimateForTests(bagTests, () => true);
+        total += estimate.totalTubes;
+        if (estimate.totalTubes) {
+          const parts = estimate.groups.map(group => `${group.estimate.totalTubes} ${pooledCollectionGroupLabel(group)}`);
+          details.push(`${bag.label.replace(/ bag$/i, '')}: ${parts.join(' + ')}`);
+        }
+      });
+      if (!total) return;
+      items.push({
+        key: containerGroup.key,
+        label: containerGroup.label,
+        className: containerGroup.className,
+        count: total,
+        tests: uniqueTests(containerGroup.tests),
+        detail: details.join(' · ')
+      });
     });
   }
 
@@ -1421,6 +1476,8 @@
       matchesTube: isRedTopDraw
     });
 
+    addAdditionalPooledBloodItems(items, tests, bags);
+
     const spotUrineTests = tests.filter(test => isUrineTest(test) && !isTimedUrineTest(test));
     if (spotUrineTests.length) {
       items.push({
@@ -1437,6 +1494,7 @@
     tests.forEach(test => {
       if (isSstDraw(test)) return;
       if (isLavenderDraw(test) || isRedTopDraw(test)) return;
+      if (isAdditionalPoolableBloodDraw(test)) return;
       if (isUrineTest(test) && !isTimedUrineTest(test)) return;
       const info = canonicalCollectionContainer(test);
       if (!grouped.has(info.key)) grouped.set(info.key, { ...info, count: 0, tests: [], detail: '' });
@@ -1483,20 +1541,23 @@
   }
 
   function explicitSubmissionCount(test) {
+    const structured = Math.floor(Number(test.submissionCount) || 1);
+    if (structured > 1) return structured;
+
     const containerText = String(test.transportContainer || '').toLowerCase();
-    const text = `${test.transportContainer || ''} ${test.preferredVolume || ''} ${test.specialInstructions || ''}`.toLowerCase();
+    const note = String(test.specialInstructions || '').toLowerCase();
     const countPattern = '(\\d+|one|two|three|four|five|six|seven|eight)';
 
-    // Prefer an explicit count in the structured transport-container field. Allow
-    // descriptors such as “polypropylene” without interpreting source draw-tube
-    // counts elsewhere in the instructions as submission counts.
-    const containerPattern = new RegExp(`\\b${countPattern}\\s*(?:x|×)?\\s*(?:separate\\s+)?(?:[a-z][a-z-]*\\s+){0,4}(?:transport tubes?|cryovials?|vials?|containers?)\\b`);
+    // Counts explicitly embedded in the transport-container field are authoritative.
+    const containerPattern = new RegExp(`(?:^|\\s)${countPattern}\\s*(?:x|×)?\\s*(?:separate\\s+)?(?:[a-z][a-z-]*\\s+){0,4}(?:transport tubes?|cryovials?|vials?|containers?)\\b`);
     const containerMatch = containerText.match(containerPattern);
     if (containerMatch) return Math.max(numberWordValue(containerMatch[1]), 1);
 
-    const pattern = new RegExp(`\\b${countPattern}\\s*(?:x|×)?\\s*(?:separate\\s+)?(?:frozen\\s+)?(?:aliquots?|transport tubes?|cryovials?|tubes?|containers?)\\b`);
-    const match = text.match(pattern);
-    return match ? Math.max(numberWordValue(match[1]), 1) : 1;
+    // In narrative text only “submit ...” language controls submission counts.
+    // Collection counts, time points, specimen volumes, and recommendations do not.
+    const submitPattern = new RegExp(`\\bsubmit\\s+${countPattern}\\s*(?:x|×)?\\s*(?:separate\\s+)?(?:frozen\\s+)?(?:[a-z][a-z-]*\\s+){0,3}(?:aliquots?|transport tubes?|cryovials?|vials?|tubes?|containers?)\\b`);
+    const submitMatch = note.match(submitPattern);
+    return submitMatch ? Math.max(numberWordValue(submitMatch[1]), 1) : 1;
   }
 
   function titleCaseSpecimen(value) {
@@ -1957,6 +2018,7 @@
   function tubeClass(container) {
     const value = String(container || '').toLowerCase();
     if (/aptima/.test(value)) return 'tube-aptima';
+    if (/total[- ]?fix/.test(value)) return 'tube-total-fix';
     if (/sterile\s+urine\s+cup|urine\s+collection\s+cup/.test(value)) return 'tube-urine-cup';
     if (/blood culture|culture bottle|bactec|\bsps\b/.test(value)) return 'tube-culture';
     if (value.includes('red/yellow') && (value.includes('gray') || value.includes('grey'))) return 'tube-ua-pair';

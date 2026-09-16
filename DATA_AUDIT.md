@@ -235,3 +235,11 @@ This was a full structural consistency audit of the built-in database for tube/s
 - Corrected serum tube preference/rejection mappings for **14801, 91935, and 94264**.
 - Sterile stool requirements map to the existing **Sterile Urine Cup** name.
 - Preserved the v10.30 quota-safe storage architecture.
+
+
+## v10.33 calculation and Total-Fix audit — 2026-09-16
+
+- Corrected phantom container counts caused by numeric specimen quantities/times in narrative instructions.
+- Added explicit-only collection and submission count parsing.
+- Added compatible pooling for the remaining routine blood-tube classes while preserving additive and temperature separation.
+- Added Total-Fix® stool workflow entries for codes 681, 1748, 10018, 3930, 8625, 90389, and 39441.

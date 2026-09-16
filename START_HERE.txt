@@ -1,6 +1,7 @@
-Lab Collection Calculator v10.32
+Lab Collection Calculator v10.33
 
-Upload every file in this folder to the root of your GitHub repository.
-Replace files with the same names, commit to the main branch, and GitHub Pages will republish automatically.
+Open index.html locally for review, or publish the folder contents to GitHub Pages.
 
-The built-in catalog loads from data.js. Browser storage contains only user-created tests/overrides and selected test IDs, preserving the v10.30 quota-safe architecture.
+v10.33 corrects collection/submission count parsing, audits pooling across routine blood tube types, and adds the current Total-Fix® stool workflow entries including Quest code 681.
+
+Browser architecture remains the v10.30 model: built-in catalog data stays in data.js; localStorage stores only user changes/overrides and selected tests.

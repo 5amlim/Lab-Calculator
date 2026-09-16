@@ -1,0 +1,32 @@
+Lab Collection Calculator v10.33 — Calculation / Container QA
+
+Catalog records: 2676
+New Total-Fix® records: 7
+
+Primary defect corrected
+- Free-text gram quantities no longer become collection-container counts.
+- 14628 and 5022 each calculate 1 Stool Container, not 10.
+- 1304 calculates 1 Sterile Urine Cup, not 5.
+
+Cross-specimen count safeguards
+- Hours/minutes, RCF/RPM values, tube dimensions, K2 additive text, test codes, and patient-identifier counts do not change collection counts.
+- Submission counts are limited to structured transport counts or explicit “Submit N ...” language.
+
+Pooling
+- SST, Lavender EDTA, and Red Top pooling retained.
+- Added compatible pooling for light-blue citrate, heparin/green, pink, tan, royal-blue variants, gray, and ACD blood tubes.
+- Pooling remains separated by exact collection-container identity, specimen material/path, and transport-temperature bag.
+- Explicit dedicated/multiple collection requirements still override pooling.
+
+Total-Fix® additions
+681 — Ova and Parasites, Concentrate and Permanent Smear
+1748 — Ova and Parasites with Giardia Antigen
+10018 — Cyclospora and Isospora Examination
+3930 — Fecal Leukocyte Stain
+8625 — Giardia Antigen, EIA, Stool
+90389 — Cryptosporidium Antigen, EIA
+39441 — Giardia and Cryptosporidium Antigen Panel
+
+Architecture
+- Built-in catalog remains in data.js.
+- localStorage architecture from v10.30 remains unchanged.

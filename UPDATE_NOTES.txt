@@ -1,3 +1,15 @@
+v10.33 - 2026-09-16
+
+- Fixed a free-text count parser bug that could turn specimen quantities or timing into extra collection containers (for example, “10 g ... into the container” became 10 containers).
+- Stool example now calculates one Stool Container per applicable test: the prior 27-for-9 error is removed.
+- The same safeguard now applies across specimen types; time points, RCF/RPM, K2, dimensions, test codes, and patient-identifier counts cannot create phantom collection containers.
+- Submission counts now respond only to structured transport counts or explicit “Submit N ...” instructions, preventing draw counts/recommendations from inflating transport-container totals.
+- Added structured collection counts for timed/special workflows where multiple source tubes are genuinely required but not safely represented by free text.
+- Expanded compatible pooling to additional routine blood tube types (light blue, green, pink, tan, royal blue variants, gray, and ACD) while keeping different additives and transport-temperature paths separate.
+- Added current Total-Fix® stool entries: 681, 1748, 10018, 3930, 8625, 90389, and 39441.
+- Added a dedicated Total-Fix® transport-vial visual/container type.
+- v10.30 storage architecture retained unchanged.
+
 v10.32 - 2026-09-16
 - Re-audited all 2,669 records using the revised onsite rule. Multiple routine tubes/aliquots, double-spin platelet-poor plasma, standard freezing, light protection, timed draws, and manageable serial collections remain performable.
 - Do Not Perform is narrowed to 7 true onsite barriers: required HCl acidification, 37°C incubation, ultra-low -70°C storage, refrigerated centrifugation, unsupported high-g/tightly timed platelet-free-plasma processing, and impractical large whole-stool collection/shipping workflows.

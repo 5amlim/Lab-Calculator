@@ -130,6 +130,7 @@ tr:hover td { background: #fbfdfd; }
 .tube-tan::before { background: #c7a06a; }
 .tube-yellow::before { background: #f1d85b; }
 .tube-aptima::before { background: repeating-linear-gradient(180deg, #f39a3d 0 6px, #fff 6px 9px); border-color: #bd6819; }
+.tube-total-fix::before { background: linear-gradient(180deg, #f8fbfc 0 28%, #d9f0ea 28% 100%); border-color: #4a8f80; }
 .tube-ua-swirl::before { background: repeating-linear-gradient(135deg, #d95851 0 3px, #f1d85b 3px 6px); }
 .tube-ua-pair::before { background: linear-gradient(180deg, #d95851 0 30%, #f1d85b 30% 62%, #8c969d 62% 100%); }
 .order-panel { position: sticky; top: 18px; padding: 20px; max-height: calc(100vh - 36px); overflow: auto; }
