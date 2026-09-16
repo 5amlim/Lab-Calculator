@@ -1,7 +1,7 @@
-Lab Collection Calculator v10.34
+Lab Collection Calculator v10.35
 
 Open index.html locally for review, or publish the folder contents to GitHub Pages.
 
-v10.34 cleans redundant preferred-volume display text across the catalog and moves the Do Not Perform list into a dedicated collapsed toggle below the library controls. The list is hidden by default and opens only when clicked.
+v10.35 cleans redundant preferred-volume display text across the catalog and moves the Do Not Perform list into a dedicated collapsed toggle below the library controls. The list is hidden by default and opens only when clicked.
 
 Browser architecture remains the v10.30 model: built-in catalog data stays in data.js; localStorage stores only user changes/overrides and selected tests.

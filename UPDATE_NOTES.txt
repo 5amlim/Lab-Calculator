@@ -1,3 +1,8 @@
+v10.35
+- Moved the “Do not perform list” toggle back into the library filter row, where the prior “Show do not perform entries” checkbox had been.
+- Restored the bottom library pagination area to the prior layout with only the result count/status and “Show more tests” button.
+- The do-not-perform list remains collapsed until clicked and stays mobile-friendly.
+
 v10.34 - 2026-09-16
 
 - Cleaned preferred-volume display wording across the full 2,676-record catalog without changing the underlying collection requirements used for calculations.

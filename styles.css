@@ -57,7 +57,7 @@ textarea:focus, input:focus, select:focus { border-color: var(--brand); box-shad
 .batch-match small { display: block; color: var(--muted); margin-top: 3px; }
 .batch-row.unmatched { background: #fff7f5; border-color: #f1cbc5; }
 .library-heading { align-items: center; }
-.filter-row { display: grid; grid-template-columns: minmax(260px, 1fr) 190px; gap: 10px; align-items: center; margin-bottom: 13px; }
+.filter-row { display: grid; grid-template-columns: minmax(260px, 1fr) 190px auto; gap: 10px; align-items: center; margin-bottom: 13px; }
 .check-label { display: flex !important; grid-template-columns: auto 1fr; align-items: center; gap: 8px !important; }
 .check-label input { width: auto; }
 .table-wrap { overflow: auto; border: 1px solid var(--line); border-radius: 12px; }
@@ -106,9 +106,7 @@ tr:hover td { background: #fbfdfd; }
   .remove-flex:focus-visible .remove-text { max-width: 56px; opacity: 1; }
 }
 .mini-button:disabled { opacity: .45; cursor: not-allowed; }
-.pagination-row { justify-content: space-between; align-items: flex-start; margin-top: 12px; color: var(--muted); font-size: 12px; }
-.library-footer-actions { display: flex; flex-direction: column; align-items: stretch; gap: 2px; margin-left: auto; }
-.library-footer-actions .button { min-height: 34px; justify-content: flex-end; }
+.pagination-row { justify-content: space-between; margin-top: 12px; color: var(--muted); font-size: 12px; }
 .blocked-list-button { color: #6e4d49 !important; }
 .blocked-list-panel { margin-top: 10px; border: 1px solid #e2d2cf; border-radius: 12px; background: #fffafa; overflow: hidden; }
 .blocked-list-heading { padding: 11px 13px; border-bottom: 1px solid #eadbd8; background: #fff6f4; }
@@ -268,12 +266,10 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .app-header { align-items: flex-start; flex-direction: column; }
   .filter-row { grid-template-columns: 1fr; }
   .panel-heading { flex-direction: column; }
+  .filter-row .blocked-list-button { width: 100%; justify-content: center; min-height: 40px; }
   .form-grid { grid-template-columns: 1fr; }
   .full-width { grid-column: auto; }
   .batch-row { grid-template-columns: 1fr; }
-  .pagination-row { align-items: stretch; gap: 8px; }
-  .library-footer-actions { width: 100%; margin-left: 0; }
-  .library-footer-actions .button { width: 100%; justify-content: center; min-height: 40px; }
   .blocked-list-item { grid-template-columns: 1fr; gap: 4px; }
   .blocked-list-link { margin-top: 2px; white-space: normal; }
   .preferred-volume-chip { max-width: none; }

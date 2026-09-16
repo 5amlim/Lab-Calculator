@@ -1,0 +1,7 @@
+Lab Collection Calculator v10.35 QA
+
+- Moved the Do not perform list toggle from the bottom pagination area back into the library filter row, replacing the former checkbox location.
+- Restored the bottom pagination area to the pre-v10.34 layout: status/count on the left and Show more tests on the right.
+- Do not perform list remains collapsed by default and opens only when its filter-row button is clicked.
+- On mobile, the filter controls and Do not perform list button stack to full width.
+- No test data, pooling, volume cleanup, storage architecture, or calculation logic changed from v10.34.
