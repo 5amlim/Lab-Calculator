@@ -1,0 +1,7 @@
+Lab Collection Calculator v10.31 QA
+Total built-in tests: 2669
+Active: 2552
+Blocked / Do Not Perform: 117
+Newly moved to Do Not Perform in v10.31: 114
+Sterile stool-container records mapped to existing Sterile Urine Cup label: 8
+Verified: existing blocked records remain blocked; all newly blocked records carry a Do not perform onsite note; no test records were deleted.

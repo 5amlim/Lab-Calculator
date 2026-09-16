@@ -1,0 +1,127 @@
+Lab Collection Calculator v10.31
+Newly moved to Do Not Perform: 114 tests
+
+22	Activated Protein C-Resistance	repeated centrifugation / platelet-poor plasma preparation
+216	Antithrombin III Activity	repeated centrifugation / platelet-poor plasma preparation
+331	Factor II Activity, Clotting	repeated centrifugation / platelet-poor plasma preparation
+344	Factor V Activity, Clotting	repeated centrifugation / platelet-poor plasma preparation
+346	Factor VII Activity, Clotting	repeated centrifugation / platelet-poor plasma preparation
+347	Factor VIII Activity, Clotting	repeated centrifugation / platelet-poor plasma preparation
+352	Factor IX Activity, Clotting	repeated centrifugation / platelet-poor plasma preparation
+359	Factor X Activity, Clotting	repeated centrifugation / platelet-poor plasma preparation
+360	Factor XI Activity, Clotting	repeated centrifugation / platelet-poor plasma preparation
+362	Factor XII Activity, Clotting	repeated centrifugation / platelet-poor plasma preparation
+455	Fecal Fat, Total, Quantitative	72-hour whole-stool collection in a 1-gallon container with diet/prep requirements
+458	Fibrinogen Degradation Products (FDP)	repeated centrifugation / platelet-poor plasma preparation
+883	Thrombin Clotting Time	repeated centrifugation / platelet-poor plasma preparation
+1777	Protein C Activity	repeated centrifugation / platelet-poor plasma preparation
+1779	Protein S Activity	repeated centrifugation / platelet-poor plasma preparation
+4458	Plasminogen Activity	repeated centrifugation / platelet-poor plasma preparation
+4459	Ristocetin Cofactor	repeated centrifugation / platelet-poor plasma preparation
+4919	von Willebrand Factor Antigen	repeated centrifugation / platelet-poor plasma preparation
+4948	Protein C Antigen	repeated centrifugation / platelet-poor plasma preparation
+5014	Nitrogen, Total, Feces	24-72 hour stool collection requiring supplied containers and dry-ice shipment
+5158	Antithrombin III Antigen	repeated centrifugation / platelet-poor plasma preparation
+5165	Protein S Antigen, Total	repeated centrifugation / platelet-poor plasma preparation
+5168	von Willebrand Antigen, Multimeric	repeated centrifugation / platelet-poor plasma preparation
+5248	Chromium, Serum	discard-first trace-metal draw; second specimen must be poured rather than pipetted
+6691	Insulin Response to Glucose, 6 Specimens	multi-step stimulation/glucose challenge collection
+6693	Insulin Response to Glucose, 5 Specimens	multi-step stimulation/glucose challenge collection
+6694	Insulin Response to Glucose, 4 Specimens	multi-step stimulation/glucose challenge collection
+6695	Insulin Response to Glucose, 3 Specimens	multi-step stimulation/glucose challenge collection
+6697	Insulin Response to Glucose, 2 Specimens	multi-step stimulation/glucose challenge collection
+7017	Antithrombin III Activity and Antigen	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots
+7079	Lupus Anticoagulant Evaluation with Reflex	repeated centrifugation / platelet-poor plasma preparation
+7303	Cortisol, 3 Specimens	multiple timed specimens
+7463	Growth Hormone, 3 Specimens	multiple timed specimens
+7464	Growth Hormone, 4 Specimens	multiple timed specimens
+7465	Growth Hormone, 5 Specimens	multiple timed specimens
+7466	Growth Hormone, 6 Specimens	multiple timed specimens
+7467	Growth Hormone, 7 Specimens	multiple timed specimens
+7468	Growth Hormone, 8 Specimens	multiple timed specimens
+7469	Growth Hormone, 9 Specimens	multiple timed specimens
+7942	Protein C and S Activity with Reflex to Protein C and/or S Antigen	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots
+8267	Antithrombin III Activity with Reflex to Antithrombin III Antigen	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots
+8754	Protein C Activity with Reflex to Protein C Antigen	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots
+8757	Protein C Activity and Antigen	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots
+8922	Mixing Study	repeated centrifugation / platelet-poor plasma preparation
+10098	Factor XII Inhibitor Panel	large platelet-poor plasma volume with one-hour separation and immediate frozen/dry-ice handling
+10162	Thrombin-Antithrombin (TAT) Complex	repeated centrifugation / platelet-poor plasma preparation
+10170	Protein S Antigen, Free	repeated centrifugation / platelet-poor plasma preparation
+10498	Pancreastatin	prolonged clotting plus immediate freeze and preparation restrictions
+10720	Cyclosporine A Panel (Trough, 1 Hour, 2 Hour Post)	requires 3+ separate tubes/aliquots; trough/1-hour/2-hour timed series
+11051	Thrombosis Panel	repeated centrifugation / platelet-poor plasma preparation
+11074	Fibrin Monomer	repeated centrifugation / platelet-poor plasma preparation
+11345	Thrombotic Marker Panel	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots; requires 3+ separate tubes/aliquots
+11443	Phosphatidylserine/Prothrombin (PS/PT) Antibody (IgG)	repeated centrifugation / platelet-poor plasma preparation
+11446	Phosphatidylserine/Prothrombin (PS/PT) Antibody (IgM)	repeated centrifugation / platelet-poor plasma preparation
+11447	Phosphatidylserine/Prothrombin (PS/PT) Antibodies (IgG, IgM)	repeated centrifugation / platelet-poor plasma preparation
+12163	Beta-2-Glycoprotein I Antibody (IgG) with Reflex to B2GPI-Domain 1	repeated centrifugation / platelet-poor plasma preparation
+12164	Beta-2-Glycoprotein I-Domain 1 Antibody (IgG)	repeated centrifugation / platelet-poor plasma preparation
+13995	von Willebrand Factor GPIbM Activity	repeated centrifugation / platelet-poor plasma preparation
+14258	AD-Detect™ ABeta 42/40 and p-tau217 Evaluation, Plasma	strict K2 EDTA timing, two polypropylene aliquots, and no conical tubes
+14458	Fibrinogen Comprehensive Panel without Consultation	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots; requires 3+ separate tubes/aliquots
+14459	Thrombin Clotting Time with Reflex to Mixing Studies	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots
+14461	Factor XIII, Functional	repeated centrifugation / platelet-poor plasma preparation
+14571	ACTH Stimulation, 2 Specimens	multi-step stimulation/glucose challenge collection
+14890	Antiphospholipid Antibody Panel	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots
+14930	ACTH Stimulation, 3 Specimens	multi-step stimulation/glucose challenge collection
+15448	C-Peptide Response to Glucose, 9 Specimens	multi-step stimulation/glucose challenge collection
+15540	von Willebrand Disease Panel with Collagen Binding Assay (CBA)	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots; requires 3+ separate tubes/aliquots
+15586	Factor VIII Inhibitor, Chromogenic	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots; requires 3+ separate tubes/aliquots
+15780	dRVVT Screen with Reflex to dRVVT Confirm and dRVVT 1:1 Mix	repeated centrifugation / platelet-poor plasma preparation
+15843	C-Peptide Response to Glucose, 2 Specimens	multi-step stimulation/glucose challenge collection
+15844	C-Peptide Response to Glucose, 3 Specimens	multi-step stimulation/glucose challenge collection
+15845	C-Peptide Response to Glucose, 4 Specimens	multi-step stimulation/glucose challenge collection
+15846	C-Peptide Response to Glucose, 6 Specimens	multi-step stimulation/glucose challenge collection
+15847	C-Peptide Response to Glucose, 7 Specimens	multi-step stimulation/glucose challenge collection
+16049	Factor VIII Activity, Chromogenic	repeated centrifugation / platelet-poor plasma preparation
+16983	ColoVantage® (Methylated Septin 9)	very large plasma volume requiring multiple EDTA tubes and pooling
+17408	PTT-LA with Reflex to Hexagonal Phase Confirmation	repeated centrifugation / platelet-poor plasma preparation
+17494	Protein S Activity with Reflex to Protein S Antigen, Total and Free	repeated centrifugation / platelet-poor plasma preparation
+17682	17-Hydroxyprogesterone Response to ACTH Stimulation	multi-step stimulation/glucose challenge collection
+17845	Factor IX Activity and Human Inhibitor	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots
+19511	Androstenedione, Response to ACTH Stimulation	multi-step stimulation/glucose challenge collection
+19649	Menorrhagia Screen without Consultation	multiple platelet-poor plasma aliquots; requires 3+ separate tubes/aliquots
+19672	Lupus Anticoagulant and Antiphospholipid Confirmation (on Coumadin®)	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots; requires 3+ separate tubes/aliquots
+19674	Lupus Anticoagulant and Antiphospholipid Confirmation (on Coumadin®) with Consultation	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots; requires 3+ separate tubes/aliquots
+19790	von Willebrand Disease Panel without Collagen Binding Assay (CBA)	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots; requires 3+ separate tubes/aliquots
+19872	Antiphospholipid Syndrome Diagnostic Panel	repeated centrifugation / platelet-poor plasma preparation
+19878	Rheumatoid Arthritis Diagnostic Panel 3	requires 3+ separate tubes/aliquots
+19880	ANA Screen,IFA, with Reflex to Titer and Pattern/Sjogren's Panel 2	requires 3+ separate tubes/aliquots
+19881	Lupus Panel 3 with ANA, IFA with Reflex to Titer and Pattern	requires 3+ separate tubes/aliquots
+30292	Heparin, Anti-Xa	repeated centrifugation / platelet-poor plasma preparation
+30340	Beta-2-Glycoprotein I Antibodies (IgG, IgA, IgM)	repeated centrifugation / platelet-poor plasma preparation
+31345	C-Peptide Response to Glucose, 5 Specimens	multi-step stimulation/glucose challenge collection
+33743	Hypercoagulable Profile	multiple platelet-poor plasma aliquots; requires 3+ separate tubes/aliquots
+36378	Analyzer ANA with reflex panel	requires 3+ separate tubes/aliquots
+36457	Protein S Antigen, Total and Free	repeated centrifugation / platelet-poor plasma preparation
+36552	Beta-2-Glycoprotein I Antibody (IgA)	repeated centrifugation / platelet-poor plasma preparation
+36553	Beta-2-Glycoprotein I Antibody (IgM)	repeated centrifugation / platelet-poor plasma preparation
+36554	Beta-2-Glycoprotein I Antibody (IgG)	repeated centrifugation / platelet-poor plasma preparation
+37674	Prothrombin Fragment 1.2	repeated centrifugation / platelet-poor plasma preparation
+37700	Reptilase Clotting Time	repeated centrifugation / platelet-poor plasma preparation
+37914	Eosinophil Cationic Protein (ECP)	strict controlled clotting time/temperature and centrifugation conditions
+38149	Cortisol Response to ACTH Stimulation, Serum	requires 3+ separate tubes/aliquots; multi-step stimulation/glucose challenge collection
+39457	Protein C and Protein S, Functional	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots
+40083	Factor VIII Inhibitor Panel	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots
+70050	Factor VIII Activity, Clotting with Reflex to Chromogenic Method	repeated centrifugation / platelet-poor plasma preparation
+90271	von Willebrand Screen	multiple platelet-poor plasma aliquots; requires 3+ separate tubes/aliquots
+90879	Factor VIII Antigen	repeated centrifugation / platelet-poor plasma preparation
+90891	Ashkenazi Jewish Panel (11 Tests)	requires 3+ separate tubes/aliquots
+90923	Fibrinolysis Comprehensive Panel	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots; requires 3+ separate tubes/aliquots
+91053	Factor IX Antigen	repeated centrifugation / platelet-poor plasma preparation
+91238	Human Transforming Growth Factor beta 1 (TGF-b1)	repeated centrifugation / platelet-poor plasma preparation; repeated centrifugation to remove platelets within tight timing
+93355	Protein S Activity, Antigen, Total and Free	repeated centrifugation / platelet-poor plasma preparation; multiple platelet-poor plasma aliquots
+93888	Autoimmune Neurology Antibody Comprehensive Panel with Reflexes, Serum	very large serum volume with no SST option
+94372	QHerit™ Expanded Carrier Screen	requires 3+ separate tubes/aliquots; four separate EDTA tubes
+
+Sterile stool-container mappings changed to existing "Sterile Urine Cup" label:
+1304	pH, Feces
+4408	Clostridium difficile Cytotoxicity Assay
+11235	Chymotrypsin, Stool
+16377	Clostridium difficile Toxin B, Qualitative, Real-Time PCR
+34964	Entamoeba histolytica Antigen, EIA
+38945	Adenovirus Antigen Detection, Gastroenteritis, EIA
+91664	Clostridium difficile Toxin/GDH with Reflex to PCR
+92014	Clostridium difficile Culture with Reflex to Toxin B, Real-Time PCR,Isolate

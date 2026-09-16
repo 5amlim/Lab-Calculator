@@ -1,3 +1,10 @@
+v10.31 - 2026-09-16
+- Re-reviewed the full 2,669-test catalog and moved high-complexity collection/processing workflows to Do Not Perform.
+- High-complexity criteria include repeated platelet-poor plasma centrifugation, 3+ separate tubes/aliquots, multi-step stimulation/challenge or larger timed-series collections, and unusually controlled or exceptional collection handling.
+- Routine spin/transfer/freeze workflows and manageable specialty trace-metal/light-protection workflows remain available.
+- Stool tests that specifically require a sterile stool container now use the existing draw-container label "Sterile Urine Cup"; the container name itself was not changed.
+- No pooling, bagging, order-of-draw, print, or browser-storage architecture logic changed.
+
 v10.30 - 2026-09-16
 - Fixed the browser-storage quota error introduced by the expanded 2,669-test catalog.
 - Built-in catalog records now load directly from data.js instead of being duplicated into localStorage.
