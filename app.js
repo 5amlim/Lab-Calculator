@@ -1,10 +1,23 @@
 (() => {
   'use strict';
 
-  const DB_KEY = 'labCollectionCalculator.database.v28';
-  const PRIOR_DB_KEYS = ['labCollectionCalculator.database.v27', 'labCollectionCalculator.database.v26', 'labCollectionCalculator.database.v25', 'labCollectionCalculator.database.v24', 'labCollectionCalculator.database.v23', 'labCollectionCalculator.database.v22', 'labCollectionCalculator.database.v21', 'labCollectionCalculator.database.v20', 'labCollectionCalculator.database.v19', 'labCollectionCalculator.database.v18', 'labCollectionCalculator.database.v17', 'labCollectionCalculator.database.v16', 'labCollectionCalculator.database.v15', 'labCollectionCalculator.database.v14', 'labCollectionCalculator.database.v13', 'labCollectionCalculator.database.v12', 'labCollectionCalculator.database.v11'];
+  // Built-in catalog records live in data.js. Browser storage is reserved for
+  // user-created tests and edits only, so catalog growth cannot exhaust localStorage.
+  const USER_DATA_KEY = 'labCollectionCalculator.userData.v1';
   const LEGACY_STORAGE_PREFIX = ['que', 'stLabCalculator'].join('');
-  const LEGACY_DB_KEYS = [...PRIOR_DB_KEYS, ...[9, 8, 7, 6, 5, 4, 3, 2, 1].map(version => `${LEGACY_STORAGE_PREFIX}.database.v${version}`)];
+  const LEGACY_FULL_DB_KEYS = [
+    'labCollectionCalculator.database.v28',
+    'labCollectionCalculator.database.v27', 'labCollectionCalculator.database.v26',
+    'labCollectionCalculator.database.v25', 'labCollectionCalculator.database.v24',
+    'labCollectionCalculator.database.v23', 'labCollectionCalculator.database.v22',
+    'labCollectionCalculator.database.v21', 'labCollectionCalculator.database.v20',
+    'labCollectionCalculator.database.v19', 'labCollectionCalculator.database.v18',
+    'labCollectionCalculator.database.v17', 'labCollectionCalculator.database.v16',
+    'labCollectionCalculator.database.v15', 'labCollectionCalculator.database.v14',
+    'labCollectionCalculator.database.v13', 'labCollectionCalculator.database.v12',
+    'labCollectionCalculator.database.v11',
+    ...[9, 8, 7, 6, 5, 4, 3, 2, 1].map(version => `${LEGACY_STORAGE_PREFIX}.database.v${version}`)
+  ];
   const SELECTED_KEY = 'labCollectionCalculator.selected.v1';
   const LEGACY_SELECTED_KEYS = [`${LEGACY_STORAGE_PREFIX}.selected.v1`];
   const PAGE_STEP = 30;
@@ -49,8 +62,11 @@
     addToSummaryRow: $('addToSummaryRow'), optionalDetails: $('optionalDetails'), openDirectoryFromDialogButton: $('openDirectoryFromDialogButton'), toast: $('toast')
   };
 
+  const seedDatabase = (window.SEED_TESTS || []).map(normalizeRecord);
+  let pendingUserState = null;
   let database = loadDatabase();
   let selectedIds = loadSelectedIds();
+  finalizeStorageMigration();
   let libraryLimit = PAGE_STEP;
   let toastTimer;
 
@@ -97,29 +113,102 @@
   }
 
   function renderAll() {
-    els.recordCount.textContent = `${database.length} local tests`;
+    els.recordCount.textContent = `${database.length} tests`;
     renderLibrary();
     renderOrder();
   }
 
   function loadDatabase() {
-    const seed = (window.SEED_TESTS || []).map(normalizeRecord);
-    const stored = loadJson(DB_KEY, null);
-    if (Array.isArray(stored) && stored.length) return stored.map(normalizeRecord);
+    let state = loadJson(USER_DATA_KEY, null);
+    if (!isUserState(state)) {
+      state = migrateLegacyUserData();
+      if (!saveUserState(state)) pendingUserState = state;
+    }
+    return applyUserState(state);
+  }
 
-    // Published data corrections should replace older built-in records. Preserve only
-    // staff-created custom tests when migrating from an earlier browser database.
-    const merged = new Map(seed.map(test => [databaseKey(test), test]));
-    LEGACY_DB_KEYS.forEach(key => {
+  function isUserState(state) {
+    return Boolean(state && typeof state === 'object' &&
+      Array.isArray(state.customTests) && Array.isArray(state.overrides));
+  }
+
+  function migrateLegacyUserData() {
+    // Older builds stored the full built-in catalog in localStorage. Only migrate
+    // staff-created custom tests; published built-in data should come from data.js.
+    const custom = new Map();
+    LEGACY_FULL_DB_KEYS.forEach(key => {
       const legacy = loadJson(key, null);
       if (!Array.isArray(legacy)) return;
       legacy.map(normalizeRecord)
         .filter(test => test.id.startsWith('custom-') || test.source === 'Custom entry')
-        .forEach(test => merged.set(databaseKey(test), test));
+        .forEach(test => {
+          if (!custom.has(test.id)) custom.set(test.id, test);
+        });
     });
-    const migrated = Array.from(merged.values());
-    localStorage.setItem(DB_KEY, JSON.stringify(migrated));
-    return migrated;
+    return { customTests: Array.from(custom.values()), overrides: [] };
+  }
+
+  function applyUserState(state) {
+    const builtIns = seedDatabase.map(test => ({ ...test }));
+    const byId = new Map(builtIns.map((test, index) => [test.id, index]));
+    const byKey = new Map(builtIns.map((test, index) => [databaseKey(test), index]));
+
+    (state.overrides || []).map(normalizeRecord).forEach(override => {
+      const index = byId.get(override.id) ?? byKey.get(databaseKey(override));
+      if (index !== undefined) builtIns[index] = override;
+    });
+
+    const customTests = (state.customTests || []).map(normalizeRecord);
+    return [...customTests, ...builtIns];
+  }
+
+  function userStateFromDatabase() {
+    const seedById = new Map(seedDatabase.map(test => [test.id, test]));
+    const seedByKey = new Map(seedDatabase.map(test => [databaseKey(test), test]));
+    const customTests = [];
+    const overrides = [];
+
+    database.forEach(test => {
+      const normalized = normalizeRecord(test);
+      if (normalized.id.startsWith('custom-') || normalized.source === 'Custom entry') {
+        customTests.push(normalized);
+        return;
+      }
+      const seed = seedById.get(normalized.id) || seedByKey.get(databaseKey(normalized));
+      if (seed && JSON.stringify(normalized) !== JSON.stringify(seed)) overrides.push(normalized);
+    });
+
+    return { customTests, overrides };
+  }
+
+  function saveUserState(state) {
+    try {
+      localStorage.setItem(USER_DATA_KEY, JSON.stringify(state));
+      return true;
+    } catch (error) {
+      console.warn('User test changes could not be saved.', error);
+      return false;
+    }
+  }
+
+  function finalizeStorageMigration() {
+    // This runs only after selected test IDs have been loaded. Removing obsolete
+    // full-catalog keys releases the storage that caused the expanded-catalog alert.
+    try {
+      LEGACY_FULL_DB_KEYS.forEach(key => localStorage.removeItem(key));
+      if (pendingUserState) {
+        if (!saveUserState(pendingUserState)) {
+          window.alert('The calculator loaded, but custom browser changes could not be saved. Browser storage may be unavailable.');
+        } else {
+          pendingUserState = null;
+        }
+      }
+      if (localStorage.getItem(SELECTED_KEY) !== null) {
+        LEGACY_SELECTED_KEYS.forEach(key => localStorage.removeItem(key));
+      }
+    } catch (error) {
+      console.warn('Legacy browser storage could not be cleaned up.', error);
+    }
   }
 
   function loadSelectedIds() {
@@ -850,8 +939,11 @@
   }
 
   function persistDatabase() {
-    localStorage.setItem(DB_KEY, JSON.stringify(database));
-    els.recordCount.textContent = `${database.length} local tests`;
+    const state = userStateFromDatabase();
+    if (!saveUserState(state)) {
+      window.alert('This change is visible now but could not be saved in this browser. Browser storage may be unavailable.');
+    }
+    els.recordCount.textContent = `${database.length} tests`;
   }
 
 

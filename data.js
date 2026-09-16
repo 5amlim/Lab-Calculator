@@ -51217,22 +51217,3 @@ window.SEED_TESTS = [
   "sourceRow": null
 }
 ];
-
-// Append this release's missing codes to an existing browser catalog.
-// Never replace an existing record, status, custom entry, or selected order.
-(() => {
-  const key = 'labCollectionCalculator.database.v28';
-  try {
-    const saved = JSON.parse(localStorage.getItem(key) || 'null');
-    if (!Array.isArray(saved) || !saved.length) return;
-    const codes = new Set(saved.map(test => String(test.testCode || '').trim()));
-    const ids = new Set(saved.map(test => test.id));
-    const additions = window.SEED_TESTS.filter(test =>
-      test.id.startsWith('quest-') && test.id.endsWith('-20260915') &&
-      !codes.has(String(test.testCode || '').trim()) && !ids.has(test.id));
-    if (additions.length) localStorage.setItem(key, JSON.stringify(saved.concat(additions)));
-  } catch (error) {
-    console.warn('Catalog additions could not be saved; existing browser records were retained.', error);
-    window.alert('The expanded catalog could not be added to the saved list in this browser. Existing records are unchanged. If browser storage is full, open the updated calculator in a fresh browser profile.');
-  }
-})();

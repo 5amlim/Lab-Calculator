@@ -1,0 +1,13 @@
+Lab Collection Calculator v10.30 QA
+2026-09-16
+
+Storage architecture checks:
+- Built-in catalog count: 2,669 tests.
+- Built-in catalog remains in data.js and is not written wholesale to localStorage.
+- Empty-browser startup creates only the compact userData state for custom tests/overrides.
+- Legacy v28 full-catalog storage migrates custom tests, then removes the obsolete full-catalog key.
+- Editing one built-in test persists only that test as an override.
+- Existing selected-test IDs continue to use the separate selected.v1 key.
+- JavaScript syntax checks passed for app.js and data.js.
+
+No clinical test data, pooling, collection, processing, badge, container, or print-calculation logic was intentionally changed in this fix.

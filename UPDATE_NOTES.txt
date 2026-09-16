@@ -1,3 +1,11 @@
+v10.30 - 2026-09-16
+- Fixed the browser-storage quota error introduced by the expanded 2,669-test catalog.
+- Built-in catalog records now load directly from data.js instead of being duplicated into localStorage.
+- Browser storage now keeps only custom tests and user edits/overrides, while selected tests continue to persist separately.
+- Existing custom tests are migrated from older saved browser databases, then obsolete full-catalog storage keys are removed to reclaim space.
+- Removed the expanded-catalog append alert/workaround; a fresh browser profile is no longer required for normal upgrades.
+- No test data, pooling, collection, processing, badge, container, or print-calculation logic changed.
+
 v10.29 - 2026-09-14
 - Expanded Show details cards now use a static text Delete button instead of the circular X/remove hover toggle.
 - Collapsed test-summary remove controls are unchanged and still use the existing X-to-Delete hover behavior.
