@@ -1,0 +1,56 @@
+Lab Collection Calculator v10.32 — Container / Multi-Draw Audit
+
+Catalog reviewed: 2669 records
+
+8837 — PTH, Intact and Calcium
+Collection: Lavender EDTA plasma + separate SST/Gold serum
+Fix/check: Both are required for one order; added secondary required-draw architecture.
+
+599 — Lead (Venous)
+Collection: K2 EDTA Tan Top
+Fix/check: Royal Blue EDTA and lead-free sodium-heparin trace-metal tubes remain alternatives; Lavender EDTA not acceptable.
+
+3058 — Lead (Venous), OSHA
+Collection: K2 EDTA Tan Top
+Fix/check: Royal Blue EDTA and lead-free sodium-heparin trace-metal tubes remain alternatives; Lavender EDTA not acceptable.
+
+10251 — Micronutrient, Lead, Blood (Venous)
+Collection: K2 EDTA Tan Top
+Fix/check: Royal Blue EDTA and lead-free sodium-heparin trace-metal tubes remain alternatives; Lavender EDTA not acceptable.
+
+22996 — Lead (Venous), OSHA and Zinc Protoporphyrin Evaluation
+Collection: K2 EDTA Tan Top
+Fix/check: Royal Blue EDTA or Royal Blue Sodium Heparin are alternatives.
+
+948 — Zinc Protoporphyrin (ZPP)
+Collection: K2 EDTA Tan Top
+Fix/check: Trace-metal alternatives retained; protect from light; Lavender EDTA not acceptable.
+
+36494 — von Willebrand Disease Gene Sequencing
+Collection: Lavender EDTA
+Fix/check: Yellow ACD or sodium-heparin tubes are alternatives, not additional mandatory draws.
+
+14801 — Bile Acids, Total, Pregnancy, Enzymatic
+Collection: SST / Gold
+Fix/check: Plain Red Top is rejected; centrifuge within 1 hour and transfer serum.
+
+91935 — QuestAssureD™ for Infants, 25-Hydroxyvitamin D
+Collection: Red Top
+Fix/check: SST/Gold is an acceptable alternative; fasting corrected to preferred, not required.
+
+94264 — Zika Virus Antibody (IgM)
+Collection: SST / Gold
+Fix/check: SST is preferred; Red Top is an acceptable alternative if serum is transferred.
+
+6278 — Propafenone
+Collection: Red Top
+Fix/check: Green Sodium Heparin is an alternative, not a simultaneous second draw.
+
+Sterile stool rule
+Any active stool test whose instructions explicitly require a sterile leak-proof/screw-cap stool container uses the existing collection name "Sterile Urine Cup". Specialty preservative/media stool kits remain unchanged.
+
+Multi-draw audit conclusion
+8837 is the confirmed current order in this catalog that requires two different routine blood collection types simultaneously. Other records flagged by the text scan were alternatives, multiple tubes of the same type, multiple aliquots, or conditional specimens tied to a separate/conditional workflow; they were not converted into extra mandatory draws.
+
+Additional alternative-container normalization
+Quest preferred-specimen text for 10913, 10915, 10917, 15088, 16053, 16072, 16080, 16141, 16152, 16313, 16526, 17220, 19503, 34296, and 92045 listed more than one acceptable tube while the calculator had only one represented. These records now keep a routine primary tube and explicitly show the other listed tubes as alternatives.

@@ -1,7 +1,6 @@
-Lab Collection Calculator v10.31
+Lab Collection Calculator v10.32
 
 Upload every file in this folder to the root of your GitHub repository.
 Replace files with the same names, commit to the main branch, and GitHub Pages will republish automatically.
 
-The website is static. The built-in catalog loads from data.js; only manual edits and custom tests are stored in the individual browser.
-The official directory links remain available for verification of current requirements.
+The built-in catalog loads from data.js. Browser storage contains only user-created tests/overrides and selected test IDs, preserving the v10.30 quota-safe architecture.

@@ -225,3 +225,13 @@ This was a full structural consistency audit of the built-in database for tube/s
 
 ### Quest code 1715
 - Protein, Total, Random Urine with Creatinine: preferred 10 mL well-mixed random urine, no preservative. Calculator collection container set to Sterile Urine Cup; transport container plastic urine container; yellow-top urinalysis transport tube retained as alternative.
+## v10.32 final operational/container re-audit — 2026-09-16
+
+- Reapplied the onsite rule so routine multi-tube/multi-aliquot workflows are not blocked merely for complexity.
+- Final Do Not Perform count: **7 / 2,669**.
+- Added explicit secondary required-draw support for **8837 PTH, Intact and Calcium** (Lavender EDTA plasma + SST/Gold serum).
+- Confirmed apparent similar cases as alternatives rather than simultaneous tubes where appropriate, including **6278 Propafenone** and **36494 von Willebrand Disease Gene Sequencing**.
+- Corrected trace-metal primary collection mappings for **599, 3058, 10251, 22996, and 948** and added tan-top support to the UI.
+- Corrected serum tube preference/rejection mappings for **14801, 91935, and 94264**.
+- Sterile stool requirements map to the existing **Sterile Urine Cup** name.
+- Preserved the v10.30 quota-safe storage architecture.

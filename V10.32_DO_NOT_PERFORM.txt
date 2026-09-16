@@ -1,0 +1,25 @@
+Lab Collection Calculator v10.32 — Current Do Not Perform List
+Total blocked: 7 of 2669 tests
+
+Rule: multiple routine tubes/aliquots, standard centrifugation/double-spin PPP, standard frozen handling, light protection, timed draws, and manageable serial collections are allowed. Block only a true collection/processing capability barrier.
+
+455 — Fecal Fat, Total, Quantitative
+Why: Requires the complete 72-hour stool collection in a 1-gallon leak-proof container with refrigerated handling throughout; this large-volume whole-stool workflow is not supported onsite.
+
+929 — Vitamin C
+Why: Requires ultra-low storage at approximately -70°C and rejects ordinary -20°C/thawed handling; an ultra-low freezer workflow is not supported onsite.
+
+1635 — Calcium, 24-Hour Urine with Creatinine
+Why: Requires acidification of the 24-hour urine with 6N HCl; the required acid preservative is not supported onsite.
+
+5014 — Nitrogen, Total, Feces
+Why: Requires a 24-72 hour total stool collection in performing-laboratory-supplied containers with frozen/dry-ice shipment; the required collection/shipping setup is not supported onsite.
+
+16345 — Oxalate, Serum/Plasma
+Why: Requires refrigerated centrifugation, transfer into a chilled plastic screw-cap vial, immediate freezing, and dry-ice shipment; refrigerated centrifugation is not supported onsite.
+
+36562 — Cryoglobulin (% Cryocrit), Serum — Do Not Collect Onsite
+Why: Requires the specimen to clot for 1 hour at 37°C before centrifugation; the controlled 37°C incubation workflow is not supported onsite.
+
+91238 — Human Transforming Growth Factor beta 1 (TGF-b1)
+Why: Requires platelet-free EDTA plasma with tightly timed repeated centrifugation, including 3000 x g or a validated three-spin 1600 x g workflow within 30 minutes; the required processing capability is not reliably available onsite.

@@ -1,3 +1,15 @@
+v10.32 - 2026-09-16
+- Re-audited all 2,669 records using the revised onsite rule. Multiple routine tubes/aliquots, double-spin platelet-poor plasma, standard freezing, light protection, timed draws, and manageable serial collections remain performable.
+- Do Not Perform is narrowed to 7 true onsite barriers: required HCl acidification, 37°C incubation, ultra-low -70°C storage, refrigerated centrifugation, unsupported high-g/tightly timed platelet-free-plasma processing, and impractical large whole-stool collection/shipping workflows.
+- 91664, 19878, and 11446 remain active.
+- 8837 now explicitly calculates two required collection types: Lavender EDTA plasma for PTH plus SST/Gold serum for calcium.
+- Re-audited other apparent multi-tube records: alternatives remain alternatives rather than being incorrectly added as simultaneous draws. Propafenone 6278 is Red Top serum OR sodium-heparin plasma; vWD gene sequencing 36494 accepts several tube alternatives.
+- Corrected trace-metal Lead/ZPP collection mappings for 599, 3058, 10251, 22996, and 948. Added K2 EDTA Tan Top / Tan Sodium Heparin support to tube styling and the edit menu.
+- Corrected serum collection preference mappings for 14801, 91935, and 94264.
+- Normalized 15 additional records whose Quest preferred-specimen text listed multiple acceptable tubes but the calculator had not exposed those alternatives.
+- Sterile stool requirements continue to use the existing name "Sterile Urine Cup"; no new stool-container name was created.
+- Browser-storage architecture from v10.30 is preserved: the 2,669-record built-in catalog remains in data.js, while localStorage stores only custom records/overrides and selected IDs.
+
 v10.31 - 2026-09-16
 - Re-reviewed the full 2,669-test catalog and moved high-complexity collection/processing workflows to Do Not Perform.
 - High-complexity criteria include repeated platelet-poor plasma centrifugation, 3+ separate tubes/aliquots, multi-step stimulation/challenge or larger timed-series collections, and unusually controlled or exceptional collection handling.

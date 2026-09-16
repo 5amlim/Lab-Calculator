@@ -1,0 +1,65 @@
+Lab Collection Calculator v10.32 — Final QA
+
+Catalog records: 2669
+Active: 2662
+Do Not Perform: 7
+Unique test codes: 2667
+
+Key checks:
+- PASS: Catalog record count = 2669
+- PASS: Blocked count = 7
+- PASS: 91664 active + Sterile Urine Cup
+- PASS: 19878 active
+- PASS: 11446 active
+- PASS: 8837 has SST secondary required draw
+- PASS: 6278 has no secondary required draw
+- PASS: 599 no Lavender primary
+- PASS: 3058 no Lavender primary
+- PASS: 10251 no Lavender primary
+- PASS: 22996 no Lavender primary
+- PASS: 948 no Lavender primary
+- PASS: 36494 primary Lavender EDTA
+- PASS: 14801 primary SST/Gold
+- PASS: 91935 primary Red Top
+- PASS: 94264 primary SST/Gold
+- PASS: 10913 preferred-specimen alternatives captured
+- PASS: 10915 preferred-specimen alternatives captured
+- PASS: 10917 preferred-specimen alternatives captured
+- PASS: 15088 preferred-specimen alternatives captured
+- PASS: 16053 preferred-specimen alternatives captured
+- PASS: 16072 preferred-specimen alternatives captured
+- PASS: 16080 preferred-specimen alternatives captured
+- PASS: 16141 preferred-specimen alternatives captured
+- PASS: 16152 preferred-specimen alternatives captured
+- PASS: 16313 preferred-specimen alternatives captured
+- PASS: 16526 preferred-specimen alternatives captured
+- PASS: 17220 preferred-specimen alternatives captured
+- PASS: 19503 preferred-specimen alternatives captured
+- PASS: 34296 preferred-specimen alternatives captured
+- PASS: 92045 preferred-specimen alternatives captured
+- PASS: All blocked codes match final rule
+- PASS: Sterile stool mapping 11235
+- PASS: Sterile stool mapping 1304
+- PASS: Sterile stool mapping 16377
+- PASS: Sterile stool mapping 34964
+- PASS: Sterile stool mapping 38684
+- PASS: Sterile stool mapping 38945
+- PASS: Sterile stool mapping 4408
+- PASS: Sterile stool mapping 58792
+- PASS: Sterile stool mapping 91664
+- PASS: Sterile stool mapping 92014
+- PASS: v10.30 quota-safe architecture comment retained
+- PASS: Legacy full DB keys cleaned
+- PASS: User data saved separately
+- PASS: Secondary required draws in-memory
+- PASS: Tan tube class supported
+- PASS: No strong preferred-container mismatches remain
+
+Architecture:
+- Built-in catalog remains in data.js.
+- localStorage remains limited to user-created tests/overrides and selected IDs.
+- Secondary required draw rows are generated in memory for calculations/printing and do not duplicate the catalog.
+
+Audit reports:
+- V10.32_DO_NOT_PERFORM.txt
+- V10.32_CONTAINER_AUDIT.txt
