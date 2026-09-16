@@ -243,3 +243,14 @@ This was a full structural consistency audit of the built-in database for tube/s
 - Added explicit-only collection and submission count parsing.
 - Added compatible pooling for the remaining routine blood-tube classes while preserving additive and temperature separation.
 - Added Total-Fix® stool workflow entries for codes 681, 1748, 10018, 3930, 8625, 90389, and 39441.
+
+
+## v10.34 preferred-volume display and blocked-list audit — 2026-09-16
+
+- Catalog count: 2,676 total records, 2,669 active, 7 Do Not Perform.
+- Added display-layer normalization for preferred/minimum volume badges so source tube and transport-container wording is not repeated when those requirements are represented elsewhere in the record.
+- Audited all preferred-volume strings: 953 are shortened for display; none become blank; no cleaned preferred-volume string retains leading “Preferred” or the redundant “collected/submitted/preserved in …” phrasing.
+- Meaningful qualifiers are retained, including no-gel restrictions, light protection, preservative-free status, full-tube requirements, explicit multiple-tube counts, and multiple-aliquot splits.
+- The underlying raw catalog fields remain intact in data.js so the collection/count parser and source record are not degraded by presentation cleanup.
+- Do Not Perform entries were removed from the ordinary library filter path and are exposed only through the dedicated collapsed list button at the bottom of the library.
+- Browser-storage architecture remains unchanged from v10.30: built-ins load from data.js; localStorage contains only user state and selected IDs.

@@ -60,7 +60,6 @@
             <option value="Swab">Swab</option>
             <option value="Other">Other</option>
           </select>
-          <label class="check-label"><input type="checkbox" id="showBlocked"> Show “do not perform” entries</label>
         </div>
         <div class="table-wrap">
           <table class="library-table">
@@ -70,7 +69,7 @@
                 <th>Test</th>
                 <th>Specimen / draw tube</th>
                 <th>Temperature</th>
-                <th>Preferred volume</th>
+                <th>Volume</th>
                 <th><span class="sr-only">Actions</span></th>
               </tr>
             </thead>
@@ -82,8 +81,17 @@
         </div>
         <div class="pagination-row">
           <span id="libraryStatus" role="status"></span>
-          <button class="button ghost" id="loadMoreButton">Show more tests</button>
+          <div class="library-footer-actions">
+            <button class="button ghost" id="loadMoreButton">Show more tests</button>
+            <button class="button ghost blocked-list-button" id="blockedListButton" type="button" aria-expanded="false" aria-controls="blockedListPanel">Do not perform list</button>
+          </div>
         </div>
+        <section class="blocked-list-panel hidden" id="blockedListPanel" aria-label="Do not perform list">
+          <div class="blocked-list-heading">
+            <div><strong>Do not perform</strong><span>Tests that require collection, processing, storage, or supplies outside the supported onsite workflow.</span></div>
+          </div>
+          <div class="blocked-list" id="blockedListBody"></div>
+        </section>
         <p class="library-help">Can’t find a test? <a href="https://testdirectory.questdiagnostics.com/" target="_blank" rel="noreferrer">Check the official directory ↗</a> or contact Sam to have it added.</p>
       </div>
     </section>

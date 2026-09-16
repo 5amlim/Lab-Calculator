@@ -46,8 +46,9 @@
   const els = {
     recordCount: $('recordCount'), searchInput: $('searchInput'), addBestButton: $('addBestButton'),
     previewButton: $('previewButton'), clearSearchButton: $('clearSearchButton'), batchResults: $('batchResults'),
-    libraryFilter: $('libraryFilter'), specimenFilter: $('specimenFilter'), showBlocked: $('showBlocked'),
+    libraryFilter: $('libraryFilter'), specimenFilter: $('specimenFilter'),
     libraryBody: $('libraryBody'), libraryStatus: $('libraryStatus'), loadMoreButton: $('loadMoreButton'), loadMoreInlineButton: $('loadMoreInlineButton'),
+    blockedListButton: $('blockedListButton'), blockedListPanel: $('blockedListPanel'), blockedListBody: $('blockedListBody'),
     addTestButton: $('addTestButton'), addSelectedTestButton: $('addSelectedTestButton'), testsDetailsButton: $('testsDetailsButton'), testsDetailsPanel: $('testsDetailsPanel'),
     selectedCount: $('selectedCount'), selectedList: $('selectedList'), testsOverviewList: $('testsOverviewList'), testsOverviewSummary: $('testsOverviewSummary'),
     drawPlan: $('drawPlan'), drawPlanSummary: $('drawPlanSummary'), orderOfDraw: $('orderOfDraw'), orderOfDrawSummary: $('orderOfDrawSummary'), collectionAlerts: $('collectionAlerts'), clearOrderButton: $('clearOrderButton'),
@@ -68,6 +69,7 @@
   let selectedIds = loadSelectedIds();
   finalizeStorageMigration();
   let libraryLimit = PAGE_STEP;
+  let blockedListOpen = false;
   let toastTimer;
 
   init();
@@ -91,8 +93,8 @@
     });
     els.libraryFilter.addEventListener('input', () => { libraryLimit = PAGE_STEP; renderLibrary(); });
     els.specimenFilter.addEventListener('change', () => { libraryLimit = PAGE_STEP; renderLibrary(); });
-    els.showBlocked.addEventListener('change', () => { libraryLimit = PAGE_STEP; renderLibrary(); });
     els.loadMoreButton.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
+    els.blockedListButton?.addEventListener('click', () => { blockedListOpen = !blockedListOpen; renderBlockedList(); });
     els.loadMoreInlineButton?.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
     els.libraryBody.addEventListener('click', handleLibraryClick);
     els.batchResults.addEventListener('click', handleBatchClick);
@@ -115,6 +117,7 @@
   function renderAll() {
     els.recordCount.textContent = `${database.length} tests`;
     renderLibrary();
+    renderBlockedList();
     renderOrder();
   }
 
@@ -351,17 +354,74 @@
         requirement.purpose,
         requirement.specimenType,
         `from ${requirement.container}`,
-        requirement.preferredVolume ? `Preferred ${requirement.preferredVolume}` : '',
+        requirement.preferredVolume ? `Volume ${cleanVolumeDisplayText(requirement.preferredVolume)}` : '',
         requirement.minimumVolume ? `Minimum ${requirement.minimumVolume}` : ''
       ].filter(Boolean);
       return `<div class="${cls}"><strong>Also required:</strong> ${escapeHtml(parts.join(' · '))}</div>`;
     }).join('');
   }
 
+  function cleanVolumeDisplayText(value) {
+    let text = String(value || '')
+      .replace(/[\u0000-\u001f\u007f]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .replace(/^preferred\s*:?\s*/i, '');
+    if (!text) return '';
+
+    const flags = [];
+    const addFlag = (label) => { if (label && !flags.includes(label)) flags.push(label); };
+    const numberWord = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10 };
+    const countValue = (raw) => numberWord[String(raw || '').toLowerCase()] || Number(raw) || 0;
+
+    if (/\b(?:protect(?:ed)? from light|light[- ]protected)\b/i.test(text)) addFlag('protected from light');
+    if (/\b(?:no gel|without gel)\b/i.test(text)) addFlag('no gel');
+    if (/\b(?:preservative[- ]free|no preservative|unpreserved)\b/i.test(text)) addFlag('preservative-free');
+    const fullTube = /\bfull\b[^;]{0,35}\btube\b/i.test(text);
+
+    // Preserve meaningful counts before removing redundant container wording.
+    let tubeCount = 0;
+    let countMatch = text.match(/\b(?:collected|drawn|submitted?)\b[^;]{0,90}\b(?:in|from)\s+(two|three|four|five|six|seven|eight|nine|ten|\d+)\s+(?:separate\s+)?[^;]{0,45}?tubes?\b/i);
+    if (!countMatch) countMatch = text.match(/\beach\s+of\s+(two|three|four|five|six|seven|eight|nine|ten|\d+)\s+[^;]{0,45}?(?:EDTA|citrate|heparin|tubes?)\b/i);
+    if (countMatch) tubeCount = countValue(countMatch[1]);
+
+    const aliquotMatch = text.match(/\bsubmit\s+(two|three|four|five|six|seven|eight|nine|ten|\d+)\s+(?:separate\s+)?aliquots?\b/i);
+    const aliquotCount = aliquotMatch ? countValue(aliquotMatch[1]) : 0;
+    const splitMatch = text.match(/\[\s*(\d+(?:\.\d+)?)\s*mL\s*[x×]\s*(\d+)\s*\]/i);
+
+    // "Preferred volume" should describe the specimen amount/state, not repeat
+    // the tube or transport container already shown elsewhere in the interface.
+    text = text
+      .replace(/^submit\s+(?:one|two|three|four|five|six|seven|eight|nine|ten|\d+)\s+(?:separate\s+)?aliquots?\s*;\s*/i, '')
+      .replace(/\s+(?:collected|submitted|preserved)\s+(?:in|into)\b.*$/i, '')
+      .replace(/\s+from\s+(?:an?\s+)?(?:a\s+)?full\s+[^;]*?\btube\b.*$/i, '')
+      .replace(/\s+(?:in|into)\s+(?:an?\s+)?[^;]*?\b(?:tubes?|vials?|containers?|cups?)\b.*$/i, '')
+      .replace(/\s*\[\s*\d+(?:\.\d+)?\s*mL\s*[x×]\s*\d+\s*\]\s*/ig, ' ')
+      .replace(/(?:\s*[-–—,;:]\s*)?(?:protect(?:ed)? from light|light[- ]protected)\b/ig, '')
+      .replace(/(?:\s*[-–—,;:]\s*)?(?:preservative[- ]free|no preservative|unpreserved)\b/ig, '')
+      .replace(/\s*\(?\s*(?:no gel|without gel)\s*\)?/ig, '')
+      .replace(/\s+/g, ' ')
+      .replace(/\s*[-–—,;:]\s*$/g, '')
+      .trim();
+
+    text = text
+      .replace(/^whole blood\s+(?:from\s+)?(?:a\s+)?full\s+.*$/i, 'Full tube whole blood')
+      .replace(/^whole blood full\s+.*$/i, 'Full tube whole blood')
+      .replace(/\b(\d+(?:\.\d+)?)\s*hour\b/ig, '$1-hour')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    if (fullTube && !/\bfull tube\b/i.test(text)) addFlag('full tube');
+    if (tubeCount > 1) addFlag(`${tubeCount} tubes`);
+    if (aliquotCount > 1) addFlag(`${aliquotCount} aliquots`);
+    if (splitMatch) addFlag(`${splitMatch[1]} mL × ${splitMatch[2]}`);
+    return [text, ...flags].filter(Boolean).join(' - ');
+  }
+
   function combinedVolumeText(test, label) {
-    const primary = label === 'preferred' ? test.preferredVolume : test.minimumVolume;
+    const primary = cleanVolumeDisplayText(label === 'preferred' ? test.preferredVolume : test.minimumVolume);
     const extras = additionalDrawRequirements(test)
-      .map(requirement => label === 'preferred' ? requirement.preferredVolume : requirement.minimumVolume)
+      .map(requirement => cleanVolumeDisplayText(label === 'preferred' ? requirement.preferredVolume : requirement.minimumVolume))
       .filter(Boolean);
     return [primary, ...extras].filter(Boolean).join(' + ');
   }
@@ -579,9 +639,8 @@
   function renderLibrary() {
     const filter = normalizeSearch(els.libraryFilter.value);
     const specimenCategory = els.specimenFilter.value;
-    const showBlocked = els.showBlocked.checked;
     const filtered = database.filter(test => {
-      if (!showBlocked && test.status === 'blocked') return false;
+      if (test.status === 'blocked') return false;
       if (specimenCategory && specimenFilterCategory(test.specimenType) !== specimenCategory) return false;
       if (!filter) return true;
       const haystack = normalizeSearch([
@@ -597,6 +656,31 @@
     const allLibraryTestsShown = shown.length >= filtered.length;
     els.loadMoreButton.classList.toggle('hidden', allLibraryTestsShown);
     els.loadMoreInlineButton?.classList.toggle('hidden', allLibraryTestsShown);
+  }
+
+  function blockedReason(test) {
+    const raw = String(test.specialInstructions || '').trim();
+    if (!raw) return 'This test is not supported by the current onsite collection or processing workflow.';
+    const cleaned = raw
+      .replace(/^Do not perform onsite\.\s*/i, '')
+      .split(/\s+(?:Patient preparation|Collection details|Unacceptable specimens):/i)[0]
+      .trim();
+    return cleaned || 'This test is not supported by the current onsite collection or processing workflow.';
+  }
+
+  function renderBlockedList() {
+    if (!els.blockedListButton || !els.blockedListPanel || !els.blockedListBody) return;
+    const blocked = database.filter(test => test.status === 'blocked');
+    els.blockedListButton.textContent = blockedListOpen ? `Hide do not perform list (${blocked.length})` : `Do not perform list (${blocked.length})`;
+    els.blockedListButton.setAttribute('aria-expanded', String(blockedListOpen));
+    els.blockedListPanel.classList.toggle('hidden', !blockedListOpen);
+    if (!blockedListOpen) return;
+    els.blockedListBody.innerHTML = blocked.length ? blocked.map(test => `
+      <article class="blocked-list-item">
+        <div class="blocked-list-code">${escapeHtml(displayCode(test))}</div>
+        <div class="blocked-list-copy"><strong>${escapeHtml(test.testName)}</strong><p>${escapeHtml(blockedReason(test))}</p></div>
+        <a class="blocked-list-link" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a>
+      </article>`).join('') : '<div class="empty-state">No tests are currently marked do not perform.</div>';
   }
 
   function renderLibraryRow(test) {
@@ -718,7 +802,7 @@
     els.selectedList.innerHTML = tests.map(test => `
       <article class="selected-card">
         <div class="selected-card-top">
-          <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</div><div class="subtext specimen-line">${requiredSpecimenBadges(test)} <span>·</span> <span class="preferred-volume-inline">Preferred ${escapeHtml(combinedVolumeText(test, 'preferred') || 'verify')}</span> <span>· Minimum ${escapeHtml(combinedVolumeText(test, 'minimum') || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}</div>
+          <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</div><div class="subtext specimen-line">${requiredSpecimenBadges(test)} <span>·</span> <span class="preferred-volume-inline">${escapeHtml(combinedVolumeText(test, 'preferred') || 'verify')}</span> <span>· Minimum ${escapeHtml(combinedVolumeText(test, 'minimum') || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}</div>
           <div><a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove selected-card-delete" data-action="remove" data-id="${escapeAttr(test.id)}" type="button" aria-label="Delete ${escapeAttr(test.testName)}">Delete</button></div>
         </div>
         <div class="selected-details">
@@ -1967,7 +2051,7 @@
       <table class="print-table">
         <colgroup><col style="width:6%"><col style="width:14%"><col style="width:7%"><col style="width:10%"><col style="width:10%"><col style="width:5%"><col style="width:8%"><col style="width:7%"><col style="width:8%"><col style="width:25%"></colgroup>
         <thead><tr><th>Code</th><th>Test</th><th>Specimen</th><th>Draw container</th><th>Transport tube</th><th>Spin</th><th>Temperature</th><th>Volume</th><th>Stability</th><th>Special handling</th></tr></thead>
-        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><div class="print-test-name-stack"><strong>${escapeHtml(test.testName)}</strong>${fastingBadge(test, 'print-test-fasting-badge')}</div>${test.alternativeContainer ? `<div class="print-test-alternative">Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span></div>` : ''}${additionalRequirementSummary(test, true)}</td><td>${requiredSpecimenBadges(test, 'print-specimen-badge')}</td><td>${requiredDrawContainerBadges(test, 'print-tube-badge')}</td><td>${printContainerBadges(test)}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">Preferred: ${escapeHtml(combinedVolumeText(test, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(combinedVolumeText(test, 'minimum') || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
+        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><div class="print-test-name-stack"><strong>${escapeHtml(test.testName)}</strong>${fastingBadge(test, 'print-test-fasting-badge')}</div>${test.alternativeContainer ? `<div class="print-test-alternative">Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span></div>` : ''}${additionalRequirementSummary(test, true)}</td><td>${requiredSpecimenBadges(test, 'print-specimen-badge')}</td><td>${requiredDrawContainerBadges(test, 'print-tube-badge')}</td><td>${printContainerBadges(test)}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">${escapeHtml(combinedVolumeText(test, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(combinedVolumeText(test, 'minimum') || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
       </table>
       ${printCollectionSubmissionPlan(tests)}
       <div class="print-footer">

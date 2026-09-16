@@ -1,3 +1,15 @@
+v10.34 - 2026-09-16
+
+- Cleaned preferred-volume display wording across the full 2,676-record catalog without changing the underlying collection requirements used for calculations.
+- 953 records with redundant tube/container wording now render concise volume/specimen text. Examples: “1 mL serum collected in a red-top tube (no gel)” → “1 mL serum - no gel”; “2 mL frozen platelet-poor citrated plasma collected in a 3.2% sodium citrate tube” → “2 mL frozen platelet-poor citrated plasma”.
+- Preserved clinically meaningful qualifiers such as frozen, platelet-poor, no gel, light protection, preservative-free status, full-tube requirements, multi-tube counts, and multi-aliquot splits.
+- Renamed the catalog display column from “Preferred volume” to “Volume” and removed redundant “Preferred” wording from selected-test and print volume badges.
+- Removed the always-visible “Show do not perform entries” checkbox from the library filters.
+- Added a collapsed “Do not perform list (7)” button below the bottom Show more tests control. It is hidden by default, opens only when clicked, and shows code, test name, reason, and official-directory link.
+- Added responsive styles for the new footer controls/list and improved wrapping of long volume badges on smaller screens.
+- Do Not Perform status remains 7 tests; active catalog remains 2,669 tests.
+- v10.30 storage architecture remains unchanged.
+
 v10.33 - 2026-09-16
 
 - Fixed a free-text count parser bug that could turn specimen quantities or timing into extra collection containers (for example, “10 g ... into the container” became 10 containers).
