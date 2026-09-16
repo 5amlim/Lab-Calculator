@@ -1,0 +1,17 @@
+Lab Collection Calculator v10.36 QA
+
+Stool-container normalization
+- Quest code 3141 Cathartic Laxatives Profile, Stool now uses Trace Metal-Free Plastic Container for collection and submission.
+- 3141 volume text is normalized to 10 g stool; minimum is 10 g solid stool or 10 mL liquid stool.
+- 3141 instructions specify acid-washed or trace metal-free plastic, no preservative, and one specimen per order / no sharing.
+- Routine unpreserved stool tests formerly labeled generic "Stool Container" now use the existing Sterile Urine Cup: 3967, 5022, 8428, 14628, 14693, 16796, 19098, 34838.
+- Special stool workflows remain distinct rather than being mislabeled as Sterile Urine Cup:
+  - 455: 1-Gallon Leak-Proof Stool Collection Container
+  - 5014: Performing-Lab-Supplied Total Stool Collection Container
+  - Total-Fix® tests remain Total-Fix® Transport Vial.
+- No records remain with the exact generic draw-container label "Stool Container".
+
+Architecture / regression
+- No changes to browser-storage architecture.
+- No changes to pooling or blood-tube calculation logic.
+- Existing Total-Fix®, sterile stool, and Do Not Perform behavior remains intact.

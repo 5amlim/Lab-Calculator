@@ -1410,6 +1410,7 @@
       'tube-yellow': 'Yellow ACD',
       'tube-aptima': 'Aptima Multitest Transport Tube (orange label)',
       'tube-total-fix': 'Total-Fix® Transport Vial',
+      'tube-trace-metal-container': 'Trace Metal-Free Plastic Container',
       'tube-urine-cup': 'Sterile Urine Cup',
       'tube-ua-swirl': 'Red/Yellow Swirl UA Preservative Tube',
       'tube-urine-culture': 'Gray-Top Urine Culture Preservative Tube'
@@ -2103,6 +2104,7 @@
     const value = String(container || '').toLowerCase();
     if (/aptima/.test(value)) return 'tube-aptima';
     if (/total[- ]?fix/.test(value)) return 'tube-total-fix';
+    if (/(?:trace[ -]?metal[- ]?free|acid[- ]?washed).*container|container.*(?:trace[ -]?metal[- ]?free|acid[- ]?washed)/.test(value)) return 'tube-trace-metal-container';
     if (/sterile\s+urine\s+cup|urine\s+collection\s+cup/.test(value)) return 'tube-urine-cup';
     if (/blood culture|culture bottle|bactec|\bsps\b/.test(value)) return 'tube-culture';
     if (value.includes('red/yellow') && (value.includes('gray') || value.includes('grey'))) return 'tube-ua-pair';
