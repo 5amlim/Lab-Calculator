@@ -1,0 +1,7 @@
+Lab Collection Calculator v10.42 QA
+
+UI-only update:
+- Add this match uses the prior yellow/gold confirmation styling.
+- Search directory keeps the neutral gray styling.
+- Add this match remains above Search directory.
+- No data or calculation logic changed.

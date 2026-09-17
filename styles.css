@@ -1380,8 +1380,8 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 .batch-alternatives span { display: inline-block; margin-right: 6px; color: #819099; font-size: 9.5px; font-weight: 820; letter-spacing: .025em; }
 .batch-row-action { display: flex; justify-content: flex-end; align-items: center; }
 .batch-row-action .mini-button { min-width: 110px; min-height: 36px; margin-left: 0; padding: 8px 12px; }
-.mini-button.confirm-match-button { background: #f1f3f5; color: #52636c; border: 0; box-shadow: none; }
-.mini-button.confirm-match-button:hover { background: #e7ebee; }
+.mini-button.confirm-match-button { background: #fff1bf; color: #684b14; border: 1px solid #d7ae44; box-shadow: 0 1px 0 rgba(104,75,20,.05); }
+.mini-button.confirm-match-button:hover { background: #ffe8a3; }
 .mini-button.confirm-match-button:disabled { opacity: .65; cursor: default; }
 .batch-row.needs-confirmation { background: #fffaf0; border-color: #e4c773; box-shadow: inset 4px 0 0 #c58a20; }
 .batch-status { margin-top: 0; }
@@ -1400,7 +1400,7 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 }
 
 
-/* v10.41: possible-match actions ordered consistently and use neutral button styling */
+/* v10.42: keep Add this match emphasized while Search directory stays neutral */
 .batch-row.needs-confirmation .batch-row-action {
   flex-direction: column;
   align-items: stretch;

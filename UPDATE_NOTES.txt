@@ -1,5 +1,5 @@
-v10.41
-- Moved Add this match above Search directory on possible-match cards.
-- Changed Add this match to the same neutral gray button color scheme used by Search directory.
-- Kept the stacked desktop layout and responsive mobile behavior unchanged.
+v10.42
+- Restored the original yellow/gold styling for Add this match.
+- Kept Add this match above Search directory.
+- Search directory remains in the neutral gray style.
 - No database, specimen, calculation, pooling, or storage changes.
