@@ -1,19 +1,5 @@
-v10.40
-- Added a Search directory action directly to yellow possible-match cards.
-- Search directory opens the official directory search for the user-entered text.
-- Kept Add this match as the primary confirmation action.
-- On mobile, the two actions resize cleanly and stack on very narrow screens.
-
-v10.38
-
-- Added Quest test 19833: Glucose, Gestational Screen (50g), 140 Cutoff.
-- Added Quest test 763: Partial Thromboplastin Time, Activated (aPTT).
-- Safer batch matching: only exact test-code or exact normalized test-name matches are auto-added by “Add best matches.” Partial/fuzzy matches are highlighted and require explicit confirmation before they can be added.
-- No changes to pooling, collection calculations, Do Not Perform rules, or the v10.30 browser-storage architecture.
-
-v10.39
-- Cleaned up multi-test possible-match review UI.
-- Removed duplicate confirmation-only warnings from the Not added summary.
-- Added compact status chips plus clearer You entered / Best match labeling.
-- Improved exact-match, confirmation, action, and mobile states without changing matching behavior.
-
+v10.41
+- Moved Add this match above Search directory on possible-match cards.
+- Changed Add this match to the same neutral gray button color scheme used by Search directory.
+- Kept the stacked desktop layout and responsive mobile behavior unchanged.
+- No database, specimen, calculation, pooling, or storage changes.

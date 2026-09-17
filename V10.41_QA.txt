@@ -1,0 +1,7 @@
+Lab Collection Calculator v10.41 QA
+
+UI-only update:
+- Add this match renders before Search directory in possible-match action groups.
+- Both actions use the same neutral gray color scheme.
+- Responsive layout remains two equal columns on mid-size mobile and one column on narrow screens.
+- No data or calculation logic changed.

@@ -677,8 +677,8 @@
         ${alternatives ? `<div class="batch-alternatives"><span>Other possible matches</span>${escapeHtml(alternatives)}</div>` : ''}
       </div>
       <div class="batch-row-action">
-        ${needsConfirmation ? `<a class="mini-button edit batch-directory-button" href="${escapeAttr(directorySearchUrl(row.query))}" target="_blank" rel="noreferrer">Search directory ↗</a>` : ''}
         <button class="mini-button ${needsConfirmation ? 'confirm-match-button' : ''}" data-action="add" data-id="${escapeAttr(best.test.id)}" data-query="${escapeAttr(row.query)}" data-needs-confirmation="${needsConfirmation ? 'true' : 'false'}" ${blocked || selected ? 'disabled' : ''}>${buttonLabel}</button>
+        ${needsConfirmation ? `<a class="mini-button edit batch-directory-button" href="${escapeAttr(directorySearchUrl(row.query))}" target="_blank" rel="noreferrer">Search directory ↗</a>` : ''}
       </div>
     </div>`;
   }
