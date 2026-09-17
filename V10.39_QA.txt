@@ -1,0 +1,12 @@
+Lab Collection Calculator v10.39 QA
+
+Multi-test match review UI cleanup:
+- Renamed the section to Review matches.
+- Replaced the duplicated "Not added" list for confirmation-only matches with compact summary chips.
+- Possible matches now show clearly separated "You entered" and "Best match" areas.
+- Shortened the repeated warning to "Needs confirmation" and changed the action to "Add this match".
+- Exact matches receive an "Exact match" status and added tests display "✓ Added".
+- Other possible matches remain visible but are de-emphasized.
+- True failures (no match, blocked, low-confidence, add failure) still appear in the Needs attention summary.
+- Mobile layout stacks cleanly and makes the action button full width.
+- Existing exact-match-only auto-add behavior and the browser confirmation step for fuzzy matches remain unchanged.

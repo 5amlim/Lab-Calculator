@@ -578,42 +578,61 @@
     }
 
     const matchedCount = rows.filter(row => row.matches.length).length;
+    const confirmCount = rows.filter(row => row.outcome === 'confirm-match').length;
+    const inSummaryCount = rows.filter(row => ['added', 'already-selected'].includes(row.outcome)).length;
+    const hardIssueCount = rows.filter(row => ['no-match', 'blocked', 'low-confidence', 'not-added'].includes(row.outcome)).length;
     const unresolved = rows.filter(row => ['no-match', 'blocked', 'low-confidence', 'confirm-match', 'not-added'].includes(row.outcome));
     const resultSummary = renderBatchResultSummary(rows, addBest);
+    const reviewSummary = renderBatchReviewSummary(inSummaryCount, confirmCount, hardIssueCount, addBest);
 
     if (addBest) {
       const alreadySelected = rows.filter(row => row.outcome === 'already-selected').length;
       const accountedFor = added + alreadySelected;
       if (unresolved.length) {
-        showToast(`${accountedFor} ${accountedFor === 1 ? 'test is' : 'tests are'} in the summary. ${unresolved.length} not added — see list.`);
+        showToast(`${accountedFor} ${accountedFor === 1 ? 'test is' : 'tests are'} in the summary. ${unresolved.length} ${unresolved.length === 1 ? 'entry needs' : 'entries need'} review.`);
       } else {
         showToast(`All ${rows.length} ${rows.length === 1 ? 'test is' : 'tests are'} in the summary.`);
       }
     }
 
+    const headerText = confirmCount
+      ? `${confirmCount} ${confirmCount === 1 ? 'possible match needs' : 'possible matches need'} your confirmation before adding.`
+      : hardIssueCount
+        ? `${hardIssueCount} ${hardIssueCount === 1 ? 'entry needs' : 'entries need'} attention.`
+        : `${matchedCount} of ${rows.length} entries matched.`;
+
     els.batchResults.classList.remove('hidden');
     els.batchResults.innerHTML = `
-      <div class="panel-heading">
-        <div><h2>Matches for your list</h2><p>${matchedCount} of ${rows.length} entries have possible matches. Check that each match is the test you need.</p></div>
+      <div class="panel-heading batch-panel-heading">
+        <div><h2>Review matches</h2><p>${headerText}</p></div>
       </div>
+      ${reviewSummary}
       ${resultSummary}
       <div class="batch-grid">
         ${rows.map(renderBatchRow).join('')}
       </div>`;
   }
 
+  function renderBatchReviewSummary(inSummaryCount, confirmCount, hardIssueCount, addBest) {
+    if (!addBest && !confirmCount && !hardIssueCount) return '';
+    const chips = [];
+    if (addBest && inSummaryCount) chips.push(`<span class="batch-summary-chip is-added">✓ ${inSummaryCount} ${inSummaryCount === 1 ? 'in summary' : 'in summary'}</span>`);
+    if (confirmCount) chips.push(`<span class="batch-summary-chip needs-review">${confirmCount} ${confirmCount === 1 ? 'needs confirmation' : 'need confirmation'}</span>`);
+    if (hardIssueCount) chips.push(`<span class="batch-summary-chip has-issue">${hardIssueCount} ${hardIssueCount === 1 ? 'needs attention' : 'need attention'}</span>`);
+    return chips.length ? `<div class="batch-review-summary">${chips.join('')}</div>` : '';
+  }
+
   function renderBatchResultSummary(rows, addBest) {
     if (rows.length < 2) return '';
 
-    const unresolved = rows.filter(row => ['no-match', 'blocked', 'low-confidence', 'confirm-match', 'not-added'].includes(row.outcome));
-    if (!unresolved.length) {
-      if (!addBest) return '';
-      return `<div class="batch-status batch-status-success"><strong>Matches for all ${rows.length} entries are in the summary.</strong><span>Check the selected tests before collecting.</span></div>`;
-    }
+    // Possible matches that simply need confirmation are shown directly on their cards.
+    // Keep this summary only for true problems so the same warning is not repeated twice.
+    const unresolved = rows.filter(row => ['no-match', 'blocked', 'low-confidence', 'not-added'].includes(row.outcome));
+    if (!unresolved.length) return '';
 
-    const label = addBest ? 'Not added' : 'Needs attention';
+    const label = addBest ? 'Needs attention' : 'Needs attention';
     return `<div class="batch-status batch-status-warning">
-      <div class="batch-status-heading"><strong>${label} (${unresolved.length})</strong><span>${addBest ? 'These entries were not added to the summary.' : 'Check these entries; no clear match was found.'}</span></div>
+      <div class="batch-status-heading"><strong>${label} (${unresolved.length})</strong><span>These entries could not be added automatically.</span></div>
       <ul class="batch-missing-list">
         ${unresolved.map(row => `<li><strong>${escapeHtml(row.query)}</strong><span>${escapeHtml(batchOutcomeReason(row.outcome))}</span></li>`).join('')}
       </ul>
@@ -630,22 +649,34 @@
 
   function renderBatchRow(row) {
     if (!row.matches.length) {
-      return `<div class="batch-row unmatched"><div class="batch-query">${escapeHtml(row.query)}</div><div class="batch-match">No local match found<small>Check the official directory, then enter the collection details.</small></div><div class="batch-unmatched-actions"><a class="mini-button edit" href="${escapeAttr(directorySearchUrl(row.query))}" target="_blank" rel="noreferrer">Search Official Directory ↗</a><button class="mini-button edit" data-action="new-from-query" data-query="${escapeAttr(row.query)}">Add missing test</button></div></div>`;
+      return `<div class="batch-row unmatched">
+        <div class="batch-query-block"><span class="batch-kicker">You entered</span><div class="batch-query">${escapeHtml(row.query)}</div></div>
+        <div class="batch-match"><span class="batch-kicker">Result</span><strong>No local match found</strong><small>Check the official directory or add the test manually.</small></div>
+        <div class="batch-unmatched-actions"><a class="mini-button edit" href="${escapeAttr(directorySearchUrl(row.query))}" target="_blank" rel="noreferrer">Search directory ↗</a><button class="mini-button edit" data-action="new-from-query" data-query="${escapeAttr(row.query)}">Add missing test</button></div>
+      </div>`;
     }
     const best = row.matches[0];
     const alternatives = row.matches.slice(1).map(item => `${item.test.testCode} ${item.test.testName}`).join(' · ');
     const blocked = best.test.status === 'blocked';
     const exact = isExactBatchMatch(row.query, best.test);
     const needsConfirmation = !blocked && !exact;
-    const rowClass = blocked ? 'unmatched' : needsConfirmation ? 'needs-confirmation' : '';
-    const warning = needsConfirmation ? '<span class="batch-match-warning">Possible match — confirm before adding.</span>' : '';
-    const buttonLabel = selectedIds.includes(best.test.id) ? 'Added' : needsConfirmation ? 'Confirm + Add' : 'Add';
+    const selected = selectedIds.includes(best.test.id);
+    const rowClass = blocked ? 'unmatched' : needsConfirmation ? 'needs-confirmation' : 'exact-match';
+    const status = blocked
+      ? '<span class="batch-match-warning is-blocked">Do not perform</span>'
+      : needsConfirmation
+        ? '<span class="batch-match-warning">Needs confirmation</span>'
+        : '<span class="batch-match-exact">Exact match</span>';
+    const buttonLabel = selected ? '✓ Added' : needsConfirmation ? 'Add this match' : '+ Add';
     return `<div class="batch-row ${rowClass}">
-      <div class="batch-query">${escapeHtml(row.query)}</div>
-      <div class="batch-match"><strong>${escapeHtml(displayCode(best.test))} · ${escapeHtml(best.test.testName)}</strong>
-        ${warning}<small>${blocked ? 'Marked do not perform. ' : ''}${requiredSpecimenBadges(best.test)} · ${requiredDrawContainerBadges(best.test)}${alternatives ? `<br>Other matches: ${escapeHtml(alternatives)}` : ''}</small>
+      <div class="batch-query-block"><span class="batch-kicker">You entered</span><div class="batch-query">${escapeHtml(row.query)}</div></div>
+      <div class="batch-match">
+        <div class="batch-match-title"><span class="batch-kicker">Best match</span>${status}</div>
+        <strong>${escapeHtml(displayCode(best.test))} · ${escapeHtml(best.test.testName)}</strong>
+        <div class="batch-match-meta">${blocked ? '<span>Marked do not perform</span>' : ''}${requiredSpecimenBadges(best.test)}<span class="batch-meta-dot">·</span>${requiredDrawContainerBadges(best.test)}</div>
+        ${alternatives ? `<div class="batch-alternatives"><span>Other possible matches</span>${escapeHtml(alternatives)}</div>` : ''}
       </div>
-      <button class="mini-button ${needsConfirmation ? 'confirm-match-button' : ''}" data-action="add" data-id="${escapeAttr(best.test.id)}" data-query="${escapeAttr(row.query)}" data-needs-confirmation="${needsConfirmation ? 'true' : 'false'}" ${blocked ? 'disabled' : ''}>${buttonLabel}</button>
+      <div class="batch-row-action"><button class="mini-button ${needsConfirmation ? 'confirm-match-button' : ''}" data-action="add" data-id="${escapeAttr(best.test.id)}" data-query="${escapeAttr(row.query)}" data-needs-confirmation="${needsConfirmation ? 'true' : 'false'}" ${blocked || selected ? 'disabled' : ''}>${buttonLabel}</button></div>
     </div>`;
   }
 

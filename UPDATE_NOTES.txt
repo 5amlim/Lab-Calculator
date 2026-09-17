@@ -4,3 +4,10 @@ v10.38
 - Added Quest test 763: Partial Thromboplastin Time, Activated (aPTT).
 - Safer batch matching: only exact test-code or exact normalized test-name matches are auto-added by “Add best matches.” Partial/fuzzy matches are highlighted and require explicit confirmation before they can be added.
 - No changes to pooling, collection calculations, Do Not Perform rules, or the v10.30 browser-storage architecture.
+
+v10.39
+- Cleaned up multi-test possible-match review UI.
+- Removed duplicate confirmation-only warnings from the Not added summary.
+- Added compact status chips plus clearer You entered / Best match labeling.
+- Improved exact-match, confirmation, action, and mobile states without changing matching behavior.
+
