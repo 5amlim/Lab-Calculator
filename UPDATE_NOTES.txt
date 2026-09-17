@@ -1,11 +1,6 @@
-v10.37
-- Styled the Do not perform list control as a visible outlined/tinted button.
-- Right-aligned the button in the desktop filter row.
-- Preserved full-width, touch-friendly mobile behavior.
-- No test data, pooling, calculations, or storage architecture changed.
+v10.38
 
-v10.36
-- Corrected 3141 Cathartic Laxatives Profile, Stool to Trace Metal-Free Plastic Container.
-- Replaced generic Stool Container with Sterile Urine Cup for routine unpreserved stool tests where appropriate.
-- Preserved special collection containers for 455, 5014, and Total-Fix® workflows.
-- No calculation, pooling, or storage-architecture changes.
+- Added Quest test 19833: Glucose, Gestational Screen (50g), 140 Cutoff.
+- Added Quest test 763: Partial Thromboplastin Time, Activated (aPTT).
+- Safer batch matching: only exact test-code or exact normalized test-name matches are auto-added by “Add best matches.” Partial/fuzzy matches are highlighted and require explicit confirmation before they can be added.
+- No changes to pooling, collection calculations, Do Not Perform rules, or the v10.30 browser-storage architecture.

@@ -513,6 +513,17 @@
       .slice(0, limit);
   }
 
+  function isExactBatchMatch(query, test) {
+    const raw = String(query || '').trim();
+    const q = normalizeSearch(raw);
+    const code = normalizeSearch(test?.testCode);
+    const name = normalizeSearch(test?.testName);
+    if (!q || !test) return false;
+    if (q === code || q === name) return true;
+    const leadingCode = raw.match(/^([A-Za-z]*\d+[A-Za-z0-9-]*)\b/);
+    return Boolean(leadingCode && code && normalizeSearch(leadingCode[1]) === code);
+  }
+
   function renderBatch(addBest) {
     const queries = parseQueries(els.searchInput.value);
     if (!queries.length) {
@@ -539,6 +550,10 @@
           row.outcome = 'low-confidence';
           return;
         }
+        if (!isExactBatchMatch(row.query, best.test)) {
+          row.outcome = 'confirm-match';
+          return;
+        }
         if (selectedIds.includes(best.test.id)) {
           row.outcome = 'already-selected';
           return;
@@ -558,11 +573,12 @@
         if (!best) row.outcome = 'no-match';
         else if (best.test.status === 'blocked') row.outcome = 'blocked';
         else if (best.score < 330) row.outcome = 'low-confidence';
+        else if (!isExactBatchMatch(row.query, best.test)) row.outcome = 'confirm-match';
       });
     }
 
     const matchedCount = rows.filter(row => row.matches.length).length;
-    const unresolved = rows.filter(row => ['no-match', 'blocked', 'low-confidence', 'not-added'].includes(row.outcome));
+    const unresolved = rows.filter(row => ['no-match', 'blocked', 'low-confidence', 'confirm-match', 'not-added'].includes(row.outcome));
     const resultSummary = renderBatchResultSummary(rows, addBest);
 
     if (addBest) {
@@ -589,7 +605,7 @@
   function renderBatchResultSummary(rows, addBest) {
     if (rows.length < 2) return '';
 
-    const unresolved = rows.filter(row => ['no-match', 'blocked', 'low-confidence', 'not-added'].includes(row.outcome));
+    const unresolved = rows.filter(row => ['no-match', 'blocked', 'low-confidence', 'confirm-match', 'not-added'].includes(row.outcome));
     if (!unresolved.length) {
       if (!addBest) return '';
       return `<div class="batch-status batch-status-success"><strong>Matches for all ${rows.length} entries are in the summary.</strong><span>Check the selected tests before collecting.</span></div>`;
@@ -606,7 +622,8 @@
 
   function batchOutcomeReason(outcome) {
     if (outcome === 'no-match') return 'No local match found';
-    if (outcome === 'low-confidence') return 'Check the match before adding';
+    if (outcome === 'low-confidence') return 'Low-confidence match — verify before adding';
+    if (outcome === 'confirm-match') return 'Possible match — confirm before adding';
     if (outcome === 'blocked') return 'This test is marked “do not perform”';
     return 'Could not be added';
   }
@@ -618,12 +635,17 @@
     const best = row.matches[0];
     const alternatives = row.matches.slice(1).map(item => `${item.test.testCode} ${item.test.testName}`).join(' · ');
     const blocked = best.test.status === 'blocked';
-    return `<div class="batch-row ${blocked ? 'unmatched' : ''}">
+    const exact = isExactBatchMatch(row.query, best.test);
+    const needsConfirmation = !blocked && !exact;
+    const rowClass = blocked ? 'unmatched' : needsConfirmation ? 'needs-confirmation' : '';
+    const warning = needsConfirmation ? '<span class="batch-match-warning">Possible match — confirm before adding.</span>' : '';
+    const buttonLabel = selectedIds.includes(best.test.id) ? 'Added' : needsConfirmation ? 'Confirm + Add' : 'Add';
+    return `<div class="batch-row ${rowClass}">
       <div class="batch-query">${escapeHtml(row.query)}</div>
       <div class="batch-match"><strong>${escapeHtml(displayCode(best.test))} · ${escapeHtml(best.test.testName)}</strong>
-        <small>${blocked ? 'Marked do not perform. ' : ''}${requiredSpecimenBadges(best.test)} · ${requiredDrawContainerBadges(best.test)}${alternatives ? `<br>Other matches: ${escapeHtml(alternatives)}` : ''}</small>
+        ${warning}<small>${blocked ? 'Marked do not perform. ' : ''}${requiredSpecimenBadges(best.test)} · ${requiredDrawContainerBadges(best.test)}${alternatives ? `<br>Other matches: ${escapeHtml(alternatives)}` : ''}</small>
       </div>
-      <button class="mini-button" data-action="add" data-id="${escapeAttr(best.test.id)}" ${blocked ? 'disabled' : ''}>${selectedIds.includes(best.test.id) ? 'Added' : 'Add'}</button>
+      <button class="mini-button ${needsConfirmation ? 'confirm-match-button' : ''}" data-action="add" data-id="${escapeAttr(best.test.id)}" data-query="${escapeAttr(row.query)}" data-needs-confirmation="${needsConfirmation ? 'true' : 'false'}" ${blocked ? 'disabled' : ''}>${buttonLabel}</button>
     </div>`;
   }
 
@@ -715,6 +737,13 @@
     const button = event.target.closest('button[data-action]');
     if (!button) return;
     if (button.dataset.action === 'add') {
+      if (button.dataset.needsConfirmation === 'true') {
+        const test = database.find(item => item.id === button.dataset.id);
+        if (!test) return;
+        const query = button.dataset.query || '';
+        const confirmed = window.confirm(`This is not an exact match.\n\nYou entered: ${query}\nPossible match: ${displayCode(test)} · ${test.testName}\n\nConfirm that this is the test you want to add.`);
+        if (!confirmed) return;
+      }
       addSelected(button.dataset.id);
       renderBatch(false);
     } else if (button.dataset.action === 'new-from-query') {

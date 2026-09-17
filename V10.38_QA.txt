@@ -1,0 +1,18 @@
+Lab Collection Calculator v10.38 QA
+
+Database
+- Previous records: 2676
+- Added: 19833 and 763
+- Expected total: 2678
+
+Match safety
+- Exact code match: may be added by Add best matches.
+- Exact normalized test-name match: may be added by Add best matches.
+- A query beginning with the exact test code (for example, "763 aPTT") is treated as exact because the code uniquely identifies the record.
+- Partial/fuzzy name matches are not auto-added. They are highlighted as Possible match and require Confirm + Add plus a browser confirmation prompt.
+- Low-confidence matches remain not added automatically.
+
+Unchanged
+- Pooling and specimen calculations
+- Do Not Perform list/rules
+- v10.30 built-in-data vs localStorage architecture
