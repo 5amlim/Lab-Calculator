@@ -1,3 +1,9 @@
+v10.40
+- Added a Search directory action directly to yellow possible-match cards.
+- Search directory opens the official directory search for the user-entered text.
+- Kept Add this match as the primary confirmation action.
+- On mobile, the two actions resize cleanly and stack on very narrow screens.
+
 v10.38
 
 - Added Quest test 19833: Glucose, Gestational Screen (50g), 140 Cutoff.

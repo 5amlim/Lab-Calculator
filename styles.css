@@ -1398,3 +1398,37 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .batch-match-meta { gap: 4px; }
   .batch-meta-dot { display: none; }
 }
+
+
+/* v10.40: directory lookup action on possible-match cards */
+.batch-row.needs-confirmation .batch-row-action {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 7px;
+}
+.batch-row-action .batch-directory-button {
+  background: #fff;
+  border-color: #d7b55f;
+  color: #6a501c;
+  text-align: center;
+  text-decoration: none;
+}
+.batch-row-action .batch-directory-button:hover {
+  background: #fff7df;
+}
+@media (max-width: 760px) {
+  .batch-row.needs-confirmation .batch-row-action {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .batch-row.needs-confirmation .batch-row-action .mini-button {
+    width: 100%;
+    min-width: 0;
+  }
+}
+@media (max-width: 430px) {
+  .batch-row.needs-confirmation .batch-row-action {
+    grid-template-columns: 1fr;
+  }
+}

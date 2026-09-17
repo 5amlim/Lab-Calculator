@@ -1,0 +1,10 @@
+Lab Collection Calculator v10.40 QA
+
+Change scope
+- UI only: possible-match review cards.
+- Added official-directory search link beside the confirmation action.
+- No database, calculation, pooling, storage, container, or do-not-perform changes.
+
+Responsive behavior
+- Desktop: directory and add actions are grouped at the right of the yellow card.
+- Mobile: both actions are equal-width; very narrow screens stack them.
