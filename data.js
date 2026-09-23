@@ -51377,6 +51377,41 @@ window.SEED_TESTS = [
     "sourceRow": 245
   },
   {
+    "id": "quest-18360-20260923",
+    "testCode": "18360",
+    "testName": "Kidney Profile with eGFR (Creatinine-Cystatin C)",
+    "specimenType": "Serum",
+    "drawContainer": "Red Top",
+    "alternativeContainer": "",
+    "transportContainer": "Transport tube",
+    "preferredVolume": "3 mL serum",
+    "minimumVolume": "1 mL serum",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room temperature",
+    "stability": "Room temperature: 7 days Refrigerated: 7 days Frozen: 28 days",
+    "spin": "Yes",
+    "specialInstructions": "Collect serum plus a separate random urine specimen. Quest lists 3 mL serum (1 mL minimum) and 10 mL random urine (2 mL minimum). Transfer serum to a transport tube. Urine may alternatively be collected in a urinalysis transport tube (yellow-top, blue fill line, preservative tube). Acid-preserved urine is unacceptable. The Quest 18360 directory lists serum but does not name a blood draw tube; Red Top is used here to match the existing Quest 13581 serum-to-transport-tube workflow.",
+    "status": "active",
+    "source": "Quest MASTER verified 2026-09-23 https://testdirectory.questdiagnostics.com/test/test-detail/18360/?cc=MASTER",
+    "sourceRow": null,
+    "additionalDrawRequirements": [
+      {
+        "container": "Sterile Urine Cup",
+        "specimenType": "Urine",
+        "preferredVolume": "10 mL random urine",
+        "minimumVolume": "2 mL random urine",
+        "purpose": "Albumin/Creatinine Ratio",
+        "transportContainer": "Sterile Urine Cup",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room temperature",
+        "stability": "Room temperature: 7 days Refrigerated: 7 days Frozen: 28 days",
+        "spin": "No",
+        "specialLabeling": "Random urine",
+        "specialInstructions": "Collect random urine in a clean plastic urine container. A urinalysis transport tube (yellow-top, blue fill line, preservative tube) is also acceptable per Quest. Acid-preserved urine is unacceptable."
+      }
+    ]
+  },
+  {
     "id": "quest-19833-20260917",
     "testCode": "19833",
     "testName": "Glucose, Gestational Screen (50g), 140 Cutoff",

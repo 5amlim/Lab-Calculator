@@ -1,5 +1,7 @@
-v10.42
-- Restored the original yellow/gold styling for Add this match.
-- Kept Add this match above Search directory.
-- Search directory remains in the neutral gray style.
-- No database, specimen, calculation, pooling, or storage changes.
+v10.43
+- Added Quest test code 18360, Kidney Profile with eGFR (Creatinine-Cystatin C).
+- Modeled the order as two required specimens: serum plus random urine.
+- Serum: 3 mL preferred / 1 mL minimum, Red Top draw with serum transferred to a transport tube.
+- Urine: 10 mL preferred / 2 mL minimum in the existing Sterile Urine Cup; Quest also accepts a yellow-top urinalysis preservative transport tube.
+- Room-temperature transport; stability 7 days room temperature, 7 days refrigerated, 28 days frozen.
+- No pooling, calculation, UI, Do Not Perform, or browser-storage architecture changes.
