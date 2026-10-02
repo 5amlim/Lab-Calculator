@@ -246,7 +246,7 @@
       const source = typeof item === 'string' ? { container: item } : (item || {});
       const count = Math.max(Number(source.count) || 1, 1);
       return {
-        container: interfaceWording(String(source.container || '')).trim(),
+        container: cleanCollectionContainer(interfaceWording(String(source.container || '')).trim()),
         specimenType: normalizeSpecimenType(source.specimenType || ''),
         preferredVolume: interfaceWording(String(source.preferredVolume || '')).trim(),
         minimumVolume: interfaceWording(String(source.minimumVolume || '')).trim(),
@@ -276,8 +276,8 @@
       testCode: String(record.testCode ?? record[['que', 'stCode'].join('')] ?? '').trim(),
       testName: String(record.testName ?? '').trim(),
       specimenType: normalizeSpecimenType(record.specimenType),
-      drawContainer: String(record.drawContainer || 'Verify Official Instructions'),
-      alternativeContainer: String(record.alternativeContainer || ''),
+      drawContainer: cleanCollectionContainer(String(record.drawContainer || 'Verify Official Instructions')),
+      alternativeContainer: cleanCollectionContainer(String(record.alternativeContainer || '')),
       additionalDrawRequirements: normalizeAdditionalDrawRequirements(record.additionalDrawRequirements),
       collectionCount: Number(record.collectionCount) > 1 ? Math.floor(Number(record.collectionCount)) : 1,
       submissionCount: Number(record.submissionCount) > 1 ? Math.floor(Number(record.submissionCount)) : 1,
@@ -426,13 +426,25 @@
     return [primary, ...extras].filter(Boolean).join(' + ');
   }
 
+  function cleanCollectionContainer(value) {
+    const text = String(value || '').trim();
+    // Local standard: generic urine cups/containers are the existing Sterile Urine Cup.
+    // Keep truly special devices (24-hour jugs, preservative tubes, trace-metal containers, Aptima, etc.) distinct.
+    if (/^(?:sterile\s*,?\s*)?(?:plastic\s+)?urine\s+(?:collection\s+)?(?:cup|container)$/i.test(text)) {
+      return 'Sterile Urine Cup';
+    }
+    if (/^urine\s+collection\s+(?:cup|container)$/i.test(text)) return 'Sterile Urine Cup';
+    return text;
+  }
+
   function cleanTransportContainer(value) {
-    return String(value || '')
+    const cleaned = String(value || '')
       .trim()
       .replace(/^labeled\s+transport\s+tube\s*\(local workflow;\s*verify\s+[a-z]+\)$/i, 'Transport tube (verify official instructions)')
       .replace(/^labeled\s+transport\s+tube$/i, 'Transport tube')
       .replace(/\blabeled transport tube\b/gi, 'transport tube')
       .replace(/\s{2,}/g, ' ');
+    return cleanCollectionContainer(cleaned);
   }
 
 

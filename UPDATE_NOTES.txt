@@ -1,7 +1,7 @@
-v10.43
-- Added Quest test code 18360, Kidney Profile with eGFR (Creatinine-Cystatin C).
-- Modeled the order as two required specimens: serum plus random urine.
-- Serum: 3 mL preferred / 1 mL minimum, Red Top draw with serum transferred to a transport tube.
-- Urine: 10 mL preferred / 2 mL minimum in the existing Sterile Urine Cup; Quest also accepts a yellow-top urinalysis preservative transport tube.
-- Room-temperature transport; stability 7 days room temperature, 7 days refrigerated, 28 days frozen.
-- No pooling, calculation, UI, Do Not Perform, or browser-storage architecture changes.
+v10.44
+
+- Standardized every generic urine cup/container reference to the existing "Sterile Urine Cup" workflow label.
+- 90646 now displays Sterile Urine Cup for both collection and submission.
+- Preserved special urine containers and transport devices such as 24-hour jugs, preservative tubes, Aptima, and amber/light-protected transport.
+- Added runtime normalization for legacy/custom entries and removed the generic Urine Container option from manual add.
+- No changes to pooling, calculation logic, Do Not Perform rules, or browser-storage architecture.

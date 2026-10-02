@@ -1,0 +1,18 @@
+Lab Collection Calculator v10.44 QA
+
+Urine container normalization
+- Audited all 2,679 catalog records for generic urine cup/container labels.
+- 168 transportContainer values changed from "Plastic urine container" to the existing "Sterile Urine Cup" label.
+- 5 drawContainer values changed from generic "Urine Container" to "Sterile Urine Cup".
+- Generic plastic urine container / urine collection cup wording was normalized in preferred-volume and instruction text where present.
+- Test 90646 (Nicotine and Cotinine, Urine) now shows Sterile Urine Cup for both collection and submission.
+- Special urine devices remain distinct, including 24-Hour Urine Container, UA preservative tubes, urine culture preservative tubes, Aptima, amber/light-protected transport, and blocked/unsupported workflows.
+- Runtime normalization was added so legacy browser overrides or future entries using generic labels such as "Urine Container", "Urine Cup", or "Plastic urine container" display as "Sterile Urine Cup" without changing special containers.
+- Removed the generic "Urine Container" option from the manual-add collection-container menu to reduce future inconsistent labels.
+
+Validation
+- Catalog count remains 2,679 records.
+- Generic urine-container labels remaining in draw/transport/alternative container fields: 0.
+- "Plastic urine container" phrase remaining in data.js: 0.
+- JavaScript syntax checks passed for app.js and data.js.
+- Pooling, specimen-count calculations, Do Not Perform status, and v10.30 localStorage architecture were not changed.

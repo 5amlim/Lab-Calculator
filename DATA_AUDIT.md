@@ -254,3 +254,11 @@ This was a full structural consistency audit of the built-in database for tube/s
 - The underlying raw catalog fields remain intact in data.js so the collection/count parser and source record are not degraded by presentation cleanup.
 - Do Not Perform entries were removed from the ordinary library filter path and are exposed only through the dedicated collapsed list button at the bottom of the library.
 - Browser-storage architecture remains unchanged from v10.30: built-ins load from data.js; localStorage contains only user state and selected IDs.
+
+## v10.44 generic urine-container normalization
+
+- Audited all 2,679 catalog records for generic urine cup/container labels.
+- Generic `Urine Container`, `Urine Cup`, `Plastic urine container`, and equivalent plain collection-cup labels are normalized to the existing **Sterile Urine Cup** label.
+- 168 transport-container records and 5 draw-container records were normalized; related human-facing generic wording was cleaned where present.
+- Special urine workflows were intentionally left distinct, including 24-hour collection jugs, UA/culture preservative tubes, Aptima, amber/light-protected transport, and unsupported/blocked collection workflows.
+- Test 90646 now displays **Sterile Urine Cup** for both collection and submission.
