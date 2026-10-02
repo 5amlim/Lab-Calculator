@@ -1,0 +1,5 @@
+Lab Collection Calculator v10.45 QA
+
+- Overall batch summary still uses "needs confirmation".
+- Individual non-exact match card badge now reads "Confirm test code/name".
+- Matching and add-confirmation behavior unchanged.

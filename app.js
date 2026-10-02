@@ -677,7 +677,7 @@
     const status = blocked
       ? '<span class="batch-match-warning is-blocked">Do not perform</span>'
       : needsConfirmation
-        ? '<span class="batch-match-warning">Needs confirmation</span>'
+        ? '<span class="batch-match-warning">Confirm test code/name</span>'
         : '<span class="batch-match-exact">Exact match</span>';
     const buttonLabel = selected ? '✓ Added' : needsConfirmation ? 'Add this match' : '+ Add';
     return `<div class="batch-row ${rowClass}">

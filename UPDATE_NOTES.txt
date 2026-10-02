@@ -1,7 +1,5 @@
-v10.44
+v10.45
 
-- Standardized every generic urine cup/container reference to the existing "Sterile Urine Cup" workflow label.
-- 90646 now displays Sterile Urine Cup for both collection and submission.
-- Preserved special urine containers and transport devices such as 24-hour jugs, preservative tubes, Aptima, and amber/light-protected transport.
-- Added runtime normalization for legacy/custom entries and removed the generic Urine Container option from manual add.
-- No changes to pooling, calculation logic, Do Not Perform rules, or browser-storage architecture.
+- Kept the overall review status wording as "Needs confirmation".
+- Changed the per-test badge inside each possible-match card to "Confirm test code/name".
+- No changes to matching behavior, test data, pooling, calculations, Do Not Perform rules, or browser-storage architecture.
