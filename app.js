@@ -1737,8 +1737,8 @@
   function printSstTigerBadge(item) {
     if (!item || item.className !== 'tube-sst') return '';
     const count = Math.max(Number(item.tigerCount) || 0, 0);
-    const countText = count ? `${count} Tiger SST · 7.5 mL` : 'Tiger SST · 7.5 mL';
-    return `<span class="print-sst-tiger-option"><span class="print-sst-approx">≈</span><span class="tube tube-tiger-sst print-sst-tiger-badge">${countText}</span></span>`;
+    if (!count) return '';
+    return `<span class="print-sst-tiger-option"><span class="print-sst-approx">≈</span><strong class="print-sst-tiger-count">${count}</strong><span class="tube tube-tiger-sst print-sst-tiger-badge">Tiger SST · 7.5 mL</span></span>`;
   }
 
   function printCollectionGroups(items, wholeBloodGroups) {

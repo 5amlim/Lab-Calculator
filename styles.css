@@ -1633,3 +1633,93 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     grid-template-columns: 1fr;
   }
 }
+
+/* v10.60: keep the alternate Tiger SST option as one right-aligned unit.
+   Its count mirrors the primary tube-count circle, while the label uses the
+   same tube-badge treatment with a red/gray striped SST icon. */
+@media print {
+  .print-container-count .print-sst-tiger-option,
+  .print-submit-item-title .print-sst-tiger-option {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 5px;
+    margin-left: auto !important;
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .print-sst-approx {
+    color: #53666d !important;
+    font-weight: 950;
+    line-height: 1;
+  }
+
+  .print-container-count .print-sst-approx {
+    font-size: 8px;
+  }
+
+  .print-submit-item-title .print-sst-approx {
+    font-size: 7.5px;
+  }
+
+  .print-sst-tiger-count {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    border-radius: 999px;
+    font-weight: 950 !important;
+    line-height: 1;
+  }
+
+  .print-container-count .print-sst-tiger-count {
+    min-width: 21px;
+    height: 21px;
+    padding: 0 5px;
+    background: #dceff1 !important;
+    color: #174b54 !important;
+    font-size: 12px !important;
+  }
+
+  .print-submit-item-title .print-sst-tiger-count {
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    background: #e3eaed !important;
+    color: #263b42 !important;
+    font-size: 10px !important;
+  }
+
+  .print-sst-tiger-badge {
+    display: inline-flex !important;
+    align-items: center;
+    min-height: 18px;
+    padding-left: 18px !important;
+    font-weight: 900 !important;
+    white-space: nowrap;
+  }
+
+  .print-submit-item-title .print-sst-tiger-badge {
+    min-height: 16px;
+    padding-left: 17px !important;
+    font-size: 7.5px !important;
+  }
+
+  .print-sst-tiger-badge.tube::before {
+    width: 8px;
+    height: 16px;
+    left: 5px;
+    background: repeating-linear-gradient(
+      135deg,
+      #d95851 0 3px,
+      #d9dee1 3px 6px
+    ) !important;
+  }
+
+  .print-submit-item-title .print-sst-tiger-badge.tube::before {
+    width: 7px;
+    height: 14px;
+    left: 5px;
+  }
+}
+
