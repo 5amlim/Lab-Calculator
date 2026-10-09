@@ -2317,7 +2317,7 @@
     return `<span class="print-source-badges">${Array.from(badges.values()).map(({ source, tests }) => {
       const sourceCount = transferSourceTubeCountForItemTests(tests, source);
       const countBadge = sourceCount > 0 ? `<span class="print-source-count">${sourceCount}</span>` : '';
-      return `<span class="print-source-tube-badge tube ${source.className}"><span class="print-source-from">From</span>${countBadge}<span>${escapeHtml(source.label)}</span></span>`;
+      return `<span class="print-source-tube-badge tube ${source.className}">${countBadge}<span class="print-source-from">From</span><span>${escapeHtml(source.label)}</span></span>`;
     }).join('')}</span>`;
   }
 

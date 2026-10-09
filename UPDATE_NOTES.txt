@@ -1,33 +1,8 @@
-v10.66
-- Amber transport-tube cards now always show a LABEL badge for the specimen type, including routine serum transfers.
-- Example: an Amber Serum Transport Tube now shows “LABEL Serum” even when the source is a standard Gold/SST.
-- No tube-count, pooling, or bag calculations changed.
+v10.68
+- Moved the enlarged source-tube count badge back to the start of each From pill.
+- The pill now reads like “② From Gold / SST”.
+- No calculation logic changed.
 
-v10.65
-- Replaced the parenthetical source summary in submission cards with a compact source-count badge.
-- Source badges now read like “From [2] Gold / SST” or “From [2] Red Top,” with the number shown in a small circular badge.
-- The number is the pooled source collection-tube count for that submission card. Tube-count calculations are unchanged.
-
-v10.64
-- Moved the source-to-transport count text out of the bag header and into each submission card.
-- The summary now appears next to the specimen source detail and source badge, for example: “(5 serum tubes from 2 SSTs)”.
-- This applies to transfer cards such as Serum Transport Tube, Amber Serum Transport Tube, and similar processed-specimen cards.
-- Bag totals and container counts are unchanged.
-
-v10.63
-- Added source-to-transport counts inside each temperature bag for serum/plasma transfers from SST or Red Top collection tubes.
-- Example: “(5 serum tubes from 2 SSTs)”.
-- The source count uses the same pooled collection logic as What to Collect, so compatible transfer tests can share source tubes while dedicated/full/multiple-tube rules remain separate.
-- Original-submit tubes are excluded from this transfer summary.
-
-v10.62
-- Corrected SST source-for-transfer tube pooling. Compatible serum transfer tests in the same temperature group now share Gold/SST capacity by volume instead of each automatically requiring its own source SST.
-- Tiger SST uses the same source-for-transfer pooling logic with its 7.5 mL capacity.
-- Dedicated, separate, full-tube, and explicit multiple-collection requirements still remain separate. Original-submit SSTs remain separate from source-for-transfer SSTs.
-
-v10.61
-- Tiger SST count font weight now matches the primary Gold/SST count.
-- Tiger SST alternate is now wrapped as a single right-aligned print unit.
-- Tiger SST count uses the same circular count treatment as the primary Gold/SST count.
-- Tiger SST label keeps the red/gray striped tube icon and appears in both What to collect and the bag section.
-- No pooling, tube-count, specimen, or submission calculations changed.
+v10.67
+- Moved the source-tube count badge to the end of each From pill and increased its size for readability.
+- No calculation logic changed.
