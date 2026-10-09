@@ -885,6 +885,10 @@
     return selectedSstIsTiger() ? 'Tiger SST · 7.5 mL' : 'Gold / SST';
   }
 
+  function selectedSstTransportLabel() {
+    return selectedSstIsTiger() ? 'Tiger SST' : 'Gold / SST';
+  }
+
   function selectedSstVisualClass() {
     return selectedSstIsTiger() ? 'tube-tiger-sst' : 'tube-sst';
   }
@@ -2383,8 +2387,10 @@
     if (!isTransferSubmission(test)) return '';
     const source = canonicalCollectionContainer(test);
     if (!source.label || !source.className) return '';
-    const displayClass = source.className === 'tube-sst' ? selectedSstVisualClass() : source.className;
-    return `<span class="print-source-tube-badge tube ${displayClass}">From ${escapeHtml(source.label)}</span>`;
+    const isSstSource = source.className === 'tube-sst';
+    const displayClass = isSstSource ? selectedSstVisualClass() : source.className;
+    const displayLabel = isSstSource ? selectedSstTransportLabel() : source.label;
+    return `<span class="print-source-tube-badge tube ${displayClass}">From ${escapeHtml(displayLabel)}</span>`;
   }
 
   function transferSourceTubeCountForItemTests(tests, source) {
@@ -2659,16 +2665,28 @@
     if ((/red\s*\/\s*yellow|red-yellow|swirl/.test(lower)) && /gray|grey/.test(lower) && /urine|culture/.test(lower)) {
       return `<span class="print-tube-badge tube tube-ua-swirl">Red/Yellow Swirl UA Tube</span><br><span class="print-tube-badge tube tube-urine-culture">Gray-Top Urine Culture Tube</span>${sourceBadge ? `<div class="print-transport-source">${sourceBadge}</div>` : ''}`;
     }
+
     const sourceSpecimen = specificSpecimenSource(test);
-    const sourceText = /transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/i.test(value)
+    let sourceText = /transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/i.test(value)
       ? specimenSourceDetail(test)
       : sourceSpecimen;
-    const displayClass = transportTubeClass(test, value);
+
+    const transportClass = transportTubeClass(test, value);
+    const isSstTransport = transportClass === 'tube-sst';
+    const displayClass = isSstTransport ? selectedSstVisualClass() : transportClass;
     let displayValue = value || 'Verify';
-    if (displayClass === 'tube-sst') {
-      const keepSpun = /spun/i.test(value) || isSpunSstSubmission(test) || isOriginalContainerSubmission(test);
-      displayValue = `${selectedSstLabel()}${keepSpun ? ' (spun)' : ''}`;
+
+    if (isSstTransport) {
+      const keepSpun = /\bspun\b/i.test(value) || isSpunSstSubmission(test) || isOriginalContainerSubmission(test);
+      displayValue = `${selectedSstTransportLabel()}${keepSpun ? ' (spun)' : ''}`;
     }
+
+    // In the print table's Transport Tube column only, keep the Tiger label compact.
+    // The Draw Container column and collection plan still show the 7.5 mL capacity.
+    if (selectedSstIsTiger() && isSstDraw(test) && sourceText) {
+      sourceText = sourceText.replace(/Tiger SST\s*·\s*7\.5\s*mL/gi, 'Tiger SST');
+    }
+
     return `<span class="print-tube-badge tube ${displayClass}">${escapeHtml(displayValue)}</span>${sourceText ? `<div class="print-transport-source">${escapeHtml(sourceText)}${sourceBadge}</div>` : ''}`;
   }
 
