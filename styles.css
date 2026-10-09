@@ -957,6 +957,35 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   }
   .print-container-count > span { font-size: 8px; font-weight: 900; }
   .print-container-detail { margin-top: 4px; color: #53636b; font-size: 6.7px; line-height: 1.25; }
+  .print-collection-blood-volume {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    margin-top: 5px;
+    padding: 5px 6px;
+    border: 1px solid #d1dde0;
+    border-radius: 5px;
+    background: #f3f8f8 !important;
+    color: #334a52;
+    font-size: 6.6px;
+    line-height: 1.2;
+  }
+  .print-collection-blood-label {
+    color: #1f4951;
+    font-size: 6.3px;
+    font-weight: 950;
+    text-transform: uppercase;
+    letter-spacing: .035em;
+  }
+  .print-collection-blood-metric { white-space: nowrap; }
+  .print-collection-blood-metric b { color: #173f46; }
+  .print-collection-blood-volume > small {
+    flex-basis: 100%;
+    color: #68767b;
+    font-size: 5.9px;
+    font-weight: 750;
+  }
   .print-for-tests { margin-top: 4px; color: #425159; font-size: 6.7px; line-height: 1.25; }
   .print-for-tests > b { font-size: 6.8px; }
   .print-for-tests ul { margin: 2px 0 0 11px; padding: 0; }

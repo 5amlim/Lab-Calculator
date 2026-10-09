@@ -1,0 +1,26 @@
+Lab Collection Calculator v10.47 QA
+
+Print layout
+- Removed the standalone "Whole blood draw volume by tube" section.
+- Moved whole-blood draw requirements into each blood tube card under "What to collect".
+- Each blood card now shows Preferred and Minimum whole-blood requirements beside the planned tube count and test list.
+
+Calculation behavior
+- Serum/plasma/platelet-poor plasma continue to use 2.5 mL whole blood per 1 mL listed specimen.
+- Whole-blood requirements use the listed volume directly.
+- Dedicated/own/do-not-share tubes remain separate in tube planning and are called out inside the matching collection card.
+- Explicit multiple-tube requirements are preserved, including additional-draw requirements.
+- Fixed additionalDrawRequirements so a structured count >1 is carried into collectionCount.
+- Explicit totals and xN volumes are not multiplied twice.
+- Per-tube/per-specimen volume wording is multiplied by the explicit required tube count when applicable.
+- Light-blue citrate tests with fill-line/full-tube rules display the number of tubes that must be filled to line instead of presenting a misleading derived mL amount.
+- Full-tube requirements without a numeric fill volume display as "N full tube(s)" rather than inventing a tube capacity.
+
+Regression checks
+- Screenshot example: 11 Gold/SST = Preferred 41.5 mL, Minimum 20.75 mL; 2 Red Top = Preferred 7.5 mL, Minimum 3 mL.
+- 561 Insulin + 255 dsDNA: 2 SST planned, 1 dedicated tube included; Preferred 5 mL, Minimum 2.5 mL.
+- 763 aPTT: 1 Light Blue Citrate tube to fill line.
+- 15586 Factor VIII Inhibitor, Chromogenic: 3 Light Blue Citrate tubes to fill line.
+- 8837 PTH, Intact and Calcium: Lavender EDTA Preferred 3.75 mL / Minimum 2.5 mL; Gold/SST Preferred 2.5 mL / Minimum 1.25 mL.
+- All 2,672 active records were run individually through collection-plan and whole-blood-volume generation with 0 calculation exceptions.
+- JavaScript syntax passed Node --check.
