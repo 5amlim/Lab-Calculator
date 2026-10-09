@@ -1442,19 +1442,7 @@
   }
 
   function isUrineTest(test) {
-    const text = `${test.specimenType || ''} ${test.testName || ''}`.toLowerCase();
-    return /\burine\b|urinary/.test(text);
-  }
-
-  function isStoolTest(test) {
-    const text = `${test.specimenType || ''} ${test.testName || ''}`.toLowerCase();
-    return /\bstool\b|\bfeces\b|\bfecal\b/.test(text);
-  }
-
-  function collectionSpecimenGroup(test) {
-    if (isUrineTest(test)) return 'urine';
-    if (isStoolTest(test)) return 'stool';
-    return '';
+    return /urine/.test(String(test.specimenType || '').toLowerCase());
   }
 
   function isTimedUrineTest(test) {
@@ -1619,6 +1607,50 @@
     });
   }
 
+  function collectionSpecimenGroupForTest(test) {
+    const specimen = String(test.specimenType || '').toLowerCase();
+    const name = String(test.testName || '').toLowerCase();
+    if (/stool|feces|fecal|faecal/.test(specimen) || /stool|feces|fecal|faecal/.test(name)) return 'stool';
+    if (/urine|urinary/.test(specimen) || /urine|urinary/.test(name)) return 'urine';
+    if (/serum|plasma|whole blood|blood|rbc|red blood/.test(specimen)) return 'blood';
+    return 'other';
+  }
+
+  function collectionSpecimenGroupForItem(item) {
+    const groups = new Set((item.tests || []).map(collectionSpecimenGroupForTest));
+    if (groups.size === 1) return Array.from(groups)[0];
+    if (groups.has('blood')) return 'blood';
+    if (groups.has('urine')) return 'urine';
+    if (groups.has('stool')) return 'stool';
+    return 'other';
+  }
+
+  function printCollectionGroupLabel(key) {
+    return ({ blood: 'Blood', urine: 'Urine', stool: 'Stool', other: 'Other specimens' })[key] || 'Other specimens';
+  }
+
+  function printCollectionGroups(items, wholeBloodGroups) {
+    const order = ['blood', 'urine', 'stool', 'other'];
+    const grouped = new Map(order.map(key => [key, []]));
+    items.forEach(item => {
+      const key = collectionSpecimenGroupForItem(item);
+      if (!grouped.has(key)) grouped.set(key, []);
+      grouped.get(key).push(item);
+    });
+    return order.filter(key => grouped.get(key)?.length).map(key => {
+      const groupItems = grouped.get(key);
+      return `<div class="print-collection-specimen-group print-collection-specimen-${key}">
+        <div class="print-collection-specimen-heading">${escapeHtml(printCollectionGroupLabel(key))}</div>
+        <div class="print-collection-grid">${groupItems.map(item => `<article class="print-collection-card">
+          <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span></div>
+          ${item.detail ? `<div class="print-container-detail">${escapeHtml(item.detail)}</div>` : ''}
+          ${printCollectionWholeBloodDetail(item, wholeBloodGroups)}
+          <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${testReferences(item.tests)}</ul></div>
+        </article>`).join('')}</div>
+      </div>`;
+    }).join('');
+  }
+
   function buildCollectionPlan(tests, bags) {
     const items = [];
     const sstTests = tests.filter(isSstDraw);
@@ -1657,10 +1689,9 @@
     const spotUrineTests = tests.filter(test => isUrineTest(test) && !isTimedUrineTest(test));
     if (spotUrineTests.length) {
       items.push({
-        key: 'sterile-urine-cup|urine',
+        key: 'sterile-urine-cup',
         label: 'Sterile Urine Cup',
         className: 'tube-urine-cup',
-        specimenGroup: 'urine',
         count: 1,
         tests: uniqueTests(spotUrineTests),
         detail: 'Collect the urine in the sterile cup first, then fill any required preservative or transport tubes.'
@@ -1674,9 +1705,12 @@
       if (isAdditionalPoolableBloodDraw(test)) return;
       if (isUrineTest(test) && !isTimedUrineTest(test)) return;
       const info = canonicalCollectionContainer(test);
-      const specimenGroup = collectionSpecimenGroup(test);
-      const groupKey = specimenGroup ? `${info.key}|${specimenGroup}` : info.key;
-      if (!grouped.has(groupKey)) grouped.set(groupKey, { ...info, key: groupKey, specimenGroup, count: 0, tests: [], detail: '' });
+      // Keep physically identical containers separate when they hold different specimen types.
+      // A Sterile Urine Cup, for example, may be used for either urine or stool, but those
+      // specimens should never be combined into the same collection card/count.
+      const specimenGroup = collectionSpecimenGroupForTest(test);
+      const groupKey = `${specimenGroup}|${info.key}`;
+      if (!grouped.has(groupKey)) grouped.set(groupKey, { ...info, key: groupKey, count: 0, tests: [], detail: '' });
       const item = grouped.get(groupKey);
       item.count += explicitCollectionCount(test);
       item.tests.push(test);
@@ -1686,7 +1720,43 @@
       item.tests = uniqueTests(item.tests);
       items.push(item);
     });
-    return items;
+
+    // Final card-level normalization. Collection cards are grouped by the physical
+    // collection container AND specimen type, so urine and stool never merge just
+    // because both use a Sterile Urine Cup. Conversely, duplicate urine cards that
+    // use the same cup are collapsed into one card even when downstream transport
+    // tubes or processing differ.
+    const mergedItems = [];
+    const mergedIndex = new Map();
+    items.forEach(item => {
+      const specimenGroup = collectionSpecimenGroupForItem(item);
+      const normalizedLabel = String(item.label || '').trim().toLowerCase();
+      const sameContainerKey = `${specimenGroup}|${item.className || ''}|${normalizedLabel}`;
+      const mergeableNonBlood = specimenGroup !== 'blood' && specimenGroup !== 'other';
+
+      if (!mergeableNonBlood || !mergedIndex.has(sameContainerKey)) {
+        const copy = { ...item, tests: uniqueTests(item.tests || []) };
+        mergedItems.push(copy);
+        if (mergeableNonBlood) mergedIndex.set(sameContainerKey, copy);
+        return;
+      }
+
+      const target = mergedIndex.get(sameContainerKey);
+      target.tests = uniqueTests([...(target.tests || []), ...(item.tests || [])]);
+
+      // Spot urine collected in the same Sterile Urine Cup is one shared source
+      // specimen. Preserve a larger explicit cup count if a test truly requires it.
+      if (specimenGroup === 'urine' && item.className === 'tube-urine-cup') {
+        target.count = Math.max(Number(target.count) || 0, Number(item.count) || 0);
+      } else {
+        target.count = (Number(target.count) || 0) + (Number(item.count) || 0);
+      }
+
+      const details = [target.detail, item.detail].filter(Boolean);
+      target.detail = Array.from(new Set(details)).join(' · ');
+    });
+
+    return mergedItems;
   }
 
   function shortDrawSource(test) {
@@ -2291,7 +2361,7 @@
       <div class="print-logistics-heading"><strong>Collection and submission plan</strong><span>Collection containers are separated from processed specimens placed into transport bags.</span></div>
       <div class="print-logistics-totals">
         <div class="print-total-box collect-total"><span>TOTAL TO COLLECT</span><strong>${totalCollect}</strong><small>tubes / collection containers</small></div>
-        <div class="print-collect-chips">${collectionItems.map(item => `<span class="print-collect-chip tube ${item.className}"><b>${item.count}</b> ${escapeHtml(item.label)}${item.specimenGroup ? ` <small class="print-chip-specimen">${escapeHtml(item.specimenGroup)}</small>` : ''}</span>`).join('')}</div>
+        <div class="print-collect-chips">${collectionItems.map(item => `<span class="print-collect-chip tube ${item.className}"><b>${item.count}</b> ${escapeHtml(item.label)}</span>`).join('')}</div>
         <div class="print-total-box submit-total"><span>TOTAL TO SUBMIT</span><strong>${bags.length}</strong><small>${bags.length === 1 ? 'transport bag' : 'transport bags'}</small></div>
         <div class="print-submit-bags">${bagLabels}</div>
       </div>
@@ -2300,12 +2370,7 @@
       ${printOrderOfDraw(collectionTests)}
 
       <div class="print-logistics-subheading">What to collect</div>
-      <div class="print-collection-grid">${collectionItems.map(item => `<article class="print-collection-card">
-        <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span>${item.specimenGroup ? `<span class="print-specimen-category">${escapeHtml(item.specimenGroup)}</span>` : ''}</div>
-        ${item.detail ? `<div class="print-container-detail">${escapeHtml(item.detail)}</div>` : ''}
-        ${printCollectionWholeBloodDetail(item, wholeBloodGroups)}
-        <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${testReferences(item.tests)}</ul></div>
-      </article>`).join('')}</div>
+      ${printCollectionGroups(collectionItems, wholeBloodGroups)}
 
       <section class="print-submit-section">
         <div class="print-submit-heading">

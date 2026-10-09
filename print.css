@@ -14,14 +14,14 @@
   .print-total-box > strong { font-size:20pt; }
   .print-collect-chip,.print-bag-pill,.print-collect-chip b { font-size:9pt; }
   .print-section-title,.print-logistics-subheading,.print-submit-heading { font-size:13pt; margin:14pt 0 7pt; padding:6pt 8pt; letter-spacing:0; text-transform:none; break-after:avoid; border-bottom:2px solid #285c67; }
+  .print-collection-specimen-group + .print-collection-specimen-group { margin-top:10pt; }
+  .print-collection-specimen-heading { margin:0 0 5pt; font-size:9pt; font-weight:800; color:#4f646c; letter-spacing:.04em; text-transform:uppercase; break-after:avoid; }
   .print-submit-heading strong { font-size:13pt; }
   .print-submit-heading span { font-size:9pt; }
   .print-collection-grid,.print-bag-grid { display:block; }
   .print-collection-card { margin:0 0 8pt; padding:8pt 10pt; break-inside:auto; }
   .print-container-count,.print-bag-card-header,.print-submit-item-title { break-after:avoid; }
   .print-container-count > span,.print-submit-item-title > span { font-size:10pt; }
-  .print-container-count > .print-specimen-category { font-size:7pt; }
-  .print-collect-chip .print-chip-specimen { font-size:7pt; }
   .print-container-count > strong,.print-submit-item-title > strong { font-size:13pt; }
   .print-container-detail,.print-for-tests,.print-for-tests > b { font-size:9pt; line-height:1.4; }
   .print-collection-blood-volume { grid-template-columns:minmax(0,1fr) auto; gap:6pt; margin-top:4pt; padding:4pt 6pt; font-size:8pt; line-height:1.15; break-inside:avoid; }
