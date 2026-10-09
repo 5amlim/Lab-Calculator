@@ -25,6 +25,7 @@
   const PROCESSED_SPECIMEN_USABLE_ML_PER_TUBE = 2;
   const WHOLE_BLOOD_USABLE_ML_PER_TUBE = 4;
   const SERUM_PLASMA_TO_WHOLE_BLOOD_FACTOR = 2.5;
+  const TIGER_SST_CAPACITY_ML = 7.5;
   const RBC_TO_WHOLE_BLOOD_FACTOR = 2.5;
   const ORDER_OF_DRAW = [
     { key: 'culture', number: 1, label: 'Blood cultures', additive: 'See bottle label', tubeClass: 'tube-culture' },
@@ -1309,6 +1310,59 @@
     };
   }
 
+  function tigerSstEstimateForTests(tests) {
+    let sharedBloodMl = 0;
+    let dedicatedTubes = 0;
+    let unmeasuredTubes = 0;
+
+    tests.filter(isSstDraw).forEach(test => {
+      const conversion = wholeBloodConversionFactor(test.specimenType) || { factor: SERUM_PLASMA_TO_WHOLE_BLOOD_FACTOR, type: 'serum-plasma' };
+      let bloodMl = volumeForRequirement(test, 'preferred', conversion);
+      if (bloodMl === null) bloodMl = volumeForRequirement(test, 'minimum', conversion);
+      const explicitCount = Math.max(explicitSstTubeCount(test), 1);
+
+      if (requiresDedicatedSst(test) || hasCollectionFillRule(test)) {
+        const capacityCount = bloodMl !== null ? Math.max(1, Math.ceil(bloodMl / TIGER_SST_CAPACITY_ML)) : 1;
+        dedicatedTubes += Math.max(explicitCount, capacityCount);
+      } else if (bloodMl !== null) {
+        sharedBloodMl += bloodMl;
+      } else {
+        unmeasuredTubes += 1;
+      }
+    });
+
+    const sharedTubes = sharedBloodMl > 0 ? Math.ceil(sharedBloodMl / TIGER_SST_CAPACITY_ML) : 0;
+    return {
+      sharedBloodMl,
+      sharedTubes,
+      dedicatedTubes,
+      unmeasuredTubes,
+      totalTubes: sharedTubes + dedicatedTubes + unmeasuredTubes
+    };
+  }
+
+  function tigerSstCollectionEstimateForTests(tests) {
+    const sstTests = tests.filter(isSstDraw);
+    const originalSubmissionTests = sstTests.filter(test => isSpunSstSubmission(test) || isOriginalContainerSubmission(test));
+    const transferSourceTests = sstTests.filter(test => !originalSubmissionTests.includes(test));
+
+    const originalEstimate = tigerSstEstimateForTests(originalSubmissionTests);
+    const transferSourceTubes = transferSourceTests.reduce((total, test) => {
+      const submissionTubes = splitSubmissionContainers(test).reduce((count, item) => count + item.count, 0);
+      const conversion = wholeBloodConversionFactor(test.specimenType) || { factor: SERUM_PLASMA_TO_WHOLE_BLOOD_FACTOR, type: 'serum-plasma' };
+      let bloodMl = volumeForRequirement(test, 'preferred', conversion);
+      if (bloodMl === null) bloodMl = volumeForRequirement(test, 'minimum', conversion);
+      const capacityCount = bloodMl !== null ? Math.max(1, Math.ceil(bloodMl / TIGER_SST_CAPACITY_ML)) : 1;
+      return total + Math.max(1, explicitSstTubeCount(test), submissionTubes, capacityCount);
+    }, 0);
+
+    return {
+      originalTubes: originalEstimate.totalTubes,
+      transferSourceTubes,
+      totalTubes: originalEstimate.totalTubes + transferSourceTubes
+    };
+  }
+
   function sstCollectionEstimateForTests(tests) {
     const sstTests = tests.filter(isSstDraw);
     const originalSubmissionTests = sstTests.filter(test => isSpunSstSubmission(test) || isOriginalContainerSubmission(test));
@@ -1436,6 +1490,7 @@
       .map(bag => ({
         ...bag,
         sstEstimate: sstCollectionEstimateForTests(bag.tests),
+        tigerSstEstimate: tigerSstCollectionEstimateForTests(bag.tests),
         lavenderEstimate: pooledCollectionEstimateForTests(bag.tests, isLavenderDraw),
         redTopEstimate: pooledCollectionEstimateForTests(bag.tests, isRedTopDraw)
       }));
@@ -1679,11 +1734,19 @@
     return group;
   }
 
+  function printSstTigerBadge(item) {
+    if (!item || item.className !== 'tube-sst') return '';
+    const count = Math.max(Number(item.tigerCount) || 0, 0);
+    const countText = count ? `≈ ${count} Tiger SST` : 'Tiger SST';
+    return `<span class="print-sst-tiger-badge">${countText}<span class="print-sst-tiger-capacity">7.5 mL</span></span>`;
+  }
+
   function printCollectionGroups(items, wholeBloodGroups) {
     return `<div class="print-collection-grid">${items.map(item => {
       const specimenBadge = collectionSpecimenBadgeForItem(item);
+      const tigerBadge = printSstTigerBadge(item);
       return `<article class="print-collection-card">
-        <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span>${specimenBadge ? `<span class="print-collection-specimen-badge">${escapeHtml(specimenBadge)}</span>` : ''}</div>
+        <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${specimenBadge ? `<span class="print-collection-specimen-badge">${escapeHtml(specimenBadge)}</span>` : ''}</div>
         ${item.detail ? `<div class="print-container-detail">${escapeHtml(item.detail)}</div>` : ''}
         ${printCollectionWholeBloodDetail(item, wholeBloodGroups)}
         <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${testReferences(item.tests)}</ul></div>
@@ -1705,7 +1768,8 @@
           return `${bag.label.replace(/ bag$/i, '')}: ${parts.join(' + ')}`;
         })
         .join(' · ');
-      items.push({ key: 'sst', label: 'Gold / SST', className: 'tube-sst', count: totalSst, tests: uniqueTests(sstTests), detail: breakdown });
+      const tigerCount = bags.reduce((sum, bag) => sum + (bag.tigerSstEstimate ? bag.tigerSstEstimate.totalTubes : 0), 0);
+      items.push({ key: 'sst', label: 'Gold / SST', className: 'tube-sst', count: totalSst, tigerCount, tests: uniqueTests(sstTests), detail: breakdown });
     }
 
     addPooledCollectionItem(items, tests, bags, {
@@ -2053,6 +2117,7 @@
         count: spunEstimate.totalTubes,
         detail: 'Serum from SST · spun · submit in original tube',
         originalTube: true,
+        tigerCount: tigerSstEstimateForTests(spunSstTests).totalTubes,
         tests: uniqueTests(spunSstTests)
       });
     }
@@ -2432,7 +2497,7 @@
           return `<article class="print-bag-card ${bag.className}">
             <div class="print-bag-card-header"><div><strong>${escapeHtml(bag.label)}</strong><span>Keep separate from other temperatures</span></div><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div>
             <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
-              <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span></div>
+              <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span>${printSstTigerBadge(item)}</div>
               ${printSubmissionItemDetail(item)}
               ${printLabelingNotes(item)}
               <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${testReferences(item.tests)}</ul></div>
