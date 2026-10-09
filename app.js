@@ -1900,7 +1900,12 @@
 
   function isSpunSstSubmission(test) {
     const transport = finalTransportContainer(test).toLowerCase();
-    return isSstDraw(test) && /sst|gold|serum separator/.test(transport) && !/transport tube|aliquot|cryovial/.test(transport);
+    // Group all SST/Gold specimens that are submitted in the original collection
+    // tube under one SST card. Some tests describe that same workflow as
+    // "Primary tube (do not open)" instead of literally saying SST/Gold.
+    return isSstDraw(test)
+      && isOriginalContainerSubmission(test)
+      && !/transport tube|aliquot|cryovial/.test(transport);
   }
 
   function buildSubmissionContents(bag) {
@@ -2229,12 +2234,14 @@
     if (group.dedicatedTubes > 0) notes.push(`${group.dedicatedTubes} dedicated ${group.dedicatedTubes === 1 ? 'tube' : 'tubes'} included`);
     const note = notes.length ? `<small>${escapeHtml(notes.join(' · '))}</small>` : '';
     return `<div class="print-collection-blood-volume">
-      <span class="print-collection-blood-label">Estimated draw volume</span>
+      <span class="print-collection-blood-copy">
+        <span class="print-collection-blood-label">Estimated draw volume</span>
+        ${note}
+      </span>
       <span class="print-collection-blood-values">
         <span class="print-collection-blood-metric"><b>Preferred</b><strong>${escapeHtml(wholeBloodRequirementText(group, 'preferred'))}</strong></span>
         <span class="print-collection-blood-metric"><b>Minimum</b><strong>${escapeHtml(wholeBloodRequirementText(group, 'minimum'))}</strong></span>
       </span>
-      ${note}
     </div>`;
   }
 

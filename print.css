@@ -22,13 +22,14 @@
   .print-container-count > span,.print-submit-item-title > span { font-size:10pt; }
   .print-container-count > strong,.print-submit-item-title > strong { font-size:13pt; }
   .print-container-detail,.print-for-tests,.print-for-tests > b { font-size:9pt; line-height:1.4; }
-  .print-collection-blood-volume { grid-template-columns:minmax(0,1fr) auto; gap:5pt 10pt; margin-top:6pt; padding:6pt 8pt; font-size:9pt; line-height:1.3; break-inside:avoid; }
-  .print-collection-blood-label { font-size:8pt; }
-  .print-collection-blood-values { gap:6pt; }
-  .print-collection-blood-metric { min-width:72pt; padding:4pt 6pt; }
-  .print-collection-blood-metric b { font-size:7pt; }
-  .print-collection-blood-metric strong { font-size:10pt; }
-  .print-collection-blood-volume > small { font-size:8pt; }
+  .print-collection-blood-volume { grid-template-columns:minmax(0,1fr) auto; gap:6pt; margin-top:4pt; padding:4pt 6pt; font-size:8pt; line-height:1.15; break-inside:avoid; }
+  .print-collection-blood-copy { display:flex; flex-direction:column; justify-content:center; }
+  .print-collection-blood-label { font-size:7.5pt; }
+  .print-collection-blood-copy small { margin-top:2pt; font-size:7pt; }
+  .print-collection-blood-values { gap:4pt; }
+  .print-collection-blood-metric { min-width:66pt; padding:3pt 5pt; text-align:center; justify-items:center; }
+  .print-collection-blood-metric b { font-size:6.5pt; }
+  .print-collection-blood-metric strong { font-size:9.5pt; }
   .print-for-tests ul { margin:3pt 0 0; list-style:none; }
   .print-for-tests li { display:inline; }
   .print-for-tests li + li::before { content:' • '; padding:0 4pt; }

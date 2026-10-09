@@ -1,14 +1,13 @@
-v10.49
-- Simplified Estimated draw volume display in the What to collect cards.
-- Preferred and Minimum values are now right-aligned in clear metric blocks.
-- Removed the redundant full/fill-line priority note.
+v10.51
 
-v10.48
-- Renamed "Whole blood needed" to "Estimated draw volume" in the print collection cards.
+- Compacted the Estimated draw volume panel inside each blood collection card.
+- Preferred and Minimum values are now centered within their value boxes for faster scanning.
+- The label and dedicated-tube note now share the left side of the same compact row instead of adding a second row.
+- No collection, pooling, tube-count, or draw-volume calculations changed.
 
-v10.47
-- Whole-blood draw volumes moved into the existing "What to collect" tube cards.
-- Removed the standalone whole-blood-volume section from the printout.
-- Dedicated/own-tube and explicit multiple-tube requirements are now carried into the volume summary and clearly called out.
-- Added safe handling for full/fill-to-line tubes: use the stated numeric fill when available; otherwise show full tube/fill line instead of inventing an mL capacity.
-- Fixed structured additional-draw counts so multi-tube secondary requirements are preserved.
+v10.50
+
+- Fixed print submission grouping for test 306 (Calcium, Ionized). It now appears in the same SST / Gold original-submit card as other compatible room-temperature SST specimens instead of a separate SST card caused by the wording "Primary tube (do not open)."
+- Cross-checked original-container grouping logic across the active catalog. Different additives and genuinely different container types remain separate.
+- Cleaned the release package: historical V10.xx QA files and one-off old audit text files are no longer copied into each new release. A single QA.md now records current-release checks; prior release packages / Git history preserve older QA history.
+- No test data, collection counts, pooling, temperature routing, Do Not Perform status, storage architecture, or estimated draw-volume calculations changed.
