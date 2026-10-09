@@ -1150,7 +1150,30 @@
 
   function renderAlerts(tests) {
     const alerts = collectAlerts(tests);
-    els.collectionAlerts.innerHTML = alerts.map(alert => `<div class="alert ${alert.type === 'danger' ? 'danger' : ''}">${escapeHtml(alert.text)}</div>`).join('');
+    if (!alerts.length) {
+      els.collectionAlerts.innerHTML = '';
+      return;
+    }
+
+    const dangerCount = alerts.filter(alert => alert.type === 'danger').length;
+    const warningCount = alerts.length - dangerCount;
+    const countLabel = `${alerts.length} ${alerts.length === 1 ? 'notice' : 'notices'}`;
+    const severityLabel = [
+      dangerCount ? `${dangerCount} restriction${dangerCount === 1 ? '' : 's'}` : '',
+      warningCount ? `${warningCount} warning${warningCount === 1 ? '' : 's'}` : ''
+    ].filter(Boolean).join(' · ');
+
+    els.collectionAlerts.innerHTML = `<details class="collection-alerts-disclosure">
+      <summary class="collection-alerts-summary">
+        <span class="collection-alerts-summary-main">
+          <span class="collection-alerts-icon" aria-hidden="true">!</span>
+          <span><strong>Warnings & special handling</strong><small>${escapeHtml(severityLabel)}</small></span>
+        </span>
+        <span class="collection-alerts-summary-count">${escapeHtml(countLabel)}</span>
+        <span class="collection-alerts-chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="collection-alerts-list">${alerts.map(alert => `<div class="alert ${alert.type === 'danger' ? 'danger' : ''}">${escapeHtml(alert.text)}</div>`).join('')}</div>
+    </details>`;
   }
 
   function openDialog(test = null, options = {}) {

@@ -1,8 +1,9 @@
-v10.77
-- Fixed the Transport Tube print-table badge so Tiger SST uses the red/gray Tiger SST styling instead of the yellow Gold/SST styling.
-- Removed “7.5 mL” from Tiger SST labels in the Transport Tube column only to keep that section compact.
-- The Draw Container column, SST toggle, and collection plan still show “Tiger SST · 7.5 mL”.
-- No collection or pooling calculations changed.
+v10.78
+- Moved Collection Summary warnings and special-handling notices into a compact expandable control.
+- The control shows the total notice count plus restriction/warning counts while collapsed.
+- Expanding it reveals the existing color-coded warning cards.
+- Printouts still show warnings normally so important handling notes are not hidden on paper.
+- No test, tube-count, pooling, or SST calculations changed.
 
-v10.76
-- Fixed the print-table Transport Tube column so SST original-tube submissions follow the active SST toggle.
+v10.77
+- Fixed Tiger SST styling and shortened the Transport Tube label in the print table.
