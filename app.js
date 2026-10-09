@@ -2374,10 +2374,13 @@
   function printLabelingNotes(item) {
     const grouped = new Map();
     uniqueTests(item.tests).forEach(test => {
+      const is24Hour = is24HourUrineTest(test);
       const derived = derivedSpecimenSourceLabel(test, item);
       const explicit = String(test.specialLabeling || '').trim();
       const parts = [];
-      if (derived) parts.push(derived);
+      // For 24-hour urine transfers, "24h urine" already identifies the specimen.
+      // Do not prepend a redundant generic "Urine" label.
+      if (derived && !(is24Hour && /^urine$/i.test(derived.trim()))) parts.push(derived);
       // Amber transport tubes should always carry a visible specimen-type label,
       // including ordinary serum transfers where the standard SST source would
       // otherwise suppress a redundant derived label.
@@ -2385,8 +2388,9 @@
         const amberSpecimen = titleCaseSpecimen(normalizeSpecimenType(test.specimenType));
         if (amberSpecimen) parts.push(amberSpecimen);
       }
-      if (is24HourUrineTest(test)) parts.push('24h urine · Total volume: ____ mL · Start: ____ · End: ____');
-      if (explicitLabelAddsInformation(explicit, derived)) parts.push(explicit);
+      if (is24Hour) parts.push('24h urine · Total volume: ____ mL · Start: ____ · End: ____');
+      const explicitIsRedundant24hUrine = is24Hour && /^urine$/i.test(explicit.trim());
+      if (!explicitIsRedundant24hUrine && explicitLabelAddsInformation(explicit, derived)) parts.push(explicit);
       const note = Array.from(new Set(parts)).join(' · ');
       if (!note) return;
       if (!grouped.has(note)) grouped.set(note, []);

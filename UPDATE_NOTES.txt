@@ -1,3 +1,8 @@
+v10.84
+- Cleaned up 24-hour urine labeling in the submission cards.
+- A 24-hour urine transfer now labels simply “24h urine · Total volume: ____ mL · Start: ____ · End: ____” instead of “Urine · 24h urine ...”.
+- No urine collection, transfer, or container-count logic changed.
+
 v10.83
 - The top What to Collect summary now differentiates sterile collection cups used for urine versus stool.
 - Sterile Urine Cup chips now include a small URINE or STOOL tag when applicable.
