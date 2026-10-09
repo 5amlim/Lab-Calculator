@@ -956,6 +956,25 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     font-size: 12px;
   }
   .print-container-count > span { font-size: 8px; font-weight: 900; }
+  .print-specimen-category {
+    margin-left: auto;
+    padding: 2px 6px;
+    border: 1px solid #c8d7db;
+    border-radius: 999px;
+    background: #f3f7f8 !important;
+    color: #4a626b !important;
+    font-size: 6.5px !important;
+    font-weight: 900 !important;
+    letter-spacing: .055em;
+    text-transform: uppercase;
+  }
+  .print-chip-specimen {
+    margin-left: 3px;
+    color: #52666e;
+    font-size: 6.5px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
   .print-container-detail { margin-top: 4px; color: #53636b; font-size: 6.7px; line-height: 1.25; }
   .print-collection-blood-volume {
     display: grid;

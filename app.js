@@ -1442,7 +1442,19 @@
   }
 
   function isUrineTest(test) {
-    return /urine/.test(String(test.specimenType || '').toLowerCase());
+    const text = `${test.specimenType || ''} ${test.testName || ''}`.toLowerCase();
+    return /\burine\b|urinary/.test(text);
+  }
+
+  function isStoolTest(test) {
+    const text = `${test.specimenType || ''} ${test.testName || ''}`.toLowerCase();
+    return /\bstool\b|\bfeces\b|\bfecal\b/.test(text);
+  }
+
+  function collectionSpecimenGroup(test) {
+    if (isUrineTest(test)) return 'urine';
+    if (isStoolTest(test)) return 'stool';
+    return '';
   }
 
   function isTimedUrineTest(test) {
@@ -1645,9 +1657,10 @@
     const spotUrineTests = tests.filter(test => isUrineTest(test) && !isTimedUrineTest(test));
     if (spotUrineTests.length) {
       items.push({
-        key: 'sterile-urine-cup',
+        key: 'sterile-urine-cup|urine',
         label: 'Sterile Urine Cup',
         className: 'tube-urine-cup',
+        specimenGroup: 'urine',
         count: 1,
         tests: uniqueTests(spotUrineTests),
         detail: 'Collect the urine in the sterile cup first, then fill any required preservative or transport tubes.'
@@ -1661,8 +1674,10 @@
       if (isAdditionalPoolableBloodDraw(test)) return;
       if (isUrineTest(test) && !isTimedUrineTest(test)) return;
       const info = canonicalCollectionContainer(test);
-      if (!grouped.has(info.key)) grouped.set(info.key, { ...info, count: 0, tests: [], detail: '' });
-      const item = grouped.get(info.key);
+      const specimenGroup = collectionSpecimenGroup(test);
+      const groupKey = specimenGroup ? `${info.key}|${specimenGroup}` : info.key;
+      if (!grouped.has(groupKey)) grouped.set(groupKey, { ...info, key: groupKey, specimenGroup, count: 0, tests: [], detail: '' });
+      const item = grouped.get(groupKey);
       item.count += explicitCollectionCount(test);
       item.tests.push(test);
     });
@@ -2276,7 +2291,7 @@
       <div class="print-logistics-heading"><strong>Collection and submission plan</strong><span>Collection containers are separated from processed specimens placed into transport bags.</span></div>
       <div class="print-logistics-totals">
         <div class="print-total-box collect-total"><span>TOTAL TO COLLECT</span><strong>${totalCollect}</strong><small>tubes / collection containers</small></div>
-        <div class="print-collect-chips">${collectionItems.map(item => `<span class="print-collect-chip tube ${item.className}"><b>${item.count}</b> ${escapeHtml(item.label)}</span>`).join('')}</div>
+        <div class="print-collect-chips">${collectionItems.map(item => `<span class="print-collect-chip tube ${item.className}"><b>${item.count}</b> ${escapeHtml(item.label)}${item.specimenGroup ? ` <small class="print-chip-specimen">${escapeHtml(item.specimenGroup)}</small>` : ''}</span>`).join('')}</div>
         <div class="print-total-box submit-total"><span>TOTAL TO SUBMIT</span><strong>${bags.length}</strong><small>${bags.length === 1 ? 'transport bag' : 'transport bags'}</small></div>
         <div class="print-submit-bags">${bagLabels}</div>
       </div>
@@ -2286,7 +2301,7 @@
 
       <div class="print-logistics-subheading">What to collect</div>
       <div class="print-collection-grid">${collectionItems.map(item => `<article class="print-collection-card">
-        <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span></div>
+        <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span>${item.specimenGroup ? `<span class="print-specimen-category">${escapeHtml(item.specimenGroup)}</span>` : ''}</div>
         ${item.detail ? `<div class="print-container-detail">${escapeHtml(item.detail)}</div>` : ''}
         ${printCollectionWholeBloodDetail(item, wholeBloodGroups)}
         <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${testReferences(item.tests)}</ul></div>
