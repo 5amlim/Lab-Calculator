@@ -1,3 +1,8 @@
+v10.80
+- Added “5 mL” as the smaller gray volume line under Gold / SST in the SST selector.
+- Tiger SST continues to show “7.5 mL” on the smaller gray line.
+- This is a display update only; Gold/SST pooling calculations are unchanged.
+
 v10.79
 - Changed the SST selector helper text to “Select one SST tube.”
 - Moved the Tiger SST 7.5 mL volume to its own smaller gray line under the tube name.
