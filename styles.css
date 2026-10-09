@@ -965,6 +965,21 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     font-size: 12px;
   }
   .print-container-count > span { font-size: 8px; font-weight: 900; }
+
+  .print-collection-specimen-badge {
+    margin-left: auto;
+    padding: 2px 6px;
+    border: 1px solid #c8d5d9;
+    border-radius: 999px;
+    background: #f3f7f8 !important;
+    color: #526a72 !important;
+    font-size: 5.7px !important;
+    font-weight: 950 !important;
+    line-height: 1;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
   .print-container-detail { margin-top: 4px; color: #53636b; font-size: 6.7px; line-height: 1.25; }
   .print-collection-blood-volume {
     display: grid;

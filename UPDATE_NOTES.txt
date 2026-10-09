@@ -1,3 +1,11 @@
+v10.54
+
+- Restored the What to collect layout to one continuous compact grid instead of breaking the grid into separate Urine/Stool rows.
+- Added a small collection-type badge inside non-blood cards: Random urine, First-morning urine, Timed urine, 24-hour urine, or Stool.
+- Compatible tests collected from the same urine specimen and same physical collection container remain grouped; urine collections with materially different collection types remain separate.
+- 24-hour urine submission items now show a label instruction in the transport bag: “24h urine · Total volume: ____ mL · Start: ____ · End: ____”.
+- No test catalog data, blood pooling, draw-volume calculations, Do Not Perform status, or storage architecture changed.
+
 v10.53
 
 - Fixed duplicate collection cards when multiple urine tests use the same Sterile Urine Cup.
