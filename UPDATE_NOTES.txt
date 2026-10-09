@@ -1,3 +1,8 @@
+v10.79
+- Changed the SST selector helper text to “Select one SST tube.”
+- Moved the Tiger SST 7.5 mL volume to its own smaller gray line under the tube name.
+- No calculation logic changed.
+
 v10.78
 - Moved Collection Summary warnings and special-handling notices into a compact expandable control.
 - The control shows the total notice count plus restriction/warning counts while collapsed.

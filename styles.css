@@ -186,7 +186,9 @@ tr:hover td { background: #fbfdfd; }
 .sst-mode-toggle { display: inline-flex; flex: 0 0 auto; padding: 2px; border: 1px solid #cbd7db; border-radius: 999px; background: #fff; }
 .sst-mode-option { border: 0; border-radius: 999px; background: transparent; padding: 5px 8px; color: #52646b; cursor: pointer; }
 .sst-mode-option.is-selected { background: #e4ecef; color: #203840; box-shadow: inset 0 0 0 1px #c5d3d8; }
-.sst-mode-tube { font-size: 9px; font-weight: 800; white-space: nowrap; }
+.sst-mode-tube { display: inline-grid; gap: 1px; align-items: center; font-size: 9px; font-weight: 800; white-space: nowrap; text-align: left; }
+.sst-mode-name { font-size: 9px; font-weight: 800; line-height: 1.05; }
+.sst-mode-volume { display: block; margin: 0; color: #7b898f; font-size: 7.2px; font-weight: 650; line-height: 1.05; }
 @media (max-width: 720px) { .sst-mode-control { align-items: stretch; flex-direction: column; } .sst-mode-toggle { align-self: flex-start; } }
 .draw-plan { display: grid; gap: 8px; }
 .draw-card { border: 1px solid var(--line); border-radius: 11px; padding: 10px 11px; display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: start; }
