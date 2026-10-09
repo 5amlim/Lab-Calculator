@@ -2663,7 +2663,13 @@
     const sourceText = /transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/i.test(value)
       ? specimenSourceDetail(test)
       : sourceSpecimen;
-    return `<span class="print-tube-badge tube ${transportTubeClass(test, value)}">${escapeHtml(value || 'Verify')}</span>${sourceText ? `<div class="print-transport-source">${escapeHtml(sourceText)}${sourceBadge}</div>` : ''}`;
+    const displayClass = transportTubeClass(test, value);
+    let displayValue = value || 'Verify';
+    if (displayClass === 'tube-sst') {
+      const keepSpun = /spun/i.test(value) || isSpunSstSubmission(test) || isOriginalContainerSubmission(test);
+      displayValue = `${selectedSstLabel()}${keepSpun ? ' (spun)' : ''}`;
+    }
+    return `<span class="print-tube-badge tube ${displayClass}">${escapeHtml(displayValue)}</span>${sourceText ? `<div class="print-transport-source">${escapeHtml(sourceText)}${sourceBadge}</div>` : ''}`;
   }
 
   function printCollectionSubmissionPlan(tests) {
