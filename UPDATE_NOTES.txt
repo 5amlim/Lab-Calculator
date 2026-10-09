@@ -1,3 +1,11 @@
+v10.49
+- Simplified Estimated draw volume display in the What to collect cards.
+- Preferred and Minimum values are now right-aligned in clear metric blocks.
+- Removed the redundant full/fill-line priority note.
+
+v10.48
+- Renamed "Whole blood needed" to "Estimated draw volume" in the print collection cards.
+
 v10.47
 - Whole-blood draw volumes moved into the existing "What to collect" tube cards.
 - Removed the standalone whole-blood-volume section from the printout.

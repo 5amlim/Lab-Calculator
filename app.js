@@ -2227,13 +2227,13 @@
     if (!group) return '';
     const notes = [];
     if (group.dedicatedTubes > 0) notes.push(`${group.dedicatedTubes} dedicated ${group.dedicatedTubes === 1 ? 'tube' : 'tubes'} included`);
-    if (group.className === 'tube-blue' && group.hasFillRule) notes.push('fill to the tube line');
-    else if (group.hasFillRule) notes.push('full/fill-line instructions take priority');
     const note = notes.length ? `<small>${escapeHtml(notes.join(' · '))}</small>` : '';
     return `<div class="print-collection-blood-volume">
-      <span class="print-collection-blood-label">Whole blood needed</span>
-      <span class="print-collection-blood-metric"><b>Preferred</b> ${escapeHtml(wholeBloodRequirementText(group, 'preferred'))}</span>
-      <span class="print-collection-blood-metric"><b>Minimum</b> ${escapeHtml(wholeBloodRequirementText(group, 'minimum'))}</span>
+      <span class="print-collection-blood-label">Estimated draw volume</span>
+      <span class="print-collection-blood-values">
+        <span class="print-collection-blood-metric"><b>Preferred</b><strong>${escapeHtml(wholeBloodRequirementText(group, 'preferred'))}</strong></span>
+        <span class="print-collection-blood-metric"><b>Minimum</b><strong>${escapeHtml(wholeBloodRequirementText(group, 'minimum'))}</strong></span>
+      </span>
       ${note}
     </div>`;
   }
@@ -2306,7 +2306,7 @@
       </section>
       <div class="print-bag-note">
         <div><strong>Tube sharing:</strong> Compatible SST, Lavender EDTA, and Red Top tubes can be shared across tests only when the processing steps and temperature match. Lavender whole blood stays separate from Lavender tubes used for plasma or RBCs. Tubes sent whole also stay separate from tubes used to prepare aliquots.</div>
-        <div><strong>Tube counts:</strong> Estimates allow 2 mL of usable serum, plasma, or processed specimen per source tube and 4 mL of whole blood per Lavender tube. Multiple, dedicated, and full-tube requirements remain separate. Whole-blood amounts are shown inside each blood-tube card; serum/plasma amounts use a 2.5× whole-blood conversion unless a full/fill-line instruction takes priority.</div>
+        <div><strong>Tube counts:</strong> Estimates allow 2 mL of usable serum, plasma, or processed specimen per source tube and 4 mL of whole blood per Lavender tube. Multiple, dedicated, and full-tube requirements remain separate. Whole-blood amounts are shown inside each blood-tube card; serum/plasma amounts use a 2.5× whole-blood conversion.</div>
         <div><strong>Urine:</strong> One sterile cup is included for a spot urine test. Follow the listed container instructions for timed or 24-hour collections.</div>
       </div>
     </section>`;
