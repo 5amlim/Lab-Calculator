@@ -1,27 +1,8 @@
+v10.72
+- Refined the source-count badge so it becomes part of the start of the source pill instead of looking like a separate bubble.
+- The count stays the same font size, but the pill now feels more unified and cohesive.
+- No calculation logic changed.
+
 v10.71
-- Refined the numbered “From” source pill so the count, tube icon, and text sit together as one cohesive badge.
-- Kept the number font size unchanged while reducing the circle footprint and bringing it fully inside the pill.
-- Adjusted spacing so the source tube icon follows the count cleanly without overlap.
-- No calculation or pooling logic changed.
-
-v10.70
-- Extended the source-count badge to all source collection containers when a transfer is required.
-- Examples include Royal Blue source tubes transferred to acid-washed/metal-free transport tubes and Sterile Urine Cups transferred into urine preservative/transport tubes.
-- Source counts now reuse the same collection-plan and pooling rules as What to collect.
-- The number is shown only on transfer-source badges, not on original-tube submissions.
-- No specimen volume or transport-container calculations changed.
-
-v10.69
-- Moved the source-count circle visually before the source tube icon inside each From pill.
-- The pill now reads as: count badge → tube icon → From Gold / SST.
-- Kept the enlarged source-count badge from v10.68.
-- No calculation logic changed.
-
-v10.68
-- Moved the enlarged source-tube count badge back to the start of each From pill.
-- The pill now reads like “② From Gold / SST”.
-- No calculation logic changed.
-
-v10.67
-- Moved the source-tube count badge to the end of each From pill and increased its size for readability.
+- Tightened the source pill layout so the number, tube icon, and text read more cohesively while keeping the font size the same.
 - No calculation logic changed.
