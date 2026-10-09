@@ -1,3 +1,8 @@
+v10.62
+- Corrected SST source-for-transfer tube pooling. Compatible serum transfer tests in the same temperature group now share Gold/SST capacity by volume instead of each automatically requiring its own source SST.
+- Tiger SST uses the same source-for-transfer pooling logic with its 7.5 mL capacity.
+- Dedicated, separate, full-tube, and explicit multiple-collection requirements still remain separate. Original-submit SSTs remain separate from source-for-transfer SSTs.
+
 v10.61
 
 - Tiger SST count font weight now matches the primary Gold/SST count.

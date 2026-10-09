@@ -1346,20 +1346,17 @@
     const originalSubmissionTests = sstTests.filter(test => isSpunSstSubmission(test) || isOriginalContainerSubmission(test));
     const transferSourceTests = sstTests.filter(test => !originalSubmissionTests.includes(test));
 
+    // Original-submit tubes and tubes used as a source for transferred serum are
+    // separate pools. Within each temperature bag, compatible transfer-source
+    // tests share capacity by volume unless a test explicitly requires its own,
+    // separate, full, or multiple collection tubes.
     const originalEstimate = tigerSstEstimateForTests(originalSubmissionTests);
-    const transferSourceTubes = transferSourceTests.reduce((total, test) => {
-      const submissionTubes = splitSubmissionContainers(test).reduce((count, item) => count + item.count, 0);
-      const conversion = wholeBloodConversionFactor(test.specimenType) || { factor: SERUM_PLASMA_TO_WHOLE_BLOOD_FACTOR, type: 'serum-plasma' };
-      let bloodMl = volumeForRequirement(test, 'preferred', conversion);
-      if (bloodMl === null) bloodMl = volumeForRequirement(test, 'minimum', conversion);
-      const capacityCount = bloodMl !== null ? Math.max(1, Math.ceil(bloodMl / TIGER_SST_CAPACITY_ML)) : 1;
-      return total + Math.max(1, explicitSstTubeCount(test), submissionTubes, capacityCount);
-    }, 0);
+    const transferEstimate = tigerSstEstimateForTests(transferSourceTests);
 
     return {
       originalTubes: originalEstimate.totalTubes,
-      transferSourceTubes,
-      totalTubes: originalEstimate.totalTubes + transferSourceTubes
+      transferSourceTubes: transferEstimate.totalTubes,
+      totalTubes: originalEstimate.totalTubes + transferEstimate.totalTubes
     };
   }
 
@@ -1368,15 +1365,13 @@
     const originalSubmissionTests = sstTests.filter(test => isSpunSstSubmission(test) || isOriginalContainerSubmission(test));
     const transferSourceTests = sstTests.filter(test => !originalSubmissionTests.includes(test));
 
-    // Original-submit SSTs retain their existing volume pooling. Each transfer
-    // container gets its own source SST; explicit draw counts remain a minimum.
+    // Original-submit SSTs and source-for-transfer SSTs must stay in separate
+    // pools because an original tube being submitted cannot also be used as the
+    // source for an aliquot. Transfer-source SSTs can otherwise share capacity by
+    // volume within the same temperature bag. Explicit dedicated/separate/full
+    // tube instructions still force their own collection tube(s).
     const originalEstimate = sstEstimateForTests(originalSubmissionTests);
-    const transferSourceTubes = transferSourceTests.reduce((total, test) => {
-      const submissionTubes = splitSubmissionContainers(test)
-        .reduce((count, item) => count + item.count, 0);
-      return total + Math.max(1, explicitSstTubeCount(test), submissionTubes);
-    }, 0);
-    const transferEstimate = { totalTubes: transferSourceTubes };
+    const transferEstimate = sstEstimateForTests(transferSourceTests);
 
     return {
       originalEstimate,
