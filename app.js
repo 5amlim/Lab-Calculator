@@ -1341,22 +1341,34 @@
     };
   }
 
+  function sstTransferDestinationGroups(tests) {
+    const groups = new Map();
+    tests.filter(isSstDraw).forEach(test => {
+      transferDestinationKeysForTest(test).forEach(destinationKey => {
+        if (!groups.has(destinationKey)) groups.set(destinationKey, []);
+        groups.get(destinationKey).push(test);
+      });
+    });
+    return Array.from(groups.entries()).map(([key, groupTests]) => ({ key, tests: uniqueTests(groupTests) }));
+  }
+
   function tigerSstCollectionEstimateForTests(tests) {
     const sstTests = tests.filter(isSstDraw);
     const originalSubmissionTests = sstTests.filter(test => isSpunSstSubmission(test) || isOriginalContainerSubmission(test));
     const transferSourceTests = sstTests.filter(test => !originalSubmissionTests.includes(test));
 
-    // Original-submit tubes and tubes used as a source for transferred serum are
-    // separate pools. Within each temperature bag, compatible transfer-source
-    // tests share capacity by volume unless a test explicitly requires its own,
-    // separate, full, or multiple collection tubes.
     const originalEstimate = tigerSstEstimateForTests(originalSubmissionTests);
-    const transferEstimate = tigerSstEstimateForTests(transferSourceTests);
+    const transferGroups = sstTransferDestinationGroups(transferSourceTests).map(group => ({
+      ...group,
+      estimate: tigerSstEstimateForTests(group.tests)
+    }));
+    const transferSourceTubes = transferGroups.reduce((sum, group) => sum + group.estimate.totalTubes, 0);
 
     return {
       originalTubes: originalEstimate.totalTubes,
-      transferSourceTubes: transferEstimate.totalTubes,
-      totalTubes: originalEstimate.totalTubes + transferEstimate.totalTubes
+      transferSourceTubes,
+      transferGroups,
+      totalTubes: originalEstimate.totalTubes + transferSourceTubes
     };
   }
 
@@ -1365,20 +1377,26 @@
     const originalSubmissionTests = sstTests.filter(test => isSpunSstSubmission(test) || isOriginalContainerSubmission(test));
     const transferSourceTests = sstTests.filter(test => !originalSubmissionTests.includes(test));
 
-    // Original-submit SSTs and source-for-transfer SSTs must stay in separate
-    // pools because an original tube being submitted cannot also be used as the
-    // source for an aliquot. Transfer-source SSTs can otherwise share capacity by
-    // volume within the same temperature bag. Explicit dedicated/separate/full
-    // tube instructions still force their own collection tube(s).
+    // Original-submit SSTs remain pooled separately. For transfers, each
+    // destination submission card gets its own SST source pool. That makes the
+    // workflow intentionally a little more generous on draw volume, but much
+    // easier to process and guarantees that every numbered From pill adds up to
+    // the source-for-transfer count shown in What to Collect.
     const originalEstimate = sstEstimateForTests(originalSubmissionTests);
-    const transferEstimate = sstEstimateForTests(transferSourceTests);
+    const transferGroups = sstTransferDestinationGroups(transferSourceTests).map(group => ({
+      ...group,
+      estimate: sstEstimateForTests(group.tests)
+    }));
+    const transferSourceTubes = transferGroups.reduce((sum, group) => sum + group.estimate.totalTubes, 0);
+    const transferEstimate = { totalTubes: transferSourceTubes, groups: transferGroups };
 
     return {
       originalEstimate,
       transferEstimate,
+      transferGroups,
       originalTubes: originalEstimate.totalTubes,
-      transferSourceTubes: transferEstimate.totalTubes,
-      totalTubes: originalEstimate.totalTubes + transferEstimate.totalTubes
+      transferSourceTubes,
+      totalTubes: originalEstimate.totalTubes + transferSourceTubes
     };
   }
 
@@ -1402,6 +1420,17 @@
 
   function pooledCollectionPath(test) {
     return isOriginalContainerSubmission(test) ? 'original' : 'transfer';
+  }
+
+  function transferDestinationKeysForTest(test) {
+    if (isOriginalContainerSubmission(test)) return [];
+    const keys = splitSubmissionContainers(test)
+      .filter(container => !container.originalTube)
+      .map(container => container.key)
+      .filter(Boolean);
+    if (keys.length) return Array.from(new Set(keys));
+    const fallback = normalizeSearch(finalTransportContainer(test));
+    return fallback ? [`transfer|${fallback}`] : ['transfer|verify'];
   }
 
   function pooledCollectionCapacity(material) {
@@ -1456,14 +1485,24 @@
     tests.filter(matchesTube).forEach(test => {
       const material = pooledCollectionMaterial(test);
       const path = pooledCollectionPath(test);
-      const key = `${path}|${normalizeSearch(material)}`;
-      if (!groups.has(key)) groups.set(key, { key, path, material, tests: [] });
-      groups.get(key).tests.push(test);
+      const isBloodTransfer = path === 'transfer' && collectionSpecimenGroupForTest(test) === 'blood';
+      const destinationKeys = isBloodTransfer ? transferDestinationKeysForTest(test) : [''];
+
+      // For blood transfers, keep each destination submission card in its own
+      // source-tube pool. This intentionally draws an extra tube when needed so
+      // every From pill can carry a number and the pill totals reconcile exactly
+      // to the source-for-transfer count in What to Collect.
+      destinationKeys.forEach(destinationKey => {
+        const key = `${path}|${normalizeSearch(material)}|${destinationKey}`;
+        if (!groups.has(key)) groups.set(key, { key, path, material, destinationKey, tests: [] });
+        groups.get(key).tests.push(test);
+      });
     });
 
     const estimatedGroups = Array.from(groups.values()).map(group => ({
       ...group,
-      estimate: pooledTubeEstimateForTests(group.tests, group.material)
+      tests: uniqueTests(group.tests),
+      estimate: pooledTubeEstimateForTests(uniqueTests(group.tests), group.material)
     }));
 
     return {
@@ -1621,6 +1660,15 @@
     return `source for ${group.material}`;
   }
 
+  function pooledCollectionDetailParts(estimate) {
+    const totals = new Map();
+    (estimate.groups || []).filter(group => group.estimate.totalTubes > 0).forEach(group => {
+      const label = pooledCollectionGroupLabel(group);
+      totals.set(label, (totals.get(label) || 0) + group.estimate.totalTubes);
+    });
+    return Array.from(totals.entries()).map(([label, count]) => `${count} ${label}`);
+  }
+
   function addPooledCollectionItem(items, tests, bags, options) {
     const matchingTests = tests.filter(options.matchesTube);
     const total = bags.reduce((sum, bag) => sum + bag[options.estimateKey].totalTubes, 0);
@@ -1629,9 +1677,7 @@
     const detail = bags
       .filter(bag => bag[options.estimateKey].totalTubes > 0)
       .map(bag => {
-        const parts = bag[options.estimateKey].groups
-          .filter(group => group.estimate.totalTubes > 0)
-          .map(group => `${group.estimate.totalTubes} ${pooledCollectionGroupLabel(group)}`);
+        const parts = pooledCollectionDetailParts(bag[options.estimateKey]);
         return `${bag.label.replace(/ bag$/i, '')}: ${parts.join(' + ')}`;
       })
       .join(' · ');
@@ -1671,7 +1717,7 @@
         const estimate = pooledCollectionEstimateForTests(bagTests, () => true);
         total += estimate.totalTubes;
         if (estimate.totalTubes) {
-          const parts = estimate.groups.map(group => `${group.estimate.totalTubes} ${pooledCollectionGroupLabel(group)}`);
+          const parts = pooledCollectionDetailParts(estimate);
           details.push(`${bag.label.replace(/ bag$/i, '')}: ${parts.join(' + ')}`);
         }
       });
@@ -2299,21 +2345,47 @@
       .reduce((sum, item) => sum + Math.max(Number(item.count) || 0, 0), 0);
   }
 
-  function printSubmissionSourceBadges(item) {
-    if (item.originalTube) return '';
+  function submissionSourceGroupsForItem(item) {
     const badges = new Map();
-    uniqueTests(item.tests).forEach(test => {
+    if (!item || item.originalTube) return badges;
+    uniqueTests(item.tests || []).forEach(test => {
       if (!isTransferSubmission(test)) return;
       const source = canonicalCollectionContainer(test);
       if (!source.label || !source.className) return;
       const key = `${source.className}|${source.label}`;
-      if (!badges.has(key)) badges.set(key, { source, tests: [] });
+      if (!badges.has(key)) badges.set(key, { key, source, tests: [] });
       badges.get(key).tests.push(test);
     });
+    return badges;
+  }
+
+  function isBloodTransferSourceGroup(tests) {
+    const groups = new Set(uniqueTests(tests || []).map(collectionSpecimenGroupForTest));
+    return groups.size === 1 && groups.has('blood');
+  }
+
+  function applyBloodSourceCountAllocations(contents) {
+    // Blood transfer cards never share a displayed source-tube allocation across
+    // destination cards. Each card gets its own numbered source count, and What
+    // to Collect intentionally draws the sum of those card-level counts.
+    contents.forEach(item => {
+      submissionSourceGroupsForItem(item).forEach(group => {
+        if (!isBloodTransferSourceGroup(group.tests)) return;
+        const sourceCount = transferSourceTubeCountForItemTests(group.tests, group.source);
+        if (!item.sourceCountOverrides) item.sourceCountOverrides = new Map();
+        item.sourceCountOverrides.set(group.key, Math.max(sourceCount, 1));
+      });
+    });
+  }
+
+  function printSubmissionSourceBadges(item) {
+    if (item.originalTube) return '';
+    const badges = submissionSourceGroupsForItem(item);
     if (!badges.size) return '';
 
-    return `<span class="print-source-badges">${Array.from(badges.values()).map(({ source, tests }) => {
-      const sourceCount = transferSourceTubeCountForItemTests(tests, source);
+    return `<span class="print-source-badges">${Array.from(badges.values()).map(({ key, source, tests }) => {
+      const hasOverride = item.sourceCountOverrides instanceof Map && item.sourceCountOverrides.has(key);
+      const sourceCount = hasOverride ? item.sourceCountOverrides.get(key) : transferSourceTubeCountForItemTests(tests, source);
       const countBadge = sourceCount > 0 ? `<span class="print-source-count">${sourceCount}</span>` : '';
       return `<span class="print-source-tube-badge tube ${source.className}">${countBadge}<span class="print-source-from">From</span><span>${escapeHtml(source.label)}</span></span>`;
     }).join('')}</span>`;
@@ -2569,6 +2641,7 @@
         </div>
         <div class="print-bag-grid">${bags.map(bag => {
           const contents = buildSubmissionContents(bag);
+          applyBloodSourceCountAllocations(contents);
           const totalContainers = contents.reduce((sum, item) => sum + item.count, 0);
           return `<article class="print-bag-card ${bag.className}">
             <div class="print-bag-card-header"><div><strong>${escapeHtml(bag.label)}</strong><span>Keep separate from other temperatures</span></div><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div>

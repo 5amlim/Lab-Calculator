@@ -1,8 +1,11 @@
-v10.72
-- Refined the source-count badge so it becomes part of the start of the source pill instead of looking like a separate bubble.
-- The count stays the same font size, but the pill now feels more unified and cohesive.
-- No calculation logic changed.
+v10.74
+- Changed blood source-for-transfer counting to favor simpler processing over maximum tube sharing.
+- Every blood-transfer From pill now always shows a source-tube number.
+- Blood source tubes are pooled within each destination submission card, but are no longer shared across different destination cards.
+- What to Collect now intentionally draws the sum of the numbered blood source pills, so the blood transfer counts reconcile exactly.
+- Example: if one Serum Transport Tube card shows 2 From Gold / SST and one Amber Serum Transport Tube card shows 1 From Gold / SST, What to Collect includes 3 source-for-transfer SSTs for those cards.
+- Original-submit tubes remain separate and are added on top of the source-for-transfer total.
+- Non-blood collection behavior is unchanged.
 
-v10.71
-- Tightened the source pill layout so the number, tube icon, and text read more cohesively while keeping the font size the same.
-- No calculation logic changed.
+v10.73
+- Blood source-count pills were allocated across destination cards to match the pooled source-for-transfer draw total.
