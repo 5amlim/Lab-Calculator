@@ -1137,6 +1137,7 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-source-tube-badge {
     display: inline-flex;
     align-items: center;
+    gap: 2px;
     position: relative;
     min-height: 12px;
     margin-left: 5px;
@@ -1156,16 +1157,19 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     height: 10px;
     left: 4px;
   }
-  .print-submit-source-summary {
+  .print-source-count {
     display: inline-flex;
-    flex-wrap: wrap;
-    gap: 3px 6px;
-    margin-left: 6px;
-    color: #53666d !important;
-    font-size: 6px;
-    font-weight: 750;
-    line-height: 1.2;
-    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    min-width: 10px;
+    height: 10px;
+    padding: 0 2px;
+    border-radius: 999px;
+    background: #e3eaed !important;
+    color: #263b42 !important;
+    font-size: 5.3px;
+    font-weight: 900;
+    line-height: 1;
   }
 }
 
@@ -1736,9 +1740,4 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 }
 
 
-/* v10.64: move source-to-transport counts into each submission card next to the source badge. */
-@media print {
-  .print-submit-source-summary {
-    white-space: normal;
-  }
-}
+/* v10.65: source collection count is shown as a compact number badge inside the From tube badge. */

@@ -2246,6 +2246,13 @@
       const explicit = String(test.specialLabeling || '').trim();
       const parts = [];
       if (derived) parts.push(derived);
+      // Amber transport tubes should always carry a visible specimen-type label,
+      // including ordinary serum transfers where the standard SST source would
+      // otherwise suppress a redundant derived label.
+      if (item.className === 'tube-amber' && !derived) {
+        const amberSpecimen = titleCaseSpecimen(normalizeSpecimenType(test.specimenType));
+        if (amberSpecimen) parts.push(amberSpecimen);
+      }
       if (is24HourUrineTest(test)) parts.push('24h urine · Total volume: ____ mL · Start: ____ · End: ____');
       if (explicitLabelAddsInformation(explicit, derived)) parts.push(explicit);
       const note = Array.from(new Set(parts)).join(' · ');
@@ -2275,27 +2282,6 @@
     return `<span class="print-source-tube-badge tube ${source.className}">From ${escapeHtml(source.label)}</span>`;
   }
 
-  function printSubmissionSourceBadges(item) {
-    if (item.originalTube) return '';
-    const badges = new Map();
-    uniqueTests(item.tests).forEach(test => {
-      if (!isTransferSubmission(test)) return;
-      const source = canonicalCollectionContainer(test);
-      if (!source.label || !source.className) return;
-      badges.set(`${source.className}|${source.label}`, source);
-    });
-    if (!badges.size) return '';
-    return `<span class="print-source-badges">${Array.from(badges.values()).map(source => `<span class="print-source-tube-badge tube ${source.className}">From ${escapeHtml(source.label)}</span>`).join('')}</span>`;
-  }
-
-  function sourceTubeSummaryLabel(source, count) {
-    if (source.className === 'tube-sst') return count === 1 ? 'SST' : 'SSTs';
-    if (source.className === 'tube-red') return count === 1 ? 'Red Top' : 'Red Tops';
-    if (source.className === 'tube-lavender') return count === 1 ? 'Lavender EDTA' : 'Lavender EDTA tubes';
-    const label = String(source.label || 'source tube').trim();
-    return count === 1 ? label : (label.endsWith('s') ? label : `${label}s`);
-  }
-
   function transferSourceTubeCountForItemTests(tests, source) {
     const unique = uniqueTests(tests);
     if (!unique.length) return 0;
@@ -2315,40 +2301,30 @@
     return 0;
   }
 
-  function printSubmissionSourceSummary(item) {
+  function printSubmissionSourceBadges(item) {
     if (item.originalTube) return '';
-    const sourceGroups = new Map();
+    const badges = new Map();
     uniqueTests(item.tests).forEach(test => {
       if (!isTransferSubmission(test)) return;
       const source = canonicalCollectionContainer(test);
       if (!source.label || !source.className) return;
       const key = `${source.className}|${source.label}`;
-      if (!sourceGroups.has(key)) sourceGroups.set(key, { source, tests: [] });
-      sourceGroups.get(key).tests.push(test);
+      if (!badges.has(key)) badges.set(key, { source, tests: [] });
+      badges.get(key).tests.push(test);
     });
+    if (!badges.size) return '';
 
-    const summaries = Array.from(sourceGroups.values()).map(({ source, tests }) => {
-      const unique = uniqueTests(tests);
-      const transportCount = unique.reduce((sum, test) => {
-        const itemContainerCount = splitSubmissionContainers(test)
-          .filter(container => container.key === item.key)
-          .reduce((containerSum, container) => containerSum + Math.max(Number(container.count) || 0, 0), 0);
-        return sum + itemContainerCount;
-      }, 0);
-      const sourceCount = transferSourceTubeCountForItemTests(unique, source);
-      if (transportCount <= 0 || sourceCount <= 0) return '';
-      return `(${transportCount} ${transferSpecimenWord(unique)} ${transportCount === 1 ? 'tube' : 'tubes'} from ${sourceCount} ${sourceTubeSummaryLabel(source, sourceCount)})`;
-    }).filter(Boolean);
-
-    if (!summaries.length) return '';
-    return `<span class="print-submit-source-summary">${summaries.map(summary => escapeHtml(summary)).join(' ')}</span>`;
+    return `<span class="print-source-badges">${Array.from(badges.values()).map(({ source, tests }) => {
+      const sourceCount = transferSourceTubeCountForItemTests(tests, source);
+      const countBadge = sourceCount > 0 ? `<span class="print-source-count">${sourceCount}</span>` : '';
+      return `<span class="print-source-tube-badge tube ${source.className}"><span class="print-source-from">From</span>${countBadge}<span>${escapeHtml(source.label)}</span></span>`;
+    }).join('')}</span>`;
   }
 
   function printSubmissionItemDetail(item) {
     const badges = printSubmissionSourceBadges(item);
-    const summary = printSubmissionSourceSummary(item);
-    if (!item.detail && !badges && !summary) return '';
-    return `<div class="print-submit-item-detail">${item.detail ? escapeHtml(item.detail) : ''}${badges}${summary}</div>`;
+    if (!item.detail && !badges) return '';
+    return `<div class="print-submit-item-detail">${item.detail ? escapeHtml(item.detail) : ''}${badges}</div>`;
   }
 
   function parseListedSpecimenVolumeMl(value) {

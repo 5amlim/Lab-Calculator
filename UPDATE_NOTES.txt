@@ -1,3 +1,13 @@
+v10.66
+- Amber transport-tube cards now always show a LABEL badge for the specimen type, including routine serum transfers.
+- Example: an Amber Serum Transport Tube now shows “LABEL Serum” even when the source is a standard Gold/SST.
+- No tube-count, pooling, or bag calculations changed.
+
+v10.65
+- Replaced the parenthetical source summary in submission cards with a compact source-count badge.
+- Source badges now read like “From [2] Gold / SST” or “From [2] Red Top,” with the number shown in a small circular badge.
+- The number is the pooled source collection-tube count for that submission card. Tube-count calculations are unchanged.
+
 v10.64
 - Moved the source-to-transport count text out of the bag header and into each submission card.
 - The summary now appears next to the specimen source detail and source badge, for example: “(5 serum tubes from 2 SSTs)”.
