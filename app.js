@@ -1447,10 +1447,27 @@
 
   function urineCollectionType(test) {
     if (!isUrineTest(test)) return { key: '', label: '' };
-    const text = `${test.testName || ''} ${test.specimenType || ''} ${test.drawContainer || ''} ${test.specialInstructions || ''}`.toLowerCase();
-    if (/24\s*[- ]?hour|24\s*hr|24h\b/.test(text)) return { key: '24-hour-urine', label: '24-hour urine' };
-    if (/first[- ]?morning|first\s+void|first\s+urine/.test(text)) return { key: 'first-morning-urine', label: 'First-morning urine' };
-    if (/timed urine|timed collection|\b\d+(?:\.\d+)?\s*(?:hour|hr)\b/.test(text)) return { key: 'timed-urine', label: 'Timed urine' };
+
+    // Classify the REQUIRED urine collection from high-signal specimen fields.
+    // Do not classify from general notes/reject criteria because phrases such as
+    // “24-hour urine unacceptable,” “within 24 hours,” or “do not use first morning”
+    // describe exclusions/timing, not the specimen the nurse should collect.
+    const requirementText = `${test.testName || ''} ${test.specimenType || ''} ${test.drawContainer || ''} ${test.preferredVolume || ''} ${test.minimumVolume || ''}`.toLowerCase();
+    const instructions = String(test.specialInstructions || '').toLowerCase();
+
+    if (/24\s*[- ]?hour|24\s*hr|24h\b/.test(requirementText)) {
+      return { key: '24-hour-urine', label: '24-hour urine' };
+    }
+    if (/\btimed(?:\s+urine|\s+collection)?\b/.test(requirementText)) {
+      return { key: 'timed-urine', label: 'Timed urine' };
+    }
+    if (/first[- ]?morning|first\s+morning|first\s+voided\s+(?:morning\s+)?urine/.test(requirementText)) {
+      return { key: 'first-morning-urine', label: 'First-morning urine' };
+    }
+    if (/first[- ]?catch|initial urine stream/.test(requirementText)
+        || /first[- ]?catch\s+urine|initial urine stream/.test(instructions)) {
+      return { key: 'first-catch-urine', label: 'First-catch urine' };
+    }
     return { key: 'random-urine', label: 'Random urine' };
   }
 

@@ -1,3 +1,9 @@
+v10.55
+- Fixed urine-type classification so rejection criteria and timing notes cannot turn a random urine test into a 24-hour or first-morning collection.
+- Audited all 192 urine records. Culture 395 and Prenatal Culture 91684 now display Random urine, not 24-hour urine.
+- Added First-catch urine as a distinct collection badge and corrected Quest 11363 urine instructions.
+- 24-hour bag labeling remains limited to true 24-hour collections: “24h urine · Total volume: ____ mL · Start: ____ · End: ____”.
+
 v10.54
 
 - Restored the What to collect layout to one continuous compact grid instead of breaking the grid into separate Urine/Stool rows.
