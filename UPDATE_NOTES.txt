@@ -1,3 +1,10 @@
+v10.75
+- Added an SST tube toggle in the Collection Summary: Gold / SST or Tiger SST · 7.5 mL.
+- The selected SST option now drives SST collection counts, draw-plan labels, order-of-draw labels, source-transfer pill labels/counts, and the printed collection/submission plan.
+- Gold mode keeps the existing 2 mL usable-serum estimate per SST. Tiger mode uses the existing 7.5 mL whole-blood tube capacity calculation.
+- The printout now shows only the selected SST option instead of displaying Tiger as an approximate alternate next to Gold.
+- The selected SST option is saved in the browser for the next visit.
+
 v10.74
 - Changed blood source-for-transfer counting to favor simpler processing over maximum tube sharing.
 - Every blood-transfer From pill now always shows a source-tube number.

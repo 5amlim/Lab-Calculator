@@ -19,6 +19,7 @@
     ...[9, 8, 7, 6, 5, 4, 3, 2, 1].map(version => `${LEGACY_STORAGE_PREFIX}.database.v${version}`)
   ];
   const SELECTED_KEY = 'labCollectionCalculator.selected.v1';
+  const SST_MODE_KEY = 'labCollectionCalculator.sstMode.v1';
   const LEGACY_SELECTED_KEYS = [`${LEGACY_STORAGE_PREFIX}.selected.v1`];
   const PAGE_STEP = 30;
   const SST_USABLE_ML_PER_TUBE = 2;
@@ -56,6 +57,7 @@
     selectedCount: $('selectedCount'), selectedList: $('selectedList'), testsOverviewList: $('testsOverviewList'), testsOverviewSummary: $('testsOverviewSummary'),
     drawPlan: $('drawPlan'), drawPlanSummary: $('drawPlanSummary'), orderOfDraw: $('orderOfDraw'), orderOfDrawSummary: $('orderOfDrawSummary'), collectionAlerts: $('collectionAlerts'), clearOrderButton: $('clearOrderButton'),
     printButton: $('printButton'), exportSummaryButton: $('exportSummaryButton'),
+    sstModeOptions: Array.from(document.querySelectorAll('[data-sst-mode]')),
     printSheet: $('printSheet'), testDialog: $('testDialog'), testForm: $('testForm'), dialogTitle: $('dialogTitle'),
     closeDialogButton: $('closeDialogButton'), cancelDialogButton: $('cancelDialogButton'), deleteTestButton: $('deleteTestButton'),
     saveTestButton: $('saveTestButton'), testId: $('testId'), testCode: $('testCode'), testName: $('testName'), specimenType: $('specimenType'),
@@ -70,6 +72,7 @@
   let pendingUserState = null;
   let database = loadDatabase();
   let selectedIds = loadSelectedIds();
+  let sstTubeMode = loadSstTubeMode();
   finalizeStorageMigration();
   let libraryLimit = PAGE_STEP;
   let blockedListOpen = false;
@@ -109,6 +112,7 @@
     els.clearOrderButton.addEventListener('click', clearOrder);
     els.printButton.addEventListener('click', printSummary);
     els.exportSummaryButton.addEventListener('click', exportSummaryCsv);
+    els.sstModeOptions.forEach(button => button.addEventListener('click', () => setSstTubeMode(button.dataset.sstMode)));
     els.closeDialogButton.addEventListener('click', closeDialog);
     els.cancelDialogButton.addEventListener('click', closeDialog);
     els.testForm.addEventListener('submit', saveTestFromForm);
@@ -337,9 +341,17 @@
     });
   }
 
+  function drawContainerBadge(container, className = 'badge') {
+    const cls = tubeClass(container);
+    const isSst = cls === 'tube-sst';
+    const displayClass = isSst ? selectedSstVisualClass() : cls;
+    const label = isSst ? selectedSstLabel() : container;
+    return `<span class="${className} tube ${displayClass}">${escapeHtml(label)}</span>`;
+  }
+
   function requiredDrawContainerBadges(test, className = 'badge') {
-    const primary = `<span class="${className} tube ${tubeClass(test.drawContainer)}">${escapeHtml(test.drawContainer)}</span>`;
-    const extras = additionalDrawRequirements(test).map(requirement => `<span class="${className} tube ${tubeClass(requirement.container)}">${escapeHtml(requirement.container)}</span>`).join(' ');
+    const primary = drawContainerBadge(test.drawContainer, className);
+    const extras = additionalDrawRequirements(test).map(requirement => drawContainerBadge(requirement.container, className)).join(' ');
     return extras ? `${primary} ${extras}` : primary;
   }
 
@@ -857,11 +869,56 @@
     localStorage.setItem(SELECTED_KEY, JSON.stringify(selectedIds));
   }
 
+  function loadSstTubeMode() {
+    try {
+      return localStorage.getItem(SST_MODE_KEY) === 'tiger' ? 'tiger' : 'gold';
+    } catch (error) {
+      return 'gold';
+    }
+  }
+
+  function selectedSstIsTiger() {
+    return sstTubeMode === 'tiger';
+  }
+
+  function selectedSstLabel() {
+    return selectedSstIsTiger() ? 'Tiger SST · 7.5 mL' : 'Gold / SST';
+  }
+
+  function selectedSstVisualClass() {
+    return selectedSstIsTiger() ? 'tube-tiger-sst' : 'tube-sst';
+  }
+
+  function selectedSstEstimateForBag(bag) {
+    return selectedSstIsTiger() ? bag.tigerSstEstimate : bag.sstEstimate;
+  }
+
+  function selectedSstEstimateForTests(tests) {
+    return selectedSstIsTiger() ? tigerSstEstimateForTests(tests) : sstEstimateForTests(tests);
+  }
+
+  function setSstTubeMode(mode) {
+    const next = mode === 'tiger' ? 'tiger' : 'gold';
+    if (next === sstTubeMode) return;
+    sstTubeMode = next;
+    try { localStorage.setItem(SST_MODE_KEY, sstTubeMode); } catch (error) {}
+    renderOrder();
+  }
+
+  function renderSstTubeMode() {
+    els.sstModeOptions.forEach(button => {
+      const selected = button.dataset.sstMode === sstTubeMode;
+      button.classList.toggle('is-selected', selected);
+      button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+    });
+  }
+
   function selectedTests() {
     return selectedIds.map(id => database.find(test => test.id === id)).filter(Boolean);
   }
 
   function renderOrder() {
+    renderSstTubeMode();
     const tests = selectedTests();
     const collectionTests = expandedCollectionTests(tests);
     els.selectedCount.textContent = tests.length;
@@ -962,7 +1019,9 @@
       const containerCount = drawGroupContainerCount(group);
       const testLabel = `${group.tests.length} ${group.tests.length === 1 ? 'test' : 'tests'}`;
       const containerLabel = `${containerCount} ${containerCount === 1 ? 'container' : 'containers'}`;
-      return `<div class="draw-card"><div class="draw-title-block"><strong class="tube ${tubeClass(group.container)}">${escapeHtml(group.container)}</strong><span class="draw-test-count">${escapeHtml(testLabel)}</span></div><strong class="draw-container-badge">${escapeHtml(containerLabel)}</strong><div class="draw-meta specimen-line">${Array.from(group.specimenTypes).map(type => specimenBadge(type)).join(' ')}${volume ? `<span>${escapeHtml(volume)}</span>` : ''}</div></div>`;
+      const groupClass = tubeClass(group.container) === 'tube-sst' ? selectedSstVisualClass() : tubeClass(group.container);
+      const groupLabel = tubeClass(group.container) === 'tube-sst' ? selectedSstLabel() : group.container;
+      return `<div class="draw-card"><div class="draw-title-block"><strong class="tube ${groupClass}">${escapeHtml(groupLabel)}</strong><span class="draw-test-count">${escapeHtml(testLabel)}</span></div><strong class="draw-container-badge">${escapeHtml(containerLabel)}</strong><div class="draw-meta specimen-line">${Array.from(group.specimenTypes).map(type => specimenBadge(type)).join(' ')}${volume ? `<span>${escapeHtml(volume)}</span>` : ''}</div></div>`;
     }).join('');
   }
 
@@ -992,7 +1051,9 @@
 
   function orderTubeMarkup(step, printMode = false) {
     const prefix = printMode ? 'print-order-tube' : 'order-tube';
-    const primary = `<span class="${prefix} tube ${step.tubeClass}">${escapeHtml(step.label)}</span>`;
+    const stepLabel = step.key === 'sst' ? selectedSstLabel() : step.label;
+    const stepClass = step.key === 'sst' ? selectedSstVisualClass() : step.tubeClass;
+    const primary = `<span class="${prefix} tube ${stepClass}">${escapeHtml(stepLabel)}</span>`;
     const secondary = step.secondaryLabel
       ? `<span class="${prefix} tube ${step.secondaryTubeClass}">${escapeHtml(step.secondaryLabel)}</span>`
       : '';
@@ -1590,7 +1651,7 @@
     const labels = {
       'tube-culture': 'Blood Culture Bottles',
       'tube-blue': 'Light Blue Citrate',
-      'tube-sst': 'Gold / SST',
+      'tube-sst': selectedSstLabel(),
       'tube-lavender': 'Lavender EDTA',
       'tube-pink': 'Pink EDTA',
       'tube-tan': /heparin/i.test(draw) ? 'Tan Sodium Heparin' : 'K2 EDTA Tan Top',
@@ -1776,10 +1837,7 @@
   }
 
   function printSstTigerBadge(item) {
-    if (!item || item.className !== 'tube-sst') return '';
-    const count = Math.max(Number(item.tigerCount) || 0, 0);
-    if (!count) return '';
-    return `<span class="print-sst-tiger-option"><span class="print-sst-approx">≈</span><strong class="print-sst-tiger-count">${count}</strong><span class="tube tube-tiger-sst print-sst-tiger-badge">Tiger SST · 7.5 mL</span></span>`;
+    return '';
   }
 
   function printCollectionGroups(items, wholeBloodGroups) {
@@ -1787,7 +1845,7 @@
       const specimenBadge = collectionSpecimenBadgeForItem(item);
       const tigerBadge = printSstTigerBadge(item);
       return `<article class="print-collection-card">
-        <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${specimenBadge ? `<span class="print-collection-specimen-badge">${escapeHtml(specimenBadge)}</span>` : ''}</div>
+        <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${specimenBadge ? `<span class="print-collection-specimen-badge">${escapeHtml(specimenBadge)}</span>` : ''}</div>
         ${item.detail ? `<div class="print-container-detail">${escapeHtml(item.detail)}</div>` : ''}
         ${printCollectionWholeBloodDetail(item, wholeBloodGroups)}
         <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${testReferences(item.tests)}</ul></div>
@@ -1798,19 +1856,19 @@
   function buildCollectionPlan(tests, bags) {
     const items = [];
     const sstTests = tests.filter(isSstDraw);
-    const totalSst = bags.reduce((sum, bag) => sum + bag.sstEstimate.totalTubes, 0);
+    const totalSst = bags.reduce((sum, bag) => sum + selectedSstEstimateForBag(bag).totalTubes, 0);
     if (totalSst > 0) {
       const breakdown = bags
-        .filter(bag => bag.sstEstimate.totalTubes > 0)
+        .filter(bag => selectedSstEstimateForBag(bag).totalTubes > 0)
         .map(bag => {
+          const estimate = selectedSstEstimateForBag(bag);
           const parts = [];
-          if (bag.sstEstimate.originalTubes > 0) parts.push(`${bag.sstEstimate.originalTubes} original-submit`);
-          if (bag.sstEstimate.transferSourceTubes > 0) parts.push(`${bag.sstEstimate.transferSourceTubes} source-for-transfer`);
+          if (estimate.originalTubes > 0) parts.push(`${estimate.originalTubes} original-submit`);
+          if (estimate.transferSourceTubes > 0) parts.push(`${estimate.transferSourceTubes} source-for-transfer`);
           return `${bag.label.replace(/ bag$/i, '')}: ${parts.join(' + ')}`;
         })
         .join(' · ');
-      const tigerCount = bags.reduce((sum, bag) => sum + (bag.tigerSstEstimate ? bag.tigerSstEstimate.totalTubes : 0), 0);
-      items.push({ key: 'sst', label: 'Gold / SST', className: 'tube-sst', count: totalSst, tigerCount, tests: uniqueTests(sstTests), detail: breakdown });
+      items.push({ key: 'sst', label: selectedSstLabel(), className: 'tube-sst', displayClassName: selectedSstVisualClass(), count: totalSst, tests: uniqueTests(sstTests), detail: breakdown });
     }
 
     addPooledCollectionItem(items, tests, bags, {
@@ -1929,7 +1987,7 @@
     if (/pink/i.test(draw)) return 'Pink EDTA';
     if (/tan/i.test(draw) && /heparin/i.test(draw)) return 'Tan Sodium Heparin';
     if (/tan/i.test(draw) && /edta|k2/i.test(draw)) return 'K2 EDTA Tan Top';
-    if (/sst|gold/i.test(draw)) return 'SST';
+    if (/sst|gold/i.test(draw)) return selectedSstLabel();
     if (/lavender|edta/i.test(draw)) return 'Lavender EDTA';
     if (/sodium\s+heparin/i.test(draw)) return 'Green Sodium Heparin';
     if (/lithium\s+heparin/i.test(draw)) return 'Green Lithium Heparin';
@@ -2149,16 +2207,16 @@
   function buildSubmissionContents(bag) {
     const items = new Map();
     const spunSstTests = bag.tests.filter(isSpunSstSubmission);
-    const spunEstimate = sstEstimateForTests(spunSstTests);
+    const spunEstimate = selectedSstEstimateForTests(spunSstTests);
     if (spunEstimate.totalTubes > 0) {
       items.set('sst-spun', {
         key: 'sst-spun',
-        label: 'SST / Gold',
+        label: selectedSstLabel(),
         className: 'tube-sst',
+        displayClassName: selectedSstVisualClass(),
         count: spunEstimate.totalTubes,
-        detail: 'Serum from SST · spun · submit in original tube',
+        detail: `Serum from ${selectedSstLabel()} · spun · submit in original tube`,
         originalTube: true,
-        tigerCount: tigerSstEstimateForTests(spunSstTests).totalTubes,
         tests: uniqueTests(spunSstTests)
       });
     }
@@ -2325,7 +2383,8 @@
     if (!isTransferSubmission(test)) return '';
     const source = canonicalCollectionContainer(test);
     if (!source.label || !source.className) return '';
-    return `<span class="print-source-tube-badge tube ${source.className}">From ${escapeHtml(source.label)}</span>`;
+    const displayClass = source.className === 'tube-sst' ? selectedSstVisualClass() : source.className;
+    return `<span class="print-source-tube-badge tube ${displayClass}">From ${escapeHtml(source.label)}</span>`;
   }
 
   function transferSourceTubeCountForItemTests(tests, source) {
@@ -2387,7 +2446,8 @@
       const hasOverride = item.sourceCountOverrides instanceof Map && item.sourceCountOverrides.has(key);
       const sourceCount = hasOverride ? item.sourceCountOverrides.get(key) : transferSourceTubeCountForItemTests(tests, source);
       const countBadge = sourceCount > 0 ? `<span class="print-source-count">${sourceCount}</span>` : '';
-      return `<span class="print-source-tube-badge tube ${source.className}">${countBadge}<span class="print-source-from">From</span><span>${escapeHtml(source.label)}</span></span>`;
+      const displayClass = source.className === 'tube-sst' ? selectedSstVisualClass() : source.className;
+      return `<span class="print-source-tube-badge tube ${displayClass}">${countBadge}<span class="print-source-from">From</span><span>${escapeHtml(source.label)}</span></span>`;
     }).join('')}</span>`;
   }
 
@@ -2623,7 +2683,7 @@
       <div class="print-logistics-heading"><strong>Collection and submission plan</strong><span>Collection containers are separated from processed specimens placed into transport bags.</span></div>
       <div class="print-logistics-totals">
         <div class="print-total-box collect-total"><span>TOTAL TO COLLECT</span><strong>${totalCollect}</strong><small>tubes / collection containers</small></div>
-        <div class="print-collect-chips">${collectionItems.map(item => `<span class="print-collect-chip tube ${item.className}"><b>${item.count}</b> ${escapeHtml(item.label)}</span>`).join('')}</div>
+        <div class="print-collect-chips">${collectionItems.map(item => `<span class="print-collect-chip tube ${item.displayClassName || item.className}"><b>${item.count}</b> ${escapeHtml(item.label)}</span>`).join('')}</div>
         <div class="print-total-box submit-total"><span>TOTAL TO SUBMIT</span><strong>${bags.length}</strong><small>${bags.length === 1 ? 'transport bag' : 'transport bags'}</small></div>
         <div class="print-submit-bags">${bagLabels}</div>
       </div>
@@ -2646,7 +2706,7 @@
           return `<article class="print-bag-card ${bag.className}">
             <div class="print-bag-card-header"><div><strong>${escapeHtml(bag.label)}</strong><span>Keep separate from other temperatures</span></div><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div>
             <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
-              <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span>${printSstTigerBadge(item)}</div>
+              <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${printSstTigerBadge(item)}</div>
               ${printSubmissionItemDetail(item)}
               ${printLabelingNotes(item)}
               <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${testReferences(item.tests)}</ul></div>

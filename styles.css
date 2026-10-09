@@ -179,6 +179,15 @@ tr:hover td { background: #fbfdfd; }
 .order-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 14px; }
 #selectedCount { display: inline-flex; min-width: 32px; height: 32px; padding: 0 8px; align-items: center; justify-content: center; border: 1.5px solid rgba(13,102,114,.28); border-radius: 999px; background: var(--brand-soft); color: var(--brand-dark); font-size: 15px; font-weight: 950; vertical-align: 1px; box-shadow: 0 2px 8px rgba(13,102,114,.08); }
 .summary-section { margin-top: 19px; }
+.sst-mode-control { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 10px; padding: 10px 11px; border: 1px solid #dbe4e7; border-radius: 10px; background: #f8fafb; }
+.sst-mode-copy { display: grid; gap: 2px; min-width: 0; }
+.sst-mode-copy strong { font-size: 12px; color: #25363d; }
+.sst-mode-copy span { font-size: 10px; line-height: 1.25; color: #6a7a81; }
+.sst-mode-toggle { display: inline-flex; flex: 0 0 auto; padding: 2px; border: 1px solid #cbd7db; border-radius: 999px; background: #fff; }
+.sst-mode-option { border: 0; border-radius: 999px; background: transparent; padding: 5px 8px; color: #52646b; cursor: pointer; }
+.sst-mode-option.is-selected { background: #e4ecef; color: #203840; box-shadow: inset 0 0 0 1px #c5d3d8; }
+.sst-mode-tube { font-size: 9px; font-weight: 800; white-space: nowrap; }
+@media (max-width: 720px) { .sst-mode-control { align-items: stretch; flex-direction: column; } .sst-mode-toggle { align-self: flex-start; } }
 .draw-plan { display: grid; gap: 8px; }
 .draw-card { border: 1px solid var(--line); border-radius: 11px; padding: 10px 11px; display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: start; }
 .draw-card strong { font-size: 13px; }
