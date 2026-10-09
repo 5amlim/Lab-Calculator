@@ -2474,7 +2474,8 @@
     return `<span class="print-source-badges">${Array.from(badges.values()).map(({ key, source, tests }) => {
       const hasOverride = item.sourceCountOverrides instanceof Map && item.sourceCountOverrides.has(key);
       const sourceCount = hasOverride ? item.sourceCountOverrides.get(key) : transferSourceTubeCountForItemTests(tests, source);
-      const countBadge = sourceCount > 0 ? `<span class="print-source-count">${sourceCount}</span>` : '';
+      const showSourceCount = source.className !== 'tube-urine-cup';
+      const countBadge = showSourceCount && sourceCount > 0 ? `<span class="print-source-count">${sourceCount}</span>` : '';
       const displayClass = source.className === 'tube-sst' ? selectedSstVisualClass() : source.className;
       return `<span class="print-source-tube-badge tube ${displayClass}">${countBadge}<span class="print-source-from">From</span><span>${escapeHtml(source.label)}</span></span>`;
     }).join('')}</span>`;
