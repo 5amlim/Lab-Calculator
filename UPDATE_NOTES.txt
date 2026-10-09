@@ -1,5 +1,7 @@
-v10.45
+v10.46
 
-- Kept the overall review status wording as "Needs confirmation".
-- Changed the per-test badge inside each possible-match card to "Confirm test code/name".
-- No changes to matching behavior, test data, pooling, calculations, Do Not Perform rules, or browser-storage architecture.
+- Added a print-only whole-blood draw-volume section grouped by collection tube.
+- Shows preferred and minimum whole-blood mL totals before processing.
+- Uses Quest’s 2.5x whole-blood conversion for serum/plasma and direct listed volume for whole blood.
+- Flags fill-to-line/full-tube rules and leaves non-numeric requirements as Verify.
+- No database, pooling, transport, Do Not Perform, or storage-architecture changes.

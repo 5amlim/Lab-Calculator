@@ -24,6 +24,8 @@
   const SST_USABLE_ML_PER_TUBE = 2;
   const PROCESSED_SPECIMEN_USABLE_ML_PER_TUBE = 2;
   const WHOLE_BLOOD_USABLE_ML_PER_TUBE = 4;
+  const SERUM_PLASMA_TO_WHOLE_BLOOD_FACTOR = 2.5;
+  const RBC_TO_WHOLE_BLOOD_FACTOR = 2.5;
   const ORDER_OF_DRAW = [
     { key: 'culture', number: 1, label: 'Blood cultures', additive: 'See bottle label', tubeClass: 'tube-culture' },
     { key: 'citrate', number: 2, label: 'Light blue', additive: 'Sodium citrate', tubeClass: 'tube-blue' },
@@ -2041,6 +2043,123 @@
     return `<div class="print-submit-item-detail">${item.detail ? escapeHtml(item.detail) : ''}${badges}</div>`;
   }
 
+  function parseListedSpecimenVolumeMl(value) {
+    const text = String(value || '').replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!text) return null;
+
+    // Prefer an explicitly stated total over any component/per-tube volume.
+    const totalMatch = text.match(/\btotal(?:\s+(?:volume|specimen))?\s*:?\s*(\d+(?:\.\d+)?)\s*m\s*l\b/i);
+    if (totalMatch) return Number(totalMatch[1]);
+
+    // Handle formats such as "1.9 mL (x3)" or "1.9 mL x 3".
+    const amountThenCount = text.match(/(\d+(?:\.\d+)?)\s*m\s*l\s*(?:\(\s*)?[x×]\s*(\d+)(?:\s*\))?/i);
+    if (amountThenCount) return Number(amountThenCount[1]) * Number(amountThenCount[2]);
+
+    // Handle formats such as "3 x 1.5 mL".
+    const countThenAmount = text.match(/\b(\d+)\s*[x×]\s*(\d+(?:\.\d+)?)\s*m\s*l\b/i);
+    if (countThenAmount) return Number(countThenAmount[1]) * Number(countThenAmount[2]);
+
+    // If the text explicitly says the listed amount is required in each of N tubes,
+    // calculate the total. Do not infer this from a separate tube-count instruction.
+    const eachMatch = text.match(/(\d+(?:\.\d+)?)\s*m\s*l\b[^.;]{0,80}\b(?:in\s+each\s+of|each\s+of|per)\s+(\d+|two|three|four|five|six|seven|eight|nine|ten)\b/i);
+    if (eachMatch) {
+      const words = { two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10 };
+      const count = words[String(eachMatch[2]).toLowerCase()] || Number(eachMatch[2]);
+      if (count > 0) return Number(eachMatch[1]) * count;
+    }
+
+    const first = text.match(/(\d+(?:\.\d+)?)\s*m\s*l\b/i);
+    return first ? Number(first[1]) : null;
+  }
+
+  function wholeBloodConversionFactor(specimenType) {
+    const specimen = normalizeSearch(specimenType);
+    if (/whole blood/.test(specimen)) return { factor: 1, type: 'whole-blood' };
+    if (/serum|plasma|platelet/.test(specimen)) return { factor: SERUM_PLASMA_TO_WHOLE_BLOOD_FACTOR, type: 'serum-plasma' };
+    if (/\brbcs?\b|red blood cell|packed red/.test(specimen)) return { factor: RBC_TO_WHOLE_BLOOD_FACTOR, type: 'rbc' };
+    return null;
+  }
+
+  function formatCalculatedMl(value) {
+    if (!Number.isFinite(value)) return 'Verify';
+    const rounded = Math.round((value + Number.EPSILON) * 100) / 100;
+    return `${rounded.toLocaleString(undefined, { maximumFractionDigits: 2 })} mL`;
+  }
+
+  function buildWholeBloodVolumePlan(collectionTests, collectionItems) {
+    const plannedCounts = new Map();
+    collectionItems.forEach(item => {
+      const key = `${item.className || ''}|${normalizeSearch(item.label)}`;
+      plannedCounts.set(key, (plannedCounts.get(key) || 0) + item.count);
+    });
+
+    const groups = new Map();
+    collectionTests.forEach(test => {
+      const conversion = wholeBloodConversionFactor(test.specimenType);
+      if (!conversion) return;
+
+      const source = canonicalCollectionContainer(test);
+      if (!source.label || !source.className) return;
+      const key = `${source.className}|${normalizeSearch(source.label)}`;
+      if (!groups.has(key)) {
+        groups.set(key, {
+          key,
+          label: source.label,
+          className: source.className,
+          preferredMl: 0,
+          minimumMl: 0,
+          preferredVerify: 0,
+          minimumVerify: 0,
+          hasProcessedSpecimen: false,
+          hasRbcEstimate: false,
+          hasFillRule: false,
+          tests: []
+        });
+      }
+
+      const group = groups.get(key);
+      const preferred = parseListedSpecimenVolumeMl(test.preferredVolume);
+      const minimum = parseListedSpecimenVolumeMl(test.minimumVolume);
+      if (preferred === null) group.preferredVerify += 1;
+      else group.preferredMl += preferred * conversion.factor;
+      if (minimum === null) group.minimumVerify += 1;
+      else group.minimumMl += minimum * conversion.factor;
+      if (conversion.type === 'serum-plasma') group.hasProcessedSpecimen = true;
+      if (conversion.type === 'rbc') group.hasRbcEstimate = true;
+      if (/fill(?:ed)?\s+(?:the\s+)?(?:tube\s+)?to|fill\s+line|marked\s+line|full\s+(?:collection\s+)?tube|completely\s+fill/i.test(`${test.drawContainer || ''} ${test.specialInstructions || ''}`)) group.hasFillRule = true;
+      group.tests.push(test);
+    });
+
+    return Array.from(groups.values()).map(group => ({
+      ...group,
+      count: plannedCounts.get(group.key) || 0,
+      tests: uniqueTests(group.tests)
+    }));
+  }
+
+  function wholeBloodVolumeValue(value, verifyCount, label) {
+    if (!value && verifyCount) return `<div class="print-blood-volume-value"><span>${label}</span><strong>Verify</strong><small>${verifyCount} ${verifyCount === 1 ? 'test has' : 'tests have'} no numeric ${label.toLowerCase()} volume</small></div>`;
+    const verify = verifyCount ? `<small>+ verify ${verifyCount} ${verifyCount === 1 ? 'test' : 'tests'}</small>` : '';
+    return `<div class="print-blood-volume-value"><span>${label}</span><strong>${escapeHtml(formatCalculatedMl(value))}</strong>${verify}</div>`;
+  }
+
+  function printWholeBloodVolumeSection(collectionTests, collectionItems) {
+    const groups = buildWholeBloodVolumePlan(collectionTests, collectionItems);
+    if (!groups.length) return '';
+    const hasRbc = groups.some(group => group.hasRbcEstimate);
+    return `<section class="print-blood-volume-section">
+      <div class="print-blood-volume-heading"><strong>Whole blood draw volume by tube</strong><span>Calculated from the listed specimen requirements before processing.</span></div>
+      <div class="print-blood-volume-grid">${groups.map(group => `<article class="print-blood-volume-card">
+        <div class="print-blood-volume-tube"><span class="tube ${group.className}">${escapeHtml(group.label)}</span>${group.count ? `<small>${group.count} ${group.count === 1 ? 'tube' : 'tubes'} planned</small>` : ''}${group.hasFillRule ? '<small class="print-blood-fill-rule">Fill-to-line / full-tube rule applies</small>' : ''}</div>
+        <div class="print-blood-volume-values">
+          ${wholeBloodVolumeValue(group.preferredMl, group.preferredVerify, 'Preferred')}
+          ${wholeBloodVolumeValue(group.minimumMl, group.minimumVerify, 'Minimum')}
+        </div>
+      </article>`).join('')}</div>
+      <div class="print-blood-volume-note"><strong>Calculation:</strong> Serum, plasma, and platelet-poor plasma use 2.5 mL whole blood per 1 mL listed specimen. Whole-blood requirements use the listed volume directly.${hasRbc ? ' Packed RBC requirements also use a 2.5× estimate because recovery varies with hematocrit.' : ''} Fill-to-line, full-tube, discard-tube, and test-specific collection instructions still take priority. If a numeric minimum or preferred volume is not listed, the section shows Verify rather than estimating it.</div>
+    </section>`;
+  }
+
   function printContainerBadges(test) {
     const value = String(test.transportContainer || '').trim();
     const lower = value.toLowerCase();
@@ -2078,6 +2197,8 @@
       ${fastingPanel}
 
       ${printOrderOfDraw(collectionTests)}
+
+      ${printWholeBloodVolumeSection(collectionTests, collectionItems)}
 
       <div class="print-logistics-subheading">What to collect</div>
       <div class="print-collection-grid">${collectionItems.map(item => `<article class="print-collection-card">
