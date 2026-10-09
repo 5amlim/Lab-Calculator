@@ -1,3 +1,9 @@
+v10.63
+- Added source-to-transport counts inside each temperature bag for serum/plasma transfers from SST or Red Top collection tubes.
+- Example: “(5 serum tubes from 2 SSTs)”.
+- The source count uses the same pooled collection logic as What to Collect, so compatible transfer tests can share source tubes while dedicated/full/multiple-tube rules remain separate.
+- Original-submit tubes are excluded from this transfer summary.
+
 v10.62
 - Corrected SST source-for-transfer tube pooling. Compatible serum transfer tests in the same temperature group now share Gold/SST capacity by volume instead of each automatically requiring its own source SST.
 - Tiger SST uses the same source-for-transfer pooling logic with its 7.5 mL capacity.

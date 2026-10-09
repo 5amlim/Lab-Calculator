@@ -1724,3 +1724,21 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   }
 }
 
+
+/* v10.63: show the source-to-transport relationship inside each temperature bag. */
+@media print {
+  .print-transfer-source-summary {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    margin: 5px 8px 0;
+    color: #53666d !important;
+    font-size: 7.5px !important;
+    line-height: 1.3;
+    font-weight: 700;
+  }
+
+  .print-transfer-source-summary span {
+    white-space: nowrap;
+  }
+}

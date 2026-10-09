@@ -2151,6 +2151,56 @@
     return Array.from(items.values()).map(item => ({ ...item, tests: uniqueTests(item.tests) }));
   }
 
+  function transferContainerCountForTests(tests) {
+    return tests.reduce((sum, test) => {
+      return sum + splitSubmissionContainers(test)
+        .filter(container => !container.originalTube)
+        .reduce((containerSum, container) => containerSum + Math.max(Number(container.count) || 0, 0), 0);
+    }, 0);
+  }
+
+  function transferSpecimenWord(tests) {
+    const materials = Array.from(new Set(tests.map(test => normalizeSpecimenType(test.specimenType).toLowerCase()).filter(Boolean)));
+    if (materials.length === 1) {
+      if (materials[0] === 'serum') return 'serum';
+      if (materials[0] === 'plasma') return 'plasma';
+      if (materials[0] === 'platelet poor plasma') return 'platelet-poor plasma';
+    }
+    return 'transport';
+  }
+
+  function bagTransferSourceSummaries(bag) {
+    const summaries = [];
+
+    const sstTransferTests = bag.tests.filter(test => isSstDraw(test) && !isOriginalContainerSubmission(test));
+    if (sstTransferTests.length && bag.sstEstimate.transferSourceTubes > 0) {
+      const transportCount = transferContainerCountForTests(sstTransferTests);
+      const sourceCount = bag.sstEstimate.transferSourceTubes;
+      if (transportCount > 0) {
+        summaries.push(`${transportCount} ${transferSpecimenWord(sstTransferTests)} ${transportCount === 1 ? 'tube' : 'tubes'} from ${sourceCount} ${sourceCount === 1 ? 'SST' : 'SSTs'}`);
+      }
+    }
+
+    const redTransferTests = bag.tests.filter(test => isRedTopDraw(test) && !isOriginalContainerSubmission(test));
+    if (redTransferTests.length) {
+      const transportCount = transferContainerCountForTests(redTransferTests);
+      const sourceCount = bag.redTopEstimate.groups
+        .filter(group => group.path === 'transfer')
+        .reduce((sum, group) => sum + group.estimate.totalTubes, 0);
+      if (transportCount > 0 && sourceCount > 0) {
+        summaries.push(`${transportCount} ${transferSpecimenWord(redTransferTests)} ${transportCount === 1 ? 'tube' : 'tubes'} from ${sourceCount} ${sourceCount === 1 ? 'Red Top' : 'Red Tops'}`);
+      }
+    }
+
+    return summaries;
+  }
+
+  function printBagTransferSourceSummary(bag) {
+    const summaries = bagTransferSourceSummaries(bag);
+    if (!summaries.length) return '';
+    return `<div class="print-transfer-source-summary">${summaries.map(summary => `<span>(${escapeHtml(summary)})</span>`).join('')}</div>`;
+  }
+
   function testReferences(tests) {
     return uniqueTests(tests).map(test => `<li><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)}</li>`).join('');
   }
@@ -2491,6 +2541,7 @@
           const totalContainers = contents.reduce((sum, item) => sum + item.count, 0);
           return `<article class="print-bag-card ${bag.className}">
             <div class="print-bag-card-header"><div><strong>${escapeHtml(bag.label)}</strong><span>Keep separate from other temperatures</span></div><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div>
+            ${printBagTransferSourceSummary(bag)}
             <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
               <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span>${printSstTigerBadge(item)}</div>
               ${printSubmissionItemDetail(item)}
