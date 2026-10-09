@@ -2284,21 +2284,19 @@
 
   function transferSourceTubeCountForItemTests(tests, source) {
     const unique = uniqueTests(tests);
-    if (!unique.length) return 0;
-    if (source.className === 'tube-sst') {
-      return sstEstimateForTests(unique.filter(isSstDraw)).totalTubes;
-    }
-    if (source.className === 'tube-red') {
-      return pooledCollectionEstimateForTests(unique.filter(isRedTopDraw), isRedTopDraw).groups
-        .filter(group => group.path === 'transfer')
-        .reduce((sum, group) => sum + group.estimate.totalTubes, 0);
-    }
-    if (source.className === 'tube-lavender') {
-      return pooledCollectionEstimateForTests(unique.filter(isLavenderDraw), isLavenderDraw).groups
-        .filter(group => group.path === 'transfer')
-        .reduce((sum, group) => sum + group.estimate.totalTubes, 0);
-    }
-    return 0;
+    if (!unique.length || !source || !source.className || !source.label) return 0;
+
+    // Use the same collection-plan engine that powers "What to collect" so the
+    // source count badge works for every transfer source, not just SST/Red/Lavender.
+    // This keeps Royal Blue, heparin, citrate, urine cups, and other source tubes
+    // consistent with the actual collection count and pooling rules.
+    const sourceBags = buildTransportBagPlan(unique);
+    const sourceItems = buildCollectionPlan(unique, sourceBags);
+    const sourceLabel = normalizeSearch(source.label);
+
+    return sourceItems
+      .filter(item => item.className === source.className && normalizeSearch(item.label) === sourceLabel)
+      .reduce((sum, item) => sum + Math.max(Number(item.count) || 0, 0), 0);
   }
 
   function printSubmissionSourceBadges(item) {

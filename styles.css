@@ -1158,22 +1158,23 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     left: 4px;
   }
   .print-source-tube-badge:has(.print-source-count) {
-    padding-left: 34px;
+    min-height: 15px;
+    padding-left: 31px;
   }
   .print-source-tube-badge:has(.print-source-count).tube::before {
-    left: 22px;
+    left: 19px;
   }
   .print-source-count {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     position: absolute;
-    left: 4px;
+    left: 3px;
     top: 50%;
     transform: translateY(-50%);
-    min-width: 15px;
-    height: 15px;
-    padding: 0 3px;
+    min-width: 12px;
+    height: 12px;
+    padding: 0 2px;
     border-radius: 999px;
     background: #e3eaed !important;
     color: #263b42 !important;
