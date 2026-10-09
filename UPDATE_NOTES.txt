@@ -1,6 +1,6 @@
-v10.57
+v10.58
 
-- Tiger SST badge now calculates an alternate 7.5 mL Tiger SST tube count instead of being cosmetic only.
-- The Tiger count uses the same SST workflow separation as the Gold/SST plan: original-submit vs source-for-transfer, transport-temperature grouping, dedicated/own/full tubes, explicit multi-tube requirements, and unmeasured requirements.
-- Shared SST requirements are pooled by estimated whole-blood draw volume using the existing 2.5x serum/plasma conversion, then divided by 7.5 mL per Tiger SST.
-- Gold/SST counts remain unchanged. The Tiger badge is an alternate equivalent so staff can use Gold or Tiger SST depending on stocked tube type.
+- Restyled the print-only Tiger SST alternate count to match the Gold/SST tube-label treatment.
+- Tiger SST now uses a red/gray striped tube icon and is aligned to the far right of the collection and submission cards.
+- The Tiger count still uses the v10.57 7.5 mL alternate SST calculation, including pooling, dedicated tubes, full-tube rules, and explicit multiple-tube requirements.
+- No collection, pooling, or submission calculations changed.

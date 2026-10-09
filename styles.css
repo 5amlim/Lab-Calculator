@@ -155,6 +155,7 @@ tr:hover td { background: #fbfdfd; }
 .tube { position: relative; padding-left: 18px; }
 .tube::before { content: ""; position: absolute; width: 8px; height: 16px; left: 5px; top: 50%; transform: translateY(-50%); border-radius: 3px 3px 5px 5px; background: #a9b3b8; border: 1px solid rgba(0,0,0,.18); }
 .tube-sst::before { background: #f4c842; }
+.tube-tiger-sst::before { background: repeating-linear-gradient(135deg, #d95851 0 3px, #d9dee1 3px 6px); }
 .tube-lavender::before { background: #a982d7; }
 .tube-green::before { background: #56a66d; }
 .tube-red::before { background: #d95851; }
