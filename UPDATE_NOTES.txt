@@ -1,5 +1,6 @@
-v10.60
+v10.61
 
+- Tiger SST count font weight now matches the primary Gold/SST count.
 - Tiger SST alternate is now wrapped as a single right-aligned print unit.
 - Tiger SST count uses the same circular count treatment as the primary Gold/SST count.
 - Tiger SST label keeps the red/gray striped tube icon and appears in both What to collect and the bag section.

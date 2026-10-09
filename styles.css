@@ -1634,7 +1634,7 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   }
 }
 
-/* v10.60: keep the alternate Tiger SST option as one right-aligned unit.
+/* v10.61: keep the alternate Tiger SST option as one right-aligned unit.
    Its count mirrors the primary tube-count circle, while the label uses the
    same tube-badge treatment with a red/gray striped SST icon. */
 @media print {
@@ -1668,7 +1668,8 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     justify-content: center;
     flex: 0 0 auto;
     border-radius: 999px;
-    font-weight: 950 !important;
+    /* Match the primary count circle (<strong>) instead of forcing extra-bold text. */
+    font-weight: 700 !important;
     line-height: 1;
   }
 
