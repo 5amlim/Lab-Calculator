@@ -1,24 +1,8 @@
-v10.81
-- Vertically centered both SST selector options so the tube icon, name, and volume sit in the middle of the selector pill.
-- Sterile Urine Cup transfer-source pills no longer display a numeric source count; they simply show “From Sterile Urine Cup”.
-- Blood source-tube counts and all collection/pooling calculations are unchanged.
+v10.83
+- The top What to Collect summary now differentiates sterile collection cups used for urine versus stool.
+- Sterile Urine Cup chips now include a small URINE or STOOL tag when applicable.
+- 24-hour urine containers remain separately labeled as 24-Hour Urine Container.
+- No collection, pooling, or transport calculations changed.
 
-v10.80
-- Added “5 mL” as the smaller gray volume line under Gold / SST in the SST selector.
-- Tiger SST continues to show “7.5 mL” on the smaller gray line.
-- This is a display update only; Gold/SST pooling calculations are unchanged.
-
-v10.79
-- Changed the SST selector helper text to “Select one SST tube.”
-- Moved the Tiger SST 7.5 mL volume to its own smaller gray line under the tube name.
-- No calculation logic changed.
-
-v10.78
-- Moved Collection Summary warnings and special-handling notices into a compact expandable control.
-- The control shows the total notice count plus restriction/warning counts while collapsed.
-- Expanding it reveals the existing color-coded warning cards.
-- Printouts still show warnings normally so important handling notes are not hidden on paper.
-- No test, tube-count, pooling, or SST calculations changed.
-
-v10.77
-- Fixed Tiger SST styling and shortened the Transport Tube label in the print table.
+v10.82
+- 24-Hour Urine Container badge updated to orange.

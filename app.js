@@ -1697,6 +1697,7 @@
       'tube-aptima': 'Aptima Multitest Transport Tube (orange label)',
       'tube-total-fix': 'Total-Fix® Transport Vial',
       'tube-trace-metal-container': 'Trace Metal-Free Plastic Container',
+      'tube-24h-urine': '24-Hour Urine Container',
       'tube-urine-cup': 'Sterile Urine Cup',
       'tube-ua-swirl': 'Red/Yellow Swirl UA Preservative Tube',
       'tube-urine-culture': 'Gray-Top Urine Culture Preservative Tube'
@@ -2731,7 +2732,13 @@
       <div class="print-logistics-heading"><strong>Collection and submission plan</strong><span>Collection containers are separated from processed specimens placed into transport bags.</span></div>
       <div class="print-logistics-totals">
         <div class="print-total-box collect-total"><span>TOTAL TO COLLECT</span><strong>${totalCollect}</strong><small>tubes / collection containers</small></div>
-        <div class="print-collect-chips">${collectionItems.map(item => `<span class="print-collect-chip tube ${item.displayClassName || item.className}"><b>${item.count}</b> ${escapeHtml(item.label)}</span>`).join('')}</div>
+        <div class="print-collect-chips">${collectionItems.map(item => {
+          const specimenGroup = collectionSpecimenGroupForItem(item);
+          const specimenTag = item.className === 'tube-urine-cup' && (specimenGroup === 'urine' || specimenGroup === 'stool')
+            ? `<span class="print-collect-chip-specimen">${escapeHtml(specimenGroup === 'stool' ? 'Stool' : 'Urine')}</span>`
+            : '';
+          return `<span class="print-collect-chip tube ${item.displayClassName || item.className}"><b>${item.count}</b> ${escapeHtml(item.label)}${specimenTag}</span>`;
+        }).join('')}</div>
         <div class="print-total-box submit-total"><span>TOTAL TO SUBMIT</span><strong>${bags.length}</strong><small>${bags.length === 1 ? 'transport bag' : 'transport bags'}</small></div>
         <div class="print-submit-bags">${bagLabels}</div>
       </div>
@@ -2837,6 +2844,7 @@
     if (/aptima/.test(value)) return 'tube-aptima';
     if (/total[- ]?fix/.test(value)) return 'tube-total-fix';
     if (/(?:trace[ -]?metal[- ]?free|acid[- ]?washed).*container|container.*(?:trace[ -]?metal[- ]?free|acid[- ]?washed)/.test(value)) return 'tube-trace-metal-container';
+    if (/24\s*[- ]?hour\s+urine\s+(?:container|jug)|24h\s+urine\s+(?:container|jug)/.test(value)) return 'tube-24h-urine';
     if (/sterile\s+urine\s+cup|urine\s+collection\s+cup/.test(value)) return 'tube-urine-cup';
     if (/blood culture|culture bottle|bactec|\bsps\b/.test(value)) return 'tube-culture';
     if (value.includes('red/yellow') && (value.includes('gray') || value.includes('grey'))) return 'tube-ua-pair';

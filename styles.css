@@ -780,6 +780,13 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 }
 
 /* v3.7 urine collection badge and print-only collection/submission plan */
+.tube-24h-urine::before {
+  width: 12px;
+  height: 11px;
+  border-radius: 2px 2px 5px 5px;
+  background: linear-gradient(180deg, #fff7e8 0 26%, #f3a43b 26% 100%);
+  border: 1.5px solid #bf6f12;
+}
 .tube-urine-cup::before {
   width: 12px;
   height: 11px;
@@ -884,6 +891,21 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     position: relative;
   }
   .print-collect-chip b { margin-right: 3px; font-size: 9px; }
+  .print-collect-chip-specimen {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 5px;
+    padding: 1px 4px;
+    border: 1px solid #bdcbd0;
+    border-radius: 999px;
+    background: #f3f7f8 !important;
+    color: #53666d !important;
+    font-size: 5.8px;
+    font-weight: 900;
+    letter-spacing: .04em;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
   .print-bag-pill { padding-left: 7px; }
   .print-bag-pill.bag-room { border-color: #c99c12; background: #fff0a8 !important; color: #5f4305 !important; }
   .print-bag-pill.bag-refrigerated { border-color: #4b9dce; background: #d9efff !important; color: #0c4f76 !important; }
