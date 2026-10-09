@@ -67,10 +67,25 @@
 }
 
 
-/* Print-only alternate SST option. Uses the same tube-label treatment as Gold/SST,
-   but a red/gray striped stopper and right alignment keep the alternate count distinct. */
-.print-sst-tiger-badge {
+/* Print-only alternate SST option. The approximation sign sits outside the
+   red/gray Tiger SST badge, and the whole alternate option is flush-right. */
+.print-sst-tiger-option {
+  display:inline-flex;
+  align-items:center;
+  gap:3px;
   margin-left:auto;
+  white-space:nowrap;
+  flex:0 0 auto;
+}
+
+.print-sst-approx {
+  color:#53666d;
+  font-size:8px;
+  font-weight:900;
+  line-height:1;
+}
+
+.print-sst-tiger-badge {
   white-space:nowrap;
 }
 
@@ -88,8 +103,10 @@
 }
 
 @media print {
-  .print-container-count .print-sst-tiger-badge,
-  .print-submit-item-title .print-sst-tiger-badge {
+  .print-container-count .print-sst-tiger-option,
+  .print-submit-item-title .print-sst-tiger-option {
     margin-left:auto;
   }
+  .print-sst-approx { font-size:8pt; }
 }
+

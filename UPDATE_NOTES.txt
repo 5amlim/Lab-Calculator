@@ -1,6 +1,5 @@
-v10.58
+v10.59
 
-- Restyled the print-only Tiger SST alternate count to match the Gold/SST tube-label treatment.
-- Tiger SST now uses a red/gray striped tube icon and is aligned to the far right of the collection and submission cards.
-- The Tiger count still uses the v10.57 7.5 mL alternate SST calculation, including pooling, dedicated tubes, full-tube rules, and explicit multiple-tube requirements.
-- No collection, pooling, or submission calculations changed.
+- Right-aligned the Tiger SST alternate option in both What to collect and the submission bag.
+- Moved the approximation symbol outside and immediately before the Tiger SST badge.
+- Tiger SST pooling/count calculations are unchanged.
