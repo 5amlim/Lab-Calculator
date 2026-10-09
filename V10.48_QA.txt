@@ -1,9 +1,0 @@
-Lab Collection Calculator v10.48 QA
-
-Change:
-- Renamed the print collection-card label from "Whole blood needed" to "Estimated draw volume".
-- No calculation, pooling, tube-count, specimen, transport, Do Not Perform, or storage logic changed.
-
-Checks:
-- JavaScript syntax check passed.
-- Confirmed old label no longer appears in app.js.
