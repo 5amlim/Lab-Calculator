@@ -2288,10 +2288,67 @@
     return `<span class="print-source-badges">${Array.from(badges.values()).map(source => `<span class="print-source-tube-badge tube ${source.className}">From ${escapeHtml(source.label)}</span>`).join('')}</span>`;
   }
 
+  function sourceTubeSummaryLabel(source, count) {
+    if (source.className === 'tube-sst') return count === 1 ? 'SST' : 'SSTs';
+    if (source.className === 'tube-red') return count === 1 ? 'Red Top' : 'Red Tops';
+    if (source.className === 'tube-lavender') return count === 1 ? 'Lavender EDTA' : 'Lavender EDTA tubes';
+    const label = String(source.label || 'source tube').trim();
+    return count === 1 ? label : (label.endsWith('s') ? label : `${label}s`);
+  }
+
+  function transferSourceTubeCountForItemTests(tests, source) {
+    const unique = uniqueTests(tests);
+    if (!unique.length) return 0;
+    if (source.className === 'tube-sst') {
+      return sstEstimateForTests(unique.filter(isSstDraw)).totalTubes;
+    }
+    if (source.className === 'tube-red') {
+      return pooledCollectionEstimateForTests(unique.filter(isRedTopDraw), isRedTopDraw).groups
+        .filter(group => group.path === 'transfer')
+        .reduce((sum, group) => sum + group.estimate.totalTubes, 0);
+    }
+    if (source.className === 'tube-lavender') {
+      return pooledCollectionEstimateForTests(unique.filter(isLavenderDraw), isLavenderDraw).groups
+        .filter(group => group.path === 'transfer')
+        .reduce((sum, group) => sum + group.estimate.totalTubes, 0);
+    }
+    return 0;
+  }
+
+  function printSubmissionSourceSummary(item) {
+    if (item.originalTube) return '';
+    const sourceGroups = new Map();
+    uniqueTests(item.tests).forEach(test => {
+      if (!isTransferSubmission(test)) return;
+      const source = canonicalCollectionContainer(test);
+      if (!source.label || !source.className) return;
+      const key = `${source.className}|${source.label}`;
+      if (!sourceGroups.has(key)) sourceGroups.set(key, { source, tests: [] });
+      sourceGroups.get(key).tests.push(test);
+    });
+
+    const summaries = Array.from(sourceGroups.values()).map(({ source, tests }) => {
+      const unique = uniqueTests(tests);
+      const transportCount = unique.reduce((sum, test) => {
+        const itemContainerCount = splitSubmissionContainers(test)
+          .filter(container => container.key === item.key)
+          .reduce((containerSum, container) => containerSum + Math.max(Number(container.count) || 0, 0), 0);
+        return sum + itemContainerCount;
+      }, 0);
+      const sourceCount = transferSourceTubeCountForItemTests(unique, source);
+      if (transportCount <= 0 || sourceCount <= 0) return '';
+      return `(${transportCount} ${transferSpecimenWord(unique)} ${transportCount === 1 ? 'tube' : 'tubes'} from ${sourceCount} ${sourceTubeSummaryLabel(source, sourceCount)})`;
+    }).filter(Boolean);
+
+    if (!summaries.length) return '';
+    return `<span class="print-submit-source-summary">${summaries.map(summary => escapeHtml(summary)).join(' ')}</span>`;
+  }
+
   function printSubmissionItemDetail(item) {
     const badges = printSubmissionSourceBadges(item);
-    if (!item.detail && !badges) return '';
-    return `<div class="print-submit-item-detail">${item.detail ? escapeHtml(item.detail) : ''}${badges}</div>`;
+    const summary = printSubmissionSourceSummary(item);
+    if (!item.detail && !badges && !summary) return '';
+    return `<div class="print-submit-item-detail">${item.detail ? escapeHtml(item.detail) : ''}${badges}${summary}</div>`;
   }
 
   function parseListedSpecimenVolumeMl(value) {
@@ -2541,7 +2598,6 @@
           const totalContainers = contents.reduce((sum, item) => sum + item.count, 0);
           return `<article class="print-bag-card ${bag.className}">
             <div class="print-bag-card-header"><div><strong>${escapeHtml(bag.label)}</strong><span>Keep separate from other temperatures</span></div><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div>
-            ${printBagTransferSourceSummary(bag)}
             <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
               <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.className}">${escapeHtml(item.label)}</span>${printSstTigerBadge(item)}</div>
               ${printSubmissionItemDetail(item)}

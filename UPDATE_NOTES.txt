@@ -1,3 +1,9 @@
+v10.64
+- Moved the source-to-transport count text out of the bag header and into each submission card.
+- The summary now appears next to the specimen source detail and source badge, for example: “(5 serum tubes from 2 SSTs)”.
+- This applies to transfer cards such as Serum Transport Tube, Amber Serum Transport Tube, and similar processed-specimen cards.
+- Bag totals and container counts are unchanged.
+
 v10.63
 - Added source-to-transport counts inside each temperature bag for serum/plasma transfers from SST or Red Top collection tubes.
 - Example: “(5 serum tubes from 2 SSTs)”.
@@ -10,7 +16,6 @@ v10.62
 - Dedicated, separate, full-tube, and explicit multiple-collection requirements still remain separate. Original-submit SSTs remain separate from source-for-transfer SSTs.
 
 v10.61
-
 - Tiger SST count font weight now matches the primary Gold/SST count.
 - Tiger SST alternate is now wrapped as a single right-aligned print unit.
 - Tiger SST count uses the same circular count treatment as the primary Gold/SST count.
