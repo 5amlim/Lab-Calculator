@@ -1,3 +1,9 @@
+v10.86
+- Increased the preferred specimen-volume font in the main print table so the required volume is easier to read.
+- Increased the minimum-volume text slightly as well.
+- Reduced the Draw Container and Transport Tube badge font size in the main print table to give the volume more visual priority.
+- No collection, pooling, specimen, or transport logic changed.
+
 v10.85
 - Added Quest test 11261, Pepsinogen II.
 - Workflow: Red Top (no gel) → serum transport tube → freeze immediately.

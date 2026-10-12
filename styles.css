@@ -1857,3 +1857,23 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 
 
 /* v10.65: source collection count is shown as a compact number badge inside the From tube badge. */
+
+/* v10.86: improve print-table readability by prioritizing specimen volume over container label size. */
+@media print {
+  .print-table .print-tube-badge {
+    font-size: 7.1px;
+    line-height: 1.1;
+  }
+
+  .print-table .print-preferred-volume {
+    padding: 2.5px 5px;
+    font-size: 8.6px;
+    line-height: 1.15;
+  }
+
+  .print-table .print-minimum-volume {
+    margin-top: 3px;
+    font-size: 7.8px;
+    line-height: 1.2;
+  }
+}
