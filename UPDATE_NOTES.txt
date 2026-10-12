@@ -1,25 +1,11 @@
-v10.86
-- Increased the preferred specimen-volume font in the main print table so the required volume is easier to read.
-- Increased the minimum-volume text slightly as well.
-- Reduced the Draw Container and Transport Tube badge font size in the main print table to give the volume more visual priority.
-- No collection, pooling, specimen, or transport logic changed.
+v10.88
+- Audited the entire 2,680-test catalog for rendering and collection/transport plan consistency, with specific review of all 192 urine tests.
+- Confirmed urine culture tests (395, 91684, 16174) collect into a Sterile Urine Cup before transferring to gray-top urine transport tubes.
+- Expanded the saved-browser-entry safeguard to also cover alternate gray-top culture tube wording and red/yellow UA preservative tubes accidentally entered as collection tubes.
+- Preserved 24-hour collection containers, non-collectable tests, stool, swab, and blood workflows.
+- Added runnable QA checks and URINE_COLLECTION_AUDIT.md. No blood/SST/volume formulas changed.
 
-v10.85
-- Added Quest test 11261, Pepsinogen II.
-- Workflow: Red Top (no gel) → serum transport tube → freeze immediately.
-- Preferred volume 3 mL serum; minimum 1 mL.
-- Added 10-12 hour fasting requirement and current handling/stability notes.
-
-v10.84
-- Cleaned up 24-hour urine labeling in the submission cards.
-- A 24-hour urine transfer now labels simply “24h urine · Total volume: ____ mL · Start: ____ · End: ____” instead of “Urine · 24h urine ...”.
-- No urine collection, transfer, or container-count logic changed.
-
-v10.83
-- The top What to Collect summary now differentiates sterile collection cups used for urine versus stool.
-- Sterile Urine Cup chips now include a small URINE or STOOL tag when applicable.
-- 24-hour urine containers remain separately labeled as 24-Hour Urine Container.
-- No collection, pooling, or transport calculations changed.
-
-v10.82
-- 24-Hour Urine Container badge updated to orange.
+v10.87
+- Corrected urine culture workflows so the collection container displays as Sterile Urine Cup and the gray-top urine culture tube stays the transport container.
+- Added a normalization safeguard so urine-culture transport tubes do not show up as the patient collection container in the printout or collection plan.
+- No blood, SST, or pooling logic changed.

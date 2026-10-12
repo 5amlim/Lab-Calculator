@@ -270,6 +270,32 @@
     }).filter(item => item.container);
   }
 
+  function normalizeUrineCollectionSource(specimenType, drawContainer, transportContainer) {
+    if (!/\burine\b/i.test(specimenType)) return drawContainer;
+    const draw = String(drawContainer || '').trim();
+    const transport = String(transportContainer || '').trim();
+
+    // Do not replace true 24-hour collection jugs, special collection devices,
+    // or intentionally unavailable tests with a spot-urine cup.
+    if (/24\s*[- ]?hour|24h\b|timed\s+urine|do not collect|^n\/?a$/i.test(draw)) return draw;
+    if (/^sterile urine cup$/i.test(draw)) return 'Sterile Urine Cup';
+
+    // Some previously saved browser overrides put the downstream preservative
+    // tube in the Draw Container field. For the clinic workflow the patient
+    // provides urine to a sterile cup first, then the preservative tubes are filled.
+    // Cover gray-top culture/transport and red-yellow or yellow-top UA variants.
+    // Do not rewrite blood gray-tops, stool containers, or generic specialty tests.
+    const grayUrineTransport = /\bgray[- ]?top\s+urine\b.*\b(?:culture|transport|preservative|tube)\b/i;
+    const uaPreservative = /(?:red\s*\/\s*yellow|yellow\s*\/\s*red|red[- ]yellow|yellow[- ]red|yellow[- ]top).*\b(?:ua|urinalysis|preservative|swirl|urine)/i;
+    const isUrinePreservativeDraw = grayUrineTransport.test(draw) || uaPreservative.test(draw);
+    const isUrinePreservativeTransport = grayUrineTransport.test(transport)
+      || uaPreservative.test(transport);
+    if (isUrinePreservativeDraw && isUrinePreservativeTransport) {
+      return 'Sterile Urine Cup';
+    }
+    return draw;
+  }
+
   function normalizeRecord(record, index = 0) {
     record = { ...record };
     for (const key of ['testName', 'specimenType', 'drawContainer', 'alternativeContainer',
@@ -278,17 +304,26 @@
       'specialInstructions', 'fastingInstructions']) {
       if (record[key] != null) record[key] = interfaceWording(record[key]);
     }
+
+    const specimenType = normalizeSpecimenType(record.specimenType);
+    const transportContainer = cleanTransportContainer(record.transportContainer);
+    const drawContainer = normalizeUrineCollectionSource(
+      specimenType,
+      cleanCollectionContainer(String(record.drawContainer || 'Verify Official Instructions')),
+      transportContainer
+    );
+
     return {
       id: String(record.id || `custom-${Date.now()}-${index}`),
       testCode: String(record.testCode ?? record[['que', 'stCode'].join('')] ?? '').trim(),
       testName: String(record.testName ?? '').trim(),
-      specimenType: normalizeSpecimenType(record.specimenType),
-      drawContainer: cleanCollectionContainer(String(record.drawContainer || 'Verify Official Instructions')),
+      specimenType,
+      drawContainer,
       alternativeContainer: cleanCollectionContainer(String(record.alternativeContainer || '')),
       additionalDrawRequirements: normalizeAdditionalDrawRequirements(record.additionalDrawRequirements),
       collectionCount: Number(record.collectionCount) > 1 ? Math.floor(Number(record.collectionCount)) : 1,
       submissionCount: Number(record.submissionCount) > 1 ? Math.floor(Number(record.submissionCount)) : 1,
-      transportContainer: cleanTransportContainer(record.transportContainer),
+      transportContainer,
       preferredVolume: String(record.preferredVolume || ''),
       minimumVolume: String(record.minimumVolume || ''),
       transportTemperature: String(record.transportTemperature || 'Not specified'),
