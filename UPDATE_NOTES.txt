@@ -1,3 +1,9 @@
+v10.85
+- Added Quest test 11261, Pepsinogen II.
+- Workflow: Red Top (no gel) → serum transport tube → freeze immediately.
+- Preferred volume 3 mL serum; minimum 1 mL.
+- Added 10-12 hour fasting requirement and current handling/stability notes.
+
 v10.84
 - Cleaned up 24-hour urine labeling in the submission cards.
 - A 24-hour urine transfer now labels simply “24h urine · Total volume: ____ mL · Start: ____ · End: ____” instead of “Urine · 24h urine ...”.

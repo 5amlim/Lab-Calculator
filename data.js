@@ -19203,6 +19203,27 @@ window.SEED_TESTS = [
     "fastingInstructions": "Fasting required (overnight fast). No alcohol consumption for 24 hours prior to draw. For pediatric patients, fasting is not required, but sample collection should occur prior to the next meal or scheduled feeding."
   },
   {
+    "id": "quest-11261-20261012",
+    "testCode": "11261",
+    "testName": "Pepsinogen II",
+    "specimenType": "Serum",
+    "drawContainer": "Red Top",
+    "alternativeContainer": "",
+    "transportContainer": "Transport tube",
+    "preferredVolume": "3 mL serum",
+    "minimumVolume": "1 mL serum",
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "stability": "Room temperature: Unacceptable Refrigerated: 72 hours Frozen: 60 days",
+    "spin": "Yes",
+    "specialInstructions": "Collect in a Red Top (no gel). Allow to clot, centrifuge, separate serum, and freeze immediately. Patient should fast 10-12 hours before collection. Antacids or other medications affecting stomach acidity or gastrointestinal motility should be discontinued, if possible, for at least 48 hours before collection per the ordering clinician.",
+    "status": "active",
+    "source": "Quest test code 11261 (Pepsinogen II); specimen requirements corroborated by Rady Children's Hospital/Quest send-out listing and InterScience Institute reference workflow, verified 2026-10-12",
+    "sourceRow": null,
+    "fastingStatus": "required",
+    "fastingInstructions": "Fast 10-12 hours before collection."
+  },
+  {
     "id": "quest-11270-20260915",
     "testCode": "11270",
     "testName": "Allergy-Shellfish Panel",
