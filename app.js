@@ -18,6 +18,7 @@
     'labCollectionCalculator.database.v11',
     ...[9, 8, 7, 6, 5, 4, 3, 2, 1].map(version => `${LEGACY_STORAGE_PREFIX}.database.v${version}`)
   ];
+  const RETIRED_TEST_CODES = new Set(['91001']);
   const SELECTED_KEY = 'labCollectionCalculator.selected.v1';
   const SST_MODE_KEY = 'labCollectionCalculator.sstMode.v1';
   const LEGACY_SELECTED_KEYS = [`${LEGACY_STORAGE_PREFIX}.selected.v1`];
@@ -165,11 +166,36 @@
 
     (state.overrides || []).map(normalizeRecord).forEach(override => {
       const index = byId.get(override.id) ?? byKey.get(databaseKey(override));
-      if (index !== undefined) builtIns[index] = override;
+      if (index !== undefined) {
+        const base = builtIns[index];
+        if (base.testCode === '92701') {
+          // Replace only the outdated values from earlier built-in releases.
+          // Preserve staff-entered changes that differ from those legacy defaults.
+          const legacyValues = {
+            preferredVolume: '0.5 mL whole blood',
+            minimumVolume: '0.1 mL',
+            transportContainer: 'No transfer unless directed',
+            stability: '70 days',
+            source: 'Quest MASTER directory verified 2026-09-02'
+          };
+          const updated = { ...override };
+          Object.entries(legacyValues).forEach(([field, previous]) => {
+            if (updated[field] === previous) updated[field] = base[field];
+          });
+          const legacyInstructions = 'Fasting is preferred but not required. Lavender - EDTA\n1. Collect and label sample according to standard protocols.\n2. Gently invert tube 8-10 times immediately after draw. DO NOT SHAKE.\n3. Do not centrifuge.\n4. Store and transport refrigerated.';
+          if (updated.specialInstructions === legacyInstructions) {
+            updated.specialInstructions = base.specialInstructions;
+          }
+          builtIns[index] = updated;
+        } else {
+          builtIns[index] = override;
+        }
+      }
     });
 
     const customTests = (state.customTests || []).map(normalizeRecord);
-    return [...customTests, ...builtIns];
+    // Retired Quest codes must not reappear through legacy user edits or saved custom tests.
+    return [...customTests, ...builtIns].filter(test => !RETIRED_TEST_CODES.has(test.testCode));
   }
 
   function userStateFromDatabase() {

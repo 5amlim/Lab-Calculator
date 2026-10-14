@@ -20,7 +20,7 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(root, 'data.js'), 'utf8'), context);
 let app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
 app = app.replace('  init();\n', '  // init skipped in audit harness\n');
-app = app.replace(/\}\)\(\);\s*$/, `  window.__audit = { seedDatabase, normalizeRecord, buildTransportBagPlan,
+app = app.replace(/\}\)\(\);\s*$/, `  window.__audit = { seedDatabase, normalizeRecord, applyUserState, buildTransportBagPlan,
     buildCollectionPlan, buildSubmissionContents, requiredDrawContainerBadges,
     printContainerBadges, printCollectionSubmissionPlan,
     isOriginalContainerSubmission, is24HourUrineTest };
@@ -39,7 +39,12 @@ for (const test of db) {
   api.buildCollectionPlan([test], bags);
   for (const bag of bags) api.buildSubmissionContents(bag);
 }
-assert.equal(db.length, 2680, 'all catalog tests loaded');
+assert.equal(db.length, 2679, 'all current catalog tests loaded');
+assert.equal(db.filter(test => test.testCode === '91001').length, 0, 'discontinued 91001 removed');
+assert.equal(db.filter(test => test.testCode === '92701').length, 1, 'OmegaCheck 92701 remains available');
+const legacy91001 = { id: 'custom-retired', testCode: '91001', testName: 'Omega-3 and -6 Fatty Acids' };
+const restored = api.applyUserState({ customTests: [legacy91001], overrides: [legacy91001] });
+assert.equal(restored.filter(test => test.testCode === '91001').length, 0, 'saved user records cannot restore retired code');
 assert.equal(urine.length, 192, 'urine test population');
 for (const test of urine) {
   assert.match(test.drawContainer, /^(Sterile Urine Cup|24-Hour Urine Container|Do Not Collect)$/,

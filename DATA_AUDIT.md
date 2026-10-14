@@ -1,3 +1,5 @@
+NOTE (v10.89): Quest 91001 was discontinued and removed from the active calculator catalog. References to 91001 below describe historical audits and do not indicate current availability. Quest 92701 remains in the catalog.
+
 ## Version 10.27 Quest catalog expansion
 
 - Audit date: 2026-09-14.

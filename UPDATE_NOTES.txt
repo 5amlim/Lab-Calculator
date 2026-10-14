@@ -1,3 +1,18 @@
+v10.90
+- Updated Quest 92701 (OmegaCheck®) to current Quest MASTER specimen instructions, verified October 14, 2026.
+- Preferred: 1 mL EDTA whole blood; minimum: 0.5 mL; send unspun in the original lavender EDTA tube, refrigerated with cold packs.
+- Updated stability to 28 days at room temperature/refrigerated or at -70°C; frozen at -20°C is unacceptable.
+- Retained fasting as preferred, not required; added invert 8-10 times / do not shake or centrifuge, lipemia rejection, and service-area caveat.
+- Corrected legacy values in any previously saved browser overrides for these specific stale fields without overwriting unrelated staff customizations.
+- Kept discontinued 91001 retired. No other test records or pooling calculations changed.
+
+v10.89
+- Removed discontinued Quest 91001 (Omega-3 and -6 Fatty Acids) from the active catalog.
+- Added a safeguard so old browser-saved edits or custom copies cannot restore 91001 to the catalog.
+- Retained Quest 92701 (OmegaCheck®) unchanged.
+- Updated catalog regression check to 2,679 records.
+- No other test instructions, collection, or pooling calculations changed.
+
 v10.88
 - Audited the entire 2,680-test catalog for rendering and collection/transport plan consistency, with specific review of all 192 urine tests.
 - Confirmed urine culture tests (395, 91684, 16174) collect into a Sterile Urine Cup before transferring to gray-top urine transport tubes.
