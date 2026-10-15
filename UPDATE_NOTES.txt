@@ -1,3 +1,8 @@
+v10.91
+- Switching between Gold / SST and Tiger SST now immediately updates the tube color, icon and label in the Find tests catalog list.
+- Open bulk-search match reviews also update their SST badges without resetting the current review.
+- The collection summary and printout continue to respect the selected SST size; no test data or collection calculations changed.
+
 v10.90
 - Updated Quest 92701 (OmegaCheck®) to current Quest MASTER specimen instructions, verified October 14, 2026.
 - Preferred: 1 mL EDTA whole blood; minimum: 0.5 mL; send unspun in the original lavender EDTA tube, refrigerated with cold packs.

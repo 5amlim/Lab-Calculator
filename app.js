@@ -968,6 +968,17 @@
     sstTubeMode = next;
     try { localStorage.setItem(SST_MODE_KEY, sstTubeMode); } catch (error) {}
     renderOrder();
+    // The test library is outside the collection summary, so redraw its tube
+    // badges when the SST choice changes. The badge renderer already uses the
+    // selected label and matching Gold or Tiger color/icon.
+    renderLibrary();
+    // Keep an open batch-match review visually in sync without resetting any
+    // match/confirmation state the user is currently reviewing.
+    els.batchResults.querySelectorAll('.tube-sst, .tube-tiger-sst').forEach(badge => {
+      badge.classList.remove('tube-sst', 'tube-tiger-sst');
+      badge.classList.add(selectedSstVisualClass());
+      badge.textContent = selectedSstLabel();
+    });
   }
 
   function renderSstTubeMode() {
