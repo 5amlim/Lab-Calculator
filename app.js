@@ -1043,7 +1043,7 @@
     if (reflex) {
       return {
         ...test,
-        transportContainer: 'Red/Yellow Swirl UA Preservative Tube + Copan UriSponge Urine Culture Transport',
+        transportContainer: 'Red/Yellow Swirl UA Preservative Tube + UriSponge Urine Culture Transport',
         preferredVolume: '10 mL urine for UA tube + completely saturated UriSponge for culture',
         minimumVolume: 'Fill UA tube to marked minimum + fully saturated UriSponge for culture',
         specialInstructions: `Two submissions required: fill the urinalysis preservative tube to its required line, and provide a separate UriSponge for culture. ${instructions}`
@@ -1051,7 +1051,7 @@
     }
     return {
       ...test,
-      transportContainer: 'Copan UriSponge Urine Culture Transport',
+      transportContainer: 'UriSponge Urine Culture Transport',
       preferredVolume: 'Completely saturated UriSponge transport',
       minimumVolume: 'Completely saturated UriSponge transport',
       specialInstructions: instructions
@@ -2348,7 +2348,7 @@
       return [
         { key: 'ua-swirl', label: 'Red/Yellow Swirl UA Preservative Tube', className: 'tube-ua-swirl', count: 1, detail: 'Urine in preservative tube' },
         selectedUrineCultureIsSponge() && isCultureTransportEligible(test)
-          ? { key: 'urine-culture-urisponge', label: 'Copan UriSponge Urine Culture Transport', className: 'tube-urisponge', count: 1, detail: 'Saturated UriSponge from sterile urine cup · do not pour urine into tube' }
+          ? { key: 'urine-culture-urisponge', label: 'UriSponge Urine Culture Transport', className: 'tube-urisponge', count: 1, detail: 'Saturated UriSponge from sterile urine cup · do not pour urine into tube' }
           : { key: 'urine-culture', label: 'Gray-Top Urine Culture Preservative Tube', className: 'tube-urine-culture', count: 1, detail: 'Urine in culture preservative tube' }
       ];
     }
@@ -2358,7 +2358,7 @@
     if (isCultureTransportEligible(test) && /uri[- ]?sponge/i.test(transport)) {
       return [{
         key: 'urine-culture-urisponge',
-        label: 'Copan UriSponge Urine Culture Transport',
+        label: 'UriSponge Urine Culture Transport',
         className: 'tube-urisponge',
         count: explicitSubmissionCount(test),
         detail: 'Fully saturate sponge for 5 seconds · do not pour urine into the tube'
@@ -2900,7 +2900,7 @@
     const sourceBadge = printTransferSourceBadge(test);
     if ((/red\s*\/\s*yellow|red-yellow|swirl/.test(lower)) && /gray|grey|urisponge/.test(lower) && /urine|culture/.test(lower)) {
       const cultureBadge = /urisponge/.test(lower)
-        ? '<span class="print-tube-badge tube tube-urisponge">Copan UriSponge Culture</span>'
+        ? '<span class="print-tube-badge tube tube-urisponge">UriSponge Culture</span>'
         : '<span class="print-tube-badge tube tube-urine-culture">Gray-Top Urine Culture Tube</span>';
       return `<span class="print-tube-badge tube tube-ua-swirl">Red/Yellow Swirl UA Tube</span><br>${cultureBadge}${sourceBadge ? `<div class="print-transport-source">${sourceBadge}</div>` : ''}`;
     }
@@ -2960,7 +2960,7 @@
       </div>
       ${fastingPanel}
 
-      ${selectedTests().some(isCultureTransportEligible) ? `<div class="print-urine-culture-choice"><strong>Urine culture transport:</strong> ${selectedUrineCultureIsSponge() ? 'Copan UriSponge' : 'Gray-top urine culture tube'}</div>` : ''}
+      ${selectedTests().some(isCultureTransportEligible) ? `<div class="print-urine-culture-choice"><strong>Urine culture transport:</strong> ${selectedUrineCultureIsSponge() ? 'UriSponge' : 'Gray-top urine culture tube'}</div>` : ''}
       ${printOrderOfDraw(collectionTests)}
 
       <div class="print-logistics-subheading">What to collect</div>

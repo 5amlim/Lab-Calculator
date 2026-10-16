@@ -1,3 +1,7 @@
+v10.96
+- Removed the manufacturer name from UriSponge labels and instructions throughout the calculator and printout.
+- No changes to specimen collection rules, transfer counts, or toggle behavior.
+
 v10.95
 - Updated the Urine culture transport toggle to display badge-style options for Gray Top and UriSponge.
 - Removed the NY acceptance note from the urine culture toggle helper text.
@@ -5,7 +9,7 @@ v10.95
 
 v10.94
 - Added a Gray Top / UriSponge selection for routine urine culture and UA with reflex culture; visible when relevant tests are selected.
-- Quest 395 and 3020 officially accept Copan UriSponge as an alternative. Keep Gray Top selected by default; confirm NY market supply/acceptance with local Quest rep.
+- Quest 395 and 3020 officially accept UriSponge as an alternative. Keep Gray Top selected by default; confirm NY market supply/acceptance with local Quest rep.
 - Updated print table, collection summary, specimen volume/handling, transport bag cards, and CSV export based on the selected culture transport method.
 - For UA with reflex culture, the separate UA preservative tube remains mandatory alongside UriSponge.
 - UriSponge handling: submerge applicator in urine for 5 seconds, return to tube, never pour urine into UriSponge. Room temperature or refrigerated for culture specimens.
