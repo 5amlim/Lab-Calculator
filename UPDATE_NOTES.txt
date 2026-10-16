@@ -1,3 +1,12 @@
+v10.92
+- Changed the Add Missing Test form's transport container input into a dropdown with common transport choices.
+- Added "No transfer / submit in original tube" and "Other / manually type" choices; Other reveals a required custom entry.
+- Existing manually entered transport descriptions remain editable under Other without discarding the saved value.
+- SST collection choices now set Spin to Yes automatically and lock it in the Add/Edit Test form. Original-tube SST print labels show the selected SST type (spun).
+- Missing-test actions prefill the Test code for numeric-only queries, or the Test name for nonnumeric queries, including unmatched bulk search entries and the Find Tests search.
+- Added a quick Add Missing Test button when the Find Tests table has no results.
+- No changes to the built-in catalog, transport temperatures, or pooling calculations.
+
 v10.91
 - Switching between Gold / SST and Tiger SST now immediately updates the tube color, icon and label in the Find tests catalog list.
 - Open bulk-search match reviews also update their SST badges without resetting the current review.

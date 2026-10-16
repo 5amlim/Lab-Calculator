@@ -62,7 +62,7 @@
     printSheet: $('printSheet'), testDialog: $('testDialog'), testForm: $('testForm'), dialogTitle: $('dialogTitle'),
     closeDialogButton: $('closeDialogButton'), cancelDialogButton: $('cancelDialogButton'), deleteTestButton: $('deleteTestButton'),
     saveTestButton: $('saveTestButton'), testId: $('testId'), testCode: $('testCode'), testName: $('testName'), specimenType: $('specimenType'),
-    drawContainer: $('drawContainer'), customDrawContainer: $('customDrawContainer'), customDrawContainerRow: $('customDrawContainerRow'), alternativeContainer: $('alternativeContainer'), transportContainer: $('transportContainer'),
+    drawContainer: $('drawContainer'), customDrawContainer: $('customDrawContainer'), customDrawContainerRow: $('customDrawContainerRow'), alternativeContainer: $('alternativeContainer'), transportContainer: $('transportContainer'), customTransportContainer: $('customTransportContainer'), customTransportContainerRow: $('customTransportContainerRow'),
     preferredVolume: $('preferredVolume'), minimumVolume: $('minimumVolume'), transportTemperature: $('transportTemperature'),
     transportTemperatureRaw: $('transportTemperatureRaw'), stability: $('stability'), spin: $('spin'),
     specialLabeling: $('specialLabeling'), specialInstructions: $('specialInstructions'), blockedStatus: $('blockedStatus'), addToSummary: $('addToSummary'),
@@ -107,8 +107,8 @@
     els.batchResults.addEventListener('click', handleBatchClick);
     els.selectedList.addEventListener('click', handleSelectedClick);
     els.testsOverviewList.addEventListener('click', handleTestsOverviewClick);
-    els.addTestButton.addEventListener('click', () => openDialog(null, { addToSummary: true }));
-    els.addSelectedTestButton.addEventListener('click', () => openDialog(null, { addToSummary: true }));
+    els.addTestButton.addEventListener('click', openMissingTestDialog);
+    els.addSelectedTestButton.addEventListener('click', openMissingTestDialog);
     els.testsDetailsButton.addEventListener('click', toggleTestsDetails);
     els.clearOrderButton.addEventListener('click', clearOrder);
     els.printButton.addEventListener('click', printSummary);
@@ -119,7 +119,9 @@
     els.testForm.addEventListener('submit', saveTestFromForm);
     els.deleteTestButton.addEventListener('click', deleteCustomTest);
     els.openDirectoryFromDialogButton.addEventListener('click', openDirectoryFromDialog);
-    els.drawContainer.addEventListener('change', toggleCustomDrawContainer);
+    els.drawContainer.addEventListener('change', () => { toggleCustomDrawContainer(); updateSstSpinRequirement(); });
+    els.customDrawContainer.addEventListener('input', updateSstSpinRequirement);
+    els.transportContainer.addEventListener('change', toggleCustomTransportContainer);
   }
 
   function renderAll() {
@@ -796,7 +798,8 @@
     });
 
     const shown = filtered.slice(0, libraryLimit);
-    els.libraryBody.innerHTML = shown.length ? shown.map(renderLibraryRow).join('') : `<tr><td colspan="6" class="empty-state">No tests match these filters.</td></tr>`;
+    const query = els.libraryFilter.value.trim();
+    els.libraryBody.innerHTML = shown.length ? shown.map(renderLibraryRow).join('') : `<tr><td colspan="6" class="empty-state">No tests match these filters.${query ? `<div class="missing-search-action"><button class="mini-button" type="button" data-action="new-from-query" data-query="${escapeAttr(query)}">+ Add missing test</button></div>` : ''}</td></tr>`;
     els.libraryStatus.textContent = `Showing ${shown.length} of ${filtered.length}`;
     const allLibraryTestsShown = shown.length >= filtered.length;
     els.loadMoreButton.classList.toggle('hidden', allLibraryTestsShown);
@@ -847,6 +850,10 @@
   function handleLibraryClick(event) {
     const button = event.target.closest('button[data-action]');
     if (!button) return;
+    if (button.dataset.action === 'new-from-query') {
+      openMissingTestFromQuery(button.dataset.query);
+      return;
+    }
     const id = button.dataset.id;
     if (button.dataset.action === 'add') {
       addSelected(id);
@@ -870,7 +877,7 @@
       addSelected(button.dataset.id);
       renderBatch(false);
     } else if (button.dataset.action === 'new-from-query') {
-      openDialog({ testName: button.dataset.query }, { addToSummary: true });
+      openMissingTestFromQuery(button.dataset.query);
     }
   }
 
@@ -1248,6 +1255,28 @@
     </details>`;
   }
 
+  function missingTestPrefillQuery() {
+    const libraryQuery = els.libraryFilter.value.trim();
+    if (libraryQuery && !database.some(test => isExactBatchMatch(libraryQuery, test))) {
+      return libraryQuery;
+    }
+    const batchQueries = parseQueries(els.searchInput.value);
+    if (batchQueries.length === 1 && !database.some(test => isExactBatchMatch(batchQueries[0], test))) {
+      return batchQueries[0];
+    }
+    return '';
+  }
+
+  function openMissingTestFromQuery(query) {
+    const text = String(query || '').trim();
+    const prefill = /^\d+$/.test(text) ? { testCode: text } : { testName: text };
+    openDialog(prefill, { addToSummary: true });
+  }
+
+  function openMissingTestDialog() {
+    openMissingTestFromQuery(missingTestPrefillQuery());
+  }
+
   function openDialog(test = null, options = {}) {
     const isExisting = Boolean(test && test.id);
     const record = normalizeRecord(test || {});
@@ -1259,7 +1288,7 @@
     else els.specimenType.value = '';
     setDrawContainerValue(record.drawContainer === 'Verify Official Instructions' && !isExisting ? '' : record.drawContainer);
     els.alternativeContainer.value = record.alternativeContainer;
-    els.transportContainer.value = record.transportContainer;
+    setTransportContainerValue(record.transportContainer);
     els.preferredVolume.value = record.preferredVolume;
     els.minimumVolume.value = record.minimumVolume;
     if (isExisting) setSelectValue(els.transportTemperature, record.transportTemperature, 'Not specified');
@@ -1267,6 +1296,7 @@
     els.transportTemperatureRaw.value = record.transportTemperatureRaw;
     els.stability.value = record.stability;
     setSelectValue(els.spin, record.spin, 'Verify');
+    updateSstSpinRequirement();
     els.specialLabeling.value = record.specialLabeling;
     els.specialInstructions.value = record.specialInstructions;
     els.blockedStatus.checked = record.status === 'blocked';
@@ -1276,7 +1306,7 @@
     els.deleteTestButton.classList.toggle('hidden', !isExisting || !record.id.startsWith('custom-'));
     if (els.optionalDetails) els.optionalDetails.open = isExisting;
     els.testDialog.showModal();
-    setTimeout(() => (isExisting ? els.testName : els.testCode).focus(), 0);
+    setTimeout(() => (isExisting ? els.testName : els.testCode.value ? els.testName : els.testName.value ? els.testCode : els.testCode).focus(), 0);
   }
 
   function closeDialog() {
@@ -1295,13 +1325,13 @@
       drawContainer: selectedDrawContainer(),
       alternativeContainer: els.alternativeContainer.value,
       additionalDrawRequirements: existingIndex >= 0 ? database[existingIndex].additionalDrawRequirements : [],
-      transportContainer: els.transportContainer.value,
+      transportContainer: selectedTransportContainer(),
       preferredVolume: els.preferredVolume.value,
       minimumVolume: els.minimumVolume.value,
       transportTemperature: els.transportTemperature.value,
       transportTemperatureRaw: els.transportTemperatureRaw.value,
       stability: els.stability.value,
-      spin: els.spin.value,
+      spin: isSelectedDrawSst() ? 'Yes' : els.spin.value,
       specialLabeling: els.specialLabeling.value,
       specialInstructions: els.specialInstructions.value,
       status: els.blockedStatus.checked ? 'blocked' : 'active',
@@ -1313,12 +1343,17 @@
       { element: els.testName, value: els.testName.value.trim(), message: 'Enter a test name before saving.' },
       { element: els.specimenType, value: els.specimenType.value, message: 'Select a specimen type before saving.' },
       { element: els.drawContainer, value: selectedDrawContainer(true), message: 'Select a draw container before saving.' },
-      { element: els.transportContainer, value: els.transportContainer.value.trim(), message: 'Enter a transport tube or container before saving.' },
+      { element: els.transportContainer, value: selectedTransportContainer(true), message: 'Select a transport tube or container before saving.' },
       { element: els.transportTemperature, value: els.transportTemperature.value, message: 'Select a transport temperature before saving.' }
     ];
     if (els.drawContainer.value === '__other__' && !els.customDrawContainer.value.trim()) {
       showToast('Enter the custom draw container before saving.');
       els.customDrawContainer.focus();
+      return;
+    }
+    if (els.transportContainer.value === '__other__' && !els.customTransportContainer.value.trim()) {
+      showToast('Enter the custom transport container before saving.');
+      els.customTransportContainer.focus();
       return;
     }
     const missingField = requiredFields.find(field => !field.value);
@@ -2772,10 +2807,12 @@
       ? specimenSourceDetail(test)
       : sourceSpecimen;
 
-    const transportClass = transportTubeClass(test, value);
+    const explicitOriginalOption = /^no transfer\s*\/\s*submit in original tube$/i.test(value);
+    const displayedTube = explicitOriginalOption ? String(test.drawContainer || '').trim() : value;
+    const transportClass = explicitOriginalOption ? tubeClass(displayedTube) : transportTubeClass(test, value);
     const isSstTransport = transportClass === 'tube-sst';
     const displayClass = isSstTransport ? selectedSstVisualClass() : transportClass;
-    let displayValue = value || 'Verify';
+    let displayValue = explicitOriginalOption ? `${displayedTube} (original tube)` : value || 'Verify';
 
     if (isSstTransport) {
       const keepSpun = /\bspun\b/i.test(value) || isSpunSstSubmission(test) || isOriginalContainerSubmission(test);
@@ -2971,6 +3008,52 @@
       els.customDrawContainer.value = '';
     }
     toggleCustomDrawContainer();
+  }
+
+  function setTransportContainerValue(value) {
+    const normalized = String(value || '').trim();
+    const match = Array.from(els.transportContainer.options).find(option =>
+      option.value && option.value !== '__other__' && normalizeSearch(option.value) === normalizeSearch(normalized));
+    if (match) {
+      els.transportContainer.value = match.value;
+      els.customTransportContainer.value = '';
+    } else if (normalized) {
+      els.transportContainer.value = '__other__';
+      els.customTransportContainer.value = normalized;
+    } else {
+      els.transportContainer.value = '';
+      els.customTransportContainer.value = '';
+    }
+    toggleCustomTransportContainer(false);
+  }
+
+  function toggleCustomTransportContainer(shouldFocus = true) {
+    const isOther = els.transportContainer.value === '__other__';
+    els.customTransportContainerRow.classList.toggle('hidden', !isOther);
+    els.customTransportContainerRow.classList.toggle('is-active', isOther);
+    els.customTransportContainer.disabled = !isOther;
+    els.customTransportContainer.required = isOther;
+    if (!isOther) els.customTransportContainer.value = '';
+    if (isOther && shouldFocus) els.customTransportContainer.focus();
+  }
+
+  function selectedTransportContainer(strict = false) {
+    if (els.transportContainer.value === '__other__') {
+      return els.customTransportContainer.value.trim() || (strict ? '' : 'Verify Official Instructions');
+    }
+    return els.transportContainer.value || (strict ? '' : 'Verify Official Instructions');
+  }
+
+  function isSelectedDrawSst() {
+    const draw = selectedDrawContainer(true);
+    return /\bsst\b|gold|serum separator|red\s*\/\s*black/i.test(draw);
+  }
+
+  function updateSstSpinRequirement() {
+    const isSst = isSelectedDrawSst();
+    if (isSst) els.spin.value = 'Yes';
+    els.spin.disabled = isSst;
+    els.spin.title = isSst ? 'SST specimens must be spun before submission.' : '';
   }
 
   function toggleCustomDrawContainer() {

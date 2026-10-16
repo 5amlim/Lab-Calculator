@@ -254,7 +254,25 @@
               <option value="__other__">Other / manually type</option>
             </select></label>
             <label id="customDrawContainerRow" class="custom-draw-container-row full-width hidden"><span class="form-label-text">Custom draw container <span class="required-mark" aria-hidden="true">*</span></span><input id="customDrawContainer" disabled placeholder="Type any tube, cup, swab, or collection kit" autocomplete="off"></label>
-            <label><span class="form-label-text">Transport tube / container <span class="required-mark" aria-hidden="true">*</span></span><input id="transportContainer" required placeholder="Example: serum transport tube"></label>
+            <label><span class="form-label-text">Transport tube / container <span class="required-mark" aria-hidden="true">*</span></span><select id="transportContainer" required>
+              <option value="">Choose a transport container</option>
+              <option value="No transfer / submit in original tube">No transfer / submit in original tube</option>
+              <option>Serum Transport Tube</option>
+              <option>Plasma Transport Tube</option>
+              <option>Whole Blood / Original Tube</option>
+              <option>Amber Serum Transport Tube — Protect From Light</option>
+              <option>Amber Plasma Transport Tube — Protect From Light</option>
+              <option>Acid-Washed / Metal-Free Serum Transport Tube</option>
+              <option>Red/Yellow Swirl UA Preservative Tube</option>
+              <option>Gray-Top Urine Culture Preservative Tube</option>
+              <option>Sterile Urine Cup</option>
+              <option>24-Hour Urine Container</option>
+              <option>Stool Container</option>
+              <option>Aptima Multitest Transport Tube (orange label)</option>
+              <option>Viral transport media (VCM/M4)</option>
+              <option value="__other__">Other / manually type</option>
+            </select></label>
+            <label id="customTransportContainerRow" class="custom-draw-container-row full-width hidden"><span class="form-label-text">Custom transport container <span class="required-mark" aria-hidden="true">*</span></span><input id="customTransportContainer" disabled placeholder="Enter the transport container exactly as specified" autocomplete="off"></label>
             <label><span class="form-label-text">Transport temperature <span class="required-mark" aria-hidden="true">*</span></span><select id="transportTemperature" required>
               <option value="">Choose a transport temperature</option><option>Room Temperature</option><option>Refrigerated</option><option>Frozen</option><option>Room / Refrigerated</option><option>Mixed</option><option>Not specified</option>
             </select></label>
