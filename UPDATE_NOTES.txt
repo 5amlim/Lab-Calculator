@@ -1,3 +1,8 @@
+v10.95
+- Updated the Urine culture transport toggle to display badge-style options for Gray Top and UriSponge.
+- Removed the NY acceptance note from the urine culture toggle helper text.
+- Restyled the UriSponge badge to use a yellow/white swirl icon.
+
 v10.94
 - Added a Gray Top / UriSponge selection for routine urine culture and UA with reflex culture; visible when relevant tests are selected.
 - Quest 395 and 3020 officially accept Copan UriSponge as an alternative. Keep Gray Top selected by default; confirm NY market supply/acceptance with local Quest rep.
