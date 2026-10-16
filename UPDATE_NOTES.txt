@@ -1,3 +1,7 @@
+v10.97
+- Inset the dropdown arrow in the All specimen types filter for more comfortable right-side spacing.
+- No functionality, specimen data, or printout logic changed.
+
 v10.96
 - Removed the manufacturer name from UriSponge labels and instructions throughout the calculator and printout.
 - No changes to specimen collection rules, transfer counts, or toggle behavior.
