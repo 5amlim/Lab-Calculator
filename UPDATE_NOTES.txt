@@ -1,3 +1,8 @@
+v10.98
+- Kept the Gray Top / UriSponge transport toggle visible even when zero tests are selected.
+- Staff can choose urine culture transport before adding tests; the selection remains saved in the browser.
+- Only eligible urine culture and reflex-to-culture orders use the selected transport option. No clinical requirements, test records, or collection calculations changed.
+
 v10.97
 - Inset the dropdown arrow in the All specimen types filter for more comfortable right-side spacing.
 - No functionality, specimen data, or printout logic changed.

@@ -1025,9 +1025,8 @@
     renderOrder();
   }
 
-  function renderUrineCultureMode(tests) {
-    const visible = tests.some(isCultureTransportEligible);
-    els.urineCultureControl.classList.toggle('hidden', !visible);
+  function renderUrineCultureMode() {
+    // Always show the transport choice so a market can choose before adding tests.
     els.urineCultureModeOptions.forEach(button => {
       const selected = button.dataset.urineCultureMode === urineCultureMode;
       button.classList.toggle('is-selected', selected);
@@ -1065,7 +1064,7 @@
   function renderOrder() {
     renderSstTubeMode();
     const tests = selectedTests();
-    renderUrineCultureMode(tests);
+    renderUrineCultureMode();
     const collectionTests = expandedCollectionTests(tests);
     els.selectedCount.textContent = tests.length;
     $('mobileCount').textContent = `${tests.length} ${tests.length === 1 ? 'test' : 'tests'}`;
