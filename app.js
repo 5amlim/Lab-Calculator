@@ -21,6 +21,7 @@
   const RETIRED_TEST_CODES = new Set(['91001']);
   const SELECTED_KEY = 'labCollectionCalculator.selected.v1';
   const SST_MODE_KEY = 'labCollectionCalculator.sstMode.v1';
+  const URINE_CULTURE_MODE_KEY = 'labCollectionCalculator.urineCultureTransport.v1';
   const LEGACY_SELECTED_KEYS = [`${LEGACY_STORAGE_PREFIX}.selected.v1`];
   const PAGE_STEP = 30;
   const SST_USABLE_ML_PER_TUBE = 2;
@@ -59,6 +60,7 @@
     drawPlan: $('drawPlan'), drawPlanSummary: $('drawPlanSummary'), orderOfDraw: $('orderOfDraw'), orderOfDrawSummary: $('orderOfDrawSummary'), collectionAlerts: $('collectionAlerts'), clearOrderButton: $('clearOrderButton'),
     printButton: $('printButton'), exportSummaryButton: $('exportSummaryButton'),
     sstModeOptions: Array.from(document.querySelectorAll('[data-sst-mode]')),
+    urineCultureControl: $('urineCultureModeControl'), urineCultureModeOptions: Array.from(document.querySelectorAll('[data-urine-culture-mode]')),
     printSheet: $('printSheet'), testDialog: $('testDialog'), testForm: $('testForm'), dialogTitle: $('dialogTitle'),
     closeDialogButton: $('closeDialogButton'), cancelDialogButton: $('cancelDialogButton'), deleteTestButton: $('deleteTestButton'),
     saveTestButton: $('saveTestButton'), testId: $('testId'), testCode: $('testCode'), testName: $('testName'), specimenType: $('specimenType'),
@@ -74,6 +76,7 @@
   let database = loadDatabase();
   let selectedIds = loadSelectedIds();
   let sstTubeMode = loadSstTubeMode();
+  let urineCultureMode = loadUrineCultureMode();
   finalizeStorageMigration();
   let libraryLimit = PAGE_STEP;
   let blockedListOpen = false;
@@ -114,6 +117,7 @@
     els.printButton.addEventListener('click', printSummary);
     els.exportSummaryButton.addEventListener('click', exportSummaryCsv);
     els.sstModeOptions.forEach(button => button.addEventListener('click', () => setSstTubeMode(button.dataset.sstMode)));
+    els.urineCultureModeOptions.forEach(button => button.addEventListener('click', () => setUrineCultureMode(button.dataset.urineCultureMode)));
     els.closeDialogButton.addEventListener('click', closeDialog);
     els.cancelDialogButton.addEventListener('click', closeDialog);
     els.testForm.addEventListener('submit', saveTestFromForm);
@@ -996,13 +1000,72 @@
     });
   }
 
+  function isCultureTransportEligible(test) {
+    if (!test || !isUrineTest(test)) return false;
+    const name = String(test.testName || '').toLowerCase();
+    const hasCultureInName = /(?:culture.*urine|urine.*culture|urinalysis.*reflex to culture)/.test(name);
+    const hasCultureTransport = /gray[- ]top.*urine.*(?:culture|transport)|uri[- ]?sponge/i.test(String(test.transportContainer || ''));
+    // Other urine chemistry tests can use a gray-top tube; only routine bacterial
+    // urine culture and urinalysis/reflex culture are eligible for this toggle.
+    return hasCultureInName && hasCultureTransport;
+  }
+
+  function selectedUrineCultureIsSponge() { return urineCultureMode === 'urisponge'; }
+
+  function loadUrineCultureMode() {
+    try { return localStorage.getItem(URINE_CULTURE_MODE_KEY) === 'urisponge' ? 'urisponge' : 'gray'; }
+    catch (error) { return 'gray'; }
+  }
+
+  function setUrineCultureMode(mode) {
+    const next = mode === 'urisponge' ? 'urisponge' : 'gray';
+    if (next === urineCultureMode) return;
+    urineCultureMode = next;
+    try { localStorage.setItem(URINE_CULTURE_MODE_KEY, next); } catch (error) {}
+    renderOrder();
+  }
+
+  function renderUrineCultureMode(tests) {
+    const visible = tests.some(isCultureTransportEligible);
+    els.urineCultureControl.classList.toggle('hidden', !visible);
+    els.urineCultureModeOptions.forEach(button => {
+      const selected = button.dataset.urineCultureMode === urineCultureMode;
+      button.classList.toggle('is-selected', selected);
+      button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+    });
+  }
+
+  function withSelectedCultureTransport(test) {
+    if (!selectedUrineCultureIsSponge() || !isCultureTransportEligible(test)) return test;
+    const reflex = String(test.testCode || '') === '3020'
+      || /urinalysis.*reflex to culture/i.test(test.testName || '');
+    const instructions = 'Collect clean-catch midstream urine in a sterile urine cup. Dip the UriSponge applicator into the urine sample, fully submerging for 5 seconds. Return saturated sponge to UriSponge tube and secure tightly. Do not pour urine into the UriSponge tube. Transport preserved urine at room temperature or refrigerated. Confirm acceptance with the Quest service area.';
+    if (reflex) {
+      return {
+        ...test,
+        transportContainer: 'Red/Yellow Swirl UA Preservative Tube + Copan UriSponge Urine Culture Transport',
+        preferredVolume: '10 mL urine for UA tube + completely saturated UriSponge for culture',
+        minimumVolume: 'Fill UA tube to marked minimum + fully saturated UriSponge for culture',
+        specialInstructions: `Two submissions required: fill the urinalysis preservative tube to its required line, and provide a separate UriSponge for culture. ${instructions}`
+      };
+    }
+    return {
+      ...test,
+      transportContainer: 'Copan UriSponge Urine Culture Transport',
+      preferredVolume: 'Completely saturated UriSponge transport',
+      minimumVolume: 'Completely saturated UriSponge transport',
+      specialInstructions: instructions
+    };
+  }
+
   function selectedTests() {
-    return selectedIds.map(id => database.find(test => test.id === id)).filter(Boolean);
+    return selectedIds.map(id => database.find(test => test.id === id)).filter(Boolean).map(withSelectedCultureTransport);
   }
 
   function renderOrder() {
     renderSstTubeMode();
     const tests = selectedTests();
+    renderUrineCultureMode(tests);
     const collectionTests = expandedCollectionTests(tests);
     els.selectedCount.textContent = tests.length;
     $('mobileCount').textContent = `${tests.length} ${tests.length === 1 ? 'test' : 'tests'}`;
@@ -2206,6 +2269,7 @@
     const isStandardSerumOrPlasma = /\b(?:serum|plasma)\b/.test(specimenAndContainer);
     const isSpecialtyMetalContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal/.test(value);
 
+    if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
     if (/aptima/.test(value)) return 'tube-aptima';
     if (/amber|protect from light|light[- ]?protected/.test(value)) return 'tube-amber';
 
@@ -2280,14 +2344,26 @@
   function splitSubmissionContainers(test) {
     const transport = finalTransportContainer(test);
     const combined = `${transport} ${test.specialInstructions || ''}`.toLowerCase();
-    if (String(test.testCode || '') === '3020' || (/red\s*\/\s*yellow|red-yellow|swirl/.test(combined) && /gray|grey/.test(combined) && /urine|culture/.test(combined))) {
+    if (String(test.testCode || '') === '3020' || (/red\s*\/\s*yellow|red-yellow|swirl/.test(combined) && /gray|grey|urisponge/.test(combined) && /urine|culture/.test(combined))) {
       return [
         { key: 'ua-swirl', label: 'Red/Yellow Swirl UA Preservative Tube', className: 'tube-ua-swirl', count: 1, detail: 'Urine in preservative tube' },
-        { key: 'urine-culture', label: 'Gray-Top Urine Culture Preservative Tube', className: 'tube-urine-culture', count: 1, detail: 'Urine in culture preservative tube' }
+        selectedUrineCultureIsSponge() && isCultureTransportEligible(test)
+          ? { key: 'urine-culture-urisponge', label: 'Copan UriSponge Urine Culture Transport', className: 'tube-urisponge', count: 1, detail: 'Saturated UriSponge from sterile urine cup · do not pour urine into tube' }
+          : { key: 'urine-culture', label: 'Gray-Top Urine Culture Preservative Tube', className: 'tube-urine-culture', count: 1, detail: 'Urine in culture preservative tube' }
       ];
     }
 
     if (isOriginalContainerSubmission(test)) return [originalContainerSubmission(test)];
+
+    if (isCultureTransportEligible(test) && /uri[- ]?sponge/i.test(transport)) {
+      return [{
+        key: 'urine-culture-urisponge',
+        label: 'Copan UriSponge Urine Culture Transport',
+        className: 'tube-urisponge',
+        count: explicitSubmissionCount(test),
+        detail: 'Fully saturate sponge for 5 seconds · do not pour urine into the tube'
+      }];
+    }
 
     const specimen = titleCaseSpecimen(normalizeSpecimenType(test.specimenType));
     const sourceSpecimen = specificSpecimenSource(test);
@@ -2593,10 +2669,34 @@
     }).join('')}</span>`;
   }
 
+  function printProcessedTransferDetail(item) {
+    const detail = String(item.detail || '');
+    if (!detail || item.originalTube || !/^(?:serum|plasma|platelet[- ]poor plasma) from\b/i.test(detail)) {
+      return detail;
+    }
+
+    // Add a processing cue only when every test in this transport card is a
+    // centrifuged blood-to-serum/plasma transfer. Do not suggest spinning
+    // whole blood, cells, urine, or a specimen whose test says not to spin.
+    const tests = uniqueTests(item.tests || []);
+    const allRequireSpin = tests.length > 0 && tests.every(test =>
+      collectionSpecimenGroupForTest(test) === 'blood' &&
+      isTransferSubmission(test) &&
+      /^(?:serum|plasma|platelet[- ]poor plasma)$/i.test(normalizeSpecimenType(test.specimenType)) &&
+      /^yes$/i.test(String(test.spin || '').trim())
+    );
+    // Keep the specimen type first; "spun" modifies the source collection tube.
+    // Example: "Plasma from spun Lavender EDTA".
+    return allRequireSpin
+      ? detail.replace(/^((?:serum|plasma|platelet[- ]poor plasma) from )(?!spun\b)/i, '$1spun ')
+      : detail;
+  }
+
   function printSubmissionItemDetail(item) {
     const badges = printSubmissionSourceBadges(item);
-    if (!item.detail && !badges) return '';
-    return `<div class="print-submit-item-detail">${item.detail ? escapeHtml(item.detail) : ''}${badges}</div>`;
+    const detail = printProcessedTransferDetail(item);
+    if (!detail && !badges) return '';
+    return `<div class="print-submit-item-detail">${detail ? escapeHtml(detail) : ''}${badges}</div>`;
   }
 
   function parseListedSpecimenVolumeMl(value) {
@@ -2798,8 +2898,11 @@
     const value = String(test.transportContainer || '').trim();
     const lower = value.toLowerCase();
     const sourceBadge = printTransferSourceBadge(test);
-    if ((/red\s*\/\s*yellow|red-yellow|swirl/.test(lower)) && /gray|grey/.test(lower) && /urine|culture/.test(lower)) {
-      return `<span class="print-tube-badge tube tube-ua-swirl">Red/Yellow Swirl UA Tube</span><br><span class="print-tube-badge tube tube-urine-culture">Gray-Top Urine Culture Tube</span>${sourceBadge ? `<div class="print-transport-source">${sourceBadge}</div>` : ''}`;
+    if ((/red\s*\/\s*yellow|red-yellow|swirl/.test(lower)) && /gray|grey|urisponge/.test(lower) && /urine|culture/.test(lower)) {
+      const cultureBadge = /urisponge/.test(lower)
+        ? '<span class="print-tube-badge tube tube-urisponge">Copan UriSponge Culture</span>'
+        : '<span class="print-tube-badge tube tube-urine-culture">Gray-Top Urine Culture Tube</span>';
+      return `<span class="print-tube-badge tube tube-ua-swirl">Red/Yellow Swirl UA Tube</span><br>${cultureBadge}${sourceBadge ? `<div class="print-transport-source">${sourceBadge}</div>` : ''}`;
     }
 
     const sourceSpecimen = specificSpecimenSource(test);
@@ -2857,6 +2960,7 @@
       </div>
       ${fastingPanel}
 
+      ${selectedTests().some(isCultureTransportEligible) ? `<div class="print-urine-culture-choice"><strong>Urine culture transport:</strong> ${selectedUrineCultureIsSponge() ? 'Copan UriSponge' : 'Gray-top urine culture tube'}</div>` : ''}
       ${printOrderOfDraw(collectionTests)}
 
       <div class="print-logistics-subheading">What to collect</div>
@@ -2954,6 +3058,7 @@
 
   function tubeClass(container) {
     const value = String(container || '').toLowerCase();
+    if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
     if (/aptima/.test(value)) return 'tube-aptima';
     if (/total[- ]?fix/.test(value)) return 'tube-total-fix';
     if (/(?:trace[ -]?metal[- ]?free|acid[- ]?washed).*container|container.*(?:trace[ -]?metal[- ]?free|acid[- ]?washed)/.test(value)) return 'tube-trace-metal-container';

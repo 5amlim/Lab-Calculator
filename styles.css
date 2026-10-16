@@ -1877,3 +1877,9 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     line-height: 1.2;
   }
 }
+
+/* v10.94: alternate urine culture transport selection */
+.tube-urisponge::before { background: linear-gradient(180deg, #7c55a9 0 28%, #f3e6b4 28% 76%, #d8c89d 76%); border-color: #72558e; }
+.urine-culture-mode-control .sst-mode-option { font-size: 10px; font-weight: 800; min-height: 30px; }
+.urine-culture-mode-control .sst-mode-copy { max-width: 185px; }
+@media print { .print-urine-culture-choice { color: #31454d; border: 1px solid #c8d6db; border-radius: 5px; padding: 5px 8px; margin: 5px 0 9px; font-size: 8px; } }

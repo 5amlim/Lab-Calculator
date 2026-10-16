@@ -1,3 +1,18 @@
+v10.94
+- Added a Gray Top / UriSponge selection for routine urine culture and UA with reflex culture; visible when relevant tests are selected.
+- Quest 395 and 3020 officially accept Copan UriSponge as an alternative. Keep Gray Top selected by default; confirm NY market supply/acceptance with local Quest rep.
+- Updated print table, collection summary, specimen volume/handling, transport bag cards, and CSV export based on the selected culture transport method.
+- For UA with reflex culture, the separate UA preservative tube remains mandatory alongside UriSponge.
+- UriSponge handling: submerge applicator in urine for 5 seconds, return to tube, never pour urine into UriSponge. Room temperature or refrigerated for culture specimens.
+- Only routine urine culture and reflex culture records are eligible; unrelated urine chemistry tests using gray tops are left unchanged.
+- No blood collection/pooling logic changed.
+
+v10.93
+- Printout bag cards now place “spun” after “from” when the grouped serum/plasma tests require centrifugation (e.g. “Plasma from spun Lavender EDTA”).
+- This also covers platelet-poor plasma, amber serum, and acid-washed/metal-free serum transport cards where centrifugation is required.
+- The specimen labeling badge remains unchanged, since “spun” is a processing cue, not a specimen label.
+- No collection count, transport count, pooling, or test data changes.
+
 v10.92
 - Changed the Add Missing Test form's transport container input into a dropdown with common transport choices.
 - Added "No transfer / submit in original tube" and "Other / manually type" choices; Other reveals a required custom entry.

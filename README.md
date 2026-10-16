@@ -376,3 +376,5 @@ The nurse order-of-draw panel distinguishes the tube additive rather than relyin
 - Collection: 24-hour urine, refrigerated during/after collection, with 25 mL 6N HCl to maintain pH <2.
 - Submission: well-mixed 10 mL aliquot preferred (2 mL minimum) in a plastic screw-cap container; room-temperature transport.
 - Record total 24-hour volume and collection duration on the specimen container and requisition.
+
+**v10.94:** When a supported urine culture test is in the collection summary, the Urine culture transport toggle switches between gray-top culture transport (default) and Copan UriSponge. Applies to Quest codes 395, 3020, and 91684 in the current catalog. For UA reflex culture, the UA preservative tube remains a separate required submission. Copan UriSponge must be completely saturated by immersing applicator in collected urine for five seconds; do not pour urine into the UriSponge tube. Confirm whether your local Quest service area accepts/supplies UriSponge before using it. Source: Quest Test Directory for these codes and Quest IDI collection guide.
