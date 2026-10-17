@@ -571,6 +571,112 @@
       .trim();
   }
 
+  // Search indexes are cached by record so live filtering stays responsive for
+  // the full catalog. Saved edits create new records, so the cache stays valid.
+  const librarySearchIndexCache = new WeakMap();
+
+  function librarySearchIndex(test) {
+    const existing = librarySearchIndexCache.get(test);
+    if (existing) return existing;
+    const name = normalizeSearch(test.testName);
+    const code = normalizeSearch(test.testCode);
+    const aliases = [];
+    // Common abbreviations are search hints only. They never change test data.
+    if (/\bcbc\b/.test(name)) aliases.push('complete blood count', 'blood count');
+    if (/\bcmp\b/.test(name)) aliases.push('comprehensive metabolic panel');
+    if (/\bbmp\b/.test(name)) aliases.push('basic metabolic panel');
+    if (/\ba1c\b/.test(name)) aliases.push('glycated hemoglobin', 'hba1c');
+    if (/\bua\b/.test(name)) aliases.push('urinalysis');
+    if (/\bcrp\b/.test(name)) aliases.push('c reactive protein');
+    if (/\besr\b/.test(name)) aliases.push('erythrocyte sedimentation rate');
+    if (/\bcomprehensive metabolic panel\b/.test(name)) aliases.push('cmp');
+    if (/\bbasic metabolic panel\b/.test(name)) aliases.push('bmp');
+    if (/\burinalysis\b/.test(name)) aliases.push('ua');
+    const aliasWords = Array.from(new Set(aliases.flatMap(value => value.split(' '))));
+    const nameWords = name.split(' ').filter(Boolean);
+    const info = normalizeSearch([
+      test.specimenType, test.drawContainer, test.alternativeContainer,
+      additionalDrawRequirements(test).map(item => `${item.specimenType} ${item.container}`).join(' '),
+      test.transportContainer, test.transportTemperature, test.specialLabeling,
+      test.specialInstructions
+    ].join(' '));
+    const indexed = { name, code, aliases, nameWords, aliasWords, info };
+    librarySearchIndexCache.set(test, indexed);
+    return indexed;
+  }
+
+  // Stop after two edits. A missing, extra, or transposed letter can match;
+  // short words and numeric codes are never fuzzily matched.
+  function libraryEditDistanceWithin(a, b, maxEdits) {
+    if (Math.abs(a.length - b.length) > maxEdits) return false;
+    const prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+    const current = new Array(b.length + 1);
+    const beforePrev = new Array(b.length + 1).fill(0);
+    for (let i = 1; i <= a.length; i++) {
+      current[0] = i;
+      let smallest = current[0];
+      for (let j = 1; j <= b.length; j++) {
+        current[j] = Math.min(prev[j] + 1, current[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+        if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+          current[j] = Math.min(current[j], beforePrev[j - 2] + 1);
+        }
+        smallest = Math.min(smallest, current[j]);
+      }
+      if (smallest > maxEdits) return false;
+      for (let j = 0; j <= b.length; j++) beforePrev[j] = prev[j];
+      for (let j = 0; j <= b.length; j++) prev[j] = current[j];
+    }
+    return prev[b.length] <= maxEdits;
+  }
+
+  function libraryWordMatch(token, words, allowTypo) {
+    if (words.includes(token)) return 3;
+    // Roman numerals (VII, VIII) must match whole tokens, never a prefix.
+    // That avoids confusing Factor VII with Factor VIII or Troponin I with II.
+    if (/^(?:i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii)$/.test(token)) return 0;
+    if (words.some(word => word.startsWith(token))) return 2;
+    if (token.length >= 3 && words.some(word => word.includes(token))) return 1;
+    if (!allowTypo || token.length < 4 || /\d/.test(token)) return 0;
+    const maxEdits = token.length >= 6 ? 2 : 1;
+    return words.some(word => libraryEditDistanceWithin(token, word, maxEdits)) ? -1 : 0;
+  }
+
+  // Relevance order: exact code, code prefix, full name, name keywords (any
+  // order), common abbreviations, then typo matches. Instructions rank last.
+  function rankLibraryTest(query, test) {
+    const q = normalizeSearch(query);
+    if (!q) return 0;
+    const { code, name, aliases, nameWords, aliasWords, info } = librarySearchIndex(test);
+    if (code && q === code) return 2000;
+    if (/^\d+$/.test(q)) return code.startsWith(q) ? 1650 : (q.length >= 3 && code.includes(q) ? 1200 : 0);
+    if (name === q) return 1500;
+    const tokens = q.split(' ').filter(Boolean);
+    const finalIsRoman = /^(?:i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii)$/.test(tokens[tokens.length - 1]);
+    if (name.startsWith(q) && (!finalIsRoman || name === q || name.startsWith(`${q} `))) {
+      return 1450 - Math.min(120, name.length - q.length);
+    }
+    if (name.includes(q) && (!finalIsRoman || name.includes(`${q} `) || name.endsWith(q))) {
+      return 1360 - Math.min(100, name.length - q.length);
+    }
+    if (aliases.some(alias => alias === q)) return 1260;
+    const nameMatches = tokens.map(token => libraryWordMatch(token, nameWords, true));
+    if (nameMatches.every(score => score !== 0)) {
+      const fuzzy = nameMatches.filter(score => score < 0).length;
+      const exact = nameMatches.filter(score => score === 3).length;
+      return (fuzzy ? 820 - fuzzy * 75 : 1120) + exact * 8 + tokens.length * 5 - Math.min(nameWords.length, 25);
+    }
+    const combinedWords = nameWords.concat(aliasWords);
+    const aliasMatches = tokens.map(token => libraryWordMatch(token, combinedWords, true));
+    if (aliasMatches.every(score => score !== 0)) {
+      const fuzzy = aliasMatches.filter(score => score < 0).length;
+      return (fuzzy ? 665 - fuzzy * 60 : 930) + tokens.length * 5 - Math.min(nameWords.length, 25);
+    }
+    // Keep secondary container/specimen/handling matches available for staff,
+    // but avoid letting long processing notes outrank a matching test name.
+    if (tokens.every(token => info.includes(token))) return 240 + Math.min(tokens.length, 4) * 9;
+    return 0;
+  }
+
   function rankTest(query, test) {
     const raw = query.trim();
     const q = normalizeSearch(raw);
@@ -790,18 +896,13 @@
   function renderLibrary() {
     const filter = normalizeSearch(els.libraryFilter.value);
     const specimenCategory = els.specimenFilter.value;
-    const filtered = database.filter(test => {
-      if (test.status === 'blocked') return false;
-      if (specimenCategory && specimenFilterCategory(test.specimenType) !== specimenCategory) return false;
-      if (!filter) return true;
-      const haystack = normalizeSearch([
-        test.testCode, test.testName, test.specimenType, test.drawContainer, test.alternativeContainer,
-        additionalDrawRequirements(test).map(item => `${item.specimenType} ${item.container}`).join(' '), test.transportContainer, test.transportTemperature, test.specialLabeling, test.specialInstructions
-      ].join(' '));
-      return filter.split(' ').every(token => haystack.includes(token));
-    });
+    const filtered = database
+      .filter(test => test.status !== 'blocked' && (!specimenCategory || specimenFilterCategory(test.specimenType) === specimenCategory))
+      .map(test => ({ test, score: filter ? rankLibraryTest(filter, test) : 1 }))
+      .filter(item => item.score > 0);
+    if (filter) filtered.sort((a, b) => b.score - a.score || a.test.testName.localeCompare(b.test.testName));
 
-    const shown = filtered.slice(0, libraryLimit);
+    const shown = filtered.slice(0, libraryLimit).map(item => item.test);
     const query = els.libraryFilter.value.trim();
     els.libraryBody.innerHTML = shown.length ? shown.map(renderLibraryRow).join('') : `<tr><td colspan="6" class="empty-state">No tests match these filters.${query ? `<div class="missing-search-action"><button class="mini-button" type="button" data-action="new-from-query" data-query="${escapeAttr(query)}">+ Add missing test</button></div>` : ''}</td></tr>`;
     els.libraryStatus.textContent = `Showing ${shown.length} of ${filtered.length}`;

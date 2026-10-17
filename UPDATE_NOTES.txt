@@ -1,3 +1,14 @@
+v11.03
+- Reduced swirl/striped tube badge borders to match the lighter weight of standard tube badges.
+- Made SST and urine culture toggle options equal-width and uniform in height.
+- Updated asset version query strings to help refresh cached CSS/JS.
+
+v11.02
+- Improved the second Search tests box with relevance ranking, partial keywords, out-of-order words, common abbreviations, and minor spelling mistakes.
+- Exact test codes remain the highest-priority matches; specimen, tube and handling-note matches rank below name matches.
+- Only Search tests behavior changed; the bulk-list auto-add process still requires confirmed matches.
+- No collection, pooling, specimen, or printout logic changed.
+
 v11.01
 - Strengthened the visible solid outline around all swirl/striped tube icons, so the perimeter is continuous and no longer appears broken by the diagonal stripes.
 - Applied an asset version to styles.css to avoid browsers reusing a previous cached stylesheet after deployment.

@@ -27,7 +27,7 @@
           <div>
             <div class="eyebrow">1. SELECT TESTS</div>
             <h2>Find tests</h2>
-            <p>Search by test name, code, specimen, or tube.</p>
+            <p>Search by name, code, specimen, or tube. Partial words and typos work.</p>
           </div>
           <div class="library-actions">
             <div class="record-count" id="recordCount">0 tests</div>
@@ -51,7 +51,7 @@
         <div id="batchResults" class="panel batch-panel hidden" aria-live="polite"></div>
 
         <div class="filter-row">
-          <label class="library-search"><span class="field-label">Search tests</span><input id="libraryFilter" type="search" placeholder="Test name or code" autocomplete="off"></label>
+          <label class="library-search"><span class="field-label">Search tests</span><input id="libraryFilter" type="search" placeholder="Name, code, or keywords (typos OK)" autocomplete="off"></label>
           <select id="specimenFilter" aria-label="Filter by specimen type">
             <option value="">All specimen types</option>
             <option value="Blood">Blood (serum / plasma / whole blood)</option>
@@ -325,6 +325,6 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script src="data.js"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=11.03"></script>
 </body>
 </html>
