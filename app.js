@@ -24,6 +24,7 @@
   const SELECTED_KEY = 'labCollectionCalculator.selected.v1';
   const SST_MODE_KEY = 'labCollectionCalculator.sstMode.v1';
   const URINE_CULTURE_MODE_KEY = 'labCollectionCalculator.urineCultureTransport.v1';
+  const STAT_SELECTED_KEY = 'labCollectionCalculator.statSelected.v1';
   const LEGACY_SELECTED_KEYS = [`${LEGACY_STORAGE_PREFIX}.selected.v1`];
   const PAGE_STEP = 30;
   const SST_USABLE_ML_PER_TUBE = 2;
@@ -77,6 +78,7 @@
   let pendingUserState = null;
   let database = loadDatabase();
   let selectedIds = loadSelectedIds();
+  let statSelectedIds = loadStatSelectedIds();
   let sstTubeMode = loadSstTubeMode();
   let urineCultureMode = loadUrineCultureMode();
   finalizeStorageMigration();
@@ -608,6 +610,85 @@
       .trim();
   }
 
+  // Curated medical shorthand and synonym rules. Match against the *test name*,
+  // not specimen instructions, because a panel that happens to mention a test
+  // is not interchangeable with the standalone test. These are search aliases,
+  // NOT substitute order codes or automated test-selection instructions.
+  // Sources: Quest Test Directory (including official alternate names), its
+  // thyroid and hs-CRP guides, and published laboratory naming research.
+  const LAB_SEARCH_ALIAS_RULES = [
+    { name: /^(?:cmp|comprehensive metabolic panel)(?:$|\s)/, terms: ['chem 14', 'chemistry 14', 'comprehensive metabolic panel', 'cmp'] },
+    { name: /^(?:bmp|basic metabolic panel)(?:$|\s)/, terms: ['chem 7', 'chemistry 7', 'basic metabolic panel', 'bmp'] },
+    { name: /^(?:cbc|complete blood count)(?:$|\s)/, terms: ['cbc', 'complete blood count', 'blood count', 'hemogram'] },
+    { name: /^cbc\b.*(?:diff|differential)/, terms: ['cbc diff', 'cbc with diff', 'cbc with differential', 'complete blood count with differential', 'cbc w diff', 'cbc d p'] },
+    { name: /^cbc\b.*(?:h h|indices)/, terms: ['cbc without diff', 'cbc no diff', 'cbc no differential'] },
+    { name: /^(?:hemoglobin a1c|a1c)(?:$|\s)/, terms: ['hba1c', 'hb a1c', 'hgb a1c', 'glycated hemoglobin', 'glycosylated hemoglobin', 'a1c'] },
+    { name: /^tsh$|^tsh(?: reflex| and free| with hama| pregnancy)/, terms: ['thyroid stimulating hormone', 'thyrotropin'] },
+    { name: /^tsh.*reflex.*(?:free|t4)/, terms: ['tsh reflex', 'tsh reflex t4', 'tsh reflex ft4', 'thyroid reflex'] },
+    { name: /^t4 free\b|^free t4\b/, terms: ['ft4', 'free t4', 'free thyroxine'] },
+    { name: /^t3 free\b|^free t3\b|^t3\s+free\b/, terms: ['ft3', 'free t3', 'free triiodothyronine'] },
+    { name: /^thyroid peroxidase antibody\b/, terms: ['tpo ab', 'anti tpo', 'thyroid peroxidase antibody'] },
+    { name: /^tsi\b/, terms: ['thyroid stimulating immunoglobulin', 't s i'] },
+    { name: /^lipid panel\b/, terms: ['lipid profile', 'cholesterol panel', 'lipids'] },
+    { name: /^triglycerides?\b/, terms: ['trigs', 'tg triglycerides', 'trig'] },
+    { name: /^hdl cholesterol\b/, terms: ['hdl c', 'good cholesterol'] },
+    { name: /^(?:direct ldl|ldl cholesterol)\b/, terms: ['ldl c', 'bad cholesterol'] },
+    { name: /^apolipoprotein b\b/, terms: ['apo b', 'apob'] },
+    { name: /^lipoprotein a\b/, terms: ['lp a', 'lpa', 'lipoprotein a'] },
+    { name: /^(?:crp|c reactive protein)$/, terms: ['c reactive protein', 'standard crp', 'crp'] },
+    { name: /^(?:hs crp|cardioiq hs crp|cardio iq hs crp)\b/, terms: ['hscrp', 'hs crp', 'high sensitivity crp', 'high sensitive c reactive protein', 'cardiac crp'] },
+    { name: /^(?:esr|erythrocyte sedimentation rate|sedimentation rate)\b/, terms: ['sed rate', 'sedimentation rate', 'erythrocyte sedimentation rate', 'esr'] },
+    { name: /^ana screen\b/, terms: ['antinuclear antibody', 'anti nuclear antibody', 'ana screening', 'ana screen'] },
+    { name: /^pt\s+inr\b/, terms: ['protime', 'prothrombin time', 'pt inr', 'prothrombin time inr'] },
+    { name: /^partial thromboplastin time activated\b/, terms: ['ptt', 'aptt', 'activated partial thromboplastin time', 'partial thromboplastin time'] },
+    { name: /^d dimer\b/, terms: ['d dimer', 'ddimer', 'dimer'] },
+    { name: /^creatine kinase.*total|^ck\s+total$/, terms: ['ck', 'cpk', 'creatine phosphokinase', 'total ck'] },
+    { name: /^troponin i high sensitivity\b/, terms: ['hs tni', 'hstni', 'high sensitivity troponin i', 'hs troponin i'] },
+    { name: /^troponin t high sensitivity\b/, terms: ['hs tnt', 'hstnt', 'high sensitivity troponin t', 'hs troponin t'] },
+    { name: /^pro bnp n terminal\b|^cardio iq nt probnp\b/, terms: ['nt probnp', 'ntprobnp', 'pro bnp', 'n terminal pro bnp'] },
+    { name: /^bnp$/, terms: ['b type natriuretic peptide', 'brain natriuretic peptide'] },
+    { name: /^psa total\b/, terms: ['total psa', 'prostate specific antigen', 'psa screening'] },
+    { name: /^hcg.*quantitative|^hcg total quantitative/, terms: ['quant hcg', 'beta hcg quantitative', 'bhcg quant', 'hcg quant'] },
+    { name: /^hcg.*qualitative|^hcg total qualitative/, terms: ['qual hcg', 'pregnancy blood test', 'beta hcg qualitative'] },
+    { name: /^hepatitis b surface antigen\b/, terms: ['hbsag', 'hep b surface ag', 'hbv surface antigen'] },
+    { name: /^hepatitis b surface antibody\b/, terms: ['hbsab', 'anti hbs', 'hep b surface antibody'] },
+    { name: /^hepatitis b core antibody total\b/, terms: ['hbcab total', 'anti hbc total', 'hbv core antibody'] },
+    { name: /^hepatitis c antibody\b/, terms: ['hcv ab', 'anti hcv', 'hep c antibody'] },
+    { name: /^hiv 1 2 antigen and antibodies fourth generation\b/, terms: ['hiv 4th gen', 'hiv 4th generation', 'hiv ag ab', 'hiv antigen antibody', 'fourth generation hiv'] },
+    { name: /^urinalysis\b/, terms: ['ua', 'urine analysis', 'urine test'] },
+    { name: /^urinalysis complete with reflex to culture\b/, terms: ['ua reflex culture', 'ua with reflex', 'ua cx reflex', 'urinalysis reflex culture'] },
+    { name: /^culture urine routine\b/, terms: ['ucx', 'urine cx', 'urine culture', 'culture urine', 'urine c s'] },
+    { name: /^albumin random urine with creatinine\b/, terms: ['uacr', 'uac ratio', 'urine acr', 'microalbumin creatinine ratio', 'urine microalbumin creatinine'] },
+    { name: /^albumin random urine without creatinine\b/, terms: ['urine microalbumin', 'microalbumin urine', 'urine albumin'] },
+    { name: /^quanti feron tb gold plus\b|^quantiferon tb gold plus\b/, terms: ['qft', 'qft gold', 'quant gold', 'quantiferon', 'quantiferon gold', 'tb gold', 'igra tb'] },
+    { name: /^chlamydia.*neisseria gonorrhoeae\b/, terms: ['ct ng', 'gc ct', 'gc chlamydia', 'chlamydia gonorrhea', 'gonorrhea chlamydia', 'gc chlamydia pcr'] },
+    { name: /^neisseria gonorrhoeae\b/, terms: ['gonorrhea', 'gonorrhoea', 'gc test'] },
+    { name: /^chlamydia trachomatis\b/, terms: ['chlamydia', 'ct test'] },
+    { name: /^vitamin b12\b|^b12$/, terms: ['vit b12', 'vitamin b 12', 'cobalamin', 'b 12'] },
+    { name: /^b12 folate panel\b/, terms: ['b12 folate', 'b12 and folate', 'folate b12'] },
+    { name: /^hemoglobin$/, terms: ['hgb', 'hb', 'hemoglobin level'] },
+    { name: /^hematocrit$/, terms: ['hct', 'hematocrit level'] },
+    { name: /^platelet count\b/, terms: ['plt', 'platelets', 'platelet count'] },
+    { name: /^fsh(?:$|\s)/, terms: ['follicle stimulating hormone', 'follicle stimulating hormone fsh'] },
+    { name: /^luteinizing hormone\b/, terms: ['lh', 'lutropin', 'luteinizing hormone'] },
+    { name: /^folate serum\b/, terms: ['folic acid', 'serum folate'] },
+    { name: /^(?:vitamin d 25 hydroxy|cardio iq vitamin d 25 hydroxy|questassured.*25 hydroxyvitamin d)\b/, terms: ['25 oh vit d', '25ohd', '25 hydroxy vitamin d', 'vit d 25', 'vitamin d 25', 'vitamin d', 'vit d'] },
+    { name: /^lft\b|^hepatic function panel\b/, terms: ['lft', 'liver function tests', 'liver panel', 'hepatic panel'] },
+    { name: /^iron total and total iron binding capacity\b/, terms: ['iron tibc', 'iron and tibc', 'iron binding capacity'] },
+    { name: /^anti streptolysin o antibody\b/, terms: ['aso', 'aso titer', 'antistreptolysin o'] },
+    { name: /^epstein barr virus antibody panel\b/, terms: ['ebv panel', 'epstein barr panel', 'mono antibodies'] },
+    { name: /^epstein barr virus early antigen d antibody\b/, terms: ['ebv ea d', 'ebv early antigen d', 'ea d igg'] },
+    { name: /^dihydrotestosterone$/, terms: ['dht'] }
+  ];
+
+  function curatedLabAliases(normalizedName) {
+    const aliases = [];
+    LAB_SEARCH_ALIAS_RULES.forEach(({ name, terms }) => {
+      if (name.test(normalizedName)) aliases.push(...terms);
+    });
+    return aliases;
+  }
+
   // Search indexes are cached by record so live filtering stays responsive for
   // the full catalog. Saved edits create new records, so the cache stays valid.
   const librarySearchIndexCache = new WeakMap();
@@ -617,21 +698,7 @@
     if (existing) return existing;
     const name = normalizeSearch(test.testName);
     const code = normalizeSearch(test.testCode);
-    const aliases = [];
-    // Common abbreviations are search hints only. They never change test data.
-    if (/\bcbc\b/.test(name)) aliases.push('complete blood count', 'blood count');
-    if (/\bcmp\b/.test(name)) aliases.push('comprehensive metabolic panel');
-    if (/\bbmp\b/.test(name)) aliases.push('basic metabolic panel');
-    if (/\ba1c\b/.test(name)) aliases.push('glycated hemoglobin', 'hba1c');
-    if (/\bua\b/.test(name)) aliases.push('urinalysis');
-    if (/\bcrp\b/.test(name)) aliases.push('c reactive protein');
-    if (/\besr\b/.test(name)) aliases.push('erythrocyte sedimentation rate');
-    if (/\bcomprehensive metabolic panel\b/.test(name)) aliases.push('cmp');
-    if (/\bbasic metabolic panel\b/.test(name)) aliases.push('bmp');
-    if (/\burinalysis\b/.test(name)) aliases.push('ua');
-    if (/\bdihydrotestosterone\b/.test(name)) aliases.push('dht');
-    if (/\bepstein barr virus antibody panel\b/.test(name)) aliases.push('ebv panel');
-    if (/\bepstein barr virus early antigen d antibody\b/.test(name)) aliases.push('ebv ea d', 'ebv early antigen d');
+    const aliases = Array.from(new Set(curatedLabAliases(name).map(normalizeSearch).filter(Boolean)));
     const aliasWords = Array.from(new Set(aliases.flatMap(value => value.split(' '))));
     const nameWords = name.split(' ').filter(Boolean);
     const info = normalizeSearch([
@@ -676,9 +743,13 @@
     if (/^(?:i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii)$/.test(token)) return 0;
     if (words.some(word => word.startsWith(token))) return 2;
     if (token.length >= 3 && words.some(word => word.includes(token))) return 1;
-    if (!allowTypo || token.length < 4 || /\d/.test(token)) return 0;
+    // Do not "correct" clinically distinct abbreviated markers into each
+    // other (e.g. HBsAg ≠ HBsAb). These short clinical aliases require exact
+    // spelling; longer ordinary name words still tolerate small typos.
+    if (!allowTypo || token.length < 4 || /\d/.test(token) || /^(?:hbsag|hbsab|anti|hcv|hiv|ft3|ft4)$/.test(token)) return 0;
     const maxEdits = token.length >= 6 ? 2 : 1;
-    return words.some(word => libraryEditDistanceWithin(token, word, maxEdits)) ? -1 : 0;
+    return words.some(word => !/^(?:hbsag|hbsab)$/.test(word)
+      && libraryEditDistanceWithin(token, word, maxEdits)) ? -1 : 0;
   }
 
   // Relevance order: exact code, code prefix, full name, name keywords (any
@@ -690,14 +761,14 @@
     if (code && q === code) return 2000;
     if (/^\d+$/.test(q)) return code.startsWith(q) ? 1650 : (q.length >= 3 && code.includes(q) ? 1200 : 0);
     if (name === q) return 1500;
+    // Curated full aliases precede prefix/substring matches so PTT finds aPTT
+    // instead of incidentally preferring PTT-LA. Exact name/code still wins.
+    if (aliases.includes(q)) return 1480 - Math.min(75, name.length / 2);
     const tokens = q.split(' ').filter(Boolean);
     const finalIsRoman = /^(?:i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii)$/.test(tokens[tokens.length - 1]);
     if (name.startsWith(q) && (!finalIsRoman || name === q || name.startsWith(`${q} `))) {
       return 1450 - Math.min(120, name.length - q.length);
     }
-    // Exact abbreviation aliases outrank incidental substrings (for example,
-    // DHT must find Dihydrotestosterone before '11-dhTXB2' named assays).
-    if (aliases.some(alias => alias === q)) return 1400;
     if (name.includes(q) && (!finalIsRoman || name.includes(`${q} `) || name.endsWith(q))) {
       return 1360 - Math.min(100, name.length - q.length);
     }
@@ -1055,12 +1126,14 @@
     if (!button) return;
     if (button.dataset.action === 'remove') removeSelected(button.dataset.id);
     if (button.dataset.action === 'edit') openDialog(database.find(test => test.id === button.dataset.id));
+    if (button.dataset.action === 'toggle-stat') toggleStatPriority(button.dataset.id);
   }
 
   function handleTestsOverviewClick(event) {
-    const button = event.target.closest('button[data-action="remove"]');
+    const button = event.target.closest('button[data-action]');
     if (!button) return;
-    removeSelected(button.dataset.id);
+    if (button.dataset.action === 'remove') removeSelected(button.dataset.id);
+    if (button.dataset.action === 'toggle-stat') toggleStatPriority(button.dataset.id);
   }
 
   function toggleTestsDetails() {
@@ -1070,6 +1143,27 @@
     els.testsDetailsPanel.setAttribute('aria-hidden', showingDetails ? 'false' : 'true');
     els.testsDetailsButton.setAttribute('aria-expanded', showingDetails ? 'true' : 'false');
     els.testsDetailsButton.textContent = showingDetails ? '▴ Hide details' : '▾ Show details';
+  }
+
+  function loadStatSelectedIds() {
+    const saved = loadJson(STAT_SELECTED_KEY, []);
+    return Array.isArray(saved)
+      ? Array.from(new Set(saved.map(id => CONSOLIDATED_TEST_IDS[id] || id).filter(id => selectedIds.includes(id))))
+      : [];
+  }
+
+  function saveStatSelectedIds() {
+    try { localStorage.setItem(STAT_SELECTED_KEY, JSON.stringify(statSelectedIds)); }
+    catch (error) { console.warn('Could not save STAT selections.', error); }
+  }
+
+  function toggleStatPriority(id) {
+    if (!selectedIds.includes(id)) return;
+    statSelectedIds = statSelectedIds.includes(id)
+      ? statSelectedIds.filter(item => item !== id)
+      : [...statSelectedIds, id];
+    saveStatSelectedIds();
+    renderOrder();
   }
 
   function addSelected(id, rerender = true) {
@@ -1088,6 +1182,8 @@
 
   function removeSelected(id) {
     selectedIds = selectedIds.filter(item => item !== id);
+    statSelectedIds = statSelectedIds.filter(item => item !== id);
+    saveStatSelectedIds();
     saveSelected();
     renderOrder();
     renderLibrary();
@@ -1097,6 +1193,8 @@
     if (!selectedIds.length) return;
     if (!window.confirm('Clear all selected tests from this summary?')) return;
     selectedIds = [];
+    statSelectedIds = [];
+    saveStatSelectedIds();
     saveSelected();
     renderOrder();
     renderLibrary();
@@ -1223,7 +1321,8 @@
   }
 
   function selectedTests() {
-    return selectedIds.map(id => database.find(test => test.id === id)).filter(Boolean).map(withSelectedCultureTransport);
+    return selectedIds.map(id => database.find(test => test.id === id)).filter(Boolean)
+      .map(test => ({ ...withSelectedCultureTransport(test), isStat: statSelectedIds.includes(test.id) }));
   }
 
   function renderOrder() {
@@ -1246,10 +1345,10 @@
     }
     els.selectedList.className = 'selected-list';
     els.selectedList.innerHTML = tests.map(test => `
-      <article class="selected-card">
+      <article class="selected-card${test.isStat ? ' is-stat' : ''}">
         <div class="selected-card-top">
           <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</div><div class="subtext specimen-line">${requiredSpecimenBadges(test)} <span>·</span> <span class="preferred-volume-inline">${escapeHtml(combinedVolumeText(test, 'preferred') || 'verify')}</span> <span>· Minimum ${escapeHtml(combinedVolumeText(test, 'minimum') || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}</div>
-          <div><a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove selected-card-delete" data-action="remove" data-id="${escapeAttr(test.id)}" type="button" aria-label="Delete ${escapeAttr(test.testName)}">Delete</button></div>
+          <div><button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Routine · Mark STAT'}</button><a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove selected-card-delete" data-action="remove" data-id="${escapeAttr(test.id)}" type="button" aria-label="Delete ${escapeAttr(test.testName)}">Delete</button></div>
         </div>
         <div class="selected-details">
           ${requiredDrawContainerBadges(test)}
@@ -1277,11 +1376,12 @@
     }
     els.testsOverviewList.className = 'tests-overview-list';
     els.testsOverviewList.innerHTML = tests.map(test => `
-      <div class="tests-overview-row">
+      <div class="tests-overview-row${test.isStat ? ' is-stat' : ''}">
         <div class="tests-overview-ident">
           <strong class="tests-overview-code">${escapeHtml(displayCode(test))}</strong>
           <span class="tests-overview-name">${escapeHtml(test.testName)}</span>
         </div>
+        <button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Mark STAT'}</button>
         <button class="mini-button remove remove-flex tests-overview-remove" type="button" data-action="remove" data-id="${escapeAttr(test.id)}" aria-label="Remove ${escapeAttr(test.testName)}"><span class="remove-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7.3 6.1 12 10.8l4.7-4.7 1.2 1.2-4.7 4.7 4.7 4.7-1.2 1.2-4.7-4.7-4.7 4.7-1.2-1.2 4.7-4.7-4.7-4.7 1.2-1.2Z"/></svg></span><span class="remove-text" aria-hidden="true">Delete</span></button>
       </div>`).join('');
   }
@@ -1289,8 +1389,8 @@
   function buildDrawGroups(tests) {
     const groups = new Map();
     tests.forEach(test => {
-      const key = test.drawContainer || 'Verify Official Instructions';
-      if (!groups.has(key)) groups.set(key, { container: key, tests: [], specimenTypes: new Set(), minimumMl: 0, volumeCount: 0 });
+      const key = `${test.isStat ? 'STAT' : 'Routine'}|${test.drawContainer || 'Verify Official Instructions'}`;
+      if (!groups.has(key)) groups.set(key, { container: test.drawContainer || 'Verify Official Instructions', isStat: Boolean(test.isStat), tests: [], specimenTypes: new Set(), minimumMl: 0, volumeCount: 0 });
       const group = groups.get(key);
       group.tests.push(test);
       group.specimenTypes.add(test.specimenType);
@@ -1331,7 +1431,7 @@
       const containerLabel = `${containerCount} ${containerCount === 1 ? 'container' : 'containers'}`;
       const groupClass = tubeClass(group.container) === 'tube-sst' ? selectedSstVisualClass() : tubeClass(group.container);
       const groupLabel = tubeClass(group.container) === 'tube-sst' ? selectedSstLabel() : group.container;
-      return `<div class="draw-card"><div class="draw-title-block"><strong class="tube ${groupClass}">${escapeHtml(groupLabel)}</strong><span class="draw-test-count">${escapeHtml(testLabel)}</span></div><strong class="draw-container-badge">${escapeHtml(containerLabel)}</strong><div class="draw-meta specimen-line">${Array.from(group.specimenTypes).map(type => specimenBadge(type)).join(' ')}${volume ? `<span>${escapeHtml(volume)}</span>` : ''}</div></div>`;
+      return `<div class="draw-card${group.isStat ? ' is-stat' : ''}"><div class="draw-title-block"><strong class="tube ${groupClass}">${escapeHtml(groupLabel)}</strong>${group.isStat ? '<span class="priority-marker">STAT · separate source tubes</span>' : ''}<span class="draw-test-count">${escapeHtml(testLabel)}</span></div><strong class="draw-container-badge">${escapeHtml(containerLabel)}</strong><div class="draw-meta specimen-line">${Array.from(group.specimenTypes).map(type => specimenBadge(type)).join(' ')}${volume ? `<span>${escapeHtml(volume)}</span>` : ''}</div></div>`;
     }).join('');
   }
 
@@ -1616,6 +1716,8 @@
     if (!test || !window.confirm(`Delete the custom entry “${test.testName}”?`)) return;
     database = database.filter(item => item.id !== id);
     selectedIds = selectedIds.filter(item => item !== id);
+    statSelectedIds = statSelectedIds.filter(item => item !== id);
+    saveStatSelectedIds();
     persistDatabase();
     saveSelected();
     closeDialog();
@@ -1937,8 +2039,13 @@
     const bags = new Map();
     tests.forEach(test => {
       const info = transportBagInfo(test);
-      if (!bags.has(info.key)) bags.set(info.key, { ...info, tests: [] });
-      bags.get(info.key).tests.push(test);
+      const isStat = Boolean(test.isStat);
+      const key = `${isStat ? 'stat' : 'routine'}-${info.key}`;
+      if (!bags.has(key)) bags.set(key, { ...info, key, isStat,
+        order: info.order + (isStat ? 0 : 10),
+        label: isStat ? `STAT · ${info.label}` : info.label,
+        className: `${info.className}${isStat ? ' bag-stat' : ''}`, tests: [] });
+      bags.get(key).tests.push(test);
     });
 
     return Array.from(bags.values())
@@ -2205,9 +2312,10 @@
   function printCollectionGroups(items, wholeBloodGroups) {
     return `<div class="print-collection-grid">${items.map(item => {
       const specimenBadge = collectionSpecimenBadgeForItem(item);
+      const specimenGroup = collectionSpecimenGroupForItem(item);
       const tigerBadge = printSstTigerBadge(item);
-      return `<article class="print-collection-card">
-        <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${specimenBadge ? `<span class="print-collection-specimen-badge">${escapeHtml(specimenBadge)}</span>` : ''}</div>
+      return `<article class="print-collection-card${item.isStat ? ' is-stat' : ''}">
+        <div class="print-container-count">${item.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}<strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${specimenBadge ? `<span class="print-collection-specimen-badge specimen-${specimenGroup}">${escapeHtml(specimenBadge)}</span>` : ''}</div>
         ${item.detail ? `<div class="print-container-detail">${escapeHtml(item.detail)}</div>` : ''}
         ${printCollectionWholeBloodDetail(item, wholeBloodGroups)}
         <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${testReferences(item.tests)}</ul></div>
@@ -2216,6 +2324,18 @@
   }
 
   function buildCollectionPlan(tests, bags) {
+    // Separate source tubes, including all pooling and urine cups, by STAT vs routine.
+    // Never merge a STAT sample into a routine source tube simply to reduce draws.
+    const routine = tests.filter(test => !test.isStat);
+    const stat = tests.filter(test => test.isStat);
+    return [
+      ...buildCollectionPlanForPriority(routine, bags.filter(bag => !bag.isStat), false),
+      ...buildCollectionPlanForPriority(stat, bags.filter(bag => bag.isStat), true)
+    ];
+  }
+
+  function buildCollectionPlanForPriority(tests, bags, isStat) {
+    if (!tests.length) return [];
     const items = [];
     const sstTests = tests.filter(isSstDraw);
     const totalSst = bags.reduce((sum, bag) => sum + selectedSstEstimateForBag(bag).totalTubes, 0);
@@ -2328,7 +2448,7 @@
       target.detail = Array.from(new Set(details)).join(' · ');
     });
 
-    return mergedItems;
+    return mergedItems.map(item => ({ ...item, isStat }));
   }
 
   function shortDrawSource(test) {
@@ -2705,10 +2825,30 @@
     return '';
   }
 
+  // Two independently generated label strings often repeat the same source
+  // (e.g. "Platelet-poor plasma from Light Blue Citrate" twice). Strip only
+  // redundant specimen-source instructions; preserve additional handling,
+  // patient identifiers, time, additives, and other explicit directions.
+  function normalizedLabelComparison(value) {
+    return String(value || '').toLowerCase()
+      .replace(/\bspun\b/g, ' ')
+      .replace(/\bcentrifuged\b/g, ' ')
+      .replace(/[–—-]/g, ' ')
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim().replace(/\s+/g, ' ');
+  }
+
   function explicitLabelAddsInformation(explicit, derived) {
     if (!explicit || !derived) return Boolean(explicit);
     const text = explicit.toLowerCase();
     const derivedText = derived.toLowerCase();
+    const normalizedExplicit = normalizedLabelComparison(explicit);
+    const normalizedDerived = normalizedLabelComparison(derived);
+    if (normalizedExplicit && normalizedExplicit === normalizedDerived) return false;
+    // A plain source label (with optional "label") does not add information
+    // if it is fully represented by the generated source description.
+    const sourceOnly = normalizedExplicit.replace(/^(?:label|mark|specimen|tube) /, '');
+    if (sourceOnly && sourceOnly === normalizedDerived) return false;
     const onlySerumType = /(?:mark|label).*(?:specimen type|tube).*serum/.test(text)
       && !/patient|hiv|no additive|identifier/.test(text);
     const onlyPlasmaType = /(?:mark|label).*(?:specimen type|tube).*plasma/.test(text)
@@ -2947,7 +3087,7 @@
   function buildWholeBloodVolumePlan(collectionTests, collectionItems) {
     const plannedCounts = new Map();
     collectionItems.forEach(item => {
-      const key = `${item.className || ''}|${normalizeSearch(item.label)}`;
+      const key = `${item.isStat ? 'stat' : 'routine'}|${item.className || ''}|${normalizeSearch(item.label)}`;
       plannedCounts.set(key, (plannedCounts.get(key) || 0) + item.count);
     });
 
@@ -2958,7 +3098,7 @@
 
       const source = canonicalCollectionContainer(test);
       if (!source.label || !source.className) return;
-      const key = `${source.className}|${normalizeSearch(source.label)}`;
+      const key = `${test.isStat ? 'stat' : 'routine'}|${source.className}|${normalizeSearch(source.label)}`;
       if (!groups.has(key)) {
         groups.set(key, {
           key,
@@ -3018,10 +3158,10 @@
   }
 
   function bloodVolumeGroupForCollectionItem(item, groups) {
-    const key = `${item.className || ''}|${normalizeSearch(item.label)}`;
+    const key = `${item.isStat ? 'stat' : 'routine'}|${item.className || ''}|${normalizeSearch(item.label)}`;
     const exact = groups.find(group => group.key === key);
     if (exact) return exact;
-    const sameClass = groups.filter(group => group.className === item.className);
+    const sameClass = groups.filter(group => group.className === item.className && group.key.startsWith(item.isStat ? 'stat|' : 'routine|'));
     return sameClass.length === 1 ? sameClass[0] : null;
   }
 
@@ -3115,9 +3255,9 @@
         <div class="print-collect-chips">${collectionItems.map(item => {
           const specimenGroup = collectionSpecimenGroupForItem(item);
           const specimenTag = item.className === 'tube-urine-cup' && (specimenGroup === 'urine' || specimenGroup === 'stool')
-            ? `<span class="print-collect-chip-specimen">${escapeHtml(specimenGroup === 'stool' ? 'Stool' : 'Urine')}</span>`
+            ? `<span class="print-collect-chip-specimen specimen-${specimenGroup}">${escapeHtml(specimenGroup === 'stool' ? 'Stool' : 'Urine')}</span>`
             : '';
-          return `<span class="print-collect-chip tube ${item.displayClassName || item.className}"><b>${item.count}</b> ${escapeHtml(item.label)}${specimenTag}</span>`;
+          return `<span class="print-collect-chip tube ${item.displayClassName || item.className}">${item.isStat ? '<em class="print-chip-stat">STAT</em> ' : ''}<b>${item.count}</b> ${escapeHtml(item.label)}${specimenTag}</span>`;
         }).join('')}</div>
         <div class="print-total-box submit-total"><span>TOTAL TO SUBMIT</span><strong>${bags.length}</strong><small>${bags.length === 1 ? 'transport bag' : 'transport bags'}</small></div>
         <div class="print-submit-bags">${bagLabels}</div>
@@ -3133,14 +3273,14 @@
       <section class="print-submit-section">
         <div class="print-submit-heading">
           <strong>What to submit after processing</strong>
-          <span>Keep each temperature group in its own transport bag.</span>
+          <span>Separate STAT from routine. Keep each temperature group in its own bag.</span>
         </div>
         <div class="print-bag-grid">${bags.map(bag => {
           const contents = buildSubmissionContents(bag);
           applyBloodSourceCountAllocations(contents);
           const totalContainers = contents.reduce((sum, item) => sum + item.count, 0);
           return `<article class="print-bag-card ${bag.className}">
-            <div class="print-bag-card-header"><div><strong>${escapeHtml(bag.label)}</strong><span>Keep separate from other temperatures</span></div><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div>
+            <div class="print-bag-card-header"><div><strong>${escapeHtml(bag.label)}</strong><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div>
             <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
               <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${printSstTigerBadge(item)}</div>
               ${printSubmissionItemDetail(item)}
@@ -3151,7 +3291,8 @@
         }).join('')}</div>
       </section>
       <div class="print-bag-note">
-        <div><strong>Tube sharing:</strong> Compatible SST, Lavender EDTA, and Red Top tubes can be shared across tests only when the processing steps and temperature match. Lavender whole blood stays separate from Lavender tubes used for plasma or RBCs. Tubes sent whole also stay separate from tubes used to prepare aliquots.</div>
+        <div><strong>STAT routing:</strong> Mark STAT tests individually. Confirm that the order is accepted as STAT by the receiving lab, use its STAT requisition/courier workflow, and never put STAT specimens in a routine shipment.</div>
+        <div><strong>Tube sharing:</strong> STAT and routine tests never share source tubes or transport bags. Within the same priority, compatible SST, Lavender EDTA, and Red Top tubes can be shared only when the processing steps and temperature match. Lavender whole blood stays separate from Lavender tubes used for plasma or RBCs. Tubes sent whole also stay separate from tubes used to prepare aliquots.</div>
         <div><strong>Tube counts:</strong> Estimates allow 2 mL of usable serum, plasma, or processed specimen per source tube and 4 mL of whole blood per Lavender tube. Multiple, dedicated, and full-tube requirements remain separate. Whole-blood amounts are shown inside each blood-tube card; serum/plasma amounts use a 2.5× whole-blood conversion.</div>
         <div><strong>Urine:</strong> Random/spot, first-morning, timed, and 24-hour collections are kept distinct when their collection requirements differ. One shared sterile cup is used only for compatible tests collected from the same urine specimen.</div>
       </div>
@@ -3172,7 +3313,7 @@
       <table class="print-table">
         <colgroup><col style="width:6%"><col style="width:14%"><col style="width:7%"><col style="width:10%"><col style="width:10%"><col style="width:5%"><col style="width:8%"><col style="width:7%"><col style="width:8%"><col style="width:25%"></colgroup>
         <thead><tr><th>Code</th><th>Test</th><th>Specimen</th><th>Draw container</th><th>Transport tube</th><th>Spin</th><th>Temperature</th><th>Volume</th><th>Stability</th><th>Special handling</th></tr></thead>
-        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><div class="print-test-name-stack"><strong>${escapeHtml(test.testName)}</strong>${fastingBadge(test, 'print-test-fasting-badge')}</div>${test.alternativeContainer ? `<div class="print-test-alternative">Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span></div>` : ''}${additionalRequirementSummary(test, true)}</td><td>${requiredSpecimenBadges(test, 'print-specimen-badge')}</td><td>${requiredDrawContainerBadges(test, 'print-tube-badge')}</td><td>${printContainerBadges(test)}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">${escapeHtml(combinedVolumeText(test, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(combinedVolumeText(test, 'minimum') || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
+        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><div class="print-test-name-stack"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${fastingBadge(test, 'print-test-fasting-badge')}</div>${test.alternativeContainer ? `<div class="print-test-alternative">Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span></div>` : ''}${additionalRequirementSummary(test, true)}</td><td>${requiredSpecimenBadges(test, 'print-specimen-badge')}</td><td>${requiredDrawContainerBadges(test, 'print-tube-badge')}</td><td>${printContainerBadges(test)}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">${escapeHtml(combinedVolumeText(test, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(combinedVolumeText(test, 'minimum') || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
       </table>
       ${printCollectionSubmissionPlan(tests)}
       <div class="print-footer">
@@ -3186,8 +3327,8 @@
   function exportSummaryCsv() {
     const tests = selectedTests();
     if (!tests.length) return showToast('Add at least one test before exporting.');
-    const headers = ['Test Code','Test Name','Specimen Type','Draw Container','Additional Required Draws','Alternative Container','Transport Tube / Container','Preferred Volume','Minimum Volume','Transport Temperature','Raw Temperature','Stability','Spin','Special Labeling','Special Instructions'];
-    const rows = tests.map(test => [test.testCode,test.testName,[test.specimenType, ...additionalDrawRequirements(test).map(item => item.specimenType)].filter(Boolean).join(' + '),test.drawContainer,additionalDrawRequirements(test).map(item => `${item.container}${item.specimenType ? ` (${item.specimenType})` : ''}`).join(' + '),test.alternativeContainer,test.transportContainer,combinedVolumeText(test, 'preferred'),combinedVolumeText(test, 'minimum'),test.transportTemperature,test.transportTemperatureRaw,test.stability,test.spin,test.specialLabeling,test.specialInstructions]);
+    const headers = ['Priority','Test Code','Test Name','Specimen Type','Draw Container','Additional Required Draws','Alternative Container','Transport Tube / Container','Preferred Volume','Minimum Volume','Transport Temperature','Raw Temperature','Stability','Spin','Special Labeling','Special Instructions'];
+    const rows = tests.map(test => [test.isStat ? 'STAT' : 'Routine',test.testCode,test.testName,[test.specimenType, ...additionalDrawRequirements(test).map(item => item.specimenType)].filter(Boolean).join(' + '),test.drawContainer,additionalDrawRequirements(test).map(item => `${item.container}${item.specimenType ? ` (${item.specimenType})` : ''}`).join(' + '),test.alternativeContainer,test.transportContainer,combinedVolumeText(test, 'preferred'),combinedVolumeText(test, 'minimum'),test.transportTemperature,test.transportTemperatureRaw,test.stability,test.spin,test.specialLabeling,test.specialInstructions]);
     const csv = [headers, ...rows].map(row => row.map(csvCell).join(',')).join('\r\n');
     downloadBlob(csv, `lab-collection-summary-${isoDate()}.csv`, 'text/csv;charset=utf-8');
   }

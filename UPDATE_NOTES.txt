@@ -1,3 +1,24 @@
+v11.09
+- Yellow urine and amber stool specimen pills in the collection and submission print plan.
+- Added per-selected-test STAT toggle with persisted priority, visible in the summary and printout.
+- STAT and routine go into separate transport bags, further separated by specimen temperature.
+- Source tube pooling is isolated by STAT/routine priority; no pooled source collection tubes or cups are shared across priorities.
+- Added priority to CSV export.
+- Existing test records and assay handling requirements were not changed.
+
+v11.08
+- Fixed duplicate source wording in printout LABEL lines, including the repeated platelet-poor plasma source in test 22. Redundant derived/explicit labels are merged while unique instructions remain.
+- Verified and added Quest codes 213, 6921, 37355, and 39165 using official test directory specimen details (October 2026). Code 39165 includes both SST blood collection and separate random urine collection.
+- Local Quest test availability and site-specific supplies must still be confirmed before ordering or collecting; this catalog is a collection planner, not an account-orderability guarantee.
+- No changes to the underlying SST, tube volume, or transport pooling formulas.
+
+v11.07
+- Expanded smart search for both the individual search and multi-test batch matching with a curated, medically scoped abbreviation/alias dictionary.
+- Added shortcuts such as HbA1c, FT4, CBC diff, Chem 7, Chem 14, hs-CRP, PT/INR, aPTT, UACR, UCx, QFT, hs-TnI/TnT, HBsAg, HBsAb, and more.
+- Exact Quest test codes/full names keep priority. Non-exact or ambiguous batch aliases always require explicit confirmation.
+- Search synonyms do not modify test codes, tests, specimens, or processing instructions.
+- Included validation script and abbreviation audit notes.
+
 v11.06
 - Verified Quest test codes 15447, 90567, and 6421 against their current official MASTER directory pages.
 - Removed the erroneous 15447 Epstein-Barr Virus Antibody Panel duplicate. The actual panel remains under code 6421.

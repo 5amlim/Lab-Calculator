@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lab Collection Calculator</title>
   <meta name="description" content="Batch-search and print-friendly specimen collection planning from a curated local test directory.">
-  <link rel="stylesheet" href="styles.css?v=11.06">
+  <link rel="stylesheet" href="styles.css?v=11.09">
   <link rel="stylesheet" href="experience.css">
 </head>
 <body>
@@ -37,21 +37,21 @@
       <section class="panel search-panel" id="batchEntry" aria-labelledby="batchEntryTitle">
         <div class="batch-entry-heading"><h3 id="batchEntryTitle">Add a list of tests</h3></div>
         <div class="batch-entry-body">
-          <label for="searchInput" class="field-label">One test name or code per line</label>
+          <label for="searchInput" class="field-label">One test name, code, or abbreviation per line</label>
           <textarea id="searchInput" rows="4" placeholder="211&#10;Hemoglobin A1c&#10;Quantiferon Gold TB" aria-describedby="batchHint"></textarea>
           <div class="search-actions">
             <button class="button primary" id="addBestButton">Add best matches</button>
             <button class="button secondary" id="previewButton">Review matches</button>
             <button class="button ghost" id="clearSearchButton">Clear</button>
           </div>
-          <p class="search-hint" id="batchHint">Use test codes when available. Exact matches add directly; partial names and possible typos require confirmation before adding. <span class="keyboard-hint">⌘ / Ctrl + Enter to add</span></p>
+          <p class="search-hint" id="batchHint">Try common abbreviations like HbA1c, QFT, UCx, or hs-CRP. Exact codes/names add directly; shorthand and approximate matches require confirmation. <span class="keyboard-hint">⌘ / Ctrl + Enter to add</span></p>
         </div>
       </section>
 
         <div id="batchResults" class="panel batch-panel hidden" aria-live="polite"></div>
 
         <div class="filter-row">
-          <label class="library-search"><span class="field-label">Search tests</span><input id="libraryFilter" type="search" placeholder="Name, code, or keywords (typos OK)" autocomplete="off"></label>
+          <label class="library-search"><span class="field-label">Search tests</span><input id="libraryFilter" type="search" placeholder="Name, code, or abbreviation (e.g. QFT)" autocomplete="off"></label>
           <select id="specimenFilter" aria-label="Filter by specimen type">
             <option value="">All specimen types</option>
             <option value="Blood">Blood (serum / plasma / whole blood)</option>
@@ -324,7 +324,7 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script src="data.js?v=11.06"></script>
-  <script src="app.js?v=11.06"></script>
+  <script src="data.js?v=11.09"></script>
+  <script src="app.js?v=11.09"></script>
 </body>
 </html>

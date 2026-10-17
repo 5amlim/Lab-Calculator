@@ -1919,3 +1919,28 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 .batch-choice-label { display: block; margin-top: 10px; margin-bottom: 4px; font-size: 10px; font-weight: 820; color: #647783; }
 .batch-match-choice { display: block; width: 100%; max-width: 100%; min-height: 35px; padding: 7px 27px 7px 9px; border: 1px solid #c6d4da; border-radius: 8px; background: #fff; color: #233d48; font-size: 11.5px; font-weight: 700; }
 .batch-match-choice:focus-visible { outline: 2px solid #0a7e86; outline-offset: 2px; }
+
+/* v11.09: collection urgency separation and distinct specimen-color tags. */
+@media print {
+  .print-collect-chip-specimen.specimen-urine, .print-collection-specimen-badge.specimen-urine {
+    background: #fff2b3 !important; border-color: #e2bc32 !important; color: #6b4a08 !important;
+  }
+  .print-collect-chip-specimen.specimen-stool, .print-collection-specimen-badge.specimen-stool {
+    background: #f5d3a1 !important; border-color: #cc8b35 !important; color: #7b420c !important;
+  }
+  .print-priority-tag, .print-chip-stat { display: inline-flex; align-items: center; border-radius: 4px; border: 1px solid #c95547; background: #fff0ee !important; color: #9b3228 !important; font-weight: 950; font-size: 7px; line-height: 1.2; padding: 2px 4px; margin-right: 4px; font-style: normal; }
+  .print-bag-card.bag-stat { box-shadow: inset 0 0 0 2px #c95547; }
+  .print-bag-card.bag-stat .print-bag-card-header > div:first-child strong { color: #953327 !important; }
+  .print-collection-card.is-stat { border-color: #d7a09b !important; }
+  .print-collection-card.is-stat .print-container-count { flex-wrap: wrap; }
+}
+.stat-toggle { border: 1px solid #bdcbd1 !important; border-radius: 7px; background: #f4f7f8; color: #52656c; cursor: pointer; white-space: nowrap; }
+.stat-toggle.is-stat { background: #fff0ed !important; color: #922e25 !important; border-color: #d5958c !important; font-weight: 900; }
+.tests-overview-row.is-stat { background: #fffaf9; }
+.tests-overview-row { grid-template-columns: minmax(0,1fr) auto auto; }
+.tests-overview-row .stat-toggle { font-size: 10px; padding: 4px 7px; }
+.selected-card.is-stat { border-color: #dba9a3; }
+.selected-card-top > div:last-child { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; justify-content: flex-end; }
+.priority-marker { font-size: 10px; font-weight: 900; color: #922e25; }
+.draw-card.is-stat { border-color: #dba9a3; }
+@media (max-width: 520px) { .tests-overview-row { grid-template-columns: minmax(0,1fr) auto auto; gap: 5px; } .tests-overview-row .stat-toggle { grid-column: 2; } }

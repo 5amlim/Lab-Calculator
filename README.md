@@ -378,3 +378,9 @@ The nurse order-of-draw panel distinguishes the tube additive rather than relyin
 - Record total 24-hour volume and collection duration on the specimen container and requisition.
 
 **v10.94:** When a supported urine culture test is in the collection summary, the Urine culture transport toggle switches between gray-top culture transport (default) and UriSponge. Applies to Quest codes 395, 3020, and 91684 in the current catalog. For UA reflex culture, the UA preservative tube remains a separate required submission. UriSponge must be completely saturated by immersing applicator in collected urine for five seconds; do not pour urine into the UriSponge tube. Confirm whether your local Quest service area accepts/supplies UriSponge before using it. Source: Quest Test Directory for these codes and Quest IDI collection guide.
+
+### v11.09: STAT separation and specimen-label colors
+
+In the Collection summary, use **Mark STAT** next to each selected test that is to be sent STAT. All newly selected tests default to **Routine**. The choice is stored in the browser with the selection, not in the shared Quest test catalog. The printed collection/transport plan puts STAT tests into separate bags from routine tests, with each priority still separated by temperature. The source tube counts are computed independently across STAT and routine, including tests whose specimens would otherwise pool. Urine specimen pills are yellow, and stool specimen pills are amber.
+
+**Important:** STAT marking is a print and collection-planning designation. It does not submit a STAT order, reserve a courier pickup, or verify STAT availability. Confirm the receiving lab's STAT requirements and keep STAT specimens out of routine shipments.
