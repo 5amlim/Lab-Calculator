@@ -155,12 +155,12 @@ tr:hover td { background: #fbfdfd; }
 .tube { position: relative; padding-left: 18px; }
 .tube::before { content: ""; position: absolute; width: 8px; height: 16px; left: 5px; top: 50%; transform: translateY(-50%); border-radius: 3px 3px 5px 5px; background: #a9b3b8; border: 1px solid rgba(0,0,0,.18); }
 .tube-sst::before { background: #f4c842; }
-.tube-tiger-sst::before { background: repeating-linear-gradient(135deg, #d95851 0 3px, #d9dee1 3px 6px); }
+.tube-tiger-sst::before { background: repeating-linear-gradient(135deg, #d95851 0 3px, #d9dee1 3px 6px); border-style: solid; border-color: rgba(0,0,0,.18); }
 .tube-lavender::before { background: #a982d7; }
 .tube-green::before { background: #56a66d; }
 .tube-red::before { background: #d95851; }
 .tube-blue::before { background: #75b7e6; }
-.tube-royal::before { background: repeating-linear-gradient(180deg, #3458a5 0 5px, #d6dde4 5px 7px); }
+.tube-royal::before { background: repeating-linear-gradient(180deg, #3458a5 0 5px, #d6dde4 5px 7px); border-style: solid; border-color: rgba(0,0,0,.18); }
 .tube-royal-edta::before { background: linear-gradient(180deg, #3458a5 0 32%, #8d58aa 32% 47%, #3458a5 47% 100%); }
 .tube-royal-no-additive::before { background: linear-gradient(180deg, #3458a5 0 32%, #d95851 32% 47%, #3458a5 47% 100%); }
 .tube-royal-heparin::before { background: linear-gradient(180deg, #3458a5 0 32%, #56a66d 32% 47%, #3458a5 47% 100%); }
@@ -169,10 +169,10 @@ tr:hover td { background: #fbfdfd; }
 .tube-pink::before { background: #e9a4c4; }
 .tube-tan::before { background: #c7a06a; }
 .tube-yellow::before { background: #f1d85b; }
-.tube-aptima::before { background: repeating-linear-gradient(180deg, #f39a3d 0 6px, #fff 6px 9px); border-color: #bd6819; }
+.tube-aptima::before { background: repeating-linear-gradient(180deg, #f39a3d 0 6px, #fff 6px 9px); border-style: solid; border-color: #bd6819; }
 .tube-total-fix::before { background: linear-gradient(180deg, #f8fbfc 0 28%, #d9f0ea 28% 100%); border-color: #4a8f80; }
 .tube-trace-metal-container::before { width: 12px; height: 11px; border-radius: 2px 2px 5px 5px; background: linear-gradient(180deg, #f7f9fa 0 30%, #d7dfe3 30% 100%); border-color: #667980; }
-.tube-ua-swirl::before { background: repeating-linear-gradient(135deg, #d95851 0 3px, #f1d85b 3px 6px); }
+.tube-ua-swirl::before { background: repeating-linear-gradient(135deg, #d95851 0 3px, #f1d85b 3px 6px); border-style: solid; border-color: rgba(0,0,0,.18); }
 .tube-ua-pair::before { background: linear-gradient(180deg, #d95851 0 30%, #f1d85b 30% 62%, #8c969d 62% 100%); }
 .order-panel { position: sticky; top: 18px; padding: 20px; max-height: calc(100vh - 36px); overflow: auto; }
 .order-tube-group { display: inline-flex; flex-wrap: wrap; gap: 4px; align-items: center; }

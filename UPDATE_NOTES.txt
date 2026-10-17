@@ -1,3 +1,8 @@
+v11.00
+- Made all swirl/striped tube badges use explicit solid borders for consistent rendering.
+- Includes Tiger SST, Gray Top urine culture, UriSponge, UA swirl, Royal Blue striped, and Aptima badges.
+- No logic changes.
+
 v10.99
 - Changed the Gray Top and UriSponge swirl badge borders to solid outlines.
 - No changes to urine culture logic or toggle behavior.
