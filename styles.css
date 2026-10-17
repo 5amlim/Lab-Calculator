@@ -165,7 +165,7 @@ tr:hover td { background: #fbfdfd; }
 .tube-royal-no-additive::before { background: linear-gradient(180deg, #3458a5 0 32%, #d95851 32% 47%, #3458a5 47% 100%); }
 .tube-royal-heparin::before { background: linear-gradient(180deg, #3458a5 0 32%, #56a66d 32% 47%, #3458a5 47% 100%); }
 .tube-gray::before { background: #8c969d; }
-.tube-urine-culture::before { background: repeating-linear-gradient(135deg, #8c969d 0 4px, #d9dee1 4px 7px); border-style: dashed; }
+.tube-urine-culture::before { background: repeating-linear-gradient(135deg, #8c969d 0 4px, #d9dee1 4px 7px); border-style: solid; }
 .tube-pink::before { background: #e9a4c4; }
 .tube-tan::before { background: #c7a06a; }
 .tube-yellow::before { background: #f1d85b; }
@@ -1879,7 +1879,7 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 }
 
 /* v10.94: alternate urine culture transport selection */
-.tube-urisponge::before { background: repeating-linear-gradient(135deg, #e7c84a 0 4px, #fff9df 4px 7px); border-style: dashed; border-color: #c7a931; }
+.tube-urisponge::before { background: repeating-linear-gradient(135deg, #e7c84a 0 4px, #fff9df 4px 7px); border-style: solid; border-color: #c7a931; }
 .urine-culture-mode-control .sst-mode-option { font-size: 10px; font-weight: 800; min-height: 30px; }
 .urine-culture-mode-control .sst-mode-copy { max-width: 185px; }
 .urine-culture-mode-control .sst-mode-toggle { gap: 0; }

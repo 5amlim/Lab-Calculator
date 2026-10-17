@@ -1,3 +1,7 @@
+v10.99
+- Changed the Gray Top and UriSponge swirl badge borders to solid outlines.
+- No changes to urine culture logic or toggle behavior.
+
 v10.98
 - Kept the Gray Top / UriSponge transport toggle visible even when zero tests are selected.
 - Staff can choose urine culture transport before adding tests; the selection remains saved in the browser.
