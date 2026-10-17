@@ -1,3 +1,13 @@
+v11.06
+- Verified Quest test codes 15447, 90567, and 6421 against their current official MASTER directory pages.
+- Removed the erroneous 15447 Epstein-Barr Virus Antibody Panel duplicate. The actual panel remains under code 6421.
+- Retained 15447 as Epstein-Barr Virus Early Antigen D Antibody (IgG), with directory-matched serum requirements, specimen stability, and reject criteria.
+- Removed the duplicate 90567 DHT entry; retained one Dihydrotestosterone entry with DHT as an alternate name, correct red-top/no-gel collection and Quest service-area warning.
+- Updated 6421 Epstein-Barr Virus Antibody Panel to its formal directory name and current specimen/stability details.
+- Saved selections for removed duplicate IDs migrate to the correct remaining tests (seed-103 => seed-71, seed-157 => seed-158).
+- Added DHT and EBV test aliases to search so staff can find the consolidated records by their usual short names. Exact aliases rank above unrelated partial name matches.
+- No changes to general test-count/pooling formulas or unrelated catalog records.
+
 v11.05
 - Made both two-choice selectors compact again, keeping equal-width and equal-height options for SST and urine culture transport.
 - Changed both helper lines to "Choose one type."

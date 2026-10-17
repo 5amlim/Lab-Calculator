@@ -19,6 +19,8 @@
     ...[9, 8, 7, 6, 5, 4, 3, 2, 1].map(version => `${LEGACY_STORAGE_PREFIX}.database.v${version}`)
   ];
   const RETIRED_TEST_CODES = new Set(['91001']);
+  // IDs retired when Quest 15447 / 90567 duplicate records were corrected.
+  const CONSOLIDATED_TEST_IDS = { 'seed-103': 'seed-71', 'seed-157': 'seed-158' };
   const SELECTED_KEY = 'labCollectionCalculator.selected.v1';
   const SST_MODE_KEY = 'labCollectionCalculator.sstMode.v1';
   const URINE_CULTURE_MODE_KEY = 'labCollectionCalculator.urineCultureTransport.v1';
@@ -195,6 +197,28 @@
             updated.specialInstructions = base.specialInstructions;
           }
           builtIns[index] = updated;
+        } else if (['15447', '6421', '90567'].includes(base.testCode)) {
+          // Preserve explicit local edits, but correct fields still matching
+          // the obsolete bundled defaults for these verified Quest codes.
+          const previous = {
+            '15447': {
+              testName: 'Epstein-Barr Virus Early Antigen D Antibody (IgG)',
+              stability: '4 days', specialInstructions: 'SST→transport'
+            },
+            '6421': {
+              testName: 'EBV Panel', stability: '4 Days', specialInstructions: 'SST→transport'
+            },
+            '90567': {
+              testName: 'Dihydrotestosterone',
+              preferredVolume: '1 mL serum',
+              specialInstructions: 'Collect in a red-top tube (no gel). Allow the blood to clot, centrifuge, and transfer serum to a transport tube. SST and plasma are not acceptable.'
+            }
+          }[base.testCode];
+          const updated = { ...override };
+          Object.entries(previous).forEach(([field, oldValue]) => {
+            if (updated[field] === oldValue) updated[field] = base[field];
+          });
+          builtIns[index] = updated;
         } else {
           builtIns[index] = override;
         }
@@ -256,13 +280,24 @@
   }
 
   function loadSelectedIds() {
+    const reconcile = ids => Array.from(new Set(ids
+      .map(id => CONSOLIDATED_TEST_IDS[id] || id)
+      .filter(id => database.some(test => test.id === id))));
     const current = loadJson(SELECTED_KEY, null);
-    if (Array.isArray(current)) return current.filter(id => database.some(test => test.id === id));
+    if (Array.isArray(current)) {
+      const migrated = reconcile(current);
+      if (JSON.stringify(migrated) !== JSON.stringify(current)) {
+        try { localStorage.setItem(SELECTED_KEY, JSON.stringify(migrated)); }
+        catch (error) { console.warn('Could not save reconciled test selections.', error); }
+      }
+      return migrated;
+    }
     for (const key of LEGACY_SELECTED_KEYS) {
       const legacy = loadJson(key, null);
       if (!Array.isArray(legacy)) continue;
-      const migrated = legacy.filter(id => database.some(test => test.id === id));
-      localStorage.setItem(SELECTED_KEY, JSON.stringify(migrated));
+      const migrated = reconcile(legacy);
+      try { localStorage.setItem(SELECTED_KEY, JSON.stringify(migrated)); }
+      catch (error) { console.warn('Could not save migrated test selections.', error); }
       return migrated;
     }
     return [];
@@ -594,6 +629,9 @@
     if (/\bcomprehensive metabolic panel\b/.test(name)) aliases.push('cmp');
     if (/\bbasic metabolic panel\b/.test(name)) aliases.push('bmp');
     if (/\burinalysis\b/.test(name)) aliases.push('ua');
+    if (/\bdihydrotestosterone\b/.test(name)) aliases.push('dht');
+    if (/\bepstein barr virus antibody panel\b/.test(name)) aliases.push('ebv panel');
+    if (/\bepstein barr virus early antigen d antibody\b/.test(name)) aliases.push('ebv ea d', 'ebv early antigen d');
     const aliasWords = Array.from(new Set(aliases.flatMap(value => value.split(' '))));
     const nameWords = name.split(' ').filter(Boolean);
     const info = normalizeSearch([
@@ -657,10 +695,12 @@
     if (name.startsWith(q) && (!finalIsRoman || name === q || name.startsWith(`${q} `))) {
       return 1450 - Math.min(120, name.length - q.length);
     }
+    // Exact abbreviation aliases outrank incidental substrings (for example,
+    // DHT must find Dihydrotestosterone before '11-dhTXB2' named assays).
+    if (aliases.some(alias => alias === q)) return 1400;
     if (name.includes(q) && (!finalIsRoman || name.includes(`${q} `) || name.endsWith(q))) {
       return 1360 - Math.min(100, name.length - q.length);
     }
-    if (aliases.some(alias => alias === q)) return 1260;
     const nameMatches = tokens.map(token => libraryWordMatch(token, nameWords, true));
     if (nameMatches.every(score => score !== 0)) {
       const fuzzy = nameMatches.filter(score => score < 0).length;
