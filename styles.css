@@ -1886,3 +1886,31 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 .urine-culture-mode-control .sst-mode-option .sst-mode-tube { min-height: auto; padding-top: 0; padding-bottom: 0; }
 .urine-culture-mode-control .sst-mode-option .sst-mode-name { font-size: 10px; line-height: 1.05; }
 @media print { .print-urine-culture-choice { color: #31454d; border: 1px solid #c8d6db; border-radius: 5px; padding: 5px 8px; margin: 5px 0 9px; font-size: 8px; } }
+
+/* v11.01: visibly continuous outlines around every striped/swirl tube icon.
+   A border-style change alone did not create enough contrast at display scale.
+   The opaque perimeter and clipped striped fill keep the border unbroken. */
+.tube-tiger-sst::before,
+.tube-urine-culture::before,
+.tube-urisponge::before,
+.tube-ua-swirl::before,
+.tube-ua-pair::before,
+.tube-royal::before,
+.tube-royal-edta::before,
+.tube-royal-no-additive::before,
+.tube-royal-heparin::before,
+.tube-aptima::before {
+  border-width: 2px;
+  border-style: solid;
+  background-clip: padding-box;
+}
+.tube-tiger-sst::before { border-color: #ac5750; }
+.tube-urine-culture::before { border-color: #66757c; }
+.tube-urisponge::before { border-color: #bd9e28; }
+.tube-ua-swirl::before,
+.tube-ua-pair::before { border-color: #bb783e; }
+.tube-royal::before,
+.tube-royal-edta::before,
+.tube-royal-no-additive::before,
+.tube-royal-heparin::before { border-color: #395b98; }
+.tube-aptima::before { border-color: #bd6819; }
