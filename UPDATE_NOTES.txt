@@ -1,3 +1,16 @@
+v11.05
+- Made both two-choice selectors compact again, keeping equal-width and equal-height options for SST and urine culture transport.
+- Changed both helper lines to "Choose one type."
+- No changes to calculations, test catalog, or toggle behavior.
+
+v11.04
+- Upgraded Add a list of tests to use the same ranked typo-tolerant search algorithm as the second Search tests field.
+- Recognizes reordered and partial test names, abbreviation aliases, and small typos. Exact test codes rank first.
+- Requires explicit confirmation before adding any non-exact, ambiguous, code/name-mismatched, or alternate match, including duplicate test codes.
+- Allows selecting another candidate from up to five possible matches before confirming.
+- Rejects weak matches based only on specimen and handling instructions; blocked tests remain blocked.
+- No test data, collection/pooling, or print-plan changes.
+
 v11.03
 - Reduced swirl/striped tube badge borders to match the lighter weight of standard tube badges.
 - Made SST and urine culture toggle options equal-width and uniform in height.

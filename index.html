@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lab Collection Calculator</title>
   <meta name="description" content="Batch-search and print-friendly specimen collection planning from a curated local test directory.">
-  <link rel="stylesheet" href="styles.css?v=11.01">
+  <link rel="stylesheet" href="styles.css?v=11.05">
   <link rel="stylesheet" href="experience.css">
 </head>
 <body>
@@ -44,7 +44,7 @@
             <button class="button secondary" id="previewButton">Review matches</button>
             <button class="button ghost" id="clearSearchButton">Clear</button>
           </div>
-          <p class="search-hint" id="batchHint">Use test codes when available. Check the matches before printing/collecting. <span class="keyboard-hint">⌘ / Ctrl + Enter to add</span></p>
+          <p class="search-hint" id="batchHint">Use test codes when available. Exact matches add directly; partial names and possible typos require confirmation before adding. <span class="keyboard-hint">⌘ / Ctrl + Enter to add</span></p>
         </div>
       </section>
 
@@ -105,7 +105,7 @@
       <section class="sst-mode-control" aria-labelledby="sstModeLabel">
         <div class="sst-mode-copy">
           <strong id="sstModeLabel">SST tube</strong>
-          <span>Select one SST tube.</span>
+          <span>Choose one type.</span>
         </div>
         <div class="sst-mode-toggle" role="group" aria-label="Select SST tube size">
           <button type="button" class="sst-mode-option" data-sst-mode="gold" aria-pressed="true"><span class="sst-mode-tube tube tube-sst"><span class="sst-mode-name">Gold / SST</span><small class="sst-mode-volume">5 mL</small></span></button>
@@ -116,7 +116,7 @@
       <section class="sst-mode-control urine-culture-mode-control" id="urineCultureModeControl" aria-labelledby="urineCultureModeLabel">
         <div class="sst-mode-copy">
           <strong id="urineCultureModeLabel">Urine culture transport</strong>
-          <span>Choose the culture container.</span>
+          <span>Choose one type.</span>
         </div>
         <div class="sst-mode-toggle" role="group" aria-label="Select urine culture transport">
           <button type="button" class="sst-mode-option" data-urine-culture-mode="gray" aria-pressed="true"><span class="sst-mode-tube tube tube-urine-culture"><span class="sst-mode-name">Gray Top</span></span></button>
@@ -325,6 +325,6 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script src="data.js"></script>
-  <script src="app.js?v=11.03"></script>
+  <script src="app.js?v=11.05"></script>
 </body>
 </html>

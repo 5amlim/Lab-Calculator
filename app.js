@@ -78,6 +78,7 @@
   let sstTubeMode = loadSstTubeMode();
   let urineCultureMode = loadUrineCultureMode();
   finalizeStorageMigration();
+  let batchReviewRows = [];
   let libraryLimit = PAGE_STEP;
   let blockedListOpen = false;
   let toastTimer;
@@ -108,6 +109,7 @@
     els.loadMoreInlineButton?.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
     els.libraryBody.addEventListener('click', handleLibraryClick);
     els.batchResults.addEventListener('click', handleBatchClick);
+    els.batchResults.addEventListener('change', handleBatchChoiceChange);
     els.selectedList.addEventListener('click', handleSelectedClick);
     els.testsOverviewList.addEventListener('click', handleTestsOverviewClick);
     els.addTestButton.addEventListener('click', openMissingTestDialog);
@@ -677,52 +679,72 @@
     return 0;
   }
 
-  function rankTest(query, test) {
-    const raw = query.trim();
-    const q = normalizeSearch(raw);
+  // Batch search now uses the same ranked, typo-tolerant index as Search Tests.
+  // Codes remain exact identifiers: never try to fuzzy-match or silently replace
+  // a numeric code. A typed code followed by a name is reviewed unless BOTH
+  // the code and complete name match the same catalog record.
+  function rankBatchTest(query, test) {
+    const q = normalizeSearch(query);
     if (!q) return 0;
     const code = normalizeSearch(test.testCode);
     const name = normalizeSearch(test.testName);
-    const searchable = normalizeSearch([
-      test.testCode, test.testName, test.specimenType, test.drawContainer,
-      test.alternativeContainer, test.transportTemperature, test.specialLabeling, test.specialInstructions
-    ].join(' '));
-    const leadingCode = raw.match(/^([A-Za-z]*\d+[A-Za-z0-9-]*)\b/);
-
-    if (code && q === code) return 1000;
-    if (leadingCode && normalizeSearch(leadingCode[1]) === code) return 970 + (name.includes(q.replace(code, '').trim()) ? 10 : 0);
-    if (q === name) return 930;
-    if (name.startsWith(q)) return 850 - Math.min(100, name.length - q.length);
-    if (name.includes(q)) return 780 - Math.min(120, name.length - q.length);
-
-    const tokens = q.split(' ').filter(Boolean);
-    const nameTokens = new Set(name.split(' ').filter(Boolean));
-    const allInName = tokens.every(token => name.includes(token));
-    if (allInName) return 690 + tokens.length * 12;
-    const allAnywhere = tokens.every(token => searchable.includes(token));
-    if (allAnywhere) return 560 + tokens.length * 8;
-    const overlap = tokens.filter(token => nameTokens.has(token) || name.includes(token)).length;
-    if (overlap) return 260 + overlap * 70;
-    return 0;
+    const leading = q.match(/^([a-z]*\d[a-z0-9]*) (.+)$/);
+    if (leading && leading[1] === code) {
+      const nameScore = rankLibraryTest(leading[2], test);
+      return 2000 + Math.max(0, nameScore / 50);
+    }
+    // If the first token looks like a code, only the matching code may rank.
+    // Do not turn a mismatched numbered order into a different name-only result.
+    if (leading && /^\d+$/.test(leading[1])) return 0;
+    const score = rankLibraryTest(q, test);
+    // Specimen/handling-text-only matches are too weak for bulk ordering.
+    return score >= 500 ? score : 0;
   }
 
   function findMatches(query, limit = 5) {
     return database
-      .map(test => ({ test, score: rankTest(query, test) }))
+      .map(test => ({ test, score: rankBatchTest(query, test) }))
       .filter(item => item.score > 0)
       .sort((a, b) => b.score - a.score || a.test.testName.localeCompare(b.test.testName))
       .slice(0, limit);
   }
 
   function isExactBatchMatch(query, test) {
-    const raw = String(query || '').trim();
-    const q = normalizeSearch(raw);
+    const q = normalizeSearch(query);
     const code = normalizeSearch(test?.testCode);
     const name = normalizeSearch(test?.testName);
     if (!q || !test) return false;
-    if (q === code || q === name) return true;
-    const leadingCode = raw.match(/^([A-Za-z]*\d+[A-Za-z0-9-]*)\b/);
-    return Boolean(leadingCode && code && normalizeSearch(leadingCode[1]) === code);
+    return q === code || q === name || (Boolean(code) && q === `${code} ${name}`);
+  }
+
+  function chosenBatchMatch(row) {
+    return row.matches.find(match => match.test.id === row.chosenId) || row.matches[0];
+  }
+
+  function canAutoAddBatchRow(row) {
+    const chosen = chosenBatchMatch(row);
+    if (!chosen || chosen.test.status === 'blocked' || !isExactBatchMatch(row.query, chosen.test)) return false;
+    if (chosen !== row.matches[0]) return false;
+    // An identical name shared by multiple distinct codes cannot be silently
+    // resolved without the user specifying a code.
+    const q = normalizeSearch(row.query);
+    if (q === normalizeSearch(chosen.test.testCode)) {
+      const sameCodeTests = database.filter(test => normalizeSearch(test.testCode) === q);
+      if (sameCodeTests.length > 1) return false;
+    }
+    if (q === normalizeSearch(chosen.test.testName)) {
+      const sameNames = database.filter(test => test.status !== 'blocked' && normalizeSearch(test.testName) === q);
+      if (new Set(sameNames.map(test => normalizeSearch(test.testCode))).size > 1) return false;
+    }
+    return true;
+  }
+
+  function batchRowOutcome(row) {
+    const chosen = chosenBatchMatch(row);
+    if (!chosen) return 'no-match';
+    if (chosen.test.status === 'blocked') return 'blocked';
+    if (chosen.score < 550) return 'low-confidence';
+    return canAutoAddBatchRow(row) ? 'exact-match' : 'confirm-match';
   }
 
   function renderBatch(addBest) {
@@ -733,28 +755,19 @@
       return;
     }
 
-    const rows = queries.map(query => ({ query, matches: findMatches(query, 3), outcome: 'review' }));
+    const previousChoices = new Map(batchReviewRows.map(row => [row.query, row.chosenId]));
+    const rows = queries.map((query, index) => {
+      const matches = findMatches(query, 5);
+      const previousId = previousChoices.get(query);
+      return { query, index, matches, chosenId: matches.some(match => match.test.id === previousId) ? previousId : matches[0]?.test.id, outcome: 'review' };
+    });
     let added = 0;
 
     if (addBest) {
       rows.forEach(row => {
-        const best = row.matches[0];
-        if (!best) {
-          row.outcome = 'no-match';
-          return;
-        }
-        if (best.test.status === 'blocked') {
-          row.outcome = 'blocked';
-          return;
-        }
-        if (best.score < 330) {
-          row.outcome = 'low-confidence';
-          return;
-        }
-        if (!isExactBatchMatch(row.query, best.test)) {
-          row.outcome = 'confirm-match';
-          return;
-        }
+        const best = chosenBatchMatch(row);
+        row.outcome = batchRowOutcome(row);
+        if (row.outcome !== 'exact-match') return;
         if (selectedIds.includes(best.test.id)) {
           row.outcome = 'already-selected';
           return;
@@ -769,15 +782,10 @@
       saveSelected();
       renderOrder();
     } else {
-      rows.forEach(row => {
-        const best = row.matches[0];
-        if (!best) row.outcome = 'no-match';
-        else if (best.test.status === 'blocked') row.outcome = 'blocked';
-        else if (best.score < 330) row.outcome = 'low-confidence';
-        else if (!isExactBatchMatch(row.query, best.test)) row.outcome = 'confirm-match';
-      });
+      rows.forEach(row => { row.outcome = batchRowOutcome(row); });
     }
 
+    batchReviewRows = rows;
     const matchedCount = rows.filter(row => row.matches.length).length;
     const confirmCount = rows.filter(row => row.outcome === 'confirm-match').length;
     const inSummaryCount = rows.filter(row => ['added', 'already-selected'].includes(row.outcome)).length;
@@ -850,35 +858,40 @@
 
   function renderBatchRow(row) {
     if (!row.matches.length) {
-      return `<div class="batch-row unmatched">
+      return `<div class="batch-row unmatched" data-batch-index="${row.index}">
         <div class="batch-query-block"><span class="batch-kicker">You entered</span><div class="batch-query">${escapeHtml(row.query)}</div></div>
         <div class="batch-match"><span class="batch-kicker">Result</span><strong>No local match found</strong><small>Check the official directory or add the test manually.</small></div>
         <div class="batch-unmatched-actions"><a class="mini-button edit" href="${escapeAttr(directorySearchUrl(row.query))}" target="_blank" rel="noreferrer">Search directory ↗</a><button class="mini-button edit" data-action="new-from-query" data-query="${escapeAttr(row.query)}">Add missing test</button></div>
       </div>`;
     }
-    const best = row.matches[0];
-    const alternatives = row.matches.slice(1).map(item => `${item.test.testCode} ${item.test.testName}`).join(' · ');
-    const blocked = best.test.status === 'blocked';
-    const exact = isExactBatchMatch(row.query, best.test);
-    const needsConfirmation = !blocked && !exact;
-    const selected = selectedIds.includes(best.test.id);
+    const choice = chosenBatchMatch(row);
+    const blocked = choice.test.status === 'blocked';
+    const autoSafe = canAutoAddBatchRow(row);
+    const needsConfirmation = !blocked && !autoSafe;
+    const selected = selectedIds.includes(choice.test.id);
     const rowClass = blocked ? 'unmatched' : needsConfirmation ? 'needs-confirmation' : 'exact-match';
+    const exactLabel = autoSafe ? 'Exact match' : 'Confirm test code/name';
     const status = blocked
       ? '<span class="batch-match-warning is-blocked">Do not perform</span>'
-      : needsConfirmation
-        ? '<span class="batch-match-warning">Confirm test code/name</span>'
-        : '<span class="batch-match-exact">Exact match</span>';
-    const buttonLabel = selected ? '✓ Added' : needsConfirmation ? 'Add this match' : '+ Add';
-    return `<div class="batch-row ${rowClass}">
+      : autoSafe
+        ? `<span class="batch-match-exact">${exactLabel}</span>`
+        : `<span class="batch-match-warning">${exactLabel}</span>`;
+    const options = row.matches.length > 1 && (needsConfirmation || blocked || row.matches.some(match => normalizeSearch(match.test.testName) === normalizeSearch(row.query)));
+    const picker = options ? `<label class="batch-choice-label" for="batch-choice-${row.index}">Choose the correct test (code / name)</label>
+      <select id="batch-choice-${row.index}" class="batch-match-choice" data-batch-index="${row.index}" aria-label="Choose the correct test for ${escapeAttr(row.query)}">
+        ${row.matches.map(({ test }) => `<option value="${escapeAttr(test.id)}" ${test.id === choice.test.id ? 'selected' : ''}>${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}${test.status === 'blocked' ? ' (Do not perform)' : ''}</option>`).join('')}
+      </select>` : '';
+    const buttonLabel = selected ? '✓ Added' : needsConfirmation ? 'Confirm & add' : '+ Add';
+    return `<div class="batch-row ${rowClass}" data-batch-index="${row.index}">
       <div class="batch-query-block"><span class="batch-kicker">You entered</span><div class="batch-query">${escapeHtml(row.query)}</div></div>
       <div class="batch-match">
-        <div class="batch-match-title"><span class="batch-kicker">Best match</span>${status}</div>
-        <strong>${escapeHtml(displayCode(best.test))} · ${escapeHtml(best.test.testName)}</strong>
-        <div class="batch-match-meta">${blocked ? '<span>Marked do not perform</span>' : ''}${requiredSpecimenBadges(best.test)}<span class="batch-meta-dot">·</span>${requiredDrawContainerBadges(best.test)}</div>
-        ${alternatives ? `<div class="batch-alternatives"><span>Other possible matches</span>${escapeHtml(alternatives)}</div>` : ''}
+        <div class="batch-match-title"><span class="batch-kicker">${choice === row.matches[0] ? 'Best match' : 'Selected match'}</span>${status}</div>
+        <strong>${escapeHtml(displayCode(choice.test))} · ${escapeHtml(choice.test.testName)}</strong>
+        <div class="batch-match-meta">${blocked ? '<span>Marked do not perform</span>' : ''}${requiredSpecimenBadges(choice.test)}<span class="batch-meta-dot">·</span>${requiredDrawContainerBadges(choice.test)}</div>
+        ${picker}
       </div>
       <div class="batch-row-action">
-        <button class="mini-button ${needsConfirmation ? 'confirm-match-button' : ''}" data-action="add" data-id="${escapeAttr(best.test.id)}" data-query="${escapeAttr(row.query)}" data-needs-confirmation="${needsConfirmation ? 'true' : 'false'}" ${blocked || selected ? 'disabled' : ''}>${buttonLabel}</button>
+        <button class="mini-button ${needsConfirmation ? 'confirm-match-button' : ''}" data-action="add" data-id="${escapeAttr(choice.test.id)}" data-query="${escapeAttr(row.query)}" data-needs-confirmation="${needsConfirmation ? 'true' : 'false'}" ${blocked || selected ? 'disabled' : ''}>${buttonLabel}</button>
         ${needsConfirmation ? `<a class="mini-button edit batch-directory-button" href="${escapeAttr(directorySearchUrl(row.query))}" target="_blank" rel="noreferrer">Search directory ↗</a>` : ''}
       </div>
     </div>`;
@@ -968,18 +981,29 @@
     }
   }
 
+  function handleBatchChoiceChange(event) {
+    const select = event.target.closest('select.batch-match-choice');
+    if (!select) return;
+    const row = batchReviewRows[Number(select.dataset.batchIndex)];
+    if (!row || !row.matches.some(match => match.test.id === select.value)) return;
+    row.chosenId = select.value;
+    row.outcome = batchRowOutcome(row);
+    const container = select.closest('.batch-row');
+    if (container) container.outerHTML = renderBatchRow(row);
+  }
+
   function handleBatchClick(event) {
     const button = event.target.closest('button[data-action]');
     if (!button) return;
     if (button.dataset.action === 'add') {
-      if (button.dataset.needsConfirmation === 'true') {
-        const test = database.find(item => item.id === button.dataset.id);
-        if (!test) return;
-        const query = button.dataset.query || '';
-        const confirmed = window.confirm(`This is not an exact match.\n\nYou entered: ${query}\nPossible match: ${displayCode(test)} · ${test.testName}\n\nConfirm that this is the test you want to add.`);
+      const row = batchReviewRows[Number(button.closest('.batch-row')?.dataset.batchIndex)];
+      const chosen = row && chosenBatchMatch(row);
+      if (!chosen || chosen.test.id !== button.dataset.id || chosen.test.status === 'blocked') return;
+      if (!canAutoAddBatchRow(row)) {
+        const confirmed = window.confirm(`This entry is not an unambiguous exact match.\n\nYou entered: ${row.query}\nSelected test: ${displayCode(chosen.test)} · ${chosen.test.testName}\n\nPlease verify the test code and specimen requirements. Add this specific test?`);
         if (!confirmed) return;
       }
-      addSelected(button.dataset.id);
+      addSelected(chosen.test.id);
       renderBatch(false);
     } else if (button.dataset.action === 'new-from-query') {
       openMissingTestFromQuery(button.dataset.query);
