@@ -1,3 +1,11 @@
+## v11.77: Consistent in-page STAT dropdown and chevrons
+
+- Replaced the browser-native STAT receiving lab select with an in-page scrollable list. It retains all receiving lab choices and existing STAT eligibility behavior.
+- Unified Filter and STAT dropdown border, height, fonts, arrow icon, and arrow-to-edge spacing. Sub-selects inside Filters, Add Missing Test form selectors, and batch-match selectors have a consistent 14px caret inset.
+- Keyboard support for the STAT list: Arrow Up/Down, Home/End, Escape, plus normal button activation.
+- Renamed the directory cleanup control to **Clear manually added tests**; it still removes only user-created tests stored locally, not bundled tests or edits to bundled entries.
+- No changes to print, specimen processing, test catalog, pooling, STAT eligibility, or bag counts.
+
 ## v11.76: Neonatal Microtainer submission, compact filters, and browser-added test cleanup
 
 - For Quest neonatal bilirubin codes 6631, 20381, and 34162, submit the required spun amber Microtainer SSTs in their original containers, protected from light. No default amber serum transport-tube transfer. Preserve two Microtainers per assay and existing independent counts.

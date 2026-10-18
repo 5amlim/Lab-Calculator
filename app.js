@@ -108,7 +108,7 @@
     selectedCount: $('selectedCount'), selectedList: $('selectedList'), testsOverviewList: $('testsOverviewList'), testsOverviewSummary: $('testsOverviewSummary'),
     drawPlan: $('drawPlan'), drawPlanSummary: $('drawPlanSummary'), orderOfDraw: $('orderOfDraw'), orderOfDrawSummary: $('orderOfDrawSummary'), collectionAlerts: $('collectionAlerts'), clearOrderButton: $('clearOrderButton'),
     printButton: $('printButton'), exportSummaryButton: $('exportSummaryButton'),
-    statAreaSelect: $('statAreaSelect'), statAreaHelp: $('statAreaHelp'), statMenuButton: $('statMenuButton'), statMenuPanel: $('statMenuPanel'), statMenuClose: $('statMenuClose'), statMenuSearch: $('statMenuSearch'), statMenuTitle: $('statMenuTitle'), statMenuCount: $('statMenuCount'), statMenuResults: $('statMenuResults'),
+    statAreaSelect: $('statAreaSelect'), statSelectWrap: $('statSelectWrap'), statAreaButton: $('statAreaButton'), statAreaButtonLabel: $('statAreaButtonLabel'), statAreaOptions: $('statAreaOptions'), statAreaHelp: $('statAreaHelp'), statMenuButton: $('statMenuButton'), statMenuPanel: $('statMenuPanel'), statMenuClose: $('statMenuClose'), statMenuSearch: $('statMenuSearch'), statMenuTitle: $('statMenuTitle'), statMenuCount: $('statMenuCount'), statMenuResults: $('statMenuResults'),
     sstModeOptions: Array.from(document.querySelectorAll('[data-sst-mode]')),
     urineCultureControl: $('urineCultureModeControl'), urineCultureModeOptions: Array.from(document.querySelectorAll('[data-urine-culture-mode]')),
     printSheet: $('printSheet'), testDialog: $('testDialog'), testForm: $('testForm'), dialogTitle: $('dialogTitle'),
@@ -161,7 +161,7 @@
     });
     els.libraryFilter.addEventListener('input', () => { libraryLimit = PAGE_STEP; renderLibrary(); });
     [els.specimenFilter, els.temperatureFilter, els.fastingFilter, els.pediatricFilter, els.spinFilter].forEach(control => control.addEventListener('change', () => { libraryLimit = PAGE_STEP; renderLibrary(); }));
-    els.catalogFilterButton.addEventListener('click', () => toggleCatalogFilters());
+    els.catalogFilterButton.addEventListener('click', () => { if (els.catalogFilterPanel.classList.contains('hidden')) setStatPickerOpen(false); toggleCatalogFilters(); });
     els.catalogFilterDone.addEventListener('click', () => toggleCatalogFilters(false));
     els.catalogFilterReset.addEventListener('click', resetCatalogFilters);
     document.addEventListener('click', event => { if (!els.catalogFilterControl.contains(event.target)) toggleCatalogFilters(false); });
@@ -183,6 +183,7 @@
     els.exportSummaryButton.addEventListener('click', exportSummaryCsv);
     els.sstModeOptions.forEach(button => button.addEventListener('click', () => setSstTubeMode(button.dataset.sstMode)));
     els.statAreaSelect?.addEventListener('change', () => changeStatArea(els.statAreaSelect.value));
+    initializeStatAreaPicker();
     els.statMenuButton?.addEventListener('click', () => { statMenuOpen = !statMenuOpen; renderStatMenu(); });
     els.statMenuClose?.addEventListener('click', () => { statMenuOpen = false; renderStatMenu(); });
     els.statMenuSearch?.addEventListener('input', renderStatMenu);
@@ -1159,13 +1160,13 @@
     const count = browserAddedTests().length;
     els.clearBrowserTestsButton.disabled = !count;
     els.browserCustomCount.textContent = count ? `(${count})` : '(0)';
-    els.clearBrowserTestsButton.title = count ? 'Remove only tests created in this browser' : 'No browser-created tests to remove';
+    els.clearBrowserTestsButton.title = count ? 'Remove only manually added tests stored in this browser' : 'No manually added tests to remove';
   }
 
   function clearBrowserAddedTests() {
     const custom = browserAddedTests();
     if (!custom.length) return;
-    if (!window.confirm(`Remove ${custom.length} browser-added ${custom.length === 1 ? 'test' : 'tests'}? This cannot be undone. Built-in packaged tests and edits to those tests will not be deleted.`)) return;
+    if (!window.confirm(`Remove ${custom.length} manually added ${custom.length === 1 ? 'test' : 'tests'}? This cannot be undone. Built-in packaged tests and edits to those tests will not be deleted.`)) return;
     const ids = new Set(custom.map(test => test.id));
     database = database.filter(test => !ids.has(test.id));
     selectedIds = selectedIds.filter(id => !ids.has(id));
@@ -1174,7 +1175,7 @@
     saveSelected();
     persistDatabase();
     renderAll();
-    showToast(`${custom.length} browser-added ${custom.length === 1 ? 'test' : 'tests'} removed. Packaged tests preserved.`);
+    showToast(`${custom.length} manually added ${custom.length === 1 ? 'test' : 'tests'} removed. Packaged tests preserved.`);
   }
 
   function renderLibrary() {
@@ -1343,10 +1344,95 @@
     return removed;
   }
 
+  // In-page STAT receiving lab list. Keep the native select as the single
+  // data source for option values and preserve the existing change workflow.
+  function initializeStatAreaPicker() {
+    const { statAreaSelect: select, statSelectWrap: wrap, statAreaButton: trigger, statAreaOptions: panel } = els;
+    if (!select || !wrap || !trigger || !panel) return;
+    const fragment = document.createDocumentFragment();
+    for (const child of select.children) {
+      if (child.tagName === 'OPTGROUP') {
+        const heading = document.createElement('div');
+        heading.className = 'stat-area-optgroup';
+        heading.textContent = child.label;
+        heading.setAttribute('role', 'presentation');
+        fragment.appendChild(heading);
+        for (const opt of child.children) addOption(opt);
+      } else if (child.tagName === 'OPTION') addOption(child);
+    }
+    function addOption(opt) {
+      const row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'stat-area-option';
+      row.setAttribute('role', 'option');
+      row.dataset.statArea = opt.value;
+      row.textContent = opt.textContent;
+      fragment.appendChild(row);
+    }
+    panel.replaceChildren(fragment);
+    trigger.addEventListener('click', () => setStatPickerOpen(panel.classList.contains('hidden')));
+    panel.addEventListener('click', event => {
+      const option = event.target.closest('.stat-area-option');
+      if (!option || !panel.contains(option)) return;
+      select.value = option.dataset.statArea;
+      changeStatArea(select.value);
+      syncStatAreaPicker();
+      setStatPickerOpen(false);
+      trigger.focus();
+    });
+    trigger.addEventListener('keydown', event => {
+      if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+      event.preventDefault();
+      setStatPickerOpen(true);
+      const opts = [...panel.querySelectorAll('.stat-area-option')];
+      const active = opts.findIndex(el => el.dataset.statArea === select.value);
+      opts[(active + (event.key === 'ArrowDown' ? 1 : opts.length - 1)) % opts.length]?.focus();
+    });
+    panel.addEventListener('keydown', event => {
+      if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp' && event.key !== 'Home' && event.key !== 'End') return;
+      event.preventDefault();
+      const options = [...panel.querySelectorAll('.stat-area-option')];
+      const index = options.indexOf(document.activeElement);
+      const next = event.key === 'Home' ? 0 : event.key === 'End' ? options.length - 1 : (index + (event.key === 'ArrowDown' ? 1 : options.length - 1)) % options.length;
+      options[next]?.focus();
+    });
+    document.addEventListener('click', event => {
+      if (!wrap.contains(event.target)) setStatPickerOpen(false);
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !panel.classList.contains('hidden')) {
+        setStatPickerOpen(false);
+        trigger.focus();
+        event.stopPropagation();
+      }
+    });
+    syncStatAreaPicker();
+  }
+
+  function setStatPickerOpen(open) {
+    if (!els.statAreaOptions || !els.statAreaButton) return;
+    els.statAreaOptions.classList.toggle('hidden', !open);
+    els.statAreaButton.setAttribute('aria-expanded', String(open));
+    if (open) toggleCatalogFilters(false);
+  }
+
+  function syncStatAreaPicker() {
+    if (!els.statAreaSelect || !els.statAreaButtonLabel) return;
+    els.statAreaButtonLabel.textContent = els.statAreaSelect.selectedOptions[0]?.textContent || 'Select receiving lab';
+    els.statAreaButton.setAttribute('aria-label', `STAT receiving lab: ${els.statAreaButtonLabel.textContent}`);
+    els.statAreaOptions?.querySelectorAll('.stat-area-option').forEach(option => {
+      const selected = option.dataset.statArea === els.statAreaSelect.value;
+      option.setAttribute('aria-selected', String(selected));
+      option.classList.toggle('selected', selected);
+    });
+  }
+
   function changeStatArea(value) {
     if (!STAT_AREAS[value] || value === statArea) return;
     statAreaResetNotice = '';
     statArea = value;
+    if (els.statAreaSelect) els.statAreaSelect.value = value;
+    syncStatAreaPicker();
     try { localStorage.setItem(STAT_AREA_KEY, value); } catch (_) {}
     const removed = reconcileStatWithArea();
     renderOrder();
@@ -1356,6 +1442,7 @@
 
   function renderStatArea() {
     if (els.statAreaSelect) els.statAreaSelect.value = statArea;
+    syncStatAreaPicker();
     renderStatMenu();
   }
 
