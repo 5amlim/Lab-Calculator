@@ -1944,3 +1944,55 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 .priority-marker { font-size: 10px; font-weight: 900; color: #922e25; }
 .draw-card.is-stat { border-color: #dba9a3; }
 @media (max-width: 520px) { .tests-overview-row { grid-template-columns: minmax(0,1fr) auto auto; gap: 5px; } .tests-overview-row .stat-toggle { grid-column: 2; } }
+
+/* v11.11: printed collection cards remain readable on mobile PDF print previews.
+   The original three narrow columns caused the draw-volume label to overlap
+   the two numbers and made large SST lists span several pages. */
+@media print {
+  .print-collection-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 8px;
+  }
+  .print-collection-card { min-width: 0; align-self: start; }
+  .print-collection-card.is-long { grid-column: 1 / -1; }
+  .print-collection-card.is-long .print-for-tests ul {
+    columns: 3;
+    column-gap: 12px;
+  }
+  .print-collection-card.is-long .print-for-tests li { break-inside: avoid; }
+  .print-collection-blood-volume {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+    gap: 4px;
+    min-width: 0;
+  }
+  .print-collection-blood-copy {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 2px 7px;
+  }
+  .print-collection-blood-copy small { margin: 0; }
+  .print-collection-blood-values {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 5px;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+  }
+  .print-collection-blood-metric {
+    min-width: 0;
+    white-space: normal;
+    padding: 4px 5px;
+  }
+  .print-collection-blood-metric strong {
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+}

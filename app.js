@@ -1389,10 +1389,20 @@
   function buildDrawGroups(tests) {
     const groups = new Map();
     tests.forEach(test => {
-      const key = `${test.isStat ? 'STAT' : 'Routine'}|${test.drawContainer || 'Verify Official Instructions'}`;
-      if (!groups.has(key)) groups.set(key, { container: test.drawContainer || 'Verify Official Instructions', isStat: Boolean(test.isStat), tests: [], specimenTypes: new Set(), minimumMl: 0, volumeCount: 0 });
+      const source = canonicalCollectionContainer(test);
+      const urineCup = source.className === 'tube-urine-cup' && isUrineTest(test);
+      const dedicated = urineCup && requiresSeparateUrineCollection(test);
+      const shareable = urineCup && isShareableUrineCupTest(test);
+      const key = urineCup
+        ? `Urine|${urineCollectionType(test).key}|${shareable ? 'shared' : `separate|${test.sourceTestId || test.id}|${test.isStat ? 'stat' : 'routine'}`}`
+        : `${test.isStat ? 'STAT' : 'Routine'}|${test.drawContainer || 'Verify Official Instructions'}`;
+      if (!groups.has(key)) groups.set(key, { container: urineCup ? source.label : test.drawContainer || 'Verify Official Instructions', isStat: Boolean(test.isStat), urineCup, tests: [], specimenTypes: new Set(), minimumMl: 0, volumeCount: 0, hasStat: false, hasRoutine: false });
       const group = groups.get(key);
       group.tests.push(test);
+      group.hasStat ||= Boolean(test.isStat);
+      group.hasRoutine ||= !test.isStat;
+      group.isStat = group.hasStat && !group.hasRoutine;
+      group.sharedStatRoutine = urineCup && group.hasStat && group.hasRoutine;
       group.specimenTypes.add(test.specimenType);
       const ml = parseSimpleMl(test.minimumVolume);
       if (ml !== null) { group.minimumMl += ml; group.volumeCount += 1; }
@@ -1431,7 +1441,7 @@
       const containerLabel = `${containerCount} ${containerCount === 1 ? 'container' : 'containers'}`;
       const groupClass = tubeClass(group.container) === 'tube-sst' ? selectedSstVisualClass() : tubeClass(group.container);
       const groupLabel = tubeClass(group.container) === 'tube-sst' ? selectedSstLabel() : group.container;
-      return `<div class="draw-card${group.isStat ? ' is-stat' : ''}"><div class="draw-title-block"><strong class="tube ${groupClass}">${escapeHtml(groupLabel)}</strong>${group.isStat ? '<span class="priority-marker">STAT · separate source tubes</span>' : ''}<span class="draw-test-count">${escapeHtml(testLabel)}</span></div><strong class="draw-container-badge">${escapeHtml(containerLabel)}</strong><div class="draw-meta specimen-line">${Array.from(group.specimenTypes).map(type => specimenBadge(type)).join(' ')}${volume ? `<span>${escapeHtml(volume)}</span>` : ''}</div></div>`;
+      return `<div class="draw-card${group.isStat ? ' is-stat' : ''}"><div class="draw-title-block"><strong class="tube ${groupClass}">${escapeHtml(groupLabel)}</strong>${group.sharedStatRoutine ? '<span class="priority-marker">Shared STAT + routine urine cup; transport separately</span>' : group.isStat ? `<span class="priority-marker">${group.urineCup ? 'STAT' : 'STAT · separate source tubes'}</span>` : ''}<span class="draw-test-count">${escapeHtml(testLabel)}</span></div><strong class="draw-container-badge">${escapeHtml(containerLabel)}</strong><div class="draw-meta specimen-line">${Array.from(group.specimenTypes).map(type => specimenBadge(type)).join(' ')}${volume ? `<span>${escapeHtml(volume)}</span>` : ''}</div></div>`;
     }).join('');
   }
 
@@ -2089,6 +2099,24 @@
     return { key: 'random-urine', label: 'Random urine' };
   }
 
+  function requiresSeparateUrineCollection(test) {
+    if (!isUrineTest(test)) return false;
+    if (explicitCollectionCount(test) > 1) return true;
+    // Only explicit collection-level separation should prevent sharing.
+    // Instructions about separate transport tubes, preservative tubes, bags,
+    // or unacceptable specimens do not by themselves require another cup.
+    const notes = `${test.drawContainer || ''} ${test.specialInstructions || ''}`.toLowerCase();
+    return /\b(?:collect|obtain|provide|requires?|use)\s+(?:a[n]?\s+)?(?:separate|additional|dedicated|second|new)\s+(?:urine\s+)?(?:specimen|sample|collection|cup|container)\b/.test(notes)
+      || /\b(?:separate|additional|dedicated)\s+(?:urine\s+)?(?:specimen|sample|collection|cup)\s+(?:is\s+)?(?:required|needed)\b/.test(notes)
+      || /\b(?:do not|don't|must not)\s+(?:pool|combine|share)\s+(?:(?:the|this|urine|collection)\s+)?(?:specimens?|samples?|urine)\b/.test(notes);
+  }
+
+  function isShareableUrineCupTest(test) {
+    return isUrineTest(test)
+      && ['random-urine', 'first-morning-urine', 'first-catch-urine'].includes(urineCollectionType(test).key)
+      && !requiresSeparateUrineCollection(test);
+  }
+
   function is24HourUrineTest(test) {
     return urineCollectionType(test).key === '24-hour-urine';
   }
@@ -2314,24 +2342,71 @@
       const specimenBadge = collectionSpecimenBadgeForItem(item);
       const specimenGroup = collectionSpecimenGroupForItem(item);
       const tigerBadge = printSstTigerBadge(item);
-      return `<article class="print-collection-card${item.isStat ? ' is-stat' : ''}">
-        <div class="print-container-count">${item.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}<strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${specimenBadge ? `<span class="print-collection-specimen-badge specimen-${specimenGroup}">${escapeHtml(specimenBadge)}</span>` : ''}</div>
+      return `<article class="print-collection-card${item.isStat ? ' is-stat' : ''}${item.tests.length >= 12 ? ' is-long' : ''}">
+        <div class="print-container-count">${item.sharedStatRoutine ? '<span class="print-priority-tag">STAT + Routine shared</span>' : item.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}<strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${specimenBadge ? `<span class="print-collection-specimen-badge specimen-${specimenGroup}">${escapeHtml(specimenBadge)}</span>` : ''}</div>
         ${item.detail ? `<div class="print-container-detail">${escapeHtml(item.detail)}</div>` : ''}
         ${printCollectionWholeBloodDetail(item, wholeBloodGroups)}
-        <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${testReferences(item.tests)}</ul></div>
+        <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${item.sharedStatRoutine ? uniqueTests(item.tests).map(test => `<li><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)} (${test.isStat ? 'STAT' : 'Routine'})</li>`).join('') : testReferences(item.tests)}</ul></div>
       </article>`;
     }).join('')}</div>`;
   }
 
   function buildCollectionPlan(tests, bags) {
-    // Separate source tubes, including all pooling and urine cups, by STAT vs routine.
-    // Never merge a STAT sample into a routine source tube simply to reduce draws.
+    // Separate STAT and routine blood sources, but a single compatible urine
+    // collection cup may supply both priorities. The downstream transport bags
+    // still remain separate by priority and temperature.
     const routine = tests.filter(test => !test.isStat);
     const stat = tests.filter(test => test.isStat);
-    return [
+    const items = [
       ...buildCollectionPlanForPriority(routine, bags.filter(bag => !bag.isStat), false),
       ...buildCollectionPlanForPriority(stat, bags.filter(bag => bag.isStat), true)
     ];
+    const sharedCups = new Map();
+    const merged = [];
+    items.forEach(item => {
+      const isShareableCup = item.className === 'tube-urine-cup'
+        && collectionSpecimenGroupForItem(item) === 'urine'
+        && !item.urineSeparateCollection
+        && item.tests.every(isShareableUrineCupTest);
+      if (!isShareableCup) {
+        merged.push(item);
+        return;
+      }
+      const subtype = collectionMergeSubtypeForItem(item);
+      const key = `${subtype}|${normalizeSearch(item.label)}`;
+      if (!sharedCups.has(key)) {
+        const copy = { ...item, tests: uniqueTests(item.tests), hasStat: Boolean(item.isStat), hasRoutine: !item.isStat };
+        sharedCups.set(key, copy);
+        merged.push(copy);
+        return;
+      }
+      const cup = sharedCups.get(key);
+      cup.tests = uniqueTests([...cup.tests, ...item.tests]);
+      cup.count = Math.max(cup.count, item.count);
+      cup.hasStat ||= Boolean(item.isStat);
+      cup.hasRoutine ||= !item.isStat;
+      cup.sharedStatRoutine = cup.hasStat && cup.hasRoutine;
+      cup.isStat = cup.hasStat && !cup.hasRoutine;
+      if (cup.sharedStatRoutine) {
+        cup.detail = 'Collect once in a shared sterile cup; prepare separate STAT and routine transport specimens and bags.';
+      }
+    });
+    // Print and collection chips follow collection workflow priority rather
+    // than the order in which tests were added: SST, other blood, urine,
+    // stool, then swabs/transport media. Keep STAT sources as separate cards.
+    return merged.sort((a, b) => collectionSortRank(a) - collectionSortRank(b));
+  }
+
+  function collectionSortRank(item) {
+    if (item.className === 'tube-sst') return 0;
+    const specimenGroup = collectionSpecimenGroupForItem(item);
+    if (specimenGroup === 'blood') return 1;
+    if (specimenGroup === 'urine') return 2;
+    if (specimenGroup === 'stool') return 3;
+    const sourceText = [item.label, ...(item.tests || []).flatMap(test => [test.specimenType, test.drawContainer])]
+      .join(' ').toLowerCase();
+    if (/swab|transport media|viral media|utm|eswab|e-swab|culturette|aptima/.test(sourceText)) return 4;
+    return 5;
   }
 
   function buildCollectionPlanForPriority(tests, bags, isStat) {
@@ -2374,17 +2449,21 @@
     const spotUrineGroups = new Map();
     tests.filter(test => isUrineTest(test) && !isTimedUrineTest(test)).forEach(test => {
       const urineType = urineCollectionType(test);
-      if (!spotUrineGroups.has(urineType.key)) spotUrineGroups.set(urineType.key, { ...urineType, tests: [] });
-      spotUrineGroups.get(urineType.key).tests.push(test);
+      const dedicated = requiresSeparateUrineCollection(test);
+      const key = dedicated ? `${urineType.key}|separate|${test.sourceTestId || test.id}` : urineType.key;
+      if (!spotUrineGroups.has(key)) spotUrineGroups.set(key, { ...urineType, key, dedicated, tests: [] });
+      spotUrineGroups.get(key).tests.push(test);
     });
     spotUrineGroups.forEach(group => {
       items.push({
         key: `sterile-urine-cup|${group.key}`,
         label: 'Sterile Urine Cup',
         className: 'tube-urine-cup',
-        count: 1,
+        urineSeparateCollection: group.dedicated,
+        urineCollectionKey: group.key,
+        count: group.dedicated ? Math.max(...group.tests.map(explicitCollectionCount)) : 1,
         tests: uniqueTests(group.tests),
-        detail: 'Collect in the sterile cup first, then fill any required preservative or transport tubes.'
+        detail: group.dedicated ? 'Separate urine collection required. Follow test-specific collection instructions.' : 'Collect in the sterile cup first, then fill any required preservative or transport tubes.'
       });
     });
 
@@ -2400,10 +2479,13 @@
       // specimens should never be combined into the same collection card/count.
       const specimenGroup = collectionSpecimenGroupForTest(test);
       const specimenSubtype = specimenGroup === 'urine' ? urineCollectionType(test).key : specimenGroup;
-      const groupKey = `${specimenSubtype}|${info.key}`;
-      if (!grouped.has(groupKey)) grouped.set(groupKey, { ...info, key: groupKey, count: 0, tests: [], detail: '' });
+      const urineCup = specimenGroup === 'urine' && info.className === 'tube-urine-cup';
+      const separateCup = urineCup && !isShareableUrineCupTest(test);
+      const groupKey = `${specimenSubtype}|${info.key}${separateCup ? `|separate|${test.sourceTestId || test.id}` : ''}`;
+      if (!grouped.has(groupKey)) grouped.set(groupKey, { ...info, key: groupKey, urineSeparateCollection: separateCup, urineCollectionKey: groupKey, count: 0, tests: [], detail: '' });
       const item = grouped.get(groupKey);
-      item.count += explicitCollectionCount(test);
+      if (urineCup && !separateCup) item.count = Math.max(item.count, explicitCollectionCount(test));
+      else item.count += explicitCollectionCount(test);
       item.tests.push(test);
     });
 
@@ -2423,7 +2505,8 @@
       const specimenGroup = collectionSpecimenGroupForItem(item);
       const specimenSubtype = collectionMergeSubtypeForItem(item);
       const normalizedLabel = String(item.label || '').trim().toLowerCase();
-      const sameContainerKey = `${specimenSubtype}|${item.className || ''}|${normalizedLabel}`;
+      const separateKey = item.urineSeparateCollection ? `|${item.urineCollectionKey || item.key}` : '';
+      const sameContainerKey = `${specimenSubtype}|${item.className || ''}|${normalizedLabel}${separateKey}`;
       const mergeableNonBlood = specimenGroup !== 'blood' && specimenGroup !== 'other';
 
       if (!mergeableNonBlood || !mergedIndex.has(sameContainerKey)) {
@@ -3257,7 +3340,7 @@
           const specimenTag = item.className === 'tube-urine-cup' && (specimenGroup === 'urine' || specimenGroup === 'stool')
             ? `<span class="print-collect-chip-specimen specimen-${specimenGroup}">${escapeHtml(specimenGroup === 'stool' ? 'Stool' : 'Urine')}</span>`
             : '';
-          return `<span class="print-collect-chip tube ${item.displayClassName || item.className}">${item.isStat ? '<em class="print-chip-stat">STAT</em> ' : ''}<b>${item.count}</b> ${escapeHtml(item.label)}${specimenTag}</span>`;
+          return `<span class="print-collect-chip tube ${item.displayClassName || item.className}">${item.sharedStatRoutine ? '<em class="print-chip-stat">STAT + Routine shared</em> ' : item.isStat ? '<em class="print-chip-stat">STAT</em> ' : ''}<b>${item.count}</b> ${escapeHtml(item.label)}${specimenTag}</span>`;
         }).join('')}</div>
         <div class="print-total-box submit-total"><span>TOTAL TO SUBMIT</span><strong>${bags.length}</strong><small>${bags.length === 1 ? 'transport bag' : 'transport bags'}</small></div>
         <div class="print-submit-bags">${bagLabels}</div>
@@ -3292,9 +3375,9 @@
       </section>
       <div class="print-bag-note">
         <div><strong>STAT routing:</strong> Mark STAT tests individually. Confirm that the order is accepted as STAT by the receiving lab, use its STAT requisition/courier workflow, and never put STAT specimens in a routine shipment.</div>
-        <div><strong>Tube sharing:</strong> STAT and routine tests never share source tubes or transport bags. Within the same priority, compatible SST, Lavender EDTA, and Red Top tubes can be shared only when the processing steps and temperature match. Lavender whole blood stays separate from Lavender tubes used for plasma or RBCs. Tubes sent whole also stay separate from tubes used to prepare aliquots.</div>
+        <div><strong>Tube sharing:</strong> STAT and routine blood tests never share source tubes, and all STAT and routine transport bags remain separate. Compatible tests from one urine collection may share the source sterile cup across priorities, unless separate collections are specifically required. Within the same priority, compatible SST, Lavender EDTA, and Red Top tubes can be shared only when the processing steps and temperature match. Lavender whole blood stays separate from Lavender tubes used for plasma or RBCs. Tubes sent whole also stay separate from tubes used to prepare aliquots.</div>
         <div><strong>Tube counts:</strong> Estimates allow 2 mL of usable serum, plasma, or processed specimen per source tube and 4 mL of whole blood per Lavender tube. Multiple, dedicated, and full-tube requirements remain separate. Whole-blood amounts are shown inside each blood-tube card; serum/plasma amounts use a 2.5× whole-blood conversion.</div>
-        <div><strong>Urine:</strong> Random/spot, first-morning, timed, and 24-hour collections are kept distinct when their collection requirements differ. One shared sterile cup is used only for compatible tests collected from the same urine specimen.</div>
+        <div><strong>Urine:</strong> Random/spot, first-morning, timed, and 24-hour collections are kept distinct when their collection requirements differ. Compatible tests may share a sterile urine cup even when their downstream transport specimens have different priorities or temperatures; keep those transport specimens separate. Explicitly required separate urine collections must not be pooled.</div>
       </div>
     </section>`;
   }

@@ -414,3 +414,58 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
   background-position: right 18px center;
   background-size: 17px 17px;
 }
+
+/* v11.11: mobile-safe cart actions. STAT and remove never occupy the same space. */
+@media screen {
+  .tests-overview-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 34px;
+    column-gap: 8px;
+    row-gap: 5px;
+    align-items: center;
+    padding: 9px 0;
+  }
+  .tests-overview-row .tests-overview-ident {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding-right: 0;
+    min-width: 0;
+  }
+  .tests-overview-row .stat-toggle {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
+    min-height: 30px;
+    margin: 0;
+    position: static;
+  }
+  .tests-overview-row .tests-overview-remove {
+    grid-column: 2;
+    grid-row: 2;
+    position: static;
+    top: auto;
+    right: auto;
+    transform: none !important;
+    margin: 0;
+    justify-self: end;
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    padding: 0;
+  }
+  .tests-overview-row .tests-overview-remove .remove-text { display: none; }
+  @media (hover: hover) and (pointer: fine) {
+    .tests-overview-row .tests-overview-remove:hover,
+    .tests-overview-row .tests-overview-remove:focus-visible {
+      width: 32px;
+      min-width: 32px;
+      padding: 0;
+      transform: none !important;
+    }
+    .tests-overview-row .tests-overview-remove:hover .remove-icon,
+    .tests-overview-row .tests-overview-remove:focus-visible .remove-icon {
+      width: 16px;
+      opacity: 1;
+    }
+  }
+}

@@ -1,3 +1,16 @@
+v11.11
+- Reorganized the selected-tests cart to give STAT and remove actions separate rows/columns. The controls no longer overlap at mobile widths.
+- Rebuilt the print collection-volume strip with a full-width label and two equal metric cells to prevent overlap and clipping.
+- Printed collection cards now use two columns; long test lists span full width and use multi-column test lists for more legible, shorter output.
+- Sorted What to Collect (and top collection chips) by SST, other blood tubes, urine, stool, then swabs and miscellaneous containers. Routine and STAT remain distinct for blood pooling.
+- No volume, collection-count, or pooling formulas changed.
+
+v11.10
+- Compatible urine tests can share a single source Sterile Urine Cup even when their downstream specimens are marked STAT and Routine.
+- STAT and Routine urine transport containers remain in separate bags, and blood tubes remain separated for pooling.
+- Preserve separate collection requirements, explicit multiple cups, and distinct urine collection types (random, first-morning, first-catch, timed, 24-hour).
+- Update on-screen Draw Plan and printed What to Collect counts and labels to show shared STAT + routine source cups.
+
 v11.09
 - Yellow urine and amber stool specimen pills in the collection and submission print plan.
 - Added per-selected-test STAT toggle with persisted priority, visible in the summary and printout.
