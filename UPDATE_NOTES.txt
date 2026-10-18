@@ -1,3 +1,7 @@
+v11.61
+- Centered the STAT receiving lab label directly over the dropdown, leaving it above the control and separate from the Show STAT tests button.
+- Restored white text to Add best matches and available test-list Add buttons. No changes to button backgrounds, calculator logic, or print styling.
+
 v11.60
 - STAT menu: Clicking an already-selected check removes the test from the cart and clears its STAT status. The add button still confirms before marking STAT.
 - Added 11 official-directory-backed test records from missing SoCal STAT codes, including source-specific timing, no-gel peak/trough tube separation, carbon-dioxide unopened tube, urinalysis reflex containers and fetal fibronectin special kit.

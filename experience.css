@@ -998,3 +998,24 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     }
   }
 }
+
+/* v11.61: Keep the receiving lab caption above the select, centered over the
+   select itself (not across the select and Show STAT tests button). Return only
+   the two requested Add action labels to white. */
+@media screen {
+  .filter-row .stat-library-control label {
+    grid-column: 1 !important;
+    grid-row: 1;
+    text-align: center;
+    justify-self: stretch;
+    align-self: end;
+  }
+  #addBestButton,
+  #addBestButton:hover,
+  #addBestButton:focus-visible,
+  .row-actions button[data-action="add"]:not(:disabled),
+  .row-actions button[data-action="add"]:not(:disabled):hover,
+  .row-actions button[data-action="add"]:not(:disabled):focus-visible {
+    color: #fff;
+  }
+}
