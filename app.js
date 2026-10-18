@@ -3796,6 +3796,7 @@
             </div>`).join('')}</div>
           </article>`;
         }).join('')}</div>`).join('')}</div>
+        <div class="print-submit-footer"><span class="print-submit-footer-label">Confirm number of bags before sealing and sending</span><span class="print-submit-footer-badge">${bags.length} ${bags.length === 1 ? 'bag' : 'bags'}</span></div>
       </section>
     </section>`;
   }

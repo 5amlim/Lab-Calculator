@@ -1,3 +1,7 @@
+v11.43
+- Print bag rows no longer stretch a lone final bag across the full width; odd rows remain in the normal two-column submit layout.
+- Added a purple footer to the What to submit after processing section with a clear total bag-count badge for confirmation before sending.
+
 v11.42: Show only "Serum" on standard serum transport-tube print LABEL lines sourced from Gold or Tiger SST, unless a test has explicit special labeling instructions. Special labels are preserved, including special additives and source details specifically required by Quest. Moved specimen-filter and STAT receiving-lab dropdown chevrons closer to the right border, matching the warning/special-handling disclosure. No changes to collection pooling, transport pairing, specimen temperatures, print sizing or routing.
 
 v11.41 (2026-10-17)
