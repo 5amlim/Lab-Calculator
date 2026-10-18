@@ -1793,7 +1793,7 @@
           <span><strong>Warnings & special handling</strong><small>${escapeHtml(severityLabel)}</small></span>
         </span>
         <span class="collection-alerts-summary-count">${escapeHtml(countLabel)}</span>
-        <span class="collection-alerts-chevron" aria-hidden="true">⌄</span>
+        <span class="collection-alerts-chevron" aria-hidden="true"></span>
       </summary>
       <div class="collection-alerts-list">${alerts.map(alert => `<div class="alert ${alert.type === 'danger' ? 'danger' : ''}">${escapeHtml(alert.text)}</div>`).join('')}</div>
     </details>`;
