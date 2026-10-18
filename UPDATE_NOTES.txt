@@ -1,3 +1,10 @@
+v11.22
+- Changed background outside print transport bags from pale purple to near-white gray.
+- Reworked print bag arrangement into paired, equal-height rows, so adjacent bags align and their next row starts together.
+- Single unpaired bag uses the full row width.
+- Retained a single submission-tube column inside each bag and existing temperature and priority colors.
+- No specimen data, pooling, STAT eligibility or container quantities changed.
+
 v11.21
 - Compact Quest STAT lab selector aligned right with View STAT tests and Do not perform on sufficiently wide screens, with a wrap safeguard at intermediate widths; increased arrow inset.
 - Two columns of transport bags retained, but each bag shows only one transport-tube card per row.

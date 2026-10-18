@@ -3583,31 +3583,24 @@
     const wholeBloodGroups = buildWholeBloodVolumePlan(collectionTests, collectionItems);
     const totalCollect = collectionItems.reduce((sum, item) => sum + item.count, 0);
     const bagLabels = bags.map(bag => `<span class="print-bag-pill ${bag.className}">${escapeHtml(bag.label)}</span>`).join('');
-    // Balance whole shipping bags between independent print columns. Alternating
-    // by bag index placed the longest room-temperature bag *and* the frozen bag
-    // in the same column, forcing an unnecessary extra page while the other
-    // column had plenty of unused space. Keep priorities and temperature groups
-    // separate, but place each next bag in the shorter column.
+    // Render shipping bags in paired rows. Each pair has matching heights,
+    // which keeps the next bag row together during printed page breaks instead
+    // of leaving a short isolated bag and a large area of empty purple space.
     const bagRenderData = bags.map(bag => {
       const contents = buildSubmissionContents(bag);
       applyBloodSourceCountAllocations(contents);
       const totalContainers = contents.reduce((sum, item) => sum + item.count, 0);
-      const estimatedRows = contents.reduce((sum, item) => {
-        // Longer names, source/label instructions, and multiple test references
-        // can add lines to a card; approximate those when balancing two columns.
-        const testLineCount = Math.max(1, item.tests.length);
-        const textLength = String(item.label || '').length;
-        return sum + 1 + Math.max(0, Math.ceil((testLineCount - 2) / 4)) + (textLength > 43 ? 0.5 : 0);
-      }, 0);
-      return { bag, contents, totalContainers, estimatedHeight: 2 + estimatedRows };
+      return { bag, contents, totalContainers };
     });
-    const bagColumns = [[], []];
-    const bagColumnHeights = [0, 0];
-    bagRenderData.forEach(entry => {
-      const columnIndex = bagColumnHeights[0] <= bagColumnHeights[1] ? 0 : 1;
-      bagColumns[columnIndex].push(entry);
-      bagColumnHeights[columnIndex] += entry.estimatedHeight;
-    });
+    // Pair bags with similar numbers of transport-container cards. This
+    // reduces excess blank space within shorter paired bags in large orders.
+    const bagDisplayOrder = [...bagRenderData].sort((left, right) =>
+      right.contents.length - left.contents.length || Number(right.bag.isStat) - Number(left.bag.isStat)
+    );
+    const bagRows = [];
+    for (let i = 0; i < bagDisplayOrder.length; i += 2) {
+      bagRows.push(bagDisplayOrder.slice(i, i + 2));
+    }
     const bagStartOnFreshPage = bags.length >= 3 || bagRenderData.some(entry => entry.contents.length >= 8);
     const notesBeforeBag = bagStartOnFreshPage || bags.length >= 2;
     const printNotesFooter = `
@@ -3667,7 +3660,7 @@
             }).join('')}</span>
           </div>
         </div>
-        <div class="print-bag-grid${bags.length === 1 ? ' single-bag' : ''}">${bagColumns.map(column => `<div class="print-bag-column">${column.map(({ bag, contents, totalContainers }) => {
+        <div class="print-bag-grid${bags.length === 1 ? ' single-bag' : ''}">${bagRows.map(row => `<div class="print-bag-row${row.length === 1 ? ' single-row' : ''}">${row.map(({ bag, contents, totalContainers }) => {
           const bagName = bag.isStat ? bag.label.replace(/^STAT\s*·\s*/i, '') : bag.label;
           return `<article class="print-bag-card ${bag.className} ${bag.isStat ? 'bag-stat' : 'bag-routine'}${contents.length > 11 ? ' bag-long' : ''}">
             <div class="print-bag-card-header"><div><div class="print-bag-title"><span class="print-bag-priority ${bag.isStat ? 'priority-stat' : 'priority-routine'}">${bag.isStat ? 'STAT' : 'Routine'}</span><strong>${escapeHtml(bagName)}</strong></div><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div>
