@@ -3583,6 +3583,50 @@
     const wholeBloodGroups = buildWholeBloodVolumePlan(collectionTests, collectionItems);
     const totalCollect = collectionItems.reduce((sum, item) => sum + item.count, 0);
     const bagLabels = bags.map(bag => `<span class="print-bag-pill ${bag.className}">${escapeHtml(bag.label)}</span>`).join('');
+    // Balance whole shipping bags between independent print columns. Alternating
+    // by bag index placed the longest room-temperature bag *and* the frozen bag
+    // in the same column, forcing an unnecessary extra page while the other
+    // column had plenty of unused space. Keep priorities and temperature groups
+    // separate, but place each next bag in the shorter column.
+    const bagRenderData = bags.map(bag => {
+      const contents = buildSubmissionContents(bag);
+      applyBloodSourceCountAllocations(contents);
+      const totalContainers = contents.reduce((sum, item) => sum + item.count, 0);
+      const estimatedRows = contents.reduce((sum, item) => {
+        // Longer names, source/label instructions, and multiple test references
+        // can add lines to a card; approximate those when balancing two columns.
+        const testLineCount = Math.max(1, item.tests.length);
+        const textLength = String(item.label || '').length;
+        return sum + 1 + Math.max(0, Math.ceil((testLineCount - 2) / 4)) + (textLength > 43 ? 0.5 : 0);
+      }, 0);
+      return { bag, contents, totalContainers, estimatedHeight: 2 + estimatedRows / 2 };
+    });
+    const bagColumns = [[], []];
+    const bagColumnHeights = [0, 0];
+    bagRenderData.forEach(entry => {
+      const columnIndex = bagColumnHeights[0] <= bagColumnHeights[1] ? 0 : 1;
+      bagColumns[columnIndex].push(entry);
+      bagColumnHeights[columnIndex] += entry.estimatedHeight;
+    });
+    const bagStartOnFreshPage = bags.length >= 3 || bagRenderData.some(entry => entry.contents.length >= 8);
+    const notesBeforeBag = bagStartOnFreshPage || bags.length >= 2;
+    const printNotesFooter = `
+      <div class="print-shipping-notes">
+      <div class="print-bag-note">
+        <div><strong>STAT routing:</strong> Only tests listed for the selected Quest service area offer Mark STAT. Confirm that the specific order is accepted as STAT by the receiving lab, use its STAT requisition/courier workflow, and never put STAT specimens in a routine shipment.</div>
+        <div><strong>Tube sharing:</strong> Collection cards combine the number of tubes needed for STAT and routine tests of each type, but the counts are additive and do not imply sharing a tube across separate STAT and routine shipments. Their transport bags remain separate. Compatible urine tests may share one sterile collection cup across priorities unless separate specimens are required. Within a single priority, SST, Lavender EDTA, and Red Top tubes pool only when processing and temperature match. Whole-blood tubes and tubes used for aliquots remain separate.</div>
+        <div><strong>Tube counts:</strong> Estimates allow 2 mL of usable serum, plasma, or processed specimen per source tube and 4 mL of whole blood per Lavender tube. Multiple, dedicated, and full-tube requirements remain separate. Whole-blood amounts are shown inside each blood-tube card; serum/plasma amounts use a 2.5× whole-blood conversion.</div>
+        <div><strong>Urine:</strong> Random/spot, first-morning, timed, and 24-hour collections are kept distinct when their collection requirements differ. Compatible tests may share a sterile urine cup even when their downstream transport specimens have different priorities or temperatures; keep those transport specimens separate. Explicitly required separate urine collections must not be pooled.</div>
+      </div>
+      </div>
+      <div class="print-prebag-footer">
+      <div class="print-footer">
+        <div><strong>Order of draw:</strong> Pink tubes are grouped with EDTA. Temperatures are counted separately.</div>
+        <div class="print-missing-test"><strong>Missing a test?</strong> <b>Contact Sam</b> to have it added.</div>
+      </div>
+      <div class="print-ownership"><span><strong>Copyright and ownership:</strong> Copyright © 2026 Sam Hay. All rights reserved. Independently developed and maintained by Sam Hay as a personal software project and hosted through a personally controlled account. No license or ownership interest is granted except through Sam Hay’s express written authorization. Use by any organization does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay at any time and for any reason.</span></div>
+      </div>
+    `;
     const fastingItems = fastingRequirementsForTests(tests);
     const fastingPanel = fastingItems.length ? `<div class="print-fasting-panel">
       <div class="print-fasting-panel-title"><strong>Fasting instructions</strong><span>Confirm before collection</span></div>
@@ -3611,7 +3655,8 @@
       <div class="print-logistics-subheading">What to collect</div>
       ${printCollectionGroups(collectionItems, wholeBloodGroups)}
 
-      <section class="print-submit-section">
+      ${notesBeforeBag ? printNotesFooter : ''}
+      <section class="print-submit-section${bagStartOnFreshPage ? ' bag-page-start' : ''}">
         <div class="print-submit-heading">
           <strong>What to submit after processing</strong>
           <div class="print-submit-heading-summary">
@@ -3622,12 +3667,10 @@
             }).join('')}</span>
           </div>
         </div>
-        <div class="print-bag-grid">${[0, 1].map(columnIndex => `<div class="print-bag-column">${bags.filter((bag, index) => index % 2 === columnIndex).map(bag => {
-          const contents = buildSubmissionContents(bag);
-          applyBloodSourceCountAllocations(contents);
-          const totalContainers = contents.reduce((sum, item) => sum + item.count, 0);
-          return `<article class="print-bag-card ${bag.className} ${bag.isStat ? 'bag-stat' : 'bag-routine'}${contents.length > 5 ? ' bag-long' : ''}">
-            <div class="print-bag-card-header"><div><strong>${escapeHtml(bag.isStat ? bag.label : `Routine · ${bag.label}`)}</strong><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div>
+        <div class="print-bag-grid${bags.length === 1 ? ' single-bag' : ''}">${bagColumns.map(column => `<div class="print-bag-column">${column.map(({ bag, contents, totalContainers }) => {
+          const bagName = bag.isStat ? bag.label.replace(/^STAT\s*·\s*/i, '') : bag.label;
+          return `<article class="print-bag-card ${bag.className} ${bag.isStat ? 'bag-stat' : 'bag-routine'}${contents.length > 11 ? ' bag-long' : ''}">
+            <div class="print-bag-card-header"><div><div class="print-bag-title"><span class="print-bag-priority ${bag.isStat ? 'priority-stat' : 'priority-routine'}">${bag.isStat ? 'STAT' : 'Routine'}</span><strong>${escapeHtml(bagName)}</strong></div><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div>
             <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
               <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${printSstTigerBadge(item)}</div>
               ${printSubmissionItemDetail(item)}
@@ -3637,12 +3680,7 @@
           </article>`;
         }).join('')}</div>`).join('')}</div>
       </section>
-      <div class="print-bag-note">
-        <div><strong>STAT routing:</strong> Only tests listed for the selected Quest service area offer Mark STAT. Confirm that the specific order is accepted as STAT by the receiving lab, use its STAT requisition/courier workflow, and never put STAT specimens in a routine shipment.</div>
-        <div><strong>Tube sharing:</strong> Collection cards combine the number of tubes needed for STAT and routine tests of each type, but the counts are additive and do not imply sharing a tube across separate STAT and routine shipments. Their transport bags remain separate. Compatible urine tests may share one sterile collection cup across priorities unless separate specimens are required. Within a single priority, SST, Lavender EDTA, and Red Top tubes pool only when processing and temperature match. Whole-blood tubes and tubes used for aliquots remain separate.</div>
-        <div><strong>Tube counts:</strong> Estimates allow 2 mL of usable serum, plasma, or processed specimen per source tube and 4 mL of whole blood per Lavender tube. Multiple, dedicated, and full-tube requirements remain separate. Whole-blood amounts are shown inside each blood-tube card; serum/plasma amounts use a 2.5× whole-blood conversion.</div>
-        <div><strong>Urine:</strong> Random/spot, first-morning, timed, and 24-hour collections are kept distinct when their collection requirements differ. Compatible tests may share a sterile urine cup even when their downstream transport specimens have different priorities or temperatures; keep those transport specimens separate. Explicitly required separate urine collections must not be pooled.</div>
-      </div>
+      ${notesBeforeBag ? '' : printNotesFooter}
     </section>`;
   }
 
@@ -3663,11 +3701,7 @@
         <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><div class="print-test-name-stack"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${fastingBadge(test, 'print-test-fasting-badge')}</div>${test.alternativeContainer ? `<div class="print-test-alternative">Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span></div>` : ''}${additionalRequirementSummary(test, true)}</td><td>${requiredSpecimenBadges(test, 'print-specimen-badge')}</td><td>${requiredDrawContainerBadges(test, 'print-tube-badge')}</td><td>${printContainerBadges(test)}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">${escapeHtml(combinedVolumeText(test, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(combinedVolumeText(test, 'minimum') || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
       </table>
       ${printCollectionSubmissionPlan(tests)}
-      <div class="print-footer">
-        <div><strong>Order of draw:</strong> Pink tubes are grouped with EDTA. Temperatures are counted separately.</div>
-        <div class="print-missing-test"><strong>Missing a test?</strong> <b>Contact Sam</b> to have it added.</div>
-      </div>
-      <div class="print-ownership"><span><strong>Copyright and ownership:</strong> Copyright © 2026 Sam Hay. All rights reserved. Independently developed and maintained by Sam Hay as a personal software project and hosted through a personally controlled account. No license or ownership interest is granted except through Sam Hay’s express written authorization. Use by any organization does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay at any time and for any reason.</span></div>`;
+`;
     window.print();
   }
 

@@ -1,3 +1,10 @@
+v11.20
+- Balanced print bags across two independent columns by actual submission content, instead of alternating bag positions. Bags now stack with small, consistent gaps.
+- Restored temperature-specific outer borders for Routine bags (yellow room-temperature, blue refrigerated, purple frozen); a small green ROUTINE indicator identifies priority. STAT bags keep a red outline and STAT indicator. Headings now use standard dark text.
+- Large multi-bag print plans start on a dedicated bag page to prevent unnecessary breaks. Shipping instructions and ownership notes move before that page to avoid a nearly blank final page; small single-bag plans retain their original note order.
+- Checked single, dual, and mixed STAT/routine four-bag orders against v11.19. Bag groups, specimen contents, and container counts matched exactly.
+- No collection, pooling, STAT eligibility, catalog, or other application logic changed.
+
 v11.19
 - Moved the single-test search input above the specimen, Quest STAT, and do-not-perform filters.
 - Aligned the nurse order-of-draw sequence number and tube name/icon on one horizontal line in the printed guide.

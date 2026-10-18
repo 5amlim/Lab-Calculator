@@ -2400,3 +2400,80 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   }
   .print-order-step .print-order-additive { margin-top: 1px; }
 }
+
+/* v11.20: restore compact, visually independent bag stacks in printed plans. */
+@media print {
+  /* Starting at a clean page avoids splitting short bags because the preceding
+     collection cards used up the remaining printable height. */
+  .print-submit-section {
+    break-before: auto !important;
+    page-break-before: auto !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+    margin-top: 0;
+    padding: 5px;
+    border: 2px solid #6e579e;
+    background: #fbf9ff !important;
+  }
+  .print-submit-section.bag-page-start {
+    break-before: page !important;
+    page-break-before: always !important;
+  }
+  .print-bag-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+    align-items: start;
+  }
+  .print-bag-column {
+    display: block;
+    min-width: 0;
+  }
+  .print-bag-column > .print-bag-card + .print-bag-card { margin-top: 5px; }
+  .print-bag-card {
+    margin: 0;
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+    box-shadow: none;
+    border-width: 1.5px;
+  }
+  /* Very long bags may continue on subsequent pages at individual submission
+     items, rather than being clipped or moving as one unbreakable block. */
+  .print-bag-card.bag-long {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+  .print-bag-card.bag-stat { border-color: #c85448; box-shadow: inset 0 0 0 1px #c85448; }
+  .print-bag-card.bag-routine { border-color: #27865d; box-shadow: inset 0 0 0 1px #27865d; }
+  .print-bag-card.bag-routine .print-bag-card-header > div:first-child strong { color: #253840 !important; }
+}
+
+/* v11.20: clear temperature distinctions with understated priority markers. */
+@media print {
+  .print-bag-grid.single-bag { grid-template-columns: minmax(0, 1fr); }
+  .print-bag-grid.single-bag .print-bag-column:empty { display: none; }
+  .print-bag-card.bag-routine { box-shadow: inset 3px 0 0 #32855f; }
+  .print-bag-card.bag-routine.bag-room { border-color: #c99c12; }
+  .print-bag-card.bag-routine.bag-refrigerated { border-color: #4b9dce; }
+  .print-bag-card.bag-routine.bag-frozen { border-color: #7d66c8; }
+  .print-bag-card.bag-routine.bag-mixed,
+  .print-bag-card.bag-routine.bag-verify { border-color: #8d969b; }
+  .print-bag-title { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+  .print-bag-card-header .print-bag-title > strong {
+    color: #253840 !important; font-size: 11px; line-height: 1.2;
+  }
+  .print-bag-priority {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 2px 4px; border-radius: 3px;
+    font-size: 6.3px; line-height: 1; font-weight: 900;
+    letter-spacing: .025em; text-transform: uppercase; white-space: nowrap;
+  }
+  .print-bag-priority.priority-routine {
+    color: #246b4d !important; border: 1px solid #a6d4ba;
+    background: #e8f5ec !important;
+  }
+  .print-bag-priority.priority-stat {
+    color: #952e25 !important; border: 1px solid #e9a8a1;
+    background: #fff1ee !important;
+  }
+}
