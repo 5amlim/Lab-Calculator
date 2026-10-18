@@ -1,6 +1,6 @@
-Lab Collection Calculator v11.38
+Lab Collection Calculator v11.39
 
 Open index.html locally to check, then publish the full folder to GitHub Pages.
 
-v11.38 unifies phone and desktop print layouts and caps each single-test Gold or Tiger SST calculation at one collection tube unless explicitly instructed otherwise.
+v11.39 unifies phone and desktop print layouts and caps each single-test Gold or Tiger SST calculation at one collection tube unless explicitly instructed otherwise.
 

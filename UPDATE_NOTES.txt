@@ -1,3 +1,5 @@
+v11.39: Tiger SST pooling now assumes up to 4.0 mL usable serum per fully filled 7.5 mL Tiger tube instead of converting serum volume with a 2.5x factor and dividing by 7.5 mL blood capacity. Gold SST remains at 2.5 mL usable serum per 5 mL Gold tube. Single-test cap, explicit dedicated/multiple/full tube counts, original vs transfer separation, distinct transfer destinations, STAT and temperature groups, whole blood planning volume conversion, and desktop/mobile print styles are unchanged.
+
 v11.37: Gold SST pooled source volume updated from 2.0 mL to 2.5 mL usable serum per full 5 mL Gold tube. Other tube types and Tiger SST counts unchanged. Revised print note and collection QA; no specimen instructions or split/STAT rules changed.
 
 v11.34: Inset batch review match dropdown chevron 20px from right edge using a custom icon; preserve existing size and behavior.

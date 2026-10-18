@@ -1,3 +1,9 @@
+## v11.39 update
+
+- Tiger SST pooled tube calculation now assumes 4.0 mL usable serum per fully filled 7.5 mL tube. Gold SST remains at 2.5 mL usable serum per 5 mL tube.
+- Single-test one-SST cap, explicit multi-tube instructions, dedicated/full-tube requirements, original-submit versus transfer-source grouping, destination, STAT, temperature and print layout are unchanged.
+- Warnings for potentially insufficient serum now compare required serum volume against the selected SST's usable serum estimate (4.0 mL Tiger; 2.5 mL Gold). Whole-blood collection-volume estimates retain their independent conservative 2.5× factor. Actual recovery varies; these values are planning assumptions, not guaranteed yields.
+
 ## v11.38 update
 
 - Gold and Tiger SST now enforce a maximum of one collection tube for a single test unless explicit multi-tube instructions exist. Tests with specimen requirements that may exceed estimated one-tube yield get an additional collection warning.
@@ -290,7 +296,7 @@ Copyright © 2026 Sam Hay. All rights reserved. No license or ownership interest
 
 ## Version 3.5
 
-Test code 3020 now clearly shows the required red/yellow swirl-top UA preservative tube plus the gray-top urine culture preservative tube. The printed summary also includes a transport bag plan. Room-temperature, refrigerated, frozen, and mixed/verify specimens are kept separate. SST, Lavender EDTA, and Red Top tubes pool only within compatible specimen workflows and temperature groups. Planning assumes up to 2.5 mL usable serum per fully filled 5 mL Gold SST, 2 mL of usable plasma or other processed specimen per source tube, and 4 mL of whole blood per Lavender tube. Tiger SST retains its separate 7.5 mL blood-volume logic. Preferred/minimum whole-blood volume estimates continue to use the conservative 2.5× serum/plasma conversion. Original-submit tubes, transfer-source tubes, dedicated/full tubes, and different tube types remain separate. One test is capped at one tube of the same kind unless multiple tubes are explicitly required. Staff must verify specialty instructions and actual specimen yield before collection.
+Test code 3020 now clearly shows the required red/yellow swirl-top UA preservative tube plus the gray-top urine culture preservative tube. The printed summary also includes a transport bag plan. Room-temperature, refrigerated, frozen, and mixed/verify specimens are kept separate. SST, Lavender EDTA, and Red Top tubes pool only within compatible specimen workflows and temperature groups. Planning assumes up to 2.5 mL usable serum per fully filled 5 mL Gold SST, 2 mL of usable plasma or other processed specimen per source tube, and 4 mL of whole blood per Lavender tube. Tiger SST pooling assumes 4.0 mL usable serum per 7.5 mL draw. Preferred/minimum whole-blood volume estimates continue to use the conservative 2.5× serum/plasma conversion. Original-submit tubes, transfer-source tubes, dedicated/full tubes, and different tube types remain separate. One test is capped at one tube of the same kind unless multiple tubes are explicitly required. Staff must verify specialty instructions and actual specimen yield before collection.
 
 
 ## Manual container entry

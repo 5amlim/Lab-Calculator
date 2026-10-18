@@ -70,13 +70,13 @@
   const DEFAULT_STAT_TEST_CODES = new Set();
   const LEGACY_SELECTED_KEYS = [`${LEGACY_STORAGE_PREFIX}.selected.v1`];
   const PAGE_STEP = 30;
-  // Planning assumption for a fully filled 5 mL Gold SST: 2.5 mL of usable serum.
-  // Tiger SST (7.5 mL), other processed specimens, and whole blood retain their own rules.
-  const SST_USABLE_ML_PER_TUBE = 2.5;
+  // SST pooling plans use estimated usable serum, not the source tube's
+  // nominal whole-blood draw capacity. These are planning assumptions only.
+  const SST_USABLE_ML_PER_TUBE = 2.5;       // Gold: 5 mL blood draw.
+  const TIGER_SST_USABLE_ML_PER_TUBE = 4; // Tiger: 7.5 mL blood draw.
   const PROCESSED_SPECIMEN_USABLE_ML_PER_TUBE = 2;
   const WHOLE_BLOOD_USABLE_ML_PER_TUBE = 4;
   const SERUM_PLASMA_TO_WHOLE_BLOOD_FACTOR = 2.5;
-  const TIGER_SST_CAPACITY_ML = 7.5;
   const RBC_TO_WHOLE_BLOOD_FACTOR = 2.5;
   const ORDER_OF_DRAW = [
     { key: 'culture', number: 1, label: 'Blood cultures', additive: 'See bottle label', tubeClass: 'tube-culture' },
@@ -2060,34 +2060,37 @@
   }
 
   function tigerSstEstimateForTests(tests) {
-    let sharedBloodMl = 0;
+    let sharedMl = 0;
     let dedicatedTubes = 0;
     let unmeasuredTubes = 0;
 
     tests.filter(isSstDraw).forEach(test => {
-      const conversion = wholeBloodConversionFactor(test.specimenType) || { factor: SERUM_PLASMA_TO_WHOLE_BLOOD_FACTOR, type: 'serum-plasma' };
-      let bloodMl = volumeForRequirement(test, 'preferred', conversion);
-      if (bloodMl === null) bloodMl = volumeForRequirement(test, 'minimum', conversion);
+      // Pool using usable serum volumes, as with Gold SST, rather than the
+      // 7.5 mL whole-blood draw volume. Preferred takes priority over minimum.
+      // Retain Tiger's existing recognition of totals and per-tube volumes;
+      // change only the unit to usable serum mL, without blood conversion.
+      const serumConversion = { factor: 1 };
+      const preferredMl = volumeForRequirement(test, 'preferred', serumConversion);
+      const fallbackMl = preferredMl === null ? volumeForRequirement(test, 'minimum', serumConversion) : null;
+      const plannedMl = preferredMl === null ? fallbackMl : preferredMl;
       const explicitCount = Math.max(explicitSstTubeCount(test), 1);
 
       if (requiresDedicatedSst(test) || hasCollectionFillRule(test)) {
-        // Match Gold SST: a single test must not request additional source SSTs
-        // solely because its listed volume exceeds the assumed tube yield.
-        // Explicit two/three-tube collection requirements still take priority.
+        // Dedicated, full-tube and explicitly required multi-tube collection
+        // rules are not affected by the 4 mL pooling assumption.
         dedicatedTubes += explicitCount;
-      } else if (bloodMl !== null) {
-        // A single test contributes no more than one Tiger's nominal draw volume.
-        // If its preferred/minimum sample requirement may not fit, the warning
-        // identifies that issue instead of silently recommending extra tubes.
-        sharedBloodMl += Math.min(bloodMl, TIGER_SST_CAPACITY_ML);
+      } else if (plannedMl !== null) {
+        // Never infer a second source SST for a single test solely from volume.
+        // The volume warning flags tests that may exceed the assumed yield.
+        sharedMl += Math.min(plannedMl, TIGER_SST_USABLE_ML_PER_TUBE);
       } else {
         unmeasuredTubes += 1;
       }
     });
 
-    const sharedTubes = sharedBloodMl > 0 ? Math.ceil(sharedBloodMl / TIGER_SST_CAPACITY_ML) : 0;
+    const sharedTubes = sharedMl > 0 ? Math.ceil(sharedMl / TIGER_SST_USABLE_ML_PER_TUBE) : 0;
     return {
-      sharedBloodMl,
+      sharedMl,
       sharedTubes,
       dedicatedTubes,
       unmeasuredTubes,
@@ -2101,10 +2104,9 @@
     // The selected source container still counts as one unless a source
     // explicitly requests multiple collection tubes.
     const tiger = selectedSstIsTiger();
-    const capacity = tiger ? TIGER_SST_CAPACITY_ML : SST_USABLE_ML_PER_TUBE;
-    const conversion = wholeBloodConversionFactor(test.specimenType) || {factor:SERUM_PLASMA_TO_WHOLE_BLOOD_FACTOR};
-    const preferred = tiger ? volumeForRequirement(test, 'preferred', conversion) : parseVolumeMl(test.preferredVolume);
-    const minimum = tiger ? volumeForRequirement(test, 'minimum', conversion) : parseVolumeMl(test.minimumVolume);
+    const capacity = tiger ? TIGER_SST_USABLE_ML_PER_TUBE : SST_USABLE_ML_PER_TUBE;
+    const preferred = tiger ? volumeForRequirement(test, 'preferred', { factor: 1 }) : parseVolumeMl(test.preferredVolume);
+    const minimum = tiger ? volumeForRequirement(test, 'minimum', { factor: 1 }) : parseVolumeMl(test.minimumVolume);
     if (minimum !== null && minimum > capacity + 1e-8) {
       return `minimum required volume may exceed one ${tiger ? 'Tiger' : 'Gold'} SST's assumed yield. Verify the collection tube count with the receiving lab; the one-tube estimate may be insufficient.`;
     }
@@ -3638,7 +3640,7 @@
       <div class="print-bag-note">
         <div><strong>STAT routing:</strong> Only tests listed for the selected receiving lab are STAT eligible. Confirm that the specific order is accepted as STAT by the receiving lab, use its STAT requisition/courier workflow, and never put STAT specimens in a routine shipment.</div>
         <div><strong>Tube sharing:</strong> Collection cards combine the number of tubes needed for STAT and routine tests of each type, but the counts are additive and do not imply sharing a tube across separate STAT and routine shipments. Their transport bags remain separate. Compatible urine tests may share one sterile collection cup across priorities unless separate specimens are required. Within a single priority, SST, Lavender EDTA, and Red Top tubes pool only when processing and temperature match. Whole-blood tubes and tubes used for aliquots remain separate.</div>
-        <div><strong>Tube counts:</strong> Gold SST pooling assumes up to 2.5 mL of usable serum per fully filled 5 mL Gold tube. Other processed-specimen source tubes assume 2 mL; Lavender whole-blood tubes assume 4 mL. Tiger SST uses its separate 7.5 mL draw-capacity rule. Dedicated, multiple, and full-tube instructions take priority. The preferred/minimum whole-blood draw estimates separately use a conservative 2.5× serum/plasma conversion. Actual serum yield may be lower; verify specimen sufficiency and receiving-lab requirements.</div>
+        <div><strong>Tube counts:</strong> Gold SST pooling assumes up to 2.5 mL of usable serum per fully filled 5 mL Gold tube. Other processed-specimen source tubes assume 2 mL; Lavender whole-blood tubes assume 4 mL. Tiger SST pooling assumes up to 4 mL of usable serum per fully filled 7.5 mL Tiger tube. Dedicated, multiple, and full-tube instructions take priority. The preferred/minimum whole-blood draw estimates separately use a conservative 2.5× serum/plasma conversion. Actual serum yield may be lower; verify specimen sufficiency and receiving-lab requirements.</div>
         <div><strong>Urine:</strong> Random/spot, first-morning, timed, and 24-hour collections are kept distinct when their collection requirements differ. Compatible tests may share a sterile urine cup even when their downstream transport specimens have different priorities or temperatures; keep those transport specimens separate. Explicitly required separate urine collections must not be pooled.</div>
       </div>
       </div>
