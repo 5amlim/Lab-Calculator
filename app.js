@@ -3521,6 +3521,28 @@
     });
   }
 
+  // Specimen identity within the transfer-source pill is a print-only cue;
+  // the colored specimen badge in the title remains the source of truth.
+  function printTransferSpecimenType(tests) {
+    const types = [...new Set(uniqueTests(tests || []).map(test => normalizeSpecimenType(test.specimenType).toLowerCase().trim()))];
+    if (!types.length) return { label: 'Specimen', color: 'other' };
+    const categories = types.map(specimen => {
+      if (/\b(?:stool|feces|fecal|faeces|faecal)\b/.test(specimen)) return ['Stool', 'stool'];
+      if (/\burine\b/.test(specimen)) return ['Urine', 'urine'];
+      if (/\b(?:platelet[- ]poor )?plasma\b/.test(specimen)) return [specimen.includes('platelet') ? 'Platelet-Poor Plasma' : 'Plasma', 'plasma'];
+      if (/\bserum\b/.test(specimen)) return ['Serum', 'serum'];
+      if (/\brbcs?\b|red blood cells/.test(specimen)) return ['RBCs', 'rbc'];
+      if (/\bwhole blood\b/.test(specimen)) return ['Whole Blood', 'blood'];
+      if (/\bblood\b/.test(specimen)) return ['Blood', 'blood'];
+      if (/\bswab\b/.test(specimen)) return ['Swab', 'swab'];
+      return ['Specimen', 'other'];
+    });
+    const labels = new Map(categories.map(([label, color]) => [label, color]));
+    return labels.size === 1
+      ? { label: labels.keys().next().value, color: labels.values().next().value }
+      : { label: 'Mixed', color: 'other' };
+  }
+
   function printSubmissionSourceBadges(item) {
     if (item.originalTube) return '';
     const badges = submissionSourceGroupsForItem(item);
@@ -3540,7 +3562,11 @@
           && /^yes$/i.test(String(test.spin || '').trim());
       });
       const sourceLabel = source.label;
-      return `<span class="print-source-group"><span class="print-source-tube-badge tube ${displayClass}">${countBadge}<span class="print-source-from">From</span><span>${spun ? 'spun ' : ''}${escapeHtml(sourceLabel)}</span></span>${spun ? '<span class="print-source-spun">· Spin</span>' : ''}</span>`;
+      const specimen = printTransferSpecimenType(tests);
+      const specimenCue = `<span class="print-source-specimen source-${specimen.color}">${escapeHtml(specimen.label)}</span>`;
+      // The upward arrow sits before the intact pill, while specimen identity,
+      // From spun/source wording, tube icon and quantity all remain inside it.
+      return `<span class="print-source-group"><span class="print-source-transfer-arrow" aria-hidden="true">↑</span><span class="print-source-tube-badge tube ${displayClass}">${countBadge}${specimenCue}<span class="print-source-from">From</span><span>${spun ? 'spun ' : ''}${escapeHtml(sourceLabel)}</span></span>${spun ? '<span class="print-source-spun">· Spin ✓</span>' : ''}</span>`;
     }).join('')}</span>`;
   }
 
@@ -3611,8 +3637,8 @@
       const spins = /\bspun\b|\bcentrifug/i.test(detail);
       const exceptional = /fully saturate|do not pour|protect from light/i.test(detail) ? detail : '';
       const handling = isSpunSst
-        ? 'Spun SST · Submit in original tube'
-        : `${spins ? '· Spin · ' : ''}Submit in original tube`;
+        ? 'Submit in original tube · Spin ✓'
+        : `Submit in original tube${spins ? ' · Spin ✓' : ''}`;
       const text = exceptional ? `${handling} · ${exceptional}` : handling;
       return `<div class="print-submit-item-detail">${escapeHtml(text)}</div>`;
     }
@@ -3952,10 +3978,10 @@
           const bagName = bag.isStat ? bag.label.replace(/^STAT\s*·\s*/i, '') : bag.label;
           const bagNumber = rowIndex * 2 + columnIndex + 1;
           return `<article class="print-bag-card ${bag.className} ${bag.isStat ? 'bag-stat' : 'bag-routine'}${contents.length > 11 ? ' bag-long' : ''}">
-            <div class="print-bag-topbar"><span class="print-bag-topbar-spacer" aria-hidden="true"></span><span class="print-bag-priority ${bag.isStat ? 'priority-stat' : 'priority-routine'}">${bag.isStat ? 'STAT' : 'Routine'}</span><span class="print-bag-topbar-index">Bag ${bagNumber}/${bags.length}</span></div>
+            <div class="print-bag-topbar"><span class="print-bag-topbar-label">Bag</span><span class="print-bag-priority ${bag.isStat ? 'priority-stat' : 'priority-routine'}">${bag.isStat ? 'STAT' : 'Routine'}</span><span class="print-bag-topbar-index" aria-label="Bag ${bagNumber} of ${bags.length}">${bagNumber}/${bags.length}</span></div>
             <div class="print-bag-card-header"><div><div class="print-bag-title"><strong>${escapeHtml(bagName)}</strong></div><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-header-right"><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div></div>
             <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
-              <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}"><span class="print-submit-container-name">${escapeHtml(item.label)}</span></span>${printSstTigerBadge(item)}${printBagSpecimenBadge(item)}</div>
+              <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}"><span class="print-submit-container-name">${escapeHtml(item.originalTube && item.key === 'sst-spun' ? (selectedSstIsTiger() ? 'Tiger SST (Spun)' : 'Gold SST (Spun)') : item.label)}</span></span>${printSstTigerBadge(item)}${printBagSpecimenBadge(item)}</div>
               ${printSubmissionItemDetail(item)}
               ${printLabelingNotes(item)}
               <div class="print-for-tests${uniqueTests(item.tests).length > 8 ? ' is-bag-dense' : ''}"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul${uniqueTests(item.tests).length > 8 ? ` style="--bag-test-rows:${Math.ceil(uniqueTests(item.tests).length / 2)}"` : ''}>${testReferences(item.tests)}</ul></div>

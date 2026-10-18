@@ -1,3 +1,14 @@
+## v11.73: Bag header and SST submission names
+
+- Each printed transport bag now shows BAG at the left of the header, Routine/STAT centered, and the numbered bag count in a pale badge on the right.
+- Original spun SST submission-card names are now Gold SST (Spun) and Tiger SST (Spun); all other details, counts, and tube-source instructions stay the same.
+
+## v11.72: Transfer arrows, source specimen cue, and SST spin reminder
+
+- For original Gold / Tiger SST submissions only, the printed container heading now says Gold / Spun SST or Tiger Spun SST; the handling note is Submit in original tube · Spin ✓.
+- For transferred specimens, a small upward arrow precedes the original numbered source-tube pill. Inside the pill, colored specimen text appears before From spun [source tube], or From [source] if spinning is not required.
+- Every printed · Spin cue now ends with a checkmark. No special LABEL instructions or pooling logic changed.
+
 ## v11.71: Submission card hairline and original-tube reminders
 
 - Added a very faint gray separator between the tube/container title row and its source/handling detail below.

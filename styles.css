@@ -3270,3 +3270,93 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     pointer-events: none;
   }
 }
+
+/* v11.72: Small transfer marker outside the source pill, with the specimen
+   identified by colored text within the existing numbered tube pill. */
+@media print {
+  .print-sheet .print-source-group {
+    gap: 3px;
+    max-width: 100%;
+  }
+  .print-sheet .print-source-transfer-arrow {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    min-width: 10px;
+    color: #457c87 !important;
+    font-size: 11px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .print-sheet .print-source-specimen {
+    font-size: 5.7px;
+    font-weight: 950;
+    letter-spacing: .015em;
+    white-space: nowrap;
+  }
+  .print-sheet .print-source-specimen.source-serum { color: #226443 !important; }
+  .print-sheet .print-source-specimen.source-plasma { color: #1e5c82 !important; }
+  .print-sheet .print-source-specimen.source-rbc { color: #843232 !important; }
+  .print-sheet .print-source-specimen.source-blood { color: #8b3a50 !important; }
+  .print-sheet .print-source-specimen.source-urine { color: #74550c !important; }
+  .print-sheet .print-source-specimen.source-stool { color: #a25d19 !important; }
+  .print-sheet .print-source-specimen.source-swab { color: #654594 !important; }
+  .print-sheet .print-source-specimen.source-other { color: #465d65 !important; }
+  .print-sheet .print-source-tube-badge { gap: 3px; }
+  .print-sheet .print-source-spun { white-space: nowrap; }
+}
+
+
+/* v11.73: Bag masthead has a small BAG label left, centered priority, and
+   a distinct numbered badge on the right. This only affects print layout. */
+@media print {
+  .print-sheet .print-bag-topbar {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 6px;
+  }
+  .print-sheet .print-bag-topbar-label {
+    display: inline-flex;
+    justify-self: start;
+    align-items: center;
+    color: #e8f0f2 !important;
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: .09em;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .print-sheet .print-bag-topbar .print-bag-priority {
+    justify-self: center;
+    flex: none;
+    min-width: 92px;
+  }
+  .print-sheet .print-bag-topbar-index {
+    position: static;
+    transform: none;
+    justify-self: end;
+    display: inline-flex;
+    flex: none;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    min-width: 47px;
+    min-height: 16px;
+    padding: 2px 7px;
+    background: #f5f7f8 !important;
+    border: 1px solid #c9d6d9;
+    border-radius: 4px;
+    color: #30444c !important;
+    font-size: 8.4px;
+    font-weight: 950;
+    line-height: 1;
+    letter-spacing: .045em;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

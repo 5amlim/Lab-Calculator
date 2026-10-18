@@ -1,3 +1,13 @@
+v11.73
+- Bag headers: BAG left, centered priority, numbered badge right.
+- Original spun SST submission names: Gold SST (Spun) / Tiger SST (Spun).
+- Display-only print update; no counting or routing changes.
+
+v11.72
+- Moved spun SST identification into original SST container headings; body reads Submit in original tube · Spin ✓.
+- Added small transfer arrow before the source pill and colored specimen text inside the pill before From; added ✓ after external · Spin cues.
+- No changes to pooling, bag assignments, or labeling.
+
 v11.71
 - Added a near-invisible gray hairline between the submission container title and its source/handling detail.
 - Restored Submit in original tube text on original-tube submission cards.
