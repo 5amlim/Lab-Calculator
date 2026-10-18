@@ -3468,3 +3468,21 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     max-width: 100% !important;
   }
 }
+
+/* iPhone print: WebKit can split a grid card's header from its contents.
+   Start dense collection groups together on a clean page, without changing
+   the two-column card grid or pagination for ordinary small orders. */
+@media print {
+  html.mobile-print .print-sheet .print-collection-card {
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+    -webkit-column-break-inside: avoid !important;
+  }
+  html.mobile-print .print-logistics-plan:has(
+    .print-collection-card.is-sst-long,
+    .print-fasting-item:nth-child(4)
+  ) > .print-logistics-subheading {
+    break-before: page !important;
+    page-break-before: always !important;
+  }
+}
