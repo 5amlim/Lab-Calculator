@@ -3443,3 +3443,11 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     word-spacing: normal;
   }
 }
+
+/* Keep the collection section title on the page with the first tube card. */
+@media print {
+  .print-sheet .print-logistics-subheading {
+    break-after: avoid-page !important;
+    page-break-after: avoid !important;
+  }
+}
