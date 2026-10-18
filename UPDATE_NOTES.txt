@@ -1,3 +1,7 @@
+v11.55
+- Fixed mobile Safari print pagination: the purple "What to submit after processing" heading now starts on a fresh printed page together with its first bag row. This avoids an orphaned header/empty purple outline on the prior page.
+- Same printed layout and pagination policy on desktop and mobile; no changes to bag widths, calculations, specimen routing, dedicated tubes, STAT, or pooling.
+
 v11.54
 - Submission bag test lists switch to two print columns for more than eight tests per tube type; all source/transport/pooling rules are unchanged.
 - Reduced detailed table Special handling body text only, keeping other column typography and layout.

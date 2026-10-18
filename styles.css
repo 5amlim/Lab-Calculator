@@ -3090,3 +3090,21 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     letter-spacing: 0 !important;
   }
 }
+
+/* v11.55: iOS Safari print pagination safeguard. The submission heading and
+   first bag row must begin together on a new page. Keep the two-column bag
+   layout unchanged and do not duplicate the heading on continuation pages. */
+@media print {
+  .print-submit-section.bag-page-start {
+    break-before: page !important;
+    page-break-before: always !important;
+  }
+  .print-submit-heading {
+    break-after: avoid-page !important;
+    page-break-after: avoid !important;
+  }
+  .print-bag-row:first-child {
+    break-before: avoid-page !important;
+    page-break-before: avoid !important;
+  }
+}

@@ -3751,7 +3751,11 @@
     for (let i = 0; i < bagDisplayOrder.length; i += 2) {
       bagRows.push(bagDisplayOrder.slice(i, i + 2));
     }
-    const bagStartOnFreshPage = bags.length >= 3 || bagRenderData.some(entry => entry.contents.length >= 8);
+    // Start the submission plan on its own print page. Without a hard page
+    // boundary, iOS Safari can leave the purple heading and a large empty
+    // bordered area on one page while moving the first unbreakable bag row to
+    // the next. This is strictly a print pagination rule, not a routing change.
+    const bagStartOnFreshPage = bags.length > 0;
     const fastingItems = fastingRequirementsForTests(tests);
     const fastingPanel = fastingItems.length ? `<div class="print-fasting-panel">
       <div class="print-fasting-panel-title"><strong>Fasting instructions</strong><span>Confirm before collection</span></div>
