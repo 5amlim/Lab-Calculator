@@ -1,3 +1,8 @@
+v11.44
+- Increased the printed What to submit footer bag total to a 19 px number in a 30 px high white badge.
+- Condensed STAT, collection/transport tube sharing, yield assumptions, urine and order-of-draw notes into a two-column quick handling reminders grid. Preserved relevant exceptions and specimen-sufficiency warnings.
+- Print-only presentation update. No changes to test catalog, pooling calculations or STAT routing.
+
 ## v11.42 update
 
 - Standard serum aliquot LABEL instructions now say **Serum** instead of **Serum from Gold / SST** (also for Tiger SST). Explicit test-specific labeling requirements are kept.

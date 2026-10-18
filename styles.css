@@ -2953,3 +2953,65 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     page-break-inside: avoid;
   }
 }
+
+
+/* v11.44: Emphasize the bag total and make handling notes easy to scan.
+   Applies equally to the fixed-width desktop and mobile print template. */
+@media print {
+  .print-submit-footer-badge {
+    gap: 6px !important;
+    min-width: 98px !important;
+    min-height: 30px !important;
+    padding: 4px 12px !important;
+    box-sizing: border-box;
+    align-items: center;
+  }
+  .print-submit-footer-badge > strong {
+    color: #534178 !important;
+    font-size: 19px !important;
+    font-weight: 950;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .print-submit-footer-badge > span {
+    color: #534178 !important;
+    font-size: 9px !important;
+    font-weight: 850;
+    line-height: 1;
+    letter-spacing: .03em;
+  }
+  .print-bag-note-title {
+    margin: 7px 0 4px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ccd7dc;
+    color: #263f4a !important;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+  }
+  .print-bag-note {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px 12px;
+    margin-top: 0;
+    font-size: 8px;
+    line-height: 1.3;
+  }
+  .print-bag-note > div,
+  .print-bag-note > div + div {
+    margin: 0 !important;
+    padding: 3px 6px 3px 8px;
+    border-left: 2px solid #c4d3d9;
+    min-width: 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .print-bag-note > div > strong {
+    display: block;
+    margin-bottom: 2px;
+    color: #2c4750 !important;
+    font-size: 8.4px;
+    font-weight: 900;
+  }
+}

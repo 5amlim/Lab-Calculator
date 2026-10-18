@@ -3692,17 +3692,18 @@
   function printNotesFooter() {
     return `
       <div class="print-shipping-notes">
-      <div class="print-bag-note">
-        <div><strong>STAT routing:</strong> Only tests listed for the selected receiving lab are STAT eligible. Confirm that the specific order is accepted as STAT by the receiving lab, use its STAT requisition/courier workflow, and never put STAT specimens in a routine shipment.</div>
-        <div><strong>Tube sharing:</strong> Collection cards combine the number of tubes needed for STAT and routine tests of each type, but the counts are additive and do not imply sharing a tube across separate STAT and routine shipments. Their transport bags remain separate. Compatible urine tests may share one sterile collection cup across priorities unless separate specimens are required. Within a single priority, SST, Lavender EDTA, and Red Top tubes pool only when processing and temperature match. Whole-blood tubes and tubes used for aliquots remain separate.</div>
-        <div><strong>Transport aliquot sharing:</strong> Up to two compatible serum tests OR two compatible plasma tests may share one standard transport tube in the same priority/temperature bag, from the same source and processing workflow. Dedicated tubes, special containers, and explicit separate-submission instructions override this rule. Confirm there is sufficient volume for both tests and that the receiving lab accepts a shared aliquot.</div>
-        <div><strong>Tube counts:</strong> Gold SST pooling assumes up to 2.5 mL of usable serum per fully filled 5 mL Gold tube. Other processed-specimen source tubes assume 2 mL; Lavender whole-blood tubes assume 4 mL. Tiger SST pooling assumes up to 4 mL of usable serum per fully filled 7.5 mL Tiger tube. Dedicated, multiple, and full-tube instructions take priority. The preferred/minimum whole-blood draw estimates separately use a conservative 2.5× serum/plasma conversion. Actual serum yield may be lower; verify specimen sufficiency and receiving-lab requirements.</div>
-        <div><strong>Urine:</strong> Random/spot, first-morning, timed, and 24-hour collections are kept distinct when their collection requirements differ. Compatible tests may share a sterile urine cup even when their downstream transport specimens have different priorities or temperatures; keep those transport specimens separate. Explicitly required separate urine collections must not be pooled.</div>
-      </div>
+        <div class="print-bag-note-title">Quick handling reminders</div>
+        <div class="print-bag-note">
+          <div><strong>STAT shipments</strong>Only listed tests may be STAT for the selected lab. Confirm acceptance, use STAT requisition/courier steps, and never ship with routine specimens.</div>
+          <div><strong>Collection tube sharing</strong>STAT and routine tube counts are added, not shared. Pool SST, Lavender EDTA, or Red Top only when priority, processing, and temperature match. Keep whole-blood and aliquot-source tubes separate.</div>
+          <div><strong>Serum / plasma transport</strong>Up to 2 compatible serum tests or 2 plasma tests may share a tube if source, processing, priority, and temperature match. Verify volume and lab acceptance. Dedicated/special/separate-tube rules take priority.</div>
+          <div><strong>Volume estimates</strong>Gold SST: 5 mL draw → up to 2.5 mL serum; Tiger SST: 7.5 mL → up to 4 mL. Other processed sources: 2 mL; Lavender whole blood: 4 mL. Draw estimates use 2.5× serum/plasma volume. Actual yield may be lower; full/multiple-tube rules override.</div>
+          <div><strong>Urine collection</strong>Keep random, first-morning, timed, and 24-hour specimens distinct as required. Compatible tests may share a sterile cup, but separate STAT, routine, and temperature-specific transport specimens. Never combine explicitly separate collections.</div>
+          <div><strong>Order of draw / temperatures</strong>Pink counts as EDTA. Count transport temperatures separately.</div>
+        </div>
       </div>
       <div class="print-prebag-footer">
       <div class="print-footer">
-        <div><strong>Order of draw:</strong> Pink tubes are grouped with EDTA. Temperatures are counted separately.</div>
         <div class="print-missing-test"><strong>Missing a test?</strong> <b>Contact Sam</b> to have it added.</div>
       </div>
       <div class="print-ownership"><span><strong>Copyright and ownership:</strong> Copyright © 2026 Sam Hay. All rights reserved. Independently developed and maintained by Sam Hay as a personal software project and hosted through a personally controlled account. No license or ownership interest is granted except through Sam Hay’s express written authorization. Use by any organization does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay at any time and for any reason.</span></div>
@@ -3796,7 +3797,7 @@
             </div>`).join('')}</div>
           </article>`;
         }).join('')}</div>`).join('')}</div>
-        <div class="print-submit-footer"><span class="print-submit-footer-label">Confirm number of bags before sealing and sending</span><span class="print-submit-footer-badge">${bags.length} ${bags.length === 1 ? 'bag' : 'bags'}</span></div>
+        <div class="print-submit-footer"><span class="print-submit-footer-label">Confirm number of bags before sealing and sending</span><span class="print-submit-footer-badge"><strong>${bags.length}</strong> <span>${bags.length === 1 ? 'bag' : 'bags'}</span></span></div>
       </section>
     </section>`;
   }

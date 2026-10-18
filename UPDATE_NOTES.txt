@@ -1,3 +1,8 @@
+v11.44
+- Increased the printed What to submit footer bag total to a 19 px number in a 30 px high white badge.
+- Condensed STAT, collection/transport tube sharing, yield assumptions, urine and order-of-draw notes into a two-column quick handling reminders grid. Preserved relevant exceptions and specimen-sufficiency warnings.
+- Print-only presentation update. No changes to test catalog, pooling calculations or STAT routing.
+
 v11.43
 - Print bag rows no longer stretch a lone final bag across the full width; odd rows remain in the normal two-column submit layout.
 - Added a purple footer to the What to submit after processing section with a clear total bag-count badge for confirmation before sending.
