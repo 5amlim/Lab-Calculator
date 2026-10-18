@@ -1,3 +1,12 @@
+## v11.76: Neonatal Microtainer submission, compact filters, and browser-added test cleanup
+
+- For Quest neonatal bilirubin codes 6631, 20381, and 34162, submit the required spun amber Microtainer SSTs in their original containers, protected from light. No default amber serum transport-tube transfer. Preserve two Microtainers per assay and existing independent counts.
+- Normalize the text spacing inside transport source-tube pills around “From” without changing numbers, specimen labels, or routing.
+- Replace the specimen dropdown with a compact Filters panel: specimen, transport temperature, fasting (required/preferred/verify), explicitly named pediatric/neonatal tests, and centrifugation. Multiple selected filters narrow the displayed test list together; Clear filters restores all tests.
+- Add Clear browser-added tests beside Show more tests in the directory footer. It asks for confirmation, removes only local custom entries (and their order selections), and preserves bundled directory entries plus local edits to those entries. The button is disabled when there are no browser-added tests.
+- Pediatric filter uses explicitly named pediatric or neonatal entries, not inferred age eligibility. Test requirements still need to be verified against the current official directory.
+- Mobile and desktop screen rendering, print data, and calculation checks performed in Chromium; iPhone Safari print output not independently tested.
+
 ## v11.75: Shorter Microtainer flag and larger printed bag temperatures
 - Microtainer badge now reads “MICROTAINER”, and its handling note no longer mentions separate counting or separation from standard SSTs.
 - Printed bag temperature headings are larger (13.5 px instead of 11 px).

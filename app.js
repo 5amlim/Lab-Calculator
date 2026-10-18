@@ -101,7 +101,7 @@
   const els = {
     recordCount: $('recordCount'), searchInput: $('searchInput'), addBestButton: $('addBestButton'),
     previewButton: $('previewButton'), clearSearchButton: $('clearSearchButton'), batchResults: $('batchResults'),
-    libraryFilter: $('libraryFilter'), specimenFilter: $('specimenFilter'),
+    libraryFilter: $('libraryFilter'), specimenFilter: $('specimenFilter'), temperatureFilter: $('temperatureFilter'), fastingFilter: $('fastingFilter'), pediatricFilter: $('pediatricFilter'), spinFilter: $('spinFilter'), catalogFilterButton: $('catalogFilterButton'), catalogFilterButtonText: $('catalogFilterButtonText'), catalogFilterPanel: $('catalogFilterPanel'), catalogFilterReset: $('catalogFilterReset'), catalogFilterDone: $('catalogFilterDone'), catalogFilterControl: $('catalogFilterControl'), clearBrowserTestsButton: $('clearBrowserTestsButton'), browserCustomCount: $('browserCustomCount'),
     libraryBody: $('libraryBody'), libraryStatus: $('libraryStatus'), loadMoreButton: $('loadMoreButton'), loadMoreInlineButton: $('loadMoreInlineButton'),
     blockedListButton: $('blockedListButton'), blockedListPanel: $('blockedListPanel'), blockedListBody: $('blockedListBody'),
     addTestButton: $('addTestButton'), addSelectedTestButton: $('addSelectedTestButton'), testsDetailsButton: $('testsDetailsButton'), testsDetailsPanel: $('testsDetailsPanel'),
@@ -160,7 +160,13 @@
       if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') renderBatch(true);
     });
     els.libraryFilter.addEventListener('input', () => { libraryLimit = PAGE_STEP; renderLibrary(); });
-    els.specimenFilter.addEventListener('change', () => { libraryLimit = PAGE_STEP; renderLibrary(); });
+    [els.specimenFilter, els.temperatureFilter, els.fastingFilter, els.pediatricFilter, els.spinFilter].forEach(control => control.addEventListener('change', () => { libraryLimit = PAGE_STEP; renderLibrary(); }));
+    els.catalogFilterButton.addEventListener('click', () => toggleCatalogFilters());
+    els.catalogFilterDone.addEventListener('click', () => toggleCatalogFilters(false));
+    els.catalogFilterReset.addEventListener('click', resetCatalogFilters);
+    document.addEventListener('click', event => { if (!els.catalogFilterControl.contains(event.target)) toggleCatalogFilters(false); });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') toggleCatalogFilters(false); });
+    els.clearBrowserTestsButton.addEventListener('click', clearBrowserAddedTests);
     els.loadMoreButton.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
     els.blockedListButton?.addEventListener('click', () => { blockedListOpen = !blockedListOpen; renderBlockedList(); });
     els.loadMoreInlineButton?.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
@@ -453,7 +459,7 @@
     }
 
     const specimenType = normalizeSpecimenType(record.specimenType);
-    const transportContainer = cleanTransportContainer(record.transportContainer);
+    let transportContainer = cleanTransportContainer(record.transportContainer);
     let drawContainer = normalizeStoolCollectionSource(
       specimenType,
       normalizeUrineCollectionSource(
@@ -469,6 +475,13 @@
       && /\bserum\b/i.test(specimenType)
       && /sst|serum separator|gold|microtainer/i.test(drawContainer);
     if (microtainerRequired) drawContainer = 'Amber Microtainer SST';
+    // Quest neonatal bilirubin codes 6631, 20381 and 34162 accept two
+    // spun amber Microtainer SSTs in their original tubes. The amber
+    // transport vial is an alternative, not the required default route.
+    // Preserve explicit two-tube source counts and protect-from-light notes.
+    if (microtainerRequired && /^(?:6631|20381|34162)$/.test(String(record.testCode || '').trim())) {
+      transportContainer = 'Amber Microtainer SST (spun)';
+    }
 
     return {
       id: String(record.id || `custom-${Date.now()}-${index}`),
@@ -1103,11 +1116,71 @@
     return 'Other';
   }
 
+  function toggleCatalogFilters(force) {
+    const open = typeof force === 'boolean' ? force : els.catalogFilterPanel.classList.contains('hidden');
+    els.catalogFilterPanel.classList.toggle('hidden', !open);
+    els.catalogFilterButton.setAttribute('aria-expanded', String(open));
+  }
+
+  function resetCatalogFilters() {
+    els.specimenFilter.value = '';
+    els.temperatureFilter.value = '';
+    els.fastingFilter.value = '';
+    els.pediatricFilter.checked = false;
+    els.spinFilter.checked = false;
+    libraryLimit = PAGE_STEP;
+    renderLibrary();
+  }
+
+  function libraryFilterCount() {
+    return [els.specimenFilter.value, els.temperatureFilter.value, els.fastingFilter.value,
+      els.pediatricFilter.checked, els.spinFilter.checked].filter(Boolean).length;
+  }
+
+  function matchesLibraryFilters(test) {
+    const specimen = els.specimenFilter.value;
+    if (specimen && specimenFilterCategory(test.specimenType) !== specimen) return false;
+    const temperature = els.temperatureFilter.value;
+    if (temperature && transportBagInfo(test).key !== temperature) return false;
+    const fasting = els.fastingFilter.value;
+    if (fasting && fastingRequirement(test)?.level !== fasting) return false;
+    // Limit this category to explicitly named pediatric/neonatal tests;
+    // general references to a patient's age in instructions are not reliable age eligibility.
+    if (els.pediatricFilter.checked && !/\b(pediatric|paediatric|neonatal|newborn|infant|child(?:ren)?|microtainer)\b/i.test(test.testName)) return false;
+    if (els.spinFilter.checked && !/^(yes|required)$/i.test(String(test.spin || '').trim())) return false;
+    return true;
+  }
+
+  function browserAddedTests() {
+    return database.filter(test => test.id.startsWith('custom-') || test.source === 'Custom entry');
+  }
+
+  function updateBrowserClearButton() {
+    const count = browserAddedTests().length;
+    els.clearBrowserTestsButton.disabled = !count;
+    els.browserCustomCount.textContent = count ? `(${count})` : '(0)';
+    els.clearBrowserTestsButton.title = count ? 'Remove only tests created in this browser' : 'No browser-created tests to remove';
+  }
+
+  function clearBrowserAddedTests() {
+    const custom = browserAddedTests();
+    if (!custom.length) return;
+    if (!window.confirm(`Remove ${custom.length} browser-added ${custom.length === 1 ? 'test' : 'tests'}? This cannot be undone. Built-in packaged tests and edits to those tests will not be deleted.`)) return;
+    const ids = new Set(custom.map(test => test.id));
+    database = database.filter(test => !ids.has(test.id));
+    selectedIds = selectedIds.filter(id => !ids.has(id));
+    statSelectedIds = statSelectedIds.filter(id => !ids.has(id));
+    saveStatSelectedIds();
+    saveSelected();
+    persistDatabase();
+    renderAll();
+    showToast(`${custom.length} browser-added ${custom.length === 1 ? 'test' : 'tests'} removed. Packaged tests preserved.`);
+  }
+
   function renderLibrary() {
     const filter = normalizeSearch(els.libraryFilter.value);
-    const specimenCategory = els.specimenFilter.value;
     const filtered = database
-      .filter(test => test.status !== 'blocked' && (!specimenCategory || specimenFilterCategory(test.specimenType) === specimenCategory))
+      .filter(test => test.status !== 'blocked' && matchesLibraryFilters(test))
       .map(test => ({ test, score: filter ? rankLibraryTest(filter, test) : 1 }))
       .filter(item => item.score > 0);
     if (filter) filtered.sort((a, b) => b.score - a.score || a.test.testName.localeCompare(b.test.testName));
@@ -1119,6 +1192,10 @@
     const allLibraryTestsShown = shown.length >= filtered.length;
     els.loadMoreButton.classList.toggle('hidden', allLibraryTestsShown);
     els.loadMoreInlineButton?.classList.toggle('hidden', allLibraryTestsShown);
+    const applied = libraryFilterCount();
+    els.catalogFilterButtonText.textContent = applied ? `Filters (${applied})` : 'Filters';
+    els.catalogFilterButton.classList.toggle('has-filters', Boolean(applied));
+    updateBrowserClearButton();
   }
 
   function blockedReason(test) {
@@ -3582,7 +3659,7 @@
       const specimenCue = `<span class="print-source-specimen source-${specimen.color}">${escapeHtml(specimen.label)}</span>`;
       // The upward arrow sits before the intact pill, while specimen identity,
       // From spun/source wording, tube icon and quantity all remain inside it.
-      return `<span class="print-source-group"><span class="print-source-transfer-arrow" aria-hidden="true">↑</span><span class="print-source-transfer-word">Transfer</span><span class="print-source-tube-badge tube ${displayClass}">${countBadge}${specimenCue}<span class="print-source-from">From</span><span>${spun ? 'spun ' : ''}${escapeHtml(sourceLabel)}</span></span>${spun ? '<span class="print-source-spun">· Spin ✓</span>' : ''}</span>`;
+      return `<span class="print-source-group"><span class="print-source-transfer-arrow" aria-hidden="true">↑</span><span class="print-source-transfer-word">Transfer</span><span class="print-source-tube-badge tube ${displayClass}">${countBadge}${specimenCue}<span class="print-source-from">From</span><span class="print-source-origin">${spun ? 'spun ' : ''}${escapeHtml(sourceLabel)}</span></span>${spun ? '<span class="print-source-spun">· Spin ✓</span>' : ''}</span>`;
     }).join('')}</span>`;
   }
 
@@ -3650,12 +3727,15 @@
     // type. Both Gold and Tiger SST share the same clear spun-SST instruction.
     if (item.originalTube) {
       const isSpunSst = item.key === 'sst-spun';
-      const spins = /\bspun\b|\bcentrifug/i.test(detail);
+      const isMicrotainerSst = item.className === 'tube-microtainer';
+      const spins = /\bspun\b|\bcentrifug/i.test(detail)
+        || (isMicrotainerSst && uniqueTests(item.tests || []).every(test => /^yes$/i.test(String(test.spin || '').trim())));
       const exceptional = /fully saturate|do not pour|protect from light/i.test(detail) ? detail : '';
       const handling = isSpunSst
         ? 'Submit in original tube · Spin ✓'
         : `Submit in original tube${spins ? ' · Spin ✓' : ''}`;
-      const text = exceptional ? `${handling} · ${exceptional}` : handling;
+      const lightProtection = isMicrotainerSst ? ' · Protect from light' : '';
+      const text = `${handling}${lightProtection}${exceptional ? ` · ${exceptional}` : ''}`;
       return `<div class="print-submit-item-detail">${escapeHtml(text)}</div>`;
     }
     // Other non-transfer containers can have meaningful processing directions.

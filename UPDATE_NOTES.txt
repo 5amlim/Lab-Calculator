@@ -1,3 +1,7 @@
+v11.76
+- Quest neonatal bilirubin codes 6631, 20381, 34162: default to sending two spun amber Microtainer SSTs per test in original tubes. Protect from light. Amber transport vial remains an acceptable alternative per Quest.
+- Transfer-source pills use equal spacing before and after "From", without changing specimen-type spacing.
+
 v11.75
 - Shortened Microtainer badge to MICROTAINER, removed separate-count wording and separation-from-SST wording from the explanatory line.
 - Enlarged printed bag temperature titles only, from 11 px to 13.5 px.

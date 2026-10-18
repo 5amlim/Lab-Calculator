@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lab Collection Calculator</title>
   <meta name="description" content="Batch-search and print-friendly specimen collection planning from a curated local test directory.">
-  <link rel="stylesheet" href="styles.css?v=11.75">
-  <link rel="stylesheet" href="experience.css?v=11.75">
+  <link rel="stylesheet" href="styles.css?v=11.76">
+  <link rel="stylesheet" href="experience.css?v=11.76">
 </head>
 <body>
   <a class="skip-link" href="#libraryFilter">Skip to test search</a>
@@ -55,14 +55,18 @@
 
         <div class="filter-row">
           <label class="library-search"><span class="field-label">Search tests</span><input id="libraryFilter" type="search" placeholder="Name, code, or abbreviation (e.g. QFT)" autocomplete="off"></label>
-          <select id="specimenFilter" aria-label="Filter by specimen type">
-            <option value="">All specimen types</option>
-            <option value="Blood">Blood (serum / plasma / whole blood)</option>
-            <option value="Urine">Urine</option>
-            <option value="Stool">Stool</option>
-            <option value="Swab">Swab</option>
-            <option value="Other">Other</option>
-          </select>
+          <div class="catalog-filter-control" id="catalogFilterControl">
+            <button class="catalog-filter-toggle" id="catalogFilterButton" type="button" aria-expanded="false" aria-controls="catalogFilterPanel"><span class="catalog-filter-icon" aria-hidden="true">☷</span><span id="catalogFilterButtonText">Filters</span><span class="catalog-filter-chevron" aria-hidden="true"></span></button>
+            <div class="catalog-filter-panel hidden" id="catalogFilterPanel">
+              <div class="catalog-filter-heading"><strong>Filter tests</strong><button type="button" id="catalogFilterReset" class="catalog-filter-reset">Clear filters</button></div>
+              <label>Specimen type<select id="specimenFilter"><option value="">All specimens</option><option value="Blood">Blood (serum / plasma / whole blood)</option><option value="Urine">Urine</option><option value="Stool">Stool</option><option value="Swab">Swab</option><option value="Other">Other</option></select></label>
+              <label>Transport temperature<select id="temperatureFilter"><option value="">All temperatures</option><option value="room">Room temperature</option><option value="refrigerated">Refrigerated</option><option value="frozen">Frozen</option><option value="mixed">Mixed / verify</option></select></label>
+              <label>Fasting<select id="fastingFilter"><option value="">All fasting instructions</option><option value="required">Required</option><option value="preferred">Preferred</option><option value="verify">Fasting mentioned: verify</option></select></label>
+              <label class="catalog-filter-check"><input type="checkbox" id="pediatricFilter"><span>Pediatric / neonatal tests <small>(explicitly named)</small></span></label>
+              <label class="catalog-filter-check"><input type="checkbox" id="spinFilter"><span>Requires centrifugation</span></label>
+              <button class="catalog-filter-done" id="catalogFilterDone" type="button">Done</button>
+            </div>
+          </div>
       <div class="stat-library-control" aria-label="STAT receiving laboratory">
         <label for="statAreaSelect">STAT receiving lab</label>
         <select id="statAreaSelect" aria-label="STAT receiving laboratory">
@@ -121,7 +125,7 @@
         </div>
         <div class="pagination-row">
           <span id="libraryStatus" role="status"></span>
-          <button class="button ghost" id="loadMoreButton">Show more tests</button>
+          <div class="library-footer-actions"><button class="button ghost" id="loadMoreButton">Show more tests</button><button class="button browser-custom-clear" id="clearBrowserTestsButton" type="button" disabled title="Only tests added manually in this browser; packaged tests stay">Clear browser-added tests <span id="browserCustomCount"></span></button></div>
         </div>
         <p class="library-help">Can’t find a test? <a href="https://testdirectory.questdiagnostics.com/" target="_blank" rel="noreferrer">Check the official directory ↗</a> or contact Sam to have it added.</p>
       </div>
@@ -359,7 +363,7 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script src="data.js?v=11.67"></script>
-  <script src="app.js?v=11.75"></script>
+  <script src="data.js?v=11.76"></script>
+  <script src="app.js?v=11.76"></script>
 </body>
 </html>

@@ -3418,3 +3418,21 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     line-height: 1.17;
   }
 }
+
+/* v11.76: Consistent inline spacing around "From" inside transfer-source pills.
+   Retain the existing specimen-to-From spacing and prevent inherited span padding. */
+@media print {
+  .print-sheet .print-source-tube-badge {
+    column-gap: 3px !important;
+    row-gap: 0 !important;
+    align-items: center;
+  }
+  .print-sheet .print-source-from,
+  .print-sheet .print-source-origin {
+    display: inline-block;
+    margin: 0 !important;
+    padding: 0 !important;
+    white-space: nowrap;
+    word-spacing: normal;
+  }
+}

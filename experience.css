@@ -1019,3 +1019,42 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     color: #fff;
   }
 }
+
+/* v11.76: compact multiselect library filters, browser-created entries only */
+@media screen {
+  .filter-row .catalog-filter-control { position: relative; min-width: 0; isolation: isolate; }
+  .catalog-filter-toggle { width: 100%; min-height: 38px; display: flex; align-items: center; gap: 7px; padding: 8px 12px; border: 1px solid #c6d5db; border-radius: 10px; background: white; color: #293e4c; font: inherit; font-size: 12px; font-weight: 800; cursor: pointer; }
+  .catalog-filter-toggle.has-filters { border-color: #0c7d86; background: #eff8f8; color: #0c6671; }
+  .catalog-filter-icon { font-size: 17px; font-weight: 900; line-height: 1; }
+  .catalog-filter-chevron { margin-left: auto; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); width: 7px; height: 7px; transition: transform .15s; }
+  .catalog-filter-toggle[aria-expanded="true"] .catalog-filter-chevron { transform: rotate(225deg); }
+  .catalog-filter-panel { position: absolute; top: calc(100% + 7px); left: 0; z-index: 30; width: min(320px, calc(100vw - 44px)); padding: 14px; border: 1px solid #cfdee3; box-shadow: 0 12px 28px rgba(20,47,70,.13); background: #fff; border-radius: 12px; display: grid; gap: 11px; }
+  .catalog-filter-heading { display:flex; justify-content: space-between; align-items: center; gap:8px; font-size: 14px; color: #193243; }
+  .catalog-filter-panel label:not(.catalog-filter-check) { display:grid; gap: 5px; font-size: 11px; font-weight: 800; color: #3b505b; }
+  .catalog-filter-panel select { width: 100% !important; max-width: 100%; min-height: 37px; padding: 7px 28px 7px 9px; border: 1px solid #cbd9df; border-radius: 8px; background-color: #fff; font-size: 12px; color: #213b49; }
+  .catalog-filter-reset { background: none; border: none; color: #0c6471; font-size: 11px; font-weight: 800; padding: 6px; cursor: pointer; }
+  .catalog-filter-check { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 750; color: #253f4e; cursor: pointer; }
+  .catalog-filter-check input { width: 16px; height: 16px; flex: 0 0 auto; accent-color: #087e85; }
+  .catalog-filter-check small { font-size: 10px; color: #73838b; font-weight: 600; }
+  .catalog-filter-done { background: #142f46; color: white; border: 0; border-radius: 8px; padding: 9px; font-weight: 850; cursor: pointer; }
+  .library-footer-actions { display: flex; gap: 8px; align-items: center; justify-content: flex-end; flex-wrap: wrap; }
+  .browser-custom-clear { border: 1px solid #e2d3d1; background: white; color: #9a4d46; padding: 9px 12px; font-size: 11px; font-weight: 800; border-radius: 9px; cursor: pointer; }
+  .browser-custom-clear:not(:disabled):hover { background: #fff5f4; }
+  .browser-custom-clear:disabled { opacity: .48; cursor: default; }
+}
+@media screen and (min-width: 1161px) {
+  .filter-row .catalog-filter-control { grid-column: 1; grid-row: 2; width: 175px; }
+}
+@media screen and (min-width: 721px) and (max-width: 1160px) {
+  .filter-row .catalog-filter-control { grid-column: 1; grid-row: 2; width: 175px; }
+}
+@media screen and (max-width: 720px) {
+  .filter-row .catalog-filter-control { grid-column: 1; grid-row: 2; width: 100%; }
+  .catalog-filter-panel { width: min(350px, calc(100vw - 55px)); }
+  .pagination-row { gap: 8px; }
+  .library-footer-actions { width: 100%; justify-content: flex-end; }
+}
+
+@media screen { .filter-row .catalog-filter-panel #specimenFilter { grid-column: auto; grid-row: auto; width: 100%; background-image: none; appearance: auto; -webkit-appearance: menulist; padding-right: 28px; } }
+/* Keep the open filter popover above the sticky table headers. */
+@media screen { .filter-row { position: relative; z-index: 5; } .catalog-filter-control { z-index: 6; } }
