@@ -3627,7 +3627,6 @@
       bagRows.push(bagDisplayOrder.slice(i, i + 2));
     }
     const bagStartOnFreshPage = bags.length >= 3 || bagRenderData.some(entry => entry.contents.length >= 8);
-    const notesBeforeBag = bagStartOnFreshPage || bags.length >= 2;
     const printNotesFooter = `
       <div class="print-shipping-notes">
       <div class="print-bag-note">
@@ -3673,7 +3672,6 @@
       <div class="print-logistics-subheading">What to collect</div>
       ${printCollectionGroups(collectionItems, wholeBloodGroups)}
 
-      ${notesBeforeBag ? printNotesFooter : ''}
       <section class="print-submit-section${bagStartOnFreshPage ? ' bag-page-start' : ''}">
         <div class="print-submit-heading">
           <strong>What to submit after processing</strong>
@@ -3685,10 +3683,12 @@
             }).join('')}</span>
           </div>
         </div>
-        <div class="print-bag-grid${bags.length === 1 ? ' single-bag' : ''}">${bagRows.map(row => `<div class="print-bag-row${row.length === 1 ? ' single-row' : ''}">${row.map(({ bag, contents, totalContainers }) => {
+        <div class="print-bag-grid${bags.length === 1 ? ' single-bag' : ''}">${bagRows.map((row, rowIndex) => `<div class="print-bag-row${row.length === 1 ? ' single-row' : ''}">${row.map(({ bag, contents, totalContainers }, columnIndex) => {
           const bagName = bag.isStat ? bag.label.replace(/^STAT\s*·\s*/i, '') : bag.label;
+          const bagNumber = rowIndex * 2 + columnIndex + 1;
           return `<article class="print-bag-card ${bag.className} ${bag.isStat ? 'bag-stat' : 'bag-routine'}${contents.length > 11 ? ' bag-long' : ''}">
-            <div class="print-bag-card-header"><div><div class="print-bag-title"><strong>${escapeHtml(bagName)}</strong></div><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-header-right"><span class="print-bag-priority ${bag.isStat ? 'priority-stat' : 'priority-routine'}">${bag.isStat ? 'STAT' : 'Routine'}</span><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div></div>
+            <div class="print-bag-topbar"><span class="print-bag-topbar-index">Bag ${bagNumber}/${bags.length}</span><span class="print-bag-priority ${bag.isStat ? 'priority-stat' : 'priority-routine'}">${bag.isStat ? 'STAT' : 'Routine'}</span></div>
+            <div class="print-bag-card-header"><div><div class="print-bag-title"><strong>${escapeHtml(bagName)}</strong></div><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-header-right"><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div></div>
             <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
               <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${printSstTigerBadge(item)}</div>
               ${printSubmissionItemDetail(item)}
@@ -3698,7 +3698,7 @@
           </article>`;
         }).join('')}</div>`).join('')}</div>
       </section>
-      ${notesBeforeBag ? '' : printNotesFooter}
+      ${printNotesFooter}
     </section>`;
   }
 

@@ -1,3 +1,7 @@
+v11.27
+- Stacked Preferred and Minimum above their draw-volume values in the printed collection card header, with compact pill widths and unchanged header height.
+- No collection/transport logic or test-data changes.
+
 v11.26
 - Printed What to Collect tube cards now have a very light gray heading strip; bodies remain white.
 - Neutralized brand names in user-facing STAT labels, descriptions, instructions and confirmation dialogs.
