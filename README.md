@@ -1,27 +1,35 @@
-# Lab Collection Calculator (v11.80, compact deployment)
+# Lab Collection Calculator
 
-This ZIP is ready for GitHub Pages. The live calculator and its catalog have not been modified; the compact file organization is retained. The transport-container form has one original-tube selection, with SST-specific display wording; collection and print logic are unchanged.
+A tool for planning specimen collection and processing when sending multiple tests to the lab. Search by test name or code, add the tests to your cart, and use the combined printout instead of looking up each test separately.
 
-## Publish
+## How to use it
 
-1. Extract the ZIP.
-2. Upload **all extracted files and the `assets/` and `docs/` folders** to the root of your GitHub Pages repository. Keep `.nojekyll`.
-3. Replace the previous files, and remove obsolete standalone files and old `QA_*.md` files if you want a clean repository.
-4. Open your GitHub Pages site and refresh. If it looks cached, hard-reload the page.
+1. Search for a test and add it to the cart. Repeat for all ordered tests.
+2. Choose the collection options used at your location, such as Gold or Tiger SST and the urine culture container.
+3. If a test is STAT, select the receiving lab and mark it STAT.
+4. Review **What to Collect**, **What to Submit**, and the bag instructions before preparing the specimens.
+5. Print the summary and use it during collection and processing.
 
-**Do not upload just `index.html`.** The app loads scripts and styles from the `assets/` folder. The Workplace Use Agreement link loads the file from `docs/`.
+The calculator groups compatible specimens where possible and separates STAT from routine submissions. Bags are also organized by transport temperature.
 
-## Files and folders
+If a test is missing, use **Add Missing Test** to enter its collection and processing requirements. Tests added manually are saved in your browser, not in the shared test directory.
 
-- `index.html`: Main application page.
-- `assets/js/`: Calculator logic, test directory, and portal dropdown interactions.
-- `assets/css/`: Layout, print styles, and responsive styling.
-- `docs/`: License, source information, workplace agreement, and full version history.
-- `.nojekyll`: GitHub Pages configuration.
-- `VERSION.txt`: Current compact package version.
+## Files
 
-The prior 92-file ZIP contained old QA reports, regression-test scripts, and historical notes that aren't loaded by the website. Those were separated into a **QA archive** for future reference and maintenance.
+- `index.html` - Main page
+- `assets/js/` - Test directory, calculator logic, and menus
+- `assets/css/` - Page layout and print styles
+- `docs/` - Supporting documents, sources, and change history
+- `VERSION.txt` - Current version
 
-## Important
+## Updating the site
 
-Tests you manually add within the calculator are saved to that browser's local storage. Replacing files on GitHub Pages should not normally erase them, but exporting or separately backing up important manually added tests is advisable before changing the site. This package does not merge custom browser records into the bundled directory.
+The calculator is hosted through GitHub Pages. Keep `index.html`, `assets/`, `docs/`, and `.nojekyll` in the repository. The page needs the files in `assets/` to work.
+
+After an update, refresh the site. You may need to do a hard refresh if the previous version is still showing.
+
+## Notes
+
+This is a collection and processing aid. Confirm any unclear or changing requirements with the receiving lab's current test directory and your site's procedures.
+
+Manually added tests are stored in your browser's local storage. They will not automatically appear on another device and may be lost if browser data is cleared.
