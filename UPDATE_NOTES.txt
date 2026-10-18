@@ -1,3 +1,14 @@
+v11.26
+- Printed What to Collect tube cards now have a very light gray heading strip; bodies remain white.
+- Neutralized brand names in user-facing STAT labels, descriptions, instructions and confirmation dialogs.
+- Preserved external source URLs, test names, test data, STAT eligibility, and collection logic.
+
+v11.25
+- Print bag order follows reading order: Routine first, then STAT; each group room temperature, refrigerated, frozen, then special/verify.
+- STAT bag borders use the same temperature-colored outside border plus colored left-edge treatment used on Routine bags (red for STAT, green for Routine).
+- Enlarged Routine/STAT badges to match the width of container count badges.
+- Tube contents, priorities, and collection calculations unchanged.
+
 v11.24
 - Simplified the batch card heading to Add Tests with a compact descriptive line and removed the word abbreviation from the card.
 - Right-aligned existing Clear, Review matches, Add best matches buttons in that order, retaining their styles and actions.

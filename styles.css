@@ -2582,3 +2582,56 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     color: #253840 !important;
   }
 }
+
+
+/* v11.25: STAT uses the same left-edge treatment as Routine. The outside
+   border remains temperature-coded; the left inset stripe conveys priority. */
+@media print {
+  .print-bag-card.bag-stat {
+    box-shadow: inset 3px 0 0 #c85448 !important;
+  }
+  .print-bag-card.bag-stat.bag-room { border-color: #c99c12 !important; }
+  .print-bag-card.bag-stat.bag-refrigerated { border-color: #4b9dce !important; }
+  .print-bag-card.bag-stat.bag-frozen { border-color: #7d66c8 !important; }
+  .print-bag-card.bag-stat.bag-mixed,
+  .print-bag-card.bag-stat.bag-verify { border-color: #8d969b !important; }
+
+  /* Identically sized, clearer priority and container badges. */
+  .print-bag-header-right {
+    width: 75px;
+    min-width: 75px;
+    align-items: stretch !important;
+    gap: 3px;
+  }
+  .print-bag-header-right .print-bag-priority,
+  .print-bag-header-right .print-bag-container-total {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 !important;
+    justify-content: center;
+  }
+  .print-bag-header-right .print-bag-priority {
+    display: flex;
+    min-height: 18px;
+    padding: 2px 5px;
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: .04em;
+  }
+  .print-bag-header-right .print-bag-container-total { min-height: 22px; }
+}
+
+/* v11.26: subtle filled heading on each What to Collect tube card.
+   Keep the remainder of each card plain white for legibility. */
+@media print {
+  .print-collection-card { background: #fff !important; }
+  .print-collection-card > .print-container-count {
+    margin: -6px -6px 5px;
+    padding: 6px 6px 5px;
+    border-radius: 5px 5px 0 0;
+    border-bottom: 1px solid #d5dde0;
+    background: #f6f8f9 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
