@@ -1,3 +1,8 @@
+v11.29
+- Moved the printed bag-count pill after the temperature/STAT bag-type badges, so it appears at the far right of the purple header without changing its size or alignment.
+- Added subtle inner spacing to Preferred and Minimum draw-volume pills, retaining the collection card header layout.
+- No changes to test definitions, specimen requirements, pooling, or bag calculations.
+
 v11.27
 - Stacked Preferred and Minimum above their draw-volume values in the printed collection card header, with compact pill widths and unchanged header height.
 - No collection/transport logic or test-data changes.

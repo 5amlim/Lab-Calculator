@@ -3676,11 +3676,11 @@
         <div class="print-submit-heading">
           <strong>What to submit after processing</strong>
           <div class="print-submit-heading-summary">
-            <span class="print-submit-bag-count"><b>${bags.length}</b> ${bags.length === 1 ? 'bag' : 'bags'}</span>
             <span class="print-submit-bag-types">${bagDisplayOrder.map(({ bag }) => {
               const shortLabel = bag.label.replace(/\s+bag$/i, '').replace('Room-temperature', 'Room temp').replace('Refrigerated', 'Cold');
               return `<span>${escapeHtml(shortLabel)}</span>`;
             }).join('')}</span>
+            <span class="print-submit-bag-count"><b>${bags.length}</b> ${bags.length === 1 ? 'bag' : 'bags'}</span>
           </div>
         </div>
         <div class="print-bag-grid${bags.length === 1 ? ' single-bag' : ''}">${bagRows.map((row, rowIndex) => `<div class="print-bag-row${row.length === 1 ? ' single-row' : ''}">${row.map(({ bag, contents, totalContainers }, columnIndex) => {
