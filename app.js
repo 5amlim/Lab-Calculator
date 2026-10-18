@@ -105,7 +105,7 @@
     selectedCount: $('selectedCount'), selectedList: $('selectedList'), testsOverviewList: $('testsOverviewList'), testsOverviewSummary: $('testsOverviewSummary'),
     drawPlan: $('drawPlan'), drawPlanSummary: $('drawPlanSummary'), orderOfDraw: $('orderOfDraw'), orderOfDrawSummary: $('orderOfDrawSummary'), collectionAlerts: $('collectionAlerts'), clearOrderButton: $('clearOrderButton'),
     printButton: $('printButton'), exportSummaryButton: $('exportSummaryButton'),
-    statAreaSelect: $('statAreaSelect'), statAreaHelp: $('statAreaHelp'),
+    statAreaSelect: $('statAreaSelect'), statAreaHelp: $('statAreaHelp'), statMenuButton: $('statMenuButton'), statMenuPanel: $('statMenuPanel'), statMenuClose: $('statMenuClose'), statMenuSearch: $('statMenuSearch'), statMenuTitle: $('statMenuTitle'), statMenuCount: $('statMenuCount'), statMenuResults: $('statMenuResults'),
     sstModeOptions: Array.from(document.querySelectorAll('[data-sst-mode]')),
     urineCultureControl: $('urineCultureModeControl'), urineCultureModeOptions: Array.from(document.querySelectorAll('[data-urine-culture-mode]')),
     printSheet: $('printSheet'), testDialog: $('testDialog'), testForm: $('testForm'), dialogTitle: $('dialogTitle'),
@@ -123,6 +123,7 @@
   let database = loadDatabase();
   let selectedIds = loadSelectedIds();
   let statArea = loadStatArea();
+  let statMenuOpen = false;
   let statSelectedIds = loadStatSelectedIds();
   let statAreaResetNotice = '';
   undoPriorSedRateDefault();
@@ -173,6 +174,9 @@
     els.exportSummaryButton.addEventListener('click', exportSummaryCsv);
     els.sstModeOptions.forEach(button => button.addEventListener('click', () => setSstTubeMode(button.dataset.sstMode)));
     els.statAreaSelect?.addEventListener('change', () => changeStatArea(els.statAreaSelect.value));
+    els.statMenuButton?.addEventListener('click', () => { statMenuOpen = !statMenuOpen; renderStatMenu(); });
+    els.statMenuClose?.addEventListener('click', () => { statMenuOpen = false; renderStatMenu(); });
+    els.statMenuSearch?.addEventListener('input', renderStatMenu);
     els.urineCultureModeOptions.forEach(button => button.addEventListener('click', () => setUrineCultureMode(button.dataset.urineCultureMode)));
     els.closeDialogButton.addEventListener('click', closeDialog);
     els.cancelDialogButton.addEventListener('click', closeDialog);
@@ -1127,8 +1131,11 @@
       <td data-label="Temperature"><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td>
       <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(combinedVolumeText(test, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(combinedVolumeText(test, 'minimum') || '—')}</div></td>
       <td class="row-actions" data-label="Actions">
-        ${blocked ? '<span class="badge temp-unknown">Do not perform</span>' : `<button class="mini-button" data-action="add" data-id="${escapeAttr(test.id)}" ${selected ? 'disabled' : ''} aria-label="${selected ? 'Added' : 'Add'} ${escapeAttr(test.testName)}">${selected ? '✓ Added' : '+ Add'}</button>`}
-        ${!blocked && isStatEligible(test) ? `<button type="button" class="mini-button library-stat-action${statSelectedIds.includes(test.id) ? ' is-stat' : ''}" data-action="mark-stat-menu" data-id="${escapeAttr(test.id)}" title="Confirm STAT routing for this test">${statSelectedIds.includes(test.id) ? 'STAT ✓' : 'Mark STAT'}</button>` : ''}
+        ${blocked ? '<span class="badge temp-unknown">Do not perform</span>' : selected
+          ? `<button class="mini-button" disabled>✓ Added${statSelectedIds.includes(test.id) ? ' · STAT' : ''}</button>`
+          : isStatEligible(test)
+            ? `<button type="button" class="mini-button library-routine-action" data-action="add" data-id="${escapeAttr(test.id)}">Add as routine</button><button type="button" class="mini-button library-stat-action" data-action="add-stat" data-id="${escapeAttr(test.id)}" title="Confirm eligibility and add as STAT">Add as STAT</button>`
+            : `<button class="mini-button" data-action="add" data-id="${escapeAttr(test.id)}" aria-label="Add ${escapeAttr(test.testName)}">+ Add</button>`}
         <button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a>
       </td>
     </tr>`;
@@ -1145,8 +1152,8 @@
     if (button.dataset.action === 'add') {
       addSelected(id);
       button.textContent = 'Added';
-    } else if (button.dataset.action === 'mark-stat-menu') {
-      markStatFromMenu(id);
+    } else if (button.dataset.action === 'add-stat') {
+      addStatFromMenu(id);
     } else if (button.dataset.action === 'edit') {
       openDialog(database.find(test => test.id === id));
     }
@@ -1244,9 +1251,30 @@
 
   function renderStatArea() {
     if (els.statAreaSelect) els.statAreaSelect.value = statArea;
-    if (els.statAreaHelp) {
-      els.statAreaHelp.textContent = `${STAT_AREAS[statArea].note} STAT routing still requires receiving-lab approval. ${statAreaResetNotice}`.trim();
-    }
+    renderStatMenu();
+  }
+
+  function renderStatMenu() {
+    if (!els.statMenuPanel) return;
+    const info = STAT_AREAS[statArea];
+    const codes = [...new Set(info.codes)].sort((a,b) => Number(a) - Number(b));
+    const keyword = normalizeSearch(els.statMenuSearch?.value || '');
+    const matches = codes.map(code => {
+      const test = database.find(row => String(row.testCode || '') === String(code));
+      return { code, test };
+    }).filter(({code,test}) => !keyword || normalizeSearch(`${code} ${test?.testName || ''}`).includes(keyword));
+    els.statMenuPanel.classList.toggle('hidden', !statMenuOpen);
+    els.statMenuButton?.setAttribute('aria-expanded', String(statMenuOpen));
+    els.statMenuButton.textContent = `View STAT tests${codes.length ? ` (${codes.length})` : ''}`;
+    if (!statMenuOpen) return;
+    els.statMenuTitle.textContent = info.label;
+    els.statMenuCount.textContent = `${codes.length} listed code${codes.length === 1 ? '' : 's'}`;
+    els.statAreaHelp.textContent = `${info.note} Confirm current receiving-lab acceptance, cutoff, requisition, and courier before sending STAT. ${statAreaResetNotice}`.trim();
+    els.statMenuResults.innerHTML = !codes.length
+      ? '<p class="stat-menu-empty">No verified STAT codes configured for this receiving area.</p>'
+      : matches.length
+        ? matches.map(({code,test}) => `<div class="stat-menu-test"><strong>${escapeHtml(code)}</strong><span>${escapeHtml(test?.testName || 'Not yet available in calculator')}</span>${test?.status === 'blocked' ? '<small>Not available for onsite collection</small>' : ''}</div>`).join('')
+        : '<p class="stat-menu-empty">No codes or tests match this search.</p>';
   }
 
   function loadStatSelectedIds() {
@@ -1307,13 +1335,10 @@
     renderLibrary();
   }
 
-  function markStatFromMenu(id) {
+  function addStatFromMenu(id) {
     const test = database.find(item => item.id === id);
     if (!isStatEligible(test)) return;
-    if (selectedIds.includes(id)) {
-      toggleStatPriority(id);
-      return;
-    }
+    if (selectedIds.includes(id)) return;
     // Never add a test or change its routing until the user confirms it.
     if (!confirmStatSelection(test)) return;
     if (!addSelected(id, false)) return;
@@ -1512,7 +1537,7 @@
       <article class="selected-card${test.isStat ? ' is-stat' : ''}">
         <div class="selected-card-top">
           <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</div><div class="subtext specimen-line">${requiredSpecimenBadges(test)} <span>·</span> <span class="preferred-volume-inline">${escapeHtml(combinedVolumeText(test, 'preferred') || 'verify')}</span> <span>· Minimum ${escapeHtml(combinedVolumeText(test, 'minimum') || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}</div>
-          <div>${isStatEligible(test) ? `<button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Routine · Mark STAT'}</button>` : ''}<a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove selected-card-delete" data-action="remove" data-id="${escapeAttr(test.id)}" type="button" aria-label="Delete ${escapeAttr(test.testName)}">Delete</button></div>
+          <div>${isStatEligible(test) ? `<button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Mark STAT'}</button>` : ''}<a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove selected-card-delete" data-action="remove" data-id="${escapeAttr(test.id)}" type="button" aria-label="Delete ${escapeAttr(test.testName)}">Delete</button></div>
         </div>
         <div class="selected-details">
           ${requiredDrawContainerBadges(test)}

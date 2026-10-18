@@ -1,3 +1,9 @@
+v11.17
+- Eligible tests offer Add as routine and Add as STAT, with confirmation before STAT addition; noneligible tests retain Add.
+- Cart STAT button toggles STAT/Routine and deletion remains alongside the test name.
+- Moved Quest STAT receiving lab selector next to Do not perform and added a searchable list of the area's published STAT menu codes.
+- Preserved area restrictions, specimen rules and pooling calculations.
+
 v11.16
 - Print collection cards combine physical blood tube types across STAT/Routine, adding counts while keeping STAT and routine transport bag allocations separate.
 - Each test in What to Collect gets a compact “· STAT” suffix only if applicable; collection chip/card priority badges removed.

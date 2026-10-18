@@ -2242,3 +2242,79 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   }
   .print-submit-item { break-inside: avoid; page-break-inside: avoid; }
 }
+
+
+/* v11.17: selectable Quest STAT menu relocated to the library search toolbar */
+.filter-row { grid-template-columns: minmax(190px, 1fr) 180px minmax(210px, .9fr) auto; column-gap: 10px; }
+.stat-library-control { display: flex; align-items: center; justify-content: flex-end; gap: 6px; min-width: 0; }
+.stat-library-control label { flex: 0 0 auto; color: #354b54; font-size: 10px; font-weight: 850; white-space: nowrap; }
+.stat-library-control select { flex: 1 1 auto; min-width: 0; max-width: 225px; padding: 9px 24px 9px 8px; border: 1px solid #cbd7db; border-radius: 8px; color: #34464d; background: #fff; font-size: 10px; font-weight: 750; }
+.stat-menu-button { flex: 0 0 auto; white-space: nowrap; padding: 9px 10px; font-size: 10px; }
+.stat-menu-panel { margin: -3px 0 13px; padding: 11px 13px; border: 1px solid #c9d8dc; border-radius: 10px; background: #f8fbfc; }
+.stat-menu-panel.hidden { display: none; }
+.stat-menu-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.stat-menu-heading > div { display: flex; align-items: baseline; flex-wrap: wrap; gap: 9px; }
+.stat-menu-heading strong { font-size: 13px; color: #223b43; }
+.stat-menu-heading span { color: #5a727b; font-size: 11px; font-weight: 700; }
+.stat-menu-note { margin: 6px 0 10px; color: #59717a; font-size: 10.5px; line-height: 1.4; }
+.stat-menu-filter { display: grid; gap: 5px; font-size: 10px; color: #526a73; font-weight: 800; margin-bottom: 8px; }
+.stat-menu-filter input { width: 100%; max-width: 340px; padding: 8px 10px; border: 1px solid #cad8dd; border-radius: 8px; font-size: 11px; }
+.stat-menu-results { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); max-height: 280px; overflow: auto; border: 1px solid #dce6ea; background: white; border-radius: 8px; }
+.stat-menu-test { display: flex; align-items: baseline; gap: 8px; padding: 7px 9px; border-bottom: 1px solid #edf1f3; font-size: 10.5px; min-width: 0; }
+.stat-menu-test strong { flex: 0 0 45px; color: #176675; font-family: ui-monospace, Consolas, monospace; }
+.stat-menu-test span { min-width: 0; overflow-wrap: anywhere; }
+.stat-menu-test small { color: #9b453f; }
+.stat-menu-empty { padding: 10px; font-size: 11px; color: #60727a; }
+.row-actions { min-width: 137px; }
+.row-actions .mini-button { margin: 2px 0 2px 3px; }
+.library-stat-action { background: #fff2db; color: #7e4d11; border: 1px solid #dbb76f; }
+.library-routine-action { background: #e8f3f4; color: #146876; }
+/* Keep remove anchored at the right side of EVERY selected test, regardless of long names or STAT controls. */
+.tests-overview-list { min-width: 0; width: 100%; box-sizing: border-box; }
+.tests-overview-row, .tests-overview-row.no-stat-action { width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; overflow: visible; display: flex; align-items: center; flex-wrap: nowrap; }
+.tests-overview-row .tests-overview-ident { flex: 1 1 0; min-width: 0; width: 0; overflow: hidden; }
+.tests-overview-row .tests-overview-name { overflow: hidden; white-space: nowrap; text-overflow: clip; }
+.tests-overview-row .stat-toggle { flex: 0 0 auto; max-width: none; font-size: 10px; }
+.tests-overview-row .tests-overview-remove { flex: 0 0 34px; display: inline-flex !important; align-items: center; justify-content: center; width: 34px; min-width: 34px; height: 32px; margin: 0; padding: 0; opacity: 1; visibility: visible; background: #fff0f0; border: 1px solid #e4d1d1; z-index: 2; }
+.tests-overview-row .tests-overview-remove .remove-icon { width: 16px; }
+@media (hover: hover) and (pointer: fine) {
+  .tests-overview-row .tests-overview-remove:hover, .tests-overview-row .tests-overview-remove:focus-visible { flex-basis: 72px; width: 72px; min-width: 72px; }
+  .tests-overview-row .tests-overview-remove:hover .remove-icon, .tests-overview-row .tests-overview-remove:focus-visible .remove-icon { width: 0; }
+}
+@media (max-width: 1160px) {
+  .filter-row { grid-template-columns: minmax(0,1fr) 175px auto; }
+  .stat-library-control { grid-column: 1/-1; grid-row: 2; justify-content: flex-start; }
+  .stat-library-control select { max-width: 350px; }
+}
+@media (max-width: 720px) {
+  .filter-row { grid-template-columns: minmax(0,1fr) auto; }
+  .filter-row .library-search { grid-column: 1/-1; }
+  .filter-row #specimenFilter { grid-column: 1/-1; }
+  .filter-row .stat-library-control { grid-column: 1; grid-row: auto; flex-wrap: wrap; }
+  .filter-row .blocked-list-button { grid-column: 2; grid-row: auto; width: auto; }
+  .stat-library-control label { width: 100%; }
+  .stat-library-control select { max-width: 100%; }
+  .stat-menu-results { grid-template-columns: 1fr; }
+}
+@media (max-width: 440px) {
+  .filter-row { grid-template-columns: minmax(0,1fr); }
+  .filter-row .blocked-list-button, .filter-row .stat-library-control { grid-column: 1; width: 100%; }
+  .stat-library-control select { flex: 1 1 100%; }
+  .stat-menu-button { width: 100%; }
+}
+/* The name must occupy the remaining row width; only its text should fade. */
+.tests-overview-row .tests-overview-ident { flex: 1 1 auto; width: auto; }
+/* v11.17 final: keep Quest area and Do Not Perform adjacent on desktop. */
+@media (min-width: 1161px) {
+  .filter-row { grid-template-columns: minmax(142px, 1fr) 172px minmax(315px, 350px) max-content; gap: 9px; align-items: end; }
+  .filter-row .stat-library-control { display: grid; grid-template-columns: minmax(0,1fr) auto; grid-template-rows: auto auto; gap: 4px 7px; min-width: 0; justify-content: stretch; }
+  .filter-row .stat-library-control label { grid-column: 1/-1; grid-row: 1; font-size: 10px; }
+  .filter-row .stat-library-control select { grid-column: 1; grid-row: 2; width: 100%; max-width: none; min-height: 35px; }
+  .filter-row .stat-library-control .stat-menu-button { grid-column: 2; grid-row: 2; min-height: 35px; }
+  .filter-row .blocked-list-button { grid-column: 4; grid-row: 1; align-self: end; min-height: 35px; padding: 8px 10px; white-space: nowrap; }
+}
+@media (min-width: 721px) and (max-width: 1160px) {
+  .filter-row { grid-template-columns: minmax(0,1fr) 170px; gap: 9px; }
+  .filter-row .stat-library-control { grid-row: 2; grid-column: 1; justify-content: flex-start; }
+  .filter-row .blocked-list-button { grid-row: 2; grid-column: 2; align-self: end; justify-self: stretch; width: 100%; }
+}
