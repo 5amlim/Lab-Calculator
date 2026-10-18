@@ -2647,7 +2647,7 @@
       const specimenBadge = collectionSpecimenBadgeForItem(item);
       const specimenGroup = collectionSpecimenGroupForItem(item);
       const tigerBadge = printSstTigerBadge(item);
-      const microtainerBadge = item.className === 'tube-microtainer' ? '<span class="microtainer-flag">MICROTAINER · separate count</span>' : '';
+      const microtainerBadge = item.className === 'tube-microtainer' ? '<span class="microtainer-flag">MICROTAINER</span>' : '';
       const printedTestCount = uniqueTests(item.tests).length;
       // Keep each SST collection card in one half-width column, even when
       // it holds many tests. Pair the list into two internal print columns.
@@ -2658,7 +2658,7 @@
       return `<article class="print-collection-card${longSstList ? ' is-sst-long' : printedTestCount >= 12 ? ' is-long' : ''}" style="--print-column-rows:${columnRows}">
         <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${microtainerBadge}${specimenBadge ? `<span class="print-collection-specimen-badge specimen-${specimenGroup}">${escapeHtml(specimenBadge)}</span>` : ''}${printCollectionWholeBloodDetail(item, wholeBloodGroups)}</div>
         ${item.detail ? `<div class="print-container-detail">${escapeHtml(item.detail)}</div>` : ''}
-        ${item.className === 'tube-microtainer' ? '<div class="print-microtainer-note">Microcollection tubes · separate from standard SSTs · protect from light; follow the test-specific Microtainer instructions.</div>' : ''}
+        ${item.className === 'tube-microtainer' ? '<div class="print-microtainer-note">Microcollection tubes · protect from light; follow the test-specific Microtainer instructions.</div>' : ''}
         ${yieldReviewCount ? `<div class="print-sst-volume-warning">Volume verification: ${yieldReviewCount} ${yieldReviewCount === 1 ? 'test has' : 'tests have'} specimen needs that may exceed a single ${selectedSstIsTiger() ? 'Tiger' : 'Gold'} SST yield. Confirm sufficient collection volume with the receiving lab.</div>` : ''}
         <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${uniqueTests(item.tests).map(test => `<li><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)}${test.isStat ? '<span class="print-collection-stat-label"> · STAT</span>' : ''}</li>`).join('')}</ul></div>
       </article>`;

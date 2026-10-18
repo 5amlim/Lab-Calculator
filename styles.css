@@ -3408,3 +3408,13 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   }
   .print-sheet .microtainer-flag { font-size: 6px; }
 }
+
+
+/* v11.75: Make bag-temperature headings easier to scan on printed pages.
+   Target the bag title only; do not enlarge container/count or priority text. */
+@media print {
+  .print-sheet .print-bag-card-header .print-bag-title > strong {
+    font-size: 13.5px !important;
+    line-height: 1.17;
+  }
+}

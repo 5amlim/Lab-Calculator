@@ -1,3 +1,8 @@
+v11.75
+- Shortened Microtainer badge to MICROTAINER, removed separate-count wording and separation-from-SST wording from the explanatory line.
+- Enlarged printed bag temperature titles only, from 11 px to 13.5 px.
+- No specimen pooling, collection counts, priority routing, bag containers, or labeling changes.
+
 v11.73
 - Bag headers: BAG left, centered priority, numbered badge right.
 - Original spun SST submission names: Gold SST (Spun) / Tiger SST (Spun).

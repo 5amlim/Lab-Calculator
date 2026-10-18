@@ -1,3 +1,8 @@
+## v11.75: Shorter Microtainer flag and larger printed bag temperatures
+- Microtainer badge now reads “MICROTAINER”, and its handling note no longer mentions separate counting or separation from standard SSTs.
+- Printed bag temperature headings are larger (13.5 px instead of 11 px).
+- Microtainer source counting remains independent internally, and all specimen, transport, and LABEL instructions are unchanged.
+
 ## v11.74: Transfer cue and independent Microtainer collection
 - Added “Transfer” beside the up arrow before source pills in printed bags.
 - Microtainer-only neonatal bilirubin instructions now produce separate amber Microtainer SST collection counts and a Microtainer badge/icon. Standard Gold/Tiger SST pooling excludes Microtainers.
