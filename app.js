@@ -1760,6 +1760,8 @@
     tests.forEach(test => {
       const note = test.specialInstructions.toLowerCase();
       if (test.status === 'blocked') alerts.push({ type: 'danger', text: `${test.testName}: marked do not perform.` });
+      const sstYieldWarning = singleSstSpecimenVolumeWarning(test);
+      if (sstYieldWarning) alerts.push({ type: 'danger', text: `${test.testName}: ${sstYieldWarning}` });
       if (/own tube|dedicated tube|needs own tube|two separate|full tube|required on label|draw waste|discard tube/.test(note)) alerts.push({ type: 'warning', text: `${test.testName}: dedicated tube, fill, labeling, or discard instructions may apply.` });
       if (/immediately|freeze immediately|centrifuge immediately|stat/.test(note)) alerts.push({ type: 'warning', text: `${test.testName}: time-sensitive processing noted.` });
       if (/protect from light|amber|wrap.*foil/.test(note)) alerts.push({ type: 'warning', text: `${test.testName}: protect from light.` });
@@ -2069,10 +2071,15 @@
       const explicitCount = Math.max(explicitSstTubeCount(test), 1);
 
       if (requiresDedicatedSst(test) || hasCollectionFillRule(test)) {
-        const capacityCount = bloodMl !== null ? Math.max(1, Math.ceil(bloodMl / TIGER_SST_CAPACITY_ML)) : 1;
-        dedicatedTubes += Math.max(explicitCount, capacityCount);
+        // Match Gold SST: a single test must not request additional source SSTs
+        // solely because its listed volume exceeds the assumed tube yield.
+        // Explicit two/three-tube collection requirements still take priority.
+        dedicatedTubes += explicitCount;
       } else if (bloodMl !== null) {
-        sharedBloodMl += bloodMl;
+        // A single test contributes no more than one Tiger's nominal draw volume.
+        // If its preferred/minimum sample requirement may not fit, the warning
+        // identifies that issue instead of silently recommending extra tubes.
+        sharedBloodMl += Math.min(bloodMl, TIGER_SST_CAPACITY_ML);
       } else {
         unmeasuredTubes += 1;
       }
@@ -2086,6 +2093,25 @@
       unmeasuredTubes,
       totalTubes: sharedTubes + dedicatedTubes + unmeasuredTubes
     };
+  }
+
+  function singleSstSpecimenVolumeWarning(test) {
+    if (!isSstDraw(test) || requiresDedicatedSst(test) && explicitSstTubeCount(test) > 1) return '';
+    // Approximate quantities are safeguards, not guarantees of a usable yield.
+    // The selected source container still counts as one unless a source
+    // explicitly requests multiple collection tubes.
+    const tiger = selectedSstIsTiger();
+    const capacity = tiger ? TIGER_SST_CAPACITY_ML : SST_USABLE_ML_PER_TUBE;
+    const conversion = wholeBloodConversionFactor(test.specimenType) || {factor:SERUM_PLASMA_TO_WHOLE_BLOOD_FACTOR};
+    const preferred = tiger ? volumeForRequirement(test, 'preferred', conversion) : parseVolumeMl(test.preferredVolume);
+    const minimum = tiger ? volumeForRequirement(test, 'minimum', conversion) : parseVolumeMl(test.minimumVolume);
+    if (minimum !== null && minimum > capacity + 1e-8) {
+      return `minimum required volume may exceed one ${tiger ? 'Tiger' : 'Gold'} SST's assumed yield. Verify the collection tube count with the receiving lab; the one-tube estimate may be insufficient.`;
+    }
+    if (preferred !== null && preferred > capacity + 1e-8) {
+      return `preferred volume may exceed one ${tiger ? 'Tiger' : 'Gold'} SST's assumed yield. Verify specimen sufficiency and collect additional tubes if needed.`;
+    }
+    return '';
   }
 
   function sstTransferDestinationGroups(tests) {
@@ -2559,9 +2585,12 @@
       const tigerBadge = printSstTigerBadge(item);
       const printedTestCount = uniqueTests(item.tests).length;
       const columnRows = Math.ceil(printedTestCount / 3);
-      return `<article class="print-collection-card${item.tests.length >= 12 ? ' is-long' : ''}" style="--mobile-print-rows:${columnRows}">
+      const yieldReviewCount = item.className === 'tube-sst'
+        ? uniqueTests(item.tests).filter(test => singleSstSpecimenVolumeWarning(test)).length : 0;
+      return `<article class="print-collection-card${item.tests.length >= 12 ? ' is-long' : ''}" style="--print-column-rows:${columnRows}">
         <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${specimenBadge ? `<span class="print-collection-specimen-badge specimen-${specimenGroup}">${escapeHtml(specimenBadge)}</span>` : ''}${printCollectionWholeBloodDetail(item, wholeBloodGroups)}</div>
         ${item.detail ? `<div class="print-container-detail">${escapeHtml(item.detail)}</div>` : ''}
+        ${yieldReviewCount ? `<div class="print-sst-volume-warning">Volume verification: ${yieldReviewCount} ${yieldReviewCount === 1 ? 'test has' : 'tests have'} specimen needs that may exceed a single ${selectedSstIsTiger() ? 'Tiger' : 'Gold'} SST yield. Confirm sufficient collection volume with the receiving lab.</div>` : ''}
         <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${uniqueTests(item.tests).map(test => `<li><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)}${test.isStat ? '<span class="print-collection-stat-label"> · STAT</span>' : ''}</li>`).join('')}</ul></div>
       </article>`;
     }).join('')}</div>`;
@@ -3734,10 +3763,8 @@
       </section>
       ${printNotesFooter()}
 `;
-    // Mobile browsers can drop CSS multi-column layout in print preview.
-    // Tag the print sheet while still in the screen viewport; the print media
-    // viewport can have a different size from the handset's screen.
-    els.printSheet.classList.toggle('mobile-print', window.matchMedia('(max-width: 720px)').matches);
+    // Desktop print template is used for all devices. No handset-specific
+    // font sizes, grid, or print DOM classes are allowed.
     window.print();
   }
 

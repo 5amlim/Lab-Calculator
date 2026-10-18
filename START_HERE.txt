@@ -1,5 +1,6 @@
-Lab Collection Calculator v10.38
+Lab Collection Calculator v11.38
 
-Open index.html locally for a quick check, then publish the full folder to GitHub Pages.
+Open index.html locally to check, then publish the full folder to GitHub Pages.
 
-v10.38 adds Quest codes 19833 and 763 and makes non-exact batch search matches visibly require confirmation before adding. Exact code/name matches continue to add normally.
+v11.38 unifies phone and desktop print layouts and caps each single-test Gold or Tiger SST calculation at one collection tube unless explicitly instructed otherwise.
+

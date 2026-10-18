@@ -1,3 +1,8 @@
+## v11.38 update
+
+- Gold and Tiger SST now enforce a maximum of one collection tube for a single test unless explicit multi-tube instructions exist. Tests with specimen requirements that may exceed estimated one-tube yield get an additional collection warning.
+- All print devices use the same landscape desktop print layout, fixed physical print width and font sizing, including three-column SST lists. Printer and mobile browser overrides may still affect the final output.
+
 ## Version 10.3
 - Added the estimated number of collection containers beside the test count on each Draw plan card.
 - Container counts use the existing collection-planning logic, including pooling, dedicated-tube requirements, and separate transport-temperature workflows.
