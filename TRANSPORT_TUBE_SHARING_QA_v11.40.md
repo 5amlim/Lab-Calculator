@@ -11,3 +11,5 @@
 **QA:** `node qa_serum_plasma_transport_pooling_v11.40.js` passed 11,112 checks, covering 2–9 serum tests, plasma tests, explicit multi-tubes, no-pool instructions, STAT and temperature separation, 2,674 active single-test records, and mixed orders. `python /mnt/data/lab_work/qa_transport_print_1140.py` checked the 390px and 1440px Chromium print outputs, matching all measured sizes/spacing and exact tube-code grouping.
 
 **Limitation:** The rule assumes receiving-lab permission to share an aliquot and sufficient specimen volume for both tests. It is not a substitute for official assay-specific handling requirements. The app does not attempt to validate final transport tube capacity for each assay.
+
+**v11.41 printout-only update:** Redundant per-transport-tube code pairing text was removed from the printout. Pairing/count logic and labels for the tests remain; see UPDATE_NOTES.txt.

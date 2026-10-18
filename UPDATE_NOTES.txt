@@ -1,3 +1,8 @@
+v11.41 (2026-10-17)
+- Sed Rate by Modified Westergren (Quest 809): remove the outdated “(Must send STAT)” wording from special instructions and stability. No change to STAT eligibility, routing, or underlying 24-hour stability entry.
+- Remove the redundant “Tube 1: code + code · Tube 2: code” pairing text from the printout. The existing test-label/reference area remains. Transport-tube counts and all compatibility rules are unchanged.
+- The same desktop/mobile print styles are retained.
+
 v11.40 (2026-10-17)
 - Pool up to two compatible serum tests in one standard serum transport tube, or up to two compatible plasma tests in one standard plasma transport tube, rounding up for odd test counts.
 - Preserve separate serum vs plasma, source tube type, centrifugation/processing, priority (STAT versus routine), temperature, explicitly dedicated/multiple submission tubes, and specialty transport tubes (amber, metal-free, cryovial, preservative etc.).

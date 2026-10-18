@@ -1,3 +1,9 @@
+## v11.41 update
+
+- Removed the obsolete “Must send STAT” parenthetical from Quest 809 Sed Rate notes and stability (24 hours remains). Test priority still defaults to Routine and can be changed manually where allowed.
+- Removed per-tube test-code pairing text from the printed submission cards. Existing test references / label information and transport tube counts remain intact.
+- Mobile and desktop printing still use the same styles; all specimen pooling and separation rules are unchanged.
+
 ## v11.39 update
 
 - Tiger SST pooled tube calculation now assumes 4.0 mL usable serum per fully filled 7.5 mL tube. Gold SST remains at 2.5 mL usable serum per 5 mL tube.

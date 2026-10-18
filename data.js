@@ -3758,9 +3758,9 @@ window.SEED_TESTS = [
     "minimumVolume": "2 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room temperature",
-    "stability": "24 hours (Must Send STAT)",
+    "stability": "24 hours",
     "spin": "No",
-    "specialInstructions": "Lavender- EDTA (Must send STAT)",
+    "specialInstructions": "Lavender- EDTA",
     "status": "active",
     "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 44

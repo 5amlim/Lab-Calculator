@@ -1,8 +1,10 @@
-Lab Collection Calculator v11.40
+Lab Collection Calculator v11.41
 
 Open index.html locally to check, then publish the full folder to GitHub Pages.
 
-v11.40: Compatible serum tests can share a standard serum transport tube two tests per tube; compatible plasma tests can share a standard plasma transport tube two tests per tube. The calculated container count is rounded up. Keep source/specimen, processing, STAT/routine and temperature groups separate. Explicit separate aliquots, multiple tubes, light-protected, acid-washed, cryovial and other specialty containers are excluded. Printouts indicate code pairings, and bag transfer summaries use the same count. Confirm adequate volume and acceptance by the receiving lab.
+v11.41: Removed the unnecessary per-tube test-code pairing line from the printout without changing transport-tube pooling counts. Removed the obsolete “Must send STAT” wording from Sed Rate (Quest 809) notes and stability field.
+
+v11.40: Compatible serum tests can share a standard serum transport tube two tests per tube; compatible plasma tests can share a standard plasma transport tube two tests per tube. The calculated container count is rounded up. Keep source/specimen, processing, STAT/routine and temperature groups separate. Explicit separate aliquots, multiple tubes, light-protected, acid-washed, cryovial and other specialty containers are excluded. Print bag and transfer summaries use the pooled counts; the existing label section identifies tests. Confirm adequate volume and acceptance by the receiving lab.
 
 v11.38: Phone and desktop use the same print layout, and a single non-explicit Gold or Tiger SST test contributes at most one collection tube; higher-volume specimens get a sufficiency warning.
 

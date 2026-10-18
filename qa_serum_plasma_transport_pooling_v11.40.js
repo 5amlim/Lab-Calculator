@@ -37,7 +37,7 @@ for(const n of [1,2,3,4,5,6,7,8,9]){
  const card=contents(now,tests).find(x=>x.label==='Serum Transport Tube');
  ok(card.pooledSerumPlasmaTransport,`${n}: pooled flag is set`);
  eq(card.tests.length,n,`${n}: all test references are retained`);
- if(n>1){const msg=now.printSubmissionItemDetail(card);ok(msg.includes('Tube 1:'),`${n}: print lists the assigned test codes`);}
+ if(n>1){const msg=now.printSubmissionItemDetail(card);ok(!/Tube \d+:/.test(msg),`${n}: no redundant per-tube pairing text`);}
  reductions += n-Math.ceil(n/2);
 }
 for(const n of [1,2,3,4,5]) {
@@ -90,8 +90,17 @@ for(const size of [2,3,5,8,12]) for(let n=0;n<200;n++) {
  eq(sourceCount(now,tests),sourceCount(before,tests),`${size}-test order Gold collection count unchanged`);
  ok(submissionCount(now,tests)<=submissionCount(before,tests),`${size}-test order submission tubes cannot increase`);
 }
-// Regression: data and every app/layout artifact except the intentional JS/print.css is untouched.
-for(const filename of ['data.js','styles.css','experience.css','index.html'])
- eq(fs.readFileSync(path.join(currentDir,filename),'utf8'),fs.readFileSync(path.join(baselineDir,filename),'utf8'),`${filename} unchanged`);
+// v11.41: only the 809 note/stability fields have changed since v11.40.
+const lastDir=path.join(__dirname,'..','Lab_Collection_Calculator_GitHub_v11.40');
+const lastData=fs.readFileSync(path.join(lastDir,'data.js'),'utf8');
+const expectedData=lastData.replace('"stability": "24 hours (Must Send STAT)",\n    "spin": "No",\n    "specialInstructions": "Lavender- EDTA (Must send STAT)"',
+ '"stability": "24 hours",\n    "spin": "No",\n    "specialInstructions": "Lavender- EDTA"');
+eq(fs.readFileSync(path.join(currentDir,'data.js'),'utf8'),expectedData,'only Sed Rate note/status wording changed in directory');
+const sed=now.database.find(x=>x.testCode==='809');
+eq(sed.stability,'24 hours','Sed Rate stability says only 24 hours');
+eq(sed.specialInstructions,'Lavender- EDTA','Sed Rate notes have no must-send-STAT text');
+for(const filename of ['styles.css','experience.css','index.html'])
+ eq(fs.readFileSync(path.join(currentDir,filename),'utf8'),fs.readFileSync(path.join(lastDir,filename),'utf8'),`${filename} unchanged`);
+ok(!fs.readFileSync(path.join(currentDir,'print.css'),'utf8').includes('.print-transport-pairing'),'orphaned CSS removed');
 ok(now.printNotesFooter().includes('Up to two compatible serum tests OR two compatible plasma tests'),'print notes explain pairing and safeguards');
 console.log(`PASS ${checks} checks. Transport tube reductions in 1-9 test fixtures: ${reductions}; active directory records checked: ${active.length}.`);

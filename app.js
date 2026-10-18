@@ -3443,14 +3443,10 @@
   function printSubmissionItemDetail(item) {
     const badges = printSubmissionSourceBadges(item);
     const detail = printProcessedTransferDetail(item);
-    const sharing = item.pooledSerumPlasmaTransport && item.tests.length > 1
-      ? `<div class="print-transport-pairing">${Array.from({ length: item.count }, (_, i) => {
-        const group = item.tests.slice(i * SERUM_PLASMA_TESTS_PER_TRANSPORT_TUBE, (i + 1) * SERUM_PLASMA_TESTS_PER_TRANSPORT_TUBE);
-        return `Tube ${i + 1}: ${group.map(displayCode).map(escapeHtml).join(' + ')}`;
-      }).join(' · ')}</div>`
-      : '';
-    if (!detail && !badges && !sharing) return '';
-    return `<div class="print-submit-item-detail">${detail ? escapeHtml(detail) : ''}${badges}${sharing}</div>`;
+    // Keep transport-tube pooling in the totals, but leave out redundant per-tube
+    // test-code pairings. The existing test label area identifies each test.
+    if (!detail && !badges) return '';
+    return `<div class="print-submit-item-detail">${detail ? escapeHtml(detail) : ''}${badges}</div>`;
   }
 
   function parseListedSpecimenVolumeMl(value) {
