@@ -2740,8 +2740,8 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-prebag-footer { margin-top: 4px; }
 }
 
-/* v11.29: Metric text gets breathing room without enlarging the collection
-   card heading; the bag count follows the bag-type chips at the far right. */
+/* v11.30: Center the Routine/STAT pill, move the bag number to the right,
+   and give the topbar pills slightly more width while keeping the layout sleek. */
 @media print {
   .print-collection-blood-metric {
     min-height: 18px;
@@ -2756,5 +2756,37 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   }
   .print-submit-heading-summary .print-submit-bag-types {
     min-width: 0;
+  }
+  .print-bag-topbar {
+    justify-content: space-between;
+    padding: 0 9px 0 10px;
+    gap: 8px;
+  }
+  .print-bag-topbar-spacer,
+  .print-bag-topbar-index,
+  .print-bag-topbar .print-bag-priority {
+    flex: 0 0 92px;
+    min-width: 92px;
+  }
+  .print-bag-topbar-spacer {
+    display: block;
+    height: 1px;
+  }
+  .print-bag-topbar .print-bag-priority {
+    justify-self: center;
+    min-width: 92px;
+    height: 16px;
+    padding: 1px 10px;
+    font-size: 7.2px;
+    letter-spacing: .08em;
+  }
+  .print-bag-topbar-index {
+    position: static;
+    transform: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: right;
+    font-size: 7.6px;
   }
 }
