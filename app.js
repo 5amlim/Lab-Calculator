@@ -3603,13 +3603,18 @@
       const critical = /fully saturate|do not pour|\b\d+\s*seconds?\b/i.test(detail) ? detail : '';
       return `<div class="print-submit-item-detail">${badges}${critical ? `<span class="print-source-extra">${escapeHtml(critical)}</span>` : ''}</div>`;
     }
-    // For an original tube there is no source transfer pill. Keep an explicit
-    // spin cue when present, but omit repetitive "Serum / submit original" text.
+    // Original-tube submission is a handling instruction, not a specimen label.
+    // Restore it even though the colored badge above already identifies specimen
+    // type. Both Gold and Tiger SST share the same clear spun-SST instruction.
     if (item.originalTube) {
+      const isSpunSst = item.key === 'sst-spun';
       const spins = /\bspun\b|\bcentrifug/i.test(detail);
       const exceptional = /fully saturate|do not pour|protect from light/i.test(detail) ? detail : '';
-      const text = exceptional || (spins ? '· Spin' : '');
-      return text ? `<div class="print-submit-item-detail">${escapeHtml(text)}</div>` : '';
+      const handling = isSpunSst
+        ? 'Spun SST · Submit in original tube'
+        : `${spins ? '· Spin · ' : ''}Submit in original tube`;
+      const text = exceptional ? `${handling} · ${exceptional}` : handling;
+      return `<div class="print-submit-item-detail">${escapeHtml(text)}</div>`;
     }
     // Other non-transfer containers can have meaningful processing directions.
     // Pure specimen names are redundant with the specimen-type badge.

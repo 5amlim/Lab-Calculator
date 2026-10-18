@@ -1,0 +1,1 @@
+v11.71: hairline divider and original tube notes. CSS uses 1px #edf0f1 on submission detail; original tube cards display Submit in original tube and spun SST cards display Spun SST · Submit in original tube. Transfer pills and LABEL notes untouched.

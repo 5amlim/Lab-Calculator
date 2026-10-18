@@ -3251,3 +3251,22 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     background: #ede7fa !important; color: #654594 !important; border-color: #c6b7e4 !important;
   }
 }
+
+/* v11.71: Hairline separator between each submitted container heading and the
+   source/handling pill. Leave LABEL rows, specimen badges, and tube icons alone. */
+@media print {
+  .print-sheet .print-submit-item > .print-submit-item-detail {
+    position: relative;
+    padding-top: 4px;
+    margin-top: 4px;
+  }
+  .print-sheet .print-submit-item > .print-submit-item-detail::before {
+    content: "";
+    position: absolute;
+    left: -23px;
+    right: 0;
+    top: 0;
+    border-top: 1px solid #edf0f1;
+    pointer-events: none;
+  }
+}

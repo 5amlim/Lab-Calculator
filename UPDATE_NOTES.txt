@@ -1,3 +1,9 @@
+v11.71
+- Added a near-invisible gray hairline between the submission container title and its source/handling detail.
+- Restored Submit in original tube text on original-tube submission cards.
+- Both Gold and Tiger SST use Spun SST · Submit in original tube.
+- Kept the source pills, · Spin cues, specimen badges, LABEL instructions, and calculations unchanged.
+
 v11.70
 - Printed bag source pills retain the count, tube icon, and full 'From [tube]' wording inside the pill, adding 'spun' before the tube name for spun serum/plasma/RBC transfers. Show a separate '· Spin' processing cue outside the pill.
 - Removed redundant specimen/source text under bag titles; retained LABEL lines unchanged.

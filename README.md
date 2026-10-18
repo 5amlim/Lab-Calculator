@@ -1,3 +1,11 @@
+## v11.71: Submission card hairline and original-tube reminders
+
+- Added a very faint gray separator between the tube/container title row and its source/handling detail below.
+- Restored `Submit in original tube` on original-container submission cards.
+- For either Gold or Tiger SST submitted in its original spun tube, the detail reads `Spun SST · Submit in original tube`.
+- Transfer source pills remain unchanged, including `From spun ...` and the exterior `· Spin` cue where applicable.
+- Label badges, tube illustrations, specimen badges, bag grouping, and pooling calculations are unchanged.
+
 ## v11.70: Printed tube / container icons
 
 Fixed the tube illustrations being vertically cut off in submission-bag headers after the addition of specimen badges. Only long container text is clipped now; all tube illustrations render at full height. No logic changes.
