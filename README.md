@@ -1,3 +1,7 @@
+## v11.70: Printed tube / container icons
+
+Fixed the tube illustrations being vertically cut off in submission-bag headers after the addition of specimen badges. Only long container text is clipped now; all tube illustrations render at full height. No logic changes.
+
 v11.44
 - Increased the printed What to submit footer bag total to a 19 px number in a 30 px high white badge.
 - Condensed STAT, collection/transport tube sharing, yield assumptions, urine and order-of-draw notes into a two-column quick handling reminders grid. Preserved relevant exceptions and specimen-sufficiency warnings.

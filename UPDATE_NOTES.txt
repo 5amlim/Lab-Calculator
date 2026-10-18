@@ -1,3 +1,12 @@
+v11.70
+- Printed bag source pills retain the count, tube icon, and full 'From [tube]' wording inside the pill, adding 'spun' before the tube name for spun serum/plasma/RBC transfers. Show a separate '· Spin' processing cue outside the pill.
+- Removed redundant specimen/source text under bag titles; retained LABEL lines unchanged.
+- Submission counts, collection pooling, and routing are unchanged.
+
+v11.68
+- Matched Add best matches and the test directory Add buttons to the dark navy site header (#142F46), with white text.
+- Add a missing test controls and the cart Print / Save PDF button remain unchanged. No calculation or print changes.
+
 v11.67
 - Added right-aligned, specimen-type color badges to each printed What to submit bag item.
 - Preserved Serum from... and Plasma from... source/processing lines, label notes, quantities, pooling, and temperature/STAT bag grouping.

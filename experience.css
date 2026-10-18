@@ -939,18 +939,18 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
   }
 }
 
-/* v11.59: Lighten only the two requested Add actions further.
-   Dark teal labels preserve readability; Print / Save PDF is untouched. */
+/* v11.68: Match Add best matches and enabled test-list Add actions to the
+   navy site header. Missing-test buttons and Print / Save PDF keep their styles. */
 @media screen {
   #addBestButton,
   .row-actions button[data-action="add"]:not(:disabled) {
-    background: #49afb2;
-    color: #04313a;
+    background: #142f46;
+    color: #fff;
   }
   #addBestButton:hover,
   .row-actions button[data-action="add"]:not(:disabled):hover {
-    background: #3ca2a6;
-    color: #04313a;
+    background: #1c4059;
+    color: #fff;
   }
   .cart-header-print {
     font-size: 15px;

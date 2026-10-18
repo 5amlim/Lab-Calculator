@@ -1276,6 +1276,30 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-source-tube-badge:has(.print-source-count).tube::before {
     left: 18px;
   }
+  /* v11.70: full source pill (count, icon and tube name) with optional spin cue outside. */
+  .print-source-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 0;
+    vertical-align: middle;
+  }
+  .print-source-group .print-source-tube-badge {
+    flex: 0 1 auto;
+    min-width: 17px;
+    min-height: 15px;
+    margin-left: 0;
+    padding-right: 4px;
+  }
+  .print-source-spun {
+    font-size: 6.7px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  .print-source-extra {
+    margin-left: 6px;
+    font-weight: 700;
+  }
   .print-source-count {
     display: inline-flex;
     align-items: center;
@@ -3166,6 +3190,17 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-sheet .print-submit-item-title > .tube:not(.print-sst-tiger-badge) {
     min-width: 0;
     flex: 0 1 auto;
+    overflow: visible;
+    display: inline-flex;
+    align-items: center;
+    min-height: 20px;
+    white-space: nowrap;
+  }
+  /* Clip only the written name, never the tube/container icon (::before).
+     Hiding overflow on the outer .tube clipped the icon vertically on print. */
+  .print-sheet .print-submit-item-title .print-submit-container-name {
+    display: block;
+    min-width: 0;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: clip;

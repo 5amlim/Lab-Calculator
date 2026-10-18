@@ -3532,7 +3532,15 @@
       const showSourceCount = source.className !== 'tube-urine-cup';
       const countBadge = showSourceCount && sourceCount > 0 ? `<span class="print-source-count">${sourceCount}</span>` : '';
       const displayClass = source.className === 'tube-sst' ? selectedSstVisualClass() : source.className;
-      return `<span class="print-source-tube-badge tube ${displayClass}">${countBadge}<span class="print-source-from">From</span><span>${escapeHtml(source.label)}</span></span>`;
+      // Keep the number, icon, and entire "From ..." source inside the original pill.
+      // Only the separate "· Spin" processing cue belongs outside the pill.
+      const spun = uniqueTests(tests).length > 0 && uniqueTests(tests).every(test => {
+        const specimen = normalizeSpecimenType(test.specimenType).toLowerCase();
+        return /^(?:serum|plasma|platelet[- ]poor plasma|rbcs?|red blood cells)$/.test(specimen)
+          && /^yes$/i.test(String(test.spin || '').trim());
+      });
+      const sourceLabel = source.label;
+      return `<span class="print-source-group"><span class="print-source-tube-badge tube ${displayClass}">${countBadge}<span class="print-source-from">From</span><span>${spun ? 'spun ' : ''}${escapeHtml(sourceLabel)}</span></span>${spun ? '<span class="print-source-spun">· Spin</span>' : ''}</span>`;
     }).join('')}</span>`;
   }
 
@@ -3586,11 +3594,28 @@
 
   function printSubmissionItemDetail(item) {
     const badges = printSubmissionSourceBadges(item);
-    const detail = printProcessedTransferDetail(item);
-    // Keep transport-tube pooling in the totals, but leave out redundant per-tube
-    // test-code pairings. The existing test label area identifies each test.
-    if (!detail && !badges) return '';
-    return `<div class="print-submit-item-detail">${detail ? escapeHtml(detail) : ''}${badges}</div>`;
+    const detail = String(item.detail || '').trim();
+    // The specimen type already appears in the colored title badge. For a transfer,
+    // show the original full source pill, and a separate spin cue when applicable.
+    if (badges) {
+      // A few device-specific handling instructions are more than a generic
+      // source line and should remain visible, in addition to the transfer cue.
+      const critical = /fully saturate|do not pour|\b\d+\s*seconds?\b/i.test(detail) ? detail : '';
+      return `<div class="print-submit-item-detail">${badges}${critical ? `<span class="print-source-extra">${escapeHtml(critical)}</span>` : ''}</div>`;
+    }
+    // For an original tube there is no source transfer pill. Keep an explicit
+    // spin cue when present, but omit repetitive "Serum / submit original" text.
+    if (item.originalTube) {
+      const spins = /\bspun\b|\bcentrifug/i.test(detail);
+      const exceptional = /fully saturate|do not pour|protect from light/i.test(detail) ? detail : '';
+      const text = exceptional || (spins ? '· Spin' : '');
+      return text ? `<div class="print-submit-item-detail">${escapeHtml(text)}</div>` : '';
+    }
+    // Other non-transfer containers can have meaningful processing directions.
+    // Pure specimen names are redundant with the specimen-type badge.
+    const redundant = /^(?:serum|plasma|platelet[- ]poor plasma|rbcs?|red blood cells|stool|urine|whole blood|blood|swab|saliva|csf|tissue)$/i.test(detail);
+    if (!detail || redundant) return '';
+    return `<div class="print-submit-item-detail">${escapeHtml(detail)}</div>`;
   }
 
   function parseListedSpecimenVolumeMl(value) {
@@ -3925,7 +3950,7 @@
             <div class="print-bag-topbar"><span class="print-bag-topbar-spacer" aria-hidden="true"></span><span class="print-bag-priority ${bag.isStat ? 'priority-stat' : 'priority-routine'}">${bag.isStat ? 'STAT' : 'Routine'}</span><span class="print-bag-topbar-index">Bag ${bagNumber}/${bags.length}</span></div>
             <div class="print-bag-card-header"><div><div class="print-bag-title"><strong>${escapeHtml(bagName)}</strong></div><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-header-right"><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div></div>
             <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
-              <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${printSstTigerBadge(item)}${printBagSpecimenBadge(item)}</div>
+              <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}"><span class="print-submit-container-name">${escapeHtml(item.label)}</span></span>${printSstTigerBadge(item)}${printBagSpecimenBadge(item)}</div>
               ${printSubmissionItemDetail(item)}
               ${printLabelingNotes(item)}
               <div class="print-for-tests${uniqueTests(item.tests).length > 8 ? ' is-bag-dense' : ''}"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul${uniqueTests(item.tests).length > 8 ? ` style="--bag-test-rows:${Math.ceil(uniqueTests(item.tests).length / 2)}"` : ''}>${testReferences(item.tests)}</ul></div>
