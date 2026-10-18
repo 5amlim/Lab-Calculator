@@ -1,3 +1,14 @@
+v11.67
+- Added right-aligned, specimen-type color badges to each printed What to submit bag item.
+- Preserved Serum from... and Plasma from... source/processing lines, label notes, quantities, pooling, and temperature/STAT bag grouping.
+
+v11.66
+- Routine stool collection begins in one Sterile Cup; required Total-Fix vials are downstream specimen-preservation/transport containers, not source collection cups. Compatible tests may use a shared stool sample when permitted.
+- Special stool collections including trace-metal-free primary containers and timed total-stool containers remain separate.
+- Standard urine workflow is unchanged: sterile urine cup, then any required preservative/transport containers; 24-hour collection uses its required jug.
+- Changed Total-Fix transport-vial icon top to black while retaining a pale green body.
+- QA: 3,199 regression checks; print parity in Chromium at 390 and 1280 px, 4 pages each. iOS Safari on-device printing not yet verified.
+
 v11.65
 - Stool specimens in all printed submission cards display an explicit LABEL Stool badge, including original stool cups and Total-Fix vials; existing specific labeling instructions remain.
 - What to Collect uses one shared sterile collection cup for compatible stool tests from the same stool sample, including those requiring prompt transfer to Total-Fix. The source cup count does not multiply with test count, transport temperatures, or STAT priority.

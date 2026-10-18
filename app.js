@@ -425,6 +425,17 @@
     return draw;
   }
 
+  function normalizeStoolCollectionSource(specimenType, drawContainer) {
+    if (!/\b(?:stool|feces|fecal|faecal)\b/i.test(String(specimenType || ''))) return drawContainer;
+    const draw = String(drawContainer || '').trim();
+    // Staff collect an ordinary stool specimen in a sterile cup and then fill
+    // any required preservative/transport vial (e.g., Total-Fix). Do not
+    // overwrite special primary collections such as trace-metal-free sources
+    // or timed total-stool containers.
+    if (/^(?:sterile\s+(?:urine\s+)?cup|total[- ]?fix(?:®)?\s+(?:transport\s+)?vial)$/i.test(draw)) return 'Sterile Cup';
+    return draw;
+  }
+
   function normalizeRecord(record, index = 0) {
     record = { ...record };
     const canonicalName = VERIFIED_TEST_NAMES[String(record.testCode || '').trim()];
@@ -443,10 +454,13 @@
 
     const specimenType = normalizeSpecimenType(record.specimenType);
     const transportContainer = cleanTransportContainer(record.transportContainer);
-    const drawContainer = normalizeUrineCollectionSource(
+    const drawContainer = normalizeStoolCollectionSource(
       specimenType,
-      cleanCollectionContainer(String(record.drawContainer || 'Verify Official Instructions')),
-      transportContainer
+      normalizeUrineCollectionSource(
+        specimenType,
+        cleanCollectionContainer(String(record.drawContainer || 'Verify Official Instructions')),
+        transportContainer
+      )
     );
 
     return {
@@ -2443,7 +2457,7 @@
       'tube-total-fix': 'Total-Fix® Transport Vial',
       'tube-trace-metal-container': 'Trace Metal-Free Plastic Container',
       'tube-24h-urine': '24-Hour Urine Container',
-      'tube-urine-cup': 'Sterile Urine Cup',
+      'tube-urine-cup': collectionSpecimenGroupForTest(test) === 'stool' ? 'Sterile Cup' : 'Sterile Urine Cup',
       'tube-ua-swirl': 'Red/Yellow Swirl UA Preservative Tube',
       'tube-urine-culture': 'Gray-Top Urine Culture Preservative Tube'
     };
@@ -2677,7 +2691,7 @@
       cup.isStat = cup.hasStat && !cup.hasRoutine;
       if (cup.sharedStatRoutine) {
         cup.detail = collectionSpecimenGroupForItem(cup) === 'stool'
-          ? 'One shared stool collection. Prepare separate labeled STAT/routine and temperature-specific submission containers; follow preservative and timing instructions.'
+          ? 'Collect stool once in a sterile cup; prepare separate STAT/routine and temperature-specific transport containers. Follow preservative and timing requirements.'
           : 'Collect once in a shared sterile cup; prepare separate STAT and routine transport specimens and bags.';
       }
     });
@@ -2795,12 +2809,12 @@
     // count, not permission to combine incompatible tests or submitted aliquots.
     const sharedStoolTests = uniqueTests(tests.filter(isShareableStoolSourceTest));
     if (sharedStoolTests.length) {
-      items.push({ key: 'stool-shared-source-cup', label: 'Sterile Urine Cup',
+      items.push({ key: 'stool-shared-source-cup', label: 'Sterile Cup',
         className: 'tube-urine-cup', count: 1, tests: sharedStoolTests,
         sharedStoolSource: true,
         detail: sharedStoolTests.length > 1
-          ? 'One shared stool collection. Fill each required submission / preservative container separately; verify sufficient quantity and special handling.'
-          : 'Collect stool in a clean cup; follow the test-specific submission / preservative instructions.' });
+          ? 'Collect stool in one sterile cup, then transfer to each required transport or preservative container. Verify sufficient quantity and transfer timing.'
+          : 'Collect stool in a sterile cup; transfer to the required transport or preservative container as needed.' });
     }
 
     const spotUrineGroups = new Map();
@@ -3078,6 +3092,10 @@
     const draw = String(test.drawContainer || '').trim();
     const transport = finalTransportContainer(test);
     const combined = `${transport} ${test.specialInstructions || ''}`.toLowerCase();
+    // Ordinary stool is first collected into a sterile cup, and then moved to
+    // Total-Fix. The preservative vial is a transport container, not the
+    // original source cup, even if older records listed the vial for both.
+    if (collectionSpecimenGroupForTest(test) === 'stool' && /total[- ]?fix/.test(transport.toLowerCase())) return false;
     if (!draw || /^do not collect$/i.test(draw) || /^n\/?a$/i.test(transport)) return false;
 
     const drawClass = tubeClass(draw);
@@ -3541,6 +3559,31 @@
       : detail;
   }
 
+  // Printed submission cards show the specimen identity separately from the
+  // container. This is display-only: no pooling, label, or shipment changes.
+  function printBagSpecimenBadge(item) {
+    const categories = (item.tests || []).map(test => {
+      const specimen = normalizeSpecimenType(test.specimenType).toLowerCase().trim();
+      if (/\b(?:stool|feces|fecal|faeces|faecal)\b/.test(specimen)) return ['Stool', 'stool'];
+      if (/\burine\b/.test(specimen)) return ['Urine', 'urine'];
+      if (/\b(?:platelet[- ]poor )?plasma\b/.test(specimen)) return [specimen.includes('platelet') ? 'Platelet-Poor Plasma' : 'Plasma', 'plasma'];
+      if (/\bserum\b/.test(specimen)) return ['Serum', 'serum'];
+      if (/\brbcs?\b|red blood cells/.test(specimen)) return ['RBCs', 'rbc'];
+      if (/\bwhole blood\b/.test(specimen)) return ['Whole Blood', 'blood'];
+      if (/\b(?:blood)\b/.test(specimen)) return ['Blood', 'blood'];
+      if (/\bswab\b/.test(specimen)) return ['Swab', 'swab'];
+      if (/\b(?:csf|cerebrospinal)\b/.test(specimen)) return ['CSF', 'other'];
+      if (/\bsaliva\b/.test(specimen)) return ['Saliva', 'other'];
+      if (/\btissue\b/.test(specimen)) return ['Tissue', 'other'];
+      return ['Verify Specimen', 'other'];
+    });
+    const unique = new Map(categories.map(([label, category]) => [label, category]));
+    const [label, color] = unique.size === 0 ? ['Verify Specimen', 'other']
+      : unique.size === 1 ? [unique.keys().next().value, unique.values().next().value]
+      : ['Mixed Specimens', 'other'];
+    return `<span class="print-bag-specimen-badge specimen-${color}">${escapeHtml(label)}</span>`;
+  }
+
   function printSubmissionItemDetail(item) {
     const badges = printSubmissionSourceBadges(item);
     const detail = printProcessedTransferDetail(item);
@@ -3882,7 +3925,7 @@
             <div class="print-bag-topbar"><span class="print-bag-topbar-spacer" aria-hidden="true"></span><span class="print-bag-priority ${bag.isStat ? 'priority-stat' : 'priority-routine'}">${bag.isStat ? 'STAT' : 'Routine'}</span><span class="print-bag-topbar-index">Bag ${bagNumber}/${bags.length}</span></div>
             <div class="print-bag-card-header"><div><div class="print-bag-title"><strong>${escapeHtml(bagName)}</strong></div><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-header-right"><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div></div>
             <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
-              <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${printSstTigerBadge(item)}</div>
+              <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${printSstTigerBadge(item)}${printBagSpecimenBadge(item)}</div>
               ${printSubmissionItemDetail(item)}
               ${printLabelingNotes(item)}
               <div class="print-for-tests${uniqueTests(item.tests).length > 8 ? ' is-bag-dense' : ''}"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul${uniqueTests(item.tests).length > 8 ? ` style="--bag-test-rows:${Math.ceil(uniqueTests(item.tests).length / 2)}"` : ''}>${testReferences(item.tests)}</ul></div>
@@ -3964,7 +4007,7 @@
     if (/total[- ]?fix/.test(value)) return 'tube-total-fix';
     if (/(?:trace[ -]?metal[- ]?free|acid[- ]?washed).*container|container.*(?:trace[ -]?metal[- ]?free|acid[- ]?washed)/.test(value)) return 'tube-trace-metal-container';
     if (/24\s*[- ]?hour\s+urine\s+(?:container|jug)|24h\s+urine\s+(?:container|jug)/.test(value)) return 'tube-24h-urine';
-    if (/sterile\s+urine\s+cup|urine\s+collection\s+cup/.test(value)) return 'tube-urine-cup';
+    if (/sterile\s+(?:urine\s+)?cup|urine\s+collection\s+cup/.test(value)) return 'tube-urine-cup';
     if (/blood culture|culture bottle|bactec|\bsps\b/.test(value)) return 'tube-culture';
     if (value.includes('red/yellow') && (value.includes('gray') || value.includes('grey'))) return 'tube-ua-pair';
     if (/gray|grey/.test(value) && /urine|culture|boric/.test(value)) return 'tube-urine-culture';

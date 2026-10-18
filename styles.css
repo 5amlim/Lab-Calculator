@@ -170,7 +170,7 @@ tr:hover td { background: #fbfdfd; }
 .tube-tan::before { background: #c7a06a; }
 .tube-yellow::before { background: #f1d85b; }
 .tube-aptima::before { background: repeating-linear-gradient(180deg, #f39a3d 0 6px, #fff 6px 9px); border-style: solid; border-color: #bd6819; }
-.tube-total-fix::before { background: linear-gradient(180deg, #f8fbfc 0 28%, #d9f0ea 28% 100%); border-color: #4a8f80; }
+.tube-total-fix::before { background: linear-gradient(180deg, #1d2428 0 28%, #d9f0ea 28% 100%); border-color: #4a8f80; }
 .tube-trace-metal-container::before { width: 12px; height: 11px; border-radius: 2px 2px 5px 5px; background: linear-gradient(180deg, #f7f9fa 0 30%, #d7dfe3 30% 100%); border-color: #667980; }
 .tube-ua-swirl::before { background: repeating-linear-gradient(135deg, #d95851 0 3px, #f1d85b 3px 6px); border-style: solid; border-color: rgba(0,0,0,.18); }
 .tube-ua-pair::before { background: linear-gradient(180deg, #d95851 0 30%, #f1d85b 30% 62%, #8c969d 62% 100%); }
@@ -3151,4 +3151,68 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   border-style: dashed;
   color: #627981;
   background: #f3f7f8;
+}
+
+/* v11.67: specimen identity is a separate, color-coded right-aligned badge
+   on each printed submission card. Source/processing details stay on row 2. */
+@media print {
+  .print-sheet .print-submit-item-title {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    gap: 4px !important;
+    min-width: 0 !important;
+  }
+  .print-sheet .print-submit-item-title > .tube:not(.print-sst-tiger-badge) {
+    min-width: 0;
+    flex: 0 1 auto;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: clip;
+  }
+  .print-sheet .print-submit-item-title .print-sst-tiger-option {
+    margin-left: 0 !important;
+    flex-shrink: 0;
+  }
+  .print-sheet .print-submit-item-title > .print-bag-specimen-badge {
+    display: inline-flex !important;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto !important;
+    padding: 2px 5px !important;
+    border: 1px solid #c8d5d9;
+    border-radius: 999px;
+    background: #f1f5f6 !important;
+    color: #465d65 !important;
+    font-size: 6.1px !important;
+    font-weight: 950 !important;
+    line-height: 1.05 !important;
+    letter-spacing: .025em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .print-sheet .print-submit-item-title > .print-bag-specimen-badge.specimen-stool {
+    background: #f5dfc3 !important; color: #754514 !important; border-color: #d6a26b !important;
+  }
+  .print-sheet .print-submit-item-title > .print-bag-specimen-badge.specimen-urine {
+    background: #fff3c4 !important; color: #74550c !important; border-color: #ddc067 !important;
+  }
+  .print-sheet .print-submit-item-title > .print-bag-specimen-badge.specimen-serum {
+    background: #e1f2e6 !important; color: #226443 !important; border-color: #a8d1b8 !important;
+  }
+  .print-sheet .print-submit-item-title > .print-bag-specimen-badge.specimen-plasma {
+    background: #e1eff9 !important; color: #1e5c82 !important; border-color: #9bc5df !important;
+  }
+  .print-sheet .print-submit-item-title > .print-bag-specimen-badge.specimen-blood {
+    background: #fbe6e9 !important; color: #8b3a50 !important; border-color: #dfafb9 !important;
+  }
+  .print-sheet .print-submit-item-title > .print-bag-specimen-badge.specimen-rbc {
+    background: #f6dddd !important; color: #843232 !important; border-color: #daa4a4 !important;
+  }
+  .print-sheet .print-submit-item-title > .print-bag-specimen-badge.specimen-swab {
+    background: #ede7fa !important; color: #654594 !important; border-color: #c6b7e4 !important;
+  }
 }
