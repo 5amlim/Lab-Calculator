@@ -1,3 +1,7 @@
+v11.57
+- Lightened the teal Add best matches and directory Add buttons one additional shade (#148b8e). The STAT-specific gold action and disabled added states remain unchanged.
+- Enlarged Print / Save PDF button text to 15 px while preserving its original brand background color and dimensions.
+
 v11.56
 - Long test names in printed submission bag cards are clipped to one line at the edge of their assigned column; lists of more than 8 tests still use two columns. Full names remain in the detailed test table.
 - Slightly lightened only Add best matches and the standard test-menu + Add buttons. Cart Print / Save PDF retains its original teal.

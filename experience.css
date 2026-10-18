@@ -939,16 +939,19 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
   }
 }
 
-/* v11.56: Lighten the two teal Add actions without changing Cart's
-   Print / Save PDF button (which retains the existing brand color). */
+/* v11.57: A lighter teal for the batch and directory Add actions.
+   The cart Print / Save PDF button retains the original brand teal. */
 @media screen {
   #addBestButton,
   .row-actions button[data-action="add"]:not(:disabled) {
-    background: #0a8388;
+    background: #148b8e;
     color: #fff;
   }
   #addBestButton:hover,
   .row-actions button[data-action="add"]:not(:disabled):hover {
-    background: #087b80;
+    background: #087e83;
+  }
+  .cart-header-print {
+    font-size: 15px;
   }
 }
