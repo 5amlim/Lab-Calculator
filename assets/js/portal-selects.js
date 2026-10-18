@@ -1,4 +1,4 @@
-/* v11.79: Animated, tube-badged in-page popovers for Add/Edit Test and Filter Tests.
+/* v11.80: Animated, tube-badged in-page popovers for Add/Edit Test and Filter Tests.
    Native selects remain the source of truth for all existing app logic. */
 (() => {
   const selectors = ['specimenFilter','temperatureFilter','fastingFilter','specimenType','drawContainer','transportContainer','transportTemperature','spin'];
@@ -45,9 +45,20 @@
     if (!draw) return '';
     return draw.value === '__other__' ? document.getElementById('customDrawContainer')?.value : draw.value;
   }
+  // Keep one stored original-tube choice, with display wording specific to
+  // the selected collection tube. Changing wording must not change saved values.
+  function isSstSource() {
+    return /\bsst\b|\bgold\b|serum separator|red\s*\/\s*black/i.test(String(sourceContainerName() || ''));
+  }
+  function optionLabel(item, option) {
+    if (item.select.id === 'transportContainer' && option.value === 'Submit in original tube') {
+      return isSstSource() ? 'Spun SST / Original tube' : 'Submit in original tube';
+    }
+    return option.textContent.trim();
+  }
   function iconFor(item, value) {
     if (!['drawContainer', 'transportContainer'].includes(item.select.id) || !value || value === '__other__') return '';
-    if (item.select.id === 'transportContainer' && /^(no transfer \/ submit in original tube|whole blood \/ original tube)$/i.test(value)) {
+    if (item.select.id === 'transportContainer' && /^submit in original tube$/i.test(value)) {
       return tubeIconClass(sourceContainerName());
     }
     return tubeIconClass(value);
@@ -81,7 +92,7 @@
   }
   function sync(item) {
     const selected = item.select.selectedOptions[0];
-    item.text.textContent = selected ? selected.textContent.trim() : 'Choose an option';
+    item.text.textContent = selected ? optionLabel(item, selected) : 'Choose an option';
     item.icon?.remove();
     item.icon = iconElement(iconFor(item, item.select.value));
     if (item.icon) item.button.insertBefore(item.icon, item.text);
@@ -132,7 +143,7 @@
       if (icon) choice.append(icon);
       const optionText = document.createElement('span');
       optionText.className = 'portal-option-label';
-      optionText.textContent = option.textContent.trim();
+      optionText.textContent = optionLabel(item, option);
       choice.append(optionText);
       choice.disabled = option.disabled;
       const chosen = option.value === item.select.value;

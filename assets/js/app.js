@@ -4306,7 +4306,11 @@
   }
 
   function setTransportContainerValue(value) {
-    const normalized = String(value || '').trim();
+    // Backward compatibility: saved tests using the former duplicate original-
+    // tube choice edit as the single original-tube option, not a custom tube.
+    const supplied = String(value || '').trim();
+    const normalized = /^(?:whole blood\s*\/\s*original tube|no transfer\s*\/\s*submit in original tube)$/i.test(supplied)
+      ? 'Submit in original tube' : supplied;
     const match = Array.from(els.transportContainer.options).find(option =>
       option.value && option.value !== '__other__' && normalizeSearch(option.value) === normalizeSearch(normalized));
     if (match) {

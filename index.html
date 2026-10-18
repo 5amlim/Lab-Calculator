@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lab Collection Calculator</title>
   <meta name="description" content="Batch-search and print-friendly specimen collection planning from a curated local test directory.">
-  <link rel="stylesheet" href="styles.css?v=11.79">
-  <link rel="stylesheet" href="experience.css?v=11.79">
+  <link rel="stylesheet" href="assets/css/styles.css?v=11.80">
+  <link rel="stylesheet" href="assets/css/experience.css?v=11.80">
 </head>
 <body>
   <a class="skip-link" href="#libraryFilter">Skip to test search</a>
@@ -234,7 +234,7 @@
       <strong>Copyright and ownership notice</strong>
       <span>Copyright © 2026 Sam Hay. All rights reserved. Independently developed and maintained by Sam Hay as a personal software project and hosted through a personally controlled account. No license or ownership interest is granted except through Sam Hay’s express written authorization. Use by any organization does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay at any time and for any reason.</span>
     </div>
-    <a class="agreement-download" href="Sam_Hay_Workplace_Use_Agreement.docx" download="Sam_Hay_Workplace_Use_Agreement.docx">Download workplace use agreement</a>
+    <a class="agreement-download" href="docs/Sam_Hay_Workplace_Use_Agreement.docx" download="Sam_Hay_Workplace_Use_Agreement.docx">Download workplace use agreement</a>
   </footer>
 
   <section id="printSheet" class="print-sheet" aria-hidden="true"></section>
@@ -310,10 +310,9 @@
             <label id="customDrawContainerRow" class="custom-draw-container-row full-width hidden"><span class="form-label-text">Custom draw container <span class="required-mark" aria-hidden="true">*</span></span><input id="customDrawContainer" disabled placeholder="Type any tube, cup, swab, or collection kit" autocomplete="off"></label>
             <label><span class="form-label-text">Transport tube / container <span class="required-mark" aria-hidden="true">*</span></span><select id="transportContainer" required>
               <option value="">Choose a transport container</option>
-              <option value="No transfer / submit in original tube">No transfer / submit in original tube</option>
+              <option value="Submit in original tube">Submit in original tube</option>
               <option>Serum Transport Tube</option>
               <option>Plasma Transport Tube</option>
-              <option>Whole Blood / Original Tube</option>
               <option>Amber Serum Transport Tube — Protect From Light</option>
               <option>Amber Plasma Transport Tube — Protect From Light</option>
               <option>Acid-Washed / Metal-Free Serum Transport Tube</option>
@@ -367,8 +366,8 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script src="data.js?v=11.79"></script>
-  <script src="app.js?v=11.79"></script>
-  <script src="portal-selects.js?v=11.79"></script>
+  <script src="assets/js/data.js?v=11.80"></script>
+  <script src="assets/js/app.js?v=11.80"></script>
+  <script src="assets/js/portal-selects.js?v=11.80"></script>
 </body>
 </html>
