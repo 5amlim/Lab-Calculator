@@ -2820,13 +2820,17 @@
       // it holds many tests. Pair the list into two internal print columns.
       const longSstList = item.className === 'tube-sst' && printedTestCount >= 9;
       const columnRows = Math.ceil(printedTestCount / (longSstList ? 2 : 3));
-      const yieldReviewCount = item.className === 'tube-sst'
-        ? uniqueTests(item.tests).filter(test => singleSstSpecimenVolumeWarning(test)).length : 0;
+      const yieldReviewTests = item.className === 'tube-sst'
+        ? uniqueTests(item.tests).filter(test => singleSstSpecimenVolumeWarning(test)) : [];
       return `<article class="print-collection-card${longSstList ? ' is-sst-long' : printedTestCount >= 12 ? ' is-long' : ''}" style="--print-column-rows:${columnRows}">
         <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${microtainerBadge}${specimenBadge ? `<span class="print-collection-specimen-badge specimen-${specimenGroup}">${escapeHtml(specimenBadge)}</span>` : ''}${printCollectionWholeBloodDetail(item, wholeBloodGroups)}</div>
         ${item.detail ? `<div class="print-container-detail">${escapeHtml(item.detail)}</div>` : ''}
         ${item.className === 'tube-microtainer' ? '<div class="print-microtainer-note">Microcollection tubes · protect from light; follow the test-specific Microtainer instructions.</div>' : ''}
-        ${yieldReviewCount ? `<div class="print-sst-volume-warning">Volume verification: ${yieldReviewCount} ${yieldReviewCount === 1 ? 'test has' : 'tests have'} specimen needs that may exceed a single ${selectedSstIsTiger() ? 'Tiger' : 'Gold'} SST yield. Confirm sufficient collection volume with the receiving lab.</div>` : ''}
+        ${yieldReviewTests.length ? `<div class="print-sst-volume-warning">
+          <div>Volume verification: ${yieldReviewTests.length} ${yieldReviewTests.length === 1 ? 'test has' : 'tests have'} specimen needs that may exceed a single ${selectedSstIsTiger() ? 'Tiger' : 'Gold'} SST yield.</div>
+          <div class="print-sst-volume-affected"><strong>Affected ${yieldReviewTests.length === 1 ? 'test' : 'tests'}:</strong> ${yieldReviewTests.map(test => `<span><b>${escapeHtml(displayCode(test))}</b> ${escapeHtml(test.testName)}</span>`).join(' · ')}</div>
+          <div>Confirm sufficient collection volume with the receiving lab.</div>
+        </div>` : ''}
         <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${uniqueTests(item.tests).map(test => `<li><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)}${test.isStat ? '<span class="print-collection-stat-label"> · STAT</span>' : ''}</li>`).join('')}</ul></div>
       </article>`;
     }).join('')}</div>`;

@@ -2956,6 +2956,13 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     border-radius: 4px;
     background: #fff4d9 !important;
   }
+  .print-sst-volume-affected {
+    margin: 2px 0;
+    font-weight: 550;
+    overflow-wrap: anywhere;
+  }
+  .print-sst-volume-affected strong,
+  .print-sst-volume-affected b { font-weight: 800; }
   /* CSS multi-column pagination varies between mobile print engines. Use
      the same explicit column-first three-column layout everywhere. */
   .print-sheet .print-collection-card.is-long .print-for-tests ul {
