@@ -1,3 +1,8 @@
+v11.59
+- Further lightened Add best matches and the individual test-directory Add buttons to soft teal (#49afb2) with dark teal lettering for readability. Their hover state is a slightly darker teal.
+- Print / Save PDF retains its original background, text color, size, and behavior.
+- No changes to tests, calculations, or print styles.
+
 v11.58
 - The Add missing test modal now gives Test info and Collection & transport dark blue-gray header bands, brighter headings and readable subtitles, and a teal accent. Only the two primary section headers are highlighted; fields, Optional details and specimen logic remain unchanged.
 
