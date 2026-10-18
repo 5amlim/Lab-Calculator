@@ -3050,3 +3050,43 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     page-break-inside: avoid;
   }
 }
+
+
+/* v11.54: For >8 tests in ANY single bag tube card, split its test list
+   into two explicit column-first tracks. No WebKit masks or fade filters. */
+@media print {
+  .print-sheet .print-bag-card .print-for-tests.is-bag-dense ul {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(var(--bag-test-rows), auto) !important;
+    grid-auto-flow: column !important;
+    gap: 1px 10px !important;
+    width: 100% !important;
+    box-sizing: border-box;
+    min-width: 0;
+    margin: 3px 0 0 !important;
+    padding: 0 0 0 12px !important;
+    list-style: disc outside !important;
+  }
+  .print-sheet .print-bag-card .print-for-tests.is-bag-dense li {
+    display: list-item !important;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .print-sheet .print-bag-card .print-for-tests.is-bag-dense li + li::before {
+    content: none !important;
+  }
+
+  /* Only the body cells of Special handling become smaller. */
+  .print-detail-table-section .print-table tbody td:last-child {
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+    letter-spacing: 0 !important;
+  }
+}

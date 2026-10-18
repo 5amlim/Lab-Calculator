@@ -3801,7 +3801,7 @@
               <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${printSstTigerBadge(item)}</div>
               ${printSubmissionItemDetail(item)}
               ${printLabelingNotes(item)}
-              <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${testReferences(item.tests)}</ul></div>
+              <div class="print-for-tests${uniqueTests(item.tests).length > 8 ? ' is-bag-dense' : ''}"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul${uniqueTests(item.tests).length > 8 ? ` style="--bag-test-rows:${Math.ceil(uniqueTests(item.tests).length / 2)}"` : ''}>${testReferences(item.tests)}</ul></div>
             </div>`).join('')}</div>
           </article>`;
         }).join('')}</div>`).join('')}</div>

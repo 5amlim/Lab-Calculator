@@ -1,3 +1,7 @@
+v11.54
+- Submission bag test lists switch to two print columns for more than eight tests per tube type; all source/transport/pooling rules are unchanged.
+- Reduced detailed table Special handling body text only, keeping other column typography and layout.
+
 v11.53
 - Mobile print fix: removed the CSS gradient mask that can produce solid black bars over long Gold/Tiger SST test lists on iPhone/iOS Safari.
 - Kept two-column SST test lists; overflow now truncates with an ellipsis, and full names remain available in the detailed test table.
