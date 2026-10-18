@@ -3594,6 +3594,26 @@
     return `<span class="print-tube-badge tube ${displayClass}">${escapeHtml(displayValue)}</span>${sourceText ? `<div class="print-transport-source">${escapeHtml(sourceText)}${sourceBadge}</div>` : ''}`;
   }
 
+  function printNotesFooter() {
+    return `
+      <div class="print-shipping-notes">
+      <div class="print-bag-note">
+        <div><strong>STAT routing:</strong> Only tests listed for the selected receiving lab are STAT eligible. Confirm that the specific order is accepted as STAT by the receiving lab, use its STAT requisition/courier workflow, and never put STAT specimens in a routine shipment.</div>
+        <div><strong>Tube sharing:</strong> Collection cards combine the number of tubes needed for STAT and routine tests of each type, but the counts are additive and do not imply sharing a tube across separate STAT and routine shipments. Their transport bags remain separate. Compatible urine tests may share one sterile collection cup across priorities unless separate specimens are required. Within a single priority, SST, Lavender EDTA, and Red Top tubes pool only when processing and temperature match. Whole-blood tubes and tubes used for aliquots remain separate.</div>
+        <div><strong>Tube counts:</strong> Estimates allow 2 mL of usable serum, plasma, or processed specimen per source tube and 4 mL of whole blood per Lavender tube. Multiple, dedicated, and full-tube requirements remain separate. Whole-blood amounts are shown inside each blood-tube card; serum/plasma amounts use a 2.5× whole-blood conversion.</div>
+        <div><strong>Urine:</strong> Random/spot, first-morning, timed, and 24-hour collections are kept distinct when their collection requirements differ. Compatible tests may share a sterile urine cup even when their downstream transport specimens have different priorities or temperatures; keep those transport specimens separate. Explicitly required separate urine collections must not be pooled.</div>
+      </div>
+      </div>
+      <div class="print-prebag-footer">
+      <div class="print-footer">
+        <div><strong>Order of draw:</strong> Pink tubes are grouped with EDTA. Temperatures are counted separately.</div>
+        <div class="print-missing-test"><strong>Missing a test?</strong> <b>Contact Sam</b> to have it added.</div>
+      </div>
+      <div class="print-ownership"><span><strong>Copyright and ownership:</strong> Copyright © 2026 Sam Hay. All rights reserved. Independently developed and maintained by Sam Hay as a personal software project and hosted through a personally controlled account. No license or ownership interest is granted except through Sam Hay’s express written authorization. Use by any organization does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay at any time and for any reason.</span></div>
+      </div>
+    `;
+  }
+
   function printCollectionSubmissionPlan(tests) {
     const collectionTests = expandedCollectionTests(tests);
     const bags = buildTransportBagPlan(collectionTests);
@@ -3627,23 +3647,6 @@
       bagRows.push(bagDisplayOrder.slice(i, i + 2));
     }
     const bagStartOnFreshPage = bags.length >= 3 || bagRenderData.some(entry => entry.contents.length >= 8);
-    const printNotesFooter = `
-      <div class="print-shipping-notes">
-      <div class="print-bag-note">
-        <div><strong>STAT routing:</strong> Only tests listed for the selected receiving lab are STAT eligible. Confirm that the specific order is accepted as STAT by the receiving lab, use its STAT requisition/courier workflow, and never put STAT specimens in a routine shipment.</div>
-        <div><strong>Tube sharing:</strong> Collection cards combine the number of tubes needed for STAT and routine tests of each type, but the counts are additive and do not imply sharing a tube across separate STAT and routine shipments. Their transport bags remain separate. Compatible urine tests may share one sterile collection cup across priorities unless separate specimens are required. Within a single priority, SST, Lavender EDTA, and Red Top tubes pool only when processing and temperature match. Whole-blood tubes and tubes used for aliquots remain separate.</div>
-        <div><strong>Tube counts:</strong> Estimates allow 2 mL of usable serum, plasma, or processed specimen per source tube and 4 mL of whole blood per Lavender tube. Multiple, dedicated, and full-tube requirements remain separate. Whole-blood amounts are shown inside each blood-tube card; serum/plasma amounts use a 2.5× whole-blood conversion.</div>
-        <div><strong>Urine:</strong> Random/spot, first-morning, timed, and 24-hour collections are kept distinct when their collection requirements differ. Compatible tests may share a sterile urine cup even when their downstream transport specimens have different priorities or temperatures; keep those transport specimens separate. Explicitly required separate urine collections must not be pooled.</div>
-      </div>
-      </div>
-      <div class="print-prebag-footer">
-      <div class="print-footer">
-        <div><strong>Order of draw:</strong> Pink tubes are grouped with EDTA. Temperatures are counted separately.</div>
-        <div class="print-missing-test"><strong>Missing a test?</strong> <b>Contact Sam</b> to have it added.</div>
-      </div>
-      <div class="print-ownership"><span><strong>Copyright and ownership:</strong> Copyright © 2026 Sam Hay. All rights reserved. Independently developed and maintained by Sam Hay as a personal software project and hosted through a personally controlled account. No license or ownership interest is granted except through Sam Hay’s express written authorization. Use by any organization does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay at any time and for any reason.</span></div>
-      </div>
-    `;
     const fastingItems = fastingRequirementsForTests(tests);
     const fastingPanel = fastingItems.length ? `<div class="print-fasting-panel">
       <div class="print-fasting-panel-title"><strong>Fasting instructions</strong><span>Confirm before collection</span></div>
@@ -3698,7 +3701,6 @@
           </article>`;
         }).join('')}</div>`).join('')}</div>
       </section>
-      ${printNotesFooter}
     </section>`;
   }
 
@@ -3713,12 +3715,15 @@
         <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<span class="print-selected-count">${tests.length} selected ${tests.length === 1 ? 'test' : 'tests'}</span></div>
       </div>
       ${alerts.length ? `<div class="print-alerts">${alerts.map(alert => `<div>${escapeHtml(alert.text)}</div>`).join('')}</div>` : ''}
+      ${printCollectionSubmissionPlan(tests)}
+      <section class="print-detail-table-section">
       <table class="print-table">
         <colgroup><col style="width:6%"><col style="width:14%"><col style="width:7%"><col style="width:10%"><col style="width:10%"><col style="width:5%"><col style="width:8%"><col style="width:7%"><col style="width:8%"><col style="width:25%"></colgroup>
         <thead><tr><th>Code</th><th>Test</th><th>Specimen</th><th>Draw container</th><th>Transport tube</th><th>Spin</th><th>Temperature</th><th>Volume</th><th>Stability</th><th>Special handling</th></tr></thead>
         <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><div class="print-test-name-stack"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${fastingBadge(test, 'print-test-fasting-badge')}</div>${test.alternativeContainer ? `<div class="print-test-alternative">Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span></div>` : ''}${additionalRequirementSummary(test, true)}</td><td>${requiredSpecimenBadges(test, 'print-specimen-badge')}</td><td>${requiredDrawContainerBadges(test, 'print-tube-badge')}</td><td>${printContainerBadges(test)}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">${escapeHtml(combinedVolumeText(test, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(combinedVolumeText(test, 'minimum') || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
       </table>
-      ${printCollectionSubmissionPlan(tests)}
+      </section>
+      ${printNotesFooter()}
 `;
     window.print();
   }

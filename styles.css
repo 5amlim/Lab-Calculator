@@ -2790,3 +2790,37 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     font-size: 7.6px;
   }
 }
+
+/* v11.31: Workflow first, detail table on its own page, notes last. */
+@media print {
+  .print-logistics-plan {
+    margin-top: 6px;
+    break-before: auto !important;
+    page-break-before: auto !important;
+  }
+  .print-detail-table-section {
+    display: block;
+    break-before: page !important;
+    page-break-before: always !important;
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+  .print-detail-table-section .print-table {
+    width: 100%;
+  }
+  .print-bag-topbar .print-bag-priority {
+    font-size: 9px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: .04em;
+  }
+  .print-shipping-notes,
+  .print-prebag-footer {
+    break-before: auto;
+    page-break-before: auto;
+  }
+  .print-prebag-footer {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+}
