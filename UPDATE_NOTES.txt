@@ -1,3 +1,14 @@
+v11.65
+- Stool specimens in all printed submission cards display an explicit LABEL Stool badge, including original stool cups and Total-Fix vials; existing specific labeling instructions remain.
+- What to Collect uses one shared sterile collection cup for compatible stool tests from the same stool sample, including those requiring prompt transfer to Total-Fix. The source cup count does not multiply with test count, transport temperatures, or STAT priority.
+- What to Submit continues to calculate individual required transport/preservative/original submission containers and temperature/STAT bags without any pooling change. Special collections (e.g., trace-metal-free containers, separately required stool specimens, timed total-stool studies) remain separate.
+- Confirm collection consistency, sample sufficiency, acceptance of shared stool aliquots, preservation timing, and test-specific handling before using one shared sample. No catalog content changes.
+- QA: 5,741 automated tests across active directory and mixed stool combinations; print-output parity checked with Chromium 390px and 1280px viewports (four pages each, identical print text apart from timestamp).
+
+v11.64
+- Replaced six algorithm-oriented Quick handling reminders with four concise Specimen precautions covering separate STAT pickups and shipments, collection/transport conditions, urine collection types and timing, and an estimated-volume disclaimer.
+- No changes to test records, pooling and submission calculations, or print layout beyond the shorter notes content.
+
 v11.63
 - Audited all built-in LABEL badges and explicit label fields. Removed routine Urine/Stool and original-tube source labels that are not additional labeling instructions.
 - Removed nine non-label directives (six container/handling reminders and three original-tube HIV reminders) from LABEL metadata; their requirements remain in Special Handling and collection-container data.

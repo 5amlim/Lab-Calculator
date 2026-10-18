@@ -2375,6 +2375,24 @@
       && !requiresSeparateUrineCollection(test);
   }
 
+  function isShareableStoolSourceTest(test) {
+    // Pool only ordinary stool specimens collected from the same bowel movement.
+    // Timed total-stool collections, trace-metal containers, explicitly separate
+    // specimens, and other specialty sources must keep their own collection.
+    if (collectionSpecimenGroupForTest(test) !== 'stool' || explicitCollectionCount(test) > 1) return false;
+    const notes = `${test.drawContainer || ''} ${test.specialInstructions || ''}`.toLowerCase();
+    if (/\b(?:do not|don't|must not|cannot)\s+(?:pool|combine|share)\b|\b(?:separate|additional|dedicated)\s+(?:stool\s+)?(?:specimen|sample|collection|container)\b|\b(?:collect|obtain|provide)\s+(?:a\s+)?(?:second|separate|additional)\s+(?:stool\s+)?(?:specimen|sample|collection)\b|\b\d+\s*[- ]?\s*(?:hour|hr|day)\s+(?:total\s+)?stool\s+collection\b/.test(notes)) return false;
+    const source = canonicalCollectionContainer(test);
+    if (source.className === 'tube-urine-cup') return true;
+    // Total-Fix workflows explicitly require transferring FRESH STOOL to the vial.
+    // A clean collection cup may be the shared pre-transfer source only when
+    // the entry confirms that step, and the transfer time still must be met.
+    if (source.className === 'tube-total-fix') {
+      return /(?:transfer|add|place)\b[^.]{0,140}\bstool\b[^.]{0,90}\b(?:total[- ]?fix|vial)\b|\btransfer\b[^.]{0,140}\btotal[- ]?fix\b|\bpass specimen into a clean dry container\b/i.test(notes);
+    }
+    return false;
+  }
+
   function is24HourUrineTest(test) {
     return urineCollectionType(test).key === '24-hour-urine';
   }
@@ -2631,10 +2649,13 @@
     const sharedCups = new Map();
     const merged = [];
     items.forEach(item => {
-      const isShareableCup = item.className === 'tube-urine-cup'
+      const isShareableCup = (item.className === 'tube-urine-cup'
         && collectionSpecimenGroupForItem(item) === 'urine'
         && !item.urineSeparateCollection
-        && item.tests.every(isShareableUrineCupTest);
+        && item.tests.every(isShareableUrineCupTest))
+        || (item.className === 'tube-urine-cup'
+          && item.sharedStoolSource
+          && item.tests.every(isShareableStoolSourceTest));
       if (!isShareableCup) {
         merged.push(item);
         return;
@@ -2655,7 +2676,9 @@
       cup.sharedStatRoutine = cup.hasStat && cup.hasRoutine;
       cup.isStat = cup.hasStat && !cup.hasRoutine;
       if (cup.sharedStatRoutine) {
-        cup.detail = 'Collect once in a shared sterile cup; prepare separate STAT and routine transport specimens and bags.';
+        cup.detail = collectionSpecimenGroupForItem(cup) === 'stool'
+          ? 'One shared stool collection. Prepare separate labeled STAT/routine and temperature-specific submission containers; follow preservative and timing instructions.'
+          : 'Collect once in a shared sterile cup; prepare separate STAT and routine transport specimens and bags.';
       }
     });
     // One collection card per physical blood tube type. Separate STAT and
@@ -2766,6 +2789,20 @@
 
     addAdditionalPooledBloodItems(items, tests, bags);
 
+    // One clean source cup can supply multiple COMPATIBLE stool assays. Each
+    // assay retains its own final submission container, preservative, temperature,
+    // and STAT bag as calculated by buildSubmissionContents. This is a SOURCE cup
+    // count, not permission to combine incompatible tests or submitted aliquots.
+    const sharedStoolTests = uniqueTests(tests.filter(isShareableStoolSourceTest));
+    if (sharedStoolTests.length) {
+      items.push({ key: 'stool-shared-source-cup', label: 'Sterile Urine Cup',
+        className: 'tube-urine-cup', count: 1, tests: sharedStoolTests,
+        sharedStoolSource: true,
+        detail: sharedStoolTests.length > 1
+          ? 'One shared stool collection. Fill each required submission / preservative container separately; verify sufficient quantity and special handling.'
+          : 'Collect stool in a clean cup; follow the test-specific submission / preservative instructions.' });
+    }
+
     const spotUrineGroups = new Map();
     tests.filter(test => isUrineTest(test) && !isTimedUrineTest(test)).forEach(test => {
       const urineType = urineCollectionType(test);
@@ -2793,6 +2830,7 @@
       if (isLavenderDraw(test) || isRedTopDraw(test)) return;
       if (isAdditionalPoolableBloodDraw(test)) return;
       if (isUrineTest(test) && !isTimedUrineTest(test)) return;
+      if (isShareableStoolSourceTest(test)) return;
       const info = canonicalCollectionContainer(test);
       // Keep physically identical containers separate when they hold different specimen types.
       // A Sterile Urine Cup, for example, may be used for either urine or stool, but those
@@ -2801,8 +2839,9 @@
       const specimenSubtype = specimenGroup === 'urine' ? urineCollectionType(test).key : specimenGroup;
       const urineCup = specimenGroup === 'urine' && info.className === 'tube-urine-cup';
       const separateCup = urineCup && !isShareableUrineCupTest(test);
-      const groupKey = `${specimenSubtype}|${info.key}${separateCup ? `|separate|${test.sourceTestId || test.id}` : ''}`;
-      if (!grouped.has(groupKey)) grouped.set(groupKey, { ...info, key: groupKey, urineSeparateCollection: separateCup, urineCollectionKey: groupKey, count: 0, tests: [], detail: '' });
+      const separateStool = specimenGroup === 'stool' && info.className === 'tube-urine-cup';
+      const groupKey = `${specimenSubtype}|${info.key}${separateCup || separateStool ? `|separate|${test.sourceTestId || test.id}` : ''}`;
+      if (!grouped.has(groupKey)) grouped.set(groupKey, { ...info, key: groupKey, urineSeparateCollection: separateCup, stoolSeparateCollection: separateStool, urineCollectionKey: groupKey, count: 0, tests: [], detail: '' });
       const item = grouped.get(groupKey);
       if (urineCup && !separateCup) item.count = Math.max(item.count, explicitCollectionCount(test));
       else item.count += explicitCollectionCount(test);
@@ -2825,7 +2864,7 @@
       const specimenGroup = collectionSpecimenGroupForItem(item);
       const specimenSubtype = collectionMergeSubtypeForItem(item);
       const normalizedLabel = String(item.label || '').trim().toLowerCase();
-      const separateKey = item.urineSeparateCollection ? `|${item.urineCollectionKey || item.key}` : '';
+      const separateKey = (item.urineSeparateCollection || item.stoolSeparateCollection) ? `|${item.urineCollectionKey || item.key}` : '';
       const sameContainerKey = `${specimenSubtype}|${item.className || ''}|${normalizedLabel}${separateKey}`;
       const mergeableNonBlood = specimenGroup !== 'blood' && specimenGroup !== 'other';
 
@@ -3257,9 +3296,11 @@
     const lowerSpecimen = specimen.toLowerCase();
     const sourceSpecimen = specificSpecimenSource(test);
 
-    // Primary collection containers already identify routine blood/urine/stool
-    // specimen types. Do not add a redundant LABEL badge for that information.
-    // Explicit collection-time and special label directives are handled below.
+    // Always provide an explicit STOOL label on submitted stool containers,
+    // including original cups; this is separate from routing/handling notes.
+    if (collectionSpecimenGroupForTest(test) === 'stool') return 'Stool';
+    // Primary non-stool collection containers already identify ordinary specimen
+    // types; only genuinely additional labeling instructions get a badge.
     if (item.originalTube && !/swab/.test(lowerSpecimen) && !/swab/i.test(sourceSpecimen)) return '';
     if (/\brbcs?\b|red blood cell/.test(lowerSpecimen)) return sourceTube ? `RBCs from ${sourceTube}` : 'RBCs';
     if (/plasma/.test(lowerSpecimen)) return sourceTube ? `${specimen} from ${sourceTube}` : specimen;
@@ -3741,14 +3782,12 @@
   function printNotesFooter() {
     return `
       <div class="print-shipping-notes">
-        <div class="print-bag-note-title">Quick handling reminders</div>
+        <div class="print-bag-note-title">Specimen precautions</div>
         <div class="print-bag-note">
-          <div><strong>STAT shipments</strong>Only listed tests may be STAT for the selected lab. Confirm acceptance, use STAT requisition/courier steps, and never ship with routine specimens.</div>
-          <div><strong>Collection tube sharing</strong>STAT and routine tube counts are added, not shared. Pool SST, Lavender EDTA, or Red Top only when priority, processing, and temperature match. Keep whole-blood and aliquot-source tubes separate.</div>
-          <div><strong>Serum / plasma transport</strong>Up to 2 compatible serum tests or 2 plasma tests may share a tube if source, processing, priority, and temperature match. Verify volume and lab acceptance. Dedicated/special/separate-tube rules take priority.</div>
-          <div><strong>Volume estimates</strong>Gold SST: 5 mL draw → up to 2.5 mL serum; Tiger SST: 7.5 mL → up to 4 mL. Other processed sources: 2 mL; Lavender whole blood: 4 mL. Draw estimates use 2.5× serum/plasma volume. Actual yield may be lower; full/multiple-tube rules override.</div>
-          <div><strong>Urine collection</strong>Keep random, first-morning, timed, and 24-hour specimens distinct as required. Compatible tests may share a sterile cup, but separate STAT, routine, and temperature-specific transport specimens. Never combine explicitly separate collections.</div>
-          <div><strong>Order of draw / temperatures</strong>Pink counts as EDTA. Count transport temperatures separately.</div>
+          <div><strong>STAT specimens</strong>Confirm STAT acceptance with the receiving lab. Schedule a separate STAT pickup, use the correct STAT requisition, and never mix STAT and routine specimens in the same shipment.</div>
+          <div><strong>Collection &amp; transport</strong>Follow each test’s processing time, temperature, container, and special-handling instructions. Keep room-temperature, refrigerated, and frozen specimens in separate bags.</div>
+          <div><strong>Urine collections</strong>Confirm whether the order requires random, first-morning, timed, or 24-hour urine. Never combine different collection periods. For timed/24-hour urine, follow the required start/end times, total-volume, preservative, and storage instructions.</div>
+          <div><strong>Volume disclaimer</strong>Tube counts and draw volumes are estimates, not guaranteed specimen yields. Actual serum/plasma recovery varies. Check the lab’s required volume and any full, dedicated, or separate-tube instructions before sending.</div>
         </div>
       </div>
       <div class="print-prebag-footer">
