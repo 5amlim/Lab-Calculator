@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lab Collection Calculator</title>
   <meta name="description" content="Batch-search and print-friendly specimen collection planning from a curated local test directory.">
-  <link rel="stylesheet" href="styles.css?v=11.45">
-  <link rel="stylesheet" href="experience.css?v=11.45">
+  <link rel="stylesheet" href="styles.css?v=11.47">
+  <link rel="stylesheet" href="experience.css?v=11.47">
 </head>
 <body>
   <a class="skip-link" href="#libraryFilter">Skip to test search</a>
@@ -148,7 +148,7 @@
 
       <section class="sst-mode-control urine-culture-mode-control" id="urineCultureModeControl" aria-labelledby="urineCultureModeLabel">
         <div class="sst-mode-copy">
-          <strong id="urineCultureModeLabel">Urine culture transport</strong>
+          <strong id="urineCultureModeLabel">Urine culture</strong>
           <span>Choose one type.</span>
         </div>
         <div class="sst-mode-toggle" role="group" aria-label="Select urine culture transport">
@@ -163,8 +163,7 @@
         <div class="tests-summary-header">
           <div class="tests-summary-heading-block">
             <div class="tests-summary-heading">
-              <span class="tests-summary-title" id="testsOverviewTitle">Tests</span>
-              <span class="tests-summary-count" id="testsOverviewSummary">0 tests</span>
+              <span class="tests-summary-title" id="testsOverviewTitle">Cart</span>
             </div>
           </div>
           <div class="tests-summary-actions">
@@ -172,6 +171,7 @@
             <button class="mini-button remove" id="clearOrderButton" type="button">Clear all</button>
           </div>
           <button class="mini-button edit tests-details-toggle" id="testsDetailsButton" type="button" aria-expanded="false" aria-controls="testsOverviewList testsDetailsPanel">▾ Show details</button>
+          <span class="tests-summary-count" id="testsOverviewSummary" aria-live="polite">0 tests</span>
         </div>
         <div class="cart-tests-viewport" id="cartTestsViewport" role="region" aria-label="Selected tests, scroll for more" tabindex="0">
           <div id="testsOverviewList" class="tests-overview-list empty-state">No tests selected.</div>
@@ -359,7 +359,7 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script src="data.js?v=11.45"></script>
-  <script src="app.js?v=11.45"></script>
+  <script src="data.js?v=11.47"></script>
+  <script src="app.js?v=11.47"></script>
 </body>
 </html>

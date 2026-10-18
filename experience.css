@@ -802,3 +802,56 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
   .filter-row .stat-library-control select { grid-row: 2; }
   .filter-row .stat-library-control .stat-menu-button { grid-row: 3; }
 }
+
+/* v11.46: Cart title and actions above a balanced Show details / test-count row.
+   The header remains outside the cart's independent scrolling viewport. */
+@media screen {
+  .tests-summary-header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+  .tests-summary-heading-block {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .tests-summary-actions {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+  .tests-details-toggle {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: center;
+    justify-self: start;
+  }
+  .tests-summary-count {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+    align-self: center;
+    margin: 0;
+    text-align: right;
+    white-space: nowrap;
+  }
+}
+
+/* v11.47: subtle separation between the STAT menu action and Do not perform.
+   Only show the rule when these two controls sit beside one another. */
+@media screen and (min-width: 1200px), screen and (min-width: 900px) and (max-width: 1100px) {
+  .filter-row .blocked-list-button {
+    position: relative;
+    margin-left: 13px;
+  }
+  .filter-row .blocked-list-button::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 27px;
+    background: #d4dde2;
+    pointer-events: none;
+  }
+}
