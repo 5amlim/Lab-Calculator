@@ -3360,3 +3360,51 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     print-color-adjust: exact;
   }
 }
+
+/* v11.74: microcollection-specific icon and flag. Microtainers are tracked
+   independently from Gold/Tiger SSTs; do not add an order-of-draw tile. */
+.tube-microtainer::before {
+  width: 11px;
+  height: 12px;
+  border-radius: 3px 3px 5px 5px;
+  border: 1px solid #91621e;
+  background: linear-gradient(180deg, #86561b 0 25%, #f2cc76 25% 75%, #c88c37 75% 100%) !important;
+}
+.microtainer-flag {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  border: 1px solid #bf9954;
+  border-radius: 99px;
+  padding: 2px 5px;
+  background: #fff2d5 !important;
+  color: #754f19 !important;
+  font-size: 7px;
+  font-weight: 950;
+  line-height: 1;
+  letter-spacing: .03em;
+  white-space: nowrap;
+}
+.print-microtainer-note {
+  font-size: 7px;
+  line-height: 1.3;
+  color: #805517 !important;
+  font-weight: 800;
+  margin-top: 4px;
+}
+@media print {
+  .print-sheet .print-source-transfer-word {
+    font-size: 6.9px;
+    font-weight: 900;
+    color: #457c87 !important;
+    white-space: nowrap;
+    margin-right: 1px;
+  }
+  .print-sheet .print-source-group { gap: 3px; }
+  .print-sheet .print-source-tube-badge.tube-microtainer::before {
+    width: 8px;
+    height: 9px;
+    border-radius: 2px 2px 4px 4px;
+  }
+  .print-sheet .microtainer-flag { font-size: 6px; }
+}

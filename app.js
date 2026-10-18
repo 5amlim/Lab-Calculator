@@ -454,7 +454,7 @@
 
     const specimenType = normalizeSpecimenType(record.specimenType);
     const transportContainer = cleanTransportContainer(record.transportContainer);
-    const drawContainer = normalizeStoolCollectionSource(
+    let drawContainer = normalizeStoolCollectionSource(
       specimenType,
       normalizeUrineCollectionSource(
         specimenType,
@@ -462,6 +462,13 @@
         transportContainer
       )
     );
+    // Microtainer-only neonatal instructions override the generic SST/Gold
+    // source. Never count these small-volume microcollection tubes as regular
+    // 5 mL Gold or 7.5 mL Tiger SSTs. Preserve the full manufacturer notes.
+    const microtainerRequired = /\bmicrotainer(?:s)?\b/i.test(`${drawContainer} ${record.specialInstructions || ''}`)
+      && /\bserum\b/i.test(specimenType)
+      && /sst|serum separator|gold|microtainer/i.test(drawContainer);
+    if (microtainerRequired) drawContainer = 'Amber Microtainer SST';
 
     return {
       id: String(record.id || `custom-${Date.now()}-${index}`),
@@ -531,7 +538,7 @@
     const isSst = cls === 'tube-sst';
     const displayClass = isSst ? selectedSstVisualClass() : cls;
     const label = isSst ? selectedSstLabel() : container;
-    return `<span class="${className} tube ${displayClass}">${escapeHtml(label)}</span>`;
+    return `<span class="${className} tube ${displayClass}">${escapeHtml(label)}${cls === 'tube-microtainer' ? ' · MICROTAINER' : ''}</span>`;
   }
 
   function requiredDrawContainerBadges(test, className = 'badge') {
@@ -1686,6 +1693,9 @@
   }
 
   function orderCategory(test) {
+    // Microtainers are flagged in What to collect, not represented as an extra
+    // tile or as a misleading ordinary Gold/Tiger tube in order of draw.
+    if (/microtainer/i.test(String(test.drawContainer || ''))) return null;
     // The order-of-draw panel reflects the preferred/selected collection tube only.
     // Alternative containers are shown with the test but do not add extra tubes to
     // the nurse draw plan.
@@ -2011,6 +2021,8 @@
 
   function isSstDraw(test) {
     const value = String(test.drawContainer || '').toLowerCase();
+    // Microtainers have their own count and must never enter Gold/Tiger pooling.
+    if (/microtainer/.test(value)) return false;
     return /\bsst\b|gold|serum separator|red\s*\/\s*black/.test(value);
   }
 
@@ -2438,6 +2450,7 @@
       'tube-culture': 'Blood Culture Bottles',
       'tube-blue': 'Light Blue Citrate',
       'tube-sst': selectedSstLabel(),
+      'tube-microtainer': 'Amber Microtainer SST',
       'tube-lavender': 'Lavender EDTA',
       'tube-pink': 'Pink EDTA',
       'tube-tan': /heparin/i.test(draw) ? 'Tan Sodium Heparin' : 'K2 EDTA Tan Top',
@@ -2634,6 +2647,7 @@
       const specimenBadge = collectionSpecimenBadgeForItem(item);
       const specimenGroup = collectionSpecimenGroupForItem(item);
       const tigerBadge = printSstTigerBadge(item);
+      const microtainerBadge = item.className === 'tube-microtainer' ? '<span class="microtainer-flag">MICROTAINER · separate count</span>' : '';
       const printedTestCount = uniqueTests(item.tests).length;
       // Keep each SST collection card in one half-width column, even when
       // it holds many tests. Pair the list into two internal print columns.
@@ -2642,8 +2656,9 @@
       const yieldReviewCount = item.className === 'tube-sst'
         ? uniqueTests(item.tests).filter(test => singleSstSpecimenVolumeWarning(test)).length : 0;
       return `<article class="print-collection-card${longSstList ? ' is-sst-long' : printedTestCount >= 12 ? ' is-long' : ''}" style="--print-column-rows:${columnRows}">
-        <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${specimenBadge ? `<span class="print-collection-specimen-badge specimen-${specimenGroup}">${escapeHtml(specimenBadge)}</span>` : ''}${printCollectionWholeBloodDetail(item, wholeBloodGroups)}</div>
+        <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${microtainerBadge}${specimenBadge ? `<span class="print-collection-specimen-badge specimen-${specimenGroup}">${escapeHtml(specimenBadge)}</span>` : ''}${printCollectionWholeBloodDetail(item, wholeBloodGroups)}</div>
         ${item.detail ? `<div class="print-container-detail">${escapeHtml(item.detail)}</div>` : ''}
+        ${item.className === 'tube-microtainer' ? '<div class="print-microtainer-note">Microcollection tubes · separate from standard SSTs · protect from light; follow the test-specific Microtainer instructions.</div>' : ''}
         ${yieldReviewCount ? `<div class="print-sst-volume-warning">Volume verification: ${yieldReviewCount} ${yieldReviewCount === 1 ? 'test has' : 'tests have'} specimen needs that may exceed a single ${selectedSstIsTiger() ? 'Tiger' : 'Gold'} SST yield. Confirm sufficient collection volume with the receiving lab.</div>` : ''}
         <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${uniqueTests(item.tests).map(test => `<li><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)}${test.isStat ? '<span class="print-collection-stat-label"> · STAT</span>' : ''}</li>`).join('')}</ul></div>
       </article>`;
@@ -2919,6 +2934,7 @@
       return 'Royal Blue — verify additive';
     }
 
+    if (/microtainer/i.test(draw)) return 'Amber Microtainer SST';
     if (/light blue|sodium citrate|citrate/i.test(draw)) return 'Light Blue Citrate';
     if (/blue/i.test(draw) && /edta/i.test(draw)) return 'Blue Top EDTA';
     if (/blue/i.test(draw) && /serum|no additive/i.test(draw)) return 'Blue Top No Additive (serum)';
@@ -3349,7 +3365,7 @@
     // For routine SST-derived serum aliquots, including amber tubes, the
     // specimen-type label "Serum" is sufficient. Preserve genuinely special
     // no-additive/trace-metal source instructions and explicit requirements.
-    if (lowerSpecimen === 'serum' && isSstDraw(test)
+    if (lowerSpecimen === 'serum' && (isSstDraw(test) || tubeClass(test.drawContainer) === 'tube-microtainer')
       && (/^tube-transport(?:\s|$)/.test(item.className || '')
         || /\btube-amber\b/.test(item.className || ''))) return 'Serum';
 
@@ -3566,7 +3582,7 @@
       const specimenCue = `<span class="print-source-specimen source-${specimen.color}">${escapeHtml(specimen.label)}</span>`;
       // The upward arrow sits before the intact pill, while specimen identity,
       // From spun/source wording, tube icon and quantity all remain inside it.
-      return `<span class="print-source-group"><span class="print-source-transfer-arrow" aria-hidden="true">↑</span><span class="print-source-tube-badge tube ${displayClass}">${countBadge}${specimenCue}<span class="print-source-from">From</span><span>${spun ? 'spun ' : ''}${escapeHtml(sourceLabel)}</span></span>${spun ? '<span class="print-source-spun">· Spin ✓</span>' : ''}</span>`;
+      return `<span class="print-source-group"><span class="print-source-transfer-arrow" aria-hidden="true">↑</span><span class="print-source-transfer-word">Transfer</span><span class="print-source-tube-badge tube ${displayClass}">${countBadge}${specimenCue}<span class="print-source-from">From</span><span>${spun ? 'spun ' : ''}${escapeHtml(sourceLabel)}</span></span>${spun ? '<span class="print-source-spun">· Spin ✓</span>' : ''}</span>`;
     }).join('')}</span>`;
   }
 
@@ -3744,6 +3760,9 @@
 
       const source = canonicalCollectionContainer(test);
       if (!source.label || !source.className) return;
+      // Microtainer draw volumes are test-specific microcollection volumes.
+      // Do not apply the standard 2.5x whole-blood conversion to them.
+      if (source.className === 'tube-microtainer') return;
       const key = `${source.className}|${normalizeSearch(source.label)}`;
       if (!groups.has(key)) {
         groups.set(key, {
@@ -4058,6 +4077,7 @@
 
   function tubeClass(container) {
     const value = String(container || '').toLowerCase();
+    if (/microtainer/.test(value)) return 'tube-microtainer';
     if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
     if (/aptima/.test(value)) return 'tube-aptima';
     if (/total[- ]?fix/.test(value)) return 'tube-total-fix';

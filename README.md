@@ -1,3 +1,8 @@
+## v11.74: Transfer cue and independent Microtainer collection
+- Added “Transfer” beside the up arrow before source pills in printed bags.
+- Microtainer-only neonatal bilirubin instructions now produce separate amber Microtainer SST collection counts and a Microtainer badge/icon. Standard Gold/Tiger SST pooling excludes Microtainers.
+- Original collection volume estimates, actual submission container counts, specimen LABEL output, and existing order-of-draw tiles are otherwise unchanged.
+
 ## v11.73: Bag header and SST submission names
 
 - Each printed transport bag now shows BAG at the left of the header, Routine/STAT centered, and the numbered bag count in a pale badge on the right.
@@ -435,3 +440,9 @@ The nurse order-of-draw panel distinguishes the tube additive rather than relyin
 In the Collection summary, use **Mark STAT** next to each selected test that is to be sent STAT. All newly selected tests default to **Routine**. The choice is stored in the browser with the selection, not in the shared Quest test catalog. The printed collection/transport plan puts STAT tests into separate bags from routine tests, with each priority still separated by temperature. The source tube counts are computed independently across STAT and routine, including tests whose specimens would otherwise pool. Urine specimen pills are yellow, and stool specimen pills are amber.
 
 **Important:** STAT marking is a print and collection-planning designation. It does not submit a STAT order, reserve a courier pickup, or verify STAT availability. Confirm the receiving lab's STAT requirements and keep STAT specimens out of routine shipments.
+
+
+## v11.74 changes
+- Printed transfer pills have a small “↑ Transfer” cue before the intact source pill.
+- Records with explicit Microtainer SST requirements (neonatal bilirubin codes 6631, 20381, 34162) use independent amber Microtainer collection counts, with a distinctive icon/flag. They do not pool with standard Gold/Tiger SSTs.
+- The standard order-of-draw tiles are unchanged. The original test-specific Microtainer instructions remain available.
