@@ -2555,7 +2555,9 @@
       const specimenBadge = collectionSpecimenBadgeForItem(item);
       const specimenGroup = collectionSpecimenGroupForItem(item);
       const tigerBadge = printSstTigerBadge(item);
-      return `<article class="print-collection-card${item.tests.length >= 12 ? ' is-long' : ''}">
+      const printedTestCount = uniqueTests(item.tests).length;
+      const columnRows = Math.ceil(printedTestCount / 3);
+      return `<article class="print-collection-card${item.tests.length >= 12 ? ' is-long' : ''}" style="--mobile-print-rows:${columnRows}">
         <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${specimenBadge ? `<span class="print-collection-specimen-badge specimen-${specimenGroup}">${escapeHtml(specimenBadge)}</span>` : ''}${printCollectionWholeBloodDetail(item, wholeBloodGroups)}</div>
         ${item.detail ? `<div class="print-container-detail">${escapeHtml(item.detail)}</div>` : ''}
         <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${uniqueTests(item.tests).map(test => `<li><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)}${test.isStat ? '<span class="print-collection-stat-label"> · STAT</span>' : ''}</li>`).join('')}</ul></div>
@@ -3730,6 +3732,10 @@
       </section>
       ${printNotesFooter()}
 `;
+    // Mobile browsers can drop CSS multi-column layout in print preview.
+    // Tag the print sheet while still in the screen viewport; the print media
+    // viewport can have a different size from the handset's screen.
+    els.printSheet.classList.toggle('mobile-print', window.matchMedia('(max-width: 720px)').matches);
     window.print();
   }
 

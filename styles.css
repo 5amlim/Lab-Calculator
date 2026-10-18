@@ -2861,3 +2861,29 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     page-break-inside: avoid;
   }
 }
+
+/* v11.36: Mobile-print compatibility only. Keep the desktop layout exactly as
+   v11.35. Phone browsers can collapse CSS text columns into one narrow column
+   during print pagination; explicit grid rows keep long SST lists in three
+   balanced columns without touching the full-width SST card itself. */
+@media print {
+  .print-sheet.mobile-print .print-collection-card.is-long .print-for-tests ul {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(var(--mobile-print-rows), auto) !important;
+    grid-auto-flow: column !important;
+    gap: 0 9px !important;
+    columns: initial !important;
+    column-gap: 9px !important;
+    width: 100%;
+    min-width: 0;
+    padding-left: 13px;
+    box-sizing: border-box;
+  }
+  .print-sheet.mobile-print .print-collection-card.is-long .print-for-tests li {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
