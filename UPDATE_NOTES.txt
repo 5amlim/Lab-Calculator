@@ -1,3 +1,9 @@
+v11.16
+- Print collection cards combine physical blood tube types across STAT/Routine, adding counts while keeping STAT and routine transport bag allocations separate.
+- Each test in What to Collect gets a compact “· STAT” suffix only if applicable; collection chip/card priority badges removed.
+- Moved compact Preferred/Minimum draw estimates to the top of blood tube cards next to tube name/count.
+- Removed keep-together pagination rule and two-column bag-row stretching; each bag flows independently full-width and its submission cards use a compact two-column grid.
+
 v11.15
 - SST and urine culture toggles are narrower (198px) and remain on one row with their labels at supported widths; option font size is unchanged.
 - In the selected test list, remove buttons stay inline and reveal Delete on hover/focus. Long names fade/truncate rather than forcing controls onto another line.

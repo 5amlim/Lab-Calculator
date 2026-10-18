@@ -2510,11 +2510,10 @@
       const specimenBadge = collectionSpecimenBadgeForItem(item);
       const specimenGroup = collectionSpecimenGroupForItem(item);
       const tigerBadge = printSstTigerBadge(item);
-      return `<article class="print-collection-card${item.isStat ? ' is-stat' : ''}${item.tests.length >= 12 ? ' is-long' : ''}">
-        <div class="print-container-count">${item.sharedStatRoutine ? '<span class="print-priority-tag">STAT + Routine shared</span>' : item.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}<strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${specimenBadge ? `<span class="print-collection-specimen-badge specimen-${specimenGroup}">${escapeHtml(specimenBadge)}</span>` : ''}</div>
+      return `<article class="print-collection-card${item.tests.length >= 12 ? ' is-long' : ''}">
+        <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${specimenBadge ? `<span class="print-collection-specimen-badge specimen-${specimenGroup}">${escapeHtml(specimenBadge)}</span>` : ''}${printCollectionWholeBloodDetail(item, wholeBloodGroups)}</div>
         ${item.detail ? `<div class="print-container-detail">${escapeHtml(item.detail)}</div>` : ''}
-        ${printCollectionWholeBloodDetail(item, wholeBloodGroups)}
-        <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${item.sharedStatRoutine ? uniqueTests(item.tests).map(test => `<li><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)} (${test.isStat ? 'STAT' : 'Routine'})</li>`).join('') : testReferences(item.tests)}</ul></div>
+        <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${uniqueTests(item.tests).map(test => `<li><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)}${test.isStat ? '<span class="print-collection-stat-label"> · STAT</span>' : ''}</li>`).join('')}</ul></div>
       </article>`;
     }).join('')}</div>`;
   }
@@ -2559,10 +2558,63 @@
         cup.detail = 'Collect once in a shared sterile cup; prepare separate STAT and routine transport specimens and bags.';
       }
     });
-    // Print and collection chips follow collection workflow priority rather
-    // than the order in which tests were added: SST, other blood, urine,
-    // stool, then swabs/transport media. Keep STAT sources as separate cards.
-    return merged.sort((a, b) => collectionSortRank(a) - collectionSortRank(b));
+    // One collection card per physical blood tube type. Separate STAT and
+    // routine *requirements* still sum, so distinct transport bag source counts
+    // never get lost. Urine sharing and incompatible urine collection subtypes
+    // retain their prior special handling.
+    const groupedBlood = new Map();
+    const collectionCards = [];
+    merged.forEach(item => {
+      if (collectionSpecimenGroupForItem(item) !== 'blood') {
+        collectionCards.push(item);
+        return;
+      }
+      const key = `${item.className}|${normalizeSearch(item.label)}`;
+      if (!groupedBlood.has(key)) {
+        const card = { ...item, isStat: false, sharedStatRoutine: false,
+          tests: uniqueTests(item.tests), details: item.detail ? [item.detail] : [] };
+        groupedBlood.set(key, card);
+        collectionCards.push(card);
+        return;
+      }
+      const card = groupedBlood.get(key);
+      card.count += item.count;
+      card.tests = uniqueTests([...card.tests, ...item.tests]);
+      if (item.detail && !card.details.includes(item.detail)) card.details.push(item.detail);
+    });
+    groupedBlood.forEach(card => {
+      card.detail = consolidateBloodCollectionDetails(card.details);
+      delete card.details;
+    });
+    // Collection order: SST, remaining blood tubes, urine, stool, then swabs.
+    return collectionCards.sort((a, b) => collectionSortRank(a) - collectionSortRank(b));
+  }
+
+  function consolidateBloodCollectionDetails(details) {
+    // Merge identical temperature/usage entries across STAT and routine blood
+    // allocations for the COLLECTION display only. Bags remain separate and
+    // source tube counts are additive, not pooled between priorities.
+    const byTemperature = new Map();
+    const unmatched = [];
+    details.forEach(detail => String(detail || '').split(/\s*·\s*/).forEach(chunk => {
+      const part = chunk.trim();
+      if (!part || /^STAT$/i.test(part)) return;
+      const match = part.match(/^([^:]+):\s*(.+)$/);
+      if (!match) { unmatched.push(part); return; }
+      const temperature = match[1].trim();
+      const components = match[2].split(/\s*\+\s*/);
+      const entries = components.map(value => value.match(/^(\d+)\s+(.+)$/));
+      if (entries.some(entry => !entry)) { unmatched.push(part); return; }
+      if (!byTemperature.has(temperature)) byTemperature.set(temperature, new Map());
+      const measures = byTemperature.get(temperature);
+      entries.forEach(entry => {
+        const label = entry[2].trim();
+        measures.set(label, (measures.get(label) || 0) + Number(entry[1]));
+      });
+    }));
+    const result = Array.from(byTemperature, ([temperature, measures]) =>
+      `${temperature}: ${Array.from(measures, ([label, count]) => `${count} ${label}`).join(' + ')}`);
+    return [...result, ...Array.from(new Set(unmatched))].join(' · ');
   }
 
   function collectionSortRank(item) {
@@ -3338,7 +3390,7 @@
   function buildWholeBloodVolumePlan(collectionTests, collectionItems) {
     const plannedCounts = new Map();
     collectionItems.forEach(item => {
-      const key = `${item.isStat ? 'stat' : 'routine'}|${item.className || ''}|${normalizeSearch(item.label)}`;
+      const key = `${item.className || ''}|${normalizeSearch(item.label)}`;
       plannedCounts.set(key, (plannedCounts.get(key) || 0) + item.count);
     });
 
@@ -3349,7 +3401,7 @@
 
       const source = canonicalCollectionContainer(test);
       if (!source.label || !source.className) return;
-      const key = `${test.isStat ? 'stat' : 'routine'}|${source.className}|${normalizeSearch(source.label)}`;
+      const key = `${source.className}|${normalizeSearch(source.label)}`;
       if (!groups.has(key)) {
         groups.set(key, {
           key,
@@ -3409,10 +3461,10 @@
   }
 
   function bloodVolumeGroupForCollectionItem(item, groups) {
-    const key = `${item.isStat ? 'stat' : 'routine'}|${item.className || ''}|${normalizeSearch(item.label)}`;
+    const key = `${item.className || ''}|${normalizeSearch(item.label)}`;
     const exact = groups.find(group => group.key === key);
     if (exact) return exact;
-    const sameClass = groups.filter(group => group.className === item.className && group.key.startsWith(item.isStat ? 'stat|' : 'routine|'));
+    const sameClass = groups.filter(group => group.className === item.className);
     return sameClass.length === 1 ? sameClass[0] : null;
   }
 
@@ -3437,16 +3489,12 @@
     const notes = [];
     if (group.dedicatedTubes > 0) notes.push(`${group.dedicatedTubes} dedicated ${group.dedicatedTubes === 1 ? 'tube' : 'tubes'} included`);
     const note = notes.length ? `<small>${escapeHtml(notes.join(' · '))}</small>` : '';
-    return `<div class="print-collection-blood-volume">
-      <span class="print-collection-blood-copy">
-        <span class="print-collection-blood-label">Estimated draw volume</span>
-        ${note}
-      </span>
-      <span class="print-collection-blood-values">
-        <span class="print-collection-blood-metric"><b>Preferred</b><strong>${escapeHtml(wholeBloodRequirementText(group, 'preferred'))}</strong></span>
-        <span class="print-collection-blood-metric"><b>Minimum</b><strong>${escapeHtml(wholeBloodRequirementText(group, 'minimum'))}</strong></span>
-      </span>
-    </div>`;
+    return `<span class="print-collection-blood-volume">
+      <span class="print-collection-blood-label">Draw</span>
+      <span class="print-collection-blood-metric"><b>Pref</b><strong>${escapeHtml(wholeBloodRequirementText(group, 'preferred'))}</strong></span>
+      <span class="print-collection-blood-metric"><b>Min</b><strong>${escapeHtml(wholeBloodRequirementText(group, 'minimum'))}</strong></span>
+      ${note}
+    </span>`;
   }
 
   function printContainerBadges(test) {
@@ -3508,7 +3556,7 @@
           const specimenTag = item.className === 'tube-urine-cup' && (specimenGroup === 'urine' || specimenGroup === 'stool')
             ? `<span class="print-collect-chip-specimen specimen-${specimenGroup}">${escapeHtml(specimenGroup === 'stool' ? 'Stool' : 'Urine')}</span>`
             : '';
-          return `<span class="print-collect-chip tube ${item.displayClassName || item.className}">${item.sharedStatRoutine ? '<em class="print-chip-stat">STAT + Routine shared</em> ' : item.isStat ? '<em class="print-chip-stat">STAT</em> ' : ''}<b>${item.count}</b> ${escapeHtml(item.label)}${specimenTag}</span>`;
+          return `<span class="print-collect-chip tube ${item.displayClassName || item.className}"><b>${item.count}</b> ${escapeHtml(item.label)}${specimenTag}</span>`;
         }).join('')}</div>
         <div class="print-total-box submit-total"><span>TOTAL TO SUBMIT</span><strong>${bags.length}</strong><small>${bags.length === 1 ? 'transport bag' : 'transport bags'}</small></div>
         <div class="print-submit-bags">${bagLabels}</div>
@@ -3536,7 +3584,7 @@
           const contents = buildSubmissionContents(bag);
           applyBloodSourceCountAllocations(contents);
           const totalContainers = contents.reduce((sum, item) => sum + item.count, 0);
-          return `<article class="print-bag-card ${bag.className}">
+          return `<article class="print-bag-card ${bag.className}${contents.length > 5 ? ' bag-long' : ''}">
             <div class="print-bag-card-header"><div><strong>${escapeHtml(bag.label)}</strong><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div>
             <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
               <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${printSstTigerBadge(item)}</div>
@@ -3549,7 +3597,7 @@
       </section>
       <div class="print-bag-note">
         <div><strong>STAT routing:</strong> Only tests listed for the selected Quest service area offer Mark STAT. Confirm that the specific order is accepted as STAT by the receiving lab, use its STAT requisition/courier workflow, and never put STAT specimens in a routine shipment.</div>
-        <div><strong>Tube sharing:</strong> STAT and routine blood tests never share source tubes, and all STAT and routine transport bags remain separate. Compatible tests from one urine collection may share the source sterile cup across priorities, unless separate collections are specifically required. Within the same priority, compatible SST, Lavender EDTA, and Red Top tubes can be shared only when the processing steps and temperature match. Lavender whole blood stays separate from Lavender tubes used for plasma or RBCs. Tubes sent whole also stay separate from tubes used to prepare aliquots.</div>
+        <div><strong>Tube sharing:</strong> Collection cards combine the number of tubes needed for STAT and routine tests of each type, but the counts are additive and do not imply sharing a tube across separate STAT and routine shipments. Their transport bags remain separate. Compatible urine tests may share one sterile collection cup across priorities unless separate specimens are required. Within a single priority, SST, Lavender EDTA, and Red Top tubes pool only when processing and temperature match. Whole-blood tubes and tubes used for aliquots remain separate.</div>
         <div><strong>Tube counts:</strong> Estimates allow 2 mL of usable serum, plasma, or processed specimen per source tube and 4 mL of whole blood per Lavender tube. Multiple, dedicated, and full-tube requirements remain separate. Whole-blood amounts are shown inside each blood-tube card; serum/plasma amounts use a 2.5× whole-blood conversion.</div>
         <div><strong>Urine:</strong> Random/spot, first-morning, timed, and 24-hour collections are kept distinct when their collection requirements differ. Compatible tests may share a sterile urine cup even when their downstream transport specimens have different priorities or temperatures; keep those transport specimens separate. Explicitly required separate urine collections must not be pooled.</div>
       </div>

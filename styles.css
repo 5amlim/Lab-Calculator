@@ -2181,3 +2181,64 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 .library-stat-action { color: #825316; border-color: #d6b879; background: #fff8ea; }
 .library-stat-action.is-stat { color: #963a31; border-color: #d6a09a; background: #fff0ee; }
 @media print { .library-stat-eligible, .library-stat-action { display: none; } }
+
+
+/* v11.16: concise collection header volumes, one physical tube card across
+   priorities, and independently paginated transport bag cards. */
+@media print {
+  .print-container-count {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 5px;
+    padding-bottom: 4px; break-after: avoid-page;
+  }
+  .print-collection-blood-volume {
+    display: inline-flex; flex: 0 1 auto; align-items: center;
+    gap: 3px; min-width: 0; width: auto;
+    margin: 0 0 0 auto; padding: 0; border: 0;
+    border-radius: 0; background: transparent !important;
+    font-size: 6.2px; line-height: 1.1;
+  }
+  .print-collection-blood-label {
+    flex: 0 0 auto; font-size: 5.8px; letter-spacing: .01em;
+  }
+  .print-collection-blood-metric {
+    display: inline-flex; align-items: baseline; justify-content: center;
+    min-width: 0; gap: 3px; padding: 3px 4px;
+    border-radius: 3px; white-space: nowrap;
+    background: #e7eff1 !important;
+  }
+  .print-collection-blood-metric b { font-size: 5.4px; line-height: 1.1; }
+  .print-collection-blood-metric strong {
+    margin: 0; font-size: 7px; line-height: 1.1; overflow-wrap: normal;
+  }
+  .print-collection-blood-volume > small {
+    color: #657780; font-size: 5.7px; line-height: 1.1;
+  }
+  .print-collection-stat-label {
+    color: #b54134; font-size: 6.3px; font-weight: 950; white-space: nowrap;
+  }
+  .print-collection-grid { align-items: start; }
+  .print-submit-section {
+    break-inside: auto !important; page-break-inside: auto !important;
+    border: 0; background: transparent !important; padding: 0;
+  }
+  .print-submit-heading {
+    margin: 0 0 6px; border-radius: 6px;
+    break-inside: avoid; page-break-inside: avoid;
+  }
+  .print-bag-grid {
+    display: block !important; break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+  .print-bag-card {
+    display: block; width: 100%; box-sizing: border-box;
+    margin: 0 0 7px; break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+  .print-bag-card-header { break-after: avoid; page-break-after: avoid; }
+  .print-submit-content {
+    display: grid; grid-template-columns: repeat(2,minmax(0,1fr));
+    align-items: start; gap: 4px;
+    break-inside: auto !important;
+  }
+  .print-submit-item { break-inside: avoid; page-break-inside: avoid; }
+}
