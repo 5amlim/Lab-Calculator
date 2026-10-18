@@ -3108,3 +3108,32 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     page-break-before: avoid !important;
   }
 }
+
+/* v11.56: Print submission bag test names on one line. When a name is
+   longer than its available column, hide the excess rather than wrapping
+   or spilling into the neighboring column. Full text stays in detail table. */
+@media print {
+  .print-sheet .print-bag-card .print-for-tests ul {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+  .print-sheet .print-bag-card .print-for-tests li,
+  .print-sheet .print-bag-card .print-for-tests.is-bag-dense li {
+    display: list-item !important;
+    list-style-position: inside !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: clip !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+  .print-sheet .print-bag-card .print-for-tests li + li::before {
+    content: none !important;
+  }
+}

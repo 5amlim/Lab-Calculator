@@ -938,3 +938,17 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     transform: rotate(180deg);
   }
 }
+
+/* v11.56: Lighten the two teal Add actions without changing Cart's
+   Print / Save PDF button (which retains the existing brand color). */
+@media screen {
+  #addBestButton,
+  .row-actions button[data-action="add"]:not(:disabled) {
+    background: #0a8388;
+    color: #fff;
+  }
+  #addBestButton:hover,
+  .row-actions button[data-action="add"]:not(:disabled):hover {
+    background: #087b80;
+  }
+}
