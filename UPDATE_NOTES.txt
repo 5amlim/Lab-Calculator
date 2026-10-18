@@ -1,3 +1,4 @@
+v11.34: Inset batch review match dropdown chevron 20px from right edge using a custom icon; preserve existing size and behavior.
 v11.33
 - Fixed 38287 original tube submission quantity (2 collected / 2 submitted), verified against Quest FAQ.
 - Use required specimen type, not disease names, when grouping collection cards.
