@@ -1,3 +1,5 @@
+> Historical v11.13 QA, superseded for Southern California by v11.14. See QUEST_STAT_SOCAL_MENU_v11.14.md.
+
 # v11.13 regional STAT controls QA
 
 - Catalog: 2,681 current test records, not edited.

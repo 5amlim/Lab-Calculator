@@ -1,3 +1,5 @@
+> Historical v11.13 research, superseded for Southern California by the user-supplied October 2025 Quest menu. See QUEST_STAT_SOCAL_MENU_v11.14.md for current in-app eligibility.
+
 # Quest STAT eligibility by service area (research summary)
 
 Official Quest specimen collection and transport guide states STAT service is limited to particular tests and that clients should contact the receiving laboratory. A published menu at one lab does not apply to a different regional Quest account.

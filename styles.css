@@ -2070,3 +2070,114 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 .stat-area-control small { grid-column: 1/-1; color: #667982; font-size: 9.5px; line-height: 1.32; }
 .tests-overview-row.no-stat-action { grid-template-columns: minmax(0, 1fr) auto; }
 @media (max-width: 520px) { .tests-overview-row.no-stat-action { grid-template-columns: minmax(0, 1fr) auto; } }
+
+
+/* v11.15: compact selectors, equal-sized options, and single-line cart controls. */
+.sst-mode-control {
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+}
+.sst-mode-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.sst-mode-copy strong { overflow-wrap: normal; }
+.sst-mode-toggle,
+.urine-culture-mode-control .sst-mode-toggle {
+  width: 198px;
+  max-width: 198px;
+  flex: 0 0 198px;
+}
+/* Retain existing font sizes, but trim horizontal padding. */
+.sst-mode-option,
+.urine-culture-mode-control .sst-mode-option { padding-inline: 5px; }
+@media (max-width: 395px) {
+  .sst-mode-control { flex-wrap: wrap; }
+  .sst-mode-copy { flex: 1 1 100%; }
+  .sst-mode-toggle,
+  .urine-culture-mode-control .sst-mode-toggle {
+    width: 198px;
+    max-width: 198px;
+    flex: 0 0 198px;
+  }
+}
+
+/* Put delete on the same row, without forcing long test names to wrap around it. */
+.tests-overview-row,
+.tests-overview-row.no-stat-action {
+  display: flex;
+  position: relative;
+  align-items: center;
+  gap: 6px;
+  min-height: 45px;
+  padding: 7px 0;
+}
+.tests-overview-ident {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 7px;
+  overflow: hidden;
+  min-width: 0;
+  white-space: nowrap;
+}
+.tests-overview-code { flex: 0 0 auto; }
+.tests-overview-name {
+  display: block;
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent 100%);
+  mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent 100%);
+}
+.tests-overview-row .stat-toggle {
+  flex: 0 0 auto;
+  grid-column: auto;
+  max-width: 86px;
+  white-space: nowrap;
+}
+.tests-overview-remove {
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+}
+/* Hover and keyboard focus reveal the word Delete without moving the name onto another line. */
+@media (hover: hover) and (pointer: fine) {
+  .tests-overview-row .tests-overview-remove:hover,
+  .tests-overview-row .tests-overview-remove:focus-visible {
+    width: 72px;
+    min-width: 72px;
+  }
+}
+@media (max-width: 520px) {
+  .tests-overview-ident { flex-direction: row; align-items: baseline; gap: 5px; }
+  .tests-overview-row { align-items: center; }
+}
+@media (max-width: 350px) {
+  .tests-overview-row .stat-toggle { max-width: 71px; font-size: 9px; padding-inline: 3px; }
+}
+/* Published-menu eligibility is informational until the user confirms STAT assignment. */
+.library-stat-eligible {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 5px;
+  border: 1px solid #d6b879;
+  border-radius: 5px;
+  color: #755416;
+  background: #fff7e6;
+  font-size: 9px;
+  font-weight: 850;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.library-stat-eligible.selected { color: #973b32; background: #fff0ee; border-color: #d6a09a; }
+.library-stat-action { color: #825316; border-color: #d6b879; background: #fff8ea; }
+.library-stat-action.is-stat { color: #963a31; border-color: #d6a09a; background: #fff0ee; }
+@media print { .library-stat-eligible, .library-stat-action { display: none; } }

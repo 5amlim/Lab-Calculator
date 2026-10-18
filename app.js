@@ -26,6 +26,7 @@
   const URINE_CULTURE_MODE_KEY = 'labCollectionCalculator.urineCultureTransport.v1';
   const STAT_SELECTED_KEY = 'labCollectionCalculator.statSelected.v1';
   const DEFAULT_STAT_MIGRATION_KEY = 'labCollectionCalculator.defaultStat.v11.12';
+  const UNDO_SED_RATE_DEFAULT_KEY = 'labCollectionCalculator.undoSedRateDefault.v11.14';
   // Only canonicalize these legacy names after checking Quest's directory.
   // STAT designation is a separate order-priority choice, not part of the assay name.
   // 34162 uses the existing catalog mapping with the legacy STAT suffix removed;
@@ -45,7 +46,19 @@
   const STAT_AREA_KEY = 'labCollectionCalculator.questStatArea.v1';
   const STAT_AREAS = Object.freeze({
     unselected: { label: 'Area not selected', codes: [], note: 'Choose the receiving Quest service area before assigning STAT.' },
-    socal: { label: 'Southern California', codes: ['809'], note: 'Sed rate is a clinic-requested default, not independently confirmed on a SoCal Quest STAT menu.' },
+    // Quest SoCal STAT menu supplied by the user (October 2025), with a separate tab per receiving RRL.
+    // The generic SoCal option includes only codes common to every listed laboratory.
+    // RRL options contain their exact local menus; dated menu != guaranteed current acceptance.
+    socal: { label: 'Southern California · common to all 9 labs', codes: ["223","234","243","285","287","294","296","303","310","330","375","396","483","509","510","606","622","718","723","733","745","763","783","809","822","823","836","905","917","937","1759","3020","4021","5406","5463","6399","6448","6631","7008","7048","7064","7210","7286","7909","7998","8396","8435","8563","8578","8579","8847","10165","10231","10256","10314","19107","19108","19110","19111","19112","19485","34162","34388","34389","34392","37386"], note: 'Only tests listed at all nine SoCal laboratories in the supplied October 2025 Quest menu. Select the actual RRL below for its full local menu.' },
+    socal_arcadia: { label: "Southern California \u00b7 Arcadia RRL", codes: ["223","234","236","243","285","287","288","294","296","303","310","330","374","375","396","397","470","482","483","484","509","510","593","606","615","622","654","718","723","733","745","754","763","783","809","822","823","836","905","916","917","937","1759","3020","4021","5406","5463","6399","6448","6631","7008","7048","7064","7210","7286","7577","7909","7998","8396","8435","8477","8563","8578","8579","8583","8584","8659","8847","8917","10165","10231","10256","10314","10553","11014","19107","19108","19110","19111","19112","19113","19114","19115","19485","20381","34162","34388","34389","34391","34392","34693","35555","37386","38226","70117","90839"], note: "Quest SoCal October 2025 supplied STAT menu, Arcadia RRL only (96 listed codes). Confirm current hours, account acceptance and courier." },
+    socal_bakersfield: { label: "Southern California \u00b7 Bakersfield RRL", codes: ["223","234","243","285","287","288","294","296","303","310","330","374","375","396","397","483","509","510","606","622","718","723","733","745","754","763","783","809","822","823","836","905","917","937","1759","3020","4021","5406","5463","6399","6448","6631","7008","7048","7064","7210","7286","7577","7909","7998","8396","8435","8563","8578","8579","8659","8847","10165","10231","10256","10314","19107","19108","19110","19111","19112","19113","19485","20381","34162","34388","34389","34392","37386"], note: "Quest SoCal October 2025 supplied STAT menu, Bakersfield RRL only (74 listed codes). Confirm current hours, account acceptance and courier." },
+    socal_highland: { label: "Southern California \u00b7 Highland RRL", codes: ["223","234","243","285","287","288","294","296","303","310","330","374","375","396","397","470","482","483","484","509","510","593","606","613","615","622","654","718","723","733","745","754","763","783","809","822","823","836","905","917","937","1759","3020","4021","4719","5406","5463","6399","6448","6631","7008","7048","7064","7210","7286","7909","7998","8396","8435","8563","8578","8579","8847","8917","10165","10231","10256","10314","19107","19108","19110","19111","19112","19485","20381","34162","34388","34389","34392","34693","37386","59118","90839","90841"], note: "Quest SoCal October 2025 supplied STAT menu, Highland RRL only (84 listed codes). Confirm current hours, account acceptance and courier." },
+    socal_orange: { label: "Southern California \u00b7 Orange RRL", codes: ["223","234","243","285","287","288","294","296","303","310","330","374","375","396","397","470","482","483","484","509","510","593","606","615","622","654","718","723","733","745","754","763","783","809","822","823","836","905","916","917","937","1759","3020","4021","5406","5463","6399","6448","6631","7008","7048","7064","7210","7286","7577","7909","7998","8013","8396","8435","8477","8563","8578","8579","8659","8847","8917","10165","10231","10256","10314","10553","11014","17667","19107","19108","19110","19111","19112","19485","20381","32499","34162","34388","34389","34392","34693","37015","37386","38226","90839","90841"], note: "Quest SoCal October 2025 supplied STAT menu, Orange RRL only (92 listed codes). Confirm current hours, account acceptance and courier." },
+    socal_redlands: { label: "Southern California \u00b7 Redlands RRL", codes: ["223","234","243","285","287","288","294","296","303","310","330","374","375","396","397","470","482","483","484","509","510","593","606","613","615","622","654","718","723","733","745","754","763","783","809","822","823","836","905","917","937","1759","3020","4021","5406","5463","6399","6448","6631","7008","7048","7064","7210","7286","7909","7998","8396","8435","8563","8578","8579","8659","8847","8917","10165","10231","10256","10314","14523","19107","19108","19110","19111","19112","19485","20381","34162","34388","34389","34392","34693","37386","90839","90841"], note: "Quest SoCal October 2025 supplied STAT menu, Redlands RRL only (84 listed codes). Confirm current hours, account acceptance and courier." },
+    socal_riverside: { label: "Southern California \u00b7 Riverside RRL", codes: ["223","234","243","285","287","288","294","296","303","310","330","375","396","397","470","482","483","484","509","510","593","606","613","615","622","654","718","723","733","745","754","763","783","809","822","823","836","905","917","937","1759","3020","4021","4719","5406","5463","6399","6448","6631","7008","7048","7064","7210","7286","7909","7998","8396","8435","8563","8578","8579","8847","8917","10165","10231","10256","10314","19107","19108","19110","19111","19112","19485","20381","34162","34388","34389","34392","34693","37386","90839","90841"], note: "Quest SoCal October 2025 supplied STAT menu, Riverside RRL only (82 listed codes). Confirm current hours, account acceptance and courier." },
+    socal_san_diego: { label: "Southern California \u00b7 San Diego RRL", codes: ["223","234","243","285","287","294","296","303","310","330","374","375","396","470","482","483","484","509","510","593","606","613","615","622","648","654","700","718","723","733","745","763","783","784","809","822","823","836","905","916","917","937","1759","3020","4021","5406","5463","6399","6448","6631","7008","7048","7064","7210","7286","7577","7909","7998","8396","8435","8477","8563","8578","8579","8659","8847","8917","10165","10231","10256","10314","19107","19108","19110","19111","19112","19113","19114","19115","19485","34162","34388","34389","34391","34392","34693","35555","37386","70117"], note: "Quest SoCal October 2025 supplied STAT menu, San Diego RRL only (89 listed codes). Confirm current hours, account acceptance and courier." },
+    socal_ventura: { label: "Southern California \u00b7 Ventura RRL", codes: ["223","234","243","285","287","288","294","296","303","310","330","374","375","396","397","470","482","483","484","509","510","593","606","615","622","654","718","723","733","745","754","763","783","809","822","823","836","905","917","937","1759","3020","4021","5406","5463","6399","6448","6631","7008","7048","7064","7210","7286","7577","7909","7998","8396","8435","8563","8578","8579","8659","8847","10165","10231","10256","10314","10553","19107","19108","19110","19111","19112","19113","19485","20381","34162","34388","34389","34392","34693","37386"], note: "Quest SoCal October 2025 supplied STAT menu, Ventura RRL only (82 listed codes). Confirm current hours, account acceptance and courier." },
+    socal_west_hills: { label: "Southern California \u00b7 West Hills Laboratory", codes: ["223","234","236","243","250","285","287","288","294","296","303","310","330","374","375","396","397","444","470","481","482","483","484","509","510","593","606","613","615","622","648","708","718","723","733","745","754","763","783","809","822","823","836","888","890","905","916","917","937","1759","3020","4021","5406","5463","6399","6448","6631","7008","7048","7064","7210","7286","7577","7909","7998","8396","8435","8477","8563","8575","8576","8577","8578","8579","8582","8583","8584","8659","8847","8917","10165","10231","10256","10314","10553","11014","17667","19107","19108","19110","19111","19112","19485","20381","32499","34162","34388","34389","34392","34693","37015","37386","90839","90841"], note: "Quest SoCal October 2025 supplied STAT menu, West Hills Laboratory only (104 listed codes). Confirm current hours, account acceptance and courier." },
     norcal: { label: 'Northern California', codes: [], note: 'No account-specific Quest STAT menu verified for this area.' },
     ny: { label: 'New York', codes: [], note: 'No account-specific Quest STAT menu verified for this area.' },
     fl: { label: 'Florida', codes: [], note: 'No account-specific Quest STAT menu verified for this area.' },
@@ -53,7 +66,8 @@
       codes: ['223','234','823','243','822','10165','285','6631','287','296','303','330','334','10231','375','34392','482','483','608','10256','593','606','7600','622','718','733','754','10314','836','859','861','867','866','896','899','294','905','4021','470','396','8396','8435','615','745','746','1759','6399','509','510','7998','8847','763','793','809','6448','5463','3020','7909','7048','37386','8659','654','11177','8467'],
       note: 'Quest published Short Pump RRL menu (updated July 24, 2025); only this specific Virginia lab, subject to hours and current acceptance.' }
   });
-  const DEFAULT_STAT_TEST_CODES = new Set(['809']);
+  // All STAT-eligible tests, including sedimentation rate (809), start as Routine.
+  const DEFAULT_STAT_TEST_CODES = new Set();
   const LEGACY_SELECTED_KEYS = [`${LEGACY_STORAGE_PREFIX}.selected.v1`];
   const PAGE_STEP = 30;
   const SST_USABLE_ML_PER_TUBE = 2;
@@ -111,6 +125,7 @@
   let statArea = loadStatArea();
   let statSelectedIds = loadStatSelectedIds();
   let statAreaResetNotice = '';
+  undoPriorSedRateDefault();
   applyDefaultStatMigration();
   reconcileStatWithArea();
   let sstTubeMode = loadSstTubeMode();
@@ -1107,12 +1122,13 @@
     const blocked = test.status === 'blocked';
     return `<tr class="${selected ? 'is-selected' : ''}">
       <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
-      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
+      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${isStatEligible(test) ? `<span class="library-stat-eligible${statSelectedIds.includes(test.id) ? ' selected' : ''}" title="Eligible on the selected Quest receiving laboratory's published menu. Eligibility does not guarantee acceptance.">${statSelectedIds.includes(test.id) ? 'STAT selected' : 'STAT eligible'}</span>` : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
       <td data-label="Specimen / tube">${requiredDrawContainerBadges(test)}<div class="subtext specimen-line">${requiredSpecimenBadges(test)}${test.alternativeContainer ? ` <span>· Alt: ${escapeHtml(test.alternativeContainer)}</span>` : ''}</div></td>
       <td data-label="Temperature"><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td>
       <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(combinedVolumeText(test, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(combinedVolumeText(test, 'minimum') || '—')}</div></td>
       <td class="row-actions" data-label="Actions">
         ${blocked ? '<span class="badge temp-unknown">Do not perform</span>' : `<button class="mini-button" data-action="add" data-id="${escapeAttr(test.id)}" ${selected ? 'disabled' : ''} aria-label="${selected ? 'Added' : 'Add'} ${escapeAttr(test.testName)}">${selected ? '✓ Added' : '+ Add'}</button>`}
+        ${!blocked && isStatEligible(test) ? `<button type="button" class="mini-button library-stat-action${statSelectedIds.includes(test.id) ? ' is-stat' : ''}" data-action="mark-stat-menu" data-id="${escapeAttr(test.id)}" title="Confirm STAT routing for this test">${statSelectedIds.includes(test.id) ? 'STAT ✓' : 'Mark STAT'}</button>` : ''}
         <button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a>
       </td>
     </tr>`;
@@ -1129,6 +1145,8 @@
     if (button.dataset.action === 'add') {
       addSelected(id);
       button.textContent = 'Added';
+    } else if (button.dataset.action === 'mark-stat-menu') {
+      markStatFromMenu(id);
     } else if (button.dataset.action === 'edit') {
       openDialog(database.find(test => test.id === id));
     }
@@ -1215,21 +1233,12 @@
 
   function changeStatArea(value) {
     if (!STAT_AREAS[value] || value === statArea) return;
-    const previous = statArea;
     statAreaResetNotice = '';
     statArea = value;
     try { localStorage.setItem(STAT_AREA_KEY, value); } catch (_) {}
     const removed = reconcileStatWithArea();
-    if (previous === 'unselected' && value === 'socal') {
-      // Apply the previously requested ESR clinic default when a user first
-      // chooses Southern California for an existing order.
-      selectedIds.forEach(id => {
-        const test = database.find(item => item.id === id);
-        if (test && DEFAULT_STAT_TEST_CODES.has(test.testCode) && isStatEligible(test) && !statSelectedIds.includes(id)) statSelectedIds.push(id);
-      });
-      saveStatSelectedIds();
-    }
     renderOrder();
+    renderLibrary();
     if (removed) showToast(statAreaResetNotice);
   }
 
@@ -1252,9 +1261,21 @@
     catch (error) { console.warn('Could not save STAT selections.', error); }
   }
 
+  function undoPriorSedRateDefault() {
+    // v11.12/v11.13 automatically marked ESR 809 STAT. On this one-time
+    // upgrade, reset it to Routine so it behaves like all other eligible tests.
+    // Subsequent manual selection is respected across reloads.
+    try {
+      if (localStorage.getItem(UNDO_SED_RATE_DEFAULT_KEY) === '1') return;
+      const removedIds = new Set(database.filter(test => String(test.testCode) === '809').map(test => test.id));
+      statSelectedIds = statSelectedIds.filter(id => !removedIds.has(id));
+      saveStatSelectedIds();
+      localStorage.setItem(UNDO_SED_RATE_DEFAULT_KEY, '1');
+    } catch (error) { console.warn('Could not reset prior sed-rate STAT default.', error); }
+  }
+
   function applyDefaultStatMigration() {
-    // Apply the requested clinic STAT default once to any existing selected ESR
-    // when upgrading. Subsequent user toggles are respected across reloads.
+    // Legacy migration kept for compatibility. No test now defaults to STAT.
     try {
       if (localStorage.getItem(DEFAULT_STAT_MIGRATION_KEY) === '1') return;
       const ids = selectedIds.filter(id => {
@@ -1269,15 +1290,39 @@
     } catch (error) { console.warn('Could not migrate default STAT priorities.', error); }
   }
 
+  function confirmStatSelection(test) {
+    return window.confirm(`Mark ${displayCode(test)} · ${test.testName} as STAT?\n\nQuest receiving lab: ${STAT_AREAS[statArea].label}\n\nThis code appears on the configured STAT eligibility list. Confirm current receiving-lab acceptance, requisition, pickup cutoff, and separate STAT courier routing before sending.`);
+  }
+
   function toggleStatPriority(id) {
     if (!selectedIds.includes(id)) return;
     const test = database.find(item => item.id === id);
     if (!isStatEligible(test)) return;
+    if (!statSelectedIds.includes(id) && !confirmStatSelection(test)) return;
     statSelectedIds = statSelectedIds.includes(id)
       ? statSelectedIds.filter(item => item !== id)
       : [...statSelectedIds, id];
     saveStatSelectedIds();
     renderOrder();
+    renderLibrary();
+  }
+
+  function markStatFromMenu(id) {
+    const test = database.find(item => item.id === id);
+    if (!isStatEligible(test)) return;
+    if (selectedIds.includes(id)) {
+      toggleStatPriority(id);
+      return;
+    }
+    // Never add a test or change its routing until the user confirms it.
+    if (!confirmStatSelection(test)) return;
+    if (!addSelected(id, false)) return;
+    statSelectedIds.push(id);
+    saveSelected();
+    saveStatSelectedIds();
+    renderOrder();
+    renderLibrary();
+    showToast(`${test.testName} added and marked STAT.`);
   }
 
   function addSelected(id, rerender = true) {

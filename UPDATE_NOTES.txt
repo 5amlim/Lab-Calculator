@@ -1,3 +1,18 @@
+v11.15
+- SST and urine culture toggles are narrower (198px) and remain on one row with their labels at supported widths; option font size is unchanged.
+- In the selected test list, remove buttons stay inline and reveal Delete on hover/focus. Long names fade/truncate rather than forcing controls onto another line.
+- Search menu shows STAT eligibility for codes in the selected Quest receiving laboratory's configured list.
+- The menu provides Mark STAT; a confirmation dialog is required before adding or marking a test as STAT, and existing cart STAT marking now requires confirmation too.
+- Changing Quest receiving lab refreshes menu eligibility. Unverified locations never show the eligibility action.
+- No specimen collection or pooling calculations changed.
+
+v11.14
+- Replaced the previously unverified Southern California STAT list with Quest's uploaded October 2025 SoCal STAT menu.
+- Each of the nine receiving RRLs has its own approved-code list; the generic SoCal option includes only test codes listed at all nine labs.
+- ESR/sed rate (809) now starts Routine like all other eligible tests. Prior automatically saved ESR STAT status is reset once; staff can mark it STAT manually thereafter.
+- Excluded discontinued test 713 found on an obsolete tab based on the workbook's REVISIONS sheet (removal in all RRLs).
+- Existing selected STAT tests are rechecked whenever the receiving lab is changed; collection and pooling calculations otherwise unchanged.
+
 v11.13
 - Added Quest STAT service area selector, with per-market eligibility by official lab menu or explicitly configured clinic exception.
 - Only STAT-eligible codes render Mark STAT. Existing STAT selections for unverified codes are reset to Routine, and region changes revalidate the cart.
