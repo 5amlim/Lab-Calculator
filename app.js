@@ -1214,6 +1214,9 @@
     els.testsDetailsPanel.setAttribute('aria-hidden', showingDetails ? 'false' : 'true');
     els.testsDetailsButton.setAttribute('aria-expanded', showingDetails ? 'true' : 'false');
     els.testsDetailsButton.textContent = showingDetails ? '▴ Hide details' : '▾ Show details';
+    // The heading stays outside the scrollable cart list in both modes.
+    const cartViewport = document.getElementById('cartTestsViewport');
+    if (cartViewport) cartViewport.scrollTop = 0;
   }
 
   function loadStatArea() {
@@ -1269,7 +1272,7 @@
     }).filter(({code,test}) => !keyword || normalizeSearch(`${code} ${test?.testName || ''}`).includes(keyword));
     els.statMenuPanel.classList.toggle('hidden', !statMenuOpen);
     els.statMenuButton?.setAttribute('aria-expanded', String(statMenuOpen));
-    els.statMenuButton.textContent = `View STAT tests${codes.length ? ` (${codes.length})` : ''}`;
+    els.statMenuButton.textContent = `${statMenuOpen ? 'Hide' : 'Show'} STAT tests${codes.length ? ` (${codes.length})` : ''}`;
     if (!statMenuOpen) return;
     els.statMenuTitle.textContent = info.label;
     els.statMenuCount.textContent = `${codes.length} listed code${codes.length === 1 ? '' : 's'}`;
@@ -1585,6 +1588,8 @@
       return;
     }
     els.testsOverviewList.className = 'tests-overview-list';
+    // Preserve Details mode when a cart entry is added, removed, or updated.
+    els.testsOverviewList.classList.toggle('hidden', !els.testsDetailsPanel.classList.contains('hidden'));
     els.testsOverviewList.innerHTML = tests.map(test => `
       <div class="tests-overview-row${test.isStat ? ' is-stat' : ''}${!isStatEligible(test) ? ' no-stat-action' : ''}">
         <div class="tests-overview-ident">
@@ -2587,10 +2592,13 @@
       const specimenGroup = collectionSpecimenGroupForItem(item);
       const tigerBadge = printSstTigerBadge(item);
       const printedTestCount = uniqueTests(item.tests).length;
-      const columnRows = Math.ceil(printedTestCount / 3);
+      // Keep each SST collection card in one half-width column, even when
+      // it holds many tests. Pair the list into two internal print columns.
+      const longSstList = item.className === 'tube-sst' && printedTestCount >= 9;
+      const columnRows = Math.ceil(printedTestCount / (longSstList ? 2 : 3));
       const yieldReviewCount = item.className === 'tube-sst'
         ? uniqueTests(item.tests).filter(test => singleSstSpecimenVolumeWarning(test)).length : 0;
-      return `<article class="print-collection-card${item.tests.length >= 12 ? ' is-long' : ''}" style="--print-column-rows:${columnRows}">
+      return `<article class="print-collection-card${longSstList ? ' is-sst-long' : printedTestCount >= 12 ? ' is-long' : ''}" style="--print-column-rows:${columnRows}">
         <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${specimenBadge ? `<span class="print-collection-specimen-badge specimen-${specimenGroup}">${escapeHtml(specimenBadge)}</span>` : ''}${printCollectionWholeBloodDetail(item, wholeBloodGroups)}</div>
         ${item.detail ? `<div class="print-container-detail">${escapeHtml(item.detail)}</div>` : ''}
         ${yieldReviewCount ? `<div class="print-sst-volume-warning">Volume verification: ${yieldReviewCount} ${yieldReviewCount === 1 ? 'test has' : 'tests have'} specimen needs that may exceed a single ${selectedSstIsTiger() ? 'Tiger' : 'Gold'} SST yield. Confirm sufficient collection volume with the receiving lab.</div>` : ''}

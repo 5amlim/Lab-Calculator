@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lab Collection Calculator</title>
   <meta name="description" content="Batch-search and print-friendly specimen collection planning from a curated local test directory.">
-  <link rel="stylesheet" href="styles.css?v=11.44">
-  <link rel="stylesheet" href="experience.css?v=11.44">
+  <link rel="stylesheet" href="styles.css?v=11.45">
+  <link rel="stylesheet" href="experience.css?v=11.45">
 </head>
 <body>
   <a class="skip-link" href="#libraryFilter">Skip to test search</a>
@@ -84,7 +84,7 @@
           <option value="fl">Florida</option>
           <option value="va_short_pump">Virginia, Short Pump RRL only</option>
         </select>
-        <button id="statMenuButton" class="button secondary stat-menu-button" type="button" aria-expanded="false" aria-controls="statMenuPanel">View STAT tests</button>
+        <button id="statMenuButton" class="button secondary stat-menu-button" type="button" aria-expanded="false" aria-controls="statMenuPanel">Show STAT tests</button>
       </div>
 
           <button class="button ghost blocked-list-button" id="blockedListButton" type="button" aria-expanded="false" aria-controls="blockedListPanel">Do not perform list</button>
@@ -173,9 +173,11 @@
           </div>
           <button class="mini-button edit tests-details-toggle" id="testsDetailsButton" type="button" aria-expanded="false" aria-controls="testsOverviewList testsDetailsPanel">▾ Show details</button>
         </div>
-        <div id="testsOverviewList" class="tests-overview-list empty-state">No tests selected.</div>
-        <div id="testsDetailsPanel" class="tests-details-panel hidden" aria-hidden="true">
-          <div id="selectedList" class="selected-list empty-state">No tests selected.</div>
+        <div class="cart-tests-viewport" id="cartTestsViewport" role="region" aria-label="Selected tests, scroll for more" tabindex="0">
+          <div id="testsOverviewList" class="tests-overview-list empty-state">No tests selected.</div>
+          <div id="testsDetailsPanel" class="tests-details-panel hidden" aria-hidden="true">
+            <div id="selectedList" class="selected-list empty-state">No tests selected.</div>
+          </div>
         </div>
       </section>
 
@@ -357,7 +359,7 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script src="data.js?v=11.44"></script>
-  <script src="app.js?v=11.44"></script>
+  <script src="data.js?v=11.45"></script>
+  <script src="app.js?v=11.45"></script>
 </body>
 </html>
