@@ -1996,3 +1996,41 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     overflow-wrap: anywhere;
   }
 }
+
+/* v11.12: readable bag names and compact count / temperature breakdown in the
+   purple submission heading. The count includes separate STAT transport bags. */
+@media print {
+  .print-submit-heading { gap: 8px; min-height: 30px; }
+  .print-submit-heading > strong { flex: 1 1 45%; min-width: 0; }
+  .print-submit-heading-summary {
+    flex: 0 1 53%; display: flex; align-items: center;
+    justify-content: flex-end; gap: 6px; min-width: 0;
+  }
+  .print-submit-heading .print-submit-bag-count {
+    display: inline-flex; align-items: baseline; justify-content: center;
+    gap: 2px; padding: 3px 6px; border-radius: 5px;
+    background: #fff !important; color: #534178 !important;
+    font-size: 7.4px; font-weight: 900; line-height: 1.05;
+    text-transform: uppercase; white-space: nowrap; max-width: none;
+  }
+  .print-submit-bag-count b { font-size: 11px; line-height: 1; }
+  .print-submit-heading .print-submit-bag-types {
+    display: flex; flex-wrap: wrap; justify-content: flex-end;
+    column-gap: 5px; row-gap: 2px; max-width: none;
+    font-size: 6.6px; line-height: 1.05; font-weight: 700; text-align: right;
+  }
+  .print-submit-bag-types > span { white-space: nowrap; }
+  .print-submit-bag-types > span:not(:last-child)::after { content: ' ·'; }
+  .print-bag-card-header > div:first-child strong {
+    font-size: 12px; line-height: 1.2; font-weight: 950;
+  }
+  .print-bag-card-header > div:first-child span { font-size: 7px; line-height: 1.15; }
+}
+
+@media print {
+  .print-submit-heading .print-submit-bag-types > span {
+    display: inline-block; padding: 1px 3px;
+    border: 1px solid rgba(255,255,255,.30); border-radius: 3px;
+  }
+  .print-submit-bag-types > span:not(:last-child)::after { content: none; }
+}

@@ -3749,7 +3749,7 @@ window.SEED_TESTS = [
   {
     "id": "seed-44",
     "testCode": "809",
-    "testName": "ESR - Sed Rate, Western (STAT)",
+    "testName": "Sed Rate by Modified Westergren",
     "specimenType": "Whole Blood",
     "drawContainer": "Lavender EDTA",
     "alternativeContainer": "",
@@ -11421,7 +11421,7 @@ window.SEED_TESTS = [
   {
     "id": "seed-62",
     "testCode": "4914",
-    "testName": "PT/INR and PTT (STAT)",
+    "testName": "Prothrombin with INR and Partial Thromboplastin Times",
     "specimenType": "Whole Blood",
     "drawContainer": "Light Blue Citrate",
     "alternativeContainer": "",
@@ -12780,7 +12780,7 @@ window.SEED_TESTS = [
   {
     "id": "seed-74",
     "testCode": "6631",
-    "testName": "Bilirubin, Total and Direct, Neonatal STAT",
+    "testName": "Bilirubin, Total and Direct, Neonatal",
     "specimenType": "Serum",
     "drawContainer": "SST / Gold",
     "alternativeContainer": "",
@@ -15667,7 +15667,7 @@ window.SEED_TESTS = [
   {
     "id": "seed-92",
     "testCode": "8847",
-    "testName": "PT/INR (STAT)",
+    "testName": "Prothrombin Time with INR",
     "specimenType": "Whole Blood",
     "drawContainer": "Light Blue Citrate",
     "alternativeContainer": "",
@@ -30714,7 +30714,7 @@ window.SEED_TESTS = [
   {
     "id": "seed-119",
     "testCode": "20381",
-    "testName": "Bilirubin, Total, Neonatal STAT",
+    "testName": "Bilirubin, Total, Neonatal",
     "specimenType": "Serum",
     "drawContainer": "SST / Gold",
     "alternativeContainer": "",
@@ -32705,7 +32705,7 @@ window.SEED_TESTS = [
   {
     "id": "seed-129",
     "testCode": "34162",
-    "testName": "Bilirubin, Direct , Neonatal STAT",
+    "testName": "Bilirubin, Direct, Neonatal",
     "specimenType": "Serum",
     "drawContainer": "SST / Gold",
     "alternativeContainer": "",

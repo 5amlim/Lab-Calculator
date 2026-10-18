@@ -1,3 +1,10 @@
+v11.12
+- Corrected six legacy STAT-labeled test names to directory names (with code 34162 retaining the existing catalog mapping after removing STAT; Quest page inaccessible at time of recheck).
+- Sed Rate #809 now defaults to STAT when newly selected, with manual toggling still available. Existing manual priorities are preserved.
+- Compacted the purple submission header with a bag count badge and temperature / STAT bag summary.
+- Increased the font size of individual bag headings while keeping header height compact.
+- Saved browser overrides with old STAT suffixes are normalized; tube/pooling logic unchanged.
+
 v11.11
 - Reorganized the selected-tests cart to give STAT and remove actions separate rows/columns. The controls no longer overlap at mobile widths.
 - Rebuilt the print collection-volume strip with a full-width label and two equal metric cells to prevent overlap and clipping.

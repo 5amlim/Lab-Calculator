@@ -25,6 +25,22 @@
   const SST_MODE_KEY = 'labCollectionCalculator.sstMode.v1';
   const URINE_CULTURE_MODE_KEY = 'labCollectionCalculator.urineCultureTransport.v1';
   const STAT_SELECTED_KEY = 'labCollectionCalculator.statSelected.v1';
+  const DEFAULT_STAT_MIGRATION_KEY = 'labCollectionCalculator.defaultStat.v11.12';
+  // Only canonicalize these legacy names after checking Quest's directory.
+  // STAT designation is a separate order-priority choice, not part of the assay name.
+  // 34162 uses the existing catalog mapping with the legacy STAT suffix removed;
+  // its currently accessible Quest directory page could not be reverified.
+  const VERIFIED_TEST_NAMES = Object.freeze({
+    '809': 'Sed Rate by Modified Westergren',
+    '4914': 'Prothrombin with INR and Partial Thromboplastin Times',
+    '8847': 'Prothrombin Time with INR',
+    '6631': 'Bilirubin, Total and Direct, Neonatal',
+    '20381': 'Bilirubin, Total, Neonatal',
+    '34162': 'Bilirubin, Direct, Neonatal'
+  });
+  // Clinic workflow setting: ESR is pre-marked STAT at selection, independent
+  // of Quest's regional STAT availability. Staff can change it manually.
+  const DEFAULT_STAT_TEST_CODES = new Set(['809']);
   const LEGACY_SELECTED_KEYS = [`${LEGACY_STORAGE_PREFIX}.selected.v1`];
   const PAGE_STEP = 30;
   const SST_USABLE_ML_PER_TUBE = 2;
@@ -79,6 +95,7 @@
   let database = loadDatabase();
   let selectedIds = loadSelectedIds();
   let statSelectedIds = loadStatSelectedIds();
+  applyDefaultStatMigration();
   let sstTubeMode = loadSstTubeMode();
   let urineCultureMode = loadUrineCultureMode();
   finalizeStorageMigration();
@@ -369,6 +386,13 @@
 
   function normalizeRecord(record, index = 0) {
     record = { ...record };
+    const canonicalName = VERIFIED_TEST_NAMES[String(record.testCode || '').trim()];
+    // Migrate older browser overrides that still have (STAT) baked into the name.
+    // Keep existing user-created names intact unless they are one of the known
+    // obsolete directory mappings.
+    if (canonicalName && /\bSTAT\b/i.test(String(record.testName || ''))) {
+      record.testName = canonicalName;
+    }
     for (const key of ['testName', 'specimenType', 'drawContainer', 'alternativeContainer',
       'transportContainer', 'preferredVolume', 'minimumVolume', 'transportTemperature',
       'transportTemperatureRaw', 'stability', 'spin', 'specialLabeling',
@@ -1157,6 +1181,23 @@
     catch (error) { console.warn('Could not save STAT selections.', error); }
   }
 
+  function applyDefaultStatMigration() {
+    // Apply the requested clinic STAT default once to any existing selected ESR
+    // when upgrading. Subsequent user toggles are respected across reloads.
+    try {
+      if (localStorage.getItem(DEFAULT_STAT_MIGRATION_KEY) === '1') return;
+      const ids = selectedIds.filter(id => {
+        const test = database.find(entry => entry.id === id);
+        return test && DEFAULT_STAT_TEST_CODES.has(test.testCode);
+      });
+      ids.forEach(id => {
+        if (!statSelectedIds.includes(id)) statSelectedIds.push(id);
+      });
+      saveStatSelectedIds();
+      localStorage.setItem(DEFAULT_STAT_MIGRATION_KEY, '1');
+    } catch (error) { console.warn('Could not migrate default STAT priorities.', error); }
+  }
+
   function toggleStatPriority(id) {
     if (!selectedIds.includes(id)) return;
     statSelectedIds = statSelectedIds.includes(id)
@@ -1171,6 +1212,10 @@
     if (!test || test.status === 'blocked') return false;
     if (selectedIds.includes(id)) return false;
     selectedIds.push(id);
+    if (DEFAULT_STAT_TEST_CODES.has(String(test.testCode))) {
+      if (!statSelectedIds.includes(id)) statSelectedIds.push(id);
+      saveStatSelectedIds();
+    }
     if (rerender) {
       saveSelected();
       renderOrder();
@@ -1705,6 +1750,10 @@
     const shouldAdd = existingIndex < 0 && els.addToSummary.checked && record.status !== 'blocked';
     if (shouldAdd && !selectedIds.includes(record.id)) {
       selectedIds.push(record.id);
+      if (DEFAULT_STAT_TEST_CODES.has(record.testCode)) {
+        if (!statSelectedIds.includes(record.id)) statSelectedIds.push(record.id);
+        saveStatSelectedIds();
+      }
       saveSelected();
     }
 
@@ -3356,7 +3405,13 @@
       <section class="print-submit-section">
         <div class="print-submit-heading">
           <strong>What to submit after processing</strong>
-          <span>Separate STAT from routine. Keep each temperature group in its own bag.</span>
+          <div class="print-submit-heading-summary">
+            <span class="print-submit-bag-count"><b>${bags.length}</b> ${bags.length === 1 ? 'bag' : 'bags'}</span>
+            <span class="print-submit-bag-types">${bags.map(bag => {
+              const shortLabel = bag.label.replace(/\s+bag$/i, '').replace('Room-temperature', 'Room temp').replace('Refrigerated', 'Cold');
+              return `<span>${escapeHtml(shortLabel)}</span>`;
+            }).join('')}</span>
+          </div>
         </div>
         <div class="print-bag-grid">${bags.map(bag => {
           const contents = buildSubmissionContents(bag);
