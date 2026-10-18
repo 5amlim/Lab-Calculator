@@ -3245,6 +3245,13 @@
     }
     if (!sourceTube || item.originalTube) return '';
 
+    // A standard serum transport tube from Gold or Tiger SST only needs the
+    // specimen-type label "Serum". Keep explicit specialLabeling instructions
+    // intact (e.g. a specifically requested source/additive on the label).
+    if (lowerSpecimen === 'serum' && isSstDraw(test)
+      && /^tube-transport(?:\s|$)/.test(item.className || '')
+      && !/tube-amber|tube-special/i.test(item.className || '')) return 'Serum';
+
     const specialSerumSource = /sst|gold|blue|pink|lavender|edta|heparin|citrate|acd|gray|grey|tan|green/i.test(sourceTube);
     const standardSerumSource = /^(?:sst|gold|red top)$/i.test(sourceTube);
     if (/serum/.test(lowerSpecimen) && specialSerumSource && !standardSerumSource) {
@@ -3284,7 +3291,7 @@
       && !/patient|hiv|no additive|identifier/.test(text);
     const onlyPlasmaType = /(?:mark|label).*(?:specimen type|tube).*plasma/.test(text)
       && !/patient|hiv|no additive|identifier/.test(text);
-    if (onlySerumType && derivedText.startsWith('serum from ')) return false;
+    if (onlySerumType && (derivedText === 'serum' || derivedText.startsWith('serum from '))) return false;
     if (onlyPlasmaType && /^.*plasma(?: from |$)/.test(derivedText)) return false;
     return true;
   }
@@ -3298,7 +3305,11 @@
       const parts = [];
       // For 24-hour urine transfers, "24h urine" already identifies the specimen.
       // Do not prepend a redundant generic "Urine" label.
-      if (derived && !(is24Hour && /^urine$/i.test(derived.trim()))) parts.push(derived);
+      // If the lab explicitly requires a specific serum source on the label,
+      // show the exact directive instead of prefixing it with generic "Serum".
+      const explicitSerumSource = derived === 'Serum'
+        && /serum\s+from\s+(?:spun\s+)?(?:gold|sst|tiger|red(?:-top)?)/i.test(explicit);
+      if (derived && !(is24Hour && /^urine$/i.test(derived.trim())) && !explicitSerumSource) parts.push(derived);
       // Amber transport tubes should always carry a visible specimen-type label,
       // including ordinary serum transfers where the standard SST source would
       // otherwise suppress a redundant derived label.

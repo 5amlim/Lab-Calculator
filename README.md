@@ -1,3 +1,9 @@
+## v11.42 update
+
+- Standard serum aliquot LABEL instructions now say **Serum** instead of **Serum from Gold / SST** (also for Tiger SST). Explicit test-specific labeling requirements are kept.
+- The specimen type and STAT receiving-lab dropdown chevrons are both 10px from the right border, matching the warnings disclosure.
+- No changes to serum yields, tube pooling and quantities, label test-code references, STAT handling, source-tube instructions, or desktop/mobile print layout.
+
 ## v11.41 update
 
 - Removed the obsolete “Must send STAT” parenthetical from Quest 809 Sed Rate notes and stability (24 hours remains). Test priority still defaults to Routine and can be changed manually where allowed.

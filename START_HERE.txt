@@ -1,4 +1,6 @@
-Lab Collection Calculator v11.41
+v11.42: Show only "Serum" on standard serum transport-tube print LABEL lines sourced from Gold or Tiger SST, unless a test has explicit special labeling instructions. Special labels are preserved, including special additives and source details specifically required by Quest. Moved specimen-filter and STAT receiving-lab dropdown chevrons closer to the right border, matching the warning/special-handling disclosure. No changes to collection pooling, transport pairing, specimen temperatures, print sizing or routing.
+
+Lab Collection Calculator v11.42
 
 Open index.html locally to check, then publish the full folder to GitHub Pages.
 

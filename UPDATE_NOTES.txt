@@ -1,3 +1,5 @@
+v11.42: Show only "Serum" on standard serum transport-tube print LABEL lines sourced from Gold or Tiger SST, unless a test has explicit special labeling instructions. Special labels are preserved, including special additives and source details specifically required by Quest. Moved specimen-filter and STAT receiving-lab dropdown chevrons closer to the right border, matching the warning/special-handling disclosure. No changes to collection pooling, transport pairing, specimen temperatures, print sizing or routing.
+
 v11.41 (2026-10-17)
 - Sed Rate by Modified Westergren (Quest 809): remove the outdated “(Must send STAT)” wording from special instructions and stability. No change to STAT eligibility, routing, or underlying 24-hour stability entry.
 - Remove the redundant “Tube 1: code + code · Tube 2: code” pairing text from the printout. The existing test-label/reference area remains. Transport-tube counts and all compatibility rules are unchanged.
