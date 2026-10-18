@@ -2503,11 +2503,13 @@
   }
 
   function collectionSpecimenGroupForTest(test) {
-    const specimen = String(test.specimenType || '').toLowerCase();
-    const name = String(test.testName || '').toLowerCase();
-    if (/stool|feces|fecal|faecal/.test(specimen) || /stool|feces|fecal|faecal/.test(name)) return 'stool';
-    if (/urine|urinary/.test(specimen) || /urine|urinary/.test(name)) return 'urine';
-    if (/serum|plasma|whole blood|blood|rbc|red blood/.test(specimen)) return 'blood';
+    // Classify by the actual required specimen, not the test title. Names such
+    // as Maple Syrup Urine Disease and Thiopurine are BLOOD tests; relying on
+    // substrings in the title incorrectly grouped them with urine specimens.
+    const specimen = String(test.specimenType || '').toLowerCase().trim();
+    if (/\bstool\b|\bfeces\b|\bfecal\b|\bfaecal\b/.test(specimen)) return 'stool';
+    if (/\burine\b|\burinary\b/.test(specimen)) return 'urine';
+    if (/\bserum\b|\bplasma\b|\bblood\b|\brbcs?\b|\berythrocytes?\b/.test(specimen)) return 'blood';
     return 'other';
   }
 
@@ -2965,7 +2967,10 @@
       key: `original|${normalizeSearch(label)}|${normalizeSearch(sourceSpecimen)}`,
       label,
       className: tubeClass(draw),
-      count: explicitSubmissionCount(test),
+      // Every original collection tube must travel as an original submission.
+      // If two distinct whole-blood tubes are drawn, they cannot be compressed
+      // into a single original tube in the bag plan (e.g. 38287).
+      count: Math.max(explicitSubmissionCount(test), explicitCollectionCount(test)),
       detail: isAptima70049 ? processing : `${sourceSpecimen} · ${processing}`,
       originalTube: true
     };

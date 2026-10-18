@@ -39383,7 +39383,7 @@ window.SEED_TESTS = [
     "drawContainer": "Green Sodium Heparin",
     "alternativeContainer": "",
     "transportContainer": "Green Sodium Heparin (original tube)",
-    "preferredVolume": "Submit 1 aliquot; 10 mL whole blood collected in two separate 5 mL sodium heparin (green-top) tubes",
+    "preferredVolume": "10 mL whole blood in two separate 5 mL sodium heparin (green-top) tubes",
     "minimumVolume": "5 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room temperature",

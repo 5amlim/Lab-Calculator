@@ -1,3 +1,9 @@
+v11.33
+- Fixed 38287 original tube submission quantity (2 collected / 2 submitted), verified against Quest FAQ.
+- Use required specimen type, not disease names, when grouping collection cards.
+- Added more space between dropdown chevrons and borders.
+- Performed catalog-level and pooling scenario checks.
+
 v11.32: Moved print warnings (handling, timing, rejection, and light protection) to directly above the detailed test table, which continues to start on a fresh page. Collection and submission remain before the table; general notes and disclaimers remain after the table. No test, pooling, or STAT rules modified.
 
 v11.31
