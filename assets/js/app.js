@@ -101,7 +101,7 @@
   const els = {
     recordCount: $('recordCount'), searchInput: $('searchInput'), addBestButton: $('addBestButton'),
     previewButton: $('previewButton'), clearSearchButton: $('clearSearchButton'), batchResults: $('batchResults'),
-    libraryFilter: $('libraryFilter'), specimenFilter: $('specimenFilter'), temperatureFilter: $('temperatureFilter'), fastingFilter: $('fastingFilter'), pediatricFilter: $('pediatricFilter'), spinFilter: $('spinFilter'), catalogFilterButton: $('catalogFilterButton'), catalogFilterButtonText: $('catalogFilterButtonText'), catalogFilterPanel: $('catalogFilterPanel'), catalogFilterReset: $('catalogFilterReset'), catalogFilterDone: $('catalogFilterDone'), catalogFilterControl: $('catalogFilterControl'), clearBrowserTestsButton: $('clearBrowserTestsButton'), browserCustomCount: $('browserCustomCount'),
+    libraryFilter: $('libraryFilter'), specimenFilter: $('specimenFilter'), temperatureFilter: $('temperatureFilter'), transportContainerFilter: $('transportContainerFilter'), fastingFilter: $('fastingFilter'), pediatricFilter: $('pediatricFilter'), spinFilter: $('spinFilter'), catalogFilterButton: $('catalogFilterButton'), catalogFilterButtonText: $('catalogFilterButtonText'), catalogFilterPanel: $('catalogFilterPanel'), catalogFilterReset: $('catalogFilterReset'), catalogFilterDone: $('catalogFilterDone'), catalogFilterControl: $('catalogFilterControl'), clearBrowserTestsButton: $('clearBrowserTestsButton'), browserCustomCount: $('browserCustomCount'),
     libraryBody: $('libraryBody'), libraryStatus: $('libraryStatus'), loadMoreButton: $('loadMoreButton'), loadMoreInlineButton: $('loadMoreInlineButton'),
     blockedListButton: $('blockedListButton'), blockedListPanel: $('blockedListPanel'), blockedListBody: $('blockedListBody'),
     addTestButton: $('addTestButton'), addSelectedTestButton: $('addSelectedTestButton'), testsDetailsButton: $('testsDetailsButton'), testsDetailsPanel: $('testsDetailsPanel'),
@@ -160,7 +160,7 @@
       if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') renderBatch(true);
     });
     els.libraryFilter.addEventListener('input', () => { libraryLimit = PAGE_STEP; renderLibrary(); });
-    [els.specimenFilter, els.temperatureFilter, els.fastingFilter, els.pediatricFilter, els.spinFilter].forEach(control => control.addEventListener('change', () => { libraryLimit = PAGE_STEP; renderLibrary(); }));
+    [els.specimenFilter, els.temperatureFilter, els.transportContainerFilter, els.fastingFilter, els.pediatricFilter, els.spinFilter].forEach(control => control.addEventListener('change', () => { libraryLimit = PAGE_STEP; renderLibrary(); }));
     els.catalogFilterButton.addEventListener('click', () => { if (els.catalogFilterPanel.classList.contains('hidden')) setStatPickerOpen(false); toggleCatalogFilters(); });
     els.catalogFilterDone.addEventListener('click', () => toggleCatalogFilters(false));
     els.catalogFilterReset.addEventListener('click', resetCatalogFilters);
@@ -1117,6 +1117,31 @@
     return 'Other';
   }
 
+  // Filter by the transport requirement recorded for each test, not the draw
+  // tube. Keep special containers separate from generic transport tubes.
+  function transportContainerFilterCategories(test) {
+    const value = normalizeSearch(test.transportContainer || '');
+    if (/red yellow|ua preservative/.test(value)) {
+      // A few urine panels require both UA and culture preservative tubes.
+      return /gray top urine|urine culture|urisponge/.test(value)
+        ? ['urine-ua', 'urine-culture'] : ['urine-ua'];
+    }
+    if (/gray top urine|urine culture|urisponge/.test(value)) return ['urine-culture'];
+    if (/amber|light protected|protect from light/.test(value)) return ['amber'];
+    if (/acid washed|metal free|trace element|trace metal/.test(value)) return ['metal'];
+    if (/sst|gold spun/.test(value)) return ['sst'];
+    if (/no transfer|original tube|primary tube|do not open/.test(value)) return ['original'];
+    if (/^(lavender edta|edta lavender top tube|gray top|gray fluoride oxalate|yellow acd b)$/.test(value)) return ['original'];
+    if (/aptima/.test(value)) return ['aptima'];
+    if (/viral|vcm|utm|transport media/.test(value)) return ['viral'];
+    if (/total fix|stool container/.test(value)) return ['stool'];
+    if (/sterile urine cup|plastic urine container|24 hour urine/.test(value)) return ['urine-cup'];
+    if (/plasma transport/.test(value)) return ['plasma'];
+    if (/serum transport|serum .* transport vial/.test(value)) return ['serum'];
+    if (/^(?:(?:\d+|two)\s+)?(?:separate\s+)?transport tubes?$/.test(value)) return ['transport'];
+    return ['special'];
+  }
+
   function toggleCatalogFilters(force) {
     const open = typeof force === 'boolean' ? force : els.catalogFilterPanel.classList.contains('hidden');
     els.catalogFilterPanel.classList.toggle('hidden', !open);
@@ -1126,6 +1151,7 @@
   function resetCatalogFilters() {
     els.specimenFilter.value = '';
     els.temperatureFilter.value = '';
+    els.transportContainerFilter.value = '';
     els.fastingFilter.value = '';
     els.pediatricFilter.checked = false;
     els.spinFilter.checked = false;
@@ -1135,7 +1161,7 @@
   }
 
   function libraryFilterCount() {
-    return [els.specimenFilter.value, els.temperatureFilter.value, els.fastingFilter.value,
+    return [els.specimenFilter.value, els.temperatureFilter.value, els.transportContainerFilter.value, els.fastingFilter.value,
       els.pediatricFilter.checked, els.spinFilter.checked].filter(Boolean).length;
   }
 
@@ -1144,6 +1170,8 @@
     if (specimen && specimenFilterCategory(test.specimenType) !== specimen) return false;
     const temperature = els.temperatureFilter.value;
     if (temperature && transportBagInfo(test).key !== temperature) return false;
+    const container = els.transportContainerFilter.value;
+    if (container && !transportContainerFilterCategories(test).includes(container)) return false;
     const fasting = els.fastingFilter.value;
     if (fasting && fastingRequirement(test)?.level !== fasting) return false;
     // Limit this category to explicitly named pediatric/neonatal tests;

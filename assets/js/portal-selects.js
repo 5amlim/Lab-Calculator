@@ -1,8 +1,8 @@
 /* v11.80: Animated, tube-badged in-page popovers for Add/Edit Test and Filter Tests.
    Native selects remain the source of truth for all existing app logic. */
 (() => {
-  const selectors = ['specimenFilter','temperatureFilter','fastingFilter','specimenType','drawContainer','transportContainer','transportTemperature','spin'];
-  const labels = {specimenFilter:'Specimen type',temperatureFilter:'Transport temperature',fastingFilter:'Fasting',specimenType:'Specimen type',drawContainer:'Draw container',transportContainer:'Transport tube / container',transportTemperature:'Transport temperature',spin:'Spin requirement'};
+  const selectors = ['specimenFilter','temperatureFilter','transportContainerFilter','fastingFilter','specimenType','drawContainer','transportContainer','transportTemperature','spin'];
+  const labels = {specimenFilter:'Specimen type',temperatureFilter:'Transport temperature',transportContainerFilter:'Transport container',fastingFilter:'Fasting',specimenType:'Specimen type',drawContainer:'Draw container',transportContainer:'Transport tube / container',transportTemperature:'Transport temperature',spin:'Spin requirement'};
   const controls = [];
   let active = null;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
