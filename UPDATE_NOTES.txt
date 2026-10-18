@@ -1,3 +1,8 @@
+v11.53
+- Mobile print fix: removed the CSS gradient mask that can produce solid black bars over long Gold/Tiger SST test lists on iPhone/iOS Safari.
+- Kept two-column SST test lists; overflow now truncates with an ellipsis, and full names remain available in the detailed test table.
+- No changes to collection volumes, pooling, test data, specimen routing, or bag calculations.
+
 v11.52
 - Changed Cart Show/Hide details to use the same SVG chevron as Warning / Special Handling, rotating when expanded. No pooling or print changes.
 

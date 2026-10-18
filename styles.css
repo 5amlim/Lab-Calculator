@@ -3016,9 +3016,9 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   }
 }
 
-/* v11.45: dense SST lists use two columns within their normal collection
-   card. A long name fades at its own column boundary, never into its neighbor.
-   Full test names remain available in the detailed test table. */
+/* v11.53: dense SST lists keep their two print columns, but long names
+   truncate with an ellipsis. iOS Safari sometimes paints a WebKit CSS mask
+   as an opaque black bar in printed/PDF output, hiding the test names. */
 @media print {
   .print-sheet .print-collection-grid > .print-collection-card.is-sst-long {
     grid-column: auto !important;
@@ -3043,9 +3043,9 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     max-width: 100%;
     overflow: hidden;
     white-space: nowrap;
-    text-overflow: clip;
-    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
-    mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
+    text-overflow: ellipsis;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
     break-inside: avoid;
     page-break-inside: avoid;
   }
