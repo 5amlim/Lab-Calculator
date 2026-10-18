@@ -3513,12 +3513,13 @@
     if (!group) return '';
     const notes = [];
     if (group.dedicatedTubes > 0) notes.push(`${group.dedicatedTubes} dedicated ${group.dedicatedTubes === 1 ? 'tube' : 'tubes'} included`);
-    const note = notes.length ? `<small>${escapeHtml(notes.join(' · '))}</small>` : '';
-    return `<span class="print-collection-blood-volume">
-      <span class="print-collection-blood-label">Draw</span>
-      <span class="print-collection-blood-metric"><b>Pref</b><strong>${escapeHtml(wholeBloodRequirementText(group, 'preferred'))}</strong></span>
-      <span class="print-collection-blood-metric"><b>Min</b><strong>${escapeHtml(wholeBloodRequirementText(group, 'minimum'))}</strong></span>
-      ${note}
+    const note = notes.length ? `<small class="print-collection-dedicated-note">${escapeHtml(notes.join(' · '))}</small>` : '';
+    return `<span class="print-collection-volume-wrap">
+      <span class="print-collection-blood-volume">
+        <span class="print-collection-blood-label">Draw Volume</span>
+        <span class="print-collection-blood-metric"><b>Preferred</b><strong>${escapeHtml(wholeBloodRequirementText(group, 'preferred'))}</strong></span>
+        <span class="print-collection-blood-metric"><b>Minimum</b><strong>${escapeHtml(wholeBloodRequirementText(group, 'minimum'))}</strong></span>
+      </span>${note}
     </span>`;
   }
 
@@ -3605,12 +3606,12 @@
             }).join('')}</span>
           </div>
         </div>
-        <div class="print-bag-grid">${bags.map(bag => {
+        <div class="print-bag-grid">${[0, 1].map(columnIndex => `<div class="print-bag-column">${bags.filter((bag, index) => index % 2 === columnIndex).map(bag => {
           const contents = buildSubmissionContents(bag);
           applyBloodSourceCountAllocations(contents);
           const totalContainers = contents.reduce((sum, item) => sum + item.count, 0);
-          return `<article class="print-bag-card ${bag.className}${contents.length > 5 ? ' bag-long' : ''}">
-            <div class="print-bag-card-header"><div><strong>${escapeHtml(bag.label)}</strong><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div>
+          return `<article class="print-bag-card ${bag.className} ${bag.isStat ? 'bag-stat' : 'bag-routine'}${contents.length > 5 ? ' bag-long' : ''}">
+            <div class="print-bag-card-header"><div><strong>${escapeHtml(bag.isStat ? bag.label : `Routine · ${bag.label}`)}</strong><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div>
             <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
               <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${printSstTigerBadge(item)}</div>
               ${printSubmissionItemDetail(item)}
@@ -3618,7 +3619,7 @@
               <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${testReferences(item.tests)}</ul></div>
             </div>`).join('')}</div>
           </article>`;
-        }).join('')}</div>
+        }).join('')}</div>`).join('')}</div>
       </section>
       <div class="print-bag-note">
         <div><strong>STAT routing:</strong> Only tests listed for the selected Quest service area offer Mark STAT. Confirm that the specific order is accepted as STAT by the receiving lab, use its STAT requisition/courier workflow, and never put STAT specimens in a routine shipment.</div>

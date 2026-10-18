@@ -1,3 +1,9 @@
+v11.18
+- Restored purple-outlined two-column bag layout with independently stacked priority / temperature bags.
+- Routine bag titles and borders now green; STAT remains red.
+- Collection-card header now uses Draw Volume, Preferred, Minimum, and a separate gray dedicated-tube note.
+- No changes to specimen collection counts, pooling, or test data.
+
 v11.17
 - Eligible tests offer Add as routine and Add as STAT, with confirmation before STAT addition; noneligible tests retain Add.
 - Cart STAT button toggles STAT/Routine and deletion remains alongside the test name.
