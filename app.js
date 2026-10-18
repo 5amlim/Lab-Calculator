@@ -3257,19 +3257,42 @@
     const lowerSpecimen = specimen.toLowerCase();
     const sourceSpecimen = specificSpecimenSource(test);
 
+    // Primary collection containers already identify routine blood/urine/stool
+    // specimen types. Do not add a redundant LABEL badge for that information.
+    // Explicit collection-time and special label directives are handled below.
+    if (item.originalTube && !/swab/.test(lowerSpecimen) && !/swab/i.test(sourceSpecimen)) return '';
     if (/\brbcs?\b|red blood cell/.test(lowerSpecimen)) return sourceTube ? `RBCs from ${sourceTube}` : 'RBCs';
     if (/plasma/.test(lowerSpecimen)) return sourceTube ? `${specimen} from ${sourceTube}` : specimen;
     if (/urine|stool|swab|saliva|semen|csf|cerebrospinal|tissue/.test(lowerSpecimen) || /swab/i.test(sourceSpecimen)) {
+      // Original swab tubes may need the site on the label. Never infer a site
+      // from a list of merely acceptable (or unacceptable) swab sources.
+      if (/swab/i.test(sourceSpecimen) && /^swab$/i.test(String(test.specimenType || '').trim())) {
+        const identifyingText = `${test.testName || ''} ${test.specimenType || ''}`;
+        const clearSite = [
+          [/nasopharyngeal|\bnp swab\b/i, 'Nasopharyngeal swab'],
+          [/\bthroat\b|oropharyngeal/i, 'Throat swab'],
+          [/\bvaginal\b/i, 'Vaginal swab'],
+          [/\bendocervical\b/i, 'Endocervical swab'],
+          [/\bconjunctiv|\beye swab\b/i, 'Conjunctival swab'],
+          [/\brectal\b/i, 'Rectal swab'],
+          [/\blesion\b/i, 'Lesion swab'],
+          [/\bbuccal\b/i, 'Buccal swab'],
+          [/\bnasal\b/i, 'Nasal swab'],
+          [/\burethral\b/i, 'Urethral swab'],
+          [/\bcervical\b/i, 'Cervical swab']
+        ].filter(([pattern]) => pattern.test(identifyingText));
+        return clearSite.length === 1 ? clearSite[0][1] : 'Collection site: ____';
+      }
       return sourceSpecimen;
     }
-    if (!sourceTube || item.originalTube) return '';
+    if (!sourceTube) return '';
 
-    // A standard serum transport tube from Gold or Tiger SST only needs the
-    // specimen-type label "Serum". Keep explicit specialLabeling instructions
-    // intact (e.g. a specifically requested source/additive on the label).
+    // For routine SST-derived serum aliquots, including amber tubes, the
+    // specimen-type label "Serum" is sufficient. Preserve genuinely special
+    // no-additive/trace-metal source instructions and explicit requirements.
     if (lowerSpecimen === 'serum' && isSstDraw(test)
-      && /^tube-transport(?:\s|$)/.test(item.className || '')
-      && !/tube-amber|tube-special/i.test(item.className || '')) return 'Serum';
+      && (/^tube-transport(?:\s|$)/.test(item.className || '')
+        || /\btube-amber\b/.test(item.className || ''))) return 'Serum';
 
     const specialSerumSource = /sst|gold|blue|pink|lavender|edta|heparin|citrate|acd|gray|grey|tan|green/i.test(sourceTube);
     const standardSerumSource = /^(?:sst|gold|red top)$/i.test(sourceTube);
@@ -3320,14 +3343,21 @@
     uniqueTests(item.tests).forEach(test => {
       const is24Hour = is24HourUrineTest(test);
       const derived = derivedSpecimenSourceLabel(test, item);
-      const explicit = String(test.specialLabeling || '').trim();
+      let explicit = String(test.specialLabeling || '').trim();
+      // A basic patient ID is already part of routine specimen identification.
+      // "Submit only for ..." is a processing restriction, not label wording;
+      // the HIV-specific restrictions remain in the test's handling field.
+      if (item.originalTube && /patient identifier; submit only for hiv testing/i.test(explicit)) explicit = '';
+      // RBCs are already in the named original collection tube; a source-only
+      // instruction adds nothing to that primary tube's label.
+      if (item.originalTube && /^rbcs? from /i.test(explicit)) explicit = '';
       const parts = [];
       // For 24-hour urine transfers, "24h urine" already identifies the specimen.
       // Do not prepend a redundant generic "Urine" label.
       // If the lab explicitly requires a specific serum source on the label,
       // show the exact directive instead of prefixing it with generic "Serum".
       const explicitSerumSource = derived === 'Serum'
-        && /serum\s+from\s+(?:spun\s+)?(?:gold|sst|tiger|red(?:-top)?)/i.test(explicit);
+        && /\bserum\s+from\s+(?:spun\s+)?(?:gold|sst|tiger|red(?:-top)?)/i.test(explicit);
       if (derived && !(is24Hour && /^urine$/i.test(derived.trim())) && !explicitSerumSource) parts.push(derived);
       // Amber transport tubes should always carry a visible specimen-type label,
       // including ordinary serum transfers where the standard SST source would

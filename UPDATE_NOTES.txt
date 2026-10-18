@@ -1,3 +1,14 @@
+v11.63
+- Audited all built-in LABEL badges and explicit label fields. Removed routine Urine/Stool and original-tube source labels that are not additional labeling instructions.
+- Removed nine non-label directives (six container/handling reminders and three original-tube HIV reminders) from LABEL metadata; their requirements remain in Special Handling and collection-container data.
+- Original-tube HIV labeling note is suppressed when it only reiterates routine patient identification and HIV-only shipment restrictions already in Special Handling.
+- SST serum transport labels, including amber, default to Serum. Special labels, swab-site identification, timing labels and 24-hour urine details remain.
+- For generic Swab tests, only infer a site from the test name; otherwise show a collection-site blank to avoid mislabeling from lists of acceptable sites.
+
+v11.62
+- Centered printed LABEL badge vertically alongside the labeling note text for all transport cards.
+- Code 310: removed the redundant "Submit full unopened spun SST" text from the specimen LABEL display; its dedicated intact-tube collection and submission instructions remain unchanged.
+
 v11.61
 - Centered the STAT receiving lab label directly over the dropdown, leaving it above the control and separate from the Show STAT tests button.
 - Restored white text to Add best matches and available test-list Add buttons. No changes to button backgrounds, calculator logic, or print styling.
