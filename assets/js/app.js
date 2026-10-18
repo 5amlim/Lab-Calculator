@@ -197,6 +197,15 @@
     els.drawContainer.addEventListener('change', () => { toggleCustomDrawContainer(); updateSstSpinRequirement(); });
     els.customDrawContainer.addEventListener('input', updateSstSpinRequirement);
     els.transportContainer.addEventListener('change', toggleCustomTransportContainer);
+    els.specimenType.addEventListener('change', () => {
+      // Stool specimens start in a sterile collection cup. Preserve explicitly
+      // selected special containers for exceptional collection workflows.
+      if (els.specimenType.value === 'Stool' && (els.drawContainer.value !== '__other__' ||
+        /^(?:stool container|sterile cup|total[- ]?fix(?:®)?(?: transport vial)?)$/i.test(selectedDrawContainer(true)))) {
+        setDrawContainerValue('Sterile Urine Cup');
+        window.syncPortalSelects?.();
+      }
+    });
   }
 
   function renderAll() {
@@ -439,7 +448,7 @@
     // any required preservative/transport vial (e.g., Total-Fix). Do not
     // overwrite special primary collections such as trace-metal-free sources
     // or timed total-stool containers.
-    if (/^(?:sterile\s+(?:urine\s+)?cup|total[- ]?fix(?:®)?\s+(?:transport\s+)?vial)$/i.test(draw)) return 'Sterile Cup';
+    if (/^(?:sterile\s+(?:urine\s+)?cup|stool\s+container|standard\s+stool\s+container|total[- ]?fix(?:®)?\s+(?:transport\s+)?vial)$/i.test(draw)) return 'Sterile Urine Cup';
     return draw;
   }
 
@@ -2665,7 +2674,7 @@
       'tube-total-fix': 'Total-Fix® Transport Vial',
       'tube-trace-metal-container': 'Trace Metal-Free Plastic Container',
       'tube-24h-urine': '24-Hour Urine Container',
-      'tube-urine-cup': collectionSpecimenGroupForTest(test) === 'stool' ? 'Sterile Cup' : 'Sterile Urine Cup',
+      'tube-urine-cup': 'Sterile Urine Cup',
       'tube-ua-swirl': 'Red/Yellow Swirl UA Preservative Tube',
       'tube-urine-culture': 'Gray-Top Urine Culture Preservative Tube'
     };
@@ -3023,7 +3032,7 @@
     // count, not permission to combine incompatible tests or submitted aliquots.
     const sharedStoolTests = uniqueTests(tests.filter(isShareableStoolSourceTest));
     if (sharedStoolTests.length) {
-      items.push({ key: 'stool-shared-source-cup', label: 'Sterile Cup',
+      items.push({ key: 'stool-shared-source-cup', label: 'Sterile Urine Cup',
         className: 'tube-urine-cup', count: 1, tests: sharedStoolTests,
         sharedStoolSource: true,
         detail: sharedStoolTests.length > 1

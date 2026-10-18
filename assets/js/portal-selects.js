@@ -15,8 +15,9 @@
     if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
     if (/aptima/.test(value)) return 'tube-aptima';
     if (/total[- ]?fix/.test(value)) return 'tube-total-fix';
+    if (/(?:trace[ -]?metal[- ]?free|acid[- ]?washed).*container|container.*(?:trace[ -]?metal[- ]?free|acid[- ]?washed)/.test(value)) return 'tube-trace-metal-container';
     if (/24\s*[- ]?hour\s+urine\s+(?:container|jug)/.test(value)) return 'tube-24h-urine';
-    if (/sterile\s+(?:urine\s+)?cup|urine\s+collection\s+cup|stool\s+container/.test(value)) return 'tube-urine-cup';
+    if (/sterile\s+(?:urine\s+)?cup|urine\s+collection\s+cup/.test(value)) return 'tube-urine-cup';
     if (/red\/yellow/.test(value)) return 'tube-ua-swirl';
     if (/gray|grey/.test(value) && /urine|culture|boric/.test(value)) return 'tube-urine-culture';
     if (/royal blue/.test(value)) {
@@ -28,7 +29,7 @@
     if (/amber/.test(value)) return 'tube-amber';
     if (/acid[- ]?washed|metal[- ]?free/.test(value)) return 'tube-transport-green-top';
     if (/serum transport|plasma transport/.test(value)) return 'tube-transport-green-top';
-    if (/viral transport|transport media|swab|collection kit/.test(value)) return 'tube-transport';
+    if (/viral transport|transport media|swab|collection kit|transport tube|transport vial|screw[- ]?cap vial|fibronectin/.test(value)) return 'tube-transport';
     if (/sst|gold/.test(value)) return 'tube-sst';
     if (/lavender/.test(value)) return 'tube-lavender';
     if (/pink/.test(value)) return 'tube-pink';
