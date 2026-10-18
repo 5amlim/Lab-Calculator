@@ -1,3 +1,5 @@
+v11.37: Gold SST pooled source volume updated from 2.0 mL to 2.5 mL usable serum per full 5 mL Gold tube. Other tube types and Tiger SST counts unchanged. Revised print note and collection QA; no specimen instructions or split/STAT rules changed.
+
 v11.34: Inset batch review match dropdown chevron 20px from right edge using a custom icon; preserve existing size and behavior.
 v11.33
 - Fixed 38287 original tube submission quantity (2 collected / 2 submitted), verified against Quest FAQ.

@@ -70,7 +70,9 @@
   const DEFAULT_STAT_TEST_CODES = new Set();
   const LEGACY_SELECTED_KEYS = [`${LEGACY_STORAGE_PREFIX}.selected.v1`];
   const PAGE_STEP = 30;
-  const SST_USABLE_ML_PER_TUBE = 2;
+  // Planning assumption for a fully filled 5 mL Gold SST: 2.5 mL of usable serum.
+  // Tiger SST (7.5 mL), other processed specimens, and whole blood retain their own rules.
+  const SST_USABLE_ML_PER_TUBE = 2.5;
   const PROCESSED_SPECIMEN_USABLE_ML_PER_TUBE = 2;
   const WHOLE_BLOOD_USABLE_ML_PER_TUBE = 4;
   const SERUM_PLASMA_TO_WHOLE_BLOOD_FACTOR = 2.5;
@@ -3607,7 +3609,7 @@
       <div class="print-bag-note">
         <div><strong>STAT routing:</strong> Only tests listed for the selected receiving lab are STAT eligible. Confirm that the specific order is accepted as STAT by the receiving lab, use its STAT requisition/courier workflow, and never put STAT specimens in a routine shipment.</div>
         <div><strong>Tube sharing:</strong> Collection cards combine the number of tubes needed for STAT and routine tests of each type, but the counts are additive and do not imply sharing a tube across separate STAT and routine shipments. Their transport bags remain separate. Compatible urine tests may share one sterile collection cup across priorities unless separate specimens are required. Within a single priority, SST, Lavender EDTA, and Red Top tubes pool only when processing and temperature match. Whole-blood tubes and tubes used for aliquots remain separate.</div>
-        <div><strong>Tube counts:</strong> Estimates allow 2 mL of usable serum, plasma, or processed specimen per source tube and 4 mL of whole blood per Lavender tube. Multiple, dedicated, and full-tube requirements remain separate. Whole-blood amounts are shown inside each blood-tube card; serum/plasma amounts use a 2.5× whole-blood conversion.</div>
+        <div><strong>Tube counts:</strong> Gold SST pooling assumes up to 2.5 mL of usable serum per fully filled 5 mL Gold tube. Other processed-specimen source tubes assume 2 mL; Lavender whole-blood tubes assume 4 mL. Tiger SST uses its separate 7.5 mL draw-capacity rule. Dedicated, multiple, and full-tube instructions take priority. The preferred/minimum whole-blood draw estimates separately use a conservative 2.5× serum/plasma conversion. Actual serum yield may be lower; verify specimen sufficiency and receiving-lab requirements.</div>
         <div><strong>Urine:</strong> Random/spot, first-morning, timed, and 24-hour collections are kept distinct when their collection requirements differ. Compatible tests may share a sterile urine cup even when their downstream transport specimens have different priorities or temperatures; keep those transport specimens separate. Explicitly required separate urine collections must not be pooled.</div>
       </div>
       </div>
