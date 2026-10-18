@@ -1,3 +1,9 @@
+v11.21
+- Compact Quest STAT lab selector aligned right with View STAT tests and Do not perform on sufficiently wide screens, with a wrap safeguard at intermediate widths; increased arrow inset.
+- Two columns of transport bags retained, but each bag shows only one transport-tube card per row.
+- Increased gaps between bags and recalibrated print column balancing for single-column bag contents.
+- No changes to specimen/STAT routing, test data, or tube counts.
+
 v11.20
 - Balanced print bags across two independent columns by actual submission content, instead of alternating bag positions. Bags now stack with small, consistent gaps.
 - Restored temperature-specific outer borders for Routine bags (yellow room-temperature, blue refrigerated, purple frozen); a small green ROUTINE indicator identifies priority. STAT bags keep a red outline and STAT indicator. Headings now use standard dark text.

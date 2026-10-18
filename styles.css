@@ -2477,3 +2477,22 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     background: #fff1ee !important;
   }
 }
+
+
+/* v11.21: one tube type per row within each bag. Keep independently stacked
+   bags in two temperature-coded columns, with a modest separator gap. */
+@media print {
+  .print-bag-grid { gap: 10px !important; align-items: start !important; }
+  .print-bag-column > .print-bag-card + .print-bag-card { margin-top: 10px !important; }
+  .print-bag-column { min-width: 0; }
+  .print-bag-card { padding: 6px 7px !important; }
+  .print-submit-content {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    row-gap: 5px !important;
+    column-gap: 0 !important;
+    align-items: start !important;
+  }
+  .print-submit-item { width: 100%; min-width: 0; box-sizing: border-box; padding: 4px 6px !important; }
+  .print-bag-title { flex-wrap: nowrap; }
+}

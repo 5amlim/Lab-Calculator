@@ -3599,7 +3599,7 @@
         const textLength = String(item.label || '').length;
         return sum + 1 + Math.max(0, Math.ceil((testLineCount - 2) / 4)) + (textLength > 43 ? 0.5 : 0);
       }, 0);
-      return { bag, contents, totalContainers, estimatedHeight: 2 + estimatedRows / 2 };
+      return { bag, contents, totalContainers, estimatedHeight: 2 + estimatedRows };
     });
     const bagColumns = [[], []];
     const bagColumnHeights = [0, 0];

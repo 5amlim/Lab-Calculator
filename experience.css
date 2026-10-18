@@ -604,3 +604,78 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
   .filter-row .stat-library-control { grid-column: 1; grid-row: 3; width: 100%; }
   .filter-row .blocked-list-button { grid-column: 1; grid-row: 4; justify-self: stretch; width: 100%; }
 }
+
+
+/* v11.21: keep the specimen filter on the left, and group three STAT
+   selection actions compactly along the right edge. */
+@media screen and (min-width: 1161px) {
+  .filter-row { grid-template-columns: 175px minmax(0,1fr) max-content; column-gap: 12px; }
+  .filter-row .library-search { grid-column: 1 / -1; grid-row: 1; }
+  .filter-row #specimenFilter { grid-column: 1; grid-row: 2; }
+  .filter-row .stat-library-control {
+    grid-column: 2; grid-row: 2; justify-self: end;
+    width: auto; display: grid;
+    grid-template-columns: 202px max-content;
+    grid-template-rows: auto 38px;
+    column-gap: 9px; row-gap: 5px;
+  }
+  .filter-row .stat-library-control label { grid-column: 1 / -1; grid-row: 1; }
+  .filter-row .stat-library-control select {
+    grid-column: 1; grid-row: 2; width: 202px; max-width: 202px;
+    min-width: 0; min-height: 38px;
+  }
+  .filter-row .stat-library-control .stat-menu-button {
+    grid-column: 2; grid-row: 2; min-height: 38px;
+  }
+  .filter-row .blocked-list-button { grid-column: 3; grid-row: 2; align-self: end; min-height: 38px; }
+}
+@media screen and (min-width: 721px) and (max-width: 1160px) {
+  .filter-row .stat-library-control {
+    justify-self: end; width: auto; max-width: 100%;
+    display: grid; grid-template-columns: minmax(0, 202px) max-content;
+    grid-template-rows: auto 38px; column-gap: 8px; row-gap: 4px;
+  }
+  .filter-row .stat-library-control label { grid-column: 1 / -1; grid-row: 1; }
+  .filter-row .stat-library-control select { grid-column: 1; grid-row: 2; width: 100%; max-width: 202px; min-height: 38px; }
+  .filter-row .stat-library-control .stat-menu-button { grid-column: 2; grid-row: 2; min-height: 38px; }
+}
+@media screen and (max-width: 720px) {
+  .filter-row .stat-library-control select { max-width: 100%; }
+}
+/* Give the native select caret visible breathing room from the right border. */
+.stat-library-control select {
+  appearance: none; -webkit-appearance: none;
+  padding-right: 38px !important;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23384e58' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 13px center; background-size: 16px 16px;
+  text-overflow: ellipsis;
+}
+
+/* Medium screens with a wide single-column workspace still have room for
+   the three STAT actions on one row. Only stack them when truly narrow. */
+@media screen and (min-width: 900px) and (max-width: 1160px) {
+  .filter-row { grid-template-columns: 175px minmax(0,1fr) max-content; column-gap: 9px; align-items: end; }
+  .filter-row .library-search { grid-column: 1 / -1; grid-row: 1; }
+  .filter-row #specimenFilter { grid-column: 1; grid-row: 2; }
+  .filter-row .stat-library-control {
+    grid-column: 2; grid-row: 2; width: auto; justify-self: end;
+    grid-template-columns: 195px max-content;
+  }
+  .filter-row .stat-library-control select { max-width: 195px; }
+  .filter-row .blocked-list-button {
+    grid-column: 3; grid-row: 2; align-self: end;
+    min-height: 38px; justify-self: end; width: auto;
+  }
+}
+
+/* The sidebar still occupies space around this intermediate viewport range.
+   Prevent the last toolbar action from colliding with View STAT tests. */
+@media screen and (min-width: 1101px) and (max-width: 1199px) {
+  .filter-row .blocked-list-button {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    justify-self: end;
+    width: auto;
+  }
+}
