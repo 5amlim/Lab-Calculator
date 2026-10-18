@@ -688,3 +688,43 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
 @media screen and (min-width: 721px) and (max-width: 899px) {
   .filter-row { grid-template-columns: 215px minmax(0, 1fr); }
 }
+
+/* v11.24: tighter, right-aligned batch-entry actions. Styling of the existing
+   three buttons is deliberately unchanged. */
+@media screen {
+  .search-panel .batch-entry-heading {
+    display: block;
+    padding: 15px 24px 7px;
+  }
+  .search-panel .batch-entry-heading h3 {
+    font-size: 16px;
+    line-height: 1.3;
+    font-weight: 750;
+    margin: 0 0 3px;
+  }
+  .search-panel .batch-entry-description {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.4;
+    margin: 0;
+  }
+  .search-panel .batch-entry-body { padding: 0 24px 14px; }
+  .search-panel #searchInput { display: block; min-height: 108px; }
+  .search-panel .search-actions {
+    justify-content: flex-end;
+    gap: 9px;
+    margin-top: 10px;
+  }
+  .search-panel .batch-keyboard-hint {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--muted);
+    margin: 5px 0 0;
+  }
+}
+@media screen and (max-width: 700px) {
+  .search-panel .batch-entry-heading { padding: 14px 18px 7px; }
+  .search-panel .batch-entry-body { padding: 0 18px 14px; }
+}

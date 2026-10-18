@@ -1,3 +1,9 @@
+v11.24
+- Simplified the batch card heading to Add Tests with a compact descriptive line and removed the word abbreviation from the card.
+- Right-aligned existing Clear, Review matches, Add best matches buttons in that order, retaining their styles and actions.
+- Right-aligned the keyboard shortcut below the buttons and reduced unused vertical spacing.
+- No modifications to search ranking, confirmation, test catalog, specimen collection, STAT settings, or printouts.
+
 v11.23
 - Added compact + action in each eligible Quest STAT menu row; confirmation required and already-added tests show a check.
 - Moved STAT/Routine bag priority badges to the right above the container count; bag names now use the same normal dark font color.

@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lab Collection Calculator</title>
   <meta name="description" content="Batch-search and print-friendly specimen collection planning from a curated local test directory.">
-  <link rel="stylesheet" href="styles.css?v=11.23">
-  <link rel="stylesheet" href="experience.css?v=11.23">
+  <link rel="stylesheet" href="styles.css?v=11.24">
+  <link rel="stylesheet" href="experience.css?v=11.24">
 </head>
 <body>
   <a class="skip-link" href="#libraryFilter">Skip to test search</a>
@@ -35,16 +35,19 @@
           </div>
         </div>
       <section class="panel search-panel" id="batchEntry" aria-labelledby="batchEntryTitle">
-        <div class="batch-entry-heading"><h3 id="batchEntryTitle">Add a list of tests</h3></div>
+        <div class="batch-entry-heading">
+          <h3 id="batchEntryTitle">Add Tests</h3>
+          <p class="batch-entry-description" id="batchEntryDescription">Enter one test name or code per line. Common shorthand works; approximate matches require confirmation.</p>
+        </div>
         <div class="batch-entry-body">
-          <label for="searchInput" class="field-label">One test name, code, or abbreviation per line</label>
-          <textarea id="searchInput" rows="4" placeholder="211&#10;Hemoglobin A1c&#10;Quantiferon Gold TB" aria-describedby="batchHint"></textarea>
+          <label for="searchInput" class="sr-only">Test names or codes, one per line</label>
+          <textarea id="searchInput" rows="4" placeholder="211&#10;Hemoglobin A1c&#10;Quantiferon Gold TB" aria-describedby="batchEntryDescription"></textarea>
           <div class="search-actions">
-            <button class="button primary" id="addBestButton">Add best matches</button>
-            <button class="button secondary" id="previewButton">Review matches</button>
             <button class="button ghost" id="clearSearchButton">Clear</button>
+            <button class="button secondary" id="previewButton">Review matches</button>
+            <button class="button primary" id="addBestButton">Add best matches</button>
           </div>
-          <p class="search-hint" id="batchHint">Try common abbreviations like HbA1c, QFT, UCx, or hs-CRP. Exact codes/names add directly; shorthand and approximate matches require confirmation. <span class="keyboard-hint">⌘ / Ctrl + Enter to add</span></p>
+          <p class="keyboard-hint batch-keyboard-hint">⌘ / Ctrl + Enter to add</p>
         </div>
       </section>
 
@@ -354,7 +357,7 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script src="data.js?v=11.23"></script>
-  <script src="app.js?v=11.23"></script>
+  <script src="data.js?v=11.24"></script>
+  <script src="app.js?v=11.24"></script>
 </body>
 </html>
