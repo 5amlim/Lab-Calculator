@@ -1,6 +1,8 @@
-Lab Collection Calculator v11.39
+Lab Collection Calculator v11.40
 
 Open index.html locally to check, then publish the full folder to GitHub Pages.
 
-v11.39 unifies phone and desktop print layouts and caps each single-test Gold or Tiger SST calculation at one collection tube unless explicitly instructed otherwise.
+v11.40: Compatible serum tests can share a standard serum transport tube two tests per tube; compatible plasma tests can share a standard plasma transport tube two tests per tube. The calculated container count is rounded up. Keep source/specimen, processing, STAT/routine and temperature groups separate. Explicit separate aliquots, multiple tubes, light-protected, acid-washed, cryovial and other specialty containers are excluded. Printouts indicate code pairings, and bag transfer summaries use the same count. Confirm adequate volume and acceptance by the receiving lab.
+
+v11.38: Phone and desktop use the same print layout, and a single non-explicit Gold or Tiger SST test contributes at most one collection tube; higher-volume specimens get a sufficiency warning.
 

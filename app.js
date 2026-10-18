@@ -74,6 +74,7 @@
   // nominal whole-blood draw capacity. These are planning assumptions only.
   const SST_USABLE_ML_PER_TUBE = 2.5;       // Gold: 5 mL blood draw.
   const TIGER_SST_USABLE_ML_PER_TUBE = 4; // Tiger: 7.5 mL blood draw.
+  const SERUM_PLASMA_TESTS_PER_TRANSPORT_TUBE = 2; // Ordinary compatible aliquots only.
   const PROCESSED_SPECIMEN_USABLE_ML_PER_TUBE = 2;
   const WHOLE_BLOOD_USABLE_ML_PER_TUBE = 4;
   const SERUM_PLASMA_TO_WHOLE_BLOOD_FACTOR = 2.5;
@@ -2952,6 +2953,43 @@
     return tubeClass(container);
   }
 
+  function requiresSeparateTransportAliquot(test) {
+    // An explicit lab instruction overrides the two-test pooling shortcut.
+    // Collection-only separation is not the same as a dedicated transport tube.
+    if (explicitSubmissionCount(test) > 1) return true;
+    const transport = String(test.transportContainer || '').toLowerCase();
+    const notes = String(test.specialInstructions || '').toLowerCase();
+    return /\b(?:dedicated|individual|separate|own|additional)\s+(?:(?:serum|plasma|specimen|sample)\s+)?(?:transport\s+)?(?:tube|vial|aliquot|cryovial|container)\b/.test(transport)
+      || /\b(?:dedicated|individual|separate|own|additional)\s+(?:(?:serum|plasma|specimen|sample)\s+)?(?:transport\s+)?(?:tube|vial|aliquot|cryovial|container)\s+(?:required|needed)\b/.test(notes)
+      || /\b(?:submit|provide|prepare|transfer|use|requires?)\s+(?:a[n]?\s+)?(?:dedicated|individual|separate|own|additional|second)\s+(?:(?:serum|plasma|specimen|sample)\s+)?(?:transport\s+)?(?:tube|vial|aliquot|cryovial|container)\b/.test(notes)
+      || /\b(?:do not|don't|must not|cannot)\s+(?:pool|combine|share|mix)\b/.test(notes)
+      || /\b(?:each|every)\s+(?:test|assay)\s+(?:requires?|needs?)\s+(?:its\s+)?(?:own|separate|dedicated)\b/.test(notes);
+  }
+
+  function isShareableSerumPlasmaTransport(test, container) {
+    const specimen = normalizeSpecimenType(test.specimenType).toLowerCase();
+    if (!/^(?:serum|plasma)$/.test(specimen)) return false;
+    if (requiresSeparateTransportAliquot(test)) return false;
+    if (container.originalTube || container.count !== 1) return false;
+    // Never combine amber, acid-washed, platelet-poor, cryovial, special media,
+    // preservative or other specialty submission containers into this rule.
+    if (!container.key.includes(`|standard-${specimen}-transport|spin-`) || container.key.includes('|dedicated-')) return false;
+    return container.className === 'tube-transport tube-transport-green-top';
+  }
+
+  function applySerumPlasmaTransportPooling(items) {
+    return Array.from(items.values()).map(item => {
+      item.tests = uniqueTests(item.tests || []);
+      if (!item.originalTube && item.tests.length > 0 && item.tests.every(test =>
+        isShareableSerumPlasmaTransport(test, splitSubmissionContainers(test).find(c => c.key === item.key) || {})
+      )) {
+        item.count = Math.ceil(item.tests.length / SERUM_PLASMA_TESTS_PER_TRANSPORT_TUBE);
+        item.pooledSerumPlasmaTransport = true;
+      }
+      return item;
+    });
+  }
+
   function submissionTransportGroupingKey(test, transport) {
     const raw = normalizeSearch(transport)
       .replace(/^\d+\s*(?:x|×)?\s*(?:separate\s+)?/, '')
@@ -2966,11 +3004,13 @@
     // exact container identity and can never merge into the standard green-top group.
     if (!specialContainer && /^(?:serum|plasma)$/.test(specimen) && genericTransport) {
       const standardKey = `standard-${specimen}-transport`;
-      // Tests that explicitly require multiple separate submission tubes remain
-      // their own card so that requirement is not obscured by pooling.
-      return explicitSubmissionCount(test) > 1
-        ? `${standardKey}|dedicated-${normalizeSearch(displayCode(test))}`
-        : standardKey;
+      // Explicit separate aliquots keep their own card, even if only one
+      // dedicated transport tube is requested.
+      const processing = normalizeSearch(String(test.spin || '').trim());
+      const sharingKey = `${standardKey}|spin-${processing || 'verify'}`;
+      return requiresSeparateTransportAliquot(test)
+        ? `${sharingKey}|dedicated-${normalizeSearch(String(test.sourceTestId || test.id || displayCode(test)))}`
+        : sharingKey;
     }
 
     return raw;
@@ -3133,15 +3173,17 @@
       });
     });
 
-    return Array.from(items.values()).map(item => ({ ...item, tests: uniqueTests(item.tests) }));
+    return applySerumPlasmaTransportPooling(items);
   }
 
   function transferContainerCountForTests(tests) {
-    return tests.reduce((sum, test) => {
-      return sum + splitSubmissionContainers(test)
-        .filter(container => !container.originalTube)
-        .reduce((containerSum, container) => containerSum + Math.max(Number(container.count) || 0, 0), 0);
-    }, 0);
+    // Reuse the actual submission grouping and pooling logic. In particular,
+    // two eligible serum/plasma tests are one tube in BOTH the bag and the
+    // transfer-source summary. Preserve priority and temperature separation.
+    return buildTransportBagPlan(uniqueTests(tests))
+      .reduce((sum, bag) => sum + buildSubmissionContents(bag)
+        .filter(item => !item.originalTube)
+        .reduce((count, item) => count + Math.max(Number(item.count) || 0, 0), 0), 0);
   }
 
   function transferSpecimenWord(tests) {
@@ -3401,8 +3443,14 @@
   function printSubmissionItemDetail(item) {
     const badges = printSubmissionSourceBadges(item);
     const detail = printProcessedTransferDetail(item);
-    if (!detail && !badges) return '';
-    return `<div class="print-submit-item-detail">${detail ? escapeHtml(detail) : ''}${badges}</div>`;
+    const sharing = item.pooledSerumPlasmaTransport && item.tests.length > 1
+      ? `<div class="print-transport-pairing">${Array.from({ length: item.count }, (_, i) => {
+        const group = item.tests.slice(i * SERUM_PLASMA_TESTS_PER_TRANSPORT_TUBE, (i + 1) * SERUM_PLASMA_TESTS_PER_TRANSPORT_TUBE);
+        return `Tube ${i + 1}: ${group.map(displayCode).map(escapeHtml).join(' + ')}`;
+      }).join(' · ')}</div>`
+      : '';
+    if (!detail && !badges && !sharing) return '';
+    return `<div class="print-submit-item-detail">${detail ? escapeHtml(detail) : ''}${badges}${sharing}</div>`;
   }
 
   function parseListedSpecimenVolumeMl(value) {
@@ -3640,6 +3688,7 @@
       <div class="print-bag-note">
         <div><strong>STAT routing:</strong> Only tests listed for the selected receiving lab are STAT eligible. Confirm that the specific order is accepted as STAT by the receiving lab, use its STAT requisition/courier workflow, and never put STAT specimens in a routine shipment.</div>
         <div><strong>Tube sharing:</strong> Collection cards combine the number of tubes needed for STAT and routine tests of each type, but the counts are additive and do not imply sharing a tube across separate STAT and routine shipments. Their transport bags remain separate. Compatible urine tests may share one sterile collection cup across priorities unless separate specimens are required. Within a single priority, SST, Lavender EDTA, and Red Top tubes pool only when processing and temperature match. Whole-blood tubes and tubes used for aliquots remain separate.</div>
+        <div><strong>Transport aliquot sharing:</strong> Up to two compatible serum tests OR two compatible plasma tests may share one standard transport tube in the same priority/temperature bag, from the same source and processing workflow. Dedicated tubes, special containers, and explicit separate-submission instructions override this rule. Confirm there is sufficient volume for both tests and that the receiving lab accepts a shared aliquot.</div>
         <div><strong>Tube counts:</strong> Gold SST pooling assumes up to 2.5 mL of usable serum per fully filled 5 mL Gold tube. Other processed-specimen source tubes assume 2 mL; Lavender whole-blood tubes assume 4 mL. Tiger SST pooling assumes up to 4 mL of usable serum per fully filled 7.5 mL Tiger tube. Dedicated, multiple, and full-tube instructions take priority. The preferred/minimum whole-blood draw estimates separately use a conservative 2.5× serum/plasma conversion. Actual serum yield may be lower; verify specimen sufficiency and receiving-lab requirements.</div>
         <div><strong>Urine:</strong> Random/spot, first-morning, timed, and 24-hour collections are kept distinct when their collection requirements differ. Compatible tests may share a sterile urine cup even when their downstream transport specimens have different priorities or temperatures; keep those transport specimens separate. Explicitly required separate urine collections must not be pooled.</div>
       </div>
