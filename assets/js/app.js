@@ -4244,8 +4244,20 @@
       </section>
       ${printNotesFooter()}
 `;
-    // Desktop print template is used for all devices. No handset-specific
-    // font sizes, grid, or print DOM classes are allowed.
+    // Keep the same two-column card layout. On a phone, fit the print sheet
+    // inside the page instead of forcing its 10-inch landscape width onto a
+    // portrait page (which can clip the right-hand borders).
+    const mobilePrint = window.matchMedia('(max-width: 720px)').matches;
+    document.documentElement.classList.toggle('mobile-print', mobilePrint);
+    let mobilePageRule = document.getElementById('mobilePrintPageRule');
+    if (mobilePrint && !mobilePageRule) {
+      mobilePageRule = document.createElement('style');
+      mobilePageRule.id = 'mobilePrintPageRule';
+      mobilePageRule.textContent = '@page { size: auto; margin: 0.20in; }';
+      document.head.appendChild(mobilePageRule);
+    } else if (!mobilePrint) {
+      mobilePageRule?.remove();
+    }
     window.print();
   }
 

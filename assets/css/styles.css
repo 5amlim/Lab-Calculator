@@ -3458,3 +3458,13 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     align-items: flex-start;
   }
 }
+
+/* On phones, allow portrait print pages without clipping the right border.
+   Collection and bag grid rules remain unchanged. */
+@media print {
+  html.mobile-print .print-sheet {
+    width: min(10in, 100%) !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+}
