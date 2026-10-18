@@ -1,3 +1,9 @@
+v11.23
+- Added compact + action in each eligible Quest STAT menu row; confirmation required and already-added tests show a check.
+- Moved STAT/Routine bag priority badges to the right above the container count; bag names now use the same normal dark font color.
+- Widened the specimen-type dropdown to display the complete option text and improved arrow spacing.
+- No specimen, pooling, or STAT eligibility list changes.
+
 v11.22
 - Changed background outside print transport bags from pale purple to near-white gray.
 - Reworked print bag arrangement into paired, equal-height rows, so adjacent bags align and their next row starts together.

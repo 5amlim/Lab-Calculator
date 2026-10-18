@@ -177,6 +177,7 @@
     els.statMenuButton?.addEventListener('click', () => { statMenuOpen = !statMenuOpen; renderStatMenu(); });
     els.statMenuClose?.addEventListener('click', () => { statMenuOpen = false; renderStatMenu(); });
     els.statMenuSearch?.addEventListener('input', renderStatMenu);
+    els.statMenuResults?.addEventListener('click', handleStatMenuClick);
     els.urineCultureModeOptions.forEach(button => button.addEventListener('click', () => setUrineCultureMode(button.dataset.urineCultureMode)));
     els.closeDialogButton.addEventListener('click', closeDialog);
     els.cancelDialogButton.addEventListener('click', closeDialog);
@@ -1273,8 +1274,25 @@
     els.statMenuResults.innerHTML = !codes.length
       ? '<p class="stat-menu-empty">No verified STAT codes configured for this receiving area.</p>'
       : matches.length
-        ? matches.map(({code,test}) => `<div class="stat-menu-test"><strong>${escapeHtml(code)}</strong><span>${escapeHtml(test?.testName || 'Not yet available in calculator')}</span>${test?.status === 'blocked' ? '<small>Not available for onsite collection</small>' : ''}</div>`).join('')
+        ? matches.map(({code,test}) => {
+          const available = test && test.status !== 'blocked';
+          const added = available && selectedIds.includes(test.id);
+          const button = available
+            ? added
+              ? `<button type="button" class="stat-menu-add is-added" disabled aria-label="${escapeAttr(test.testName)} already added" title="Already in collection summary">✓</button>`
+              : `<button type="button" class="stat-menu-add" data-action="stat-menu-add" data-id="${escapeAttr(test.id)}" aria-label="Add ${escapeAttr(test.testName)} as STAT" title="Add as STAT (confirmation required)">+</button>`
+            : `<button type="button" class="stat-menu-add" disabled aria-label="Code ${escapeAttr(code)} unavailable in calculator" title="Collection requirements must be added and verified first">+</button>`;
+          return `<div class="stat-menu-test"><strong>${escapeHtml(code)}</strong><span>${escapeHtml(test?.testName || 'Not yet available in calculator')}</span>${test?.status === 'blocked' ? '<small>Not available for onsite collection</small>' : ''}${button}</div>`;
+        }).join('')
         : '<p class="stat-menu-empty">No codes or tests match this search.</p>';
+  }
+
+  function handleStatMenuClick(event) {
+    const button = event.target.closest('button[data-action="stat-menu-add"]');
+    if (!button || !els.statMenuResults.contains(button)) return;
+    // addStatFromMenu validates eligibility and requests confirmation before
+    // adding a new entry to the cart or marking it STAT.
+    addStatFromMenu(button.dataset.id);
   }
 
   function loadStatSelectedIds() {
@@ -3663,7 +3681,7 @@
         <div class="print-bag-grid${bags.length === 1 ? ' single-bag' : ''}">${bagRows.map(row => `<div class="print-bag-row${row.length === 1 ? ' single-row' : ''}">${row.map(({ bag, contents, totalContainers }) => {
           const bagName = bag.isStat ? bag.label.replace(/^STAT\s*·\s*/i, '') : bag.label;
           return `<article class="print-bag-card ${bag.className} ${bag.isStat ? 'bag-stat' : 'bag-routine'}${contents.length > 11 ? ' bag-long' : ''}">
-            <div class="print-bag-card-header"><div><div class="print-bag-title"><span class="print-bag-priority ${bag.isStat ? 'priority-stat' : 'priority-routine'}">${bag.isStat ? 'STAT' : 'Routine'}</span><strong>${escapeHtml(bagName)}</strong></div><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div>
+            <div class="print-bag-card-header"><div><div class="print-bag-title"><strong>${escapeHtml(bagName)}</strong></div><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-header-right"><span class="print-bag-priority ${bag.isStat ? 'priority-stat' : 'priority-routine'}">${bag.isStat ? 'STAT' : 'Routine'}</span><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div></div>
             <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
               <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${printSstTigerBadge(item)}</div>
               ${printSubmissionItemDetail(item)}

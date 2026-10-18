@@ -679,3 +679,12 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     width: auto;
   }
 }
+
+/* v11.23: slightly widen specimen type selector on the actual responsive grid.
+   Earlier layout rules in this stylesheet had fixed the track at 175px. */
+@media screen and (min-width: 900px) {
+  .filter-row { grid-template-columns: 215px minmax(0, 1fr) max-content; }
+}
+@media screen and (min-width: 721px) and (max-width: 899px) {
+  .filter-row { grid-template-columns: 215px minmax(0, 1fr); }
+}

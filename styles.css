@@ -2536,3 +2536,49 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     page-break-inside: avoid !important;
   }
 }
+
+/* v11.23: Compact add buttons in STAT menu without adding vertical row height. */
+.stat-menu-test { position: relative; padding-right: 36px; }
+.stat-menu-test .stat-menu-add {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 19px; height: 19px; margin: 0; padding: 0;
+  border: 1px solid #8bbfc5; border-radius: 5px;
+  background: #e7f5f5; color: #086774;
+  font-family: inherit; font-size: 14px; line-height: 1; font-weight: 850;
+}
+.stat-menu-test .stat-menu-add:hover:not(:disabled),
+.stat-menu-test .stat-menu-add:focus-visible { background: #cfeeed; border-color: #0c7780; }
+.stat-menu-test .stat-menu-add:disabled { cursor: default; opacity: .5; }
+.stat-menu-test .stat-menu-add.is-added { background: #e6f4ed; color: #167450; border-color: #94c9ac; opacity: 1; }
+
+/* Give the specimen filter space for the full "All specimen types" label. */
+@media (min-width: 1161px) {
+  .filter-row { grid-template-columns: minmax(115px, 1fr) 214px minmax(315px, 350px) max-content; }
+}
+@media (min-width: 721px) and (max-width: 1160px) {
+  .filter-row { grid-template-columns: minmax(0,1fr) 214px; }
+}
+.filter-row #specimenFilter { padding-right: 34px; text-overflow: clip; }
+
+/* In print, priority belongs in the header's right column, immediately above
+   the container count. The temperature bag title remains the normal ink color. */
+@media print {
+  .print-bag-header-right {
+    display: flex; flex: 0 0 auto; flex-direction: column;
+    align-items: flex-end; justify-content: center; gap: 3px;
+  }
+  .print-bag-header-right .print-bag-priority { margin: 0; }
+  .print-bag-card .print-bag-card-header .print-bag-title > strong,
+  .print-bag-card.bag-stat .print-bag-card-header .print-bag-title > strong,
+  .print-bag-card.bag-routine .print-bag-card-header .print-bag-title > strong {
+    color: #253840 !important;
+  }
+}
+@media print {
+  /* Override the legacy high-specificity red STAT bag title rule. Only the
+     small priority badge should be red; the temperature name stays ink. */
+  .print-bag-card.bag-stat .print-bag-card-header > div:first-child .print-bag-title > strong {
+    color: #253840 !important;
+  }
+}
