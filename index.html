@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lab Collection Calculator</title>
   <meta name="description" content="Batch-search and print-friendly specimen collection planning from a curated local test directory.">
-  <link rel="stylesheet" href="styles.css?v=11.12">
-  <link rel="stylesheet" href="experience.css?v=11.12">
+  <link rel="stylesheet" href="styles.css?v=11.13">
+  <link rel="stylesheet" href="experience.css?v=11.13">
 </head>
 <body>
   <a class="skip-link" href="#libraryFilter">Skip to test search</a>
@@ -122,6 +122,19 @@
           <button type="button" class="sst-mode-option" data-urine-culture-mode="gray" aria-pressed="true"><span class="sst-mode-tube tube tube-urine-culture"><span class="sst-mode-name">Gray Top</span></span></button>
           <button type="button" class="sst-mode-option" data-urine-culture-mode="urisponge" aria-pressed="false"><span class="sst-mode-tube tube tube-urisponge"><span class="sst-mode-name">UriSponge</span></span></button>
         </div>
+      </section>
+
+      <section class="stat-area-control" aria-label="Quest STAT service area">
+        <label for="statAreaSelect">Quest STAT area</label>
+        <select id="statAreaSelect" aria-label="Quest STAT service area">
+          <option value="unselected">Select receiving Quest area</option>
+          <option value="socal">Southern California</option>
+          <option value="norcal">Northern California</option>
+          <option value="ny">New York</option>
+          <option value="fl">Florida</option>
+          <option value="va_short_pump">Virginia, Short Pump RRL only</option>
+        </select>
+        <small id="statAreaHelp">Only service-area-listed tests offer Mark STAT.</small>
       </section>
 
       <div id="collectionAlerts" class="alerts"></div>
@@ -324,7 +337,7 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script src="data.js?v=11.12"></script>
-  <script src="app.js?v=11.12"></script>
+  <script src="data.js?v=11.13"></script>
+  <script src="app.js?v=11.13"></script>
 </body>
 </html>

@@ -1,3 +1,10 @@
+v11.13
+- Added Quest STAT service area selector, with per-market eligibility by official lab menu or explicitly configured clinic exception.
+- Only STAT-eligible codes render Mark STAT. Existing STAT selections for unverified codes are reset to Routine, and region changes revalidate the cart.
+- Published Virginia Short Pump RRL STAT menu is geographically restricted to that lab. SoCal has only the previously requested ESR clinic exception; NorCal, NY and FL await local Quest-approved menus.
+- Compact SST and urine culture toggles with narrow uniform buttons and less helper-label wrapping.
+- No changes to specimen data or collection formulas.
+
 v11.12
 - Corrected six legacy STAT-labeled test names to directory names (with code 34162 retaining the existing catalog mapping after removing STAT; Quest page inaccessible at time of recheck).
 - Sed Rate #809 now defaults to STAT when newly selected, with manual toggling still available. Existing manual priorities are preserved.

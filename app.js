@@ -38,8 +38,21 @@
     '20381': 'Bilirubin, Total, Neonatal',
     '34162': 'Bilirubin, Direct, Neonatal'
   });
-  // Clinic workflow setting: ESR is pre-marked STAT at selection, independent
-  // of Quest's regional STAT availability. Staff can change it manually.
+  // STAT availability is account/laboratory/service-area specific. Do NOT apply a
+  // published menu from one Quest facility to another area. Source documentation:
+  // https://www.questdiagnostics.com/content/dam/corporate/restricted/documents/test-directory/Specimen_Collection_and_Transport_Guide_2019.pdf
+  // https://www.questdiagnostics.com/content/dam/corporate/restricted/images/medical-groups-lpg-phase-2/bayview/Short-Pump-RRL_STAT-Testing.pdf
+  const STAT_AREA_KEY = 'labCollectionCalculator.questStatArea.v1';
+  const STAT_AREAS = Object.freeze({
+    unselected: { label: 'Area not selected', codes: [], note: 'Choose the receiving Quest service area before assigning STAT.' },
+    socal: { label: 'Southern California', codes: ['809'], note: 'Sed rate is a clinic-requested default, not independently confirmed on a SoCal Quest STAT menu.' },
+    norcal: { label: 'Northern California', codes: [], note: 'No account-specific Quest STAT menu verified for this area.' },
+    ny: { label: 'New York', codes: [], note: 'No account-specific Quest STAT menu verified for this area.' },
+    fl: { label: 'Florida', codes: [], note: 'No account-specific Quest STAT menu verified for this area.' },
+    va_short_pump: { label: 'Virginia · Short Pump RRL only',
+      codes: ['223','234','823','243','822','10165','285','6631','287','296','303','330','334','10231','375','34392','482','483','608','10256','593','606','7600','622','718','733','754','10314','836','859','861','867','866','896','899','294','905','4021','470','396','8396','8435','615','745','746','1759','6399','509','510','7998','8847','763','793','809','6448','5463','3020','7909','7048','37386','8659','654','11177','8467'],
+      note: 'Quest published Short Pump RRL menu (updated July 24, 2025); only this specific Virginia lab, subject to hours and current acceptance.' }
+  });
   const DEFAULT_STAT_TEST_CODES = new Set(['809']);
   const LEGACY_SELECTED_KEYS = [`${LEGACY_STORAGE_PREFIX}.selected.v1`];
   const PAGE_STEP = 30;
@@ -78,6 +91,7 @@
     selectedCount: $('selectedCount'), selectedList: $('selectedList'), testsOverviewList: $('testsOverviewList'), testsOverviewSummary: $('testsOverviewSummary'),
     drawPlan: $('drawPlan'), drawPlanSummary: $('drawPlanSummary'), orderOfDraw: $('orderOfDraw'), orderOfDrawSummary: $('orderOfDrawSummary'), collectionAlerts: $('collectionAlerts'), clearOrderButton: $('clearOrderButton'),
     printButton: $('printButton'), exportSummaryButton: $('exportSummaryButton'),
+    statAreaSelect: $('statAreaSelect'), statAreaHelp: $('statAreaHelp'),
     sstModeOptions: Array.from(document.querySelectorAll('[data-sst-mode]')),
     urineCultureControl: $('urineCultureModeControl'), urineCultureModeOptions: Array.from(document.querySelectorAll('[data-urine-culture-mode]')),
     printSheet: $('printSheet'), testDialog: $('testDialog'), testForm: $('testForm'), dialogTitle: $('dialogTitle'),
@@ -94,8 +108,11 @@
   let pendingUserState = null;
   let database = loadDatabase();
   let selectedIds = loadSelectedIds();
+  let statArea = loadStatArea();
   let statSelectedIds = loadStatSelectedIds();
+  let statAreaResetNotice = '';
   applyDefaultStatMigration();
+  reconcileStatWithArea();
   let sstTubeMode = loadSstTubeMode();
   let urineCultureMode = loadUrineCultureMode();
   finalizeStorageMigration();
@@ -140,6 +157,7 @@
     els.printButton.addEventListener('click', printSummary);
     els.exportSummaryButton.addEventListener('click', exportSummaryCsv);
     els.sstModeOptions.forEach(button => button.addEventListener('click', () => setSstTubeMode(button.dataset.sstMode)));
+    els.statAreaSelect?.addEventListener('change', () => changeStatArea(els.statAreaSelect.value));
     els.urineCultureModeOptions.forEach(button => button.addEventListener('click', () => setUrineCultureMode(button.dataset.urineCultureMode)));
     els.closeDialogButton.addEventListener('click', closeDialog);
     els.cancelDialogButton.addEventListener('click', closeDialog);
@@ -1169,6 +1187,59 @@
     els.testsDetailsButton.textContent = showingDetails ? '▴ Hide details' : '▾ Show details';
   }
 
+  function loadStatArea() {
+    try {
+      const value = localStorage.getItem(STAT_AREA_KEY);
+      return value && STAT_AREAS[value] ? value : 'unselected';
+    } catch (_) { return 'unselected'; }
+  }
+
+  function isStatEligible(test) {
+    if (!test || test.status === 'blocked') return false;
+    return STAT_AREAS[statArea].codes.includes(String(test.testCode || '').trim());
+  }
+
+  function reconcileStatWithArea() {
+    const eligibleIds = statSelectedIds.filter(id => {
+      const test = database.find(item => item.id === id);
+      return test && isStatEligible(test);
+    });
+    const removed = statSelectedIds.length - eligibleIds.length;
+    if (removed) {
+      statSelectedIds = eligibleIds;
+      saveStatSelectedIds();
+      statAreaResetNotice = `${removed} previously marked STAT test${removed === 1 ? '' : 's'} reset to Routine because this service area has no verified listing for the code.`;
+    }
+    return removed;
+  }
+
+  function changeStatArea(value) {
+    if (!STAT_AREAS[value] || value === statArea) return;
+    const previous = statArea;
+    statAreaResetNotice = '';
+    statArea = value;
+    try { localStorage.setItem(STAT_AREA_KEY, value); } catch (_) {}
+    const removed = reconcileStatWithArea();
+    if (previous === 'unselected' && value === 'socal') {
+      // Apply the previously requested ESR clinic default when a user first
+      // chooses Southern California for an existing order.
+      selectedIds.forEach(id => {
+        const test = database.find(item => item.id === id);
+        if (test && DEFAULT_STAT_TEST_CODES.has(test.testCode) && isStatEligible(test) && !statSelectedIds.includes(id)) statSelectedIds.push(id);
+      });
+      saveStatSelectedIds();
+    }
+    renderOrder();
+    if (removed) showToast(statAreaResetNotice);
+  }
+
+  function renderStatArea() {
+    if (els.statAreaSelect) els.statAreaSelect.value = statArea;
+    if (els.statAreaHelp) {
+      els.statAreaHelp.textContent = `${STAT_AREAS[statArea].note} STAT routing still requires receiving-lab approval. ${statAreaResetNotice}`.trim();
+    }
+  }
+
   function loadStatSelectedIds() {
     const saved = loadJson(STAT_SELECTED_KEY, []);
     return Array.isArray(saved)
@@ -1188,7 +1259,7 @@
       if (localStorage.getItem(DEFAULT_STAT_MIGRATION_KEY) === '1') return;
       const ids = selectedIds.filter(id => {
         const test = database.find(entry => entry.id === id);
-        return test && DEFAULT_STAT_TEST_CODES.has(test.testCode);
+        return test && DEFAULT_STAT_TEST_CODES.has(test.testCode) && isStatEligible(test);
       });
       ids.forEach(id => {
         if (!statSelectedIds.includes(id)) statSelectedIds.push(id);
@@ -1200,6 +1271,8 @@
 
   function toggleStatPriority(id) {
     if (!selectedIds.includes(id)) return;
+    const test = database.find(item => item.id === id);
+    if (!isStatEligible(test)) return;
     statSelectedIds = statSelectedIds.includes(id)
       ? statSelectedIds.filter(item => item !== id)
       : [...statSelectedIds, id];
@@ -1212,7 +1285,7 @@
     if (!test || test.status === 'blocked') return false;
     if (selectedIds.includes(id)) return false;
     selectedIds.push(id);
-    if (DEFAULT_STAT_TEST_CODES.has(String(test.testCode))) {
+    if (DEFAULT_STAT_TEST_CODES.has(String(test.testCode)) && isStatEligible(test)) {
       if (!statSelectedIds.includes(id)) statSelectedIds.push(id);
       saveStatSelectedIds();
     }
@@ -1367,11 +1440,12 @@
 
   function selectedTests() {
     return selectedIds.map(id => database.find(test => test.id === id)).filter(Boolean)
-      .map(test => ({ ...withSelectedCultureTransport(test), isStat: statSelectedIds.includes(test.id) }));
+      .map(test => ({ ...withSelectedCultureTransport(test), isStat: isStatEligible(test) && statSelectedIds.includes(test.id) }));
   }
 
   function renderOrder() {
     renderSstTubeMode();
+    renderStatArea();
     const tests = selectedTests();
     renderUrineCultureMode();
     const collectionTests = expandedCollectionTests(tests);
@@ -1393,7 +1467,7 @@
       <article class="selected-card${test.isStat ? ' is-stat' : ''}">
         <div class="selected-card-top">
           <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</div><div class="subtext specimen-line">${requiredSpecimenBadges(test)} <span>·</span> <span class="preferred-volume-inline">${escapeHtml(combinedVolumeText(test, 'preferred') || 'verify')}</span> <span>· Minimum ${escapeHtml(combinedVolumeText(test, 'minimum') || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}</div>
-          <div><button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Routine · Mark STAT'}</button><a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove selected-card-delete" data-action="remove" data-id="${escapeAttr(test.id)}" type="button" aria-label="Delete ${escapeAttr(test.testName)}">Delete</button></div>
+          <div>${isStatEligible(test) ? `<button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Routine · Mark STAT'}</button>` : ''}<a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove selected-card-delete" data-action="remove" data-id="${escapeAttr(test.id)}" type="button" aria-label="Delete ${escapeAttr(test.testName)}">Delete</button></div>
         </div>
         <div class="selected-details">
           ${requiredDrawContainerBadges(test)}
@@ -1421,12 +1495,12 @@
     }
     els.testsOverviewList.className = 'tests-overview-list';
     els.testsOverviewList.innerHTML = tests.map(test => `
-      <div class="tests-overview-row${test.isStat ? ' is-stat' : ''}">
+      <div class="tests-overview-row${test.isStat ? ' is-stat' : ''}${!isStatEligible(test) ? ' no-stat-action' : ''}">
         <div class="tests-overview-ident">
           <strong class="tests-overview-code">${escapeHtml(displayCode(test))}</strong>
           <span class="tests-overview-name">${escapeHtml(test.testName)}</span>
         </div>
-        <button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Mark STAT'}</button>
+        ${isStatEligible(test) ? `<button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Mark STAT'}</button>` : ''}
         <button class="mini-button remove remove-flex tests-overview-remove" type="button" data-action="remove" data-id="${escapeAttr(test.id)}" aria-label="Remove ${escapeAttr(test.testName)}"><span class="remove-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7.3 6.1 12 10.8l4.7-4.7 1.2 1.2-4.7 4.7 4.7 4.7-1.2 1.2-4.7-4.7-4.7 4.7-1.2-1.2 4.7-4.7-4.7-4.7 1.2-1.2Z"/></svg></span><span class="remove-text" aria-hidden="true">Delete</span></button>
       </div>`).join('');
   }
@@ -1750,7 +1824,7 @@
     const shouldAdd = existingIndex < 0 && els.addToSummary.checked && record.status !== 'blocked';
     if (shouldAdd && !selectedIds.includes(record.id)) {
       selectedIds.push(record.id);
-      if (DEFAULT_STAT_TEST_CODES.has(record.testCode)) {
+      if (DEFAULT_STAT_TEST_CODES.has(record.testCode) && isStatEligible(record)) {
         if (!statSelectedIds.includes(record.id)) statSelectedIds.push(record.id);
         saveStatSelectedIds();
       }
@@ -3381,7 +3455,7 @@
     </div>` : '';
 
     return `<section class="print-logistics-plan">
-      <div class="print-logistics-heading"><strong>Collection and submission plan</strong><span>Collection containers are separated from processed specimens placed into transport bags.</span></div>
+      <div class="print-logistics-heading"><strong>Collection and submission plan</strong><span>Collection containers are separated from processed specimens placed into transport bags. STAT area: ${escapeHtml(STAT_AREAS[statArea].label)}.</span></div>
       <div class="print-logistics-totals">
         <div class="print-total-box collect-total"><span>TOTAL TO COLLECT</span><strong>${totalCollect}</strong><small>tubes / collection containers</small></div>
         <div class="print-collect-chips">${collectionItems.map(item => {
@@ -3429,7 +3503,7 @@
         }).join('')}</div>
       </section>
       <div class="print-bag-note">
-        <div><strong>STAT routing:</strong> Mark STAT tests individually. Confirm that the order is accepted as STAT by the receiving lab, use its STAT requisition/courier workflow, and never put STAT specimens in a routine shipment.</div>
+        <div><strong>STAT routing:</strong> Only tests listed for the selected Quest service area offer Mark STAT. Confirm that the specific order is accepted as STAT by the receiving lab, use its STAT requisition/courier workflow, and never put STAT specimens in a routine shipment.</div>
         <div><strong>Tube sharing:</strong> STAT and routine blood tests never share source tubes, and all STAT and routine transport bags remain separate. Compatible tests from one urine collection may share the source sterile cup across priorities, unless separate collections are specifically required. Within the same priority, compatible SST, Lavender EDTA, and Red Top tubes can be shared only when the processing steps and temperature match. Lavender whole blood stays separate from Lavender tubes used for plasma or RBCs. Tubes sent whole also stay separate from tubes used to prepare aliquots.</div>
         <div><strong>Tube counts:</strong> Estimates allow 2 mL of usable serum, plasma, or processed specimen per source tube and 4 mL of whole blood per Lavender tube. Multiple, dedicated, and full-tube requirements remain separate. Whole-blood amounts are shown inside each blood-tube card; serum/plasma amounts use a 2.5× whole-blood conversion.</div>
         <div><strong>Urine:</strong> Random/spot, first-morning, timed, and 24-hour collections are kept distinct when their collection requirements differ. Compatible tests may share a sterile urine cup even when their downstream transport specimens have different priorities or temperatures; keep those transport specimens separate. Explicitly required separate urine collections must not be pooled.</div>

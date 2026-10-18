@@ -2034,3 +2034,39 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   }
   .print-submit-bag-types > span:not(:last-child)::after { content: none; }
 }
+
+/* v11.13: Compact, uniform toggles and regional STAT selector. */
+.sst-mode-control { gap: 9px; flex-wrap: wrap; align-items: center; }
+.sst-mode-copy { flex: 1 1 148px; min-width: 144px; }
+.sst-mode-copy strong { overflow-wrap: normal; }
+.sst-mode-toggle,
+.urine-culture-mode-control .sst-mode-toggle {
+  width: 226px;
+  max-width: 100%;
+  flex: 0 1 226px;
+}
+.sst-mode-option,
+.urine-culture-mode-control .sst-mode-option {
+  min-height: 38px;
+  padding: 4px 7px;
+}
+.sst-mode-tube,
+.urine-culture-mode-control .sst-mode-option .sst-mode-tube { min-height: 29px; }
+.sst-mode-name { font-size: 8.3px; }
+.urine-culture-mode-control .sst-mode-option .sst-mode-name { font-size: 8.7px; }
+@media (max-width: 720px) {
+  .sst-mode-control { flex-direction: row; align-items: center; }
+  .sst-mode-toggle,
+  .urine-culture-mode-control .sst-mode-toggle { align-self: auto; width: 226px; }
+}
+@media (max-width: 410px) {
+  .sst-mode-copy { flex: 1 1 100%; }
+  .sst-mode-toggle,
+  .urine-culture-mode-control .sst-mode-toggle { flex: 1 1 auto; width: 100%; }
+}
+.stat-area-control { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 5px 10px; margin: 0 0 10px; padding: 9px 11px; border: 1px solid #dbe4e7; border-radius: 10px; background: #f8fafb; }
+.stat-area-control label { font-size: 11px; font-weight: 850; color: #25363d; white-space: nowrap; }
+.stat-area-control select { min-width: 0; width: 100%; max-width: 290px; margin-left: auto; padding: 7px 25px 7px 9px; border: 1px solid #cbd7db; border-radius: 8px; color: #34464d; background: #fff; font-size: 11px; font-weight: 720; }
+.stat-area-control small { grid-column: 1/-1; color: #667982; font-size: 9.5px; line-height: 1.32; }
+.tests-overview-row.no-stat-action { grid-template-columns: minmax(0, 1fr) auto; }
+@media (max-width: 520px) { .tests-overview-row.no-stat-action { grid-template-columns: minmax(0, 1fr) auto; } }
