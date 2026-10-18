@@ -1,3 +1,8 @@
+v11.49
+- Cart now displays its live test count directly after the heading.
+- Moved Print / Save PDF from the lower summary actions into the second row of the Cart header, directly below Add a missing test and Clear all and matching their combined width.
+- Existing print behavior and all collection/transport logic remain unchanged.
+
 v11.48
 - Shortened the urine culture selection heading from "Urine culture transport" to "Urine culture". No workflow or calculation changes.
 

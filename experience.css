@@ -855,3 +855,45 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     pointer-events: none;
   }
 }
+
+/* v11.49: Live test count next to Cart, with print access in the header.
+   The right grid column is sized by the Add / Clear actions above and the
+   print button stretches to that exact same track width. */
+@media screen {
+  .tests-summary-header {
+    grid-template-columns: minmax(0, 1fr) max-content;
+  }
+  .tests-summary-heading {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 9px;
+    row-gap: 0;
+    align-items: baseline;
+  }
+  .tests-summary-heading .tests-summary-count {
+    font-size: 11px;
+    font-weight: 750;
+    margin: 0;
+    color: var(--muted);
+  }
+  .tests-summary-actions {
+    width: max-content;
+    max-width: none;
+  }
+  .cart-header-print {
+    grid-column: 2;
+    grid-row: 2;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: 36px;
+    margin: 0;
+    padding: 7px 10px;
+    justify-self: stretch;
+    font-size: 11px;
+    font-weight: 800;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+  .tests-summary .cart-tests-viewport { width: 100%; }
+}
