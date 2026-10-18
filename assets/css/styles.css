@@ -3451,3 +3451,10 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     page-break-after: avoid !important;
   }
 }
+
+/* Mobile: keep the Find tests heading aligned with the section's left edge. */
+@media screen and (max-width: 720px) {
+  .library-panel .panel-heading.library-heading {
+    align-items: flex-start;
+  }
+}
