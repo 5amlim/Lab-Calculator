@@ -955,3 +955,45 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     font-size: 15px;
   }
 }
+
+/* v11.58: Emphasize the two primary missing-test form section headings.
+   Scope to these cards so other modal sections and the print output are unchanged. */
+@media screen {
+  #testForm .form-section-emphasis {
+    padding: 0;
+    overflow: hidden;
+  }
+  #testForm .form-section-emphasis > .form-section-heading {
+    align-items: center;
+    margin: 0;
+    padding: 12px 14px;
+    gap: 8px 14px;
+    background: #314f5e;
+    border-left: 4px solid #20a49e;
+    border-bottom: 1px solid #284451;
+    color: #fff;
+  }
+  #testForm .form-section-emphasis > .form-section-heading h3 {
+    margin: 0 0 3px;
+    font-size: 15px;
+    line-height: 1.25;
+    font-weight: 850;
+    color: #fff;
+  }
+  #testForm .form-section-emphasis > .form-section-heading p {
+    color: #dae8ed;
+    font-size: 11px;
+    line-height: 1.35;
+  }
+  #testForm .form-section-emphasis > .form-section-heading .directory-text-button {
+    color: #d9fcf6;
+  }
+  #testForm .form-section-emphasis > .form-grid {
+    padding: 13px 14px 14px;
+  }
+  @media (max-width: 720px) {
+    #testForm .form-section-emphasis > .form-section-heading {
+      align-items: flex-start;
+    }
+  }
+}
