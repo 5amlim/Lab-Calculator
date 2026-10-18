@@ -1285,20 +1285,31 @@
           const added = available && selectedIds.includes(test.id);
           const button = available
             ? added
-              ? `<button type="button" class="stat-menu-add is-added" disabled aria-label="${escapeAttr(test.testName)} already added" title="Already in collection summary">✓</button>`
+              ? `<button type="button" class="stat-menu-add is-added" data-action="stat-menu-remove" data-id="${escapeAttr(test.id)}" aria-label="Remove ${escapeAttr(test.testName)} from cart" title="Remove from cart">✓</button>`
               : `<button type="button" class="stat-menu-add" data-action="stat-menu-add" data-id="${escapeAttr(test.id)}" aria-label="Add ${escapeAttr(test.testName)} as STAT" title="Add as STAT (confirmation required)">+</button>`
-            : `<button type="button" class="stat-menu-add" disabled aria-label="Code ${escapeAttr(code)} unavailable in calculator" title="Collection requirements must be added and verified first">+</button>`;
-          return `<div class="stat-menu-test"><strong>${escapeHtml(code)}</strong><span>${escapeHtml(test?.testName || 'Not yet available in calculator')}</span>${test?.status === 'blocked' ? '<small>Not available for onsite collection</small>' : ''}${button}</div>`;
+            : `<button type="button" class="stat-menu-add needs-setup" data-action="stat-menu-setup" data-code="${escapeAttr(code)}" aria-label="Set up missing test ${escapeAttr(code)}" title="Open Add missing test to enter verified collection requirements">+</button>`;
+          return `<div class="stat-menu-test"><strong>${escapeHtml(code)}</strong><span>${escapeHtml(test?.testName || 'Needs verified specimen details')}</span>${test?.status === 'blocked' ? '<small>Not available for onsite collection</small>' : ''}${button}</div>`;
         }).join('')
         : '<p class="stat-menu-empty">No codes or tests match this search.</p>';
   }
 
   function handleStatMenuClick(event) {
-    const button = event.target.closest('button[data-action="stat-menu-add"]');
+    const button = event.target.closest('button[data-action]');
     if (!button || !els.statMenuResults.contains(button)) return;
-    // addStatFromMenu validates eligibility and requests confirmation before
-    // adding a new entry to the cart or marking it STAT.
-    addStatFromMenu(button.dataset.id);
+    if (button.dataset.action === 'stat-menu-add') {
+      // New STAT selections continue to require user confirmation.
+      addStatFromMenu(button.dataset.id);
+    } else if (button.dataset.action === 'stat-menu-remove') {
+      // The selected check is an active toggle: removing it clears the cart
+      // selection and the corresponding STAT flag, just like the cart X.
+      if (selectedIds.includes(button.dataset.id)) removeSelected(button.dataset.id);
+    } else if (button.dataset.action === 'stat-menu-setup') {
+      // Do not fabricate processing instructions for an unknown menu code.
+      // Staff can complete the existing required-fields dialog after checking
+      // the receiving lab's official directory entry.
+      openDialog({ testCode: button.dataset.code }, { addToSummary: false });
+      els.testCode.focus();
+    }
   }
 
   function loadStatSelectedIds() {

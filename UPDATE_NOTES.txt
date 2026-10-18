@@ -1,3 +1,9 @@
+v11.60
+- STAT menu: Clicking an already-selected check removes the test from the cart and clears its STAT status. The add button still confirms before marking STAT.
+- Added 11 official-directory-backed test records from missing SoCal STAT codes, including source-specific timing, no-gel peak/trough tube separation, carbon-dioxide unopened tube, urinalysis reflex containers and fetal fibronectin special kit.
+- Missing codes 784, 59118, 70117 still need verified test definitions: the STAT list now opens a prefilled Add Missing Test form rather than offering a fake collection plan.
+- Local Quest account acceptance is not established by the October 2025 STAT menu; verify before sending.
+
 v11.59
 - Further lightened Add best matches and the individual test-directory Add buttons to soft teal (#49afb2) with dark teal lettering for readability. Their hover state is a slightly darker teal.
 - Print / Save PDF retains its original background, text color, size, and behavior.

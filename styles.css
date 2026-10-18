@@ -3137,3 +3137,17 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     content: none !important;
   }
 }
+
+/* v11.60: selected STAT menu checks can be clicked again to remove the test. */
+.stat-menu-test .stat-menu-add.is-added { cursor: pointer; opacity: 1; }
+.stat-menu-test .stat-menu-add.is-added:hover,
+.stat-menu-test .stat-menu-add.is-added:focus-visible {
+  background: #d1ebe0;
+  border-color: #78b599;
+  color: #145d42;
+}
+.stat-menu-test .stat-menu-add.needs-setup {
+  border-style: dashed;
+  color: #627981;
+  background: #f3f7f8;
+}
