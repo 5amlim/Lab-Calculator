@@ -1,3 +1,5 @@
+v11.32: Moved print warnings (handling, timing, rejection, and light protection) to directly above the detailed test table, which continues to start on a fresh page. Collection and submission remain before the table; general notes and disclaimers remain after the table. No test, pooling, or STAT rules modified.
+
 v11.31
 - Increased Routine/STAT text size inside unchanged-size print bag topbar pills.
 - Reordered PDF print: collection and submission plan first, detailed test table starting a new page, routing/collection notes and ownership disclaimer last.

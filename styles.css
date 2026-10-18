@@ -2824,3 +2824,16 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     page-break-inside: avoid;
   }
 }
+
+/* v11.32: Keep handling and rejection warnings immediately above the detailed
+   test table on its new page, rather than ahead of the collection workflow. */
+@media print {
+  .print-detail-table-section .print-alerts {
+    margin: 0 0 8px;
+    break-after: avoid-page;
+  }
+  .print-detail-table-section .print-alerts > div {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
