@@ -897,3 +897,12 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
   }
   .tests-summary .cart-tests-viewport { width: 100%; }
 }
+
+/* v11.50: give the Cart heading clearer hierarchy without enlarging the test count. */
+@media screen {
+  .tests-summary-heading .tests-summary-title {
+    font-size: 22px;
+    line-height: 1.1;
+    font-weight: 900;
+  }
+}

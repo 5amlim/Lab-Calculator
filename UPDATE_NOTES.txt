@@ -1,3 +1,6 @@
+v11.50
+- Enlarged the Cart heading to 22px. Kept the test count, controls, and all calculations unchanged.
+
 v11.49
 - Cart now displays its live test count directly after the heading.
 - Moved Print / Save PDF from the lower summary actions into the second row of the Cart header, directly below Add a missing test and Clear all and matching their combined width.
