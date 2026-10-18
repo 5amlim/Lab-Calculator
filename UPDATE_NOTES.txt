@@ -1,3 +1,9 @@
+v11.52
+- Changed Cart Show/Hide details to use the same SVG chevron as Warning / Special Handling, rotating when expanded. No pooling or print changes.
+
+v11.51
+- Align live test count to the bottom edge of the larger Cart heading without changing the font sizes or cart header layout.
+
 v11.50
 - Enlarged the Cart heading to 22px. Kept the test count, controls, and all calculations unchanged.
 

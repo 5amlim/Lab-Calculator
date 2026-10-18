@@ -906,3 +906,35 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     font-weight: 900;
   }
 }
+
+/* v11.51: align the visible bottom edges of the large Cart heading and
+   smaller live test count while preserving their separate font sizes. */
+@media screen {
+  .tests-summary-heading {
+    align-items: flex-end;
+  }
+  .tests-summary-heading .tests-summary-count {
+    align-self: flex-end;
+    line-height: 1.1;
+  }
+}
+
+/* v11.52: use the same SVG chevron as Warning / Special Handling.
+   Preserve the compact cart button and rotate the icon when expanded. */
+@media screen {
+  .tests-details-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+  .tests-details-toggle .collection-alerts-chevron {
+    width: 13px;
+    height: 13px;
+    flex: 0 0 13px;
+    background-size: 13px 13px;
+  }
+  .tests-details-toggle[aria-expanded="true"] .collection-alerts-chevron {
+    transform: rotate(180deg);
+  }
+}
