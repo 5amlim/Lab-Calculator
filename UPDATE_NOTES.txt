@@ -1,3 +1,9 @@
+v11.19
+- Moved the single-test search input above the specimen, Quest STAT, and do-not-perform filters.
+- Aligned the nurse order-of-draw sequence number and tube name/icon on one horizontal line in the printed guide.
+- Suppressed duplicate Gold / SST versus SST / Gold labeling wording and grouped identical LABEL notes with their test codes.
+- No specimen definitions, pooling, or STAT eligibility changes.
+
 v11.18
 - Restored purple-outlined two-column bag layout with independently stacked priority / temperature bags.
 - Routine bag titles and borders now green; STAT remains red.

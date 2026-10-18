@@ -2383,3 +2383,20 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   }
   .print-submit-item { break-inside:avoid !important; page-break-inside:avoid !important; }
 }
+
+/* v11.19: order-of-draw number and actual tube badge share one line in print. */
+@media print {
+  .print-order-step .print-order-top {
+    display: flex; align-items: center; gap: 3px; min-width: 0;
+    margin-bottom: 2px;
+  }
+  .print-order-step .print-order-number { flex: 0 0 12px; }
+  .print-order-step .print-order-top .order-tube-group {
+    display: inline-flex; flex: 1 1 auto; min-width: 0;
+    margin: 0; align-items: center;
+  }
+  .print-order-step .print-order-top .order-tube-group .print-order-tube {
+    min-width: 0; white-space: normal; overflow-wrap: break-word;
+  }
+  .print-order-step .print-order-additive { margin-top: 1px; }
+}

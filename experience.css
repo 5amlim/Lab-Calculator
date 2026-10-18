@@ -581,3 +581,26 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
   .filter-row .stat-library-control { grid-row: auto; }
   .filter-row .stat-library-control select { flex: 1 1 100%; max-width: 100%; }
 }
+
+/* v11.19: put the searchable test input on its own row above all filters. */
+@media screen and (min-width: 1161px) {
+  .filter-row { grid-template-columns: 175px minmax(0,1fr) max-content; align-items: end; }
+  .filter-row .library-search { grid-column: 1 / -1; grid-row: 1; width: 100%; }
+  .filter-row #specimenFilter { grid-column: 1; grid-row: 2; width: 100%; }
+  .filter-row .stat-library-control { grid-column: 2; grid-row: 2; width: 100%; justify-self: stretch; }
+  .filter-row .blocked-list-button { grid-column: 3; grid-row: 2; align-self: end; }
+}
+@media screen and (min-width: 721px) and (max-width: 1160px) {
+  .filter-row { grid-template-columns: 175px minmax(0,1fr); align-items: end; }
+  .filter-row .library-search { grid-column: 1 / -1; grid-row: 1; width: 100%; }
+  .filter-row #specimenFilter { grid-column: 1; grid-row: 2; width: 100%; }
+  .filter-row .stat-library-control { grid-column: 2; grid-row: 2; width: 100%; min-width: 0; }
+  .filter-row .blocked-list-button { grid-column: 1 / -1; grid-row: 3; justify-self: end; width: auto; }
+}
+@media screen and (max-width: 720px) {
+  .filter-row { display: grid; grid-template-columns: minmax(0,1fr); gap: 8px; }
+  .filter-row .library-search { grid-column: 1; grid-row: 1; width: 100%; }
+  .filter-row #specimenFilter { grid-column: 1; grid-row: 2; width: 100%; }
+  .filter-row .stat-library-control { grid-column: 1; grid-row: 3; width: 100%; }
+  .filter-row .blocked-list-button { grid-column: 1; grid-row: 4; justify-self: stretch; width: 100%; }
+}

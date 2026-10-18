@@ -1689,7 +1689,7 @@
     const selectedCategories = new Set(tests.map(orderCategory).filter(Boolean));
     return `<section class="print-order-section">
       <div class="print-section-heading"><strong>Nurse order of draw</strong><span>Standard sequence for multiple blood tubes</span></div>
-      <div class="print-order-strip">${ORDER_OF_DRAW.map(step => `<div class="print-order-step ${selectedCategories.has(step.key) ? 'is-selected' : ''}"><span class="print-order-number">${step.number}</span>${orderTubeMarkup(step, true)}<span class="print-order-additive">${escapeHtml(step.additive)}</span></div>`).join('')}</div>
+      <div class="print-order-strip">${ORDER_OF_DRAW.map(step => `<div class="print-order-step ${selectedCategories.has(step.key) ? 'is-selected' : ''}"><div class="print-order-top"><span class="print-order-number">${step.number}</span>${orderTubeMarkup(step, true)}</div><span class="print-order-additive">${escapeHtml(step.additive)}</span></div>`).join('')}</div>
       <div class="print-order-note"><strong>Butterfly:</strong> If light blue is first, use a partially filled citrate discard tube to fill tubing dead space, then fill the test tube completely. Confirm additives on tube labels; do not rely on stopper color alone. Follow test-specific official instructions and facility policy.</div>
     </section>`;
   }
@@ -3159,6 +3159,9 @@
   // patient identifiers, time, additives, and other explicit directions.
   function normalizedLabelComparison(value) {
     return String(value || '').toLowerCase()
+      // The same SST source is sometimes written as "SST / Gold" in Quest
+      // instructions and "Gold / SST" in the calculated transport plan.
+      .replace(/\b(?:sst\s*\/\s*gold|gold\s*\/\s*sst)\b/g, 'gold sst')
       .replace(/\bspun\b/g, ' ')
       .replace(/\bcentrifuged\b/g, ' ')
       .replace(/[–—-]/g, ' ')
@@ -3206,13 +3209,26 @@
       if (is24Hour) parts.push('24h urine · Total volume: ____ mL · Start: ____ · End: ____');
       const explicitIsRedundant24hUrine = is24Hour && /^urine$/i.test(explicit.trim());
       if (!explicitIsRedundant24hUrine && explicitLabelAddsInformation(explicit, derived)) parts.push(explicit);
-      const note = Array.from(new Set(parts)).join(' · ');
+      // Deduplicate equivalent labels from the same test before comparing across
+      // tests. Preserve instructions that add a distinct labeling requirement.
+      const uniqueParts = [];
+      const seenParts = new Set();
+      parts.forEach(part => {
+        const key = normalizedLabelComparison(part);
+        if (key && !seenParts.has(key)) { seenParts.add(key); uniqueParts.push(part); }
+      });
+      const note = uniqueParts.join(' · ');
       if (!note) return;
-      if (!grouped.has(note)) grouped.set(note, []);
-      grouped.get(note).push(displayCode(test));
+      // Equal labels from different tests need only one LABEL line. Keep all
+      // contributing codes together, including tests with different naming.
+      const groupKey = note.toLowerCase()
+        .replace(/\b(?:sst\s*\/\s*gold|gold\s*\/\s*sst)\b/g, 'gold/sst')
+        .replace(/\s+/g, ' ').trim();
+      if (!grouped.has(groupKey)) grouped.set(groupKey, { note, codes: [] });
+      grouped.get(groupKey).codes.push(displayCode(test));
     });
     if (!grouped.size) return '';
-    return `<div class="print-label-notes">${Array.from(grouped.entries()).map(([note, codes]) => `<div class="print-label-note"><span>Label</span><div>${escapeHtml(note)} <small>${escapeHtml(codes.join(', '))}</small></div></div>`).join('')}</div>`;
+    return `<div class="print-label-notes">${Array.from(grouped.values()).map(({ note, codes }) => `<div class="print-label-note"><span>Label</span><div>${escapeHtml(note)} <small>${escapeHtml([...new Set(codes)].join(', '))}</small></div></div>`).join('')}</div>`;
   }
 
   function isTransferSubmission(test) {
