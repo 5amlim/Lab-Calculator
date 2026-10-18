@@ -1131,6 +1131,7 @@
     els.spinFilter.checked = false;
     libraryLimit = PAGE_STEP;
     renderLibrary();
+    window.syncPortalSelects?.();
   }
 
   function libraryFilterCount() {
@@ -1357,13 +1358,13 @@
         heading.textContent = child.label;
         heading.setAttribute('role', 'presentation');
         fragment.appendChild(heading);
-        for (const opt of child.children) addOption(opt);
+        for (const opt of child.children) addOption(opt, true);
       } else if (child.tagName === 'OPTION') addOption(child);
     }
-    function addOption(opt) {
+    function addOption(opt, isNested = false) {
       const row = document.createElement('button');
       row.type = 'button';
-      row.className = 'stat-area-option';
+      row.className = 'stat-area-option' + (isNested ? ' stat-area-option-nested' : '');
       row.setAttribute('role', 'option');
       row.dataset.statArea = opt.value;
       row.textContent = opt.textContent;
@@ -2059,10 +2060,12 @@
     els.deleteTestButton.classList.toggle('hidden', !isExisting || !record.id.startsWith('custom-'));
     if (els.optionalDetails) els.optionalDetails.open = isExisting;
     els.testDialog.showModal();
+    window.syncPortalSelects?.();
     setTimeout(() => (isExisting ? els.testName : els.testCode.value ? els.testName : els.testName.value ? els.testCode : els.testCode).focus(), 0);
   }
 
   function closeDialog() {
+    window.closePortalSelects?.();
     els.testDialog.close();
   }
 
@@ -2112,7 +2115,7 @@
     const missingField = requiredFields.find(field => !field.value);
     if (missingField) {
       showToast(missingField.message);
-      missingField.element.focus();
+      window.focusPortalSelect ? window.focusPortalSelect(missingField.element) : missingField.element.focus();
       return;
     }
     if (existingIndex >= 0) database[existingIndex] = record;
@@ -4346,6 +4349,7 @@
     if (isSst) els.spin.value = 'Yes';
     els.spin.disabled = isSst;
     els.spin.title = isSst ? 'SST specimens must be spun before submission.' : '';
+    window.syncPortalSelects?.();
   }
 
   function toggleCustomDrawContainer() {

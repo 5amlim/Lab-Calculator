@@ -1165,3 +1165,80 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     .filter-row .stat-library-control .stat-select-wrap { grid-column: 1; grid-row: 2; }
   }
 }
+
+/* v11.78: portal-style selectors inside Filters and Add/Edit Test. */
+@media screen {
+  .stat-area-option-nested { padding-left: 27px !important; font-weight: 550; position: relative; }
+  .stat-area-option-nested::before { content: ''; position: absolute; left: 14px; top: 50%; width: 4px; height: 4px; border-radius: 100%; background: #b8cbd3; transform: translateY(-50%); }
+  .portal-select-native { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: 0 !important; opacity: 0 !important; pointer-events: none !important; border: 0 !important; }
+  .portal-select-wrap { position: relative; display: block; width: 100%; min-width: 0; }
+  .portal-select-button { box-sizing: border-box; display: flex; align-items: center; width: 100%; min-width: 0; min-height: 42px; gap: 8px; padding: 8px 14px; border: 1px solid #c6d7dd; border-radius: 9px; background: #fff; color: #34464d; font-family: inherit; font-size: 13px; font-weight: 750; line-height: 1.35; text-align: left; cursor: pointer; }
+  .portal-select-button:hover { background: #f8fbfc; }
+  .portal-select-button:focus-visible { outline: 2px solid #228894; outline-offset: 2px; }
+  .portal-select-button:disabled { background: #f1f5f6; color: #7b8b91; cursor: not-allowed; }
+  .portal-select-placeholder { color: #98a4ab; }
+  .portal-select-text { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .portal-select-button .shared-chevron { margin-right: 0; flex: 0 0 18px; }
+  .portal-select-button[aria-expanded="true"] .shared-chevron { transform: rotate(180deg); }
+  .catalog-filter-panel .portal-select-button { min-height: 37px; font-size: 12px; }
+  #testForm .portal-select-button { min-height: 38px; font-size: 12px; }
+  .portal-select-menu { position: fixed; z-index: 100000; overflow-y: auto; overscroll-behavior: contain; box-sizing: border-box; padding: 6px; background: #fff; border: 1px solid #cadbe0; border-radius: 11px; box-shadow: 0 14px 34px rgba(20,47,70,.2); }
+  .portal-select-option { display: block; width: 100%; padding: 10px 12px; border: none; border-radius: 7px; background: transparent; color: #293e4c; font: inherit; font-size: 12px; font-weight: 600; text-align: left; line-height: 1.35; white-space: normal; cursor: pointer; }
+  .portal-select-option:hover, .portal-select-option:focus-visible { outline: 0; background: #eff6f7; }
+  .portal-select-option.is-selected { color: #096773; background: #e5f2f3; font-weight: 850; }
+  .portal-select-option:disabled { opacity: .5; cursor: not-allowed; }
+  @media (max-width: 720px) {
+    .portal-select-button { min-height: 42px; }
+    #testForm .portal-select-button { min-height: 38px; }
+  }
+}
+@media print {
+  .portal-select-menu, .portal-select-wrap { display: none !important; }
+}
+
+/* v11.79: quiet, accessible menu motion and container icons reused from the directory. */
+@media screen {
+  @keyframes select-pop-in {
+    from { opacity: 0; transform: translateY(-4px) scale(.995); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .portal-select-menu,
+  .catalog-filter-panel:not(.hidden),
+  .stat-area-options:not(.hidden) {
+    transform-origin: top center;
+    animation: select-pop-in 145ms cubic-bezier(.2,.75,.35,1) both;
+  }
+  .portal-select-icon {
+    display: inline-block;
+    flex: 0 0 13px;
+    width: 13px;
+    height: 19px;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+  }
+  .portal-select-icon.tube::before {
+    left: 2px;
+    top: 50%;
+    height: 16px;
+    width: 8px;
+  }
+  .portal-select-icon.tube-urine-cup::before,
+  .portal-select-icon.tube-24h-urine::before,
+  .portal-select-icon.tube-trace-metal-container::before { width: 12px; left: 0; }
+  .portal-select-button .portal-select-icon { flex-shrink: 0; }
+  .portal-select-option { display: flex; align-items: center; gap: 9px; }
+  .portal-option-label { flex: 1; min-width: 0; }
+  .portal-select-menu { will-change: opacity, transform; }
+  .portal-select-button .shared-chevron,
+  .catalog-filter-toggle .shared-chevron,
+  .stat-area-picker-button .shared-chevron { transition: transform 160ms ease; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portal-select-menu,
+  .catalog-filter-panel:not(.hidden),
+  .stat-area-options:not(.hidden) { animation: none !important; }
+  .portal-select-button .shared-chevron,
+  .catalog-filter-toggle .shared-chevron,
+  .stat-area-picker-button .shared-chevron { transition: none !important; }
+}

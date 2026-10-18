@@ -1,3 +1,10 @@
+## v11.79: Subtle menu animations and container illustrations
+
+- In-page dropdown menus animate with a short, soft fade and slight movement; closing nested option menus has a matching brief transition. A reduced-motion preference disables these effects.
+- Add/Edit Test draw and transport container options show the existing tube/cup illustration where the container is identifiable, including the selected value in the closed control.
+- “No transfer / submit in original tube” and “Whole Blood / Original Tube” mirror the current draw-container illustration, including after the draw container changes. This is a visual cue only and does not change the selected transport value.
+- Specimen/temperature/fasting menus, form validation, label instructions, STAT routing, pooling, tube and bag calculations, and print output are unchanged.
+
 ## v11.77: Consistent in-page STAT dropdown and chevrons
 
 - Replaced the browser-native STAT receiving lab select with an in-page scrollable list. It retains all receiving lab choices and existing STAT eligibility behavior.
@@ -468,3 +475,8 @@ In the Collection summary, use **Mark STAT** next to each selected test that is 
 - Printed transfer pills have a small “↑ Transfer” cue before the intact source pill.
 - Records with explicit Microtainer SST requirements (neonatal bilirubin codes 6631, 20381, 34162) use independent amber Microtainer collection counts, with a distinctive icon/flag. They do not pool with standard Gold/Tiger SSTs.
 - The standard order-of-draw tiles are unchanged. The original test-specific Microtainer instructions remain available.
+
+### v11.78: In-page dropdown consistency
+- Southern California receiving-lab choices are visually indented beneath their region heading. All nine laboratory selections retain their existing values and STAT eligibility behavior.
+- The Add Missing Test and Edit Test dropdowns (specimen, draw container, transport container, temperature, Spin) and Filters dropdowns (specimen, temperature, fasting) use scrollable in-page popovers instead of operating-system select menus. Popovers keep the original option lists and underlying values, and work inside the test dialog as well as the filter panel.
+- All these controls reuse the existing shared chevron and right-side inset. The collection/transport, label, and calculation logic was not changed.
