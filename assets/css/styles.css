@@ -3486,3 +3486,32 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     page-break-before: always !important;
   }
 }
+
+/* Pre-draw instructions appear alongside fasting in the print workflow. */
+@media print {
+  .print-sheet .print-prep-panel {
+    background: #ecf6f8 !important;
+    border-color: #528e99;
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+  .print-sheet .print-prep-panel .print-fasting-panel-title {
+    color: #204c55;
+    border-right-color: #96bcc4;
+  }
+  .print-sheet .print-prep-item {
+    background: #f8fcfd !important;
+    border-color: #accbd1;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+  .print-sheet .print-prep-item strong { color: #234d56; }
+  .print-sheet .print-prep-item small { color: #435c63; }
+  .print-sheet .print-prep-status {
+    background: #dfeff2 !important;
+    color: #245764;
+    border-color: #87b3bd;
+    white-space: normal;
+    line-height: 1.13;
+  }
+}

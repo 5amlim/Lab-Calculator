@@ -1957,6 +1957,90 @@
     </section>`;
   }
 
+  // Only flag actionable pre-collection requirements supported by a test's
+  // recorded directions or a reviewed test-code-specific Quest instruction.
+  // Do not apply hormone time windows to all similarly named assays.
+  function preCollectionPrecautions(test) {
+    const code = String(test.testCode || '').trim();
+    const notes = String(test.specialInstructions || '');
+    const result = [];
+    const add = (label, note) => result.push({ label, note });
+
+    if (code === '4212') {
+      add('AM draw · 7–9 AM', 'Collect between 7 and 9 AM. Write the collection time on the tube and requisition.');
+    } else if (code === '4213') {
+      add('PM draw · 3–5 PM', 'Collect between 3 and 5 PM. Write the collection time on the tube and requisition.');
+    } else if (code === '6921') {
+      add('Timed AM draw', 'Draw between 7 and 9 AM after the prescriber-directed overnight dexamethasone protocol. Confirm medication timing with the ordering clinician; record date and time.');
+    }
+    if (code === '873' || code === '30741') {
+      add('Morning testosterone', 'For adult male screening, collection at 8–10 AM is recommended; confirmation generally uses a second morning on a different day. Confirm with the ordering clinician.');
+    }
+
+    if (/avoid seafood.{0,55}48 hours|avoid seafood consumption for 48 hours/i.test(notes)) {
+      add('No seafood · 48h', 'Avoid fish and seafood for 48 hours before collection, as specified by the receiving lab.');
+    } else if (/avoid fish and seafood the day before/i.test(notes)) {
+      add('No fish / seafood', 'Avoid fish and seafood the day before collection.');
+    }
+    if (/patient should avoid food high in indoles/i.test(notes)) {
+      add('Diet · 3 days', 'Avoid indole-rich foods listed in the test instructions and avoid tobacco, tea, and coffee for 3 days before collection.');
+    }
+
+    if (/\bcollect in the morning from a fasting patient\b|\bsamples should be taken in the morning from patients in a fasting state\b/i.test(notes)) {
+      add('Morning draw', 'Collect in the morning and follow the separately listed fasting instruction.');
+    } else if (/\b(?:an )?early[- ]morning specimen is preferred\b/i.test(notes)) {
+      add('AM preferred', 'Early morning collection is preferred; record collection time when requested.');
+    } else if (/fast for at least 12 hours and collect in the morning/i.test(notes)) {
+      add('AM draw · 8–10', 'Draw in the morning, preferably 8–10 AM; the separate fasting warning applies.');
+    }
+
+    if (/\bbiotin\b/i.test(notes) && /supplement|vitamin|consumption/i.test(notes) || code === '873') {
+      if (/at least 8 hours.{0,140}last biotin|at least 8 hours following.{0,140}biotin/i.test(notes) || code === '873') {
+        add('Biotin interference', 'Biotin can affect this assay. Quest advises at least 8 hours after typical supplementation and at least 72 hours after mega-doses. Review supplements and confirm timing with the clinician.');
+      } else if (/72 hours prior|at least 72 hours prior/i.test(notes)) {
+        add('Biotin · 72h', 'Lab directions call for avoiding biotin for at least 72 hours before the draw. Confirm changes to any prescribed supplements or therapy with the clinician.');
+      } else if (/24-48 hours|24–48 hours/i.test(notes)) {
+        add('Biotin · 24–48h', 'Check the 24–48-hour biotin supplement restriction in this test’s collection directions.');
+      } else if (/48 hours (?:before|prior)|48 hours prior|no biotin supplements.*48/i.test(notes)) {
+        add('Biotin · 48h', 'Lab directions specify no biotin supplements for 48 hours before collection; confirm with the clinician.');
+      } else {
+        add('Biotin interference', 'Biotin supplements may interfere with results. Check this test’s specific supplement and draw-timing instructions.');
+      }
+    }
+
+    if (/collect(?:ion)? (?:as )?(?:a )?trough|steady-state trough|trough concentration|just prior to next dose|just before next dose|trough specimen/i.test(notes)) {
+      if (/\bpeak\b|post.dose|after (?:the )?last dose/i.test(notes) && /\bpeak\b/.test(notes)) {
+        add('Drug-level timing', 'This assay includes peak/trough timing requirements. Confirm the ordered draw interval and document dosing and collection times.');
+      } else if (/steady-state trough|>12 hours after dose|12 hours after last dose/i.test(notes)) {
+        add('Timed drug level', 'Collect at the prescribed steady-state trough interval. Check the exact time since the last dose and document it.');
+      } else {
+        add('Trough sample', 'Collect at the ordered trough time, usually just before the next dose. Confirm and document dose and collection times.');
+      }
+    } else if (/collect (?:24, 48, or 72 hours after dose|sample \d+ hours after last dose)|draw sample \d+ hours after last dose/i.test(notes)) {
+      add('Timed drug level', 'The sample has a specific post-dose collection interval. Check the lab directions and document the dose and draw times.');
+    }
+
+    if (/after (?:the )?patient has been upright.{0,100}seated|after patient has been upright|upright for at least 2 hours|mid.morning.{0,100}seated/i.test(notes)) {
+      add('Position / rest', 'Follow the test-specific upright and seated-rest periods before collecting; confirm any medication-related restrictions with the clinician.');
+    } else if (/patient needs to sit 5-15 minutes prior/i.test(notes)) {
+      add('Seated rest', 'Have the patient sit for 5–15 minutes before collection, as specified in the lab instructions.');
+    } else if (/patients should be relaxed in either a supine or upright position/i.test(notes)) {
+      add('Rest / posture', 'Patient should be relaxed before collection. Follow positioning and dietary restrictions in the full test instructions.');
+    }
+
+    if (/clearly mark time drawn on all tubes|mark time drawn on all tubes/i.test(notes)) {
+      add('Timed specimens', 'Keep specimens from different collection times separate and label the collection time on each tube.');
+    } else if (code === '11281') {
+      add('Record draw time', 'Specify the time of day the specimen was collected.');
+    }
+
+    return result;
+  }
+
+  function preCollectionPrecautionsForTests(tests) {
+    return tests.flatMap(test => preCollectionPrecautions(test).map(requirement => ({ test, requirement })));
+  }
+
   function fastingRequirement(test) {
     const explicitLevel = String(test.fastingStatus || '').toLowerCase();
     if (explicitLevel === 'required' || explicitLevel === 'preferred') {
@@ -2001,7 +2085,10 @@
   function collectAlerts(tests) {
     const alerts = [];
     tests.forEach(test => {
-      const note = test.specialInstructions.toLowerCase();
+      const note = String(test.specialInstructions || '').toLowerCase();
+      preCollectionPrecautions(test).forEach(req => {
+        alerts.push({ type: 'warning', text: `${displayCode(test)} ${test.testName}: ${req.note}` });
+      });
       if (test.status === 'blocked') alerts.push({ type: 'danger', text: `${test.testName}: marked do not perform.` });
       const sstYieldWarning = singleSstSpecimenVolumeWarning(test);
       if (sstYieldWarning) alerts.push({ type: 'danger', text: `${test.testName}: ${sstYieldWarning}` });
@@ -4166,6 +4253,11 @@
     // the next. This is strictly a print pagination rule, not a routing change.
     const bagStartOnFreshPage = bags.length > 0;
     const fastingItems = fastingRequirementsForTests(tests);
+    const preparationItems = preCollectionPrecautionsForTests(tests);
+    const preparationPanel = preparationItems.length ? `<div class="print-fasting-panel print-prep-panel">
+      <div class="print-fasting-panel-title"><strong>Collection precautions</strong><span>Check before the draw</span></div>
+      <div class="print-fasting-list">${preparationItems.map(({ test, requirement }) => `<div class="print-fasting-item print-prep-item"><span class="print-fasting-status print-prep-status">${escapeHtml(requirement.label)}</span><div><strong>${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</strong><small>${escapeHtml(requirement.note)}</small></div></div>`).join('')}</div>
+    </div>` : '';
     const fastingPanel = fastingItems.length ? `<div class="print-fasting-panel">
       <div class="print-fasting-panel-title"><strong>Fasting instructions</strong><span>Confirm before collection</span></div>
       <div class="print-fasting-list">${fastingItems.map(({ test, requirement }) => `<div class="print-fasting-item fasting-${requirement.level}"><span class="print-fasting-status">${escapeHtml(requirement.label)}</span><div><strong>${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</strong><small>${escapeHtml(requirement.note)}</small></div></div>`).join('')}</div>
@@ -4186,6 +4278,7 @@
         <div class="print-submit-bags">${bagLabels}</div>
       </div>
       ${fastingPanel}
+      ${preparationPanel}
 
       ${selectedTests().some(isCultureTransportEligible) ? `<div class="print-urine-culture-choice"><strong>Urine culture transport:</strong> ${selectedUrineCultureIsSponge() ? 'UriSponge' : 'Gray-top urine culture tube'}</div>` : ''}
       ${printOrderOfDraw(collectionTests)}
