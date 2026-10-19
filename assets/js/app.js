@@ -1985,6 +1985,12 @@
     if (/patient should avoid food high in indoles/i.test(notes)) {
       add('Diet · 3 days', 'Avoid indole-rich foods listed in the test instructions and avoid tobacco, tea, and coffee for 3 days before collection.');
     }
+    if (['10190', '36399'].includes(code) &&
+        /avoidance of vitamin supplements for 24 hours prior to collection is preferred/i.test(
+          [notes, test.fastingInstructions || ''].join(' '))) {
+      add('Vitamin supplements · 24h preferred',
+        'For this vitamin B2 test, avoiding vitamin supplements for 24 hours before collection is preferred (not required). Confirm any prescribed supplement changes with the ordering clinician.');
+    }
 
     if (/\bcollect in the morning from a fasting patient\b|\bsamples should be taken in the morning from patients in a fasting state\b/i.test(notes)) {
       add('Morning draw', 'Collect in the morning and follow the separately listed fasting instruction.');
@@ -1994,8 +2000,8 @@
       add('AM draw · 8–10', 'Draw in the morning, preferably 8–10 AM; the separate fasting warning applies.');
     }
 
-    if (/\bbiotin\b/i.test(notes) && /supplement|vitamin|consumption/i.test(notes) || code === '873') {
-      if (/at least 8 hours.{0,140}last biotin|at least 8 hours following.{0,140}biotin/i.test(notes) || code === '873') {
+    if (/\bbiotin\b/i.test(notes) && /supplement|vitamin|consumption/i.test(notes) || code === '873' || code === '7065') {
+      if (/at least 8 hours.{0,140}last biotin|at least 8 hours following.{0,140}biotin/i.test(notes) || code === '873' || code === '7065') {
         add('Biotin interference', 'Biotin can affect this assay. Quest advises at least 8 hours after typical supplementation and at least 72 hours after mega-doses. Review supplements and confirm timing with the clinician.');
       } else if (/72 hours prior|at least 72 hours prior/i.test(notes)) {
         add('Biotin · 72h', 'Lab directions call for avoiding biotin for at least 72 hours before the draw. Confirm changes to any prescribed supplements or therapy with the clinician.');
