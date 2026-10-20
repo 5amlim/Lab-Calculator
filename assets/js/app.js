@@ -2047,6 +2047,72 @@
     return tests.flatMap(test => preCollectionPrecautions(test).map(requirement => ({ test, requirement })));
   }
 
+  function isVariableLipidFasting(test) {
+    const note = String(test.fastingInstructions || '');
+    return /If a cholesterol measurement is to be performed along with triglycerides/i.test(note)
+      && /If the cholesterol is ordered as part of a lipid panel, then a fasting sample is not required/i.test(note);
+  }
+
+  function printFastingRequirement(test, requirement) {
+    if (!requirement) return null;
+    if (!isVariableLipidFasting(test)) return requirement;
+    return {
+      ...requirement,
+      label: 'Check fasting',
+      note: 'Lipid panel: fasting may not be needed. Cholesterol + triglycerides ordered separately: fast 9–12 hours. Therapeutic NAC may falsely lower cholesterol/uric acid; confirm with the ordering clinician.'
+    };
+  }
+
+  function printFastingBadge(test, className = '') {
+    const requirement = printFastingRequirement(test, fastingRequirement(test));
+    if (!requirement) return '';
+    return `<span class="fasting-badge fasting-${requirement.level} ${className}">${escapeHtml(requirement.label)}</span>`;
+  }
+
+  function printSpecialInstructions(test) {
+    let note = String(test.specialInstructions || '').trim();
+    if (!note) return '—';
+  
+    // Summarize only matching known boilerplate. All raw catalog records remain unchanged.
+    if (isVariableLipidFasting(test)) {
+      const longPrep = `Patient preparation: ${String(test.fastingInstructions || '').trim()}`;
+      if (note.includes(longPrep)) {
+        note = note.replace(longPrep,
+          'Fasting: see above. Therapeutic NAC may falsely lower cholesterol/uric acid.');
+      }
+      if (String(test.testCode) === '94220' &&
+          note.includes('Collection details: The assay manufacturer Beckman Coulter advises:')) {
+        note = note.replace(/Collection details: The assay manufacturer Beckman Coulter advises:[\s\S]*?(?=Unacceptable specimens:)/i, '');
+      }
+    }
+  
+    const routineSst = 'Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.';
+    const routineAllergen = 'Allow SST to clot and centrifuge; submit the spun SST. This is a Quest serum allergen workflow. If Quest routes the order to a different performing laboratory/service area, verify the current minimum volume and stability before collection.';
+    if (note === routineSst) return 'Clot 30–60 min, centrifuge and submit spun SST. No transfer unless directed.';
+    if (note === routineAllergen) return 'Clot and centrifuge SST; submit original spun tube. If referred, verify volume and stability.';
+  
+    note = note.replace(
+      /Dietary supplements containing biotin may interfere in assays and may skew analyte results to be either falsely high or falsely low\. For patients receiving the \w+ daily doses of biotin, draw samples at least 8 hours following the last biotin supplementation\. For patients on mega-doses of biotin supplements, draw samples at least 72 hours following the last biotin supplementation\./gi,
+      'Biotin may interfere: draw ≥8 h after standard supplements or ≥72 h after mega-doses; confirm with clinician.'
+    );
+  
+    if (String(test.testCode) === '34838') {
+      const original = `Patient preparation: ${String(test.fastingInstructions || '').trim()}`;
+      if (note.includes(original)) {
+        note = note.replace(original,
+          'Initial H. pylori stool test: no fasting or medication hold required. PPIs/antibiotics may cause false negatives; provider may repeat after a directed 2-week hold. Check eradication ≥4 weeks after treatment. Positive at 7 days may indicate failure. Pediatric specimens accepted.');
+      }
+    }
+  
+    const fastingNote = String(test.fastingInstructions || '').trim();
+    if (fastingNote && fastingNote.length < 130 &&
+        note.startsWith('Patient preparation: ' + fastingNote + ' ') &&
+        /^(?:required|preferred)$/i.test(String(test.fastingStatus || ''))) {
+      note = note.slice(('Patient preparation: ' + fastingNote + ' ').length);
+    }
+    return note.replace(/\s{2,}/g, ' ').trim() || 'See fasting/collection precautions above.';
+  }
+
   function fastingRequirement(test) {
     const explicitLevel = String(test.fastingStatus || '').toLowerCase();
     if (explicitLevel === 'required' || explicitLevel === 'preferred') {
@@ -4258,7 +4324,7 @@
     // bordered area on one page while moving the first unbreakable bag row to
     // the next. This is strictly a print pagination rule, not a routing change.
     const bagStartOnFreshPage = bags.length > 0;
-    const fastingItems = fastingRequirementsForTests(tests);
+    const fastingItems = fastingRequirementsForTests(tests).map(({ test, requirement }) => ({ test, requirement: printFastingRequirement(test, requirement) }));
     const preparationItems = preCollectionPrecautionsForTests(tests);
     const preparationPanel = preparationItems.length ? `<div class="print-fasting-panel print-prep-panel">
       <div class="print-fasting-panel-title"><strong>Collection precautions</strong><span>Check before the draw</span></div>
@@ -4326,7 +4392,11 @@
   function printSummary() {
     const tests = selectedTests();
     if (!tests.length) return showToast('Add at least one test before printing.');
-    const alerts = collectAlerts(tests);
+    // Pre-draw warnings already appear in Collection precautions.
+    const preparationTexts = new Set(tests.flatMap(test =>
+      preCollectionPrecautions(test).map(req => `${displayCode(test)} ${test.testName}: ${req.note}`)
+    ));
+    const alerts = collectAlerts(tests).filter(alert => !preparationTexts.has(alert.text));
     els.printSheet.innerHTML = `
       <div class="print-header">
         <div><h1 class="print-title">Lab Collection Summary</h1><div class="print-subtitle">Send-out workflow</div></div>
@@ -4338,7 +4408,7 @@
       <table class="print-table">
         <colgroup><col style="width:6%"><col style="width:14%"><col style="width:7%"><col style="width:10%"><col style="width:10%"><col style="width:5%"><col style="width:8%"><col style="width:7%"><col style="width:8%"><col style="width:25%"></colgroup>
         <thead><tr><th>Code</th><th>Test</th><th>Specimen</th><th>Draw container</th><th>Transport tube</th><th>Spin</th><th>Temperature</th><th>Volume</th><th>Stability</th><th>Special handling</th></tr></thead>
-        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><div class="print-test-name-stack"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${fastingBadge(test, 'print-test-fasting-badge')}</div>${test.alternativeContainer ? `<div class="print-test-alternative">Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span></div>` : ''}${additionalRequirementSummary(test, true)}</td><td>${requiredSpecimenBadges(test, 'print-specimen-badge')}</td><td>${requiredDrawContainerBadges(test, 'print-tube-badge')}</td><td>${printContainerBadges(test)}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">${escapeHtml(combinedVolumeText(test, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(combinedVolumeText(test, 'minimum') || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(test.specialInstructions || '—')}</td></tr>`).join('')}</tbody>
+        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><div class="print-test-name-stack"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}</div>${test.alternativeContainer ? `<div class="print-test-alternative">Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span></div>` : ''}${additionalRequirementSummary(test, true)}</td><td>${requiredSpecimenBadges(test, 'print-specimen-badge')}</td><td>${requiredDrawContainerBadges(test, 'print-tube-badge')}</td><td>${printContainerBadges(test)}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">${escapeHtml(combinedVolumeText(test, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(combinedVolumeText(test, 'minimum') || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(printSpecialInstructions(test))}</td></tr>`).join('')}</tbody>
       </table>
       </section>
       ${printNotesFooter()}
