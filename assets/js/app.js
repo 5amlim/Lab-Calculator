@@ -3883,7 +3883,7 @@
       const specimenCue = `<span class="print-source-specimen source-${specimen.color}">${escapeHtml(specimen.label)}</span>`;
       // The upward arrow sits before the intact pill, while specimen identity,
       // From spun/source wording, tube icon and quantity all remain inside it.
-      return `<span class="print-source-group"><span class="print-source-transfer-arrow" aria-hidden="true">↑</span><span class="print-source-transfer-word">Transfer</span><span class="print-source-tube-badge tube ${displayClass}">${countBadge}${specimenCue}<span class="print-source-from">From</span><span class="print-source-origin">${spun ? 'spun ' : ''}${escapeHtml(sourceLabel)}</span></span>${spun ? '<span class="print-source-spun">· Spin ✓</span>' : ''}</span>`;
+      return `<span class="print-source-group"><span class="print-source-transfer-arrow" aria-hidden="true">↑</span><span class="print-source-transfer-word">Transfer</span><span class="print-source-tube-badge tube ${displayClass}">${countBadge}${specimenCue}<span class="print-source-from">from</span><span class="print-source-origin">${spun ? '<span class="print-source-spun-label">Spun</span> ' : ''}<span class="print-source-tube-name">${escapeHtml(sourceLabel)}</span></span></span>${spun ? '<span class="print-source-spun">· Spin ✓</span>' : ''}</span>`;
     }).join('')}</span>`;
   }
 
@@ -4297,7 +4297,7 @@
           <strong>What to submit after processing</strong>
           <div class="print-submit-heading-summary">
             <span class="print-submit-bag-types">${bagDisplayOrder.map(({ bag }) => {
-              const shortLabel = bag.label.replace(/\s+bag$/i, '').replace('Room-temperature', 'Room temp').replace('Refrigerated', 'Cold');
+              const shortLabel = bag.label.replace(/\s+bag$/i, '').replace('Room-temperature', 'Room temp');
               return `<span>${escapeHtml(shortLabel)}</span>`;
             }).join('')}</span>
             <span class="print-submit-bag-count"><b>${bags.length}</b> ${bags.length === 1 ? 'bag' : 'bags'}</span>

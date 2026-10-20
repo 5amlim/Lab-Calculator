@@ -3515,3 +3515,25 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     line-height: 1.13;
   }
 }
+
+/* v11.91: Color only the wording in transfer source pills.
+   No changes to pill fills, borders, tube icons or spacing. */
+@media print {
+  .print-sheet .print-source-tube-badge .print-source-from { color: #58666e !important; }
+  .print-sheet .print-source-tube-badge .print-source-spun-label { color: #247789 !important; }
+  .print-sheet .print-source-tube-badge .print-source-tube-name { color: #43525a !important; }
+  .print-sheet .print-source-tube-badge.tube-sst .print-source-tube-name,
+  .print-sheet .print-source-tube-badge.tube-tiger-sst .print-source-tube-name,
+  .print-sheet .print-source-tube-badge.tube-microtainer .print-source-tube-name { color: #865b05 !important; }
+  .print-sheet .print-source-tube-badge.tube-lavender .print-source-tube-name,
+  .print-sheet .print-source-tube-badge.tube-pink .print-source-tube-name { color: #7547a3 !important; }
+  .print-sheet .print-source-tube-badge.tube-red .print-source-tube-name { color: #9b332d !important; }
+  .print-sheet .print-source-tube-badge.tube-green .print-source-tube-name { color: #247347 !important; }
+  .print-sheet .print-source-tube-badge.tube-blue .print-source-tube-name,
+  .print-sheet .print-source-tube-badge.tube-royal .print-source-tube-name,
+  .print-sheet .print-source-tube-badge.tube-royal-edta .print-source-tube-name,
+  .print-sheet .print-source-tube-badge.tube-royal-heparin .print-source-tube-name,
+  .print-sheet .print-source-tube-badge.tube-royal-no-additive .print-source-tube-name { color: #285a96 !important; }
+  .print-sheet .print-source-tube-badge.tube-gray .print-source-tube-name { color: #4d5d66 !important; }
+  .print-sheet .print-source-tube-badge.tube-yellow .print-source-tube-name { color: #80630b !important; }
+}
