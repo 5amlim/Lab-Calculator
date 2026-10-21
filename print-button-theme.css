@@ -1,28 +1,40 @@
-/* Shared Print / Save PDF action color across Quest and Cedars.
-   Purple is reserved for print actions; all other lab-specific colors remain. */
+/* Original teal Print / Save PDF buttons for Quest and Cedars.
+   Disabled buttons retain the application's existing lower opacity. */
 @media screen {
   :root {
-    --print-action: #7142a4;
-    --print-action-hover: #573080;
-    --print-action-ring: rgba(113, 66, 164, .25);
+    --print-action: #087e83;
+    --print-action-hover: #056267;
+    --print-action-ring: rgba(8, 126, 131, .25);
   }
-  #printButton.button.primary.cart-header-print:not(:disabled) {
+  #printButton.button.primary.cart-header-print,
+  .cedars-page #cedarsPrint.button.primary.cart-header-print {
     background: var(--print-action) !important;
     border-color: var(--print-action) !important;
     color: #fff !important;
   }
-  #printButton.button.primary.cart-header-print:hover:not(:disabled) {
+  #printButton.button.primary.cart-header-print:hover:not(:disabled),
+  .cedars-page #cedarsPrint.button.primary.cart-header-print:hover:not(:disabled) {
     background: var(--print-action-hover) !important;
     border-color: var(--print-action-hover) !important;
     color: #fff !important;
   }
-  #printButton.button.primary.cart-header-print:focus-visible {
+  #printButton.button.primary.cart-header-print:focus-visible,
+  .cedars-page #cedarsPrint.button.primary.cart-header-print:focus-visible {
     outline: 3px solid var(--print-action) !important;
     outline-offset: 3px;
   }
-  .cedars-page #cedarsPrint.button.primary.cart-header-print:not(:disabled) { background:#087e83 !important; border-color:#087e83 !important; color:#fff !important; }
-  .cedars-page #cedarsPrint.button.primary.cart-header-print:hover:not(:disabled) { background:#056267 !important; border-color:#056267 !important; }
-  .cedars-page #cedarsPrint.button.primary.cart-header-print:focus-visible { outline:3px solid #087e83 !important; outline-offset:3px; }
-  #printButton.cart-header-print, .cedars-page #cedarsPrint.cart-header-print { display:inline-flex !important; align-items:center; justify-content:center; gap:9px; }
-  #printButton .print-button-icon, #cedarsPrint .print-button-icon { width:18px; height:18px; flex:0 0 18px; color:inherit; }
+  #printButton.cart-header-print,
+  .cedars-page #cedarsPrint.cart-header-print {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+  }
+  #printButton .print-button-icon,
+  #cedarsPrint .print-button-icon {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    color: inherit;
+  }
 }
