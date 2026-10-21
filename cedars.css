@@ -1214,9 +1214,13 @@
     background:#34222b;
     border-bottom:4px solid #a34450;
   }
-  .cedars-page .app-header p,
-  .cedars-page .app-header .privacy-pill {
+  .cedars-page .app-header p {
     color:#e1cbd2;
+  }
+  .cedars-page .app-header .privacy-pill {
+    background:#563541;
+    border-color:#865564;
+    color:#f6e4e9;
   }
   .cedars-page .eyebrow,
   .cedars-page .panel-heading .eyebrow {
