@@ -20,9 +20,9 @@
     outline: 3px solid var(--print-action) !important;
     outline-offset: 3px;
   }
-  .cedars-page #cedarsPrint.button.primary.cart-header-print:not(:disabled) { background:#8a3441 !important; border-color:#8a3441 !important; color:#fff !important; }
-  .cedars-page #cedarsPrint.button.primary.cart-header-print:hover:not(:disabled) { background:#69232f !important; border-color:#69232f !important; }
-  .cedars-page #cedarsPrint.button.primary.cart-header-print:focus-visible { outline:3px solid #8a3441 !important; outline-offset:3px; }
+  .cedars-page #cedarsPrint.button.primary.cart-header-print:not(:disabled) { background:#087e83 !important; border-color:#087e83 !important; color:#fff !important; }
+  .cedars-page #cedarsPrint.button.primary.cart-header-print:hover:not(:disabled) { background:#056267 !important; border-color:#056267 !important; }
+  .cedars-page #cedarsPrint.button.primary.cart-header-print:focus-visible { outline:3px solid #087e83 !important; outline-offset:3px; }
   #printButton.cart-header-print, .cedars-page #cedarsPrint.cart-header-print { display:inline-flex !important; align-items:center; justify-content:center; gap:9px; }
   #printButton .print-button-icon, #cedarsPrint .print-button-icon { width:18px; height:18px; flex:0 0 18px; color:inherit; }
 }
