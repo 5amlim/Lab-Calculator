@@ -3537,3 +3537,55 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-sheet .print-source-tube-badge.tube-gray .print-source-tube-name { color: #4d5d66 !important; }
   .print-sheet .print-source-tube-badge.tube-yellow .print-source-tube-name { color: #80630b !important; }
 }
+
+
+/* Plain temperature emojis for the Quest printout.
+   The temperature label remains visible; no icon background, border or pill. */
+@media print {
+  .print-bag-title {
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    column-gap:7px;
+    row-gap:3px;
+  }
+  .print-temperature-emoji {
+    display:inline-block !important;
+    flex:0 0 auto;
+    vertical-align:middle;
+    min-width:0 !important;
+    min-height:0 !important;
+    padding:0 !important;
+    margin:0 !important;
+    background:transparent !important;
+    border:0 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+    color:inherit !important;
+    font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
+    font-size:12.5px !important;
+    font-weight:normal;
+    line-height:1.2;
+    letter-spacing:0;
+    white-space:nowrap;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  .print-bag-pill {
+    display:inline-flex !important;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:5px;
+    padding:3px 5px 3px 8px !important;
+  }
+  .print-bag-short-label {
+    display:inline-flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:4px;
+  }
+  .print-bag-pill .print-temperature-emoji,
+  .print-bag-short-label .print-temperature-emoji {
+    font-size:10px !important;
+  }
+}

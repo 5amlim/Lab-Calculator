@@ -3,20 +3,46 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lab Collection Calculator</title>
-  <meta name="description" content="Batch-search and print-friendly specimen collection planning from a curated local test directory.">
-  <link rel="stylesheet" href="assets/css/styles.css?v=11.91">
+  <link rel="icon" href="assets/lab-favicon.svg?v=1" type="image/svg+xml">
+  <title>Quest Lab Calculator | Specimen Collection and Processing</title>
+  <meta name="description" content="Quest Lab Calculator: search tests, review specimen collection and processing requirements, and prepare organized send-out instructions.">
+  <link rel="stylesheet" href="assets/css/styles.css?v=11.97">
   <link rel="stylesheet" href="assets/css/experience.css?v=11.80">
+  <link rel="stylesheet" href="market-switch.css?v=7">
+  <link rel="stylesheet" href="quest-theme.css?v=4">
+  <link rel="stylesheet" href="print-button-theme.css?v=2">
 </head>
 <body>
   <a class="skip-link" href="#libraryFilter">Skip to test search</a>
   <header class="app-header no-print">
     <div class="header-title">
-      <h1>Lab Collection Calculator</h1>
-      <p>Add tests and print collection instructions.</p>
+      <h1>Quest Lab Calculator</h1>
+      <p>Search Quest tests and print collection and submission instructions.</p>
     </div>
     <div class="header-actions">
       <span class="privacy-pill">No patient information required</span>
+      <details class="lab-select lab-select--quest">
+        <summary aria-label="Select Lab, currently Quest">
+          <span class="lab-select-indicator" aria-hidden="true"></span>
+          <span class="lab-select-summary-text">
+            <span class="lab-select-label">Select Lab</span>
+            <strong class="lab-select-current">Quest</strong>
+          </span>
+          <svg class="lab-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <nav class="lab-select-menu" aria-label="Choose receiving laboratory">
+          <a class="lab-select-choice quest" href="index.html" aria-current="page">
+            <span class="lab-select-choice-marker" aria-hidden="true"></span>
+            <span class="lab-select-choice-copy"><strong>Quest</strong><small>Default lab</small></span>
+            <span class="lab-select-choice-state">Selected</span>
+          </a>
+          <a class="lab-select-choice cedars" href="cedars.html">
+            <span class="lab-select-choice-marker" aria-hidden="true"></span>
+            <span class="lab-select-choice-copy"><strong>Cedars</strong><small>Cedars-Sinai Lab</small></span>
+            
+          </a>
+        </nav>
+      </details>
     </div>
   </header>
 
@@ -181,7 +207,7 @@
             <button class="mini-button remove" id="clearOrderButton" type="button">Clear all</button>
           </div>
           <button class="mini-button edit tests-details-toggle" id="testsDetailsButton" type="button" aria-expanded="false" aria-controls="testsOverviewList testsDetailsPanel"><span class="collection-alerts-chevron" aria-hidden="true"></span><span class="tests-details-label">Show details</span></button>
-          <button class="button primary cart-header-print" id="printButton" type="button">Print / Save PDF</button>
+          <button class="button primary cart-header-print" id="printButton" type="button"><svg class="print-button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="10" rx="2"/><path d="M6 15h12v6H6z"/><path d="M17.5 12.5h.01"/></svg><span>Print / Save PDF</span></button>
         </div>
         <div class="cart-tests-viewport" id="cartTestsViewport" role="region" aria-label="Selected tests, scroll for more" tabindex="0">
           <div id="testsOverviewList" class="tests-overview-list empty-state">No tests selected.</div>
@@ -377,8 +403,9 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script src="assets/js/data.js?v=11.84"></script>
-  <script src="assets/js/app.js?v=11.92"></script>
+  <script src="assets/js/data.js?v=11.85"></script>
+  <script src="assets/js/app.js?v=11.98"></script>
   <script src="assets/js/portal-selects.js?v=11.84"></script>
+  <script src="assets/js/lab-select.js?v=1"></script>
 </body>
 </html>

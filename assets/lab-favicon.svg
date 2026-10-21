@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Lab Collection Calculator</title>
+  <rect width="64" height="64" rx="14" fill="#1d3748"/>
+  <g transform="rotate(-32 32 32)">
+    <path d="M25 17V43C25 51.3 29 55 34 55S43 51.3 43 43V17" fill="#eff8fa" stroke="#f6fbfc" stroke-width="3.2" stroke-linejoin="round"/>
+    <path d="M28 36H40V43C40 49 37.7 52 34 52S28 49 28 43Z" fill="#ba495b"/>
+    <rect x="22" y="10" width="24" height="10" rx="3" fill="#3da78b" stroke="#f3fbfc" stroke-width="2"/>
+    <path d="M29 23V35" stroke="#fff" stroke-width="2.3" stroke-linecap="round" opacity=".92"/>
+  </g>
+</svg>

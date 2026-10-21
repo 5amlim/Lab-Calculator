@@ -2363,6 +2363,31 @@
   }
 
 
+  // Printed labels put the emoji in its own high-contrast badge after BAG.
+  // The written temperature stays visible even without emoji font support.
+  function printBagTemperatureType(bag) {
+    const key = String(bag.key || '').split('|')[0].toLowerCase();
+    return ['room','refrigerated','frozen','mixed','verify'].includes(key) ? key :
+      String(bag.className || '').includes('bag-room') ? 'room' :
+      String(bag.className || '').includes('bag-refrigerated') ? 'refrigerated' :
+      String(bag.className || '').includes('bag-frozen') ? 'frozen' :
+      String(bag.className || '').includes('bag-mixed') ? 'mixed' : 'verify';
+  }
+  function printBagTemperatureLabel(bag, short = false) {
+    const labels = {
+      room:'ROOM TEMPERATURE', refrigerated:'REFRIGERATED',
+      frozen:'FROZEN', mixed:'MIXED / VERIFY', verify:'VERIFY TEMPERATURE'
+    };
+    const label = labels[printBagTemperatureType(bag)];
+    return label + (short ? '' : ' BAG');
+  }
+  function printBagTemperatureBadge(bag) {
+    const type = printBagTemperatureType(bag);
+    const icons = {room:'🌡️',refrigerated:'❄️',frozen:'❄️❄️',
+      mixed:'⚠️',verify:'⚠️'};
+    return '<span class="print-temperature-emoji" aria-hidden="true">' + icons[type] + '</span>';
+  }
+
   function transportBagInfo(test) {
     const normalized = String(test.transportTemperature || '').trim();
     const value = (normalized && normalized !== 'Not specified'
@@ -4296,7 +4321,7 @@
     const bagLabels = [...bags].sort((a, b) =>
       Number(a.isStat) - Number(b.isStat) ||
       transportBagInfo(a.tests[0]).order - transportBagInfo(b.tests[0]).order
-    ).map(bag => `<span class="print-bag-pill ${bag.className}">${escapeHtml(bag.label)}</span>`).join('');
+    ).map(bag => `<span class="print-bag-pill ${bag.className}">${bag.isStat ? 'STAT · ' : ''}${escapeHtml(printBagTemperatureLabel(bag, true))}${printBagTemperatureBadge(bag)}</span>`).join('');
     // Render shipping bags in paired rows. Each pair has matching heights,
     // which keeps the next bag row together during printed page breaks instead
     // of leaving a short isolated bag and a large area of empty purple space.
@@ -4363,18 +4388,17 @@
           <strong>What to submit after processing</strong>
           <div class="print-submit-heading-summary">
             <span class="print-submit-bag-types">${bagDisplayOrder.map(({ bag }) => {
-              const shortLabel = bag.label.replace(/\s+bag$/i, '').replace('Room-temperature', 'Room temp');
-              return `<span>${escapeHtml(shortLabel)}</span>`;
+              return `<span class="print-bag-short-label">${escapeHtml(printBagTemperatureLabel(bag, true))}${printBagTemperatureBadge(bag)}</span>`;
             }).join('')}</span>
             <span class="print-submit-bag-count"><b>${bags.length}</b> ${bags.length === 1 ? 'bag' : 'bags'}</span>
           </div>
         </div>
         <div class="print-bag-grid${bags.length === 1 ? ' single-bag' : ''}">${bagRows.map((row, rowIndex) => `<div class="print-bag-row${row.length === 1 ? ' single-row' : ''}">${row.map(({ bag, contents, totalContainers }, columnIndex) => {
-          const bagName = bag.isStat ? bag.label.replace(/^STAT\s*·\s*/i, '') : bag.label;
+          const bagName = printBagTemperatureLabel(bag);
           const bagNumber = rowIndex * 2 + columnIndex + 1;
           return `<article class="print-bag-card ${bag.className} ${bag.isStat ? 'bag-stat' : 'bag-routine'}${contents.length > 11 ? ' bag-long' : ''}">
             <div class="print-bag-topbar"><span class="print-bag-topbar-label">Bag</span><span class="print-bag-priority ${bag.isStat ? 'priority-stat' : 'priority-routine'}">${bag.isStat ? 'STAT' : 'Routine'}</span><span class="print-bag-topbar-index" aria-label="Bag ${bagNumber} of ${bags.length}">${bagNumber}/${bags.length}</span></div>
-            <div class="print-bag-card-header"><div><div class="print-bag-title"><strong>${escapeHtml(bagName)}</strong></div><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-header-right"><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div></div>
+            <div class="print-bag-card-header"><div><div class="print-bag-title"><strong>${escapeHtml(bagName)}</strong>${printBagTemperatureBadge(bag)}</div><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-header-right"><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div></div>
             <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
               <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}"><span class="print-submit-container-name">${escapeHtml(item.originalTube && item.key === 'sst-spun' ? (selectedSstIsTiger() ? 'Tiger SST (Spun)' : 'Gold SST (Spun)') : item.label)}</span></span>${printSstTigerBadge(item)}${printBagSpecimenBadge(item)}</div>
               ${printSubmissionItemDetail(item)}
@@ -4399,7 +4423,7 @@
     const alerts = collectAlerts(tests).filter(alert => !preparationTexts.has(alert.text));
     els.printSheet.innerHTML = `
       <div class="print-header">
-        <div><h1 class="print-title">Lab Collection Summary</h1><div class="print-subtitle">Send-out workflow</div></div>
+        <div><h1 class="print-title">Quest Collection Summary</h1><div class="print-subtitle">Send-out workflow</div></div>
         <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<span class="print-selected-count">${tests.length} selected ${tests.length === 1 ? 'test' : 'tests'}</span></div>
       </div>
       ${printCollectionSubmissionPlan(tests)}

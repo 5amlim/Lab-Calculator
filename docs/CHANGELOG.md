@@ -1,3 +1,11 @@
+## v11.98: Cedars lab integration and Quest print refresh (October 21, 2026)
+
+- Incorporated the Cedars-Sinai test directory, separate planner, reference photos, specimen-container guide, and printing workflow from the Quest-Calculator-Test repository.
+- Added the Quest/Cedars lab selector, with separate carts and requirements, plus updated lab-specific branding, favicon, and shared print styling.
+- Updated Quest printout bag temperature text and symbols, including frozen bag markings, while retaining existing pooling and STAT processing logic.
+- Synced the Quest directory's Vitamin D, 25-Hydroxy, Total, Immunoassay test name correction.
+- Kept the existing Lab-Calculator documentation and historical audit files. Source: Quest-Calculator-Test main snapshot 441e97481034ae86d1532f69c6a7540edf319e25.
+
 ## v11.80: One original-tube transport option
 
 - Removed the duplicate "Whole Blood / Original Tube" option from the Add/Edit Test transport menu.

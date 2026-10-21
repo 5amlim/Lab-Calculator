@@ -27435,7 +27435,7 @@ window.SEED_TESTS = [
   {
     "id": "seed-115",
     "testCode": "17306",
-    "testName": "Vit D, 25-OH",
+    "testName": "Vitamin D, 25-Hydroxy, Total, Immunoassay",
     "specimenType": "Serum",
     "drawContainer": "SST / Gold",
     "alternativeContainer": "",

@@ -1,35 +1,43 @@
 # Lab Collection Calculator
 
-A tool for planning specimen collection and processing when sending multiple tests to the lab. Search by test name or code, add the tests to your cart, and use the combined printout instead of looking up each test separately.
+A browser-based reference for laboratory specimen collection, processing, and send-out preparation. The site provides separate Quest and Cedars-Sinai workflows so staff can search tests, review collection and submission containers, and prepare a printable collection plan.
 
-## How to use it
+**Live application:** https://5amlim.github.io/Lab-Calculator/
 
-1. Search for a test and add it to the cart. Repeat for all ordered tests.
-2. Choose the collection options used at your location, such as Gold or Tiger SST and the urine culture container.
-3. If a test is STAT, select the receiving lab and mark it STAT.
-4. Review **What to Collect**, **What to Submit**, and the bag instructions before preparing the specimens.
-5. Print the summary and use it during collection and processing.
+## Lab calculators
 
-The calculator groups compatible specimens where possible and separates STAT from routine submissions. Bags are also organized by transport temperature.
+| Calculator | Features | Link |
+| --- | --- | --- |
+| Quest Lab Calculator | Test-code and name search, multiple-test collection plans, collection volumes, container estimates, processing instructions, STAT options, and temperature-organized submission groups | [Open Quest](https://5amlim.github.io/Lab-Calculator/) |
+| Cedars Lab Guide | Searchable test directory, illustrated collection and submission containers, specimen-source information, handling notes, and a separate print summary | [Open Cedars](https://5amlim.github.io/Lab-Calculator/cedars.html) |
 
-If a test is missing, use **Add Missing Test** to enter its collection and processing requirements. Tests added manually are saved in your browser, not in the shared test directory.
+Use the **Select Lab** dropdown to move between calculators. The main site opens on Quest. The calculators maintain separate lists and requirements.
 
-## Files
+## Project structure
 
-- `index.html` - Main page
-- `assets/js/` - Test directory, calculator logic, and menus
-- `assets/css/` - Page layout and print styles
-- `docs/` - Supporting documents, sources, and change history
-- `VERSION.txt` - Current version
+| File or folder | Purpose |
+| --- | --- |
+| `index.html` | Quest calculator interface |
+| `assets/js/data.js` | Quest reference test records |
+| `assets/js/app.js` | Quest search, planning, and print logic |
+| `assets/css/` | Shared interface and print layouts |
+| `quest-theme.css` | Quest visual theme |
+| `cedars.html` | Cedars interface |
+| `cedars-data.js` | Cedars test records |
+| `cedars-app.js` | Cedars search, planning, and print logic |
+| `cedars.css`, `cedars-container-art.js` | Cedars styles and specimen illustrations |
+| `cedars-container-guide.html` | Printable Cedars submission-container reference |
+| `market-switch.css`, `assets/js/lab-select.js` | Laboratory navigation |
+| `print-button-theme.css` | Shared print-action styling |
 
-## Updating the site
+This is a static website. The calculators operate in the browser; they do not require a hosted application server.
 
-The calculator is hosted through GitHub Pages. Keep `index.html`, `assets/`, `docs/`, and `.nojekyll` in the repository. The page needs the files in `assets/` to work.
+## Collection and specimen safety
 
-After an update, refresh the site. You may need to do a hard refresh if the previous version is still showing.
+The calculator is a workflow reference, not a replacement for the receiving laboratory's current test directory, specimen acceptance criteria, or internal laboratory procedures. Verify test-specific requirements, stability, processing, and transport before collecting or submitting specimens. Separate specimens when required and check current STAT routing and availability.
 
-## Notes
+**Do not enter patient identifiers or protected health information.**
 
-This is a collection and processing aid. Confirm any unclear or changing requirements with the receiving lab's current test directory and your site's procedures.
+## Ownership
 
-Manually added tests are stored in your browser's local storage. They will not automatically appear on another device and may be lost if browser data is cleared.
+Proprietary software. See [LICENSE.md](LICENSE.md) for permitted use and licensing terms. Third-party laboratory names and trademarks belong to their respective owners. This independent resource is not represented as an official Quest Diagnostics or Cedars-Sinai product.

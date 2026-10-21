@@ -1,0 +1,2879 @@
+/* Cedars-specific adjustments to the shared v11.92 production visual language.
+   Only the Cedars page loads this file. Quest calculator styles are unchanged. */
+
+/* Make the keyboard skip link available without leaving a stray link onscreen. */
+.cedars-page .skip-link:not(:focus-visible) {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+.cedars-page .skip-link:focus-visible {
+  position: fixed;
+  z-index: 9999;
+  top: 10px;
+  left: 15px;
+  padding: 10px 15px;
+  color: #fff;
+  background: #084b54;
+  border-radius: 8px;
+}
+.cedars-page .header-actions .cedars-back { white-space: nowrap; }
+.cedars-shell .library-heading { margin-bottom: 13px; }
+.cedars-shell .library-panel { min-width: 0; }
+.cedars-source-strip {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid #e4e9e9;
+  border-radius: 9px;
+  background: #f7fafb;
+  color: #52676e;
+  padding: 8px 11px;
+  margin-bottom: 17px;
+  font-size: 11px;
+  line-height: 1.45;
+}
+.cedars-reference-pill {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  color: #466a75;
+  background: #e5f0f3;
+  border: 1px solid #cbdfe4;
+  border-radius: 99px;
+  padding: 3px 7px;
+  font-size: 10px;
+  font-weight: 850;
+}
+.cedars-shell .cedars-batch {
+  margin: 0 0 15px;
+}
+.cedars-shell .cedars-batch .batch-entry-heading { margin-bottom: 9px; }
+.cedars-shell .cedars-batch .batch-entry-heading h3 { margin-bottom: 3px; }
+.cedars-shell .cedars-batch .batch-entry-description { font-size: 12px; line-height: 1.45; color: var(--muted); }
+.cedars-shell #batchInput { min-height: 90px; resize: vertical; font-size: 14px; line-height: 1.5; }
+.cedars-shell .search-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.cedars-shell .search-actions .button.primary { order: 3; }
+.cedars-shell .batch-keyboard-hint { margin: 6px 0 0; text-align: right; font-size: 10px; color: var(--muted); }
+.cedars-feedback {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  line-height: 1.55;
+  font-size: 12px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #dce5e9;
+  background: #fff;
+}
+.cedars-feedback .mini-button { margin: 0; padding: 4px 7px; vertical-align: baseline; }
+
+/* Same search + Filters pattern as the current production calculator. */
+.cedars-shell .cedars-filter {
+  grid-template-columns: minmax(0,1fr) 160px;
+  gap: 9px;
+  align-items: end;
+  margin-bottom: 12px;
+}
+.cedars-shell .catalog-filter-control { position: relative; min-width: 0; }
+.cedars-shell .catalog-filter-toggle { width: 100%; justify-content: center; min-height: 42px; }
+.cedars-shell .catalog-filter-panel {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 6px);
+  /* Anchor to the LEFT edge of Filters; right alignment clipped the panel
+     off-screen because the v11.92 filter button is only 175px wide. */
+  left: 0;
+  right: auto;
+  width: min(430px, calc(100vw - 32px));
+  max-width: calc(100vw - 32px);
+  max-height: min(500px, 68vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: 0 14px 38px rgba(24,45,55,.17);
+}
+.cedars-shell .catalog-filter-panel.hidden { display: none !important; }
+.cedars-shell .catalog-filter-check {
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.cedars-shell .catalog-filter-check input { width: auto; flex: 0 0 auto; }
+.cedars-shell .table-wrap { max-width: 100%; }
+.cedars-shell .cedars-library { min-width: 770px; }
+.cedars-shell .cedars-library th,
+.cedars-shell .cedars-library td { vertical-align: middle; }
+.cedars-shell .cedars-library td { font-size: 12px; line-height: 1.45; }
+.cedars-shell .cedars-library .test-name { font-size: 12px; }
+.cedars-shell .cedars-library .subtext { font-size: 10.5px; }
+.cedars-shell .cedars-library .code-cell { font-size: 11px; white-space: nowrap; }
+.cedars-shell .cedars-library .row-actions {
+  min-width: 106px;
+  white-space: nowrap;
+  text-align: right;
+}
+.cedars-shell .cedars-library .row-actions .mini-button { margin: 2px 0 2px 3px; }
+.cedars-specimen-name { font-weight: 720; }
+.cedars-volume-unknown { font-size: 11px !important; color: #7a878c; }
+.cedars-row-source { margin-top: 3px; }
+.cedars-hold {
+  display: inline-flex;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 7px;
+  border-radius: 99px;
+  margin-top: 6px;
+  background: #fff2d7;
+  color: #795410;
+}
+.cedars-shell .library-help { font-size: 11px; }
+
+/* Compact v11.92 cart header and expandable detail behavior. */
+.cedars-shell .order-panel { min-width: 0; }
+.cedars-shell .order-top { margin-bottom: 10px; }
+.cedars-shell .summary-section.tests-summary { margin-top: 11px; padding: 0; }
+.cedars-shell .cedars-cart-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+.cedars-cart-header .tests-summary-heading-block { min-width: 0; grid-column: 1; }
+.cedars-cart-header .tests-summary-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+  grid-column: 2;
+  white-space: nowrap;
+}
+.cedars-cart-header .tests-summary-actions .mini-button { margin: 0; }
+.cedars-cart-header .tests-details-toggle {
+  grid-column: 1;
+  justify-self: start;
+  margin-left: 0;
+}
+.cedars-cart-header .cart-header-print {
+  grid-column: 2;
+  justify-self: end;
+  min-height: 32px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.cedars-summary-notice {
+  padding: 9px 11px;
+  background: #fff9ed;
+  border: 1px solid #ecdeb8;
+  color: #69542a;
+  border-radius: 9px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.cedars-summary-notice strong { font-weight: 800; }
+.cedars-shell .cart-tests-viewport { max-height: 240px; overflow: auto; }
+.cedars-cart-list .cedars-empty { margin: 0; }
+.cedars-cart-item {
+  border-bottom: 1px solid #e9eef0;
+  padding: 9px 11px;
+  background: #fff;
+}
+.cedars-cart-item:last-child { border-bottom: 0; }
+.cedars-cart-top { display: flex; gap: 9px; align-items: center; justify-content: space-between; }
+.cedars-cart-heading { flex: 1 1 0; min-width: 0; }
+.cedars-cart-heading strong {
+  display: block;
+  font-size: 12px;
+  color: #1c3039;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+.cedars-cart-heading small,
+.cedars-source,
+.cedars-plan-row small,
+.cedars-bag-line small {
+  display: block;
+  color: #6f8088;
+  font-size: 10.5px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.cedars-cart-top .mini-button.remove { margin: 0; font-size: 10px; }
+.cedars-cart-details { border-top: 1px solid #edf1f3; margin-top: 9px; padding-top: 8px; display: grid; gap: 4px; color: #506671; font-size: 11px; line-height: 1.5; }
+.cedars-cart-details b { color: #1f444d; }
+.cedars-cart-details p { margin: 4px 0 0; }
+.cedars-source { font-style: italic; margin-top: 4px; }
+.cedars-shell .cart-collapse { margin-top: 9px; }
+.cedars-shell .cart-collapse-body { padding: 12px; }
+.cedars-mini-note { margin: 0 0 11px; font-size: 10.5px; color: #6f8188; line-height: 1.5; }
+.cedars-empty { padding: 15px 10px; color: #71818a; font-size: 12px; }
+.cedars-plan-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  border: 1px solid #e0e8ed;
+  border-radius: 9px;
+  padding: 10px 11px;
+  margin-bottom: 8px;
+  background: #fff;
+}
+.cedars-plan-row:last-child { margin-bottom: 0; }
+.cedars-plan-row strong { display: block; color: #243d46; font-size: 12px; line-height: 1.45; overflow-wrap: anywhere; }
+.cedars-count {
+  display: inline-flex;
+  min-width: 32px;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  padding: 4px 7px;
+  border-radius: 7px;
+  color: #18535f;
+  font-size: 12px;
+  font-weight: 850;
+  background: #e5f2f4;
+}
+.cedars-bag { border: 1px solid #e0e7eb; border-radius: 10px; overflow: hidden; margin-bottom: 9px; }
+.cedars-bag:last-child { margin-bottom: 0; }
+.cedars-bag-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 11px;
+  border-bottom: 1px solid #e5ecef;
+  background: #f7fafb;
+}
+.cedars-bag-header>span:last-child { color: #75838a; font-weight: 700; font-size: 10px; white-space: nowrap; }
+.cedars-bag-line { padding: 8px 11px; border-bottom: 1px solid #eef2f4; }
+.cedars-bag-line:last-child { border-bottom: 0; }
+.cedars-bag-line strong { color: #25404a; font-size: 11px; }
+.cedars-bag-line small { margin-top: 3px; }
+.cedars-shell .order-actions { display: grid; padding-top: 12px; }
+.cedars-shell .disclaimer { margin: 11px 0 0; font-size: 10.5px; line-height: 1.55; color: #74848b; }
+
+/* Dialogs use the same compact form language. */
+.cedars-dialog {
+  max-width: 680px;
+  width: calc(100% - 28px);
+  max-height: 90vh;
+  overflow-y: auto;
+  color: #1a3039;
+  background: #fff;
+  border: 1px solid #cfdfe4;
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 18px 60px rgba(20,35,45,.30);
+}
+.cedars-dialog::backdrop { background: rgba(20,35,45,.52); }
+.cedars-dialog-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 16px; }
+.cedars-dialog-head h2 { margin: 0 0 4px; }
+.cedars-dialog-head p { margin: 0; color: #697b83; font-size: 12px; line-height: 1.4; }
+.cedars-close {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 8px;
+  color: #546a74;
+  background: #edf2f4;
+  font-size: 23px;
+  line-height: 1;
+}
+.cedars-form-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 13px; }
+.cedars-form-grid label { display: grid; gap: 6px; font-size: 12px; font-weight: 760; color: #425966; }
+.cedars-form-grid .full-row { grid-column: 1/-1; }
+.cedars-dialog-actions { display: flex; justify-content: flex-end; gap: 9px; margin-top: 18px; }
+.cedars-info-body dl { display: grid; grid-template-columns: 125px minmax(0,1fr); gap: 9px 14px; margin: 10px 0; font-size: 12px; }
+.cedars-info-body dt { color: #506570; font-weight: 850; }
+.cedars-info-body dd { margin: 0; color: #253a44; overflow-wrap: anywhere; line-height: 1.5; }
+.cedars-source-options { margin: 0 0 6px; padding-left: 17px; }
+.cedars-source-options li { margin: 0 0 6px; }
+.cedars-source-options strong { color: #213e50; }
+.cedars-info-body dd small { display: block; color: #5b6f7a; margin-top: 6px; line-height: 1.4; }
+.cedars-print-sheet { display: none; }
+
+/* Ensure mobile prints retain the desktop-like, complete table. */
+@media (max-width:1120px) {
+  .cedars-shell .order-panel { position: static; }
+}
+@media (max-width:720px) {
+  .cedars-source-strip { align-items: flex-start; }
+  .cedars-shell .cedars-filter { grid-template-columns: minmax(0,1fr) auto; }
+  .cedars-shell .catalog-filter-toggle { padding: 10px 14px; min-width: 100px; }
+  .cedars-shell .cedars-batch { padding: 14px; }
+  .cedars-shell .search-actions .button { padding: 9px 10px; }
+  .cedars-shell .cedars-library { min-width: 750px; }
+}
+@media (max-width:500px) {
+  .cedars-page .header-actions { width: 100%; justify-content: space-between; }
+  .cedars-page .privacy-pill { white-space: normal; text-align: center; }
+  .cedars-source-strip { flex-wrap: wrap; gap: 6px; font-size: 10.5px; }
+  .cedars-cart-header .tests-summary-actions .mini-button { font-size: 10px; }
+  .cedars-cart-header .cart-header-print { font-size: 10px; padding: 8px; }
+  .cedars-form-grid { grid-template-columns: 1fr; }
+  .cedars-dialog { padding: 15px; }
+  .cedars-info-body dl { grid-template-columns: 1fr; gap: 2px; }
+  .cedars-info-body dd { margin-bottom: 9px; }
+}
+@media print {
+  @page { margin: 12mm; size: auto; }
+  html,body { background: #fff !important; }
+  body > :not(#cedarsPrintSheet) { display: none !important; }
+  #cedarsPrintSheet.cedars-print-sheet {
+    display: block !important;
+    color: #16232b;
+    font: 10pt/1.4 Arial,Helvetica,sans-serif;
+  }
+  .cedars-print-sheet h1 { font-size: 20pt; margin: 0 0 10px; }
+  .cedars-print-sheet h2 { font-size: 12pt; margin: 18px 0 8px; }
+  .cedars-print-sheet p { margin: 8px 0; }
+  .cedars-print-warning { border: 1px solid #99742a; padding: 10px; background: #fff8df !important; }
+  .cedars-print-sheet table { table-layout: fixed; width: 100%; border-collapse: collapse; font-size: 8pt; }
+  .cedars-print-sheet th {
+    position: static;
+    color: #475b64;
+    background: #eff3f5 !important;
+    font-size: 8pt;
+    letter-spacing: 0;
+  }
+  .cedars-print-sheet th,.cedars-print-sheet td {
+    border: 1px solid #b8c4ca;
+    padding: 6px;
+    vertical-align: top;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .cedars-print-sheet th:first-child { width: 9%; }
+  .cedars-print-sheet th:nth-child(2) { width: 16%; }
+  .cedars-print-sheet th:nth-child(3) { width: 15%; }
+  .cedars-print-sheet th:nth-child(4) { width: 17%; }
+  .cedars-print-sheet th:nth-child(5) { width: 16%; }
+  .cedars-print-sheet th:nth-child(6) { width: 27%; }
+  .cedars-print-sheet tr { break-inside: avoid; page-break-inside: avoid; }
+  .cedars-print-source { font-size: 7pt; color: #54636b; margin-top: 3px; }
+  .cedars-print-footer { font-size: 8pt; color: #54636b; margin-top: 16px !important; }
+}
+
+/* Print cards follow the production printout hierarchy, without inventing Cedars pooling. */
+@media print {
+  .cedars-print-sheet .print-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 18px;
+    border-bottom: 2px solid #1e5963;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  .cedars-print-sheet .print-title { font-size: 20pt; margin: 0 0 3px; }
+  .cedars-print-sheet .print-subtitle { color: #53666c; font-size: 9pt; }
+  .cedars-print-sheet .print-meta { display: flex; align-items: flex-end; flex-direction: column; gap: 4px; color: #546971; font-size: 8pt; }
+  .cedars-print-sheet .print-selected-count { border: 1px solid #8dafb5; border-radius: 30px; padding: 4px 7px; color: #235560; font-size: 9pt; font-weight: 800; }
+  .cedars-print-warning { border: 1px solid #cfb77f; background: #fff9eb !important; border-radius: 5px; padding: 8px 10px; font-size: 9pt; line-height: 1.4; }
+  .cedars-print-section { margin-top: 14px; }
+  .cedars-print-section-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: baseline;
+    background: #e8f1f3 !important;
+    border: 1px solid #c6dbdf;
+    border-radius: 6px 6px 0 0;
+    padding: 8px 10px;
+  }
+  .cedars-print-section-heading strong { font-size: 13pt; color: #174f5a; }
+  .cedars-print-section-heading span { font-size: 8pt; color: #49616a; }
+  .cedars-print-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 8px;
+    padding: 9px;
+    border: 1px solid #d3e0e5;
+    border-top: 0;
+  }
+  .cedars-print-card {
+    border: 1px solid #cddce1;
+    border-radius: 6px;
+    padding: 9px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    overflow-wrap: anywhere;
+  }
+  .cedars-print-card-heading { display: flex; align-items: center; gap: 7px; color: #1e3e47; font-size: 10pt; }
+  .cedars-print-total { display: inline-flex; align-items: center; justify-content: center; min-width: 25px; height: 25px; background: #e1eef1 !important; border-radius: 5px; color: #195b65; font-weight: 850; font-size: 11pt; }
+  .cedars-print-card-detail { color: #61747c; font-size: 7.5pt; margin-top: 5px; }
+  .cedars-print-card ul { padding-left: 17px; margin: 7px 0 0; font-size: 8pt; line-height: 1.45; }
+  .cedars-print-card li { margin: 2px 0; }
+  .cedars-print-card .badge { font-size: 8pt; }
+  .cedars-print-detail-section { margin-top: 15px; break-before: auto; }
+  .cedars-print-detail-section h2 { color: #23545e; font-size: 12pt; border-bottom: 1px solid #cadce0; padding-bottom: 5px; }
+  .cedars-print-detail-section table { table-layout: fixed; width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .cedars-print-detail-section th:first-child { width: 8%; }
+  .cedars-print-detail-section th:nth-child(2) { width: 17%; }
+  .cedars-print-detail-section th:nth-child(3) { width: 11%; }
+  .cedars-print-detail-section th:nth-child(4) { width: 13%; }
+  .cedars-print-detail-section th:nth-child(5) { width: 15%; }
+  .cedars-print-detail-section th:nth-child(6) { width: 14%; }
+  .cedars-print-detail-section th:nth-child(7) { width: 22%; }
+}
+
+
+/* Cedars print v2: follow Quest's collection -> submission -> precautions order.
+   Dated or missing Cedars data must remain clearly unverified. */
+@media print {
+  #cedarsPrintSheet.cedars-print-sheet {
+    font-size: 9pt;
+    line-height: 1.38;
+    max-width: none !important;
+    overflow: visible !important;
+  }
+  .cedars-print-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding-bottom: 9px;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #195862;
+  }
+  .cedars-print-header h1 {
+    margin: 0 0 3px;
+    color: #183b45;
+    font-size: 20pt;
+    letter-spacing: -.035em;
+    line-height: 1.15;
+  }
+  .cedars-print-header p {
+    margin: 0;
+    color: #53666f;
+    font-size: 9pt;
+  }
+  .cedars-print-meta {
+    display: grid;
+    justify-items: end;
+    flex: 0 0 auto;
+    gap: 5px;
+    color: #63737a;
+    font-size: 8pt;
+  }
+  .cedars-print-meta strong {
+    border-radius: 100px;
+    padding: 4px 9px;
+    border: 1px solid #a1c4cb;
+    background: #e7f3f4 !important;
+    color: #23545e;
+    font-size: 9pt;
+  }
+  .cedars-print-warning {
+    padding: 10px 11px;
+    background: #fff8e9 !important;
+    border: 1px solid #e7d4aa;
+    border-radius: 7px;
+    color: #614a21;
+    font-size: 8.5pt;
+    line-height: 1.45;
+    break-inside: avoid;
+  }
+  .cedars-print-warning strong { color: #594018; }
+  .cedars-print-section { margin-top: 16px; }
+  .cedars-print-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #e9f3f5 !important;
+    color: #154d58;
+    border: 1px solid #bad6dd;
+    border-radius: 7px 7px 0 0;
+    padding: 9px 11px;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  .cedars-print-section-heading>div { min-width: 0; display: grid; gap: 2px; }
+  .cedars-print-section-heading strong { font-size: 12pt; letter-spacing: -.01em; }
+  .cedars-print-section-heading small {
+    font-size: 7.5pt;
+    color: #53717c;
+    font-weight: 550;
+  }
+  .cedars-print-section-heading>span {
+    flex: 0 0 auto;
+    font-size: 8pt;
+    font-weight: 750;
+    color: #345c65;
+    text-align: right;
+  }
+  .cedars-print-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+    padding: 10px;
+    border: 1px solid #cedfe3;
+    border-top: 0;
+    border-radius: 0 0 7px 7px;
+  }
+  .cedars-print-card {
+    min-width: 0;
+    margin: 0;
+    border: 1px solid #d5e2e6;
+    border-radius: 7px;
+    padding: 10px;
+    background: #fff;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .cedars-print-card-heading {
+    display: flex;
+    gap: 9px;
+    align-items: center;
+    min-width: 0;
+    color: #22424e;
+    font-size: 10pt;
+  }
+  .cedars-print-card-name { min-width: 0; display: grid; gap: 2px; }
+  .cedars-print-card-name strong { font-size: 10pt; overflow-wrap: anywhere; }
+  .cedars-print-card-name small { color: #6a7c83; font-size: 7pt; }
+  .cedars-print-total {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    min-width: 29px;
+    height: 29px;
+    padding: 3px 6px;
+    background: #e5f2f4 !important;
+    color: #1a5d68;
+    border-radius: 6px;
+    font-size: 13pt;
+    font-weight: 900;
+  }
+  .cedars-print-for-tests {
+    margin-top: 9px;
+    padding-top: 8px;
+    border-top: 1px solid #e8eff1;
+    font-size: 7.5pt;
+    color: #647980;
+    font-weight: 650;
+  }
+  .cedars-print-test-list {
+    margin: 5px 0 0;
+    padding-left: 16px;
+    font-size: 8pt;
+    line-height: 1.45;
+    color: #263d47;
+  }
+  .cedars-print-test-list li { margin: 3px 0; break-inside: avoid; }
+  .cedars-print-test-list strong { font-weight: 750; }
+  .cedars-print-test-code {
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 7.3pt;
+    color: #637983;
+    font-weight: 700;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+  }
+  .cedars-print-count-note {
+    display: inline-block;
+    margin-left: 5px;
+    color: #3d6872;
+    font-size: 7.3pt;
+    font-weight: 700;
+  }
+  .cedars-print-transport-pill {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1.25;
+    min-width: 0;
+    padding: 6px 9px;
+    border-radius: 5px;
+    font-size: 9pt;
+    font-weight: 850;
+    background: #e7f1f5 !important;
+    color: #215771;
+  }
+  .cedars-print-transport-pill.pending {
+    background: #fff0d4 !important;
+    color: #795015;
+    border: 1px solid #e7c98d;
+  }
+  .cedars-print-group-count {
+    margin-left: auto;
+    color: #677c85;
+    font-size: 7pt;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  .cedars-print-pending-note {
+    margin: 7px 0 0 !important;
+    font-size: 7.5pt;
+    line-height: 1.45;
+    color: #6a7072;
+  }
+  .cedars-print-submit-card.is-unverified {
+    border-color: #e7d3aa;
+    background: #fffdf9 !important;
+  }
+  .cedars-print-submit-item {
+    margin-top: 9px;
+    padding-top: 9px;
+    border-top: 1px solid #e8edf0;
+    break-inside: avoid;
+  }
+  .cedars-print-submit-item>strong {
+    font-size: 9pt;
+    line-height: 1.45;
+    color: #22424d;
+  }
+  .cedars-print-section-note {
+    color: #61747c;
+    margin: 7px 2px 0 !important;
+    font-size: 7.5pt;
+    line-height: 1.4;
+  }
+  .cedars-print-start-page {
+    break-before: page;
+    page-break-before: always;
+  }
+  .cedars-print-handling-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    border: 1px solid #cadfe3;
+    border-top: 0;
+  }
+  .cedars-print-handling-item {
+    min-width: 0;
+    padding: 10px;
+    border-bottom: 1px solid #e0e9ec;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .cedars-print-handling-item:nth-child(odd) { border-right: 1px solid #e0e9ec; }
+  .cedars-print-handling-head {
+    color: #224753;
+    font-size: 8.7pt;
+    line-height: 1.4;
+  }
+  .cedars-print-handling-item p {
+    margin: 4px 0 0 !important;
+    color: #334b56;
+    font-size: 8pt;
+    line-height: 1.48;
+    overflow-wrap: anywhere;
+  }
+  .cedars-print-handling-item small {
+    display: block;
+    margin-top: 5px;
+    color: #697e87;
+    font-size: 7pt;
+    font-style: italic;
+  }
+  .cedars-print-footer {
+    margin-top: 14px;
+    border-top: 1px solid #ccdce1;
+    padding-top: 7px;
+    color: #718087;
+    font-size: 7.5pt;
+    line-height: 1.4;
+  }
+}
+
+@media print {
+  .cedars-print-precautions {
+    margin-top: 12px;
+    border: 1px solid #e4d6b6;
+    border-radius: 7px;
+    background: #fffcf6 !important;
+    break-inside: auto;
+  }
+  .cedars-print-precautions-title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 10px;
+    color: #6c521f;
+    border-bottom: 1px solid #e8dcc6;
+    background: #fff6e3 !important;
+    break-after: avoid;
+  }
+  .cedars-print-precautions-title strong { font-size: 10.5pt; }
+  .cedars-print-precautions-title span { color: #826e48; font-size: 7.5pt; }
+  .cedars-print-precautions .cedars-print-handling-grid { border: 0; }
+  .cedars-print-precautions .cedars-print-handling-item { background: #fffcf6 !important; }
+}
+
+/* Quiet browser-save indicator beneath the Cedars verification notice. */
+.cedars-shell .cedars-storage-status {
+  margin: 6px 0 10px;
+  color: var(--muted);
+  font-size: 10.5px;
+  line-height: 1.4;
+}
+
+
+/* Original container illustrations: small enough for the Quest-style cards,
+   with no external image requests and legible on printouts. */
+.cedars-container-art {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 54px;
+  padding: 2px;
+  border: 1px solid #e3edf0;
+  border-radius: 9px;
+  background: #f8fbfc;
+  vertical-align: middle;
+}
+.cedars-container-art svg { display: block; width: 100%; height: 100%; }
+.cedars-container-art-table { width: 49px; height: 48px; border-radius: 7px; }
+.cedars-container-art-card { width: 61px; height: 57px; }
+.cedars-container-art-small { width: 53px; height: 49px; }
+.cedars-container-art-detail { width: 112px; height: 92px; padding: 5px; }
+.cedars-container-cell {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+.cedars-container-copy { min-width: 0; overflow-wrap: anywhere; }
+.cedars-shell .cedars-library td:has(.cedars-container-cell) { min-width: 205px; }
+.cedars-shell .cedars-library td .cedars-container-art { background: #fafcfd; }
+.cedars-shell .cedars-plan-row,
+.cedars-shell .cedars-bag-line { align-items: center; }
+.cedars-shell .cedars-plan-row > div:last-child,
+.cedars-shell .cedars-bag-line > div:last-child { flex: 1 1 0; min-width: 0; }
+.cedars-shell .cedars-bag-line { display: flex; align-items: center; gap: 9px; }
+.cedars-shell .cedars-bag-line .cedars-container-art { width: 49px; height: 45px; }
+.cedars-cart-art-row { display: flex; align-items: center; gap: 8px; }
+.cedars-info-illustrations {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 10px;
+  margin-bottom: 9px;
+}
+.cedars-info-illustrations > div {
+  display: grid;
+  gap: 7px;
+  justify-items: center;
+  align-content: center;
+  background: #f8fbfc;
+  border: 1px solid #e4edf0;
+  border-radius: 10px;
+  padding: 10px 7px;
+  min-width: 0;
+}
+.cedars-info-illustrations > div > span:last-child {
+  text-align: center;
+  color: #496774;
+  font-size: 11px;
+  font-weight: 800;
+}
+.cedars-illustration-note { color: #617882; font-size: 11px; margin: 0 0 12px; line-height: 1.45; }
+@media (max-width: 520px) {
+  .cedars-shell .cedars-bag-line .cedars-container-art { width: 43px; height: 43px; }
+  .cedars-shell .cedars-plan-row .cedars-container-art { width: 48px; height: 48px; }
+}
+@media print {
+  .cedars-print-sheet .cedars-container-art {
+    width: 57px;
+    height: 53px;
+    padding: 2px;
+    border-radius: 6px;
+    border: 1px solid #e1e9ed;
+    background: #f9fbfc !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .cedars-print-sheet .cedars-container-art svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .cedars-print-card-heading { min-width: 0; }
+  .cedars-print-card-heading .cedars-container-art { flex: 0 0 57px; }
+  .cedars-print-card-name { flex: 1 1 0; }
+  .cedars-print-submit-line { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .cedars-print-submit-line strong { flex: 1 1 0; min-width: 0; font-size: 8.7pt; line-height: 1.4; overflow-wrap: anywhere; }
+  .cedars-print-submit-line .cedars-container-art { width: 49px; height: 46px; }
+}
+
+/* Source document link stays visible without enlarging the reference banner. */
+.cedars-source-strip .cedars-source-message { flex: 1 1 280px; min-width: 0; }
+.cedars-source-strip .cedars-reference-link {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 4px;
+  padding: 7px 10px;
+  border: 1px solid #bdd6dc;
+  border-radius: 8px;
+  background: #fff;
+  color: #0b5967;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.3;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.cedars-source-strip .cedars-reference-link:hover,
+.cedars-source-strip .cedars-reference-link:focus-visible {
+  background: #eaf4f6;
+  border-color: #84b6c2;
+  text-decoration: underline;
+}
+@media (max-width: 720px) {
+  .cedars-source-strip { flex-wrap: wrap; }
+  .cedars-source-strip .cedars-source-message { flex-basis: calc(100% - 90px); }
+  .cedars-source-strip .cedars-reference-link { margin-left: auto; }
+}
+
+/* Explicit supported service scope: unavailable tests stay visible in a separate list. */
+.cedars-shell .cedars-do-not-perform-toggle {
+  color: #803c35;
+  background: #fff8f6;
+  border-color: #e6bdb6;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.cedars-shell .cedars-do-not-perform-toggle[aria-expanded="true"] {
+  background: #fae9e5;
+}
+.cedars-shell .cedars-blocked-panel {
+  margin: 0 0 14px;
+  border: 1px solid #ebd5d1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fffafa;
+}
+.cedars-shell .cedars-blocked-heading {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 14px;
+  background: #fff3f1;
+  border-bottom: 1px solid #ebd9d6;
+}
+.cedars-shell .cedars-blocked-heading strong {
+  color: #803b35; font-size: 12px;
+}
+.cedars-shell .cedars-blocked-heading span {
+  color: #766561; font-size: 11px;
+}
+.cedars-shell .cedars-blocked-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+}
+.cedars-shell .cedars-blocked-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 13px;
+  border-bottom: 1px solid #f0e3e0;
+  min-width: 0;
+}
+.cedars-shell .cedars-blocked-item:nth-child(odd) {
+  border-right: 1px solid #f0e3e0;
+}
+.cedars-shell .cedars-blocked-item-info { min-width: 0; }
+.cedars-shell .cedars-blocked-item-info strong {
+  display: block;
+  font-size: 12px;
+  color: #35414a;
+  overflow-wrap: anywhere;
+}
+.cedars-shell .cedars-blocked-item-info small {
+  display: block;
+  font-size: 10.5px;
+  color: #836e69;
+  margin-top: 4px;
+}
+.cedars-shell .cedars-hold { color: #833e39; background: #f9eae6; }
+@media (max-width: 720px) {
+  .cedars-shell .cedars-blocked-list { grid-template-columns: 1fr; }
+  .cedars-shell .cedars-blocked-item:nth-child(odd) { border-right: 0; }
+}
+
+/* Real reference photos are packed into a single local WebP image sheet.
+   Cropping is performed with IMG elements, not CSS background images, so the
+   correct photo also appears on ordinary browser printouts. */
+.cedars-container-art.cedars-container-photo {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 0 !important;
+  background: #fff !important;
+  isolation: isolate;
+}
+.cedars-container-art .cedars-photo-atlas {
+  position: absolute !important;
+  display: block !important;
+  width: 400% !important;
+  height: 300% !important;
+  max-width: none !important;
+  max-height: none !important;
+  left: var(--atlas-left) !important;
+  top: var(--atlas-top) !important;
+  object-fit: fill;
+  border: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.cedars-container-art.cedars-container-unknown {
+  font-size: 9px;
+  font-weight: 800;
+  color: #7d8d95;
+  background: #f4f7f9;
+}
+@media print {
+  .cedars-print-sheet .cedars-container-art.cedars-container-photo {
+    overflow: hidden !important;
+    background: #fff !important;
+  }
+  .cedars-print-sheet .cedars-photo-atlas {
+    position: absolute !important;
+    left: var(--atlas-left) !important;
+    top: var(--atlas-top) !important;
+    width: 400% !important;
+    height: 300% !important;
+    max-width: none !important;
+    max-height: none !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+
+/* Container pictogram filters: each option uses the same SVG as the test
+   directory, details, and printed collection plan. */
+.cedars-shell .cedars-container-filter-heading {
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:6px;
+  margin:13px 0 7px;
+  color:#263f4a;
+  font-size:12px;
+  font-weight:850;
+}
+.cedars-shell .cedars-container-filter-heading span {
+  color:#6b8089;
+  font-size:10px;
+  font-weight:500;
+  text-align:right;
+}
+.cedars-shell .cedars-container-filter-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:7px;
+}
+.cedars-shell .cedars-container-filter-option {
+  display:flex;
+  align-items:center;
+  gap:7px;
+  min-width:0;
+  padding:6px;
+  border:1px solid #dce7e9;
+  border-radius:9px;
+  background:#fff;
+  color:#2c4350;
+  cursor:pointer;
+  font:inherit;
+  text-align:left;
+}
+.cedars-shell .cedars-container-filter-option:hover,
+.cedars-shell .cedars-container-filter-option:focus-visible {
+  border-color:#8bb4be;
+  background:#f0f8f9;
+}
+.cedars-shell .cedars-container-filter-option.is-selected {
+  color:#125667;
+  border:2px solid #248194;
+  background:#e9f5f6;
+  padding:5px;
+}
+.cedars-shell .cedars-container-filter-option .cedars-container-art {
+  width:49px !important;
+  height:42px !important;
+  flex:0 0 49px;
+  background:#fbfcfc;
+}
+.cedars-shell .cedars-container-filter-copy {display:block;min-width:0}
+.cedars-shell .cedars-container-filter-copy strong {
+  display:block;
+  font-size:10.5px;
+  line-height:1.25;
+  overflow-wrap:anywhere;
+}
+.cedars-shell .cedars-container-filter-copy small {
+  display:block;
+  color:#68828a;
+  font-size:9.5px;
+  margin-top:2px;
+}
+.cedars-shell .cedars-container-filter-all {
+  flex:0 0 49px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:42px;
+  border-radius:6px;
+  color:#427985;
+  background:#e1eff1;
+  font-size:10px;
+  font-weight:900;
+}
+.cedars-reference-section {
+  background:#fafcfc;
+  border:1px solid #dae8ec;
+  border-radius:11px;
+  padding:12px 14px;
+  margin:0 0 15px;
+}
+.cedars-reference-title {
+  display:flex;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:8px;
+  color:#284b56;
+  margin-bottom:9px;
+}
+.cedars-reference-title strong {font-size:13px}
+.cedars-reference-title span {font-size:11px;color:#6b8088}
+.cedars-reference-actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.cedars-reference-actions a.cedars-reference-link {
+  display:inline-flex;
+  padding:9px 12px;
+  text-decoration:none;
+  color:#14586b;
+  background:#fff;
+  border:1px solid #c8dfe5;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:850;
+}
+.cedars-reference-actions a.cedars-reference-link:hover,
+.cedars-reference-actions a.cedars-reference-link:focus-visible {
+  background:#eaf5f7;
+  border-color:#83b5c3;
+}
+.cedars-reference-note {
+  margin:8px 0 0;
+  font-size:10.5px;
+  line-height:1.45;
+  color:#6d7e85;
+}
+.cedars-container-art.cedars-container-drawing {
+  background:#fff;
+  overflow:hidden;
+}
+.cedars-container-art.cedars-container-drawing svg {
+  display:block;
+  width:100%;
+  height:100%;
+}
+@media(max-width:560px) {
+  .cedars-shell .cedars-container-filter-grid {grid-template-columns:1fr}
+  .cedars-shell .cedars-container-filter-option .cedars-container-art,
+  .cedars-shell .cedars-container-filter-all {width:44px!important;flex-basis:44px}
+}
+@media print {
+  .cedars-print-sheet .cedars-container-art.cedars-container-drawing {
+    background:#fff !important;
+    overflow:hidden !important;
+    print-color-adjust:exact;
+    -webkit-print-color-adjust:exact;
+  }
+  .cedars-print-sheet .cedars-container-art.cedars-container-drawing svg {
+    width:100% !important;
+    height:100% !important;
+    display:block !important;
+  }
+}
+
+
+/* Unified status and references: one compact card above search. */
+.cedars-shell .cedars-reference-combined {
+  margin: 0 0 15px;
+  padding: 14px 16px;
+  background: #f8fbfc;
+  border: 1px solid #dce8ec;
+  border-radius: 12px;
+}
+.cedars-reference-combined .cedars-reference-header {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  column-gap: 14px;
+  row-gap: 8px;
+  margin-bottom: 11px;
+}
+.cedars-reference-combined .cedars-reference-pill {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  padding: 7px 12px;
+  color: #3f6672;
+  background: #e6f2f4;
+  border: 1px solid #c9e0e6;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 850;
+}
+.cedars-reference-combined .cedars-reference-copy {
+  flex: 1 1 350px;
+  min-width: 0;
+}
+.cedars-reference-combined .cedars-reference-copy strong {
+  display: block;
+  margin: 1px 0 4px;
+  color: #254a57;
+  font-size: 13px;
+}
+.cedars-reference-combined .cedars-reference-copy p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #5b717c;
+}
+.cedars-reference-combined .cedars-reference-actions {
+  margin: 0 0 6px;
+}
+.cedars-reference-combined .cedars-reference-note {
+  margin-top: 6px;
+}
+.cedars-shell .cedars-specimen-heading td {
+  padding: 9px 12px !important;
+  color: #255360;
+  background: #eaf3f6 !important;
+  border-top: 1px solid #c7dce1;
+  border-bottom: 1px solid #d1e3e7;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+.cedars-shell .temp-urgent {
+  background: #fff0d5 !important;
+  color: #794b12 !important;
+  border: 1px solid #edcc96 !important;
+  white-space: normal;
+  line-height: 1.3;
+}
+@media (max-width: 650px) {
+  .cedars-shell .cedars-reference-combined { padding: 12px; }
+  .cedars-reference-combined .cedars-reference-header { gap: 7px; }
+  .cedars-reference-combined .cedars-reference-copy { flex-basis: 100%; }
+  .cedars-reference-combined .cedars-reference-actions .cedars-reference-link { flex: 1 1 175px; justify-content: center; text-align: center; }
+}
+@media print {
+  .cedars-print-sheet .temp-urgent {
+    background: #fff0d5 !important;
+    color: #794b12 !important;
+    border: 1px solid #edcc96 !important;
+  }
+}
+
+
+/* Cedars has its own darker red visual identity. Source/transport warning
+   colors remain semantic; Quest stays green/teal on its separate entry page. */
+@media screen {
+  body.cedars-page {
+    --bg:#f7f3f4;
+    --brand:#893540;
+    --brand-dark:#65252f;
+    --brand-soft:#f7e8eb;
+    --ink:#30242a;
+    --muted:#71616a;
+    --line:#e9dfe2;
+    --shadow:0 3px 12px #58304109;
+    background:#f7f3f4;
+  }
+  .cedars-page .app-header {
+    background:#34222b;
+    border-bottom:4px solid #a34450;
+  }
+  .cedars-page .app-header p,
+  .cedars-page .app-header .privacy-pill {
+    color:#e1cbd2;
+  }
+  .cedars-page .eyebrow,
+  .cedars-page .panel-heading .eyebrow {
+    color:#903b48;
+  }
+  .cedars-page .app-header .eyebrow {color:#f3a8b3}
+  .cedars-page .order-panel {border-top:3px solid #943947}
+  .cedars-page #selectedCount,
+  .cedars-page .cedars-count {
+    color:#752f3e;
+    background:#f8e7eb;
+    border-color:#e9c6ce;
+  }
+  .cedars-page .button.primary,
+  .cedars-page .cart-header-print,
+  .cedars-page .catalog-filter-done {
+    background:#8a3441;
+    color:white;
+    border-color:#8a3441;
+  }
+  .cedars-page .button.primary:hover,
+  .cedars-page .cart-header-print:hover,
+  .cedars-page .catalog-filter-done:hover {
+    background:#69232f;
+    border-color:#69232f;
+  }
+  .cedars-page .button.secondary,
+  .cedars-page .mini-button:not(.remove),
+  .cedars-page .catalog-filter-toggle {
+    border-color:#e2c9d0;
+    color:#6f3443;
+  }
+  .cedars-page .button.secondary:hover,
+  .cedars-page .mini-button:not(.remove):hover,
+  .cedars-page .catalog-filter-toggle:hover {
+    background:#fcf0f3;
+    border-color:#bd8895;
+  }
+  .cedars-page .cedars-reference-combined {
+    background:#fdf9fa;
+    border-color:#ead4da;
+  }
+  .cedars-page .cedars-reference-combined .cedars-reference-pill {
+    color:#79303c;
+    background:#f8e6ea;
+    border-color:#e4bdc7;
+  }
+  .cedars-page .cedars-reference-combined .cedars-reference-copy strong {
+    color:#76303d;
+  }
+  .cedars-page .cedars-reference-actions a.cedars-reference-link {
+    border-color:#e4c6ce;
+    color:#7a3443;
+  }
+  .cedars-page .cedars-reference-actions a.cedars-reference-link:hover {
+    background:#f9ecf0;
+    border-color:#c994a0;
+  }
+  .cedars-page .cedars-specimen-heading td {
+    background:#f6e9ed !important;
+    border-color:#e9ced5;
+    color:#74313e;
+  }
+  .cedars-page .cedars-container-filter-option.is-selected {
+    color:#79303c;
+    border-color:#9b4351;
+    background:#f9e9ed;
+  }
+  .cedars-page .cedars-container-filter-all {
+    color:#8a4050;
+    background:#f6e9ed;
+  }
+  .cedars-page .cedars-container-filter-option:hover,
+  .cedars-page .cedars-container-filter-option:focus-visible {
+    border-color:#c68b98;
+    background:#fcf3f5;
+  }
+  .cedars-page .cedars-container-art.cedars-container-drawing {
+    background:#fff;
+    border-color:#ebdfe2;
+  }
+  .cedars-page .cedars-library .mini-button:not(.remove),
+  .cedars-page .cedars-plan-row {
+    border-color:#eadfe2;
+  }
+  .cedars-page .cedars-cart-heading strong,
+  .cedars-page .cedars-plan-row strong {
+    color:#52313b;
+  }
+  .cedars-page .cedars-print-section-heading {
+    color:#6b2e3d;
+  }
+  .cedars-page :is(input,textarea,select):focus-visible {
+    outline-color:#ab5b68;
+    border-color:#ab5b68;
+  }
+}
+@media print {
+  #cedarsPrintSheet .cedars-print-header,
+  #cedarsPrintSheet .print-header {
+    border-bottom-color:#863743 !important;
+  }
+  #cedarsPrintSheet .cedars-print-section-heading {
+    background:#f7eaee !important;
+    border-color:#e6c6cf;
+    color:#71303d;
+  }
+  #cedarsPrintSheet .cedars-print-section-heading strong {
+    color:#71303d !important;
+  }
+  #cedarsPrintSheet .cedars-print-total {
+    background:#f8e7eb !important;
+    color:#71303d !important;
+  }
+}
+
+
+
+/* Specimen-type coding is separate from the receiving-lab identity.
+   Swab = blue, Urine = golden amber, Stool = brown, Blood = berry,
+   Other = muted purple. Neutral layouts and transport warnings are preserved. */
+@media screen {
+  .cedars-page {
+    --spec-swab-bg:#edf4fc; --spec-swab-ink:#285684; --spec-swab-line:#a9cbe9;
+    --spec-urine-bg:#fff4da; --spec-urine-ink:#855c0a; --spec-urine-line:#eed59a;
+    --spec-stool-bg:#f7ece0; --spec-stool-ink:#77502e; --spec-stool-line:#dcc1a4;
+    --spec-blood-bg:#f8e9ee; --spec-blood-ink:#873a55; --spec-blood-line:#dfb2c1;
+    --spec-other-bg:#efedf7; --spec-other-ink:#5e5681; --spec-other-line:#c5bedf;
+  }
+  .cedars-page .type-swab { --type-bg:var(--spec-swab-bg); --type-ink:var(--spec-swab-ink); --type-line:var(--spec-swab-line); }
+  .cedars-page .type-urine { --type-bg:var(--spec-urine-bg); --type-ink:var(--spec-urine-ink); --type-line:var(--spec-urine-line); }
+  .cedars-page .type-stool { --type-bg:var(--spec-stool-bg); --type-ink:var(--spec-stool-ink); --type-line:var(--spec-stool-line); }
+  .cedars-page .type-blood { --type-bg:var(--spec-blood-bg); --type-ink:var(--spec-blood-ink); --type-line:var(--spec-blood-line); }
+  .cedars-page .type-other { --type-bg:var(--spec-other-bg); --type-ink:var(--spec-other-ink); --type-line:var(--spec-other-line); }
+  /* Group labels remain readable in narrow layouts and on high-DPI displays. */
+  .cedars-page tr.cedars-specimen-heading[class*="type-"] > td {
+    color:var(--type-ink) !important;
+    background:var(--type-bg) !important;
+    border-top:1px solid var(--type-line) !important;
+    border-bottom:1px solid var(--type-line) !important;
+    border-left:4px solid var(--type-line);
+    font-weight:850;
+  }
+  .cedars-page tr.cedars-test-row[class*="type-"] > td:first-child {
+    box-shadow:inset 3px 0 0 var(--type-line);
+  }
+  .cedars-page .cedars-cart-item[class*="type-"] {
+    box-shadow:inset 3px 0 0 var(--type-line);
+  }
+  .cedars-page .cedars-cart-item[class*="type-"] .cedars-cart-heading strong {
+    color:var(--type-ink);
+  }
+  .cedars-page .cedars-plan-row[class*="type-"] {
+    border-color:var(--type-line);
+    box-shadow:inset 3px 0 0 var(--type-line);
+    background:linear-gradient(90deg,var(--type-bg),#fff 44%);
+  }
+  .cedars-page .cedars-plan-row[class*="type-"] .cedars-count {
+    color:var(--type-ink);
+    background:var(--type-bg);
+    border-color:var(--type-line);
+  }
+  .cedars-page .cedars-bag-line[class*="type-"] {
+    box-shadow:inset 3px 0 0 var(--type-line);
+    padding-left:6px;
+  }
+  /* Quest's primary print color, intentionally independent of Cedars red. */
+  .cedars-page #cedarsPrint.button.primary.cart-header-print:not(:disabled) {
+    background:#087e83 !important;
+    border-color:#087e83 !important;
+    color:#fff !important;
+  }
+  .cedars-page #cedarsPrint.button.primary.cart-header-print:hover:not(:disabled),
+  .cedars-page #cedarsPrint.button.primary.cart-header-print:focus-visible:not(:disabled) {
+    background:#056267 !important;
+    border-color:#056267 !important;
+    color:#fff !important;
+  }
+}
+
+/* Make the Cedars Print / Save PDF control prominent without changing
+   the teal Quest-equivalent color or the printout itself. */
+@media screen {
+  .cedars-page .cedars-cart-header #cedarsPrint.cart-header-print {
+    min-width: 170px;
+    min-height: 46px;
+    padding: 11px 19px;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.25;
+    border-radius: 9px;
+    white-space: nowrap;
+    justify-self: end;
+  }
+  @media (max-width: 440px) {
+    .cedars-page .cedars-cart-header #cedarsPrint.cart-header-print {
+      min-width: 145px;
+      min-height: 44px;
+      padding: 10px 12px;
+      font-size: 13px;
+    }
+  }
+}
+
+
+/* Right-aligned, recognizable quick links in the Cedars reference panel. */
+@media screen {
+  .cedars-page .cedars-reference-combined .cedars-reference-actions {
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+    width:100%;
+    margin:12px 0 8px;
+  }
+  .cedars-page .cedars-reference-combined .cedars-reference-actions a.cedars-reference-link {
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    flex:0 0 auto;
+    gap:10px;
+    padding:12px 16px;
+    min-height:46px;
+    border:1px solid transparent;
+    border-radius:10px;
+    font-size:12px;
+    font-weight:800;
+    line-height:1.2;
+    white-space:nowrap;
+    text-decoration:none;
+    box-shadow:0 2px 5px rgba(60,29,34,.09);
+    transition:background-color .16s ease,box-shadow .16s ease,transform .16s ease;
+  }
+  .cedars-page .cedars-reference-combined .cedars-reference-actions .reference-powerpoint {
+    color:#fff;
+    background:#a64d34;
+    border-color:#a64d34;
+  }
+  .cedars-page .cedars-reference-combined .cedars-reference-actions .reference-powerpoint:hover {
+    color:#fff;
+    background:#843923;
+    border-color:#843923;
+    box-shadow:0 3px 9px rgba(83,37,25,.18);
+  }
+  .cedars-page .cedars-reference-combined .cedars-reference-actions .reference-lexicomp {
+    color:#fff;
+    background:#663d66;
+    border-color:#663d66;
+  }
+  .cedars-page .cedars-reference-combined .cedars-reference-actions .reference-lexicomp:hover {
+    color:#fff;
+    background:#502c52;
+    border-color:#502c52;
+    box-shadow:0 3px 9px rgba(57,28,57,.2);
+  }
+  .cedars-page .cedars-reference-combined .cedars-reference-actions a.cedars-reference-link:focus-visible {
+    outline:3px solid #245aa8;
+    outline-offset:3px;
+  }
+  .cedars-reference-actions .cedars-reference-icon {
+    width:20px;
+    height:20px;
+    flex:0 0 20px;
+  }
+  .cedars-reference-actions .cedars-reference-external {
+    width:14px;
+    height:14px;
+    flex:0 0 14px;
+    opacity:.9;
+  }
+  .cedars-page .cedars-reference-combined .cedars-reference-note {
+    margin-top:6px;
+  }
+  @media (max-width:600px) {
+    .cedars-page .cedars-reference-combined .cedars-reference-actions {
+      justify-content:stretch;
+      gap:8px;
+    }
+    .cedars-page .cedars-reference-combined .cedars-reference-actions a.cedars-reference-link {
+      flex:1 1 100%;
+      white-space:normal;
+      min-width:0;
+      justify-content:flex-start;
+      text-align:left;
+    }
+    .cedars-page .cedars-reference-combined .cedars-reference-actions .cedars-reference-external {
+      margin-left:auto;
+    }
+  }
+}
+
+
+/* Public-safe login hint, right-aligned with the Cedars reference buttons. */
+@media screen {
+  .cedars-page .cedars-lexicomp-login {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    align-items:center;
+    gap:8px 17px;
+    margin-top:8px;
+    color:#67434c;
+    font-size:11px;
+    line-height:1.5;
+  }
+  .cedars-page .cedars-lexicomp-login-heading {
+    font-weight:800;
+    color:#754353;
+  }
+  .cedars-page .cedars-lexicomp-login-detail strong {color:#5a3b43}
+  .cedars-page .cedars-lexicomp-login code {
+    display:inline-block;
+    padding:2px 6px;
+    border-radius:5px;
+    border:1px solid #e6ccd4;
+    background:#f9edef;
+    color:#672d3a;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:11px;
+    user-select:all;
+  }
+  .cedars-page .cedars-reference-combined .cedars-reference-note {
+    text-align:right;
+    font-size:10px;
+    color:#7e6a70;
+  }
+  @media(max-width:600px) {
+    .cedars-page .cedars-lexicomp-login {justify-content:flex-start}
+    .cedars-page .cedars-reference-combined .cedars-reference-note {text-align:left}
+  }
+}
+
+
+/* Illustrated Cedars container tiles open the corresponding original
+   user-provided photo. The existing drawing stays visible underneath. */
+@media screen {
+  .cedars-page .cedars-photo-trigger {
+    position:relative;
+    display:inline-flex;
+    flex:0 0 auto;
+    align-items:center;
+    justify-content:center;
+    align-self:center;
+    margin:0;
+    padding:0;
+    border:0;
+    border-radius:9px;
+    background:transparent;
+    color:inherit;
+    font:inherit;
+    line-height:1;
+    cursor:zoom-in;
+    vertical-align:middle;
+  }
+  .cedars-page .cedars-photo-trigger:hover .cedars-container-art,
+  .cedars-page .cedars-photo-trigger:focus-visible .cedars-container-art {
+    border-color:#ac6473;
+    background:#fff7f8;
+    box-shadow:0 0 0 2px #f0d7df;
+  }
+  .cedars-page .cedars-photo-trigger:focus-visible {
+    outline:2px solid #813946;
+    outline-offset:3px;
+  }
+  .cedars-page .cedars-photo-chip {
+    position:absolute;
+    right:-5px;
+    bottom:-4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:21px;
+    height:21px;
+    border:1.5px solid #fff;
+    border-radius:50%;
+    background:#813946;
+    color:#fff;
+    box-shadow:0 1px 3px #29141c40;
+    pointer-events:none;
+  }
+  .cedars-page .cedars-photo-chip svg {
+    display:block;
+    width:13px;
+    height:13px;
+  }
+  .cedars-page .cedars-info-illustrations .cedars-photo-trigger {
+    justify-self:center;
+  }
+}
+.cedars-photo-dialog {
+  box-sizing:border-box;
+  width:min(95vw,490px);
+  max-width:490px;
+  max-height:min(94vh,780px);
+  overflow-y:auto;
+  padding:19px 20px 17px;
+  border:1px solid #e6d2d8;
+  border-radius:14px;
+  color:#31252b;
+  background:#fff;
+  box-shadow:0 20px 60px rgba(32,12,22,.2);
+}
+.cedars-photo-dialog::backdrop {background:rgba(23,22,27,.76);}
+.cedars-photo-dialog .cedars-photo-dialog-head {
+  display:flex;
+  align-items:start;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:13px;
+}
+.cedars-photo-dialog .cedars-photo-dialog-head h2 {
+  margin:4px 0 0;
+  font-size:19px;
+  line-height:1.3;
+  color:#61313f;
+}
+.cedars-photo-dialog .eyebrow {color:#903b48;}
+.cedars-photo-dialog .cedars-close {
+  flex:0 0 auto;
+  font-size:27px;
+  line-height:1;
+}
+.cedars-photo-dialog .cedars-photo-figure {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:9px;
+  margin:0;
+}
+.cedars-photo-dialog .cedars-photo-viewport {
+  position:relative;
+  box-sizing:border-box;
+  width:min(100%,340px);
+  aspect-ratio:1 / 1;
+  overflow:hidden;
+  border:1px solid #eee5e7;
+  border-radius:10px;
+  background:#fff;
+}
+.cedars-photo-dialog .cedars-photo-atlas {
+  position:absolute !important;
+  display:block;
+  left:var(--photo-left,0%);
+  top:var(--photo-top,0%);
+  width:400% !important;
+  height:300% !important;
+  max-width:none !important;
+  max-height:none !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  object-fit:fill;
+}
+.cedars-photo-dialog figcaption {
+  font-size:12px;
+  text-align:center;
+  color:#614654;
+  font-weight:700;
+}
+.cedars-photo-dialog .cedars-photo-disclaimer {
+  margin:12px 0;
+  font-size:11px;
+  line-height:1.5;
+  color:#6b6269;
+  text-align:center;
+}
+.cedars-photo-dialog .cedars-dialog-actions {
+  justify-content:flex-end;
+}
+@media (max-width:520px) {
+  .cedars-photo-dialog {padding:14px;}
+  .cedars-photo-dialog .cedars-photo-viewport {width:min(100%,300px);}
+  .cedars-photo-dialog .cedars-photo-dialog-head h2 {font-size:17px;}
+}
+@media print {
+  .cedars-photo-trigger {display:none !important;}
+  .cedars-photo-dialog {display:none !important;}
+}
+
+
+/* Independent photo control for specimen-container filters. The filter remains
+   a single button, and the camera is its separate sibling button. */
+@media screen {
+  .cedars-page .cedars-container-filter-item {
+    position:relative;
+    display:flex;
+    align-items:stretch;
+    min-width:0;
+  }
+  .cedars-page .cedars-container-filter-item > .cedars-container-filter-option {
+    width:100%;
+    min-width:0;
+  }
+  .cedars-page .cedars-container-filter-item.has-reference-photo > .cedars-container-filter-option {
+    padding-right:32px;
+  }
+  .cedars-page .cedars-container-filter-item > .cedars-filter-photo-button {
+    position:absolute;
+    top:50%;
+    right:5px;
+    transform:translateY(-50%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:26px;
+    height:29px;
+    margin:0;
+    padding:0;
+    border:1px solid #d6b7c0;
+    border-radius:7px;
+    background:#fff;
+    color:#813946;
+    cursor:zoom-in;
+  }
+  .cedars-page .cedars-container-filter-item > .cedars-filter-photo-button svg {
+    width:15px;
+    height:15px;
+    display:block;
+  }
+  .cedars-page .cedars-filter-photo-button:hover,
+  .cedars-page .cedars-filter-photo-button:focus-visible {
+    border-color:#843946;
+    background:#f8e9ee;
+  }
+  .cedars-page .cedars-filter-photo-button:focus-visible {
+    outline:2px solid #843946;
+    outline-offset:2px;
+  }
+}
+
+
+/* Readable Cedars search: distinct suggested tests, collection containers,
+   order codes, transport rules and clearer bulk search review. */
+@media screen {
+  .cedars-shell .cedars-library td {
+    font-size:13px;
+    line-height:1.5;
+  }
+  .cedars-shell .cedars-library .test-name {
+    font-size:14px;
+    font-weight:800;
+    line-height:1.4;
+  }
+  .cedars-shell .cedars-library .subtext {
+    font-size:11.5px;
+    line-height:1.5;
+  }
+  .cedars-shell .cedars-library .code-cell {
+    font-size:12px;
+    font-weight:700;
+  }
+  .cedars-shell .cedars-library .cedars-secondary-code {
+    margin-top:3px;
+    color:#7b4552;
+    font-size:11px;
+    font-weight:700;
+  }
+  .cedars-shell #cedarsSearch {
+    min-height:51px;
+    font-size:15px;
+    border-width:1.5px;
+  }
+  .cedars-shell .cedars-search-suggestions {
+    grid-column:1 / -1;
+    padding:12px;
+    margin:0 0 3px;
+    display:grid;
+    gap:8px;
+    background:#fffbfc;
+    border:1px solid #e7cdd4;
+    border-radius:11px;
+  }
+  .cedars-shell .cedars-search-suggestions.hidden {display:none !important}
+  .cedars-shell .cedars-feedback {
+    font-size:13px;
+    padding:15px;
+    gap:12px;
+  }
+  .cedars-shell .cedars-match-heading {
+    display:flex;
+    align-items:baseline;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:6px 12px;
+    padding-bottom:4px;
+  }
+  .cedars-shell .cedars-match-heading strong {
+    color:#713644;
+    font-size:13px;
+    font-weight:850;
+  }
+  .cedars-shell .cedars-match-heading span {
+    color:#687781;
+    font-size:11.5px;
+  }
+  .cedars-shell .cedars-match-result {
+    display:grid;
+    gap:8px;
+    padding:10px;
+    border:1px solid #e9e1e4;
+    border-radius:9px;
+    background:#fff;
+  }
+  .cedars-shell .cedars-match-query {
+    display:flex;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:6px;
+    font-size:12px;
+    color:#5c4c53;
+  }
+  .cedars-shell .cedars-match-query strong {
+    color:#6d303e;
+    font-size:13px;
+  }
+  .cedars-shell .cedars-match-query span {color:#718087}
+  .cedars-shell .cedars-match-list {display:grid;gap:7px}
+  .cedars-shell .cedars-match-choice {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:10px 12px;
+    border:1px solid #e0e4e6;
+    border-left:4px solid #d9c1c9;
+    border-radius:8px;
+    background:#fff;
+    min-width:0;
+  }
+  .cedars-shell .cedars-match-choice.type-swab {border-left-color:#a9cbe9}
+  .cedars-shell .cedars-match-choice.type-urine {border-left-color:#eed59a}
+  .cedars-shell .cedars-match-choice.type-stool {border-left-color:#dcc1a4}
+  .cedars-shell .cedars-match-choice.type-blood {border-left-color:#dfb2c1}
+  .cedars-shell .cedars-match-choice.type-other {border-left-color:#c5bedf}
+  .cedars-shell .cedars-match-info {min-width:0;flex:1}
+  .cedars-shell .cedars-match-title {
+    color:#372930;
+    font-size:13.5px;
+    line-height:1.4;
+    font-weight:800;
+  }
+  .cedars-shell .cedars-match-meta {
+    display:flex;
+    flex-wrap:wrap;
+    gap:3px 10px;
+    margin-top:5px;
+    color:#62727d;
+    font-size:11.5px;
+    line-height:1.45;
+  }
+  .cedars-shell .cedars-match-meta span {overflow-wrap:anywhere}
+  .cedars-shell .cedars-match-code {
+    background:#f5ecef;
+    color:#743948;
+    border-radius:5px;
+    padding:1px 5px;
+    font-weight:850;
+  }
+  .cedars-shell .cedars-match-actions {
+    flex:0 0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:7px;
+  }
+  .cedars-shell .cedars-match-actions .mini-button {
+    width:auto;
+    min-height:35px;
+    margin:0;
+    padding:7px 12px;
+    font-size:12px;
+  }
+  .cedars-shell .cedars-match-held {color:#805b14;font-size:11px}
+  .cedars-shell .cedars-match-success {color:#237458;font-size:12px;font-weight:800}
+  .cedars-shell .cedars-no-matches {margin:4px 0;font-size:12px}
+  .cedars-page .cedars-eos-link {
+    color:#743748;
+    text-decoration:underline;
+    text-underline-offset:2px;
+    font-weight:800;
+  }
+  .cedars-page .cedars-eos-link:hover,
+  .cedars-page .cedars-eos-link:focus-visible {color:#aa4b5e}
+  .cedars-page .temp-delay {
+    color:#6c4518 !important;
+    background:#fff3df !important;
+    border:1px solid #ecd29b !important;
+    white-space:normal;
+    line-height:1.4;
+  }
+  @media(max-width:650px) {
+    .cedars-shell .cedars-match-choice {
+      flex-direction:column;
+      align-items:stretch;
+    }
+    .cedars-shell .cedars-match-actions {justify-content:flex-end}
+    .cedars-shell .cedars-library .test-name {font-size:13px}
+  }
+}
+
+
+/* Specimen type badges: visible in test catalog, cart, draw plan,
+   submission rows and contextual search results. */
+@media screen {
+ .cedars-page .cedars-specimen-badge {
+   display:inline-flex;
+   align-items:center;
+   padding:3px 7px;
+   border:1px solid var(--type-line,#dbd5de);
+   border-radius:999px;
+   background:var(--type-bg,#f6f5fa);
+   color:var(--type-ink,#62577f);
+   font-size:10px;
+   font-weight:850;
+   letter-spacing:.015em;
+   line-height:1.2;
+   white-space:nowrap;
+   vertical-align:middle;
+   margin:2px 0 2px 6px;
+ }
+ .cedars-page .cedars-specimen-badge.type-swab {
+   --type-bg:#e9f3ff;--type-line:#bbd7ef;--type-ink:#225789;
+ }
+ .cedars-page .cedars-specimen-badge.type-urine {
+   --type-bg:#fff3d4;--type-line:#f1d390;--type-ink:#865a09;
+ }
+ .cedars-page .cedars-specimen-badge.type-stool {
+   --type-bg:#f7e9dc;--type-line:#e0c5a8;--type-ink:#704822;
+ }
+ .cedars-page .cedars-specimen-badge.type-blood {
+   --type-bg:#f9e8ee;--type-line:#e9b6c7;--type-ink:#8a354f;
+ }
+ .cedars-page .cedars-specimen-badge.type-other {
+   --type-bg:#efebf8;--type-line:#c8c2df;--type-ink:#615486;
+ }
+ .cedars-page .cedars-library .test-name {
+   display:inline;
+ }
+ .cedars-page .cedars-plan-row .cedars-specimen-badge {margin:5px 0 3px 0;}
+ .cedars-page .cedars-cart-heading .cedars-specimen-badge {margin-left:6px;}
+ .cedars-page .cedars-cart-top {position:relative;align-items:center;}
+ .cedars-page .cedars-cart-heading {min-width:0;flex:1;padding-right:45px;}
+ /* Same 30px X pill and hover-to-Delete behavior as Quest. */
+ .cedars-page .cedars-cart-remove.remove-flex {
+   position:absolute;
+   right:0;
+   top:50%;
+   transform:translateY(-50%);
+   display:flex;
+   align-items:center;
+   justify-content:center;
+   gap:0;
+   width:30px;
+   min-width:30px;
+   height:30px;
+   padding:0;
+   border:1px solid #d5dee4;
+   border-radius:999px;
+   background:#fff;
+   color:#5e6d76;
+   font-size:11px;
+   font-weight:850;
+   overflow:hidden;
+   white-space:nowrap;
+   cursor:pointer;
+   transition:width .16s ease, min-width .16s ease, background-color .16s ease,
+     color .16s ease,border-color .16s ease;
+ }
+ .cedars-page .cedars-cart-remove .remove-icon {width:16px;height:16px;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;transition:width .12s,opacity .12s;}
+ .cedars-page .cedars-cart-remove .remove-icon svg {width:16px;height:16px;fill:currentColor;}
+ .cedars-page .cedars-cart-remove .remove-text {max-width:0;opacity:0;overflow:hidden;transition:max-width .14s,opacity .12s;}
+ @media(hover:hover) and (pointer:fine) {
+  .cedars-page .cedars-cart-remove:hover,
+  .cedars-page .cedars-cart-remove:focus-visible {
+    width:72px;min-width:72px;padding:0 10px;
+    background:#fff4f3;border-color:#e2aaa5;color:#9b3d37;
+  }
+  .cedars-page .cedars-cart-remove:hover .remove-icon,
+  .cedars-page .cedars-cart-remove:focus-visible .remove-icon {width:0;opacity:0;}
+  .cedars-page .cedars-cart-remove:hover .remove-text,
+  .cedars-page .cedars-cart-remove:focus-visible .remove-text {max-width:50px;opacity:1;}
+ }
+ .cedars-page .cedars-cart-remove:focus-visible {outline:2px solid #ad6879;outline-offset:2px;}
+ .cedars-page .cedars-missing-test-note {
+   margin:10px 0 0;
+   padding:9px 11px;
+   border-radius:8px;
+   background:#fff;
+   border:1px solid #ead5dc;
+   color:#704957;
+   font-size:12px;
+   line-height:1.45;
+ }
+}
+/* Photo atlas is low-resolution. Keep the crop near native size in the modal,
+   rather than blowing a 160px image into a blurry 340px image. The diagrams
+   themselves remain sharp SVG at any magnification. */
+@media screen {
+  .cedars-photo-dialog .cedars-photo-viewport {
+    width:min(100%,224px);
+    image-rendering:auto;
+  }
+  .cedars-photo-dialog .cedars-photo-atlas {
+    image-rendering:auto;
+    filter:contrast(1.06) saturate(1.04);
+  }
+  .cedars-page .cedars-photo-trigger .cedars-container-art svg {
+    shape-rendering:geometricPrecision;
+    text-rendering:optimizeLegibility;
+  }
+  .cedars-page .cedars-plan-row .cedars-container-art {
+    min-width:85px;
+    min-height:69px;
+  }
+}
+/* Legible paper summary, with compact two-column cards and safer page breaks. */
+@media print {
+  #cedarsPrintSheet {
+    color:#182e38!important;
+    font-size:9pt;
+    line-height:1.42;
+  }
+  #cedarsPrintSheet .cedars-print-header {margin-bottom:9px;}
+  #cedarsPrintSheet .cedars-print-header h1 {font-size:20pt;line-height:1.15;}
+  #cedarsPrintSheet .cedars-print-section {margin-top:12px;break-inside:auto;}
+  #cedarsPrintSheet .cedars-print-section-heading {padding:8px 10px;break-after:avoid;}
+  #cedarsPrintSheet .cedars-print-section-heading strong {font-size:13pt;}
+  #cedarsPrintSheet .cedars-print-section-heading small,
+  #cedarsPrintSheet .cedars-print-section-heading span {font-size:8pt;}
+  #cedarsPrintSheet .cedars-print-grid {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    align-items:start;
+  }
+  #cedarsPrintSheet .cedars-print-card {padding:9px;min-width:0;break-inside:avoid;}
+  #cedarsPrintSheet .cedars-print-card-heading {font-size:9pt;gap:7px;align-items:center;}
+  #cedarsPrintSheet .cedars-print-card-name strong {font-size:8.5pt;line-height:1.3;}
+  #cedarsPrintSheet .cedars-print-card-name small {font-size:7pt;}
+  #cedarsPrintSheet .cedars-print-test-list {font-size:8pt;line-height:1.45;}
+  #cedarsPrintSheet .cedars-print-submit-item {margin-top:7px;padding-top:7px;}
+  #cedarsPrintSheet .cedars-print-submit-line strong {font-size:8.5pt;line-height:1.35;}
+  #cedarsPrintSheet .cedars-print-pending-note {font-size:7.3pt;margin:6px 0!important;}
+  #cedarsPrintSheet .cedars-print-precautions {margin-top:9px;break-inside:auto;}
+  #cedarsPrintSheet .cedars-print-handling-item {padding:8px;font-size:8pt;}
+  #cedarsPrintSheet .cedars-print-handling-item p {line-height:1.4;}
+  #cedarsPrintSheet .cedars-print-section-note {font-size:7.5pt;line-height:1.4;}
+  #cedarsPrintSheet .cedars-print-start-page {break-before:auto;page-break-before:auto;}
+  #cedarsPrintSheet .cedars-container-art svg {
+    shape-rendering:geometricPrecision;
+    text-rendering:optimizeLegibility;
+  }
+}
+
+
+@media print {
+ #cedarsPrintSheet .cedars-print-test-type {
+   display:inline-block;
+   margin-left:5px;
+   padding:1px 5px;
+   border-radius:4px;
+   background:#eef2f3!important;
+   color:#38505f;
+   border:1px solid #d8e2e5;
+   font-size:7pt;
+   font-weight:800;
+   white-space:nowrap;
+   vertical-align:baseline;
+ }
+ #cedarsPrintSheet .cedars-print-test-code {white-space:normal;overflow-wrap:anywhere;}
+ #cedarsPrintSheet .cedars-print-header h1 {color:#642d3b;font-weight:900;}
+ #cedarsPrintSheet .cedars-print-submit-card .cedars-print-submit-line {font-size:9pt;}
+ #cedarsPrintSheet .cedars-print-section-note {margin-top:6px!important;}
+}
+
+
+/* Filter and restricted-tests controls share one row, with the latter right aligned. */
+@media screen {
+  .cedars-shell .filter-row.cedars-filter {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) auto;
+    gap: 9px 14px;
+    align-items: end;
+  }
+  .cedars-shell .cedars-filter > .library-search,
+  .cedars-shell .cedars-filter > .cedars-search-suggestions {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+  .cedars-shell .cedars-filter > .catalog-filter-control {
+    grid-column: 1;
+    justify-self: start;
+    width: 180px;
+    max-width: 100%;
+  }
+  .cedars-shell .cedars-filter > #cedarsBlockedButton {
+    grid-column: 2;
+    justify-self: end;
+    align-self: end;
+    min-height: 42px;
+    width: auto;
+    white-space: nowrap;
+  }
+  @media (max-width: 540px) {
+    .cedars-shell .cedars-filter > .catalog-filter-control {
+      width: min(150px, 100%);
+    }
+    .cedars-shell .cedars-filter > #cedarsBlockedButton {
+      white-space: normal;
+      min-width: 0;
+      max-width: 200px;
+      padding: 8px 10px;
+      font-size: 11px;
+      text-align: center;
+    }
+  }
+}
+
+
+/* Explicit alternative for tests allowing only the clean unpreserved stool vial. */
+@media screen {
+ .cedars-shell .cedars-single-vial-note {
+   display:block;
+   margin-top:5px;
+   color:#72502c;
+   background:#fcf4e8;
+   padding:5px 7px;
+   border-left:3px solid #dfbd8d;
+   border-radius:3px;
+   line-height:1.45;
+   font-size:11px;
+   font-weight:650;
+ }
+}
+@media print {
+ #cedarsPrintSheet .cedars-print-single-vial {
+   display:block;
+   margin:5px 0 2px;
+   padding:3px 6px;
+   color:#69441f;
+   background:#fff3e6 !important;
+   border-left:2px solid #d9ae76;
+   font-size:7.6pt;
+   line-height:1.35;
+   font-weight:750;
+ }
+}
+
+
+/* Photo viewer v2: use each source image at native quality and aspect ratio,
+   without raster-atlas cropping or artificial upscaling. */
+@media screen {
+  .cedars-photo-dialog {
+    width:min(95vw,740px);
+    max-width:740px;
+  }
+  .cedars-photo-dialog .cedars-photo-viewport {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    max-width:690px;
+    height:auto;
+    min-height:200px;
+    max-height:72vh;
+    aspect-ratio:auto;
+    margin:0 auto;
+    padding:10px;
+    overflow:auto;
+    background:#fff;
+    border-radius:12px;
+  }
+  .cedars-photo-dialog .cedars-photo-image {
+    display:block;
+    width:auto;
+    height:auto;
+    max-width:100%;
+    max-height:calc(72vh - 20px);
+    margin:0 auto;
+    padding:0;
+    object-fit:contain;
+    image-rendering:auto;
+    border:0;
+  }
+  @media (max-width:520px) {
+    .cedars-photo-dialog {width:min(95vw,740px);}
+    .cedars-photo-dialog .cedars-photo-viewport {
+      width:100%;
+      min-height:170px;
+      max-width:100%;
+      max-height:65vh;
+    }
+    .cedars-photo-dialog .cedars-photo-image {max-height:calc(65vh - 20px);}
+  }
+}
+
+
+/* Directory-first Cedars workflow: the former bulk Add Tests form is gone.
+   Make the short, searchable test directory the clear primary interaction. */
+@media screen {
+  .cedars-page .cedars-directory-panel {
+    margin: 15px 0 0;
+    padding: 18px 20px 14px;
+    border: 1px solid #e3d4d9;
+    border-radius: 14px;
+    background: #f7f9fa;
+    box-shadow: 0 2px 9px rgba(60,32,42,.045);
+    min-width: 0;
+  }
+  .cedars-page .cedars-directory-header {
+    display: flex;
+    align-items: center;
+    margin: 0 0 15px;
+  }
+  .cedars-page .cedars-directory-heading {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+  }
+  .cedars-page .cedars-directory-icon {
+    width: 42px;
+    height: 42px;
+    padding: 9px;
+    border: 1px solid #e7cbd4;
+    border-radius: 12px;
+    color: #873747;
+    background: #f9e9ef;
+    flex: 0 0 42px;
+  }
+  .cedars-page .cedars-directory-heading h3 {
+    margin: 0 0 3px;
+    font-size: 18px;
+    line-height: 1.25;
+    font-weight: 850;
+    color: #4b303b;
+  }
+  .cedars-page .cedars-directory-heading p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #687782;
+  }
+  .cedars-page .cedars-directory-panel .filter-row.cedars-filter {
+    margin: 0 0 18px;
+    column-gap: 12px;
+    row-gap: 10px;
+  }
+  .cedars-page .cedars-directory-panel .library-search {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    width: 100%;
+  }
+  .cedars-page .cedars-directory-panel .library-search .field-label {
+    font-size: 13px;
+    font-weight: 800;
+    color: #4e3541;
+  }
+  .cedars-page .cedars-directory-panel #cedarsSearch {
+    box-sizing: border-box;
+    width: 100%;
+    height: 55px;
+    min-height: 55px;
+    padding: 12px 15px;
+    font-size: 15px;
+    border: 1.5px solid #cfbdc5;
+    border-radius: 10px;
+    background: #fff;
+    color: #243b48;
+  }
+  .cedars-page .cedars-directory-panel #cedarsSearch:focus-visible {
+    outline: 2px solid #9b5766;
+    outline-offset: 1px;
+    border-color: #9b5766;
+  }
+  .cedars-page .cedars-directory-panel .catalog-filter-control,
+  .cedars-page .cedars-directory-panel #cedarsBlockedButton {
+    margin: 0;
+  }
+  .cedars-page .cedars-directory-panel .table-wrap {
+    min-width: 0;
+    border: 1px solid #dfe5e8;
+    background: #fff;
+    border-radius: 12px;
+    overflow: auto;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library {
+    margin: 0;
+    background: #fff;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library thead th {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background: #eef1f4;
+    color: #425865;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library .cedars-test-row td {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  .cedars-page .cedars-directory-panel .pagination-row {
+    padding: 8px 0 0;
+  }
+  .cedars-page .cedars-directory-panel .library-help {
+    margin: 8px 0 0;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  /* Clean single-stroke X, matching Quest's compact circular control. */
+  .cedars-page .cedars-cart-remove .remove-icon svg,
+  .cedars-page .cedars-cart-remove .remove-icon svg path {
+    fill: none !important;
+    stroke: currentColor !important;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .cedars-page .cedars-cart-remove {
+    flex: 0 0 30px;
+    box-sizing: border-box;
+  }
+  @media (max-width: 640px) {
+    .cedars-page .cedars-directory-panel {
+      margin-top: 12px;
+      padding: 13px 11px 11px;
+      border-radius: 12px;
+    }
+    .cedars-page .cedars-directory-heading h3 { font-size: 16px; }
+    .cedars-page .cedars-directory-heading p { font-size: 11px; }
+    .cedars-page .cedars-directory-icon {
+      width: 36px;
+      height: 36px;
+      padding: 8px;
+      flex-basis: 36px;
+    }
+    .cedars-page .cedars-directory-panel .cedars-library .cedars-test-row td {
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+    .cedars-page .cedars-directory-panel #cedarsSearch {font-size: 14px;}
+  }
+}
+
+
+/* 2026-10: distinguish collection vessel from transfer/submit container
+   on the Cedars paper collection summary. */
+@media print {
+  #cedarsPrintSheet .cedars-print-collector-pill {
+    display:inline-block;
+    margin:4px 0 1px;
+    padding:2px 8px;
+    border-radius:999px;
+    background:#f8e8d9 !important;
+    color:#7b4e13 !important;
+    border:1px solid #e9cfaf;
+    font-size:7pt;
+    line-height:1.5;
+    font-weight:850;
+  }
+  #cedarsPrintSheet .cedars-print-collection-card:has(.cedars-print-collector-pill) {
+    border-left:3px solid #d7b26b;
+  }
+  #cedarsPrintSheet .cedars-print-source-cup {
+    display:block;
+    margin:4px 0 0;
+    font-size:7.3pt;
+    line-height:1.45;
+    color:#48606b !important;
+    font-weight:550;
+  }
+  #cedarsPrintSheet .cedars-print-submit-step {
+    display:block;
+    margin:5px 0 3px;
+    padding:6px 8px;
+    color:#234d5e !important;
+    background:#eaf4f6 !important;
+    border-left:3px solid #16828b;
+    border-radius:3px;
+    font-size:7.8pt;
+    font-weight:650;
+    line-height:1.45;
+    break-inside:avoid;
+  }
+  #cedarsPrintSheet .cedars-print-submit-step.is-original {
+    color:#526b43 !important;
+    background:#f0f6ea !important;
+    border-left-color:#6b9b48;
+  }
+  #cedarsPrintSheet .cedars-print-submit-step strong {
+    font-weight:900;
+  }
+  #cedarsPrintSheet .cedars-print-submit-item {
+    break-inside:avoid;
+  }
+}
+
+
+/* Match specimen category colors on paper, not just on the screen. */
+@media print {
+  #cedarsPrintSheet .cedars-print-test-type.type-urine,
+  #cedarsPrintSheet .cedars-print-collector-pill.type-urine {
+    background:#fff2d0!important;
+    color:#895908!important;
+    border-color:#eccd83!important;
+  }
+  #cedarsPrintSheet .cedars-print-test-type.type-stool,
+  #cedarsPrintSheet .cedars-print-collector-pill.type-stool {
+    background:#f4e5d2!important;
+    color:#764b24!important;
+    border-color:#ddc1a2!important;
+  }
+  #cedarsPrintSheet .cedars-print-test-type.type-swab {
+    background:#e6f2ff!important;
+    color:#285d8f!important;
+    border-color:#bad7f1!important;
+  }
+  #cedarsPrintSheet .cedars-print-test-type.type-blood {
+    background:#f7e5ec!important;
+    color:#823450!important;
+    border-color:#e5bdd0!important;
+  }
+  #cedarsPrintSheet .cedars-print-test-type.type-other {
+    background:#eeeaf7!important;
+    color:#61507f!important;
+    border-color:#d5cce8!important;
+  }
+}
+
+
+/* Reference panel: concise left-aligned copy, PDF guide on left,
+   PowerPoint and Lexicomp on the right. */
+@media screen {
+  .cedars-page .cedars-reference-combined .cedars-reference-header {
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    width:100%;
+    text-align:left;
+  }
+  /* Keep the pink guide pill equal in height to the adjacent reference copy. */
+  .cedars-page .cedars-reference-combined .cedars-reference-header .cedars-reference-pill {
+    align-self:stretch;
+    box-sizing:border-box;
+    justify-content:center;
+    text-align:center;
+  }
+  .cedars-page .cedars-reference-combined .cedars-reference-copy {
+    flex:1 1 auto;
+    min-width:0;
+    text-align:left;
+  }
+  .cedars-page .cedars-reference-combined .cedars-reference-copy p {
+    max-width:880px;
+    text-align:left;
+    margin:5px 0 0;
+    line-height:1.6;
+  }
+  .cedars-page .cedars-reference-resource-row {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px 16px;
+    width:100%;
+    margin-top:16px;
+  }
+  .cedars-page .cedars-reference-resource-row > a.reference-guide {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    min-height:46px;
+    flex:0 0 auto;
+    padding:12px 16px;
+    background:#245d69;
+    color:#fff;
+    border:1px solid #245d69;
+    border-radius:10px;
+    font-size:12px;
+    font-weight:800;
+    line-height:1.2;
+    text-decoration:none;
+    box-shadow:0 2px 5px rgba(32,55,64,.10);
+  }
+  .cedars-page .cedars-reference-resource-row > a.reference-guide:hover {
+    background:#194752;
+    color:#fff;
+  }
+  .cedars-page .cedars-reference-resource-row > a.reference-guide:focus-visible {
+    outline:3px solid #245d69;
+    outline-offset:3px;
+  }
+  .cedars-page .cedars-reference-resource-row > a.reference-guide svg.cedars-reference-icon {
+    flex:0 0 20px;
+    width:20px;
+    height:20px;
+  }
+  .cedars-page .cedars-reference-resource-row > a.reference-guide svg.cedars-reference-external {
+    flex:0 0 14px;
+    width:14px;
+    height:14px;
+  }
+  .cedars-page .cedars-reference-resource-row .cedars-reference-actions {
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    flex-wrap:wrap;
+    gap:12px;
+    width:auto;
+    margin:0;
+  }
+  /* The container label inherits specimen-specific colors, not the lab theme. */
+  .cedars-page .cedars-library .cedars-container-name {
+    display:inline-flex;
+    align-items:center;
+    max-width:100%;
+    margin-top:5px;
+    padding:3px 8px;
+    border-radius:6px;
+    border:1px solid var(--badge-line,#d6dce6);
+    background:var(--badge-bg,#f3f6f9);
+    color:var(--badge-ink,#526473);
+    font-size:11.5px;
+    font-weight:800;
+    line-height:1.35;
+    overflow-wrap:anywhere;
+    white-space:normal;
+  }
+  .cedars-page .cedars-library .cedars-container-name.type-swab {
+    --badge-line:#b7d7ef;--badge-bg:#eaf4ff;--badge-ink:#235b8f;
+  }
+  .cedars-page .cedars-library .cedars-container-name.type-urine {
+    --badge-line:#f1d18a;--badge-bg:#fff3d8;--badge-ink:#805405;
+  }
+  .cedars-page .cedars-library .cedars-container-name.type-stool {
+    --badge-line:#ddc2a4;--badge-bg:#f5e9db;--badge-ink:#76502d;
+  }
+  .cedars-page .cedars-library .cedars-container-name.type-blood {
+    --badge-line:#e5bccb;--badge-bg:#f9e9ef;--badge-ink:#873c55;
+  }
+  .cedars-page .cedars-library .cedars-container-name.type-other {
+    --badge-line:#d1c9e5;--badge-bg:#f0ecf9;--badge-ink:#605384;
+  }
+  .cedars-page .cedars-library .cedars-row-source {
+    margin-top:7px;
+    font-size:11.5px;
+    line-height:1.5;
+    color:#647580;
+  }
+  /* Five visible table columns after moving volume into the gray summary. */
+  .cedars-page .cedars-library {
+    table-layout:fixed;
+    width:100%;
+  }
+  .cedars-page .cedars-library th:nth-child(1),
+  .cedars-page .cedars-library td:nth-child(1) {width:9%;}
+  .cedars-page .cedars-library th:nth-child(2),
+  .cedars-page .cedars-library td:nth-child(2) {width:31%;}
+  .cedars-page .cedars-library th:nth-child(3),
+  .cedars-page .cedars-library td:nth-child(3) {width:29%;}
+  .cedars-page .cedars-library th:nth-child(4),
+  .cedars-page .cedars-library td:nth-child(4) {width:17%;}
+  .cedars-page .cedars-library th:nth-child(5),
+  .cedars-page .cedars-library td:nth-child(5) {width:14%;}
+  .cedars-page .cedars-library .cedars-container-cell {
+    gap:10px;
+    align-items:center;
+  }
+  @media(max-width:900px) {
+    .cedars-page .cedars-reference-resource-row {
+      align-items:stretch;
+    }
+    .cedars-page .cedars-reference-resource-row > a.reference-guide {
+      align-self:flex-start;
+    }
+    .cedars-page .cedars-reference-resource-row .cedars-reference-actions {
+      justify-content:flex-start;
+    }
+  }
+  @media(max-width:600px) {
+    .cedars-page .cedars-reference-combined .cedars-reference-header {
+      flex-direction:column;
+      gap:8px;
+    }
+    .cedars-page .cedars-reference-combined .cedars-reference-header .cedars-reference-pill {
+      align-self:flex-start;
+      min-height:46px;
+    }
+    .cedars-page .cedars-reference-resource-row > a.reference-guide {
+      width:100%;
+      box-sizing:border-box;
+    }
+    .cedars-page .cedars-reference-resource-row .cedars-reference-actions {
+      width:100%;
+      display:grid;
+      grid-template-columns:1fr;
+      gap:8px;
+    }
+    .cedars-page .cedars-reference-resource-row .cedars-reference-actions a {
+      width:100%;
+      min-width:0;
+      box-sizing:border-box;
+    }
+  }
+}
+
+
+/* Same specimen color is retained on the fill; increase text contrast on
+   container badges without changing the light category background. */
+@media screen {
+  .cedars-page .cedars-library .cedars-container-name {
+    color:var(--badge-ink,#526473)!important;
+    font-weight:900;
+  }
+  .cedars-page .cedars-library .cedars-container-name.type-swab {--badge-ink:#174f83}
+  .cedars-page .cedars-library .cedars-container-name.type-urine {--badge-ink:#795000}
+  .cedars-page .cedars-library .cedars-container-name.type-stool {--badge-ink:#6e4321}
+  .cedars-page .cedars-library .cedars-container-name.type-blood {--badge-ink:#7e3049}
+  .cedars-page .cedars-library .cedars-container-name.type-other {--badge-ink:#54467e}
+}
+/* Submission container is the primary printed unit. Every card clearly shows
+   specimen, transport temperature, test method and individual test names. */
+@media print {
+  #cedarsPrintSheet .cedars-print-by-container {
+    padding:11px!important;
+    border-left:3px solid #a66e7a;
+    break-inside:avoid;
+  }
+  #cedarsPrintSheet .cedars-print-by-container.type-urine {border-left-color:#d4a03d}
+  #cedarsPrintSheet .cedars-print-by-container.type-stool {border-left-color:#b18c66}
+  #cedarsPrintSheet .cedars-print-by-container.type-swab {border-left-color:#7caed6}
+  #cedarsPrintSheet .cedars-print-by-container.type-blood {border-left-color:#c77b95}
+  #cedarsPrintSheet .cedars-print-by-container.type-other {border-left-color:#a198cc}
+  #cedarsPrintSheet .cedars-print-container-heading {
+    align-items:center;
+    gap:8px;
+    border-bottom:1px solid #e3e9ed;
+    padding-bottom:8px;
+  }
+  #cedarsPrintSheet .cedars-print-container-heading .cedars-container-art {
+    width:53px;
+    height:51px;
+    flex:0 0 53px;
+  }
+  #cedarsPrintSheet .cedars-print-container-heading .cedars-print-card-name {
+    display:flex;
+    align-items:flex-start;
+    flex-direction:column;
+    gap:5px;
+  }
+  #cedarsPrintSheet .cedars-print-container-heading .cedars-print-card-name>strong {
+    color:#213b49!important;
+    font-size:10.3pt!important;
+    line-height:1.26;
+    font-weight:900;
+  }
+  #cedarsPrintSheet .cedars-print-container-heading .cedars-print-test-type {margin-left:0}
+  #cedarsPrintSheet .cedars-print-container-meta {
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:5px;
+    padding:7px 0 3px;
+    font-size:7.4pt;
+    color:#5c737f;
+    font-weight:700;
+  }
+  #cedarsPrintSheet .cedars-print-method-group {
+    margin-top:7px;
+    break-inside:avoid;
+  }
+  #cedarsPrintSheet .cedars-print-method-heading {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:8px;
+    border-bottom:1px solid #e8edf1;
+    padding:4px 0 5px;
+    font-size:7pt;
+    color:#5d6d78;
+    font-weight:650;
+  }
+  #cedarsPrintSheet .cedars-print-method-badge {
+    display:inline-block;
+    padding:3px 7px;
+    border-radius:4px;
+    color:#5b506e!important;
+    background:#eeeaf7!important;
+    border:1px solid #d2c8e3;
+    font-size:8.3pt;
+    line-height:1.2;
+    font-weight:900;
+    letter-spacing:.035em;
+  }
+  #cedarsPrintSheet .cedars-print-method-badge.is-culture {
+    color:#85425a!important;
+    background:#fae8ef!important;
+    border-color:#e3b5c5;
+  }
+  #cedarsPrintSheet .cedars-print-method-badge.is-pcr {
+    color:#1e5f91!important;
+    background:#e6f2ff!important;
+    border-color:#b3d3ee;
+  }
+  #cedarsPrintSheet .cedars-print-method-group .cedars-print-test-list {
+    list-style:none;
+    margin:3px 0 0;
+    padding:0;
+  }
+  #cedarsPrintSheet .cedars-print-organized-test {
+    padding:7px 3px 6px;
+    border-bottom:1px solid #edf0f2;
+    margin:0;
+    break-inside:avoid;
+  }
+  #cedarsPrintSheet .cedars-print-organized-test:last-child {border-bottom:0}
+  #cedarsPrintSheet .cedars-print-test-ident {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:3px 7px;
+  }
+  #cedarsPrintSheet .cedars-print-test-name {
+    display:inline-block;
+    color:#193a4b!important;
+    font-size:9.4pt!important;
+    line-height:1.35;
+    font-weight:900!important;
+  }
+  #cedarsPrintSheet .cedars-print-test-ident .cedars-print-test-type {margin-left:0}
+  #cedarsPrintSheet .cedars-print-test-code {
+    color:#617783;
+    font-size:7.3pt;
+    margin-left:0;
+  }
+  #cedarsPrintSheet .cedars-print-submit-step {
+    margin-top:6px;
+    padding:5px 7px;
+    font-size:7.7pt;
+  }
+}
+
+/* Cleaner paper submission cards: show each container once, with its
+   temperature directly below the name and the assay method beside the test. */
+@media print {
+  #cedarsPrintSheet .cedars-print-by-container {
+    padding:10px !important;
+    break-inside:avoid;
+  }
+  #cedarsPrintSheet .cedars-print-container-heading {
+    border-bottom:0 !important;
+    padding-bottom:7px !important;
+    gap:9px;
+    align-items:center;
+  }
+  #cedarsPrintSheet .cedars-print-container-heading .cedars-container-art {
+    width:49px;
+    height:49px;
+    flex:0 0 49px;
+  }
+  #cedarsPrintSheet .cedars-print-container-heading .cedars-print-card-name {
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+    gap:6px;
+    min-width:0;
+  }
+  #cedarsPrintSheet .cedars-print-container-heading .cedars-print-card-name > strong {
+    font-size:10.2pt !important;
+    line-height:1.25;
+    overflow-wrap:anywhere;
+  }
+  #cedarsPrintSheet .cedars-print-compact-meta {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:5px 9px;
+  }
+  #cedarsPrintSheet .cedars-print-compact-meta .cedars-print-transport-pill {
+    padding:3px 7px;
+    font-size:7.8pt;
+    line-height:1.3;
+    font-weight:850;
+  }
+  #cedarsPrintSheet .cedars-print-submit-count {
+    color:#526d7a;
+    font-size:7.4pt;
+    font-weight:750;
+    white-space:nowrap;
+  }
+  #cedarsPrintSheet .cedars-print-simple-tests {
+    list-style:none;
+    margin:2px 0 0;
+    padding:0;
+    border-top:1px solid #dfe7ea;
+  }
+  #cedarsPrintSheet .cedars-print-simple-test {
+    margin:0;
+    padding:7px 0 6px;
+    border-bottom:1px solid #eef1f3;
+    break-inside:avoid;
+  }
+  #cedarsPrintSheet .cedars-print-simple-test:last-child {border-bottom:0}
+  #cedarsPrintSheet .cedars-print-simple-test-heading {
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:6px;
+    min-width:0;
+  }
+  #cedarsPrintSheet .cedars-print-simple-test-name {
+    color:#173b4c !important;
+    font-weight:900;
+    font-size:9.5pt;
+    line-height:1.32;
+    min-width:0;
+    overflow-wrap:anywhere;
+    flex:1 1 auto;
+  }
+  #cedarsPrintSheet .cedars-print-simple-test-heading .cedars-print-method-badge {
+    flex:0 0 auto;
+    margin:0;
+    padding:2px 5px;
+    font-size:7.1pt;
+    letter-spacing:0;
+  }
+  #cedarsPrintSheet .cedars-print-simple-test > .cedars-print-test-code {
+    display:block;
+    margin:3px 0 0;
+    font-size:7pt;
+  }
+  #cedarsPrintSheet .cedars-print-simple-test .cedars-print-submit-step {
+    display:block;
+    border:0 !important;
+    border-radius:0;
+    background:transparent !important;
+    margin:4px 0 0 !important;
+    padding:0 !important;
+    font-size:7.5pt;
+    font-weight:550;
+    line-height:1.35;
+    color:#3c6170 !important;
+  }
+  #cedarsPrintSheet .cedars-print-simple-test .cedars-print-submit-step.is-original {
+    color:#526b43 !important;
+  }
+  #cedarsPrintSheet .cedars-print-simple-test .cedars-print-count-note,
+  #cedarsPrintSheet .cedars-print-simple-test .cedars-print-single-vial {
+    display:block;
+    margin:3px 0 0;
+    line-height:1.3;
+    font-size:7.1pt;
+    color:#55707d;
+  }
+}

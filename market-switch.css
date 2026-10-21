@@ -1,0 +1,196 @@
+/* Shared receiving-lab dropdown. Main landing page always begins with Quest;
+   no choice is persisted across sessions. Both calculators remain independent. */
+@media screen {
+  .app-header .header-actions:has(.lab-select) {
+    max-width: none;
+    gap: 13px;
+    align-items: center;
+    overflow: visible;
+  }
+  .lab-select {
+    --lab-accent: #1c865f;
+    --lab-accent-strong: #136b4e;
+    --lab-light: #eaf7f0;
+    position: relative;
+    display: block;
+    width: 172px;
+    max-width: 100%;
+    flex: 0 0 auto;
+    color: #213947;
+    z-index: 110;
+  }
+  .lab-select--cedars {
+    --lab-accent: #933c4e;
+    --lab-accent-strong: #772b40;
+    --lab-light: #f8ebee;
+  }
+  .lab-select > summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 65px;
+    padding: 10px 12px;
+    border: 2px solid var(--lab-accent);
+    border-radius: 13px;
+    background: #ffffff;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .12);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    outline-offset: 3px;
+    transition: box-shadow .16s ease, border-color .16s ease, background-color .16s ease;
+  }
+  .lab-select > summary::-webkit-details-marker { display: none; }
+  .lab-select > summary::marker { content: ''; }
+  .lab-select > summary:hover,
+  .lab-select[open] > summary {
+    background: var(--lab-light);
+    box-shadow: 0 5px 17px rgba(0, 0, 0, .15);
+  }
+  .lab-select > summary:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 3px;
+  }
+  .lab-select-indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    flex: 0 0 12px;
+    border-radius: 50%;
+    background: var(--lab-accent);
+    box-shadow: 0 0 0 4px var(--lab-light);
+  }
+  .lab-select-summary-text {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+    line-height: 1.05;
+  }
+  .lab-select-label {
+    color: #566875;
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+  }
+  .lab-select-current {
+    color: var(--lab-accent-strong);
+    font-size: 19px;
+    font-weight: 900;
+    letter-spacing: -.015em;
+  }
+  .lab-select-chevron {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    color: var(--lab-accent-strong);
+    transition: transform .16s ease;
+  }
+  .lab-select[open] .lab-select-chevron { transform: rotate(180deg); }
+  .lab-select-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    display: grid;
+    gap: 7px;
+    width: 310px;
+    max-width: min(90vw, 340px);
+    padding: 10px;
+    border: 1px solid #cddbe2;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 14px 30px rgba(10, 30, 42, .23);
+    z-index: 112;
+  }
+  .lab-select-choice {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 64px;
+    padding: 11px 13px;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: border-color .15s ease, background-color .15s ease, transform .15s ease;
+  }
+  .lab-select-choice.quest {
+    color: #155d43;
+    background: #e8f5ed;
+    border-color: #bee6cf;
+  }
+  .lab-select-choice.cedars {
+    color: #772b40;
+    background: #f9e9ed;
+    border-color: #ebc8d1;
+  }
+  .lab-select-choice.quest:hover,
+  .lab-select-choice.quest:focus-visible {
+    background: #d4eddf;
+    border-color: #28875e;
+  }
+  .lab-select-choice.cedars:hover,
+  .lab-select-choice.cedars:focus-visible {
+    background: #f2d6dd;
+    border-color: #a54459;
+  }
+  .lab-select-choice:focus-visible { outline: 2px solid #263c54; outline-offset: 2px; }
+  .lab-select-choice-marker {
+    width: 14px;
+    height: 14px;
+    flex: 0 0 14px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: .87;
+  }
+  .lab-select-choice-copy {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+  .lab-select-choice-copy strong {
+    color: inherit;
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 1.1;
+  }
+  .lab-select-choice-copy small {
+    color: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    opacity: .82;
+  }
+  .lab-select-choice-state {
+    flex: 0 0 auto;
+    color: inherit;
+    font-size: 10px;
+    font-weight: 850;
+    border: 1px solid currentColor;
+    border-radius: 5px;
+    padding: 4px 6px;
+    letter-spacing: .015em;
+  }
+  .lab-select-choice[aria-current="page"] { border-width: 2px; }
+  @media (max-width: 700px) {
+    .app-header .header-actions:has(.lab-select) {
+      width: 100%;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+    .lab-select { width: min(100%, 172px); }
+    .lab-select > summary { min-height: 61px; }
+    .lab-select-menu { right: auto; left: 0; width: 100%; max-width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lab-select > summary,
+    .lab-select-chevron,
+    .lab-select-choice { transition: none; }
+  }
+}
+@media print {
+  .lab-select { display: none !important; }
+}
