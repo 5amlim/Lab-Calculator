@@ -944,12 +944,12 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
 @media screen {
   #addBestButton,
   .row-actions button[data-action="add"]:not(:disabled) {
-    background: #142f46;
+    background: #087e83;
     color: #fff;
   }
   #addBestButton:hover,
   .row-actions button[data-action="add"]:not(:disabled):hover {
-    background: #1c4059;
+    background: #056267;
     color: #fff;
   }
   .cart-header-print {

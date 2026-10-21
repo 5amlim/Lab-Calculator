@@ -1,10 +1,10 @@
-/* Original teal Print / Save PDF buttons for Quest and Cedars.
+/* Matching navy Print / Save PDF buttons for Quest and Cedars.
    Disabled buttons retain the application's existing lower opacity. */
 @media screen {
   :root {
-    --print-action: #087e83;
-    --print-action-hover: #056267;
-    --print-action-ring: rgba(8, 126, 131, .25);
+    --print-action: #142f46;
+    --print-action-hover: #1c4059;
+    --print-action-ring: rgba(20, 47, 70, .25);
   }
   #printButton.button.primary.cart-header-print,
   .cedars-page #cedarsPrint.button.primary.cart-header-print {
