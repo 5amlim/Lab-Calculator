@@ -4,7 +4,7 @@
   .app-header {
     background: #23472c;
     color: #fff;
-    border-bottom: 4px solid #c6d52f;
+    border-bottom: 4px solid var(--brand);
   }
   .app-header h1 { color: #fff; }
   .app-header p { color: #e4efd9; }
