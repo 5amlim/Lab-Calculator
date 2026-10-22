@@ -29,6 +29,9 @@
     align-items: center;
     justify-content: center;
     gap: 9px;
+    min-height: 52px !important;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
   }
   #printButton .print-button-icon,
   #cedarsPrint .print-button-icon {
