@@ -570,6 +570,72 @@
     return extras ? `${primary} ${extras}` : primary;
   }
 
+  // Search-library display only. Do not change collection, cart, or print logic.
+  // Surface the transport tube instead of the source collection tube/cup.
+  function librarySubmissionBadges(test, className = 'badge') {
+    const transport = String(finalTransportContainer(test) || '').trim();
+    const combined = `${transport} ${test.specialInstructions || ''}`;
+    const isMultiple = String(test.testCode || '') === '3020'
+      || (/red\s*\/\s*yellow|red-yellow|swirl/i.test(combined)
+        && /gray|grey|urisponge/i.test(combined) && /urine|culture/i.test(combined));
+    const parts = isMultiple
+      ? splitSubmissionContainers(test).map(item => ({ label: item.label, cls: item.className }))
+      : [{
+        label: /^no transfer\s*\/\s*submit in original tube$|^submit in original tube$/i.test(transport)
+          ? String(test.drawContainer || transport) : transport,
+        cls: /^no transfer\s*\/\s*submit in original tube$|^submit in original tube$/i.test(transport)
+          ? tubeClass(test.drawContainer)
+          : transportTubeClass(test, transport)
+      }];
+    for (const requirement of additionalDrawRequirements(test)) {
+      const label = String(requirement.transportContainer || requirement.container || '').trim();
+      if (label) parts.push({
+        label,
+        cls: transportTubeClass({ ...test, specimenType: requirement.specimenType || test.specimenType }, label)
+      });
+    }
+    const seen = new Set();
+    return parts.filter(item => {
+      if (!item.label || seen.has(item.label.toLowerCase())) return false;
+      seen.add(item.label.toLowerCase());
+      return true;
+    }).map(item => {
+      const cls = item.cls || tubeClass(item.label);
+      const isSst = cls === 'tube-sst';
+      const visual = isSst ? selectedSstVisualClass() : cls;
+      const label = isSst ? `${selectedSstTransportLabel()}${/\bspun\b/i.test(item.label) ? ' (spun)' : ''}` : item.label;
+      return `<span class="${className} tube ${visual}">${escapeHtml(label)}</span>`;
+    }).join(' ');
+  }
+
+  // Search results only: show the final submission vial for urine/stool.
+  // For blood and all other specimens retain the original collection-badge display.
+  function menuContainerBadges(test) {
+    const specimen = String(test.specimenType || '');
+    const showSubmission = /\burine\b|\b(?:stool|feces|fecal|faeces|faecal)\b/i.test(specimen);
+    // No-transfer is a handling instruction, not a submission container.
+    // For urine/stool, display the existing collection container in that case.
+    const transport = String(test.transportContainer || '').trim();
+    const originalContainer = /\bno\s+transfer\b/i.test(transport)
+      || /^(?:(?:submit|send|ship|keep|leave)\b.{0,70}\b)?(?:original|primary)(?:\s+collection)?\s+(?:tube|container|cup|specimen|vial)\b/i.test(transport)
+      || /^(?:submit|send|ship|keep|leave)\b.{0,70}\b(?:original|primary)(?:\s+collection)?\s+(?:tube|container|cup|specimen|vial)\b/i.test(transport);
+    const badges = showSubmission && !originalContainer
+      ? librarySubmissionBadges(test)
+      : requiredDrawContainerBadges(test);
+    // Hide verbose original-tube flags in menu badges only.
+    return badges
+      .replace(/\s*\(\s*original (?:tube|specimen)\s*\)/gi, '')
+      .replace(/\s*\/\s*original tube\b/gi, '')
+      .replace(/\s*\(\s*submit in original tube\s*\)/gi, '');
+  }
+
+  function menuVolumeText(test, label) {
+    const value = combinedVolumeText(test, label);
+    return /^fill\s+(?:(?:the|a)\s+)?(?:[\w-]+\s+){0,3}tube\s+to\s+capacity$/i.test(value)
+      ? 'Full tube'
+      : value;
+  }
+
   function requiredSpecimenBadges(test, extraClass = '') {
     const labels = [normalizeSpecimenType(test.specimenType), ...additionalDrawRequirements(test).map(requirement => normalizeSpecimenType(requirement.specimenType))]
       .filter(Boolean);
@@ -1268,9 +1334,9 @@
     return `<tr class="${selected ? 'is-selected' : ''}">
       <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
       <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${isStatEligible(test) ? `<span class="library-stat-eligible${statSelectedIds.includes(test.id) ? ' selected' : ''}" title="Eligible on the selected receiving laboratory's STAT menu. Confirm current acceptance before sending.">${statSelectedIds.includes(test.id) ? 'STAT selected' : 'STAT eligible'}</span>` : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
-      <td data-label="Specimen / tube">${requiredDrawContainerBadges(test)}<div class="subtext specimen-line">${requiredSpecimenBadges(test)}${test.alternativeContainer ? ` <span>· Alt: ${escapeHtml(test.alternativeContainer)}</span>` : ''}</div></td>
+      <td data-label="Container">${menuContainerBadges(test)}<div class="subtext specimen-line">${requiredSpecimenBadges(test)}</div></td>
       <td data-label="Temperature"><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td>
-      <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(combinedVolumeText(test, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(combinedVolumeText(test, 'minimum') || '—')}</div></td>
+      <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(menuVolumeText(test, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(menuVolumeText(test, 'minimum') || '—')}</div></td>
       <td class="row-actions" data-label="Actions">
         ${blocked ? '<span class="badge temp-unknown">Do not perform</span>' : selected
           ? `<button class="mini-button" disabled>✓ Added${statSelectedIds.includes(test.id) ? ' · STAT' : ''}</button>`
@@ -3421,8 +3487,20 @@
     if (/aptima/.test(value)) return 'tube-aptima';
     if (/amber|protect from light|light[- ]?protected/.test(value)) return 'tube-amber';
 
-    // Specialty acid-washed/metal-free tubes must stay neutral, regardless of specimen type.
-    if (isSpecialtyMetalContainer) return 'tube-transport';
+    // Quest metal-free transport vials have white caps and clear bodies.
+    // The LABEL is red for serum and purple for plasma, whole blood, or RBCs.
+    // Use specimen identity first; the container label is a fallback.
+    if (isSpecialtyMetalContainer) {
+      const material = /\b(?:plasma|whole blood|blood|rbcs?|red blood cells?|packed red cells?)\b/i.test(specimen)
+        ? 'purple'
+        : /\bserum\b/i.test(specimen)
+          ? 'red'
+          : /\b(?:plasma|whole blood|blood|rbcs?|red blood cells?|packed red cells?)\b/i.test(value)
+            ? 'purple'
+            : /\bserum\b/i.test(value)
+              ? 'red' : '';
+      return material ? `tube-transport tube-metal-free-${material}-label` : 'tube-transport';
+    }
 
     if (/transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/.test(value)) {
       // Serum, plasma, and platelet-poor plasma use the green-top transport badge.

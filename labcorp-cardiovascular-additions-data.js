@@ -1,0 +1,110 @@
+/* Five additional Labcorp blood tests. Requirements verified on individual test pages on 2026-10-21. */
+(() => {
+  'use strict';
+  const additions=[
+  {
+    "id": "labcorp-235010",
+    "testCode": "235010",
+    "testName": "Lipid Panel With LDL:HDL Ratio",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "Red-top serum or green lithium heparin plasma",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.7 mL",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "3 days room temperature",
+    "spin": "Yes",
+    "specialInstructions": "Serum or lithium heparin plasma. Separate serum/plasma from cells within 45 minutes. Fasting is not routinely required, but may be requested for specific triglyceride indications.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "status": "active",
+    "source": "Labcorp official test directory, checked 2026-10-21 • https://www.labcorp.com/tests/235010/lipid-panel-with-ldl-hdl-ratio"
+  },
+  {
+    "id": "labcorp-221010",
+    "testCode": "221010",
+    "testName": "Lipid Panel With Total Cholesterol:HDL Ratio",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "Red-top serum or green lithium heparin plasma",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.7 mL",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "3 days room temperature",
+    "spin": "Yes",
+    "specialInstructions": "Serum or lithium heparin plasma. Separate serum/plasma from cells within 45 minutes. Fasting is not routinely required. If specimens will not reach the lab within 3 days, refrigerate.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "status": "active",
+    "source": "Labcorp official test directory, checked 2026-10-21 • https://www.labcorp.com/tests/221010/lipid-panel-with-total-cholesterol-hdl-ratio"
+  },
+  {
+    "id": "labcorp-010405",
+    "testCode": "010405",
+    "testName": "Myoglobin, Serum",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "Red-top serum",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.7 mL",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "14 days room temperature",
+    "spin": "Yes",
+    "specialInstructions": "Serum only. Gel-barrier or red-top tube; if red-top, separate serum and transfer to labeled plastic transport tube.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "status": "active",
+    "source": "Labcorp official test directory, checked 2026-10-21 • https://www.labcorp.com/tests/010405/myoglobin"
+  },
+  {
+    "id": "labcorp-004110",
+    "testCode": "004110",
+    "testName": "Galectin-3",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "Red-top serum or lavender EDTA plasma",
+    "transportContainer": "Plastic Serum Transport Tube",
+    "preferredVolume": "0.8 mL serum",
+    "minimumVolume": "0.4 mL",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "22 days room temperature",
+    "spin": "Yes",
+    "specialInstructions": "Serum or EDTA plasma acceptable. Separate serum or plasma from cells and TRANSFER into labeled plastic transport tube. Heparin plasma not accepted.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "status": "active",
+    "source": "Labcorp official test directory, checked 2026-10-21 • https://www.labcorp.com/tests/004110/galectin-3"
+  },
+  {
+    "id": "labcorp-140150",
+    "testCode": "140150",
+    "testName": "Troponin T, Highly Sensitive (Frozen Lithium Heparin Plasma)",
+    "specimenType": "Plasma",
+    "drawContainer": "Green Top Lithium Heparin",
+    "alternativeContainer": "Green lithium heparin with separator gel accepted",
+    "transportContainer": "Plasma Transport Tube",
+    "preferredVolume": "1 mL lithium heparin plasma",
+    "minimumVolume": "0.8 mL",
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "stability": "12 months frozen",
+    "spin": "Yes",
+    "specialInstructions": "SPECIAL HANDLING: collect lithium heparin whole blood, centrifuge and transfer separated plasma into labeled plastic transport tube as Li-Heparin Plasma, then FREEZE. Do not send whole blood; serum/EDTA plasma rejected. Use dedicated frozen aliquot per test.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "status": "active",
+    "source": "Labcorp official test directory, checked 2026-10-21 • https://www.labcorp.com/tests/140150/troponin-t-highly-sensitive"
+  }
+];
+  const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];
+  const set=new Set(catalog.map(x=>String(x.testCode)));
+  for(const t of additions){if(!set.has(t.testCode)){set.add(t.testCode);catalog.push(t);}}
+  window.SEED_TESTS=catalog;
+})();

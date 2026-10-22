@@ -1,0 +1,37 @@
+/* Quest reference comparison, intentionally separate from Labcorp collection planning. */
+@media screen {
+  .labcorp-crosswalk { margin-top: 19px; border:1px solid #cadbe6; border-radius:11px; background:#fbfdff; overflow:hidden; }
+  .labcorp-crosswalk > summary { cursor:pointer; padding:15px 17px; display:flex; align-items:center; flex-wrap:wrap; gap:9px; color:#173f60; font-weight:850; background:#edf5fa; }
+  .labcorp-crosswalk > summary:hover { background:#e7f1f8; }
+  .labcorp-crosswalk .crosswalk-icon { display:inline-flex; align-items:center; justify-content:center; width:25px; height:25px; background:#d7e8f4; border-radius:7px; font-size:15px; }
+  .labcorp-crosswalk > summary::marker { color:#37658b; }
+  .crosswalk-interior { padding:15px; }
+  .crosswalk-explainer { margin:0 0 13px; font-size:12px; color:#496477; line-height:1.55; }
+  .crosswalk-explainer strong {color:#163f5f}
+  .crosswalk-tools { display:flex; flex-wrap:wrap; align-items:end; gap:9px; margin-bottom:13px; }
+  .crosswalk-tools label { display:grid; gap:4px; font-size:11px; font-weight:800; color:#304e66; flex:1 1 200px; }
+  .crosswalk-tools input,.crosswalk-tools select { display:block; box-sizing:border-box; width:100%; min-height:40px; padding:9px 12px; border-radius:8px; border:1px solid #c8d8e4; background:#fff; color:#253e53; font:inherit; font-size:13px; }
+  .crosswalk-tools button,.crosswalk-open { min-height:39px; padding:8px 12px; border-radius:8px; border:1px solid #316b96; background:#e9f3fa; color:#16486e; font-size:12px; font-weight:800; cursor:pointer; }
+  .crosswalk-table-wrap { overflow-x:auto; max-width:100%; border:1px solid #dde7ed; border-radius:8px; }
+  .crosswalk-table { border-collapse:collapse; width:100%; min-width:650px; font-size:12px; }
+  .crosswalk-table th { padding:9px 10px; text-align:left; color:#33556a; background:#eff5f8; border-bottom:1px solid #d5e2e9; font-size:11px; white-space:nowrap; }
+  .crosswalk-table td { padding:10px; text-align:left; vertical-align:top; border-bottom:1px solid #e5edf2; }
+  .crosswalk-table tr:last-child td { border-bottom:0; }
+  .crosswalk-table td:nth-child(1) { width:12%; }
+  .crosswalk-table td:nth-child(2) { width:36%; }
+  .crosswalk-table td:nth-child(3) { width:34%; }
+  .crosswalk-table td:nth-child(4) { width:18%; }
+  .crosswalk-table td strong { display:block; color:#1c4059; font-weight:850; line-height:1.35; }
+  .crosswalk-table td small { display:block; margin-top:4px; font-size:10.5px; line-height:1.45; color:#687e8d; }
+  .crosswalk-table td a { color:#1b5f93; text-decoration:none; font-size:11px; font-weight:800; }
+  .crosswalk-pending { color:#7a6170; font-weight:700; font-size:11px; }
+  .crosswalk-empty { color:#667e8c; text-align:center !important; padding:19px !important; }
+  .crosswalk-bottom { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; padding-top:13px; font-size:11px; color:#5a7485; }
+  #labcorpCrosswalkMore[hidden] { display:none !important; }
+  @media(max-width:640px) {
+    .crosswalk-interior {padding:11px;}
+    .crosswalk-table { min-width:520px; }
+    .crosswalk-table td {padding:8px;}
+    .labcorp-crosswalk > summary {padding:13px 12px; font-size:13px;}
+  }
+}

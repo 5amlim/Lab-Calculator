@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="assets/lab-favicon.svg?v=1" type="image/svg+xml">
+  <title>Labcorp Lab Calculator | Specimen Collection and Processing</title>
+  <meta name="description" content="Labcorp Lab Calculator: search verified Labcorp tests, calculate specimen collection and submission plans, and print handling instructions.">
+  <link rel="stylesheet" href="assets/css/styles.css?v=11.97">
+  <link rel="stylesheet" href="assets/css/experience.css?v=11.82">
+  <link rel="stylesheet" href="market-switch.css?v=9">
+  <link rel="stylesheet" href="labcorp-theme.css?v=3">
+  <link rel="stylesheet" href="labcorp-crosswalk.css?v=1">
+  <link rel="stylesheet" href="print-button-theme.css?v=7">
+</head>
+<body class="labcorp-page">
+  <a class="skip-link" href="#libraryFilter">Skip to test search</a>
+  <header class="app-header no-print">
+    <div class="header-title">
+      <h1>Labcorp Lab Calculator</h1>
+      <p>Search Labcorp tests and print collection and submission instructions.</p>
+    </div>
+    <div class="header-actions">
+      <span class="privacy-pill">No patient information required</span>
+      <details class="lab-select lab-select--labcorp">
+        <summary aria-label="Select Lab, currently Labcorp">
+          <span class="lab-select-summary-text">
+            <span class="lab-select-label">Select Lab</span>
+            <strong class="lab-select-current">Labcorp</strong>
+          </span>
+          <svg class="lab-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <nav class="lab-select-menu" aria-label="Choose receiving laboratory">
+          <a class="lab-select-choice quest" href="index.html">
+            <span class="lab-select-choice-marker" aria-hidden="true"></span>
+            <span class="lab-select-choice-copy"><strong>Quest</strong><small>Quest Diagnostics</small></span>
+          </a>
+          <a class="lab-select-choice cedars" href="cedars.html">
+            <span class="lab-select-choice-marker" aria-hidden="true"></span>
+            <span class="lab-select-choice-copy"><strong>Cedars</strong><small>Cedars-Sinai Lab</small></span>
+            
+          </a>
+          <a class="lab-select-choice labcorp" href="labcorp.html" aria-current="page">
+            <span class="lab-select-choice-marker" aria-hidden="true"></span>
+            <span class="lab-select-choice-copy"><strong>Labcorp</strong><small>Labcorp directory</small></span>
+            <span class="lab-select-choice-state">Selected</span>
+          </a>
+        </nav>
+      </details>
+    </div>
+  </header>
+
+  <main class="app-shell no-print">
+    <section class="workspace">
+      <div class="panel library-panel">
+        <div class="panel-heading library-heading">
+          <div>
+            <div class="eyebrow">1. SELECT TESTS</div>
+            <h2>Find tests</h2>
+            <p>Search by test code or names.</p>
+          </div>
+          <div class="library-actions">
+            <div class="record-count" id="recordCount">0 tests</div>
+            <button class="button secondary" id="addTestButton">+ Add a missing test</button>
+          </div>
+        </div>
+      <section class="panel search-panel" id="batchEntry" aria-labelledby="batchEntryTitle">
+        <div class="batch-entry-heading">
+          <h3 id="batchEntryTitle">Add Tests</h3>
+          <p class="batch-entry-description" id="batchEntryDescription">Enter one test name or code per line. Common shorthand works; approximate matches require confirmation.</p>
+        </div>
+        <div class="batch-entry-body">
+          <label for="searchInput" class="sr-only">Test names or codes, one per line</label>
+          <textarea id="searchInput" rows="4" placeholder="322758&#10;Hemoglobin A1c&#10;Cat dander" aria-describedby="batchEntryDescription"></textarea>
+          <div class="search-actions">
+            <button class="button ghost" id="clearSearchButton">Clear</button>
+            <button class="button secondary" id="previewButton">Review matches</button>
+            <button class="button primary" id="addBestButton">Add best matches</button>
+          </div>
+          <p class="keyboard-hint batch-keyboard-hint">⌘ / Ctrl + Enter to add</p>
+        </div>
+      </section>
+
+        <div id="batchResults" class="panel batch-panel hidden" aria-live="polite"></div>
+
+        <div class="filter-row">
+          <label class="library-search"><span class="field-label">Search tests</span><input id="libraryFilter" type="search" placeholder="Name, code, or abbreviation (e.g. QFT)" autocomplete="off"></label>
+          <div class="catalog-filter-control" id="catalogFilterControl">
+            <button class="catalog-filter-toggle" id="catalogFilterButton" type="button" aria-expanded="false" aria-controls="catalogFilterPanel"><span class="catalog-filter-icon" aria-hidden="true">☷</span><span id="catalogFilterButtonText">Filters</span><span class="catalog-filter-chevron shared-chevron" aria-hidden="true"></span></button>
+            <div class="catalog-filter-panel hidden" id="catalogFilterPanel">
+              <div class="catalog-filter-heading"><strong>Filter tests</strong><button type="button" id="catalogFilterReset" class="catalog-filter-reset">Clear filters</button></div>
+              <label>Specimen type<select id="specimenFilter"><option value="">All specimens</option><option value="Blood">Blood (serum / plasma / whole blood)</option><option value="Urine">Urine</option><option value="Stool">Stool</option><option value="Swab">Swab</option><option value="Other">Other</option></select></label>
+              <label>Transport temperature<select id="temperatureFilter"><option value="">All temperatures</option><option value="room">Room temperature</option><option value="refrigerated">Refrigerated</option><option value="frozen">Frozen</option><option value="mixed">Mixed / verify</option></select></label>
+              <label>Transport container<select id="transportContainerFilter"><option value="">All transport containers</option><option value="transport">Transport tube (unspecified)</option><option value="sst">Spun SST / Gold</option><option value="original">Original tube / no transfer</option><option value="serum">Serum transport tube</option><option value="plasma">Plasma transport tube</option><option value="amber">Amber / light-protected tube</option><option value="metal">Metal-free / acid-washed container</option><option value="urine-cup">Urine cup / container</option><option value="urine-ua">Urinalysis preservative tube</option><option value="urine-culture">Urine culture preservative tube</option><option value="aptima">Aptima transport</option><option value="viral">Viral transport medium</option><option value="stool">Stool preservative (Total-Fix)</option><option value="special">Other / special container</option></select></label>
+              <label>Fasting<select id="fastingFilter"><option value="">All fasting instructions</option><option value="required">Required</option><option value="preferred">Preferred</option><option value="verify">Fasting mentioned: verify</option></select></label>
+              <label class="catalog-filter-check"><input type="checkbox" id="pediatricFilter"><span>Pediatric / neonatal tests <small>(explicitly named)</small></span></label>
+              <label class="catalog-filter-check"><input type="checkbox" id="spinFilter"><span>Requires centrifugation</span></label>
+              <button class="catalog-filter-done" id="catalogFilterDone" type="button">Done</button>
+            </div>
+          </div>
+      <div class="stat-library-control" aria-label="STAT receiving area">
+        <label for="statAreaButton">STAT receiving area</label>
+        <div class="stat-select-wrap" id="statSelectWrap">
+        <select id="statAreaSelect" aria-label="Labcorp STAT receiving area" hidden tabindex="-1" aria-hidden="true">
+          <option value="unselected">Select receiving area</option>
+          <option value="socal">Southern California</option>
+          <option value="norcal">Northern California</option>
+          <option value="ny">New York</option>
+          <option value="fl">Florida</option>
+          <option value="other">Other service area</option>
+        </select>
+        <button id="statAreaButton" class="stat-area-picker-button" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="statAreaOptions" aria-label="Choose STAT receiving area"><span id="statAreaButtonLabel" class="stat-area-picker-text">Select receiving area</span><span class="shared-chevron" aria-hidden="true"></span></button>
+        <div id="statAreaOptions" class="stat-area-options hidden" role="listbox" aria-label="STAT receiving areas"></div>
+        </div>
+        <button id="statMenuButton" class="button secondary stat-menu-button" type="button" aria-expanded="false" aria-controls="statMenuPanel">STAT routing info</button>
+      </div>
+
+          <button class="button ghost blocked-list-button" id="blockedListButton" type="button" aria-expanded="false" aria-controls="blockedListPanel">Do not perform list</button>
+        </div>
+        <section class="stat-menu-panel hidden" id="statMenuPanel" aria-label="STAT tests offered by receiving lab">
+          <div class="stat-menu-heading"><div><strong id="statMenuTitle">STAT test menu</strong><span id="statMenuCount"></span></div><button type="button" class="mini-button edit" id="statMenuClose">Close</button></div>
+          <p class="stat-menu-note" id="statAreaHelp">Select a receiving lab. Menu availability requires current confirmation.</p>
+          <label class="stat-menu-filter">Find an eligible code or test<input id="statMenuSearch" type="search" placeholder="Search this lab's STAT menu"></label>
+          <div class="stat-menu-results" id="statMenuResults"></div>
+        </section>
+        <section class="blocked-list-panel hidden" id="blockedListPanel" aria-label="Do not perform list">
+          <div class="blocked-list-heading">
+            <div><strong>Do not perform</strong><span>Tests that require collection, processing, storage, or supplies outside the supported onsite workflow.</span></div>
+          </div>
+          <div class="blocked-list" id="blockedListBody"></div>
+        </section>
+        <div class="table-wrap">
+          <table class="library-table">
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Test</th>
+                <th>Container</th>
+                <th>Temperature</th>
+                <th>Volume</th>
+                <th><span class="sr-only">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody id="libraryBody"></tbody>
+          </table>
+          <div class="scroll-load-more-row">
+            <button class="button ghost" id="loadMoreInlineButton">Show more tests</button>
+          </div>
+        </div>
+        <div class="pagination-row">
+          <span id="libraryStatus" role="status"></span>
+          <div class="library-footer-actions"><button class="button ghost" id="loadMoreButton">Show more tests</button><button class="button browser-custom-clear" id="clearBrowserTestsButton" type="button" disabled title="Only tests added manually in this browser; packaged tests stay">Clear manually added tests <span id="browserCustomCount"></span></button></div>
+        </div>
+        <p class="library-help">Can’t find a test? <a href="https://www.labcorp.com/test-menu/search" target="_blank" rel="noreferrer">Check the official directory ↗</a> or contact Sam to have it added.</p>
+        <details class="labcorp-crosswalk" id="labcorpCrosswalk">
+          <summary><span class="crosswalk-icon" aria-hidden="true">⇄</span>Compare Quest tests to Labcorp <span id="labcorpCrosswalkCount">2,692 Quest entries</span></summary>
+          <div class="crosswalk-interior">
+            <p class="crosswalk-explainer"><strong>All Quest tests are included here for name/code comparison, not Labcorp specimen planning.</strong> Quest codes and collection requirements are not interchangeable with Labcorp's. Possible code matches require confirmation of method, specimen, volume and transport instructions before use in the Labcorp calculator.</p>
+            <div class="crosswalk-tools">
+              <label>Find a Quest test or possible Labcorp code
+                <input id="labcorpCrosswalkSearch" type="search" autocomplete="off" placeholder="Test name, Quest code, or Labcorp code">
+              </label>
+              <label>Match status
+                <select id="labcorpCrosswalkFilter" aria-label="Quest to Labcorp comparison status">
+                  <option value="all">All Quest tests</option>
+                  <option value="suggested">Possible Labcorp matches</option>
+                  <option value="pending">Mapping not verified</option>
+                </select>
+              </label>
+              <button type="button" id="labcorpCrosswalkExport">Download comparison CSV</button>
+            </div>
+            <div class="crosswalk-table-wrap">
+              <table class="crosswalk-table">
+                <thead><tr><th>Quest code</th><th>Quest test</th><th>Possible Labcorp equivalent</th><th>Next step</th></tr></thead>
+                <tbody id="labcorpCrosswalkBody"></tbody>
+              </table>
+            </div>
+            <div class="crosswalk-bottom"><span id="labcorpCrosswalkStatus" role="status">Loading comparison…</span><button type="button" id="labcorpCrosswalkMore" class="button secondary" hidden>Show more matches</button></div>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <aside class="panel order-panel" id="collectionSummary" tabindex="-1">
+      <div class="order-top">
+        <div>
+          <div class="eyebrow">2. CHECK SUMMARY</div>
+          <h2>Collection summary <span id="selectedCount">0</span></h2>
+        </div>
+      </div>
+
+      <section class="sst-mode-control" aria-labelledby="sstModeLabel">
+        <div class="sst-mode-copy">
+          <strong id="sstModeLabel">SST tube</strong>
+          <span>Choose one type.</span>
+        </div>
+        <div class="sst-mode-toggle" role="group" aria-label="Select SST tube size">
+          <button type="button" class="sst-mode-option" data-sst-mode="gold" aria-pressed="true"><span class="sst-mode-tube tube tube-sst"><span class="sst-mode-name">Gold / SST</span><small class="sst-mode-volume">5 mL</small></span></button>
+          <button type="button" class="sst-mode-option" data-sst-mode="tiger" aria-pressed="false"><span class="sst-mode-tube tube tube-tiger-sst"><span class="sst-mode-name">Tiger SST</span><small class="sst-mode-volume">7.5 mL</small></span></button>
+        </div>
+      </section>
+
+      <div id="collectionAlerts" class="alerts"></div>
+
+      <section class="summary-section tests-summary" id="testsOverviewSection" aria-labelledby="testsOverviewTitle">
+        <div class="tests-summary-header">
+          <div class="tests-summary-heading-block">
+            <div class="tests-summary-heading">
+              <span class="tests-summary-title" id="testsOverviewTitle">Cart</span>
+              <span class="tests-summary-count" id="testsOverviewSummary" aria-live="polite">0 tests</span>
+            </div>
+          </div>
+          <div class="tests-summary-actions">
+            <button class="mini-button" id="addSelectedTestButton" type="button">+ Add a missing test</button>
+            <button class="mini-button remove" id="clearOrderButton" type="button">Clear all</button>
+          </div>
+          <button class="mini-button edit tests-details-toggle" id="testsDetailsButton" type="button" aria-expanded="false" aria-controls="testsOverviewList testsDetailsPanel"><span class="collection-alerts-chevron" aria-hidden="true"></span><span class="tests-details-label">Show details</span></button>
+          <button class="button primary cart-header-print" id="printButton" type="button"><svg class="print-button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="10" rx="2"/><path d="M6 15h12v6H6z"/><path d="M17.5 12.5h.01"/></svg><span>Print / Save PDF</span></button>
+        </div>
+        <div class="cart-tests-viewport" id="cartTestsViewport" role="region" aria-label="Selected tests, scroll for more" tabindex="0">
+          <div id="testsOverviewList" class="tests-overview-list empty-state">No tests selected.</div>
+          <div id="testsDetailsPanel" class="tests-details-panel hidden" aria-hidden="true">
+            <div id="selectedList" class="selected-list empty-state">No tests selected.</div>
+          </div>
+        </div>
+      </section>
+
+      <details class="summary-section cart-collapse" id="drawPlanSection">
+        <summary class="cart-collapse-summary">
+          <span class="cart-collapse-title">Draw plan</span>
+          <span class="cart-collapse-meta" id="drawPlanSummary">No collection types</span>
+          <span class="cart-collapse-action" aria-hidden="true"></span>
+        </summary>
+        <div class="cart-collapse-body">
+          <div id="drawPlan" class="draw-plan empty-state">Add tests to see the draw plan.</div>
+        </div>
+      </details>
+
+      <details class="summary-section cart-collapse order-of-draw-section" id="orderOfDrawSection">
+        <summary class="cart-collapse-summary">
+          <span class="cart-collapse-title">Order of draw</span>
+          <span class="cart-collapse-meta" id="orderOfDrawSummary">No blood tubes</span>
+          <span class="cart-collapse-action" aria-hidden="true"></span>
+        </summary>
+        <div class="cart-collapse-body">
+          <div class="cart-collapse-toolbar">
+            <span class="cart-collapse-subtitle">Tube sequence</span>
+            <a class="reference-link" href="https://www.labcorp.com/test-menu/search" target="_blank" rel="noreferrer">Labcorp Test Menu ↗</a>
+          </div>
+          <div id="orderOfDraw" class="order-of-draw" aria-label="Standard blood tube order of draw"></div>
+          <div class="order-of-draw-note">
+            <strong>Butterfly collection:</strong> If a light-blue citrate tube is the first specimen, draw a partially filled citrate discard tube first to fill the tubing dead space, then fill the test tube completely.<br>
+            <strong>Important:</strong> Confirm the additive on the tube label. Do not rely on stopper color alone. This sequence applies when collecting multiple blood tubes; follow test-specific official instructions and facility policy.
+          </div>
+        </div>
+      </details>
+
+      <div class="order-actions">
+        <button class="button secondary wide" id="exportSummaryButton">Download spreadsheet</button>
+      </div>
+      
+      <p class="disclaimer">This list does not include every test. Before collecting, check the official directory for current requirements and availability in your area. Check any manually added details before use.</p>
+    </aside>
+  </main>
+
+  <a class="mobile-summary no-print" href="#collectionSummary">View summary <span id="mobileCount">0 tests</span><span aria-hidden="true">↓</span></a>
+  <footer class="ownership-notice no-print" role="contentinfo">
+    <div class="ownership-copy">
+      <strong>Copyright and ownership notice</strong>
+      <span>Copyright © 2026 Sam Hay. All rights reserved. Independently developed and maintained by Sam Hay as a personal software project and hosted through a personally controlled account. No license or ownership interest is granted except through Sam Hay’s express written authorization. Use by any organization does not, by itself, transfer ownership of the software or source code. Access to this hosted version is provided by permission and may be modified, suspended, or withdrawn by Sam Hay at any time and for any reason.</span>
+    </div>
+    <a class="agreement-download" href="LICENSE.md" target="_blank" rel="noopener noreferrer">View software license</a>
+  </footer>
+
+  <section id="printSheet" class="print-sheet" aria-hidden="true"></section>
+
+  <dialog id="testDialog">
+    <form method="dialog" id="testForm">
+      <div class="dialog-header">
+        <div>
+          <div class="eyebrow">TEST RECORD</div>
+          <h2 id="dialogTitle">Add missing test</h2>
+          <p class="dialog-subtitle">Enter the test details from the official directory.</p>
+        </div>
+        <button type="button" class="icon-button" id="closeDialogButton" aria-label="Close">×</button>
+      </div>
+      <input type="hidden" id="testId">
+      <div class="dialog-required-note"><span aria-hidden="true">*</span> Required fields</div>
+
+      <div class="dialog-form-sections">
+        <section class="form-section form-section-emphasis" aria-labelledby="testInfoHeading">
+          <div class="form-section-heading">
+            <div>
+              <h3 id="testInfoHeading">Test info</h3>
+              <p>Use the code and name from the directory.</p>
+            </div>
+            <button type="button" class="directory-text-button" id="openDirectoryFromDialogButton">Verify in official directory ↗</button>
+          </div>
+          <div class="form-grid form-grid-compact">
+            <label><span class="form-label-text">Test code <span class="required-mark" aria-hidden="true">*</span></span><input id="testCode" required placeholder="Example: 496"></label>
+            <label><span class="form-label-text">Test name <span class="required-mark" aria-hidden="true">*</span></span><input id="testName" required placeholder="Exact test name"></label>
+          </div>
+        </section>
+
+        <section class="form-section form-section-emphasis" aria-labelledby="collectionInfoHeading">
+          <div class="form-section-heading">
+            <div>
+              <h3 id="collectionInfoHeading">Collection &amp; transport</h3>
+              <p>Enter the specimen and transport requirements.</p>
+            </div>
+          </div>
+          <div class="form-grid form-grid-compact">
+            <label><span class="form-label-text">Specimen type <span class="required-mark" aria-hidden="true">*</span></span><select id="specimenType" required>
+              <option value="">Choose a specimen type</option><option>Serum</option><option>Plasma</option><option>RBCs</option><option>Whole Blood</option><option>Urine</option><option>Stool</option><option>Swab</option><option>Saliva</option><option>CSF</option><option>Body Fluid</option><option>Other / Verify</option>
+            </select></label>
+            <label><span class="form-label-text">Draw container <span class="required-mark" aria-hidden="true">*</span></span><select id="drawContainer" required>
+              <option value="">Choose a collection container</option>
+              <option>SST / Gold</option>
+              <option>Red Top</option>
+              <option>Lavender EDTA</option>
+              <option>Pink EDTA</option>
+              <option>K2 EDTA Tan Top</option>
+              <option>Tan Sodium Heparin</option>
+              <option>Green Sodium Heparin</option>
+              <option>Green Lithium Heparin</option>
+              <option>Green Heparin — verify additive</option>
+              <option>Light Blue Citrate</option>
+              <option>Royal Blue EDTA (purple stripe)</option>
+              <option>Royal Blue No Additive (red stripe)</option>
+              <option>Royal Blue Sodium Heparin — verify label</option>
+              <option>Royal Blue — verify additive</option>
+              <option>Yellow ACD (blood tube)</option>
+              <option>Gray Fluoride/Oxalate</option>
+              <option>Sterile Urine Cup</option>
+              <option>Red/Yellow Swirl UA Preservative Tube</option>
+              <option>Gray-Top Urine Culture Preservative Tube</option>
+              <option>Swab / Collection Kit</option>
+              <option>Aptima Multitest Transport Tube (orange label)</option>
+              <option>Viral transport media (VCM/M4)</option>
+              <option>Do Not Collect</option>
+              <option>Verify Official Instructions</option>
+              <option value="__other__">Other / manually type</option>
+            </select></label>
+            <label id="customDrawContainerRow" class="custom-draw-container-row full-width hidden"><span class="form-label-text">Custom draw container <span class="required-mark" aria-hidden="true">*</span></span><input id="customDrawContainer" disabled placeholder="Type any tube, cup, swab, or collection kit" autocomplete="off"></label>
+            <label><span class="form-label-text">Transport tube / container <span class="required-mark" aria-hidden="true">*</span></span><select id="transportContainer" required>
+              <option value="">Choose a transport container</option>
+              <option value="Submit in original tube">Submit in original tube</option>
+              <option>Transport Tube</option>
+              <option>Serum Transport Tube</option>
+              <option>Plasma Transport Tube</option>
+              <option>Plastic Screw-Cap Serum Transport Vial</option>
+              <option>Polypropylene Transport Tube</option>
+              <option>Chilled Plastic Screw-Cap Vial</option>
+              <option>Amber Serum Transport Tube — Protect From Light</option>
+              <option>Amber Plasma Transport Tube — Protect From Light</option>
+              <option>Acid-Washed / Metal-Free Serum Transport Tube</option>
+              <option>Acid-Washed / Metal-Free Plasma Transport Tube</option>
+              <option>Trace Metal-Free Plastic Container</option>
+              <option>Trace-Element / Metal-Free RBC Transport Tube</option>
+              <option>Protease Inhibitor Transport Tube</option>
+              <option>Red/Yellow Swirl UA Preservative Tube</option>
+              <option>Gray-Top Urine Culture Preservative Tube</option>
+              
+              <option>Sterile Urine Cup</option>
+              <option>24-Hour Urine Container</option>
+              <option>Total-Fix® Transport Vial</option>
+              <option>Aptima Multitest Transport Tube (orange label)</option>
+              <option>Viral transport media (VCM/M4)</option>
+              <option>Amies Liquid Transport Dual Swab</option>
+              <option>Fetal Fibronectin Special Collection Kit</option>
+              <option value="__other__">Other / manually type</option>
+            </select></label>
+            <label id="customTransportContainerRow" class="custom-draw-container-row full-width hidden"><span class="form-label-text">Custom transport container <span class="required-mark" aria-hidden="true">*</span></span><input id="customTransportContainer" disabled placeholder="Enter the transport container exactly as specified" autocomplete="off"></label>
+            <label><span class="form-label-text">Transport temperature <span class="required-mark" aria-hidden="true">*</span></span><select id="transportTemperature" required>
+              <option value="">Choose a transport temperature</option><option>Room Temperature</option><option>Refrigerated</option><option>Frozen</option><option>Room / Refrigerated</option><option>Mixed</option><option>Not specified</option>
+            </select></label>
+            <div class="source-clarification-note full-width" role="note"><strong>Label reminder:</strong> Label plasma and RBCs with the source tube. Label urine and stool containers with the specimen type. For swabs, include the collection site when known.</div>
+          </div>
+        </section>
+
+        <details class="form-section optional-details" id="optionalDetails">
+          <summary>
+            <span>Optional details</span>
+            <small>Volumes, stability, special handling, and alternatives</small>
+          </summary>
+          <div class="form-grid form-grid-compact optional-details-grid">
+            <label>Alternative container<input id="alternativeContainer" placeholder="Optional alternative"></label>
+            <label>Preferred volume<input id="preferredVolume" placeholder="Example: 1 mL serum"></label>
+            <label>Minimum volume<input id="minimumVolume" placeholder="Example: 0.5 mL"></label>
+            <label>Exact temperature wording<input id="transportTemperatureRaw" placeholder="Optional wording from the official directory"></label>
+            <label>Stability / viability<input id="stability" placeholder="Example: 7 days refrigerated"></label>
+            <label>Spin?<select id="spin"><option>Yes</option><option>No</option><option>Verify</option></select></label>
+            <label class="full-width">Special label for submission <span class="optional">appears in the bag summary</span><input id="specialLabeling" placeholder="Example: Label transport tube PLASMA"></label>
+            <label class="full-width">Special handling and collection notes<textarea id="specialInstructions" rows="4" placeholder="Timing, mixing, light protection, freezing, rejection criteria, or dedicated tube requirements."></textarea></label>
+          </div>
+        </details>
+
+        <div class="form-status-options">
+          <label class="check-label" id="addToSummaryRow"><input type="checkbox" id="addToSummary" checked> Add this test to the current collection summary</label>
+          <label class="check-label"><input type="checkbox" id="blockedStatus"> Mark as do not perform / blocked</label>
+        </div>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" class="button danger-ghost hidden" id="deleteTestButton">Delete manually added test</button>
+        <span class="dialog-spacer"></span>
+        <button type="button" class="button secondary" id="cancelDialogButton">Cancel</button>
+        <button type="submit" class="button primary" id="saveTestButton">Save test</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="labcorp-data.js?v=5"></script>
+  <script src="labcorp-allergen-data.js?v=1"></script>
+  <script src="labcorp-urgent-pcp-data.js?v=1"></script>
+  <script src="labcorp-common-primary-care-data.js?v=1"></script>
+  <script src="labcorp-screening-immunity-data.js?v=1"></script>
+  <script src="labcorp-chemistry-panels-data.js?v=1"></script>
+  <script src="labcorp-cardiovascular-additions-data.js?v=1"></script>
+  <script src="labcorp-crosswalk-data.js?v=8"></script>
+  <script src="labcorp-app.js?v=13"></script>
+  <script src="labcorp-crosswalk-ui.js?v=2"></script>
+  <script src="assets/js/portal-selects.js?v=11.84"></script>
+  <script src="assets/js/lab-select.js?v=1"></script>
+</body>
+</html>

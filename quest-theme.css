@@ -1,4 +1,4 @@
-/* Quest-branded header only. Keep the shared navy/teal calculator interface
+/* Quest-specific header and transport badge overrides. Keep the shared calculator interface
    and all specimen, temperature, Add button and print styling unchanged. */
 @media screen {
   .app-header {
@@ -18,5 +18,41 @@
     --lab-accent: #4c7637;
     --lab-accent-strong: #315a27;
     --lab-light: #edf5e8;
+  }
+}
+
+/* Quest trace-element / metal-free transport vials:
+   white screw cap, clear body, and colored specimen-type label.
+   The red label is for serum; purple is for plasma, whole blood and RBCs.
+   Keep the badge compact, including in printed collection/transport plans. */
+.tube-metal-free-red-label::before,
+.tube-metal-free-purple-label::before {
+  width: 9px;
+  height: 17px;
+  border: 1px solid #9dabb0;
+  border-style: solid;
+  border-radius: 3px 3px 5px 5px;
+  background-clip: padding-box;
+  box-shadow: inset 1px 0 rgba(255, 255, 255, .48);
+}
+.tube-metal-free-red-label::before {
+  background: linear-gradient(to bottom,
+    #fcfdfd 0 23%,
+    #e8eff1 23% 44%,
+    #d64c3a 44% 75%,
+    #e7f0f3 75% 100%);
+}
+.tube-metal-free-purple-label::before {
+  background: linear-gradient(to bottom,
+    #fcfdfd 0 23%,
+    #e8eff1 23% 44%,
+    #b978b5 44% 75%,
+    #e7f0f3 75% 100%);
+}
+@media print {
+  .tube-metal-free-red-label::before,
+  .tube-metal-free-purple-label::before {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }

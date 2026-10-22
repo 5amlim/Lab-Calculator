@@ -24,6 +24,11 @@
     --lab-accent-strong: #772b40;
     --lab-light: #f8ebee;
   }
+  .lab-select--labcorp {
+    --lab-accent: #236da4;
+    --lab-accent-strong: #164a72;
+    --lab-light: #e8f3fc;
+  }
   .lab-select > summary {
     display: flex;
     align-items: center;
@@ -126,6 +131,11 @@
     background: #f9e9ed;
     border-color: #ebc8d1;
   }
+  .lab-select-choice.labcorp {
+    color: #164a72;
+    background: #e8f3fc;
+    border-color: #b8d6eb;
+  }
   .lab-select-choice.quest:hover,
   .lab-select-choice.quest:focus-visible {
     background: #d4eddf;
@@ -135,6 +145,11 @@
   .lab-select-choice.cedars:focus-visible {
     background: #f2d6dd;
     border-color: #a54459;
+  }
+  .lab-select-choice.labcorp:hover,
+  .lab-select-choice.labcorp:focus-visible {
+    background: #d5e9f7;
+    border-color: #236da4;
   }
   .lab-select-choice:focus-visible { outline: 2px solid #263c54; outline-offset: 2px; }
   .lab-select-choice-marker {
@@ -183,7 +198,18 @@
     }
     .lab-select { width: min(100%, 172px); }
     .lab-select > summary { min-height: 61px; }
-    .lab-select-menu { right: auto; left: 0; width: 100%; max-width: 100%; }
+    /* Expanded panel must fit all three cards, not inherit the 172px trigger width. */
+    .lab-select-menu {
+      right: auto;
+      left: 0;
+      width: min(310px, calc(100vw - 32px));
+      max-width: min(310px, calc(100vw - 32px));
+      grid-template-columns: minmax(0, 1fr);
+      box-sizing: border-box;
+      height: auto;
+    }
+    .lab-select-menu .lab-select-choice { min-width: 0; box-sizing: border-box; }
+    .lab-select-menu .lab-select-choice-state { white-space: nowrap; }
   }
   @media (prefers-reduced-motion: reduce) {
     .lab-select > summary,

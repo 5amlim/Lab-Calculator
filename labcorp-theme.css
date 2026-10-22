@@ -1,0 +1,115 @@
+/* Labcorp-branded header only. Calculator, specimen badges, and print
+   layout inherit the exact Quest interface; only lab identity differs. */
+@media screen {
+  .labcorp-page .app-header {
+    background: #164a72;
+    color: #fff;
+    border-bottom: 4px solid #f3922f;
+  }
+  .labcorp-page .app-header h1 { color: #fff; }
+  .labcorp-page .app-header p { color: #e0eefa; }
+  .labcorp-page .app-header .privacy-pill {
+    background: #225a82;
+    border-color: #729aba;
+    color: #e8f4fc;
+  }
+  .labcorp-page .lab-select--labcorp {
+    --lab-accent: #236da4;
+    --lab-accent-strong: #164a72;
+    --lab-light: #e8f3fc;
+  }
+  .labcorp-page .labcorp-coverage-note {
+    margin: 0 0 16px;
+    padding: 11px 13px;
+    background: #f0f6fb;
+    border: 1px solid #cbdde9;
+    border-left: 3px solid #236da4;
+    border-radius: 9px;
+    color: #385466;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .labcorp-page .labcorp-coverage-note strong { color: #164a72; }
+  .labcorp-page .labcorp-coverage-note a { color: #175d90; }
+}
+
+/* Para-Pak C&S Orange / Cary-Blair: orange cap, clear label, red medium.
+   Keep the standard compact tube-icon dimensions on screen and on print. */
+.labcorp-page .tube-cary-blair::before {
+  background: linear-gradient(to bottom,
+    #ee6b20 0 25%, #fff3e2 25% 58%, #ce534d 58% 100%);
+  border-color: #a96b4e;
+  border-style: solid;
+  border-radius: 3px 3px 5px 5px;
+  background-clip: padding-box;
+  box-shadow: inset 0 1px 0 rgba(255, 220, 157, .46);
+}
+
+/* Labcorp-specific specimen vial silhouettes. Same dimensions as other badges.
+   The lower brown portion represents specimen medium in preservative vials. */
+.labcorp-page .tube-qft-nil::before,
+.labcorp-page .tube-qft-tb1::before,
+.labcorp-page .tube-qft-tb2::before,
+.labcorp-page .tube-qft-mitogen::before,
+.labcorp-page .tube-eswab::before,
+.labcorp-page .tube-utm::before,
+.labcorp-page .tube-frozen-purple::before,
+.labcorp-page .tube-op-formalin::before,
+.labcorp-page .tube-op-pva::before,
+.labcorp-page .tube-total-fix::before,
+.labcorp-page .tube-stool-clean::before {
+  border-style: solid;
+  border-radius: 3px 3px 5px 5px;
+  background-clip: padding-box;
+}
+
+/* Four QuantiFERON tubes: Nil gray, TB1 green, TB2 yellow, Mitogen purple. */
+.labcorp-page .tube-qft-nil::before {
+  background: linear-gradient(to bottom, #79818b 0 26%, #f7f8fa 26% 73%, #e8edf0 73% 100%);
+  border-color: #69737d;
+}
+.labcorp-page .tube-qft-tb1::before {
+  background: linear-gradient(to bottom, #3e995f 0 26%, #f7f9f8 26% 73%, #e8edf0 73% 100%);
+  border-color: #397b50;
+}
+.labcorp-page .tube-qft-tb2::before {
+  background: linear-gradient(to bottom, #d6ab28 0 26%, #fffaf0 26% 73%, #e9ecee 73% 100%);
+  border-color: #aa8826;
+}
+.labcorp-page .tube-qft-mitogen::before {
+  background: linear-gradient(to bottom, #8d4fa5 0 26%, #faf7fc 26% 73%, #e9ecee 73% 100%);
+  border-color: #78408f;
+}
+
+/* Liquid Amies/eSwab, UTM and frozen polypropylene transport. */
+.labcorp-page .tube-eswab::before {
+  background: linear-gradient(to bottom, #3276bc 0 26%, #f5f9ff 26% 67%, #a6d7ee 67% 100%);
+  border-color: #2e6495;
+}
+.labcorp-page .tube-utm::before {
+  background: linear-gradient(to bottom, #d74842 0 26%, #fff9f8 26% 68%, #e7b0a9 68% 100%);
+  border-color: #a93e3a;
+}
+.labcorp-page .tube-frozen-purple::before {
+  background: linear-gradient(to bottom, #8057b3 0 26%, #faf7ff 26% 68%, #d7c6ec 68% 100%);
+  border-color: #664495;
+}
+
+/* Pink formalin, gray PVA, black-capped Total-Fix, and unpreserved stool.
+   Cary-Blair above retains its distinct orange cap and red liquid. */
+.labcorp-page .tube-op-formalin::before {
+  background: linear-gradient(to bottom, #e18bae 0 26%, #fff7f9 26% 57%, #8e5d3e 57% 100%);
+  border-color: #b77290;
+}
+.labcorp-page .tube-op-pva::before {
+  background: linear-gradient(to bottom, #858e99 0 26%, #f7f8f9 26% 57%, #8e5d3e 57% 100%);
+  border-color: #737d85;
+}
+.labcorp-page .tube-total-fix::before {
+  background: linear-gradient(to bottom, #343b43 0 26%, #f4f5f4 26% 57%, #8e5d3e 57% 100%);
+  border-color: #47565f;
+}
+.labcorp-page .tube-stool-clean::before {
+  background: linear-gradient(to bottom, #f6f5f2 0 26%, #fcfaf6 26% 57%, #8e5d3e 57% 100%);
+  border-color: #7b807a;
+}
