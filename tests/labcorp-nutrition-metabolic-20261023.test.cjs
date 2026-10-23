@@ -20,7 +20,7 @@ test('LabCorp sourced expansion loads before app without duplicate codes', () =>
   assert.equal(records.length, 20);
   assert.equal(new Set(records.map(r => r.testCode)).size, 20);
   for (const test of records) {
-    assert.match(test.testCode, /^\\d{6}$/);
+    assert.match(test.testCode, /^\d{6}$/);
     assert(test.testName && test.specimenType && test.drawContainer);
     assert(test.transportContainer && test.minimumVolume && test.preferredVolume);
     assert(['Room Temperature', 'Refrigerated', 'Frozen'].includes(test.transportTemperature));
