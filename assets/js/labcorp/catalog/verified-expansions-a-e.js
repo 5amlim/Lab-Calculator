@@ -377,46 +377,8 @@ window.SEED_TESTS=catalog;
     "status": "active",
     "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/143404/cancer-antigen-ca-15-3"
   },
-  {
-    "id": "labcorp-140848",
-    "testCode": "140848",
-    "testName": "Chromogranin A",
-    "specimenType": "Serum",
-    "drawContainer": "SST / Gold",
-    "alternativeContainer": "Red-top serum",
-    "transportContainer": "Plastic Serum Transport Tube",
-    "preferredVolume": "0.5 mL serum",
-    "minimumVolume": "0.3 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temperature",
-    "stability": "Room 7 days; refrigerated 14 days; frozen 3 months",
-    "spin": "Yes",
-    "specialInstructions": "Collect SST, separate serum and TRANSFER to plastic transport tube. Avoid gross icterus, hemolysis, lipemia. Proton pump inhibitors can affect results; confirm clinical preparation.",
-    "fastingStatus": "",
-    "fastingInstructions": "",
-    "status": "active",
-    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/140848/chromogranin-a"
-  },
-  {
-    "id": "labcorp-004390",
-    "testCode": "004390",
-    "testName": "Gastrin",
-    "specimenType": "Serum",
-    "drawContainer": "SST / Gold",
-    "alternativeContainer": "Red-top serum",
-    "transportContainer": "Frozen Purple PP Transpak Tube (49482)",
-    "preferredVolume": "0.5 mL serum",
-    "minimumVolume": "0.3 mL",
-    "transportTemperature": "Frozen",
-    "transportTemperatureRaw": "Frozen",
-    "stability": "Frozen 14 days; room/refrigerated unstable",
-    "spin": "Yes",
-    "specialInstructions": "SERUM FROZEN. Spin, transfer into LabCorp purple frozen PP Transpak (49482), freeze immediately. Dedicated frozen specimen per test. Fasting specimen preferred per current LabCorp preparation.",
-    "fastingStatus": "",
-    "fastingInstructions": "",
-    "status": "active",
-    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/004390/gastrin"
-  },
+  
+  
   {
     "id": "labcorp-002303",
     "testCode": "002303",
@@ -457,26 +419,7 @@ window.SEED_TESTS=catalog;
     "status": "active",
     "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/140293/cancer-antigen-ca-27-29"
   },
-  {
-    "id": "labcorp-004895",
-    "testCode": "004895",
-    "testName": "Calcitonin (Thyrocalcitonin)",
-    "specimenType": "Serum",
-    "drawContainer": "SST / Gold",
-    "alternativeContainer": "Red-top serum",
-    "transportContainer": "Frozen Purple PP Transpak Tube (49482)",
-    "preferredVolume": "1 mL serum",
-    "minimumVolume": "0.4 mL",
-    "transportTemperature": "Frozen",
-    "transportTemperatureRaw": "Frozen",
-    "stability": "Frozen 90 days; room/refrigerated unstable",
-    "spin": "Yes",
-    "specialInstructions": "FASTING DRAW. Serum ONLY. Separate serum, transfer to purple frozen PP Transpak 49482, freeze immediately. Dedicated frozen specimen per test. Plasma not accepted.",
-    "fastingStatus": "",
-    "fastingInstructions": "",
-    "status": "active",
-    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/004895/calcitonin-thyrocalcitonin"
-  },
+  
   {
     "id": "labcorp-140674",
     "testCode": "140674",
