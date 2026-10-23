@@ -1355,3 +1355,48 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     .batch-category-add { min-width: 62px; padding: 6px 9px; }
   }
 }
+
+/* Compact, dismissible match review with five visible category results. */
+@media screen {
+  .batch-panel-heading { align-items: flex-start; }
+  .batch-panel-heading > div { min-width: 0; }
+  .batch-review-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex: 0 0 auto;
+    padding: 7px 11px;
+    min-height: 36px;
+    color: #47606d;
+    background: #f3f8f9;
+    border: 1px solid #d6e3e7;
+    border-radius: 9px;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 750;
+    cursor: pointer;
+  }
+  .batch-review-close span { font-size: 19px; line-height: 1; font-weight: 400; }
+  .batch-review-close:hover { background: #e9f2f4; color: #1c4b5c; }
+  .batch-review-close:focus-visible,
+  .batch-category-list:focus-visible { outline: 3px solid #78b9c3; outline-offset: 2px; }
+  .batch-category-list {
+    display: block;
+    max-height: 320px; /* Five rows at a minimum of 64px each. */
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #a2bac2 #f6fafb;
+    scrollbar-gutter: stable;
+  }
+  .batch-category-item { min-height: 64px; box-sizing: border-box; }
+  .batch-category-footer { font-size: 11px; }
+  @media (max-width: 520px) {
+    .batch-category-list { max-height: min(365px, 55vh); }
+    .batch-category-item { min-height: 73px; }
+    .batch-review-close { padding: 7px 9px; }
+  }
+}

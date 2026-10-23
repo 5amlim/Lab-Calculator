@@ -153,6 +153,9 @@
           event.preventDefault();
           opened.open = false;
           opened.querySelector('.batch-choice-trigger')?.focus();
+        } else if (!els.batchResults.classList.contains('hidden')) {
+          event.preventDefault();
+          closeBatchResults();
         }
       }
     });
@@ -1056,12 +1059,10 @@
     }
 
     const previousChoices = new Map(batchReviewRows.map(row => [row.query, row.chosenId]));
-    const previousCategoryCounts = new Map(batchReviewRows.filter(row => row.category).map(row => [row.query, row.visibleCount]));
     const rows = queries.map((query, index) => {
       const category = findCategoryMatches(query);
       // A category never falls through into "No local match found" or a guessed assay.
-      if (category) return { query, index, category, matches: [], chosenId: null,
-        visibleCount: previousCategoryCounts.get(query) || 20, outcome: 'review' };
+      if (category) return { query, index, category, matches: [], chosenId: null, outcome: 'review' };
       const matches = findMatches(query, 5);
       const previousId = previousChoices.get(query);
       return { query, index, matches, chosenId: matches.some(match => match.test.id === previousId) ? previousId : matches[0]?.test.id, outcome: 'review' };
@@ -1128,6 +1129,7 @@
     els.batchResults.innerHTML = `
       <div class="panel-heading batch-panel-heading">
         <div><h2>Review matches</h2><p>${headerText}</p></div>
+        <button type="button" class="batch-review-close" data-action="close-batch-results" aria-label="Close review matches"><span aria-hidden="true">×</span> Close</button>
       </div>
       ${reviewSummary}
       ${resultSummary}
@@ -1226,19 +1228,17 @@
     </div>`;
   }
 
-  // Limited per-page rendering keeps broad categories usable on mobile.
+  // Keep the complete category list accessible inside a five-row scroll window.
   function renderBatchCategoryRow(row) {
     const { label, results } = row.category;
-    const visible = results.slice(0, row.visibleCount || 20);
-    const more = results.length - visible.length;
     return `<div class="batch-row batch-category-row" data-batch-index="${row.index}">
       <div class="batch-category-heading">
         <div><span class="batch-kicker">Clinical category</span><strong>${escapeHtml(label)}</strong>
           <p>${results.length} ${results.length === 1 ? 'test' : 'tests'} found${results.length ? '. Choose the tests you need.' : '. Try another category or a specific test name.'}</p></div>
         <span class="batch-category-count">${results.length} tests</span>
       </div>
-      <div class="batch-category-list">
-        ${visible.map(test => {
+      <div class="batch-category-list" tabindex="0" role="region" aria-label="${escapeAttr(label)} tests, ${results.length} results. Scroll to view all tests.">
+        ${results.map(test => {
           const selected = selectedIds.includes(test.id);
           return `<div class="batch-category-item">
             <div class="batch-category-test"><span class="batch-category-code">${escapeHtml(displayCode(test))}</span>
@@ -1250,10 +1250,7 @@
           </div>`;
         }).join('')}
       </div>
-      ${more > 0 ? `<div class="batch-category-footer">
-        <span>Showing ${visible.length} of ${results.length}</span>
-        <button type="button" class="mini-button edit" data-action="more-category-tests" data-batch-index="${row.index}">Show ${Math.min(more, 20)} more tests</button>
-      </div>` : ''}
+      ${results.length > 5 ? `<div class="batch-category-footer"><span>Scroll inside the list to browse all ${results.length} tests</span></div>` : ''}
     </div>`;
   }
 
@@ -1490,6 +1487,13 @@
     }
   }
 
+  function closeBatchResults() {
+    els.batchResults.classList.add('hidden');
+    els.batchResults.innerHTML = '';
+    batchReviewRows = [];
+    els.previewButton.focus();
+  }
+
   function handleBatchClick(event) {
     const button = event.target.closest('button[data-action]');
     if (!button) {
@@ -1500,12 +1504,8 @@
       });
       return;
     }
-    if (button.dataset.action === 'more-category-tests') {
-      const row = batchReviewRows[Number(button.dataset.batchIndex)];
-      if (!row?.category) return;
-      row.visibleCount = Math.min(row.category.results.length, (row.visibleCount || 20) + 20);
-      const card = button.closest('.batch-row');
-      if (card) card.outerHTML = renderBatchRow(row);
+    if (button.dataset.action === 'close-batch-results') {
+      closeBatchResults();
       return;
     }
     if (button.dataset.action === 'add-category-test') {
@@ -1513,7 +1513,18 @@
       const test = row?.category?.results.find(test => test.id === button.dataset.id);
       if (!test || test.status === 'blocked') return;
       if (selectedIds.includes(test.id)) return;
-      if (addSelected(test.id)) renderBatch(false);
+      // Rebuilding the review refreshes Added badges; preserve the scroll position.
+      const scrollTop = button.closest('.batch-category-list')?.scrollTop || 0;
+      if (addSelected(test.id)) {
+        renderBatch(false);
+        const nextList = els.batchResults.querySelector(`.batch-category-row[data-batch-index="${row.index}"] .batch-category-list`);
+        if (nextList) {
+          nextList.scrollTop = scrollTop;
+          const nextButton = Array.from(nextList.querySelectorAll('.batch-category-add'))
+            .find(item => item.dataset.id === test.id);
+          nextButton?.focus({ preventScroll: true });
+        }
+      }
       return;
     }
     if (button.dataset.action === 'choose-batch-test') {
