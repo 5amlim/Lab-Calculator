@@ -67,7 +67,7 @@
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
-  .print-header .print-title { color: #fff !important; }
+  .print-header .print-title { color: #fff !important; font-size: 28px; line-height: 1.1; }
   .print-header .print-subtitle,
   .print-header .print-meta { color: #e4efd9 !important; }
 }
