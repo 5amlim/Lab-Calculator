@@ -246,22 +246,12 @@
         (selected.has(test.id) ? '✓ Added' : 'Add') + '</button>') +
       '</div></div>';
   }
-  function renderSearchSuggestions(rows, query) {
+  // Use the same directly filtered directory table as Quest and LabCorp.
+  // Do not duplicate results in a separate "Top matches" panel.
+  function renderSearchSuggestions() {
     const panel = $('cedarsSearchSuggestions');
-    if (!clean(query)) {
-      panel.innerHTML = '';
-      panel.classList.add('hidden');
-      return;
-    }
-    const best = rows.filter(({test}) => !test.hold)
-      .sort((a,b) => b.score - a.score || a.test.name.localeCompare(b.test.name))
-      .slice(0,3);
-    panel.innerHTML = '<div class="cedars-match-heading"><strong>Top matches</strong><span>' +
-      esc(String(rows.length)) + ' matching test' + (rows.length===1 ? '' : 's') +
-      ' · More results in the directory below</span></div>' +
-      (best.length ? best.map(({test}) => matchChoice(test)).join('') :
-        '<p class="cedars-no-matches">No selectable matches. Try a code, abbreviation, specimen or collection container.</p>');
-    panel.classList.remove('hidden');
+    panel.innerHTML = '';
+    panel.classList.add('hidden');
   }
 
   // Show decision-useful collection details instead of long source citations.
@@ -388,6 +378,12 @@
         return (a.test.collect || '').localeCompare(b.test.collect || '');
       });
     renderSearchSuggestions(rows, q);
+    const activeFilterCount = Number(Boolean($('cedarsType').value)) +
+      Number(Boolean(selectedContainer)) + Number($('showHolds').checked);
+    const filterToggle = $('cedarsFilterButton');
+    $('cedarsFilterButtonText').textContent = 'Filters' +
+      (activeFilterCount ? ' (' + activeFilterCount + ')' : '');
+    filterToggle.classList.toggle('has-filters', activeFilterCount > 0);
     $('recordCount').textContent = records().filter((t) => !t.hold).length + ' tests';
     $('libraryStatus').textContent = rows.length + ' matching tests' +
       (selectedContainer ? ' · container: ' + selectedContainer : '') + ' · ' +
