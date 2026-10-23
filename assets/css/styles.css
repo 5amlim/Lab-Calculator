@@ -4694,3 +4694,11 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     min-width: 0;
   }
 }
+
+/* Shared purple-cap frozen transport tube marker, including Quest manual entries. */
+.tube-frozen-purple::before {
+  background: linear-gradient(to bottom, #8057b3 0 26%, #faf7ff 26% 68%, #d7c6ec 68% 100%);
+  border-color: #664495;
+  border-style: solid;
+  border-radius: 3px 3px 5px 5px;
+}
