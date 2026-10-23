@@ -1,0 +1,47 @@
+/* Scroll cues appear only when a region has more content outside its viewport. */
+@media screen {
+  .scroll-cue-frame { position: relative; width: 100%; min-width: 0; }
+  .scroll-cue-frame > .table-wrap,
+  .scroll-cue-frame > .cart-tests-viewport { width: 100%; box-sizing: border-box; }
+  .scroll-cue-bottom, .scroll-cue-right {
+    position: absolute; z-index: 12; pointer-events: none;
+    display: flex; align-items: flex-end; justify-content: center;
+    opacity: 0; visibility: hidden;
+    transition: opacity .15s ease, visibility .15s ease;
+  }
+  .scroll-cue-bottom {
+    left: 1px; right: 1px; bottom: 1px; height: 42px;
+    padding-bottom: 5px; box-sizing: border-box;
+    background: linear-gradient(to bottom, transparent, rgba(248,251,252,.95) 85%);
+    border-radius: 0 0 10px 10px;
+  }
+  .scroll-cue-right {
+    top: 1px; bottom: 1px; right: 1px; width: 43px;
+    align-items: center;
+    background: linear-gradient(to right, transparent, rgba(248,251,252,.92) 90%);
+    border-radius: 0 10px 10px 0;
+  }
+  .scroll-cue-bottom > span, .scroll-cue-right > span {
+    border: 1px solid #c7d7dc; border-radius: 999px;
+    background: rgba(255,255,255,.96); color: #496774;
+    font-size: 9px; font-weight: 750; line-height: 1; white-space: nowrap;
+    box-shadow: 0 1px 4px rgba(22,49,60,.07);
+  }
+  .scroll-cue-bottom > span { padding: 5px 9px; }
+  .scroll-cue-right > span { padding: 6px 5px; writing-mode: vertical-rl; }
+  .scroll-cue-frame.scroll-cue-more-below > .scroll-cue-bottom,
+  .scroll-cue-frame.scroll-cue-more-right > .scroll-cue-right {
+    opacity: 1; visibility: visible;
+  }
+  .scroll-cue-frame.scroll-cue-more-below.scroll-cue-more-right > .scroll-cue-bottom { right: 33px; }
+  .scroll-cue-frame.scroll-cue-more-right.scroll-cue-more-below > .scroll-cue-right { bottom: 34px; }
+  .scroll-cue-frame .table-wrap:focus-visible,
+  .scroll-cue-frame .cart-tests-viewport:focus-visible { outline: 2px solid #2a8090; outline-offset: -2px; }
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-cue-bottom, .scroll-cue-right { transition: none; }
+  }
+}
+@media print {
+  .scroll-cue-bottom, .scroll-cue-right { display: none !important; }
+  .scroll-cue-frame { display: contents !important; }
+}
