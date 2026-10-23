@@ -55,7 +55,7 @@ const additions=[
     "transportTemperatureRaw": "Refrigerated",
     "stability": "Room/refrigerated 14 d; frozen 40 d; receive within 5 days",
     "spin": "Yes",
-    "specialInstructions": "MANUAL MULTI-SPECIMEN PLAN: separate packed red cells and plasma, transfer EACH to its OWN acid-washed/trace-metal-free transport tube. BOTH are required. Receive at testing lab within five days. Do not pool with other tests or treat as one aliquot.",
+    "specialInstructions": "Separate plasma and packed RBCs promptly from the same metal-free royal-blue EDTA source, then send in TWO different acid-washed/trace-metal-free transport tubes. Preferred 3 mL of EACH material (0.5 mL minimum each); verify that the draw tube provides sufficient separated volumes and collect an additional metal-free tube when necessary. Refrigerate; specimens must reach performing lab within five days. Never combine plasma and RBCs or pool with another assay.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
@@ -185,21 +185,35 @@ const additions=[
     "id": "labcorp-724344",
     "testCode": "724344",
     "testName": "Cadmium Standard Profile (Blood and Urine)",
-    "specimenType": "Whole Blood and Urine",
-    "drawContainer": "Royal Blue EDTA (Metal-Free) + Sterile Cup",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Royal Blue EDTA (Metal-Free)",
     "alternativeContainer": "",
-    "transportContainer": "Original Royal Blue EDTA Tube + Unpreserved Urine Container",
-    "preferredVolume": "2 mL whole blood + 5 mL urine",
-    "minimumVolume": "0.6 mL blood + 2.4 mL urine",
+    "transportContainer": "Submit in Original Tube",
+    "preferredVolume": "2 mL whole blood",
+    "minimumVolume": "0.6 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room; refrigerate if shipping delayed beyond 2 d",
     "spin": "No",
-    "specialInstructions": "MANUAL TWO-SPECIMEN PLAN: obtain both metal-free EDTA whole blood AND unpreserved urine; submit separately. For urine beta-2-microglobulin, empty bladder, drink water and collect within 1 hour; check/adjust pH to 6-8 using approved protocol. Not compatible with preserved UA specimens.",
+    "specialInstructions": "Collect metal-free EDTA whole blood in royal-blue tube, PLUS separately collect unpreserved random urine. Do not centrifuge whole blood. Urine for beta-2-microglobulin should be obtained within one hour after emptying bladder and drinking water; measure pH and adjust to 6–8 if necessary using Labcorp-approved 0.1 N NaOH procedure. Do not mix with preserved UA. Keep both submissions at room temperature; refrigerate if shipment is delayed beyond two days.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (reviewed 2026-10-23) • https://www.labcorp.com/tests/724344/cadmium-standard-profile"
+    "source": "Labcorp test-specific directory (reviewed 2026-10-23) • https://www.labcorp.com/tests/724344/cadmium-standard-profile",
+    "additionalDrawRequirements": [
+      {
+        "container": "Sterile Cup",
+        "specimenType": "Urine, Random",
+        "preferredVolume": "5 mL urine",
+        "minimumVolume": "2.4 mL",
+        "transportContainer": "Sterile Cup",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "purpose": "Separate random urine specimen",
+        "specialInstructions": "Second required specimen for Cadmium Standard Profile. Collect unpreserved urine separately in a plastic/sterile cup; beta-2-microglobulin urine should be collected within one hour after the patient empties bladder and drinks water. Check pH and adjust to 6–8 with approved 0.1 N NaOH protocol if necessary. No urine culture or UA preservative."
+      }
+    ]
   },
   {
     "id": "labcorp-141093",
@@ -268,18 +282,32 @@ const additions=[
     "specimenType": "Urine",
     "drawContainer": "Sterile Cup",
     "alternativeContainer": "",
-    "transportContainer": "Two Unpreserved Urine Containers (Frozen + Room Temp)",
+    "transportContainer": "Unpreserved Plastic Urine Container (Frozen)",
     "preferredVolume": "3 mL total in TWO aliquots",
     "minimumVolume": "0.5 mL total (verify split)",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
     "stability": "Frozen orotic acid aliquot 14 d; room creatinine aliquot",
     "spin": "No",
-    "specialInstructions": "MANUAL TWO-BAG PLAN. Split unpreserved urine into TWO containers: freeze orotic-acid aliquot IMMEDIATELY; send creatinine aliquot at ROOM TEMPERATURE. Frozen sample cannot be shared with other tests. Calculator temperature badge alone does not describe both required bags; verify courier routing.",
+    "specialInstructions": "Collect unpreserved urine ONCE in a sterile cup and transfer into TWO different plastic submission containers. Freeze orotic-acid aliquot immediately and never share that frozen aliquot with other tests. Send separate creatinine aliquot at ROOM TEMPERATURE. Total collection volume 3 mL preferred, minimum 0.5 mL total (does not allow repeat testing). No preservatives.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (reviewed 2026-10-23) • https://www.labcorp.com/tests/007010/orotic-acid-urine"
+    "source": "Labcorp test-specific directory (reviewed 2026-10-23) • https://www.labcorp.com/tests/007010/orotic-acid-urine",
+    "additionalDrawRequirements": [
+      {
+        "container": "Sterile Cup",
+        "specimenType": "Urine",
+        "preferredVolume": "",
+        "minimumVolume": "",
+        "transportContainer": "Unpreserved Plastic Urine Container (Room Temperature)",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "purpose": "Second transport aliquot, from the SAME collected urine cup",
+        "specialInstructions": "Second transport aliquot of the same unpreserved urine specimen for creatinine; keep at room temperature. Do not collect another patient urine specimen."
+      }
+    ]
   },
   {
     "id": "labcorp-235036",
