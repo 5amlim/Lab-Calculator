@@ -6,10 +6,10 @@
   <link rel="icon" href="assets/lab-favicon.svg?v=1" type="image/svg+xml">
   <title>Labcorp Lab Calculator | Specimen Collection and Processing</title>
   <meta name="description" content="Labcorp Lab Calculator: search verified Labcorp tests, calculate specimen collection and submission plans, and print handling instructions.">
-  <link rel="stylesheet" href="assets/css/styles.css?v=11.97">
+  <link rel="stylesheet" href="assets/css/styles.css?v=12.15">
   <link rel="stylesheet" href="assets/css/experience.css?v=11.82">
   <link rel="stylesheet" href="market-switch.css?v=9">
-  <link rel="stylesheet" href="labcorp-theme.css?v=3">
+  <link rel="stylesheet" href="labcorp-theme.css?v=4">
   <link rel="stylesheet" href="labcorp-crosswalk.css?v=1">
   <link rel="stylesheet" href="print-button-theme.css?v=7">
 </head>
@@ -91,7 +91,7 @@
               <div class="catalog-filter-heading"><strong>Filter tests</strong><button type="button" id="catalogFilterReset" class="catalog-filter-reset">Clear filters</button></div>
               <label>Specimen type<select id="specimenFilter"><option value="">All specimens</option><option value="Blood">Blood (serum / plasma / whole blood)</option><option value="Urine">Urine</option><option value="Stool">Stool</option><option value="Swab">Swab</option><option value="Other">Other</option></select></label>
               <label>Transport temperature<select id="temperatureFilter"><option value="">All temperatures</option><option value="room">Room temperature</option><option value="refrigerated">Refrigerated</option><option value="frozen">Frozen</option><option value="mixed">Mixed / verify</option></select></label>
-              <label>Transport container<select id="transportContainerFilter"><option value="">All transport containers</option><option value="transport">Transport tube (unspecified)</option><option value="sst">Spun SST / Gold</option><option value="original">Original tube / no transfer</option><option value="serum">Serum transport tube</option><option value="plasma">Plasma transport tube</option><option value="amber">Amber / light-protected tube</option><option value="metal">Metal-free / acid-washed container</option><option value="urine-cup">Urine cup / container</option><option value="urine-ua">Urinalysis preservative tube</option><option value="urine-culture">Urine culture preservative tube</option><option value="aptima">Aptima transport</option><option value="viral">Viral transport medium</option><option value="stool">Stool preservative (Total-Fix)</option><option value="special">Other / special container</option></select></label>
+              <label>Transport container<select id="transportContainerFilter"><option value="">All transport containers</option><option value="transport">Transport tube (unspecified)</option><option value="sst">Spun SST / Gold</option><option value="original">Original tube / no transfer</option><option value="serum">Serum transport tube</option><option value="plasma">Plasma transport tube</option><option value="frozen-transport">Frozen transport tube (purple cap)</option><option value="amber">Amber / light-protected tube</option><option value="metal">Metal-free / acid-washed container</option><option value="sterile-cup">Sterile cup (submitted)</option><option value="urine-cup">Other urine container</option><option value="urine-ua">Urinalysis preservative tube</option><option value="urine-culture">Urine culture preservative tube</option><option value="aptima">Aptima transport</option><option value="viral">Viral transport medium</option><option value="stool">Stool preservative (Total-Fix)</option><option value="special">Other / special container</option></select></label>
               <label>Fasting<select id="fastingFilter"><option value="">All fasting instructions</option><option value="required">Required</option><option value="preferred">Preferred</option><option value="verify">Fasting mentioned: verify</option></select></label>
               <label class="catalog-filter-check"><input type="checkbox" id="pediatricFilter"><span>Pediatric / neonatal tests <small>(explicitly named)</small></span></label>
               <label class="catalog-filter-check"><input type="checkbox" id="spinFilter"><span>Requires centrifugation</span></label>
@@ -332,7 +332,7 @@
               <option>Royal Blue — verify additive</option>
               <option>Yellow ACD (blood tube)</option>
               <option>Gray Fluoride/Oxalate</option>
-              <option>Sterile Urine Cup</option>
+              <option>Sterile cup</option>
               <option>Red/Yellow Swirl UA Preservative Tube</option>
               <option>Gray-Top Urine Culture Preservative Tube</option>
               <option>Swab / Collection Kit</option>
@@ -362,7 +362,7 @@
               <option>Red/Yellow Swirl UA Preservative Tube</option>
               <option>Gray-Top Urine Culture Preservative Tube</option>
               
-              <option>Sterile Urine Cup</option>
+              <option>Sterile cup</option>
               <option>24-Hour Urine Container</option>
               <option>Total-Fix® Transport Vial</option>
               <option>Aptima Multitest Transport Tube (orange label)</option>
@@ -412,17 +412,34 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script src="labcorp-data.js?v=5"></script>
+  <script src="labcorp-data.js?v=6"></script>
   <script src="labcorp-allergen-data.js?v=1"></script>
   <script src="labcorp-urgent-pcp-data.js?v=1"></script>
   <script src="labcorp-common-primary-care-data.js?v=1"></script>
   <script src="labcorp-screening-immunity-data.js?v=1"></script>
   <script src="labcorp-chemistry-panels-data.js?v=1"></script>
   <script src="labcorp-cardiovascular-additions-data.js?v=1"></script>
+  <script src="labcorp-expanded-menu-data.js?v=1"></script>
+  <script src="labcorp-quest-sheet-matches-data.js?v=1"></script>
+  <script src="labcorp-quest-sheet-extra-data.js?v=1"></script>
+  <script src="assets/js/labcorp/catalog/workbook-additions-core.js?v=1"></script>
+  <script src="assets/js/labcorp/catalog/workbook-additions-specialty.js?v=1"></script>
+  <script src="assets/js/labcorp/catalog/verified-expansions-a-e.js?v=1"></script>
+  <script src="assets/js/labcorp/catalog/verified-expansions-f-j.js?v=1"></script>
+  <script src="assets/js/labcorp/catalog/respiratory-and-food-allergens.js?v=1"></script>
+  <script src="labcorp-renal-urine-expansion-20261022.js?v=1"></script>
+  <script src="labcorp-verified-allergy-component-panels-20261022.js?v=1"></script>
+  <script src="labcorp-verified-toxassure-urine-20261022.js?v=1"></script>
+  <script src="assets/js/labcorp/catalog/specialty-chemistry-and-hormones.js?v=1"></script>
+  <script src="assets/js/labcorp/catalog/infectious-and-immunity.js?v=1"></script>
+  <script src="assets/js/labcorp/catalog/metabolic-nmr-and-gestational.js?v=1"></script>
+  <script src="labcorp-specialty-coag-porphyria-20261022.js?v=2"></script>
   <script src="labcorp-crosswalk-data.js?v=8"></script>
-  <script src="labcorp-app.js?v=13"></script>
+  <script src="labcorp-quest-workbook-crosswalk-overrides.js?v=1"></script>
+  <script src="labcorp-app.js?v=40"></script>
   <script src="labcorp-crosswalk-ui.js?v=2"></script>
   <script src="assets/js/portal-selects.js?v=11.84"></script>
   <script src="assets/js/lab-select.js?v=1"></script>
 </body>
 </html>
+

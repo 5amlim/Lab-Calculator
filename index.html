@@ -6,10 +6,10 @@
   <link rel="icon" href="assets/lab-favicon.svg?v=1" type="image/svg+xml">
   <title>Quest Lab Calculator | Specimen Collection and Processing</title>
   <meta name="description" content="Quest Lab Calculator: search tests, review specimen collection and processing requirements, and prepare organized send-out instructions.">
-  <link rel="stylesheet" href="assets/css/styles.css?v=11.97">
+  <link rel="stylesheet" href="assets/css/styles.css?v=12.15">
   <link rel="stylesheet" href="assets/css/experience.css?v=11.82">
   <link rel="stylesheet" href="market-switch.css?v=9">
-  <link rel="stylesheet" href="quest-theme.css?v=6">
+  <link rel="stylesheet" href="quest-theme.css?v=7">
   <link rel="stylesheet" href="print-button-theme.css?v=7">
 </head>
 <body>
@@ -90,7 +90,7 @@
               <div class="catalog-filter-heading"><strong>Filter tests</strong><button type="button" id="catalogFilterReset" class="catalog-filter-reset">Clear filters</button></div>
               <label>Specimen type<select id="specimenFilter"><option value="">All specimens</option><option value="Blood">Blood (serum / plasma / whole blood)</option><option value="Urine">Urine</option><option value="Stool">Stool</option><option value="Swab">Swab</option><option value="Other">Other</option></select></label>
               <label>Transport temperature<select id="temperatureFilter"><option value="">All temperatures</option><option value="room">Room temperature</option><option value="refrigerated">Refrigerated</option><option value="frozen">Frozen</option><option value="mixed">Mixed / verify</option></select></label>
-              <label>Transport container<select id="transportContainerFilter"><option value="">All transport containers</option><option value="transport">Transport tube (unspecified)</option><option value="sst">Spun SST / Gold</option><option value="original">Original tube / no transfer</option><option value="serum">Serum transport tube</option><option value="plasma">Plasma transport tube</option><option value="amber">Amber / light-protected tube</option><option value="metal">Metal-free / acid-washed container</option><option value="urine-cup">Urine cup / container</option><option value="urine-ua">Urinalysis preservative tube</option><option value="urine-culture">Urine culture preservative tube</option><option value="aptima">Aptima transport</option><option value="viral">Viral transport medium</option><option value="stool">Stool preservative (Total-Fix)</option><option value="special">Other / special container</option></select></label>
+              <label>Transport container<select id="transportContainerFilter"><option value="">All transport containers</option><option value="transport">Transport tube (unspecified)</option><option value="sst">Spun SST / Gold</option><option value="original">Original tube / no transfer</option><option value="serum">Serum transport tube</option><option value="plasma">Plasma transport tube</option><option value="amber">Amber / light-protected tube</option><option value="metal">Metal-free / acid-washed container</option><option value="sterile-cup">Sterile cup (submitted)</option><option value="urine-cup">Other urine container</option><option value="urine-ua">Urinalysis preservative tube</option><option value="urine-culture">Urine culture preservative tube</option><option value="aptima">Aptima transport</option><option value="viral">Viral transport medium</option><option value="stool">Stool preservative (Total-Fix)</option><option value="special">Other / special container</option></select></label>
               <label>Fasting<select id="fastingFilter"><option value="">All fasting instructions</option><option value="required">Required</option><option value="preferred">Preferred</option><option value="verify">Fasting mentioned: verify</option></select></label>
               <label class="catalog-filter-check"><input type="checkbox" id="pediatricFilter"><span>Pediatric / neonatal tests <small>(explicitly named)</small></span></label>
               <label class="catalog-filter-check"><input type="checkbox" id="spinFilter"><span>Requires centrifugation</span></label>
@@ -326,7 +326,7 @@
               <option>Royal Blue — verify additive</option>
               <option>Yellow ACD (blood tube)</option>
               <option>Gray Fluoride/Oxalate</option>
-              <option>Sterile Urine Cup</option>
+              <option>Sterile cup</option>
               <option>Red/Yellow Swirl UA Preservative Tube</option>
               <option>Gray-Top Urine Culture Preservative Tube</option>
               <option>Swab / Collection Kit</option>
@@ -356,7 +356,7 @@
               <option>Red/Yellow Swirl UA Preservative Tube</option>
               <option>Gray-Top Urine Culture Preservative Tube</option>
               <option>UriSponge Urine Culture Transport</option>
-              <option>Sterile Urine Cup</option>
+              <option>Sterile cup</option>
               <option>24-Hour Urine Container</option>
               <option>Total-Fix® Transport Vial</option>
               <option>Aptima Multitest Transport Tube (orange label)</option>
@@ -407,7 +407,7 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script src="assets/js/data.js?v=11.85"></script>
-  <script src="assets/js/app.js?v=12.04"></script>
+  <script src="assets/js/app.js?v=12.23"></script>
   <script src="assets/js/portal-selects.js?v=11.84"></script>
   <script src="assets/js/lab-select.js?v=1"></script>
 </body>

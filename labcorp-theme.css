@@ -113,3 +113,18 @@
   background: linear-gradient(to bottom, #f6f5f2 0 26%, #fcfaf6 26% 57%, #8e5d3e 57% 100%);
   border-color: #7b807a;
 }
+
+/* Keep the printed collection summary header aligned with the Labcorp page header. */
+@media print {
+  .labcorp-page .print-header {
+    background: #164a72 !important;
+    color: #fff !important;
+    border-bottom: 4px solid #f3922f;
+    padding: 12px 15px 10px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .labcorp-page .print-header .print-title { color: #fff !important; }
+  .labcorp-page .print-header .print-subtitle,
+  .labcorp-page .print-header .print-meta { color: #e0eefa !important; }
+}

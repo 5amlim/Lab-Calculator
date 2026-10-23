@@ -2881,3 +2881,421 @@
     color:#55707d;
   }
 }
+
+
+/* Phone-sized Cedars directory: use readable cards instead of five squeezed table columns. */
+@media screen and (max-width: 720px) {
+  .cedars-page .cedars-directory-panel .table-wrap {
+    overflow: visible;
+    border: 0;
+    background: transparent;
+  }
+  .cedars-page .cedars-directory-panel table.cedars-library,
+  .cedars-page .cedars-directory-panel .cedars-library tbody {
+    display: block;
+    min-width: 0 !important;
+    width: 100% !important;
+    table-layout: auto;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library thead { display: none; }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-specimen-heading {
+    display: block;
+    width: 100%;
+    margin: 14px 0 7px;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-specimen-heading > td {
+    display: block !important;
+    box-sizing: border-box;
+    width: 100% !important;
+    min-width: 0 !important;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: break-word;
+    padding: 9px 12px !important;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 9px 12px;
+    width: 100%;
+    min-width: 0;
+    padding: 13px;
+    margin-bottom: 10px;
+    border: 1px solid #dfe5e8;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: inset 3px 0 var(--type-line, #e3d9dd);
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td {
+    display: block;
+    box-sizing: border-box;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100%;
+    padding: 0 !important;
+    border: 0;
+    box-shadow: none !important;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td:nth-child(1),
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td:nth-child(2),
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library .code-cell {
+    font-size: 11px;
+    color: #687782;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library .cedars-container-cell { width: 100%; }
+  .cedars-page .cedars-directory-panel .cedars-library .cedars-container-copy {
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td:nth-child(4) {
+    grid-column: 1;
+    align-self: center;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td:nth-child(5) {
+    grid-column: 2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library .row-actions .mini-button {
+    margin: 0;
+    width: auto;
+    min-height: 36px;
+    padding: 7px 12px;
+  }
+}
+
+
+/* Cedars: responsive specimen-to-submission badges, preserving existing art and colors. */
+@media screen {
+  .cedars-page .cedars-library .cedars-container-path {
+    display:flex;
+    align-items:center;
+    align-content:flex-start;
+    flex-wrap:wrap;
+    gap:6px 7px;
+    min-width:0;
+    max-width:100%;
+  }
+  .cedars-page .cedars-library .cedars-container-path-stage {
+    display:inline-flex;
+    flex-wrap:wrap;
+    min-width:0;
+    max-width:100%;
+  }
+  .cedars-page .cedars-library .cedars-container-path-arrow {
+    flex:0 0 auto;
+    color:#5b7681;
+    font-size:17px;
+    font-weight:900;
+    line-height:1;
+  }
+  .cedars-page .cedars-library .cedars-container-path .cedars-container-name {
+    max-width:100%;
+    min-width:0;
+    margin:0;
+    word-break:normal;
+    overflow-wrap:break-word;
+    box-sizing:border-box;
+  }
+}
+
+/* Avoid fixed five-column table squeezing specimen headings and badges into
+   letter-wide strips on iOS. At phone widths use genuine full-width test cards. */
+@media screen and (max-width: 760px) {
+  .cedars-page .cedars-directory-panel .table-wrap {
+    overflow: visible;
+    max-width: 100%;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+  }
+  .cedars-page .cedars-directory-panel table.cedars-library {
+    display: block;
+    table-layout: auto !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100%;
+    background: transparent;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library thead { display:none; }
+  .cedars-page .cedars-directory-panel .cedars-library tbody {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    gap: 9px;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-specimen-heading {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    margin-top: 8px;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-specimen-heading > td {
+    display: block;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 11px 12px !important;
+    box-sizing: border-box;
+    word-break: normal;
+    overflow-wrap: break-word;
+    white-space: normal;
+    line-height: 1.4;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 12px;
+    gap: 9px 12px;
+    background: #fff;
+    border: 1px solid #dce5e9;
+    border-radius: 11px;
+    box-shadow: 0 1px 3px rgba(33,65,76,.045);
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td {
+    display: block;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0 !important;
+    border: 0;
+    vertical-align: middle;
+    white-space: normal;
+    word-break: normal;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td:nth-child(1),
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td:nth-child(2),
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td:nth-child(1) {
+    font-size: 12px;
+    color: #67525b;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td:nth-child(2) .test-name {
+    font-size: 15px;
+    line-height: 1.35;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td:nth-child(3) {
+    padding: 9px 0 !important;
+    border-top: 1px solid #e7edf0;
+    border-bottom: 1px solid #e7edf0;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library td:has(.cedars-container-cell) { min-width:0 !important; }
+  .cedars-page .cedars-directory-panel .cedars-library .cedars-container-cell {
+    align-items:flex-start;
+    min-width:0;
+    max-width:100%;
+    gap:10px;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library .cedars-container-art-table {
+    flex: 0 0 49px;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library .cedars-container-copy {
+    flex: 1 1 auto;
+    min-width:0;
+    max-width:100%;
+    overflow-wrap:break-word;
+    word-break:normal;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td:nth-child(4) {
+    grid-column:1;
+    align-self:center;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td.row-actions {
+    grid-column:2;
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    flex-wrap:wrap;
+    gap:6px;
+    text-align:right;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library .row-actions .mini-button {
+    margin:0;
+    white-space:nowrap;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library .cedars-container-path {
+    flex-wrap: wrap;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library .cedars-container-name {
+    font-size: 11.5px;
+    overflow-wrap:break-word;
+    word-break:normal;
+  }
+}
+@media screen and (max-width: 380px) {
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row { gap: 9px 7px; padding: 10px; }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td:nth-child(4),
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td.row-actions {
+    grid-column:1 / -1;
+    text-align:left;
+    justify-content:flex-start;
+  }
+}
+
+
+/* Final narrow-screen safeguards for Cedars directory cards.  Keep the
+   illustrated submission container unchanged, while showing a legible
+   source -> submission path instead of narrow five-column table cells. */
+@media screen and (max-width: 760px) {
+  .cedars-page .cedars-directory-panel,
+  .cedars-page .cedars-directory-panel .table-wrap,
+  .cedars-page .cedars-directory-panel table.cedars-library {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-specimen-heading > td {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    white-space: normal !important;
+    box-sizing: border-box;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library .cedars-container-path {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library .cedars-container-path-stage {
+    min-width: 0;
+    max-width: 100%;
+    flex: 0 1 auto;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library .cedars-container-path-arrow {
+    flex: 0 0 auto;
+    padding: 0 2px;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library .cedars-container-name {
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+  .cedars-page .cedars-directory-panel #cedarsSearch {
+    font-size: 16px; /* Prevent automatic input zoom on iPhone. */
+  }
+}
+@media screen and (max-width: 430px) {
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td:nth-child(4),
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row > td.row-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    text-align: left;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library .cedars-container-art-table {
+    flex: 0 0 42px;
+    width: 42px;
+    height: 44px;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library .cedars-container-cell {
+    gap: 8px;
+  }
+}
+
+
+/* Cedars printed submission test rows only. Match the directory's
+   collection → submission pills and colored specimen badge. */
+@media print {
+  #cedarsPrintSheet .cedars-print-simple-test .cedars-print-detail-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 3px 6px;
+    margin-top: 4px;
+    min-width: 0;
+  }
+  #cedarsPrintSheet .cedars-print-detail-container .cedars-container-path {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 3px 5px;
+    min-width: 0;
+    max-width: 100%;
+  }
+  #cedarsPrintSheet .cedars-print-detail-container .cedars-container-path-stage {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    min-width: 0;
+    max-width: 100%;
+  }
+  #cedarsPrintSheet .cedars-print-detail-container .cedars-container-path-arrow {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    font-weight: 900;
+    line-height: 1;
+    color: #5b7681;
+  }
+  #cedarsPrintSheet .cedars-print-detail-container .cedars-container-name {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 2px 6px;
+    border: 1px solid #cbd7dc;
+    border-radius: 999px;
+    font-size: 7.5pt;
+    font-weight: 800;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+    background: #f3f6f9 !important;
+    color: #526473 !important;
+  }
+  #cedarsPrintSheet .cedars-print-detail-container .cedars-container-name.type-swab {
+    background: #eaf4ff !important; color: #235b8f !important; border-color: #b7d7ef;
+  }
+  #cedarsPrintSheet .cedars-print-detail-container .cedars-container-name.type-urine {
+    background: #fff3d8 !important; color: #805405 !important; border-color: #f1d18a;
+  }
+  #cedarsPrintSheet .cedars-print-detail-container .cedars-container-name.type-stool {
+    background: #f5e9db !important; color: #76502d !important; border-color: #ddc2a4;
+  }
+  #cedarsPrintSheet .cedars-print-detail-container .cedars-container-name.type-blood {
+    background: #f9e9ef !important; color: #873c55 !important; border-color: #e5bccb;
+  }
+  #cedarsPrintSheet .cedars-print-detail-container .cedars-container-name.type-other {
+    background: #f0ecf9 !important; color: #605384 !important; border-color: #d1c9e5;
+  }
+  #cedarsPrintSheet .cedars-print-detail-container .cedars-print-test-type {
+    margin: 0;
+    border-radius: 999px;
+  }
+}
+
+/* Printed Cedars specimen type: colored wording, not a filled badge. */
+@media print {
+  #cedarsPrintSheet .cedars-print-detail-container .cedars-print-test-type {
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+}

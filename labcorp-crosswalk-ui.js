@@ -44,7 +44,7 @@
       const action = usable
         ? '<button type="button" class="crosswalk-open" data-labcorp-code="' + escape(labcorpCode) + '">View Labcorp test (verify equivalence)</button>'
         : '<a href="' + escape(directoryUrl(questName,labcorpCode)) + '" target="_blank" rel="noopener noreferrer">Search Labcorp ↗</a>';
-      return '<tr><td><strong>' + escape(questCode) + '</strong><small>Quest code only</small></td>' +
+      return '<tr><td><strong>' + escape(questCode) + '</strong><small>' + (questCode === 'XXX' ? 'No Quest code supplied' : 'Quest code only') + '</small></td>' +
         '<td><strong>' + escape(questName) + '</strong><small>Quest specimen: ' + escape(questSpecimen || 'Not listed') +
         (blocked ? ' · Quest do-not-perform record' : '') + '</small></td>' +
         '<td>' + suggestion + '</td><td>' + action + '</td></tr>';

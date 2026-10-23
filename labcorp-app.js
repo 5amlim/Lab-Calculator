@@ -24,11 +24,11 @@
   const STAT_AREA_KEY = 'labcorpCollectionCalculator.labcorpStatArea.v1';
   const STAT_AREAS = Object.freeze({
     unselected: {label:'Area not selected',codes:[],note:'Select the Labcorp receiving region; STAT status is not automatically verified.'},
-    socal: {label:'Southern California',codes:[],note:'Confirm STAT eligibility, local performing lab, cutoff and courier before marking an order STAT.'},
-    norcal: {label:'Northern California',codes:[],note:'Confirm STAT eligibility, local performing lab, cutoff and courier before marking an order STAT.'},
-    ny: {label:'New York',codes:[],note:'Confirm STAT eligibility, local performing lab, cutoff and courier before marking an order STAT.'},
-    fl: {label:'Florida',codes:[],note:'Confirm STAT eligibility, local performing lab, cutoff and courier before marking an order STAT.'},
-    other: {label:'Other service area',codes:[],note:'Confirm STAT eligibility and courier with the receiving Labcorp location before marking an order STAT.'}
+    socal: {label:'Southern California',codes:[],note:'No approved SoCal Labcorp STAT menu is loaded. STAT selection is disabled pending receiving-lab verification.'},
+    norcal: {label:'Northern California',codes:[],note:'No approved Labcorp STAT menu is loaded for this area. STAT selection is disabled pending receiving-lab verification.'},
+    ny: {label:'New York',codes:[],note:'No approved Labcorp STAT menu is loaded for this area. STAT selection is disabled pending receiving-lab verification.'},
+    fl: {label:'Florida',codes:[],note:'No approved Labcorp STAT menu is loaded for this area. STAT selection is disabled pending receiving-lab verification.'},
+    other: {label:'Other service area',codes:[],note:'No approved Labcorp STAT menu is loaded for this area. STAT selection is disabled pending receiving-lab verification.'}
   });
   // All STAT-eligible tests, including sedimentation rate (809), start as Routine.
   const DEFAULT_STAT_TEST_CODES = new Set();
@@ -166,7 +166,7 @@
       // selected special containers for exceptional collection workflows.
       if (els.specimenType.value === 'Stool' && (els.drawContainer.value !== '__other__' ||
         /^(?:stool container|sterile cup|total[- ]?fix(?:®)?(?: transport vial)?)$/i.test(selectedDrawContainer(true)))) {
-        setDrawContainerValue('Sterile Urine Cup');
+        setDrawContainerValue('Sterile cup');
         window.syncPortalSelects?.();
       }
     });
@@ -336,7 +336,7 @@
     // Do not replace true 24-hour collection jugs, special collection devices,
     // or intentionally unavailable tests with a spot-urine cup.
     if (/24\s*[- ]?hour|24h\b|timed\s+urine|do not collect|^n\/?a$/i.test(draw)) return draw;
-    if (/^sterile urine cup$/i.test(draw)) return 'Sterile Urine Cup';
+    if (/^sterile(?: urine)? cup$/i.test(draw)) return 'Sterile cup';
 
     // Some previously saved browser overrides put the downstream preservative
     // tube in the Draw Container field. For the clinic workflow the patient
@@ -349,7 +349,7 @@
     const isUrinePreservativeTransport = grayUrineTransport.test(transport)
       || uaPreservative.test(transport);
     if (isUrinePreservativeDraw && isUrinePreservativeTransport) {
-      return 'Sterile Urine Cup';
+      return 'Sterile cup';
     }
     return draw;
   }
@@ -361,7 +361,7 @@
     // any required preservative/transport vial (e.g., Total-Fix). Do not
     // overwrite special primary collections such as trace-metal-free sources
     // or timed total-stool containers.
-    if (/^(?:sterile\s+(?:urine\s+)?cup|stool\s+container|standard\s+stool\s+container|total[- ]?fix(?:®)?\s+(?:transport\s+)?vial)$/i.test(draw)) return 'Sterile Urine Cup';
+    if (/^(?:sterile\s+(?:urine\s+)?cup|stool\s+(?:collection\s+)?(?:cup|container)|standard\s+stool\s+container|total[- ]?fix(?:®)?\s+(?:transport\s+)?vial)$/i.test(draw)) return 'Sterile cup';
     return draw;
   }
 
@@ -381,7 +381,7 @@
       if (record[key] != null) record[key] = interfaceWording(record[key]);
     }
 
-    const specimenType = normalizeSpecimenType(record.specimenType);
+    let specimenType = normalizeSpecimenType(record.specimenType);
     let transportContainer = cleanTransportContainer(record.transportContainer);
     let drawContainer = normalizeStoolCollectionSource(
       specimenType,
@@ -391,6 +391,24 @@
         transportContainer
       )
     );
+    // For swab assays the swab transport device is also the collection kit.
+    // Anatomical labels such as "Throat Swab" describe specimen SOURCE, not
+    // a second tube. Preserve the site in the specimen column while treating
+    // the actual Amies/viral/Aptima swab kit as both draw and submit container.
+    if (/\bswab\b/i.test(specimenType) &&
+        /(?:swab|amies|aptima|cobas|viral transport|\butm\b|\bvtm\b)/i.test(transportContainer) &&
+        !/^(?:verify|other \/ verify)/i.test(transportContainer)) {
+      if (/^swab$/i.test(specimenType) &&
+          /\b(?:throat|nasal|nasopharyngeal|oropharyngeal|rectal|vaginal|cervical|endocervical|urethral|lesion|wound|ear|eye|buccal)\b/i.test(drawContainer) &&
+          /\bswab\b/i.test(drawContainer)) {
+        // Keep the anatomical source, not the swab manufacturer's or assay's
+        // name, in the specimen column.
+        specimenType = /bacterial\s+culture\s+swab.*\bwound\b/i.test(drawContainer)
+          ? 'Wound swab'
+          : drawContainer.replace(/^(?:aptima|synthetic)\s+/i, '');
+      }
+      drawContainer = transportContainer;
+    }
     // Microtainer-only neonatal instructions override the generic SST/Gold
     // source. Never count these small-volume microcollection tubes as regular
     // 5 mL Gold or 7.5 mL Tiger SSTs. Preserve the full manufacturer notes.
@@ -487,7 +505,7 @@
         }))
       : [
           {
-            label: finalTransportContainer(test),
+            label: frozenTransportLabel(test, finalTransportContainer(test)),
             className: transportTubeClass(test, finalTransportContainer(test))
           },
           ...additionalDrawRequirements(test).map(requirement => {
@@ -522,21 +540,43 @@
   // Search-list badge presentation only. Blood and swab records display draw
   // containers; urine/stool display the actual container shipped to Labcorp.
   function menuContainerBadges(test) {
-    const specimen = String(test.specimenType || '');
-    const showSubmission = /\burine\b|\b(?:stool|feces|fecal|faeces|faecal)\b/i.test(specimen);
-    // No-transfer is a handling instruction, not a submission container.
-    // For urine/stool, display the existing collection container in that case.
-    const transport = String(test.transportContainer || '').trim();
-    const originalContainer = /\bno\s+transfer\b/i.test(transport)
-      || /^(?:(?:submit|send|ship|keep|leave)\b.{0,70}\b)?(?:original|primary)(?:\s+collection)?\s+(?:tube|container|cup|specimen|vial)\b/i.test(transport)
-      || /^(?:submit|send|ship|keep|leave)\b.{0,70}\b(?:original|primary)(?:\s+collection)?\s+(?:tube|container|cup|specimen|vial)\b/i.test(transport);
-    const badges = showSubmission && !originalContainer
-      ? libraryTransportContainerBadges(test)
-      : requiredDrawContainerBadges(test);
-    return badges
-      .replace(/\s*\(\s*original (?:tube|specimen)\s*\)/gi, '')
-      .replace(/\s*\/\s*original tube\b/gi, '')
-      .replace(/\s*\(\s*submit in original tube\s*\)/gi, '');
+    // Directory-only presentation. Never change collection, processing or pooling.
+    // Display the physical source followed by its distinct submission container.
+    const specimen = String(test.specimenType || '').toLowerCase();
+    const rawDraw = String(test.drawContainer || 'Verify collection container').trim();
+    const draw = cleanCollectionContainer(rawDraw);
+    const transport = String(finalTransportContainer(test) || '').trim();
+    const isCup = /^(?:sterile\s+(?:urine\s+|stool\s+|specimen\s+)?cup|stool\s+collection\s+cup|urine\s+collection\s+cup)$/i.test(rawDraw);
+    const collectionLabel = isCup ? 'Sterile cup' : draw;
+    const drawBadges = drawContainerBadge(collectionLabel) +
+      additionalDrawRequirements(test).map(req => drawContainerBadge(cleanCollectionContainer(req.container || 'Verify collection container'))).join(' ');
+    const cleanName = value => {
+      const text = normalizeSearch(cleanCollectionContainer(value))
+        .replace(/\b(?:spun|centrifuged|original|tube)\b/g, ' ').replace(/\s+/g, ' ').trim();
+      return /^(?:gold\s+sst|sst\s+gold|gold|sst)$/.test(text) ? 'sst gold' : text;
+    };
+    // Presentation only. Mandatory transfer instructions take priority over
+    // similarly named SST tubes; never conceal a required aliquot step.
+    const collectionNotes = String(test.specialInstructions || '').toLowerCase();
+    const mandatoryTransfer = /\bmust\s+(?:immediately\s+|promptly\s+)?(?:transfer|pour\s+off)\b|\b(?:transfer|separation)\s+of\s+(?:the\s+)?serum\s+(?:is\s+)?(?:mandatory|required)\b|\b(?:transfer|separate)\s+(?:serum|plasma)\s+(?:to|into)\s+(?:a\s+)?(?:separate|dedicated|plastic)\s+(?:tube|container)\b/.test(collectionNotes);
+    const original = /\bno\s+transfer\b|\bsubmit\s+in\s+(?:the\s+)?original\s+(?:tube|container)\b|\b(?:original|primary)\s+(?:tube|container)\b/i.test(transport);
+    const same = cleanName(collectionLabel) === cleanName(transport) ||
+      (tubeClass(collectionLabel) === 'tube-sst' &&
+        tubeClass(transport) === 'tube-sst' &&
+        !/transport\s+tube|aliquot|cryovial|transpak/i.test(transport));
+    // A red-top or plasma ALTERNATIVE may require transfer even when the
+    // primary SST goes directly to the lab. That conditional instruction
+    // must not invent a transfer arrow for the primary draw.
+    const alternativeOnly = /\b(?:if|when)\s+(?:using|drawn\s+in|collected\s+in)\s+(?:a\s+)?(?:red[- ]?top|plain\s+red|plasma)\b/i.test(collectionNotes);
+    if (((original || same) && (!mandatoryTransfer || alternativeOnly)) || !transport) {
+      return '<span class="container-path is-single">' + drawBadges + '</span>';
+    }
+    const sendBadges = libraryTransportContainerBadges(test);
+    return '<span class="container-path is-transfer">' +
+      '<span class="container-path-source" aria-label="Collect in">' + drawBadges + '</span>' +
+      '<span class="container-path-arrow" role="img" aria-label="Then transfer to">↓</span>' +
+      '<span class="container-path-submit" aria-label="Submit in">' + sendBadges + '</span>' +
+      '</span>';
   }
 
   function menuVolumeText(test, label) {
@@ -638,12 +678,27 @@
 
   function cleanCollectionContainer(value) {
     const text = String(value || '').trim();
-    // Local standard: generic urine cups/containers are the existing Sterile Urine Cup.
+    // Standard unpreserved urine collection and submission cups are one
+    // physical container, despite directory aliases such as "original specimen"
+    // or "plastic urine container, no preservative". Do not normalize aliquot
+    // containers, preservatives, timed collection jugs, or special metal-free cups.
+    const directCup = text
+      .replace(/^(?:submit|send)\s+in\s+(?:the\s+)?original\s+/i, '')
+      .replace(/\s*\(original\s+(?:specimen|container|cup)\)\s*$/i, '')
+      .replace(/\s*\(urine\)\s*$/i, '')
+      .replace(/\s*,\s*(?:no|without)\s+preservative\s*$/i, '')
+      .replace(/\s+without\s+preservative\s*$/i, '')
+      .trim();
+    if (/^(?:(?:sterile\s+)?(?:plastic\s+)?urine\s+(?:collection\s+)?(?:cup|container)|plastic\s+urine\s+container|sterile\s+(?:specimen\s+)?cup)$/i.test(directCup)) {
+      return 'Sterile cup';
+    }
+    // Local standard: generic urine cups/containers are the existing Sterile cup.
     // Keep truly special devices (24-hour jugs, preservative tubes, trace-metal containers, Aptima, etc.) distinct.
     if (/^(?:sterile\s*,?\s*)?(?:plastic\s+)?urine\s+(?:collection\s+)?(?:cup|container)$/i.test(text)) {
-      return 'Sterile Urine Cup';
+      return 'Sterile cup';
     }
-    if (/^urine\s+collection\s+(?:cup|container)$/i.test(text)) return 'Sterile Urine Cup';
+    if (/^urine\s+collection\s+(?:cup|container)$/i.test(text)) return 'Sterile cup';
+    if (/^(?:sterile\s+stool\s+cup|stool\s+collection\s+cup|sterile\s+cup|sterile\s+specimen\s+cup)$/i.test(text)) return 'Sterile cup';
     return text;
   }
 
@@ -653,6 +708,7 @@
       .replace(/^labeled\s+transport\s+tube\s*\(local workflow;\s*verify\s+[a-z]+\)$/i, 'Transport tube (verify official instructions)')
       .replace(/^labeled\s+transport\s+tube$/i, 'Transport tube')
       .replace(/\blabeled transport tube\b/gi, 'transport tube')
+      .replace(/\s*\(original device\)\s*$/i, '')
       .replace(/\s{2,}/g, ' ');
     return cleanCollectionContainer(cleaned);
   }
@@ -1109,6 +1165,12 @@
   // tube. Keep special containers separate from generic transport tubes.
   function transportContainerFilterCategories(test) {
     const value = normalizeSearch(test.transportContainer || '');
+    // Direct submission in the collection cup is still sterile-cup transport,
+    // including records described as "original tube / no transfer".
+    if (cleanCollectionContainer(test.transportContainer) === 'Sterile cup' ||
+        (/\b(?:original tube|primary tube|no transfer|do not open)\b/.test(value) &&
+          cleanCollectionContainer(test.drawContainer) === 'Sterile cup')) return ['sterile-cup', 'original'];
+    if (isFrozenSerumPlasmaTransport(test, test.transportContainer)) return ['frozen-transport'];
     if (/red yellow|ua preservative/.test(value)) {
       // A few urine panels require both UA and culture preservative tubes.
       return /gray top urine|urine culture|urisponge/.test(value)
@@ -1123,11 +1185,18 @@
     if (/aptima/.test(value)) return ['aptima'];
     if (/viral|vcm|utm|transport media/.test(value)) return ['viral'];
     if (/total fix|stool container/.test(value)) return ['stool'];
-    if (/sterile urine cup|plastic urine container|24 hour urine/.test(value)) return ['urine-cup'];
+    if (/sterile (?:urine )?cup/.test(value)) return ['sterile-cup'];
+    if (/plastic urine container|24 hour urine/.test(value)) return ['urine-cup'];
     if (/plasma transport/.test(value)) return ['plasma'];
     if (/serum transport|serum .* transport vial/.test(value)) return ['serum'];
     if (/^(?:(?:\d+|two)\s+)?(?:separate\s+)?transport tubes?$/.test(value)) return ['transport'];
     return ['special'];
+  }
+
+  // This is a TRANSPORT filter: a sterile source cup alone is not enough.
+  // A culture specimen transferred to a gray-top tube is filtered by that tube.
+  function usesSterileCup(test) {
+    return transportContainerFilterCategories(test).includes('sterile-cup');
   }
 
   function toggleCatalogFilters(force) {
@@ -1159,7 +1228,9 @@
     const temperature = els.temperatureFilter.value;
     if (temperature && transportBagInfo(test).key !== temperature) return false;
     const container = els.transportContainerFilter.value;
-    if (container && !transportContainerFilterCategories(test).includes(container)) return false;
+    if (container && !(container === 'sterile-cup'
+      ? usesSterileCup(test)
+      : transportContainerFilterCategories(test).includes(container))) return false;
     const fasting = els.fastingFilter.value;
     if (fasting && fastingRequirement(test)?.level !== fasting) return false;
     // Limit this category to explicitly named pediatric/neonatal tests;
@@ -1375,8 +1446,12 @@
   }
 
   function isStatEligible(test) {
-    // Staff must explicitly confirm Labcorp STAT acceptance; no code menu is presumed.
-    return Boolean(test && test.status !== 'blocked' && statArea !== 'unselected');
+    // Only an explicitly verified per-region Labcorp code may be marked STAT.
+    // Selecting a region alone is NOT eligibility. An empty list disables STAT.
+    const area = STAT_AREAS[statArea];
+    return Boolean(test && test.status !== 'blocked' && area &&
+      statArea !== 'unselected' &&
+      area.codes.some(code => String(code) === String(test.testCode || '').trim()));
   }
 
   function reconcileStatWithArea() {
@@ -1512,7 +1587,7 @@
     els.statMenuCount.textContent = `${codes.length} listed code${codes.length === 1 ? '' : 's'}`;
     els.statAreaHelp.textContent = `${info.note} Confirm current receiving-lab acceptance, cutoff, requisition, and courier before sending STAT. ${statAreaResetNotice}`.trim();
     els.statMenuResults.innerHTML = !codes.length
-      ? '<p class="stat-menu-empty">No preapproved Labcorp STAT menu is configured. After confirming local acceptance, you can mark a test STAT in the cart.</p>'
+      ? '<p class="stat-menu-empty">No verified Labcorp STAT codes are configured for this receiving area. STAT actions are disabled until an approved local menu is added. Confirm with the receiving lab before requesting STAT testing.</p>'
       : matches.length
         ? matches.map(({code,test}) => {
           const available = test && test.status !== 'blocked';
@@ -1588,7 +1663,7 @@
   }
 
   function confirmStatSelection(test) {
-    return window.confirm(`Mark ${displayCode(test)} · ${test.testName} as STAT?\n\nReceiving lab: ${STAT_AREAS[statArea].label}\n\nLabcorp STAT eligibility has not been preverified. Only proceed if this code is accepted STAT at the actual receiving lab. Confirm local cutoff, requisition, and separate STAT courier routing.`);
+    return window.confirm(`Mark ${displayCode(test)} · ${test.testName} as STAT?\n\nReceiving lab: ${STAT_AREAS[statArea].label}\n\nThis code is in the configured regional STAT menu. Confirm current receiving-lab acceptance, cutoff, requisition, and separate STAT courier routing before proceeding.`);
   }
 
   function toggleStatPriority(id) {
@@ -1757,7 +1832,7 @@
     if (!selectedUrineCultureIsSponge() || !isCultureTransportEligible(test)) return test;
     const reflex = String(test.testCode || '') === '3020'
       || /urinalysis.*reflex to culture/i.test(test.testName || '');
-    const instructions = 'Collect clean-catch midstream urine in a sterile urine cup. Dip the UriSponge applicator into the urine sample, fully submerging for 5 seconds. Return saturated sponge to UriSponge tube and secure tightly. Do not pour urine into the UriSponge tube. Transport preserved urine at room temperature or refrigerated. Confirm acceptance with the receiving lab.';
+    const instructions = 'Collect clean-catch midstream urine in a sterile cup. Dip the UriSponge applicator into the urine sample, fully submerging for 5 seconds. Return saturated sponge to UriSponge tube and secure tightly. Do not pour urine into the UriSponge tube. Transport preserved urine at room temperature or refrigerated. Confirm acceptance with the receiving lab.';
     if (reflex) {
       return {
         ...test,
@@ -2173,7 +2248,7 @@
       });
       if (test.status === 'blocked') alerts.push({ type: 'danger', text: `${test.testName}: marked do not perform.` });
       const sstYieldWarning = singleSstSpecimenVolumeWarning(test);
-      if (sstYieldWarning) alerts.push({ type: 'danger', text: `${test.testName}: ${sstYieldWarning}` });
+      if (sstYieldWarning) alerts.push({ type: singleSstSpecimenVolumeLevel(test) === 'minimum' ? 'danger' : 'warning', text: `${test.testName}: ${sstYieldWarning}` });
       if (/own tube|dedicated tube|needs own tube|two separate|full tube|required on label|draw waste|discard tube/.test(note)) alerts.push({ type: 'warning', text: `${test.testName}: dedicated tube, fill, labeling, or discard instructions may apply.` });
       if (/immediately|freeze immediately|centrifuge immediately|stat/.test(note)) alerts.push({ type: 'warning', text: `${test.testName}: time-sensitive processing noted.` });
       if (/protect from light|amber|wrap.*foil/.test(note)) alerts.push({ type: 'warning', text: `${test.testName}: protect from light.` });
@@ -2463,6 +2538,22 @@
     return String(test.drawContainer || 'Verify container').trim();
   }
 
+  // Certain Labcorp monographs specify a serum yield larger than one SST can
+  // supply. Unlike generic one-test estimates, their source-derived volume
+  // requirement is explicitly opted into capacity-based multi-tube counting.
+  function needsPreferredSerumYieldSstCount(test) {
+    return /preferred serum yield requires multi-sst calculation/i.test(String(test.specialInstructions || ''));
+  }
+
+  // Local SST planning policy: a recorded minimum of at least 4 mL
+  // receives two SST collection tubes. Explicit higher tube counts override
+  // this floor. Do not apply to other collection tube types.
+  function needsTwoSstForMinimum(test) {
+    if (!isSstDraw(test)) return false;
+    const minimum = parseVolumeMl(test.minimumVolume);
+    return minimum !== null && minimum >= 4 - 1e-8;
+  }
+
   function sstEstimateForTests(tests) {
     let sharedMl = 0;
     let dedicatedTubes = 0;
@@ -2475,14 +2566,14 @@
       const plannedMl = preferredMl === null ? fallbackMl : preferredMl;
       const explicitCount = explicitSstTubeCount(test);
 
-      // A preferred specimen volume alone must never make one test count as
-      // more than one collection SST. Only explicit collection instructions
-      // such as “2 SST tubes,” “separate tube,” or “dedicated tube” can add
-      // additional collection tubes for a single test.
-      if (requiresDedicatedSst(test)) {
-        dedicatedTubes += Math.max(explicitCount, 1);
+      // Minimum >=4 mL plans two SSTs for this test, unless an explicit
+      // instruction calls for more. Preferred volume alone does not trigger
+      // this two-tube rule. Keep these sources out of the shared serum pool.
+      const twoSstMinimum = needsTwoSstForMinimum(test);
+      if (requiresDedicatedSst(test) || twoSstMinimum) {
+        dedicatedTubes += Math.max(explicitCount, twoSstMinimum ? 2 : 1);
       } else if (plannedMl !== null) {
-        sharedMl += Math.min(plannedMl, SST_USABLE_ML_PER_TUBE);
+        sharedMl += needsPreferredSerumYieldSstCount(test) ? plannedMl : Math.min(plannedMl, SST_USABLE_ML_PER_TUBE);
       } else {
         unmeasuredTubes += 1;
         unmeasuredTests.push(test.testName);
@@ -2516,14 +2607,15 @@
       const plannedMl = preferredMl === null ? fallbackMl : preferredMl;
       const explicitCount = Math.max(explicitSstTubeCount(test), 1);
 
-      if (requiresDedicatedSst(test) || hasCollectionFillRule(test)) {
-        // Dedicated, full-tube and explicitly required multi-tube collection
-        // rules are not affected by the 4 mL pooling assumption.
-        dedicatedTubes += explicitCount;
+      const twoSstMinimum = needsTwoSstForMinimum(test);
+      if (requiresDedicatedSst(test) || hasCollectionFillRule(test) || twoSstMinimum) {
+        // Respect explicit multi-tube requirements, with the same >=4 mL
+        // two-SST minimum policy used for Gold SST.
+        dedicatedTubes += Math.max(explicitCount, twoSstMinimum ? 2 : 1);
       } else if (plannedMl !== null) {
-        // Never infer a second source SST for a single test solely from volume.
-        // The volume warning flags tests that may exceed the assumed yield.
-        sharedMl += Math.min(plannedMl, TIGER_SST_USABLE_ML_PER_TUBE);
+        // Preferred volume alone does not increase an individual tube count.
+        // The print volume caution asks staff to verify unusual yields.
+        sharedMl += needsPreferredSerumYieldSstCount(test) ? plannedMl : Math.min(plannedMl, TIGER_SST_USABLE_ML_PER_TUBE);
       } else {
         unmeasuredTubes += 1;
       }
@@ -2539,20 +2631,32 @@
     };
   }
 
-  function singleSstSpecimenVolumeWarning(test) {
+  function singleSstSpecimenVolumeLevel(test) {
+    // Severity follows the same per-test Gold/Tiger SST yield assumptions as
+    // the existing volume check. An explicit multi-tube order stays exempt.
     if (!isSstDraw(test) || requiresDedicatedSst(test) && explicitSstTubeCount(test) > 1) return '';
-    // Approximate quantities are safeguards, not guarantees of a usable yield.
-    // The selected source container still counts as one unless a source
-    // explicitly requests multiple collection tubes.
+    // A minimum of at least 4 mL has an automatic 2-SST collection plan, even if
+    // the selected Tiger SST has a 4 mL estimated yield.
+    if (needsTwoSstForMinimum(test)) return 'minimum';
     const tiger = selectedSstIsTiger();
     const capacity = tiger ? TIGER_SST_USABLE_ML_PER_TUBE : SST_USABLE_ML_PER_TUBE;
     const preferred = tiger ? volumeForRequirement(test, 'preferred', { factor: 1 }) : parseVolumeMl(test.preferredVolume);
     const minimum = tiger ? volumeForRequirement(test, 'minimum', { factor: 1 }) : parseVolumeMl(test.minimumVolume);
-    if (minimum !== null && minimum > capacity + 1e-8) {
-      return `minimum required volume may exceed one ${tiger ? 'Tiger' : 'Gold'} SST's assumed yield. Verify the collection tube count with the receiving lab; the one-tube estimate may be insufficient.`;
+    if (minimum !== null && minimum > capacity + 1e-8) return 'minimum';
+    if (preferred !== null && preferred > capacity + 1e-8) return 'preferred';
+    return '';
+  }
+
+  function singleSstSpecimenVolumeWarning(test) {
+    const level = singleSstSpecimenVolumeLevel(test);
+    const tube = selectedSstIsTiger() ? 'Tiger' : 'Gold';
+    if (level === 'minimum') {
+      return needsTwoSstForMinimum(test)
+        ? 'Minimum is at least 4 mL: two SSTs planned (unless more explicitly required). Verify specimen volume with the receiving lab.'
+        : `minimum required volume may exceed one ${tube} SST's assumed yield. Verify specimen volume with the receiving lab.`;
     }
-    if (preferred !== null && preferred > capacity + 1e-8) {
-      return `preferred volume may exceed one ${tiger ? 'Tiger' : 'Gold'} SST's assumed yield. Verify specimen sufficiency and collect additional tubes if needed.`;
+    if (level === 'preferred') {
+      return `preferred volume may exceed one ${tube} SST's assumed yield. Verify specimen sufficiency and collect additional tubes if needed.`;
     }
     return '';
   }
@@ -2839,8 +2943,15 @@
 
   function canonicalCollectionContainer(test) {
     const draw = String(test.drawContainer || 'Verify collection container').trim();
+    // Keep the EXACT original device name on both the collection card and
+    // submission card for swabs, including Aptima and Amies variants.
+    if (/\bswab\b/i.test(String(test.specimenType || '')) &&
+        normalizeSearch(draw) === normalizeSearch(test.transportContainer || '')) {
+      return { key: 'original-swab|' + normalizeSearch(draw), label: draw,
+        className: tubeClass(draw) || 'tube-transport' };
+    }
     if (isUrineTest(test) && !isTimedUrineTest(test)) {
-      return { key: 'sterile-urine-cup', label: 'Sterile Urine Cup', className: 'tube-urine-cup' };
+      return { key: 'sterile-urine-cup', label: 'Sterile cup', className: 'tube-urine-cup' };
     }
 
     const cls = tubeClass(draw);
@@ -2868,7 +2979,7 @@
       'tube-total-fix': 'Total-Fix® Transport Vial',
       'tube-trace-metal-container': 'Trace Metal-Free Plastic Container',
       'tube-24h-urine': '24-Hour Urine Container',
-      'tube-urine-cup': 'Sterile Urine Cup',
+      'tube-urine-cup': 'Sterile cup',
       'tube-ua-swirl': 'Red/Yellow Swirl UA Preservative Tube',
       'tube-urine-culture': 'Gray-Top Urine Culture Preservative Tube'
     };
@@ -3041,7 +3152,7 @@
   }
 
   function printCollectionGroups(items, wholeBloodGroups) {
-    return `<div class="print-collection-grid">${items.map(item => {
+    const cards = items.map(item => {
       const specimenBadge = collectionSpecimenBadgeForItem(item);
       const specimenGroup = collectionSpecimenGroupForItem(item);
       const tigerBadge = printSstTigerBadge(item);
@@ -3052,19 +3163,48 @@
       const longSstList = item.className === 'tube-sst' && printedTestCount >= 9;
       const columnRows = Math.ceil(printedTestCount / (longSstList ? 2 : 3));
       const yieldReviewTests = item.className === 'tube-sst'
-        ? uniqueTests(item.tests).filter(test => singleSstSpecimenVolumeWarning(test)) : [];
+        ? uniqueTests(item.tests).filter(test => singleSstSpecimenVolumeLevel(test)) : [];
+      const twoSstTests = yieldReviewTests.filter(test => needsTwoSstForMinimum(test));
+      const minimumYieldTests = yieldReviewTests.filter(test => singleSstSpecimenVolumeLevel(test) === 'minimum' && !needsTwoSstForMinimum(test));
+      const preferredYieldTests = yieldReviewTests.filter(test => singleSstSpecimenVolumeLevel(test) === 'preferred');
       return `<article class="print-collection-card${longSstList ? ' is-sst-long' : printedTestCount >= 12 ? ' is-long' : ''}" style="--print-column-rows:${columnRows}">
         <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${microtainerBadge}${specimenBadge ? `<span class="print-collection-specimen-badge specimen-${specimenGroup}">${escapeHtml(specimenBadge)}</span>` : ''}${printCollectionWholeBloodDetail(item, wholeBloodGroups)}</div>
         ${item.detail ? `<div class="print-container-detail">${escapeHtml(item.detail)}</div>` : ''}
         ${item.className === 'tube-microtainer' ? '<div class="print-microtainer-note">Microcollection tubes · protect from light; follow the test-specific Microtainer instructions.</div>' : ''}
         ${yieldReviewTests.length ? `<div class="print-sst-volume-warning">
-          <div>Volume verification: ${yieldReviewTests.length} ${yieldReviewTests.length === 1 ? 'test has' : 'tests have'} specimen needs that may exceed a single ${selectedSstIsTiger() ? 'Tiger' : 'Gold'} SST yield.</div>
-          <div class="print-sst-volume-affected"><strong>Affected ${yieldReviewTests.length === 1 ? 'test' : 'tests'}:</strong> ${yieldReviewTests.map(test => `<span><b>${escapeHtml(displayCode(test))}</b> ${escapeHtml(test.testName)}</span>`).join(' · ')}</div>
-          <div>Confirm sufficient collection volume with the receiving lab.</div>
+          <div class="print-sst-volume-summary">
+            <strong>Volume check</strong>
+            <span>${selectedSstIsTiger() ? 'Tiger' : 'Gold'} SST · ${selectedSstIsTiger() ? '4' : '2.5'} mL estimated serum yield</span>
+          </div>
+          ${twoSstTests.length ? `<div class="print-sst-volume-tier is-minimum">
+            <strong>2 SSTs planned (minimum ≥4 mL):</strong>
+            <span>${twoSstTests.map(test => `<b>${escapeHtml(displayCode(test))}</b>`).join(' · ')}</span>
+          </div>` : ''}
+          ${minimumYieldTests.length ? `<div class="print-sst-volume-tier is-minimum">
+            <strong>Minimum exceeds one SST yield:</strong>
+            <span>${minimumYieldTests.map(test => `<b>${escapeHtml(displayCode(test))}</b>`).join(' · ')}</span>
+          </div>` : ''}
+          ${preferredYieldTests.length ? `<div class="print-sst-volume-tier is-preferred">
+            <strong>Preferred exceeds yield:</strong>
+            <span>${preferredYieldTests.map(test => `<b>${escapeHtml(displayCode(test))}</b>`).join(' · ')}</span>
+          </div>` : ''}
+          <div class="print-sst-volume-action">Verify specimen volume with receiving lab.</div>
         </div>` : ''}
-        <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${uniqueTests(item.tests).map(test => `<li><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)}${test.isStat ? '<span class="print-collection-stat-label"> · STAT</span>' : ''}</li>`).join('')}</ul></div>
+        <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${uniqueTests(item.tests).map(test => `<li${item.className === 'tube-sst' && singleSstSpecimenVolumeLevel(test) ? ` class="is-volume-warning-test is-volume-${singleSstSpecimenVolumeLevel(test)}"` : ''}><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)}${test.isStat ? '<span class="print-collection-stat-label"> · STAT</span>' : ''}</li>`).join('')}</ul></div>
       </article>`;
-    }).join('')}</div>`;
+    });
+    // A printed page can start between rows, never halfway through either
+    // card in a pair. Do not change the two-column presentation or tube math.
+    const rows = [];
+    const fullWidth = item => item.className !== 'tube-sst' &&
+      uniqueTests(item.tests).length >= 12;
+    for (let i = 0; i < cards.length;) {
+      const next = !fullWidth(items[i]) && i + 1 < cards.length &&
+        !fullWidth(items[i + 1]) ? i + 2 : i + 1;
+      rows.push('<div class="print-collection-row">' + cards.slice(i, next).join('') + '</div>');
+      i = next;
+    }
+    return '<div class="print-collection-grid">' + rows.join('') + '</div>';
   }
 
   function buildCollectionPlan(tests, bags) {
@@ -3226,7 +3366,7 @@
     // count, not permission to combine incompatible tests or submitted aliquots.
     const sharedStoolTests = uniqueTests(tests.filter(isShareableStoolSourceTest));
     if (sharedStoolTests.length) {
-      items.push({ key: 'stool-shared-source-cup', label: 'Sterile Urine Cup',
+      items.push({ key: 'stool-shared-source-cup', label: 'Sterile cup',
         className: 'tube-urine-cup', count: 1, tests: sharedStoolTests,
         sharedStoolSource: true,
         detail: sharedStoolTests.length > 1
@@ -3245,13 +3385,19 @@
     spotUrineGroups.forEach(group => {
       items.push({
         key: `sterile-urine-cup|${group.key}`,
-        label: 'Sterile Urine Cup',
+        label: 'Sterile cup',
         className: 'tube-urine-cup',
         urineSeparateCollection: group.dedicated,
         urineCollectionKey: group.key,
         count: group.dedicated ? Math.max(...group.tests.map(explicitCollectionCount)) : 1,
         tests: uniqueTests(group.tests),
-        detail: group.dedicated ? 'Separate urine collection required. Follow test-specific collection instructions.' : 'Collect in the sterile cup first, then fill any required preservative or transport tubes.'
+        detail: group.dedicated
+          ? 'Separate urine collection required. Follow test-specific collection instructions.'
+          : group.tests.every(isOriginalContainerSubmission)
+            ? 'Submit the original sterile cup; no transfer. Confirm sufficient urine for all ordered tests.'
+            : group.tests.some(isOriginalContainerSubmission)
+              ? 'Submit the original cup for direct-submit tests; fill required preservative/transport tubes for the other tests. Confirm sufficient urine.'
+              : 'Collect in the sterile cup first, then fill any required preservative or transport tubes.'
       });
     });
 
@@ -3264,7 +3410,7 @@
       if (isShareableStoolSourceTest(test)) return;
       const info = canonicalCollectionContainer(test);
       // Keep physically identical containers separate when they hold different specimen types.
-      // A Sterile Urine Cup, for example, may be used for either urine or stool, but those
+      // A Sterile cup, for example, may be used for either urine or stool, but those
       // specimens should never be combined into the same collection card/count.
       const specimenGroup = collectionSpecimenGroupForTest(test);
       const specimenSubtype = specimenGroup === 'urine' ? urineCollectionType(test).key : specimenGroup;
@@ -3281,12 +3427,24 @@
 
     grouped.forEach(item => {
       item.tests = uniqueTests(item.tests);
+      // Labcorp explicitly accepts the same 30% acetic-acid-preserved
+      // 24-hour urine collection for PBG (003103) and delta-ALA (096354).
+      // Count that physical jug once, but submit a separate frozen amber
+      // aliquot for EACH assay. Do not generalize this exception to other
+      // timed urine tests or incompatible preservative workflows.
+      const codes = new Set(item.tests.map(test => String(test.testCode || '').trim()));
+      if (item.className === 'tube-24h-urine'
+          && collectionSpecimenGroupForItem(item) === 'urine'
+          && codes.has('003103') && codes.has('096354')) {
+        item.count = Math.max(1, item.count - 1);
+        item.detail = 'One 24-hour urine collection with 30% acetic acid for PBG and delta-ALA. Refrigerate during collection; mix and submit separate frozen, light-protected aliquots.';
+      }
       items.push(item);
     });
 
     // Final card-level normalization. Collection cards are grouped by the physical
     // collection container AND specimen type, so urine and stool never merge just
-    // because both use a Sterile Urine Cup. Conversely, duplicate urine cards that
+    // because both use a Sterile cup. Conversely, duplicate urine cards that
     // use the same cup are collapsed into one card even when downstream transport
     // tubes or processing differ.
     const mergedItems = [];
@@ -3309,7 +3467,7 @@
       const target = mergedIndex.get(sameContainerKey);
       target.tests = uniqueTests([...(target.tests || []), ...(item.tests || [])]);
 
-      // Spot urine collected in the same Sterile Urine Cup is one shared source
+      // Spot urine collected in the same Sterile cup is one shared source
       // specimen. Preserve a larger explicit cup count if a test truly requires it.
       if (specimenGroup === 'urine' && item.className === 'tube-urine-cup') {
         target.count = Math.max(Number(target.count) || 0, Number(item.count) || 0);
@@ -3336,6 +3494,11 @@
       return 'Royal Blue — verify additive';
     }
 
+    // Source descriptions must match the actual container. Do not confuse
+    // "preserved" with a red-top blood tube.
+    if (/24\s*[- ]?hour\s+urine\s+(?:container|jug)|24h\s+urine\s+(?:container|jug)/i.test(draw)) return '24-Hour Urine Container';
+    if (/^(?:sterile\s+(?:urine\s+|specimen\s+)?cup|urine\s+collection\s+cup)$/i.test(draw)) return 'Sterile cup';
+
     if (/microtainer/i.test(draw)) return 'Amber Microtainer SST';
     if (/light blue|sodium citrate|citrate/i.test(draw)) return 'Light Blue Citrate';
     if (/blue/i.test(draw) && /edta/i.test(draw)) return 'Blue Top EDTA';
@@ -3348,7 +3511,7 @@
     if (/sodium\s+heparin/i.test(draw)) return 'Green Sodium Heparin';
     if (/lithium\s+heparin/i.test(draw)) return 'Green Lithium Heparin';
     if (/green|heparin/i.test(draw)) return 'Green Heparin — verify additive';
-    if (/red/i.test(draw)) return 'Red Top';
+    if (/\bred\b/i.test(draw)) return 'Red Top';
     if (/yellow|acd/i.test(draw)) return 'Yellow ACD';
     if (/gray|grey|fluoride|oxalate/i.test(draw)) return 'Gray Fluoride/Oxalate';
     if (/aptima/i.test(draw)) return 'Aptima Multitest';
@@ -3420,9 +3583,30 @@
     return sourceTube ? `${specimen} from ${sourceTube}` : sourceSpecimen;
   }
 
+  // Frozen serum/plasma aliquots belong in dedicated purple-cap frozen
+  // transport tubes, not the green-top routine serum/plasma transport badge.
+  // Keep the actual source requirements in the record; do not recategorize
+  // original SSTs, whole blood, urine amber tubes, or specialty containers.
+  function isFrozenSerumPlasmaTransport(test, container) {
+    const material = normalizeSpecimenType(test?.specimenType || '').toLowerCase();
+    const tube = String(container || '').toLowerCase();
+    const temp = String(test?.transportTemperature || '').toLowerCase().trim();
+    return temp === 'frozen'
+      && /^(?:serum|plasma|platelet[- ]poor plasma)$/.test(material)
+      && /(?:transport\s+tube|transpak)/.test(tube)
+      && !/(?:amber|acid[- ]?washed|metal[- ]?free|trace[- ]?metal|glass|cryovial)/.test(tube);
+  }
+  function frozenTransportLabel(test, container) {
+    if (!isFrozenSerumPlasmaTransport(test, container)) return String(container || '');
+    return /pp\s+transpak|transpak\s+purple/i.test(String(container || ''))
+      ? 'Frozen Transport Tube (PP Transpak)'
+      : 'Frozen Transport Tube';
+  }
+
   function transportTubeClass(test, container) {
     const value = String(container || '').toLowerCase();
     const specialty = tubeClass(container);
+    if (isFrozenSerumPlasmaTransport(test, container)) return 'tube-frozen-purple';
     if (/^tube-(?:qft-|eswab|utm|frozen-purple|op-|stool-clean)/.test(specialty)) return specialty;
     const specimen = normalizeSpecimenType(test.specimenType).toLowerCase();
     const specimenAndContainer = `${specimen} ${value}`;
@@ -3518,8 +3702,39 @@
     if (collectionSpecimenGroupForTest(test) === 'stool' && /total[- ]?fix/.test(transport.toLowerCase())) return false;
     if (!draw || /^do not collect$/i.test(draw) || /^n\/?a$/i.test(transport)) return false;
 
+    // Labcorp accepts an unpreserved plastic urine cup itself for many assays.
+    // If BOTH actual containers normalize to that cup, submission is direct.
+    // A true preservative/aliquot/special transport device does not normalize.
+    if (isUrineTest(test) &&
+        cleanCollectionContainer(draw) === 'Sterile cup' &&
+        cleanCollectionContainer(transport) === 'Sterile cup') return true;
+
+    // Swabs are collected directly into their supplied transport kit. Unlike
+    // spun blood or transferred urine/stool, no second container is required.
+    if (/\bswab\b/i.test(String(test.specimenType || '')) &&
+        /(?:swab|amies|aptima|cobas|viral transport|\butm\b|\bvtm\b)/i.test(transport) &&
+        normalizeSearch(draw) === normalizeSearch(transport)) return true;
+
     const drawClass = tubeClass(draw);
     const transportClass = tubeClass(transport);
+
+    // When Labcorp explicitly lists a spun SST/Gold as BOTH collection source
+    // and submission container, it is the original tube. Notes describing
+    // optional red-top/plasma alternatives must not turn that SST into a
+    // second printed submission card or a fictitious serum transfer.
+    // Preserve any mandatory separate-serum or no-gel restriction.
+    const instructions = String(test.specialInstructions || '').toLowerCase();
+    const spunOriginalSst = drawClass === 'tube-sst'
+      && transportClass === 'tube-sst'
+      && /sst|gold|serum separator|gel[- ]barrier/.test(transport.toLowerCase())
+      && !/do not use (?:an? )?(?:sst|gel)|gel[- ]barrier (?:tube|specimen) (?:not acceptable|rejected)|must (?:transfer|pour off|separate) (?:the )?(?:serum|specimen)|(?:transfer|separation) (?:of )?(?:serum|specimen) (?:is )?(?:mandatory|required)/.test(instructions);
+    // A mandatory tube-to-tube serum transfer or gel prohibition overrides any
+    // apparently matching SST label; do not silently merge those submissions.
+    const transferRequired = /\bmust\s+(?:(?:immediately|promptly)\s+)?(?:transfer|pour\s+off)\b|\btransfer\s+(?:of\s+)?serum\s+(?:to|into)\s+(?:a\s+)?(?:separate|dedicated|another)\s+(?:tube|container)\s+(?:is\s+)?(?:mandatory|required)\b|\b(?:separate|dedicated)\s+serum\s+(?:transport\s+)?tube\s+(?:is\s+)?(?:mandatory|required)\b/.test(instructions);
+    const noGelSst = /\bdo\s+not\s+use\s+(?:an?\s+)?(?:sst|gel)|\bgel[- ]barrier\s+(?:tube|specimen)\s+(?:not\s+acceptable|rejected)\b/.test(instructions);
+    if (drawClass === 'tube-sst' && (transferRequired || noGelSst)) return false;
+    if (spunOriginalSst) return true;
+
     const explicitOriginal = /no transfer|original tube|same tube|primary tube|do not open|unopened|submit (?:the )?(?:spun )?(?:original|collection|primary) tube|leave .* in (?:the )?original tube/.test(combined);
     const matchingTube = Boolean(drawClass && transportClass && drawClass === transportClass)
       && !/transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/.test(combined);
@@ -3531,13 +3746,21 @@
     const sourceSpecimen = specificSpecimenSource(test);
     const isAptima70049 = String(test.testCode || '').trim() === '70049';
     const label = isAptima70049 ? 'Aptima' : draw;
+    const directUrineCup = isUrineTest(test) && cleanCollectionContainer(draw) === 'Sterile cup' &&
+      cleanCollectionContainer(finalTransportContainer(test)) === 'Sterile cup';
+    const shareUrineCup = directUrineCup && isShareableUrineCupTest(test) &&
+      explicitSubmissionCount(test) === 1;
     const processing = isAptima70049
       ? `${sourceSpecimen} · Submit as Aptima`
+      : directUrineCup ? 'Submit in original sterile cup; no transfer'
       : (String(test.spin || '').toLowerCase() === 'yes' ? 'Process as directed; submit in original tube' : 'Submit in original tube');
     return {
-      key: `original|${normalizeSearch(label)}|${normalizeSearch(sourceSpecimen)}`,
+      key: directUrineCup
+        ? `original-urine-cup|${urineCollectionType(test).key}|${shareUrineCup ? 'shared' : String(test.sourceTestId || test.id || test.testCode)}`
+        : `original|${normalizeSearch(label)}|${normalizeSearch(sourceSpecimen)}`,
       label,
-      className: tubeClass(draw),
+      className: tubeClass(draw) || (/\bswab\b/i.test(test.specimenType) ? 'tube-transport' : ''),
+      shareableOriginalUrineCup: shareUrineCup,
       // Every original collection tube must travel as an original submission.
       // If two distinct whole-blood tubes are drawn, they cannot be compressed
       // into a single original tube in the bag plan (e.g. 38287).
@@ -3564,7 +3787,7 @@
       return [
         { key: 'ua-swirl', label: 'Red/Yellow Swirl UA Preservative Tube', className: 'tube-ua-swirl', count: 1, detail: 'Urine in preservative tube' },
         selectedUrineCultureIsSponge() && isCultureTransportEligible(test)
-          ? { key: 'urine-culture-urisponge', label: 'UriSponge Urine Culture Transport', className: 'tube-urisponge', count: 1, detail: 'Saturated UriSponge from sterile urine cup · do not pour urine into tube' }
+          ? { key: 'urine-culture-urisponge', label: 'UriSponge Urine Culture Transport', className: 'tube-urisponge', count: 1, detail: 'Saturated UriSponge from sterile cup · do not pour urine into tube' }
           : { key: 'urine-culture', label: 'Gray-Top Urine Culture Preservative Tube', className: 'tube-urine-culture', count: 1, detail: 'Urine in culture preservative tube' }
       ];
     }
@@ -3592,6 +3815,20 @@
         className: 'tube-amber',
         count: explicitSubmissionCount(test),
         detail: sourcePhrase
+      }];
+    }
+
+    // One separate frozen tube per serum/plasma assay. Never pool these with
+    // routine green-top transport tubes or with other frozen test aliquots.
+    if (isFrozenSerumPlasmaTransport(test, transport)) {
+      const sourcePhrase = specimenSourceDetail(test);
+      const special = /pp\s+transpak|transpak\s+purple/i.test(transport);
+      return [{
+        key: `frozen-transport|${normalizeSearch(sourcePhrase)}|${normalizeSearch(transport)}|${normalizeSearch(String(test.sourceTestId || test.id || test.testCode))}`,
+        label: frozenTransportLabel(test, transport),
+        className: 'tube-frozen-purple',
+        count: explicitSubmissionCount(test),
+        detail: sourcePhrase + (special ? ' · PP Transpak frozen purple-cap tube required' : ' · Freeze separate aliquot')
       }];
     }
 
@@ -3673,7 +3910,11 @@
       splitSubmissionContainers(test).forEach(container => {
         if (!items.has(container.key)) items.set(container.key, { ...container, tests: [] });
         const item = items.get(container.key);
-        item.count += item.tests.length ? container.count : 0;
+        // Compatible direct-submit urine assays can share the very same
+        // original sterile cup within a bag, provided volume is sufficient.
+        // Dedicated or different urine collection types are never merged.
+        if (container.shareableOriginalUrineCup) item.count = Math.max(item.count, container.count);
+        else item.count += item.tests.length ? container.count : 0;
         if (!item.detail && container.detail) item.detail = container.detail;
         item.tests.push(test);
       });
@@ -4063,6 +4304,12 @@
     // Restore it even though the colored badge above already identifies specimen
     // type. Both Gold and Tiger SST share the same clear spun-SST instruction.
     if (item.originalTube) {
+      // An original sterile urine cup is not a blood tube and was never
+      // transferred. Keep this explicit in the printed submission bag.
+      if (item.className === 'tube-urine-cup' &&
+          (item.tests || []).every(test => isUrineTest(test))) {
+        return '<div class="print-submit-item-detail">Submit original sterile cup · No transfer</div>';
+      }
       const isSpunSst = item.key === 'sst-spun';
       const isMicrotainerSst = item.className === 'tube-microtainer';
       const spins = /\bspun\b|\bcentrifug/i.test(detail)
@@ -4370,7 +4617,7 @@
     // boundary, iOS Safari can leave the purple heading and a large empty
     // bordered area on one page while moving the first unbreakable bag row to
     // the next. This is strictly a print pagination rule, not a routing change.
-    const bagStartOnFreshPage = bags.length > 0;
+    const bagStartOnFreshPage = bags.length > 0 && (!window.matchMedia('(max-width: 720px)').matches || tests.length > 4 || collectionItems.length > 3);
     const fastingItems = fastingRequirementsForTests(tests).map(({ test, requirement }) => ({ test, requirement: printFastingRequirement(test, requirement) }));
     const preparationItems = preCollectionPrecautionsForTests(tests);
     const preparationPanel = preparationItems.length ? `<div class="print-fasting-panel print-prep-panel">
@@ -4435,6 +4682,68 @@
   }
 
 
+  function printDetailContainerPath(test) {
+    const path = menuContainerBadges(test)
+      .replaceAll('class="badge tube ', 'class="print-tube-badge tube ')
+      .replace(/(<span class="container-path-arrow"[^>]*>)→(<\/span>)/g, '$1↓$2');
+    const labels = [normalizeSpecimenType(test.specimenType),
+      ...additionalDrawRequirements(test).map(req => normalizeSpecimenType(req.specimenType))]
+      .filter(Boolean);
+    const badges = Array.from(new Set(labels)).map(label => {
+      const group = /\burine\b/i.test(label) ? 'specimen-urine'
+        : /\bstool\b/i.test(label) ? 'specimen-stool'
+        : /\bswab\b/i.test(label) ? 'specimen-swab' : '';
+      return `<span class="specimen-badge ${specimenClass(label)} ${group} print-specimen-badge">${escapeHtml(label)}</span>`;
+    }).join(' ');
+    const spinValue = String(test.spin || '').trim();
+    const spinDisplay = /^(?:yes|true|spin|centrifuge)$/i.test(spinValue)
+      ? 'Spin ✓'
+      : /^(?:no|false|do not spin)$/i.test(spinValue) ? ''
+      : /^(?:n\/?a|not applicable)$/i.test(spinValue) ? ''
+      : spinValue ? `Spin: ${escapeHtml(spinValue)}` : '';
+    const spinBadge = spinDisplay ? `<span class="print-detail-spin" aria-label="Spin instruction">· ${spinDisplay}</span>` : '';
+    return `<div class="print-detail-container">${path}<div class="print-detail-specimens">${badges}${spinBadge}</div></div>`;
+  }
+
+    function printStabilityForTemperature(test) {
+    const raw = String(test.stability || '').replace(/\s+/g, ' ').trim();
+    const t = String(test.transportTemperature || '').toLowerCase();
+    const opts = [/(?:room|ambient)/.test(t) && 'room',/(?:refriger|cold|chill)/.test(t) && 'refrigerated',/(?:froz|freez)/.test(t) && 'frozen'].filter(Boolean);
+    if (!raw || opts.length !== 1) return 'Verify';
+    const name = /(room\s*(?:temp(?:erature)?)?|ambient|rt\b|refrigerat(?:ed|ion)\b|refrig\b|froz(?:en)?\b|freez(?:er|ing)\b)/i;
+    const period = /(\d+(?:\.\d+)?(?:\s*[-–]\s*\d+(?:\.\d+)?)?\s*(?:minutes?|mins?|hours?|hrs?|days?|weeks?|months?|years?|h\b|d\b)|unstable|indefinitely)/i;
+    const key = value => /froz|freez/i.test(value) ? 'frozen' : /refrig/i.test(value) ? 'refrigerated' : 'room';
+    const seen = new Set(), values = [];
+    const before = new RegExp(name.source + '\\s*:?\\s*(?:for\\s+|up\\s+to\\s+)?' + period.source,'ig');
+    for (const m of raw.matchAll(before)) {
+      seen.add(m.index + m[0].lastIndexOf(m[2]));
+      values.push([key(m[1]),m[2].toLowerCase()]);
+    }
+    const after = new RegExp(period.source + '\\s*(?:at\\s+|under\\s+)?' + name.source,'ig');
+    for (const m of raw.matchAll(after)) {
+      if (!seen.has(m.index)) values.push([key(m[2]),m[1].toLowerCase()]);
+    }
+    const eligible = [...new Set(values.filter(x=>x[0]===opts[0]).map(x=>x[1]))];
+    if (eligible.length===1) return eligible[0].replace(/^\w/,x=>x.toUpperCase());
+    if (eligible.length>1 || values.length || name.test(raw)) return 'Verify';
+    const generic = raw.match(new RegExp('^\\s*'+period.source+'\\s*[.!]?\\s*$','i'));
+    if (generic) return generic[1];
+    const periods = [...raw.matchAll(new RegExp(period.source,'ig'))];
+    if (periods.length===1 && new RegExp('^'+period.source,'i').test(raw) && /refrigerate|keep cold/i.test(raw)) return periods[0][1];
+    return 'Verify';
+  }
+
+  function printDetailHandling(test) {
+    const notes = String(printSpecialInstructions(test) || '').trim();
+    const alt = String(test.alternativeContainer || '').trim();
+    const altAlreadyInNotes = alt && notes.toLowerCase().replace(/\s+/g, ' ')
+      .includes(alt.toLowerCase().replace(/\s+/g, ' '));
+    const altNote = alt && !altAlreadyInNotes
+      ? `<div class="print-detail-alt-note"><strong>Alternative:</strong> ${escapeHtml(alt)}</div>` : '';
+    const extraRequirements = additionalRequirementSummary(test, true);
+    return `<div class="print-detail-handling-text">${escapeHtml(notes)}</div>${altNote}${extraRequirements}`;
+  }
+
   function printSummary() {
     const tests = selectedTests();
     if (!tests.length) return showToast('Add at least one test before printing.');
@@ -4449,12 +4758,12 @@
         <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<span class="print-selected-count">${tests.length} selected ${tests.length === 1 ? 'test' : 'tests'}</span></div>
       </div>
       ${printCollectionSubmissionPlan(tests)}
-      <section class="print-detail-table-section">
+      <section class="print-detail-table-section${tests.length <= 3 ? ' print-brief-order' : ''}">
       ${alerts.length ? `<div class="print-alerts">${alerts.map(alert => `<div>${escapeHtml(alert.text)}</div>`).join('')}</div>` : ''}
       <table class="print-table">
-        <colgroup><col style="width:6%"><col style="width:14%"><col style="width:7%"><col style="width:10%"><col style="width:10%"><col style="width:5%"><col style="width:8%"><col style="width:7%"><col style="width:8%"><col style="width:25%"></colgroup>
-        <thead><tr><th>Code</th><th>Test</th><th>Specimen</th><th>Draw container</th><th>Transport tube</th><th>Spin</th><th>Temperature</th><th>Volume</th><th>Stability</th><th>Special handling</th></tr></thead>
-        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><div class="print-test-name-stack"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}</div>${test.alternativeContainer ? `<div class="print-test-alternative">Alt: <span class="print-inline-tube tube ${tubeClass(test.alternativeContainer)}">${escapeHtml(test.alternativeContainer)}</span></div>` : ''}${additionalRequirementSummary(test, true)}</td><td>${requiredSpecimenBadges(test, 'print-specimen-badge')}</td><td>${requiredDrawContainerBadges(test, 'print-tube-badge')}</td><td>${printContainerBadges(test)}</td><td>${escapeHtml(test.spin)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">${escapeHtml(combinedVolumeText(test, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(combinedVolumeText(test, 'minimum') || '—')}</span></td><td>${escapeHtml(test.stability || 'Verify')}</td><td>${escapeHtml(printSpecialInstructions(test))}</td></tr>`).join('')}</tbody>
+        <colgroup><col style="width:6%"><col style="width:15%"><col style="width:14%"><col style="width:8%"><col style="width:8%"><col style="width:6%"><col style="width:43%"></colgroup>
+        <thead><tr><th>Code</th><th>Test</th><th>Container / specimen</th><th>Temperature</th><th>Volume</th><th>Stability</th><th>Special handling</th></tr></thead>
+        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><div class="print-test-name-stack"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}</div></td><td>${printDetailContainerPath(test)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">${escapeHtml(combinedVolumeText(test, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(combinedVolumeText(test, 'minimum') || '—')}</span></td><td><span class="print-stability-period">${escapeHtml(printStabilityForTemperature(test))}</span></td><td>${printDetailHandling(test)}</td></tr>`).join('')}</tbody>
       </table>
       </section>
       ${printNotesFooter()}
@@ -4472,6 +4781,15 @@
       document.head.appendChild(mobilePageRule);
     } else if (!mobilePrint) {
       mobilePageRule?.remove();
+    }
+    // On iPhone, put the submission heading inside the FIRST existing bag
+    // row. WebKit previously printed the heading and an empty purple panel
+    // before pushing both bag cards onto the next sheet. Grid columns and
+    // individual bag markup remain exactly the same.
+    if (mobilePrint) {
+      const heading = els.printSheet.querySelector('.print-submit-heading');
+      const firstBagRow = els.printSheet.querySelector('.print-bag-row');
+      if (heading && firstBagRow) firstBagRow.insertBefore(heading, firstBagRow.firstChild);
     }
     window.print();
   }
@@ -4521,7 +4839,7 @@
     }
     if (/e[- ]?swab|\bliquid\s+amies\b|\bamies\s+liquid\b/.test(value)) return 'tube-eswab';
     if (/\butm\b|\bvtm\b|universal transport medium|viral transport medium/.test(value)) return 'tube-utm';
-    if (/purple\s+pp|pp\s+transpak|frozen\s+(?:plasma\s+)?transport\s+tube|frozen\s+transpak/.test(value)) return 'tube-frozen-purple';
+    if (/purple\s+pp|pp\s+transpak|(?:dedicated\s+)?frozen\s+(?:(?:serum|plasma|platelet[- ]poor plasma)\s+)?transport\s+tube|frozen\s+transpak/.test(value)) return 'tube-frozen-purple';
     if (/pink.*formalin|formalin.*o\s*&\s*p/.test(value)) return 'tube-op-formalin';
     if (/gray\s+pva|grey\s+pva|pva\s+o\s*&\s*p/.test(value)) return 'tube-op-pva';
     if (/para[- ]?pak.*clean|sterile\s+screw[- ]?cap\s+stool|stool.*screw[- ]?cap/.test(value)) return 'tube-stool-clean';

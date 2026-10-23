@@ -2947,22 +2947,66 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   }
   .print-sst-volume-warning {
     margin: 5px 0 4px;
-    padding: 4px 6px;
-    font-size: 8px;
+    padding: 5px 7px;
+    font-size: 7.2px;
     line-height: 1.25;
-    font-weight: 750;
-    color: #633d0d !important;
-    border: 1px solid #d8ae64;
-    border-radius: 4px;
-    background: #fff4d9 !important;
+    font-weight: 500;
+    color: #684a21 !important;
+    border: 1px solid #e0c896;
+    border-left: 3px solid #c69a4a;
+    border-radius: 5px;
+    background: #fffaf0 !important;
+  }
+  .print-sst-volume-summary,
+  .print-sst-volume-meta {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    column-gap: 7px;
+    row-gap: 2px;
+  }
+  .print-sst-volume-summary strong {
+    font-size: 7.7px;
+    font-weight: 900;
+    color: #76501a;
+    white-space: nowrap;
+  }
+  .print-sst-volume-meta {
+    margin-top: 2px;
+    font-size: 6.9px;
+    color: #6e5d40;
   }
   .print-sst-volume-affected {
-    margin: 2px 0;
-    font-weight: 550;
+    margin: 0;
     overflow-wrap: anywhere;
   }
-  .print-sst-volume-affected strong,
-  .print-sst-volume-affected b { font-weight: 800; }
+  .print-sst-volume-affected b {
+    font-weight: 800;
+  }
+  .print-sst-volume-action {
+    margin-top: 3px;
+    font-size: 6.7px;
+    font-weight: 650;
+    color: #665942;
+  }
+  .print-sst-volume-tier {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 2px 6px;
+    margin-top: 3px;
+    font-size: 7.1px;
+    line-height: 1.25;
+  }
+  .print-sst-volume-tier > strong {
+    font-weight: 850;
+  }
+  .print-sst-volume-tier span {
+    overflow-wrap: anywhere;
+  }
+  .print-sst-volume-tier b { font-weight: 850; }
+  .print-sst-volume-tier.is-minimum { color: #91621f !important; }
+  .print-sst-volume-tier.is-preferred { color: #91621f !important; }
   /* CSS multi-column pagination varies between mobile print engines. Use
      the same explicit column-first three-column layout everywhere. */
   .print-sheet .print-collection-card.is-long .print-for-tests ul {
@@ -3064,13 +3108,16 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     column-gap: 9px !important;
     row-gap: 1px !important;
     width: 100%;
-    padding-left: 12px;
+    padding-left: 3px;
+    list-style: none !important;
     margin: 3px 0 0;
     box-sizing: border-box;
     min-width: 0;
     columns: initial !important;
   }
   .print-sheet .print-collection-card.is-sst-long .print-for-tests li {
+    position: relative;
+    padding-left: 9px;
     min-width: 0;
     max-width: 100%;
     overflow: hidden;
@@ -3080,6 +3127,15 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     mask-image: none !important;
     break-inside: avoid;
     page-break-inside: avoid;
+  }
+  /* Render the bullet inside the clipped row so iOS print keeps it visible. */
+  .print-sheet .print-collection-card.is-sst-long .print-for-tests li::before {
+    content: '•';
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #50646d;
+    font-weight: 900;
   }
 }
 
@@ -3469,21 +3525,51 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   }
 }
 
-/* iPhone print: WebKit can split a grid card's header from its contents.
-   Start dense collection groups together on a clean page, without changing
-   the two-column card grid or pagination for ordinary small orders. */
+/* Mobile print pagination: keep individual collection cards intact, but
+   do not move an entire short section to the next page merely because it
+   contains a dense SST list or multiple precautions. WebKit can pack the
+   summary and What to Collect on the same page when they actually fit. */
 @media print {
   html.mobile-print .print-sheet .print-collection-card {
     break-inside: avoid-page !important;
     page-break-inside: avoid !important;
     -webkit-column-break-inside: avoid !important;
   }
-  html.mobile-print .print-logistics-plan:has(
-    .print-collection-card.is-sst-long,
-    .print-fasting-item:nth-child(4)
-  ) > .print-logistics-subheading {
-    break-before: page !important;
-    page-break-before: always !important;
+  html.mobile-print .print-sheet .print-logistics-subheading {
+    break-before: auto !important;
+    page-break-before: auto !important;
+    break-after: avoid-page !important;
+    page-break-after: avoid !important;
+  }
+  /* The old forced bag and detail-table page starts left large blank areas
+     on iPhone pages. Let page height determine the actual boundaries. */
+  html.mobile-print .print-sheet .print-submit-section.bag-page-start,
+  html.mobile-print .print-sheet .print-detail-table-section {
+    break-before: auto !important;
+    page-break-before: auto !important;
+  }
+  html.mobile-print .print-sheet .print-logistics-plan,
+  html.mobile-print .print-sheet .print-collection-grid,
+  html.mobile-print .print-sheet .print-submit-section,
+  html.mobile-print .print-sheet .print-bag-grid,
+  html.mobile-print .print-sheet .print-detail-table-section {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+  /* Keep labels with their content; cards and table rows provide the
+     boundaries instead of unconditionally starting another sheet. */
+  html.mobile-print .print-sheet .print-submit-heading,
+  html.mobile-print .print-sheet .print-bag-card-header {
+    break-after: avoid-page !important;
+    page-break-after: avoid !important;
+  }
+  html.mobile-print .print-sheet .print-bag-card:not(.bag-long) {
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+  }
+  html.mobile-print .print-sheet .print-table tr {
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
   }
 }
 
@@ -3588,4 +3674,518 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-bag-short-label .print-temperature-emoji {
     font-size:10px !important;
   }
+}
+
+
+/* Directory collection-to-submission badges, shared by Quest and Labcorp.
+   Long specialty tube names may wrap without collapsing neighboring columns. */
+@media screen {
+  .library-table .container-path {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: flex-start;
+    gap: 5px 7px;
+    min-width: 0;
+    max-width: 100%;
+    width: fit-content;
+    vertical-align: middle;
+  }
+  .library-table .container-path-source,
+  .library-table .container-path-submit {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .library-table .container-path-arrow {
+    flex: 0 0 auto;
+    align-self: center;
+    color: #52737b;
+    font-size: 17px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .library-table .container-path .tube {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-break: normal;
+    white-space: normal;
+    line-height: 1.35;
+    vertical-align: middle;
+  }
+  @media (max-width: 760px) {
+    .library-table td[data-label="Container"] { min-width: 0; }
+    .library-table .container-path { width: 100%; gap: 6px; }
+    .library-table .container-path .tube { max-width: 100%; font-size: 12px; }
+    .library-table .container-path-arrow { font-size: 18px; }
+  }
+}
+
+
+/* v12.07: Test-directory transfer path. Keep the draw container, down
+   arrow, and submission container together in that order on three compact rows.
+   Screen-only; print section styles and original-container paths are unchanged. */
+@media screen {
+  .library-table .container-path.is-transfer {
+    display: inline-grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    justify-items: start;
+    align-items: start;
+    align-content: start;
+    gap: 1px;
+    width: fit-content;
+    max-width: 100%;
+    vertical-align: top;
+  }
+  .library-table .container-path.is-transfer > .container-path-source,
+  .library-table .container-path.is-transfer > .container-path-submit {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 3px;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .library-table .container-path.is-transfer > .container-path-arrow {
+    display: inline-block;
+    align-self: start;
+    justify-self: start;
+    flex: none;
+    margin: 0 0 0 12px;
+    padding: 0;
+    font-size: 15px;
+    line-height: 1;
+    font-weight: 900;
+    transform: none;
+  }
+}
+
+/* v12.01: iPhone print pagination. A submission heading is inserted as
+   the FIRST grid child of the existing two-column bag row during mobile
+   printing. The paired bag cards retain their original layout and sizing.
+   Avoid leaving a purple empty panel when WebKit moves the first bag row. */
+@media print {
+  html.mobile-print .print-sheet .print-submit-section {
+    margin-top: 13px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+  }
+  html.mobile-print .print-sheet .print-bag-row > .print-submit-heading {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: 0;
+    margin: 0 !important;
+    border-radius: 6px;
+    box-sizing: border-box;
+    break-after: avoid-page !important;
+    page-break-after: avoid !important;
+  }
+  html.mobile-print .print-sheet .print-bag-row > .print-bag-card {
+    grid-column: auto;
+  }
+}
+
+
+/* v12.02: Print whole paired collection rows instead of letting WebKit
+   fragment a collection card halfway across the page boundary.
+   Each existing card remains half-width; this only changes pagination. */
+@media print {
+  .print-sheet .print-collection-grid {
+    display: block !important;
+    grid-template-columns: none !important;
+  }
+  .print-sheet .print-collection-row {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    margin: 0 0 8px !important;
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+    -webkit-column-break-inside: avoid !important;
+  }
+  .print-sheet .print-collection-row:last-child {
+    margin-bottom: 0 !important;
+  }
+  .print-sheet .print-collection-row > .print-collection-card {
+    flex: 0 0 calc(50% - 4px) !important;
+    width: calc(50% - 4px) !important;
+    max-width: calc(50% - 4px) !important;
+    min-width: 0 !important;
+    box-sizing: border-box;
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+    -webkit-column-break-inside: avoid !important;
+  }
+  .print-sheet .print-collection-row > .print-collection-card.is-long:not(.is-sst-long) {
+    flex-basis: 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+
+/* Print detail table only: one compact collection → submission column.
+   Reuses the library path decision while keeping original print font sizes. */
+@media print {
+  .print-detail-table-section .print-detail-container {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+  }
+  .print-detail-table-section .print-detail-container .container-path {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: flex-start;
+    gap: 3px 4px;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .print-detail-table-section .print-detail-container .container-path-source,
+  .print-detail-table-section .print-detail-container .container-path-submit {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 3px;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .print-detail-table-section .print-detail-container .container-path-arrow {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    font-weight: 900;
+    line-height: 1;
+    color: #536e77;
+  }
+  .print-detail-table-section .print-detail-container .print-tube-badge {
+    box-sizing: border-box;
+    max-width: 100%;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+  .print-detail-table-section .print-detail-specimens {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3px;
+  }
+  .print-detail-table-section .print-detail-specimens .print-specimen-badge {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    border: 1px solid #c7d0d4;
+    border-radius: 999px;
+    padding: 2px 5px;
+    background: #f0f3f4 !important;
+    color: #59666c;
+  }
+  .print-detail-table-section .print-detail-specimens .specimen-serum {
+    background: #fff3d2 !important;
+    color: #8a5a00 !important;
+    border-color: #e3c77b;
+  }
+  .print-detail-table-section .print-detail-specimens .specimen-plasma {
+    background: #e4f5ff !important;
+    color: #00658f !important;
+    border-color: #a8d5ec;
+  }
+  .print-detail-table-section .print-detail-specimens .specimen-rbc {
+    background: #ffebea !important;
+    color: #a3211c !important;
+    border-color: #efbcb8;
+  }
+  .print-detail-table-section .print-detail-specimens .specimen-whole-blood {
+    background: #fbe8f0 !important;
+    color: #7b1e45 !important;
+    border-color: #e9b8cb;
+  }
+}
+
+/* Additional specimen colors are scoped to the consolidated print detail cell. */
+@media print {
+  .print-detail-table-section .print-detail-specimens .specimen-urine {
+    background: #fff3c4 !important;
+    color: #74550c !important;
+    border-color: #ddc067 !important;
+  }
+  .print-detail-table-section .print-detail-specimens .specimen-stool {
+    background: #f5dfc3 !important;
+    color: #754514 !important;
+    border-color: #d6a26b !important;
+  }
+  .print-detail-table-section .print-detail-specimens .specimen-swab {
+    background: #ede7fa !important;
+    color: #654594 !important;
+    border-color: #c6b7e4 !important;
+  }
+}
+
+
+/* Print detail readability and page-safe workflow boundaries (Quest/Labcorp).
+   Changes are deliberately limited to printed output. */
+@media print {
+  .print-sheet .print-detail-table-section .print-stability-period {
+    display: inline-block;
+    font-size: 8px !important;
+    line-height: 1.25 !important;
+    font-weight: 500;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .print-sheet .print-detail-table-section .print-detail-specimens .print-specimen-badge {
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    min-height: 0 !important;
+    box-shadow: none !important;
+  }
+  .print-sheet .print-submit-section.bag-page-start,
+  html.mobile-print .print-sheet .print-submit-section.bag-page-start {
+    break-before: page !important;
+    page-break-before: always !important;
+  }
+  .print-sheet .print-detail-table-section,
+  html.mobile-print .print-sheet .print-detail-table-section {
+    break-before: page !important;
+    page-break-before: always !important;
+  }
+  .print-sheet .print-submit-item,
+  html.mobile-print .print-sheet .print-submit-item {
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+    -webkit-column-break-inside: avoid !important;
+  }
+  /* An exceptionally long bag must be allowed to continue between its
+     individual container items, not halfway through a container card. */
+  html.mobile-print .print-sheet .print-bag-row:has(.bag-long) {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+  html.mobile-print .print-sheet .print-bag-row > .print-bag-card.bag-long {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+}
+
+/* Small mobile orders can share available page space. Longer orders keep
+   the collection, submission, and warnings/detail table as separate units. */
+@media print {
+  html.mobile-print .print-sheet .print-detail-table-section.print-brief-order {
+    break-before: auto !important;
+    page-break-before: auto !important;
+  }
+  .print-sheet .print-bag-continuation .print-bag-title strong {
+    overflow-wrap: anywhere;
+  }
+}
+
+
+/* v12.05: Compact printed test detail. Collection and submission containers
+   stack vertically to preserve width for clinical notes. This does not affect
+   the calculator menu, collection cards, bag cards, or tube planning logic. */
+@media print {
+  .print-sheet .print-detail-table-section .print-detail-container .container-path.is-transfer {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    justify-items: start;
+    align-items: start;
+    align-content: start;
+    gap: 2px !important;
+    width: 100%;
+    max-width: 100%;
+  }
+  .print-sheet .print-detail-table-section .print-detail-container .container-path.is-transfer .container-path-source,
+  .print-sheet .print-detail-table-section .print-detail-container .container-path.is-transfer .container-path-submit {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    gap: 3px;
+  }
+  .print-sheet .print-detail-table-section .print-detail-container .container-path.is-transfer .container-path-arrow {
+    display: inline-block !important;
+    grid-column: 1;
+    justify-self: start;
+    margin: 0 0 0 7px;
+    padding: 0;
+    color: #4e7580;
+    font-size: 10px !important;
+    line-height: 1 !important;
+    font-weight: 900;
+  }
+  .print-sheet .print-detail-table-section .print-detail-container .container-path.is-single {
+    display: flex !important;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3px;
+    max-width: 100%;
+  }
+  .print-sheet .print-detail-table-section .print-detail-container .print-tube-badge {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .print-sheet .print-detail-table-section .print-table .print-test-name-stack > strong {
+    font-size: 11px !important;
+    line-height: 1.25 !important;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+  }
+  .print-sheet .print-detail-table-section .print-detail-handling-text:empty {
+    display: none;
+  }
+  .print-sheet .print-detail-table-section .print-detail-alt-note {
+    margin-top: 3px;
+    color: #445760;
+    font-size: 8px !important;
+    line-height: 1.25 !important;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+  }
+  .print-sheet .print-detail-table-section .print-detail-alt-note strong {
+    font-weight: 800;
+  }
+  .print-sheet .print-detail-table-section .print-additional-requirement {
+    font-size: 8px !important;
+    line-height: 1.25 !important;
+    font-weight: 500;
+  }
+}
+
+
+/* v12.06: Natural page fragmentation for Quest/Labcorp submission bags.
+   Each bag has exactly one header in the DOM. Allow the long bag to
+   continue across a page boundary while keeping each specimen item whole. */
+@media print {
+  .print-sheet .print-bag-row,
+  html.mobile-print .print-sheet .print-bag-row {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+    -webkit-column-break-inside: auto !important;
+    align-items: start !important;
+    grid-auto-rows: auto !important;
+  }
+  .print-sheet .print-bag-row > .print-bag-card,
+  .print-sheet .print-bag-row > .print-bag-card.bag-long,
+  html.mobile-print .print-sheet .print-bag-row > .print-bag-card,
+  html.mobile-print .print-sheet .print-bag-row > .print-bag-card.bag-long {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    align-self: start !important;
+  }
+  .print-sheet .print-bag-card .print-bag-topbar,
+  .print-sheet .print-bag-card .print-bag-card-header {
+    break-after: avoid-page !important;
+    page-break-after: avoid !important;
+  }
+  .print-sheet .print-bag-card .print-submit-content {
+    display: block !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+  .print-sheet .print-bag-card .print-submit-content > .print-submit-item + .print-submit-item {
+    margin-top: 5px !important;
+  }
+  .print-sheet .print-bag-card .print-submit-item,
+  html.mobile-print .print-sheet .print-bag-card .print-submit-item {
+    display: block;
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+    -webkit-column-break-inside: avoid !important;
+  }
+  .print-sheet .print-bag-card .print-submit-item:first-child {
+    break-before: avoid-page !important;
+    page-break-before: avoid !important;
+  }
+  .print-sheet .print-detail-table-section .print-detail-specimens .print-detail-spin {
+    color: #41616c !important;
+    font-size: 8.8px !important;
+    font-weight: 800;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+}
+
+
+/* Print collection cards: label sits above the two volume boxes on the right.
+   Shared by Quest and Labcorp; does not alter volume calculations or card content. */
+@media print {
+  .print-sheet .print-container-count .print-collection-volume-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: auto;
+    gap: 2px;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .print-sheet .print-container-count .print-collection-blood-volume {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    grid-template-rows: auto auto;
+    justify-content: end;
+    justify-items: stretch;
+    align-items: start;
+    column-gap: 5px;
+    row-gap: 2px;
+    width: max-content;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+  }
+  .print-sheet .print-container-count .print-collection-blood-label {
+    display: block;
+    grid-column: 1 / -1;
+    grid-row: 1;
+    justify-self: center;
+    text-align: center;
+    margin: 0 0 1px;
+    white-space: nowrap;
+  }
+  .print-sheet .print-container-count .print-collection-blood-metric {
+    grid-row: 2;
+    margin: 0;
+  }
+}
+
+/* Make the exact SST tests triggering a volume check visibly amber in print.
+   Preserve the existing list dimensions, bullets, and truncated names. */
+@media print {
+  .print-sheet .print-collection-card .print-for-tests li.is-volume-warning-test {
+    color: #a35b12 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .print-sheet .print-collection-card .print-for-tests li.is-volume-warning-test > strong {
+    color: #924b0a !important;
+    background: #ffedca !important;
+    border-radius: 2px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+  .print-sheet .print-collection-card.is-sst-long .print-for-tests li.is-volume-warning-test::before {
+    color: #b77916 !important;
+  }
+  /* Minimum- and preferred-volume warnings share the same amber styling. */
 }
