@@ -28,6 +28,7 @@
     }
     if (/amber/.test(value)) return 'tube-amber';
     if (/acid[- ]?washed|metal[- ]?free/.test(value)) return 'tube-transport-green-top';
+    if (/^frozen transport tube(?:\s*\(.*\))?$/.test(value)) return 'tube-frozen-purple';
     if (/serum transport|plasma transport/.test(value)) return 'tube-transport-green-top';
     if (/viral transport|transport media|swab|collection kit|transport tube|transport vial|screw[- ]?cap vial|fibronectin/.test(value)) return 'tube-transport';
     if (/sst|gold/.test(value)) return 'tube-sst';
@@ -124,16 +125,53 @@
     sync(item);
     item.button.focus();
   }
+  // A purple-cap frozen tube is a temperature-specific submission choice.
+  // When no temperature has been chosen, it remains available as a shortcut.
+  function syncFrozenTransportOption() {
+    const transport = document.getElementById('transportContainer');
+    const temperature = document.getElementById('transportTemperature');
+    const frozen = transport?.querySelector('option[value="Frozen Transport Tube"]');
+    if (!transport || !temperature || !frozen) return;
+    const available = !temperature.value || temperature.value === 'Frozen' ||
+      transport.value === frozen.value;
+    frozen.hidden = !available;
+    frozen.disabled = !available;
+  }
+  function wireFrozenTransport() {
+    const transport = document.getElementById('transportContainer');
+    const temperature = document.getElementById('transportTemperature');
+    if (!transport || !temperature || !transport.querySelector('option[value="Frozen Transport Tube"]')) return;
+    transport.addEventListener('change', () => {
+      if (transport.value === 'Frozen Transport Tube' && temperature.value !== 'Frozen') {
+        temperature.value = 'Frozen';
+        temperature.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      syncFrozenTransportOption();
+      window.syncPortalSelects?.();
+    });
+    temperature.addEventListener('change', () => {
+      // Never retain a frozen-only container after switching to a nonfrozen temperature.
+      if (transport.value === 'Frozen Transport Tube' && temperature.value !== 'Frozen') {
+        transport.value = '';
+        transport.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      syncFrozenTransportOption();
+      window.syncPortalSelects?.();
+    });
+    syncFrozenTransportOption();
+  }
   function open(item, first = false) {
     if (active === item) { closeAll(); return; }
     closeAll();
     if (item.button.disabled) return;
+    if (item.select.id === 'transportContainer') syncFrozenTransportOption();
     const menu = document.createElement('div');
     menu.className = 'portal-select-menu';
     menu.id = `portal-menu-${item.select.id}`;
     menu.setAttribute('role','listbox');
     menu.setAttribute('aria-label',labels[item.select.id]);
     [...item.select.options].forEach((option, index) => {
+      if (option.hidden) return;
       const choice = document.createElement('button');
       choice.type = 'button';
       choice.className = 'portal-select-option';
@@ -221,7 +259,8 @@
     const transport = controls.find(item => item.select.id === 'transportContainer');
     draw?.addEventListener('change', () => { if (transport) sync(transport); });
     customDraw?.addEventListener('input', () => { if (transport) sync(transport); });
-    window.syncPortalSelects = () => controls.forEach(sync);
+    window.syncPortalSelects = () => { syncFrozenTransportOption(); controls.forEach(sync); };
+    wireFrozenTransport();
     window.closePortalSelects = closeAll;
     window.focusPortalSelect = select => {
       const item = controls.find(item => item.select === select);
