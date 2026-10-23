@@ -1028,10 +1028,11 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   }
   .print-logistics-subheading {
     margin: 7px 0 5px;
-    padding-bottom: 3px;
+    padding-bottom: 4px;
     border-bottom: 1px solid #9fb2b8;
     color: #1f363d;
-    font-size: 9px;
+    font-size: 13px;
+    line-height: 1.2;
     font-weight: 950;
     text-transform: uppercase;
     letter-spacing: .035em;
