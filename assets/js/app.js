@@ -4625,6 +4625,48 @@
     `;
   }
 
+  // Compact print-only summary. Alert text and severity come from collectAlerts;
+  // generic restriction notices remain visible without repeating yellow banners.
+  function printCompactAlertSummary(tests, alerts) {
+    if (!alerts.length) return '';
+    const grouped = new Map();
+    const restrictions = new Map();
+    for (const alert of alerts) {
+      const match = tests.find(test =>
+        alert.text.startsWith(displayCode(test) + ' ' + test.testName + ': ') ||
+        alert.text.startsWith(test.testName + ': ')
+      );
+      const prefix = match ? (alert.text.startsWith(displayCode(match) + ' ' + match.testName + ': ')
+        ? displayCode(match) + ' ' + match.testName + ': '
+        : match.testName + ': ') : '';
+      const detail = prefix ? alert.text.slice(prefix.length) : alert.text;
+      const label = match ? displayCode(match) + ' · ' + match.testName : 'General';
+      if (detail === 'collection or rejection restriction noted.') {
+        restrictions.set(label, label);
+        continue;
+      }
+      const id = match ? match.id : label;
+      if (!grouped.has(id)) grouped.set(id, { label, danger: false, messages: [] });
+      const group = grouped.get(id);
+      group.danger = group.danger || alert.type === 'danger';
+      if (!group.messages.includes(detail)) group.messages.push(detail);
+    }
+    const rows = [...grouped.values()].map(group =>
+      '<div class="print-alert-item' + (group.danger ? ' is-urgent' : '') + '">' +
+      '<strong>' + escapeHtml(group.label) + '</strong>' +
+      '<span>' + group.messages.map(escapeHtml).join(' · ') + '</span></div>'
+    ).join('');
+    const review = restrictions.size
+      ? '<div class="print-alert-review"><strong>Review collection / rejection restrictions:</strong> ' +
+        escapeHtml([...restrictions.values()].join('; ')) +
+        '. See each test’s Special Handling instructions below.</div>'
+      : '';
+    return '<section class="print-alerts print-compact-alerts">' +
+      '<div class="print-alerts-title"><strong>Collection alerts</strong><span>' +
+      alerts.length + (alerts.length === 1 ? ' notice' : ' notices') + '</span></div>' +
+      '<div class="print-alerts-grid">' + rows + '</div>' + review + '</section>';
+  }
+
   function printCollectionSubmissionPlan(tests) {
     const collectionTests = expandedCollectionTests(tests);
     const bags = buildTransportBagPlan(collectionTests);
@@ -4693,7 +4735,7 @@
       ${selectedTests().some(isCultureTransportEligible) ? `<div class="print-urine-culture-choice"><strong>Urine culture transport:</strong> ${selectedUrineCultureIsSponge() ? 'UriSponge' : 'Gray-top urine culture tube'}</div>` : ''}
       ${printOrderOfDraw(collectionTests)}
 
-      <div class="print-logistics-subheading">What to collect</div>
+      <div class="print-logistics-subheading print-section-banner"><strong>What to collect</strong><span class="print-heading-count">${collectionItems.length} collection ${collectionItems.length === 1 ? 'type' : 'types'}</span></div>
       ${printCollectionGroups(collectionItems, wholeBloodGroups)}
 
       <section class="print-submit-section${bagStartOnFreshPage ? ' bag-page-start' : ''}">
@@ -4842,12 +4884,12 @@
       </div>
       ${printCollectionSubmissionPlan(tests)}
       <section class="print-detail-table-section${tests.length <= 3 ? ' print-brief-order' : ''}">
-      ${alerts.length ? `<div class="print-alerts">${alerts.map(alert => `<div>${escapeHtml(alert.text)}</div>`).join('')}</div>` : ''}
-      <div class="print-detail-lab-heading">RECEIVING LAB: QUEST DIAGNOSTICS · TEST DETAILS</div>
+      ${printCompactAlertSummary(tests, alerts)}
+      <div class="print-detail-lab-heading"><strong>Test details</strong><span class="print-detail-lab-badge">QUEST</span></div>
       <table class="print-table">
         <colgroup><col style="width:6%"><col style="width:15%"><col style="width:14%"><col style="width:8%"><col style="width:8%"><col style="width:6%"><col style="width:43%"></colgroup>
         <thead><tr><th>Code</th><th>Test</th><th>Container / specimen</th><th>Temperature</th><th>Volume</th><th>Stability</th><th>Special handling</th></tr></thead>
-        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><div class="print-test-name-stack"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}</div></td><td>${printDetailContainerPath(test)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">${escapeHtml(printDetailVolumeText(test, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(printDetailVolumeText(test, 'minimum') || '—')}</span></td><td><span class="print-stability-period">${escapeHtml(printStabilityForTemperature(test))}</span></td><td>${printDetailHandling(test)}</td></tr>`).join('')}</tbody>
+        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><div class="print-test-name-stack${test.testName.length > 48 ? ' print-long-test-name' : ''}"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}</div></td><td>${printDetailContainerPath(test)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">${escapeHtml(printDetailVolumeText(test, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(printDetailVolumeText(test, 'minimum') || '—')}</span></td><td><span class="print-stability-period">${escapeHtml(printStabilityForTemperature(test))}</span></td><td>${printDetailHandling(test)}</td></tr>`).join('')}</tbody>
       </table>
       </section>
       ${printNotesFooter()}
