@@ -4745,3 +4745,31 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     margin-top: auto !important;
   }
 }
+
+/* Keep print section headings with their first cards. Short paired bag rows
+   are a single pagination unit; the existing two-column stretch and footer
+   alignment rules remain untouched. Long bag rows may still paginate. */
+@media print {
+  .print-sheet .print-collection-first-group,
+  html.mobile-print .print-sheet .print-collection-first-group,
+  .print-sheet .print-bag-pair-keep,
+  html.mobile-print .print-sheet .print-bag-pair-keep {
+    display: block !important;
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+    -webkit-column-break-inside: avoid !important;
+  }
+  .print-sheet .print-collection-first-group:has(+ .print-collection-row) > .print-collection-row,
+  html.mobile-print .print-sheet .print-collection-first-group:has(+ .print-collection-row) > .print-collection-row {
+    margin-bottom: 8px !important;
+  }
+  .print-sheet .print-bag-pair-keep > .print-bag-row,
+  html.mobile-print .print-sheet .print-bag-pair-keep > .print-bag-row {
+    width: 100%;
+    margin-bottom: 8px !important;
+  }
+  .print-sheet .print-bag-pair-keep:last-child > .print-bag-row,
+  html.mobile-print .print-sheet .print-bag-pair-keep:last-child > .print-bag-row {
+    margin-bottom: 0 !important;
+  }
+}
