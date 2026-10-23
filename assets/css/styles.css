@@ -4719,3 +4719,29 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     height: auto !important;
   }
 }
+
+/* Same-height collection pairs and bag footers, without changing breaks. */
+@media print {
+  .print-sheet .print-collection-row,
+  html.mobile-print .print-sheet .print-collection-row { align-items: stretch !important; }
+  .print-sheet .print-collection-row > .print-collection-card,
+  html.mobile-print .print-sheet .print-collection-row > .print-collection-card {
+    align-self: stretch !important;
+  }
+  .print-sheet .print-bag-row,
+  html.mobile-print .print-sheet .print-bag-row { align-items: stretch !important; }
+  .print-sheet .print-bag-row > .print-bag-card,
+  .print-sheet .print-bag-row > .print-bag-card.bag-long,
+  html.mobile-print .print-sheet .print-bag-row > .print-bag-card,
+  html.mobile-print .print-sheet .print-bag-row > .print-bag-card.bag-long {
+    display: flex !important;
+    flex-direction: column !important;
+    align-self: stretch !important;
+    height: 100% !important;
+    box-sizing: border-box;
+  }
+  .print-sheet .print-bag-row > .print-bag-card > .print-bag-end,
+  html.mobile-print .print-sheet .print-bag-row > .print-bag-card > .print-bag-end {
+    margin-top: auto !important;
+  }
+}
