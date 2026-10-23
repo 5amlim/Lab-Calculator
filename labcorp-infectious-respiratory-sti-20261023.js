@@ -298,7 +298,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test-specific directory, checked October 23, 2026 • https://www.labcorp.com/tests/180042/vaginitis-vg-with-candida-six-species-nuswab"
+    "source": "Labcorp official test-specific directory, checked October 23, 2026 • https://womenshealth.labcorp.com/tests/180042/vaginitis-vg-with-i-candida-i-six-species-nuswab"
   },
   {
     "id": "labcorp-183198",
