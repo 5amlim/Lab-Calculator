@@ -2408,7 +2408,8 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     border:2px solid #6e579e; border-radius:8px;
     background:#fbf9ff !important;
     break-inside:auto !important; page-break-inside:auto !important;
-    box-decoration-break:clone; -webkit-box-decoration-break:clone;
+    /* Slice the outer frame across print pages. Do not close and reopen it at page breaks. */
+    box-decoration-break:slice; -webkit-box-decoration-break:slice;
   }
   .print-submit-heading { margin:-5px -5px 5px; padding:6px 9px; }
   .print-bag-grid {
