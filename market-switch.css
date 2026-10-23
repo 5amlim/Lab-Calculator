@@ -220,3 +220,19 @@
 @media print {
   .lab-select { display: none !important; }
 }
+
+/* Inactive lab options: subtle test-count pill instead of Selected. */
+@media screen {
+  .lab-select-choice .lab-select-choice-count {
+    border: 1px solid #dfe6ea;
+    border-radius: 999px;
+    padding: 6px 9px;
+    background: #edf2f6;
+    color: #536b7c;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+}
