@@ -1242,3 +1242,25 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
   .catalog-filter-toggle .shared-chevron,
   .stat-area-picker-button .shared-chevron { transition: none !important; }
 }
+
+/* Subtle Cart emphasis, shared by Quest and LabCorp. Screen-only: printed plans unchanged. */
+@media screen {
+  #collectionSummary > #testsOverviewSection {
+    box-sizing: border-box;
+    padding: 13px 14px 12px;
+    border: 1px solid #cbdde3;
+    border-top: 3px solid #7aaab4;
+    border-radius: 14px;
+    background: #f8fbfc;
+    box-shadow: 0 3px 12px rgba(23, 60, 75, .055);
+  }
+  #collectionSummary > #testsOverviewSection .cart-tests-viewport {
+    background: #fff;
+    border-radius: 9px;
+  }
+  @media (max-width: 520px) {
+    #collectionSummary > #testsOverviewSection {
+      padding: 11px 10px 10px;
+    }
+  }
+}

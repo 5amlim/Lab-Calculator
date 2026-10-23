@@ -1,3 +1,10 @@
+## October 22, 2026: Subtle Cart emphasis
+
+- Gave the Quest and LabCorp Cart sections a lightly tinted blue-gray background, refined border, muted teal top edge and soft shadow.
+- Kept the existing cart header, buttons, test list, scrolling, responsive layout and functional behavior.
+- Scoped styles to screens only, leaving printed collection summaries unchanged.
+- Increased the shared experience stylesheet cache version for both calculators.
+
 ## October 22, 2026: Clinical category search and filtering
 
 - Added 31 test-name-based clinical categories for Quest and LabCorp, with searchable terms such as STI, GI, hematology, coagulation, and allergy.
