@@ -3345,3 +3345,59 @@
   }
   .cedars-shell .cedars-search-suggestions { display: none !important; }
 }
+
+/* Match the other lab search/filter hierarchy and group the same directory. */
+@media screen {
+  .cedars-page .cedars-directory-panel .filter-row.cedars-filter {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 10px 12px !important;
+  }
+  .cedars-page .cedars-directory-panel .cedars-filter > .library-search {
+    flex: 1 1 100%; width: 100% !important;
+  }
+  .cedars-page .cedars-directory-panel .cedars-filter > .catalog-filter-control {
+    flex: 0 0 180px; width: 180px !important; max-width: 100%;
+  }
+  .cedars-page .cedars-directory-panel .cedars-filter .catalog-filter-toggle {
+    height: 42px; min-height: 42px; border-radius: 9px; font-size: 12px;
+    padding: 9px 12px; justify-content: flex-start;
+  }
+  .cedars-page .cedars-group-control {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 42px;
+    padding: 0 7px 0 11px; border: 1px solid #d6c5cb; border-radius: 9px;
+    background: #fff; color: #713e4b;
+  }
+  .cedars-page .cedars-group-control label {
+    font-size: 11px; font-weight: 850; white-space: nowrap;
+  }
+  .cedars-page .cedars-group-control select {
+    min-width: 145px; padding: 7px 24px 7px 7px; border: 0; border-radius: 6px;
+    background: #f7f3f5; color: #6d3242; font-size: 12px;
+    font-weight: 750; cursor: pointer;
+  }
+  .cedars-page .cedars-group-control:focus-within {
+    outline: 2px solid #a45c6f; outline-offset: 2px;
+  }
+  .cedars-page .cedars-directory-panel .cedars-filter > #cedarsBlockedButton {
+    margin-left: auto; min-height: 42px;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library .cedars-group-count {
+    float: right; margin-left: 8px; padding: 2px 8px;
+    border: 1px solid #e6c6d0; border-radius: 999px; background: #fff9fb;
+    color: #7e4555; font-size: 10px; font-weight: 800;
+    text-transform: none; letter-spacing: 0;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row:hover {
+    background: #fffdfd;
+  }
+  @media (max-width: 650px) {
+    .cedars-page .cedars-directory-panel .cedars-filter > .catalog-filter-control {
+      flex: 1 1 130px; width: auto !important;
+    }
+    .cedars-page .cedars-group-control { flex: 1 1 180px; min-width: 0; }
+    .cedars-page .cedars-group-control select { width: 100%; min-width: 0; }
+    .cedars-page .cedars-directory-panel .cedars-filter > #cedarsBlockedButton { margin-left: 0; }
+  }
+}
