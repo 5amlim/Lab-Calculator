@@ -2,7 +2,9 @@
 
 A browser-based reference for laboratory specimen collection, processing, and send-out preparation. The site provides separate Quest, Cedars-Sinai, and Labcorp workflows so staff can search tests, review collection and submission containers, and prepare a printable collection plan.
 
-**Live application:** https://5amlim.github.io/Quest-Calculator-Test/
+**Published calculator:** https://5amlim.github.io/Quest-Calculator-Test/
+
+**Source repositories:** [Lab-Calculator](https://github.com/5amlim/Lab-Calculator) and [Quest-Calculator-Test](https://github.com/5amlim/Quest-Calculator-Test). Both repositories are maintained with matching application files.
 
 ## Lab calculators
 
@@ -12,7 +14,7 @@ A browser-based reference for laboratory specimen collection, processing, and se
 | Cedars Lab Guide | Searchable test directory, illustrated collection and submission containers, specimen-source information, handling notes, and a separate print summary | [Open Cedars](https://5amlim.github.io/Quest-Calculator-Test/cedars.html) |
 | Labcorp Lab Calculator | Quest-style cart, volume estimates, specimen bags, print summary, and a searchable comparison of all 2,692 Quest tests. Labcorp specimen planning is limited to the individually documented Labcorp records. | [Open Labcorp](https://5amlim.github.io/Quest-Calculator-Test/labcorp.html) |
 
-Use **Select Lab** to switch between calculators. The main page opens on Quest. Labcorp maintains its own catalog and browser storage. Its directory contains test-specific Labcorp entries loaded from the base dataset and grouped catalog bundles; use **Add a missing test** only after confirming the Labcorp code, specimen requirements and local acceptance. No Quest-specific test instructions or STAT menus are imported into Labcorp. The **Compare Quest tests to Labcorp** section indexes all 2,692 Quest tests, currently includes 29 possible code/name crosswalk suggestions, and exports the entire comparison as CSV. **Suggestions are not certified equivalents.** Unmatched records do not enter the Labcorp collection calculator until code, method, specimen, minimum volume, stability, and container instructions are verified with Labcorp.
+Use **Select Lab** to switch between calculators. The main page opens on Quest. Labcorp maintains its own catalog and browser storage. Its directory contains test-specific Labcorp entries loaded from the base dataset and grouped catalog bundles; use **Add a missing test** only after confirming the Labcorp code, specimen requirements and local acceptance. No Quest-specific test instructions or STAT menus are imported into Labcorp. The **Compare Quest tests to Labcorp** section indexes all 2,692 Quest tests, includes possible code/name crosswalk suggestions, and exports the entire comparison as CSV. **Suggestions are not certified equivalents.** Unmatched records do not enter the Labcorp collection calculator until code, method, specimen, minimum volume, stability, and container instructions are verified with Labcorp.
 
 ## Project structure
 
@@ -35,6 +37,10 @@ Use **Select Lab** to switch between calculators. The main page opens on Quest. 
 | `print-button-theme.css` | Shared print-action styling |
 
 This is a static website. The calculators operate in the browser; they do not require a hosted application server.
+
+## Documentation and versioning
+
+`VERSION.txt` records the release label. `docs/CHANGELOG.md` preserves the development history, while `docs/SOURCES.txt` and the collection audit documents record the basis and limitations of historical specimen-handling decisions. `docs/Sam_Hay_Workplace_Use_Agreement.docx` is retained as a workplace-use record. The project license is at the repository root in `LICENSE.md`; no second license copy is needed under `docs/`.
 
 ## Adding Labcorp tests
 

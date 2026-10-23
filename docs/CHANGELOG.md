@@ -1,3 +1,11 @@
+## October 22, 2026: Repository synchronization and file cleanup
+
+- Matched the Quest, Labcorp, and Cedars calculator source files, catalogs, layouts, and test suites in both repositories.
+- Retained version information, the changelog, official-source notes, collection audits, and workplace-use agreement in both repositories.
+- Removed the redundant second copy of the project license under `docs/`; the root `LICENSE.md` remains authoritative.
+- Replaced the duplicate `cedars-test-menu.html` content with a small backwards-compatible redirect to `cedars-container-guide.html`.
+- No changes were made to specimen pooling, minimum-volume rules, STAT eligibility, collection data, or print calculations.
+
 ## v11.98: Cedars lab integration and Quest print refresh (October 21, 2026)
 
 - Incorporated the Cedars-Sinai test directory, separate planner, reference photos, specimen-container guide, and printing workflow from the Quest-Calculator-Test repository.
