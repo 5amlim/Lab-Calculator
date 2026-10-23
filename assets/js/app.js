@@ -4027,8 +4027,10 @@
     return `<div class="print-transfer-source-summary">${summaries.map(summary => `<span>(${escapeHtml(summary)})</span>`).join('')}</div>`;
   }
 
-  function testReferences(tests) {
-    return uniqueTests(tests).map(test => `<li><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)}</li>`).join('');
+  function testReferences(tests, statBag = false) {
+    return uniqueTests(tests).map(test => statBag
+      ? `<li><span class="print-bag-stat-ref"><strong>${escapeHtml(displayCode(test))}</strong><span class="print-bag-stat-name">${escapeHtml(test.testName)}</span><span class="print-bag-test-stat">· STAT</span></span></li>`
+      : `<li><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)}</li>`).join('');
   }
 
   function derivedSpecimenSourceLabel(test, item) {
@@ -4760,7 +4762,7 @@
               <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}"><span class="print-submit-container-name">${escapeHtml(item.originalTube && item.key === 'sst-spun' ? (selectedSstIsTiger() ? 'Tiger SST (Spun)' : 'Gold SST (Spun)') : item.label)}</span></span>${printSstTigerBadge(item)}${printBagSpecimenBadge(item)}</div>
               ${printSubmissionItemDetail(item)}
               ${printLabelingNotes(item)}
-              <div class="print-for-tests${uniqueTests(item.tests).length > 8 ? ' is-bag-dense' : ''}"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul${uniqueTests(item.tests).length > 8 ? ` style="--bag-test-rows:${Math.ceil(uniqueTests(item.tests).length / 2)}"` : ''}>${testReferences(item.tests)}</ul></div>
+              <div class="print-for-tests${uniqueTests(item.tests).length > 8 ? ' is-bag-dense' : ''}"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul${uniqueTests(item.tests).length > 8 ? ` style="--bag-test-rows:${Math.ceil(uniqueTests(item.tests).length / 2)}"` : ''}>${testReferences(item.tests, bag.isStat)}</ul></div>
               ${contents.length > 1 ? `<div class="print-bag-item-progress"><strong>${itemIndex + 1 < contents.length ? 'MORE IN THIS BAG ↓' : 'LAST GROUP · CHECK END OF BAG'}</strong></div>` : ''}
             </div>`).join('')}</div>
             <div class="print-bag-end" aria-label="End of QUEST bag ${bagNumber} of ${bags.length}">
