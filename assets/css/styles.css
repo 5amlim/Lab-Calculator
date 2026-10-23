@@ -2931,7 +2931,8 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 
 /* v11.38: Print parity. Use one deterministic desktop template on phones,
    tablets and computers. Never scale type to accommodate the screen viewport.
-   The 10in width fits US Letter landscape at the existing 12mm page margins. */
+   Fill the 10.24in printable width of landscape US Letter at 0.38in margins,
+   aligning the content's right edge with the page footer badge. */
 @media print {
   html, body, .print-sheet, .print-sheet * {
     -webkit-text-size-adjust: 100% !important;
@@ -2940,9 +2941,9 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   html, body { margin: 0 !important; padding: 0 !important; }
   .print-sheet {
     box-sizing: border-box !important;
-    width: 10in !important;
-    min-width: 10in !important;
-    max-width: 10in !important;
+    width: 10.24in !important;
+    min-width: 10.24in !important;
+    max-width: 10.24in !important;
     margin: 0 !important;
     padding: 0 !important;
     zoom: 1 !important;
