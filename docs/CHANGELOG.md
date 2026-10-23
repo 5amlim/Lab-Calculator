@@ -1,3 +1,10 @@
+## October 22, 2026: Concise print-table volumes
+
+- Removed redundant specimen wording after numeric mL amounts in the Quest and LabCorp print-table Volume columns, such as `6 mL serum` to `6 mL`.
+- Kept specimen badges in Container / specimen and preserved the original data and special handling instructions.
+- Kept specimen qualifiers when a test requires additional draws of different specimen types.
+- Updated the JavaScript cache versions to ensure the print change appears after refresh. No pooling, minimum-volume, or other calculation logic changed.
+
 ## October 22, 2026: LabCorp capitalization
 
 - Standardized the displayed laboratory name to **LabCorp** across Quest, Cedars, and LabCorp navigation, page titles, collection plans, comparison tools, specimen instructions, and documentation in both repositories.
