@@ -63,7 +63,7 @@ const vitaminTransport=vitaminBags.flatMap(bag=>api.buildSubmissionContents(bag)
 assert.equal(vitaminBags.length,1);
 assert.equal(vitaminBags[0].key,'routine-frozen');
 assert(vitaminTransport.some(x=>x.originalTube!==true),
-  'Labcorp 121186 requires unseparated whole blood moved from lavender into a plastic frozen tube');
+  'LabCorp 121186 requires unseparated whole blood moved from lavender into a plastic frozen tube');
 assert.match(api.menuContainerBadges(b1),/container-path-arrow/);
 assert.match(api.printCollectionSubmissionPlan([b1]),/121186/);
 

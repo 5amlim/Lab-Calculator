@@ -1,4 +1,4 @@
-/* Quest workbook cross-reference. Candidate matching only; specimen handling always derives from Labcorp catalog. */
+/* Quest workbook cross-reference. Candidate matching only; specimen handling always derives from LabCorp catalog. */
 (()=>{
 'use strict';
 const lookup={

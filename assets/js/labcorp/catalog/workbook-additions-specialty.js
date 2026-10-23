@@ -1,8 +1,8 @@
-/* Labcorp catalog: endocrine, autoimmune and recent Quest workbook additions. Original order. */
+/* LabCorp catalog: endocrine, autoimmune and recent Quest workbook additions. Original order. */
 
 /* SOURCE: labcorp-quest-workbook-hormone-data.js */
 ;
-/* Verified hormonal Labcorp options corresponding to tests in user's Quest worksheet. */
+/* Verified hormonal LabCorp options corresponding to tests in user's Quest worksheet. */
 (()=>{'use strict';
 const additions=[
   {
@@ -17,13 +17,13 @@ const additions=[
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify current Labcorp detailed stability for transport",
+    "stability": "Verify current LabCorp detailed stability for transport",
     "spin": "Yes",
     "specialInstructions": "If a tube other than SST is used, separate and transfer serum to a plastic transport container. Avoid gross hemolysis, lipemia, icterus.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/004549/estrogens-total"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/004549/estrogens-total"
   },
   {
     "id": "labcorp-070001",
@@ -43,7 +43,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/070001/testosterone-total-women-children-and-hypogonadal-males-lc-ms-ms"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/070001/testosterone-total-women-children-and-hypogonadal-males-lc-ms-ms"
   },
   {
     "id": "labcorp-070282",
@@ -63,7 +63,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/070282/testosterone-free-and-weakly-bound-with-total-testosterone-lc-ms-ms"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/070282/testosterone-free-and-weakly-bound-with-total-testosterone-lc-ms-ms"
   }
 ];
 const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];
@@ -76,7 +76,7 @@ window.SEED_TESTS=catalog;
 
 /* SOURCE: labcorp-quest-workbook-steroid-data.js */
 ;
-/* Two Labcorp sex-hormone equivalents verified with official test-menu requirements. */
+/* Two LabCorp sex-hormone equivalents verified with official test-menu requirements. */
 (()=>{'use strict';
 const additions=[
   {
@@ -97,7 +97,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/140244/estradiol-sensitive-lc-ms"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/140244/estradiol-sensitive-lc-ms"
   },
   {
     "id": "labcorp-004614",
@@ -117,7 +117,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/004614/estriol"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/004614/estriol"
   }
 ];
 const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];
@@ -130,7 +130,7 @@ window.SEED_TESTS=catalog;
 
 /* SOURCE: labcorp-quest-workbook-autoimmune-endocrine-data.js */
 ;
-/* Additional independently checked Labcorp tests from Quest worksheet: dsDNA, DHEA, ultrasensitive PSA. */
+/* Additional independently checked LabCorp tests from Quest worksheet: dsDNA, DHEA, ultrasensitive PSA. */
 (()=>{'use strict';
 const additions=[
   {
@@ -151,7 +151,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test menu, checked 2026-10-22 • https://www.labcorp.com/tests/096339/anti-dsdna-double-stranded-antibodies"
+    "source": "LabCorp official test menu, checked 2026-10-22 • https://www.labcorp.com/tests/096339/anti-dsdna-double-stranded-antibodies"
   },
   {
     "id": "labcorp-004100",
@@ -171,7 +171,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test menu, checked 2026-10-22 • https://www.labcorp.com/tests/004100/dehydroepiandrosterone-dhea"
+    "source": "LabCorp official test menu, checked 2026-10-22 • https://www.labcorp.com/tests/004100/dehydroepiandrosterone-dhea"
   },
   {
     "id": "labcorp-140731",
@@ -191,7 +191,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test menu, checked 2026-10-22 • https://www.labcorp.com/tests/140731/prostate-specific-antigen-psa-ultrasensitive"
+    "source": "LabCorp official test menu, checked 2026-10-22 • https://www.labcorp.com/tests/140731/prostate-specific-antigen-psa-ultrasensitive"
   }
 ];
 const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];
@@ -204,7 +204,7 @@ window.SEED_TESTS=catalog;
 
 /* SOURCE: labcorp-quest-workbook-20261022-expansion-data.js */
 ;
-/* Labcorp official-test-directory-checked additions, 2026-10-22. Quest and Labcorp assay methods may differ. */
+/* LabCorp official-test-directory-checked additions, 2026-10-22. Quest and LabCorp assay methods may differ. */
 (()=>{'use strict';
 const additions=[
   {
@@ -221,11 +221,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature, refrigerated, frozen: 7 days",
     "spin": "Yes",
-    "specialInstructions": "Gel-barrier tube required by Labcorp. Reflex biomarker profile is performed only when indicated; do not substitute other ANA reflex panels without verifying components.",
+    "specialInstructions": "Gel-barrier tube required by LabCorp. Reflex biomarker profile is performed only when indicated; do not substitute other ANA reflex panels without verifying components.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/382965/ana-by-ifa-reflex-to-11-biomarker-profile-dsdna-rnp-sm-ss-a-ss-b-scl-70-chromatin-jo-1-centromere-b-sm-rnp-ribosomal-p-by-multiplex-immunoassay"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/382965/ana-by-ifa-reflex-to-11-biomarker-profile-dsdna-rnp-sm-ss-a-ss-b-scl-70-chromatin-jo-1-centromere-b-sm-rnp-ribosomal-p-by-multiplex-immunoassay"
   },
   {
     "id": "labcorp-340897",
@@ -245,7 +245,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/340897/ana-by-ifa-reflex-to-9-biomarker-profile-dsdna-rnp-sm-ss-a-ss-b-scl-70-chromatin-jo-1-centromere-b-by-multiplex-immunoassay"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/340897/ana-by-ifa-reflex-to-9-biomarker-profile-dsdna-rnp-sm-ss-a-ss-b-scl-70-chromatin-jo-1-centromere-b-by-multiplex-immunoassay"
   },
   {
     "id": "labcorp-028480",
@@ -265,7 +265,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/028480/follicle-stimulating-hormone-fsh-and-luteinizing-hormone-lh"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/028480/follicle-stimulating-hormone-fsh-and-luteinizing-hormone-lh"
   },
   {
     "id": "labcorp-006131",
@@ -285,7 +285,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/006131/cytomegalovirus-cmv-antibodies-igm-and-igg-with-reflex-to-igg-avidity"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/006131/cytomegalovirus-cmv-antibodies-igm-and-igg-with-reflex-to-igg-avidity"
   },
   {
     "id": "labcorp-006072",
@@ -305,7 +305,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/006072/syphilis-rpr-monitor-with-reflex-to-rpr-titer"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/006072/syphilis-rpr-monitor-with-reflex-to-rpr-titer"
   },
   {
     "id": "labcorp-006478",
@@ -325,7 +325,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/006478/toxoplasma-gondii-antibodies-igg"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/006478/toxoplasma-gondii-antibodies-igg"
   },
   {
     "id": "labcorp-096651",
@@ -345,7 +345,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/096651/toxoplasma-gondii-antibodies-igm"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/096651/toxoplasma-gondii-antibodies-igm"
   },
   {
     "id": "labcorp-144473",
@@ -365,7 +365,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/144473/hepatitis-b-virus-hbv-screening-and-diagnosis-triple-panel"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/144473/hepatitis-b-virus-hbv-screening-and-diagnosis-triple-panel"
   },
   {
     "id": "labcorp-144696",
@@ -385,7 +385,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/144696/prep-use-only-hbv-screening-and-diagnosis-triple-panel"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/144696/prep-use-only-hbv-screening-and-diagnosis-triple-panel"
   },
   {
     "id": "labcorp-144552",
@@ -405,7 +405,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/144552/viral-hepatitis-screening-and-diagnosis-hav-and-hbv"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/144552/viral-hepatitis-screening-and-diagnosis-hav-and-hbv"
   },
   {
     "id": "labcorp-144103",
@@ -425,7 +425,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/144103/hepatitis-b-virus-hbv-triple-panel-with-reflex-to-hepatitis-d-virus-hdv-antibody"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/144103/hepatitis-b-virus-hbv-triple-panel-with-reflex-to-hepatitis-d-virus-hdv-antibody"
   },
   {
     "id": "labcorp-144109",
@@ -445,7 +445,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/144109/viral-hepatitis-screening-and-diagnosis-hbv-hdv-hcv"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/144109/viral-hepatitis-screening-and-diagnosis-hbv-hdv-hcv"
   },
   {
     "id": "labcorp-096248",
@@ -465,7 +465,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/096248/epstein-barr-virus-ebv-antibodies-to-early-antigen-diffuse-ea-d-igg"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/096248/epstein-barr-virus-ebv-antibodies-to-early-antigen-diffuse-ea-d-igg"
   },
   {
     "id": "labcorp-070130",
@@ -485,7 +485,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/070130/testosterone-free-profile-ii"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/070130/testosterone-free-profile-ii"
   },
   {
     "id": "labcorp-140226",
@@ -505,7 +505,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/140226/testosterone-free-profile-i"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/140226/testosterone-free-profile-i"
   },
   {
     "id": "labcorp-143255",
@@ -521,11 +521,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature, refrigerated, frozen: 14 days",
     "spin": "Yes",
-    "specialInstructions": "Bioavailable free plus albumin-bound testosterone by selective SHBG precipitation; not calculated free testosterone profile. Red top or gel-barrier serum; if red-top, separate into plastic. Serum volume 2.3 mL required; Labcorp does not list a lower minimum.",
+    "specialInstructions": "Bioavailable free plus albumin-bound testosterone by selective SHBG precipitation; not calculated free testosterone profile. Red top or gel-barrier serum; if red-top, separate into plastic. Serum volume 2.3 mL required; LabCorp does not list a lower minimum.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/143255/testosterone-free-and-weakly-bound"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/143255/testosterone-free-and-weakly-bound"
   },
   {
     "id": "labcorp-349287",
@@ -545,7 +545,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/349287/pregnancy-infectious-disease-antibody-profile-cmv-parvovirus-toxoplasma"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/349287/pregnancy-infectious-disease-antibody-profile-cmv-parvovirus-toxoplasma"
   }
 ];
 const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];
@@ -558,7 +558,7 @@ window.SEED_TESTS=catalog;
 
 /* SOURCE: labcorp-quest-workbook-20261022-followup-data.js */
 ;
-/* Additional Labcorp-verified coagulation and immunology tests. */
+/* Additional LabCorp-verified coagulation and immunology tests. */
 (()=>{'use strict';
 const additions=[
   {
@@ -575,11 +575,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 24 hours; DO NOT refrigerate",
     "spin": "No",
-    "specialInstructions": "Fill the 3.2% sodium citrate blue-top tube completely (at least 90% full). Gently invert at least SIX times. Labcorp does not require a discard tube for a routine direct venipuncture. Do NOT refrigerate. If delay >24 hours, prepare platelet-poor plasma and freeze in a separate purple PP Transpak (49482). Heparin patients have a one-hour processing constraint. Hematocrit over 55% requires adjusted citrate volume.",
+    "specialInstructions": "Fill the 3.2% sodium citrate blue-top tube completely (at least 90% full). Gently invert at least SIX times. LabCorp does not require a discard tube for a routine direct venipuncture. Do NOT refrigerate. If delay >24 hours, prepare platelet-poor plasma and freeze in a separate purple PP Transpak (49482). Heparin patients have a one-hour processing constraint. Hematocrit over 55% requires adjusted citrate volume.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory 2026-10-22 • https://www.labcorp.com/tests/020321/prothrombin-time-pt-and-partial-thromboplastin-time-ptt"
+    "source": "LabCorp official test directory 2026-10-22 • https://www.labcorp.com/tests/020321/prothrombin-time-pt-and-partial-thromboplastin-time-ptt"
   },
   {
     "id": "labcorp-006684",
@@ -599,7 +599,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/006684/thyroid-antibodies"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/006684/thyroid-antibodies"
   },
   {
     "id": "labcorp-164914",
@@ -619,7 +619,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/164914/anti-ccp-cyclic-citrullinated-peptide-antibodies-igg-and-iga-elisa"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/164914/anti-ccp-cyclic-citrullinated-peptide-antibodies-igg-and-iga-elisa"
   },
   {
     "id": "labcorp-520008",
@@ -639,7 +639,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/520008/anti-ccp-cyclic-citrullinated-peptide-antibodies-igg-and-iga-rdl"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/520008/anti-ccp-cyclic-citrullinated-peptide-antibodies-igg-and-iga-rdl"
   }
 ];
 const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];
@@ -648,7 +648,7 @@ for(const test of additions){if(!known.has(test.testCode)){catalog.push(test);kn
 window.SEED_TESTS=catalog;
 })();
 
-/* Additional test-specific specimen records from Labcorp official directory, 2026-10-22.
+/* Additional test-specific specimen records from LabCorp official directory, 2026-10-22.
    Values are presentation/planning data only. Recheck assay requirements before sending. */
 (()=>{'use strict';
 const additions=[
@@ -670,7 +670,7 @@ const additions=[
     "fastingStatus": "preferred",
     "fastingInstructions": "Overnight fasting preferred, not required.",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/001495/immunofixation-ife-serum-and-protein-electrophoresis-serum"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/001495/immunofixation-ife-serum-and-protein-electrophoresis-serum"
   },
   {
     "id": "labcorp-120256",
@@ -690,7 +690,7 @@ const additions=[
     "fastingStatus": "preferred",
     "fastingInstructions": "Overnight fasting preferred but not required.",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/120256/immunofixation-ife-serum-protein-electrophoresis-pe-serum-and-quantitative-free-and-light-chains-flc-plus-ratio-serum"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/120256/immunofixation-ife-serum-protein-electrophoresis-pe-serum-and-quantitative-free-and-light-chains-flc-plus-ratio-serum"
   },
   {
     "id": "labcorp-123218",
@@ -710,7 +710,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/123218/immunofixation-daratumumab-specific-serum"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/123218/immunofixation-daratumumab-specific-serum"
   },
   {
     "id": "labcorp-140533",
@@ -730,7 +730,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/140533/proinsulin"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/140533/proinsulin"
   },
   {
     "id": "labcorp-010116",
@@ -750,7 +750,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/010116/angiotensin-converting-enzyme-ace"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/010116/angiotensin-converting-enzyme-ace"
   },
   {
     "id": "labcorp-121137",
@@ -770,7 +770,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/121137/free-and-light-chains-plus-ratio-quantitative"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/121137/free-and-light-chains-plus-ratio-quantitative"
   },
   {
     "id": "labcorp-121210",
@@ -790,7 +790,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/121210/protein-electrophoresis-serum-and-quantitative-free-and-light-chains-flc-plus-ratio-serum"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/121210/protein-electrophoresis-serum-and-quantitative-free-and-light-chains-flc-plus-ratio-serum"
   },
   {
     "id": "labcorp-123055",
@@ -810,7 +810,7 @@ const additions=[
     "fastingStatus": "preferred",
     "fastingInstructions": "Overnight fasting preferred, not required.",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/123055/protein-electrophoresis-with-interpretation-serum-with-reflex-to-ife-serum-and-free-and-light-chains-serum"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/123055/protein-electrophoresis-with-interpretation-serum-with-reflex-to-ife-serum-and-free-and-light-chains-serum"
   },
   {
     "id": "labcorp-121228",
@@ -830,7 +830,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/121228/free-and-light-chains-plus-ratio-quantitative-urine"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/121228/free-and-light-chains-plus-ratio-quantitative-urine"
   },
   {
     "id": "labcorp-123041",
@@ -850,7 +850,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/123041/protein-electrophoresis-serum-with-reflex-to-ife-serum-and-free-and-light-chains-serum"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/123041/protein-electrophoresis-serum-with-reflex-to-ife-serum-and-free-and-light-chains-serum"
   },
   {
     "id": "labcorp-004390",
@@ -870,7 +870,7 @@ const additions=[
     "fastingStatus": "required",
     "fastingInstructions": "Overnight 12–14-hour fast required.",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/004390/gastrin"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/004390/gastrin"
   },
   {
     "id": "labcorp-140848",
@@ -890,7 +890,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/140848/chromogranin-a"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/140848/chromogranin-a"
   },
   {
     "id": "labcorp-004895",
@@ -910,7 +910,7 @@ const additions=[
     "fastingStatus": "required",
     "fastingInstructions": "Patient should be fasting.",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/004895/calcitonin-thyrocalcitonin"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/004895/calcitonin-thyrocalcitonin"
   },
   {
     "id": "labcorp-010540",
@@ -930,7 +930,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/010540/insulin-like-growth-factor-1-igf-1-with-z-score"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/010540/insulin-like-growth-factor-1-igf-1-with-z-score"
   },
   {
     "id": "labcorp-144039",
@@ -950,7 +950,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/144039/vitamin-a-and-e"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/144039/vitamin-a-and-e"
   },
   {
     "id": "labcorp-141598",
@@ -970,7 +970,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/141598/insulin-autoantibodies-iaa-endocrine-sciences"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/141598/insulin-autoantibodies-iaa-endocrine-sciences"
   },
   {
     "id": "labcorp-006514",
@@ -990,7 +990,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/006514/hepatitis-b-surface-antigen-hbsag-screen-qualitative-with-reflex-to-hepatitis-d-virus-hdv-antibody"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/006514/hepatitis-b-surface-antigen-hbsag-screen-qualitative-with-reflex-to-hepatitis-d-virus-hdv-antibody"
   },
   {
     "id": "labcorp-144012",
@@ -1010,7 +1010,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/144012/hepatitis-d-virus-hdv-antibody-igg-and-igm"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/144012/hepatitis-d-virus-hdv-antibody-igg-and-igm"
   },
   {
     "id": "labcorp-550180",
@@ -1030,7 +1030,7 @@ const additions=[
     "fastingStatus": "required",
     "fastingInstructions": "Fast at least 8 hours before collection.",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/550180/ash-fibrosure"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/550180/ash-fibrosure"
   },
   {
     "id": "labcorp-550960",
@@ -1050,7 +1050,7 @@ const additions=[
     "fastingStatus": "required",
     "fastingInstructions": "Fast at least 8 hours before collection.",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/550960/nash-fibrosure-plus"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/550960/nash-fibrosure-plus"
   },
   {
     "id": "labcorp-004275",
@@ -1070,7 +1070,7 @@ const additions=[
     "fastingStatus": "required",
     "fastingInstructions": "Fast and rest at least 30 minutes for random growth hormone sampling.",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/004275/growth-hormone"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/004275/growth-hormone"
   }
 ];
 const tests=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];

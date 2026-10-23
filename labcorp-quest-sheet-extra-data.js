@@ -1,5 +1,5 @@
-/* Additional Labcorp matches from uploaded Quest workbook, validated against
- * test-specific Labcorp directories 2026-10-22. Quest order codes are not reused. */
+/* Additional LabCorp matches from uploaded Quest workbook, validated against
+ * test-specific LabCorp directories 2026-10-22. Quest order codes are not reused. */
 (() => {
   'use strict';
   const additions = [
@@ -21,7 +21,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001685/immunofixation-ife-serum-onc"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001685/immunofixation-ife-serum-onc"
   },
   {
     "id": "labcorp-001487",
@@ -41,7 +41,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001487/protein-electrophoresis-serum"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001487/protein-electrophoresis-serum"
   },
   {
     "id": "labcorp-004564",
@@ -61,7 +61,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/004564/estrone"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/004564/estrone"
   },
   {
     "id": "labcorp-140749",
@@ -81,7 +81,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/140749/thyroid-stimulating-immunoglobulin-tsi"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/140749/thyroid-stimulating-immunoglobulin-tsi"
   },
   {
     "id": "labcorp-140707",
@@ -101,7 +101,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/140707/pregnenolone-mass-spectrometry-endocrine-sciences"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/140707/pregnenolone-mass-spectrometry-endocrine-sciences"
   },
   {
     "id": "labcorp-010314",
@@ -121,7 +121,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/010314/thyrotropin-receptor-antibody-serum"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/010314/thyrotropin-receptor-antibody-serum"
   },
   {
     "id": "labcorp-001768",
@@ -141,7 +141,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001768/immunoglobulins-quantitative-iga-igg-igm"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001768/immunoglobulins-quantitative-iga-igg-igm"
   }
 ];
   const catalog = Array.isArray(window.SEED_TESTS) ? window.SEED_TESTS : [];

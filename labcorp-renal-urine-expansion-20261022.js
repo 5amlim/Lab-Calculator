@@ -1,4 +1,4 @@
-/* Labcorp 24-hour and random urine assays, differing preservation, temperature and pH requirements. Do not pool acidified/frozen/unpreserved submissions. */
+/* LabCorp 24-hour and random urine assays, differing preservation, temperature and pH requirements. Do not pool acidified/frozen/unpreserved submissions. */
 (()=>{'use strict';const additions=[
   {
     "id": "labcorp-003012",
@@ -14,11 +14,11 @@
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room 7 days; refrigerated/frozen 14 days",
     "spin": "No",
-    "specialInstructions": "Collect all urine for 24h, including the final void, after discarding first void. No preservative required; Labcorp also accepts 6N HCl. Mix and record total 24h volume and start/end times.",
+    "specialInstructions": "Collect all urine for 24h, including the final void, after discarding first void. No preservative required; LabCorp also accepts 6N HCl. Mix and record total 24h volume and start/end times.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/003012/creatinine-24-hour-urine"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/003012/creatinine-24-hour-urine"
   },
   {
     "id": "labcorp-016865",
@@ -34,11 +34,11 @@
     "transportTemperatureRaw": "Refrigerated",
     "stability": "Room/refrigerated 29 days; frozen 49 days",
     "spin": "No",
-    "specialInstructions": "Collect 24h urine in Labcorp 21584 plastic jug with 30 mL 6N HCl; final pH 1–3. Refrigerate during collection. Alternatively sample may be frozen without acid. Strong acid is hazardous: follow approved collection SOP, DO NOT pool with nonacidified urine tests. Record total volume and start/end.",
+    "specialInstructions": "Collect 24h urine in LabCorp 21584 plastic jug with 30 mL 6N HCl; final pH 1–3. Refrigerate during collection. Alternatively sample may be frozen without acid. Strong acid is hazardous: follow approved collection SOP, DO NOT pool with nonacidified urine tests. Record total volume and start/end.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/016865/citric-acid-citrate-24-hour-urine"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/016865/citric-acid-citrate-24-hour-urine"
   },
   {
     "id": "labcorp-003186",
@@ -58,7 +58,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/003186/potassium-24-hour-urine"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/003186/potassium-24-hour-urine"
   },
   {
     "id": "labcorp-003855",
@@ -78,7 +78,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/003855/creatine-and-creatinine-24-hour-urine"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/003855/creatine-and-creatinine-24-hour-urine"
   },
   {
     "id": "labcorp-003475",
@@ -98,7 +98,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/003475/creatine-24-hour-urine"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/003475/creatine-24-hour-urine"
   },
   {
     "id": "labcorp-003178",
@@ -118,7 +118,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/003178/sodium-24-hour-urine"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/003178/sodium-24-hour-urine"
   },
   {
     "id": "labcorp-003418",
@@ -138,7 +138,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/003418/uric-acid-24-hour-urine"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/003418/uric-acid-24-hour-urine"
   },
   {
     "id": "labcorp-003970",
@@ -154,11 +154,11 @@
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room/refrigerated 7 days; frozen 8 weeks",
     "spin": "No",
-    "specialInstructions": "Collect 24h urine with 30 mL 6N HCl in Labcorp 21584 container. Final pH must be ≤3; add preservative within 24h of collection. Mix and record total volume/start/end. Maintain acidified aliquot at room temperature. Avoid vitamin C supplements/high-vitamin-C foods for 48 hours before collection. Strong acid handling requires SOP.",
+    "specialInstructions": "Collect 24h urine with 30 mL 6N HCl in LabCorp 21584 container. Final pH must be ≤3; add preservative within 24h of collection. Mix and record total volume/start/end. Maintain acidified aliquot at room temperature. Avoid vitamin C supplements/high-vitamin-C foods for 48 hours before collection. Strong acid handling requires SOP.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/003970/oxalate-quantitative-24-hour-urine"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/003970/oxalate-quantitative-24-hour-urine"
   },
   {
     "id": "labcorp-003269",
@@ -178,7 +178,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/003269/calcium-urine"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/003269/calcium-urine"
   },
   {
     "id": "labcorp-123880",
@@ -194,10 +194,10 @@
     "transportTemperatureRaw": "Refrigerated",
     "stability": "Room/refrigerated 29 days; frozen 49 days",
     "spin": "No",
-    "specialInstructions": "RANDOM urine, not 24-hour. Collect in clean cup, transfer to Labcorp Monovette with pH stabilizer (56015), or use accepted random urine transport then acidify to pH 1–3; alternative is freeze without acid. Refrigerate at 2–8°C. Do not pool with unpreserved urine.",
+    "specialInstructions": "RANDOM urine, not 24-hour. Collect in clean cup, transfer to LabCorp Monovette with pH stabilizer (56015), or use accepted random urine transport then acidify to pH 1–3; alternative is freeze without acid. Refrigerate at 2–8°C. Do not pool with unpreserved urine.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/123880/citric-acid-citrate-creatinine-ratio-random-urine"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/123880/citric-acid-citrate-creatinine-ratio-random-urine"
   }
 ];const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];const known=new Set(catalog.map(x=>String(x.testCode)));for(const t of additions){if(!known.has(t.testCode)){catalog.push(t);known.add(t.testCode);}}window.SEED_TESTS=catalog;})();

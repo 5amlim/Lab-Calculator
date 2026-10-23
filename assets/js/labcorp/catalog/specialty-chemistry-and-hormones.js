@@ -1,8 +1,8 @@
-/* Labcorp catalog: specialty chemistry, timed hormones, verified clinical markers. Original order. */
+/* LabCorp catalog: specialty chemistry, timed hormones, verified clinical markers. Original order. */
 
 /* SOURCE: labcorp-verified-clinical-markers-20261022.js */
 ;
-/* Eight specimen-verified Labcorp endocrine, cardiovascular, coagulation and medication tests. */
+/* Eight specimen-verified LabCorp endocrine, cardiovascular, coagulation and medication tests. */
 (()=>{'use strict';const additions=[
   {
     "id": "labcorp-004650",
@@ -22,7 +22,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp current test-specific directory reviewed October 2026 • https://www.labcorp.com/tests/004650/adiponectin"
+    "source": "LabCorp current test-specific directory reviewed October 2026 • https://www.labcorp.com/tests/004650/adiponectin"
   },
   {
     "id": "labcorp-143008",
@@ -38,11 +38,11 @@
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room, refrigerated or frozen 14 days",
     "spin": "Yes",
-    "specialInstructions": "Serum only. Red top or gel-barrier. If red top, transfer separated serum to plastic transport tube. Avoid hemolysis. High-dose biotin may interfere; Labcorp recommends avoiding for 72h before collection.",
+    "specialInstructions": "Serum only. Red top or gel-barrier. If red top, transfer separated serum to plastic transport tube. Avoid hemolysis. High-dose biotin may interfere; LabCorp recommends avoiding for 72h before collection.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp current test-specific directory reviewed October 2026 • https://www.labcorp.com/tests/143008/glutamic-acid-decarboxylase-gad-autoantibody"
+    "source": "LabCorp current test-specific directory reviewed October 2026 • https://www.labcorp.com/tests/143008/glutamic-acid-decarboxylase-gad-autoantibody"
   },
   {
     "id": "labcorp-141531",
@@ -62,7 +62,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp current test-specific directory reviewed October 2026 • https://www.labcorp.com/tests/141531/ia2-autoantibodies-endocrine-sciences"
+    "source": "LabCorp current test-specific directory reviewed October 2026 • https://www.labcorp.com/tests/141531/ia2-autoantibodies-endocrine-sciences"
   },
   {
     "id": "labcorp-140673",
@@ -82,7 +82,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp current test-specific directory reviewed October 2026 • https://www.labcorp.com/tests/140673/tumor-necrosis-factor-a"
+    "source": "LabCorp current test-specific directory reviewed October 2026 • https://www.labcorp.com/tests/140673/tumor-necrosis-factor-a"
   },
   {
     "id": "labcorp-146787",
@@ -102,7 +102,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp current test-specific directory reviewed October 2026 • https://www.labcorp.com/tests/146787/plasminogen-activator-inhibitor-1-pai-1-activity"
+    "source": "LabCorp current test-specific directory reviewed October 2026 • https://www.labcorp.com/tests/146787/plasminogen-activator-inhibitor-1-pai-1-activity"
   },
   {
     "id": "labcorp-146790",
@@ -122,7 +122,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp current test-specific directory reviewed October 2026 • https://www.labcorp.com/tests/146790/plasminogen-act-inhibitor-1-ag"
+    "source": "LabCorp current test-specific directory reviewed October 2026 • https://www.labcorp.com/tests/146790/plasminogen-act-inhibitor-1-ag"
   },
   {
     "id": "labcorp-702891",
@@ -138,11 +138,11 @@
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room/refrigerated 8 days; frozen 21 days",
     "spin": "Yes",
-    "specialInstructions": "DO NOT USE GEL/SST (Labcorp rejects gel-barrier samples). Collect plain red-top serum or EDTA/heparin plasma. Separate within two hours; transfer to plain plastic transport tube. Note medication dose time.",
+    "specialInstructions": "DO NOT USE GEL/SST (LabCorp rejects gel-barrier samples). Collect plain red-top serum or EDTA/heparin plasma. Separate within two hours; transfer to plain plastic transport tube. Note medication dose time.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp current test-specific directory reviewed October 2026 • https://www.labcorp.com/tests/702891/amiodarone-cordarone-serum-or-plasma"
+    "source": "LabCorp current test-specific directory reviewed October 2026 • https://www.labcorp.com/tests/702891/amiodarone-cordarone-serum-or-plasma"
   },
   {
     "id": "labcorp-146010",
@@ -162,10 +162,10 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp current test-specific directory reviewed October 2026 • https://www.labcorp.com/tests/146010/tissue-plasminogen-activator-tpa-antigen"
+    "source": "LabCorp current test-specific directory reviewed October 2026 • https://www.labcorp.com/tests/146010/tissue-plasminogen-activator-tpa-antigen"
   }
 ];const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];const known=new Set(catalog.map(r=>String(r.testCode)));for(const x of additions){if(!known.has(x.testCode)){catalog.push(x);known.add(x.testCode);}}window.SEED_TESTS=catalog;})();
-/* Labcorp October 2026: Additional celiac, autoimmune, neuromuscular, trace element and NMR tests. */
+/* LabCorp October 2026: Additional celiac, autoimmune, neuromuscular, trace element and NMR tests. */
 (()=>{'use strict';
 const additions=[
   {
@@ -186,7 +186,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (October 2026) • https://www.labcorp.com/tests/716910/selenium-serum-or-plasma"
+    "source": "LabCorp official test directory (October 2026) • https://www.labcorp.com/tests/716910/selenium-serum-or-plasma"
   },
   {
     "id": "labcorp-006486",
@@ -206,7 +206,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (October 2026) • https://www.labcorp.com/tests/006486/antiparietal-cell-antibody-apca"
+    "source": "LabCorp official test directory (October 2026) • https://www.labcorp.com/tests/006486/antiparietal-cell-antibody-apca"
   },
   {
     "id": "labcorp-216010",
@@ -226,7 +226,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (October 2026) • https://www.labcorp.com/tests/216010/apolipoprotein-assessment"
+    "source": "LabCorp official test directory (October 2026) • https://www.labcorp.com/tests/216010/apolipoprotein-assessment"
   },
   {
     "id": "labcorp-070032",
@@ -246,7 +246,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (October 2026) • https://www.labcorp.com/tests/070032/zinc-whole-blood"
+    "source": "LabCorp official test directory (October 2026) • https://www.labcorp.com/tests/070032/zinc-whole-blood"
   },
   {
     "id": "labcorp-123544",
@@ -266,7 +266,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (October 2026) • https://www.labcorp.com/tests/123544/lipid-panel-with-apolipoprotein-b-apob"
+    "source": "LabCorp official test directory (October 2026) • https://www.labcorp.com/tests/123544/lipid-panel-with-apolipoprotein-b-apob"
   },
   {
     "id": "labcorp-123567",
@@ -286,7 +286,7 @@ const additions=[
     "fastingStatus": "required",
     "fastingInstructions": "Fast 8–12 hours.",
     "status": "active",
-    "source": "Labcorp official test directory (October 2026) • https://www.labcorp.com/tests/123567/lipid-panel-with-apolipoprotein-b-apob-glyca-inflammation-diabetes-risk-index-dri"
+    "source": "LabCorp official test directory (October 2026) • https://www.labcorp.com/tests/123567/lipid-panel-with-apolipoprotein-b-apob-glyca-inflammation-diabetes-risk-index-dri"
   },
   {
     "id": "labcorp-520131",
@@ -306,7 +306,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (October 2026) • https://www.labcorp.com/tests/520131/anti-smooth-muscle-antibodies-by-indirect-fluorescent-antibody-ifa-rdl"
+    "source": "LabCorp official test directory (October 2026) • https://www.labcorp.com/tests/520131/anti-smooth-muscle-antibodies-by-indirect-fluorescent-antibody-ifa-rdl"
   },
   {
     "id": "labcorp-161687",
@@ -326,7 +326,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (October 2026) • https://www.labcorp.com/tests/161687/deamidated-gliadin-antibodies-igg"
+    "source": "LabCorp official test directory (October 2026) • https://www.labcorp.com/tests/161687/deamidated-gliadin-antibodies-igg"
   },
   {
     "id": "labcorp-161646",
@@ -346,7 +346,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (October 2026) • https://www.labcorp.com/tests/161646/deamidated-gliadin-antibodies-iga"
+    "source": "LabCorp official test directory (October 2026) • https://www.labcorp.com/tests/161646/deamidated-gliadin-antibodies-iga"
   },
   {
     "id": "labcorp-164996",
@@ -366,7 +366,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (October 2026) • https://www.labcorp.com/tests/164996/endomysial-antibody-iga"
+    "source": "LabCorp official test directory (October 2026) • https://www.labcorp.com/tests/164996/endomysial-antibody-iga"
   },
   {
     "id": "labcorp-165126",
@@ -386,7 +386,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (October 2026) • https://www.labcorp.com/tests/165126/celiac-antibodies-profile-ttg-iga-ttg-igg-dgp-iga-dgp-igg-ema-iga-and-total-iga"
+    "source": "LabCorp official test directory (October 2026) • https://www.labcorp.com/tests/165126/celiac-antibodies-profile-ttg-iga-ttg-igg-dgp-iga-dgp-igg-ema-iga-and-total-iga"
   },
   {
     "id": "labcorp-164002",
@@ -406,7 +406,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (October 2026) • https://www.labcorp.com/tests/164002/celiac-antibodies-ttg-iga-dgp-iga-total-iga-with-reflex-to-ttg-igg-and-dgp-igg"
+    "source": "LabCorp official test directory (October 2026) • https://www.labcorp.com/tests/164002/celiac-antibodies-ttg-iga-dgp-iga-total-iga-with-reflex-to-ttg-igg-and-dgp-igg"
   },
   {
     "id": "labcorp-164107",
@@ -426,7 +426,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (October 2026) • https://www.labcorp.com/tests/164107/celiac-antibodies-ttg-iga-dgp-igg-combination-screen"
+    "source": "LabCorp official test directory (October 2026) • https://www.labcorp.com/tests/164107/celiac-antibodies-ttg-iga-dgp-igg-combination-screen"
   },
   {
     "id": "labcorp-160184",
@@ -446,7 +446,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (October 2026) • https://www.labcorp.com/tests/160184/striational-antibodies"
+    "source": "LabCorp official test directory (October 2026) • https://www.labcorp.com/tests/160184/striational-antibodies"
   },
   {
     "id": "labcorp-085902",
@@ -466,7 +466,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (October 2026) • https://www.labcorp.com/tests/085902/acetylcholine-receptor-achr-binding-antibodies"
+    "source": "LabCorp official test directory (October 2026) • https://www.labcorp.com/tests/085902/acetylcholine-receptor-achr-binding-antibodies"
   },
   {
     "id": "labcorp-085926",
@@ -486,7 +486,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (October 2026) • https://www.labcorp.com/tests/085926/acetylcholine-receptor-achr-blocking-antibodies"
+    "source": "LabCorp official test directory (October 2026) • https://www.labcorp.com/tests/085926/acetylcholine-receptor-achr-blocking-antibodies"
   },
   {
     "id": "labcorp-505790",
@@ -506,7 +506,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (October 2026) • https://www.labcorp.com/tests/505790/autoimmune-atypical-parkinsonism-profile-serum"
+    "source": "LabCorp official test directory (October 2026) • https://www.labcorp.com/tests/505790/autoimmune-atypical-parkinsonism-profile-serum"
   },
   {
     "id": "labcorp-164126",
@@ -526,7 +526,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (October 2026) • https://www.labcorp.com/tests/164126/stiff-person-disorders-profile-serum"
+    "source": "LabCorp official test directory (October 2026) • https://www.labcorp.com/tests/164126/stiff-person-disorders-profile-serum"
   }
 ];
 const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];
@@ -539,7 +539,7 @@ window.SEED_TESTS=catalog;
 
 /* SOURCE: labcorp-timed-hormone-panels-20261022-data.js */
 ;
-/* Labcorp timed endocrine order codes, source: official multiple-specimen testing table. A timed series is not a routine single draw; each timepoint uses a SEPARATE tube, transport tube, label and controlled protocol. */
+/* LabCorp timed endocrine order codes, source: official multiple-specimen testing table. A timed series is not a routine single draw; each timepoint uses a SEPARATE tube, transport tube, label and controlled protocol. */
 (()=>{'use strict';const additions=[
   {
     "id": "labcorp-225250",
@@ -553,15 +553,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 2,
     "submissionCount": 2,
-    "specialInstructions": "SPECIAL TIMED SERIES, 2 DIFFERENT TIMEPOINTS: draw/collect 2 separate lavender EDTA tubes. REQUIRED: 2 individual samples and 2 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–2. Submit all 2 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA draw. Immediately place tube on ice and promptly separate plasma; freeze each distinct timepoint's plasma in its own purple polypropylene frozen Transpak (49482).",
+    "specialInstructions": "SPECIAL TIMED SERIES, 2 DIFFERENT TIMEPOINTS: draw/collect 2 separate lavender EDTA tubes. REQUIRED: 2 individual samples and 2 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–2. Submit all 2 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA draw. Immediately place tube on ice and promptly separate plasma; freeze each distinct timepoint's plasma in its own purple polypropylene frozen Transpak (49482).",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 225250); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 225250); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-038927",
@@ -575,15 +575,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 3,
-    "specialInstructions": "SPECIAL TIMED SERIES, 3 DIFFERENT TIMEPOINTS: draw/collect 3 separate lavender EDTA tubes. REQUIRED: 3 individual samples and 3 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–3. Submit all 3 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA draw. Immediately place tube on ice and promptly separate plasma; freeze each distinct timepoint's plasma in its own purple polypropylene frozen Transpak (49482).",
+    "specialInstructions": "SPECIAL TIMED SERIES, 3 DIFFERENT TIMEPOINTS: draw/collect 3 separate lavender EDTA tubes. REQUIRED: 3 individual samples and 3 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–3. Submit all 3 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA draw. Immediately place tube on ice and promptly separate plasma; freeze each distinct timepoint's plasma in its own purple polypropylene frozen Transpak (49482).",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038927); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038927); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-225268",
@@ -597,15 +597,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 4,
     "submissionCount": 4,
-    "specialInstructions": "SPECIAL TIMED SERIES, 4 DIFFERENT TIMEPOINTS: draw/collect 4 separate lavender EDTA tubes. REQUIRED: 4 individual samples and 4 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–4. Submit all 4 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA draw. Immediately place tube on ice and promptly separate plasma; freeze each distinct timepoint's plasma in its own purple polypropylene frozen Transpak (49482).",
+    "specialInstructions": "SPECIAL TIMED SERIES, 4 DIFFERENT TIMEPOINTS: draw/collect 4 separate lavender EDTA tubes. REQUIRED: 4 individual samples and 4 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–4. Submit all 4 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA draw. Immediately place tube on ice and promptly separate plasma; freeze each distinct timepoint's plasma in its own purple polypropylene frozen Transpak (49482).",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 225268); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 225268); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-038919",
@@ -619,15 +619,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 5,
     "submissionCount": 5,
-    "specialInstructions": "SPECIAL TIMED SERIES, 5 DIFFERENT TIMEPOINTS: draw/collect 5 separate lavender EDTA tubes. REQUIRED: 5 individual samples and 5 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–5. Submit all 5 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA draw. Immediately place tube on ice and promptly separate plasma; freeze each distinct timepoint's plasma in its own purple polypropylene frozen Transpak (49482).",
+    "specialInstructions": "SPECIAL TIMED SERIES, 5 DIFFERENT TIMEPOINTS: draw/collect 5 separate lavender EDTA tubes. REQUIRED: 5 individual samples and 5 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–5. Submit all 5 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA draw. Immediately place tube on ice and promptly separate plasma; freeze each distinct timepoint's plasma in its own purple polypropylene frozen Transpak (49482).",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038919); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038919); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-225276",
@@ -641,15 +641,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 6,
     "submissionCount": 6,
-    "specialInstructions": "SPECIAL TIMED SERIES, 6 DIFFERENT TIMEPOINTS: draw/collect 6 separate lavender EDTA tubes. REQUIRED: 6 individual samples and 6 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–6. Submit all 6 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA draw. Immediately place tube on ice and promptly separate plasma; freeze each distinct timepoint's plasma in its own purple polypropylene frozen Transpak (49482).",
+    "specialInstructions": "SPECIAL TIMED SERIES, 6 DIFFERENT TIMEPOINTS: draw/collect 6 separate lavender EDTA tubes. REQUIRED: 6 individual samples and 6 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–6. Submit all 6 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA draw. Immediately place tube on ice and promptly separate plasma; freeze each distinct timepoint's plasma in its own purple polypropylene frozen Transpak (49482).",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 225276); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 225276); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-038901",
@@ -663,15 +663,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 7,
     "submissionCount": 7,
-    "specialInstructions": "SPECIAL TIMED SERIES, 7 DIFFERENT TIMEPOINTS: draw/collect 7 separate lavender EDTA tubes. REQUIRED: 7 individual samples and 7 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–7. Submit all 7 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA draw. Immediately place tube on ice and promptly separate plasma; freeze each distinct timepoint's plasma in its own purple polypropylene frozen Transpak (49482).",
+    "specialInstructions": "SPECIAL TIMED SERIES, 7 DIFFERENT TIMEPOINTS: draw/collect 7 separate lavender EDTA tubes. REQUIRED: 7 individual samples and 7 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–7. Submit all 7 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA draw. Immediately place tube on ice and promptly separate plasma; freeze each distinct timepoint's plasma in its own purple polypropylene frozen Transpak (49482).",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038901); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038901); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-267708",
@@ -685,15 +685,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 8,
     "submissionCount": 8,
-    "specialInstructions": "SPECIAL TIMED SERIES, 8 DIFFERENT TIMEPOINTS: draw/collect 8 separate lavender EDTA tubes. REQUIRED: 8 individual samples and 8 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–8. Submit all 8 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA draw. Immediately place tube on ice and promptly separate plasma; freeze each distinct timepoint's plasma in its own purple polypropylene frozen Transpak (49482).",
+    "specialInstructions": "SPECIAL TIMED SERIES, 8 DIFFERENT TIMEPOINTS: draw/collect 8 separate lavender EDTA tubes. REQUIRED: 8 individual samples and 8 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–8. Submit all 8 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA draw. Immediately place tube on ice and promptly separate plasma; freeze each distinct timepoint's plasma in its own purple polypropylene frozen Transpak (49482).",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 267708); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 267708); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-237537",
@@ -707,15 +707,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 2,
     "submissionCount": 2,
-    "specialInstructions": "SPECIAL TIMED SERIES, 2 DIFFERENT TIMEPOINTS: draw/collect 2 separate SST / Gold tubes. REQUIRED: 2 individual samples and 2 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–2. Submit all 2 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum after centrifugation and refrigerate. If using red-top, transfer separated serum to plastic transport. Posture, time of day and medication preparation must follow the provider's protocol.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 2 DIFFERENT TIMEPOINTS: draw/collect 2 separate SST / Gold tubes. REQUIRED: 2 individual samples and 2 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–2. Submit all 2 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum after centrifugation and refrigerate. If using red-top, transfer separated serum to plastic transport. Posture, time of day and medication preparation must follow the provider's protocol.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 237537); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 237537); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-053272",
@@ -729,15 +729,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 3,
-    "specialInstructions": "SPECIAL TIMED SERIES, 3 DIFFERENT TIMEPOINTS: draw/collect 3 separate SST / Gold tubes. REQUIRED: 3 individual samples and 3 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–3. Submit all 3 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum after centrifugation and refrigerate. If using red-top, transfer separated serum to plastic transport. Posture, time of day and medication preparation must follow the provider's protocol.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 3 DIFFERENT TIMEPOINTS: draw/collect 3 separate SST / Gold tubes. REQUIRED: 3 individual samples and 3 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–3. Submit all 3 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum after centrifugation and refrigerate. If using red-top, transfer separated serum to plastic transport. Posture, time of day and medication preparation must follow the provider's protocol.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 053272); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 053272); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-361626",
@@ -751,15 +751,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 4,
     "submissionCount": 4,
-    "specialInstructions": "SPECIAL TIMED SERIES, 4 DIFFERENT TIMEPOINTS: draw/collect 4 separate SST / Gold tubes. REQUIRED: 4 individual samples and 4 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–4. Submit all 4 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum after centrifugation and refrigerate. If using red-top, transfer separated serum to plastic transport. Posture, time of day and medication preparation must follow the provider's protocol.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 4 DIFFERENT TIMEPOINTS: draw/collect 4 separate SST / Gold tubes. REQUIRED: 4 individual samples and 4 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–4. Submit all 4 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum after centrifugation and refrigerate. If using red-top, transfer separated serum to plastic transport. Posture, time of day and medication preparation must follow the provider's protocol.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 361626); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 361626); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-271190",
@@ -773,15 +773,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 5,
     "submissionCount": 5,
-    "specialInstructions": "SPECIAL TIMED SERIES, 5 DIFFERENT TIMEPOINTS: draw/collect 5 separate SST / Gold tubes. REQUIRED: 5 individual samples and 5 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–5. Submit all 5 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum after centrifugation and refrigerate. If using red-top, transfer separated serum to plastic transport. Posture, time of day and medication preparation must follow the provider's protocol.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 5 DIFFERENT TIMEPOINTS: draw/collect 5 separate SST / Gold tubes. REQUIRED: 5 individual samples and 5 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–5. Submit all 5 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum after centrifugation and refrigerate. If using red-top, transfer separated serum to plastic transport. Posture, time of day and medication preparation must follow the provider's protocol.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 271190); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 271190); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-015795",
@@ -795,15 +795,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 6,
     "submissionCount": 6,
-    "specialInstructions": "SPECIAL TIMED SERIES, 6 DIFFERENT TIMEPOINTS: draw/collect 6 separate SST / Gold tubes. REQUIRED: 6 individual samples and 6 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–6. Submit all 6 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum after centrifugation and refrigerate. If using red-top, transfer separated serum to plastic transport. Posture, time of day and medication preparation must follow the provider's protocol.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 6 DIFFERENT TIMEPOINTS: draw/collect 6 separate SST / Gold tubes. REQUIRED: 6 individual samples and 6 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–6. Submit all 6 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum after centrifugation and refrigerate. If using red-top, transfer separated serum to plastic transport. Posture, time of day and medication preparation must follow the provider's protocol.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 015795); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 015795); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-015796",
@@ -817,15 +817,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 7,
     "submissionCount": 7,
-    "specialInstructions": "SPECIAL TIMED SERIES, 7 DIFFERENT TIMEPOINTS: draw/collect 7 separate SST / Gold tubes. REQUIRED: 7 individual samples and 7 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–7. Submit all 7 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum after centrifugation and refrigerate. If using red-top, transfer separated serum to plastic transport. Posture, time of day and medication preparation must follow the provider's protocol.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 7 DIFFERENT TIMEPOINTS: draw/collect 7 separate SST / Gold tubes. REQUIRED: 7 individual samples and 7 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–7. Submit all 7 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum after centrifugation and refrigerate. If using red-top, transfer separated serum to plastic transport. Posture, time of day and medication preparation must follow the provider's protocol.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 015796); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 015796); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-010848",
@@ -839,15 +839,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 8,
     "submissionCount": 8,
-    "specialInstructions": "SPECIAL TIMED SERIES, 8 DIFFERENT TIMEPOINTS: draw/collect 8 separate SST / Gold tubes. REQUIRED: 8 individual samples and 8 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–8. Submit all 8 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum after centrifugation and refrigerate. If using red-top, transfer separated serum to plastic transport. Posture, time of day and medication preparation must follow the provider's protocol.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 8 DIFFERENT TIMEPOINTS: draw/collect 8 separate SST / Gold tubes. REQUIRED: 8 individual samples and 8 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–8. Submit all 8 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum after centrifugation and refrigerate. If using red-top, transfer separated serum to plastic transport. Posture, time of day and medication preparation must follow the provider's protocol.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 010848); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 010848); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-048249",
@@ -861,15 +861,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 2,
     "submissionCount": 2,
-    "specialInstructions": "SPECIAL TIMED SERIES, 2 DIFFERENT TIMEPOINTS: draw/collect 2 separate SST / Gold tubes. REQUIRED: 2 individual samples and 2 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–2. Submit all 2 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. After clotting and spin, transfer each timepoint serum sample into its OWN dedicated purple frozen PP Transpak and freeze immediately.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 2 DIFFERENT TIMEPOINTS: draw/collect 2 separate SST / Gold tubes. REQUIRED: 2 individual samples and 2 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–2. Submit all 2 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. After clotting and spin, transfer each timepoint serum sample into its OWN dedicated purple frozen PP Transpak and freeze immediately.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 048249); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 048249); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-026781",
@@ -883,15 +883,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 3,
-    "specialInstructions": "SPECIAL TIMED SERIES, 3 DIFFERENT TIMEPOINTS: draw/collect 3 separate SST / Gold tubes. REQUIRED: 3 individual samples and 3 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–3. Submit all 3 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. After clotting and spin, transfer each timepoint serum sample into its OWN dedicated purple frozen PP Transpak and freeze immediately.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 3 DIFFERENT TIMEPOINTS: draw/collect 3 separate SST / Gold tubes. REQUIRED: 3 individual samples and 3 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–3. Submit all 3 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. After clotting and spin, transfer each timepoint serum sample into its OWN dedicated purple frozen PP Transpak and freeze immediately.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 026781); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 026781); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-026799",
@@ -905,15 +905,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 4,
     "submissionCount": 4,
-    "specialInstructions": "SPECIAL TIMED SERIES, 4 DIFFERENT TIMEPOINTS: draw/collect 4 separate SST / Gold tubes. REQUIRED: 4 individual samples and 4 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–4. Submit all 4 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. After clotting and spin, transfer each timepoint serum sample into its OWN dedicated purple frozen PP Transpak and freeze immediately.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 4 DIFFERENT TIMEPOINTS: draw/collect 4 separate SST / Gold tubes. REQUIRED: 4 individual samples and 4 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–4. Submit all 4 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. After clotting and spin, transfer each timepoint serum sample into its OWN dedicated purple frozen PP Transpak and freeze immediately.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 026799); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 026799); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-026807",
@@ -927,15 +927,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 5,
     "submissionCount": 5,
-    "specialInstructions": "SPECIAL TIMED SERIES, 5 DIFFERENT TIMEPOINTS: draw/collect 5 separate SST / Gold tubes. REQUIRED: 5 individual samples and 5 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–5. Submit all 5 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. After clotting and spin, transfer each timepoint serum sample into its OWN dedicated purple frozen PP Transpak and freeze immediately.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 5 DIFFERENT TIMEPOINTS: draw/collect 5 separate SST / Gold tubes. REQUIRED: 5 individual samples and 5 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–5. Submit all 5 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. After clotting and spin, transfer each timepoint serum sample into its OWN dedicated purple frozen PP Transpak and freeze immediately.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 026807); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 026807); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-026815",
@@ -949,15 +949,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 6,
     "submissionCount": 6,
-    "specialInstructions": "SPECIAL TIMED SERIES, 6 DIFFERENT TIMEPOINTS: draw/collect 6 separate SST / Gold tubes. REQUIRED: 6 individual samples and 6 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–6. Submit all 6 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. After clotting and spin, transfer each timepoint serum sample into its OWN dedicated purple frozen PP Transpak and freeze immediately.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 6 DIFFERENT TIMEPOINTS: draw/collect 6 separate SST / Gold tubes. REQUIRED: 6 individual samples and 6 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–6. Submit all 6 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. After clotting and spin, transfer each timepoint serum sample into its OWN dedicated purple frozen PP Transpak and freeze immediately.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 026815); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 026815); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-015797",
@@ -971,15 +971,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 7,
     "submissionCount": 7,
-    "specialInstructions": "SPECIAL TIMED SERIES, 7 DIFFERENT TIMEPOINTS: draw/collect 7 separate SST / Gold tubes. REQUIRED: 7 individual samples and 7 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–7. Submit all 7 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. After clotting and spin, transfer each timepoint serum sample into its OWN dedicated purple frozen PP Transpak and freeze immediately.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 7 DIFFERENT TIMEPOINTS: draw/collect 7 separate SST / Gold tubes. REQUIRED: 7 individual samples and 7 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–7. Submit all 7 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. After clotting and spin, transfer each timepoint serum sample into its OWN dedicated purple frozen PP Transpak and freeze immediately.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 015797); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 015797); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-019845",
@@ -993,15 +993,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 8,
     "submissionCount": 8,
-    "specialInstructions": "SPECIAL TIMED SERIES, 8 DIFFERENT TIMEPOINTS: draw/collect 8 separate SST / Gold tubes. REQUIRED: 8 individual samples and 8 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–8. Submit all 8 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. After clotting and spin, transfer each timepoint serum sample into its OWN dedicated purple frozen PP Transpak and freeze immediately.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 8 DIFFERENT TIMEPOINTS: draw/collect 8 separate SST / Gold tubes. REQUIRED: 8 individual samples and 8 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–8. Submit all 8 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. After clotting and spin, transfer each timepoint serum sample into its OWN dedicated purple frozen PP Transpak and freeze immediately.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 019845); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 019845); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-502120",
@@ -1015,15 +1015,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "No",
     "collectionCount": 2,
     "submissionCount": 2,
-    "specialInstructions": "SPECIAL TIMED SERIES, 2 DIFFERENT TIMEPOINTS: draw/collect 2 separate Salivette devices. REQUIRED: 2 individual samples and 2 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–2. Submit all 2 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Use a fresh Labcorp Salivette for EACH timepoint, not blood tubes. Record actual collection time and date on each Salivette and sequence label. Refrigerate and submit every timepoint together on one requisition. Hormone medication challenge is NOT necessarily required for salivary timing; follow physician-defined schedule.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 2 DIFFERENT TIMEPOINTS: draw/collect 2 separate Salivette devices. REQUIRED: 2 individual samples and 2 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–2. Submit all 2 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Use a fresh LabCorp Salivette for EACH timepoint, not blood tubes. Record actual collection time and date on each Salivette and sequence label. Refrigerate and submit every timepoint together on one requisition. Hormone medication challenge is NOT necessarily required for salivary timing; follow physician-defined schedule.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 502120); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 502120); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-502122",
@@ -1037,15 +1037,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "No",
     "collectionCount": 3,
     "submissionCount": 3,
-    "specialInstructions": "SPECIAL TIMED SERIES, 3 DIFFERENT TIMEPOINTS: draw/collect 3 separate Salivette devices. REQUIRED: 3 individual samples and 3 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–3. Submit all 3 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Use a fresh Labcorp Salivette for EACH timepoint, not blood tubes. Record actual collection time and date on each Salivette and sequence label. Refrigerate and submit every timepoint together on one requisition. Hormone medication challenge is NOT necessarily required for salivary timing; follow physician-defined schedule.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 3 DIFFERENT TIMEPOINTS: draw/collect 3 separate Salivette devices. REQUIRED: 3 individual samples and 3 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–3. Submit all 3 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Use a fresh LabCorp Salivette for EACH timepoint, not blood tubes. Record actual collection time and date on each Salivette and sequence label. Refrigerate and submit every timepoint together on one requisition. Hormone medication challenge is NOT necessarily required for salivary timing; follow physician-defined schedule.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 502122); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 502122); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-502124",
@@ -1059,15 +1059,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "No",
     "collectionCount": 4,
     "submissionCount": 4,
-    "specialInstructions": "SPECIAL TIMED SERIES, 4 DIFFERENT TIMEPOINTS: draw/collect 4 separate Salivette devices. REQUIRED: 4 individual samples and 4 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–4. Submit all 4 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Use a fresh Labcorp Salivette for EACH timepoint, not blood tubes. Record actual collection time and date on each Salivette and sequence label. Refrigerate and submit every timepoint together on one requisition. Hormone medication challenge is NOT necessarily required for salivary timing; follow physician-defined schedule.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 4 DIFFERENT TIMEPOINTS: draw/collect 4 separate Salivette devices. REQUIRED: 4 individual samples and 4 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–4. Submit all 4 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Use a fresh LabCorp Salivette for EACH timepoint, not blood tubes. Record actual collection time and date on each Salivette and sequence label. Refrigerate and submit every timepoint together on one requisition. Hormone medication challenge is NOT necessarily required for salivary timing; follow physician-defined schedule.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 502124); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 502124); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-503775",
@@ -1081,15 +1081,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "No",
     "collectionCount": 5,
     "submissionCount": 5,
-    "specialInstructions": "SPECIAL TIMED SERIES, 5 DIFFERENT TIMEPOINTS: draw/collect 5 separate Salivette devices. REQUIRED: 5 individual samples and 5 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–5. Submit all 5 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Use a fresh Labcorp Salivette for EACH timepoint, not blood tubes. Record actual collection time and date on each Salivette and sequence label. Refrigerate and submit every timepoint together on one requisition. Hormone medication challenge is NOT necessarily required for salivary timing; follow physician-defined schedule.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 5 DIFFERENT TIMEPOINTS: draw/collect 5 separate Salivette devices. REQUIRED: 5 individual samples and 5 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–5. Submit all 5 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Use a fresh LabCorp Salivette for EACH timepoint, not blood tubes. Record actual collection time and date on each Salivette and sequence label. Refrigerate and submit every timepoint together on one requisition. Hormone medication challenge is NOT necessarily required for salivary timing; follow physician-defined schedule.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 503775); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 503775); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-503776",
@@ -1103,15 +1103,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "No",
     "collectionCount": 6,
     "submissionCount": 6,
-    "specialInstructions": "SPECIAL TIMED SERIES, 6 DIFFERENT TIMEPOINTS: draw/collect 6 separate Salivette devices. REQUIRED: 6 individual samples and 6 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–6. Submit all 6 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Use a fresh Labcorp Salivette for EACH timepoint, not blood tubes. Record actual collection time and date on each Salivette and sequence label. Refrigerate and submit every timepoint together on one requisition. Hormone medication challenge is NOT necessarily required for salivary timing; follow physician-defined schedule.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 6 DIFFERENT TIMEPOINTS: draw/collect 6 separate Salivette devices. REQUIRED: 6 individual samples and 6 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–6. Submit all 6 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Use a fresh LabCorp Salivette for EACH timepoint, not blood tubes. Record actual collection time and date on each Salivette and sequence label. Refrigerate and submit every timepoint together on one requisition. Hormone medication challenge is NOT necessarily required for salivary timing; follow physician-defined schedule.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 503776); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 503776); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-503777",
@@ -1125,15 +1125,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "No",
     "collectionCount": 7,
     "submissionCount": 7,
-    "specialInstructions": "SPECIAL TIMED SERIES, 7 DIFFERENT TIMEPOINTS: draw/collect 7 separate Salivette devices. REQUIRED: 7 individual samples and 7 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–7. Submit all 7 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Use a fresh Labcorp Salivette for EACH timepoint, not blood tubes. Record actual collection time and date on each Salivette and sequence label. Refrigerate and submit every timepoint together on one requisition. Hormone medication challenge is NOT necessarily required for salivary timing; follow physician-defined schedule.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 7 DIFFERENT TIMEPOINTS: draw/collect 7 separate Salivette devices. REQUIRED: 7 individual samples and 7 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–7. Submit all 7 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Use a fresh LabCorp Salivette for EACH timepoint, not blood tubes. Record actual collection time and date on each Salivette and sequence label. Refrigerate and submit every timepoint together on one requisition. Hormone medication challenge is NOT necessarily required for salivary timing; follow physician-defined schedule.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 503777); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 503777); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-143302",
@@ -1147,15 +1147,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 2,
     "submissionCount": 2,
-    "specialInstructions": "SPECIAL TIMED SERIES, 2 DIFFERENT TIMEPOINTS: draw/collect 2 separate SST / Gold tubes. REQUIRED: 2 individual samples and 2 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–2. Submit all 2 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Centrifuge, separate serum, and refrigerate each individually labeled timed aliquot. Specific stimulus/fasting protocol must be authorized by ordering clinician.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 2 DIFFERENT TIMEPOINTS: draw/collect 2 separate SST / Gold tubes. REQUIRED: 2 individual samples and 2 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–2. Submit all 2 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Centrifuge, separate serum, and refrigerate each individually labeled timed aliquot. Specific stimulus/fasting protocol must be authorized by ordering clinician.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 143302); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 143302); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-143333",
@@ -1169,15 +1169,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 3,
-    "specialInstructions": "SPECIAL TIMED SERIES, 3 DIFFERENT TIMEPOINTS: draw/collect 3 separate SST / Gold tubes. REQUIRED: 3 individual samples and 3 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–3. Submit all 3 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Centrifuge, separate serum, and refrigerate each individually labeled timed aliquot. Specific stimulus/fasting protocol must be authorized by ordering clinician.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 3 DIFFERENT TIMEPOINTS: draw/collect 3 separate SST / Gold tubes. REQUIRED: 3 individual samples and 3 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–3. Submit all 3 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Centrifuge, separate serum, and refrigerate each individually labeled timed aliquot. Specific stimulus/fasting protocol must be authorized by ordering clinician.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 143333); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 143333); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-143324",
@@ -1191,15 +1191,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 4,
     "submissionCount": 4,
-    "specialInstructions": "SPECIAL TIMED SERIES, 4 DIFFERENT TIMEPOINTS: draw/collect 4 separate SST / Gold tubes. REQUIRED: 4 individual samples and 4 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–4. Submit all 4 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Centrifuge, separate serum, and refrigerate each individually labeled timed aliquot. Specific stimulus/fasting protocol must be authorized by ordering clinician.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 4 DIFFERENT TIMEPOINTS: draw/collect 4 separate SST / Gold tubes. REQUIRED: 4 individual samples and 4 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–4. Submit all 4 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Centrifuge, separate serum, and refrigerate each individually labeled timed aliquot. Specific stimulus/fasting protocol must be authorized by ordering clinician.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 143324); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 143324); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-015798",
@@ -1213,15 +1213,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 5,
     "submissionCount": 5,
-    "specialInstructions": "SPECIAL TIMED SERIES, 5 DIFFERENT TIMEPOINTS: draw/collect 5 separate SST / Gold tubes. REQUIRED: 5 individual samples and 5 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–5. Submit all 5 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Centrifuge, separate serum, and refrigerate each individually labeled timed aliquot. Specific stimulus/fasting protocol must be authorized by ordering clinician.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 5 DIFFERENT TIMEPOINTS: draw/collect 5 separate SST / Gold tubes. REQUIRED: 5 individual samples and 5 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–5. Submit all 5 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Centrifuge, separate serum, and refrigerate each individually labeled timed aliquot. Specific stimulus/fasting protocol must be authorized by ordering clinician.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 015798); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 015798); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-319609",
@@ -1235,15 +1235,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 6,
     "submissionCount": 6,
-    "specialInstructions": "SPECIAL TIMED SERIES, 6 DIFFERENT TIMEPOINTS: draw/collect 6 separate SST / Gold tubes. REQUIRED: 6 individual samples and 6 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–6. Submit all 6 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Centrifuge, separate serum, and refrigerate each individually labeled timed aliquot. Specific stimulus/fasting protocol must be authorized by ordering clinician.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 6 DIFFERENT TIMEPOINTS: draw/collect 6 separate SST / Gold tubes. REQUIRED: 6 individual samples and 6 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–6. Submit all 6 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Centrifuge, separate serum, and refrigerate each individually labeled timed aliquot. Specific stimulus/fasting protocol must be authorized by ordering clinician.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 319609); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 319609); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-015801",
@@ -1257,15 +1257,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 7,
     "submissionCount": 7,
-    "specialInstructions": "SPECIAL TIMED SERIES, 7 DIFFERENT TIMEPOINTS: draw/collect 7 separate SST / Gold tubes. REQUIRED: 7 individual samples and 7 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–7. Submit all 7 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Centrifuge, separate serum, and refrigerate each individually labeled timed aliquot. Specific stimulus/fasting protocol must be authorized by ordering clinician.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 7 DIFFERENT TIMEPOINTS: draw/collect 7 separate SST / Gold tubes. REQUIRED: 7 individual samples and 7 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–7. Submit all 7 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Centrifuge, separate serum, and refrigerate each individually labeled timed aliquot. Specific stimulus/fasting protocol must be authorized by ordering clinician.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 015801); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 015801); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-015804",
@@ -1279,15 +1279,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 8,
     "submissionCount": 8,
-    "specialInstructions": "SPECIAL TIMED SERIES, 8 DIFFERENT TIMEPOINTS: draw/collect 8 separate SST / Gold tubes. REQUIRED: 8 individual samples and 8 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–8. Submit all 8 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Centrifuge, separate serum, and refrigerate each individually labeled timed aliquot. Specific stimulus/fasting protocol must be authorized by ordering clinician.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 8 DIFFERENT TIMEPOINTS: draw/collect 8 separate SST / Gold tubes. REQUIRED: 8 individual samples and 8 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–8. Submit all 8 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Centrifuge, separate serum, and refrigerate each individually labeled timed aliquot. Specific stimulus/fasting protocol must be authorized by ordering clinician.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 015804); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 015804); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-208827",
@@ -1301,15 +1301,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 2,
     "submissionCount": 2,
-    "specialInstructions": "SPECIAL TIMED SERIES, 2 DIFFERENT TIMEPOINTS: draw/collect 2 separate SST / Gold tubes. REQUIRED: 2 individual samples and 2 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–2. Submit all 2 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum and immediately freeze EACH timepoint in a different dedicated frozen Transpak. Do not share frozen aliquots. Fasting and medicines that affect gastrin require ordering clinician instructions.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 2 DIFFERENT TIMEPOINTS: draw/collect 2 separate SST / Gold tubes. REQUIRED: 2 individual samples and 2 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–2. Submit all 2 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum and immediately freeze EACH timepoint in a different dedicated frozen Transpak. Do not share frozen aliquots. Fasting and medicines that affect gastrin require ordering clinician instructions.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 208827); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 208827); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-038745",
@@ -1323,15 +1323,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 3,
-    "specialInstructions": "SPECIAL TIMED SERIES, 3 DIFFERENT TIMEPOINTS: draw/collect 3 separate SST / Gold tubes. REQUIRED: 3 individual samples and 3 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–3. Submit all 3 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum and immediately freeze EACH timepoint in a different dedicated frozen Transpak. Do not share frozen aliquots. Fasting and medicines that affect gastrin require ordering clinician instructions.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 3 DIFFERENT TIMEPOINTS: draw/collect 3 separate SST / Gold tubes. REQUIRED: 3 individual samples and 3 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–3. Submit all 3 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum and immediately freeze EACH timepoint in a different dedicated frozen Transpak. Do not share frozen aliquots. Fasting and medicines that affect gastrin require ordering clinician instructions.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038745); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038745); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-039438",
@@ -1345,15 +1345,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 4,
     "submissionCount": 4,
-    "specialInstructions": "SPECIAL TIMED SERIES, 4 DIFFERENT TIMEPOINTS: draw/collect 4 separate SST / Gold tubes. REQUIRED: 4 individual samples and 4 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–4. Submit all 4 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum and immediately freeze EACH timepoint in a different dedicated frozen Transpak. Do not share frozen aliquots. Fasting and medicines that affect gastrin require ordering clinician instructions.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 4 DIFFERENT TIMEPOINTS: draw/collect 4 separate SST / Gold tubes. REQUIRED: 4 individual samples and 4 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–4. Submit all 4 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum and immediately freeze EACH timepoint in a different dedicated frozen Transpak. Do not share frozen aliquots. Fasting and medicines that affect gastrin require ordering clinician instructions.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 039438); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 039438); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-038752",
@@ -1367,15 +1367,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 5,
     "submissionCount": 5,
-    "specialInstructions": "SPECIAL TIMED SERIES, 5 DIFFERENT TIMEPOINTS: draw/collect 5 separate SST / Gold tubes. REQUIRED: 5 individual samples and 5 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–5. Submit all 5 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum and immediately freeze EACH timepoint in a different dedicated frozen Transpak. Do not share frozen aliquots. Fasting and medicines that affect gastrin require ordering clinician instructions.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 5 DIFFERENT TIMEPOINTS: draw/collect 5 separate SST / Gold tubes. REQUIRED: 5 individual samples and 5 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–5. Submit all 5 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum and immediately freeze EACH timepoint in a different dedicated frozen Transpak. Do not share frozen aliquots. Fasting and medicines that affect gastrin require ordering clinician instructions.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038752); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038752); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-204644",
@@ -1389,15 +1389,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 6,
     "submissionCount": 6,
-    "specialInstructions": "SPECIAL TIMED SERIES, 6 DIFFERENT TIMEPOINTS: draw/collect 6 separate SST / Gold tubes. REQUIRED: 6 individual samples and 6 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–6. Submit all 6 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum and immediately freeze EACH timepoint in a different dedicated frozen Transpak. Do not share frozen aliquots. Fasting and medicines that affect gastrin require ordering clinician instructions.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 6 DIFFERENT TIMEPOINTS: draw/collect 6 separate SST / Gold tubes. REQUIRED: 6 individual samples and 6 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–6. Submit all 6 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum and immediately freeze EACH timepoint in a different dedicated frozen Transpak. Do not share frozen aliquots. Fasting and medicines that affect gastrin require ordering clinician instructions.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 204644); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 204644); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-034934",
@@ -1411,15 +1411,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 7,
     "submissionCount": 7,
-    "specialInstructions": "SPECIAL TIMED SERIES, 7 DIFFERENT TIMEPOINTS: draw/collect 7 separate SST / Gold tubes. REQUIRED: 7 individual samples and 7 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–7. Submit all 7 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum and immediately freeze EACH timepoint in a different dedicated frozen Transpak. Do not share frozen aliquots. Fasting and medicines that affect gastrin require ordering clinician instructions.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 7 DIFFERENT TIMEPOINTS: draw/collect 7 separate SST / Gold tubes. REQUIRED: 7 individual samples and 7 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–7. Submit all 7 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum and immediately freeze EACH timepoint in a different dedicated frozen Transpak. Do not share frozen aliquots. Fasting and medicines that affect gastrin require ordering clinician instructions.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 034934); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 034934); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-211268",
@@ -1433,15 +1433,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 8,
     "submissionCount": 8,
-    "specialInstructions": "SPECIAL TIMED SERIES, 8 DIFFERENT TIMEPOINTS: draw/collect 8 separate SST / Gold tubes. REQUIRED: 8 individual samples and 8 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–8. Submit all 8 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum and immediately freeze EACH timepoint in a different dedicated frozen Transpak. Do not share frozen aliquots. Fasting and medicines that affect gastrin require ordering clinician instructions.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 8 DIFFERENT TIMEPOINTS: draw/collect 8 separate SST / Gold tubes. REQUIRED: 8 individual samples and 8 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–8. Submit all 8 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Separate serum and immediately freeze EACH timepoint in a different dedicated frozen Transpak. Do not share frozen aliquots. Fasting and medicines that affect gastrin require ordering clinician instructions.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 211268); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 211268); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-026898",
@@ -1455,15 +1455,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 2,
     "submissionCount": 2,
-    "specialInstructions": "SPECIAL TIMED SERIES, 2 DIFFERENT TIMEPOINTS: draw/collect 2 separate SST / Gold tubes. REQUIRED: 2 individual samples and 2 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–2. Submit all 2 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Serum drawn at each scheduled interval for an approved endocrine stimulus/suppression protocol. Refrigerate separated serum; do not pool timepoints. Some stimulation procedures require physician presence and emergency glucose availability.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 2 DIFFERENT TIMEPOINTS: draw/collect 2 separate SST / Gold tubes. REQUIRED: 2 individual samples and 2 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–2. Submit all 2 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Serum drawn at each scheduled interval for an approved endocrine stimulus/suppression protocol. Refrigerate separated serum; do not pool timepoints. Some stimulation procedures require physician presence and emergency glucose availability.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 026898); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 026898); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-038844",
@@ -1477,15 +1477,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 3,
-    "specialInstructions": "SPECIAL TIMED SERIES, 3 DIFFERENT TIMEPOINTS: draw/collect 3 separate SST / Gold tubes. REQUIRED: 3 individual samples and 3 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–3. Submit all 3 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Serum drawn at each scheduled interval for an approved endocrine stimulus/suppression protocol. Refrigerate separated serum; do not pool timepoints. Some stimulation procedures require physician presence and emergency glucose availability.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 3 DIFFERENT TIMEPOINTS: draw/collect 3 separate SST / Gold tubes. REQUIRED: 3 individual samples and 3 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–3. Submit all 3 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Serum drawn at each scheduled interval for an approved endocrine stimulus/suppression protocol. Refrigerate separated serum; do not pool timepoints. Some stimulation procedures require physician presence and emergency glucose availability.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038844); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038844); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-045997",
@@ -1499,15 +1499,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 4,
     "submissionCount": 4,
-    "specialInstructions": "SPECIAL TIMED SERIES, 4 DIFFERENT TIMEPOINTS: draw/collect 4 separate SST / Gold tubes. REQUIRED: 4 individual samples and 4 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–4. Submit all 4 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Serum drawn at each scheduled interval for an approved endocrine stimulus/suppression protocol. Refrigerate separated serum; do not pool timepoints. Some stimulation procedures require physician presence and emergency glucose availability.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 4 DIFFERENT TIMEPOINTS: draw/collect 4 separate SST / Gold tubes. REQUIRED: 4 individual samples and 4 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–4. Submit all 4 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Serum drawn at each scheduled interval for an approved endocrine stimulus/suppression protocol. Refrigerate separated serum; do not pool timepoints. Some stimulation procedures require physician presence and emergency glucose availability.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 045997); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 045997); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-038836",
@@ -1521,15 +1521,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 5,
     "submissionCount": 5,
-    "specialInstructions": "SPECIAL TIMED SERIES, 5 DIFFERENT TIMEPOINTS: draw/collect 5 separate SST / Gold tubes. REQUIRED: 5 individual samples and 5 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–5. Submit all 5 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Serum drawn at each scheduled interval for an approved endocrine stimulus/suppression protocol. Refrigerate separated serum; do not pool timepoints. Some stimulation procedures require physician presence and emergency glucose availability.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 5 DIFFERENT TIMEPOINTS: draw/collect 5 separate SST / Gold tubes. REQUIRED: 5 individual samples and 5 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–5. Submit all 5 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Serum drawn at each scheduled interval for an approved endocrine stimulus/suppression protocol. Refrigerate separated serum; do not pool timepoints. Some stimulation procedures require physician presence and emergency glucose availability.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038836); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038836); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-004267",
@@ -1543,15 +1543,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 6,
     "submissionCount": 6,
-    "specialInstructions": "SPECIAL TIMED SERIES, 6 DIFFERENT TIMEPOINTS: draw/collect 6 separate SST / Gold tubes. REQUIRED: 6 individual samples and 6 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–6. Submit all 6 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Serum drawn at each scheduled interval for an approved endocrine stimulus/suppression protocol. Refrigerate separated serum; do not pool timepoints. Some stimulation procedures require physician presence and emergency glucose availability.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 6 DIFFERENT TIMEPOINTS: draw/collect 6 separate SST / Gold tubes. REQUIRED: 6 individual samples and 6 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–6. Submit all 6 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Serum drawn at each scheduled interval for an approved endocrine stimulus/suppression protocol. Refrigerate separated serum; do not pool timepoints. Some stimulation procedures require physician presence and emergency glucose availability.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 004267); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 004267); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-038869",
@@ -1565,15 +1565,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 7,
     "submissionCount": 7,
-    "specialInstructions": "SPECIAL TIMED SERIES, 7 DIFFERENT TIMEPOINTS: draw/collect 7 separate SST / Gold tubes. REQUIRED: 7 individual samples and 7 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–7. Submit all 7 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Serum drawn at each scheduled interval for an approved endocrine stimulus/suppression protocol. Refrigerate separated serum; do not pool timepoints. Some stimulation procedures require physician presence and emergency glucose availability.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 7 DIFFERENT TIMEPOINTS: draw/collect 7 separate SST / Gold tubes. REQUIRED: 7 individual samples and 7 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–7. Submit all 7 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Serum drawn at each scheduled interval for an approved endocrine stimulus/suppression protocol. Refrigerate separated serum; do not pool timepoints. Some stimulation procedures require physician presence and emergency glucose availability.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038869); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038869); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-208835",
@@ -1587,15 +1587,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 8,
     "submissionCount": 8,
-    "specialInstructions": "SPECIAL TIMED SERIES, 8 DIFFERENT TIMEPOINTS: draw/collect 8 separate SST / Gold tubes. REQUIRED: 8 individual samples and 8 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–8. Submit all 8 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Serum drawn at each scheduled interval for an approved endocrine stimulus/suppression protocol. Refrigerate separated serum; do not pool timepoints. Some stimulation procedures require physician presence and emergency glucose availability.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 8 DIFFERENT TIMEPOINTS: draw/collect 8 separate SST / Gold tubes. REQUIRED: 8 individual samples and 8 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–8. Submit all 8 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Serum drawn at each scheduled interval for an approved endocrine stimulus/suppression protocol. Refrigerate separated serum; do not pool timepoints. Some stimulation procedures require physician presence and emergency glucose availability.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 208835); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 208835); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-146902",
@@ -1609,15 +1609,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 2,
     "submissionCount": 2,
-    "specialInstructions": "SPECIAL TIMED SERIES, 2 DIFFERENT TIMEPOINTS: draw/collect 2 separate SST / Gold tubes. REQUIRED: 2 individual samples and 2 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–2. Submit all 2 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Labcorp's insulin multispecimen page specifies 2 mL serum for fasting and EACH subsequent interval; separate from cells within 45 minutes. Label the time interval. Use only under provider-approved challenge/stimulation protocol.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 2 DIFFERENT TIMEPOINTS: draw/collect 2 separate SST / Gold tubes. REQUIRED: 2 individual samples and 2 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–2. Submit all 2 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. LabCorp's insulin multispecimen page specifies 2 mL serum for fasting and EACH subsequent interval; separate from cells within 45 minutes. Label the time interval. Use only under provider-approved challenge/stimulation protocol.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 146902); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 146902); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-146993",
@@ -1631,15 +1631,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 3,
-    "specialInstructions": "SPECIAL TIMED SERIES, 3 DIFFERENT TIMEPOINTS: draw/collect 3 separate SST / Gold tubes. REQUIRED: 3 individual samples and 3 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–3. Submit all 3 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Labcorp's insulin multispecimen page specifies 2 mL serum for fasting and EACH subsequent interval; separate from cells within 45 minutes. Label the time interval. Use only under provider-approved challenge/stimulation protocol.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 3 DIFFERENT TIMEPOINTS: draw/collect 3 separate SST / Gold tubes. REQUIRED: 3 individual samples and 3 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–3. Submit all 3 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. LabCorp's insulin multispecimen page specifies 2 mL serum for fasting and EACH subsequent interval; separate from cells within 45 minutes. Label the time interval. Use only under provider-approved challenge/stimulation protocol.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 146993); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 146993); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-147074",
@@ -1653,15 +1653,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 4,
     "submissionCount": 4,
-    "specialInstructions": "SPECIAL TIMED SERIES, 4 DIFFERENT TIMEPOINTS: draw/collect 4 separate SST / Gold tubes. REQUIRED: 4 individual samples and 4 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–4. Submit all 4 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Labcorp's insulin multispecimen page specifies 2 mL serum for fasting and EACH subsequent interval; separate from cells within 45 minutes. Label the time interval. Use only under provider-approved challenge/stimulation protocol.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 4 DIFFERENT TIMEPOINTS: draw/collect 4 separate SST / Gold tubes. REQUIRED: 4 individual samples and 4 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–4. Submit all 4 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. LabCorp's insulin multispecimen page specifies 2 mL serum for fasting and EACH subsequent interval; separate from cells within 45 minutes. Label the time interval. Use only under provider-approved challenge/stimulation protocol.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 147074); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 147074); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-147165",
@@ -1675,15 +1675,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 5,
     "submissionCount": 5,
-    "specialInstructions": "SPECIAL TIMED SERIES, 5 DIFFERENT TIMEPOINTS: draw/collect 5 separate SST / Gold tubes. REQUIRED: 5 individual samples and 5 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–5. Submit all 5 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Labcorp's insulin multispecimen page specifies 2 mL serum for fasting and EACH subsequent interval; separate from cells within 45 minutes. Label the time interval. Use only under provider-approved challenge/stimulation protocol.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 5 DIFFERENT TIMEPOINTS: draw/collect 5 separate SST / Gold tubes. REQUIRED: 5 individual samples and 5 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–5. Submit all 5 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. LabCorp's insulin multispecimen page specifies 2 mL serum for fasting and EACH subsequent interval; separate from cells within 45 minutes. Label the time interval. Use only under provider-approved challenge/stimulation protocol.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 147165); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 147165); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-147256",
@@ -1697,15 +1697,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 6,
     "submissionCount": 6,
-    "specialInstructions": "SPECIAL TIMED SERIES, 6 DIFFERENT TIMEPOINTS: draw/collect 6 separate SST / Gold tubes. REQUIRED: 6 individual samples and 6 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–6. Submit all 6 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Labcorp's insulin multispecimen page specifies 2 mL serum for fasting and EACH subsequent interval; separate from cells within 45 minutes. Label the time interval. Use only under provider-approved challenge/stimulation protocol.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 6 DIFFERENT TIMEPOINTS: draw/collect 6 separate SST / Gold tubes. REQUIRED: 6 individual samples and 6 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–6. Submit all 6 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. LabCorp's insulin multispecimen page specifies 2 mL serum for fasting and EACH subsequent interval; separate from cells within 45 minutes. Label the time interval. Use only under provider-approved challenge/stimulation protocol.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 147256); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 147256); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-147397",
@@ -1719,15 +1719,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 7,
     "submissionCount": 7,
-    "specialInstructions": "SPECIAL TIMED SERIES, 7 DIFFERENT TIMEPOINTS: draw/collect 7 separate SST / Gold tubes. REQUIRED: 7 individual samples and 7 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–7. Submit all 7 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Labcorp's insulin multispecimen page specifies 2 mL serum for fasting and EACH subsequent interval; separate from cells within 45 minutes. Label the time interval. Use only under provider-approved challenge/stimulation protocol.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 7 DIFFERENT TIMEPOINTS: draw/collect 7 separate SST / Gold tubes. REQUIRED: 7 individual samples and 7 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–7. Submit all 7 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. LabCorp's insulin multispecimen page specifies 2 mL serum for fasting and EACH subsequent interval; separate from cells within 45 minutes. Label the time interval. Use only under provider-approved challenge/stimulation protocol.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 147397); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 147397); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-014319",
@@ -1741,15 +1741,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 8,
     "submissionCount": 8,
-    "specialInstructions": "SPECIAL TIMED SERIES, 8 DIFFERENT TIMEPOINTS: draw/collect 8 separate SST / Gold tubes. REQUIRED: 8 individual samples and 8 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–8. Submit all 8 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. Labcorp's insulin multispecimen page specifies 2 mL serum for fasting and EACH subsequent interval; separate from cells within 45 minutes. Label the time interval. Use only under provider-approved challenge/stimulation protocol.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 8 DIFFERENT TIMEPOINTS: draw/collect 8 separate SST / Gold tubes. REQUIRED: 8 individual samples and 8 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–8. Submit all 8 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. LabCorp's insulin multispecimen page specifies 2 mL serum for fasting and EACH subsequent interval; separate from cells within 45 minutes. Label the time interval. Use only under provider-approved challenge/stimulation protocol.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 014319); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 014319); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-053686",
@@ -1763,15 +1763,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 2,
     "submissionCount": 2,
-    "specialInstructions": "SPECIAL TIMED SERIES, 2 DIFFERENT TIMEPOINTS: draw/collect 2 separate lavender EDTA tubes. REQUIRED: 2 individual samples and 2 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–2. Submit all 2 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA plasma only. Do NOT chill EDTA before separation (cold activation can alter renin). Centrifuge promptly at room temperature; transfer and FREEZE each separate timepoint. Non-frozen or unseparated samples are rejected.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 2 DIFFERENT TIMEPOINTS: draw/collect 2 separate lavender EDTA tubes. REQUIRED: 2 individual samples and 2 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–2. Submit all 2 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA plasma only. Do NOT chill EDTA before separation (cold activation can alter renin). Centrifuge promptly at room temperature; transfer and FREEZE each separate timepoint. Non-frozen or unseparated samples are rejected.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 053686); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 053686); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-038695",
@@ -1785,15 +1785,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 3,
-    "specialInstructions": "SPECIAL TIMED SERIES, 3 DIFFERENT TIMEPOINTS: draw/collect 3 separate lavender EDTA tubes. REQUIRED: 3 individual samples and 3 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–3. Submit all 3 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA plasma only. Do NOT chill EDTA before separation (cold activation can alter renin). Centrifuge promptly at room temperature; transfer and FREEZE each separate timepoint. Non-frozen or unseparated samples are rejected.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 3 DIFFERENT TIMEPOINTS: draw/collect 3 separate lavender EDTA tubes. REQUIRED: 3 individual samples and 3 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–3. Submit all 3 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA plasma only. Do NOT chill EDTA before separation (cold activation can alter renin). Centrifuge promptly at room temperature; transfer and FREEZE each separate timepoint. Non-frozen or unseparated samples are rejected.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038695); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038695); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-049510",
@@ -1807,15 +1807,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 4,
     "submissionCount": 4,
-    "specialInstructions": "SPECIAL TIMED SERIES, 4 DIFFERENT TIMEPOINTS: draw/collect 4 separate lavender EDTA tubes. REQUIRED: 4 individual samples and 4 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–4. Submit all 4 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA plasma only. Do NOT chill EDTA before separation (cold activation can alter renin). Centrifuge promptly at room temperature; transfer and FREEZE each separate timepoint. Non-frozen or unseparated samples are rejected.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 4 DIFFERENT TIMEPOINTS: draw/collect 4 separate lavender EDTA tubes. REQUIRED: 4 individual samples and 4 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–4. Submit all 4 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA plasma only. Do NOT chill EDTA before separation (cold activation can alter renin). Centrifuge promptly at room temperature; transfer and FREEZE each separate timepoint. Non-frozen or unseparated samples are rejected.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 049510); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 049510); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-038703",
@@ -1829,15 +1829,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 5,
     "submissionCount": 5,
-    "specialInstructions": "SPECIAL TIMED SERIES, 5 DIFFERENT TIMEPOINTS: draw/collect 5 separate lavender EDTA tubes. REQUIRED: 5 individual samples and 5 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–5. Submit all 5 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA plasma only. Do NOT chill EDTA before separation (cold activation can alter renin). Centrifuge promptly at room temperature; transfer and FREEZE each separate timepoint. Non-frozen or unseparated samples are rejected.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 5 DIFFERENT TIMEPOINTS: draw/collect 5 separate lavender EDTA tubes. REQUIRED: 5 individual samples and 5 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–5. Submit all 5 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA plasma only. Do NOT chill EDTA before separation (cold activation can alter renin). Centrifuge promptly at room temperature; transfer and FREEZE each separate timepoint. Non-frozen or unseparated samples are rejected.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038703); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 038703); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-049528",
@@ -1851,15 +1851,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 6,
     "submissionCount": 6,
-    "specialInstructions": "SPECIAL TIMED SERIES, 6 DIFFERENT TIMEPOINTS: draw/collect 6 separate lavender EDTA tubes. REQUIRED: 6 individual samples and 6 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–6. Submit all 6 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA plasma only. Do NOT chill EDTA before separation (cold activation can alter renin). Centrifuge promptly at room temperature; transfer and FREEZE each separate timepoint. Non-frozen or unseparated samples are rejected.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 6 DIFFERENT TIMEPOINTS: draw/collect 6 separate lavender EDTA tubes. REQUIRED: 6 individual samples and 6 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–6. Submit all 6 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA plasma only. Do NOT chill EDTA before separation (cold activation can alter renin). Centrifuge promptly at room temperature; transfer and FREEZE each separate timepoint. Non-frozen or unseparated samples are rejected.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 049528); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 049528); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-091173",
@@ -1873,15 +1873,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 7,
     "submissionCount": 7,
-    "specialInstructions": "SPECIAL TIMED SERIES, 7 DIFFERENT TIMEPOINTS: draw/collect 7 separate lavender EDTA tubes. REQUIRED: 7 individual samples and 7 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–7. Submit all 7 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA plasma only. Do NOT chill EDTA before separation (cold activation can alter renin). Centrifuge promptly at room temperature; transfer and FREEZE each separate timepoint. Non-frozen or unseparated samples are rejected.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 7 DIFFERENT TIMEPOINTS: draw/collect 7 separate lavender EDTA tubes. REQUIRED: 7 individual samples and 7 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–7. Submit all 7 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA plasma only. Do NOT chill EDTA before separation (cold activation can alter renin). Centrifuge promptly at room temperature; transfer and FREEZE each separate timepoint. Non-frozen or unseparated samples are rejected.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 091173); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 091173); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   },
   {
     "id": "labcorp-091181",
@@ -1895,22 +1895,22 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Use test-specific Labcorp stability; timed samples must be separated and maintained at stated transport temperature",
+    "stability": "Use test-specific LabCorp stability; timed samples must be separated and maintained at stated transport temperature",
     "spin": "Yes",
     "collectionCount": 8,
     "submissionCount": 8,
-    "specialInstructions": "SPECIAL TIMED SERIES, 8 DIFFERENT TIMEPOINTS: draw/collect 8 separate lavender EDTA tubes. REQUIRED: 8 individual samples and 8 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–8. Submit all 8 simultaneously under ONE requisition with timed specimen labels (Labcorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA plasma only. Do NOT chill EDTA before separation (cold activation can alter renin). Centrifuge promptly at room temperature; transfer and FREEZE each separate timepoint. Non-frozen or unseparated samples are rejected.",
+    "specialInstructions": "SPECIAL TIMED SERIES, 8 DIFFERENT TIMEPOINTS: draw/collect 8 separate lavender EDTA tubes. REQUIRED: 8 individual samples and 8 separately labeled transport containers, NEVER pooled or shared. Label each specimen with patient, date, time, and timepoint 1–8. Submit all 8 simultaneously under ONE requisition with timed specimen labels (LabCorp item 3715). Confirm exact protocol, timepoints, and test code with ordering clinician and receiving lab BEFORE collecting. For blood challenge panels, these are NOT routine serial draws and generally require a directed baseline-plus-intervention protocol. EDTA plasma only. Do NOT chill EDTA before separation (cold activation can alter renin). Centrifuge promptly at room temperature; transfer and FREEZE each separate timepoint. Non-frozen or unseparated samples are rejected.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 091181); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
+    "source": "LabCorp official Multiple-specimen Testing: https://www.labcorp.com/test-menu/resources/multiple-specimen-testing (order 091181); timepoint-specific kit instruction: https://www.labcorp.com/assets-media/2395"
   }
 ];const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];const codes=new Set(catalog.map(x=>String(x.testCode)));for(const item of additions){if(!codes.has(item.testCode)){catalog.push(item);codes.add(item.testCode);}}window.SEED_TESTS=catalog;})();
 ;
 
 /* SOURCE: labcorp-timed-hormone-followup-20261022-data.js */
 ;
-/* Timed clinical endocrine orders from official Labcorp listings. Do not conflate DHEA, DHEA-S, and 17-OH Progesterone. */
+/* Timed clinical endocrine orders from official LabCorp listings. Do not conflate DHEA, DHEA-S, and 17-OH Progesterone. */
 (()=>{'use strict';const additions=[
   {
     "id": "labcorp-144691",
@@ -1924,7 +1924,7 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate separated specimens; verify current Labcorp time limits for specific assay",
+    "stability": "Refrigerate separated specimens; verify current LabCorp time limits for specific assay",
     "spin": "Yes",
     "collectionCount": 2,
     "submissionCount": 2,
@@ -1932,7 +1932,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official multiple-specimen order-code table (2026-10-22) • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
+    "source": "LabCorp official multiple-specimen order-code table (2026-10-22) • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
   },
   {
     "id": "labcorp-144706",
@@ -1946,7 +1946,7 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate separated specimens; verify current Labcorp time limits for specific assay",
+    "stability": "Refrigerate separated specimens; verify current LabCorp time limits for specific assay",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 3,
@@ -1954,7 +1954,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official multiple-specimen order-code table (2026-10-22) • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
+    "source": "LabCorp official multiple-specimen order-code table (2026-10-22) • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
   },
   {
     "id": "labcorp-146316",
@@ -1968,7 +1968,7 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate separated specimens; verify current Labcorp time limits for specific assay",
+    "stability": "Refrigerate separated specimens; verify current LabCorp time limits for specific assay",
     "spin": "Yes",
     "collectionCount": 4,
     "submissionCount": 4,
@@ -1976,7 +1976,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official multiple-specimen order-code table (2026-10-22) • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
+    "source": "LabCorp official multiple-specimen order-code table (2026-10-22) • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
   },
   {
     "id": "labcorp-144707",
@@ -1990,7 +1990,7 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate separated specimens; verify current Labcorp time limits for specific assay",
+    "stability": "Refrigerate separated specimens; verify current LabCorp time limits for specific assay",
     "spin": "Yes",
     "collectionCount": 5,
     "submissionCount": 5,
@@ -1998,7 +1998,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official multiple-specimen order-code table (2026-10-22) • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
+    "source": "LabCorp official multiple-specimen order-code table (2026-10-22) • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
   },
   {
     "id": "labcorp-144708",
@@ -2012,7 +2012,7 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate separated specimens; verify current Labcorp time limits for specific assay",
+    "stability": "Refrigerate separated specimens; verify current LabCorp time limits for specific assay",
     "spin": "Yes",
     "collectionCount": 6,
     "submissionCount": 6,
@@ -2020,7 +2020,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official multiple-specimen order-code table (2026-10-22) • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
+    "source": "LabCorp official multiple-specimen order-code table (2026-10-22) • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
   },
   {
     "id": "labcorp-144710",
@@ -2034,7 +2034,7 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate separated specimens; verify current Labcorp time limits for specific assay",
+    "stability": "Refrigerate separated specimens; verify current LabCorp time limits for specific assay",
     "spin": "Yes",
     "collectionCount": 7,
     "submissionCount": 7,
@@ -2042,7 +2042,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official multiple-specimen order-code table (2026-10-22) • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
+    "source": "LabCorp official multiple-specimen order-code table (2026-10-22) • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
   },
   {
     "id": "labcorp-144711",
@@ -2056,7 +2056,7 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate separated specimens; verify current Labcorp time limits for specific assay",
+    "stability": "Refrigerate separated specimens; verify current LabCorp time limits for specific assay",
     "spin": "Yes",
     "collectionCount": 8,
     "submissionCount": 8,
@@ -2064,7 +2064,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official multiple-specimen order-code table (2026-10-22) • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
+    "source": "LabCorp official multiple-specimen order-code table (2026-10-22) • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
   },
   {
     "id": "labcorp-070037",
@@ -2078,15 +2078,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate separated specimens; verify current Labcorp time limits for specific assay",
+    "stability": "Refrigerate separated specimens; verify current LabCorp time limits for specific assay",
     "spin": "Yes",
     "collectionCount": 2,
     "submissionCount": 2,
-    "specialInstructions": "TIMED CLINICIAN-DIRECTED CHALLENGE PANEL: 2 separate blood draws at prescribed intervals; collect 2 separate SST tubes and submit 2 SEPARATE plastic transport tubes, one for each timepoint. DO NOT SHARE/POOL tubes or aliquots between timepoints. LABEL each with patient, date, sequence/time, and submit all together with one requisition. Before performing, confirm testing protocol and intended medication/challenge with ordering clinician and performing lab; do not use for routine single draws. Serum or EDTA plasma per Labcorp; use different dedicated collection/transport containers for each scheduled draw. LC/MS methodology distinct from standard 17-OHP immunoassay.",
+    "specialInstructions": "TIMED CLINICIAN-DIRECTED CHALLENGE PANEL: 2 separate blood draws at prescribed intervals; collect 2 separate SST tubes and submit 2 SEPARATE plastic transport tubes, one for each timepoint. DO NOT SHARE/POOL tubes or aliquots between timepoints. LABEL each with patient, date, sequence/time, and submit all together with one requisition. Before performing, confirm testing protocol and intended medication/challenge with ordering clinician and performing lab; do not use for routine single draws. Serum or EDTA plasma per LabCorp; use different dedicated collection/transport containers for each scheduled draw. LC/MS methodology distinct from standard 17-OHP immunoassay.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp multiple-specimen testing table https://www.labcorp.com/test-menu/resources/multiple-specimen-testing ; confirmed Labcorp test code 070037 in official test menu"
+    "source": "LabCorp multiple-specimen testing table https://www.labcorp.com/test-menu/resources/multiple-specimen-testing ; confirmed LabCorp test code 070037 in official test menu"
   },
   {
     "id": "labcorp-070078",
@@ -2100,15 +2100,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate separated specimens; verify current Labcorp time limits for specific assay",
+    "stability": "Refrigerate separated specimens; verify current LabCorp time limits for specific assay",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 3,
-    "specialInstructions": "TIMED CLINICIAN-DIRECTED CHALLENGE PANEL: 3 separate blood draws at prescribed intervals; collect 3 separate SST tubes and submit 3 SEPARATE plastic transport tubes, one for each timepoint. DO NOT SHARE/POOL tubes or aliquots between timepoints. LABEL each with patient, date, sequence/time, and submit all together with one requisition. Before performing, confirm testing protocol and intended medication/challenge with ordering clinician and performing lab; do not use for routine single draws. Serum or EDTA plasma per Labcorp; use different dedicated collection/transport containers for each scheduled draw. LC/MS methodology distinct from standard 17-OHP immunoassay.",
+    "specialInstructions": "TIMED CLINICIAN-DIRECTED CHALLENGE PANEL: 3 separate blood draws at prescribed intervals; collect 3 separate SST tubes and submit 3 SEPARATE plastic transport tubes, one for each timepoint. DO NOT SHARE/POOL tubes or aliquots between timepoints. LABEL each with patient, date, sequence/time, and submit all together with one requisition. Before performing, confirm testing protocol and intended medication/challenge with ordering clinician and performing lab; do not use for routine single draws. Serum or EDTA plasma per LabCorp; use different dedicated collection/transport containers for each scheduled draw. LC/MS methodology distinct from standard 17-OHP immunoassay.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp multiple-specimen testing table https://www.labcorp.com/test-menu/resources/multiple-specimen-testing ; confirmed Labcorp test code 070078 in official test menu"
+    "source": "LabCorp multiple-specimen testing table https://www.labcorp.com/test-menu/resources/multiple-specimen-testing ; confirmed LabCorp test code 070078 in official test menu"
   },
   {
     "id": "labcorp-070083",
@@ -2122,15 +2122,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate separated specimens; verify current Labcorp time limits for specific assay",
+    "stability": "Refrigerate separated specimens; verify current LabCorp time limits for specific assay",
     "spin": "Yes",
     "collectionCount": 4,
     "submissionCount": 4,
-    "specialInstructions": "TIMED CLINICIAN-DIRECTED CHALLENGE PANEL: 4 separate blood draws at prescribed intervals; collect 4 separate SST tubes and submit 4 SEPARATE plastic transport tubes, one for each timepoint. DO NOT SHARE/POOL tubes or aliquots between timepoints. LABEL each with patient, date, sequence/time, and submit all together with one requisition. Before performing, confirm testing protocol and intended medication/challenge with ordering clinician and performing lab; do not use for routine single draws. Serum or EDTA plasma per Labcorp; use different dedicated collection/transport containers for each scheduled draw. LC/MS methodology distinct from standard 17-OHP immunoassay.",
+    "specialInstructions": "TIMED CLINICIAN-DIRECTED CHALLENGE PANEL: 4 separate blood draws at prescribed intervals; collect 4 separate SST tubes and submit 4 SEPARATE plastic transport tubes, one for each timepoint. DO NOT SHARE/POOL tubes or aliquots between timepoints. LABEL each with patient, date, sequence/time, and submit all together with one requisition. Before performing, confirm testing protocol and intended medication/challenge with ordering clinician and performing lab; do not use for routine single draws. Serum or EDTA plasma per LabCorp; use different dedicated collection/transport containers for each scheduled draw. LC/MS methodology distinct from standard 17-OHP immunoassay.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp multiple-specimen testing table https://www.labcorp.com/test-menu/resources/multiple-specimen-testing ; confirmed Labcorp test code 070083 in official test menu"
+    "source": "LabCorp multiple-specimen testing table https://www.labcorp.com/test-menu/resources/multiple-specimen-testing ; confirmed LabCorp test code 070083 in official test menu"
   },
   {
     "id": "labcorp-070090",
@@ -2144,15 +2144,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate separated specimens; verify current Labcorp time limits for specific assay",
+    "stability": "Refrigerate separated specimens; verify current LabCorp time limits for specific assay",
     "spin": "Yes",
     "collectionCount": 5,
     "submissionCount": 5,
-    "specialInstructions": "TIMED CLINICIAN-DIRECTED CHALLENGE PANEL: 5 separate blood draws at prescribed intervals; collect 5 separate SST tubes and submit 5 SEPARATE plastic transport tubes, one for each timepoint. DO NOT SHARE/POOL tubes or aliquots between timepoints. LABEL each with patient, date, sequence/time, and submit all together with one requisition. Before performing, confirm testing protocol and intended medication/challenge with ordering clinician and performing lab; do not use for routine single draws. Serum or EDTA plasma per Labcorp; use different dedicated collection/transport containers for each scheduled draw. LC/MS methodology distinct from standard 17-OHP immunoassay.",
+    "specialInstructions": "TIMED CLINICIAN-DIRECTED CHALLENGE PANEL: 5 separate blood draws at prescribed intervals; collect 5 separate SST tubes and submit 5 SEPARATE plastic transport tubes, one for each timepoint. DO NOT SHARE/POOL tubes or aliquots between timepoints. LABEL each with patient, date, sequence/time, and submit all together with one requisition. Before performing, confirm testing protocol and intended medication/challenge with ordering clinician and performing lab; do not use for routine single draws. Serum or EDTA plasma per LabCorp; use different dedicated collection/transport containers for each scheduled draw. LC/MS methodology distinct from standard 17-OHP immunoassay.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp multiple-specimen testing table https://www.labcorp.com/test-menu/resources/multiple-specimen-testing ; confirmed Labcorp test code 070090 in official test menu"
+    "source": "LabCorp multiple-specimen testing table https://www.labcorp.com/test-menu/resources/multiple-specimen-testing ; confirmed LabCorp test code 070090 in official test menu"
   },
   {
     "id": "labcorp-070120",
@@ -2166,15 +2166,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate separated specimens; verify current Labcorp time limits for specific assay",
+    "stability": "Refrigerate separated specimens; verify current LabCorp time limits for specific assay",
     "spin": "Yes",
     "collectionCount": 6,
     "submissionCount": 6,
-    "specialInstructions": "TIMED CLINICIAN-DIRECTED CHALLENGE PANEL: 6 separate blood draws at prescribed intervals; collect 6 separate SST tubes and submit 6 SEPARATE plastic transport tubes, one for each timepoint. DO NOT SHARE/POOL tubes or aliquots between timepoints. LABEL each with patient, date, sequence/time, and submit all together with one requisition. Before performing, confirm testing protocol and intended medication/challenge with ordering clinician and performing lab; do not use for routine single draws. Serum or EDTA plasma per Labcorp; use different dedicated collection/transport containers for each scheduled draw. LC/MS methodology distinct from standard 17-OHP immunoassay.",
+    "specialInstructions": "TIMED CLINICIAN-DIRECTED CHALLENGE PANEL: 6 separate blood draws at prescribed intervals; collect 6 separate SST tubes and submit 6 SEPARATE plastic transport tubes, one for each timepoint. DO NOT SHARE/POOL tubes or aliquots between timepoints. LABEL each with patient, date, sequence/time, and submit all together with one requisition. Before performing, confirm testing protocol and intended medication/challenge with ordering clinician and performing lab; do not use for routine single draws. Serum or EDTA plasma per LabCorp; use different dedicated collection/transport containers for each scheduled draw. LC/MS methodology distinct from standard 17-OHP immunoassay.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp multiple-specimen testing table https://www.labcorp.com/test-menu/resources/multiple-specimen-testing ; confirmed Labcorp test code 070120 in official test menu"
+    "source": "LabCorp multiple-specimen testing table https://www.labcorp.com/test-menu/resources/multiple-specimen-testing ; confirmed LabCorp test code 070120 in official test menu"
   },
   {
     "id": "labcorp-070132",
@@ -2188,15 +2188,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate separated specimens; verify current Labcorp time limits for specific assay",
+    "stability": "Refrigerate separated specimens; verify current LabCorp time limits for specific assay",
     "spin": "Yes",
     "collectionCount": 7,
     "submissionCount": 7,
-    "specialInstructions": "TIMED CLINICIAN-DIRECTED CHALLENGE PANEL: 7 separate blood draws at prescribed intervals; collect 7 separate SST tubes and submit 7 SEPARATE plastic transport tubes, one for each timepoint. DO NOT SHARE/POOL tubes or aliquots between timepoints. LABEL each with patient, date, sequence/time, and submit all together with one requisition. Before performing, confirm testing protocol and intended medication/challenge with ordering clinician and performing lab; do not use for routine single draws. Serum or EDTA plasma per Labcorp; use different dedicated collection/transport containers for each scheduled draw. LC/MS methodology distinct from standard 17-OHP immunoassay.",
+    "specialInstructions": "TIMED CLINICIAN-DIRECTED CHALLENGE PANEL: 7 separate blood draws at prescribed intervals; collect 7 separate SST tubes and submit 7 SEPARATE plastic transport tubes, one for each timepoint. DO NOT SHARE/POOL tubes or aliquots between timepoints. LABEL each with patient, date, sequence/time, and submit all together with one requisition. Before performing, confirm testing protocol and intended medication/challenge with ordering clinician and performing lab; do not use for routine single draws. Serum or EDTA plasma per LabCorp; use different dedicated collection/transport containers for each scheduled draw. LC/MS methodology distinct from standard 17-OHP immunoassay.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp multiple-specimen testing table https://www.labcorp.com/test-menu/resources/multiple-specimen-testing ; confirmed Labcorp test code 070132 in official test menu"
+    "source": "LabCorp multiple-specimen testing table https://www.labcorp.com/test-menu/resources/multiple-specimen-testing ; confirmed LabCorp test code 070132 in official test menu"
   },
   {
     "id": "labcorp-070145",
@@ -2210,15 +2210,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate separated specimens; verify current Labcorp time limits for specific assay",
+    "stability": "Refrigerate separated specimens; verify current LabCorp time limits for specific assay",
     "spin": "Yes",
     "collectionCount": 8,
     "submissionCount": 8,
-    "specialInstructions": "TIMED CLINICIAN-DIRECTED CHALLENGE PANEL: 8 separate blood draws at prescribed intervals; collect 8 separate SST tubes and submit 8 SEPARATE plastic transport tubes, one for each timepoint. DO NOT SHARE/POOL tubes or aliquots between timepoints. LABEL each with patient, date, sequence/time, and submit all together with one requisition. Before performing, confirm testing protocol and intended medication/challenge with ordering clinician and performing lab; do not use for routine single draws. Serum or EDTA plasma per Labcorp; use different dedicated collection/transport containers for each scheduled draw. LC/MS methodology distinct from standard 17-OHP immunoassay.",
+    "specialInstructions": "TIMED CLINICIAN-DIRECTED CHALLENGE PANEL: 8 separate blood draws at prescribed intervals; collect 8 separate SST tubes and submit 8 SEPARATE plastic transport tubes, one for each timepoint. DO NOT SHARE/POOL tubes or aliquots between timepoints. LABEL each with patient, date, sequence/time, and submit all together with one requisition. Before performing, confirm testing protocol and intended medication/challenge with ordering clinician and performing lab; do not use for routine single draws. Serum or EDTA plasma per LabCorp; use different dedicated collection/transport containers for each scheduled draw. LC/MS methodology distinct from standard 17-OHP immunoassay.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp multiple-specimen testing table https://www.labcorp.com/test-menu/resources/multiple-specimen-testing ; confirmed Labcorp test code 070145 in official test menu"
+    "source": "LabCorp multiple-specimen testing table https://www.labcorp.com/test-menu/resources/multiple-specimen-testing ; confirmed LabCorp test code 070145 in official test menu"
   },
   {
     "id": "labcorp-273813",
@@ -2232,7 +2232,7 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate separated specimens; verify current Labcorp time limits for specific assay",
+    "stability": "Refrigerate separated specimens; verify current LabCorp time limits for specific assay",
     "spin": "Yes",
     "collectionCount": 2,
     "submissionCount": 2,
@@ -2240,7 +2240,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official multiple-specimen order-code table (2026-10-22) • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
+    "source": "LabCorp official multiple-specimen order-code table (2026-10-22) • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
   },
   {
     "id": "labcorp-226803",
@@ -2254,7 +2254,7 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate separated specimens; verify current Labcorp time limits for specific assay",
+    "stability": "Refrigerate separated specimens; verify current LabCorp time limits for specific assay",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 3,
@@ -2262,14 +2262,14 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official multiple-specimen order-code table (2026-10-22) • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
+    "source": "LabCorp official multiple-specimen order-code table (2026-10-22) • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
   }
 ];const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];const used=new Set(catalog.map(t=>String(t.testCode)));for(const t of additions){if(!used.has(t.testCode)){catalog.push(t);used.add(t.testCode);}}window.SEED_TESTS=catalog;})();
 ;
 
 /* SOURCE: labcorp-special-chemistry-20261022-data.js */
 ;
-/* Verified Labcorp random/72-hour stool, urine porphyrins, and serum serotonin. */
+/* Verified LabCorp random/72-hour stool, urine porphyrins, and serum serotonin. */
 (()=>{'use strict';const additions=[
   {
     "id": "labcorp-001677",
@@ -2289,14 +2289,14 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp test-specific directory, October 2026 • https://www.labcorp.com/tests/001677/fecal-fat-qualitative"
+    "source": "Official LabCorp test-specific directory, October 2026 • https://www.labcorp.com/tests/001677/fecal-fat-qualitative"
   },
   {
     "id": "labcorp-001354",
     "testCode": "001354",
     "testName": "Fecal Fat, Quantitative, 72-Hour Collection",
     "specimenType": "Stool",
-    "drawContainer": "72-Hour Stool Collection Can (Labcorp 03192)",
+    "drawContainer": "72-Hour Stool Collection Can (LabCorp 03192)",
     "alternativeContainer": "",
     "transportContainer": "Submit Entire Approved Stool Can",
     "preferredVolume": "Entire 72-hour collection (or 5–25 mL homogenized, qualified aliquot)",
@@ -2305,11 +2305,11 @@ window.SEED_TESTS=catalog;
     "transportTemperatureRaw": "Refrigerated",
     "stability": "Room 5 days, refrigerated/frozen 14 days",
     "spin": "No",
-    "specialInstructions": "COLLECT ALL STOOL for 72 hours directly in Labcorp-approved 1-gallon collection can (Labcorp 03192). Do NOT fill can above two-thirds full. Refrigerate throughout. Record hours collected. Maintain standard fat diet 50–150 g/day for ≥3 days before and through collection. Do not place collection in plastic bags/other containers. Any aliquot requires net sample weight and homogenization details.",
+    "specialInstructions": "COLLECT ALL STOOL for 72 hours directly in LabCorp-approved 1-gallon collection can (LabCorp 03192). Do NOT fill can above two-thirds full. Refrigerate throughout. Record hours collected. Maintain standard fat diet 50–150 g/day for ≥3 days before and through collection. Do not place collection in plastic bags/other containers. Any aliquot requires net sample weight and homogenization details.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp test-specific directory, October 2026 • https://www.labcorp.com/tests/001354/fecal-fat-quantitative"
+    "source": "Official LabCorp test-specific directory, October 2026 • https://www.labcorp.com/tests/001354/fecal-fat-quantitative"
   },
   {
     "id": "labcorp-120980",
@@ -2325,11 +2325,11 @@ window.SEED_TESTS=catalog;
     "transportTemperatureRaw": "Refrigerated",
     "stability": "Room unstable; refrigerated 7 days, frozen 14 days",
     "spin": "No",
-    "specialInstructions": "Collect random urine in cup then transfer into amber plastic urine transport tube with amber cap (Labcorp 23598), WITHOUT preservative. Protect from light at all times (wrap completely in foil if no amber tube); label tube and outside foil. Refrigerate. Acid preservative or pH less than 3 is rejected.",
+    "specialInstructions": "Collect random urine in cup then transfer into amber plastic urine transport tube with amber cap (LabCorp 23598), WITHOUT preservative. Protect from light at all times (wrap completely in foil if no amber tube); label tube and outside foil. Refrigerate. Acid preservative or pH less than 3 is rejected.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp test-specific directory, October 2026 • https://www.labcorp.com/tests/120980/porphyrins-quantitative-random-urine"
+    "source": "Official LabCorp test-specific directory, October 2026 • https://www.labcorp.com/tests/120980/porphyrins-quantitative-random-urine"
   },
   {
     "id": "labcorp-003194",
@@ -2349,7 +2349,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp test-specific directory, October 2026 • https://www.labcorp.com/tests/003194/porphyrins-quantitative-24-hour-urine"
+    "source": "Official LabCorp test-specific directory, October 2026 • https://www.labcorp.com/tests/003194/porphyrins-quantitative-24-hour-urine"
   },
   {
     "id": "labcorp-120204",
@@ -2369,7 +2369,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp test-specific directory, October 2026 • https://www.labcorp.com/tests/120204/serotonin"
+    "source": "Official LabCorp test-specific directory, October 2026 • https://www.labcorp.com/tests/120204/serotonin"
   }
 ];const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];const seen=new Set(catalog.map(t=>String(t.testCode)));for(const test of additions){if(!seen.has(test.testCode)){catalog.push(test);seen.add(test.testCode);}}window.SEED_TESTS=catalog;})();
 ;

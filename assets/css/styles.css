@@ -3677,7 +3677,7 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 }
 
 
-/* Directory collection-to-submission badges, shared by Quest and Labcorp.
+/* Directory collection-to-submission badges, shared by Quest and LabCorp.
    Long specialty tube names may wrap without collapsing neighboring columns. */
 @media screen {
   .library-table .container-path {
@@ -3934,7 +3934,7 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 }
 
 
-/* Print detail readability and page-safe workflow boundaries (Quest/Labcorp).
+/* Print detail readability and page-safe workflow boundaries (Quest/LabCorp).
    Changes are deliberately limited to printed output. */
 @media print {
   .print-sheet .print-detail-table-section .print-stability-period {
@@ -4071,7 +4071,7 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 }
 
 
-/* v12.06: Natural page fragmentation for Quest/Labcorp submission bags.
+/* v12.06: Natural page fragmentation for Quest/LabCorp submission bags.
    Each bag has exactly one header in the DOM. Allow the long bag to
    continue across a page boundary while keeping each specimen item whole. */
 @media print {
@@ -4128,7 +4128,7 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
 
 
 /* Print collection cards: label sits above the two volume boxes on the right.
-   Shared by Quest and Labcorp; does not alter volume calculations or card content. */
+   Shared by Quest and LabCorp; does not alter volume calculations or card content. */
 @media print {
   .print-sheet .print-container-count .print-collection-volume-wrap {
     display: flex;

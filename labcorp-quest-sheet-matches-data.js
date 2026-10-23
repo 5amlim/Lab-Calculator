@@ -1,7 +1,7 @@
-/* Labcorp specialty tests from user's Quest worksheet, mapped to LABCorp test codes.
- * Specimen requirements individually reviewed using official Labcorp directory, 2026-10-22.
+/* LabCorp specialty tests from user's Quest worksheet, mapped to LabCorp test codes.
+ * Specimen requirements individually reviewed using official LabCorp directory, 2026-10-22.
  * Quest test codes and Quest-specific specimen handling are not reused.
- * Deduplicates against the existing Labcorp catalog. */
+ * Deduplicates against the existing LabCorp catalog. */
 (() => {
   'use strict';
   const additions = [
@@ -19,11 +19,11 @@
     "transportTemperatureRaw": "Frozen",
     "stability": "Frozen 14 days; room temperature and refrigerated unstable.",
     "spin": "Yes",
-    "specialInstructions": "Immediately place EDTA draw on ice, record collection time, centrifuge immediately, and transfer plasma to Labcorp purple PP frozen Transpak (49482). Freeze immediately. Submit a separate frozen specimen per test. Collect between 7 AM and 10 AM.",
+    "specialInstructions": "Immediately place EDTA draw on ice, record collection time, centrifuge immediately, and transfer plasma to LabCorp purple PP frozen Transpak (49482). Freeze immediately. Submit a separate frozen specimen per test. Collect between 7 AM and 10 AM.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/004440/adrenocorticotropic-hormone-acth-plasma"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/004440/adrenocorticotropic-hormone-acth-plasma"
   },
   {
     "id": "labcorp-006685",
@@ -43,7 +43,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/006685/thyroglobulin-antibody"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/006685/thyroglobulin-antibody"
   },
   {
     "id": "labcorp-004804",
@@ -63,7 +63,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/004804/calcium-ionized"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/004804/calcium-ionized"
   },
   {
     "id": "labcorp-001586",
@@ -83,7 +83,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/001586/copper-serum-or-plasma"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/001586/copper-serum-or-plasma"
   },
   {
     "id": "labcorp-164750",
@@ -103,7 +103,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/164750/procalcitonin"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/164750/procalcitonin"
   },
   {
     "id": "labcorp-080283",
@@ -123,7 +123,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/080283/magnesium-rbc"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/080283/magnesium-rbc"
   },
   {
     "id": "labcorp-085324",
@@ -143,7 +143,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/085324/mercury-whole-blood"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/085324/mercury-whole-blood"
   },
   {
     "id": "labcorp-007245",
@@ -163,7 +163,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/007245/arsenic-whole-blood"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/007245/arsenic-whole-blood"
   },
   {
     "id": "labcorp-082016",
@@ -183,7 +183,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/082016/sex-hormone-binding-globulin"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/082016/sex-hormone-binding-globulin"
   },
   {
     "id": "labcorp-500183",
@@ -203,7 +203,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/500183/anti-m-llerian-hormone-amh-endocrine-sciences"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/500183/anti-m-llerian-hormone-amh-endocrine-sciences"
   },
   {
     "id": "labcorp-004655",
@@ -223,7 +223,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/004655/vitamin-b6-plasma"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/004655/vitamin-b6-plasma"
   },
   {
     "id": "labcorp-010363",
@@ -243,7 +243,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/010363/insulin-like-growth-factor-1-igf-1"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/010363/insulin-like-growth-factor-1-igf-1"
   },
   {
     "id": "labcorp-120251",
@@ -259,11 +259,11 @@
     "transportTemperatureRaw": "Refrigerated",
     "stability": "Room temperature 3 days; refrigerated or frozen 14 days.",
     "spin": "Yes",
-    "specialInstructions": "Transfer serum to an amber plastic transport tube (Labcorp 23598); protect from light at all times. Non-light-protected serum rejected.",
+    "specialInstructions": "Transfer serum to an amber plastic transport tube (LabCorp 23598); protect from light at all times. Non-light-protected serum rejected.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/120251/coenzyme-q10-total"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/120251/coenzyme-q10-total"
   },
   {
     "id": "labcorp-144600",
@@ -283,7 +283,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/144600/histamine-determination-plasma"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/144600/histamine-determination-plasma"
   },
   {
     "id": "labcorp-001805",
@@ -297,13 +297,13 @@
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Room temperature unstable; refrigerated unstable; frozen per Labcorp instructions.",
+    "stability": "Room temperature unstable; refrigerated unstable; frozen per LabCorp instructions.",
     "spin": "Yes",
     "specialInstructions": "Immediately separate lithium heparin plasma from cells; transfer to amber/fully foil-protected transport tube and freeze immediately. Place on dry ice for shipment within 4 hours. Separate frozen specimen per test. EDTA is not accepted.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/001805/vitamin-c"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/001805/vitamin-c"
   },
   {
     "id": "labcorp-070140",
@@ -323,7 +323,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/070140/vitamin-e-a-and-y-tocopherol"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/070140/vitamin-e-a-and-y-tocopherol"
   },
   {
     "id": "labcorp-004280",
@@ -343,7 +343,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/004280/tryptase"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/004280/tryptase"
   },
   {
     "id": "labcorp-121186",
@@ -363,7 +363,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/121186/vitamin-b1-whole-blood"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/121186/vitamin-b1-whole-blood"
   }
 ];
   const catalog = Array.isArray(window.SEED_TESTS) ? window.SEED_TESTS : [];

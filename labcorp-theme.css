@@ -1,4 +1,4 @@
-/* Labcorp-branded header only. Calculator, specimen badges, and print
+/* LabCorp-branded header only. Calculator, specimen badges, and print
    layout inherit the exact Quest interface; only lab identity differs. */
 @media screen {
   .labcorp-page .app-header {
@@ -45,7 +45,7 @@
   box-shadow: inset 0 1px 0 rgba(255, 220, 157, .46);
 }
 
-/* Labcorp-specific specimen vial silhouettes. Same dimensions as other badges.
+/* LabCorp-specific specimen vial silhouettes. Same dimensions as other badges.
    The lower brown portion represents specimen medium in preservative vials. */
 .labcorp-page .tube-qft-nil::before,
 .labcorp-page .tube-qft-tb1::before,
@@ -114,7 +114,7 @@
   border-color: #7b807a;
 }
 
-/* Keep the printed collection summary header aligned with the Labcorp page header. */
+/* Keep the printed collection summary header aligned with the LabCorp page header. */
 @media print {
   .labcorp-page .print-header {
     background: #164a72 !important;

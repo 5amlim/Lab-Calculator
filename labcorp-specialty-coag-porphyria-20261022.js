@@ -1,4 +1,4 @@
-/* Official Labcorp test-specific specialty additions, reviewed October 22, 2026.
+/* Official LabCorp test-specific specialty additions, reviewed October 22, 2026.
    Confirm performing-site acceptance and current specimen monograph before collection.
    Idempotent: preserve all earlier catalog entries and avoid duplicates by order code. */
 (()=>{'use strict';
@@ -21,7 +21,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/123225/immunoglobulin-g-monitoring-of-primary-immunodeficiency-treatment-profile"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/123225/immunoglobulin-g-monitoring-of-primary-immunodeficiency-treatment-profile"
   },
   {
     "id": "labcorp-003065",
@@ -30,7 +30,7 @@ const additions=[
     "specimenType": "Urine",
     "drawContainer": "Sterile cup",
     "alternativeContainer": "",
-    "transportContainer": "Amber Frozen Urine Transport Tube (Labcorp 78656)",
+    "transportContainer": "Amber Frozen Urine Transport Tube (LabCorp 78656)",
     "preferredVolume": "3 mL random urine",
     "minimumVolume": "1 mL",
     "transportTemperature": "Frozen",
@@ -41,7 +41,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/003065/porphobilinogen-pbg-quantitative-random-urine"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/003065/porphobilinogen-pbg-quantitative-random-urine"
   },
   {
     "id": "labcorp-003103",
@@ -50,7 +50,7 @@ const additions=[
     "specimenType": "Urine",
     "drawContainer": "24-Hour Urine Container (acid preserved if required)",
     "alternativeContainer": "",
-    "transportContainer": "Amber Frozen Urine Transport Tube (Labcorp 78656)",
+    "transportContainer": "Amber Frozen Urine Transport Tube (LabCorp 78656)",
     "preferredVolume": "3 mL aliquot",
     "minimumVolume": "1 mL",
     "transportTemperature": "Frozen",
@@ -61,7 +61,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/003103/porphobilinogen-pbg-quantitative-24-hour-urine"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/003103/porphobilinogen-pbg-quantitative-24-hour-urine"
   },
   {
     "id": "labcorp-007364",
@@ -70,18 +70,18 @@ const additions=[
     "specimenType": "Urine",
     "drawContainer": "Sterile cup",
     "alternativeContainer": "",
-    "transportContainer": "Amber Frozen Urine Transport Tube (Labcorp 78656)",
+    "transportContainer": "Amber Frozen Urine Transport Tube (LabCorp 78656)",
     "preferredVolume": "3 mL random urine",
     "minimumVolume": "1 mL",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
     "stability": "Keep frozen; protect from light",
     "spin": "No",
-    "specialInstructions": "Protect from light. Acid-preserved random urine: use Labcorp-required 0.5 mL of 30% acetic acid, pH below 7. Avoid first morning or late evening specimens. Use approved preservative handling procedures. Transfer aliquot to amber frozen transport tube (78656); freeze immediately and keep frozen in transit. Do not pool with unrelated urine preservative workflows.",
+    "specialInstructions": "Protect from light. Acid-preserved random urine: use LabCorp-required 0.5 mL of 30% acetic acid, pH below 7. Avoid first morning or late evening specimens. Use approved preservative handling procedures. Transfer aliquot to amber frozen transport tube (78656); freeze immediately and keep frozen in transit. Do not pool with unrelated urine preservative workflows.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/007364/a-aminolevulinic-acid-random-urine"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/007364/a-aminolevulinic-acid-random-urine"
   },
   {
     "id": "labcorp-096354",
@@ -90,18 +90,18 @@ const additions=[
     "specimenType": "Urine",
     "drawContainer": "24-Hour Urine Container (30% acetic acid)",
     "alternativeContainer": "",
-    "transportContainer": "Amber Frozen Urine Transport Tube (Labcorp 78656)",
+    "transportContainer": "Amber Frozen Urine Transport Tube (LabCorp 78656)",
     "preferredVolume": "3 mL aliquot",
     "minimumVolume": "1 mL",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
     "stability": "Keep frozen; protect from light",
     "spin": "No",
-    "specialInstructions": "Protect from light. Use Labcorp acid-preserved 24-hour collection container containing 30 mL 30% acetic acid; keep refrigerated throughout collection. Record total urine volume and duration; confirm pH below 7 and use approved acid-handling workflow. Transfer aliquot to amber frozen transport tube (78656); freeze immediately and keep frozen in transit. Do not pool with unrelated urine preservative workflows.",
+    "specialInstructions": "Protect from light. Use LabCorp acid-preserved 24-hour collection container containing 30 mL 30% acetic acid; keep refrigerated throughout collection. Record total urine volume and duration; confirm pH below 7 and use approved acid-handling workflow. Transfer aliquot to amber frozen transport tube (78656); freeze immediately and keep frozen in transit. Do not pool with unrelated urine preservative workflows.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/096354/a-aminolevulinic-acid-24-hour-urine"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/096354/a-aminolevulinic-acid-24-hour-urine"
   },
   {
     "id": "labcorp-117140",
@@ -117,11 +117,11 @@ const additions=[
     "transportTemperatureRaw": "Frozen",
     "stability": "Frozen 28 days; do not thaw in transit",
     "spin": "Yes",
-    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to Labcorp PP transpak frozen purple tube (49482), freeze immediately. Congenital thrombophilia profile (APCR, AT activity, protein C functional, free protein S). Adjust citrate if hematocrit exceeds 55%; consult Labcorp's volume guide.",
+    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to LabCorp PP transpak frozen purple tube (49482), freeze immediately. Congenital thrombophilia profile (APCR, AT activity, protein C functional, free protein S). Adjust citrate if hematocrit exceeds 55%; consult LabCorp's volume guide.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/117140/thrombotic-risk-congenital"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/117140/thrombotic-risk-congenital"
   },
   {
     "id": "labcorp-144012",
@@ -141,7 +141,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/144012/hepatitis-d-virus-hdv-antibody-igg-and-igm"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/144012/hepatitis-d-virus-hdv-antibody-igg-and-igm"
   },
   {
     "id": "labcorp-550672",
@@ -161,7 +161,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/550672/reflex-hepatitis-d-virus-hdv-rna-quantitative-pcr"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/550672/reflex-hepatitis-d-virus-hdv-rna-quantitative-pcr"
   },
   {
     "id": "labcorp-164519",
@@ -177,11 +177,11 @@ const additions=[
     "transportTemperatureRaw": "Frozen",
     "stability": "Frozen 28 days; do not thaw in transit",
     "spin": "Yes",
-    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to Labcorp PP transpak frozen purple tube (49482), freeze immediately. Free protein S antigen; avoid heparin lock draws and consult ordering provider about anticoagulant interference.",
+    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to LabCorp PP transpak frozen purple tube (49482), freeze immediately. Free protein S antigen; avoid heparin lock draws and consult ordering provider about anticoagulant interference.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/164519/protein-s-free"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/164519/protein-s-free"
   },
   {
     "id": "labcorp-004648",
@@ -201,7 +201,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/004648/complement-c1-esterase-inhibitor"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/004648/complement-c1-esterase-inhibitor"
   },
   {
     "id": "labcorp-120220",
@@ -221,7 +221,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/120220/complement-c1-esterase-inhibitor-functional"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/120220/complement-c1-esterase-inhibitor-functional"
   },
   {
     "id": "labcorp-500033",
@@ -237,11 +237,11 @@ const additions=[
     "transportTemperatureRaw": "Frozen",
     "stability": "Frozen 28 days; do not thaw in transit",
     "spin": "Yes",
-    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to Labcorp PP transpak frozen purple tube (49482), freeze immediately. Measures factors VIII, IX, XI, XII. Use approved frozen coagulation plasma procedure and volume guide; do not draw from a heparinized line.",
+    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to LabCorp PP transpak frozen purple tube (49482), freeze immediately. Measures factors VIII, IX, XI, XII. Use approved frozen coagulation plasma procedure and volume guide; do not draw from a heparinized line.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/500033/intrinsic-pathway-coagulation-factor-profile"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/500033/intrinsic-pathway-coagulation-factor-profile"
   },
   {
     "id": "labcorp-164517",
@@ -257,11 +257,11 @@ const additions=[
     "transportTemperatureRaw": "Frozen",
     "stability": "Frozen 28 days; do not thaw in transit",
     "spin": "Yes",
-    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to Labcorp PP transpak frozen purple tube (49482), freeze immediately. Total and free protein S antigens; no heparinized line draw. Follow anticoagulation-therapy review with ordering provider.",
+    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to LabCorp PP transpak frozen purple tube (49482), freeze immediately. Total and free protein S antigens; no heparinized line draw. Follow anticoagulation-therapy review with ordering provider.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/164517/protein-s-antigen"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/164517/protein-s-antigen"
   },
   {
     "id": "labcorp-015057",
@@ -277,11 +277,11 @@ const additions=[
     "transportTemperatureRaw": "Frozen",
     "stability": "Frozen 28 days; do not thaw in transit",
     "spin": "Yes",
-    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to Labcorp PP transpak frozen purple tube (49482), freeze immediately. Confirm antithrombin antigen deficiency. Avoid heparin lock draws; verify anticoagulant therapy requirements with ordering provider.",
+    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to LabCorp PP transpak frozen purple tube (49482), freeze immediately. Confirm antithrombin antigen deficiency. Avoid heparin lock draws; verify anticoagulant therapy requirements with ordering provider.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/015057/antithrombin-at-antigen-immunologic"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/015057/antithrombin-at-antigen-immunologic"
   },
   {
     "id": "labcorp-015594",
@@ -297,11 +297,11 @@ const additions=[
     "transportTemperatureRaw": "Frozen",
     "stability": "Frozen 28 days; do not thaw in transit",
     "spin": "Yes",
-    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to Labcorp PP transpak frozen purple tube (49482), freeze immediately. Activity plus antigen assessment; use double-spun citrate plasma, freeze immediately. Do not draw from a heparinized catheter.",
+    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to LabCorp PP transpak frozen purple tube (49482), freeze immediately. Activity plus antigen assessment; use double-spun citrate plasma, freeze immediately. Do not draw from a heparinized catheter.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/015594/antithrombin-at-deficiency-profile"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/015594/antithrombin-at-deficiency-profile"
   },
   {
     "id": "labcorp-080465",
@@ -317,11 +317,11 @@ const additions=[
     "transportTemperatureRaw": "Frozen",
     "stability": "Frozen 28 days; do not thaw in transit",
     "spin": "Yes",
-    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to Labcorp PP transpak frozen purple tube (49482), freeze immediately. Antigen confirmation; avoid heparin lock draws, and review current anticoagulant medications with the ordering provider.",
+    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to LabCorp PP transpak frozen purple tube (49482), freeze immediately. Antigen confirmation; avoid heparin lock draws, and review current anticoagulant medications with the ordering provider.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/080465/protein-c-antigen"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/080465/protein-c-antigen"
   },
   {
     "id": "labcorp-283655",
@@ -337,11 +337,11 @@ const additions=[
     "transportTemperatureRaw": "Frozen",
     "stability": "Frozen 28 days; do not thaw in transit",
     "spin": "Yes",
-    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to Labcorp PP transpak frozen purple tube (49482), freeze immediately. REQUIRES TWO full blue-top citrate collection tubes, each processed into separate frozen aliquots of 1 mL. Do not combine the two required aliquots. Consult Labcorp Volume Guide.",
+    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to LabCorp PP transpak frozen purple tube (49482), freeze immediately. REQUIRES TWO full blue-top citrate collection tubes, each processed into separate frozen aliquots of 1 mL. Do not combine the two required aliquots. Consult LabCorp Volume Guide.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/283655/protein-c-deficiency-profile",
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/283655/protein-c-deficiency-profile",
     "collectionCount": 2,
     "submissionCount": 2
   },
@@ -359,11 +359,11 @@ const additions=[
     "transportTemperatureRaw": "Frozen",
     "stability": "Frozen 28 days; do not thaw in transit",
     "spin": "Yes",
-    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to Labcorp PP transpak frozen purple tube (49482), freeze immediately. Factor IX activity; anticoagulants may interfere. Follow coagulation collection fill and cold-chain rules.",
+    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to LabCorp PP transpak frozen purple tube (49482), freeze immediately. Factor IX activity; anticoagulants may interfere. Follow coagulation collection fill and cold-chain rules.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/086298/factor-ix-activity"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/086298/factor-ix-activity"
   },
   {
     "id": "labcorp-086314",
@@ -379,11 +379,11 @@ const additions=[
     "transportTemperatureRaw": "Frozen",
     "stability": "Frozen 28 days; do not thaw in transit",
     "spin": "Yes",
-    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to Labcorp PP transpak frozen purple tube (49482), freeze immediately. Factor XI activity; anticoagulants may interfere. Follow coagulation collection fill and cold-chain rules.",
+    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to LabCorp PP transpak frozen purple tube (49482), freeze immediately. Factor XI activity; anticoagulants may interfere. Follow coagulation collection fill and cold-chain rules.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/086314/factor-xi-activity"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/086314/factor-xi-activity"
   },
   {
     "id": "labcorp-086322",
@@ -399,11 +399,11 @@ const additions=[
     "transportTemperatureRaw": "Frozen",
     "stability": "Frozen 28 days; do not thaw in transit",
     "spin": "Yes",
-    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to Labcorp PP transpak frozen purple tube (49482), freeze immediately. Factor XII activity; anticoagulants may interfere. Follow coagulation collection fill and cold-chain rules.",
+    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to LabCorp PP transpak frozen purple tube (49482), freeze immediately. Factor XII activity; anticoagulants may interfere. Follow coagulation collection fill and cold-chain rules.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/086322/factor-xii-activity"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/086322/factor-xii-activity"
   },
   {
     "id": "labcorp-520085",
@@ -423,7 +423,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/520085/myomarker-3-plus-profile-rdl"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/520085/myomarker-3-plus-profile-rdl"
   },
   {
     "id": "labcorp-164530",
@@ -439,11 +439,11 @@ const additions=[
     "transportTemperatureRaw": "Frozen",
     "stability": "Frozen 28 days; do not thaw in transit",
     "spin": "Yes",
-    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to Labcorp PP transpak frozen purple tube (49482), freeze immediately. Specialized ratio assay; confirm indicated specimen and anticoagulant interference with Labcorp.",
+    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to LabCorp PP transpak frozen purple tube (49482), freeze immediately. Specialized ratio assay; confirm indicated specimen and anticoagulant interference with LabCorp.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/164530/protein-s-antigen-factor-vii-antigen-ratio"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/164530/protein-s-antigen-factor-vii-antigen-ratio"
   },
   {
     "id": "labcorp-015045",
@@ -459,11 +459,11 @@ const additions=[
     "transportTemperatureRaw": "Frozen",
     "stability": "Room/refrigerated 4 hours; freeze for shipping",
     "spin": "Yes",
-    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to Labcorp PP transpak frozen purple tube (49482), freeze immediately. Double-spin rapidly; room-temperature/refrigerated stability is only four hours. Freeze specimen promptly, do not allow to thaw in transit.",
+    "specialInstructions": "FULL blue-top citrate tube (3.2%). Mix by gentle inversion; obtain platelet-poor plasma by double centrifugation, transfer to LabCorp PP transpak frozen purple tube (49482), freeze immediately. Double-spin rapidly; room-temperature/refrigerated stability is only four hours. Freeze specimen promptly, do not allow to thaw in transit.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/015045/thrombin-antithrombin-complex"
+    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/015045/thrombin-antithrombin-complex"
   }
 ];
 const rows=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];

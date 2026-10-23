@@ -1,5 +1,5 @@
-/* Additional Labcorp chemistry/renal/PCP records. Official individual directory pages checked 2026-10-21.
-   All handling rules and volumes are from test-specific Labcorp requirements.
+/* Additional LabCorp chemistry/renal/PCP records. Official individual directory pages checked 2026-10-21.
+   All handling rules and volumes are from test-specific LabCorp requirements.
    No unverified codes or inferred collection instructions are inserted. */
 (() => {
   'use strict';
@@ -22,7 +22,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/322755/hepatic-function-panel-7"
+    "source": "LabCorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/322755/hepatic-function-panel-7"
   },
   {
     "id": "labcorp-322777",
@@ -38,11 +38,11 @@
     "transportTemperatureRaw": "Room Temperature",
     "stability": "7 days room temperature",
     "spin": "Yes",
-    "specialInstructions": "Serum (preferred) or green lithium heparin plasma. Gold SST preferred. If red-top serum or green-top plasma is used, separate from cells within 45 minutes and submit separated material in a labeled plastic transport tube. Do not use EDTA, citrate, or oxalate plasma. Labcorp recommends overnight fasting: 12 hours preferred, 8 hours acceptable.",
+    "specialInstructions": "Serum (preferred) or green lithium heparin plasma. Gold SST preferred. If red-top serum or green-top plasma is used, separate from cells within 45 minutes and submit separated material in a labeled plastic transport tube. Do not use EDTA, citrate, or oxalate plasma. LabCorp recommends overnight fasting: 12 hours preferred, 8 hours acceptable.",
     "fastingStatus": "required",
-    "fastingInstructions": "Overnight: 12 hours preferred, at least 8 hours per Labcorp.",
+    "fastingInstructions": "Overnight: 12 hours preferred, at least 8 hours per LabCorp.",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/322777/renal-function-panel"
+    "source": "LabCorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/322777/renal-function-panel"
   },
   {
     "id": "labcorp-001099",
@@ -62,7 +62,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/001099/bilirubin-total"
+    "source": "LabCorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/001099/bilirubin-total"
   },
   {
     "id": "labcorp-001222",
@@ -82,7 +82,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/001222/bilirubin-direct"
+    "source": "LabCorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/001222/bilirubin-direct"
   },
   {
     "id": "labcorp-001214",
@@ -102,7 +102,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/001214/bilirubin-total-and-direct"
+    "source": "LabCorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/001214/bilirubin-total-and-direct"
   },
   {
     "id": "labcorp-001107",
@@ -122,7 +122,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/001107/alkaline-phosphatase"
+    "source": "LabCorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/001107/alkaline-phosphatase"
   },
   {
     "id": "labcorp-001637",
@@ -142,7 +142,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/001637/alkaline-phosphatase-isoenzymes"
+    "source": "LabCorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/001637/alkaline-phosphatase-isoenzymes"
   },
   {
     "id": "labcorp-001180",
@@ -162,7 +162,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/001180/potassium"
+    "source": "LabCorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/001180/potassium"
   },
   {
     "id": "labcorp-001206",
@@ -182,7 +182,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/001206/chloride"
+    "source": "LabCorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/001206/chloride"
   },
   {
     "id": "labcorp-001578",
@@ -202,7 +202,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/001578/carbon-dioxide-total"
+    "source": "LabCorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/001578/carbon-dioxide-total"
   },
   {
     "id": "labcorp-480772",
@@ -222,7 +222,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/480772/prostate-specific-antigen-psa-free-total-ratio-reflex"
+    "source": "LabCorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/480772/prostate-specific-antigen-psa-free-total-ratio-reflex"
   },
   {
     "id": "labcorp-015610",
@@ -242,7 +242,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/015610/parathyroid-hormone-pth-intact"
+    "source": "LabCorp official test directory, verified 2026-10-21 • https://www.labcorp.com/tests/015610/parathyroid-hormone-pth-intact"
   }
 ];
   const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];

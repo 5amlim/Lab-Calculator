@@ -20,15 +20,15 @@
   // 34162 uses the existing catalog mapping with the legacy STAT suffix removed;
   // its currently accessible Quest directory page could not be reverified.
   const VERIFIED_TEST_NAMES = Object.freeze({});
-  // Labcorp STAT availability must be confirmed for each code and receiving site.
+  // LabCorp STAT availability must be confirmed for each code and receiving site.
   const STAT_AREA_KEY = 'labcorpCollectionCalculator.labcorpStatArea.v1';
   const STAT_AREAS = Object.freeze({
-    unselected: {label:'Area not selected',codes:[],note:'Select the Labcorp receiving region; STAT status is not automatically verified.'},
-    socal: {label:'Southern California',codes:[],note:'No approved SoCal Labcorp STAT menu is loaded. STAT selection is disabled pending receiving-lab verification.'},
-    norcal: {label:'Northern California',codes:[],note:'No approved Labcorp STAT menu is loaded for this area. STAT selection is disabled pending receiving-lab verification.'},
-    ny: {label:'New York',codes:[],note:'No approved Labcorp STAT menu is loaded for this area. STAT selection is disabled pending receiving-lab verification.'},
-    fl: {label:'Florida',codes:[],note:'No approved Labcorp STAT menu is loaded for this area. STAT selection is disabled pending receiving-lab verification.'},
-    other: {label:'Other service area',codes:[],note:'No approved Labcorp STAT menu is loaded for this area. STAT selection is disabled pending receiving-lab verification.'}
+    unselected: {label:'Area not selected',codes:[],note:'Select the LabCorp receiving region; STAT status is not automatically verified.'},
+    socal: {label:'Southern California',codes:[],note:'No approved SoCal LabCorp STAT menu is loaded. STAT selection is disabled pending receiving-lab verification.'},
+    norcal: {label:'Northern California',codes:[],note:'No approved LabCorp STAT menu is loaded for this area. STAT selection is disabled pending receiving-lab verification.'},
+    ny: {label:'New York',codes:[],note:'No approved LabCorp STAT menu is loaded for this area. STAT selection is disabled pending receiving-lab verification.'},
+    fl: {label:'Florida',codes:[],note:'No approved LabCorp STAT menu is loaded for this area. STAT selection is disabled pending receiving-lab verification.'},
+    other: {label:'Other service area',codes:[],note:'No approved LabCorp STAT menu is loaded for this area. STAT selection is disabled pending receiving-lab verification.'}
   });
   // All STAT-eligible tests, including sedimentation rate (809), start as Routine.
   const DEFAULT_STAT_TEST_CODES = new Set();
@@ -210,7 +210,7 @@
   }
 
   function applyUserState(state) {
-    // Separate Labcorp records and local edits; no Quest code migrations.
+    // Separate LabCorp records and local edits; no Quest code migrations.
     const builtIns = seedDatabase.map(test => ({ ...test }));
     const byId = new Map(builtIns.map((test, i) => [test.id, i]));
     const byKey = new Map(builtIns.map((test, i) => [databaseKey(test), i]));
@@ -493,7 +493,7 @@
     return extras ? `${primary} ${extras}` : primary;
   }
 
-  // In the searchable Labcorp menu, show the container sent to Labcorp,
+  // In the searchable LabCorp menu, show the container sent to LabCorp,
   // not the source tube/cup used during collection. The collection/print
   // plan continues using its own separate draw-versus-submit logic.
   function libraryTransportContainerBadges(test, className = 'badge') {
@@ -538,7 +538,7 @@
   }
 
   // Search-list badge presentation only. Blood and swab records display draw
-  // containers; urine/stool display the actual container shipped to Labcorp.
+  // containers; urine/stool display the actual container shipped to LabCorp.
   function menuContainerBadges(test) {
     // Directory-only presentation. Never change collection, processing or pooling.
     // Display the physical source followed by its distinct submission container.
@@ -1446,7 +1446,7 @@
   }
 
   function isStatEligible(test) {
-    // Only an explicitly verified per-region Labcorp code may be marked STAT.
+    // Only an explicitly verified per-region LabCorp code may be marked STAT.
     // Selecting a region alone is NOT eligibility. An empty list disables STAT.
     const area = STAT_AREAS[statArea];
     return Boolean(test && test.status !== 'blocked' && area &&
@@ -1587,7 +1587,7 @@
     els.statMenuCount.textContent = `${codes.length} listed code${codes.length === 1 ? '' : 's'}`;
     els.statAreaHelp.textContent = `${info.note} Confirm current receiving-lab acceptance, cutoff, requisition, and courier before sending STAT. ${statAreaResetNotice}`.trim();
     els.statMenuResults.innerHTML = !codes.length
-      ? '<p class="stat-menu-empty">No verified Labcorp STAT codes are configured for this receiving area. STAT actions are disabled until an approved local menu is added. Confirm with the receiving lab before requesting STAT testing.</p>'
+      ? '<p class="stat-menu-empty">No verified LabCorp STAT codes are configured for this receiving area. STAT actions are disabled until an approved local menu is added. Confirm with the receiving lab before requesting STAT testing.</p>'
       : matches.length
         ? matches.map(({code,test}) => {
           const available = test && test.status !== 'blocked';
@@ -1808,7 +1808,7 @@
   function selectedUrineCultureIsSponge() { return urineCultureMode === 'urisponge'; }
 
   function loadUrineCultureMode() {
-    // Labcorp starter directory confirms gray-top preserved urine, not UriSponge.
+    // LabCorp starter directory confirms gray-top preserved urine, not UriSponge.
     return 'gray';
   }
 
@@ -2046,7 +2046,7 @@
   // recorded directions or a reviewed test-code-specific Quest instruction.
   // Do not apply hormone time windows to all similarly named assays.
   function preCollectionPrecautions(test) {
-    const code = ''; // Do not apply Quest-only test-code preparation rules to Labcorp codes.
+    const code = ''; // Do not apply Quest-only test-code preparation rules to LabCorp codes.
     const notes = String(test.specialInstructions || '');
     const result = [];
     const add = (label, note) => result.push({ label, note });
@@ -2087,7 +2087,7 @@
 
     if (/\bbiotin\b/i.test(notes) && /supplement|vitamin|consumption/i.test(notes) || code === '873' || code === '7065') {
       if (/at least 8 hours.{0,140}last biotin|at least 8 hours following.{0,140}biotin/i.test(notes) || code === '873' || code === '7065') {
-        add('Biotin interference', 'Biotin may interfere with this assay. Consult the Labcorp test-specific instructions and ordering clinician about supplement timing.');
+        add('Biotin interference', 'Biotin may interfere with this assay. Consult the LabCorp test-specific instructions and ordering clinician about supplement timing.');
       } else if (/72 hours prior|at least 72 hours prior/i.test(notes)) {
         add('Biotin · 72h', 'Lab directions call for avoiding biotin for at least 72 hours before the draw. Confirm changes to any prescribed supplements or therapy with the clinician.');
       } else if (/24-48 hours|24–48 hours/i.test(notes)) {
@@ -2172,7 +2172,7 @@
     }
   
     const routineSst = 'Allow blood to clot upright for 30–60 minutes, then centrifuge. Submit the spun SST/gold-top tube; do not transfer unless the current official test page or local service-area instructions specifically require it.';
-    const routineAllergen = 'Allow SST to clot and centrifuge; submit the spun SST. Confirm Labcorp serum-allergen volume, stability and destination-specific handling before collection.';
+    const routineAllergen = 'Allow SST to clot and centrifuge; submit the spun SST. Confirm LabCorp serum-allergen volume, stability and destination-specific handling before collection.';
     if (note === routineSst) return 'Clot 30–60 min, centrifuge and submit spun SST. No transfer unless directed.';
     if (note === routineAllergen) return 'Clot and centrifuge SST; submit original spun tube. If referred, verify volume and stability.';
   
@@ -2538,7 +2538,7 @@
     return String(test.drawContainer || 'Verify container').trim();
   }
 
-  // Certain Labcorp monographs specify a serum yield larger than one SST can
+  // Certain LabCorp monographs specify a serum yield larger than one SST can
   // supply. Unlike generic one-test estimates, their source-derived volume
   // requirement is explicitly opted into capacity-based multi-tube counting.
   function needsPreferredSerumYieldSstCount(test) {
@@ -3427,7 +3427,7 @@
 
     grouped.forEach(item => {
       item.tests = uniqueTests(item.tests);
-      // Labcorp explicitly accepts the same 30% acetic-acid-preserved
+      // LabCorp explicitly accepts the same 30% acetic-acid-preserved
       // 24-hour urine collection for PBG (003103) and delta-ALA (096354).
       // Count that physical jug once, but submit a separate frozen amber
       // aliquot for EACH assay. Do not generalize this exception to other
@@ -3702,7 +3702,7 @@
     if (collectionSpecimenGroupForTest(test) === 'stool' && /total[- ]?fix/.test(transport.toLowerCase())) return false;
     if (!draw || /^do not collect$/i.test(draw) || /^n\/?a$/i.test(transport)) return false;
 
-    // Labcorp accepts an unpreserved plastic urine cup itself for many assays.
+    // LabCorp accepts an unpreserved plastic urine cup itself for many assays.
     // If BOTH actual containers normalize to that cup, submission is direct.
     // A true preservative/aliquot/special transport device does not normalize.
     if (isUrineTest(test) &&
@@ -3718,7 +3718,7 @@
     const drawClass = tubeClass(draw);
     const transportClass = tubeClass(transport);
 
-    // When Labcorp explicitly lists a spun SST/Gold as BOTH collection source
+    // When LabCorp explicitly lists a spun SST/Gold as BOTH collection source
     // and submission container, it is the original tube. Notes describing
     // optional red-top/plasma alternatives must not turn that SST into a
     // second printed submission card or a fictitious serum transfer.
@@ -3771,7 +3771,7 @@
   }
 
   function splitSubmissionContainers(test) {
-    // Labcorp O&P (008623) and Giardia + O&P (188110) require TWO DIFFERENT
+    // LabCorp O&P (008623) and Giardia + O&P (188110) require TWO DIFFERENT
     // preservative vials, pink formalin and gray PVA. Never treat them as one.
     if (['008623', '188110'].includes(String(test.testCode || '').trim())) {
       return [
@@ -4754,7 +4754,7 @@
     const alerts = collectAlerts(tests).filter(alert => !preparationTexts.has(alert.text));
     els.printSheet.innerHTML = `
       <div class="print-header">
-        <div><h1 class="print-title">Labcorp Collection Summary</h1><div class="print-subtitle">Send-out workflow</div></div>
+        <div><h1 class="print-title">LabCorp Collection Summary</h1><div class="print-subtitle">Send-out workflow</div></div>
         <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<span class="print-selected-count">${tests.length} selected ${tests.length === 1 ? 'test' : 'tests'}</span></div>
       </div>
       ${printCollectionSubmissionPlan(tests)}
@@ -4812,7 +4812,7 @@
     return 'https://www.labcorp.com/test-menu/search' + (value ? '?query=' + encodeURIComponent(value) : '');
   }
   function directoryUrl(test) {
-    // Prefer the exact Labcorp official record URL bundled with verified tests.
+    // Prefer the exact LabCorp official record URL bundled with verified tests.
     const source = String(test?.source || '');
     const match = source.match(/https:\/\/(?:www|womenshealth)\.labcorp\.com\/tests\/[0-9]+\/[a-z0-9-]+/i);
     if (match) return match[0];
@@ -4830,7 +4830,7 @@
 
   function tubeClass(container) {
     const value = String(container || '').toLowerCase();
-    // Special Labcorp tube and vial badges reflect the actual kit cap/medium.
+    // Special LabCorp tube and vial badges reflect the actual kit cap/medium.
     if (/quanti[- ]?feron/.test(value)) {
       if (/\bnil\b/.test(value)) return 'tube-qft-nil';
       if (/\btb\s*1\b/.test(value)) return 'tube-qft-tb1';

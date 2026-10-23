@@ -1,8 +1,8 @@
-/* Labcorp catalog: immune response, blood bank, tick-borne, viral and other infectious assays. Original order. */
+/* LabCorp catalog: immune response, blood bank, tick-borne, viral and other infectious assays. Original order. */
 
 /* SOURCE: labcorp-bloodbank-infectious-expanded-20261022.js */
 ;
-/* Labcorp official test-specific requirements for RBC typing, blood bank, blood volatiles, infection serologies and EPO/RA. Source links in each record. */
+/* LabCorp official test-specific requirements for RBC typing, blood bank, blood volatiles, infection serologies and EPO/RA. Source links in each record. */
 (()=>{'use strict';
 const additions=[
   {
@@ -239,7 +239,7 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room/refrigerated 7 days; DO NOT freeze",
     "spin": "No",
-    "specialInstructions": "ABO ONLY (not Rh). Original EDTA whole blood. If CBC and/or antibody screen ordered, Labcorp requires a SEPARATE 4 mL lavender EDTA tube for each test; do not pool with these orders. Refrigerate if delay; do not freeze.",
+    "specialInstructions": "ABO ONLY (not Rh). Original EDTA whole blood. If CBC and/or antibody screen ordered, LabCorp requires a SEPARATE 4 mL lavender EDTA tube for each test; do not pool with these orders. Refrigerate if delay; do not freeze.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
@@ -512,7 +512,7 @@ for(const t of additions){if(!seen.has(t.testCode)){catalog.push(t);seen.add(t.t
 window.SEED_TESTS=catalog;
 })();
 
-/* Labcorp 2026-10-22 immune response and infectious serology/antigen additions.
+/* LabCorp 2026-10-22 immune response and infectious serology/antigen additions.
   Each record is a single explicitly documented specimen workflow. */
 (()=>{'use strict';const additions=[
   {
@@ -533,7 +533,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/163691/tetanus-antitoxoid-antibodies"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/163691/tetanus-antitoxoid-antibodies"
   },
   {
     "id": "labcorp-163709",
@@ -553,7 +553,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/163709/diphtheria-antitoxoid-antibodies"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/163709/diphtheria-antitoxoid-antibodies"
   },
   {
     "id": "labcorp-163253",
@@ -573,7 +573,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/163253/tetanus-diphtheria-antibody-profile"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/163253/tetanus-diphtheria-antibody-profile"
   },
   {
     "id": "labcorp-002162",
@@ -593,7 +593,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "preferred",
     "fastingInstructions": "Overnight fasting preferred, not required.",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/002162/immunoglobulin-d-quantitative"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/002162/immunoglobulin-d-quantitative"
   },
   {
     "id": "labcorp-138635",
@@ -613,7 +613,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/138635/histoplasma-capsulatum-antibodies-complement-fixation-and-immunodiffusion"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/138635/histoplasma-capsulatum-antibodies-complement-fixation-and-immunodiffusion"
   },
   {
     "id": "labcorp-164319",
@@ -633,7 +633,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/164319/histoplasma-antibodies-quantitative-did"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/164319/histoplasma-antibodies-quantitative-did"
   },
   {
     "id": "labcorp-164304",
@@ -653,7 +653,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/164304/histoplasma-capsulatum-antibodies-complement-fixation"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/164304/histoplasma-capsulatum-antibodies-complement-fixation"
   },
   {
     "id": "labcorp-165048",
@@ -673,7 +673,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/165048/blastomyces-dermatitidis-antibodies-by-eia-serum"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/165048/blastomyces-dermatitidis-antibodies-by-eia-serum"
   },
   {
     "id": "labcorp-165052",
@@ -689,11 +689,11 @@ window.SEED_TESTS=catalog;
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 14 days",
     "spin": "Yes",
-    "specialInstructions": "Serum from gel-barrier or red-top accepted. Positive/equivocal EIA reflexes to quantitative DID (Labcorp 164293); additional testing may incur charges.",
+    "specialInstructions": "Serum from gel-barrier or red-top accepted. Positive/equivocal EIA reflexes to quantitative DID (LabCorp 164293); additional testing may incur charges.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/165052/blastomyces-dermatitidis-antibodies-by-eia-with-reflex-to-immunodiffusion-serum"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/165052/blastomyces-dermatitidis-antibodies-by-eia-with-reflex-to-immunodiffusion-serum"
   },
   {
     "id": "labcorp-161745",
@@ -713,7 +713,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/161745/bordetella-pertussis-antibodies-igg"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/161745/bordetella-pertussis-antibodies-igg"
   },
   {
     "id": "labcorp-164000",
@@ -729,11 +729,11 @@ window.SEED_TESTS=catalog;
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 14 days",
     "spin": "Yes",
-    "specialInstructions": "Labcorp specifies a gel-barrier tube. This assay is not approved for use in New York state; verify regional availability before ordering.",
+    "specialInstructions": "LabCorp specifies a gel-barrier tube. This assay is not approved for use in New York state; verify regional availability before ordering.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/164000/strongyloides-igg-antibody-qualitative-eia"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/164000/strongyloides-igg-antibody-qualitative-eia"
   },
   {
     "id": "labcorp-138271",
@@ -753,7 +753,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/138271/haemophilus-influenzae-b-igg"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/138271/haemophilus-influenzae-b-igg"
   },
   {
     "id": "labcorp-183560",
@@ -773,7 +773,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/183560/histoplasma-galactomannan-antigen-eia-urine"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/183560/histoplasma-galactomannan-antigen-eia-urine"
   },
   {
     "id": "labcorp-183016",
@@ -793,7 +793,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/183016/cryptococcus-antigen-cerebrospinal-fluid"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/183016/cryptococcus-antigen-cerebrospinal-fluid"
   },
   {
     "id": "labcorp-183805",
@@ -813,7 +813,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/183805/aspergillus-galactomannan-antigen-detection-bronchoalveolar-lavage-or-serum"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/183805/aspergillus-galactomannan-antigen-detection-bronchoalveolar-lavage-or-serum"
   },
   {
     "id": "labcorp-183858",
@@ -833,7 +833,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/183858/aspergillus-galactomannan-antigen-detection-cerebrospinal-fluid"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/183858/aspergillus-galactomannan-antigen-detection-cerebrospinal-fluid"
   },
   {
     "id": "labcorp-505795",
@@ -849,11 +849,11 @@ window.SEED_TESTS=catalog;
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 14 days",
     "spin": "No",
-    "specialInstructions": "Submit CSF in sterile screw-cap vial using standard aseptic CSF collection. Serum version is a different Labcorp code (505790).",
+    "specialInstructions": "Submit CSF in sterile screw-cap vial using standard aseptic CSF collection. Serum version is a different LabCorp code (505790).",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/505795/autoimmune-atypical-parkinsonism-profile-spinal-fluid"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/505795/autoimmune-atypical-parkinsonism-profile-spinal-fluid"
   },
   {
     "id": "labcorp-164293",
@@ -867,13 +867,13 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "Verify minimum",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Verify current Labcorp stability",
+    "stability": "Verify current LabCorp stability",
     "spin": "Yes",
     "specialInstructions": "Refrigerate serum. Quantitative double immunodiffusion; also performed as reflex to positive/equivocal Blastomyces EIA (165052). Avoid hemolysis, lipemia and gross contamination.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/164293/blastomyces-antibodies-quantitative-did"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/164293/blastomyces-antibodies-quantitative-did"
   },
   {
     "id": "labcorp-164284",
@@ -887,13 +887,13 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "0.85 mL",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Verify current Labcorp stability",
+    "stability": "Verify current LabCorp stability",
     "spin": "Yes",
     "specialInstructions": "Refrigerate serum. Includes Aspergillus species and Blastomyces antibody testing; avoid hemolysis, lipemia or gross bacterial contamination.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/164284/fungal-antibodies-quantitative-double-immunodiffusion"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/164284/fungal-antibodies-quantitative-double-immunodiffusion"
   },
   {
     "id": "labcorp-183009",
@@ -913,7 +913,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/183009/streptococcus-pneumoniae-antigen-urine-or-cerebrospinal-fluid"
+    "source": "LabCorp test-specific directory (checked 2026-10-22) • https://www.labcorp.com/tests/183009/streptococcus-pneumoniae-antigen-urine-or-cerebrospinal-fluid"
   }
 ];
 const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];
@@ -926,7 +926,7 @@ window.SEED_TESTS=catalog;
 
 /* SOURCE: labcorp-tickborne-serology-added-20261022.js */
 ;
-/* Labcorp verified tickborne and brucellosis/bartonellosis serology. These are serum-only antibody orders, not PCR. */
+/* LabCorp verified tickborne and brucellosis/bartonellosis serology. These are serum-only antibody orders, not PCR. */
 (()=>{'use strict';const additions=[
   {
     "id": "labcorp-016502",
@@ -946,7 +946,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test directory (individual test page) • https://www.labcorp.com/tests/016502/spotted-fever-group-antibodies-igg-and-igm"
+    "source": "LabCorp test directory (individual test page) • https://www.labcorp.com/tests/016502/spotted-fever-group-antibodies-igg-and-igm"
   },
   {
     "id": "labcorp-164722",
@@ -966,7 +966,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test directory (individual test page) • https://www.labcorp.com/tests/164722/ehrlichia-antibody-panel-anaplasma-phagocytophilum-and-ehrlichia-chaffeensis-igg-and-igm-ifa"
+    "source": "LabCorp test directory (individual test page) • https://www.labcorp.com/tests/164722/ehrlichia-antibody-panel-anaplasma-phagocytophilum-and-ehrlichia-chaffeensis-igg-and-igm-ifa"
   },
   {
     "id": "labcorp-164680",
@@ -986,7 +986,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test directory (individual test page) • https://www.labcorp.com/tests/164680/ehrlichia-chaffeensis-hme-antibody-igg-and-igm-ifa"
+    "source": "LabCorp test directory (individual test page) • https://www.labcorp.com/tests/164680/ehrlichia-chaffeensis-hme-antibody-igg-and-igm-ifa"
   },
   {
     "id": "labcorp-164672",
@@ -1006,7 +1006,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test directory (individual test page) • https://www.labcorp.com/tests/164672/anaplasma-phagocytophilum-hge-antibody-igg-and-igm-ifa"
+    "source": "LabCorp test directory (individual test page) • https://www.labcorp.com/tests/164672/anaplasma-phagocytophilum-hge-antibody-igg-and-igm-ifa"
   },
   {
     "id": "labcorp-164624",
@@ -1026,7 +1026,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test directory (individual test page) • https://www.labcorp.com/tests/164624/brucella-antibody-igm-eia"
+    "source": "LabCorp test directory (individual test page) • https://www.labcorp.com/tests/164624/brucella-antibody-igm-eia"
   },
   {
     "id": "labcorp-164608",
@@ -1046,7 +1046,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test directory (individual test page) • https://www.labcorp.com/tests/164608/brucella-antibody-igg-eia"
+    "source": "LabCorp test directory (individual test page) • https://www.labcorp.com/tests/164608/brucella-antibody-igg-eia"
   },
   {
     "id": "labcorp-163162",
@@ -1062,18 +1062,18 @@ window.SEED_TESTS=catalog;
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 14 days",
     "spin": "Yes",
-    "specialInstructions": "Collect serum in gel-barrier SST or red-top. If red-top, transfer separated serum to plastic transport tube. Never freeze a gel-barrier tube: pour off serum before freezing. Includes B. henselae IgG/IgM and B. quintana IgG/IgM. Profile is one Labcorp order; do not count its result components as four individual orders.",
+    "specialInstructions": "Collect serum in gel-barrier SST or red-top. If red-top, transfer separated serum to plastic transport tube. Never freeze a gel-barrier tube: pour off serum before freezing. Includes B. henselae IgG/IgM and B. quintana IgG/IgM. Profile is one LabCorp order; do not count its result components as four individual orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp test directory (individual test page) • https://www.labcorp.com/tests/163162/bartonella-antibody-profile"
+    "source": "LabCorp test directory (individual test page) • https://www.labcorp.com/tests/163162/bartonella-antibody-profile"
   }
 ];const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];const known=new Set(catalog.map(t=>String(t.testCode)));for(const test of additions){if(!known.has(test.testCode)){catalog.push(test);known.add(test.testCode);}}window.SEED_TESTS=catalog;})();
 ;
 
 /* SOURCE: labcorp-infectious-pcr-expansion-20261022.js */
 ;
-/* Confirmed Labcorp STI specimen-site orders, HIV/HCV RNA, and latex/milk allergy profiles. Each item sources its Labcorp test-specific directory. */
+/* Confirmed LabCorp STI specimen-site orders, HIV/HCV RNA, and latex/milk allergy profiles. Each item sources its LabCorp test-specific directory. */
 (()=>{'use strict';
 const additions=[
   {
@@ -1094,7 +1094,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/188698/chlamydia-gonococcus-pharyngeal-swab-naa"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/188698/chlamydia-gonococcus-pharyngeal-swab-naa"
   },
   {
     "id": "labcorp-188672",
@@ -1114,7 +1114,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/188672/chlamydia-gonococcus-rectal-swab-naa"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/188672/chlamydia-gonococcus-rectal-swab-naa"
   },
   {
     "id": "labcorp-188725",
@@ -1134,7 +1134,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/188725/prep-use-only-chlamydia-gonococcus-rectal-swab-naa"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/188725/prep-use-only-chlamydia-gonococcus-rectal-swab-naa"
   },
   {
     "id": "labcorp-180025",
@@ -1154,7 +1154,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/180025/mycoplasma-genitalium-naa-urine"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/180025/mycoplasma-genitalium-naa-urine"
   },
   {
     "id": "labcorp-180084",
@@ -1174,7 +1174,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/180084/mycoplasma-genitalium-naa-urine-with-reflex-to-macrolide-resistance-testing"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/180084/mycoplasma-genitalium-naa-urine-with-reflex-to-macrolide-resistance-testing"
   },
   {
     "id": "labcorp-180107",
@@ -1194,7 +1194,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/180107/chlamydia-gonococcus-trichomonas-vaginalis-mycoplasma-genitalium-with-reflex-to-macrolide-resistance-naa-urine"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/180107/chlamydia-gonococcus-trichomonas-vaginalis-mycoplasma-genitalium-with-reflex-to-macrolide-resistance-naa-urine"
   },
   {
     "id": "labcorp-180123",
@@ -1214,7 +1214,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/180123/chlamydia-gonococcus-mycoplasma-genitalium-with-reflex-to-macrolide-resistance-naa-urine"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/180123/chlamydia-gonococcus-mycoplasma-genitalium-with-reflex-to-macrolide-resistance-naa-urine"
   },
   {
     "id": "labcorp-139825",
@@ -1234,7 +1234,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/139825/human-immunodeficiency-virus-1-amp-2-hiv-1-hiv-2-qualitative-rna"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/139825/human-immunodeficiency-virus-1-amp-2-hiv-1-hiv-2-qualitative-rna"
   },
   {
     "id": "labcorp-083973",
@@ -1254,7 +1254,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/083973/prep-use-only-human-immunodeficiency-virus-1-amp-2-hiv-1-hiv-2-qualitative-rna"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/083973/prep-use-only-human-immunodeficiency-virus-1-amp-2-hiv-1-hiv-2-qualitative-rna"
   },
   {
     "id": "labcorp-550880",
@@ -1274,7 +1274,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/550880/human-immunodeficiency-virus-1-hiv-1-quantitative-rna-abbott-realtime"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/550880/human-immunodeficiency-virus-1-hiv-1-quantitative-rna-abbott-realtime"
   },
   {
     "id": "labcorp-550080",
@@ -1294,7 +1294,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/550080/hepatitis-c-virus-hcv-quantitative-real-time-pcr-nongraphical"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/550080/hepatitis-c-virus-hcv-quantitative-real-time-pcr-nongraphical"
   },
   {
     "id": "labcorp-550090",
@@ -1314,7 +1314,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/550090/hepatitis-c-virus-hcv-quantitative-rna-pcr-nongraphical-with-reflex-to-genotyping"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/550090/hepatitis-c-virus-hcv-quantitative-rna-pcr-nongraphical-with-reflex-to-genotyping"
   },
   {
     "id": "labcorp-550100",
@@ -1334,7 +1334,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/550100/hepatitis-c-virus-hcv-quantitative-rna-pcr-graphical-with-reflex-to-genotyping"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/550100/hepatitis-c-virus-hcv-quantitative-rna-pcr-graphical-with-reflex-to-genotyping"
   },
   {
     "id": "labcorp-670654",
@@ -1348,13 +1348,13 @@ const additions=[
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Confirm Labcorp allergy test stability",
+    "stability": "Confirm LabCorp allergy test stability",
     "spin": "Yes",
     "specialInstructions": "Serum from red top or gel-barrier SST. If red-top, transfer separated serum to plastic tube. Room-temperature transport accepted; do not submit whole blood. IgE allergen profile is one combined order, not five separate test codes.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/670654/allergen-profile-latex-related"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/670654/allergen-profile-latex-related"
   },
   {
     "id": "labcorp-603927",
@@ -1374,7 +1374,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/603927/allergen-profile-milk-ige-with-component-reflexes"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/603927/allergen-profile-milk-ige-with-component-reflexes"
   }
 ];
 const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];
@@ -1386,7 +1386,7 @@ window.SEED_TESTS=catalog;
 
 /* SOURCE: labcorp-viral-reflex-expansion-20261022.js */
 ;
-/* Labcorp official HIV/HCV reflex molecular test codes and PrEP site-specific NAATs. Preserve mandatory multiple EDTA sources and frozen separate aliquots. */
+/* LabCorp official HIV/HCV reflex molecular test codes and PrEP site-specific NAATs. Preserve mandatory multiple EDTA sources and frozen separate aliquots. */
 (()=>{'use strict';const additions=[
   {
     "id": "labcorp-188710",
@@ -1400,7 +1400,7 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "1 swab",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Confirm current Labcorp test-specific freezing and stability limits",
+    "stability": "Confirm current LabCorp test-specific freezing and stability limits",
     "spin": "No",
     "collectionCount": 1,
     "submissionCount": 1,
@@ -1408,7 +1408,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official directory, checked October 2026 • https://www.labcorp.com/tests/188710/prep-use-only-chlamydia-gonococcus-pharyngeal-swab-naa"
+    "source": "LabCorp official directory, checked October 2026 • https://www.labcorp.com/tests/188710/prep-use-only-chlamydia-gonococcus-pharyngeal-swab-naa"
   },
   {
     "id": "labcorp-188780",
@@ -1422,7 +1422,7 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "2 mL in Aptima",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Confirm current Labcorp test-specific freezing and stability limits",
+    "stability": "Confirm current LabCorp test-specific freezing and stability limits",
     "spin": "No",
     "collectionCount": 1,
     "submissionCount": 1,
@@ -1430,7 +1430,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official directory, checked October 2026 • https://www.labcorp.com/tests/188780/prep-use-only-chlamydia-gonococcus-urine-or-urogenital-swab-naa"
+    "source": "LabCorp official directory, checked October 2026 • https://www.labcorp.com/tests/188780/prep-use-only-chlamydia-gonococcus-urine-or-urogenital-swab-naa"
   },
   {
     "id": "labcorp-550420",
@@ -1444,7 +1444,7 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "1.1 mL",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Confirm current Labcorp test-specific freezing and stability limits",
+    "stability": "Confirm current LabCorp test-specific freezing and stability limits",
     "spin": "Yes",
     "collectionCount": 1,
     "submissionCount": 1,
@@ -1452,7 +1452,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official directory, checked October 2026 • https://www.labcorp.com/tests/550420/human-immunodeficiency-virus-1-hiv-1-quantitative-real-time-pcr-graphical"
+    "source": "LabCorp official directory, checked October 2026 • https://www.labcorp.com/tests/550420/human-immunodeficiency-virus-1-hiv-1-quantitative-real-time-pcr-graphical"
   },
   {
     "id": "labcorp-550655",
@@ -1466,15 +1466,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "4 mL",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Confirm current Labcorp test-specific freezing and stability limits",
+    "stability": "Confirm current LabCorp test-specific freezing and stability limits",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 2,
-    "specialInstructions": "SPECIAL HIV RESISTANCE REFLEX: Collect THREE lavender EDTA whole-blood tubes (or Labcorp-approved PPT alternatives). Centrifuge all appropriate tubes within SIX HOURS; transfer plasma to screw-cap polypropylene tubes (not snap/pop cap) and FREEZE. Submit TWO or more dedicated frozen plasma transport tubes for viral quantitation plus possible resistance reflex (min 4 mL, 6 mL preferred). NEVER freeze samples in PPT, and do not use green-top heparin. Keep separate frozen samples for each assay. Confirm specific reflex method and local acceptance. One-time test, not graphical serial monitor. GenoSure PRIme reflex if HIV RNA ≥500 copies/mL.",
+    "specialInstructions": "SPECIAL HIV RESISTANCE REFLEX: Collect THREE lavender EDTA whole-blood tubes (or LabCorp-approved PPT alternatives). Centrifuge all appropriate tubes within SIX HOURS; transfer plasma to screw-cap polypropylene tubes (not snap/pop cap) and FREEZE. Submit TWO or more dedicated frozen plasma transport tubes for viral quantitation plus possible resistance reflex (min 4 mL, 6 mL preferred). NEVER freeze samples in PPT, and do not use green-top heparin. Keep separate frozen samples for each assay. Confirm specific reflex method and local acceptance. One-time test, not graphical serial monitor. GenoSure PRIme reflex if HIV RNA ≥500 copies/mL.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official directory, checked October 2026 • https://www.labcorp.com/tests/550655/human-immunodeficiency-virus-1-hiv-1-quantitative-real-time-pcr-nongraphical-with-reflex-to-hiv-1-genosure-prime"
+    "source": "LabCorp official directory, checked October 2026 • https://www.labcorp.com/tests/550655/human-immunodeficiency-virus-1-hiv-1-quantitative-real-time-pcr-nongraphical-with-reflex-to-hiv-1-genosure-prime"
   },
   {
     "id": "labcorp-550422",
@@ -1488,15 +1488,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "4 mL",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Confirm current Labcorp test-specific freezing and stability limits",
+    "stability": "Confirm current LabCorp test-specific freezing and stability limits",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 2,
-    "specialInstructions": "SPECIAL HIV RESISTANCE REFLEX: Collect THREE lavender EDTA whole-blood tubes (or Labcorp-approved PPT alternatives). Centrifuge all appropriate tubes within SIX HOURS; transfer plasma to screw-cap polypropylene tubes (not snap/pop cap) and FREEZE. Submit TWO or more dedicated frozen plasma transport tubes for viral quantitation plus possible resistance reflex (min 4 mL, 6 mL preferred). NEVER freeze samples in PPT, and do not use green-top heparin. Keep separate frozen samples for each assay. Confirm specific reflex method and local acceptance. Graphical serial monitoring; GenoSure MG reflex if viral load >500 copies/mL.",
+    "specialInstructions": "SPECIAL HIV RESISTANCE REFLEX: Collect THREE lavender EDTA whole-blood tubes (or LabCorp-approved PPT alternatives). Centrifuge all appropriate tubes within SIX HOURS; transfer plasma to screw-cap polypropylene tubes (not snap/pop cap) and FREEZE. Submit TWO or more dedicated frozen plasma transport tubes for viral quantitation plus possible resistance reflex (min 4 mL, 6 mL preferred). NEVER freeze samples in PPT, and do not use green-top heparin. Keep separate frozen samples for each assay. Confirm specific reflex method and local acceptance. Graphical serial monitoring; GenoSure MG reflex if viral load >500 copies/mL.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official directory, checked October 2026 • https://www.labcorp.com/tests/550422/human-immunodeficiency-virus-1-hiv-1-quantitative-real-time-pcr-graphical-with-reflex-to-hiv-1-genosure-mg"
+    "source": "LabCorp official directory, checked October 2026 • https://www.labcorp.com/tests/550422/human-immunodeficiency-virus-1-hiv-1-quantitative-real-time-pcr-graphical-with-reflex-to-hiv-1-genosure-mg"
   },
   {
     "id": "labcorp-550432",
@@ -1510,15 +1510,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "4 mL",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Confirm current Labcorp test-specific freezing and stability limits",
+    "stability": "Confirm current LabCorp test-specific freezing and stability limits",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 2,
-    "specialInstructions": "SPECIAL HIV RESISTANCE REFLEX: Collect THREE lavender EDTA whole-blood tubes (or Labcorp-approved PPT alternatives). Centrifuge all appropriate tubes within SIX HOURS; transfer plasma to screw-cap polypropylene tubes (not snap/pop cap) and FREEZE. Submit TWO or more dedicated frozen plasma transport tubes for viral quantitation plus possible resistance reflex (min 4 mL, 6 mL preferred). NEVER freeze samples in PPT, and do not use green-top heparin. Keep separate frozen samples for each assay. Confirm specific reflex method and local acceptance. One-time nonmonitor test, GenoSure MG reflex if viral load >500 copies/mL.",
+    "specialInstructions": "SPECIAL HIV RESISTANCE REFLEX: Collect THREE lavender EDTA whole-blood tubes (or LabCorp-approved PPT alternatives). Centrifuge all appropriate tubes within SIX HOURS; transfer plasma to screw-cap polypropylene tubes (not snap/pop cap) and FREEZE. Submit TWO or more dedicated frozen plasma transport tubes for viral quantitation plus possible resistance reflex (min 4 mL, 6 mL preferred). NEVER freeze samples in PPT, and do not use green-top heparin. Keep separate frozen samples for each assay. Confirm specific reflex method and local acceptance. One-time nonmonitor test, GenoSure MG reflex if viral load >500 copies/mL.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official directory, checked October 2026 • https://www.labcorp.com/tests/550432/human-immunodeficiency-virus-1-hiv-1-quantitative-real-time-pcr-nongraphical-with-reflex-to-hiv-1-genosure-mg"
+    "source": "LabCorp official directory, checked October 2026 • https://www.labcorp.com/tests/550432/human-immunodeficiency-virus-1-hiv-1-quantitative-real-time-pcr-nongraphical-with-reflex-to-hiv-1-genosure-mg"
   },
   {
     "id": "labcorp-550470",
@@ -1532,15 +1532,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "4 mL",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Confirm current Labcorp test-specific freezing and stability limits",
+    "stability": "Confirm current LabCorp test-specific freezing and stability limits",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 2,
-    "specialInstructions": "SPECIAL HIV RESISTANCE REFLEX: Collect THREE lavender EDTA whole-blood tubes (or Labcorp-approved PPT alternatives). Centrifuge all appropriate tubes within SIX HOURS; transfer plasma to screw-cap polypropylene tubes (not snap/pop cap) and FREEZE. Submit TWO or more dedicated frozen plasma transport tubes for viral quantitation plus possible resistance reflex (min 4 mL, 6 mL preferred). NEVER freeze samples in PPT, and do not use green-top heparin. Keep separate frozen samples for each assay. Confirm specific reflex method and local acceptance. Reflex phenotype PhenoSense if viral load >500 copies/mL; nonmonitor.",
+    "specialInstructions": "SPECIAL HIV RESISTANCE REFLEX: Collect THREE lavender EDTA whole-blood tubes (or LabCorp-approved PPT alternatives). Centrifuge all appropriate tubes within SIX HOURS; transfer plasma to screw-cap polypropylene tubes (not snap/pop cap) and FREEZE. Submit TWO or more dedicated frozen plasma transport tubes for viral quantitation plus possible resistance reflex (min 4 mL, 6 mL preferred). NEVER freeze samples in PPT, and do not use green-top heparin. Keep separate frozen samples for each assay. Confirm specific reflex method and local acceptance. Reflex phenotype PhenoSense if viral load >500 copies/mL; nonmonitor.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official directory, checked October 2026 • https://www.labcorp.com/tests/550470/human-immunodeficiency-virus-1-hiv-1-quantitative-real-time-pcr-nongraphical-with-reflex-to-phenosense"
+    "source": "LabCorp official directory, checked October 2026 • https://www.labcorp.com/tests/550470/human-immunodeficiency-virus-1-hiv-1-quantitative-real-time-pcr-nongraphical-with-reflex-to-phenosense"
   },
   {
     "id": "labcorp-550390",
@@ -1554,15 +1554,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "4 mL",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Confirm current Labcorp test-specific freezing and stability limits",
+    "stability": "Confirm current LabCorp test-specific freezing and stability limits",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 2,
-    "specialInstructions": "SPECIAL HIV RESISTANCE REFLEX: Collect THREE lavender EDTA whole-blood tubes (or Labcorp-approved PPT alternatives). Centrifuge all appropriate tubes within SIX HOURS; transfer plasma to screw-cap polypropylene tubes (not snap/pop cap) and FREEZE. Submit TWO or more dedicated frozen plasma transport tubes for viral quantitation plus possible resistance reflex (min 4 mL, 6 mL preferred). NEVER freeze samples in PPT, and do not use green-top heparin. Keep separate frozen samples for each assay. Confirm specific reflex method and local acceptance. Reflex Trofile coreceptor tropism if viral load >1000 copies/mL.",
+    "specialInstructions": "SPECIAL HIV RESISTANCE REFLEX: Collect THREE lavender EDTA whole-blood tubes (or LabCorp-approved PPT alternatives). Centrifuge all appropriate tubes within SIX HOURS; transfer plasma to screw-cap polypropylene tubes (not snap/pop cap) and FREEZE. Submit TWO or more dedicated frozen plasma transport tubes for viral quantitation plus possible resistance reflex (min 4 mL, 6 mL preferred). NEVER freeze samples in PPT, and do not use green-top heparin. Keep separate frozen samples for each assay. Confirm specific reflex method and local acceptance. Reflex Trofile coreceptor tropism if viral load >1000 copies/mL.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official directory, checked October 2026 • https://www.labcorp.com/tests/550390/human-immunodeficiency-virus-1-hiv-1-quantitative-real-time-pcr-graphical-with-reflex-to-trofile"
+    "source": "LabCorp official directory, checked October 2026 • https://www.labcorp.com/tests/550390/human-immunodeficiency-virus-1-hiv-1-quantitative-real-time-pcr-graphical-with-reflex-to-trofile"
   },
   {
     "id": "labcorp-550520",
@@ -1576,15 +1576,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "4 mL",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Confirm current Labcorp test-specific freezing and stability limits",
+    "stability": "Confirm current LabCorp test-specific freezing and stability limits",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 2,
-    "specialInstructions": "SPECIAL HIV RESISTANCE REFLEX: Collect THREE lavender EDTA whole-blood tubes (or Labcorp-approved PPT alternatives). Centrifuge all appropriate tubes within SIX HOURS; transfer plasma to screw-cap polypropylene tubes (not snap/pop cap) and FREEZE. Submit TWO or more dedicated frozen plasma transport tubes for viral quantitation plus possible resistance reflex (min 4 mL, 6 mL preferred). NEVER freeze samples in PPT, and do not use green-top heparin. Keep separate frozen samples for each assay. Confirm specific reflex method and local acceptance. Reflex PhenoSense phenotype if viral load >500 copies/mL, graphical monitoring.",
+    "specialInstructions": "SPECIAL HIV RESISTANCE REFLEX: Collect THREE lavender EDTA whole-blood tubes (or LabCorp-approved PPT alternatives). Centrifuge all appropriate tubes within SIX HOURS; transfer plasma to screw-cap polypropylene tubes (not snap/pop cap) and FREEZE. Submit TWO or more dedicated frozen plasma transport tubes for viral quantitation plus possible resistance reflex (min 4 mL, 6 mL preferred). NEVER freeze samples in PPT, and do not use green-top heparin. Keep separate frozen samples for each assay. Confirm specific reflex method and local acceptance. Reflex PhenoSense phenotype if viral load >500 copies/mL, graphical monitoring.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official directory, checked October 2026 • https://www.labcorp.com/tests/550520/human-immunodeficiency-virus-1-hiv-1-quantitative-real-time-pcr-graphical-with-reflex-to-phenosense"
+    "source": "LabCorp official directory, checked October 2026 • https://www.labcorp.com/tests/550520/human-immunodeficiency-virus-1-hiv-1-quantitative-real-time-pcr-graphical-with-reflex-to-phenosense"
   },
   {
     "id": "labcorp-550711",
@@ -1598,15 +1598,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "4 mL",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Confirm current Labcorp test-specific freezing and stability limits",
+    "stability": "Confirm current LabCorp test-specific freezing and stability limits",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 2,
-    "specialInstructions": "SPECIAL HIV RESISTANCE REFLEX: Collect THREE lavender EDTA whole-blood tubes (or Labcorp-approved PPT alternatives). Centrifuge all appropriate tubes within SIX HOURS; transfer plasma to screw-cap polypropylene tubes (not snap/pop cap) and FREEZE. Submit TWO or more dedicated frozen plasma transport tubes for viral quantitation plus possible resistance reflex (min 4 mL, 6 mL preferred). NEVER freeze samples in PPT, and do not use green-top heparin. Keep separate frozen samples for each assay. Confirm specific reflex method and local acceptance. Reflex PhenoSense GT Plus Integrase if viral load >500 copies/mL.",
+    "specialInstructions": "SPECIAL HIV RESISTANCE REFLEX: Collect THREE lavender EDTA whole-blood tubes (or LabCorp-approved PPT alternatives). Centrifuge all appropriate tubes within SIX HOURS; transfer plasma to screw-cap polypropylene tubes (not snap/pop cap) and FREEZE. Submit TWO or more dedicated frozen plasma transport tubes for viral quantitation plus possible resistance reflex (min 4 mL, 6 mL preferred). NEVER freeze samples in PPT, and do not use green-top heparin. Keep separate frozen samples for each assay. Confirm specific reflex method and local acceptance. Reflex PhenoSense GT Plus Integrase if viral load >500 copies/mL.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official directory, checked October 2026 • https://www.labcorp.com/tests/550711/human-immunodeficiency-virus-1-hiv-1-quantitative-real-time-pcr-graphical-with-reflex-to-hiv-1-phenosense-gt-plus-integrase"
+    "source": "LabCorp official directory, checked October 2026 • https://www.labcorp.com/tests/550711/human-immunodeficiency-virus-1-hiv-1-quantitative-real-time-pcr-graphical-with-reflex-to-hiv-1-phenosense-gt-plus-integrase"
   },
   {
     "id": "labcorp-550887",
@@ -1620,7 +1620,7 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "3 mL",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Confirm current Labcorp test-specific freezing and stability limits",
+    "stability": "Confirm current LabCorp test-specific freezing and stability limits",
     "spin": "Yes",
     "collectionCount": 3,
     "submissionCount": 1,
@@ -1628,7 +1628,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official directory, checked October 2026 • https://www.labcorp.com/tests/550887/hepatitis-c-virus-hcv-quantitative-reflex-hcv-genotyping-with-1a-reflex-to-hcv-ns5a-drug-resistance-assay"
+    "source": "LabCorp official directory, checked October 2026 • https://www.labcorp.com/tests/550887/hepatitis-c-virus-hcv-quantitative-reflex-hcv-genotyping-with-1a-reflex-to-hcv-ns5a-drug-resistance-assay"
   },
   {
     "id": "labcorp-550349",
@@ -1642,15 +1642,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "2 mL",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Confirm current Labcorp test-specific freezing and stability limits",
+    "stability": "Confirm current LabCorp test-specific freezing and stability limits",
     "spin": "Yes",
     "collectionCount": 2,
     "submissionCount": 1,
-    "specialInstructions": "HCV QUANTITATIVE AND RESISTANCE REFLEX: Collect sufficient specimen in EDTA lavender or SST as accepted (heparin NOT allowed), spin within SIX HOURS, transfer frozen serum/plasma into polypropylene screw-cap tubes and freeze IMMEDIATELY. Each additional HCV assay needs its OWN dedicated frozen aliquot, DO NOT POOL, and frozen-only transport is mandatory. Confirm genotype and resistance reflex indications with ordering clinician. HCV genotype 1a/1b required; NS5A reflex if viral load ≥500 IU/mL. TWO collection tubes from Labcorp's published instructions.",
+    "specialInstructions": "HCV QUANTITATIVE AND RESISTANCE REFLEX: Collect sufficient specimen in EDTA lavender or SST as accepted (heparin NOT allowed), spin within SIX HOURS, transfer frozen serum/plasma into polypropylene screw-cap tubes and freeze IMMEDIATELY. Each additional HCV assay needs its OWN dedicated frozen aliquot, DO NOT POOL, and frozen-only transport is mandatory. Confirm genotype and resistance reflex indications with ordering clinician. HCV genotype 1a/1b required; NS5A reflex if viral load ≥500 IU/mL. TWO collection tubes from LabCorp's published instructions.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official directory, checked October 2026 • https://www.labcorp.com/tests/550349/hepatitis-c-virus-hcv-quantitative-rna-pcr-nongraphical-with-reflex-to-hepatitis-c-virus-hcv-ns5a-drug-resistance-assay"
+    "source": "LabCorp official directory, checked October 2026 • https://www.labcorp.com/tests/550349/hepatitis-c-virus-hcv-quantitative-rna-pcr-nongraphical-with-reflex-to-hepatitis-c-virus-hcv-ns5a-drug-resistance-assay"
   },
   {
     "id": "labcorp-550577",
@@ -1664,15 +1664,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "2 mL",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Confirm current Labcorp test-specific freezing and stability limits",
+    "stability": "Confirm current LabCorp test-specific freezing and stability limits",
     "spin": "Yes",
     "collectionCount": 2,
     "submissionCount": 1,
-    "specialInstructions": "HCV QUANTITATIVE AND RESISTANCE REFLEX: Collect sufficient specimen in EDTA lavender or SST as accepted (heparin NOT allowed), spin within SIX HOURS, transfer frozen serum/plasma into polypropylene screw-cap tubes and freeze IMMEDIATELY. Each additional HCV assay needs its OWN dedicated frozen aliquot, DO NOT POOL, and frozen-only transport is mandatory. Confirm genotype and resistance reflex indications with ordering clinician. HCV genotype 1a/1b required; NS5B reflex if viral load ≥1000 IU/mL. TWO collection tubes from Labcorp's published instructions.",
+    "specialInstructions": "HCV QUANTITATIVE AND RESISTANCE REFLEX: Collect sufficient specimen in EDTA lavender or SST as accepted (heparin NOT allowed), spin within SIX HOURS, transfer frozen serum/plasma into polypropylene screw-cap tubes and freeze IMMEDIATELY. Each additional HCV assay needs its OWN dedicated frozen aliquot, DO NOT POOL, and frozen-only transport is mandatory. Confirm genotype and resistance reflex indications with ordering clinician. HCV genotype 1a/1b required; NS5B reflex if viral load ≥1000 IU/mL. TWO collection tubes from LabCorp's published instructions.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official directory, checked October 2026 • https://www.labcorp.com/tests/550577/hepatitis-c-virus-hcv-quantitative-rna-pcr-nongraphical-with-reflex-to-hepatitis-c-virus-hcv-ns5b-drug-resistance-assay"
+    "source": "LabCorp official directory, checked October 2026 • https://www.labcorp.com/tests/550577/hepatitis-c-virus-hcv-quantitative-rna-pcr-nongraphical-with-reflex-to-hepatitis-c-virus-hcv-ns5b-drug-resistance-assay"
   },
   {
     "id": "labcorp-550072",
@@ -1686,15 +1686,15 @@ window.SEED_TESTS=catalog;
     "minimumVolume": "2 mL",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
-    "stability": "Confirm current Labcorp test-specific freezing and stability limits",
+    "stability": "Confirm current LabCorp test-specific freezing and stability limits",
     "spin": "Yes",
     "collectionCount": 2,
     "submissionCount": 1,
-    "specialInstructions": "HCV QUANTITATIVE AND RESISTANCE REFLEX: Collect sufficient specimen in EDTA lavender or SST as accepted (heparin NOT allowed), spin within SIX HOURS, transfer frozen serum/plasma into polypropylene screw-cap tubes and freeze IMMEDIATELY. Each additional HCV assay needs its OWN dedicated frozen aliquot, DO NOT POOL, and frozen-only transport is mandatory. Confirm genotype and resistance reflex indications with ordering clinician. HCV genotype 1a/1b required; NS3/4A reflex if viral load ≥2000 IU/mL. Labcorp instructs TWO collection tubes.",
+    "specialInstructions": "HCV QUANTITATIVE AND RESISTANCE REFLEX: Collect sufficient specimen in EDTA lavender or SST as accepted (heparin NOT allowed), spin within SIX HOURS, transfer frozen serum/plasma into polypropylene screw-cap tubes and freeze IMMEDIATELY. Each additional HCV assay needs its OWN dedicated frozen aliquot, DO NOT POOL, and frozen-only transport is mandatory. Confirm genotype and resistance reflex indications with ordering clinician. HCV genotype 1a/1b required; NS3/4A reflex if viral load ≥2000 IU/mL. LabCorp instructs TWO collection tubes.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official directory, checked October 2026 • https://www.labcorp.com/tests/550072/hepatitis-c-virus-hcv-quantitative-rna-pcr-nongraphical-with-reflex-to-hepatitis-c-virus-hcv-genosure-ns3-4a"
+    "source": "LabCorp official directory, checked October 2026 • https://www.labcorp.com/tests/550072/hepatitis-c-virus-hcv-quantitative-rna-pcr-nongraphical-with-reflex-to-hepatitis-c-virus-hcv-genosure-ns3-4a"
   }
 ];const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];const known=new Set(catalog.map(t=>String(t.testCode)));for(const item of additions){if(!known.has(item.testCode)){catalog.push(item);known.add(item.testCode);}}window.SEED_TESTS=catalog;})();
 ;

@@ -1,6 +1,6 @@
-/* Additional documented Labcorp primary-care, infectious disease, immunity and renal tests.
+/* Additional documented LabCorp primary-care, infectious disease, immunity and renal tests.
    Direct test references reviewed 2026-10-21. Only verified test numbers included.
-   Confirm current Labcorp lab/region requirements before shipping specimens. */
+   Confirm current LabCorp lab/region requirements before shipping specimens. */
 (() => {
   'use strict';
   const additions=[
@@ -18,11 +18,11 @@
     "transportTemperatureRaw": "Room Temperature",
     "stability": "14 days room temperature",
     "spin": "Yes",
-    "specialInstructions": "Thyroid reflex testing from TSH. Serum gel-barrier preferred. If red-top serum or lithium heparin plasma is used, separate and transfer to plastic transport tube. Labcorp recommends avoiding high-dose biotin for 72 hours before sampling when clinically appropriate.",
+    "specialInstructions": "Thyroid reflex testing from TSH. Serum gel-barrier preferred. If red-top serum or lithium heparin plasma is used, separate and transfer to plastic transport tube. LabCorp recommends avoiding high-dose biotin for 72 hours before sampling when clinically appropriate.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/330015/thyroid-cascade-profile"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/330015/thyroid-cascade-profile"
   },
   {
     "id": "labcorp-006530",
@@ -36,13 +36,13 @@
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check individual Labcorp test stability",
+    "stability": "Check individual LabCorp test stability",
     "spin": "Yes",
     "specialInstructions": "Anti-HBs quantitative for immunity evaluation, not HBsAg. Centrifuge within 24 hours. If not submitted in a gel-barrier tube, transfer separated serum to screw-cap polypropylene; do not freeze the gel barrier.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/006530/hepatitis-b-surface-antibody-quantitative"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/006530/hepatitis-b-surface-antibody-quantitative"
   },
   {
     "id": "labcorp-006718",
@@ -62,7 +62,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/006718/hepatitis-b-core-antibody-total"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/006718/hepatitis-b-core-antibody-total"
   },
   {
     "id": "labcorp-160101",
@@ -76,13 +76,13 @@
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check individual Labcorp test stability",
+    "stability": "Check individual LabCorp test stability",
     "spin": "Yes",
     "specialInstructions": "Total HBcAb with IgM reflex when indicated. Use gel-barrier SST or red-top serum. When red-top is used, transfer separated serum to plastic transport tube. Do not freeze original SST.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/160101/hepatitis-b-core-antibody-total-with-reflex-to-igm"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/160101/hepatitis-b-core-antibody-total-with-reflex-to-igm"
   },
   {
     "id": "labcorp-006734",
@@ -96,13 +96,13 @@
     "minimumVolume": "0.4 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check individual Labcorp test stability",
+    "stability": "Check individual LabCorp test stability",
     "spin": "Yes",
     "specialInstructions": "HAV IgM for suspected recent infection, not immunity. Gel barrier or serum transfer tube; centrifuge within 24 hours and transfer to screw-cap polypropylene if not using SST.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/006734/hepatitis-a-antibody-igm"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/006734/hepatitis-a-antibody-igm"
   },
   {
     "id": "labcorp-006726",
@@ -116,13 +116,13 @@
     "minimumVolume": "0.4 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check individual Labcorp test stability",
+    "stability": "Check individual LabCorp test stability",
     "spin": "Yes",
     "specialInstructions": "HAV total antibody for immune status, not acute diagnosis. Use gel-barrier SST or red-top serum. When red-top is used, transfer separated serum to plastic transport tube. Do not freeze original SST.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/006726/hepatitis-a-virus-hav-antibody-total"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/006726/hepatitis-a-virus-hav-antibody-total"
   },
   {
     "id": "labcorp-164947",
@@ -142,7 +142,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/164947/ana-by-ifa-reflex-to-titer-and-pattern"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/164947/ana-by-ifa-reflex-to-titer-and-pattern"
   },
   {
     "id": "labcorp-164065",
@@ -162,7 +162,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/164065/rheumatoid-arthritis-ra-profile"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/164065/rheumatoid-arthritis-ra-profile"
   },
   {
     "id": "labcorp-164226",
@@ -182,7 +182,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/164226/lyme-antibodies-modified-2-tier-testing-profile-serum-plasma"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/164226/lyme-antibodies-modified-2-tier-testing-profile-serum-plasma"
   },
   {
     "id": "labcorp-240610",
@@ -196,13 +196,13 @@
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check individual Labcorp test stability",
+    "stability": "Check individual LabCorp test stability",
     "spin": "Yes",
     "specialInstructions": "Red-top or gel-barrier serum. EBV VCA IgM, VCA IgG and EBNA IgG with interpretation. Distinct from heterophile mono test.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/240610/epstein-barr-virus-ebv-antibody-profile"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/240610/epstein-barr-virus-ebv-antibody-profile"
   },
   {
     "id": "labcorp-096230",
@@ -216,13 +216,13 @@
     "minimumVolume": "0.2 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check individual Labcorp test stability",
+    "stability": "Check individual LabCorp test stability",
     "spin": "Yes",
     "specialInstructions": "EBV VCA IgG serum antibody. Red-top or gel-barrier tube.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/096230/epstein-barr-virus-ebv-antibodies-to-viral-capsid-antigen-vca-igg"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/096230/epstein-barr-virus-ebv-antibodies-to-viral-capsid-antigen-vca-igg"
   },
   {
     "id": "labcorp-010272",
@@ -236,13 +236,13 @@
     "minimumVolume": "0.2 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check individual Labcorp test stability",
+    "stability": "Check individual LabCorp test stability",
     "spin": "Yes",
     "specialInstructions": "EBNA IgG serum antibody. Red-top or gel-barrier tube.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/010272/epstein-barr-virus-ebv-nuclear-antigen-antibodies-igg"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/010272/epstein-barr-virus-ebv-nuclear-antigen-antibodies-igg"
   },
   {
     "id": "labcorp-096255",
@@ -256,13 +256,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check individual Labcorp test stability",
+    "stability": "Check individual LabCorp test stability",
     "spin": "Yes",
     "specialInstructions": "EBV VCA IgG and early antigen-diffuse IgG. Red-top or gel-barrier tube; no minimum volume specified in the current listing.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/096255/epstein-barr-virus-ebv-viral-capsid-antigen-vca-and-early-antigen-diffuse-ea-d-igg-antibody-profile"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/096255/epstein-barr-virus-ebv-viral-capsid-antigen-vca-and-early-antigen-diffuse-ea-d-igg-antibody-profile"
   },
   {
     "id": "labcorp-096206",
@@ -276,13 +276,13 @@
     "minimumVolume": "0.2 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check individual Labcorp test stability",
+    "stability": "Check individual LabCorp test stability",
     "spin": "Yes",
     "specialInstructions": "VZV IgG immunity test. Use gel-barrier SST or red-top serum. When red-top is used, transfer separated serum to plastic transport tube. Do not freeze original SST.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/096206/varicella-zoster-virus-vzv-antibodies-igg"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/096206/varicella-zoster-virus-vzv-antibodies-igg"
   },
   {
     "id": "labcorp-096552",
@@ -296,13 +296,13 @@
     "minimumVolume": "0.2 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check individual Labcorp test stability",
+    "stability": "Check individual LabCorp test stability",
     "spin": "Yes",
     "specialInstructions": "Mumps immunity IgG. Red-top or gel-barrier serum. Separate requisitions for paired samples.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/096552/mumps-antibodies-igg"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/096552/mumps-antibodies-igg"
   },
   {
     "id": "labcorp-006197",
@@ -316,13 +316,13 @@
     "minimumVolume": "0.2 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check individual Labcorp test stability",
+    "stability": "Check individual LabCorp test stability",
     "spin": "Yes",
     "specialInstructions": "Rubella immunity IgG. Red-top or gel-barrier serum.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/006197/rubella-antibodies-igg"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/006197/rubella-antibodies-igg"
   },
   {
     "id": "labcorp-096560",
@@ -336,13 +336,13 @@
     "minimumVolume": "0.2 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check individual Labcorp test stability",
+    "stability": "Check individual LabCorp test stability",
     "spin": "Yes",
     "specialInstructions": "Measles IgG immunity evaluation, not acute measles PCR. Red-top or gel-barrier serum.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/096560/measles-rubeola-antibodies-igg"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/096560/measles-rubeola-antibodies-igg"
   },
   {
     "id": "labcorp-003129",
@@ -362,7 +362,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/003129/protein-and-creatinine-random-urine"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/003129/protein-and-creatinine-random-urine"
   },
   {
     "id": "labcorp-706961",
@@ -382,7 +382,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/706961/methylmalonic-acid-serum-or-plasma"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/706961/methylmalonic-acid-serum-or-plasma"
   },
   {
     "id": "labcorp-164099",
@@ -402,7 +402,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/164099/herpes-simplex-virus-hsv-types-1-and-2-specific-antibodies-igg"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/164099/herpes-simplex-virus-hsv-types-1-and-2-specific-antibodies-igg"
   },
   {
     "id": "labcorp-164897",
@@ -422,7 +422,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/164897/herpes-simplex-virus-type-1-hsv-1-type-specific-antibodies-igg"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/164897/herpes-simplex-virus-type-1-hsv-1-type-specific-antibodies-igg"
   },
   {
     "id": "labcorp-164098",
@@ -442,7 +442,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/164098/herpes-simplex-virus-type-2-hsv-2-type-specific-antibodies-igg"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/164098/herpes-simplex-virus-type-2-hsv-2-type-specific-antibodies-igg"
   },
   {
     "id": "labcorp-121265",
@@ -462,7 +462,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/121265/cystatin-c-with-glomerular-filtration-rate-estimated-egfr"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/121265/cystatin-c-with-glomerular-filtration-rate-estimated-egfr"
   },
   {
     "id": "labcorp-121022",
@@ -482,7 +482,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/121022/egfr-creatinine-cystatin-c-calculation"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/121022/egfr-creatinine-cystatin-c-calculation"
   },
   {
     "id": "labcorp-141503",
@@ -502,7 +502,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/141503/vitamin-b12-deficiency-cascade"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/141503/vitamin-b12-deficiency-cascade"
   },
   {
     "id": "labcorp-161950",
@@ -518,11 +518,11 @@
     "transportTemperatureRaw": "Refrigerated",
     "stability": "14 days refrigerated",
     "spin": "Yes",
-    "specialInstructions": "Quantitative anticardiolipin IgA, IgG and IgM. Red-top or gel-barrier serum. Refrigerate for transport per Labcorp storage instructions.",
+    "specialInstructions": "Quantitative anticardiolipin IgA, IgG and IgM. Red-top or gel-barrier serum. Refrigerate for transport per LabCorp storage instructions.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/161950/anticardiolipin-antibodies-aca-iga-igg-igm-quantitative"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/161950/anticardiolipin-antibodies-aca-iga-igg-igm-quantitative"
   },
   {
     "id": "labcorp-161836",
@@ -542,7 +542,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/161836/anticardiolipin-antibodies-aca-iga-quantitative"
+    "source": "LabCorp official test directory verified 2026-10-21 • https://www.labcorp.com/tests/161836/anticardiolipin-antibodies-aca-iga-quantitative"
   }
 ];
   const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];

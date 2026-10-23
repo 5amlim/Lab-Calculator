@@ -1,4 +1,4 @@
-/* Labcorp official test directory-derived specimen records; last checked October 21, 2026.
+/* LabCorp official test directory-derived specimen records; last checked October 21, 2026.
    Verify with the current performing laboratory prior to collection and shipment. */
 window.SEED_TESTS = [
   {
@@ -15,11 +15,11 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room Temperature",
     "stability": "3 days",
     "spin": "Yes",
-    "specialInstructions": "Draw into gel-barrier tube; centrifuge and submit original spun tube. If red-top or green-top is used, centrifuge within 45 minutes, separate into plastic transport tube. Labcorp states fasting for 12 hours before collection.",
+    "specialInstructions": "Draw into gel-barrier tube; centrifuge and submit original spun tube. If red-top or green-top is used, centrifuge within 45 minutes, separate into plastic transport tube. LabCorp states fasting for 12 hours before collection.",
     "fastingStatus": "required",
-    "fastingInstructions": "12-hour fast per Labcorp test directory.",
+    "fastingInstructions": "12-hour fast per LabCorp test directory.",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive"
   },
   {
     "id": "labcorp-005009",
@@ -39,7 +39,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/005009/complete-blood-count-cbc-with-differential-reflex-to-peripheral-smear-review"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/005009/complete-blood-count-cbc-with-differential-reflex-to-peripheral-smear-review"
   },
   {
     "id": "labcorp-028142",
@@ -59,7 +59,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/028142/complete-blood-count-cbc-without-differential"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/028142/complete-blood-count-cbc-without-differential"
   },
   {
     "id": "labcorp-001453",
@@ -79,7 +79,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/001453/hemoglobin-hb-a1c"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/001453/hemoglobin-hb-a1c"
   },
   {
     "id": "labcorp-004259",
@@ -99,7 +99,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/004259/thyroid-stimulating-hormone-tsh"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/004259/thyroid-stimulating-hormone-tsh"
   },
   {
     "id": "labcorp-303756",
@@ -115,11 +115,11 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Verify current test page",
     "spin": "Yes",
-    "specialInstructions": "Separate serum or plasma from cells within 45 minutes after collection. Gel-barrier tube preferred. Confirm current fasting instructions with clinician and Labcorp.",
+    "specialInstructions": "Separate serum or plasma from cells within 45 minutes after collection. Gel-barrier tube preferred. Confirm current fasting instructions with clinician and LabCorp.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/303756/lipid-panel"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/303756/lipid-panel"
   },
   {
     "id": "labcorp-004598",
@@ -139,7 +139,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/004598/ferritin"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/004598/ferritin"
   },
   {
     "id": "labcorp-081950",
@@ -159,7 +159,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/081950/vitamin-d-25-hydroxy"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/081950/vitamin-d-25-hydroxy"
   },
   {
     "id": "labcorp-003772",
@@ -179,7 +179,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/003772/urinalysis-complete-with-microscopic-examination"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/003772/urinalysis-complete-with-microscopic-examination"
   },
   {
     "id": "labcorp-008847",
@@ -199,7 +199,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/008847/urine-culture-routine"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/008847/urine-culture-routine"
   },
   {
     "id": "labcorp-001081",
@@ -219,7 +219,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001081/albumin"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001081/albumin"
   },
   {
     "id": "labcorp-001123",
@@ -239,7 +239,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001123/aspartate-aminotransferase-ast-sgot"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001123/aspartate-aminotransferase-ast-sgot"
   },
   {
     "id": "labcorp-001545",
@@ -259,7 +259,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001545/alanine-aminotransferase-alt-sgpt"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001545/alanine-aminotransferase-alt-sgpt"
   },
   {
     "id": "labcorp-001818",
@@ -279,7 +279,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001818/glucose-plasma"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001818/glucose-plasma"
   },
   {
     "id": "labcorp-006049",
@@ -299,7 +299,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/006049/abo-grouping-and-rho-d-typing"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/006049/abo-grouping-and-rho-d-typing"
   },
   {
     "id": "labcorp-005215",
@@ -315,11 +315,11 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Refrigerated",
     "stability": "24 hours refrigerated",
     "spin": "No",
-    "specialInstructions": "Invert EDTA tube 8–10 times immediately after collection. Refrigerate for transport. Labcorp notes optimal results with blood less than 2 hours old; confirm same-day pickup and processing.",
+    "specialInstructions": "Invert EDTA tube 8–10 times immediately after collection. Refrigerate for transport. LabCorp notes optimal results with blood less than 2 hours old; confirm same-day pickup and processing.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/005215/erythrocyte-sedimentation-rate"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/005215/erythrocyte-sedimentation-rate"
   },
   {
     "id": "labcorp-016873",
@@ -339,7 +339,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/016873/apolipoprotein-a-1"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/016873/apolipoprotein-a-1"
   },
   {
     "id": "labcorp-167015",
@@ -359,7 +359,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/167015/apolipoprotein-b"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/167015/apolipoprotein-b"
   },
   {
     "id": "labcorp-120295",
@@ -379,7 +379,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/120295/low-density-lipoprotein-cholesterol-direct"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/120295/low-density-lipoprotein-cholesterol-direct"
   },
   {
     "id": "labcorp-005199",
@@ -395,11 +395,11 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room Temperature",
     "stability": "24 hours at room temperature",
     "spin": "No",
-    "specialInstructions": "Dedicated blue-top 3.2% sodium citrate tube. Maintain correct fill to at least 90%; invert gently at least 6 times. Keep unopened and at room temperature, NEVER refrigerate. Butterfly draw: use discard tube to fill tubing. If testing beyond 24 hours, consult Labcorp's frozen platelet-poor plasma protocol.",
+    "specialInstructions": "Dedicated blue-top 3.2% sodium citrate tube. Maintain correct fill to at least 90%; invert gently at least 6 times. Keep unopened and at room temperature, NEVER refrigerate. Butterfly draw: use discard tube to fill tubing. If testing beyond 24 hours, consult LabCorp's frozen platelet-poor plasma protocol.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/005199/prothrombin-time-pt"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/005199/prothrombin-time-pt"
   },
   {
     "id": "labcorp-120766",
@@ -419,7 +419,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/120766/c-reactive-protein-crp-high-sensitivity-cardiac-risk-assessment"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/120766/c-reactive-protein-crp-high-sensitivity-cardiac-risk-assessment"
   },
   {
     "id": "labcorp-143000",
@@ -435,11 +435,11 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room Temperature",
     "stability": "3 days at room temperature",
     "spin": "Yes",
-    "specialInstructions": "Gel-barrier tube preferred; if red-top used, separate serum and transfer to plastic transport tube. Labcorp cautions about high-dose biotin supplements and recommends stopping at least 72 hours before collection (confirm with clinician).",
+    "specialInstructions": "Gel-barrier tube preferred; if red-top used, separate serum and transfer to plastic transport tube. LabCorp cautions about high-dose biotin supplements and recommends stopping at least 72 hours before collection (confirm with clinician).",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/143000/nt-probnp"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/143000/nt-probnp"
   },
   {
     "id": "labcorp-120816",
@@ -455,11 +455,11 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room Temperature",
     "stability": "1 day at room temperature",
     "spin": "Yes",
-    "specialInstructions": "Gel-barrier tube preferred; red-top acceptable if serum separated and placed in plastic transport tube. High-dose biotin may interfere; Labcorp recommends stopping at least 72 hours before draw (confirm with clinician).",
+    "specialInstructions": "Gel-barrier tube preferred; red-top acceptable if serum separated and placed in plastic transport tube. High-dose biotin may interfere; LabCorp recommends stopping at least 72 hours before draw (confirm with clinician).",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/120816/creatine-kinase-ck-mb"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/120816/creatine-kinase-ck-mb"
   },
   {
     "id": "labcorp-322758",
@@ -475,11 +475,11 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room Temperature",
     "stability": "14 days at room temperature",
     "spin": "Yes",
-    "specialInstructions": "Draw in gel-barrier tube, centrifuge, and submit spun original tube. With red-top or green-top lithium heparin, centrifuge within 45 minutes and transfer separated serum/plasma to labeled plastic transport tube. Labcorp lists a 12-hour fast.",
+    "specialInstructions": "Draw in gel-barrier tube, centrifuge, and submit spun original tube. With red-top or green-top lithium heparin, centrifuge within 45 minutes and transfer separated serum/plasma to labeled plastic transport tube. LabCorp lists a 12-hour fast.",
     "fastingStatus": "required",
-    "fastingInstructions": "12-hour fast per Labcorp.",
+    "fastingInstructions": "12-hour fast per LabCorp.",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/322758/metabolic-panel-8-basic"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/322758/metabolic-panel-8-basic"
   },
   {
     "id": "labcorp-303754",
@@ -499,7 +499,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/303754/electrolyte-panel"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/303754/electrolyte-panel"
   },
   {
     "id": "labcorp-001321",
@@ -519,7 +519,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001321/iron-and-total-iron-binding-capacity-tibc"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001321/iron-and-total-iron-binding-capacity-tibc"
   },
   {
     "id": "labcorp-000810",
@@ -535,11 +535,11 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room Temperature",
     "stability": "72 hours room temperature; 7 days refrigerated",
     "spin": "Yes",
-    "specialInstructions": "Serum only, no plasma. Red-top serum must be transferred immediately to a plastic transport tube. High-dose biotin may interfere; Labcorp recommends stopping it at least 72 hours before collection when clinically appropriate.",
+    "specialInstructions": "Serum only, no plasma. Red-top serum must be transferred immediately to a plastic transport tube. High-dose biotin may interfere; LabCorp recommends stopping it at least 72 hours before collection when clinically appropriate.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/000810/vitamin-b12-and-folates"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/000810/vitamin-b12-and-folates"
   },
   {
     "id": "labcorp-120188",
@@ -559,7 +559,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/120188/lipoprotein-a"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/120188/lipoprotein-a"
   },
   {
     "id": "labcorp-003038",
@@ -579,7 +579,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/003038/urinalysis-routine-with-microscopic-examination-on-positives"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/003038/urinalysis-routine-with-microscopic-examination-on-positives"
   },
   {
     "id": "labcorp-602528",
@@ -599,7 +599,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/602528/egg-whole"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/602528/egg-whole"
   },
   {
     "id": "labcorp-602463",
@@ -619,7 +619,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/602463/ragweed-short"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/602463/ragweed-short"
   },
   {
     "id": "labcorp-602923",
@@ -639,7 +639,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/602923/ascaris"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/602923/ascaris"
   },
   {
     "id": "labcorp-602868",
@@ -659,7 +659,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/602868/reed-common"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/602868/reed-common"
   },
   {
     "id": "labcorp-001362",
@@ -679,7 +679,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001362/creatine-kinase-ck-total"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001362/creatine-kinase-ck-total"
   },
   {
     "id": "labcorp-007385",
@@ -699,7 +699,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/007385/digoxin"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/007385/digoxin"
   },
   {
     "id": "labcorp-706994",
@@ -719,7 +719,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/706994/homocyst-e-ine"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/706994/homocyst-e-ine"
   },
   {
     "id": "labcorp-001610",
@@ -735,11 +735,11 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room Temperature",
     "stability": "24 hours at room temperature",
     "spin": "No",
-    "specialInstructions": "Dedicated 3.2% sodium citrate blue-top. Fill at least 90%, invert gently six times, keep unopened. If >24 hours to testing, Labcorp requires centrifugation and transfer to its designated PP frozen transpak tube (49482), followed by frozen transport. Confirm cutoff before collection.",
+    "specialInstructions": "Dedicated 3.2% sodium citrate blue-top. Fill at least 90%, invert gently six times, keep unopened. If >24 hours to testing, LabCorp requires centrifugation and transfer to its designated PP frozen transpak tube (49482), followed by frozen transport. Confirm cutoff before collection.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001610/fibrinogen-activity"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001610/fibrinogen-activity"
   },
   {
     "id": "labcorp-343925",
@@ -759,7 +759,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/343925/lipid-profile-with-non-hdl-cholesterol"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/343925/lipid-profile-with-non-hdl-cholesterol"
   },
   {
     "id": "labcorp-142005",
@@ -775,11 +775,11 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Verify with performing laboratory",
     "spin": "Yes",
-    "specialInstructions": "Serum, red-top or gel barrier. If red-top, transfer separated serum to plastic transport tube. High-dose biotin can interfere; Labcorp recommends at least 72-hour avoidance if appropriate.",
+    "specialInstructions": "Serum, red-top or gel barrier. If red-top, transfer separated serum to plastic transport tube. High-dose biotin can interfere; LabCorp recommends at least 72-hour avoidance if appropriate.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/142005/galectin-3-with-nt-probnp"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/142005/galectin-3-with-nt-probnp"
   },
   {
     "id": "labcorp-102525",
@@ -799,7 +799,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/102525/hemoglobin-hb-a1c-with-eag"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/102525/hemoglobin-hb-a1c-with-eag"
   },
   {
     "id": "labcorp-884247",
@@ -819,7 +819,7 @@ window.SEED_TESTS = [
     "fastingStatus": "required",
     "fastingInstructions": "Fast 8–12 hours.",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/884247/nmr-lipoprofile-with-lipids-without-graph"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/884247/nmr-lipoprofile-with-lipids-without-graph"
   },
   {
     "id": "labcorp-004226",
@@ -839,7 +839,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/004226/testosterone-total"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/004226/testosterone-total"
   },
   {
     "id": "labcorp-001974",
@@ -859,7 +859,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001974/thyroxine-t4-free-direct"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001974/thyroxine-t4-free-direct"
   },
   {
     "id": "labcorp-010322",
@@ -879,7 +879,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/010322/prostate-specific-antigen-psa"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/010322/prostate-specific-antigen-psa"
   },
   {
     "id": "labcorp-006627",
@@ -899,7 +899,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/006627/c-reactive-protein-crp-quantitative"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/006627/c-reactive-protein-crp-quantitative"
   },
   {
     "id": "labcorp-001537",
@@ -919,7 +919,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001537/magnesium"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001537/magnesium"
   },
   {
     "id": "labcorp-001503",
@@ -937,9 +937,9 @@ window.SEED_TESTS = [
     "spin": "Yes",
     "specialInstructions": "Gel-barrier serum preferred, red-top alternative. If red-top is used, transfer separated serum into a plastic transport tube. Fasting sample is preferred, draw before B12 therapy or transfusion.",
     "fastingStatus": "preferred",
-    "fastingInstructions": "Fasting sample preferred per Labcorp.",
+    "fastingInstructions": "Fasting sample preferred per LabCorp.",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001503/vitamin-b12"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/001503/vitamin-b12"
   },
   {
     "id": "labcorp-010389",
@@ -955,11 +955,11 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room Temperature",
     "stability": "14 days room temperature",
     "spin": "Yes",
-    "specialInstructions": "Gel-barrier serum preferred. Red-top serum or green-top lithium heparin plasma also acceptable; if using red-top or plasma, separate and submit in a plastic transport tube. Do not use oxalate, EDTA or citrate plasma. Check high-dose biotin supplementation; Labcorp advises stopping biotin 72 hours before collection when approved by the clinician.",
+    "specialInstructions": "Gel-barrier serum preferred. Red-top serum or green-top lithium heparin plasma also acceptable; if using red-top or plasma, separate and submit in a plastic transport tube. Do not use oxalate, EDTA or citrate plasma. Check high-dose biotin supplementation; LabCorp advises stopping biotin 72 hours before collection when approved by the clinician.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/010389/triiodothyronine-t3-free"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/010389/triiodothyronine-t3-free"
   },
   {
     "id": "labcorp-004283",
@@ -979,7 +979,7 @@ window.SEED_TESTS = [
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/004283/luteinizing-hormone-lh"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/004283/luteinizing-hormone-lh"
   },
   {
     "id": "labcorp-006676",
@@ -995,10 +995,10 @@ window.SEED_TESTS = [
     "transportTemperatureRaw": "Room Temperature",
     "stability": "14 days room temperature",
     "spin": "Yes",
-    "specialInstructions": "Gel-barrier serum preferred. Red-top serum or green-top lithium heparin plasma also acceptable; if using red-top or plasma, separate and submit in a plastic transport tube. Do not use oxalate, EDTA or citrate plasma. Ask about high-dose biotin; Labcorp advises avoiding it at least 72 hours before collection when appropriate.",
+    "specialInstructions": "Gel-barrier serum preferred. Red-top serum or green-top lithium heparin plasma also acceptable; if using red-top or plasma, separate and submit in a plastic transport tube. Do not use oxalate, EDTA or citrate plasma. Ask about high-dose biotin; LabCorp advises avoiding it at least 72 hours before collection when appropriate.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/006676/thyroid-peroxidase-tpo-antibodies"
+    "source": "LabCorp official test directory (checked 2026-10-21) • https://www.labcorp.com/tests/006676/thyroid-peroxidase-tpo-antibodies"
   }
 ];

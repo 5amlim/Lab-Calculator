@@ -1,4 +1,4 @@
-/* Labcorp catalog expansion. Individual official directory pages reviewed 2026-10-22.
+/* LabCorp catalog expansion. Individual official directory pages reviewed 2026-10-22.
  * Independent order codes; no Quest equivalence is implied. */
 (() => {
   'use strict';
@@ -21,7 +21,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/002030/aldolase"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/002030/aldolase"
   },
   {
     "id": "labcorp-007740",
@@ -41,7 +41,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/007740/acetaminophen"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/007740/acetaminophen"
   },
   {
     "id": "labcorp-004333",
@@ -57,11 +57,11 @@
     "transportTemperatureRaw": "Refrigerated",
     "stability": "Room temperature: 1 day; refrigerated or frozen: 14 days; up to 3 freeze/thaw cycles.",
     "spin": "Yes",
-    "specialInstructions": "If using a red-top tube, separate serum into a labeled plastic transport tube. Avoid hemolysis. Labcorp requests withholding biotin supplements for at least 72 hours before collection; coordinate preparation with the ordering clinician.",
+    "specialInstructions": "If using a red-top tube, separate serum into a labeled plastic transport tube. Avoid hemolysis. LabCorp requests withholding biotin supplements for at least 72 hours before collection; coordinate preparation with the ordering clinician.",
     "fastingStatus": "required",
     "fastingInstructions": "Fasting specimen required; directory does not specify a duration.",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/004333/insulin"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/004333/insulin"
   },
   {
     "id": "labcorp-213660",
@@ -77,11 +77,11 @@
     "transportTemperatureRaw": "Refrigerated",
     "stability": "Room temperature: 1 day; refrigerated or frozen: 14 days; up to 3 freeze/thaw cycles.",
     "spin": "Yes",
-    "specialInstructions": "If using a red-top tube, separate serum into a labeled plastic transport tube. Avoid hemolysis; citrate plasma is unacceptable. Labcorp requests withholding biotin supplements for at least 72 hours before collection; coordinate preparation with the ordering clinician.",
+    "specialInstructions": "If using a red-top tube, separate serum into a labeled plastic transport tube. Avoid hemolysis; citrate plasma is unacceptable. LabCorp requests withholding biotin supplements for at least 72 hours before collection; coordinate preparation with the ordering clinician.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/213660/insulin-and-c-peptide"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/213660/insulin-and-c-peptide"
   },
   {
     "id": "labcorp-501561",
@@ -101,7 +101,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/501561/insulin-free-and-total"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/501561/insulin-free-and-total"
   },
   {
     "id": "labcorp-010108",
@@ -117,11 +117,11 @@
     "transportTemperatureRaw": "Refrigerated",
     "stability": "Room temperature: 1 day; refrigerated or frozen: 14 days; up to 3 freeze/thaw cycles.",
     "spin": "Yes",
-    "specialInstructions": "If using a red-top tube, separate serum into a labeled plastic transport tube. Single determination; serial monitoring has a separate order code (480108). Labcorp requests withholding biotin supplements for at least 72 hours before collection; coordinate preparation with the ordering clinician.",
+    "specialInstructions": "If using a red-top tube, separate serum into a labeled plastic transport tube. Single determination; serial monitoring has a separate order code (480108). LabCorp requests withholding biotin supplements for at least 72 hours before collection; coordinate preparation with the ordering clinician.",
     "fastingStatus": "required",
     "fastingInstructions": "For basal values, the directory specifies fasting for 14 to 16 hours; follow the ordering clinician's preparation instructions.",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/010108/c-peptide"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/010108/c-peptide"
   },
   {
     "id": "labcorp-001149",
@@ -137,11 +137,11 @@
     "transportTemperatureRaw": "Room Temperature",
     "stability": "14 days at room temperature, refrigerated or frozen; up to 3 freeze/thaw cycles.",
     "spin": "Yes",
-    "specialInstructions": "Serum preferred; lithium heparin plasma accepted. EDTA, citrate and oxalate plasma are unacceptable. Transfer separated plasma or red-top serum into plastic. Pediatric volume: 0.8 mL, minimum 0.3 mL. Labcorp requests withholding biotin supplements for at least 72 hours before collection; coordinate preparation with the ordering clinician.",
+    "specialInstructions": "Serum preferred; lithium heparin plasma accepted. EDTA, citrate and oxalate plasma are unacceptable. Transfer separated plasma or red-top serum into plastic. Pediatric volume: 0.8 mL, minimum 0.3 mL. LabCorp requests withholding biotin supplements for at least 72 hours before collection; coordinate preparation with the ordering clinician.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001149/thyroxine-t4"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001149/thyroxine-t4"
   },
   {
     "id": "labcorp-002188",
@@ -157,11 +157,11 @@
     "transportTemperatureRaw": "Room Temperature",
     "stability": "14 days at room temperature, refrigerated or frozen; up to 3 freeze/thaw cycles.",
     "spin": "Yes",
-    "specialInstructions": "Serum preferred; lithium heparin plasma accepted. EDTA, citrate and oxalate plasma are unacceptable. Transfer separated plasma or red-top serum into plastic. Labcorp requests withholding biotin supplements for at least 72 hours before collection; coordinate preparation with the ordering clinician.",
+    "specialInstructions": "Serum preferred; lithium heparin plasma accepted. EDTA, citrate and oxalate plasma are unacceptable. Transfer separated plasma or red-top serum into plastic. LabCorp requests withholding biotin supplements for at least 72 hours before collection; coordinate preparation with the ordering clinician.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/002188/triiodothyronine-t3"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/002188/triiodothyronine-t3"
   },
   {
     "id": "labcorp-070104",
@@ -181,7 +181,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/070104/reverse-t3"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/070104/reverse-t3"
   },
   {
     "id": "labcorp-000620",
@@ -197,11 +197,11 @@
     "transportTemperatureRaw": "Room Temperature",
     "stability": "14 days at room temperature, refrigerated or frozen; up to 3 freeze/thaw cycles.",
     "spin": "Yes",
-    "specialInstructions": "Includes T4, T3 uptake, free thyroxine index and TSH. Serum preferred; lithium heparin plasma accepted. EDTA, citrate and oxalate plasma are unacceptable. Transfer separated plasma or red-top serum into plastic. Labcorp requests withholding biotin supplements for at least 72 hours before collection; coordinate preparation with the ordering clinician.",
+    "specialInstructions": "Includes T4, T3 uptake, free thyroxine index and TSH. Serum preferred; lithium heparin plasma accepted. EDTA, citrate and oxalate plasma are unacceptable. Transfer separated plasma or red-top serum into plastic. LabCorp requests withholding biotin supplements for at least 72 hours before collection; coordinate preparation with the ordering clinician.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/000620/thyroid-profile-with-tsh"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/000620/thyroid-profile-with-tsh"
   },
   {
     "id": "labcorp-001560",
@@ -221,7 +221,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001560/ceruloplasmin"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001560/ceruloplasmin"
   },
   {
     "id": "labcorp-001982",
@@ -241,7 +241,7 @@
     "fastingStatus": "preferred",
     "fastingInstructions": "Overnight fasting is preferred.",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001982/a1-antitrypsin"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001982/a1-antitrypsin"
   },
   {
     "id": "labcorp-095653",
@@ -261,7 +261,7 @@
     "fastingStatus": "preferred",
     "fastingInstructions": "Overnight fasting is preferred.",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/095653/a1-antitrypsin-phenotyping"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/095653/a1-antitrypsin-phenotyping"
   },
   {
     "id": "labcorp-001842",
@@ -281,7 +281,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001842/lactate-dehydrogenase-ld-isoenzymes"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001842/lactate-dehydrogenase-ld-isoenzymes"
   },
   {
     "id": "labcorp-001628",
@@ -301,7 +301,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001628/haptoglobin"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001628/haptoglobin"
   },
   {
     "id": "labcorp-005280",
@@ -321,7 +321,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/005280/reticulocyte-count"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/005280/reticulocyte-count"
   },
   {
     "id": "labcorp-016931",
@@ -341,7 +341,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/016931/prealbumin"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/016931/prealbumin"
   },
   {
     "id": "labcorp-001115",
@@ -361,7 +361,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001115/lactic-acid-dehydrogenase-ld"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001115/lactic-acid-dehydrogenase-ld"
   },
   {
     "id": "labcorp-001834",
@@ -381,7 +381,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001834/complement-c4"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/001834/complement-c4"
   },
   {
     "id": "labcorp-006452",
@@ -401,7 +401,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/006452/complement-c3"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/006452/complement-c3"
   },
   {
     "id": "labcorp-002170",
@@ -421,7 +421,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/002170/immunoglobulin-e-total"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/002170/immunoglobulin-e-total"
   },
   {
     "id": "labcorp-209601",
@@ -441,7 +441,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/209601/immunoglobulin-g-subclasses-1-4"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/209601/immunoglobulin-g-subclasses-1-4"
   },
   {
     "id": "labcorp-160507",
@@ -461,7 +461,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/160507/immunoglobulin-g-subclass-1"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/160507/immunoglobulin-g-subclass-1"
   },
   {
     "id": "labcorp-160515",
@@ -481,7 +481,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/160515/immunoglobulin-g-subclass-2"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/160515/immunoglobulin-g-subclass-2"
   },
   {
     "id": "labcorp-160523",
@@ -501,7 +501,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/160523/immunoglobulin-g-subclass-3"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/160523/immunoglobulin-g-subclass-3"
   },
   {
     "id": "labcorp-160531",
@@ -521,7 +521,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/160531/immunoglobulin-g-subclass-4"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/160531/immunoglobulin-g-subclass-4"
   },
   {
     "id": "labcorp-006619",
@@ -537,11 +537,11 @@
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature or refrigerated: 7 days; frozen: 1 year; up to 3 freeze/thaw cycles.",
     "spin": "Yes",
-    "specialInstructions": "Gel-barrier serum or EDTA plasma accepted. Transfer separated EDTA plasma to plastic. Other plasma anticoagulants are unacceptable. Labcorp requests withholding biotin supplements for at least 72 hours before collection; coordinate preparation with the ordering clinician.",
+    "specialInstructions": "Gel-barrier serum or EDTA plasma accepted. Transfer separated EDTA plasma to plastic. Other plasma anticoagulants are unacceptable. LabCorp requests withholding biotin supplements for at least 72 hours before collection; coordinate preparation with the ordering clinician.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/006619/hepatitis-be-antigen"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/006619/hepatitis-be-antigen"
   },
   {
     "id": "labcorp-006635",
@@ -557,11 +557,11 @@
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature: 7 days; refrigerated or frozen: 14 days; up to 3 freeze/thaw cycles.",
     "spin": "Yes",
-    "specialInstructions": "If using a red-top tube, separate serum into a labeled plastic transport tube. Do not freeze gel tubes. Labcorp requests withholding biotin supplements for at least 72 hours before collection; coordinate preparation with the ordering clinician.",
+    "specialInstructions": "If using a red-top tube, separate serum into a labeled plastic transport tube. Do not freeze gel tubes. LabCorp requests withholding biotin supplements for at least 72 hours before collection; coordinate preparation with the ordering clinician.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/006635/hepatitis-be-antibody"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/006635/hepatitis-be-antibody"
   },
   {
     "id": "labcorp-006395",
@@ -581,7 +581,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/006395/hepatitis-b-surface-antibody-qualitative"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/006395/hepatitis-b-surface-antibody-qualitative"
   },
   {
     "id": "labcorp-016881",
@@ -597,11 +597,11 @@
     "transportTemperatureRaw": "Room Temperature",
     "stability": "14 days at room temperature, refrigerated or frozen; up to 3 freeze/thaw cycles.",
     "spin": "Yes",
-    "specialInstructions": "If using a red-top tube, separate serum into a labeled plastic transport tube. Do not freeze gel tubes. Labcorp requests withholding biotin supplements for at least 72 hours before collection; coordinate preparation with the ordering clinician.",
+    "specialInstructions": "If using a red-top tube, separate serum into a labeled plastic transport tube. Do not freeze gel tubes. LabCorp requests withholding biotin supplements for at least 72 hours before collection; coordinate preparation with the ordering clinician.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/016881/hepatitis-b-core-antibody-igm"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/016881/hepatitis-b-core-antibody-igm"
   },
   {
     "id": "labcorp-006494",
@@ -621,7 +621,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/006494/cytomegalovirus-cmv-antibodies-igg"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/006494/cytomegalovirus-cmv-antibodies-igg"
   },
   {
     "id": "labcorp-096727",
@@ -641,7 +641,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/096727/cytomegalovirus-cmv-antibodies-qualitative-igm"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/096727/cytomegalovirus-cmv-antibodies-qualitative-igm"
   },
   {
     "id": "labcorp-006505",
@@ -661,7 +661,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/006505/cytomegalovirus-cmv-igg-avidity"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/006505/cytomegalovirus-cmv-igg-avidity"
   },
   {
     "id": "labcorp-123010",
@@ -681,7 +681,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/123010/a1-antitrypsin-fecal-quantitative"
+    "source": "LabCorp official test directory, reviewed 2026-10-22 • https://www.labcorp.com/tests/123010/a1-antitrypsin-fecal-quantitative"
   }
 ];
   const catalog = Array.isArray(window.SEED_TESTS) ? window.SEED_TESTS : [];

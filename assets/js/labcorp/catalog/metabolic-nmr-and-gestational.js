@@ -1,8 +1,8 @@
-/* Labcorp catalog: additional endocrine, metabolic, NMR and gestational glucose assays. Original order. */
+/* LabCorp catalog: additional endocrine, metabolic, NMR and gestational glucose assays. Original order. */
 
 /* SOURCE: labcorp-additional-endocrine-nmr-20261022.js */
 ;
-/* Source-verified NMR lipid profiles and DHEA time-series order codes. Labcorp’s original NMR LipoTube is required for the default workflow. */
+/* Source-verified NMR lipid profiles and DHEA time-series order codes. LabCorp’s original NMR LipoTube is required for the default workflow. */
 (()=>{'use strict';const additions=[
   {
     "id": "labcorp-123810",
@@ -16,13 +16,13 @@
     "minimumVolume": "1 mL serum",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerated, current Labcorp NMR stability limit 14 days; verify source page",
+    "stability": "Refrigerated, current LabCorp NMR stability limit 14 days; verify source page",
     "spin": "Yes",
     "specialInstructions": "USE SPECIAL NMR LipoTube (black/yellow gel barrier), NOT standard SST. Allow upright clotting 30 minutes, spin 1600–1800 xg for 10–15 min, do NOT open spun NMR LipoTube, and refrigerate at 2–8°C with frozen cool packs for transport. Alternative plain RED-TOP (NO GEL): clot 45 min, spin and transfer serum to separate plastic tube. Alternative LAVENDER EDTA (NO GEL): spin immediately, transfer separated plasma to plastic tube. NO other gel-barrier tubes; no citrate or heparin; do not share collection or transport tube with routine tests. Record fasting status according to ordering provider and lab requirements.",
     "fastingStatus": "preferred",
-    "fastingInstructions": "Confirm Labcorp's current fasting protocol for the selected NMR assay (typically 8–12 h when lipid/triglyceride evaluation intended).",
+    "fastingInstructions": "Confirm LabCorp's current fasting protocol for the selected NMR assay (typically 8–12 h when lipid/triglyceride evaluation intended).",
     "status": "active",
-    "source": "Labcorp NMR LipoProfile Assay Options Table • https://www.labcorp.com/content/dam/labcorp/drupal/744501_DX_TL_NMRLipoprofileTable_FINAL_0.pdf ; official test directory https://www.labcorp.com/tests/123810"
+    "source": "LabCorp NMR LipoProfile Assay Options Table • https://www.labcorp.com/content/dam/labcorp/drupal/744501_DX_TL_NMRLipoprofileTable_FINAL_0.pdf ; official test directory https://www.labcorp.com/tests/123810"
   },
   {
     "id": "labcorp-884318",
@@ -36,13 +36,13 @@
     "minimumVolume": "1 mL serum",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerated, current Labcorp NMR stability limit 14 days; verify source page",
+    "stability": "Refrigerated, current LabCorp NMR stability limit 14 days; verify source page",
     "spin": "Yes",
     "specialInstructions": "USE SPECIAL NMR LipoTube (black/yellow gel barrier), NOT standard SST. Allow upright clotting 30 minutes, spin 1600–1800 xg for 10–15 min, do NOT open spun NMR LipoTube, and refrigerate at 2–8°C with frozen cool packs for transport. Alternative plain RED-TOP (NO GEL): clot 45 min, spin and transfer serum to separate plastic tube. Alternative LAVENDER EDTA (NO GEL): spin immediately, transfer separated plasma to plastic tube. NO other gel-barrier tubes; no citrate or heparin; do not share collection or transport tube with routine tests. Record fasting status according to ordering provider and lab requirements.",
     "fastingStatus": "preferred",
-    "fastingInstructions": "Confirm Labcorp's current fasting protocol for the selected NMR assay (typically 8–12 h when lipid/triglyceride evaluation intended).",
+    "fastingInstructions": "Confirm LabCorp's current fasting protocol for the selected NMR assay (typically 8–12 h when lipid/triglyceride evaluation intended).",
     "status": "active",
-    "source": "Labcorp NMR LipoProfile Assay Options Table • https://www.labcorp.com/content/dam/labcorp/drupal/744501_DX_TL_NMRLipoprofileTable_FINAL_0.pdf ; official test directory https://www.labcorp.com/tests/884318"
+    "source": "LabCorp NMR LipoProfile Assay Options Table • https://www.labcorp.com/content/dam/labcorp/drupal/744501_DX_TL_NMRLipoprofileTable_FINAL_0.pdf ; official test directory https://www.labcorp.com/tests/884318"
   },
   {
     "id": "labcorp-123489",
@@ -56,13 +56,13 @@
     "minimumVolume": "1 mL serum",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerated, current Labcorp NMR stability limit 14 days; verify source page",
+    "stability": "Refrigerated, current LabCorp NMR stability limit 14 days; verify source page",
     "spin": "Yes",
     "specialInstructions": "USE SPECIAL NMR LipoTube (black/yellow gel barrier), NOT standard SST. Allow upright clotting 30 minutes, spin 1600–1800 xg for 10–15 min, do NOT open spun NMR LipoTube, and refrigerate at 2–8°C with frozen cool packs for transport. Alternative plain RED-TOP (NO GEL): clot 45 min, spin and transfer serum to separate plastic tube. Alternative LAVENDER EDTA (NO GEL): spin immediately, transfer separated plasma to plastic tube. NO other gel-barrier tubes; no citrate or heparin; do not share collection or transport tube with routine tests. Record fasting status according to ordering provider and lab requirements.",
     "fastingStatus": "preferred",
-    "fastingInstructions": "Confirm Labcorp's current fasting protocol for the selected NMR assay (typically 8–12 h when lipid/triglyceride evaluation intended).",
+    "fastingInstructions": "Confirm LabCorp's current fasting protocol for the selected NMR assay (typically 8–12 h when lipid/triglyceride evaluation intended).",
     "status": "active",
-    "source": "Labcorp NMR LipoProfile Assay Options Table • https://www.labcorp.com/content/dam/labcorp/drupal/744501_DX_TL_NMRLipoprofileTable_FINAL_0.pdf ; official test directory https://www.labcorp.com/tests/123489"
+    "source": "LabCorp NMR LipoProfile Assay Options Table • https://www.labcorp.com/content/dam/labcorp/drupal/744501_DX_TL_NMRLipoprofileTable_FINAL_0.pdf ; official test directory https://www.labcorp.com/tests/123489"
   },
   {
     "id": "labcorp-884000",
@@ -76,13 +76,13 @@
     "minimumVolume": "1 mL serum",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerated, current Labcorp NMR stability limit 14 days; verify source page",
+    "stability": "Refrigerated, current LabCorp NMR stability limit 14 days; verify source page",
     "spin": "Yes",
     "specialInstructions": "USE SPECIAL NMR LipoTube (black/yellow gel barrier), NOT standard SST. Allow upright clotting 30 minutes, spin 1600–1800 xg for 10–15 min, do NOT open spun NMR LipoTube, and refrigerate at 2–8°C with frozen cool packs for transport. Alternative plain RED-TOP (NO GEL): clot 45 min, spin and transfer serum to separate plastic tube. Alternative LAVENDER EDTA (NO GEL): spin immediately, transfer separated plasma to plastic tube. NO other gel-barrier tubes; no citrate or heparin; do not share collection or transport tube with routine tests. Record fasting status according to ordering provider and lab requirements.",
     "fastingStatus": "preferred",
-    "fastingInstructions": "Confirm Labcorp's current fasting protocol for the selected NMR assay (typically 8–12 h when lipid/triglyceride evaluation intended).",
+    "fastingInstructions": "Confirm LabCorp's current fasting protocol for the selected NMR assay (typically 8–12 h when lipid/triglyceride evaluation intended).",
     "status": "active",
-    "source": "Labcorp NMR LipoProfile Assay Options Table • https://www.labcorp.com/content/dam/labcorp/drupal/744501_DX_TL_NMRLipoprofileTable_FINAL_0.pdf ; official test directory https://www.labcorp.com/tests/884000"
+    "source": "LabCorp NMR LipoProfile Assay Options Table • https://www.labcorp.com/content/dam/labcorp/drupal/744501_DX_TL_NMRLipoprofileTable_FINAL_0.pdf ; official test directory https://www.labcorp.com/tests/884000"
   },
   {
     "id": "labcorp-123638",
@@ -96,13 +96,13 @@
     "minimumVolume": "1 mL serum",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerated, current Labcorp NMR stability limit 14 days; verify source page",
+    "stability": "Refrigerated, current LabCorp NMR stability limit 14 days; verify source page",
     "spin": "Yes",
     "specialInstructions": "USE SPECIAL NMR LipoTube (black/yellow gel barrier), NOT standard SST. Allow upright clotting 30 minutes, spin 1600–1800 xg for 10–15 min, do NOT open spun NMR LipoTube, and refrigerate at 2–8°C with frozen cool packs for transport. Alternative plain RED-TOP (NO GEL): clot 45 min, spin and transfer serum to separate plastic tube. Alternative LAVENDER EDTA (NO GEL): spin immediately, transfer separated plasma to plastic tube. NO other gel-barrier tubes; no citrate or heparin; do not share collection or transport tube with routine tests. Record fasting status according to ordering provider and lab requirements.",
     "fastingStatus": "preferred",
-    "fastingInstructions": "Confirm Labcorp's current fasting protocol for the selected NMR assay (typically 8–12 h when lipid/triglyceride evaluation intended).",
+    "fastingInstructions": "Confirm LabCorp's current fasting protocol for the selected NMR assay (typically 8–12 h when lipid/triglyceride evaluation intended).",
     "status": "active",
-    "source": "Labcorp NMR LipoProfile Assay Options Table • https://www.labcorp.com/content/dam/labcorp/drupal/744501_DX_TL_NMRLipoprofileTable_FINAL_0.pdf ; official test directory https://www.labcorp.com/tests/123638"
+    "source": "LabCorp NMR LipoProfile Assay Options Table • https://www.labcorp.com/content/dam/labcorp/drupal/744501_DX_TL_NMRLipoprofileTable_FINAL_0.pdf ; official test directory https://www.labcorp.com/tests/123638"
   },
   {
     "id": "labcorp-884209",
@@ -116,13 +116,13 @@
     "minimumVolume": "1 mL serum",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerated, current Labcorp NMR stability limit 14 days; verify source page",
+    "stability": "Refrigerated, current LabCorp NMR stability limit 14 days; verify source page",
     "spin": "Yes",
     "specialInstructions": "USE SPECIAL NMR LipoTube (black/yellow gel barrier), NOT standard SST. Allow upright clotting 30 minutes, spin 1600–1800 xg for 10–15 min, do NOT open spun NMR LipoTube, and refrigerate at 2–8°C with frozen cool packs for transport. Alternative plain RED-TOP (NO GEL): clot 45 min, spin and transfer serum to separate plastic tube. Alternative LAVENDER EDTA (NO GEL): spin immediately, transfer separated plasma to plastic tube. NO other gel-barrier tubes; no citrate or heparin; do not share collection or transport tube with routine tests. Record fasting status according to ordering provider and lab requirements.",
     "fastingStatus": "preferred",
-    "fastingInstructions": "Confirm Labcorp's current fasting protocol for the selected NMR assay (typically 8–12 h when lipid/triglyceride evaluation intended).",
+    "fastingInstructions": "Confirm LabCorp's current fasting protocol for the selected NMR assay (typically 8–12 h when lipid/triglyceride evaluation intended).",
     "status": "active",
-    "source": "Labcorp NMR LipoProfile Assay Options Table • https://www.labcorp.com/content/dam/labcorp/drupal/744501_DX_TL_NMRLipoprofileTable_FINAL_0.pdf ; official test directory https://www.labcorp.com/tests/884209"
+    "source": "LabCorp NMR LipoProfile Assay Options Table • https://www.labcorp.com/content/dam/labcorp/drupal/744501_DX_TL_NMRLipoprofileTable_FINAL_0.pdf ; official test directory https://www.labcorp.com/tests/884209"
   },
   {
     "id": "labcorp-123497",
@@ -136,13 +136,13 @@
     "minimumVolume": "1 mL serum",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerated, current Labcorp NMR stability limit 14 days; verify source page",
+    "stability": "Refrigerated, current LabCorp NMR stability limit 14 days; verify source page",
     "spin": "Yes",
     "specialInstructions": "USE SPECIAL NMR LipoTube (black/yellow gel barrier), NOT standard SST. Allow upright clotting 30 minutes, spin 1600–1800 xg for 10–15 min, do NOT open spun NMR LipoTube, and refrigerate at 2–8°C with frozen cool packs for transport. Alternative plain RED-TOP (NO GEL): clot 45 min, spin and transfer serum to separate plastic tube. Alternative LAVENDER EDTA (NO GEL): spin immediately, transfer separated plasma to plastic tube. NO other gel-barrier tubes; no citrate or heparin; do not share collection or transport tube with routine tests. Record fasting status according to ordering provider and lab requirements.",
     "fastingStatus": "preferred",
-    "fastingInstructions": "Confirm Labcorp's current fasting protocol for the selected NMR assay (typically 8–12 h when lipid/triglyceride evaluation intended).",
+    "fastingInstructions": "Confirm LabCorp's current fasting protocol for the selected NMR assay (typically 8–12 h when lipid/triglyceride evaluation intended).",
     "status": "active",
-    "source": "Labcorp NMR LipoProfile Assay Options Table • https://www.labcorp.com/content/dam/labcorp/drupal/744501_DX_TL_NMRLipoprofileTable_FINAL_0.pdf ; official test directory https://www.labcorp.com/tests/123497"
+    "source": "LabCorp NMR LipoProfile Assay Options Table • https://www.labcorp.com/content/dam/labcorp/drupal/744501_DX_TL_NMRLipoprofileTable_FINAL_0.pdf ; official test directory https://www.labcorp.com/tests/123497"
   },
   {
     "id": "labcorp-123828",
@@ -156,13 +156,13 @@
     "minimumVolume": "1 mL serum",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerated, current Labcorp NMR stability limit 14 days; verify source page",
+    "stability": "Refrigerated, current LabCorp NMR stability limit 14 days; verify source page",
     "spin": "Yes",
     "specialInstructions": "USE SPECIAL NMR LipoTube (black/yellow gel barrier), NOT standard SST. Allow upright clotting 30 minutes, spin 1600–1800 xg for 10–15 min, do NOT open spun NMR LipoTube, and refrigerate at 2–8°C with frozen cool packs for transport. Alternative plain RED-TOP (NO GEL): clot 45 min, spin and transfer serum to separate plastic tube. Alternative LAVENDER EDTA (NO GEL): spin immediately, transfer separated plasma to plastic tube. NO other gel-barrier tubes; no citrate or heparin; do not share collection or transport tube with routine tests. Record fasting status according to ordering provider and lab requirements.",
     "fastingStatus": "preferred",
-    "fastingInstructions": "Confirm Labcorp's current fasting protocol for the selected NMR assay (typically 8–12 h when lipid/triglyceride evaluation intended).",
+    "fastingInstructions": "Confirm LabCorp's current fasting protocol for the selected NMR assay (typically 8–12 h when lipid/triglyceride evaluation intended).",
     "status": "active",
-    "source": "Labcorp NMR LipoProfile Assay Options Table • https://www.labcorp.com/content/dam/labcorp/drupal/744501_DX_TL_NMRLipoprofileTable_FINAL_0.pdf ; official test directory https://www.labcorp.com/tests/123828"
+    "source": "LabCorp NMR LipoProfile Assay Options Table • https://www.labcorp.com/content/dam/labcorp/drupal/744501_DX_TL_NMRLipoprofileTable_FINAL_0.pdf ; official test directory https://www.labcorp.com/tests/123828"
   },
   {
     "id": "labcorp-226811",
@@ -176,15 +176,15 @@
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate; confirm test-specific handling with Labcorp",
+    "stability": "Refrigerate; confirm test-specific handling with LabCorp",
     "spin": "Yes",
     "collectionCount": 4,
     "submissionCount": 4,
-    "specialInstructions": "SPECIAL ENDOCRINE SERIES: collect 4 separately labeled serum draws at clinician-prescribed timepoints for a supervised challenge or suppression protocol. Draw 4 separate SST tubes and submit 4 individual transport containers; NEVER POOL specimens or reuse tubes across timepoints. Label each with patient name, collection date/time and timepoint number. Submit all with one Labcorp multispecimen requisition. Do not use this series for ordinary one-time DHEA; confirm protocol with ordering clinician before collecting.",
+    "specialInstructions": "SPECIAL ENDOCRINE SERIES: collect 4 separately labeled serum draws at clinician-prescribed timepoints for a supervised challenge or suppression protocol. Draw 4 separate SST tubes and submit 4 individual transport containers; NEVER POOL specimens or reuse tubes across timepoints. Label each with patient name, collection date/time and timepoint number. Submit all with one LabCorp multispecimen requisition. Do not use this series for ordinary one-time DHEA; confirm protocol with ordering clinician before collecting.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-Specimen Testing table • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
+    "source": "LabCorp official Multiple-Specimen Testing table • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
   },
   {
     "id": "labcorp-226829",
@@ -198,15 +198,15 @@
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate; confirm test-specific handling with Labcorp",
+    "stability": "Refrigerate; confirm test-specific handling with LabCorp",
     "spin": "Yes",
     "collectionCount": 5,
     "submissionCount": 5,
-    "specialInstructions": "SPECIAL ENDOCRINE SERIES: collect 5 separately labeled serum draws at clinician-prescribed timepoints for a supervised challenge or suppression protocol. Draw 5 separate SST tubes and submit 5 individual transport containers; NEVER POOL specimens or reuse tubes across timepoints. Label each with patient name, collection date/time and timepoint number. Submit all with one Labcorp multispecimen requisition. Do not use this series for ordinary one-time DHEA; confirm protocol with ordering clinician before collecting.",
+    "specialInstructions": "SPECIAL ENDOCRINE SERIES: collect 5 separately labeled serum draws at clinician-prescribed timepoints for a supervised challenge or suppression protocol. Draw 5 separate SST tubes and submit 5 individual transport containers; NEVER POOL specimens or reuse tubes across timepoints. Label each with patient name, collection date/time and timepoint number. Submit all with one LabCorp multispecimen requisition. Do not use this series for ordinary one-time DHEA; confirm protocol with ordering clinician before collecting.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-Specimen Testing table • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
+    "source": "LabCorp official Multiple-Specimen Testing table • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
   },
   {
     "id": "labcorp-226837",
@@ -220,15 +220,15 @@
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate; confirm test-specific handling with Labcorp",
+    "stability": "Refrigerate; confirm test-specific handling with LabCorp",
     "spin": "Yes",
     "collectionCount": 6,
     "submissionCount": 6,
-    "specialInstructions": "SPECIAL ENDOCRINE SERIES: collect 6 separately labeled serum draws at clinician-prescribed timepoints for a supervised challenge or suppression protocol. Draw 6 separate SST tubes and submit 6 individual transport containers; NEVER POOL specimens or reuse tubes across timepoints. Label each with patient name, collection date/time and timepoint number. Submit all with one Labcorp multispecimen requisition. Do not use this series for ordinary one-time DHEA; confirm protocol with ordering clinician before collecting.",
+    "specialInstructions": "SPECIAL ENDOCRINE SERIES: collect 6 separately labeled serum draws at clinician-prescribed timepoints for a supervised challenge or suppression protocol. Draw 6 separate SST tubes and submit 6 individual transport containers; NEVER POOL specimens or reuse tubes across timepoints. Label each with patient name, collection date/time and timepoint number. Submit all with one LabCorp multispecimen requisition. Do not use this series for ordinary one-time DHEA; confirm protocol with ordering clinician before collecting.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-Specimen Testing table • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
+    "source": "LabCorp official Multiple-Specimen Testing table • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
   },
   {
     "id": "labcorp-015809",
@@ -242,15 +242,15 @@
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate; confirm test-specific handling with Labcorp",
+    "stability": "Refrigerate; confirm test-specific handling with LabCorp",
     "spin": "Yes",
     "collectionCount": 7,
     "submissionCount": 7,
-    "specialInstructions": "SPECIAL ENDOCRINE SERIES: collect 7 separately labeled serum draws at clinician-prescribed timepoints for a supervised challenge or suppression protocol. Draw 7 separate SST tubes and submit 7 individual transport containers; NEVER POOL specimens or reuse tubes across timepoints. Label each with patient name, collection date/time and timepoint number. Submit all with one Labcorp multispecimen requisition. Do not use this series for ordinary one-time DHEA; confirm protocol with ordering clinician before collecting.",
+    "specialInstructions": "SPECIAL ENDOCRINE SERIES: collect 7 separately labeled serum draws at clinician-prescribed timepoints for a supervised challenge or suppression protocol. Draw 7 separate SST tubes and submit 7 individual transport containers; NEVER POOL specimens or reuse tubes across timepoints. Label each with patient name, collection date/time and timepoint number. Submit all with one LabCorp multispecimen requisition. Do not use this series for ordinary one-time DHEA; confirm protocol with ordering clinician before collecting.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-Specimen Testing table • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
+    "source": "LabCorp official Multiple-Specimen Testing table • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
   },
   {
     "id": "labcorp-015810",
@@ -264,22 +264,22 @@
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refrigerate; confirm test-specific handling with Labcorp",
+    "stability": "Refrigerate; confirm test-specific handling with LabCorp",
     "spin": "Yes",
     "collectionCount": 8,
     "submissionCount": 8,
-    "specialInstructions": "SPECIAL ENDOCRINE SERIES: collect 8 separately labeled serum draws at clinician-prescribed timepoints for a supervised challenge or suppression protocol. Draw 8 separate SST tubes and submit 8 individual transport containers; NEVER POOL specimens or reuse tubes across timepoints. Label each with patient name, collection date/time and timepoint number. Submit all with one Labcorp multispecimen requisition. Do not use this series for ordinary one-time DHEA; confirm protocol with ordering clinician before collecting.",
+    "specialInstructions": "SPECIAL ENDOCRINE SERIES: collect 8 separately labeled serum draws at clinician-prescribed timepoints for a supervised challenge or suppression protocol. Draw 8 separate SST tubes and submit 8 individual transport containers; NEVER POOL specimens or reuse tubes across timepoints. Label each with patient name, collection date/time and timepoint number. Submit all with one LabCorp multispecimen requisition. Do not use this series for ordinary one-time DHEA; confirm protocol with ordering clinician before collecting.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official Multiple-Specimen Testing table • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
+    "source": "LabCorp official Multiple-Specimen Testing table • https://www.labcorp.com/test-menu/resources/multiple-specimen-testing"
   }
 ];const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];const seen=new Set(catalog.map(t=>String(t.testCode)));for(const item of additions){if(!seen.has(item.testCode)){catalog.push(item);seen.add(item.testCode);}}window.SEED_TESTS=catalog;})();
 ;
 
 /* SOURCE: labcorp-additional-hormone-metabolic-20261022.js */
 ;
-/* Labcorp source-verified testosterone methods, amino acid CSF/plasma, and GTT with separate timed collections. */
+/* LabCorp source-verified testosterone methods, amino acid CSF/plasma, and GTT with separate timed collections. */
 (()=>{'use strict';const additions=[
   {
     "id": "labcorp-070195",
@@ -339,7 +339,7 @@
     "minimumVolume": "1.8 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Room/refrigerated 7 days; frozen extended per Labcorp",
+    "stability": "Room/refrigerated 7 days; frozen extended per LabCorp",
     "spin": "Yes",
     "specialInstructions": "Separate serum from cells WITHIN ONE HOUR, transfer into plastic transport tube. Serum only. Total testosterone LC/MS-MS and free testosterone equilibrium ultrafiltration, distinct from direct free test.",
     "fastingStatus": "",
@@ -385,9 +385,9 @@
     "minimumVolume": "0.8 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Consult current Labcorp directory for assay-specific stability",
+    "stability": "Consult current LabCorp directory for assay-specific stability",
     "spin": "Yes",
-    "specialInstructions": "Includes testosterone and sex hormone-binding globulin (SHBG). Red-top or gel-barrier serum; transfer if red top. Note patient age and sex. High-dose biotin may interfere; Labcorp recommends avoiding for 72 hours before draw.",
+    "specialInstructions": "Includes testosterone and sex hormone-binding globulin (SHBG). Red-top or gel-barrier serum; transfer if red top. Note patient age and sex. High-dose biotin may interfere; LabCorp recommends avoiding for 72 hours before draw.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "collectionCount": 1,
@@ -504,7 +504,7 @@
 
 /* SOURCE: labcorp-gestational-glucose-20261022.js */
 ;
-/* Official Labcorp ACOG gestational glucose challenge/screen. All timepoints are separate draw and submit tubes. */
+/* Official LabCorp ACOG gestational glucose challenge/screen. All timepoints are separate draw and submit tubes. */
 (()=>{'use strict';const additions=[
   {
     "id": "labcorp-102277",
@@ -522,11 +522,11 @@
     "spin": "Yes",
     "collectionCount": 1,
     "submissionCount": 1,
-    "specialInstructions": "CLINICIAN-SUPERVISED GESTATIONAL GLUCOSE CHALLENGE. 1 individually labeled specimen (1-hour post-challenge), 50 gram oral glucose loading dose. Collect 1 SEPARATE SST or gray fluoride/oxalate tubes, one for EACH timepoint; no pooling or shared transport containers. For SST separate serum within 45 min; gray plasma tube may be sent unspun. Label exact patient, fasting/interval, date and draw time. Fasting NOT required for this 50g screen. Follow Labcorp pretest patient instructions and do not perform with known diabetes unless clinician specifically directs.",
+    "specialInstructions": "CLINICIAN-SUPERVISED GESTATIONAL GLUCOSE CHALLENGE. 1 individually labeled specimen (1-hour post-challenge), 50 gram oral glucose loading dose. Collect 1 SEPARATE SST or gray fluoride/oxalate tubes, one for EACH timepoint; no pooling or shared transport containers. For SST separate serum within 45 min; gray plasma tube may be sent unspun. Label exact patient, fasting/interval, date and draw time. Fasting NOT required for this 50g screen. Follow LabCorp pretest patient instructions and do not perform with known diabetes unless clinician specifically directs.",
     "fastingStatus": "",
     "fastingInstructions": "No fasting required for one-hour 50g screening.",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/102277"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/102277"
   },
   {
     "id": "labcorp-102004",
@@ -544,11 +544,11 @@
     "spin": "Yes",
     "collectionCount": 4,
     "submissionCount": 4,
-    "specialInstructions": "CLINICIAN-SUPERVISED GESTATIONAL GLUCOSE CHALLENGE. 4 individually labeled specimens (fasting, 1h, 2h, 3h), 100 gram oral glucose loading dose. Collect 4 SEPARATE SST or gray fluoride/oxalate tubes, one for EACH timepoint; no pooling or shared transport containers. For SST separate serum within 45 min; gray plasma tube may be sent unspun. Label exact patient, fasting/interval, date and draw time. Patient should fast 8–14 h before baseline and follow physician-approved gestational OGTT protocol. Follow Labcorp pretest patient instructions and do not perform with known diabetes unless clinician specifically directs.",
+    "specialInstructions": "CLINICIAN-SUPERVISED GESTATIONAL GLUCOSE CHALLENGE. 4 individually labeled specimens (fasting, 1h, 2h, 3h), 100 gram oral glucose loading dose. Collect 4 SEPARATE SST or gray fluoride/oxalate tubes, one for EACH timepoint; no pooling or shared transport containers. For SST separate serum within 45 min; gray plasma tube may be sent unspun. Label exact patient, fasting/interval, date and draw time. Patient should fast 8–14 h before baseline and follow physician-approved gestational OGTT protocol. Follow LabCorp pretest patient instructions and do not perform with known diabetes unless clinician specifically directs.",
     "fastingStatus": "required",
     "fastingInstructions": "Fast 8–14 hours; water allowed; 150g daily carbohydrate for three days prior.",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/102004"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/102004"
   }
 ];const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];const seen=new Set(catalog.map(x=>String(x.testCode)));for(const t of additions){if(!seen.has(t.testCode)){catalog.push(t);seen.add(t.testCode);}}window.SEED_TESTS=catalog;})();
 ;

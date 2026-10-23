@@ -1,4 +1,4 @@
-/* Five additional Labcorp blood tests. Requirements verified on individual test pages on 2026-10-21. */
+/* Five additional LabCorp blood tests. Requirements verified on individual test pages on 2026-10-21. */
 (() => {
   'use strict';
   const additions=[
@@ -20,7 +20,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-21 • https://www.labcorp.com/tests/235010/lipid-panel-with-ldl-hdl-ratio"
+    "source": "LabCorp official test directory, checked 2026-10-21 • https://www.labcorp.com/tests/235010/lipid-panel-with-ldl-hdl-ratio"
   },
   {
     "id": "labcorp-221010",
@@ -40,7 +40,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-21 • https://www.labcorp.com/tests/221010/lipid-panel-with-total-cholesterol-hdl-ratio"
+    "source": "LabCorp official test directory, checked 2026-10-21 • https://www.labcorp.com/tests/221010/lipid-panel-with-total-cholesterol-hdl-ratio"
   },
   {
     "id": "labcorp-010405",
@@ -60,7 +60,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-21 • https://www.labcorp.com/tests/010405/myoglobin"
+    "source": "LabCorp official test directory, checked 2026-10-21 • https://www.labcorp.com/tests/010405/myoglobin"
   },
   {
     "id": "labcorp-004110",
@@ -80,7 +80,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-21 • https://www.labcorp.com/tests/004110/galectin-3"
+    "source": "LabCorp official test directory, checked 2026-10-21 • https://www.labcorp.com/tests/004110/galectin-3"
   },
   {
     "id": "labcorp-140150",
@@ -100,7 +100,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-21 • https://www.labcorp.com/tests/140150/troponin-t-highly-sensitive"
+    "source": "LabCorp official test directory, checked 2026-10-21 • https://www.labcorp.com/tests/140150/troponin-t-highly-sensitive"
   }
 ];
   const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];

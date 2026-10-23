@@ -31,16 +31,16 @@ test('all local script and stylesheet paths still resolve after cleanup', () => 
   }
 });
 
-test('Labcorp catalog bundles appear exactly once, in the required order', () => {
+test('LabCorp catalog bundles appear exactly once, in the required order', () => {
   const loaded = scripts(read('labcorp.html'));
   const positions = bundles.map(file => loaded.indexOf(file));
-  assert(positions.every(index => index >= 0), 'Every consolidated Labcorp bundle must be loaded');
+  assert(positions.every(index => index >= 0), 'Every consolidated LabCorp bundle must be loaded');
   assert.equal(new Set(positions).size, bundles.length);
   assert.deepEqual([...positions].sort((a, b) => a - b), positions, 'Preserve original loading order');
   assert(positions.every(i => i < loaded.indexOf('labcorp-app.js')), 'Catalog must load before calculator code');
 });
 
-test('Labcorp catalog loads with no duplicate codes or missing specimen essentials', () => {
+test('LabCorp catalog loads with no duplicate codes or missing specimen essentials', () => {
   const loaded = scripts(read('labcorp.html'));
   const catalogSources = loaded.filter(file =>
     file.startsWith('labcorp-') || file.startsWith('assets/js/labcorp/catalog/'));
@@ -52,9 +52,9 @@ test('Labcorp catalog loads with no duplicate codes or missing specimen essentia
     vm.runInContext(read(file), context, { filename: file, timeout: 10000 });
   }
   const records = context.window.SEED_TESTS;
-  assert(records.length > 500, 'Unexpected reduction in Labcorp catalog records');
+  assert(records.length > 500, 'Unexpected reduction in LabCorp catalog records');
   const codes = records.map(test => String(test.testCode));
-  assert.equal(new Set(codes).size, records.length, 'Duplicate Labcorp test codes');
+  assert.equal(new Set(codes).size, records.length, 'Duplicate LabCorp test codes');
   for (const item of records) {
     assert(item.testCode && item.testName && item.specimenType, 'Incomplete identity: ' + item.testCode);
     assert(item.drawContainer && item.transportContainer, 'Missing container: ' + item.testCode);

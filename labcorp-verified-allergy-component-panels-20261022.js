@@ -1,4 +1,4 @@
-/* 25 distinct Labcorp allergy panels from Labcorp Allergy Test Menu; no CBC-combination tests with unmodeled extra draw tubes. */
+/* 25 distinct LabCorp allergy panels from LabCorp Allergy Test Menu; no CBC-combination tests with unmodeled extra draw tubes. */
 (()=>{'use strict';const additions=[
   {
     "id": "labcorp-604783",
@@ -12,13 +12,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 4 mL serum at room temperature. Food component reflex profile including milk, egg and tree nuts. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 4 mL serum at room temperature. Food component reflex profile including milk, egg and tree nuts. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-603940",
@@ -32,13 +32,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 1 mL serum at room temperature. Egg white with reflex to ovalbumin and ovomucoid. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 1 mL serum at room temperature. Egg white with reflex to ovalbumin and ovomucoid. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-603849",
@@ -52,13 +52,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 1 mL serum at room temperature. Alpha-lactalbumin, beta-lactoglobulin and casein. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 1 mL serum at room temperature. Alpha-lactalbumin, beta-lactoglobulin and casein. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-604764",
@@ -72,13 +72,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 3 mL serum at room temperature. Tree-nut and peanut-specific IgE with indicated molecular component reflexes. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 3 mL serum at room temperature. Tree-nut and peanut-specific IgE with indicated molecular component reflexes. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-603972",
@@ -92,13 +92,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 1 mL serum at room temperature. Brazil nut with reflex to Ber e 1. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 1 mL serum at room temperature. Brazil nut with reflex to Ber e 1. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-604159",
@@ -112,13 +112,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 1 mL serum at room temperature. Cashew nut with reflex to Ana o 3. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 1 mL serum at room temperature. Cashew nut with reflex to Ana o 3. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-604734",
@@ -132,13 +132,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 1 mL serum at room temperature. Hazelnut with reflex to Cor a 1, 8, 9 and 14. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 1 mL serum at room temperature. Hazelnut with reflex to Cor a 1, 8, 9 and 14. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-605971",
@@ -152,13 +152,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 1 mL serum at room temperature. Peanut molecular components Ara h 1, 2, 3, 6, 8 and 9. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 1 mL serum at room temperature. Peanut molecular components Ara h 1, 2, 3, 6, 8 and 9. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-603916",
@@ -172,13 +172,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 1 mL serum at room temperature. Peanut whole-specific IgE with component reflex. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 1 mL serum at room temperature. Peanut whole-specific IgE with component reflex. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-604600",
@@ -192,13 +192,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 0.6 mL serum at room temperature. Walnut IgE with reflex to Jug r 1 and Jug r 3. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 0.6 mL serum at room temperature. Walnut IgE with reflex to Jug r 1 and Jug r 3. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-607740",
@@ -212,13 +212,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 0.8 mL serum at room temperature. Sesame IgE with reflex to Ses i 1. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 0.8 mL serum at room temperature. Sesame IgE with reflex to Ses i 1. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-607950",
@@ -232,13 +232,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 1 mL serum at room temperature. Wheat IgE, omega-5 gliadin and conditional additional components. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 1 mL serum at room temperature. Wheat IgE, omega-5 gliadin and conditional additional components. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-608035",
@@ -252,13 +252,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 4 mL serum at room temperature. Children's food, inhalant and pet IgE profile with component reflexes. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 4 mL serum at room temperature. Children's food, inhalant and pet IgE profile with component reflexes. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-606650",
@@ -272,13 +272,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 1 mL serum at room temperature. Cat dander IgE with reflex to Fel d 1, 2, 4 and 7. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 1 mL serum at room temperature. Cat dander IgE with reflex to Fel d 1, 2, 4 and 7. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-606659",
@@ -292,13 +292,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 1 mL serum at room temperature. Dog dander IgE with reflex to Can f 1, 2, 3, 4, 5 and 6. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 1 mL serum at room temperature. Dog dander IgE with reflex to Can f 1, 2, 3, 4, 5 and 6. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-606656",
@@ -312,13 +312,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 1 mL serum at room temperature. Horse dander IgE with reflex to Equ c 1. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 1 mL serum at room temperature. Horse dander IgE with reflex to Equ c 1. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-607021",
@@ -332,13 +332,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 3 mL serum at room temperature. Combined cat and dog whole allergens with component reflexes. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 3 mL serum at room temperature. Combined cat and dog whole allergens with component reflexes. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-607016",
@@ -352,13 +352,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 3 mL serum at room temperature. Combined cat, dog and horse whole allergens with component reflexes. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 3 mL serum at room temperature. Combined cat, dog and horse whole allergens with component reflexes. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-606220",
@@ -372,13 +372,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 2 mL serum at room temperature. Honeybee, yellow jacket, paper wasp and tryptase with indicated CCD reflex. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 2 mL serum at room temperature. Honeybee, yellow jacket, paper wasp and tryptase with indicated CCD reflex. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-606895",
@@ -392,13 +392,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 2.5 mL serum at room temperature. Honeybee, yellow jacket, paper wasp and tryptase with indicated CCD reflex. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 2.5 mL serum at room temperature. Honeybee, yellow jacket, paper wasp and tryptase with indicated CCD reflex. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-660670",
@@ -412,13 +412,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 1 mL serum at room temperature. Aspergillus, Aureobasidium, Micropolyspora, pigeon serum and Thermoactinomyces IgG precipitins. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 1 mL serum at room temperature. Aspergillus, Aureobasidium, Micropolyspora, pigeon serum and Thermoactinomyces IgG precipitins. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-607550",
@@ -432,13 +432,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 0.5 mL serum at room temperature. Aspergillus fumigatus IgG, distinct from IgE. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 0.5 mL serum at room temperature. Aspergillus fumigatus IgG, distinct from IgE. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-606846",
@@ -452,13 +452,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 0.3 mL serum at room temperature. Aspergillus species IgG precipitating antibodies. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 0.3 mL serum at room temperature. Aspergillus species IgG precipitating antibodies. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-607660",
@@ -472,13 +472,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 2 mL serum at room temperature. Aspergillus fumigatus IgE and IgG. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 2 mL serum at room temperature. Aspergillus fumigatus IgE and IgG. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   },
   {
     "id": "labcorp-600020",
@@ -492,13 +492,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Verify test-specific duration with current Labcorp directory; room-temperature transport listed in Labcorp allergy test menu",
+    "stability": "Verify test-specific duration with current LabCorp directory; room-temperature transport listed in LabCorp allergy test menu",
     "spin": "Yes",
-    "specialInstructions": "Labcorp allergy test menu specifies 1 mL serum at room temperature. Garlic, paprika, cinnamon, vanilla, ginger and black peppercorn. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
+    "specialInstructions": "LabCorp allergy test menu specifies 1 mL serum at room temperature. Garlic, paprika, cinnamon, vanilla, ginger and black peppercorn. Collect into SST/gel-barrier or red-top serum tube; if using red top, separate and transfer to suitable plastic serum transport tube. This order is a panel or component-reflex profile: do not count its component analytes as independent orders.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
+    "source": "LabCorp 2026 Allergy Test Menu (published test number and serum volume) • https://www.labcorp.com/content/dam/labcorp/files/allergy-launch/l3535_bro-allergy-test-menu.pdf"
   }
 ];
 const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];

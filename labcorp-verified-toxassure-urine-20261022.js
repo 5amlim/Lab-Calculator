@@ -18,7 +18,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912334/toxassure-flex-15-urine"
+    "source": "Official LabCorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912334/toxassure-flex-15-urine"
   },
   {
     "id": "labcorp-912460",
@@ -38,7 +38,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912460/toxassure-flex-16-urine"
+    "source": "Official LabCorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912460/toxassure-flex-16-urine"
   },
   {
     "id": "labcorp-912920",
@@ -58,7 +58,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912920/toxassure-flex-19-urine"
+    "source": "Official LabCorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912920/toxassure-flex-19-urine"
   },
   {
     "id": "labcorp-912921",
@@ -78,7 +78,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912921/toxassure-flex-21-urine"
+    "source": "Official LabCorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912921/toxassure-flex-21-urine"
   },
   {
     "id": "labcorp-912335",
@@ -98,7 +98,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912335/toxassure-flex-23-urine"
+    "source": "Official LabCorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912335/toxassure-flex-23-urine"
   },
   {
     "id": "labcorp-912470",
@@ -118,7 +118,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912470/toxassure-flex-24-urine"
+    "source": "Official LabCorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912470/toxassure-flex-24-urine"
   },
   {
     "id": "labcorp-912843",
@@ -138,7 +138,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912843/toxassure-flex-6-acetylmorphine-confirmation-urine"
+    "source": "Official LabCorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912843/toxassure-flex-6-acetylmorphine-confirmation-urine"
   },
   {
     "id": "labcorp-910784",
@@ -158,7 +158,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/910784/toxassure-flex-amphetamines-confirmation-urine"
+    "source": "Official LabCorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/910784/toxassure-flex-amphetamines-confirmation-urine"
   },
   {
     "id": "labcorp-910512",
@@ -178,7 +178,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/910512/toxassure-flex-barbiturates-confirmation-urine"
+    "source": "Official LabCorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/910512/toxassure-flex-barbiturates-confirmation-urine"
   },
   {
     "id": "labcorp-910518",
@@ -198,7 +198,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/910518/toxassure-flex-buprenorphine-confirmation-urine"
+    "source": "Official LabCorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/910518/toxassure-flex-buprenorphine-confirmation-urine"
   },
   {
     "id": "labcorp-910525",
@@ -218,7 +218,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/910525/toxassure-flex-cocaine-confirmation-urine"
+    "source": "Official LabCorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/910525/toxassure-flex-cocaine-confirmation-urine"
   },
   {
     "id": "labcorp-912847",
@@ -238,7 +238,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912847/toxassure-flex-anticonvulsants-confirmation-urine"
+    "source": "Official LabCorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912847/toxassure-flex-anticonvulsants-confirmation-urine"
   },
   {
     "id": "labcorp-912849",
@@ -258,7 +258,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912849/toxassure-flex-antidepressants-confirmation-urine"
+    "source": "Official LabCorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912849/toxassure-flex-antidepressants-confirmation-urine"
   },
   {
     "id": "labcorp-912850",
@@ -278,7 +278,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912850/toxassure-flex-antihistamines-confirmation-urine"
+    "source": "Official LabCorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912850/toxassure-flex-antihistamines-confirmation-urine"
   },
   {
     "id": "labcorp-912851",
@@ -298,6 +298,6 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Official Labcorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912851/toxassure-flex-antipsychotics-confirmation-urine"
+    "source": "Official LabCorp ToxAssure Flex test directory and collection requirements • https://www.labcorp.com/tests/912851/toxassure-flex-antipsychotics-confirmation-urine"
   }
 ];const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];const known=new Set(catalog.map(test=>String(test.testCode)));for(const item of additions){if(!known.has(item.testCode)){catalog.push(item);known.add(item.testCode);}}window.SEED_TESTS=catalog;})();

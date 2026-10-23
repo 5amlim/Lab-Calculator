@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="assets/lab-favicon.svg?v=1" type="image/svg+xml">
-  <title>Labcorp Lab Calculator | Specimen Collection and Processing</title>
-  <meta name="description" content="Labcorp Lab Calculator: search verified Labcorp tests, calculate specimen collection and submission plans, and print handling instructions.">
+  <title>LabCorp Lab Calculator | Specimen Collection and Processing</title>
+  <meta name="description" content="LabCorp Lab Calculator: search verified LabCorp tests, calculate specimen collection and submission plans, and print handling instructions.">
   <link rel="stylesheet" href="assets/css/styles.css?v=12.15">
   <link rel="stylesheet" href="assets/css/experience.css?v=11.82">
   <link rel="stylesheet" href="market-switch.css?v=9">
@@ -17,16 +17,16 @@
   <a class="skip-link" href="#libraryFilter">Skip to test search</a>
   <header class="app-header no-print">
     <div class="header-title">
-      <h1>Labcorp Lab Calculator</h1>
-      <p>Search Labcorp tests and print collection and submission instructions.</p>
+      <h1>LabCorp Lab Calculator</h1>
+      <p>Search LabCorp tests and print collection and submission instructions.</p>
     </div>
     <div class="header-actions">
       <span class="privacy-pill">No patient information required</span>
       <details class="lab-select lab-select--labcorp">
-        <summary aria-label="Select Lab, currently Labcorp">
+        <summary aria-label="Select Lab, currently LabCorp">
           <span class="lab-select-summary-text">
             <span class="lab-select-label">Select Lab</span>
-            <strong class="lab-select-current">Labcorp</strong>
+            <strong class="lab-select-current">LabCorp</strong>
           </span>
           <svg class="lab-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </summary>
@@ -42,7 +42,7 @@
           </a>
           <a class="lab-select-choice labcorp" href="labcorp.html" aria-current="page">
             <span class="lab-select-choice-marker" aria-hidden="true"></span>
-            <span class="lab-select-choice-copy"><strong>Labcorp</strong><small>Labcorp directory</small></span>
+            <span class="lab-select-choice-copy"><strong>LabCorp</strong><small>LabCorp directory</small></span>
             <span class="lab-select-choice-state">Selected</span>
           </a>
         </nav>
@@ -101,7 +101,7 @@
       <div class="stat-library-control" aria-label="STAT receiving area">
         <label for="statAreaButton">STAT receiving area</label>
         <div class="stat-select-wrap" id="statSelectWrap">
-        <select id="statAreaSelect" aria-label="Labcorp STAT receiving area" hidden tabindex="-1" aria-hidden="true">
+        <select id="statAreaSelect" aria-label="LabCorp STAT receiving area" hidden tabindex="-1" aria-hidden="true">
           <option value="unselected">Select receiving area</option>
           <option value="socal">Southern California</option>
           <option value="norcal">Northern California</option>
@@ -153,17 +153,17 @@
         </div>
         <p class="library-help">Can’t find a test? <a href="https://www.labcorp.com/test-menu/search" target="_blank" rel="noreferrer">Check the official directory ↗</a> or contact Sam to have it added.</p>
         <details class="labcorp-crosswalk" id="labcorpCrosswalk">
-          <summary><span class="crosswalk-icon" aria-hidden="true">⇄</span>Compare Quest tests to Labcorp <span id="labcorpCrosswalkCount">2,692 Quest entries</span></summary>
+          <summary><span class="crosswalk-icon" aria-hidden="true">⇄</span>Compare Quest tests to LabCorp <span id="labcorpCrosswalkCount">2,692 Quest entries</span></summary>
           <div class="crosswalk-interior">
-            <p class="crosswalk-explainer"><strong>All Quest tests are included here for name/code comparison, not Labcorp specimen planning.</strong> Quest codes and collection requirements are not interchangeable with Labcorp's. Possible code matches require confirmation of method, specimen, volume and transport instructions before use in the Labcorp calculator.</p>
+            <p class="crosswalk-explainer"><strong>All Quest tests are included here for name/code comparison, not LabCorp specimen planning.</strong> Quest codes and collection requirements are not interchangeable with LabCorp's. Possible code matches require confirmation of method, specimen, volume and transport instructions before use in the LabCorp calculator.</p>
             <div class="crosswalk-tools">
-              <label>Find a Quest test or possible Labcorp code
-                <input id="labcorpCrosswalkSearch" type="search" autocomplete="off" placeholder="Test name, Quest code, or Labcorp code">
+              <label>Find a Quest test or possible LabCorp code
+                <input id="labcorpCrosswalkSearch" type="search" autocomplete="off" placeholder="Test name, Quest code, or LabCorp code">
               </label>
               <label>Match status
-                <select id="labcorpCrosswalkFilter" aria-label="Quest to Labcorp comparison status">
+                <select id="labcorpCrosswalkFilter" aria-label="Quest to LabCorp comparison status">
                   <option value="all">All Quest tests</option>
-                  <option value="suggested">Possible Labcorp matches</option>
+                  <option value="suggested">Possible LabCorp matches</option>
                   <option value="pending">Mapping not verified</option>
                 </select>
               </label>
@@ -171,7 +171,7 @@
             </div>
             <div class="crosswalk-table-wrap">
               <table class="crosswalk-table">
-                <thead><tr><th>Quest code</th><th>Quest test</th><th>Possible Labcorp equivalent</th><th>Next step</th></tr></thead>
+                <thead><tr><th>Quest code</th><th>Quest test</th><th>Possible LabCorp equivalent</th><th>Next step</th></tr></thead>
                 <tbody id="labcorpCrosswalkBody"></tbody>
               </table>
             </div>
@@ -246,7 +246,7 @@
         <div class="cart-collapse-body">
           <div class="cart-collapse-toolbar">
             <span class="cart-collapse-subtitle">Tube sequence</span>
-            <a class="reference-link" href="https://www.labcorp.com/test-menu/search" target="_blank" rel="noreferrer">Labcorp Test Menu ↗</a>
+            <a class="reference-link" href="https://www.labcorp.com/test-menu/search" target="_blank" rel="noreferrer">LabCorp Test Menu ↗</a>
           </div>
           <div id="orderOfDraw" class="order-of-draw" aria-label="Standard blood tube order of draw"></div>
           <div class="order-of-draw-note">

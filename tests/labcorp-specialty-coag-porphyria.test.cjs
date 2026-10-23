@@ -9,7 +9,7 @@ const batch = 'labcorp-specialty-coag-porphyria-20261022.js';
 const html = read('labcorp.html');
 const included = [...html.matchAll(/<script src="([^"?]+)(?:\?[^"]*)?"/g)].map(m => m[1]);
 assert(included.indexOf(batch) >= 0 && included.indexOf(batch) < included.indexOf('labcorp-app.js'),
-  'New data must load before Labcorp calculator app');
+  'New data must load before LabCorp calculator app');
 const codes = [
   '123225','003065','003103','007364','096354','117140','144012',
   '550672','164519','004648','120220','500033','164517','015057',
@@ -74,7 +74,7 @@ for (const mode of ['gold', 'tiger']) {
       'Printout must contain the complete workflow for ' + test.testCode);
   }
   // Two frozen urine tests can use one compatible collection cup, but
-  // Labcorp requires a separate frozen aliquot for each ordered test.
+  // LabCorp requires a separate frozen aliquot for each ordered test.
   const frozenPair = [byCode('003065'), byCode('007364')];
   const frozenBags = api.buildTransportBagPlan(frozenPair);
   const frozenCollections = api.buildCollectionPlan(frozenPair, frozenBags);
@@ -143,4 +143,4 @@ for (const mode of ['gold', 'tiger']) {
   assert.equal(normalPlan.find(card => /sst|gold|tiger/i.test(card.label))?.count, 1,
     'Legacy single-test SST rule stays unchanged without explicit specialty exception');
 }
-console.log('PASS: 23 Labcorp specialty records, dedup, specimen handling, 2-tube plasma, Gold/Tiger volume logic');
+console.log('PASS: 23 LabCorp specialty records, dedup, specimen handling, 2-tube plasma, Gold/Tiger volume logic');

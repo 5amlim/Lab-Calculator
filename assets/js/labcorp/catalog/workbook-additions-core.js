@@ -1,8 +1,8 @@
-/* Labcorp catalog: Quest workbook-verified additions (first segment), original order unchanged. */
+/* LabCorp catalog: Quest workbook-verified additions (first segment), original order unchanged. */
 
 /* SOURCE: labcorp-quest-workbook-new-data.js */
 ;
-/* New verified Labcorp equivalents from Quest Lab Calculator workbook (2026-10-22). */
+/* New verified LabCorp equivalents from Quest Lab Calculator workbook (2026-10-22). */
 (()=>{
 'use strict';
 const additions=[
@@ -24,7 +24,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-22 • https://www.labcorp.com/tests/007054/ammonia-plasma"
+    "source": "LabCorp official test directory verified 2026-10-22 • https://www.labcorp.com/tests/007054/ammonia-plasma"
   },
   {
     "id": "labcorp-123234",
@@ -44,7 +44,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-22 • https://www.labcorp.com/tests/123234/pancreatic-elastase-fecal"
+    "source": "LabCorp official test directory verified 2026-10-22 • https://www.labcorp.com/tests/123234/pancreatic-elastase-fecal"
   },
   {
     "id": "labcorp-123255",
@@ -64,7 +64,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-22 • https://www.labcorp.com/tests/123255/calprotectin-fecal"
+    "source": "LabCorp official test directory verified 2026-10-22 • https://www.labcorp.com/tests/123255/calprotectin-fecal"
   },
   {
     "id": "labcorp-500142",
@@ -84,7 +84,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-22 • https://www.labcorp.com/tests/500142/dihydrotestosterone-dht-endocrine-sciences"
+    "source": "LabCorp official test directory verified 2026-10-22 • https://www.labcorp.com/tests/500142/dihydrotestosterone-dht-endocrine-sciences"
   }
 ,
   {
@@ -105,7 +105,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory verified 2026-10-22 • https://www.labcorp.com/tests/146712/leptin-serum-or-plasma"
+    "source": "LabCorp official test directory verified 2026-10-22 • https://www.labcorp.com/tests/146712/leptin-serum-or-plasma"
   }
 ];
 const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];
@@ -118,7 +118,7 @@ window.SEED_TESTS=catalog;
 
 /* SOURCE: labcorp-quest-workbook-batch-data.js */
 ;
-/* Labcorp equivalents for the user's Quest worksheet, independently checked against Labcorp test-specific directory. All entries deduplicated by LABCorp testCode. */
+/* LabCorp equivalents for the user's Quest worksheet, independently checked against LabCorp test-specific directory. All entries deduplicated by LabCorp testCode. */
 (()=>{
 'use strict';
 const additions=[
@@ -136,11 +136,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature, refrigerated, or frozen: 14 days",
     "spin": "Yes",
-    "specialInstructions": "If red-top is used, transfer separated serum to a plastic transport tube. High-dose biotin may interfere; follow Labcorp's patient preparation guidance.",
+    "specialInstructions": "If red-top is used, transfer separated serum to a plastic transport tube. High-dose biotin may interfere; follow LabCorp's patient preparation guidance.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/002253/a-fetoprotein-afp-tumor-marker"
+    "source": "LabCorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/002253/a-fetoprotein-afp-tumor-marker"
   },
   {
     "id": "labcorp-004937",
@@ -160,7 +160,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/004937/transferrin"
+    "source": "LabCorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/004937/transferrin"
   },
   {
     "id": "labcorp-006031",
@@ -180,7 +180,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/006031/antistreptolysin-o-aso-antibodies"
+    "source": "LabCorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/006031/antistreptolysin-o-aso-antibodies"
   },
   {
     "id": "labcorp-096289",
@@ -200,7 +200,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/096289/anti-dnase-b-streptococcal-antibodies"
+    "source": "LabCorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/096289/anti-dnase-b-streptococcal-antibodies"
   },
   {
     "id": "labcorp-002261",
@@ -220,7 +220,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/002261/carbohydrate-antigen-ca-19-9"
+    "source": "LabCorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/002261/carbohydrate-antigen-ca-19-9"
   },
   {
     "id": "labcorp-164640",
@@ -240,7 +240,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/164640/tissue-transglutaminase-ttg-iga"
+    "source": "LabCorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/164640/tissue-transglutaminase-ttg-iga"
   },
   {
     "id": "labcorp-164010",
@@ -260,7 +260,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/164010/celiac-antibodies-profile-ttg-iga-ttg-igg-dgp-iga-dgp-igg-and-total-iga"
+    "source": "LabCorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/164010/celiac-antibodies-profile-ttg-iga-ttg-igg-dgp-iga-dgp-igg-and-total-iga"
   },
   {
     "id": "labcorp-165142",
@@ -280,7 +280,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/165142/celiac-antibodies-ttg-iga-ema-iga-total-iga-with-reflex-to-ttg-igg"
+    "source": "LabCorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/165142/celiac-antibodies-ttg-iga-ema-iga-total-iga-with-reflex-to-ttg-igg"
   },
   {
     "id": "labcorp-010413",
@@ -300,7 +300,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/010413/intrinsic-factor-blocking-antibodies"
+    "source": "LabCorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/010413/intrinsic-factor-blocking-antibodies"
   },
   {
     "id": "labcorp-650003",
@@ -320,7 +320,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/650003/alpha-gal-ige-panel"
+    "source": "LabCorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/650003/alpha-gal-ige-panel"
   },
   {
     "id": "labcorp-010801",
@@ -336,11 +336,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 7 days; refrigerated/frozen 14 days",
     "spin": "Yes",
-    "specialInstructions": "Collect in gel-barrier SST, spin and submit original spun tube. Do not pour off serum. Collect before amniocentesis. Include gestational information per Labcorp.",
+    "specialInstructions": "Collect in gel-barrier SST, spin and submit original spun tube. Do not pour off serum. Collect before amniocentesis. Include gestational information per LabCorp.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/010801/a-fetoprotein-afp-maternal-serum-for-open-spina-bifida"
+    "source": "LabCorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/010801/a-fetoprotein-afp-maternal-serum-for-open-spina-bifida"
   },
   {
     "id": "labcorp-500089",
@@ -360,7 +360,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/500089/c-telopeptide-endocrine-sciences"
+    "source": "LabCorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/500089/c-telopeptide-endocrine-sciences"
   },
   {
     "id": "labcorp-123283",
@@ -380,7 +380,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/123283/lipoprotein-associated-phospholipase-a2-activity"
+    "source": "LabCorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/123283/lipoprotein-associated-phospholipase-a2-activity"
   },
   {
     "id": "labcorp-001800",
@@ -396,11 +396,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature, refrigerated, or frozen: 28 days",
     "spin": "Yes",
-    "specialInstructions": "PLASMA PREFERRED. Use royal blue-top EDTA; separate immediately and transfer to certified metal-free plastic transport tube (Labcorp PeopleSoft 111166). For serum, separate within 45 minutes. DO NOT use SST or ordinary transport tube.",
+    "specialInstructions": "PLASMA PREFERRED. Use royal blue-top EDTA; separate immediately and transfer to certified metal-free plastic transport tube (LabCorp PeopleSoft 111166). For serum, separate within 45 minutes. DO NOT use SST or ordinary transport tube.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/001800/zinc-serum-or-plasma"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/001800/zinc-serum-or-plasma"
   },
   {
     "id": "labcorp-081034",
@@ -420,7 +420,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/081034/selenium-whole-blood"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/081034/selenium-whole-blood"
   },
   {
     "id": "labcorp-006924",
@@ -440,7 +440,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/006924/hla-b-27-disease-association"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/006924/hla-b-27-disease-association"
   },
   {
     "id": "labcorp-001917",
@@ -451,16 +451,16 @@ const additions=[
     "alternativeContainer": "One lavender EDTA plus one green heparin or yellow ACD tube",
     "transportContainer": "Submit in Original Tubes (Two Required)",
     "preferredVolume": "8 mL total (4 mL per tube)",
-    "minimumVolume": "See Labcorp test-specific requirements; TWO separate tubes required",
+    "minimumVolume": "See LabCorp test-specific requirements; TWO separate tubes required",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
     "stability": "G6PD refrigerated up to 7 days; RBC portion refrigerated up to 72 hours",
     "spin": "No",
-    "specialInstructions": "SPECIAL TWO-TUBE DRAW. Two lavender EDTA tubes, or one lavender EDTA plus heparin/ACD as described in Labcorp directory. DO NOT SPIN OR TRANSFER. RBC portion must reach lab within 72 hours; verify fill requirements and regional acceptance.",
+    "specialInstructions": "SPECIAL TWO-TUBE DRAW. Two lavender EDTA tubes, or one lavender EDTA plus heparin/ACD as described in LabCorp directory. DO NOT SPIN OR TRANSFER. RBC portion must reach lab within 72 hours; verify fill requirements and regional acceptance.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory • https://www.labcorp.com/tests/001917/glucose-6-phosphate-dehydrogenase-g6pd-quantitative-whole-blood-and-red-blood-cell-count-rbc"
+    "source": "LabCorp official test directory • https://www.labcorp.com/tests/001917/glucose-6-phosphate-dehydrogenase-g6pd-quantitative-whole-blood-and-red-blood-cell-count-rbc"
   }
 ];
 const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];
@@ -473,7 +473,7 @@ window.SEED_TESTS=catalog;
 
 /* SOURCE: labcorp-quest-workbook-specialty-data.js */
 ;
-/* Verified specialty equivalents from Quest workbook. All specimen requirements are Labcorp-specific. */
+/* Verified specialty equivalents from Quest workbook. All specimen requirements are LabCorp-specific. */
 (()=>{
 'use strict';
 const additions=[
@@ -495,7 +495,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/001784/immunoglobulin-a-quantitative"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/001784/immunoglobulin-a-quantitative"
   },
   {
     "id": "labcorp-081091",
@@ -515,7 +515,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/081091/calcitriol-1-25-di-oh-vitamin-d"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/081091/calcitriol-1-25-di-oh-vitamin-d"
   },
   {
     "id": "labcorp-004705",
@@ -535,7 +535,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/004705/androstenedione-lc-ms"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/004705/androstenedione-lc-ms"
   },
   {
     "id": "labcorp-500167",
@@ -555,7 +555,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/500167/progesterone-lc-ms-endocrine-sciences"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/500167/progesterone-lc-ms-endocrine-sciences"
   },
   {
     "id": "labcorp-716944",
@@ -575,7 +575,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/716944/lamotrigine-serum-or-plasma"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/716944/lamotrigine-serum-or-plasma"
   },
   {
     "id": "labcorp-070328",
@@ -595,7 +595,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/070328/vancomycin-serum-trough"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/070328/vancomycin-serum-trough"
   },
   {
     "id": "labcorp-140152",
@@ -615,7 +615,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/140152/insulin-like-growth-factor-binding-protein-3-igfbp-3"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/140152/insulin-like-growth-factor-binding-protein-3-igfbp-3"
   },
   {
     "id": "labcorp-004234",
@@ -631,11 +631,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature/refrigerated/frozen 14 days",
     "spin": "No",
-    "specialInstructions": "A 24-HOUR COLLECTION, not a random urine test. Collect complete 24-hour urine with no preservative or 6N HCl per Labcorp instructions. Record start and finish times and total volume. Mix entire collection and transfer measured aliquot. Avoid caffeine. Clinician must confirm interfering medication restrictions.",
+    "specialInstructions": "A 24-HOUR COLLECTION, not a random urine test. Collect complete 24-hour urine with no preservative or 6N HCl per LabCorp instructions. Record start and finish times and total volume. Mix entire collection and transfer measured aliquot. Avoid caffeine. Clinician must confirm interfering medication restrictions.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/004234/metanephrines-fractionated-quantitative-24-hour-urine"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/004234/metanephrines-fractionated-quantitative-24-hour-urine"
   }
 ];
 const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];
@@ -648,7 +648,7 @@ window.SEED_TESTS=catalog;
 
 /* SOURCE: labcorp-quest-workbook-specialty-followups-data.js */
 ;
-/* Verified Labcorp tests specifically matched to Quest spreadsheet; protect collection rules. */
+/* Verified LabCorp tests specifically matched to Quest spreadsheet; protect collection rules. */
 (()=>{'use strict';
 const additions=[
   {
@@ -669,7 +669,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/070029/zinc-rbc"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/070029/zinc-rbc"
   },
   {
     "id": "labcorp-140889",
@@ -685,11 +685,11 @@ const additions=[
     "transportTemperatureRaw": "Frozen",
     "stability": "Frozen 90 days; room temperature unstable",
     "spin": "Yes",
-    "specialInstructions": "BNP (not NT-proBNP). Plastic lavender EDTA draw. Separate EDTA plasma and transfer into Labcorp purple PP frozen Transpak tube (49482). Freeze within 24 hours and transport frozen. Must not pool with room-temperature serum or with NT-proBNP.",
+    "specialInstructions": "BNP (not NT-proBNP). Plastic lavender EDTA draw. Separate EDTA plasma and transfer into LabCorp purple PP frozen Transpak tube (49482). Freeze within 24 hours and transport frozen. Must not pool with room-temperature serum or with NT-proBNP.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/140889/b-type-natriuretic-peptide-bnp"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/140889/b-type-natriuretic-peptide-bnp"
   },
   {
     "id": "labcorp-058495",
@@ -709,7 +709,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/058495/measles-mumps-rubella-mmr-immunity-profile"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/058495/measles-mumps-rubella-mmr-immunity-profile"
   },
   {
     "id": "labcorp-123023",
@@ -729,7 +729,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/123023/oxidized-low-density-lipoprotein-oxldl"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/123023/oxidized-low-density-lipoprotein-oxldl"
   },
   {
     "id": "labcorp-123413",
@@ -745,11 +745,11 @@ const additions=[
     "transportTemperatureRaw": "Refrigerated",
     "stability": "Confirm transport stability using current test directory",
     "spin": "Yes",
-    "specialInstructions": "Preferred black/yellow NMR LipoTube. Alternative plain red-top SERUM without gel or lavender EDTA plasma. Separate from cells, transfer to plastic, ship refrigerated. Fast 10 to 12 hours; avoid fish before collection as directed by Labcorp.",
+    "specialInstructions": "Preferred black/yellow NMR LipoTube. Alternative plain red-top SERUM without gel or lavender EDTA plasma. Separate from cells, transfer to plastic, ship refrigerated. Fast 10 to 12 hours; avoid fish before collection as directed by LabCorp.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/123413/tmao-trimethylamine-n-oxide"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/123413/tmao-trimethylamine-n-oxide"
   },
   {
     "id": "labcorp-504115",
@@ -769,7 +769,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/504115/25-hydroxy-vitamin-d-d2-d3-fractionated-lc-ms-ms"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/504115/25-hydroxy-vitamin-d-d2-d3-fractionated-lc-ms-ms"
   }
 ];
 const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];
@@ -782,7 +782,7 @@ window.SEED_TESTS=catalog;
 
 /* SOURCE: labcorp-quest-workbook-confirmed-data.js */
 ;
-/* Additional Labcorp source-specific verified test equivalents from uploaded Quest workbook. */
+/* Additional LabCorp source-specific verified test equivalents from uploaded Quest workbook. */
 (()=>{'use strict';
 const additions=[
   {
@@ -803,7 +803,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/007625/lead-whole-blood-adult"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/007625/lead-whole-blood-adult"
   },
   {
     "id": "labcorp-070034",
@@ -823,7 +823,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/070034/iodine-serum-or-plasma"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/070034/iodine-serum-or-plasma"
   },
   {
     "id": "labcorp-005223",
@@ -843,7 +843,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/005223/hemoglobin-hb-solubility"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/005223/hemoglobin-hb-solubility"
   },
   {
     "id": "labcorp-164055",
@@ -863,7 +863,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/164055/sars-cov-2-semi-quantitative-igg-antibody-spike"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/164055/sars-cov-2-semi-quantitative-igg-antibody-spike"
   },
   {
     "id": "labcorp-164988",
@@ -883,7 +883,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/164988/tissue-transglutaminase-ttg-igg"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/164988/tissue-transglutaminase-ttg-igg"
   }
 ];
 const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];

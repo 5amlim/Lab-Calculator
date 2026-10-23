@@ -1,6 +1,11 @@
+## October 22, 2026: LabCorp capitalization
+
+- Standardized the displayed laboratory name to **LabCorp** across Quest, Cedars, and LabCorp navigation, page titles, collection plans, comparison tools, specimen instructions, and documentation in both repositories.
+- Retained existing lowercase `labcorp` in filenames, paths, code identifiers, and external URLs for compatibility. No specimen collection or pooling calculations were changed.
+
 ## October 22, 2026: Repository synchronization and file cleanup
 
-- Matched the Quest, Labcorp, and Cedars calculator source files, catalogs, layouts, and test suites in both repositories.
+- Matched the Quest, LabCorp, and Cedars calculator source files, catalogs, layouts, and test suites in both repositories.
 - Retained version information, the changelog, official-source notes, collection audits, and workplace-use agreement in both repositories.
 - Removed the redundant second copy of the project license under `docs/`; the root `LICENSE.md` remains authoritative.
 - Replaced the duplicate `cedars-test-menu.html` content with a small backwards-compatible redirect to `cedars-container-guide.html`.

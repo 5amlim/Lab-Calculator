@@ -1,8 +1,8 @@
-/* Labcorp catalog: respiratory profiles, reflex components and food allergens. Unmodified order. */
+/* LabCorp catalog: respiratory profiles, reflex components and food allergens. Unmodified order. */
 
 /* SOURCE: labcorp-respiratory-profile-data-20261022.js */
 ;
-/* Labcorp respiratory regional total-IgE panels, each sourced from its own official Labcorp test menu. Different region codes select different component panels. */
+/* LabCorp respiratory regional total-IgE panels, each sourced from its own official LabCorp test menu. Different region codes select different component panels. */
 (()=>{'use strict';
 const additions=[
   {
@@ -19,11 +19,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 18 months",
     "spin": "Yes",
-    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 1, Northeast and Mid-Atlantic states) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different Labcorp order code. Ensure serum volume is met before sending.",
+    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 1, Northeast and Mid-Atlantic states) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different LabCorp order code. Ensure serum volume is met before sending.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602627/allergen-profile-with-total-ige-respiratory-area-1"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602627/allergen-profile-with-total-ige-respiratory-area-1"
   },
   {
     "id": "labcorp-602629",
@@ -39,11 +39,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 18 months",
     "spin": "Yes",
-    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 3, Georgia, Northern Florida and South Carolina) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different Labcorp order code. Ensure serum volume is met before sending.",
+    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 3, Georgia, Northern Florida and South Carolina) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different LabCorp order code. Ensure serum volume is met before sending.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602629/allergen-profile-with-total-ige-respiratory-area-3"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602629/allergen-profile-with-total-ige-respiratory-area-3"
   },
   {
     "id": "labcorp-606599",
@@ -59,11 +59,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 18 months",
     "spin": "Yes",
-    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 4, Southern Florida) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different Labcorp order code. Ensure serum volume is met before sending.",
+    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 4, Southern Florida) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different LabCorp order code. Ensure serum volume is met before sending.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/606599/allergen-profile-with-total-ige-respiratory-area-4"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/606599/allergen-profile-with-total-ige-respiratory-area-4"
   },
   {
     "id": "labcorp-602632",
@@ -79,11 +79,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 18 months",
     "spin": "Yes",
-    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 5, Indiana, Kentucky, Ohio, Tennessee and West Virginia) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different Labcorp order code. Ensure serum volume is met before sending.",
+    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 5, Indiana, Kentucky, Ohio, Tennessee and West Virginia) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different LabCorp order code. Ensure serum volume is met before sending.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602632/allergen-profile-with-total-ige-respiratory-area-5"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602632/allergen-profile-with-total-ige-respiratory-area-5"
   },
   {
     "id": "labcorp-602633",
@@ -99,11 +99,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 18 months",
     "spin": "Yes",
-    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 6, Alabama, Arkansas, Louisiana and Mississippi) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different Labcorp order code. Ensure serum volume is met before sending.",
+    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 6, Alabama, Arkansas, Louisiana and Mississippi) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different LabCorp order code. Ensure serum volume is met before sending.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602633/allergen-profile-with-total-ige-respiratory-area-6"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602633/allergen-profile-with-total-ige-respiratory-area-6"
   },
   {
     "id": "labcorp-602634",
@@ -119,11 +119,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 18 months",
     "spin": "Yes",
-    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 7, Michigan, Minnesota and Wisconsin) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different Labcorp order code. Ensure serum volume is met before sending.",
+    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 7, Michigan, Minnesota and Wisconsin) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different LabCorp order code. Ensure serum volume is met before sending.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602634/allergen-profile-with-total-ige-respiratory-area-7"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602634/allergen-profile-with-total-ige-respiratory-area-7"
   },
   {
     "id": "labcorp-602635",
@@ -139,11 +139,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 18 months",
     "spin": "Yes",
-    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 8, Illinois, Iowa and Missouri) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different Labcorp order code. Ensure serum volume is met before sending.",
+    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 8, Illinois, Iowa and Missouri) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different LabCorp order code. Ensure serum volume is met before sending.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602635/allergen-profile-with-total-ige-respiratory-area-8"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602635/allergen-profile-with-total-ige-respiratory-area-8"
   },
   {
     "id": "labcorp-602639",
@@ -159,11 +159,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 18 months",
     "spin": "Yes",
-    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 9, Kansas, Nebraska and Dakotas) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different Labcorp order code. Ensure serum volume is met before sending.",
+    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 9, Kansas, Nebraska and Dakotas) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different LabCorp order code. Ensure serum volume is met before sending.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602639/allergen-profile-with-total-ige-respiratory-area-9"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602639/allergen-profile-with-total-ige-respiratory-area-9"
   },
   {
     "id": "labcorp-602640",
@@ -179,11 +179,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 18 months",
     "spin": "Yes",
-    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 10, Oklahoma and Texas) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different Labcorp order code. Ensure serum volume is met before sending.",
+    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 10, Oklahoma and Texas) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different LabCorp order code. Ensure serum volume is met before sending.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602640/allergen-profile-with-total-ige-respiratory-area-10"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602640/allergen-profile-with-total-ige-respiratory-area-10"
   },
   {
     "id": "labcorp-603719",
@@ -199,11 +199,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 18 months",
     "spin": "Yes",
-    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 12, Southern Arizona and Southern California desert) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different Labcorp order code. Ensure serum volume is met before sending.",
+    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 12, Southern Arizona and Southern California desert) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different LabCorp order code. Ensure serum volume is met before sending.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/603719/allergen-profile-with-total-ige-respiratory-area-12"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/603719/allergen-profile-with-total-ige-respiratory-area-12"
   },
   {
     "id": "labcorp-602643",
@@ -219,11 +219,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 18 months",
     "spin": "Yes",
-    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 13, Southern California coastal) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different Labcorp order code. Ensure serum volume is met before sending.",
+    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 13, Southern California coastal) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different LabCorp order code. Ensure serum volume is met before sending.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602643/allergen-profile-with-total-ige-respiratory-area-13"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602643/allergen-profile-with-total-ige-respiratory-area-13"
   },
   {
     "id": "labcorp-602644",
@@ -239,11 +239,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 18 months",
     "spin": "Yes",
-    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 14, Central California) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different Labcorp order code. Ensure serum volume is met before sending.",
+    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 14, Central California) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different LabCorp order code. Ensure serum volume is met before sending.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602644/allergen-profile-with-total-ige-respiratory-area-14"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602644/allergen-profile-with-total-ige-respiratory-area-14"
   },
   {
     "id": "labcorp-602638",
@@ -259,11 +259,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 18 months",
     "spin": "Yes",
-    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 15, Nevada and Southern Idaho) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different Labcorp order code. Ensure serum volume is met before sending.",
+    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 15, Nevada and Southern Idaho) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different LabCorp order code. Ensure serum volume is met before sending.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602638/allergen-profile-with-total-ige-respiratory-area-15"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602638/allergen-profile-with-total-ige-respiratory-area-15"
   },
   {
     "id": "labcorp-602645",
@@ -279,11 +279,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 18 months",
     "spin": "Yes",
-    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 16, Central/Eastern Washington and Oregon) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different Labcorp order code. Ensure serum volume is met before sending.",
+    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 16, Central/Eastern Washington and Oregon) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different LabCorp order code. Ensure serum volume is met before sending.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602645/allergen-profile-with-total-ige-respiratory-area-16"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602645/allergen-profile-with-total-ige-respiratory-area-16"
   },
   {
     "id": "labcorp-602985",
@@ -299,11 +299,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 18 months",
     "spin": "Yes",
-    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 17, Northwest California, Western Oregon and Washington) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different Labcorp order code. Ensure serum volume is met before sending.",
+    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 17, Northwest California, Western Oregon and Washington) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different LabCorp order code. Ensure serum volume is met before sending.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602985/allergen-profile-with-total-ige-respiratory-area-17"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602985/allergen-profile-with-total-ige-respiratory-area-17"
   },
   {
     "id": "labcorp-602986",
@@ -319,11 +319,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 18 months",
     "spin": "Yes",
-    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 18, Alaska) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different Labcorp order code. Ensure serum volume is met before sending.",
+    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 18, Alaska) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different LabCorp order code. Ensure serum volume is met before sending.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602986/allergen-profile-with-total-ige-respiratory-area-18"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/602986/allergen-profile-with-total-ige-respiratory-area-18"
   },
   {
     "id": "labcorp-606600",
@@ -339,11 +339,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 18 months",
     "spin": "Yes",
-    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 19, Puerto Rico) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different Labcorp order code. Ensure serum volume is met before sending.",
+    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 19, Puerto Rico) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different LabCorp order code. Ensure serum volume is met before sending.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/606600/allergen-profile-with-total-ige-respiratory-area-19"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/606600/allergen-profile-with-total-ige-respiratory-area-19"
   },
   {
     "id": "labcorp-606601",
@@ -359,11 +359,11 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature 14 days; refrigerated 14 days; frozen 18 months",
     "spin": "Yes",
-    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 20, Hawaii) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different Labcorp order code. Ensure serum volume is met before sending.",
+    "specialInstructions": "Regional respiratory allergen-specific IgE profile (Area 20, Hawaii) including total IgE. Collect 3.5 mL serum in red-top or gel-barrier tube. Spin SST; if red-top, separate serum into plastic transport tube. Gross hemolysis may cause rejection. This is the STANDARD regional profile; component-reflex version uses a different LabCorp order code. Ensure serum volume is met before sending.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/606601/allergen-profile-with-total-ige-respiratory-area-20"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/606601/allergen-profile-with-total-ige-respiratory-area-20"
   }
 ];
 const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];
@@ -376,7 +376,7 @@ window.SEED_TESTS=catalog;
 
 /* SOURCE: labcorp-respiratory-component-reflex-data-20261022.js */
 ;
-/* Official Labcorp respiratory IgE component-reflex area profiles. Specific component reflex panels differ from non-reflex profiles. */
+/* Official LabCorp respiratory IgE component-reflex area profiles. Specific component reflex panels differ from non-reflex profiles. */
 (()=>{'use strict';
 const additions=[
   {
@@ -397,7 +397,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/606995/allergen-profile-with-component-reflexes-respiratory-area-1"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/606995/allergen-profile-with-component-reflexes-respiratory-area-1"
   },
   {
     "id": "labcorp-607100",
@@ -417,7 +417,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607100/allergen-profile-with-component-reflexes-respiratory-area-3"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607100/allergen-profile-with-component-reflexes-respiratory-area-3"
   },
   {
     "id": "labcorp-607022",
@@ -437,7 +437,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607022/allergen-profile-with-component-reflexes-respiratory-area-4"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607022/allergen-profile-with-component-reflexes-respiratory-area-4"
   },
   {
     "id": "labcorp-607099",
@@ -457,7 +457,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607099/allergen-profile-with-component-reflexes-respiratory-area-5"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607099/allergen-profile-with-component-reflexes-respiratory-area-5"
   },
   {
     "id": "labcorp-607115",
@@ -477,7 +477,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607115/allergen-profile-with-component-reflexes-respiratory-area-6"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607115/allergen-profile-with-component-reflexes-respiratory-area-6"
   },
   {
     "id": "labcorp-607125",
@@ -497,7 +497,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607125/allergen-profile-with-component-reflexes-respiratory-area-7"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607125/allergen-profile-with-component-reflexes-respiratory-area-7"
   },
   {
     "id": "labcorp-607020",
@@ -517,7 +517,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607020/allergen-profile-with-component-reflexes-respiratory-area-8"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607020/allergen-profile-with-component-reflexes-respiratory-area-8"
   },
   {
     "id": "labcorp-607105",
@@ -537,7 +537,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607105/allergen-profile-with-component-reflexes-respiratory-area-9"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607105/allergen-profile-with-component-reflexes-respiratory-area-9"
   },
   {
     "id": "labcorp-607025",
@@ -557,7 +557,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607025/allergen-profile-with-component-reflexes-respiratory-area-10"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607025/allergen-profile-with-component-reflexes-respiratory-area-10"
   },
   {
     "id": "labcorp-607055",
@@ -577,7 +577,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607055/allergen-profile-with-component-reflexes-respiratory-area-12"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607055/allergen-profile-with-component-reflexes-respiratory-area-12"
   },
   {
     "id": "labcorp-607075",
@@ -597,7 +597,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607075/allergen-profile-with-component-reflexes-respiratory-area-13"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607075/allergen-profile-with-component-reflexes-respiratory-area-13"
   },
   {
     "id": "labcorp-607090",
@@ -617,7 +617,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607090/allergen-profile-with-component-reflexes-respiratory-area-14"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607090/allergen-profile-with-component-reflexes-respiratory-area-14"
   },
   {
     "id": "labcorp-607095",
@@ -637,7 +637,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607095/allergen-profile-with-component-reflexes-respiratory-area-15"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607095/allergen-profile-with-component-reflexes-respiratory-area-15"
   },
   {
     "id": "labcorp-607005",
@@ -657,7 +657,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607005/allergen-profile-with-component-reflexes-respiratory-area-16"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607005/allergen-profile-with-component-reflexes-respiratory-area-16"
   },
   {
     "id": "labcorp-606990",
@@ -677,7 +677,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/606990/allergen-profile-with-component-reflexes-respiratory-area-17"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/606990/allergen-profile-with-component-reflexes-respiratory-area-17"
   },
   {
     "id": "labcorp-606985",
@@ -697,7 +697,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/606985/allergen-profile-with-component-reflexes-respiratory-area-19"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/606985/allergen-profile-with-component-reflexes-respiratory-area-19"
   },
   {
     "id": "labcorp-607120",
@@ -717,7 +717,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607120/allergen-profile-with-component-reflexes-respiratory-area-20"
+    "source": "LabCorp official test directory, reviewed October 2026 • https://www.labcorp.com/tests/607120/allergen-profile-with-component-reflexes-respiratory-area-20"
   }
 ];
 const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];
@@ -730,7 +730,7 @@ window.SEED_TESTS=catalog;
 
 /* SOURCE: labcorp-respiratory-profile-completion-data-20261022.js */
 ;
-/* Labcorp area profiles 2, 11 and area 18 component reflex, verified against official Labcorp directory. */
+/* LabCorp area profiles 2, 11 and area 18 component reflex, verified against official LabCorp directory. */
 (()=>{'use strict';const additions=[
   {
     "id": "labcorp-602628",
@@ -750,7 +750,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test menu, October 2026 • https://www.labcorp.com/tests/602628/allergen-profile-with-total-ige-respiratory-area-2"
+    "source": "LabCorp official test menu, October 2026 • https://www.labcorp.com/tests/602628/allergen-profile-with-total-ige-respiratory-area-2"
   },
   {
     "id": "labcorp-602641",
@@ -770,7 +770,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test menu, October 2026 • https://www.labcorp.com/tests/602641/allergen-profile-with-total-ige-respiratory-area-11"
+    "source": "LabCorp official test menu, October 2026 • https://www.labcorp.com/tests/602641/allergen-profile-with-total-ige-respiratory-area-11"
   },
   {
     "id": "labcorp-607111",
@@ -790,7 +790,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test menu, October 2026 • https://www.labcorp.com/tests/607111/allergen-profile-with-component-reflexes-respiratory-area-2"
+    "source": "LabCorp official test menu, October 2026 • https://www.labcorp.com/tests/607111/allergen-profile-with-component-reflexes-respiratory-area-2"
   },
   {
     "id": "labcorp-607050",
@@ -810,7 +810,7 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test menu, October 2026 • https://www.labcorp.com/tests/607050/allergen-profile-with-component-reflexes-respiratory-area-11"
+    "source": "LabCorp official test menu, October 2026 • https://www.labcorp.com/tests/607050/allergen-profile-with-component-reflexes-respiratory-area-11"
   },
   {
     "id": "labcorp-606980",
@@ -830,14 +830,14 @@ window.SEED_TESTS=catalog;
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test menu, October 2026 • https://www.labcorp.com/tests/606980/allergen-profile-with-component-reflexes-respiratory-area-18"
+    "source": "LabCorp official test menu, October 2026 • https://www.labcorp.com/tests/606980/allergen-profile-with-component-reflexes-respiratory-area-18"
   }
 ];const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];const seen=new Set(catalog.map(t=>String(t.testCode)));for(const t of additions){if(!seen.has(t.testCode)){catalog.push(t);seen.add(t.testCode);}}window.SEED_TESTS=catalog;})();
 ;
 
 /* SOURCE: labcorp-food-allergen-profile-data-20261022.js */
 ;
-/* Labcorp food and mold specific IgE panels, with individual official Labcorp test codes and measured serum volumes. */
+/* LabCorp food and mold specific IgE panels, with individual official LabCorp test codes and measured serum volumes. */
 (()=>{'use strict';
 const additions=[
   {
@@ -858,7 +858,7 @@ const additions=[
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked October 2026 • https://www.labcorp.com/tests/608005/allergen-profile-food-ige-with-component-reflexes"
+    "source": "LabCorp official test directory, checked October 2026 • https://www.labcorp.com/tests/608005/allergen-profile-food-ige-with-component-reflexes"
   },
   {
     "id": "labcorp-601856",
@@ -872,13 +872,13 @@ const additions=[
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check Labcorp's individual panel stability table; room-temperature transport is accepted",
+    "stability": "Check LabCorp's individual panel stability table; room-temperature transport is accepted",
     "spin": "Yes",
     "specialInstructions": "Specific-IgE panel. Includes: Cow's milk, alpha-lactalbumin, beta-lactoglobulin, casein and cheddar/blue cheeses. Collect 1 mL serum in red-top or gel-barrier tube; if red-top, transfer separated serum to a plastic transport tube. Avoid gross hemolysis.  This is a blood allergy test, not direct identification of food or mold organisms.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked October 2026 • https://www.labcorp.com/tests/601856/allergen-profile-food-milk"
+    "source": "LabCorp official test directory, checked October 2026 • https://www.labcorp.com/tests/601856/allergen-profile-food-milk"
   },
   {
     "id": "labcorp-600973",
@@ -892,13 +892,13 @@ const additions=[
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check Labcorp's individual panel stability table; room-temperature transport is accepted",
+    "stability": "Check LabCorp's individual panel stability table; room-temperature transport is accepted",
     "spin": "Yes",
     "specialInstructions": "Specific-IgE panel. Includes: Blueberry, raspberry and strawberry. Collect 1 mL serum in red-top or gel-barrier tube; if red-top, transfer separated serum to a plastic transport tube. Avoid gross hemolysis.  This is a blood allergy test, not direct identification of food or mold organisms.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked October 2026 • https://www.labcorp.com/tests/600973/allergen-profile-food-berry"
+    "source": "LabCorp official test directory, checked October 2026 • https://www.labcorp.com/tests/600973/allergen-profile-food-berry"
   },
   {
     "id": "labcorp-671926",
@@ -912,13 +912,13 @@ const additions=[
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check Labcorp's individual panel stability table; room-temperature transport is accepted",
+    "stability": "Check LabCorp's individual panel stability table; room-temperature transport is accepted",
     "spin": "Yes",
     "specialInstructions": "Specific-IgE panel. Includes: Almond, Brazil nut, cashew, hazelnut, peanut, pecan and walnut. Collect 1 mL serum in red-top or gel-barrier tube; if red-top, transfer separated serum to a plastic transport tube. Avoid gross hemolysis.  This is a blood allergy test, not direct identification of food or mold organisms.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked October 2026 • https://www.labcorp.com/tests/671926/allergen-profile-food-nuts"
+    "source": "LabCorp official test directory, checked October 2026 • https://www.labcorp.com/tests/671926/allergen-profile-food-nuts"
   },
   {
     "id": "labcorp-062695",
@@ -932,13 +932,13 @@ const additions=[
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check Labcorp's individual panel stability table; room-temperature transport is accepted",
+    "stability": "Check LabCorp's individual panel stability table; room-temperature transport is accepted",
     "spin": "Yes",
     "specialInstructions": "Specific-IgE panel. Includes: Clam, crab, lobster, oyster, scallop and shrimp. Collect 1 mL serum in red-top or gel-barrier tube; if red-top, transfer separated serum to a plastic transport tube. Avoid gross hemolysis.  This is a blood allergy test, not direct identification of food or mold organisms.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked October 2026 • https://www.labcorp.com/tests/062695/allergen-profile-food-shellfish"
+    "source": "LabCorp official test directory, checked October 2026 • https://www.labcorp.com/tests/062695/allergen-profile-food-shellfish"
   },
   {
     "id": "labcorp-062448",
@@ -952,13 +952,13 @@ const additions=[
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check Labcorp's individual panel stability table; room-temperature transport is accepted",
+    "stability": "Check LabCorp's individual panel stability table; room-temperature transport is accepted",
     "spin": "Yes",
     "specialInstructions": "Specific-IgE panel. Includes: Includes 12 fungal mold allergens, including Alternaria, Aspergillus, Cladosporium, Penicillium and others. Collect 2 mL serum in red-top or gel-barrier tube; if red-top, transfer separated serum to a plastic transport tube. Avoid gross hemolysis.  This is a blood allergy test, not direct identification of food or mold organisms.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked October 2026 • https://www.labcorp.com/tests/062448/allergen-profile-mold"
+    "source": "LabCorp official test directory, checked October 2026 • https://www.labcorp.com/tests/062448/allergen-profile-mold"
   },
   {
     "id": "labcorp-601013",
@@ -972,13 +972,13 @@ const additions=[
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check Labcorp's individual panel stability table; room-temperature transport is accepted",
+    "stability": "Check LabCorp's individual panel stability table; room-temperature transport is accepted",
     "spin": "Yes",
     "specialInstructions": "Specific-IgE panel. Includes: Codfish, halibut, mackerel, walleye pike, salmon, trout and tuna. Collect 1 mL serum in red-top or gel-barrier tube; if red-top, transfer separated serum to a plastic transport tube. Avoid gross hemolysis.  This is a blood allergy test, not direct identification of food or mold organisms.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked October 2026 • https://www.labcorp.com/tests/601013/allergen-profile-food-fish"
+    "source": "LabCorp official test directory, checked October 2026 • https://www.labcorp.com/tests/601013/allergen-profile-food-fish"
   },
   {
     "id": "labcorp-601872",
@@ -992,13 +992,13 @@ const additions=[
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check Labcorp's individual panel stability table; room-temperature transport is accepted",
+    "stability": "Check LabCorp's individual panel stability table; room-temperature transport is accepted",
     "spin": "Yes",
     "specialInstructions": "Specific-IgE panel. Includes: Apple, banana, grape, peach and pear. Collect 1 mL serum in red-top or gel-barrier tube; if red-top, transfer separated serum to a plastic transport tube. Avoid gross hemolysis.  This is a blood allergy test, not direct identification of food or mold organisms.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked October 2026 • https://www.labcorp.com/tests/601872/allergen-profile-food-fruit"
+    "source": "LabCorp official test directory, checked October 2026 • https://www.labcorp.com/tests/601872/allergen-profile-food-fruit"
   },
   {
     "id": "labcorp-601823",
@@ -1012,13 +1012,13 @@ const additions=[
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check Labcorp's individual panel stability table; room-temperature transport is accepted",
+    "stability": "Check LabCorp's individual panel stability table; room-temperature transport is accepted",
     "spin": "Yes",
     "specialInstructions": "Specific-IgE panel. Includes: Kidney bean, carrot, green bean, pea, onion, potato, soybean, squash and tomato. Collect 1 mL serum in red-top or gel-barrier tube; if red-top, transfer separated serum to a plastic transport tube. Avoid gross hemolysis.  This is a blood allergy test, not direct identification of food or mold organisms.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked October 2026 • https://www.labcorp.com/tests/601823/allergen-profile-food-vegetable-ii"
+    "source": "LabCorp official test directory, checked October 2026 • https://www.labcorp.com/tests/601823/allergen-profile-food-vegetable-ii"
   },
   {
     "id": "labcorp-601831",
@@ -1032,13 +1032,13 @@ const additions=[
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check Labcorp's individual panel stability table; room-temperature transport is accepted",
+    "stability": "Check LabCorp's individual panel stability table; room-temperature transport is accepted",
     "spin": "Yes",
     "specialInstructions": "Specific-IgE panel. Includes: Food vegetable-I panel, distinct from vegetable-II. Collect 1 mL serum in red-top or gel-barrier tube; if red-top, transfer separated serum to a plastic transport tube. Avoid gross hemolysis.  This is a blood allergy test, not direct identification of food or mold organisms.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked October 2026 • https://www.labcorp.com/tests/601831/allergen-profile-food-vegetable-i"
+    "source": "LabCorp official test directory, checked October 2026 • https://www.labcorp.com/tests/601831/allergen-profile-food-vegetable-i"
   },
   {
     "id": "labcorp-600999",
@@ -1052,13 +1052,13 @@ const additions=[
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check Labcorp's individual panel stability table; room-temperature transport is accepted",
+    "stability": "Check LabCorp's individual panel stability table; room-temperature transport is accepted",
     "spin": "Yes",
     "specialInstructions": "Specific-IgE panel. Includes: Lentil, peanut and soybean. Collect 1 mL serum in red-top or gel-barrier tube; if red-top, transfer separated serum to a plastic transport tube. Avoid gross hemolysis.  This is a blood allergy test, not direct identification of food or mold organisms.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked October 2026 • https://www.labcorp.com/tests/600999/allergen-profile-food-legume"
+    "source": "LabCorp official test directory, checked October 2026 • https://www.labcorp.com/tests/600999/allergen-profile-food-legume"
   },
   {
     "id": "labcorp-600981",
@@ -1072,13 +1072,13 @@ const additions=[
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check Labcorp's individual panel stability table; room-temperature transport is accepted",
+    "stability": "Check LabCorp's individual panel stability table; room-temperature transport is accepted",
     "spin": "Yes",
     "specialInstructions": "Specific-IgE panel. Includes: Grapefruit, lemon, lime, orange and tangerine. Collect 1 mL serum in red-top or gel-barrier tube; if red-top, transfer separated serum to a plastic transport tube. Avoid gross hemolysis.  This is a blood allergy test, not direct identification of food or mold organisms.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked October 2026 • https://www.labcorp.com/tests/600981/allergen-profile-food-citrus"
+    "source": "LabCorp official test directory, checked October 2026 • https://www.labcorp.com/tests/600981/allergen-profile-food-citrus"
   },
   {
     "id": "labcorp-601633",
@@ -1092,13 +1092,13 @@ const additions=[
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check Labcorp's individual panel stability table; room-temperature transport is accepted",
+    "stability": "Check LabCorp's individual panel stability table; room-temperature transport is accepted",
     "spin": "Yes",
     "specialInstructions": "Specific-IgE panel. Includes: Barley, corn, oat, rice, rye and wheat. Collect 1 mL serum in red-top or gel-barrier tube; if red-top, transfer separated serum to a plastic transport tube. Avoid gross hemolysis.  This is a blood allergy test, not direct identification of food or mold organisms.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked October 2026 • https://www.labcorp.com/tests/601633/allergen-profile-food-grain"
+    "source": "LabCorp official test directory, checked October 2026 • https://www.labcorp.com/tests/601633/allergen-profile-food-grain"
   },
   {
     "id": "labcorp-602284",
@@ -1112,13 +1112,13 @@ const additions=[
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Check Labcorp's individual panel stability table; room-temperature transport is accepted",
+    "stability": "Check LabCorp's individual panel stability table; room-temperature transport is accepted",
     "spin": "Yes",
     "specialInstructions": "Specific-IgE panel. Includes: Beef, chicken and pork. Collect 1 mL serum in red-top or gel-barrier tube; if red-top, transfer separated serum to a plastic transport tube. Avoid gross hemolysis.  This is a blood allergy test, not direct identification of food or mold organisms.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked October 2026 • https://www.labcorp.com/tests/602284/allergen-profile-food-meat"
+    "source": "LabCorp official test directory, checked October 2026 • https://www.labcorp.com/tests/602284/allergen-profile-food-meat"
   }
 ];
 const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];

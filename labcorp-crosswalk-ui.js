@@ -1,5 +1,5 @@
-/* Read-only Quest-to-Labcorp comparison. Quest references are never passed into
-   the Labcorp planning engine; only verified Labcorp catalog records are usable. */
+/* Read-only Quest-to-LabCorp comparison. Quest references are never passed into
+   the LabCorp planning engine; only verified LabCorp catalog records are usable. */
 (() => {
   'use strict';
   const table = document.getElementById('labcorpCrosswalkBody');
@@ -39,11 +39,11 @@
       const [questCode,questName,questSpecimen,labcorpCode,labcorpName,blocked] = row;
       const usable = Boolean(labcorpCode && active.has(String(labcorpCode)));
       const suggestion = labcorpCode
-        ? '<strong>' + escape(labcorpName) + '</strong><small>Labcorp candidate code ' + escape(labcorpCode) + ' · Verify assay and specimen requirements</small>'
-        : '<span class="crosswalk-pending">Labcorp match not confirmed</span>';
+        ? '<strong>' + escape(labcorpName) + '</strong><small>LabCorp candidate code ' + escape(labcorpCode) + ' · Verify assay and specimen requirements</small>'
+        : '<span class="crosswalk-pending">LabCorp match not confirmed</span>';
       const action = usable
-        ? '<button type="button" class="crosswalk-open" data-labcorp-code="' + escape(labcorpCode) + '">View Labcorp test (verify equivalence)</button>'
-        : '<a href="' + escape(directoryUrl(questName,labcorpCode)) + '" target="_blank" rel="noopener noreferrer">Search Labcorp ↗</a>';
+        ? '<button type="button" class="crosswalk-open" data-labcorp-code="' + escape(labcorpCode) + '">View LabCorp test (verify equivalence)</button>'
+        : '<a href="' + escape(directoryUrl(questName,labcorpCode)) + '" target="_blank" rel="noopener noreferrer">Search LabCorp ↗</a>';
       return '<tr><td><strong>' + escape(questCode) + '</strong><small>' + (questCode === 'XXX' ? 'No Quest code supplied' : 'Quest code only') + '</small></td>' +
         '<td><strong>' + escape(questName) + '</strong><small>Quest specimen: ' + escape(questSpecimen || 'Not listed') +
         (blocked ? ' · Quest do-not-perform record' : '') + '</small></td>' +
@@ -51,9 +51,9 @@
     }).join('');
     table.innerHTML = result || '<tr><td colspan="4" class="crosswalk-empty">No matches in this comparison. Try a different name or code.</td></tr>';
     count.textContent = 'Showing ' + Math.min(visible,matched.length).toLocaleString() + ' of ' +
-      matched.length.toLocaleString() + ' Quest tests' + (filter.value === 'suggested' ? ' with possible Labcorp matches' : '');
+      matched.length.toLocaleString() + ' Quest tests' + (filter.value === 'suggested' ? ' with possible LabCorp matches' : '');
     summary.textContent = rows.length.toLocaleString() + ' Quest entries · ' +
-      rows.filter(row => Boolean(row[3])).length.toLocaleString() + ' possible Labcorp code matches';
+      rows.filter(row => Boolean(row[3])).length.toLocaleString() + ' possible LabCorp code matches';
     more.hidden = matched.length <= visible;
   }
   search.addEventListener('input', () => { visible=24; render(); });
@@ -71,8 +71,8 @@
   });
   exportCsv.addEventListener('click',() => {
     const columns = ['Quest test code (reference only)','Quest test name','Quest specimen (reference only)',
-      'Possible Labcorp code (not verified as equivalent)','Possible Labcorp name',
-      'Match status','Labcorp directory lookup URL'];
+      'Possible LabCorp code (not verified as equivalent)','Possible LabCorp name',
+      'Match status','LabCorp directory lookup URL'];
     const fields = [columns, ...rows.map(row => [row[0],row[1],row[2],row[3],row[4],
       row[3] ? 'Possible match - verify before use' : 'Unmapped - verification required',directoryUrl(row[1],row[3])])];
     const quote = cell => '"' + String(cell == null ? '' : cell).replace(/"/g,'""') + '"';

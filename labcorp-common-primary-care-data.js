@@ -1,4 +1,4 @@
-/* Common Labcorp urgent-care + PCP analytes, added from individual Labcorp test requirements.
+/* Common LabCorp urgent-care + PCP analytes, added from individual LabCorp test requirements.
    Preserve distinct codes and method/volume requirements; local performing lab must confirm acceptance.
    Updated 2026-10-21. Quest test identifiers and workflow requirements are not used. */
 (() => {
@@ -22,7 +22,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/001404/lipase"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/001404/lipase"
   },
   {
     "id": "labcorp-001396",
@@ -42,7 +42,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/001396/amylase"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/001396/amylase"
   },
   {
     "id": "labcorp-001057",
@@ -62,7 +62,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/001057/uric-acid"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/001057/uric-acid"
   },
   {
     "id": "labcorp-001024",
@@ -82,7 +82,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/001024/phosphorus"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/001024/phosphorus"
   },
   {
     "id": "labcorp-001958",
@@ -98,11 +98,11 @@
     "transportTemperatureRaw": "Room Temperature",
     "stability": "14 days at room temperature",
     "spin": "Yes",
-    "specialInstructions": "Separate serum or plasma from cells within 45 minutes. Gel-barrier serum preferred; red-top serum or lithium heparin plasma may be used, but separated serum/plasma must be transferred to a plastic transport tube if not submitted in gel barrier. Do not use EDTA, citrate, or oxalate plasma. Labcorp lists an 8-hour fasting preparation.",
+    "specialInstructions": "Separate serum or plasma from cells within 45 minutes. Gel-barrier serum preferred; red-top serum or lithium heparin plasma may be used, but separated serum/plasma must be transferred to a plastic transport tube if not submitted in gel barrier. Do not use EDTA, citrate, or oxalate plasma. LabCorp lists an 8-hour fasting preparation.",
     "fastingStatus": "required",
-    "fastingInstructions": "8-hour fasting per Labcorp directory.",
+    "fastingInstructions": "8-hour fasting per LabCorp directory.",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/001958/y-glutamyl-transferase-ggt"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/001958/y-glutamyl-transferase-ggt"
   },
   {
     "id": "labcorp-006502",
@@ -122,7 +122,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/006502/rheumatoid-factor-rf"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/006502/rheumatoid-factor-rf"
   },
   {
     "id": "labcorp-164855",
@@ -142,7 +142,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://womenshealth.labcorp.com/tests/164855/antinuclear-antibodies-ana-qualitative-by-multiplex-immunoassay"
+    "source": "LabCorp official individual test directory • https://womenshealth.labcorp.com/tests/164855/antinuclear-antibodies-ana-qualitative-by-multiplex-immunoassay"
   },
   {
     "id": "labcorp-002014",
@@ -158,11 +158,11 @@
     "transportTemperatureRaw": "Room Temperature",
     "stability": "72 hours room temperature; 7 days refrigerated",
     "spin": "Yes",
-    "specialInstructions": "Gel-barrier serum preferred. If red-top tube is used, transfer separated serum into a plastic transport tube. Plasma is not accepted. Labcorp cautions about high-dose biotin; ask ordering clinician about supplements.",
+    "specialInstructions": "Gel-barrier serum preferred. If red-top tube is used, transfer separated serum into a plastic transport tube. Plasma is not accepted. LabCorp cautions about high-dose biotin; ask ordering clinician about supplements.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/002014/folate-folic-acid"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/002014/folate-folic-acid"
   },
   {
     "id": "labcorp-004309",
@@ -182,7 +182,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/004309/follicle-stimulating-hormone-fsh"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/004309/follicle-stimulating-hormone-fsh"
   },
   {
     "id": "labcorp-004515",
@@ -202,7 +202,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/004515/estradiol"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/004515/estradiol"
   },
   {
     "id": "labcorp-004317",
@@ -222,7 +222,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/004317/progesterone"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/004317/progesterone"
   },
   {
     "id": "labcorp-004465",
@@ -242,7 +242,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/004465/prolactin"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/004465/prolactin"
   },
   {
     "id": "labcorp-004020",
@@ -262,7 +262,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/004020/dehydroepiandrosterone-dhea-sulfate"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/004020/dehydroepiandrosterone-dhea-sulfate"
   },
   {
     "id": "labcorp-004051",
@@ -282,7 +282,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/004051/cortisol"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/004051/cortisol"
   },
   {
     "id": "labcorp-140103",
@@ -298,11 +298,11 @@
     "transportTemperatureRaw": "Room Temperature",
     "stability": "14 days at room temperature",
     "spin": "Yes",
-    "specialInstructions": "Gel-barrier serum preferred. If red-top tube is used, transfer separated serum into a plastic transport tube. Plasma is not accepted. Labcorp advises assessing high-dose biotin intake. This order includes free-direct and total testosterone, not LC/MS free-T methodology.",
+    "specialInstructions": "Gel-barrier serum preferred. If red-top tube is used, transfer separated serum into a plastic transport tube. Plasma is not accepted. LabCorp advises assessing high-dose biotin intake. This order includes free-direct and total testosterone, not LC/MS free-T methodology.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/140103/testosterone-free-direct-with-total-testosterone"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/140103/testosterone-free-direct-with-total-testosterone"
   },
   {
     "id": "labcorp-144980",
@@ -322,7 +322,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/144980/testosterone-free-direct"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/144980/testosterone-free-direct"
   },
   {
     "id": "labcorp-070085",
@@ -342,7 +342,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/070085/17-oh-progesterone-lc-ms"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/070085/17-oh-progesterone-lc-ms"
   },
   {
     "id": "labcorp-001065",
@@ -362,7 +362,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/001065/cholesterol-total"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/001065/cholesterol-total"
   },
   {
     "id": "labcorp-001172",
@@ -382,7 +382,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/001172/triglycerides"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/001172/triglycerides"
   },
   {
     "id": "labcorp-001339",
@@ -402,7 +402,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/001339/iron"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/001339/iron"
   },
   {
     "id": "labcorp-001040",
@@ -422,7 +422,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/001040/urea-nitrogen"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/001040/urea-nitrogen"
   },
   {
     "id": "labcorp-001073",
@@ -442,7 +442,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/001073/protein-total"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/001073/protein-total"
   },
   {
     "id": "labcorp-001016",
@@ -460,9 +460,9 @@
     "spin": "Yes",
     "specialInstructions": "Separate serum or plasma from cells within 45 minutes. Gel-barrier serum preferred; red-top serum or lithium heparin plasma may be used, but separated serum/plasma must be transferred to a plastic transport tube if not submitted in gel barrier. Do not use EDTA, citrate, or oxalate plasma.",
     "fastingStatus": "preferred",
-    "fastingInstructions": "Morning fasting specimen desirable per Labcorp.",
+    "fastingInstructions": "Morning fasting specimen desirable per LabCorp.",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/001016/calcium"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/001016/calcium"
   },
   {
     "id": "labcorp-001198",
@@ -482,7 +482,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/001198/sodium"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/001198/sodium"
   },
   {
     "id": "labcorp-001032",
@@ -502,7 +502,7 @@
     "fastingStatus": "",
     "fastingInstructions": "An 8-hour fast is required when this is ordered as a fasting glucose, not necessarily for random glucose.",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/001032/glucose"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/001032/glucose"
   },
   {
     "id": "labcorp-001370",
@@ -522,7 +522,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official individual test directory • https://www.labcorp.com/tests/001370/creatinine"
+    "source": "LabCorp official individual test directory • https://www.labcorp.com/tests/001370/creatinine"
   }
 ];
   const catalog = Array.isArray(window.SEED_TESTS) ? window.SEED_TESTS : [];

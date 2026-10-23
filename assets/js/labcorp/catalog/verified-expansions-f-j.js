@@ -1,8 +1,8 @@
-/* Labcorp catalog: verified expansion assays, part 2. Verbatim original sequence. */
+/* LabCorp catalog: verified expansion assays, part 2. Verbatim original sequence. */
 
 /* SOURCE: labcorp-verified-expansion-20261022-f.js */
 ;
-/* Additional eight Labcorp stool sendouts. Sterile-cup collection must be followed by assay-specific transport transfer. */
+/* Additional eight LabCorp stool sendouts. Sterile-cup collection must be followed by assay-specific transport transfer. */
 (()=>{'use strict';const additions=[
   {
     "id": "labcorp-049684",
@@ -22,7 +22,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory checked 2026-10-22 • https://www.labcorp.com/tests/049684/fecal-fat-and-muscle-fibers-qualitative"
+    "source": "LabCorp official test directory checked 2026-10-22 • https://www.labcorp.com/tests/049684/fecal-fat-and-muscle-fibers-qualitative"
   },
   {
     "id": "labcorp-182204",
@@ -36,13 +36,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Refer to Labcorp test-specific stability guidance",
+    "stability": "Refer to LabCorp test-specific stability guidance",
     "spin": "No",
     "specialInstructions": "Collect stool first in a clean sterile cup, then transfer into the required final collection/transport container. Transfer to pink Para-Pak formalin preservative using manufacturer's fill line. A sterile unpreserved stool cup is acceptable with cold-chain adjustments; DO NOT USE Cary-Blair or PVA.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory checked 2026-10-22 • https://www.labcorp.com/tests/182204/giardia-lamblia-direct-detection-eia"
+    "source": "LabCorp official test directory checked 2026-10-22 • https://www.labcorp.com/tests/182204/giardia-lamblia-direct-detection-eia"
   },
   {
     "id": "labcorp-183020",
@@ -56,13 +56,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Refer to Labcorp test-specific stability guidance",
+    "stability": "Refer to LabCorp test-specific stability guidance",
     "spin": "No",
     "specialInstructions": "Collect stool first in a clean sterile cup, then transfer into the required final collection/transport container. Pink Para-Pak formalin preferred. Orange Cary-Blair or sterile unpreserved container may be acceptable with different temperature limits. Avoid urine contamination.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory checked 2026-10-22 • https://www.labcorp.com/tests/183020/cryptosporidium-direct-detection-eia"
+    "source": "LabCorp official test directory checked 2026-10-22 • https://www.labcorp.com/tests/183020/cryptosporidium-direct-detection-eia"
   },
   {
     "id": "labcorp-183558",
@@ -76,13 +76,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Refer to Labcorp test-specific stability guidance",
+    "stability": "Refer to LabCorp test-specific stability guidance",
     "spin": "No",
     "specialInstructions": "Collect stool first in a clean sterile cup, then transfer into the required final collection/transport container. Transfer into pink formalin vial up to fill line. DO NOT use Cary Blair or PVA for this paired EIA panel.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory checked 2026-10-22 • https://www.labcorp.com/tests/183558/giardia-lamblia-direct-detection-eia-and-cryptosporidium-direct-detection-eia"
+    "source": "LabCorp official test directory checked 2026-10-22 • https://www.labcorp.com/tests/183558/giardia-lamblia-direct-detection-eia-and-cryptosporidium-direct-detection-eia"
   },
   {
     "id": "labcorp-123016",
@@ -102,7 +102,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory checked 2026-10-22 • https://www.labcorp.com/tests/123016/lactoferrin-fecal-quantitative"
+    "source": "LabCorp official test directory checked 2026-10-22 • https://www.labcorp.com/tests/123016/lactoferrin-fecal-quantitative"
   },
   {
     "id": "labcorp-183145",
@@ -116,13 +116,13 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Refer to Labcorp test-specific stability guidance",
+    "stability": "Refer to LabCorp test-specific stability guidance",
     "spin": "No",
     "specialInstructions": "Collect stool first in a clean sterile cup, then transfer into the required final collection/transport container. Transfer stool to pink Para-Pak formalin as directed by fill line. Do not substitute Cary-Blair or sterile cup for preserved morphology unless lab confirms.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory checked 2026-10-22 • https://www.labcorp.com/tests/183145/cyclospora-smear-stool"
+    "source": "LabCorp official test directory checked 2026-10-22 • https://www.labcorp.com/tests/183145/cyclospora-smear-stool"
   },
   {
     "id": "labcorp-187013",
@@ -136,13 +136,13 @@
     "minimumVolume": "",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
-    "stability": "Refer to Labcorp test-specific stability guidance",
+    "stability": "Refer to LabCorp test-specific stability guidance",
     "spin": "No",
     "specialInstructions": "Collect stool first in a clean sterile cup, then transfer into the required final collection/transport container. No preservatives. REFRIGERATE stool in sterile container. Do not add formalin or PVA.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory checked 2026-10-22 • https://www.labcorp.com/tests/187013/adenovirus-type-40-41-rotavirus-direct-detection-eia"
+    "source": "LabCorp official test directory checked 2026-10-22 • https://www.labcorp.com/tests/187013/adenovirus-type-40-41-rotavirus-direct-detection-eia"
   },
   {
     "id": "labcorp-182311",
@@ -156,20 +156,20 @@
     "minimumVolume": "",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
-    "stability": "Refer to Labcorp test-specific stability guidance",
+    "stability": "Refer to LabCorp test-specific stability guidance",
     "spin": "No",
     "specialInstructions": "Collect stool first in a clean sterile cup, then transfer into the required final collection/transport container. Transfer to ORANGE Cary-Blair transport vial to indicated fill line. Room-temperature transport; DO NOT FREEZE and do not submit in formalin.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory checked 2026-10-22 • https://www.labcorp.com/tests/182311/stool-culture-vibrio-only"
+    "source": "LabCorp official test directory checked 2026-10-22 • https://www.labcorp.com/tests/182311/stool-culture-vibrio-only"
   }
 ];const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];const seen=new Set(catalog.map(x=>String(x.testCode)));for(const t of additions){if(!seen.has(t.testCode)){catalog.push(t);seen.add(t.testCode);}}window.SEED_TESTS=catalog;})();
 ;
 
 /* SOURCE: labcorp-verified-expansion-20261022-g.js */
 ;
-/* Nine separately verified Labcorp adrenal, catecholamine and 24-hour urinary tests. */
+/* Nine separately verified LabCorp adrenal, catecholamine and 24-hour urinary tests. */
 (()=>{'use strict';const additions=[
   {
     "id": "labcorp-121806",
@@ -189,7 +189,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/121806/metanephrines-fractionated-plasma-free"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/121806/metanephrines-fractionated-plasma-free"
   },
   {
     "id": "labcorp-084152",
@@ -209,7 +209,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/084152/catecholamines-fractionated-plasma"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/084152/catecholamines-fractionated-plasma"
   },
   {
     "id": "labcorp-002006",
@@ -229,7 +229,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/002006/renin-activity-plasma"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/002006/renin-activity-plasma"
   },
   {
     "id": "labcorp-004374",
@@ -249,7 +249,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/004374/aldosterone-lc-ms"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/004374/aldosterone-lc-ms"
   },
   {
     "id": "labcorp-004069",
@@ -269,7 +269,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/004069/5-hydroxyindoleacetic-acid-hiaa-quantitative-24-hour-urine"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/004069/5-hydroxyindoleacetic-acid-hiaa-quantitative-24-hour-urine"
   },
   {
     "id": "labcorp-004432",
@@ -285,11 +285,11 @@
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room/refrigerated/frozen 14 days",
     "spin": "No",
-    "specialInstructions": "24h collection. Discard first void; collect all remaining including final void 24 hours later, record total volume and timing. Plastic collection bottle; boric acid or HCl preservative acceptable to Labcorp, but do not assume the same preservative works for other shared 24-hour tests.",
+    "specialInstructions": "24h collection. Discard first void; collect all remaining including final void 24 hours later, record total volume and timing. Plastic collection bottle; boric acid or HCl preservative acceptable to LabCorp, but do not assume the same preservative works for other shared 24-hour tests.",
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/004432/cortisol-urinary-free"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/004432/cortisol-urinary-free"
   },
   {
     "id": "labcorp-004291",
@@ -309,7 +309,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/004291/aldosterone-24-hour-urine"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/004291/aldosterone-24-hour-urine"
   },
   {
     "id": "labcorp-004176",
@@ -329,7 +329,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/004176/catecholamines-fractionated-urinary-free-24-hour-urine"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/004176/catecholamines-fractionated-urinary-free-24-hour-urine"
   },
   {
     "id": "labcorp-316203",
@@ -338,7 +338,7 @@
     "specimenType": "Urine",
     "drawContainer": "Sterile Urine Cup",
     "alternativeContainer": "",
-    "transportContainer": "Labcorp Preserved Urine Monovette (56015) or Acidified Urine Transport Tube",
+    "transportContainer": "LabCorp Preserved Urine Monovette (56015) or Acidified Urine Transport Tube",
     "preferredVolume": "10 mL urine aliquot",
     "minimumVolume": "4 mL",
     "transportTemperature": "Refrigerated",
@@ -349,14 +349,14 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/316203/catecholamines-fractionated-urinary-free-random-urine"
+    "source": "LabCorp official test directory reviewed 2026-10-22 • https://www.labcorp.com/tests/316203/catecholamines-fractionated-urinary-free-random-urine"
   }
 ];const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];const ids=new Set(catalog.map(t=>String(t.testCode)));for(const t of additions){if(!ids.has(t.testCode)){catalog.push(t);ids.add(t.testCode);}}window.SEED_TESTS=catalog;})();
 ;
 
 /* SOURCE: labcorp-verified-expansion-20261022-h.js */
 ;
-/* Fourteen verified Labcorp metabolic, vitamins, vaccine serologies, viral PCR, hepatitis panels. */
+/* Fourteen verified LabCorp metabolic, vitamins, vaccine serologies, viral PCR, hepatitis panels. */
 (()=>{'use strict';const additions=[
   {
     "id": "labcorp-700068",
@@ -376,7 +376,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/700068/amino-acid-profile-quantitative-plasma"
+    "source": "LabCorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/700068/amino-acid-profile-quantitative-plasma"
   },
   {
     "id": "labcorp-700140",
@@ -396,7 +396,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/700140/amino-acid-profile-quantitative-urine"
+    "source": "LabCorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/700140/amino-acid-profile-quantitative-urine"
   },
   {
     "id": "labcorp-700205",
@@ -416,7 +416,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/700205/phenylalanine-quantitative-plasma"
+    "source": "LabCorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/700205/phenylalanine-quantitative-plasma"
   },
   {
     "id": "labcorp-070115",
@@ -436,7 +436,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/070115/vitamin-b3-niacin-and-metabolite"
+    "source": "LabCorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/070115/vitamin-b3-niacin-and-metabolite"
   },
   {
     "id": "labcorp-160499",
@@ -456,7 +456,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/160499/mumps-antibodies-igm"
+    "source": "LabCorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/160499/mumps-antibodies-igm"
   },
   {
     "id": "labcorp-160178",
@@ -476,7 +476,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/160178/measles-rubeola-antibodies-igm"
+    "source": "LabCorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/160178/measles-rubeola-antibodies-igm"
   },
   {
     "id": "labcorp-096537",
@@ -496,7 +496,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/096537/rubella-antibodies-igm"
+    "source": "LabCorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/096537/rubella-antibodies-igm"
   },
   {
     "id": "labcorp-144226",
@@ -516,7 +516,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/144226/hepatitis-a-virus-hav-antibody-total-with-reflex-to-igm"
+    "source": "LabCorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/144226/hepatitis-a-virus-hav-antibody-total-with-reflex-to-igm"
   },
   {
     "id": "labcorp-008250",
@@ -536,7 +536,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/008250/herpes-simplex-virus-hsv-culture-and-typing"
+    "source": "LabCorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/008250/herpes-simplex-virus-hsv-culture-and-typing"
   },
   {
     "id": "labcorp-140470",
@@ -556,7 +556,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/140470/measles-rubeola-pcr-swab"
+    "source": "LabCorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/140470/measles-rubeola-pcr-swab"
   },
   {
     "id": "labcorp-140515",
@@ -576,7 +576,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/140515/measles-rubeola-pcr-urine"
+    "source": "LabCorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/140515/measles-rubeola-pcr-urine"
   },
   {
     "id": "labcorp-144445",
@@ -596,7 +596,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/144445/viral-hepatitis-screening-and-diagnosis-hav-hbv-hcv"
+    "source": "LabCorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/144445/viral-hepatitis-screening-and-diagnosis-hav-hbv-hcv"
   },
   {
     "id": "labcorp-144025",
@@ -616,7 +616,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/144025/viral-hepatitis-screening-and-diagnosis-hbv-hcv"
+    "source": "LabCorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/144025/viral-hepatitis-screening-and-diagnosis-hbv-hcv"
   },
   {
     "id": "labcorp-006726",
@@ -636,14 +636,14 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/006726/hepatitis-a-virus-hav-antibody-total"
+    "source": "LabCorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/006726/hepatitis-a-virus-hav-antibody-total"
   }
 ];const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];const known=new Set(catalog.map(x=>String(x.testCode)));for(const t of additions){if(!known.has(t.testCode)){catalog.push(t);known.add(t.testCode);}}window.SEED_TESTS=catalog;})();
 ;
 
 /* SOURCE: labcorp-verified-expansion-20261022-i.js */
 ;
-/* Five Labcorp viral PCR assay codes, clearly separated by source/specimen. */
+/* Five LabCorp viral PCR assay codes, clearly separated by source/specimen. */
 (()=>{'use strict';const additions=[
   {
     "id": "labcorp-140283",
@@ -663,7 +663,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/140283/mumps-pcr-swab"
+    "source": "LabCorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/140283/mumps-pcr-swab"
   },
   {
     "id": "labcorp-138313",
@@ -683,7 +683,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/138313/varicella-zoster-virus-vzv-dna-pcr"
+    "source": "LabCorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/138313/varicella-zoster-virus-vzv-dna-pcr"
   },
   {
     "id": "labcorp-140230",
@@ -703,7 +703,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/140230/mpox-orthopoxvirus-dna-pcr"
+    "source": "LabCorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/140230/mpox-orthopoxvirus-dna-pcr"
   },
   {
     "id": "labcorp-139800",
@@ -723,7 +723,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/139800/herpes-simplex-virus-hsv-types-1-2-cerebrospinal-fluid-csf-dna-pcr"
+    "source": "LabCorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/139800/herpes-simplex-virus-hsv-types-1-2-cerebrospinal-fluid-csf-dna-pcr"
   },
   {
     "id": "labcorp-139835",
@@ -743,7 +743,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/139835/varicella-zoster-virus-vzv-cerebrospinal-fluid-csf-dna-pcr"
+    "source": "LabCorp official test directory, verified 2026-10-22 • https://www.labcorp.com/tests/139835/varicella-zoster-virus-vzv-cerebrospinal-fluid-csf-dna-pcr"
   }
 ];const tests=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];const seen=new Set(tests.map(x=>String(x.testCode)));for(const t of additions){if(!seen.has(t.testCode)){seen.add(t.testCode);tests.push(t);}}window.SEED_TESTS=tests;})();
 ;
@@ -770,7 +770,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/070222/iodine-24-hour-urine"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/070222/iodine-24-hour-urine"
   },
   {
     "id": "labcorp-070172",
@@ -790,7 +790,7 @@
     "fastingStatus": "",
     "fastingInstructions": "",
     "status": "active",
-    "source": "Labcorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/070172/iodine-urine-with-creatinine-ratio"
+    "source": "LabCorp official test directory, checked 2026-10-22 • https://www.labcorp.com/tests/070172/iodine-urine-with-creatinine-ratio"
   }
 ];const rows=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];const existing=new Set(rows.map(x=>String(x.testCode)));for(const item of additions){if(!existing.has(item.testCode)){rows.push(item);existing.add(item.testCode);}}window.SEED_TESTS=rows;})();
 ;
