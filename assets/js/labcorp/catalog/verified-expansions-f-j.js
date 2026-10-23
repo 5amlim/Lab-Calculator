@@ -617,26 +617,6 @@
     "fastingInstructions": "",
     "status": "active",
     "source": "LabCorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/144025/viral-hepatitis-screening-and-diagnosis-hbv-hcv"
-  },
-  {
-    "id": "labcorp-006726",
-    "testCode": "006726",
-    "testName": "Hepatitis A Virus Antibody, Total",
-    "specimenType": "Serum",
-    "drawContainer": "SST / Gold",
-    "alternativeContainer": "Red-top serum",
-    "transportContainer": "SST / Gold (spun)",
-    "preferredVolume": "1 mL serum",
-    "minimumVolume": "0.4 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temperature",
-    "stability": "Room/refrigerated/frozen 14 days",
-    "spin": "Yes",
-    "specialInstructions": "Total anti-HAV IgG+IgM, NOT an active HAV-specific IgM test. Red-top or gel-barrier serum. If frozen, separate into screw-cap polypropylene, never freeze SST.",
-    "fastingStatus": "",
-    "fastingInstructions": "",
-    "status": "active",
-    "source": "LabCorp official test-specific directory 2026-10-22 • https://www.labcorp.com/tests/006726/hepatitis-a-virus-hav-antibody-total"
   }
 ];const catalog=Array.isArray(window.SEED_TESTS)?window.SEED_TESTS:[];const known=new Set(catalog.map(x=>String(x.testCode)));for(const t of additions){if(!known.has(t.testCode)){catalog.push(t);known.add(t.testCode);}}window.SEED_TESTS=catalog;})();
 ;
