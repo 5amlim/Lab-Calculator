@@ -1,3 +1,9 @@
+## October 22, 2026: Move print transfer spin beside downward arrow
+
+- For transferred specimens requiring centrifugation, place lowercase `spin` directly beside the downward transfer arrow in the Quest and LabCorp print-detail tables, matching the arrow's 10 px font and removing the checkmark there.
+- Remove the duplicate `Spin ✓` line for those transferred specimens; keep the existing `Spin ✓` reminder for original-tube SSTs without transfer and leave non-spun paths unchanged.
+- Leave the web directory, specimen badges, collection data, clinical processing, pooling, and tube calculations unchanged. Updated print stylesheet and script cache versions.
+
 ## October 22, 2026: Concise print-table volumes
 
 - Removed redundant specimen wording after numeric mL amounts in the Quest and LabCorp print-table Volume columns, such as `6 mL serum` to `6 mL`.

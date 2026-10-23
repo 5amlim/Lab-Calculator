@@ -4028,6 +4028,17 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     font-size: 10px !important;
     line-height: 1 !important;
     font-weight: 900;
+    white-space: nowrap;
+  }
+  /* Transfer-only processing label. Inherits the arrow's exact print size. */
+  .print-sheet .print-detail-table-section .print-detail-container .container-path.is-transfer .print-transfer-spin {
+    display: inline;
+    color: inherit;
+    font-size: inherit !important;
+    font-weight: inherit;
+    line-height: inherit;
+    text-transform: lowercase;
+    white-space: nowrap;
   }
   .print-sheet .print-detail-table-section .print-detail-container .container-path.is-single {
     display: flex !important;

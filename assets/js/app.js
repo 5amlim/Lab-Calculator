@@ -4581,7 +4581,7 @@
   // Detail table only: reuse the directory's source-to-submission path so
   // an unchanged original tube appears once and true transfers get an arrow.
   function printDetailContainerPath(test) {
-    const path = menuContainerBadges(test)
+    let path = menuContainerBadges(test)
       .replaceAll('class="badge tube ', 'class="print-tube-badge tube ')
       .replace(/(<span class="container-path-arrow"[^>]*>)→(<\/span>)/g, '$1↓$2');
     const labels = [normalizeSpecimenType(test.specimenType),
@@ -4599,7 +4599,15 @@
       : /^(?:no|false|do not spin)$/i.test(spinValue) ? ''
       : /^(?:n\/?a|not applicable)$/i.test(spinValue) ? ''
       : spinValue ? `Spin: ${escapeHtml(spinValue)}` : '';
-    const spinBadge = spinDisplay ? `<span class="print-detail-spin" aria-label="Spin instruction">· ${spinDisplay}</span>` : '';
+    // For transfers, show a compact "↓ spin" instruction between source and submission.
+    // Direct original-tube submissions retain their existing spin reminder below.
+    const transferSpin = spinDisplay === 'Spin ✓' && path.includes('container-path is-transfer');
+    if (transferSpin) {
+      path = path
+        .replace('aria-label="Then transfer to"', 'aria-label="Spin, then transfer to"')
+        .replace(/(<span class="container-path-arrow"[^>]*>)↓(<\/span>)/, '$1↓ <span class="print-transfer-spin" aria-hidden="true">spin</span>$2');
+    }
+    const spinBadge = spinDisplay && !transferSpin ? `<span class="print-detail-spin" aria-label="Spin instruction">· ${spinDisplay}</span>` : '';
     return `<div class="print-detail-container">${path}<div class="print-detail-specimens">${badges}${spinBadge}</div></div>`;
   }
 
