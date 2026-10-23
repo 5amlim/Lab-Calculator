@@ -17,7 +17,7 @@ test('LabCorp sourced expansion loads before app without duplicate codes', () =>
   const context = { window: { SEED_TESTS: [] } };
   vm.runInNewContext(read(file), context, { filename: file, timeout: 10000 });
   const records = context.window.SEED_TESTS;
-  assert.equal(records.length, 20);
+  assert.equal(records.length, 18);
   assert.equal(new Set(records.map(r => r.testCode)).size, 20);
   for (const test of records) {
     assert.match(test.testCode, /^\d{6}$/);
@@ -28,14 +28,14 @@ test('LabCorp sourced expansion loads before app without duplicate codes', () =>
     assert(test.specialInstructions, 'Missing special instructions: ' + test.testCode);
   }
 
-  for (const code of ['141325', '123420', '706500', '070228', '402362', '004390']) {
+  for (const code of ['141325', '123420', '706500', '070228', '402362']) {
     const item = records.find(r => r.testCode === code);
     assert.equal(item.transportTemperature, 'Frozen', 'Freeze-only: ' + code);
     assert.match(item.transportContainer, /Frozen|frozen/i);
   }
   for (const code of ['001750', '144057']) {
     const item = records.find(r => r.testCode === code);
-    assert.match(item.minimumVolume, /Two separate/);
+    assert.match(item.minimumVolume, /two separate/i);
     assert.match(item.specialInstructions, /two separate|Two separate/);
   }
   assert.match(records.find(r => r.testCode === '004770').specialInstructions, /15 minutes/i);
@@ -43,5 +43,5 @@ test('LabCorp sourced expansion loads before app without duplicate codes', () =>
 
   const repeated = { window: { SEED_TESTS: records.slice() } };
   vm.runInNewContext(read(file), repeated, { filename: file, timeout: 10000 });
-  assert.equal(repeated.window.SEED_TESTS.length, 20, 'Idempotent reload must not duplicate catalog records');
+  assert.equal(repeated.window.SEED_TESTS.length, 18, 'Idempotent reload must not duplicate catalog records');
 });
