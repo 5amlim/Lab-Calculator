@@ -305,7 +305,8 @@ const additions=[
         "transportTemperatureRaw": "Room Temperature",
         "spin": "No",
         "purpose": "Second transport aliquot, from the SAME collected urine cup",
-        "specialInstructions": "Second transport aliquot of the same unpreserved urine specimen for creatinine; keep at room temperature. Do not collect another patient urine specimen."
+        "specialInstructions": "Second transport aliquot of the same unpreserved urine specimen for creatinine; keep at room temperature. Do not collect another patient urine specimen.",
+        "transportOnly": true
       }
     ]
   },
