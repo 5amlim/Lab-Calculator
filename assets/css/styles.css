@@ -4837,3 +4837,14 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     page-break-before: always !important;
   }
 }
+
+/* Separate the final submission container from the End of Bag footer. */
+@media print {
+  /* Add the gap to the content ABOVE the footer instead of overriding
+     footer margin-top:auto. That preserves equal-height paired bag cards
+     and keeps both End of Bag strips aligned at the bottom. */
+  .print-sheet .print-bag-card > :is(.print-bag-opening, .print-submit-content):has(+ .print-bag-end),
+  html.mobile-print .print-sheet .print-bag-card > :is(.print-bag-opening, .print-submit-content):has(+ .print-bag-end) {
+    margin-bottom: 12px !important;
+  }
+}
