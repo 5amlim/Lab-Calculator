@@ -223,7 +223,7 @@
   {
     "id": "labcorp-007476",
     "testCode": "007476",
-    "testName": "Amitriptyline",
+    "testName": "Amitriptyline (includes Nortriptyline)",
     "specimenType": "Serum",
     "drawContainer": "Red Top",
     "alternativeContainer": "Green Top Heparin Plasma (verify accepted matrix)",
@@ -423,7 +423,7 @@
   {
     "id": "labcorp-007468",
     "testCode": "007468",
-    "testName": "Imipramine",
+    "testName": "Imipramine (includes Desipramine)",
     "specimenType": "Serum",
     "drawContainer": "Red Top",
     "alternativeContainer": "Green Top Heparin Plasma (verify accepted matrix)",
@@ -443,7 +443,7 @@
   {
     "id": "labcorp-007609",
     "testCode": "007609",
-    "testName": "Doxepin",
+    "testName": "Doxepin (includes Nordoxepin)",
     "specimenType": "Serum",
     "drawContainer": "Red Top",
     "alternativeContainer": "Green Top Heparin Plasma (verify accepted matrix)",
