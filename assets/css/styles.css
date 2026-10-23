@@ -3677,6 +3677,11 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-bag-short-label .print-temperature-emoji {
     font-size:10px !important;
   }
+  /* Preserve a visible text-to-emoji gap in the purple print header,
+     including Safari/iPhone print previews. */
+  .print-submit-heading .print-bag-short-label .print-temperature-emoji {
+    margin-left: 5px !important;
+  }
 }
 
 
