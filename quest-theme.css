@@ -83,4 +83,20 @@
     color: #23472c;
     font: bold 9px Arial, sans-serif;
   }
+  @bottom-center {
+    content: "QUEST LAB";
+    width: 120px;
+    height: 24px;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 3px 12px;
+    border: 1.5px solid #6c9d75;
+    border-radius: 999px;
+    background-color: #e3f0e4;
+    color: #164b29;
+    font: 900 13px/16px Arial, sans-serif;
+    letter-spacing: .06em;
+    text-align: center;
+    vertical-align: middle;
+  }
 }
