@@ -124,7 +124,7 @@
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
-  .labcorp-page .print-header .print-title { color: #fff !important; }
+  .labcorp-page .print-header .print-title { color: #fff !important; font-size: 28px; line-height: 1.1; }
   .labcorp-page .print-header .print-subtitle,
   .labcorp-page .print-header .print-meta { color: #e0eefa !important; }
 }
