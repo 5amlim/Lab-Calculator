@@ -10,10 +10,9 @@
     transition: opacity .15s ease, visibility .15s ease;
   }
   .scroll-cue-bottom {
-    left: 1px; right: 1px; bottom: 1px; height: 42px;
-    padding-bottom: 5px; box-sizing: border-box;
-    background: linear-gradient(to bottom, transparent, rgba(248,251,252,.95) 85%);
-    border-radius: 0 0 10px 10px;
+    left: 1px; right: 1px; bottom: 1px; height: 26px;
+    padding-bottom: 1px; box-sizing: border-box;
+    background: transparent;
   }
   .scroll-cue-right {
     top: 1px; bottom: 1px; right: 1px; width: 43px;
@@ -27,7 +26,7 @@
     font-size: 9px; font-weight: 750; line-height: 1; white-space: nowrap;
     box-shadow: 0 1px 4px rgba(22,49,60,.07);
   }
-  .scroll-cue-bottom > span { padding: 5px 9px; }
+  .scroll-cue-bottom > span { padding: 4px 8px; }
   .scroll-cue-right > span { padding: 6px 5px; writing-mode: vertical-rl; }
   .scroll-cue-frame.scroll-cue-more-below > .scroll-cue-bottom,
   .scroll-cue-frame.scroll-cue-more-right > .scroll-cue-right {
