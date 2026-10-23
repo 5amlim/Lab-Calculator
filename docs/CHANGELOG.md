@@ -1,3 +1,10 @@
+## October 22, 2026: Search Match in-browser test dropdown
+
+- Replaced the native Choose test select with an accessible, browser-rendered dropdown inside each Search Match card for Quest and LabCorp.
+- Options display complete test codes and names, with STAT eligible badges only when the selected receiving lab's verified menu includes the code. Blocked records remain clearly marked.
+- Kept existing match review, confirmation, and adding workflow, and added outside-click/Escape closing and keyboard-focus recovery after selection.
+- This does not automatically mark any test STAT or change its priority, specimen requirements, pooling, or ordering restrictions.
+
 ## October 22, 2026: Compact SST and urine-culture selectors
 
 - Slightly reduced the vertical padding, spacing, and bottom margins of the SST tube and urine culture selection cards to use less screen space.

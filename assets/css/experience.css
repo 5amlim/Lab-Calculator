@@ -1283,3 +1283,47 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     margin-bottom: 8px;
   }
 }
+
+/* Search Match: in-page test chooser with explicit receiving-lab STAT eligibility. */
+@media screen {
+  .batch-choice-control { position: relative; margin-top: 10px; min-width: 0; }
+  .batch-choice-control .batch-choice-label { margin-top: 0; }
+  .batch-choice-dropdown { position: relative; min-width: 0; }
+  .batch-choice-trigger {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 11px; min-height: 38px; box-sizing: border-box;
+    border: 1px solid #bdcfd7; border-radius: 9px; background: #fff;
+    color: #25404c; cursor: pointer; font-size: 12px; font-weight: 750;
+    list-style: none; width: 100%;
+  }
+  .batch-choice-trigger::-webkit-details-marker { display: none; }
+  .batch-choice-trigger:hover, .batch-choice-dropdown[open] .batch-choice-trigger { background: #f3f9fa; border-color: #7faeb8; }
+  .batch-choice-trigger:focus-visible, .batch-choice-option:focus-visible { outline: 2px solid #228894; outline-offset: 2px; }
+  .batch-choice-selected { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .batch-choice-chevron { font-size: 18px; line-height: 1; color: #42636f; transition: transform .15s ease; }
+  .batch-choice-dropdown[open] .batch-choice-chevron { transform: rotate(180deg); }
+  .batch-row:has(.batch-choice-dropdown[open]) { position: relative; z-index: 15; }
+  .batch-choice-menu {
+    position: absolute; top: calc(100% + 5px); left: 0; right: 0; z-index: 20;
+    max-height: min(290px, 50vh); overflow: auto; overscroll-behavior: contain;
+    padding: 5px; background: #fff; border: 1px solid #b9cfd6; border-radius: 10px;
+    box-shadow: 0 12px 28px rgba(20,47,70,.19);
+  }
+  .batch-choice-option {
+    display: flex; flex-direction: column; align-items: stretch; gap: 5px;
+    width: 100%; margin: 0; padding: 9px 10px; text-align: left;
+    color: #2a414f; font: inherit; font-size: 11.5px; font-weight: 650;
+    background: transparent; border: 0; border-radius: 7px; cursor: pointer;
+  }
+  .batch-choice-option:hover, .batch-choice-option:focus-visible { background: #edf6f7; }
+  .batch-choice-option.is-selected { background: #e4f1f2; color: #125866; }
+  .batch-choice-option-name { overflow-wrap: anywhere; line-height: 1.35; }
+  .batch-choice-option-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .batch-choice-stat, .batch-choice-blocked {
+    display: inline-flex; align-items: center; width: fit-content;
+    padding: 2px 6px; border: 1px solid #a4d6c7; border-radius: 999px;
+    background: #e7f5ee; color: #216c52; font-size: 10px; font-weight: 800; line-height: 1.2;
+  }
+  .batch-choice-blocked { border-color: #e7bbb5; background: #fff0ef; color: #993e38; }
+}
+@media (prefers-reduced-motion: reduce) { .batch-choice-chevron { transition: none; } }

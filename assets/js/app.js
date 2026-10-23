@@ -177,7 +177,21 @@
     els.loadMoreInlineButton?.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
     els.libraryBody.addEventListener('click', handleLibraryClick);
     els.batchResults.addEventListener('click', handleBatchClick);
-    els.batchResults.addEventListener('change', handleBatchChoiceChange);
+    document.addEventListener('click', event => {
+      if (!event.target.closest('.batch-choice-dropdown')) {
+        els.batchResults.querySelectorAll('.batch-choice-dropdown[open]').forEach(dropdown => { dropdown.open = false; });
+      }
+    });
+    els.batchResults.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        const opened = els.batchResults.querySelector('.batch-choice-dropdown[open]');
+        if (opened) {
+          event.preventDefault();
+          opened.open = false;
+          opened.querySelector('.batch-choice-trigger')?.focus();
+        }
+      }
+    });
     els.selectedList.addEventListener('click', handleSelectedClick);
     els.testsOverviewList.addEventListener('click', handleTestsOverviewClick);
     els.addTestButton.addEventListener('click', openMissingTestDialog);
@@ -1201,17 +1215,31 @@
         ? `<span class="batch-match-exact">${exactLabel}</span>`
         : `<span class="batch-match-warning">${exactLabel}</span>`;
     const options = row.matches.length > 1 && (needsConfirmation || blocked || row.matches.some(match => normalizeSearch(match.test.testName) === normalizeSearch(row.query)));
-    const picker = options ? `<label class="batch-choice-label" for="batch-choice-${row.index}">Choose the correct test (code / name)</label>
-      <select id="batch-choice-${row.index}" class="batch-match-choice" data-batch-index="${row.index}" aria-label="Choose the correct test for ${escapeAttr(row.query)}">
-        ${row.matches.map(({ test }) => `<option value="${escapeAttr(test.id)}" ${test.id === choice.test.id ? 'selected' : ''}>${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}${test.status === 'blocked' ? ' (Do not perform)' : ''}</option>`).join('')}
-      </select>` : '';
+    // A browser-rendered dropdown supports per-choice STAT/blocked badges.
+    // Eligibility always uses the receiving-lab menu via isStatEligible().
+    const picker = options ? `<div class="batch-choice-control">
+      <span class="batch-choice-label" id="batch-choice-label-${row.index}">Choose test (code / name)</span>
+      <details class="batch-choice-dropdown">
+        <summary class="batch-choice-trigger" aria-labelledby="batch-choice-label-${row.index}" aria-label="Choose test for ${escapeAttr(row.query)}">
+          <span class="batch-choice-selected">${escapeHtml(displayCode(choice.test))} · ${escapeHtml(choice.test.testName)}</span><span class="batch-choice-chevron" aria-hidden="true">⌄</span>
+        </summary>
+        <div class="batch-choice-menu" role="group" aria-label="Matching tests for ${escapeAttr(row.query)}">
+          ${row.matches.map(({test}) => `<button type="button" class="batch-choice-option${test.id === choice.test.id ? ' is-selected' : ''}"
+            data-action="choose-batch-test" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}"
+            aria-pressed="${test.id === choice.test.id ? 'true' : 'false'}">
+            <span class="batch-choice-option-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</span>
+            <span class="batch-choice-option-tags">${isStatEligible(test) ? '<span class="batch-choice-stat">STAT eligible</span>' : ''}${test.status === 'blocked' ? '<span class="batch-choice-blocked">Do not perform</span>' : ''}</span>
+          </button>`).join('')}
+        </div>
+      </details>
+    </div>` : '';
     const buttonLabel = selected ? '✓ Added' : needsConfirmation ? 'Confirm & add' : '+ Add';
     return `<div class="batch-row ${rowClass}" data-batch-index="${row.index}">
       <div class="batch-query-block"><span class="batch-kicker">You entered</span><div class="batch-query">${escapeHtml(row.query)}</div></div>
       <div class="batch-match">
         <div class="batch-match-title"><span class="batch-kicker">${choice === row.matches[0] ? 'Best match' : 'Selected match'}</span>${status}</div>
         <strong>${escapeHtml(displayCode(choice.test))} · ${escapeHtml(choice.test.testName)}</strong>
-        <div class="batch-match-meta">${blocked ? '<span>Marked do not perform</span>' : ''}${requiredSpecimenBadges(choice.test)}<span class="batch-meta-dot">·</span>${requiredDrawContainerBadges(choice.test)}</div>
+        <div class="batch-match-meta">${blocked ? '<span>Marked do not perform</span>' : ''}${requiredSpecimenBadges(choice.test)}<span class="batch-meta-dot">·</span>${requiredDrawContainerBadges(choice.test)}${isStatEligible(choice.test) ? '<span class="batch-choice-stat">STAT eligible</span>' : ''}</div>
         ${picker}
       </div>
       <div class="batch-row-action">
@@ -1421,20 +1449,30 @@
     }
   }
 
-  function handleBatchChoiceChange(event) {
-    const select = event.target.closest('select.batch-match-choice');
-    if (!select) return;
-    const row = batchReviewRows[Number(select.dataset.batchIndex)];
-    if (!row || !row.matches.some(match => match.test.id === select.value)) return;
-    row.chosenId = select.value;
-    row.outcome = batchRowOutcome(row);
-    const container = select.closest('.batch-row');
-    if (container) container.outerHTML = renderBatchRow(row);
-  }
-
   function handleBatchClick(event) {
     const button = event.target.closest('button[data-action]');
-    if (!button) return;
+    if (!button) {
+      // Keep only one match-choice dropdown expanded at a time.
+      const trigger = event.target.closest('.batch-choice-trigger');
+      if (trigger) els.batchResults.querySelectorAll('.batch-choice-dropdown[open]').forEach(item => {
+        if (item !== trigger.closest('.batch-choice-dropdown')) item.open = false;
+      });
+      return;
+    }
+    if (button.dataset.action === 'choose-batch-test') {
+      const row = batchReviewRows[Number(button.dataset.batchIndex)];
+      const chosenId = button.dataset.id;
+      if (!row || !row.matches.some(match => match.test.id === chosenId)) return;
+      row.chosenId = chosenId;
+      row.outcome = batchRowOutcome(row);
+      const card = button.closest('.batch-row');
+      if (card) {
+        card.outerHTML = renderBatchRow(row);
+        const next = els.batchResults.querySelector(`.batch-row[data-batch-index="${row.index}"] .batch-choice-trigger`);
+        next?.focus();
+      }
+      return;
+    }
     if (button.dataset.action === 'add') {
       const row = batchReviewRows[Number(button.closest('.batch-row')?.dataset.batchIndex)];
       const chosen = row && chosenBatchMatch(row);
