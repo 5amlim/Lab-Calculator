@@ -135,6 +135,13 @@
   .labcorp-page .print-detail-lab-heading { background: #e6f0f8 !important; color: #164a72 !important; border-bottom: 2px solid #e18a2a; }
 }
 @page {
+  @bottom-left {
+    content: "PAGE " counter(page) " OF " counter(pages);
+    font: 800 9px Arial, sans-serif;
+    letter-spacing: .04em;
+    color: #416277;
+    vertical-align: middle;
+  }
   @bottom-right {
     content: "LABCORP LAB";
     width: 142px;

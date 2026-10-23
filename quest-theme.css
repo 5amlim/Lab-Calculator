@@ -78,6 +78,13 @@
   .print-detail-lab-heading { background: #e4efe1 !important; color: #1b4528 !important; border-bottom: 2px solid #42744b; }
 }
 @page {
+  @bottom-left {
+    content: "PAGE " counter(page) " OF " counter(pages);
+    font: 800 9px Arial, sans-serif;
+    letter-spacing: .04em;
+    color: #40625a;
+    vertical-align: middle;
+  }
   @bottom-right {
     content: "QUEST LAB";
     width: 120px;
