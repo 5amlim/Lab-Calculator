@@ -4342,3 +4342,79 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     margin-right: 3px;
   }
 }
+
+/* Visually distinct bag closing band and orphan-safe bag masthead.
+   Keep each opening with the first specimen without changing bag order. */
+@media print {
+  .print-sheet .print-bag-card .print-bag-end,
+  html.mobile-print .print-sheet .print-bag-card .print-bag-end {
+    margin-top: 7px !important;
+    padding: 6px 8px 6px !important;
+    background: #e4eef3 !important;
+    border: 1px solid #acc3cf !important;
+    border-top-width: 3px !important;
+    border-radius: 5px !important;
+    color: #263f4b !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.7) !important;
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+  .print-sheet .print-bag-card.bag-room .print-bag-end { border-top-color: #c99c12 !important; }
+  .print-sheet .print-bag-card.bag-refrigerated .print-bag-end { border-top-color: #4b9dce !important; }
+  .print-sheet .print-bag-card.bag-frozen .print-bag-end { border-top-color: #7d66c8 !important; }
+  .print-sheet .print-bag-card .print-bag-end-top {
+    display: grid !important;
+    grid-template-columns: minmax(0,1fr) auto minmax(0,1fr) !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 4px !important;
+    border-bottom: 1px solid #b6cad3 !important;
+  }
+  .print-sheet .print-bag-card .print-bag-end-lab {
+    justify-self: start;
+    color: #206b42 !important;
+    font-size: 9px !important;
+    font-weight: 950 !important;
+    letter-spacing: .05em;
+  }
+  .labcorp-page .print-sheet .print-bag-card .print-bag-end-lab {
+    color: #1c6997 !important;
+  }
+  .print-sheet .print-bag-card .print-bag-end-top > strong {
+    justify-self: center;
+    color: #1d3644 !important;
+    font-size: 9px !important;
+    font-weight: 950 !important;
+    white-space: nowrap;
+  }
+  .print-sheet .print-bag-card .print-bag-end-temp {
+    justify-self: end;
+    text-align: right;
+    font-size: 7px !important;
+    font-weight: 750 !important;
+    color: #496370 !important;
+  }
+  .print-sheet .print-bag-card .print-bag-end-bottom {
+    font-size: 8px !important;
+    line-height: 1.25 !important;
+  }
+  .print-sheet .print-bag-card .print-bag-end-bottom > strong {
+    color: #263f4b !important;
+  }
+  /* Browsers honor this more reliably than avoid breaks between
+     individual children inside a fragmentation-prone grid. */
+  .print-sheet .print-bag-card .print-bag-opening,
+  html.mobile-print .print-sheet .print-bag-card .print-bag-opening {
+    display: block !important;
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+    -webkit-column-break-inside: avoid !important;
+  }
+  .print-sheet .print-bag-card .print-bag-opening .print-bag-first-item {
+    margin-top: 4px !important;
+  }
+  .print-sheet .print-bag-card > .print-submit-content:empty {
+    display: none !important;
+  }
+}

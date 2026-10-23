@@ -4821,8 +4821,8 @@
               ${contents.length > 1 ? `<div class="print-bag-item-progress"><span>LABCORP · BAG ${bagNumber}/${bags.length} · GROUP ${itemIndex + 1}/${contents.length}</span><strong>${itemIndex + 1 < contents.length ? 'MORE IN THIS BAG ↓' : 'LAST GROUP · CHECK END OF BAG'}</strong></div>` : ''}
             </div>`).join('')}</div>
             <div class="print-bag-end" aria-label="End of LABCORP bag ${bagNumber} of ${bags.length}">
-              <div class="print-bag-end-top"><strong>END OF BAG</strong><span>${escapeHtml(printBagTemperatureLabel(bag, true))} · ${bag.isStat ? 'STAT' : 'ROUTINE'}</span></div>
-              <div class="print-bag-end-bottom"><strong>LABCORP · BAG ${bagNumber} OF ${bags.length}</strong><span>${totalContainers} ${totalContainers === 1 ? 'CONTAINER' : 'CONTAINERS'}</span></div>
+              <div class="print-bag-end-top"><span class="print-bag-end-lab">LABCORP</span><strong>END OF BAG</strong><span class="print-bag-end-temp">${escapeHtml(printBagTemperatureLabel(bag, true))} · ${bag.isStat ? 'STAT' : 'ROUTINE'}</span></div>
+              <div class="print-bag-end-bottom"><strong>BAG ${bagNumber} OF ${bags.length}</strong><span>${totalContainers} ${totalContainers === 1 ? 'CONTAINER' : 'CONTAINERS'}</span></div>
               ${bagNumber < bags.length ? `<div class="print-bag-next"><span aria-hidden="true">↳</span> MORE BAGS FOLLOW · CONTINUE TO BAG ${bagNumber + 1} OF ${bags.length} →</div>` : ''}
             </div>
           </article>`;
@@ -4974,6 +4974,24 @@
       const firstBagRow = els.printSheet.querySelector('.print-bag-row');
       if (heading && firstBagRow) firstBagRow.insertBefore(heading, firstBagRow.firstChild);
     }
+    // Keep the bag masthead with its first specimen card at automatic page breaks.
+    // Other specimen cards can still paginate independently.
+    els.printSheet.querySelectorAll('.print-bag-card').forEach(card => {
+      const bar = card.querySelector('.print-bag-topbar');
+      const heading = card.querySelector('.print-bag-card-header');
+      const containerList = card.querySelector('.print-submit-content');
+      const firstItem = containerList?.querySelector(':scope > .print-submit-item');
+      if (!bar || !heading || !containerList || !firstItem) return;
+      const opening = document.createElement('div');
+      opening.className = 'print-bag-opening';
+      card.insertBefore(opening, bar);
+      opening.append(bar, heading);
+      const firstItemList = document.createElement('div');
+      firstItemList.className = 'print-submit-content print-bag-first-item';
+      firstItemList.appendChild(firstItem);
+      opening.appendChild(firstItemList);
+      if (!containerList.children.length) containerList.remove();
+    });
     window.print();
   }
 
