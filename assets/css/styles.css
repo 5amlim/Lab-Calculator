@@ -4671,3 +4671,15 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   }
   .print-sheet .print-alert-review > strong { color: #435560; }
 }
+
+/* Let a long compact warning list continue naturally across printed pages. */
+@media print {
+  .print-sheet .print-detail-table-section .print-alerts.print-compact-alerts > .print-alerts-grid {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+  .print-sheet .print-detail-table-section .print-alerts.print-compact-alerts > .print-alerts-title {
+    break-after: avoid-page !important;
+    page-break-after: avoid !important;
+  }
+}
