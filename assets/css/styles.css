@@ -4702,3 +4702,20 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   border-style: solid;
   border-radius: 3px 3px 5px 5px;
 }
+
+/* Equal-height side-by-side bags: cosmetic alignment only.
+   Preserve all existing per-item page-break and continuation rules. */
+@media print {
+  .print-sheet .print-bag-row,
+  html.mobile-print .print-sheet .print-bag-row {
+    align-items: stretch !important;
+  }
+  .print-sheet .print-bag-row > .print-bag-card,
+  .print-sheet .print-bag-row > .print-bag-card.bag-long,
+  html.mobile-print .print-sheet .print-bag-row > .print-bag-card,
+  html.mobile-print .print-sheet .print-bag-row > .print-bag-card.bag-long {
+    align-self: stretch !important;
+    min-height: 100% !important;
+    height: auto !important;
+  }
+}
