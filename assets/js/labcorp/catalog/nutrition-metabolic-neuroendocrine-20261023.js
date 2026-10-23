@@ -341,46 +341,8 @@ const additions=[
     "status": "active",
     "source": "Labcorp official test-specific directory, reviewed 2026-10-23 • https://www.labcorp.com/tests/123208/vanillylmandelic-acid-vma-random-urine"
   },
-  {
-    "id": "labcorp-140848",
-    "testCode": "140848",
-    "testName": "Chromogranin A",
-    "specimenType": "Serum",
-    "drawContainer": "SST / Gold",
-    "alternativeContainer": "",
-    "transportContainer": "Plastic Serum Transport Tube",
-    "preferredVolume": "0.5 mL serum",
-    "minimumVolume": "0.3 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temperature",
-    "stability": "Room 7 days; refrigerated 14 days; frozen 3 months",
-    "spin": "Yes",
-    "specialInstructions": "Collect gel-barrier serum, centrifuge and transfer separated serum to plastic transport tube. Serial results from different assay methods are not directly interchangeable.",
-    "fastingStatus": "",
-    "fastingInstructions": "",
-    "status": "active",
-    "source": "Labcorp official test-specific directory, reviewed 2026-10-23 • https://www.labcorp.com/tests/140848/chromogranin-a"
-  },
-  {
-    "id": "labcorp-004390",
-    "testCode": "004390",
-    "testName": "Gastrin",
-    "specimenType": "Serum",
-    "drawContainer": "SST / Gold",
-    "alternativeContainer": "",
-    "transportContainer": "Frozen Transport Tube",
-    "preferredVolume": "0.5 mL serum",
-    "minimumVolume": "0.3 mL",
-    "transportTemperature": "Frozen",
-    "transportTemperatureRaw": "Frozen",
-    "stability": "Frozen 14 days",
-    "spin": "Yes",
-    "specialInstructions": "12-14 hour overnight fast. Stop high-dose biotin at least 72 hours before collection as directed by ordering clinician. Separate serum, transfer into LabCorp purple frozen transport tube and freeze immediately. Reject non-frozen specimens.",
-    "fastingStatus": "Required",
-    "fastingInstructions": "12–14-hour overnight fast.",
-    "status": "active",
-    "source": "Labcorp official test-specific directory, reviewed 2026-10-23 • https://www.labcorp.com/tests/004390/gastrin"
-  },
+  
+  
   {
     "id": "labcorp-140624",
     "testCode": "140624",
