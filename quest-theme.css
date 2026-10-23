@@ -71,3 +71,16 @@
   .print-header .print-subtitle,
   .print-header .print-meta { color: #e4efd9 !important; }
 }
+
+/* Printed Quest identification remains legible in grayscale. */
+@media print {
+  .print-lab-destination { border: 1px solid rgba(255,255,255,.65); background: #e6f2e2; color: #1d482e; }
+  .print-detail-lab-heading th { background: #e4efe1 !important; color: #1b4528 !important; border-bottom: 2px solid #42744b; }
+}
+@page {
+  @bottom-right {
+    content: "RECEIVING LAB: QUEST DIAGNOSTICS";
+    color: #23472c;
+    font: bold 9px Arial, sans-serif;
+  }
+}

@@ -1200,7 +1200,7 @@
       <span class="batch-choice-label" id="batch-choice-label-${row.index}">Choose test (code / name)</span>
       <details class="batch-choice-dropdown">
         <summary class="batch-choice-trigger" aria-labelledby="batch-choice-label-${row.index}" aria-label="Choose test for ${escapeAttr(row.query)}">
-          <span class="batch-choice-selected">${escapeHtml(displayCode(choice.test))} · ${escapeHtml(choice.test.testName)}</span><span class="batch-choice-chevron" aria-hidden="true">⌄</span>
+          <span class="batch-choice-selected">${escapeHtml(displayCode(choice.test))} · ${escapeHtml(choice.test.testName)}</span><svg class="batch-choice-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </summary>
         <div class="batch-choice-menu" role="group" aria-label="Matching tests for ${escapeAttr(row.query)}">
           ${row.matches.map(({test}) => `<button type="button" class="batch-choice-option${test.id === choice.test.id ? ' is-selected' : ''}"
@@ -4811,7 +4811,7 @@
           const bagName = printBagTemperatureLabel(bag);
           const bagNumber = rowIndex * 2 + columnIndex + 1;
           return `<article class="print-bag-card ${bag.className} ${bag.isStat ? 'bag-stat' : 'bag-routine'}${contents.length > 11 ? ' bag-long' : ''}">
-            <div class="print-bag-topbar"><span class="print-bag-topbar-label">Bag</span><span class="print-bag-priority ${bag.isStat ? 'priority-stat' : 'priority-routine'}">${bag.isStat ? 'STAT' : 'Routine'}</span><span class="print-bag-topbar-index" aria-label="Bag ${bagNumber} of ${bags.length}">${bagNumber}/${bags.length}</span></div>
+            <div class="print-bag-topbar"><span class="print-bag-topbar-label">LABCORP · Bag</span><span class="print-bag-priority ${bag.isStat ? 'priority-stat' : 'priority-routine'}">${bag.isStat ? 'STAT' : 'Routine'}</span><span class="print-bag-topbar-index" aria-label="Bag ${bagNumber} of ${bags.length}">${bagNumber}/${bags.length}</span></div>
             <div class="print-bag-card-header"><div><div class="print-bag-title"><strong>${escapeHtml(bagName)}</strong>${printBagTemperatureBadge(bag)}</div><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-header-right"><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div></div>
             <div class="print-submit-content">${contents.map(item => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
               <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}"><span class="print-submit-container-name">${escapeHtml(item.originalTube && item.key === 'sst-spun' ? (selectedSstIsTiger() ? 'Tiger SST (Spun)' : 'Gold SST (Spun)') : item.label)}</span></span>${printSstTigerBadge(item)}${printBagSpecimenBadge(item)}</div>
@@ -4930,7 +4930,7 @@
     const alerts = collectAlerts(tests).filter(alert => !preparationTexts.has(alert.text));
     els.printSheet.innerHTML = `
       <div class="print-header">
-        <div><h1 class="print-title">LabCorp Collection Summary</h1><div class="print-subtitle">Send-out workflow</div></div>
+        <div class="print-header-identity"><span class="print-lab-destination">RECEIVING LAB: LABCORP</span><h1 class="print-title">LabCorp Collection Summary</h1><div class="print-subtitle">Send-out workflow</div></div>
         <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<span class="print-selected-count">${tests.length} selected ${tests.length === 1 ? 'test' : 'tests'}</span></div>
       </div>
       ${printCollectionSubmissionPlan(tests)}
@@ -4938,7 +4938,7 @@
       ${alerts.length ? `<div class="print-alerts">${alerts.map(alert => `<div>${escapeHtml(alert.text)}</div>`).join('')}</div>` : ''}
       <table class="print-table">
         <colgroup><col style="width:6%"><col style="width:15%"><col style="width:14%"><col style="width:8%"><col style="width:8%"><col style="width:6%"><col style="width:43%"></colgroup>
-        <thead><tr><th>Code</th><th>Test</th><th>Container / specimen</th><th>Temperature</th><th>Volume</th><th>Stability</th><th>Special handling</th></tr></thead>
+        <thead><tr class="print-detail-lab-heading"><th colspan="7">RECEIVING LAB: LABCORP · TEST DETAILS</th></tr><tr><th>Code</th><th>Test</th><th>Container / specimen</th><th>Temperature</th><th>Volume</th><th>Stability</th><th>Special handling</th></tr></thead>
         <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><div class="print-test-name-stack"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}</div></td><td>${printDetailContainerPath(test)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">${escapeHtml(printDetailVolumeText(test, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(printDetailVolumeText(test, 'minimum') || '—')}</span></td><td><span class="print-stability-period">${escapeHtml(printStabilityForTemperature(test))}</span></td><td>${printDetailHandling(test)}</td></tr>`).join('')}</tbody>
       </table>
       </section>

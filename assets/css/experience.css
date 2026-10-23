@@ -1400,3 +1400,40 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     .batch-review-close { padding: 7px 9px; }
   }
 }
+
+/* Distinct but quieter Add buttons. Keep Add best matches navy and confirmation amber. */
+@media screen {
+  .library-table .row-actions button[data-action="add"]:not(:disabled),
+  .library-table .row-actions .library-routine-action:not(:disabled),
+  .batch-category-add:not(:disabled),
+  .batch-row-action button[data-action="add"]:not(.confirm-match-button):not(:disabled) {
+    background: #def0e8;
+    color: #155f51;
+    border: 1px solid #9bcbb9;
+    box-shadow: none;
+  }
+  .library-table .row-actions button[data-action="add"]:not(:disabled):hover,
+  .library-table .row-actions .library-routine-action:not(:disabled):hover,
+  .batch-category-add:not(:disabled):hover,
+  .batch-row-action button[data-action="add"]:not(.confirm-match-button):not(:disabled):hover {
+    background: #cae7dc;
+    color: #104f45;
+    border-color: #74b4a2;
+  }
+  /* Scannable sliders symbol instead of a font glyph. */
+  .catalog-filter-icon {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    display: block;
+    color: currentColor;
+  }
+  /* Consistent vector chevron in the "Choose test" menu. */
+  .batch-choice-chevron {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    color: #42636f;
+    transition: transform .15s ease;
+  }
+}
