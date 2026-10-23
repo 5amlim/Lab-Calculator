@@ -211,7 +211,7 @@ const additions=[
         "transportTemperatureRaw": "Room Temperature",
         "spin": "No",
         "purpose": "Separate random urine specimen",
-        "specialInstructions": "Second required specimen for Cadmium Standard Profile. Collect unpreserved urine separately in a plastic/sterile cup; beta-2-microglobulin urine should be collected within one hour after the patient empties bladder and drinks water. Check pH and adjust to 6–8 with approved 0.1 N NaOH protocol if necessary. No urine culture or UA preservative."
+        "specialInstructions": "Second required specimen for Cadmium Standard Profile. Collect a separate urine specimen in a clean plastic/sterile cup; do not share this source with routine UA or culture because pH adjustment may be required; beta-2-microglobulin urine should be collected within one hour after the patient empties bladder and drinks water. Check pH and adjust to 6–8 with approved 0.1 N NaOH protocol if necessary. No urine culture or UA preservative."
       }
     ]
   },
