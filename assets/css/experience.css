@@ -1437,3 +1437,27 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     transition: transform .15s ease;
   }
 }
+
+/* Review matches: restrained row accent, right-aligned scroll hint,
+   and neutral "eligible" text inside the green STAT pill. */
+@media screen {
+  .batch-grid > .batch-row.batch-category-row,
+  .batch-grid > .batch-row.exact-match {
+    border-left: 3px solid #a8c6c8;
+  }
+  .batch-category-row > .batch-category-footer {
+    justify-content: flex-end;
+    text-align: right;
+  }
+  .batch-category-row > .batch-category-footer > span {
+    margin-left: auto;
+  }
+  .batch-choice-stat {
+    color: #5a6973;
+    font-weight: 700;
+  }
+  .batch-choice-stat .batch-choice-stat-word {
+    color: #a23d37;
+    font-weight: 900;
+  }
+}
