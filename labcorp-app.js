@@ -4775,7 +4775,7 @@
     </div>` : '';
 
     return `<section class="print-logistics-plan">
-      <div class="print-logistics-heading"><strong>Collection and submission plan</strong><span>Collection containers are separated from processed specimens placed into transport bags. STAT area: ${escapeHtml(STAT_AREAS[statArea].label)}.</span></div>
+      <div class="print-logistics-heading"><strong>Collection and submission plan</strong><span>STAT area: ${escapeHtml(STAT_AREAS[statArea].label)}.</span></div>
       <div class="print-logistics-totals">
         <div class="print-total-box collect-total"><span>TOTAL TO COLLECT</span><strong>${totalCollect}</strong><small>tubes / collection containers</small></div>
         <div class="print-collect-chips">${collectionItems.map(item => {
@@ -4936,8 +4936,8 @@
     const alerts = collectAlerts(tests).filter(alert => !preparationTexts.has(alert.text));
     els.printSheet.innerHTML = `
       <div class="print-header">
-        <div class="print-header-identity"><span class="print-lab-destination">RECEIVING LAB: LABCORP</span><h1 class="print-title">LabCorp Collection Summary</h1><div class="print-subtitle">Send-out workflow</div></div>
-        <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<span class="print-selected-count">${tests.length} selected ${tests.length === 1 ? 'test' : 'tests'}</span></div>
+        <div class="print-header-identity"><h1 class="print-title">LabCorp Collection Summary</h1><div class="print-subtitle">Send-out workflow</div></div>
+        <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<span class="print-selected-count">${tests.length} ${tests.length === 1 ? 'test' : 'tests'}</span><span class="print-lab-destination">RECEIVING LAB: LABCORP</span></div>
       </div>
       ${printCollectionSubmissionPlan(tests)}
       <section class="print-detail-table-section${tests.length <= 3 ? ' print-brief-order' : ''}">
