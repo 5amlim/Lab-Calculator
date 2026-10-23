@@ -141,8 +141,12 @@
         rect(13,30,69,23,'#f7fbfc',3,'#adc6d3')+
         txt(46,44,'AFFIRM','#49758a',9)+tube(91,13,18,73,'#f6f7f5','ATTS');
       case 'urine': return roundBottomTube(49,6,30,83,'#a1a9a7','URINE','#f4e8b1');
-      case 'ua': return pointedBottomTube(49,6,30,83,'#e5c654','UA','#f4e6af')+
-        path('M 48 12 Q 54 4 62 12 T 80 12','none','#d33138');
+      case 'ua': return pointedBottomTube(49,6,30,83,'#ffd539','UA','#f4e6af')+
+        // Bold red and yellow spiral bands on the actual cap, readable at menu size.
+        rect(48,5,32,18,'#ffda43',3,'#b45a32')+
+        '<path d="M49 6 H56 L69 22 H61 Z" fill="#c62d39"/>'+
+        '<path d="M64 6 H72 L80 16 V22 H77 Z" fill="#c62d39"/>'+
+        line(49,6,79,6,'#a93039',1.6)+line(49,22,79,22,'#bb8b2e',1);
       case 'parapak': return roundBottomTube(10,20,28,68,'#efd12a','C&S','#976d47')+
         roundBottomTube(50,20,28,68,'#ca93aa','10%','#b2855a')+
         roundBottomTube(90,20,28,68,'#eef1ee','CLEAN','#906b49');
