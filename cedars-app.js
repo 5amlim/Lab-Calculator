@@ -361,22 +361,54 @@
     return value.split(/\s+or\s+/i)[0].trim() || value;
   }
 
+  // Presentation-only grouping. Catalog and clinical collection rules do not change.
+  function cedarsClinicalGroup(test) {
+    const value = norm([test.name, test.aliases || ''].join(' '));
+    if (/culture|mycobacter|afb\b|mrsa\b|vre\b|fungal|yeast/.test(value)) return 'Microbiology & cultures';
+    if (/pcr\b|naat\b|molecular|nucleic acid|dna\b|rna\b|antigen|enteric virus|c\.?\s*diff/.test(value))
+      return 'Molecular & infectious disease';
+    if (/urinalysis|urine microscopy|urine sediment/.test(value)) return 'Urinalysis';
+    if (/occult blood|fecal|stool|gastrointestinal/.test(value)) return 'Gastrointestinal testing';
+    if (/vancomycin|drug level|therapeutic|toxicology/.test(value)) return 'Therapeutic drug monitoring';
+    if (/sedimentation|esr\b|blood count|cbc\b|coagulation|platelet/.test(value))
+      return 'Hematology & coagulation';
+    if (/procalcitonin|electrolyte|chemistry|metabolic/.test(value)) return 'Chemistry & biomarkers';
+    return 'Other clinical tests';
+  }
+  function cedarsGroupLabel(test, mode) {
+    if (mode === 'clinical') return cedarsClinicalGroup(test);
+    if (mode === 'temperature') return transportBucket(test) || 'Verify transport';
+    if (mode === 'alphabetical') return '';
+    return (test.category || 'Other') + ' specimens';
+  }
+
   function makeRows() {
     const q = $('cedarsSearch').value;
     const cat = $('cedarsType').value;
     const showHolds = $('showHolds').checked;
+    const groupBy = $('cedarsGroupBy').value;
     const rows = records().map((test) => ({test, score: rank(test, q)}))
       .filter(({test, score}) => score && (!cat || test.category === cat) &&
         (!selectedContainer || test.containerType === selectedContainer) && (showHolds || !test.hold))
       .sort((a, b) => {
         const specimenOrder = {Swab: 0, Urine: 1, Stool: 2, Blood: 3, Other: 4};
-        const aOrder = specimenOrder[a.test.category] ?? 99;
-        const bOrder = specimenOrder[b.test.category] ?? 99;
-        if (aOrder !== bOrder) return aOrder - bOrder;
-        const byTest = a.test.name.localeCompare(b.test.name);
-        if (byTest) return byTest;
-        return (a.test.collect || '').localeCompare(b.test.collect || '');
+        const aGroup = cedarsGroupLabel(a.test, groupBy);
+        const bGroup = cedarsGroupLabel(b.test, groupBy);
+        if (groupBy === 'specimen') {
+          const difference = (specimenOrder[a.test.category] ?? 99) - (specimenOrder[b.test.category] ?? 99);
+          if (difference) return difference;
+        } else if (groupBy !== 'alphabetical') {
+          const difference = aGroup.localeCompare(bGroup);
+          if (difference) return difference;
+        }
+        return a.test.name.localeCompare(b.test.name) ||
+          (a.test.collect || '').localeCompare(b.test.collect || '');
       });
+    const groupCounts = new Map();
+    for (const row of rows) {
+      const group = cedarsGroupLabel(row.test, groupBy);
+      if (group) groupCounts.set(group, (groupCounts.get(group) || 0) + 1);
+    }
     renderSearchSuggestions(rows, q);
     const activeFilterCount = Number(Boolean($('cedarsType').value)) +
       Number(Boolean(selectedContainer)) + Number($('showHolds').checked);
@@ -389,8 +421,12 @@
       (selectedContainer ? ' · container: ' + selectedContainer : '') + ' · ' +
       records().filter((t) => t.hold).length + ' restricted / needs verification';
     $('cedarsLibraryBody').innerHTML = rows.map(({test}, index) => {
-      const heading = index === 0 || rows[index - 1].test.category !== test.category
-        ? '<tr class="cedars-specimen-heading ' + specimenClass(test.category) + '"><td colspan="5">' + esc(test.category) + ' specimens</td></tr>'
+      const label = cedarsGroupLabel(test, groupBy);
+      const previous = index ? cedarsGroupLabel(rows[index - 1].test, groupBy) : '';
+      const heading = label && (index === 0 || label !== previous)
+        ? '<tr class="cedars-specimen-heading ' + specimenClass(test.category) + '"><td colspan="5">' +
+          esc(label) + '<span class="cedars-group-count">' + groupCounts.get(label) +
+          ' ' + (groupCounts.get(label) === 1 ? 'test' : 'tests') + '</span></td></tr>'
         : '';
       return heading + '<tr class="cedars-test-row ' + specimenClass(test.category) + '"><td class="code-cell">' + esc(test.code || '—') + '</td>' +
       '<td><div class="test-name">' + esc(test.name) + '</div>' + specimenBadge(test.category) +
@@ -935,6 +971,7 @@
   });
   $('cedarsSearch').addEventListener('input', makeRows);
   $('cedarsType').addEventListener('change', makeRows);
+  $('cedarsGroupBy').addEventListener('change', makeRows);
   $('cedarsContainerFilters').addEventListener('click', (event) => {
     const choice = event.target.closest('[data-container]');
     if (!choice) return;
