@@ -1455,6 +1455,7 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
   .batch-choice-stat {
     color: #5a6973;
     font-weight: 700;
+    column-gap: 4px;
   }
   .batch-choice-stat .batch-choice-stat-word {
     color: #a23d37;
