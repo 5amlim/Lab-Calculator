@@ -4490,16 +4490,16 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   }
 }
 
-/* Keep the "More bags follow" instruction distinct but neutral in print. */
+/* Warm amber cue for "More bags follow" in printed transport bags. */
 @media print {
   .print-sheet .print-bag-card .print-bag-end .print-bag-next,
   html.mobile-print .print-sheet .print-bag-card .print-bag-end .print-bag-next {
-    background: #edf1f3 !important;
-    color: #445661 !important;
-    border: 1px solid #c9d2d8 !important;
-    border-left: 3px solid #8b9ba6 !important;
+    background: #fff2ce !important;
+    color: #6f4c15 !important;
+    border: 1px solid #e2c477 !important;
+    border-left: 3px solid #c08a23 !important;
   }
   .print-sheet .print-bag-card .print-bag-next > span {
-    color: #526b78 !important;
+    color: #89651e !important;
   }
 }
