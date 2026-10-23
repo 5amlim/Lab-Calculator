@@ -1325,6 +1325,12 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     background: #e7f5ee; color: #216c52; font-size: 10px; font-weight: 800; line-height: 1.2;
   }
   .batch-choice-blocked { border-color: #e7bbb5; background: #fff0ef; color: #993e38; }
+  /* Only the STAT label inside the Search Match dropdown turns red. */
+  .batch-choice-option .batch-choice-stat {
+    color: #a23d37;
+    background: #fff1ef;
+    border-color: #ebc1bc;
+  }
 }
 @media (prefers-reduced-motion: reduce) { .batch-choice-chevron { transition: none; } }
 

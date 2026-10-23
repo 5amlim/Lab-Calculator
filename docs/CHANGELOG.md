@@ -1,3 +1,8 @@
+## October 22, 2026: Search Match STAT label color
+
+- Changed the STAT eligible badge text to muted red in the Choose test dropdown for both Quest and LabCorp, using a pale red badge background and border for readability.
+- Limited the change to Search Match dropdown options; receiving-lab eligibility, cart/print status, and test-selection logic remain unchanged.
+
 ## October 22, 2026: Clinical category matches in Add Tests
 
 - Fixed category queries such as STI, GI, hematology, coagulation, allergy, and thyroid returning "No local match found" in Add Tests / Review matches.
