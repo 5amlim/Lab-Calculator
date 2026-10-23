@@ -1,3 +1,10 @@
+## October 22, 2026: Verified Quest names and searchable workbook shorthand
+
+- Standardized 29 numeric Quest test-code titles against the Quest Test Directory (when the current seed title differs), while keeping original/workbook names as code-scoped search aliases.
+- Added 80 workbook code entries with searchable shorthand. Only Quest names are changed; LabCorp catalog and calculations remain untouched.
+- Restored green STAT eligible badges with only the `STAT` word in muted red, across Quest and LabCorp Search Match displays.
+- Kept retirement, ambiguous codes, locally modified tests, collection rules, and STAT eligibility logic unchanged.
+
 ## October 22, 2026: Search Match STAT label color
 
 - Changed the STAT eligible badge text to muted red in the Choose test dropdown for both Quest and LabCorp, using a pale red badge background and border for readability.

@@ -914,7 +914,10 @@
     if (existing) return existing;
     const name = normalizeSearch(test.testName);
     const code = normalizeSearch(test.testCode);
-    const aliases = Array.from(new Set(curatedLabAliases(name).map(normalizeSearch).filter(Boolean)));
+    // Retain code-specific shorthand from the user's Quest workbook after official-name cleanup.
+    const workbookAliases = window.QUEST_WORKBOOK_SEARCH_ALIASES?.[String(test.testCode || '').trim()] || [];
+    const aliases = Array.from(new Set([...curatedLabAliases(name), ...workbookAliases]
+      .map(normalizeSearch).filter(Boolean)));
     const aliasWords = Array.from(new Set(aliases.flatMap(value => value.split(' '))));
     const nameWords = name.split(' ').filter(Boolean);
     const info = normalizeSearch([
@@ -1258,7 +1261,7 @@
             data-action="choose-batch-test" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}"
             aria-pressed="${test.id === choice.test.id ? 'true' : 'false'}">
             <span class="batch-choice-option-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</span>
-            <span class="batch-choice-option-tags">${isStatEligible(test) ? '<span class="batch-choice-stat">STAT eligible</span>' : ''}${test.status === 'blocked' ? '<span class="batch-choice-blocked">Do not perform</span>' : ''}</span>
+            <span class="batch-choice-option-tags">${isStatEligible(test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}${test.status === 'blocked' ? '<span class="batch-choice-blocked">Do not perform</span>' : ''}</span>
           </button>`).join('')}
         </div>
       </details>
@@ -1269,7 +1272,7 @@
       <div class="batch-match">
         <div class="batch-match-title"><span class="batch-kicker">${choice === row.matches[0] ? 'Best match' : 'Selected match'}</span>${status}</div>
         <strong>${escapeHtml(displayCode(choice.test))} · ${escapeHtml(choice.test.testName)}</strong>
-        <div class="batch-match-meta">${blocked ? '<span>Marked do not perform</span>' : ''}${requiredSpecimenBadges(choice.test)}<span class="batch-meta-dot">·</span>${requiredDrawContainerBadges(choice.test)}${isStatEligible(choice.test) ? '<span class="batch-choice-stat">STAT eligible</span>' : ''}</div>
+        <div class="batch-match-meta">${blocked ? '<span>Marked do not perform</span>' : ''}${requiredSpecimenBadges(choice.test)}<span class="batch-meta-dot">·</span>${requiredDrawContainerBadges(choice.test)}${isStatEligible(choice.test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}</div>
         ${picker}
       </div>
       <div class="batch-row-action">
@@ -1296,7 +1299,7 @@
           return `<div class="batch-category-item">
             <div class="batch-category-test"><span class="batch-category-code">${escapeHtml(displayCode(test))}</span>
               <span class="batch-category-name">${escapeHtml(test.testName)}</span>
-              ${isStatEligible(test) ? '<span class="batch-choice-stat">STAT eligible</span>' : ''}
+              ${isStatEligible(test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}
             </div>
             <button type="button" class="mini-button batch-category-add" data-action="add-category-test"
               data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" ${selected ? 'disabled' : ''}>${selected ? '✓ Added' : '+ Add'}</button>
