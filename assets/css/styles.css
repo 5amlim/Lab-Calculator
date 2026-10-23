@@ -4035,7 +4035,7 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     display: inline;
     color: inherit;
     font-size: inherit !important;
-    font-weight: inherit;
+    font-weight: 400 !important;
     line-height: inherit;
     text-transform: lowercase;
     white-space: nowrap;
@@ -4059,6 +4059,12 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     line-height: 1.25 !important;
     font-weight: 800;
     overflow-wrap: anywhere;
+  }
+  /* Match test codes to test-name print size, with normal weight. */
+  .print-sheet .print-detail-table-section .print-table tbody td:first-child {
+    font-size: 11px !important;
+    font-weight: 400 !important;
+    line-height: 1.25 !important;
   }
   .print-sheet .print-detail-table-section .print-detail-handling-text:empty {
     display: none;
@@ -4131,7 +4137,7 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-sheet .print-detail-table-section .print-detail-specimens .print-detail-spin {
     color: #41616c !important;
     font-size: 8.8px !important;
-    font-weight: 800;
+    font-weight: 400 !important;
     line-height: 1.2;
     white-space: nowrap;
   }
