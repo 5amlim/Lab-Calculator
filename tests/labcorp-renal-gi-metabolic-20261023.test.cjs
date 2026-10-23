@@ -10,7 +10,7 @@ const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 
 test('new renal/GI/metabolic Labcorp batch is loaded once before calculator', () => {
   const html = read('labcorp.html');
-  const tag = '<script src="' + catalogFile + '?v=1"></script>';
+  const tag = '<script src="' + catalogFile + '?v=2"></script>';
   assert.equal(html.split(tag).length, 2);
   assert(html.indexOf(tag) > html.indexOf('labcorp-data.js'));
   assert(html.indexOf(tag) < html.indexOf('labcorp-app.js'));
