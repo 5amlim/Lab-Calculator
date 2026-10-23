@@ -1,3 +1,9 @@
+## October 22, 2026: Compact SST and urine-culture selectors
+
+- Slightly reduced the vertical padding, spacing, and bottom margins of the SST tube and urine culture selection cards to use less screen space.
+- Preserved toggle widths, text, illustrations, button hit areas, controls and all specimen-planning behavior.
+- Screen-only style update in both Quest and LabCorp pages; print layout unchanged.
+
 ## October 22, 2026: Expanded Cart test-card separators
 
 - Added a subtle 3 px muted-teal left border to each test card when **Show details** is expanded in Quest and LabCorp.

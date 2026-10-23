@@ -1274,3 +1274,12 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     border-left-color: #cc8f88;
   }
 }
+
+/* Slightly tighter SST and urine-culture selectors, without shrinking tap targets. */
+@media screen {
+  #collectionSummary > .sst-mode-control {
+    padding: 6px 9px;
+    gap: 7px;
+    margin-bottom: 8px;
+  }
+}
