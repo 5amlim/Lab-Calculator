@@ -3401,3 +3401,64 @@
     .cedars-page .cedars-directory-panel .cedars-filter > #cedarsBlockedButton { margin-left: 0; }
   }
 }
+
+/* Cedars on-screen menu and cart accents: retain specimen colors and controls. */
+@media screen {
+  /* A quiet Cedars identity across the search menu and selected-test cart. */
+  .cedars-page .cedars-directory-panel {
+    border-top: 3px solid #a45265;
+  }
+  .cedars-page .cedars-directory-header {
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ead9de;
+  }
+  .cedars-page .cedars-directory-heading h3 {
+    color: #6e3041;
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-specimen-heading[class*="type-"] > td {
+    border-left-color: var(--type-ink) !important;
+  }
+
+  /* Specimen colors carry into the menu row without filling every cell. */
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row[class*="type-"] > td:first-child {
+    box-shadow: inset 4px 0 0 var(--type-line) !important;
+    background: linear-gradient(90deg, var(--type-bg), #fff 95%);
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row[class*="type-"]:hover > td {
+    background-color: #fcf8f9;
+  }
+
+  .cedars-page .cedars-shell .summary-section.tests-summary {
+    border-top: 2px solid #b77082;
+  }
+  .cedars-page .cedars-cart-header {
+    background: linear-gradient(90deg, #f9edf1 0%, #fff 80%);
+    border-bottom: 1px solid #ecd9df;
+  }
+  .cedars-page .cedars-cart-list .cedars-cart-item[class*="type-"] {
+    margin: 7px 8px;
+    padding: 10px 11px;
+    border: 1px solid var(--type-line);
+    border-radius: 9px;
+    box-shadow: inset 4px 0 0 var(--type-line);
+    background: linear-gradient(90deg, var(--type-bg), #fff 55%);
+  }
+  .cedars-page .cedars-cart-list .cedars-cart-item[class*="type-"]:last-child {
+    border-bottom: 1px solid var(--type-line);
+  }
+  .cedars-page .cedars-shell .cart-collapse-summary {
+    box-shadow: inset 3px 0 0 #bb7888;
+    background: linear-gradient(90deg, #faf0f2, #fff 75%);
+  }
+}
+@media screen and (max-width: 760px) {
+  /* iPhone result cards use the same specimen cue, with no extra columns. */
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row[class*="type-"] {
+    box-shadow: inset 4px 0 0 var(--type-line), 0 1px 4px rgba(37, 40, 52, .045);
+    background: linear-gradient(90deg, var(--type-bg), #fff 34%);
+  }
+  .cedars-page .cedars-directory-panel .cedars-library tr.cedars-test-row[class*="type-"] > td:first-child {
+    background: transparent;
+    box-shadow: none !important;
+  }
+}
