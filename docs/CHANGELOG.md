@@ -1,3 +1,10 @@
+## October 22, 2026: Clinical category search and filtering
+
+- Added 31 test-name-based clinical categories for Quest and LabCorp, with searchable terms such as STI, GI, hematology, coagulation, and allergy.
+- Added the category dropdown to existing Filters, including clear/reset and support for combining multiple filters.
+- Category-only search is browsing only and is excluded from bulk auto-add matching. Tests may belong to several categories.
+- No changes to collection requirements, test codes, specimen pooling, printouts, or STAT availability.
+
 ## October 22, 2026: Move print transfer spin beside downward arrow
 
 - For transferred specimens requiring centrifugation, place lowercase `spin` directly beside the downward transfer arrow in the Quest and LabCorp print-detail tables, matching the arrow's 10 px font and removing the checkmark there.

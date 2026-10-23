@@ -83,11 +83,12 @@
         <div id="batchResults" class="panel batch-panel hidden" aria-live="polite"></div>
 
         <div class="filter-row">
-          <label class="library-search"><span class="field-label">Search tests</span><input id="libraryFilter" type="search" placeholder="Name, code, or abbreviation (e.g. QFT)" autocomplete="off"></label>
+          <label class="library-search"><span class="field-label">Search tests</span><input id="libraryFilter" type="search" placeholder="Name, code, or category (e.g. STI, GI, CBC)" autocomplete="off"></label>
           <div class="catalog-filter-control" id="catalogFilterControl">
             <button class="catalog-filter-toggle" id="catalogFilterButton" type="button" aria-expanded="false" aria-controls="catalogFilterPanel"><span class="catalog-filter-icon" aria-hidden="true">☷</span><span id="catalogFilterButtonText">Filters</span><span class="catalog-filter-chevron shared-chevron" aria-hidden="true"></span></button>
             <div class="catalog-filter-panel hidden" id="catalogFilterPanel">
               <div class="catalog-filter-heading"><strong>Filter tests</strong><button type="button" id="catalogFilterReset" class="catalog-filter-reset">Clear filters</button></div>
+              <label>Clinical category<select id="categoryFilter"><option value="">All categories</option></select></label>
               <label>Specimen type<select id="specimenFilter"><option value="">All specimens</option><option value="Blood">Blood (serum / plasma / whole blood)</option><option value="Urine">Urine</option><option value="Stool">Stool</option><option value="Swab">Swab</option><option value="Other">Other</option></select></label>
               <label>Transport temperature<select id="temperatureFilter"><option value="">All temperatures</option><option value="room">Room temperature</option><option value="refrigerated">Refrigerated</option><option value="frozen">Frozen</option><option value="mixed">Mixed / verify</option></select></label>
               <label>Transport container<select id="transportContainerFilter"><option value="">All transport containers</option><option value="transport">Transport tube (unspecified)</option><option value="sst">Spun SST / Gold</option><option value="original">Original tube / no transfer</option><option value="serum">Serum transport tube</option><option value="plasma">Plasma transport tube</option><option value="amber">Amber / light-protected tube</option><option value="metal">Metal-free / acid-washed container</option><option value="sterile-cup">Sterile cup (submitted)</option><option value="urine-cup">Other urine container</option><option value="urine-ua">Urinalysis preservative tube</option><option value="urine-culture">Urine culture preservative tube</option><option value="aptima">Aptima transport</option><option value="viral">Viral transport medium</option><option value="stool">Stool preservative (Total-Fix)</option><option value="special">Other / special container</option></select></label>
@@ -407,8 +408,9 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script src="assets/js/data.js?v=11.85"></script>
-  <script src="assets/js/app.js?v=12.25"></script>
-  <script src="assets/js/portal-selects.js?v=11.84"></script>
+  <script src="assets/js/clinical-categories.js?v=1"></script>
+  <script src="assets/js/app.js?v=12.26"></script>
+  <script src="assets/js/portal-selects.js?v=11.85"></script>
   <script src="assets/js/lab-select.js?v=1"></script>
 </body>
 </html>

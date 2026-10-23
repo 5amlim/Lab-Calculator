@@ -101,7 +101,7 @@
   const els = {
     recordCount: $('recordCount'), searchInput: $('searchInput'), addBestButton: $('addBestButton'),
     previewButton: $('previewButton'), clearSearchButton: $('clearSearchButton'), batchResults: $('batchResults'),
-    libraryFilter: $('libraryFilter'), specimenFilter: $('specimenFilter'), temperatureFilter: $('temperatureFilter'), transportContainerFilter: $('transportContainerFilter'), fastingFilter: $('fastingFilter'), pediatricFilter: $('pediatricFilter'), spinFilter: $('spinFilter'), catalogFilterButton: $('catalogFilterButton'), catalogFilterButtonText: $('catalogFilterButtonText'), catalogFilterPanel: $('catalogFilterPanel'), catalogFilterReset: $('catalogFilterReset'), catalogFilterDone: $('catalogFilterDone'), catalogFilterControl: $('catalogFilterControl'), clearBrowserTestsButton: $('clearBrowserTestsButton'), browserCustomCount: $('browserCustomCount'),
+    libraryFilter: $('libraryFilter'), categoryFilter: $('categoryFilter'), specimenFilter: $('specimenFilter'), temperatureFilter: $('temperatureFilter'), transportContainerFilter: $('transportContainerFilter'), fastingFilter: $('fastingFilter'), pediatricFilter: $('pediatricFilter'), spinFilter: $('spinFilter'), catalogFilterButton: $('catalogFilterButton'), catalogFilterButtonText: $('catalogFilterButtonText'), catalogFilterPanel: $('catalogFilterPanel'), catalogFilterReset: $('catalogFilterReset'), catalogFilterDone: $('catalogFilterDone'), catalogFilterControl: $('catalogFilterControl'), clearBrowserTestsButton: $('clearBrowserTestsButton'), browserCustomCount: $('browserCustomCount'),
     libraryBody: $('libraryBody'), libraryStatus: $('libraryStatus'), loadMoreButton: $('loadMoreButton'), loadMoreInlineButton: $('loadMoreInlineButton'),
     blockedListButton: $('blockedListButton'), blockedListPanel: $('blockedListPanel'), blockedListBody: $('blockedListBody'),
     addTestButton: $('addTestButton'), addSelectedTestButton: $('addSelectedTestButton'), testsDetailsButton: $('testsDetailsButton'), testsDetailsPanel: $('testsDetailsPanel'),
@@ -143,6 +143,11 @@
   init();
 
   function init() {
+    if (els.categoryFilter && window.LabClinicalCategories) {
+      els.categoryFilter.innerHTML = '<option value="">All categories</option>' +
+        window.LabClinicalCategories.options.map(({id,label}) =>
+          `<option value="${id}">${label.replace(/&/g, '&amp;')}</option>`).join('');
+    }
     bindEvents();
     renderAll();
   }
@@ -160,7 +165,7 @@
       if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') renderBatch(true);
     });
     els.libraryFilter.addEventListener('input', () => { libraryLimit = PAGE_STEP; renderLibrary(); });
-    [els.specimenFilter, els.temperatureFilter, els.transportContainerFilter, els.fastingFilter, els.pediatricFilter, els.spinFilter].forEach(control => control.addEventListener('change', () => { libraryLimit = PAGE_STEP; renderLibrary(); }));
+    [els.categoryFilter, els.specimenFilter, els.temperatureFilter, els.transportContainerFilter, els.fastingFilter, els.pediatricFilter, els.spinFilter].forEach(control => control.addEventListener('change', () => { libraryLimit = PAGE_STEP; renderLibrary(); }));
     els.catalogFilterButton.addEventListener('click', () => { if (els.catalogFilterPanel.classList.contains('hidden')) setStatPickerOpen(false); toggleCatalogFilters(); });
     els.catalogFilterDone.addEventListener('click', () => toggleCatalogFilters(false));
     els.catalogFilterReset.addEventListener('click', resetCatalogFilters);
@@ -954,6 +959,9 @@
   function rankLibraryTest(query, test) {
     const q = normalizeSearch(query);
     if (!q) return 0;
+    const clinicalQuery = window.LabClinicalCategories?.matchQuery(q);
+    if (clinicalQuery && !clinicalQuery.rest)
+      return window.LabClinicalCategories.forTest(test).includes(clinicalQuery.id) ? 1000 : 0;
     const { code, name, aliases, nameWords, aliasWords, info } = librarySearchIndex(test);
     if (code && q === code) return 2000;
     if (/^\d+$/.test(q)) return code.startsWith(q) ? 1650 : (q.length >= 3 && code.includes(q) ? 1200 : 0);
@@ -981,6 +989,11 @@
       const fuzzy = aliasMatches.filter(score => score < 0).length;
       return (fuzzy ? 665 - fuzzy * 60 : 930) + tokens.length * 5 - Math.min(nameWords.length, 25);
     }
+    // Combined clinical category + test query must match both terms.
+    if (clinicalQuery?.rest && window.LabClinicalCategories.forTest(test).includes(clinicalQuery.id)) {
+      const remainderScore = rankLibraryTest(clinicalQuery.rest, test);
+      if (remainderScore > 300) return Math.min(990, remainderScore);
+    }
     // Keep secondary container/specimen/handling matches available for staff,
     // but avoid letting long processing notes outrank a matching test name.
     if (tokens.every(token => info.includes(token))) return 240 + Math.min(tokens.length, 4) * 9;
@@ -994,6 +1007,9 @@
   function rankBatchTest(query, test) {
     const q = normalizeSearch(query);
     if (!q) return 0;
+    // Browsing a category cannot automatically select an unrelated order code.
+    const clinicalQuery = window.LabClinicalCategories?.matchQuery(q);
+    if (clinicalQuery && !clinicalQuery.rest) return 0;
     const code = normalizeSearch(test.testCode);
     const name = normalizeSearch(test.testName);
     const leading = q.match(/^([a-z]*\d[a-z0-9]*) (.+)$/);
@@ -1258,6 +1274,7 @@
   }
 
   function resetCatalogFilters() {
+    els.categoryFilter.value = '';
     els.specimenFilter.value = '';
     els.temperatureFilter.value = '';
     els.transportContainerFilter.value = '';
@@ -1270,11 +1287,13 @@
   }
 
   function libraryFilterCount() {
-    return [els.specimenFilter.value, els.temperatureFilter.value, els.transportContainerFilter.value, els.fastingFilter.value,
+    return [els.categoryFilter.value, els.specimenFilter.value, els.temperatureFilter.value, els.transportContainerFilter.value, els.fastingFilter.value,
       els.pediatricFilter.checked, els.spinFilter.checked].filter(Boolean).length;
   }
 
   function matchesLibraryFilters(test) {
+    const category = els.categoryFilter.value;
+    if (category && !window.LabClinicalCategories?.forTest(test).includes(category)) return false;
     const specimen = els.specimenFilter.value;
     if (specimen && specimenFilterCategory(test.specimenType) !== specimen) return false;
     const temperature = els.temperatureFilter.value;

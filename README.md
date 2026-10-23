@@ -57,3 +57,7 @@ The calculator is a workflow reference, not a replacement for the receiving labo
 ## Ownership
 
 Proprietary software. See [LICENSE.md](LICENSE.md) for permitted use and licensing terms. Third-party laboratory names and trademarks belong to their respective owners. This independent resource is not represented as an official Quest Diagnostics or Cedars-Sinai product.
+
+## Clinical category search and filters
+
+Quest and LabCorp share 31 clinical categories for browsing. Search for category keywords such as `STI`, `GI`, `hematology`, `coagulation`, `allergy`, and `thyroid`, or select one under **Filters → Clinical category**. Category filters combine with specimen, container, temperature, fasting, pediatric, and spin filters. One test may appear under multiple categories. Categories are based on test-name rules and do not change specimen requirements, order codes, STAT availability, or collection calculations. The classifications are navigational aids, not official clinical classifications or test equivalence recommendations.
