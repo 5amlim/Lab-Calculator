@@ -520,7 +520,7 @@
   // plan continues using its own separate draw-versus-submit logic.
   function libraryTransportContainerBadges(test, className = 'badge') {
     const code = String(test.testCode || '').trim();
-    const multipleContainers = ['008623', '188110', '377036'].includes(code);
+    const multipleContainers = ['008623', '188110', '377036', '081162', '001750', '144057'].includes(code);
     const submissions = multipleContainers
       ? splitSubmissionContainers(test).map(item => ({
           label: item.label, className: item.className
@@ -3926,6 +3926,42 @@
       ];
     }
     const transport = finalTransportContainer(test);
+    const code = String(test.testCode || '').trim();
+    // Metal-free plasma and packed RBCs must reach the lab as TWO separate
+    // processed materials, though they originate from the same royal-blue draw.
+    if (code === '081162') {
+      return [
+        { key: '081162-metal-free-plasma', label: 'Metal-Free Plasma Transport Tube',
+          className: 'tube-transport', count: 1, detail: 'Separated plasma in acid-washed metal-free tube · refrigerate' },
+        { key: '081162-metal-free-rbcs', label: 'Metal-Free Packed RBC Transport Tube',
+          className: 'tube-transport', count: 1, detail: 'Packed RBCs in a DIFFERENT acid-washed metal-free tube · refrigerate' }
+      ];
+    }
+    // Orotic acid and urine creatinine are separate aliquots that travel in
+    // different temperature bags, never combined with other frozen specimens.
+    if (code === '007010') {
+      const frozen = String(test.transportTemperature || '').toLowerCase() === 'frozen';
+      return [{
+        key: frozen ? '007010-orotic-acid-frozen' : '007010-creatinine-room',
+        label: frozen ? 'Unpreserved Urine Container (Frozen, Orotic Acid)'
+          : 'Unpreserved Urine Container (Room Temp, Creatinine)',
+        className: 'tube-transport', count: 1,
+        detail: frozen ? 'Freeze immediately · dedicated aliquot · do not share'
+          : 'Separate aliquot · keep at room temperature'
+      }];
+    }
+    // Vitamins A/E may travel in spun SST; beta-carotene must have a second
+    // light-protected amber tube. Both aliquots can come from one adequate SST.
+    if (code === '001750' || code === '144057') {
+      return [
+        { key: 'vitamin-profile-original-sst', label: 'SST / Gold (spun)',
+          className: 'tube-sst', originalTube: true, count: 1,
+          detail: 'Vitamin A / E · serum aliquot · keep at room temperature' },
+        { key: 'vitamin-profile-amber-' + code, label: 'Amber Serum Transport Tube (Beta-Carotene)',
+          className: 'tube-amber', count: 1,
+          detail: 'Separate serum aliquot · protect from light · room temperature' }
+      ];
+    }
     const combined = `${transport} ${test.specialInstructions || ''}`.toLowerCase();
     if (String(test.testCode || '') === '3020' || (/red\s*\/\s*yellow|red-yellow|swirl/.test(combined) && /gray|grey|urisponge/.test(combined) && /urine|culture/.test(combined))) {
       return [
@@ -4048,7 +4084,18 @@
     });
 
     bag.tests.forEach(test => {
-      if (isSpunSstSubmission(test)) return;
+      if (isSpunSstSubmission(test)) {
+        // The original SST is already counted in sst-spun above. The vitamin
+        // combination profiles additionally need a dedicated amber aliquot.
+        if (['001750', '144057'].includes(String(test.testCode || '').trim())) {
+          splitSubmissionContainers(test).filter(container => !container.originalTube).forEach(container => {
+            if (!items.has(container.key)) items.set(container.key, { ...container, tests: [] });
+            const item = items.get(container.key);
+            item.tests.push(test);
+          });
+        }
+        return;
+      }
       if ((isLavenderDraw(test) || isRedTopDraw(test)) && isOriginalContainerSubmission(test)) return;
       splitSubmissionContainers(test).forEach(container => {
         if (!items.has(container.key)) items.set(container.key, { ...container, tests: [] });
