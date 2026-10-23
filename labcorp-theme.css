@@ -132,7 +132,7 @@
 /* Printed LabCorp identification remains legible in grayscale. */
 @media print {
   .labcorp-page .print-lab-destination { border: 1px solid rgba(255,255,255,.65); background: #e5f0f8; color: #164a72; }
-  .labcorp-page .print-detail-lab-heading th { background: #e6f0f8 !important; color: #164a72 !important; border-bottom: 2px solid #e18a2a; }
+  .labcorp-page .print-detail-lab-heading { background: #e6f0f8 !important; color: #164a72 !important; border-bottom: 2px solid #e18a2a; }
 }
 @page {
   @bottom-right {

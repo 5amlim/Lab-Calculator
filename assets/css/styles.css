@@ -4213,13 +4213,15 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .print-sheet .print-detail-table-section .print-table thead {
     display: table-header-group;
   }
-  .print-sheet .print-detail-table-section .print-detail-lab-heading th {
+  .print-sheet .print-detail-table-section .print-detail-lab-heading {
     font-size: 10px !important;
     font-weight: 900;
     letter-spacing: .07em;
     text-align: left;
     padding: 7px 9px !important;
     line-height: 1.25;
+    break-after: avoid-page !important;
+    page-break-after: avoid !important;
   }
   .print-sheet .print-header-identity { min-width: 0; }
   .print-sheet .print-lab-destination {
