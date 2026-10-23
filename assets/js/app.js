@@ -3713,6 +3713,7 @@
 
   function transportTubeClass(test, container) {
     const value = String(container || '').toLowerCase();
+    if (/^frozen transport tube(?:\s*\(.*\))?$/.test(value)) return 'tube-frozen-purple';
     const specimen = normalizeSpecimenType(test.specimenType).toLowerCase();
     const specimenAndContainer = `${specimen} ${value}`;
     const isStandardSerumOrPlasma = /\b(?:serum|plasma)\b/.test(specimenAndContainer);
@@ -3890,8 +3891,9 @@
       const sourcePhrase = specimenSourceDetail(test);
       const isSwab = /swab/i.test(sourceSpecimen);
       const isSpecialtyMetalContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal/i.test(transport);
-      const label = isSwab
-        ? 'Swab Transport Tube'
+      const label = /^frozen transport tube(?:\s*\(.*\))?$/i.test(transport)
+        ? 'Frozen Transport Tube'
+        : isSwab ? 'Swab Transport Tube'
         : (isSpecialtyMetalContainer ? `Acid-Washed / Metal-Free ${specimen} Transport Tube` : `${specimen} Transport Tube`);
       return [{
         key: `transport|${normalizeSearch(sourcePhrase)}|${submissionTransportGroupingKey(test, transport)}`,
@@ -4977,6 +4979,7 @@
 
   function tubeClass(container) {
     const value = String(container || '').toLowerCase();
+    if (/^frozen transport tube(?:\s*\(.*\))?$/.test(value)) return 'tube-frozen-purple';
     if (/microtainer/.test(value)) return 'tube-microtainer';
     if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
     if (/aptima/.test(value)) return 'tube-aptima';
