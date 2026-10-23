@@ -4242,3 +4242,62 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     letter-spacing: .025em;
   }
 }
+
+/* A bag-ending strip prints only after the bag's last container.
+   Keep it with the last container when pagination permits. */
+@media print {
+  .print-sheet .print-bag-card .print-submit-content > .print-submit-item:last-child,
+  html.mobile-print .print-sheet .print-bag-card .print-submit-content > .print-submit-item:last-child {
+    break-after: avoid-page !important;
+    page-break-after: avoid !important;
+  }
+  .print-sheet .print-bag-card .print-submit-content,
+  html.mobile-print .print-sheet .print-bag-card .print-submit-content {
+    break-after: avoid-page !important;
+    page-break-after: avoid !important;
+  }
+  .print-sheet .print-bag-card .print-bag-end,
+  html.mobile-print .print-sheet .print-bag-card .print-bag-end {
+    display: block;
+    margin: 6px 0 0;
+    padding: 5px 7px 4px;
+    background: #f5f8f9 !important;
+    border-top: 2px solid #b9c9cf;
+    border-radius: 0 0 4px 4px;
+    color: #40545e;
+    line-height: 1.15;
+    break-before: avoid-page !important;
+    page-break-before: avoid !important;
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+    -webkit-column-break-inside: avoid !important;
+  }
+  .print-sheet .print-bag-card.bag-room .print-bag-end { border-top-color: #c99c12; }
+  .print-sheet .print-bag-card.bag-refrigerated .print-bag-end { border-top-color: #4b9dce; }
+  .print-sheet .print-bag-card.bag-frozen .print-bag-end { border-top-color: #7d66c8; }
+  .print-sheet .print-bag-card .print-bag-end-top,
+  .print-sheet .print-bag-card .print-bag-end-bottom {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    column-gap: 8px;
+    row-gap: 2px;
+  }
+  .print-sheet .print-bag-card .print-bag-end-top {
+    padding-bottom: 3px;
+    margin-bottom: 3px;
+    border-bottom: 1px solid #dbe4e7;
+    font-size: 6.8px;
+  }
+  .print-sheet .print-bag-card .print-bag-end-top > strong {
+    font-weight: 950;
+    letter-spacing: .07em;
+  }
+  .print-sheet .print-bag-card .print-bag-end-bottom { font-size: 7.6px; }
+  .print-sheet .print-bag-card .print-bag-end-bottom > strong { font-weight: 900; }
+  .print-sheet .print-bag-card .print-bag-end-bottom > span {
+    font-size: 7px;
+    font-weight: 750;
+  }
+}

@@ -4819,6 +4819,10 @@
               ${printLabelingNotes(item)}
               <div class="print-for-tests${uniqueTests(item.tests).length > 8 ? ' is-bag-dense' : ''}"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul${uniqueTests(item.tests).length > 8 ? ` style="--bag-test-rows:${Math.ceil(uniqueTests(item.tests).length / 2)}"` : ''}>${testReferences(item.tests)}</ul></div>
             </div>`).join('')}</div>
+            <div class="print-bag-end" aria-label="End of LABCORP bag ${bagNumber} of ${bags.length}">
+              <div class="print-bag-end-top"><strong>END OF BAG</strong><span>${escapeHtml(printBagTemperatureLabel(bag, true))} · ${bag.isStat ? 'STAT' : 'ROUTINE'}</span></div>
+              <div class="print-bag-end-bottom"><strong>LABCORP · BAG ${bagNumber} OF ${bags.length}</strong><span>${totalContainers} ${totalContainers === 1 ? 'CONTAINER' : 'CONTAINERS'}</span></div>
+            </div>
           </article>`;
         }).join('')}</div>`).join('')}</div>
         <div class="print-submit-footer"><span class="print-submit-footer-label">Confirm number of bags before sealing and sending</span><span class="print-submit-footer-badge"><strong>${bags.length}</strong> <span>${bags.length === 1 ? 'bag' : 'bags'}</span></span></div>

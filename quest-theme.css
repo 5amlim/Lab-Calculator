@@ -79,16 +79,11 @@
 }
 @page {
   @bottom-right {
-    content: "RECEIVING LAB: QUEST DIAGNOSTICS";
-    color: #23472c;
-    font: bold 9px Arial, sans-serif;
-  }
-  @bottom-center {
     content: "QUEST LAB";
     width: 120px;
     height: 24px;
     box-sizing: border-box;
-    margin: auto;
+    margin: auto 0 auto auto;
     padding: 3px 12px;
     border: 1.5px solid #6c9d75;
     border-radius: 999px;
