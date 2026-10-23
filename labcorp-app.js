@@ -345,6 +345,7 @@
         spin: interfaceWording(String(source.spin || '')).trim(),
         specialLabeling: interfaceWording(String(source.specialLabeling || '')).trim(),
         specialInstructions: interfaceWording(String(source.specialInstructions || '')).trim(),
+        transportOnly: Boolean(source.transportOnly),
         count
       };
     }).filter(item => item.container);
@@ -511,7 +512,8 @@
 
   function requiredDrawContainerBadges(test, className = 'badge') {
     const primary = drawContainerBadge(test.drawContainer, className);
-    const extras = additionalDrawRequirements(test).map(requirement => drawContainerBadge(requirement.container, className)).join(' ');
+    const extras = additionalDrawRequirements(test).filter(requirement => !requirement.transportOnly)
+      .map(requirement => drawContainerBadge(requirement.container, className)).join(' ');
     return extras ? `${primary} ${extras}` : primary;
   }
 
@@ -571,7 +573,8 @@
     const isCup = /^(?:sterile\s+(?:urine\s+|stool\s+|specimen\s+)?cup|stool\s+collection\s+cup|urine\s+collection\s+cup)$/i.test(rawDraw);
     const collectionLabel = isCup ? 'Sterile cup' : draw;
     const drawBadges = drawContainerBadge(collectionLabel) +
-      additionalDrawRequirements(test).map(req => drawContainerBadge(cleanCollectionContainer(req.container || 'Verify collection container'))).join(' ');
+      additionalDrawRequirements(test).filter(req => !req.transportOnly)
+        .map(req => drawContainerBadge(cleanCollectionContainer(req.container || 'Verify collection container'))).join(' ');
     const cleanName = value => {
       const text = normalizeSearch(cleanCollectionContainer(value))
         .replace(/\b(?:spun|centrifuged|original|tube)\b/g, ' ').replace(/\s+/g, ' ').trim();
@@ -590,7 +593,8 @@
     // primary SST goes directly to the lab. That conditional instruction
     // must not invent a transfer arrow for the primary draw.
     const alternativeOnly = /\b(?:if|when)\s+(?:using|drawn\s+in|collected\s+in)\s+(?:a\s+)?(?:red[- ]?top|plain\s+red|plasma)\b/i.test(collectionNotes);
-    if (((original || same) && (!mandatoryTransfer || alternativeOnly)) || !transport) {
+    const needsAdditionalSubmitBadge = ['001750', '144057'].includes(String(test.testCode || '').trim());
+    if (!needsAdditionalSubmitBadge && (((original || same) && (!mandatoryTransfer || alternativeOnly)) || !transport)) {
       return '<span class="container-path is-single">' + drawBadges + '</span>';
     }
     const sendBadges = libraryTransportContainerBadges(test);
@@ -621,8 +625,8 @@
     return requirements.map(requirement => {
       const parts = [
         requirement.purpose,
-        requirement.specimenType,
-        `from ${requirement.container}`,
+        requirement.transportOnly ? 'from the same collected specimen' : requirement.specimenType,
+        requirement.transportOnly ? `submit in ${requirement.transportContainer}` : `from ${requirement.container}`,
         requirement.preferredVolume ? `Volume ${cleanVolumeDisplayText(requirement.preferredVolume)}` : '',
         requirement.minimumVolume ? `Minimum ${requirement.minimumVolume}` : ''
       ].filter(Boolean);
@@ -5108,7 +5112,9 @@
     const tests = selectedTests();
     if (!tests.length) return showToast('Add at least one test before exporting.');
     const headers = ['Priority','Test Code','Test Name','Specimen Type','Draw Container','Additional Required Draws','Alternative Container','Transport Tube / Container','Preferred Volume','Minimum Volume','Transport Temperature','Raw Temperature','Stability','Spin','Special Labeling','Special Instructions'];
-    const rows = tests.map(test => [test.isStat ? 'STAT' : 'Routine',test.testCode,test.testName,[test.specimenType, ...additionalDrawRequirements(test).map(item => item.specimenType)].filter(Boolean).join(' + '),test.drawContainer,additionalDrawRequirements(test).map(item => `${item.container}${item.specimenType ? ` (${item.specimenType})` : ''}`).join(' + '),test.alternativeContainer,test.transportContainer,combinedVolumeText(test, 'preferred'),combinedVolumeText(test, 'minimum'),test.transportTemperature,test.transportTemperatureRaw,test.stability,test.spin,test.specialLabeling,test.specialInstructions]);
+    const rows = tests.map(test => [test.isStat ? 'STAT' : 'Routine',test.testCode,test.testName,[test.specimenType, ...additionalDrawRequirements(test).map(item => item.specimenType)].filter(Boolean).join(' + '),test.drawContainer,additionalDrawRequirements(test).filter(item => !item.transportOnly).map(item => `${item.container}${item.specimenType ? ` (${item.specimenType})` : ''}`).join(' + '),test.alternativeContainer,(['001750', '144057', '081162'].includes(String(test.testCode))
+      ? splitSubmissionContainers(test).map(container => container.label).join(' + ')
+      : [test.transportContainer, ...additionalDrawRequirements(test).map(item => item.transportContainer)].filter(Boolean).join(' + ')),combinedVolumeText(test, 'preferred'),combinedVolumeText(test, 'minimum'),test.transportTemperature,test.transportTemperatureRaw,test.stability,test.spin,test.specialLabeling,test.specialInstructions]);
     const csv = [headers, ...rows].map(row => row.map(csvCell).join(',')).join('\r\n');
     downloadBlob(csv, `labcorp-collection-summary-${isoDate()}.csv`, 'text/csv;charset=utf-8');
   }
