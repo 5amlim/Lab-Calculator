@@ -5005,6 +5005,17 @@
     } else if (!mobilePrint) {
       mobilePageRule?.remove();
     }
+    // Keep "What to collect" on the same printed page as the first paired
+    // collection row. The existing row owns equal-height cards and is unchanged.
+    const collectionHeading = els.printSheet.querySelector('.print-logistics-subheading.print-section-banner');
+    const collectionGrid = els.printSheet.querySelector('.print-collection-grid');
+    const firstCollectionRow = collectionGrid?.querySelector(':scope > .print-collection-row');
+    if (collectionHeading && firstCollectionRow) {
+      const firstGroup = document.createElement('div');
+      firstGroup.className = 'print-collection-first-group';
+      collectionGrid.insertBefore(firstGroup, firstCollectionRow);
+      firstGroup.append(collectionHeading, firstCollectionRow);
+    }
     // On iPhone, put the submission heading inside the FIRST existing bag
     // row. WebKit previously printed the heading and an empty purple panel
     // before pushing both bag cards onto the next sheet. Grid columns and
@@ -5031,6 +5042,16 @@
       firstItemList.appendChild(firstItem);
       opening.appendChild(firstItemList);
       if (!containerList.children.length) containerList.remove();
+    });
+    // Short side-by-side bag pairs must start together rather than leaving
+    // a bag topbar on the previous page. Keep the original grid, stretch,
+    // equal-height footer, and individual long-bag pagination rules.
+    els.printSheet.querySelectorAll('.print-bag-row').forEach(row => {
+      if (row.querySelector('.bag-long')) return;
+      const pairKeep = document.createElement('div');
+      pairKeep.className = 'print-bag-pair-keep';
+      row.parentNode.insertBefore(pairKeep, row);
+      pairKeep.appendChild(row);
     });
     window.print();
   }
