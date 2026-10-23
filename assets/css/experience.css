@@ -1264,3 +1264,13 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     }
   }
 }
+
+/* Expanded Cart: a quiet left accent separates individual test cards. */
+@media screen {
+  #testsOverviewSection #testsDetailsPanel:not(.hidden) .selected-card {
+    border-left: 3px solid #83aeb8;
+  }
+  #testsOverviewSection #testsDetailsPanel:not(.hidden) .selected-card.is-stat {
+    border-left-color: #cc8f88;
+  }
+}

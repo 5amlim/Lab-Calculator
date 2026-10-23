@@ -1,3 +1,9 @@
+## October 22, 2026: Expanded Cart test-card separators
+
+- Added a subtle 3 px muted-teal left border to each test card when **Show details** is expanded in Quest and LabCorp.
+- STAT cards keep a muted-red accent for distinction. The collapsed list, cart spacing, actions, mobile layout and print styles remain unchanged.
+- Updated the shared stylesheet cache version for both pages.
+
 ## October 22, 2026: Subtle Cart emphasis
 
 - Gave the Quest and LabCorp Cart sections a lightly tinted blue-gray background, refined border, muted teal top edge and soft shadow.
