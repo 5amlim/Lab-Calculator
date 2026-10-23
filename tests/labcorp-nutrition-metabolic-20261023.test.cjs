@@ -10,7 +10,7 @@ const read = p => fs.readFileSync(path.join(root, p), 'utf8');
 
 test('LabCorp sourced expansion loads before app without duplicate codes', () => {
   const html = read('labcorp.html');
-  const marker = `<script src="${file}?v=1"></script>`;
+  const marker = `<script src="${file}?v=2"></script>`;
   assert.equal(html.split(marker).length, 2, 'New LabCorp bundle included exactly once');
   assert(html.indexOf(marker) < html.indexOf('<script src="labcorp-app.js'), 'Catalog must load before calculator');
 
