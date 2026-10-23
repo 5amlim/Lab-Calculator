@@ -4439,3 +4439,53 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     color: #6e519e !important;
   }
 }
+
+/* Printed "What to submit" cards: subtle accents match the actual final
+   submission container shown in the card title, NOT the draw-source badges
+   used inside transfer instructions. Bag frames retain temperature colors. */
+@media print {
+  .print-sheet .print-bag-card .print-submit-item {
+    --submit-container-accent: #a9b6bb;
+    border-left: 3px solid var(--submit-container-accent) !important;
+  }
+  /* Gold and Tiger SST (when submitted in the original tube). */
+  .print-sheet .print-bag-card .print-submit-item:has(> .print-submit-item-title > .tube:is(.tube-sst, .tube-tiger-sst)) {
+    --submit-container-accent: #caa43d;
+  }
+  /* Lavender EDTA and dedicated purple-cap frozen transport. */
+  .print-sheet .print-bag-card .print-submit-item:has(> .print-submit-item-title > .tube:is(.tube-lavender, .tube-royal-edta, .tube-frozen-purple, .tube-total-fix)) {
+    --submit-container-accent: #aa91ca;
+  }
+  /* Red top, red-band royal blue and culture bottles. */
+  .print-sheet .print-bag-card .print-submit-item:has(> .print-submit-item-title > .tube:is(.tube-red, .tube-royal-no-additive, .tube-culture)) {
+    --submit-container-accent: #c87a76;
+  }
+  /* Light-blue citrate. */
+  .print-sheet .print-bag-card .print-submit-item:has(> .print-submit-item-title > .tube.tube-blue) {
+    --submit-container-accent: #78acd2;
+  }
+  /* Green heparin and standard serum/plasma transport tubes. */
+  .print-sheet .print-bag-card .print-submit-item:has(> .print-submit-item-title > .tube:is(.tube-green, .tube-transport, .tube-transport-green-top, .tube-royal-heparin)) {
+    --submit-container-accent: #77ae8d;
+  }
+  /* Sterile cups, gray tubes and other neutral collection vessels. */
+  .print-sheet .print-bag-card .print-submit-item:has(> .print-submit-item-title > .tube:is(.tube-urine-cup, .tube-stool-clean, .tube-24h-urine, .tube-urine-culture, .tube-gray, .tube-trace-metal-container, .tube-op-pva)) {
+    --submit-container-accent: #a2b0b7;
+  }
+  /* Amber/light-sensitive, yellow or mixed-preservative containers. */
+  .print-sheet .print-bag-card .print-submit-item:has(> .print-submit-item-title > .tube:is(.tube-amber, .tube-yellow, .tube-ua-swirl, .tube-ua-pair, .tube-microtainer)) {
+    --submit-container-accent: #c4a560;
+  }
+  .print-sheet .print-bag-card .print-submit-item:has(> .print-submit-item-title > .tube:is(.tube-royal, .tube-qft-nil, .tube-qft-tb1, .tube-qft-tb2)) {
+    --submit-container-accent: #7396c9;
+  }
+  .print-sheet .print-bag-card .print-submit-item:has(> .print-submit-item-title > .tube:is(.tube-pink, .tube-op-formalin, .tube-tan)) {
+    --submit-container-accent: #c996b2;
+  }
+  .print-sheet .print-bag-card .print-submit-item:has(> .print-submit-item-title > .tube:is(.tube-aptima, .tube-urisponge, .tube-eswab, .tube-utm)) {
+    --submit-container-accent: #74ada9;
+  }
+  .print-sheet .print-bag-card .print-submit-item:has(> .print-submit-item-title > .tube.tube-cary-blair) {
+    --submit-container-accent: #c68e63;
+  }
+}
