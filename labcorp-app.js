@@ -3743,9 +3743,8 @@
   }
   function frozenTransportLabel(test, container) {
     if (!isFrozenSerumPlasmaTransport(test, container)) return String(container || '');
-    return /pp\s+transpak|transpak\s+purple/i.test(String(container || ''))
-      ? 'Frozen Transport Tube (PP Transpak)'
-      : 'Frozen Transport Tube';
+    // PP Transpak uses the same purple-cap frozen tube.
+    return 'Frozen Transport Tube';
   }
 
   function transportTubeClass(test, container) {
@@ -3967,13 +3966,12 @@
     // routine green-top transport tubes or with other frozen test aliquots.
     if (isFrozenSerumPlasmaTransport(test, transport)) {
       const sourcePhrase = specimenSourceDetail(test);
-      const special = /pp\s+transpak|transpak\s+purple/i.test(transport);
       return [{
-        key: `frozen-transport|${normalizeSearch(sourcePhrase)}|${normalizeSearch(transport)}|${normalizeSearch(String(test.sourceTestId || test.id || test.testCode))}`,
+        key: `frozen-transport|${normalizeSearch(sourcePhrase)}|frozen-transport-tube|${normalizeSearch(String(test.sourceTestId || test.id || test.testCode))}`,
         label: frozenTransportLabel(test, transport),
         className: 'tube-frozen-purple',
         count: explicitSubmissionCount(test),
-        detail: sourcePhrase + (special ? ' · PP Transpak frozen purple-cap tube required' : ' · Freeze separate aliquot')
+        detail: sourcePhrase + ' · Freeze separate aliquot'
       }];
     }
 
@@ -5150,7 +5148,9 @@
     // Backward compatibility: saved tests using the former duplicate original-
     // tube choice edit as the single original-tube option, not a custom tube.
     const supplied = String(value || '').trim();
-    const normalized = /^(?:whole blood\s*\/\s*original tube|no transfer\s*\/\s*submit in original tube)$/i.test(supplied)
+    const normalized = /^(?:pp\s+transpak(?:\s*\(purple cap\))?|frozen transport tube\s*\(pp transpak\))$/i.test(supplied)
+      ? 'Frozen Transport Tube'
+      : /^(?:whole blood\s*\/\s*original tube|no transfer\s*\/\s*submit in original tube)$/i.test(supplied)
       ? 'Submit in original tube' : supplied;
     const match = Array.from(els.transportContainer.options).find(option =>
       option.value && option.value !== '__other__' && normalizeSearch(option.value) === normalizeSearch(normalized));
