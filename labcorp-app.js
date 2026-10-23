@@ -4860,7 +4860,7 @@
               ${printSubmissionItemDetail(item)}
               ${printLabelingNotes(item)}
               <div class="print-for-tests${uniqueTests(item.tests).length > 8 ? ' is-bag-dense' : ''}"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul${uniqueTests(item.tests).length > 8 ? ` style="--bag-test-rows:${Math.ceil(uniqueTests(item.tests).length / 2)}"` : ''}>${testReferences(item.tests)}</ul></div>
-              ${contents.length > 1 ? `<div class="print-bag-item-progress"><span>LABCORP · BAG ${bagNumber}/${bags.length} · GROUP ${itemIndex + 1}/${contents.length}</span><strong>${itemIndex + 1 < contents.length ? 'MORE IN THIS BAG ↓' : 'LAST GROUP · CHECK END OF BAG'}</strong></div>` : ''}
+              ${contents.length > 1 ? `<div class="print-bag-item-progress"><strong>${itemIndex + 1 < contents.length ? 'MORE IN THIS BAG ↓' : 'LAST GROUP · CHECK END OF BAG'}</strong></div>` : ''}
             </div>`).join('')}</div>
             <div class="print-bag-end" aria-label="End of LABCORP bag ${bagNumber} of ${bags.length}">
               <div class="print-bag-end-top"><span class="print-bag-end-lab">LABCORP</span><strong>END OF BAG</strong><span class="print-bag-end-temp">${escapeHtml(printBagTemperatureLabel(bag, true))} · ${bag.isStat ? 'STAT' : 'ROUTINE'}</span></div>
