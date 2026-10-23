@@ -4489,3 +4489,17 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     --submit-container-accent: #c68e63;
   }
 }
+
+/* Keep the "More bags follow" instruction distinct but neutral in print. */
+@media print {
+  .print-sheet .print-bag-card .print-bag-end .print-bag-next,
+  html.mobile-print .print-sheet .print-bag-card .print-bag-end .print-bag-next {
+    background: #edf1f3 !important;
+    color: #445661 !important;
+    border: 1px solid #c9d2d8 !important;
+    border-left: 3px solid #8b9ba6 !important;
+  }
+  .print-sheet .print-bag-card .print-bag-next > span {
+    color: #526b78 !important;
+  }
+}
