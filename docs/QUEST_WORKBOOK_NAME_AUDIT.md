@@ -2,7 +2,7 @@
 
 Reviewed against `Quest Lab Calculator (4)(3).xlsx`, worksheet **Data (Do Not Alter)** (253 nonempty rows, with repeated codes and placeholder `XXX` entries). The upload is an older source and is not authoritative for specimen or test status.
 
-- **29 distinct test codes** have explicitly verified full Quest directory names; their displayed titles are normalized using `assets/js/quest-workbook-names.js` before the calculator initializes.
+- **33 distinct test codes** have explicitly verified full Quest directory names; their displayed titles are normalized using `assets/js/quest-workbook-names.js` before the calculator initializes.
 - **80 numeric codes** have code-specific historical shorthand/search aliases, including workbook names and existing local labels. The alias index is for discovery, not test equivalence or automatic ordering.
 - Other workbook test names were left unchanged when not verified. No edits were made to retired `91001`, duplicate `15447`, or placeholder `XXX` codes.
 - No changes to specimen type, container, stability, volume, STAT eligibility, instrument, pooling, or order logic.
@@ -11,6 +11,10 @@ Reviewed against `Quest Lab Calculator (4)(3).xlsx`, worksheet **Data (Do Not Al
 
 | Quest code | Directory display name | Source |
 |---|---|---|
+| 249 | ANA Screen,IFA, with Reflex to Titer and Pattern | https://testdirectory.questdiagnostics.com/test/results?q=249 |
+| 859 | T3 Total | https://testdirectory.questdiagnostics.com/test/results?q=859 |
+| 10306 | Acute Viral Hepatitis Diagnostic with Reflexes (HAV, HBV, HCV) | https://testdirectory.questdiagnostics.com/test/results?q=10306 |
+| 36378 | ANAlyzeR™ ANA, IFA with Reflex Titer/Pattern, Systemic Autoimmune Panel 1 | https://testdirectory.questdiagnostics.com/test/results?q=36378 |
 | 402 | DHEA Sulfate, Immunoassay | https://testdirectory.questdiagnostics.com/test/results?q=402 |
 | 470 | FSH (Follicle Stimulating Hormone) | https://testdirectory.questdiagnostics.com/test/results?q=470 |
 | 496 | Hemoglobin A1c | https://testdirectory.questdiagnostics.com/test/results?q=496 |

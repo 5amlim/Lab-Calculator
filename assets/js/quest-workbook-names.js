@@ -7,6 +7,10 @@
 (() => {
   'use strict';
   const official = {
+  "249": "ANA Screen,IFA, with Reflex to Titer and Pattern",
+  "859": "T3 Total",
+  "10306": "Acute Viral Hepatitis Diagnostic with Reflexes (HAV, HBV, HCV)",
+  "36378": "ANAlyzeR™ ANA, IFA with Reflex Titer/Pattern, Systemic Autoimmune Panel 1",
   "402": "DHEA Sulfate, Immunoassay",
   "470": "FSH (Follicle Stimulating Hormone)",
   "496": "Hemoglobin A1c",

@@ -1,3 +1,5 @@
+- Extended the directory-verified Quest display-name audit to 33 codes, including ANA Screen (249), T3 Total (859), acute hepatitis diagnostic panel (10306), and ANAlyzeR panel (36378). Existing workbook shorthand remains code-specific and searchable.
+
 ## October 22, 2026: Verified Quest names and searchable workbook shorthand
 
 - Standardized 29 numeric Quest test-code titles against the Quest Test Directory (when the current seed title differs), while keeping original/workbook names as code-scoped search aliases.
