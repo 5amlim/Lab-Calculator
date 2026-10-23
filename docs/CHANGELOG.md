@@ -1,3 +1,11 @@
+## October 22, 2026: Clinical category matches in Add Tests
+
+- Fixed category queries such as STI, GI, hematology, coagulation, allergy, and thyroid returning "No local match found" in Add Tests / Review matches.
+- Category entries show a browsable list of all matching unblocked catalog tests, initially 20 at a time with Show more and one Add button per test.
+- Matches display test code, full name, and regional STAT eligibility when verified for the receiving lab. Already-added tests are marked.
+- Kept Add best matches safe: categories are browsing queries and never add every test or guess an assay. Specific name/code matching is unchanged.
+- Applied to Quest and LabCorp in both synchronized repositories; no specimen, pooling, print or STAT assignment logic changed.
+
 ## October 22, 2026: Search Match in-browser test dropdown
 
 - Replaced the native Choose test select with an accessible, browser-rendered dropdown inside each Search Match card for Quest and LabCorp.

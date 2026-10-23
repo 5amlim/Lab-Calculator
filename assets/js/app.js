@@ -1047,6 +1047,20 @@
       .slice(0, limit);
   }
 
+  // Category input in Add Tests is a catalog browse, never an auto-add match.
+  function findCategoryMatches(query) {
+    const category = window.LabClinicalCategories?.matchQuery(query);
+    if (!category) return null;
+    const results = database
+      .filter(test => test.status !== 'blocked' &&
+        window.LabClinicalCategories.forTest(test).includes(category.id) &&
+        (!category.rest || rankLibraryTest(category.rest, test) > 0))
+      .sort((a, b) => a.testName.localeCompare(b.testName) ||
+        String(a.testCode || '').localeCompare(String(b.testCode || '')));
+    const label = window.LabClinicalCategories.options.find(item => item.id === category.id)?.label || query;
+    return { label, results };
+  }
+
   function isExactBatchMatch(query, test) {
     const q = normalizeSearch(query);
     const code = normalizeSearch(test?.testCode);
@@ -1078,6 +1092,7 @@
   }
 
   function batchRowOutcome(row) {
+    if (row.category) return row.category.results.length ? 'category-results' : 'no-match';
     const chosen = chosenBatchMatch(row);
     if (!chosen) return 'no-match';
     if (chosen.test.status === 'blocked') return 'blocked';
@@ -1094,7 +1109,12 @@
     }
 
     const previousChoices = new Map(batchReviewRows.map(row => [row.query, row.chosenId]));
+    const previousCategoryCounts = new Map(batchReviewRows.filter(row => row.category).map(row => [row.query, row.visibleCount]));
     const rows = queries.map((query, index) => {
+      const category = findCategoryMatches(query);
+      // A category never falls through into "No local match found" or a guessed assay.
+      if (category) return { query, index, category, matches: [], chosenId: null,
+        visibleCount: previousCategoryCounts.get(query) || 20, outcome: 'review' };
       const matches = findMatches(query, 5);
       const previousId = previousChoices.get(query);
       return { query, index, matches, chosenId: matches.some(match => match.test.id === previousId) ? previousId : matches[0]?.test.id, outcome: 'review' };
@@ -1124,7 +1144,8 @@
     }
 
     batchReviewRows = rows;
-    const matchedCount = rows.filter(row => row.matches.length).length;
+    const matchedCount = rows.filter(row => row.matches.length || row.category?.results.length).length;
+    const categoryRows = rows.filter(row => row.category);
     const confirmCount = rows.filter(row => row.outcome === 'confirm-match').length;
     const inSummaryCount = rows.filter(row => ['added', 'already-selected'].includes(row.outcome)).length;
     const hardIssueCount = rows.filter(row => ['no-match', 'blocked', 'low-confidence', 'not-added'].includes(row.outcome)).length;
@@ -1135,18 +1156,26 @@
     if (addBest) {
       const alreadySelected = rows.filter(row => row.outcome === 'already-selected').length;
       const accountedFor = added + alreadySelected;
-      if (unresolved.length) {
+      if (categoryRows.length && !unresolved.length) {
+        showToast(accountedFor
+          ? `${accountedFor} specific ${accountedFor === 1 ? 'test' : 'tests'} in summary. Choose category tests individually below.`
+          : 'Category results are shown below. Choose individual tests to add to the cart.');
+      } else if (unresolved.length) {
         showToast(`${accountedFor} ${accountedFor === 1 ? 'test is' : 'tests are'} in the summary. ${unresolved.length} ${unresolved.length === 1 ? 'entry needs' : 'entries need'} review.`);
       } else {
         showToast(`All ${rows.length} ${rows.length === 1 ? 'test is' : 'tests are'} in the summary.`);
       }
     }
 
-    const headerText = confirmCount
-      ? `${confirmCount} ${confirmCount === 1 ? 'possible match needs' : 'possible matches need'} your confirmation before adding.`
-      : hardIssueCount
-        ? `${hardIssueCount} ${hardIssueCount === 1 ? 'entry needs' : 'entries need'} attention.`
-        : `${matchedCount} of ${rows.length} entries matched.`;
+    const headerText = categoryRows.length === rows.length && categoryRows.length === 1 && categoryRows[0].category.results.length
+      ? `${categoryRows[0].category.results.length} tests in ${categoryRows[0].category.label}. Select individual tests below.`
+      : confirmCount
+        ? `${confirmCount} ${confirmCount === 1 ? 'possible match needs' : 'possible matches need'} your confirmation before adding.`
+        : hardIssueCount
+          ? `${hardIssueCount} ${hardIssueCount === 1 ? 'entry needs' : 'entries need'} attention.`
+          : categoryRows.length
+            ? `${matchedCount} of ${rows.length} entries matched. Choose category tests individually below.`
+            : `${matchedCount} of ${rows.length} entries matched.`;
 
     els.batchResults.classList.remove('hidden');
     els.batchResults.innerHTML = `
@@ -1195,6 +1224,7 @@
   }
 
   function renderBatchRow(row) {
+    if (row.category) return renderBatchCategoryRow(row);
     if (!row.matches.length) {
       return `<div class="batch-row unmatched" data-batch-index="${row.index}">
         <div class="batch-query-block"><span class="batch-kicker">You entered</span><div class="batch-query">${escapeHtml(row.query)}</div></div>
@@ -1246,6 +1276,37 @@
         <button class="mini-button ${needsConfirmation ? 'confirm-match-button' : ''}" data-action="add" data-id="${escapeAttr(choice.test.id)}" data-query="${escapeAttr(row.query)}" data-needs-confirmation="${needsConfirmation ? 'true' : 'false'}" ${blocked || selected ? 'disabled' : ''}>${buttonLabel}</button>
         ${needsConfirmation ? `<a class="mini-button edit batch-directory-button" href="${escapeAttr(directorySearchUrl(row.query))}" target="_blank" rel="noreferrer">Search directory ↗</a>` : ''}
       </div>
+    </div>`;
+  }
+
+  // Limited per-page rendering keeps broad categories usable on mobile.
+  function renderBatchCategoryRow(row) {
+    const { label, results } = row.category;
+    const visible = results.slice(0, row.visibleCount || 20);
+    const more = results.length - visible.length;
+    return `<div class="batch-row batch-category-row" data-batch-index="${row.index}">
+      <div class="batch-category-heading">
+        <div><span class="batch-kicker">Clinical category</span><strong>${escapeHtml(label)}</strong>
+          <p>${results.length} ${results.length === 1 ? 'test' : 'tests'} found${results.length ? '. Choose the tests you need.' : '. Try another category or a specific test name.'}</p></div>
+        <span class="batch-category-count">${results.length} tests</span>
+      </div>
+      <div class="batch-category-list">
+        ${visible.map(test => {
+          const selected = selectedIds.includes(test.id);
+          return `<div class="batch-category-item">
+            <div class="batch-category-test"><span class="batch-category-code">${escapeHtml(displayCode(test))}</span>
+              <span class="batch-category-name">${escapeHtml(test.testName)}</span>
+              ${isStatEligible(test) ? '<span class="batch-choice-stat">STAT eligible</span>' : ''}
+            </div>
+            <button type="button" class="mini-button batch-category-add" data-action="add-category-test"
+              data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" ${selected ? 'disabled' : ''}>${selected ? '✓ Added' : '+ Add'}</button>
+          </div>`;
+        }).join('')}
+      </div>
+      ${more > 0 ? `<div class="batch-category-footer">
+        <span>Showing ${visible.length} of ${results.length}</span>
+        <button type="button" class="mini-button edit" data-action="more-category-tests" data-batch-index="${row.index}">Show ${Math.min(more, 20)} more tests</button>
+      </div>` : ''}
     </div>`;
   }
 
@@ -1457,6 +1518,22 @@
       if (trigger) els.batchResults.querySelectorAll('.batch-choice-dropdown[open]').forEach(item => {
         if (item !== trigger.closest('.batch-choice-dropdown')) item.open = false;
       });
+      return;
+    }
+    if (button.dataset.action === 'more-category-tests') {
+      const row = batchReviewRows[Number(button.dataset.batchIndex)];
+      if (!row?.category) return;
+      row.visibleCount = Math.min(row.category.results.length, (row.visibleCount || 20) + 20);
+      const card = button.closest('.batch-row');
+      if (card) card.outerHTML = renderBatchRow(row);
+      return;
+    }
+    if (button.dataset.action === 'add-category-test') {
+      const row = batchReviewRows[Number(button.dataset.batchIndex)];
+      const test = row?.category?.results.find(test => test.id === button.dataset.id);
+      if (!test || test.status === 'blocked') return;
+      if (selectedIds.includes(test.id)) return;
+      if (addSelected(test.id)) renderBatch(false);
       return;
     }
     if (button.dataset.action === 'choose-batch-test') {
