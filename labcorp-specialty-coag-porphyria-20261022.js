@@ -123,26 +123,7 @@ const additions=[
     "status": "active",
     "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/117140/thrombotic-risk-congenital"
   },
-  {
-    "id": "labcorp-144012",
-    "testCode": "144012",
-    "testName": "Hepatitis D Virus (HDV) Antibody, IgG and IgM",
-    "specimenType": "Serum",
-    "drawContainer": "SST / Gold",
-    "alternativeContainer": "Lavender EDTA plasma",
-    "transportContainer": "SST / Gold (spun)",
-    "preferredVolume": "0.5 mL serum",
-    "minimumVolume": "0.2 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temperature",
-    "stability": "Room/refrigerated/frozen 14 days",
-    "spin": "Yes",
-    "specialInstructions": "Serum OR EDTA plasma acceptable. If using lavender EDTA for plasma, centrifuge and follow laboratory transport requirements. Reactive antibody results require HDV RNA follow-up; this is not itself the RNA test.",
-    "fastingStatus": "",
-    "fastingInstructions": "",
-    "status": "active",
-    "source": "LabCorp official test directory, reviewed October 22, 2026 • https://www.labcorp.com/tests/144012/hepatitis-d-virus-hdv-antibody-igg-and-igm"
-  },
+  
   {
     "id": "labcorp-550672",
     "testCode": "550672",
