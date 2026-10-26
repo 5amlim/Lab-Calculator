@@ -46458,7 +46458,7 @@ window.SEED_TESTS = [
     "status": "active",
     "source": "Quest MASTER directory verified 2026-09-02",
     "sourceRow": 162,
-    "specialLabeling": ""
+    "specialLabeling": "HIV"
   },
   {
     "id": "quest-91445-20260915",
