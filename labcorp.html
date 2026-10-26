@@ -6,7 +6,7 @@
   <link rel="icon" href="assets/lab-favicon.svg?v=1" type="image/svg+xml">
   <title>LabCorp Lab Calculator | Specimen Collection and Processing</title>
   <meta name="description" content="LabCorp Lab Calculator: search verified LabCorp tests, calculate specimen collection and submission plans, and print handling instructions.">
-  <link rel="stylesheet" href="assets/css/styles.css?v=12.43">
+  <link rel="stylesheet" href="assets/css/styles.css?v=12.44">
   <link rel="stylesheet" href="assets/css/experience.css?v=11.93">
   <link rel="stylesheet" href="market-switch.css?v=10">
   <link rel="stylesheet" href="labcorp-theme.css?v=11">
@@ -302,6 +302,7 @@
           <div class="form-grid form-grid-compact">
             <label><span class="form-label-text">Test code <span class="required-mark" aria-hidden="true">*</span></span><input id="testCode" required placeholder="Example: 496"></label>
             <label><span class="form-label-text">Test name <span class="required-mark" aria-hidden="true">*</span></span><input id="testName" required placeholder="Exact test name"></label>
+            <label class="manual-added-by-row full-width" id="addedByInitialsRow"><span class="form-label-text">Added by (initials) <span class="required-mark" aria-hidden="true">*</span></span><input id="addedByInitials" type="text" required minlength="2" maxlength="8" pattern="[A-Za-z]{2,8}" placeholder="Example: SH" autocomplete="off" autocapitalize="characters"><small>Required for manual entries. Shown on the collection printout.</small></label>
           </div>
         </section>
 
@@ -458,7 +459,7 @@
   <script src="labcorp-quest-workbook-crosswalk-overrides.js?v=1"></script>
   <script src="assets/js/clinical-categories.js?v=1"></script>
   <script src="labcorp-microbiology-infectious-20261025.js?v=1"></script>
-  <script src="labcorp-app.js?v=63"></script>
+  <script src="labcorp-app.js?v=64"></script>
   <script src="labcorp-crosswalk-ui.js?v=2"></script>
   <script src="assets/js/portal-selects.js?v=11.86"></script>
   <script src="assets/js/lab-select.js?v=2"></script>
