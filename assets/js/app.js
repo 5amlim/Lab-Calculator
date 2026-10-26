@@ -113,7 +113,7 @@
     urineCultureControl: $('urineCultureModeControl'), urineCultureModeOptions: Array.from(document.querySelectorAll('[data-urine-culture-mode]')),
     printSheet: $('printSheet'), testDialog: $('testDialog'), testForm: $('testForm'), dialogTitle: $('dialogTitle'),
     closeDialogButton: $('closeDialogButton'), cancelDialogButton: $('cancelDialogButton'), deleteTestButton: $('deleteTestButton'),
-    saveTestButton: $('saveTestButton'), testId: $('testId'), testCode: $('testCode'), testName: $('testName'), specimenType: $('specimenType'),
+    saveTestButton: $('saveTestButton'), testId: $('testId'), testCode: $('testCode'), testName: $('testName'), addedByInitials: $('addedByInitials'), addedByInitialsRow: $('addedByInitialsRow'), specimenType: $('specimenType'),
     drawContainer: $('drawContainer'), customDrawContainer: $('customDrawContainer'), customDrawContainerRow: $('customDrawContainerRow'), alternativeContainer: $('alternativeContainer'), collectionCount: $('collectionCount'), submissionCount: $('submissionCount'), transportContainer: $('transportContainer'), customTransportContainer: $('customTransportContainer'), customTransportContainerRow: $('customTransportContainerRow'),
     preferredVolume: $('preferredVolume'), minimumVolume: $('minimumVolume'), transportTemperature: $('transportTemperature'),
     transportTemperatureRaw: $('transportTemperatureRaw'), stability: $('stability'), spin: $('spin'),
@@ -519,6 +519,7 @@
       id: String(record.id || `custom-${Date.now()}-${index}`),
       testCode: String(record.testCode ?? record[['que', 'stCode'].join('')] ?? '').trim(),
       testName: String(record.testName ?? '').trim(),
+      addedByInitials: String(record.addedByInitials || '').trim().toUpperCase(),
       specimenType,
       drawContainer,
       alternativeContainer: cleanCollectionContainer(String(record.alternativeContainer || '')),
@@ -1477,7 +1478,7 @@
     const blocked = test.status === 'blocked';
     return `<tr class="${selected ? 'is-selected' : ''}">
       <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
-      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${isStatEligible(test) ? `<span class="library-stat-eligible${statSelectedIds.includes(test.id) ? ' selected' : ''}" title="Eligible on the selected receiving laboratory's STAT menu. Confirm current acceptance before sending.">${statSelectedIds.includes(test.id) ? 'STAT selected' : 'STAT eligible'}</span>` : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
+      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${manualLibraryTag(test)}${isStatEligible(test) ? `<span class="library-stat-eligible${statSelectedIds.includes(test.id) ? ' selected' : ''}" title="Eligible on the selected receiving laboratory's STAT menu. Confirm current acceptance before sending.">${statSelectedIds.includes(test.id) ? 'STAT selected' : 'STAT eligible'}</span>` : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
       <td data-label="Container">${menuContainerBadges(test)}<div class="subtext specimen-line">${requiredSpecimenBadges(test)}</div></td>
       <td data-label="Temperature"><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td>
       <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(menuVolumeText(test, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(menuVolumeText(test, 'minimum') || '—')}</div></td>
@@ -2044,7 +2045,7 @@
     els.selectedList.innerHTML = tests.map(test => `
       <article class="selected-card${test.isStat ? ' is-stat' : ''}">
         <div class="selected-card-top">
-          <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</div><div class="subtext specimen-line">${requiredSpecimenBadges(test)} <span>·</span> <span class="preferred-volume-inline">${escapeHtml(combinedVolumeText(test, 'preferred') || 'verify')}</span> <span>· Minimum ${escapeHtml(combinedVolumeText(test, 'minimum') || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}</div>
+          <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}${manualLibraryTag(test)}</div><div class="subtext specimen-line">${requiredSpecimenBadges(test)} <span>·</span> <span class="preferred-volume-inline">${escapeHtml(combinedVolumeText(test, 'preferred') || 'verify')}</span> <span>· Minimum ${escapeHtml(combinedVolumeText(test, 'minimum') || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}</div>
           <div>${isStatEligible(test) ? `<button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Mark STAT'}</button>` : ''}<a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove selected-card-delete" data-action="remove" data-id="${escapeAttr(test.id)}" type="button" aria-label="Delete ${escapeAttr(test.testName)}">Delete</button></div>
         </div>
         <div class="selected-details">
@@ -2484,6 +2485,11 @@
     els.testId.value = isExisting ? record.id : '';
     els.testCode.value = record.testCode;
     els.testName.value = record.testName;
+    const requireAddedBy = !isExisting || isManuallyAddedTest(record);
+    els.addedByInitialsRow.classList.toggle('hidden', !requireAddedBy);
+    els.addedByInitials.required = requireAddedBy;
+    els.addedByInitials.disabled = !requireAddedBy;
+    els.addedByInitials.value = requireAddedBy ? (record.addedByInitials || '') : '';
     if (isExisting) setSelectValue(els.specimenType, record.specimenType, 'Other / Verify');
     else els.specimenType.value = '';
     setDrawContainerValue(record.drawContainer === 'Verify Official Instructions' && !isExisting ? '' : record.drawContainer);
@@ -2525,6 +2531,7 @@
       id,
       testCode: els.testCode.value,
       testName: els.testName.value,
+      addedByInitials: els.addedByInitials.disabled ? (existingIndex >= 0 ? database[existingIndex].addedByInitials : '') : els.addedByInitials.value.trim().toUpperCase(),
       specimenType: els.specimenType.value,
       drawContainer: selectedDrawContainer(),
       alternativeContainer: els.alternativeContainer.value,
@@ -2560,6 +2567,11 @@
     if (els.transportContainer.value === '__other__' && !els.customTransportContainer.value.trim()) {
       showToast('Enter the custom transport container before saving.');
       els.customTransportContainer.focus();
+      return;
+    }
+    if (els.addedByInitials.required && !/^[A-Za-z]{2,8}$/.test(els.addedByInitials.value.trim())) {
+      showToast('Enter the initials of the person adding this test (2–8 letters).');
+      els.addedByInitials.focus();
       return;
     }
     const missingField = requiredFields.find(field => !field.value);
@@ -3348,7 +3360,8 @@
           </div>` : ''}
           <div class="print-sst-volume-action">Verify specimen volume with receiving lab.</div>
         </div>` : ''}
-        <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${uniqueTests(item.tests).map(test => `<li${item.className === 'tube-sst' && singleSstSpecimenVolumeLevel(test) ? ` class="is-volume-warning-test is-volume-${singleSstSpecimenVolumeLevel(test)}"` : ''}><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)}${test.isStat ? '<span class="print-collection-stat-label"> · STAT</span>' : ''}</li>`).join('')}</ul></div>
+        <div class="print-for-tests"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul>${uniqueTests(item.tests).map(test => `<li${item.className === 'tube-sst' && singleSstSpecimenVolumeLevel(test) ? ` class="is-volume-warning-test is-volume-${singleSstSpecimenVolumeLevel(test)}"` : ''}><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)}${test.isStat ? '<span class="print-collection-stat-label"> · STAT</span>' : ''}${manualTestInlineTag(test)}</li>`).join('')}</ul></div>
+         ${printManualCardWarning(item.tests)}
       </article>`;
     });
     // A printed page can start between rows, never halfway through either
@@ -4036,8 +4049,8 @@
 
   function testReferences(tests, statBag = false) {
     return uniqueTests(tests).map(test => statBag
-      ? `<li><span class="print-bag-stat-ref"><strong>${escapeHtml(displayCode(test))}</strong><span class="print-bag-stat-name">${escapeHtml(test.testName)}</span><span class="print-bag-test-stat">· STAT</span></span></li>`
-      : `<li><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)}</li>`).join('');
+      ? `<li><span class="print-bag-stat-ref"><strong>${escapeHtml(displayCode(test))}</strong><span class="print-bag-stat-name">${escapeHtml(test.testName)}</span><span class="print-bag-test-stat">· STAT</span></span>${manualTestInlineTag(test)}</li>`
+      : `<li><strong>${escapeHtml(displayCode(test))}</strong> ${escapeHtml(test.testName)}${manualTestInlineTag(test)}</li>`).join('');
   }
 
   function derivedSpecimenSourceLabel(test, item) {
@@ -4772,7 +4785,8 @@
               <div class="print-for-tests${uniqueTests(item.tests).length > 8 ? ' is-bag-dense' : ''}"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul${uniqueTests(item.tests).length > 8 ? ` style="--bag-test-rows:${Math.ceil(uniqueTests(item.tests).length / 2)}"` : ''}>${testReferences(item.tests, bag.isStat)}</ul></div>
               ${contents.length > 1 ? `<div class="print-bag-item-progress"><strong>${itemIndex + 1 < contents.length ? 'MORE IN THIS BAG ↓' : 'LAST GROUP · CHECK END OF BAG'}</strong></div>` : ''}
             </div>`).join('')}</div>
-            <div class="print-bag-end" aria-label="End of QUEST bag ${bagNumber} of ${bags.length}">
+            ${printManualCardWarning(bag.tests)}
+             <div class="print-bag-end" aria-label="End of QUEST bag ${bagNumber} of ${bags.length}">
               <div class="print-bag-end-top"><span class="print-bag-end-lab">QUEST</span><strong>END OF BAG</strong><span class="print-bag-end-temp">${escapeHtml(printBagTemperatureLabel(bag, true))} · ${bag.isStat ? 'STAT' : 'ROUTINE'}</span></div>
               <div class="print-bag-end-bottom"><strong>BAG ${bagNumber} OF ${bags.length}</strong><span>${totalContainers} ${totalContainers === 1 ? 'CONTAINER' : 'CONTAINERS'}</span></div>
               ${bagNumber < bags.length ? `<div class="print-bag-next"><span aria-hidden="true">↳</span> MORE BAGS FOLLOW · CONTINUE TO BAG ${bagNumber + 1} OF ${bags.length} →</div>` : ''}
@@ -4979,13 +4993,35 @@
     downloadBlob(csv, `lab-collection-summary-${isoDate()}.csv`, 'text/csv;charset=utf-8');
   }
 
+  function manualEntryOwner(test) {
+    return String(test.addedByInitials || '').trim().toUpperCase() || 'not recorded';
+  }
+
+  function manualTestInlineTag(test) {
+    return isManuallyAddedTest(test)
+      ? `<span class="print-manual-inline"> · MANUAL · Added by ${escapeHtml(manualEntryOwner(test))}</span>`
+      : '';
+  }
+
+  function manualLibraryTag(test) {
+    return isManuallyAddedTest(test)
+      ? `<span class="manual-added-by-label">Manual · Added by ${escapeHtml(manualEntryOwner(test))}</span>`
+      : '';
+  }
+
+  function printManualCardWarning(tests) {
+    const manualTests = uniqueTests(tests || []).filter(isManuallyAddedTest);
+    if (!manualTests.length) return '';
+    return `<div class="print-manual-card-warning"><strong>Manually added ${manualTests.length === 1 ? 'test' : 'tests'}:</strong> Confirm code, collection and submission containers, counts, and handling in the official directory before use.</div>`;
+  }
+
   function isManuallyAddedTest(test) {
     return String(test.id || '').startsWith('custom-') || String(test.source || '') === 'Custom entry';
   }
 
   function printManualTestNote(test) {
     return isManuallyAddedTest(test)
-      ? '<span class="print-manual-verification">Manually added · Confirm in official directory</span>'
+      ? `<span class="print-manual-verification">Manually added · Added by ${escapeHtml(manualEntryOwner(test))} · Confirm in official directory</span>`
       : '';
   }
 
