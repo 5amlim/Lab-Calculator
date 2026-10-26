@@ -4906,3 +4906,27 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   font-weight: 700;
   line-height: 1.25;
 }
+
+/* Staff attribution for manually added tests, including legacy records. */
+#testForm .manual-added-by-row > input { max-width: 210px; text-transform: uppercase; letter-spacing: .045em; }
+#testForm .manual-added-by-row > small { color: #647780; font-size: 10px; font-weight: 500; line-height: 1.35; }
+.manual-added-by-label { display: inline-block; margin-left: 6px; font-size: .76em; color: #85602a; font-weight: 700; white-space: normal; }
+.print-sheet .print-manual-inline { font-size: 7px; font-weight: 750; color: #88551d; white-space: normal; }
+.print-sheet .print-manual-card-warning {
+  margin: 5px 0 4px;
+  border-left: 3px solid #bd8a3d;
+  background: #fff9eb !important;
+  color: #684d23 !important;
+  padding: 4px 6px;
+  font-size: 7.4px;
+  line-height: 1.32;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.print-sheet .print-manual-card-warning strong { font-weight: 850; }
+@media print {
+  .print-sheet .print-manual-card-warning {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
