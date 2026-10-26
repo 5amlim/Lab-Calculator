@@ -78,7 +78,7 @@
     printSheet: $('printSheet'), testDialog: $('testDialog'), testForm: $('testForm'), dialogTitle: $('dialogTitle'),
     closeDialogButton: $('closeDialogButton'), cancelDialogButton: $('cancelDialogButton'), deleteTestButton: $('deleteTestButton'),
     saveTestButton: $('saveTestButton'), testId: $('testId'), testCode: $('testCode'), testName: $('testName'), specimenType: $('specimenType'),
-    drawContainer: $('drawContainer'), customDrawContainer: $('customDrawContainer'), customDrawContainerRow: $('customDrawContainerRow'), alternativeContainer: $('alternativeContainer'), transportContainer: $('transportContainer'), customTransportContainer: $('customTransportContainer'), customTransportContainerRow: $('customTransportContainerRow'),
+    drawContainer: $('drawContainer'), customDrawContainer: $('customDrawContainer'), customDrawContainerRow: $('customDrawContainerRow'), alternativeContainer: $('alternativeContainer'), collectionCount: $('collectionCount'), submissionCount: $('submissionCount'), transportContainer: $('transportContainer'), customTransportContainer: $('customTransportContainer'), customTransportContainerRow: $('customTransportContainerRow'),
     preferredVolume: $('preferredVolume'), minimumVolume: $('minimumVolume'), transportTemperature: $('transportTemperature'),
     transportTemperatureRaw: $('transportTemperatureRaw'), stability: $('stability'), spin: $('spin'),
     specialLabeling: $('specialLabeling'), specialInstructions: $('specialInstructions'), blockedStatus: $('blockedStatus'), addToSummary: $('addToSummary'),
@@ -2472,6 +2472,8 @@
     else els.specimenType.value = '';
     setDrawContainerValue(record.drawContainer === 'Verify Official Instructions' && !isExisting ? '' : record.drawContainer);
     els.alternativeContainer.value = record.alternativeContainer;
+    els.collectionCount.value = record.collectionCount || 1;
+    els.submissionCount.value = record.submissionCount || 1;
     setTransportContainerValue(record.transportContainer);
     els.preferredVolume.value = record.preferredVolume;
     els.minimumVolume.value = record.minimumVolume;
@@ -2511,6 +2513,8 @@
       drawContainer: selectedDrawContainer(),
       alternativeContainer: els.alternativeContainer.value,
       additionalDrawRequirements: existingIndex >= 0 ? database[existingIndex].additionalDrawRequirements : [],
+      collectionCount: Number(els.collectionCount.value || 1),
+      submissionCount: Number(els.submissionCount.value || 1),
       transportContainer: selectedTransportContainer(),
       preferredVolume: els.preferredVolume.value,
       minimumVolume: els.minimumVolume.value,
@@ -2661,6 +2665,9 @@
   }
 
   function explicitSstTubeCount(test) {
+    // An entered draw count takes priority over counts inferred from free text.
+    const enteredCount = Math.floor(Number(test.collectionCount) || 1);
+    if (enteredCount > 1) return enteredCount;
     const text = `${test.drawContainer || ''} ${test.preferredVolume || ''} ${test.specialInstructions || ''}`.toLowerCase();
     const numeric = text.match(/\b(\d+)\s+(?:full\s+)?(?:gold\s*\/\s*)?sst\s+tubes?\b/);
     if (numeric) return Number(numeric[1]);
@@ -5032,13 +5039,14 @@
         <div class="print-header-identity"><h1 class="print-title">LabCorp Collection Summary</h1><div class="print-subtitle">Send-out workflow</div></div>
         <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<span class="print-selected-count">${tests.length} ${tests.length === 1 ? 'test' : 'tests'}</span><span class="print-lab-destination">RECEIVING LAB: LABCORP</span></div>
       </div>
+      ${tests.some(isManuallyAddedTest) ? '<div class="print-manual-test-notice"><strong>Manually added test:</strong> Confirm the test code, specimen, collection tubes, and submission requirements in the official lab directory before collecting.</div>' : ''}
       ${printCollectionSubmissionPlan(tests)}
       <section class="print-detail-table-section${tests.length <= 3 ? ' print-brief-order' : ''}">
       ${printCompactAlertSummary(tests, alerts)}
       <table class="print-table">
         <colgroup><col style="width:6%"><col style="width:15%"><col style="width:14%"><col style="width:8%"><col style="width:8%"><col style="width:6%"><col style="width:43%"></colgroup>
         <thead><tr class="print-detail-title-row"><th colspan="7" class="print-detail-title-cell"><div class="print-detail-lab-heading"><strong>Test details</strong><span class="print-detail-lab-badge">LABCORP</span></div></th></tr><tr><th>Code</th><th>Test</th><th>Container / specimen</th><th>Temperature</th><th>Volume</th><th>Stability</th><th>Notes</th></tr></thead>
-        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><div class="print-test-name-stack${test.testName.length > 48 ? ' print-long-test-name' : ''}"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}</div></td><td>${printDetailContainerPath(test)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">${escapeHtml(printDetailVolumeText(test, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(printDetailVolumeText(test, 'minimum') || '—')}</span></td><td><span class="print-stability-period">${escapeHtml(printStabilityForTemperature(test))}</span></td><td>${printDetailHandling(test)}</td></tr>`).join('')}</tbody>
+        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><div class="print-test-name-stack${test.testName.length > 48 ? ' print-long-test-name' : ''}"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}${printManualTestNote(test)}</div></td><td>${printDetailContainerPath(test)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">${escapeHtml(printDetailVolumeText(test, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(printDetailVolumeText(test, 'minimum') || '—')}</span></td><td><span class="print-stability-period">${escapeHtml(printStabilityForTemperature(test))}</span></td><td>${printDetailHandling(test)}</td></tr>`).join('')}</tbody>
       </table>
       </section>
       ${printNotesFooter()}
@@ -5117,6 +5125,16 @@
       : [test.transportContainer, ...additionalDrawRequirements(test).map(item => item.transportContainer)].filter(Boolean).join(' + ')),combinedVolumeText(test, 'preferred'),combinedVolumeText(test, 'minimum'),test.transportTemperature,test.transportTemperatureRaw,test.stability,test.spin,test.specialLabeling,test.specialInstructions]);
     const csv = [headers, ...rows].map(row => row.map(csvCell).join(',')).join('\r\n');
     downloadBlob(csv, `labcorp-collection-summary-${isoDate()}.csv`, 'text/csv;charset=utf-8');
+  }
+
+  function isManuallyAddedTest(test) {
+    return String(test.id || '').startsWith('custom-') || String(test.source || '') === 'Custom entry';
+  }
+
+  function printManualTestNote(test) {
+    return isManuallyAddedTest(test)
+      ? '<span class="print-manual-verification">Manually added · Confirm in official directory</span>'
+      : '';
   }
 
   function displayCode(test) {
