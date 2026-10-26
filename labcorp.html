@@ -6,7 +6,7 @@
   <link rel="icon" href="assets/lab-favicon.svg?v=1" type="image/svg+xml">
   <title>LabCorp Lab Calculator | Specimen Collection and Processing</title>
   <meta name="description" content="LabCorp Lab Calculator: search verified LabCorp tests, calculate specimen collection and submission plans, and print handling instructions.">
-  <link rel="stylesheet" href="assets/css/styles.css?v=12.42">
+  <link rel="stylesheet" href="assets/css/styles.css?v=12.43">
   <link rel="stylesheet" href="assets/css/experience.css?v=11.93">
   <link rel="stylesheet" href="market-switch.css?v=10">
   <link rel="stylesheet" href="labcorp-theme.css?v=11">
@@ -375,6 +375,7 @@
               <option value="__other__">Other / manually type</option>
             </select></label>
             <label id="customTransportContainerRow" class="custom-draw-container-row full-width hidden"><span class="form-label-text">Custom transport container <span class="required-mark" aria-hidden="true">*</span></span><input id="customTransportContainer" disabled placeholder="Enter the transport container exactly as specified" autocomplete="off"></label>
+            <div class="tube-count-hint full-width" role="note">Need more than one draw or submission tube? Set the quantities under <strong>Optional details</strong> below.</div>
             <label><span class="form-label-text">Transport temperature <span class="required-mark" aria-hidden="true">*</span></span><select id="transportTemperature" required>
               <option value="">Choose a transport temperature</option><option>Room Temperature</option><option>Refrigerated</option><option>Frozen</option><option>Room / Refrigerated</option><option>Mixed</option><option>Not specified</option>
             </select></label>
@@ -388,6 +389,8 @@
             <small>Volumes, stability, special handling, and alternatives</small>
           </summary>
           <div class="form-grid form-grid-compact optional-details-grid">
+            <label>Draw containers needed <span class="optional">(default 1)</span><input id="collectionCount" type="number" min="1" step="1" inputmode="numeric" value="1"></label>
+            <label>Submission containers needed <span class="optional">(default 1)</span><input id="submissionCount" type="number" min="1" step="1" inputmode="numeric" value="1"></label>
             <label>Alternative container<input id="alternativeContainer" placeholder="Optional alternative"></label>
             <label>Preferred volume<input id="preferredVolume" placeholder="Example: 1 mL serum"></label>
             <label>Minimum volume<input id="minimumVolume" placeholder="Example: 0.5 mL"></label>
@@ -455,7 +458,7 @@
   <script src="labcorp-quest-workbook-crosswalk-overrides.js?v=1"></script>
   <script src="assets/js/clinical-categories.js?v=1"></script>
   <script src="labcorp-microbiology-infectious-20261025.js?v=1"></script>
-  <script src="labcorp-app.js?v=62"></script>
+  <script src="labcorp-app.js?v=63"></script>
   <script src="labcorp-crosswalk-ui.js?v=2"></script>
   <script src="assets/js/portal-selects.js?v=11.86"></script>
   <script src="assets/js/lab-select.js?v=2"></script>
