@@ -1804,12 +1804,29 @@
       } else if (child.tagName === 'OPTION') addOption(child);
     }
     function addOption(opt, isNested = false) {
+      const info = STAT_AREAS[opt.value];
+      const count = info ? new Set(info.codes).size : 0;
+      const isPlaceholder = opt.value === 'unselected';
       const row = document.createElement('button');
       row.type = 'button';
-      row.className = 'stat-area-option' + (isNested ? ' stat-area-option-nested' : '');
+      row.className = 'stat-area-option'
+        + (isNested ? ' stat-area-option-nested' : '')
+        + (isPlaceholder ? ' stat-area-option-placeholder' : '')
+        + (!count && !isPlaceholder ? ' is-empty' : '');
       row.setAttribute('role', 'option');
       row.dataset.statArea = opt.value;
-      row.textContent = opt.textContent;
+      const name = document.createElement('span');
+      name.className = 'stat-area-option-label';
+      name.textContent = opt.textContent;
+      row.appendChild(name);
+      if (!isPlaceholder) {
+        const badge = document.createElement('span');
+        badge.className = 'stat-area-count';
+        badge.textContent = count ? `${count} ${count === 1 ? 'test' : 'tests'}` : 'No menu';
+        badge.setAttribute('aria-hidden', 'true');
+        row.setAttribute('aria-label', `${opt.textContent}, ${count} listed STAT ${count === 1 ? 'test' : 'tests'}`);
+        row.appendChild(badge);
+      }
       fragment.appendChild(row);
     }
     panel.replaceChildren(fragment);
@@ -1862,7 +1879,13 @@
   function syncStatAreaPicker() {
     if (!els.statAreaSelect || !els.statAreaButtonLabel) return;
     els.statAreaButtonLabel.textContent = els.statAreaSelect.selectedOptions[0]?.textContent || 'Select receiving lab';
-    els.statAreaButton.setAttribute('aria-label', `STAT receiving lab: ${els.statAreaButtonLabel.textContent}`);
+    const count = new Set(STAT_AREAS[els.statAreaSelect.value]?.codes || []).size;
+    const countBadge = document.getElementById('statAreaButtonCount');
+    if (countBadge) {
+      countBadge.textContent = `${count} ${count === 1 ? 'test' : 'tests'}`;
+      countBadge.hidden = !count;
+    }
+    els.statAreaButton.setAttribute('aria-label', `STAT receiving lab: ${els.statAreaButtonLabel.textContent}, ${count} listed STAT ${count === 1 ? 'test' : 'tests'}`);
     els.statAreaOptions?.querySelectorAll('.stat-area-option').forEach(option => {
       const selected = option.dataset.statArea === els.statAreaSelect.value;
       option.setAttribute('aria-selected', String(selected));
@@ -1880,7 +1903,30 @@
     const removed = reconcileStatWithArea();
     renderOrder();
     renderLibrary();
+    refreshBatchStatEligibility();
     if (removed) showToast(statAreaResetNotice);
+  }
+
+  // Refresh the already-reviewed matches after a STAT lab change, without
+  // repeating the search or losing an explicitly chosen alternate test.
+  function refreshBatchStatEligibility() {
+    if (!batchReviewRows.length || !els.batchResults || els.batchResults.classList.contains('hidden')) return;
+    const grid = els.batchResults.querySelector('.batch-grid');
+    if (!grid) return;
+    const openMenus = [...grid.querySelectorAll('.batch-choice-dropdown.is-open')].map(dropdown => ({
+      index: dropdown.closest('.batch-row')?.dataset.batchIndex,
+      scrollTop: dropdown.querySelector('.batch-choice-menu')?.scrollTop || 0
+    }));
+    grid.innerHTML = batchReviewRows.map(renderBatchRow).join('');
+    // Previously opened Routine/STAT action menus close because the available
+    // priorities may have changed. Keep test-choice lists open for continuity.
+    openMenus.forEach(({index, scrollTop}) => {
+      const dropdown = [...grid.querySelectorAll('.batch-row')].find(row => row.dataset.batchIndex === index)?.querySelector('.batch-choice-dropdown');
+      if (!dropdown) return;
+      setBatchChoiceOpen(dropdown, true);
+      const menu = dropdown.querySelector('.batch-choice-menu');
+      if (menu) menu.scrollTop = scrollTop;
+    });
   }
 
   function renderStatArea() {
