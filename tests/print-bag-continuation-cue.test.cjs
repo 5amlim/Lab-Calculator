@@ -11,8 +11,8 @@ for (const file of ['assets/js/app.js', 'labcorp-app.js']) {
     file + ': use a chevron rather than a corner arrow');
   assert.match(script, /topbar\?\.remove\(\);\s*header\?\.remove\(\);/,
     file + ': continuation must not look like a new bag');
-  assert.match(script, /\$\{printManualCardWarning\(item\.tests\)\}/,
-    file + ': verification must live in the tube card');
+  assert.match(script, /printBagItemProgress\(item, itemIndex, contents\)/,
+    file + ': manual verification must share the progress line');
   assert.doesNotMatch(script, /\$\{printManualCardWarning\(bag\.tests\)\}/,
     file + ': do not show a whole-bag manual warning');
   assert.doesNotMatch(script, /sliceCard\.querySelector\('\.print-manual-card-warning'\)\?\.remove\(\)/,
@@ -27,8 +27,8 @@ assert.match(css, /\.print-bag-row > \.print-bag-card\.bag-has-more[^}]*?border-
   'An unfinished bag must not have a bottom border');
 assert.match(css, /\.print-bag-row > \.print-bag-card\.bag-continued[^}]*?border-top: 0 !important;/,
   'A continuation must not have a new top border');
-assert.match(css, /\.print-bag-card \.print-submit-item > \.print-manual-card-warning/,
-  'Manual verification should be inside its submission item');
+assert.match(css, /\.print-bag-item-progress \.print-bag-manual-flag/,
+  'Manual verification should appear left-aligned in the item progress row');
 assert.match(css, /\.print-bag-card > \.print-bag-end,[\s\S]*?margin-top: auto !important/,
   'The completed bag footer stays at the bottom');
-console.log('PASS: paired bags use open continuation borders, chevrons, and per-tube manual verification');
+console.log('PASS: paired bags use open continuation borders, chevrons, and inline manual verification');

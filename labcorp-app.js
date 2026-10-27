@@ -4842,12 +4842,10 @@
   // Print-only visual grouping. Physical transport allocations, source tube
   // counts, and labeling remain separate within each displayed subgroup.
   function isPrintableStandardSstSerumAliquot(item) {
-  if (!item || item.originalTube || item.count < 1
-      || item.className !== 'tube-transport tube-transport-green-top'
+  if (!item || item.originalTube || item.count < 1 || item.className !== 'tube-transport tube-transport-green-top'
       || !String(item.key || '').includes('|standard-serum-transport|')) return false;
   const tests = uniqueTests(item.tests || []);
-  return tests.length > 0 && tests.every(test =>
-    isSstDraw(test)
+  return tests.length > 0 && tests.every(test => isSstDraw(test)
     && normalizeSpecimenType(test.specimenType).toLowerCase() === 'serum'
     && !isOriginalContainerSubmission(test)
     && splitSubmissionContainers(test).some(container => container.key === item.key));
@@ -4856,39 +4854,49 @@
   function printSstSerumTransportGroupContents(contents) {
   const compatible = contents.filter(isPrintableStandardSstSerumAliquot);
   if (compatible.length < 2) return contents;
-  const originalFirst = compatible[0];
-  const joined = {
-    ...originalFirst,
-    count: compatible.reduce((sum, item) => sum + item.count, 0),
-    tests: uniqueTests(compatible.flatMap(item => item.tests || [])),
-    printSubgroups: compatible
-  };
-  return contents.flatMap(item => {
-    if (item === originalFirst) return [joined];
-    return compatible.includes(item) ? [] : [item];
+  const groups = new Map();
+  compatible.forEach(item => {
+    const process = (String(item.key).match(/\|spin-([^|]+)/) || [, 'verify'])[1];
+    if (!groups.has(process)) groups.set(process, []);
+    groups.get(process).push(item);
   });
+  const replacements = new Map();
+  groups.forEach(parts => {
+    if (parts.length < 2) return;
+    const first = parts[0], overrides = new Map();
+    parts.forEach(part => {
+      if (!part.sourceCountOverrides || typeof part.sourceCountOverrides.forEach !== 'function') return;
+      part.sourceCountOverrides.forEach((count, key) =>
+        overrides.set(key, (overrides.get(key) || 0) + count));
+    });
+    const dedicated = parts.filter(part => String(part.key).includes('|dedicated-'));
+    const regularCount = parts.filter(part => !String(part.key).includes('|dedicated-'))
+      .reduce((sum, part) => sum + part.count, 0);
+    const dedicatedNotes = dedicated.map(part =>
+      String(part.count) + ' for ' + uniqueTests(part.tests).map(displayCode).join(', '));
+    replacements.set(first, {
+      ...first,
+      count: parts.reduce((sum, part) => sum + part.count, 0),
+      tests: uniqueTests(parts.flatMap(part => part.tests || [])),
+      sourceCountOverrides: overrides.size ? overrides : first.sourceCountOverrides,
+      printAllocationNote: dedicatedNotes.length
+        ? 'Keep separate: ' + dedicatedNotes.join(' · ')
+          + (regularCount ? ' · ' + regularCount + ' for other tests' : '')
+        : ''
+    });
+    parts.slice(1).forEach(part => replacements.set(part, null));
+  });
+  return contents.flatMap(item => replacements.has(item)
+    ? (replacements.get(item) ? [replacements.get(item)] : []) : [item]);
 }
 
-  function printSstSerumTransportSubgroups(item, statBag) {
-  return `<div class="print-serum-subgroups">
-    <div class="print-serum-group-note">Keep each subgroup's tube allocation and labeling separate.</div>
-    ${item.printSubgroups.map(part => {
-      const tests = uniqueTests(part.tests || []);
-      const manual = tests.some(isManuallyAddedTest);
-      const label = manual ? 'Manual entry · separate tubes'
-        : part.pooledSerumPlasmaTransport ? 'Standard pooled tests' : 'Separate submission';
-      return `<div class="print-serum-subgroup">
-        <div class="print-serum-subgroup-heading"><strong>${part.count} ${part.count === 1 ? 'tube' : 'tubes'}</strong><span>${escapeHtml(label)}</span></div>
-        ${printSubmissionItemDetail(part)}
-        ${printLabelingNotes(part)}
-        <div class="print-for-tests${tests.length > 8 ? ' is-bag-dense' : ''}">
-          <b>For ${part.tests.length} ${part.tests.length === 1 ? 'test' : 'tests'}:</b>
-          <ul${tests.length > 8 ? ` style="--bag-test-rows:${Math.ceil(tests.length / 2)}"` : ''}>${testReferences(part.tests, statBag)}</ul>
-        </div>
-        ${printManualCardWarning(part.tests)}
-      </div>`;
-    }).join('')}
-  </div>`;
+  function printBagItemProgress(item, itemIndex, contents) {
+  const manual = uniqueTests(item.tests || []).some(isManuallyAddedTest);
+  if (!manual && contents.length < 2) return '';
+  const next = itemIndex + 1 < contents.length ? 'MORE IN THIS BAG ↓' : 'LAST GROUP · CHECK END OF BAG';
+  return '<div class="print-bag-item-progress' + (manual ? ' has-manual-entry' : '') + '">'
+    + (manual ? '<span class="print-bag-manual-flag">MANUAL ENTRY · Verify in lab directory</span>' : '')
+    + (contents.length > 1 ? '<strong>' + next + '</strong>' : '') + '</div>';
 }
 
   function printCollectionSubmissionPlan(tests) {
@@ -4982,12 +4990,11 @@
             <div class="print-bag-card-header"><div><div class="print-bag-title">${printBagTemperatureBadge(bag)}<strong>${escapeHtml(bagName)}</strong></div><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-header-right"><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div></div>
             <div class="print-submit-content">${contents.map((item, itemIndex) => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
               <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}"><span class="print-submit-container-name">${escapeHtml(item.originalTube && item.key === 'sst-spun' ? (selectedSstIsTiger() ? 'Tiger SST (Spun)' : 'Gold SST (Spun)') : item.label)}</span></span>${printSstTigerBadge(item)}${printBagSpecimenBadge(item)}</div>
-              ${item.printSubgroups ? printSstSerumTransportSubgroups(item, bag.isStat) : `
               ${printSubmissionItemDetail(item)}
               ${printLabelingNotes(item)}
+              ${item.printAllocationNote ? `<div class="print-serum-allocation-note">${escapeHtml(item.printAllocationNote)}</div>` : ''}
               <div class="print-for-tests${uniqueTests(item.tests).length > 8 ? ' is-bag-dense' : ''}"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul${uniqueTests(item.tests).length > 8 ? ` style="--bag-test-rows:${Math.ceil(uniqueTests(item.tests).length / 2)}"` : ''}>${testReferences(item.tests, bag.isStat)}</ul></div>
-              ${printManualCardWarning(item.tests)}`}
-              ${contents.length > 1 ? `<div class="print-bag-item-progress"><strong>${itemIndex + 1 < contents.length ? 'MORE IN THIS BAG ↓' : 'LAST GROUP · CHECK END OF BAG'}</strong></div>` : ''}
+              ${printBagItemProgress(item, itemIndex, contents)}
             </div>`).join('')}</div>
              <div class="print-bag-end" aria-label="End of LABCORP bag ${bagNumber} of ${bags.length}">
               <div class="print-bag-end-top"><span class="print-bag-end-lab">LABCORP</span><strong>END OF BAG</strong><span class="print-bag-end-temp">${escapeHtml(printBagTemperatureLabel(bag, true))} · ${bag.isStat ? 'STAT' : 'ROUTINE'}</span></div>
