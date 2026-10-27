@@ -106,7 +106,10 @@
         <select id="statAreaSelect" aria-label="LabCorp STAT receiving area" hidden tabindex="-1" aria-hidden="true">
           <option value="unselected">Select receiving area</option>
           <option value="socal">Southern California</option>
-          <option value="norcal">Northern California</option>
+          <optgroup label="Northern California">
+            <option value="norcal">Other Northern California labs (unverified)</option>
+            <option value="norcal_san_leandro">San Leandro</option>
+          </optgroup>
           <option value="ny">New York</option>
           <option value="fl">Florida</option>
           <option value="other">Other service area</option>
@@ -459,7 +462,7 @@
   <script src="labcorp-quest-workbook-crosswalk-overrides.js?v=1"></script>
   <script src="assets/js/clinical-categories.js?v=1"></script>
   <script src="labcorp-microbiology-infectious-20261025.js?v=1"></script>
-  <script src="labcorp-app.js?v=76"></script>
+  <script src="labcorp-app.js?v=77"></script>
   <script src="labcorp-crosswalk-ui.js?v=2"></script>
   <script src="assets/js/portal-selects.js?v=11.86"></script>
   <script src="assets/js/lab-select.js?v=2"></script>
