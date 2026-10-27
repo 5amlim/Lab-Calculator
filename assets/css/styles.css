@@ -4930,3 +4930,71 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     print-color-adjust: exact;
   }
 }
+
+
+/* Paired bag print pagination. WebKit must not split the two grid cells onto
+   different sheets: each short row is atomic, with a matching card height.
+   Long bags are rendered as short continuation rows by the print JS. */
+@media print {
+  .print-sheet .print-bag-pair-keep,
+  html.mobile-print .print-sheet .print-bag-pair-keep {
+    display: inline-block !important;
+    width: 100% !important;
+    box-sizing: border-box;
+    vertical-align: top;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    -webkit-column-break-inside: avoid !important;
+  }
+  .print-sheet .print-bag-pair-keep > .print-bag-row,
+  html.mobile-print .print-sheet .print-bag-pair-keep > .print-bag-row {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    -webkit-column-break-inside: avoid !important;
+  }
+  .print-sheet .print-bag-row > .print-bag-card,
+  html.mobile-print .print-sheet .print-bag-row > .print-bag-card {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-self: stretch !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    box-sizing: border-box;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  .print-sheet .print-bag-card > .print-bag-opening,
+  .print-sheet .print-bag-card > .print-submit-content {
+    flex: 0 0 auto;
+  }
+  .print-sheet .print-bag-card > .print-bag-end,
+  html.mobile-print .print-sheet .print-bag-card > .print-bag-end,
+  .print-sheet .print-bag-card > .print-bag-continues,
+  html.mobile-print .print-sheet .print-bag-card > .print-bag-continues {
+    margin-top: auto !important;
+    flex-shrink: 0;
+  }
+  .print-sheet .print-bag-card > .print-bag-continues {
+    padding: 7px 8px;
+    border-top: 2px solid #c4d0d5;
+    border-radius: 4px;
+    background: #edf2f5 !important;
+    color: #435b65 !important;
+    font-size: 8px;
+    font-weight: 900;
+    line-height: 1.25;
+    text-align: center;
+    letter-spacing: .035em;
+    break-inside: avoid;
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+  .print-sheet .print-bag-card.bag-continued .print-bag-topbar-label {
+    letter-spacing: .015em;
+  }
+}

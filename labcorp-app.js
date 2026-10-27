@@ -5117,6 +5117,71 @@
       opening.appendChild(firstItemList);
       if (!containerList.children.length) containerList.remove();
     });
+
+    // Print paired bag slices instead of allowing Safari to fragment a grid
+    // cell independently and delay the neighboring bag to a later page.
+    // Four submission groups per slice keep paired cards atomic and leave
+    // room for the masthead, verification notes, and bottom-aligned footer.
+    const printBagGroupsPerSlice = 4;
+    els.printSheet.querySelectorAll('.print-bag-row').forEach(row => {
+      const originalCards = Array.from(row.children).filter(node => node.classList.contains('print-bag-card'));
+      if (!originalCards.length) return;
+      const itemsByCard = originalCards.map(card => Array.from(card.querySelectorAll('.print-submit-item')));
+      const sliceCount = Math.max(...itemsByCard.map(items => Math.ceil(items.length / printBagGroupsPerSlice)));
+      if (sliceCount <= 1) return;
+
+      const parent = row.parentNode;
+      const heading = Array.from(row.children).find(node => node.classList.contains('print-submit-heading'));
+      for (let sliceIndex = 0; sliceIndex < sliceCount; sliceIndex++) {
+        const sliceRow = row.cloneNode(false);
+        sliceRow.classList.remove('single-row');
+        if (sliceIndex === 0 && heading) sliceRow.appendChild(heading);
+        let visibleCardCount = 0;
+
+        originalCards.forEach((card, cardIndex) => {
+          const allItems = itemsByCard[cardIndex];
+          const start = sliceIndex * printBagGroupsPerSlice;
+          if (start >= allItems.length) return;
+          const end = Math.min(start + printBagGroupsPerSlice, allItems.length);
+          const sliceCard = card.cloneNode(true);
+          sliceCard.classList.remove('bag-long');
+          sliceCard.classList.toggle('bag-continued', sliceIndex > 0);
+          sliceCard.querySelectorAll('.print-submit-item').forEach(item => item.remove());
+
+          const firstContent = sliceCard.querySelector('.print-bag-first-item');
+          let remainingContent = Array.from(sliceCard.children).find(node => node.classList.contains('print-submit-content'));
+          if (!firstContent) return;
+          firstContent.appendChild(allItems[start].cloneNode(true));
+          for (let itemIndex = start + 1; itemIndex < end; itemIndex++) {
+            if (!remainingContent) {
+              remainingContent = document.createElement('div');
+              remainingContent.className = 'print-submit-content';
+              sliceCard.querySelector('.print-bag-opening').after(remainingContent);
+            }
+            remainingContent.appendChild(allItems[itemIndex].cloneNode(true));
+          }
+          if (remainingContent && !remainingContent.children.length) remainingContent.remove();
+
+          if (sliceIndex > 0) {
+            const topbarName = sliceCard.querySelector('.print-bag-topbar-label');
+            if (topbarName) topbarName.textContent += ' · Continued';
+          }
+          if (end < allItems.length) {
+            sliceCard.querySelector('.print-bag-end')?.remove();
+            const continuation = document.createElement('div');
+            continuation.className = 'print-bag-continues';
+            continuation.textContent = 'BAG CONTINUES ON NEXT PAGE · ' + end + ' OF ' + allItems.length + ' CONTAINER GROUPS';
+            sliceCard.appendChild(continuation);
+          }
+          sliceRow.appendChild(sliceCard);
+          visibleCardCount++;
+        });
+
+        if (visibleCardCount === 1) sliceRow.classList.add('single-row');
+        parent.insertBefore(sliceRow, row);
+      }
+      row.remove();
+    });
     // Short side-by-side bag pairs must start together rather than leaving
     // a bag topbar on the previous page. Keep the original grid, stretch,
     // equal-height footer, and individual long-bag pagination rules.
