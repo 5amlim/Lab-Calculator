@@ -24,9 +24,68 @@
   const STAT_AREA_KEY = 'labcorpCollectionCalculator.labcorpStatArea.v1';
   // Exact code/name pairs from the provided San Leandro regional STAT worksheet (LabCorp codes).
   const SAN_LEANDRO_STAT_TESTS = Object.freeze({"115600":"Bilirubin, Direct (Neonatal)","120857":"FFN","205500":"Bilirubin, Neonatal (T,D & IND )","303754":"Electrolyte","303758":"Metabolic Panel, Basic  (7)","322000":"Metabolic Panel, Comp","322755":"Hepatic Function","322758":"Metabolic Panel, Basic  (8)","322777":"Renal panel","717314":"Vancomycin ,peak and trough","001081":"Albumin","001107":"Alk Phos","001545":"ALT","001396":"Amylase","001123":"AST","001222":"Bilirubin, Direct","015602":"Bilirubin, Neonatal (Total only)","001099":"Bilirubin, Total","001040":"BUN","001016":"Calcium","005009":"CBC + diff","001362":"CK","001578":"CO2","001370":"Creatinine","006627":"CRP","005215":"ESR","004515":"Estradiol","004598":"Ferritin","004316":"FSH","001958":"GGT","001032":"Glucose","004416":"HCG, serum,Quant","005058":"Hematocrit","005041":"Hemoglobin","001339":"Iron","001321":"Iron and TIBC","007708":"Lithium","001115":"LD","004283":"LH","001404":"Lipase","001537":"Magnesium","007906":"Phenytoin (Dilatin)","001024":"Phosphorus","005249":"Platelet Count   (auto)","001180":"Potassium","010555":"Pregnancy, Serum,Qual(Surevue)","004317":"Progesterone","005199":"PT / INR","005207":"PTT","001198":"Sodium","001073":"Total Protein","004264":"TSH","001057":"Uric Acid","003384":"Urinalysis ,no microscopic","003038":"Urinalysis, routine","003772":"Urinalysis, complete","007260":"Valproic Acid (Depakote)","070327":"Vancomycin ,peak","070328":"Vancomycin ,trough","070326":"Vancomycin, Random"});
+  // Source: Labcorp Los Angeles, CA Rapid Response STAT Test Menu, document 415698_STAT-LA.0325.
+  // Six-digit order codes are preserved exactly, including leading zeroes.
+  const LOS_ANGELES_STAT_TESTS = Object.freeze({
+    "115188": "D-Dimer",
+    "115600": "Bilirubin, Direct, Neonatal",
+    "120816": "Creatine Kinase (CK), MB",
+    "140150": "Troponin T (Highly Sensitive)",
+    "143000": "NT-proBNP",
+    "180901": "Wet Prep",
+    "205500": "Bilirubin Fraction, Neonatal",
+    "303754": "Electrolyte Panel",
+    "322000": "Metabolic Panel (14), Comprehensive",
+    "322755": "Hepatic Function Panel (7)",
+    "322758": "Metabolic Panel (8), Basic",
+    "322777": "Renal Function Panel",
+    "001545": "Alanine Aminotransferase (ALT/SGPT)",
+    "001081": "Albumin",
+    "001107": "Alkaline Phosphatase",
+    "001396": "Amylase",
+    "001123": "Aspartate Aminotransferase (AST/SGOT)",
+    "001222": "Bilirubin, Direct",
+    "001099": "Bilirubin, Total",
+    "001214": "Bilirubin, Total and Direct",
+    "015602": "Bilirubin, Total, Neonatal",
+    "001016": "Calcium",
+    "001578": "Carbon Dioxide, Total",
+    "001206": "Chloride",
+    "005009": "Complete Blood Count (CBC) With Differential, Reflex to Peripheral Smear Review",
+    "006627": "C-Reactive Protein (CRP), Quantitative",
+    "001362": "Creatine Kinase (CK), Total",
+    "001370": "Creatinine",
+    "004515": "Estradiol",
+    "004309": "Follicle-stimulating Hormone (FSH)",
+    "001032": "Glucose",
+    "005058": "Hematocrit",
+    "005041": "Hemoglobin (Hb)",
+    "004416": "Human Chorionic Gonadotropin (hCG), β-Subunit, Quantitative",
+    "001115": "Lactic Acid Dehydrogenase (LD)",
+    "001404": "Lipase",
+    "004283": "Luteinizing Hormone (LH)",
+    "001537": "Magnesium",
+    "005207": "Partial Thromboplastin Time (PTT), Activated",
+    "001024": "Phosphorus",
+    "005249": "Platelet Count",
+    "001180": "Potassium",
+    "004036": "Pregnancy Test, Urine",
+    "004317": "Progesterone",
+    "004465": "Prolactin",
+    "001073": "Protein, Total",
+    "005199": "Prothrombin Time (PT)",
+    "005215": "Sedimentation Rate, Modified Westergren",
+    "001198": "Sodium",
+    "010555": "Sure-Vue Serum (hCG)",
+    "001040": "Urea Nitrogen",
+    "001057": "Uric Acid",
+    "003772": "Urinalysis, Complete With Microscopic Examination",
+    "003038": "Urinalysis, Routine With Microscopic Examination on Positives"
+  });
   const STAT_AREAS = Object.freeze({
     unselected: {label:'Area not selected',codes:[],note:'Select the LabCorp receiving region; STAT status is not automatically verified.'},
-    socal: {label:'Southern California',codes:[],note:'No approved SoCal LabCorp STAT menu is loaded. STAT selection is disabled pending receiving-lab verification.'},
+    socal: {label:'Southern California',codes:[],note:'Choose the specific Los Angeles receiving lab to use its STAT menu. No region-wide STAT eligibility is assumed.'},
+    socal_los_angeles: {label:'Southern California · Los Angeles',codes:Object.keys(LOS_ANGELES_STAT_TESTS),names:LOS_ANGELES_STAT_TESTS,note:'Labcorp Los Angeles Rapid Response menu (March 2025). Hours: Monday–Friday 8 AM–7 PM; Saturday 9 AM–3:30 PM. Target results within 4 hours of STAT pickup request. Call 877-STATNOW (877-782-8669) for STAT pickup. Collect separate STAT and routine specimens with separate requisitions and couriers. Verify current service eligibility, deadlines, specimen requirements, and pickup before use.'},
     norcal: {label:'Northern California',codes:[],note:'Choose San Leandro for its specific STAT menu. No region-wide eligibility is assumed.'},
     norcal_san_leandro: {label:'Northern California · San Leandro',codes:Object.keys(SAN_LEANDRO_STAT_TESTS),names:SAN_LEANDRO_STAT_TESTS,note:'San Leandro regional STAT worksheet (LabCorp codes); Monday–Friday lab hours 8:30 AM–11:30 PM, specimen receiving 9 AM–10 PM. Verify acceptance, pickup and routing before requesting STAT.'},
     ny: {label:'New York',codes:[],note:'No approved LabCorp STAT menu is loaded for this area. STAT selection is disabled pending receiving-lab verification.'},
@@ -1901,10 +1960,10 @@
           const added = available && selectedIds.includes(test.id);
           const button = available
             ? added
-              ? `<button type="button" class="stat-menu-add is-added" data-action="stat-menu-remove" data-id="${escapeAttr(test.id)}" aria-label="Remove ${escapeAttr(test.testName)} from cart" title="Remove from cart">✓</button>`
-              : `<button type="button" class="stat-menu-add" data-action="stat-menu-add" data-id="${escapeAttr(test.id)}" aria-label="Add ${escapeAttr(test.testName)} as STAT" title="Add as STAT (confirmation required)">+</button>`
+              ? `<button type="button" class="stat-menu-add is-added" data-action="stat-menu-remove" data-id="${escapeAttr(test.id)}" aria-label="Remove ${escapeAttr(info.names?.[code] || test.testName)} from cart" title="Remove from cart">✓</button>`
+              : `<button type="button" class="stat-menu-add" data-action="stat-menu-add" data-id="${escapeAttr(test.id)}" aria-label="Add ${escapeAttr(info.names?.[code] || test.testName)} as STAT" title="Add as STAT (confirmation required)">+</button>`
             : `<button type="button" class="stat-menu-add needs-setup" data-action="stat-menu-setup" data-code="${escapeAttr(code)}" aria-label="Set up missing test ${escapeAttr(code)}" title="Open Add missing test to enter verified collection requirements">+</button>`;
-          return `<div class="stat-menu-test"><strong>${escapeHtml(code)}</strong><span>${escapeHtml(test?.testName || info.names?.[code] || 'Needs verified specimen details')}</span>${test?.status === 'blocked' ? '<small>Not available for onsite collection</small>' : ''}${button}</div>`;
+          return `<div class="stat-menu-test"><strong>${escapeHtml(code)}</strong><span>${escapeHtml(info.names?.[code] || test?.testName || 'Needs verified specimen details')}</span>${test?.status === 'blocked' ? '<small>Not available for onsite collection</small>' : ''}${button}</div>`;
         }).join('')
         : '<p class="stat-menu-empty">No codes or tests match this search.</p>';
   }
