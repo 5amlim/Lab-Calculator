@@ -1491,3 +1491,49 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     .batch-choice-details-button { margin-top: 3px; }
   }
 }
+
+/* Compact direct-add and receiving-lab STAT options inside match dropdown. */
+@media screen {
+  .batch-choice-entry-actions { gap: 5px; }
+  .batch-choice-split { display: inline-flex; flex: 0 0 auto; align-items: stretch; gap: 1px; }
+  .batch-choice-quick-add, .batch-choice-stat-toggle {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 0; min-width: 29px; height: 31px;
+    border: 1px solid #9fc7c9; background: #eaf7f4; color: #116b60;
+    font: inherit; font-size: 19px; font-weight: 850; cursor: pointer;
+  }
+  .batch-choice-quick-add { border-radius: 6px; }
+  .batch-choice-split:has(.batch-choice-stat-toggle) .batch-choice-quick-add { border-radius: 6px 0 0 6px; }
+  .batch-choice-stat-toggle {
+    min-width: 23px; border-radius: 0 6px 6px 0;
+    font-size: 15px; color: #366473;
+  }
+  .batch-choice-quick-add:hover:not(:disabled), .batch-choice-stat-toggle:hover, .batch-choice-stat-toggle[aria-expanded="true"] { background: #d9f0eb; }
+  .batch-choice-quick-add:disabled { background: #f2f5f6; color: #718c86; cursor: default; border-color: #d2dfe0; font-size: 14px; }
+  .batch-choice-quick-add:focus-visible, .batch-choice-stat-toggle:focus-visible,
+  .batch-choice-stat-options button:focus-visible { outline: 2px solid #228894; outline-offset: 2px; }
+  .batch-choice-stat-options[hidden] { display: none !important; }
+  .batch-choice-stat-options {
+    display: flex; flex-wrap: wrap; align-items: stretch; justify-content: flex-end;
+    gap: 5px; padding: 7px 4px 9px; border-top: 1px solid #e1eaec;
+    background: #fafcfc;
+  }
+  .batch-choice-stat-options button {
+    display: inline-flex; flex-direction: column; justify-content: center;
+    gap: 2px; min-height: 33px; padding: 6px 10px;
+    border: 1px solid #b9d3d7; border-radius: 6px;
+    color: #315864; background: #fff; font: inherit;
+    font-size: 11px; font-weight: 800; cursor: pointer;
+  }
+  .batch-choice-stat-options button:hover { background: #eef8f9; }
+  .batch-choice-stat-options button:last-child {
+    border-color: #d7b7b2; background: #fff7f5; color: #9a3c32;
+  }
+  .batch-choice-stat-options button:last-child:hover { background: #ffeded; }
+  .batch-choice-stat-options small { color: #775b55; font-size: 9px; font-weight: 600; }
+  @media (max-width: 480px) {
+    .batch-choice-entry-actions { gap: 4px; }
+    .batch-choice-details-button { padding: 6px 7px; font-size: 10px; }
+    .batch-choice-stat-options button { flex: 1 1 110px; }
+  }
+}
