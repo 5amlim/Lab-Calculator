@@ -169,6 +169,13 @@
         return;
       }
       if (event.key === 'Escape') {
+        const openStat = els.batchResults.querySelector('.batch-choice-stat-toggle[aria-expanded="true"]');
+        if (openStat) {
+          event.preventDefault();
+          setBatchStatOptionsOpen(openStat.closest('.batch-choice-entry'), false);
+          openStat.focus();
+          return;
+        }
         const opened = els.batchResults.querySelector('.batch-choice-dropdown.is-open');
         if (opened) {
           event.preventDefault();
@@ -1237,9 +1244,25 @@
                 <span class="batch-choice-option-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</span>
                 <span class="batch-choice-option-tags">${isStatEligible(test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}${test.status === 'blocked' ? '<span class="batch-choice-blocked">Do not perform</span>' : ''}</span>
               </button>
+              <div class="batch-choice-split" aria-label="Add selected test">
+                <button type="button" class="batch-choice-quick-add" data-action="add-batch-option"
+                  data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" data-priority="routine"
+                  title="${selectedIds.includes(test.id) ? 'Already in cart' : test.status === 'blocked' ? 'Do not perform' : 'Add as Routine'}"
+                  aria-label="${selectedIds.includes(test.id) ? 'Already in cart: ' : 'Add as Routine: '}${escapeAttr(displayCode(test) + ' ' + test.testName)}"
+                  ${selectedIds.includes(test.id) || test.status === 'blocked' ? 'disabled' : ''}>${selectedIds.includes(test.id) ? '✓' : '+'}</button>
+                ${isStatEligible(test) && !selectedIds.includes(test.id) ? `<button type="button" class="batch-choice-stat-toggle"
+                  data-action="toggle-batch-stat-options" aria-label="More add options for ${escapeAttr(displayCode(test) + ' ' + test.testName)}"
+                  aria-expanded="false" aria-controls="batch-choice-stat-options-${row.index}-${matchIndex}"
+                  title="Add as Routine or STAT">⌄</button>` : ''}
+              </div>
               <button type="button" class="batch-choice-details-button" data-action="toggle-batch-test-details"
                 aria-expanded="false" aria-controls="batch-choice-details-${row.index}-${matchIndex}" aria-label="Details for ${escapeAttr(displayCode(test) + ' ' + test.testName)}">Details</button>
             </div>
+            ${isStatEligible(test) && !selectedIds.includes(test.id) ? `<div class="batch-choice-stat-options" id="batch-choice-stat-options-${row.index}-${matchIndex}" hidden role="group"
+              aria-label="Choose how to add ${escapeAttr(displayCode(test) + ' ' + test.testName)}">
+              <button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" data-priority="routine">+ Add as Routine</button>
+              <button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" data-priority="stat"><span>+ Add as <b>STAT</b></span><small>Confirm receiving-lab acceptance</small></button>
+            </div>` : ''}
             <div class="batch-choice-test-details" id="batch-choice-details-${row.index}-${matchIndex}" hidden>
               <div><b>Specimen:</b> ${escapeHtml(test.specimenType || 'Verify in directory')}</div>
               <div><b>Collect:</b> ${escapeHtml(test.drawContainer || 'Verify in directory')}</div>
@@ -1548,6 +1571,15 @@
     if (menu) menu.hidden = !open;
   }
 
+  function setBatchStatOptionsOpen(entry, open) {
+    if (!entry) return;
+    const toggle = entry.querySelector('.batch-choice-stat-toggle');
+    const menu = entry.querySelector('.batch-choice-stat-options');
+    if (!toggle || !menu) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    menu.hidden = !open;
+  }
+
   function handleBatchClick(event) {
     const trigger = event.target.closest('.batch-choice-trigger');
     if (trigger) {
@@ -1580,6 +1612,48 @@
           nextButton?.focus({ preventScroll: true });
         }
       }
+      return;
+    }
+    if (button.dataset.action === 'toggle-batch-stat-options') {
+      const entry = button.closest('.batch-choice-entry');
+      const open = button.getAttribute('aria-expanded') !== 'true';
+      els.batchResults.querySelectorAll('.batch-choice-stat-toggle[aria-expanded="true"]').forEach(toggle =>
+        setBatchStatOptionsOpen(toggle.closest('.batch-choice-entry'), false));
+      setBatchStatOptionsOpen(entry, open);
+      return;
+    }
+    if (button.dataset.action === 'add-batch-option') {
+      const row = batchReviewRows[Number(button.dataset.batchIndex)];
+      const match = row?.matches.find(item => item.test.id === button.dataset.id);
+      const test = match?.test;
+      const wantStat = button.dataset.priority === 'stat';
+      if (!test || test.status === 'blocked' || selectedIds.includes(test.id)) return;
+      if (wantStat && !isStatEligible(test)) return;
+      // Explicit quick-add identifies a specific directory result. Require a
+      // confirmation for approximate matches, as with the main add control.
+      if (!isExactBatchMatch(row.query, test) &&
+          !window.confirm(`This entry is an approximate match.\n\nYou entered: ${row.query}\nSelected test: ${displayCode(test)} · ${test.testName}\n\nConfirm code and specimen requirements before adding this specific test.`)) return;
+      if (wantStat && !confirmStatSelection(test)) return;
+      const previousMenu = button.closest('.batch-choice-menu');
+      const previousScroll = previousMenu?.scrollTop || 0;
+      if (!addSelected(test.id, false)) return;
+      if (wantStat && !statSelectedIds.includes(test.id)) {
+        statSelectedIds.push(test.id);
+        saveStatSelectedIds();
+      }
+      saveSelected();
+      renderOrder();
+      renderLibrary();
+      row.chosenId = test.id;
+      renderBatch(false);
+      const dropdown = els.batchResults.querySelector(`.batch-row[data-batch-index="${row.index}"] .batch-choice-dropdown`);
+      setBatchChoiceOpen(dropdown, true);
+      const menu = dropdown?.querySelector('.batch-choice-menu');
+      if (menu) menu.scrollTop = previousScroll;
+      const added = Array.from(menu?.querySelectorAll('.batch-choice-quick-add') || [])
+        .find(item => item.dataset.id === test.id);
+      added?.focus({ preventScroll: true });
+      showToast(`${test.testName} added as ${wantStat ? 'STAT' : 'Routine'}.`);
       return;
     }
     if (button.dataset.action === 'toggle-batch-test-details') {
