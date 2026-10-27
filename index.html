@@ -7,7 +7,7 @@
   <title>Quest Lab Calculator | Specimen Collection and Processing</title>
   <meta name="description" content="Quest Lab Calculator: search tests, review specimen collection and processing requirements, and prepare organized send-out instructions.">
   <link rel="stylesheet" href="assets/css/styles.css?v=12.54">
-  <link rel="stylesheet" href="assets/css/experience.css?v=11.97">
+  <link rel="stylesheet" href="assets/css/experience.css?v=11.98">
   <link rel="stylesheet" href="market-switch.css?v=10">
   <link rel="stylesheet" href="quest-theme.css?v=14">
   <link rel="stylesheet" href="print-button-theme.css?v=8">
@@ -104,8 +104,8 @@
         <div class="stat-select-wrap" id="statSelectWrap">
         <select id="statAreaSelect" aria-label="STAT receiving laboratory" hidden tabindex="-1" aria-hidden="true">
           <option value="unselected">Select receiving lab</option>
-          <option value="socal">Southern California · Common to all labs</option>
-          <optgroup label="Southern California · specific receiving lab">
+          <optgroup label="Southern California">
+            <option value="socal">Common to all labs</option>
             <option value="socal_arcadia">Arcadia RRL</option>
             <option value="socal_bakersfield">Bakersfield RRL</option>
             <option value="socal_highland">Highland RRL</option>
@@ -116,14 +116,18 @@
             <option value="socal_ventura">Ventura RRL</option>
             <option value="socal_west_hills">West Hills Laboratory</option>
           </optgroup>
-          <option value="norcal">Northern California</option>
-          <option value="ny">New York</option>
+          <optgroup label="Northern California">
+            <option value="norcal">Northern California (unverified)</option>
+          </optgroup>
+          <optgroup label="New York">
+            <option value="ny">New York (unverified)</option>
+          </optgroup>
           <optgroup label="Florida">
             <option value="fl">Other Florida labs (unverified)</option>
             <option value="va_short_pump">Short Pump RRL</option>
           </optgroup>
         </select>
-        <button id="statAreaButton" class="stat-area-picker-button" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="statAreaOptions" aria-label="Choose STAT receiving lab"><span id="statAreaButtonLabel" class="stat-area-picker-text">Select receiving lab</span><span class="shared-chevron" aria-hidden="true"></span></button>
+        <button id="statAreaButton" class="stat-area-picker-button" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="statAreaOptions" aria-label="Choose STAT receiving lab"><span id="statAreaButtonLabel" class="stat-area-picker-text">Select receiving lab</span><span id="statAreaButtonCount" class="stat-area-picker-count" hidden></span><span class="shared-chevron" aria-hidden="true"></span></button>
         <div id="statAreaOptions" class="stat-area-options hidden" role="listbox" aria-label="STAT receiving labs"></div>
         </div>
         <button id="statMenuButton" class="button secondary stat-menu-button" type="button" aria-expanded="false" aria-controls="statMenuPanel">Show STAT tests</button>
@@ -420,7 +424,7 @@
   <script src="assets/js/quest-461-20261023.js?v=1"></script>
   <script src="assets/js/quest-workbook-names.js?v=1"></script>
   <script src="assets/js/clinical-categories.js?v=1"></script>
-  <script src="assets/js/app.js?v=12.62"></script>
+  <script src="assets/js/app.js?v=12.63"></script>
   <script src="assets/js/portal-selects.js?v=11.86"></script>
   <script src="assets/js/lab-select.js?v=2"></script>
   <script src="assets/js/scroll-cues.js?v=1"></script>
