@@ -136,6 +136,8 @@
   let urineCultureMode = loadUrineCultureMode();
   finalizeStorageMigration();
   let batchReviewRows = [];
+  let statActionTip = null;
+  let statActionTipButton = null;
   let libraryLimit = PAGE_STEP;
   let blockedListOpen = false;
   let toastTimer;
@@ -177,6 +179,28 @@
     els.loadMoreInlineButton?.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
     els.libraryBody.addEventListener('click', handleLibraryClick);
     els.batchResults.addEventListener('click', handleBatchClick);
+    // These delegated handlers continue to work after matches are refreshed.
+    els.batchResults.addEventListener('pointerover', event => {
+      if (event.pointerType === 'touch') return;
+      const button = event.target.closest('button[data-stat-note]');
+      if (button) showStatActionTip(button);
+    });
+    els.batchResults.addEventListener('pointerout', event => {
+      const button = event.target.closest('button[data-stat-note]');
+      if (button && !button.contains(event.relatedTarget) && document.activeElement !== button) hideStatActionTip();
+    });
+    els.batchResults.addEventListener('focusin', event => {
+      const button = event.target.closest('button[data-stat-note]');
+      if (button) showStatActionTip(button);
+    });
+    els.batchResults.addEventListener('focusout', event => {
+      if (event.target === statActionTipButton) hideStatActionTip();
+    });
+    els.batchResults.addEventListener('click', event => {
+      if (event.target.closest('button[data-stat-note]')) hideStatActionTip();
+    });
+    document.addEventListener('scroll', hideStatActionTip, true);
+    window.addEventListener('resize', hideStatActionTip);
     document.addEventListener('click', event => {
       if (!event.target.closest('.batch-choice-dropdown')) {
         els.batchResults.querySelectorAll('.batch-choice-dropdown.is-open').forEach(dropdown => setBatchChoiceOpen(dropdown, false));
@@ -1309,7 +1333,7 @@
             ${!selectedIds.includes(test.id) && test.status !== 'blocked' ? `<div class="batch-choice-stat-options" id="batch-choice-stat-options-${row.index}-${matchIndex}" hidden role="group"
               aria-label="Choose priority for ${escapeAttr(displayCode(test) + ' ' + test.testName)}">
               <button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" data-priority="routine" data-source="match">+ Add as Routine</button>
-              ${isStatEligible(test) ? `<button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" data-priority="stat" data-source="match"><span>+ Add as <b>STAT</b></span><small>Confirm receiving-lab acceptance</small></button>` : ''}
+              ${isStatEligible(test) ? `<button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" data-priority="stat" data-source="match" data-stat-note="Confirm receiving-lab acceptance"><span>+ Add as <b>STAT</b></span></button>` : ''}
             </div>` : ''}
             <div class="batch-choice-test-details" id="batch-choice-details-${row.index}-${matchIndex}" hidden>
               <div><b>Specimen:</b> ${escapeHtml(test.specimenType || 'Verify in directory')}</div>
@@ -1345,7 +1369,7 @@
           ${!blocked && !selected ? `<div class="batch-choice-stat-options batch-main-add-options" id="batch-main-add-options-${row.index}" hidden role="group"
              aria-label="Choose priority for ${escapeAttr(displayCode(choice.test) + ' ' + choice.test.testName)}">
              <button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(choice.test.id)}" data-priority="routine" data-source="main">+ Add as Routine</button>
-             ${isStatEligible(choice.test) ? `<button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(choice.test.id)}" data-priority="stat" data-source="main"><span>+ Add as <b>STAT</b></span><small>Confirm receiving-lab acceptance</small></button>` : ''}
+             ${isStatEligible(choice.test) ? `<button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(choice.test.id)}" data-priority="stat" data-source="main" data-stat-note="Confirm receiving-lab acceptance"><span>+ Add as <b>STAT</b></span></button>` : ''}
            </div>` : ''}
         </div>
         ${needsConfirmation ? `<a class="mini-button edit batch-directory-button" href="${escapeAttr(directorySearchUrl(row.query))}" target="_blank" rel="noreferrer">Search directory ↗</a>` : ''}
@@ -1579,7 +1603,43 @@
     }
   }
 
+  // Hover/focus tooltip is attached to the document so it cannot be clipped
+  // by the scrolling match list. The note is also announced on keyboard focus.
+  function hideStatActionTip() {
+    statActionTipButton?.removeAttribute('aria-describedby');
+    statActionTip?.remove();
+    statActionTip = null;
+    statActionTipButton = null;
+  }
+
+  function showStatActionTip(button) {
+    if (!button || statActionTipButton === button || !button.dataset.statNote) return;
+    hideStatActionTip();
+    const tip = document.createElement('div');
+    tip.id = 'stat-action-hover-tip';
+    tip.className = 'stat-action-hover-tip';
+    tip.setAttribute('role', 'tooltip');
+    tip.textContent = button.dataset.statNote;
+    document.body.appendChild(tip);
+    const rect = button.getBoundingClientRect();
+    const gap = 10;
+    const width = tip.offsetWidth;
+    const height = tip.offsetHeight;
+    const left = Math.min(Math.max(rect.left + rect.width / 2 - width / 2, gap),
+      Math.max(gap, window.innerWidth - width - gap));
+    const above = rect.top >= height + 18;
+    const top = above ? rect.top - height - 9
+      : Math.min(rect.bottom + 9, Math.max(gap, window.innerHeight - height - gap));
+    tip.style.left = `${left}px`;
+    tip.style.top = `${top}px`;
+    if (!above) tip.classList.add('below');
+    button.setAttribute('aria-describedby', tip.id);
+    statActionTip = tip;
+    statActionTipButton = button;
+  }
+
   function closeBatchResults() {
+    hideStatActionTip();
     els.batchResults.classList.add('hidden');
     els.batchResults.innerHTML = '';
     batchReviewRows = [];
@@ -1915,6 +1975,7 @@
   // Refresh the already-reviewed matches after a STAT lab change, without
   // repeating the search or losing an explicitly chosen alternate test.
   function refreshBatchStatEligibility() {
+    hideStatActionTip();
     if (!batchReviewRows.length || !els.batchResults || els.batchResults.classList.contains('hidden')) return;
     const grid = els.batchResults.querySelector('.batch-grid');
     if (!grid) return;
