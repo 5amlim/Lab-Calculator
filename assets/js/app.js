@@ -44,6 +44,8 @@
   // https://www.questdiagnostics.com/content/dam/corporate/restricted/documents/test-directory/Specimen_Collection_and_Transport_Guide_2019.pdf
   // https://www.questdiagnostics.com/content/dam/corporate/restricted/images/medical-groups-lpg-phase-2/bayview/Short-Pump-RRL_STAT-Testing.pdf
   const STAT_AREA_KEY = 'labCollectionCalculator.questStatArea.v1';
+  // Exact code/name pairs from the provided San Leandro regional STAT worksheet (LabCorp codes).
+  const SAN_LEANDRO_STAT_TESTS = Object.freeze({"115600":"Bilirubin, Direct (Neonatal)","120857":"FFN","205500":"Bilirubin, Neonatal (T,D & IND )","303754":"Electrolyte","303758":"Metabolic Panel, Basic  (7)","322000":"Metabolic Panel, Comp","322755":"Hepatic Function","322758":"Metabolic Panel, Basic  (8)","322777":"Renal panel","717314":"Vancomycin ,peak and trough","001081":"Albumin","001107":"Alk Phos","001545":"ALT","001396":"Amylase","001123":"AST","001222":"Bilirubin, Direct","015602":"Bilirubin, Neonatal (Total only)","001099":"Bilirubin, Total","001040":"BUN","001016":"Calcium","005009":"CBC + diff","001362":"CK","001578":"CO2","001370":"Creatinine","006627":"CRP","005215":"ESR","004515":"Estradiol","004598":"Ferritin","004316":"FSH","001958":"GGT","001032":"Glucose","004416":"HCG, serum,Quant","005058":"Hematocrit","005041":"Hemoglobin","001339":"Iron","001321":"Iron and TIBC","007708":"Lithium","001115":"LD","004283":"LH","001404":"Lipase","001537":"Magnesium","007906":"Phenytoin (Dilatin)","001024":"Phosphorus","005249":"Platelet Count   (auto)","001180":"Potassium","010555":"Pregnancy, Serum,Qual(Surevue)","004317":"Progesterone","005199":"PT / INR","005207":"PTT","001198":"Sodium","001073":"Total Protein","004264":"TSH","001057":"Uric Acid","003384":"Urinalysis ,no microscopic","003038":"Urinalysis, routine","003772":"Urinalysis, complete","007260":"Valproic Acid (Depakote)","070327":"Vancomycin ,peak","070328":"Vancomycin ,trough","070326":"Vancomycin, Random"});
   const STAT_AREAS = Object.freeze({
     unselected: { label: 'Area not selected', codes: [], note: 'Choose a receiving lab before assigning STAT.' },
     // Quest SoCal STAT menu supplied by the user (October 2025), with a separate tab per receiving RRL.
@@ -59,12 +61,13 @@
     socal_san_diego: { label: "Southern California \u00b7 San Diego RRL", codes: ["223","234","243","285","287","294","296","303","310","330","374","375","396","470","482","483","484","509","510","593","606","613","615","622","648","654","700","718","723","733","745","763","783","784","809","822","823","836","905","916","917","937","1759","3020","4021","5406","5463","6399","6448","6631","7008","7048","7064","7210","7286","7577","7909","7998","8396","8435","8477","8563","8578","8579","8659","8847","8917","10165","10231","10256","10314","19107","19108","19110","19111","19112","19113","19114","19115","19485","34162","34388","34389","34391","34392","34693","35555","37386","70117"], note: "Southern California STAT menu (October 2025), San Diego RRL only (89 listed codes). Confirm current hours, account acceptance and courier." },
     socal_ventura: { label: "Southern California \u00b7 Ventura RRL", codes: ["223","234","243","285","287","288","294","296","303","310","330","374","375","396","397","470","482","483","484","509","510","593","606","615","622","654","718","723","733","745","754","763","783","809","822","823","836","905","917","937","1759","3020","4021","5406","5463","6399","6448","6631","7008","7048","7064","7210","7286","7577","7909","7998","8396","8435","8563","8578","8579","8659","8847","10165","10231","10256","10314","10553","19107","19108","19110","19111","19112","19113","19485","20381","34162","34388","34389","34392","34693","37386"], note: "Southern California STAT menu (October 2025), Ventura RRL only (82 listed codes). Confirm current hours, account acceptance and courier." },
     socal_west_hills: { label: "Southern California \u00b7 West Hills Laboratory", codes: ["223","234","236","243","250","285","287","288","294","296","303","310","330","374","375","396","397","444","470","481","482","483","484","509","510","593","606","613","615","622","648","708","718","723","733","745","754","763","783","809","822","823","836","888","890","905","916","917","937","1759","3020","4021","5406","5463","6399","6448","6631","7008","7048","7064","7210","7286","7577","7909","7998","8396","8435","8477","8563","8575","8576","8577","8578","8579","8582","8583","8584","8659","8847","8917","10165","10231","10256","10314","10553","11014","17667","19107","19108","19110","19111","19112","19485","20381","32499","34162","34388","34389","34392","34693","37015","37386","90839","90841"], note: "Southern California STAT menu (October 2025), West Hills Laboratory only (104 listed codes). Confirm current hours, account acceptance and courier." },
-    norcal: { label: 'Northern California', codes: [], note: 'No account-specific STAT menu verified for this area.' },
+    norcal: { label: 'Northern California', codes: [], note: 'Select a specific receiving lab to view its local STAT menu.' },
+    norcal_san_leandro: { label: 'Northern California · San Leandro', codes: Object.keys(SAN_LEANDRO_STAT_TESTS), names: SAN_LEANDRO_STAT_TESTS, sourceLab: 'LabCorp', note: 'San Leandro worksheet lists LabCorp codes. This Quest menu is reference-only; choose San Leandro in the LabCorp calculator to add its eligible tests. Receiving window: Monday to Friday, 9 AM to 10 PM.' },
     ny: { label: 'New York', codes: [], note: 'No account-specific STAT menu verified for this area.' },
     fl: { label: 'Florida', codes: [], note: 'No account-specific STAT menu verified for this area.' },
-    va_short_pump: { label: 'Virginia · Short Pump RRL only',
+    va_short_pump: { label: 'Florida · Short Pump RRL',
       codes: ['223','234','823','243','822','10165','285','6631','287','296','303','330','334','10231','375','34392','482','483','608','10256','593','606','7600','622','718','733','754','10314','836','859','861','867','866','896','899','294','905','4021','470','396','8396','8435','615','745','746','1759','6399','509','510','7998','8847','763','793','809','6448','5463','3020','7909','7048','37386','8659','654','11177','8467'],
-      note: 'Published Short Pump RRL menu (updated July 24, 2025); only this specific Virginia lab, subject to hours and current acceptance.' }
+      note: 'Short Pump RRL is physically in Virginia, but displayed under Florida as requested. Published Quest menu updated July 24, 2025. Verify the actual receiving lab, hours and STAT courier routing; this is not Florida-wide eligibility.' }
   });
   // All STAT-eligible tests, including sedimentation rate (809), start as Routine.
   const DEFAULT_STAT_TEST_CODES = new Set();
@@ -1770,7 +1773,8 @@
 
   function isStatEligible(test) {
     if (!test || test.status === 'blocked') return false;
-    return STAT_AREAS[statArea].codes.includes(String(test.testCode || '').trim());
+    // Do not apply San Leandro's LabCorp-specific test codes to Quest test eligibility.
+    return STAT_AREAS[statArea].sourceLab !== 'LabCorp' && STAT_AREAS[statArea].codes.includes(String(test.testCode || '').trim());
   }
 
   function reconcileStatWithArea() {
@@ -1895,9 +1899,9 @@
     const codes = [...new Set(info.codes)].sort((a,b) => Number(a) - Number(b));
     const keyword = normalizeSearch(els.statMenuSearch?.value || '');
     const matches = codes.map(code => {
-      const test = database.find(row => String(row.testCode || '') === String(code));
-      return { code, test };
-    }).filter(({code,test}) => !keyword || normalizeSearch(`${code} ${test?.testName || ''}`).includes(keyword));
+      const test = info.sourceLab === 'LabCorp' ? null : database.find(row => String(row.testCode || '') === String(code));
+      return { code, test, name: info.names?.[code] || test?.testName || '' };
+    }).filter(({code,name}) => !keyword || normalizeSearch(`${code} ${name}`).includes(keyword));
     els.statMenuPanel.classList.toggle('hidden', !statMenuOpen);
     els.statMenuButton?.setAttribute('aria-expanded', String(statMenuOpen));
     els.statMenuButton.textContent = `${statMenuOpen ? 'Hide' : 'Show'} STAT tests${codes.length ? ` (${codes.length})` : ''}`;
@@ -1911,12 +1915,12 @@
         ? matches.map(({code,test}) => {
           const available = test && test.status !== 'blocked';
           const added = available && selectedIds.includes(test.id);
-          const button = available
+          const button = info.sourceLab === 'LabCorp' ? '' : available
             ? added
               ? `<button type="button" class="stat-menu-add is-added" data-action="stat-menu-remove" data-id="${escapeAttr(test.id)}" aria-label="Remove ${escapeAttr(test.testName)} from cart" title="Remove from cart">✓</button>`
               : `<button type="button" class="stat-menu-add" data-action="stat-menu-add" data-id="${escapeAttr(test.id)}" aria-label="Add ${escapeAttr(test.testName)} as STAT" title="Add as STAT (confirmation required)">+</button>`
             : `<button type="button" class="stat-menu-add needs-setup" data-action="stat-menu-setup" data-code="${escapeAttr(code)}" aria-label="Set up missing test ${escapeAttr(code)}" title="Open Add missing test to enter verified collection requirements">+</button>`;
-          return `<div class="stat-menu-test"><strong>${escapeHtml(code)}</strong><span>${escapeHtml(test?.testName || 'Needs verified specimen details')}</span>${test?.status === 'blocked' ? '<small>Not available for onsite collection</small>' : ''}${button}</div>`;
+          return `<div class="stat-menu-test"><strong>${escapeHtml(code)}</strong><span>${escapeHtml(test?.testName || info.names?.[code] || 'Needs verified specimen details')}</span>${test?.status === 'blocked' ? '<small>Not available for onsite collection</small>' : ''}${button}</div>`;
         }).join('')
         : '<p class="stat-menu-empty">No codes or tests match this search.</p>';
   }
