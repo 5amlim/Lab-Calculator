@@ -1463,3 +1463,31 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     font-weight: 900;
   }
 }
+
+/* Per-match in-page Details controls (Quest and LabCorp). */
+@media screen {
+  .batch-choice-entry + .batch-choice-entry { border-top: 1px solid #e6edf0; }
+  .batch-choice-entry-actions { display: flex; align-items: center; gap: 6px; min-width: 0; }
+  .batch-choice-entry-actions .batch-choice-option { flex: 1 1 auto; min-width: 0; }
+  .batch-choice-details-button {
+    flex: 0 0 auto; border: 1px solid #c2d4d9; border-radius: 6px;
+    background: #f6fafb; color: #315b67; padding: 6px 9px;
+    font: inherit; font-size: 11px; font-weight: 800; cursor: pointer;
+  }
+  .batch-choice-details-button:hover, .batch-choice-details-button[aria-expanded="true"] { background: #e7f2f4; border-color: #82b5c0; }
+  .batch-choice-details-button:focus-visible { outline: 2px solid #228894; outline-offset: 2px; }
+  .batch-choice-test-details[hidden] { display: none !important; }
+  .batch-choice-test-details {
+    margin: 0 2px 8px; padding: 10px 11px; border-radius: 7px;
+    background: #f7fafb; border: 1px solid #d5e3e7;
+    color: #425862; font-size: 11px; line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+  .batch-choice-test-details > div + div { margin-top: 3px; }
+  .batch-choice-test-details b { color: #254451; }
+  .batch-choice-test-details a { display: inline-block; margin-top: 7px; color: #126b7a; font-weight: 800; }
+  @media (max-width: 480px) {
+    .batch-choice-entry-actions { align-items: flex-start; }
+    .batch-choice-details-button { margin-top: 3px; }
+  }
+}
