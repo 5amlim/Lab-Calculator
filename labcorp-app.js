@@ -1575,7 +1575,10 @@
     dropdown.querySelector('.batch-choice-trigger')?.setAttribute('aria-expanded', String(open));
     const menu = dropdown.querySelector('.batch-choice-menu');
     if (menu) menu.hidden = !open;
-    if (!open) closeBatchAddOptions();
+    // Closing the test-match list must not dismiss a different open action
+    // menu (such as the main Confirm & add button) in the same click.
+    if (!open) dropdown.querySelectorAll('.batch-add-toggle[aria-expanded="true"]').forEach(toggle =>
+      setBatchAddOptionsOpen(toggle.closest('.batch-choice-entry'), false));
   }
 
   // Each result has exactly one Add button. The same accessible priority
