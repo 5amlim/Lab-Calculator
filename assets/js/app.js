@@ -1281,12 +1281,30 @@
           <span class="batch-choice-selected">${escapeHtml(displayCode(choice.test))} · ${escapeHtml(choice.test.testName)}</span><svg class="batch-choice-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </button>
         <div id="batch-choice-menu-${row.index}" class="batch-choice-menu" role="group" hidden aria-label="Matching tests for ${escapeAttr(row.query)}">
-          ${row.matches.map(({test}) => `<button type="button" class="batch-choice-option${test.id === choice.test.id ? ' is-selected' : ''}"
-            data-action="choose-batch-test" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}"
-            aria-pressed="${test.id === choice.test.id ? 'true' : 'false'}">
-            <span class="batch-choice-option-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</span>
-            <span class="batch-choice-option-tags">${isStatEligible(test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}${test.status === 'blocked' ? '<span class="batch-choice-blocked">Do not perform</span>' : ''}</span>
-          </button>`).join('')}
+          ${row.matches.map(({test}, matchIndex) => `<div class="batch-choice-entry">
+            <div class="batch-choice-entry-actions">
+              <button type="button" class="batch-choice-option${test.id === choice.test.id ? ' is-selected' : ''}"
+                data-action="choose-batch-test" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}"
+                aria-pressed="${test.id === choice.test.id ? 'true' : 'false'}">
+                <span class="batch-choice-option-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</span>
+                <span class="batch-choice-option-tags">${isStatEligible(test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}${test.status === 'blocked' ? '<span class="batch-choice-blocked">Do not perform</span>' : ''}</span>
+              </button>
+              <button type="button" class="batch-choice-details-button" data-action="toggle-batch-test-details"
+                aria-expanded="false" aria-controls="batch-choice-details-${row.index}-${matchIndex}" aria-label="Details for ${escapeAttr(displayCode(test) + ' ' + test.testName)}">Details</button>
+            </div>
+            <div class="batch-choice-test-details" id="batch-choice-details-${row.index}-${matchIndex}" hidden>
+              <div><b>Specimen:</b> ${escapeHtml(test.specimenType || 'Verify in directory')}</div>
+              <div><b>Collect:</b> ${escapeHtml(test.drawContainer || 'Verify in directory')}</div>
+              <div><b>Submit:</b> ${escapeHtml(test.transportContainer || test.drawContainer || 'Verify in directory')}</div>
+              <div><b>Temperature:</b> ${escapeHtml(test.transportTemperature || 'Verify in directory')}</div>
+              ${test.preferredVolume ? `<div><b>Preferred volume:</b> ${escapeHtml(test.preferredVolume)}</div>` : ''}
+              ${test.minimumVolume ? `<div><b>Minimum volume:</b> ${escapeHtml(test.minimumVolume)}</div>` : ''}
+              ${test.stability ? `<div><b>Stability:</b> ${escapeHtml(test.stability)}</div>` : ''}
+              ${test.specialLabeling ? `<div><b>Labeling:</b> ${escapeHtml(test.specialLabeling)}</div>` : ''}
+              ${test.specialInstructions ? `<div><b>Handling:</b> ${escapeHtml(test.specialInstructions)}</div>` : ''}
+              <a href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noopener noreferrer">Verify in official directory ↗</a>
+            </div>
+          </div>`).join('')}
         </div>
       </div>
     </div>` : '';
@@ -1581,6 +1599,22 @@
           nextButton?.focus({ preventScroll: true });
         }
       }
+      return;
+    }
+    if (button.dataset.action === 'toggle-batch-test-details') {
+      const entry = button.closest('.batch-choice-entry');
+      const panel = entry?.querySelector('.batch-choice-test-details');
+      if (!panel) return;
+      const nextOpen = panel.hidden;
+      // One details panel per menu, with selection handled separately.
+      button.closest('.batch-choice-menu')?.querySelectorAll('.batch-choice-test-details:not([hidden])').forEach(item => {
+        item.hidden = true;
+        const other = item.closest('.batch-choice-entry')?.querySelector('.batch-choice-details-button');
+        if (other) { other.setAttribute('aria-expanded', 'false'); other.textContent = 'Details'; }
+      });
+      panel.hidden = !nextOpen;
+      button.setAttribute('aria-expanded', String(nextOpen));
+      button.textContent = nextOpen ? 'Hide details' : 'Details';
       return;
     }
     if (button.dataset.action === 'choose-batch-test') {
@@ -4817,11 +4851,9 @@
     for (let i = 0; i < bagDisplayOrder.length; i += 2) {
       bagRows.push(bagDisplayOrder.slice(i, i + 2));
     }
-    // Start the submission plan on its own print page. Without a hard page
-    // boundary, iOS Safari can leave the purple heading and a large empty
-    // bordered area on one page while moving the first unbreakable bag row to
-    // the next. This is strictly a print pagination rule, not a routing change.
-    const bagStartOnFreshPage = bags.length > 0 && (!window.matchMedia('(max-width: 720px)').matches || tests.length > 4 || collectionItems.length > 3);
+    // No forced break on the framed submission section: it can otherwise
+    // paint an empty bordered sheet before the first atomic two-bag row.
+    // The heading is already attached to that first paired row in printSummary().
     const fastingItems = fastingRequirementsForTests(tests).map(({ test, requirement }) => ({ test, requirement: printFastingRequirement(test, requirement) }));
     const preparationItems = preCollectionPrecautionsForTests(tests);
     const preparationPanel = preparationItems.length ? `<div class="print-fasting-panel print-prep-panel">
@@ -4856,7 +4888,7 @@
       <div class="print-logistics-subheading print-section-banner"><strong>What to collect</strong><span class="print-heading-count">${collectionItems.length} collection ${collectionItems.length === 1 ? 'type' : 'types'}</span></div>
       ${printCollectionGroups(collectionItems, wholeBloodGroups)}
 
-      <section class="print-submit-section${bagStartOnFreshPage ? ' bag-page-start' : ''}">
+      <section class="print-submit-section">
         <div class="print-submit-heading">
           <strong>What to submit after processing</strong>
           <div class="print-submit-heading-summary">
