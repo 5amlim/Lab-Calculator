@@ -1750,3 +1750,81 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     border-left: 1px solid #d5b9b3;
   }
 }
+
+/* Distinct shared STAT menu and a contextual clear-lab action. */
+@media screen {
+  .stat-area-options .stat-area-option-placeholder.is-clear-action {
+    margin: 4px 0 9px;
+    border: 1px solid #ebd6d1;
+    border-radius: 8px;
+    background: #fff8f6;
+    color: #964943;
+    font-weight: 800;
+  }
+  .stat-area-options .stat-area-option-placeholder.is-clear-action:hover,
+  .stat-area-options .stat-area-option-placeholder.is-clear-action:focus-visible {
+    background: #ffefeb;
+    border-color: #daaaa1;
+    color: #8d3833;
+  }
+  .stat-area-options .stat-area-option-placeholder.selected .stat-area-option-label::before {
+    display: none;
+  }
+  .stat-area-options .stat-area-option-placeholder.is-clear-action .stat-area-option-label::before {
+    display: inline-block;
+    content: '×';
+    font-size: 16px;
+    font-weight: 850;
+    margin-right: 8px;
+    color: #b24f46;
+  }
+  .stat-area-options .stat-area-group-options .stat-area-option-nested.stat-area-option-common {
+    box-sizing: border-box;
+    padding-left: 15px !important;
+    border-left: 3px solid #3b86a1;
+    background: #edf6fa;
+    color: #225a72;
+    font-weight: 800;
+  }
+  .stat-area-options .stat-area-group-options .stat-area-option-nested.stat-area-option-common:hover,
+  .stat-area-options .stat-area-group-options .stat-area-option-nested.stat-area-option-common:focus-visible {
+    background: #dfeff6;
+  }
+  .stat-area-options .stat-area-group-options .stat-area-option-nested.stat-area-option-common.selected {
+    background: #d6eaf3;
+    color: #145573;
+    border-left-color: #167699;
+  }
+  .stat-area-options .stat-area-group-options .stat-area-option-nested.stat-area-option-common::before {
+    display: none;
+  }
+  .stat-area-option-common .stat-area-count {
+    background: #fff;
+    color: #236981;
+    border-color: #badce5;
+  }
+  .stat-area-common-tag {
+    display: inline-flex;
+    margin-left: 8px;
+    padding: 2px 5px;
+    border-radius: 4px;
+    background: #d8eaf3;
+    color: #376c85;
+    font-size: 9px;
+    letter-spacing: .035em;
+    font-weight: 850;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  .stat-area-picker-button.stat-area-picker-common {
+    border-color: #87b6c7;
+    background: #f1f8fb;
+    color: #23637c;
+  }
+  @media (max-width: 480px) {
+    .stat-area-options .stat-area-group-options .stat-area-option-nested.stat-area-option-common {
+      padding-left: 12px !important;
+    }
+    .stat-area-common-tag { margin-left: 5px; }
+  }
+}
