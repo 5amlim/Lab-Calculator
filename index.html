@@ -116,10 +116,15 @@
             <option value="socal_ventura">Ventura RRL</option>
             <option value="socal_west_hills">West Hills Laboratory</option>
           </optgroup>
-          <option value="norcal">Northern California</option>
+          <optgroup label="Northern California">
+            <option value="norcal">Other Northern California labs (unverified)</option>
+            <option value="norcal_san_leandro">San Leandro</option>
+          </optgroup>
           <option value="ny">New York</option>
-          <option value="fl">Florida</option>
-          <option value="va_short_pump">Virginia, Short Pump RRL only</option>
+          <optgroup label="Florida">
+            <option value="fl">Other Florida labs (unverified)</option>
+            <option value="va_short_pump">Short Pump RRL</option>
+          </optgroup>
         </select>
         <button id="statAreaButton" class="stat-area-picker-button" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="statAreaOptions" aria-label="Choose STAT receiving lab"><span id="statAreaButtonLabel" class="stat-area-picker-text">Select receiving lab</span><span class="shared-chevron" aria-hidden="true"></span></button>
         <div id="statAreaOptions" class="stat-area-options hidden" role="listbox" aria-label="STAT receiving labs"></div>
@@ -418,7 +423,7 @@
   <script src="assets/js/quest-461-20261023.js?v=1"></script>
   <script src="assets/js/quest-workbook-names.js?v=1"></script>
   <script src="assets/js/clinical-categories.js?v=1"></script>
-  <script src="assets/js/app.js?v=12.60"></script>
+  <script src="assets/js/app.js?v=12.61"></script>
   <script src="assets/js/portal-selects.js?v=11.86"></script>
   <script src="assets/js/lab-select.js?v=2"></script>
   <script src="assets/js/scroll-cues.js?v=1"></script>
