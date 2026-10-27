@@ -5017,14 +5017,32 @@
           if (remainingContent && !remainingContent.children.length) remainingContent.remove();
 
           if (sliceIndex > 0) {
-            const topbarName = sliceCard.querySelector('.print-bag-topbar-label');
-            if (topbarName) topbarName.textContent += ' · Continued';
+            // A later slice is not another transport bag. Replace the cloned
+            // masthead with a compact handoff cue, not a second bag opening.
+            const opening = sliceCard.querySelector('.print-bag-opening');
+            const topbar = opening?.querySelector('.print-bag-topbar');
+            const header = opening?.querySelector('.print-bag-card-header');
+            const lab = topbar?.querySelector('.print-bag-topbar-label')?.textContent?.split('·')[0]?.trim() || 'LAB';
+            const bagIndex = topbar?.querySelector('.print-bag-topbar-index')?.textContent?.trim().replace('/', ' OF ') || '';
+            const temperature = header?.querySelector('.print-bag-title strong')?.textContent?.trim() || 'BAG';
+            const priority = topbar?.querySelector('.print-bag-priority')?.textContent?.trim() || '';
+            const cue = document.createElement('div');
+            cue.className = 'print-bag-continuation-cue';
+            cue.setAttribute('role', 'note');
+            cue.textContent = '↳ CONTINUE ' + lab + ' BAG ' + bagIndex
+              + ' · ' + temperature + ' · ' + priority + ' · SAME BAG';
+            topbar?.remove();
+            header?.remove();
+            opening?.insertBefore(cue, opening.firstChild);
+            // The full-bag manual-entry warning was already printed on its
+            // first slice. Each manual container still retains its own label.
+            sliceCard.querySelector('.print-manual-card-warning')?.remove();
           }
           if (end < allItems.length) {
             sliceCard.querySelector('.print-bag-end')?.remove();
             const continuation = document.createElement('div');
             continuation.className = 'print-bag-continues';
-            continuation.textContent = 'BAG CONTINUES ON NEXT PAGE · ' + end + ' OF ' + allItems.length + ' CONTAINER GROUPS';
+            continuation.textContent = 'MORE CONTAINERS FOLLOW · SAME BAG · ' + end + ' OF ' + allItems.length + ' GROUPS SHOWN';
             sliceCard.appendChild(continuation);
           }
           sliceRow.appendChild(sliceCard);
