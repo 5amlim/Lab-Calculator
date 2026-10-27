@@ -2706,7 +2706,7 @@
       String(bag.className || '').includes('bag-mixed') ? 'mixed' : 'verify';
   }
   function printBagTemperatureLabel(bag, short = false) {
-    if (bag.quantiferonGold) return short ? 'QFT GOLD · REFRIGERATED' : 'QUANTIFERON GOLD BAG';
+    if (bag.quantiferonGold) return short ? 'QFT GOLD · REFRIGERATED' : 'QUANTIFERON GOLD BAG · REFRIGERATED';
     const labels = {
       room:'ROOM TEMPERATURE', refrigerated:'REFRIGERATED',
       frozen:'FROZEN', mixed:'MIXED / VERIFY', verify:'VERIFY TEMPERATURE'
