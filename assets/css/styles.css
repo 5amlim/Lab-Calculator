@@ -5166,3 +5166,70 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     min-width: 0 !important;
   }
 }
+
+/* v12.52: Quest 36970 ships in a dedicated gold QuantiFERON bag.
+   This is NOT a gold SST tube. Only the print bag shell is gold;
+   paired card height, continuation edges, content alignment and
+   end-of-bag position remain governed by the existing print rules. */
+@media print {
+  .print-sheet .print-bag-card.bag-quantiferon-gold,
+  html.mobile-print .print-sheet .print-bag-card.bag-quantiferon-gold {
+    border-color: #b88b29 !important;
+    border-width: 2px !important;
+    background: #fffaf0 !important;
+    box-shadow: inset 3px 0 0 #d5ac4c !important;
+  }
+  .print-sheet .print-bag-card.bag-quantiferon-gold .print-bag-topbar {
+    background: #805c20 !important;
+    border-color: #805c20 !important;
+    color: #fff9e9 !important;
+  }
+  .print-sheet .print-bag-card.bag-quantiferon-gold .print-bag-topbar-label,
+  .print-sheet .print-bag-card.bag-quantiferon-gold .print-bag-topbar-index {
+    color: #fff9e9 !important;
+  }
+  .print-sheet .print-bag-card.bag-quantiferon-gold .print-bag-card-header {
+    background: #fff4d6 !important;
+    border-bottom-color: #e4ca8b !important;
+  }
+  .print-sheet .print-bag-card.bag-quantiferon-gold .print-bag-title > strong {
+    color: #65490f !important;
+  }
+  .print-sheet .print-bag-card.bag-quantiferon-gold .print-bag-end {
+    background: #f9edca !important;
+    border-top-color: #b88b29 !important;
+  }
+  .print-sheet .print-bag-pill.bag-quantiferon-gold {
+    border-color: #c89f4b !important;
+    background: #fff0c4 !important;
+    color: #6f5219 !important;
+  }
+  .print-sheet .print-quantiferon-gold-note {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3px 8px;
+    margin: 5px 0 0;
+    padding: 5px 7px;
+    border: 1px solid #ddc07a;
+    border-left: 3px solid #ad8125;
+    border-radius: 4px;
+    background: #fff5d7 !important;
+    color: #76571d !important;
+    line-height: 1.2;
+    break-inside: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .print-sheet .print-quantiferon-gold-note > strong {
+    font-size: 8px;
+    font-weight: 950;
+    letter-spacing: .025em;
+  }
+  .print-sheet .print-quantiferon-gold-note > span {
+    font-size: 7.6px;
+    font-weight: 700;
+  }
+  /* Incomplete QuantiFERON fragments still use the shared no-bottom-border
+     and no-top-border continuation rules defined above. */
+}
