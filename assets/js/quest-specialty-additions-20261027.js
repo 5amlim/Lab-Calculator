@@ -1,0 +1,92 @@
+/* Four Quest specialty additions verified 2026-10-27 against official directory/change notices.
+ * Dedupe by Quest code, preserve prior records and existing STAT menus.
+ * Multi-aliquot pernicious anemia panel has explicit three-tube instructions.
+ * No patient identifiers or source requisition data stored.
+ */
+(()=>{'use strict';if(!Array.isArray(window.SEED_TESTS))return;const additions=[
+  {
+    "id": "quest-91304-20261027-specialty",
+    "testCode": "91304",
+    "testName": "Pernicious Anemia Diagnostic Panel (B12, MMA, Intrinsic Factor Blocking Ab)",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "Red Top serum or royal blue serum; sodium heparin plasma per Quest",
+    "transportContainer": "Serum transport tube x3 (one amber/protected)",
+    "preferredVolume": "4 mL total separated serum; three aliquots (2 mL + 1 mL + 1 mL)",
+    "minimumVolume": "1.4 mL total (confirm aliquot minima)",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room 4 days; refrigerated 7 days; frozen 28 days",
+    "spin": "Yes",
+    "specialInstructions": "Requires THREE separate labeled aliquots: one 2 mL and two 1 mL; protect designated sample from light with an amber tube or foil; follow Quest aliquot labels. Red-top/gel tubes: allow clotting, centrifuge, separate serum and transfer. Quest lists transport temperature Room Temperature, although narrative collection notes also mention refrigerated shipment: confirm route with Quest before dispatch. Do not collect within one week of vitamin B12 injection. Confirm regional availability; Nichols IFD SJC excludes test.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "submissionCount": 3,
+    "status": "active",
+    "source": "Quest official directory, reviewed 2026-10-27 • https://testdirectory.questdiagnostics.com/test/test-detail/91304/?cc=MASTER"
+  },
+  {
+    "id": "quest-90353-20261027-specialty",
+    "testCode": "90353",
+    "testName": "Vitamin B1 (Thiamine), Plasma/Serum, LC/MS/MS",
+    "specimenType": "Plasma",
+    "drawContainer": "Lavender EDTA",
+    "alternativeContainer": "Red Top serum (light-protected)",
+    "transportContainer": "Amber light-protected plasma transport tube",
+    "preferredVolume": "2 mL EDTA plasma",
+    "minimumVolume": "1 mL",
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "stability": "Room 24 hours; refrigerated 48 hours; frozen 30 days",
+    "spin": "Yes",
+    "specialInstructions": "Overnight fasting required. Spin refrigerated specimen at 2-8C; separate plasma within 24h, transfer to AMBER polypropylene or polyethylene tube (or foil wrap completely), FREEZE immediately and ship frozen (-10 to -30C). Red-top serum alternative must similarly be separated, protected from light and frozen. Hemolysis, lipemia and exposure to light cause rejection. Do not pool with room-temperature serum tests.",
+    "fastingStatus": "required",
+    "fastingInstructions": "Overnight fasting required.",
+    "submissionCount": 1,
+    "status": "active",
+    "source": "Quest official directory, reviewed 2026-10-27 • https://testdirectory.questdiagnostics.com/test/test-detail/90353/?cc=MASTER"
+  },
+  {
+    "id": "quest-946-20261027-specialty",
+    "testCode": "946",
+    "testName": "Zinc, 24-Hour Urine",
+    "specimenType": "Urine",
+    "drawContainer": "24-hour urine container (metal-free)",
+    "alternativeContainer": "Acid-washed plastic collection jug (no preservative)",
+    "transportContainer": "Acid-washed or metal-free plastic urine aliquot container",
+    "preferredVolume": "7 mL well-mixed 24-hour urine aliquot",
+    "minimumVolume": "3 mL",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room 5 days; refrigerated 14 days; frozen 30 days",
+    "spin": "No",
+    "specialInstructions": "COLLECT A COMPLETE 24-HOUR URINE WITHOUT PRESERVATIVE in acid-washed or trace-metal-free plastic; well mix, pour off 7 mL to metal-free aliquot container. Record total urine volume, start and end collection date/time on requisition and aliquot. Quest cautions that measurement may contaminate the specimen; use its approved method for volume documentation. Random urine is unacceptable. Separate from other urine tests that need additives.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "submissionCount": 1,
+    "status": "active",
+    "source": "Quest official directory, reviewed 2026-10-27 • https://testdirectory.questdiagnostics.com/test/test-detail/946/?cc=MASTER"
+  },
+  {
+    "id": "quest-16502-20261027-specialty",
+    "testCode": "16502",
+    "testName": "Zinc, Random Urine With Creatinine",
+    "specimenType": "Urine",
+    "drawContainer": "Sterile cup (metal-free)",
+    "alternativeContainer": "Trace-metal-free plastic container",
+    "transportContainer": "Acid-washed or metal-free plastic urine transport container",
+    "preferredVolume": "7 mL random urine",
+    "minimumVolume": "3 mL",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room 5 days; refrigerated 7 days; frozen 28 days",
+    "spin": "No",
+    "specialInstructions": "Use an acid-washed or metal-free plastic urine container; transfer from source cup only if also trace-metal-free. Do not use standard urine preservative tubes or acidify. Distinct from 24-hour zinc 946. Verify regional acceptance, especially if testing New York patients (local code variants).",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "submissionCount": 1,
+    "status": "active",
+    "source": "Quest official directory, reviewed 2026-10-27 • https://intellitestmanager.questdiagnostics.com/home/output/258003"
+  }
+];
+const known=new Set(window.SEED_TESTS.map(t=>String(t.testCode||'').trim()));for(const t of additions){if(!known.has(t.testCode)){window.SEED_TESTS.push(t);known.add(t.testCode)}}})();
