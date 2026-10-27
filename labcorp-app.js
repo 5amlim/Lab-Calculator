@@ -22,10 +22,13 @@
   const VERIFIED_TEST_NAMES = Object.freeze({});
   // LabCorp STAT availability must be confirmed for each code and receiving site.
   const STAT_AREA_KEY = 'labcorpCollectionCalculator.labcorpStatArea.v1';
+  // Exact code/name pairs from the provided San Leandro regional STAT worksheet (LabCorp codes).
+  const SAN_LEANDRO_STAT_TESTS = Object.freeze({"115600":"Bilirubin, Direct (Neonatal)","120857":"FFN","205500":"Bilirubin, Neonatal (T,D & IND )","303754":"Electrolyte","303758":"Metabolic Panel, Basic  (7)","322000":"Metabolic Panel, Comp","322755":"Hepatic Function","322758":"Metabolic Panel, Basic  (8)","322777":"Renal panel","717314":"Vancomycin ,peak and trough","001081":"Albumin","001107":"Alk Phos","001545":"ALT","001396":"Amylase","001123":"AST","001222":"Bilirubin, Direct","015602":"Bilirubin, Neonatal (Total only)","001099":"Bilirubin, Total","001040":"BUN","001016":"Calcium","005009":"CBC + diff","001362":"CK","001578":"CO2","001370":"Creatinine","006627":"CRP","005215":"ESR","004515":"Estradiol","004598":"Ferritin","004316":"FSH","001958":"GGT","001032":"Glucose","004416":"HCG, serum,Quant","005058":"Hematocrit","005041":"Hemoglobin","001339":"Iron","001321":"Iron and TIBC","007708":"Lithium","001115":"LD","004283":"LH","001404":"Lipase","001537":"Magnesium","007906":"Phenytoin (Dilatin)","001024":"Phosphorus","005249":"Platelet Count   (auto)","001180":"Potassium","010555":"Pregnancy, Serum,Qual(Surevue)","004317":"Progesterone","005199":"PT / INR","005207":"PTT","001198":"Sodium","001073":"Total Protein","004264":"TSH","001057":"Uric Acid","003384":"Urinalysis ,no microscopic","003038":"Urinalysis, routine","003772":"Urinalysis, complete","007260":"Valproic Acid (Depakote)","070327":"Vancomycin ,peak","070328":"Vancomycin ,trough","070326":"Vancomycin, Random"});
   const STAT_AREAS = Object.freeze({
     unselected: {label:'Area not selected',codes:[],note:'Select the LabCorp receiving region; STAT status is not automatically verified.'},
     socal: {label:'Southern California',codes:[],note:'No approved SoCal LabCorp STAT menu is loaded. STAT selection is disabled pending receiving-lab verification.'},
-    norcal: {label:'Northern California',codes:[],note:'No approved LabCorp STAT menu is loaded for this area. STAT selection is disabled pending receiving-lab verification.'},
+    norcal: {label:'Northern California',codes:[],note:'Choose San Leandro for its specific STAT menu. No region-wide eligibility is assumed.'},
+    norcal_san_leandro: {label:'Northern California · San Leandro',codes:Object.keys(SAN_LEANDRO_STAT_TESTS),names:SAN_LEANDRO_STAT_TESTS,note:'San Leandro regional STAT worksheet (LabCorp codes); Monday–Friday lab hours 8:30 AM–11:30 PM, specimen receiving 9 AM–10 PM. Verify acceptance, pickup and routing before requesting STAT.'},
     ny: {label:'New York',codes:[],note:'No approved LabCorp STAT menu is loaded for this area. STAT selection is disabled pending receiving-lab verification.'},
     fl: {label:'Florida',codes:[],note:'No approved LabCorp STAT menu is loaded for this area. STAT selection is disabled pending receiving-lab verification.'},
     other: {label:'Other service area',codes:[],note:'No approved LabCorp STAT menu is loaded for this area. STAT selection is disabled pending receiving-lab verification.'}
@@ -1881,8 +1884,8 @@
     const keyword = normalizeSearch(els.statMenuSearch?.value || '');
     const matches = codes.map(code => {
       const test = database.find(row => String(row.testCode || '') === String(code));
-      return { code, test };
-    }).filter(({code,test}) => !keyword || normalizeSearch(`${code} ${test?.testName || ''}`).includes(keyword));
+      return { code, test, name: info.names?.[code] || test?.testName || '' };
+    }).filter(({code,name}) => !keyword || normalizeSearch(`${code} ${name}`).includes(keyword));
     els.statMenuPanel.classList.toggle('hidden', !statMenuOpen);
     els.statMenuButton?.setAttribute('aria-expanded', String(statMenuOpen));
     els.statMenuButton.textContent = `${statMenuOpen ? 'Hide' : 'Show'} STAT routing info`;
@@ -1901,7 +1904,7 @@
               ? `<button type="button" class="stat-menu-add is-added" data-action="stat-menu-remove" data-id="${escapeAttr(test.id)}" aria-label="Remove ${escapeAttr(test.testName)} from cart" title="Remove from cart">✓</button>`
               : `<button type="button" class="stat-menu-add" data-action="stat-menu-add" data-id="${escapeAttr(test.id)}" aria-label="Add ${escapeAttr(test.testName)} as STAT" title="Add as STAT (confirmation required)">+</button>`
             : `<button type="button" class="stat-menu-add needs-setup" data-action="stat-menu-setup" data-code="${escapeAttr(code)}" aria-label="Set up missing test ${escapeAttr(code)}" title="Open Add missing test to enter verified collection requirements">+</button>`;
-          return `<div class="stat-menu-test"><strong>${escapeHtml(code)}</strong><span>${escapeHtml(test?.testName || 'Needs verified specimen details')}</span>${test?.status === 'blocked' ? '<small>Not available for onsite collection</small>' : ''}${button}</div>`;
+          return `<div class="stat-menu-test"><strong>${escapeHtml(code)}</strong><span>${escapeHtml(test?.testName || info.names?.[code] || 'Needs verified specimen details')}</span>${test?.status === 'blocked' ? '<small>Not available for onsite collection</small>' : ''}${button}</div>`;
         }).join('')
         : '<p class="stat-menu-empty">No codes or tests match this search.</p>';
   }
