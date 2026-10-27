@@ -143,15 +143,36 @@
     els.batchResults.addEventListener('click', handleBatchClick);
     document.addEventListener('click', event => {
       if (!event.target.closest('.batch-choice-dropdown')) {
-        els.batchResults.querySelectorAll('.batch-choice-dropdown[open]').forEach(dropdown => { dropdown.open = false; });
+        els.batchResults.querySelectorAll('.batch-choice-dropdown.is-open').forEach(dropdown => setBatchChoiceOpen(dropdown, false));
       }
     });
     els.batchResults.addEventListener('keydown', event => {
+      const trigger = event.target.closest('.batch-choice-trigger');
+      const menu = event.target.closest('.batch-choice-menu');
+      if (trigger && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
+        event.preventDefault();
+        const dropdown = trigger.closest('.batch-choice-dropdown');
+        els.batchResults.querySelectorAll('.batch-choice-dropdown.is-open').forEach(item => setBatchChoiceOpen(item, false));
+        setBatchChoiceOpen(dropdown, true);
+        const options = Array.from(dropdown.querySelectorAll('.batch-choice-option'));
+        (event.key === 'ArrowUp' ? options[options.length - 1] : options.find(item => item.classList.contains('is-selected')) || options[0])?.focus();
+        return;
+      }
+      if (menu && ['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
+        event.preventDefault();
+        const options = Array.from(menu.querySelectorAll('.batch-choice-option'));
+        const index = options.indexOf(document.activeElement);
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? options.length - 1
+          : event.key === 'ArrowUp' ? (index - 1 + options.length) % options.length
+          : (index + 1) % options.length;
+        options[next]?.focus();
+        return;
+      }
       if (event.key === 'Escape') {
-        const opened = els.batchResults.querySelector('.batch-choice-dropdown[open]');
+        const opened = els.batchResults.querySelector('.batch-choice-dropdown.is-open');
         if (opened) {
           event.preventDefault();
-          opened.open = false;
+          setBatchChoiceOpen(opened, false);
           opened.querySelector('.batch-choice-trigger')?.focus();
         } else if (!els.batchResults.classList.contains('hidden')) {
           event.preventDefault();
@@ -1199,15 +1220,15 @@
         ? `<span class="batch-match-exact">${exactLabel}</span>`
         : `<span class="batch-match-warning">${exactLabel}</span>`;
     const options = row.matches.length > 1 && (needsConfirmation || blocked || row.matches.some(match => normalizeSearch(match.test.testName) === normalizeSearch(row.query)));
-    // A browser-rendered dropdown supports per-choice STAT/blocked badges.
+    // An in-page dropdown supports per-choice STAT/blocked badges.
     // Eligibility always uses the receiving-lab menu via isStatEligible().
     const picker = options ? `<div class="batch-choice-control">
       <span class="batch-choice-label" id="batch-choice-label-${row.index}">Choose test (code / name)</span>
-      <details class="batch-choice-dropdown">
-        <summary class="batch-choice-trigger" aria-labelledby="batch-choice-label-${row.index}" aria-label="Choose test for ${escapeAttr(row.query)}">
+      <div class="batch-choice-dropdown">
+        <button type="button" class="batch-choice-trigger" aria-labelledby="batch-choice-label-${row.index}" aria-label="Choose test for ${escapeAttr(row.query)}" aria-expanded="false" aria-controls="batch-choice-menu-${row.index}" aria-haspopup="true">
           <span class="batch-choice-selected">${escapeHtml(displayCode(choice.test))} · ${escapeHtml(choice.test.testName)}</span><svg class="batch-choice-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-        </summary>
-        <div class="batch-choice-menu" role="group" aria-label="Matching tests for ${escapeAttr(row.query)}">
+        </button>
+        <div id="batch-choice-menu-${row.index}" class="batch-choice-menu" role="group" hidden aria-label="Matching tests for ${escapeAttr(row.query)}">
           ${row.matches.map(({test}) => `<button type="button" class="batch-choice-option${test.id === choice.test.id ? ' is-selected' : ''}"
             data-action="choose-batch-test" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}"
             aria-pressed="${test.id === choice.test.id ? 'true' : 'false'}">
@@ -1215,7 +1236,7 @@
             <span class="batch-choice-option-tags">${isStatEligible(test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}${test.status === 'blocked' ? '<span class="batch-choice-blocked">Do not perform</span>' : ''}</span>
           </button>`).join('')}
         </div>
-      </details>
+      </div>
     </div>` : '';
     const buttonLabel = selected ? '✓ Added' : needsConfirmation ? 'Confirm & add' : '+ Add';
     return `<div class="batch-row ${rowClass}" data-batch-index="${row.index}">
@@ -1499,16 +1520,27 @@
     els.previewButton.focus();
   }
 
+  // App-managed menu, rather than a native browser disclosure/select popup.
+  function setBatchChoiceOpen(dropdown, open) {
+    if (!dropdown) return;
+    dropdown.classList.toggle('is-open', open);
+    dropdown.closest('.batch-row')?.classList.toggle('batch-choice-open', open);
+    dropdown.querySelector('.batch-choice-trigger')?.setAttribute('aria-expanded', String(open));
+    const menu = dropdown.querySelector('.batch-choice-menu');
+    if (menu) menu.hidden = !open;
+  }
+
   function handleBatchClick(event) {
-    const button = event.target.closest('button[data-action]');
-    if (!button) {
-      // Keep only one match-choice dropdown expanded at a time.
-      const trigger = event.target.closest('.batch-choice-trigger');
-      if (trigger) els.batchResults.querySelectorAll('.batch-choice-dropdown[open]').forEach(item => {
-        if (item !== trigger.closest('.batch-choice-dropdown')) item.open = false;
-      });
+    const trigger = event.target.closest('.batch-choice-trigger');
+    if (trigger) {
+      const dropdown = trigger.closest('.batch-choice-dropdown');
+      const open = !dropdown.classList.contains('is-open');
+      els.batchResults.querySelectorAll('.batch-choice-dropdown.is-open').forEach(item => setBatchChoiceOpen(item, false));
+      setBatchChoiceOpen(dropdown, open);
       return;
     }
+    const button = event.target.closest('button[data-action]');
+    if (!button) return;
     if (button.dataset.action === 'close-batch-results') {
       closeBatchResults();
       return;
