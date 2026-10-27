@@ -2706,6 +2706,7 @@
       String(bag.className || '').includes('bag-mixed') ? 'mixed' : 'verify';
   }
   function printBagTemperatureLabel(bag, short = false) {
+    if (bag.quantiferonGold) return short ? 'QFT GOLD · REFRIGERATED' : 'QUANTIFERON GOLD BAG';
     const labels = {
       room:'ROOM TEMPERATURE', refrigerated:'REFRIGERATED',
       frozen:'FROZEN', mixed:'MIXED / VERIFY', verify:'VERIFY TEMPERATURE'
@@ -2720,7 +2721,26 @@
     return '<span class="print-temperature-emoji" aria-hidden="true">' + icons[type] + '</span>';
   }
 
+  // Quest code 36970 uses a dedicated GOLD QuantiFERON specimen bag.
+  // Gold identifies the shipping bag, NOT the tube: collection remains the
+  // no-gel 6 mL lithium-heparin green top specified by Quest.
+  function usesQuestQuantiferonGoldBag(test) {
+    const code = String(test.testCode || '').trim();
+    const name = String(test.testName || '');
+    return code === '36970'
+      || (/quanti[- ]?feron/i.test(name) && /(?:\b1\s*[- ]?tube\b|\bone\s+tube\b)/i.test(name));
+  }
+
   function transportBagInfo(test) {
+    if (usesQuestQuantiferonGoldBag(test)) {
+      return {
+        key: 'quantiferon-gold',
+        label: 'QuantiFERON Gold bag · refrigerated',
+        className: 'bag-refrigerated bag-quantiferon-gold',
+        order: 2.5,
+        quantiferonGold: true
+      };
+    }
     const normalized = String(test.transportTemperature || '').trim();
     const value = (normalized && normalized !== 'Not specified'
       ? normalized
@@ -4903,7 +4923,7 @@
           const bagNumber = rowIndex * 2 + columnIndex + 1;
           return `<article class="print-bag-card ${bag.className} ${bag.isStat ? 'bag-stat' : 'bag-routine'}${contents.length > 11 ? ' bag-long' : ''}">
             <div class="print-bag-topbar"><span class="print-bag-topbar-label">QUEST · Bag</span><span class="print-bag-priority ${bag.isStat ? 'priority-stat' : 'priority-routine'}">${bag.isStat ? 'STAT' : 'Routine'}</span><span class="print-bag-topbar-index" aria-label="Bag ${bagNumber} of ${bags.length}">${bagNumber}/${bags.length}</span></div>
-            <div class="print-bag-card-header"><div><div class="print-bag-title">${printBagTemperatureBadge(bag)}<strong>${escapeHtml(bagName)}</strong></div><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-header-right"><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div></div>
+            <div class="print-bag-card-header"><div><div class="print-bag-title">${printBagTemperatureBadge(bag)}<strong>${escapeHtml(bagName)}</strong></div><span>${bag.quantiferonGold ? 'Dedicated gold QuantiFERON bag · keep separate from other refrigerated specimens' : bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span>${bag.quantiferonGold ? '<div class="print-quantiferon-gold-note"><strong>GOLD QFT BAG ONLY</strong><span>❄ Refrigerate 2–8°C · Do not combine with other bags</span></div>' : ''}</div><div class="print-bag-header-right"><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div></div>
             <div class="print-submit-content">${contents.map((item, itemIndex) => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
               <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}"><span class="print-submit-container-name">${escapeHtml(item.originalTube && item.key === 'sst-spun' ? (selectedSstIsTiger() ? 'Tiger SST (Spun)' : 'Gold SST (Spun)') : item.label)}</span></span>${printSstTigerBadge(item)}${printBagSpecimenBadge(item)}</div>
               ${printSubmissionItemDetail(item)}
