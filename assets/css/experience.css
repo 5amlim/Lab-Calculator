@@ -1296,13 +1296,14 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     color: #25404c; cursor: pointer; font-size: 12px; font-weight: 750;
     list-style: none; width: 100%;
   }
-  .batch-choice-trigger::-webkit-details-marker { display: none; }
-  .batch-choice-trigger:hover, .batch-choice-dropdown[open] .batch-choice-trigger { background: #f3f9fa; border-color: #7faeb8; }
+  .batch-choice-trigger { font-family: inherit; text-align: left; }
+  .batch-choice-trigger:hover, .batch-choice-dropdown.is-open .batch-choice-trigger { background: #f3f9fa; border-color: #7faeb8; }
   .batch-choice-trigger:focus-visible, .batch-choice-option:focus-visible { outline: 2px solid #228894; outline-offset: 2px; }
   .batch-choice-selected { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
   .batch-choice-chevron { font-size: 18px; line-height: 1; color: #42636f; transition: transform .15s ease; }
-  .batch-choice-dropdown[open] .batch-choice-chevron { transform: rotate(180deg); }
-  .batch-row:has(.batch-choice-dropdown[open]) { position: relative; z-index: 15; }
+  .batch-choice-dropdown.is-open .batch-choice-chevron { transform: rotate(180deg); }
+  .batch-row.batch-choice-open { position: relative; z-index: 15; }
+  .batch-choice-menu[hidden] { display: none !important; }
   .batch-choice-menu {
     position: absolute; top: calc(100% + 5px); left: 0; right: 0; z-index: 20;
     max-height: min(290px, 50vh); overflow: auto; overscroll-behavior: contain;
