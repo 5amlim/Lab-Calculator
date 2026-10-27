@@ -5096,3 +5096,26 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     flex: 0 0 auto; margin-left: auto; text-align: right;
   }
 }
+
+/* Print page-break correction: the section title belongs to the same atomic
+   two-column print row as the first bag pair. This applies on desktop and
+   mobile. Do not change bag heights, item fragmentation or continuation cues. */
+@media print {
+  .print-sheet .print-bag-pair-keep > .print-bag-row > .print-submit-heading,
+  html.mobile-print .print-sheet .print-bag-pair-keep > .print-bag-row > .print-submit-heading {
+    grid-column: 1 / -1 !important;
+    grid-row: 1 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    break-after: avoid-page !important;
+    page-break-after: avoid !important;
+  }
+  .print-sheet .print-bag-pair-keep:first-child,
+  html.mobile-print .print-sheet .print-bag-pair-keep:first-child {
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+    -webkit-column-break-inside: avoid !important;
+  }
+}

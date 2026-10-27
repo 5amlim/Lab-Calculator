@@ -5006,15 +5006,13 @@
       collectionGrid.insertBefore(firstGroup, firstCollectionRow);
       firstGroup.append(collectionHeading, firstCollectionRow);
     }
-    // On iPhone, put the submission heading inside the FIRST existing bag
-    // row. WebKit previously printed the heading and an empty purple panel
-    // before pushing both bag cards onto the next sheet. Grid columns and
-    // individual bag markup remain exactly the same.
-    if (mobilePrint) {
-      const heading = els.printSheet.querySelector('.print-submit-heading');
-      const firstBagRow = els.printSheet.querySelector('.print-bag-row');
-      if (heading && firstBagRow) firstBagRow.insertBefore(heading, firstBagRow.firstChild);
-    }
+    // Attach the submission heading to the FIRST paired bag row on every
+    // print layout. That row is wrapped as one pagination unit below, so the
+    // heading cannot print alone while its first two bags move to another page.
+    // Continuations never repeat the heading; paired bag alignment is unchanged.
+    const heading = els.printSheet.querySelector('.print-submit-heading');
+    const firstBagRow = els.printSheet.querySelector('.print-bag-row');
+    if (heading && firstBagRow) firstBagRow.insertBefore(heading, firstBagRow.firstChild);
     // Keep the bag masthead with its first specimen card at automatic page breaks.
     // Other specimen cards can still paginate independently.
     els.printSheet.querySelectorAll('.print-bag-card').forEach(card => {
