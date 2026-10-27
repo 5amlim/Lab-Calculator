@@ -1700,3 +1700,53 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     }
   }
 }
+
+/* Compact STAT action with a hover and keyboard-focus reminder tooltip.
+   The tooltip is portaled to document.body to avoid clipping in match menus. */
+@media screen {
+  .batch-choice-stat-options button[data-stat-note] {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-height: 35px;
+    white-space: nowrap;
+  }
+  .stat-action-hover-tip {
+    position: fixed;
+    z-index: 10000;
+    box-sizing: border-box;
+    max-width: min(245px, calc(100vw - 20px));
+    padding: 8px 11px;
+    border-radius: 8px;
+    border: 1px solid #d5b9b3;
+    background: #fffafa;
+    box-shadow: 0 7px 20px rgba(39, 52, 63, .15);
+    color: #754d49;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+    pointer-events: none;
+  }
+  .stat-action-hover-tip::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 8px;
+    height: 8px;
+    transform: translateX(-50%) rotate(45deg);
+    background: #fffafa;
+    border-right: 1px solid #d5b9b3;
+    border-bottom: 1px solid #d5b9b3;
+  }
+  .stat-action-hover-tip.below::after {
+    top: -5px;
+    bottom: auto;
+    border-right: 0;
+    border-bottom: 0;
+    border-top: 1px solid #d5b9b3;
+    border-left: 1px solid #d5b9b3;
+  }
+}
