@@ -3461,7 +3461,15 @@
       rows.push('<div class="print-collection-row">' + cards.slice(i, next).join('') + '</div>');
       i = next;
     }
-    return '<div class="print-collection-grid">' + rows.join('') + '</div>';
+    // Keep a compact collection plan together when its complete set of
+    // paired tube rows fits a single printed page. The old row-only break
+    // avoidance could leave a small final row stranded on a mostly empty page.
+    // For larger plans, retain the existing breaks between full paired rows.
+    const printTestRefs = items.reduce((sum, item) => sum + uniqueTests(item.tests).length, 0);
+    const maxCardRefs = Math.max(0, ...items.map(item => uniqueTests(item.tests).length));
+    const compactCollection = rows.length <= 3 && printTestRefs <= 24
+      && maxCardRefs <= 15 && !items.some(fullWidth);
+    return '<div class="print-collection-grid' + (compactCollection ? ' print-collection-fits-one-page' : '') + '">' + rows.join('') + '</div>';
   }
 
   function buildCollectionPlan(tests, bags) {
