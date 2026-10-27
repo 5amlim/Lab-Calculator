@@ -5184,9 +5184,23 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     border-color: #805c20 !important;
     color: #fff9e9 !important;
   }
-  .print-sheet .print-bag-card.bag-quantiferon-gold .print-bag-topbar-label,
-  .print-sheet .print-bag-card.bag-quantiferon-gold .print-bag-topbar-index {
+  .print-sheet .print-bag-card.bag-quantiferon-gold .print-bag-topbar-label {
     color: #fff9e9 !important;
+  }
+  /* The bag number sits on a pale badge and needs dark text. */
+  .print-sheet .print-bag-card.bag-quantiferon-gold .print-bag-topbar-index,
+  html.mobile-print .print-sheet .print-bag-card.bag-quantiferon-gold .print-bag-topbar-index {
+    color: #4c3815 !important;
+    background: #fffaf0 !important;
+    border: 1px solid #d2b675 !important;
+    opacity: 1 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .print-sheet .print-bag-card.bag-quantiferon-gold .print-bag-title > strong {
+    font-size: 11.4px !important;
+    white-space: normal;
+    overflow-wrap: normal;
   }
   .print-sheet .print-bag-card.bag-quantiferon-gold .print-bag-card-header {
     background: #fff4d6 !important;
