@@ -1375,7 +1375,7 @@
           <button type="button" class="mini-button batch-main-add-toggle batch-add-toggle ${needsConfirmation ? 'confirm-match-button' : ''}" data-action="toggle-batch-add-options"
             data-batch-index="${row.index}" data-id="${escapeAttr(choice.test.id)}" aria-haspopup="true"
             aria-expanded="false" aria-controls="batch-main-add-options-${row.index}"
-            ${blocked || selected ? 'disabled' : ''}>${buttonLabel}<span class="batch-main-add-chevron" aria-hidden="true">⌄</span></button>
+            ${blocked || selected ? 'disabled' : ''}>${buttonLabel}<span class="batch-main-add-chevron shared-chevron" aria-hidden="true"></span></button>
           ${!blocked && !selected ? `<div class="batch-choice-stat-options batch-main-add-options" id="batch-main-add-options-${row.index}" hidden role="group"
              aria-label="Choose priority for ${escapeAttr(displayCode(choice.test) + ' ' + choice.test.testName)}">
              <button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(choice.test.id)}" data-priority="routine" data-source="main">+ Add as Routine</button>
