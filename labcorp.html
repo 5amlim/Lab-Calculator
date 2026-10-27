@@ -7,7 +7,7 @@
   <title>LabCorp Lab Calculator | Specimen Collection and Processing</title>
   <meta name="description" content="LabCorp Lab Calculator: search verified LabCorp tests, calculate specimen collection and submission plans, and print handling instructions.">
   <link rel="stylesheet" href="assets/css/styles.css?v=12.54">
-  <link rel="stylesheet" href="assets/css/experience.css?v=11.97">
+  <link rel="stylesheet" href="assets/css/experience.css?v=11.98">
   <link rel="stylesheet" href="market-switch.css?v=10">
   <link rel="stylesheet" href="labcorp-theme.css?v=11">
   <link rel="stylesheet" href="labcorp-crosswalk.css?v=1">
@@ -113,11 +113,17 @@
             <option value="norcal">Other Northern California labs (unverified)</option>
             <option value="norcal_san_leandro">San Leandro</option>
           </optgroup>
-          <option value="ny">New York</option>
-          <option value="fl">Florida</option>
-          <option value="other">Other service area</option>
+          <optgroup label="New York">
+            <option value="ny">New York (unverified)</option>
+          </optgroup>
+          <optgroup label="Florida">
+            <option value="fl">Florida (unverified)</option>
+          </optgroup>
+          <optgroup label="Other regions">
+            <option value="other">Other service area (unverified)</option>
+          </optgroup>
         </select>
-        <button id="statAreaButton" class="stat-area-picker-button" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="statAreaOptions" aria-label="Choose STAT receiving area"><span id="statAreaButtonLabel" class="stat-area-picker-text">Select receiving area</span><span class="shared-chevron" aria-hidden="true"></span></button>
+        <button id="statAreaButton" class="stat-area-picker-button" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="statAreaOptions" aria-label="Choose STAT receiving area"><span id="statAreaButtonLabel" class="stat-area-picker-text">Select receiving area</span><span id="statAreaButtonCount" class="stat-area-picker-count" hidden></span><span class="shared-chevron" aria-hidden="true"></span></button>
         <div id="statAreaOptions" class="stat-area-options hidden" role="listbox" aria-label="STAT receiving areas"></div>
         </div>
         <button id="statMenuButton" class="button secondary stat-menu-button" type="button" aria-expanded="false" aria-controls="statMenuPanel">STAT routing info</button>
@@ -465,7 +471,7 @@
   <script src="labcorp-quest-workbook-crosswalk-overrides.js?v=1"></script>
   <script src="assets/js/clinical-categories.js?v=1"></script>
   <script src="labcorp-microbiology-infectious-20261025.js?v=1"></script>
-  <script src="labcorp-app.js?v=78"></script>
+  <script src="labcorp-app.js?v=79"></script>
   <script src="labcorp-crosswalk-ui.js?v=2"></script>
   <script src="assets/js/portal-selects.js?v=11.86"></script>
   <script src="assets/js/lab-select.js?v=2"></script>
