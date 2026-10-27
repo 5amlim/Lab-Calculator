@@ -5247,3 +5247,23 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   /* Incomplete QuantiFERON fragments still use the shared no-bottom-border
      and no-top-border continuation rules defined above. */
 }
+
+/* v12.54: Keep compact collections on one page when their paired rows fit.
+   Large collections still paginate between paired cards. Never stretch card
+   contents or alter What to Submit bag pagination/continuation handling. */
+@media print {
+  .print-sheet .print-collection-grid.print-collection-fits-one-page,
+  html.mobile-print .print-sheet .print-collection-grid.print-collection-fits-one-page {
+    display: block !important;
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+    -webkit-column-break-inside: avoid !important;
+  }
+  .print-sheet .print-collection-grid.print-collection-fits-one-page > .print-collection-row,
+  html.mobile-print .print-sheet .print-collection-grid.print-collection-fits-one-page > .print-collection-row {
+    break-before: auto !important;
+    page-break-before: auto !important;
+    break-after: auto !important;
+    page-break-after: auto !important;
+  }
+}
