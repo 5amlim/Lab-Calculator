@@ -1,0 +1,117 @@
+/* Keck Signature Care requisition page 1–2 (2026-10-26): six additional Quest assays.
+ * Printed 86235 and 85652 are CPT billing codes, NOT Quest order codes.
+ * Each entry is independently orderable; do not replace them with a reflex panel.
+ * Duplicate-safe: preserve all prior specimen rules, user overrides, and STAT flags.
+ * No patient-identifying information is stored here.
+ */
+(()=>{'use strict';if(!Array.isArray(window.SEED_TESTS))return;const additions=[
+  {
+    "id": "quest-4942-keck-20261027",
+    "testCode": "4942",
+    "testName": "Scleroderma Antibody (Scl-70)",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "Red Top serum",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.5 mL",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room 4 days; refrigerated 7 days; frozen 30 days",
+    "spin": "Yes",
+    "specialInstructions": "Anti-topoisomerase I (Scl-70) IgG. Spin serum promptly. Reject gross hemolysis, lipemia or icterus. Confirm regional Quest acceptance and transport requirements.",
+    "status": "active",
+    "source": "Quest directory/performing-lab reference • https://testdirectory.questdiagnostics.com/test/test-detail/4942/?cc=MASTER"
+  },
+  {
+    "id": "quest-38567-keck-20261027",
+    "testCode": "38567",
+    "testName": "Sm/RNP Antibody",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "Red Top serum",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.5 mL",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room 4 days; refrigerated 7 days; frozen 30 days",
+    "spin": "Yes",
+    "specialInstructions": "Sm/U1-RNP antibody complex assay; not equivalent to testing anti-Sm and anti-RNP as two separately reported antibodies. Confirm test with ordering physician and Quest receiving lab.",
+    "status": "active",
+    "source": "Quest directory/performing-lab reference • https://testdirectory.questdiagnostics.com/test/test-detail/38567/?cc=MASTER"
+  },
+  {
+    "id": "quest-16088-keck-20261027",
+    "testCode": "16088",
+    "testName": "Centromere B Antibody",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "Red Top serum",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.5 mL",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room 4 days; refrigerated 7 days; frozen 30 days",
+    "spin": "Yes",
+    "specialInstructions": "Centromere B antibody by immunoassay. Spin serum and verify regional transport acceptance. Avoid gross hemolysis, lipemia and icterus.",
+    "status": "active",
+    "source": "Quest directory/performing-lab reference • https://testdirectory.questdiagnostics.com/test/test-detail/16088/?cc=MASTER"
+  },
+  {
+    "id": "quest-38568-keck-20261027",
+    "testCode": "38568",
+    "testName": "Sjogren's Antibody (SS-A/Ro)",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "Red Top serum",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.5 mL",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room 4 days; refrigerated 7 days; frozen 30 days",
+    "spin": "Yes",
+    "specialInstructions": "Standalone SS-A (Ro) antibody; may be ordered separately from SS-B. Confirm current performing-site specimen instructions.",
+    "status": "active",
+    "source": "Quest directory/performing-lab reference • https://testdirectory.questdiagnostics.com/test/test-detail/38568/?cc=MASTER"
+  },
+  {
+    "id": "quest-38569-keck-20261027",
+    "testCode": "38569",
+    "testName": "Sjogren's Antibody (SS-B/La)",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "Red Top serum",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.5 mL",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room 4 days; refrigerated 7 days; frozen 30 days",
+    "spin": "Yes",
+    "specialInstructions": "Standalone SS-B (La) antibody; may be ordered separately from SS-A. Confirm current performing-site specimen instructions.",
+    "status": "active",
+    "source": "Quest directory/performing-lab reference • https://testdirectory.questdiagnostics.com/test/test-detail/38569/?cc=MASTER"
+  },
+  {
+    "id": "quest-809-keck-20261027",
+    "testCode": "809",
+    "testName": "Sed Rate by Modified Westergren (ESR)",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Lavender EDTA",
+    "alternativeContainer": "",
+    "transportContainer": "Lavender EDTA (original tube)",
+    "preferredVolume": "Full lavender EDTA tube",
+    "minimumVolume": "2 mL whole blood",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room 24 hours; refrigerated up to 24 hours; do not freeze",
+    "spin": "No",
+    "specialInstructions": "Gently invert immediately to mix EDTA. Submit ORIGINAL CLOSED lavender EDTA tube, not separated serum/plasma. Do not centrifuge, freeze or transfer. Reject clotted, hemolyzed or underfilled samples. Verify local Quest STAT menu separately.",
+    "status": "active",
+    "source": "Quest directory/performing-lab reference • https://www.dlolab.com/sed-rate-modified-westergren"
+  }
+];
+const known=new Set(window.SEED_TESTS.map(t=>String(t.testCode||'').trim()));for(const t of additions){if(!known.has(t.testCode)){window.SEED_TESTS.push(t);known.add(t.testCode)}}})();
