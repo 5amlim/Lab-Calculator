@@ -1877,12 +1877,20 @@
       row.className = 'stat-area-option'
         + (isNested ? ' stat-area-option-nested' : '')
         + (isPlaceholder ? ' stat-area-option-placeholder' : '')
+        + (opt.value === 'socal' && count ? ' stat-area-option-common' : '')
         + (!count && !isPlaceholder ? ' is-empty' : '');
       row.setAttribute('role', 'option');
       row.dataset.statArea = opt.value;
       const name = document.createElement('span');
       name.className = 'stat-area-option-label';
       name.textContent = opt.textContent;
+      if (opt.value === 'socal' && count) {
+        const sharedTag = document.createElement('span');
+        sharedTag.className = 'stat-area-common-tag';
+        sharedTag.textContent = 'Shared';
+        sharedTag.setAttribute('aria-hidden', 'true');
+        name.appendChild(sharedTag);
+      }
       row.appendChild(name);
       if (!isPlaceholder) {
         const badge = document.createElement('span');
@@ -1951,6 +1959,18 @@
       countBadge.hidden = !count;
     }
     els.statAreaButton.setAttribute('aria-label', `STAT receiving lab: ${els.statAreaButtonLabel.textContent}, ${count} listed STAT ${count === 1 ? 'test' : 'tests'}`);
+    els.statAreaButton.classList.toggle('stat-area-picker-common', els.statAreaSelect.value === 'socal' && count > 0);
+    // Once a lab is chosen, repurpose the original "Select receiving lab"
+    // entry into a real clear action. This takes the existing changeStatArea
+    // path so saved STAT priorities and match eligibility are reconciled.
+    const resetOption = els.statAreaOptions?.querySelector('.stat-area-option-placeholder');
+    if (resetOption) {
+      const hasSelection = els.statAreaSelect.value !== 'unselected';
+      const label = resetOption.querySelector('.stat-area-option-label');
+      if (label) label.textContent = hasSelection ? 'Clear selected lab' : 'Select receiving lab';
+      resetOption.classList.toggle('is-clear-action', hasSelection);
+      resetOption.setAttribute('aria-label', hasSelection ? 'Clear selected STAT receiving lab' : 'Select receiving lab');
+    }
     els.statAreaOptions?.querySelectorAll('.stat-area-option').forEach(option => {
       const selected = option.dataset.statArea === els.statAreaSelect.value;
       option.setAttribute('aria-selected', String(selected));
