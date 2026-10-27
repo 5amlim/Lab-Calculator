@@ -1409,13 +1409,13 @@
     const count = browserAddedTests().length;
     els.clearBrowserTestsButton.disabled = !count;
     els.browserCustomCount.textContent = count ? `(${count})` : '(0)';
-    els.clearBrowserTestsButton.title = count ? 'Remove only manually added tests stored in this browser' : 'No manually added tests to remove';
+    els.clearBrowserTestsButton.title = count ? 'Remove only manual entries stored in this browser' : 'No manual entries to remove';
   }
 
   function clearBrowserAddedTests() {
     const custom = browserAddedTests();
     if (!custom.length) return;
-    if (!window.confirm(`Remove ${custom.length} manually added ${custom.length === 1 ? 'test' : 'tests'}? This cannot be undone. Built-in packaged tests and edits to those tests will not be deleted.`)) return;
+    if (!window.confirm(`Remove ${custom.length} manual ${custom.length === 1 ? 'entry' : 'entries'}? This cannot be undone. Built-in packaged tests and edits to those tests will not be deleted.`)) return;
     const ids = new Set(custom.map(test => test.id));
     database = database.filter(test => !ids.has(test.id));
     selectedIds = selectedIds.filter(id => !ids.has(id));
@@ -1424,7 +1424,7 @@
     saveSelected();
     persistDatabase();
     renderAll();
-    showToast(`${custom.length} manually added ${custom.length === 1 ? 'test' : 'tests'} removed. Packaged tests preserved.`);
+    showToast(`${custom.length} manual ${custom.length === 1 ? 'entry' : 'entries'} removed. Packaged tests preserved.`);
   }
 
   function renderLibrary() {
@@ -4907,7 +4907,7 @@
         <div class="print-header-identity"><h1 class="print-title">Quest Collection Summary</h1><div class="print-subtitle">Send-out workflow</div></div>
         <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<span class="print-selected-count">${tests.length} ${tests.length === 1 ? 'test' : 'tests'}</span><span class="print-lab-destination">RECEIVING LAB: QUEST DIAGNOSTICS</span></div>
       </div>
-      ${tests.some(isManuallyAddedTest) ? '<div class="print-manual-test-notice"><strong>Manually added test:</strong> Confirm the test code, specimen, collection tubes, and submission requirements in the official lab directory before collecting.</div>' : ''}
+      ${tests.some(isManuallyAddedTest) ? '<div class="print-manual-test-notice"><strong>Manual entry:</strong> Confirm the test code, specimen, collection tubes, and submission requirements in the official lab directory before collecting.</div>' : ''}
       ${printCollectionSubmissionPlan(tests)}
       <section class="print-detail-table-section${tests.length <= 3 ? ' print-brief-order' : ''}">
       ${printCompactAlertSummary(tests, alerts)}
@@ -4999,20 +4999,20 @@
 
   function manualTestInlineTag(test) {
     return isManuallyAddedTest(test)
-      ? `<span class="print-manual-inline"> · MANUAL · Added by ${escapeHtml(manualEntryOwner(test))}</span>`
+      ? `<span class="print-manual-inline"> · MANUAL ENTRY · Added by ${escapeHtml(manualEntryOwner(test))}</span>`
       : '';
   }
 
   function manualLibraryTag(test) {
     return isManuallyAddedTest(test)
-      ? `<span class="manual-added-by-label">Manual · Added by ${escapeHtml(manualEntryOwner(test))}</span>`
+      ? `<span class="manual-added-by-label">Manual entry · Added by ${escapeHtml(manualEntryOwner(test))}</span>`
       : '';
   }
 
   function printManualCardWarning(tests) {
     const manualTests = uniqueTests(tests || []).filter(isManuallyAddedTest);
     if (!manualTests.length) return '';
-    return `<div class="print-manual-card-warning"><strong>Manually added ${manualTests.length === 1 ? 'test' : 'tests'}:</strong> Confirm code, collection and submission containers, counts, and handling in the official directory before use.</div>`;
+    return `<div class="print-manual-card-warning"><strong>Manual ${manualTests.length === 1 ? 'entry' : 'entries'}:</strong> Confirm code, collection and submission containers, counts, and handling in the official directory before use.</div>`;
   }
 
   function isManuallyAddedTest(test) {
@@ -5021,7 +5021,7 @@
 
   function printManualTestNote(test) {
     return isManuallyAddedTest(test)
-      ? `<span class="print-manual-verification">Manually added · Added by ${escapeHtml(manualEntryOwner(test))} · Confirm in official directory</span>`
+      ? `<span class="print-manual-verification">Manual entry · Added by ${escapeHtml(manualEntryOwner(test))} · Confirm in official directory</span>`
       : '';
   }
 
