@@ -1847,10 +1847,15 @@
         heading.textContent = child.label;
         heading.setAttribute('role', 'presentation');
         fragment.appendChild(heading);
-        for (const opt of child.children) addOption(opt, true);
+        const group = document.createElement('div');
+        group.className = 'stat-area-group-options';
+        group.setAttribute('role', 'group');
+        group.setAttribute('aria-label', child.label);
+        for (const opt of child.children) addOption(opt, true, group);
+        fragment.appendChild(group);
       } else if (child.tagName === 'OPTION') addOption(child);
     }
-    function addOption(opt, isNested = false) {
+    function addOption(opt, isNested = false, parent = fragment) {
       const info = STAT_AREAS[opt.value];
       const count = info ? new Set(info.codes).size : 0;
       const isPlaceholder = opt.value === 'unselected';
@@ -1874,7 +1879,7 @@
         row.setAttribute('aria-label', `${opt.textContent}, ${count} listed STAT ${count === 1 ? 'test' : 'tests'}`);
         row.appendChild(badge);
       }
-      fragment.appendChild(row);
+      parent.appendChild(row);
     }
     panel.replaceChildren(fragment);
     trigger.addEventListener('click', () => setStatPickerOpen(panel.classList.contains('hidden')));
