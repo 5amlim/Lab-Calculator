@@ -1539,7 +1539,23 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     display: inline-flex; width: 100%; align-items: center; justify-content: center;
     gap: 10px; text-align: center;
   }
-  .batch-main-add-chevron { font-size: 15px; font-weight: 900; line-height: 1; }
+  /* Review matches uses the same vector chevron as the STAT lab picker. */
+  .batch-main-add-chevron.shared-chevron {
+    display: inline-block;
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+    margin-left: 0;
+    background-position: center;
+    background-size: 18px 18px;
+    transition: transform 160ms ease;
+  }
+  .batch-main-add-toggle[aria-expanded="true"] .batch-main-add-chevron.shared-chevron {
+    transform: rotate(180deg);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .batch-main-add-chevron.shared-chevron { transition: none; }
+  }
   .batch-main-add-options {
     position: absolute; z-index: 30; top: calc(100% + 5px); right: 0;
     min-width: min(220px, 76vw); max-width: min(270px, 80vw);
