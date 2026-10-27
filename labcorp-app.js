@@ -4931,13 +4931,13 @@
               ${printSubmissionItemDetail(item)}
               ${printLabelingNotes(item)}
               <div class="print-for-tests${uniqueTests(item.tests).length > 8 ? ' is-bag-dense' : ''}"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul${uniqueTests(item.tests).length > 8 ? ` style="--bag-test-rows:${Math.ceil(uniqueTests(item.tests).length / 2)}"` : ''}>${testReferences(item.tests, bag.isStat)}</ul></div>
+              ${printManualCardWarning(item.tests)}
               ${contents.length > 1 ? `<div class="print-bag-item-progress"><strong>${itemIndex + 1 < contents.length ? 'MORE IN THIS BAG ↓' : 'LAST GROUP · CHECK END OF BAG'}</strong></div>` : ''}
             </div>`).join('')}</div>
-            ${printManualCardWarning(bag.tests)}
              <div class="print-bag-end" aria-label="End of LABCORP bag ${bagNumber} of ${bags.length}">
               <div class="print-bag-end-top"><span class="print-bag-end-lab">LABCORP</span><strong>END OF BAG</strong><span class="print-bag-end-temp">${escapeHtml(printBagTemperatureLabel(bag, true))} · ${bag.isStat ? 'STAT' : 'ROUTINE'}</span></div>
               <div class="print-bag-end-bottom"><strong>BAG ${bagNumber} OF ${bags.length}</strong><span>${totalContainers} ${totalContainers === 1 ? 'CONTAINER' : 'CONTAINERS'}</span></div>
-              ${bagNumber < bags.length ? `<div class="print-bag-next"><span aria-hidden="true">↳</span> MORE BAGS FOLLOW · CONTINUE TO BAG ${bagNumber + 1} OF ${bags.length} →</div>` : ''}
+              ${bagNumber < bags.length ? `<div class="print-bag-next"><span aria-hidden="true">›</span> MORE BAGS FOLLOW · CONTINUE TO BAG ${bagNumber + 1} OF ${bags.length}</div>` : ''}
             </div>
           </article>`;
         }).join('')}</div>`).join('')}</div>
@@ -5175,20 +5175,21 @@
             const cue = document.createElement('div');
             cue.className = 'print-bag-continuation-cue';
             cue.setAttribute('role', 'note');
-            cue.textContent = '↳ CONTINUE ' + lab + ' BAG ' + bagIndex
+            cue.textContent = '› CONTINUE ' + lab + ' BAG ' + bagIndex
               + ' · ' + temperature + ' · ' + priority + ' · SAME BAG';
             topbar?.remove();
             header?.remove();
             opening?.insertBefore(cue, opening.firstChild);
-            // The full-bag manual-entry warning was already printed on its
-            // first slice. Each manual container still retains its own label.
-            sliceCard.querySelector('.print-manual-card-warning')?.remove();
+            // Verification notes belong to the individual tube cards and
+            // travel with those cards on any continuation page.
           }
           if (end < allItems.length) {
+            // A partial print fragment must remain visibly open at the bottom.
+            sliceCard.classList.add('bag-has-more');
             sliceCard.querySelector('.print-bag-end')?.remove();
             const continuation = document.createElement('div');
             continuation.className = 'print-bag-continues';
-            continuation.textContent = 'MORE CONTAINERS FOLLOW · SAME BAG · ' + end + ' OF ' + allItems.length + ' GROUPS SHOWN';
+            continuation.textContent = '› MORE CONTAINERS FOLLOW · SAME BAG · ' + end + ' OF ' + allItems.length + ' GROUPS SHOWN';
             sliceCard.appendChild(continuation);
           }
           sliceRow.appendChild(sliceCard);

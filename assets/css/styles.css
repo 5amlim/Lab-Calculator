@@ -5033,3 +5033,42 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     border-left-color: #7d66c8 !important;
   }
 }
+
+/* An unfinished bag is visually open. Only its final fragment gets a bottom
+   border and an End of Bag strip. The next fragment resumes without a new
+   top border, while paired cards still have equal heights. */
+@media print {
+  .print-sheet .print-bag-row > .print-bag-card.bag-has-more,
+  html.mobile-print .print-sheet .print-bag-row > .print-bag-card.bag-has-more {
+    border-bottom: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+  .print-sheet .print-bag-row > .print-bag-card.bag-continued,
+  html.mobile-print .print-sheet .print-bag-row > .print-bag-card.bag-continued {
+    border-top: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+  }
+  .print-sheet .print-bag-card.bag-has-more > .print-bag-continues,
+  html.mobile-print .print-sheet .print-bag-card.bag-has-more > .print-bag-continues {
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    color: #476875 !important;
+    padding: 6px 5px 2px !important;
+    text-align: right !important;
+    margin-top: auto !important;
+  }
+  .print-sheet .print-bag-card .print-bag-continuation-cue {
+    font-size: 8.4px !important;
+  }
+  .print-sheet .print-bag-card .print-submit-item > .print-manual-card-warning {
+    margin: 5px 0 1px !important;
+    padding: 5px 6px !important;
+    border-radius: 3px;
+    font-size: 7.4px;
+    line-height: 1.3;
+  }
+}

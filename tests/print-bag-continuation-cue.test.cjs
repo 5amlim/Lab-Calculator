@@ -1,24 +1,34 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const root = path.join(__dirname, '..');
-const read = file => fs.readFileSync(path.join(root, file), 'utf8');
+const read = p => fs.readFileSync(path.join(__dirname, '..', p), 'utf8');
 
 for (const file of ['assets/js/app.js', 'labcorp-app.js']) {
   const script = read(file);
   assert.match(script, /if \(sliceIndex > 0\) \{[\s\S]*?cue\.className = 'print-bag-continuation-cue'/,
-    file + ' should render a compact cue for continuing bag fragments');
+    file + ': continuation sections need a compact cue');
+  assert.match(script, /cue\.textContent = '› CONTINUE '/,
+    file + ': use a chevron rather than a corner arrow');
   assert.match(script, /topbar\?\.remove\(\);\s*header\?\.remove\(\);/,
-    file + ' should not repeat full bag masthead');
-  assert.match(script, /sliceCard\.querySelector\('\.print-manual-card-warning'\)\?\.remove\(\)/,
-    file + ' should only print the full-bag manual warning once');
-  assert.match(script, /if \(end < allItems\.length\) \{\s*sliceCard\.querySelector\('\.print-bag-end'\)\?\.remove\(\);/,
-    file + ' should only print END OF BAG in the last fragment');
-  assert.match(script, /MORE CONTAINERS FOLLOW · SAME BAG/,
-    file + ' should identify continuing groups as the same physical bag');
+    file + ': continuation must not look like a new bag');
+  assert.match(script, /\$\{printManualCardWarning\(item\.tests\)\}/,
+    file + ': verification must live in the tube card');
+  assert.doesNotMatch(script, /\$\{printManualCardWarning\(bag\.tests\)\}/,
+    file + ': do not show a whole-bag manual warning');
+  assert.doesNotMatch(script, /sliceCard\.querySelector\('\.print-manual-card-warning'\)\?\.remove\(\)/,
+    file + ': keep the manual warning with its tube even on continuation pages');
+  assert.match(script, /if \(end < allItems\.length\) \{[\s\S]*?sliceCard\.classList\.add\('bag-has-more'\);[\s\S]*?sliceCard\.querySelector\('\.print-bag-end'\)\?\.remove\(\)/,
+    file + ': only incomplete fragments omit the end of bag');
+  assert.match(script, /› MORE CONTAINERS FOLLOW · SAME BAG/,
+    file + ': partial bag footer should use a chevron');
 }
 const css = read('assets/css/styles.css');
-assert.match(css, /\.print-bag-continuation-cue/, 'Continuation cue must be styled in print');
+assert.match(css, /\.print-bag-row > \.print-bag-card\.bag-has-more[^}]*?border-bottom: 0 !important;/,
+  'An unfinished bag must not have a bottom border');
+assert.match(css, /\.print-bag-row > \.print-bag-card\.bag-continued[^}]*?border-top: 0 !important;/,
+  'A continuation must not have a new top border');
+assert.match(css, /\.print-bag-card \.print-submit-item > \.print-manual-card-warning/,
+  'Manual verification should be inside its submission item');
 assert.match(css, /\.print-bag-card > \.print-bag-end,[\s\S]*?margin-top: auto !important/,
-  'End of Bag must remain at the bottom of its row');
-console.log('PASS: Quest and LabCorp bag continuations use a cue rather than a repeated bag start');
+  'The completed bag footer stays at the bottom');
+console.log('PASS: paired bags use open continuation borders, chevrons, and per-tube manual verification');
