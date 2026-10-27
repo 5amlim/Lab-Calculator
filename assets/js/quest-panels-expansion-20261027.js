@@ -67,7 +67,7 @@ const additions=[
     "spin": "Yes",
     "fastingStatus": "required",
     "fastingInstructions": "Overnight fasting required. Avoid vitamin supplements for 24 hours.",
-    "specialInstructions": "ADULTS 18+ ONLY. NO GEL SST / plasma gel. Draw plain RED TOP for serum and TWO separate lavender EDTA tubes for B6 plasma and B1 whole blood. Serum: aliquot 2 mL (1 mL min) for folate/B12 into plastic frozen transport tube, plus 2 mL (1 mL min) for B2/B3/B5 into an AMBER or fully foil-wrapped frozen tube. Lavender #1: centrifuge, transfer EDTA PLASMA (3 mL preferred) to amber polypropylene, freeze. Lavender #2: transfer EDTA WHOLE BLOOD (2 mL preferred) to separate amber tube and freeze; do not centrifuge. Protect all from light, SHIP FROZEN. Do NOT pool tubes or use SST. Verify current area-specific requirements.",
+    "specialInstructions": "ADULTS 18+ ONLY. NO GEL SST / plasma gel. Draw TWO plain RED TOP tubes for a total 4 mL serum yield (one standard 5 mL red top usually cannot yield 4 mL) and TWO separate lavender EDTA tubes for B6 plasma and B1 whole blood. Serum: aliquot 2 mL (1 mL min) for folate/B12 into plastic frozen transport tube, plus 2 mL (1 mL min) for B2/B3/B5 into an AMBER or fully foil-wrapped frozen tube. Lavender #1: centrifuge, transfer EDTA PLASMA (3 mL preferred) to amber polypropylene, freeze. Lavender #2: transfer EDTA WHOLE BLOOD (2 mL preferred) to separate amber tube and freeze; do not centrifuge. Protect all from light, SHIP FROZEN. Do NOT pool tubes or use SST. Verify current area-specific requirements.",
     "additionalDrawRequirements": [
       {
         "container": "Lavender EDTA",
@@ -94,7 +94,8 @@ const additions=[
         "specialInstructions": "EDTA whole blood for B1, unspun, into separate amber/foil-wrapped tube, freeze and ship frozen; do not pool with plasma."
       }
     ],
-    "source": "Quest official directory checked October 2026 • https://testdirectory.questdiagnostics.com/test/test-detail/10195/micronutrients-b-vitamin-panel?cc=MASTER"
+    "source": "Quest official directory checked October 2026 • https://testdirectory.questdiagnostics.com/test/test-detail/10195/micronutrients-b-vitamin-panel?cc=MASTER",
+    "collectionCount": 2
   },
   {
     "id": "quest-6796-verified-20261027",
@@ -111,7 +112,7 @@ const additions=[
     "transportTemperatureRaw": "Both serum and EDTA whole blood room temperature",
     "stability": "Serum RT/refrigerated 72 h, frozen 28 d; whole blood RT 48 h, refrigerated/frozen NOT stable",
     "spin": "Yes",
-    "specialInstructions": "Contains iron/TIBC, ferritin, CRP, CBC with differential. Collect serum in SST, centrifuge, separate into labeled serum transport tube. ADD a FULL EDTA lavender-top for CBC; gently invert and submit original unspun at ROOM TEMPERATURE. Do not freeze or refrigerate EDTA for this panel. Confirm Quest service-area availability.",
+    "specialInstructions": "Contains iron/TIBC, ferritin, CRP, CBC with differential. For 3 mL serum, draw TWO standard 5 mL SST tubes if needed (or confirm one 7.5 mL tiger-top will yield enough); collect serum in SST, centrifuge, separate into labeled serum transport tube. ADD a FULL EDTA lavender-top for CBC; gently invert and submit original unspun at ROOM TEMPERATURE. Do not freeze or refrigerate EDTA for this panel. Confirm Quest service-area availability.",
     "additionalDrawRequirements": [
       {
         "container": "Lavender EDTA",
@@ -126,7 +127,8 @@ const additions=[
         "specialInstructions": "Required separate CBC lavender EDTA specimen, room temperature and never frozen."
       }
     ],
-    "source": "Quest official directory checked October 2026 • https://testdirectory.questdiagnostics.com/test/test-detail/6796/anemia-diagnostic-profile-basic?cc=MASTER"
+    "source": "Quest official directory checked October 2026 • https://testdirectory.questdiagnostics.com/test/test-detail/6796/anemia-diagnostic-profile-basic?cc=MASTER",
+    "collectionCount": 2
   },
   {
     "id": "quest-6736-verified-20261027",
