@@ -60,7 +60,56 @@
     socal_ventura: { label: "Southern California \u00b7 Ventura RRL", codes: ["223","234","243","285","287","288","294","296","303","310","330","374","375","396","397","470","482","483","484","509","510","593","606","615","622","654","718","723","733","745","754","763","783","809","822","823","836","905","917","937","1759","3020","4021","5406","5463","6399","6448","6631","7008","7048","7064","7210","7286","7577","7909","7998","8396","8435","8563","8578","8579","8659","8847","10165","10231","10256","10314","10553","19107","19108","19110","19111","19112","19113","19485","20381","34162","34388","34389","34392","34693","37386"], note: "Southern California STAT menu (October 2025), Ventura RRL only (82 listed codes). Confirm current hours, account acceptance and courier." },
     socal_west_hills: { label: "Southern California \u00b7 West Hills Laboratory", codes: ["223","234","236","243","250","285","287","288","294","296","303","310","330","374","375","396","397","444","470","481","482","483","484","509","510","593","606","613","615","622","648","708","718","723","733","745","754","763","783","809","822","823","836","888","890","905","916","917","937","1759","3020","4021","5406","5463","6399","6448","6631","7008","7048","7064","7210","7286","7577","7909","7998","8396","8435","8477","8563","8575","8576","8577","8578","8579","8582","8583","8584","8659","8847","8917","10165","10231","10256","10314","10553","11014","17667","19107","19108","19110","19111","19112","19485","20381","32499","34162","34388","34389","34392","34693","37015","37386","90839","90841"], note: "Southern California STAT menu (October 2025), West Hills Laboratory only (104 listed codes). Confirm current hours, account acceptance and courier." },
     norcal: { label: 'Northern California', codes: [], note: 'No Quest-specific Northern California STAT menu is configured. Confirm receiving-lab availability before requesting STAT.' },
-    ny: { label: 'New York', codes: [], note: 'No account-specific STAT menu verified for this area.' },
+    // Quest Manhattan RRL STAT Test Menu: NJQD1271FORM [01.01.25] (user-supplied PDF).
+    // These are order codes and names only; collection requirements remain directory-driven.
+    ny_manhattan: {
+      label: 'New York · Manhattan RRL',
+      codes: ["243","10165","6631","7286","37386","296","303","6399","1759","10231","374","19107","8659","34392","809","4021","461","470","484","483","8435","8396","10256","606","615","622","763","718","723","11014","733","745","746","8847","792","836","34693","294","5463","7909"],
+      sourceNames: {
+        '243': "Amylase",
+        '10165': "Basic Metabolic Panel (BMP)",
+        '6631': "Bilirubin Total and Direct, Neonatal",
+        '7286': "Bilirubin, Total and Direct",
+        '37386': "B-Type Natriuretic Peptide (BNP)",
+        '296': "BUN/Creatinine Ratio",
+        '303': "Calcium",
+        '6399': "CBC (includes Diff/Plt)",
+        '1759': "CBC (w/o Diff)",
+        '10231': "Comprehensive Metabolic Panel (CMP)",
+        '374': "Creatine Kinase, Total (CK)",
+        '19107': "Creatinine w/o EGFR",
+        '8659': "D-Dimer, Quantitative",
+        '34392': "Electrolyte Panel",
+        '809': "Erythrocyte Sedimentation Rate (ESR)",
+        '4021': "Estradiol",
+        '461': "Fibrinogen Activity, Clauss",
+        '470': "Follicle Stimulating Hormone (FSH)",
+        '484': "Glucose, Plasma",
+        '483': "Glucose, Serum",
+        '8435': "HCG Total, Qualitative",
+        '8396': "HCG Total, Quantitative",
+        '10256': "Hepatic Function Panel",
+        '606': "Lipase",
+        '615': "Luteinizing Hormone (LH)",
+        '622': "Magnesium",
+        '763': "Partial Thromboplastin Time, Activated (PTT)",
+        '718': "Phosphorus",
+        '723': "Platelet Count",
+        '11014': "Potassium, Plasma",
+        '733': "Potassium, Serum",
+        '745': "Progesterone",
+        '746': "Prolactin",
+        '8847': "Prothrombin Time - INR (PT-INR)",
+        '792': "RH type",
+        '836': "Sodium",
+        '34693': "Troponin I HS",
+        '294': "Urea Nitrogen (BUN)",
+        '5463': "Urinalysis Complete",
+        '7909': "Urinalysis w/reflex to Microscopic"
+      },
+      note: 'Manhattan RRL STAT Test Menu, NJQD1271FORM [01.01.25] (40 listed codes). Manhattan receiving lab only, not New York-wide. The supplied document says check the current version before use. Verify current acceptance, hours and courier.'
+    },
+    ny: { label: 'Other New York labs', codes: [], note: 'No account-specific STAT menu verified for this receiving lab. Manhattan RRL has a separate, facility-specific STAT menu.' },
     fl: { label: 'Florida', codes: [], note: 'No account-specific STAT menu verified for this area.' },
     va_short_pump: { label: 'Florida · Short Pump RRL',
       codes: ['223','234','823','243','822','10165','285','6631','287','296','303','330','334','10231','375','34392','482','483','608','10256','593','606','7600','622','718','733','754','10314','836','859','861','867','866','896','899','294','905','4021','470','396','8396','8435','615','745','746','1759','6399','509','510','7998','8847','763','793','809','6448','5463','3020','7909','7048','37386','8659','654','11177','8467'],
@@ -2028,8 +2077,8 @@
     const keyword = normalizeSearch(els.statMenuSearch?.value || '');
     const matches = codes.map(code => {
       const test = database.find(row => String(row.testCode || '') === String(code));
-      return { code, test };
-    }).filter(({code,test}) => !keyword || normalizeSearch(`${code} ${test?.testName || ''}`).includes(keyword));
+      return { code, test, sourceName: info.sourceNames?.[code] || '' };
+    }).filter(({code,test,sourceName}) => !keyword || normalizeSearch(`${code} ${test?.testName || ''} ${sourceName}`).includes(keyword));
     els.statMenuPanel.classList.toggle('hidden', !statMenuOpen);
     els.statMenuButton?.setAttribute('aria-expanded', String(statMenuOpen));
     els.statMenuButton.textContent = `${statMenuOpen ? 'Hide' : 'Show'} STAT tests${codes.length ? ` (${codes.length})` : ''}`;
@@ -2040,7 +2089,7 @@
     els.statMenuResults.innerHTML = !codes.length
       ? '<p class="stat-menu-empty">No verified STAT codes configured for this receiving area.</p>'
       : matches.length
-        ? matches.map(({code,test}) => {
+        ? matches.map(({code,test,sourceName}) => {
           const available = test && test.status !== 'blocked';
           const added = available && selectedIds.includes(test.id);
           const button = available
@@ -2048,7 +2097,7 @@
               ? `<button type="button" class="stat-menu-add is-added" data-action="stat-menu-remove" data-id="${escapeAttr(test.id)}" aria-label="Remove ${escapeAttr(test.testName)} from cart" title="Remove from cart">✓</button>`
               : `<button type="button" class="stat-menu-add" data-action="stat-menu-add" data-id="${escapeAttr(test.id)}" aria-label="Add ${escapeAttr(test.testName)} as STAT" title="Add as STAT (confirmation required)">+</button>`
             : `<button type="button" class="stat-menu-add needs-setup" data-action="stat-menu-setup" data-code="${escapeAttr(code)}" aria-label="Set up missing test ${escapeAttr(code)}" title="Open Add missing test to enter verified collection requirements">+</button>`;
-          return `<div class="stat-menu-test"><strong>${escapeHtml(code)}</strong><span>${escapeHtml(test?.testName || 'Needs verified specimen details')}</span>${test?.status === 'blocked' ? '<small>Not available for onsite collection</small>' : ''}${button}</div>`;
+          return `<div class="stat-menu-test"><strong>${escapeHtml(code)}</strong><span>${escapeHtml(test?.testName || sourceName || 'Needs verified specimen details')}</span>${test?.status === 'blocked' ? '<small>Not available for onsite collection</small>' : !test ? '<small>Verify collection details before adding</small>' : ''}${button}</div>`;
         }).join('')
         : '<p class="stat-menu-empty">No codes or tests match this search.</p>';
   }
