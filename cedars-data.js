@@ -817,18 +817,28 @@ window.CEDARS_TESTS.push(...[
     "code": "DDIM",
     "name": "D-dimer",
     "category": "Blood",
-    "specimen": "Lithium-heparin blood or plasma (local preference; Cedars acceptance unverified)",
-    "collect": "One green-top 5 mL lithium-heparin tube (local preferred; verify assay acceptance)",
-    "submit": "One green-top 5 mL lithium-heparin tube only if currently accepted by Cedars; otherwise follow current Cedars monograph",
+    "specimen": "Plasma anticoagulant requires current Cedars verification (many D-dimer assays use sodium citrate)",
+    "collect": "Verify Cedars collection tube before draw (often light-blue sodium citrate)",
+    "submit": "Verify Cedars-approved specimen and submission tube; do not default to green top",
     "qty": 1,
     "temp": "Verify",
-    "containerType": "Green heparin",
+    "containerType": "Other / verify",
     "testMethod": "Coagulation",
     "aliases": "d dimer|ddimer|DDIM|fibrin degradation product",
-    "volumeDisplay": "One green-top 5 mL lithium-heparin tube proposed; verify Cedars specimen requirements",
+    "volumeDisplay": "Verify Cedars DDIM minimum volume, anticoagulant and processing",
     "sourceNote": "Cedars-Sinai Outreach STAT Testing Menu (2022), DDIM; lithium heparin is a local proposed option, not confirmed by source",
     "statReference2022": true,
-    "notes": "CAUTION: D-dimer assays often require light-blue sodium-citrate plasma; this 2022 Cedars STAT menu does not provide specimen requirements. The requested green-top 5 mL is listed as a local proposed option only. Verify the current Cedars D-dimer DDIM monograph and whether lithium heparin is accepted BEFORE collection or submission. If citrate plasma is required, follow the validated blue-top citrate procedure instead."
+    "notes": "D-dimer (DDIM) appears on the 2022 Cedars Outreach STAT menu, but the menu contains no specimen collection instructions. Many reference-lab D-dimer assays REQUIRE 3.2% sodium citrate (light-blue top). Do not use green-top lithium heparin for Cedars DDIM without explicit current Cedars assay-specific approval. Confirm accepted tube, fill ratio, processing, transport and current STAT acceptance before collection.",
+    "submissionOptions": [
+      {
+        "name": "Standard coagulation approach: light-blue 3.2% sodium citrate",
+        "requirements": "Common D-dimer collection method; verify the exact Cedars DDIM requirements before draw."
+      },
+      {
+        "name": "Requested local option: one green-top 5 mL lithium heparin",
+        "requirements": "Unverified for Cedars DDIM. Do not use this option unless the current Cedars monograph or laboratory directly confirms assay compatibility."
+      }
+    ]
   },
   {
     "id": "nt-probnp",
