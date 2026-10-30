@@ -431,7 +431,7 @@
       return heading + '<tr class="cedars-test-row ' + specimenClass(test.category) + '"><td class="code-cell">' + esc(test.code || '—') + '</td>' +
       '<td><div class="test-name">' + esc(test.name) + '</div>' + specimenBadge(test.category) +
       '<div class="subtext cedars-row-source">' + esc(rowSummary(test)) + '</div>' +
-       (test.statReference2022 ? '<div class="cedars-stat-legacy-tag" title="Listed on the April 2022 Cedars outreach STAT reference. Verify current availability.">2022 STAT REFERENCE</div>' : '') +
+       (test.statReference2022 ? '<div class="cedars-stat-legacy-tag" title="Listed on the April 2022 Cedars outreach STAT reference. Verify current availability.">STAT ELIGIBLE</div>' : '') +
       (test.hold ? '<span class="cedars-hold">' + esc(test.blockReason || 'Not performed at this site') + '</span>' : '') + '</td>' +
       '<td><div class="cedars-container-cell">' + photoArt(primaryCedarsMenuContainer(test), 'table') +
       '<div class="cedars-container-copy"><div class="cedars-specimen-name">' + esc(primaryCedarsMenuSpecimen(test)) + '</div>' +
