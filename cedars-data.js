@@ -799,63 +799,17 @@ window.CEDARS_TESTS.push(...[
     "code": "TRPI",
     "name": "Troponin I",
     "category": "Blood",
-    "specimen": "Lithium-heparin blood or plasma; confirm Cedars assay specimen requirements",
-    "collect": "One green-top 5 mL lithium-heparin tube (local preferred)",
-    "submit": "One green-top 5 mL lithium-heparin tube; verify plasma separation and final submission with Cedars",
+    "specimen": "Lithium-heparin whole blood or plasma (confirm Cedars-specific requirements)",
+    "collect": "One green-top 5 mL lithium-heparin tube (preferred)",
+    "submit": "One green-top 5 mL lithium-heparin tube · room-temperature STAT",
     "qty": 1,
-    "temp": "Verify",
+    "temp": "Room Temperature",
     "containerType": "Green heparin",
     "testMethod": "Cardiac biomarker",
     "aliases": "troponin|troponin I|tnI|cTnI|high sensitivity troponin|hs TnI|TRPI",
-    "volumeDisplay": "One green-top 5 mL lithium-heparin tube (local preferred; Cedars volume unverified)",
-    "sourceNote": "Cedars-Sinai Outreach STAT Testing Menu (2022), TRPI; 5 mL lithium heparin preference supplied by local workflow, not established by this menu",
+    "volumeDisplay": "One green-top 5 mL lithium-heparin tube",
+    "sourceNote": "Troponin I (TRPI) appears on the April 2022 Cedars Outreach STAT menu. Green-top 5 mL tube and room-temperature STAT submission reflect the current local workflow instructions.",
     "statReference2022": true,
-    "notes": "Local preferred collection is one 5 mL lithium-heparin green top. The 2022 STAT menu lists Troponin I code TRPI but does not specify tubes, processing, specimen stability or current availability. Confirm assay method (including high-sensitivity versus conventional), accepted sample, whether plasma must be separated, transport temperature and current STAT acceptance in Cedars Lexicomp before submission."
-  },
-  {
-    "id": "d-dimer",
-    "code": "DDIM",
-    "name": "D-dimer",
-    "category": "Blood",
-    "specimen": "Plasma anticoagulant requires current Cedars verification (many D-dimer assays use sodium citrate)",
-    "collect": "Verify Cedars collection tube before draw (often light-blue sodium citrate)",
-    "submit": "Verify Cedars-approved specimen and submission tube; do not default to green top",
-    "qty": 1,
-    "temp": "Verify",
-    "containerType": "Other / verify",
-    "testMethod": "Coagulation",
-    "aliases": "d dimer|ddimer|DDIM|fibrin degradation product",
-    "volumeDisplay": "Verify Cedars DDIM minimum volume, anticoagulant and processing",
-    "sourceNote": "Cedars-Sinai Outreach STAT Testing Menu (2022), DDIM; lithium heparin is a local proposed option, not confirmed by source",
-    "statReference2022": true,
-    "notes": "D-dimer (DDIM) appears on the 2022 Cedars Outreach STAT menu, but the menu contains no specimen collection instructions. Many reference-lab D-dimer assays REQUIRE 3.2% sodium citrate (light-blue top). Do not use green-top lithium heparin for Cedars DDIM without explicit current Cedars assay-specific approval. Confirm accepted tube, fill ratio, processing, transport and current STAT acceptance before collection.",
-    "submissionOptions": [
-      {
-        "name": "Standard coagulation approach: light-blue 3.2% sodium citrate",
-        "requirements": "Common D-dimer collection method; verify the exact Cedars DDIM requirements before draw."
-      },
-      {
-        "name": "Requested local option: one green-top 5 mL lithium heparin",
-        "requirements": "Unverified for Cedars DDIM. Do not use this option unless the current Cedars monograph or laboratory directly confirms assay compatibility."
-      }
-    ]
-  },
-  {
-    "id": "nt-probnp",
-    "code": "",
-    "name": "NT-proBNP",
-    "category": "Blood",
-    "specimen": "Lithium-heparin blood or plasma (local preference; Cedars assay/specimen to verify)",
-    "collect": "One green-top 5 mL lithium-heparin tube (local preferred)",
-    "submit": "One green-top 5 mL lithium-heparin tube; confirm Cedars accepted specimen and processing",
-    "qty": 1,
-    "temp": "Verify",
-    "containerType": "Green heparin",
-    "testMethod": "Cardiac biomarker",
-    "aliases": "nt pro bnp|ntprobnp|n terminal pro brain natriuretic peptide|pro bnp|BNP|proBNP",
-    "volumeDisplay": "One green-top 5 mL lithium-heparin tube (local preferred; verify Cedars)",
-    "sourceNote": "Locally requested collection preference; NT-proBNP is NOT listed in the uploaded April 29, 2022 Cedars Outreach STAT menu",
-    "statReference2022": false,
-    "notes": "The supplied 2022 Cedars Outreach STAT menu does not include NT-proBNP. Listed for reference to the local requested green-top 5 mL preference, not as confirmation of Cedars test availability or STAT status. Verify the current Cedars order code, whether lithium-heparin is accepted, processing, minimum volume, transport temperature and turnaround before collection."
+    "notes": "Collect one 5 mL lithium-heparin green-top tube, then submit at room temperature as STAT per local workflow. Confirm patient/sample identification and follow current Cedars courier routing and STAT cutoffs. The historical Cedars STAT list identifies TRPI but does not specify collection tube, specimen processing, or transport temperature; confirm any assay-specific requirements with Cedars Lexicomp."
   }
 ]);
