@@ -431,6 +431,7 @@
       return heading + '<tr class="cedars-test-row ' + specimenClass(test.category) + '"><td class="code-cell">' + esc(test.code || '—') + '</td>' +
       '<td><div class="test-name">' + esc(test.name) + '</div>' + specimenBadge(test.category) +
       '<div class="subtext cedars-row-source">' + esc(rowSummary(test)) + '</div>' +
+       (test.statReference2022 ? '<div class="cedars-stat-legacy-tag" title="Listed on the April 2022 Cedars outreach STAT reference. Verify current availability.">2022 STAT REFERENCE</div>' : '') +
       (test.hold ? '<span class="cedars-hold">' + esc(test.blockReason || 'Not performed at this site') + '</span>' : '') + '</td>' +
       '<td><div class="cedars-container-cell">' + photoArt(primaryCedarsMenuContainer(test), 'table') +
       '<div class="cedars-container-copy"><div class="cedars-specimen-name">' + esc(primaryCedarsMenuSpecimen(test)) + '</div>' +
@@ -659,6 +660,7 @@
       '<dl>' +
       '<dt>Test code</dt><dd>' + esc([test.code, test.secondaryCode].filter(Boolean).join(' / ') || 'Not supplied') + '</dd>' +
       '<dt>Specimen</dt><dd>' + esc(test.specimen) + '</dd>' +
+       (test.statReference2022 ? '<dt>Historical outreach STAT list</dt><dd>Included in Cedars 2022 reference (4-hour listed turnaround). Verify current STAT eligibility and actual turnaround.</dd>' : '') +
       (Array.isArray(test.swabSites) && test.swabSites.length
         ? '<dt>Swab sites</dt><dd>' + esc(test.swabSites.join(' · ')) +
           '<small>Use the ordered site and verify current Cedars specimen acceptance.</small></dd>' : '') +
@@ -1018,6 +1020,12 @@
   $('manualClose').addEventListener('click', closeManual);
   $('manualCancel').addEventListener('click', closeManual);
   $('cedarsManualForm').addEventListener('submit', submitManual);
+  // Historical STAT reference links open matching tests directly in the collection directory.
+  const linkedId = new URLSearchParams(window.location.search).get('test');
+  if (linkedId) {
+    const linked = byId(linkedId);
+    if (linked) $('cedarsSearch').value = linked.name;
+  }
   restoreState();
   render();
 })();
