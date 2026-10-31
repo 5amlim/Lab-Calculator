@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="labcorp-crosswalk.css?v=1">
   <link rel="stylesheet" href="print-button-theme.css?v=8">
   <link rel="stylesheet" href="assets/css/scroll-cues.css?v=4">
-  <link rel="stylesheet" href="sendout-bridge.css?v=20261028">
+<link rel="stylesheet" href="assets/css/container-gallery.css?v=20261031-1">
 </head>
 <body class="labcorp-page">
   <a class="skip-link" href="#libraryFilter">Skip to test search</a>
@@ -24,6 +24,8 @@
     </div>
     <div class="header-actions">
       <span class="privacy-pill">No patient information required</span>
+      <button type="button" class="calculator-gallery-trigger no-print" data-calculator-gallery-open aria-haspopup="dialog" aria-controls="calculatorGalleryDialog" title="View specimen containers without leaving the calculator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="7" y="3" width="10" height="4" rx="1"/><path d="M9 7v11a4 4 0 0 0 8 0V7"/></svg>Container gallery</button>
+
       <details class="lab-select lab-select--labcorp">
         <summary aria-label="Select Lab, currently LabCorp">
           <span class="lab-select-summary-text">
@@ -51,14 +53,7 @@
       </details>
     </div>
   </header>
-<aside class="calculator-sendout-bridge no-print" aria-label="Specimen processing and sendout documentation">
-  <div class="sendout-bridge-copy"><span class="sendout-bridge-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4zM8 8h8M8 12h8M8 16h5"/><path d="m16 16 2 2 3-4"/></svg></span>
-    <div><strong>Sending specimens to the lab?</strong><small>Lab tech: prepare each bag, photograph the specimens and requisition, then complete the regional Sendout Log.</small></div>
-  </div>
-  <a href="https://5amlim.github.io/Lab-Central/#sendout-log" target="_blank" rel="noopener noreferrer">Sendout Log instructions ↗</a>
-</aside>
-
-  <main class="app-shell no-print">
+<main class="app-shell no-print">
     <section class="workspace">
       <div class="panel library-panel">
         <div class="panel-heading library-heading">
@@ -489,6 +484,20 @@
   <script src="assets/js/portal-selects.js?v=11.86"></script>
   <script src="assets/js/lab-select.js?v=2"></script>
   <script src="assets/js/scroll-cues.js?v=1"></script>
+<dialog id="calculatorGalleryDialog" class="calc-gallery-dialog no-print" aria-labelledby="calculatorGalleryTitle">
+  <div class="calc-gallery-frame">
+    <header class="calc-gallery-bar">
+      <div><span class="calc-gallery-eyebrow">LAB CONTAINER REFERENCE</span><h2 id="calculatorGalleryTitle">Specimen container gallery</h2><p>Illustrations, real photo previews, receiving labs and handling references.</p></div>
+      <button type="button" class="calc-gallery-close" data-calculator-gallery-close aria-label="Close container gallery">Close <span aria-hidden="true">✕</span></button>
+    </header>
+    <div id="calculatorGalleryMount" class="calc-gallery-mount"></div>
+  </div>
+</dialog>
+<script src="assets/js/container-gallery-tube-photos.js?v=20261031-1"></script>
+<script src="assets/js/container-gallery-cedars-photos.js?v=20261031-1"></script>
+<script src="assets/js/container-gallery-photo-updates.js?v=20261031-1"></script>
+<script src="assets/js/container-gallery-reference.js?v=20261031-1"></script>
+<script src="assets/js/calculator-container-gallery.js?v=20261031-1"></script>
 </body>
 </html>
 
