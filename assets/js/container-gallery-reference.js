@@ -19,7 +19,8 @@ const transportPhotos={frozen:'data:image/webp;base64,UklGRiwFAABXRUJQVlA4ICAFAA
 const photoFallback={Q:'https://testdirectory.questdiagnostics.com/test/home',L:'https://www.labcorp.com/test-menu/search',C:'https://www.cedars-sinai.org/'};
 const referencePhotos={
  'quest-trace-vial':'https://5amlim.github.io/Lab-Central/assets/containers/quest-trace-serum.webp',
- 'quest-trace-multi':'https://5amlim.github.io/Lab-Central/assets/containers/quest-trace-wholeblood-rbc-plasma.webp'
+ 'quest-trace-multi':'https://5amlim.github.io/Lab-Central/assets/containers/quest-trace-wholeblood-rbc-plasma.webp',
+ 'pink-edta':'https://5amlim.github.io/Lab-Central/assets/containers/pink-edta-reference.webp'
 };
 function photo(item){
  if(referencePhotos[item.id])return referencePhotos[item.id];
