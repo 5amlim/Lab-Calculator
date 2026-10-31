@@ -13,8 +13,10 @@
   <style>.cedars-stat-legacy-tag{display:inline-block;margin-top:5px;padding:3px 6px;border-radius:4px;background:#fff3dc;color:#835115;border:1px solid #e6d1a8;font-size:10px;font-weight:800;letter-spacing:.015em}.cedars-reference-link small{font-size:10px;opacity:.85}</style>
   <link rel="stylesheet" href="print-button-theme.css?v=8">
   <link rel="stylesheet" href="assets/css/scroll-cues.css?v=4">
+<link rel="stylesheet" href="assets/css/container-gallery.css?v=20261031-singlelab-v1">
+<style>.cedars-page .calculator-gallery-trigger{color:#772b40;background:#f8ebee;border-color:#ebc8d1}.cedars-page .calculator-gallery-trigger:hover{background:#f3dce3;border-color:#933c4e}</style>
 </head>
-<body class="cedars-page">
+<body class="cedars-page" data-gallery-lab="C">
   <a class="skip-link" href="#cedarsSearch">Skip to Cedars test search</a>
   <header class="app-header no-print">
     <div class="header-title">
@@ -23,6 +25,7 @@
     </div>
     <div class="header-actions">
       <span class="privacy-pill">No patient information required</span>
+<button type="button" class="calculator-gallery-trigger no-print" data-calculator-gallery-open aria-haspopup="dialog" aria-controls="calculatorGalleryDialog" title="View specimen containers without leaving the calculator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="7" y="3" width="10" height="4" rx="1"/><path d="M9 7v11a4 4 0 0 0 8 0V7"/></svg>Container gallery</button>
       <details class="lab-select lab-select--cedars">
         <summary aria-label="Select Lab, currently Cedars">
           <span class="lab-select-summary-text">
@@ -221,5 +224,20 @@
   <script src="cedars-app.js?v=37"></script>
   <script src="assets/js/lab-select.js?v=2"></script>
   <script src="assets/js/scroll-cues.js?v=1"></script>
+<dialog id="calculatorGalleryDialog" class="calc-gallery-dialog no-print" aria-labelledby="calculatorGalleryTitle">
+  <div class="calc-gallery-frame">
+    <header class="calc-gallery-bar">
+      <div><span class="calc-gallery-eyebrow">LAB CONTAINER REFERENCE</span><h2 id="calculatorGalleryTitle">Cedars container gallery</h2><p>Cedars specimens only. Search collection containers and reference photos.</p></div>
+      <button type="button" class="calc-gallery-close" data-calculator-gallery-close aria-label="Close container gallery">Close <span aria-hidden="true">✕</span></button>
+    </header>
+    <div id="calculatorGalleryMount" class="calc-gallery-mount"></div>
+  </div>
+</dialog>
+<script src="assets/js/container-gallery-tube-photos.js?v=20261031-1"></script>
+<script src="assets/js/container-gallery-cedars-photos.js?v=20261031-1"></script>
+<script src="assets/js/container-gallery-photo-updates.js?v=20261031-1"></script>
+<script src="assets/js/container-gallery-reference.js?v=20261031-singlelab-v1"></script>
+<script src="assets/js/calculator-container-gallery.js?v=20261031-1"></script>
+
 </body>
 </html>
