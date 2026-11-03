@@ -3477,6 +3477,7 @@
 
     const cls = tubeClass(draw);
     const labels = {
+      'tube-nmr-lipotube': 'NMR LipoTube (Black/Yellow)',
       'tube-culture': 'Blood Culture Bottles',
       'tube-blue': 'Light Blue Citrate',
       'tube-sst': selectedSstLabel(),
@@ -3957,6 +3958,9 @@
 
     grouped.forEach(item => {
       item.tests = uniqueTests(item.tests);
+      if (item.className === 'tube-nmr-lipotube') {
+        item.detail = 'Clot upright 30 minutes, centrifuge 1600–1800 ×g for 10–15 minutes, do not open, refrigerate at 2–8°C, and ship with frozen cool packs.';
+      }
       // LabCorp explicitly accepts the same 30% acetic-acid-preserved
       // 24-hour urine collection for PBG (003103) and delta-ALA (096354).
       // Count that physical jug once, but submit a separate frozen amber
@@ -4014,6 +4018,7 @@
 
   function shortDrawSource(test) {
     const draw = String(test.drawContainer || '').trim();
+    if (/\bnmr\s*lipo\s*tube\b/i.test(draw)) return 'NMR LipoTube (Black/Yellow)';
 
     // Match royal-blue tubes before generic EDTA or red-top rules. Otherwise
     // "Royal Blue EDTA" becomes Lavender EDTA and "red stripe" becomes Red Top.
@@ -4283,6 +4288,9 @@
       ? `${sourceSpecimen} · Submit as Aptima`
       : directUrineCup ? 'Submit in original sterile cup; no transfer'
       : (String(test.spin || '').toLowerCase() === 'yes' ? 'Process as directed; submit in original tube' : 'Submit in original tube');
+    const nmrProcessing = tubeClass(draw) === 'tube-nmr-lipotube'
+      ? 'Clot upright 30 min, spin 1600–1800 ×g for 10–15 min, do not open; refrigerate 2–8°C and ship with frozen cool packs'
+      : processing;
     return {
       key: directUrineCup
         ? `original-urine-cup|${urineCollectionType(test).key}|${shareUrineCup ? 'shared' : String(test.sourceTestId || test.id || test.testCode)}`
@@ -4294,7 +4302,7 @@
       // If two distinct whole-blood tubes are drawn, they cannot be compressed
       // into a single original tube in the bag plan (e.g. 38287).
       count: Math.max(explicitSubmissionCount(test), explicitCollectionCount(test)),
-      detail: isAptima70049 ? processing : `${sourceSpecimen} · ${processing}`,
+      detail: isAptima70049 ? processing : `${sourceSpecimen} · ${nmrProcessing}`,
       originalTube: true
     };
   }
@@ -5087,6 +5095,15 @@
   }
 
   function printCollectionWholeBloodDetail(item, wholeBloodGroups) {
+    // Labcorp NMR volume is the required serum yield, not a calculated draw volume.
+    if (item.className === 'tube-nmr-lipotube') {
+      const test = uniqueTests(item.tests || [])[0];
+      return `<span class="print-collection-volume-wrap"><span class="print-collection-blood-volume">
+        <span class="print-collection-blood-label">Serum Required / Tube</span>
+        <span class="print-collection-blood-metric"><b>Preferred</b><strong>${escapeHtml(test?.preferredVolume || 'Verify')}</strong></span>
+        <span class="print-collection-blood-metric"><b>Minimum</b><strong>${escapeHtml(test?.minimumVolume || 'Verify')}</strong></span>
+      </span></span>`;
+    }
     const group = bloodVolumeGroupForCollectionItem(item, wholeBloodGroups);
     if (!group) return '';
     const notes = [];
@@ -5703,6 +5720,8 @@
 
   function tubeClass(container) {
     const value = String(container || '').toLowerCase();
+    // Named specialty tube must take priority over individual cap colors.
+    if (/\bnmr\s*lipo\s*tube\b/.test(value)) return 'tube-nmr-lipotube';
     // Special LabCorp tube and vial badges reflect the actual kit cap/medium.
     if (/quanti[- ]?feron/.test(value)) {
       if (/\bnil\b/.test(value)) return 'tube-qft-nil';
