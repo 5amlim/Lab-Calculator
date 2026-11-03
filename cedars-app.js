@@ -1024,12 +1024,11 @@
   $('manualClose').addEventListener('click', closeManual);
   $('manualCancel').addEventListener('click', closeManual);
   $('cedarsManualForm').addEventListener('submit', submitManual);
-  // Historical STAT reference links open matching tests directly in the collection directory.
+  // Reference links filter to the specific test and open its details.
   const linkedId = new URLSearchParams(window.location.search).get('test');
-  if (linkedId) {
-    const linked = byId(linkedId);
-    if (linked) $('cedarsSearch').value = linked.name;
-  }
+  const linkedTest = linkedId ? byId(linkedId) : null;
+  if (linkedTest) $('cedarsSearch').value = linkedTest.name;
   restoreState();
   render();
+  if (linkedTest) detail(linkedTest.id);
 })();
