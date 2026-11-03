@@ -3504,3 +3504,16 @@
   .cedars-print-bili-callout strong { color: #63360a; }
   .cedars-print-bili-callout small { display: block; font-size: 8pt; color: #684821; }
 }
+
+/* Amber SST microtainer reference photo in live Cedars cards and printed summaries. */
+.cedars-container-art-amber { position: relative; overflow: hidden; background: white !important; }
+.cedars-container-art-amber .cedars-container-amber-photo {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  display: block; object-fit: contain; background: white;
+  z-index: 1;
+}
+@media print {
+  #cedarsPrintSheet .cedars-container-art-amber .cedars-container-amber-photo {
+    display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+}
