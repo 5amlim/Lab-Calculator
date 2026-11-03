@@ -112,6 +112,26 @@ body{margin:0}
  .page-footer{margin-top:7px;padding-top:6px;font-size:7.8px}
  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
 }
+
+/* Newborn STAT bilirubin follows the standard card system with compact workflow cards. */
+.page-5 .container-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.page-5 .container-card.wide .test-menu{grid-template-columns:1fr;max-width:690px}
+.page-5 .test-name a{color:inherit;text-decoration:underline;text-decoration-color:#b5cdd9;text-underline-offset:3px}
+.page-5 .test-name a:hover{color:#126a80;text-decoration-color:currentColor}
+.page-5 .bilirubin-detail-card .container-heading{padding-bottom:5px}
+.page-5 .bilirubin-detail-card h2{font-size:15px}
+.page-5 .bilirubin-copy{font-size:11.5px;line-height:1.48;color:#506573;margin:6px 2px}
+.page-5 .bilirubin-copy strong{color:#203946}
+.page-5 .bilirubin-order{font-size:12px;font-weight:800;color:#203946;line-height:1.4;margin:6px 2px}
+.page-5 .bilirubin-detail-card .container-note{margin-top:auto}
+@media screen and (max-width:780px){.page-5 .container-grid{grid-template-columns:1fr}}
+@media print{
+ .page-5 .container-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .page-5 .container-card.wide .test-menu{grid-template-columns:1fr}
+ .page-5 .bilirubin-detail-card h2{font-size:12.5px}
+ .page-5 .bilirubin-copy{font-size:9.3px}
+ .page-5 .bilirubin-order{font-size:9.7px}
+}
 </style>
 </head>
 <body>
@@ -511,21 +531,28 @@ body{margin:0}
         </svg></figure>
         <div class="container-heading-copy"><div class="eyebrow">NEWBORN · STAT <span>Protect from light</span></div><h2>Red / mint green / dark green microtainer</h2><div class="card-count">2 STAT tests</div></div>
       </header>
-      <div class="test-menu-label">Newborn STAT tests</div>
+      <div class="test-menu-label">Test menu · newborn STAT</div>
       <ul class="test-menu">
         <li class="test-row"><span class="test-name"><a href="cedars.html?test=newborn-total-bilirubin">Total bilirubin (TBIL)</a></span><span class="test-tags"><span class="alert">NEWBORN STAT</span></span></li>
         <li class="test-row"><span class="test-name"><a href="cedars.html?test=newborn-direct-bilirubin">Direct bilirubin (DBIL)</a></span><span class="test-tags"><span class="alert">NEWBORN STAT</span></span></li>
       </ul>
-      <div class="source-menu"><strong>ACCEPTED MICROTAINERS</strong><span>Red</span><span>Mint green</span><span>Dark green</span><span>Protect from light</span></div>
-      <p class="container-note"><strong>Specimen:</strong> Newborn blood, collected in one of the accepted microtainers. Protect from light. Confirm minimum fill, processing, and transport temperature with Cedars before collection.</p>
+      <div class="source-menu"><strong>ACCEPTED MICROTAINERS</strong><span>Red</span><span>Mint green</span><span>Dark green</span></div>
+      <p class="container-note"><strong>Specimen:</strong> Collect newborn blood in an accepted microtainer. <strong>Protect from light.</strong> Confirm minimum fill, processing, and transport temperature with Cedars.</p>
     </article>
-    <article class="container-card type-blood">
+    <article class="container-card type-blood bilirubin-detail-card">
       <header class="container-heading"><div class="container-heading-copy"><div class="eyebrow">ORDERING · PAPER REQUISITION</div><h2>Additional Tests</h2></div></header>
-      <p class="container-note" style="border-top:0;margin:4px 0 0;padding:0"><strong>On the Cedars paper requisition</strong>, under <strong>Additional Tests</strong> write:<br><strong>Direct Bilirubin + Total Bilirubin (DBIL + TBIL)</strong>.</p>
+      <p class="bilirubin-copy">On the Cedars paper requisition, under <strong>Additional Tests</strong>, write:</p>
+      <p class="bilirubin-order">Direct Bilirubin + Total Bilirubin (DBIL + TBIL)</p>
     </article>
-    <article class="container-card type-blood">
-      <header class="container-heading"><div class="container-heading-copy"><div class="eyebrow">STAT PICKUP · TIMING</div><h2>2 hours from Cedars receipt</h2></div></header>
-      <p class="container-note" style="border-top:0;margin:4px 0 0;padding:0"><strong>TAT:</strong> 2 hours after Cedars receives the specimen, not from collection or courier pickup. <strong>Courier:</strong> Call Apollo to arrange STAT pickup.</p>
+    <article class="container-card type-blood bilirubin-detail-card">
+      <header class="container-heading"><div class="container-heading-copy"><div class="eyebrow">STAT TURNAROUND</div><h2>2 hours from receipt</h2></div></header>
+      <p class="bilirubin-copy">Turnaround starts when <strong>Cedars receives the specimen</strong>.</p>
+      <p class="container-note">Collection and courier transit time are not included.</p>
+    </article>
+    <article class="container-card type-blood bilirubin-detail-card">
+      <header class="container-heading"><div class="container-heading-copy"><div class="eyebrow">COURIER &amp; VERIFICATION</div><h2>Apollo STAT pickup</h2></div></header>
+      <p class="bilirubin-copy"><strong>Call Apollo</strong> to arrange STAT pickup.</p>
+      <p class="container-note">Verify minimum fill, specimen processing, and transport temperature with Cedars.</p>
     </article>
   </main>
   <footer class="page-footer"><span><b>STAT handling:</b> Keep microtainer protected from light; confirm current Cedars acceptance.</span><span>Transport temperature and minimum volume require verification.</span></footer>
