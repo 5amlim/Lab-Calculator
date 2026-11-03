@@ -1,4 +1,4 @@
-/* Three new Labcorp specialty test records, directory-verified 2026-10-27.
+/* Labcorp specialty tests: three directory-verified on 2026-10-27 and two code-only pending verification on 2026-11-03.
  * Six other verified candidates already existed and are not redefined.\n * All code-specific specimen handling is preserved. Do not apply Quest specimen
  * rules, or merge separately frozen/amber aliquots into pooled SST submissions.
  * Existing built-in records and local browser overrides are untouched.
@@ -63,6 +63,47 @@
     "fastingInstructions": "",
     "status": "active",
     "source": "Labcorp official test directory reviewed 2026-10-27 • https://www.labcorp.com/tests/141330/phospholipase-a2-receptor-autoantibodies-igg"
+  }
+,
+  {
+    "id": "labcorp-243678-20261103-pending",
+    "testCode": "243678",
+    "testName": "LabCorp test 243678 (identity pending verification)",
+    "specimenType": "Not verified",
+    "drawContainer": "Verify with LabCorp",
+    "alternativeContainer": "",
+    "transportContainer": "Verify with LabCorp",
+    "preferredVolume": "",
+    "minimumVolume": "",
+    "transportTemperature": "Not specified",
+    "transportTemperatureRaw": "Not verified",
+    "stability": "",
+    "spin": "Verify",
+    "specialInstructions": "VERIFICATION REQUIRED: The test identity and specimen collection, container, volume, processing, and transport requirements have not been confirmed with LabCorp. Do not use this code to generate collection or shipment instructions until verified.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "status": "pending",
+    "source": "LabCorp code supplied November 3, 2026; official test directory details not independently verified."
+  },
+  {
+    "id": "labcorp-242823-20261103-pending",
+    "testCode": "242823",
+    "testName": "LabCorp test 242823 (identity pending verification)",
+    "specimenType": "Not verified",
+    "drawContainer": "Verify with LabCorp",
+    "alternativeContainer": "",
+    "transportContainer": "Verify with LabCorp",
+    "preferredVolume": "",
+    "minimumVolume": "",
+    "transportTemperature": "Not specified",
+    "transportTemperatureRaw": "Not verified",
+    "stability": "",
+    "spin": "Verify",
+    "specialInstructions": "VERIFICATION REQUIRED: The test identity and specimen collection, container, volume, processing, and transport requirements have not been confirmed with LabCorp. Do not use this code to generate collection or shipment instructions until verified.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "status": "pending",
+    "source": "LabCorp code supplied November 3, 2026; official test directory details not independently verified."
   }
 ];
 const known=new Set(window.SEED_TESTS.map(t=>String(t.testCode||'').trim()));for(const t of additions){if(!known.has(t.testCode)){window.SEED_TESTS.push(t);known.add(t.testCode)}}})();
