@@ -294,6 +294,7 @@
     const volume = (test.volumeDisplay || '').trim();
     if (volume && !/^(verify|not specified|n\/a|unknown)$/i.test(volume))
       parts.push('Volume: ' + volume);
+    if (test.statLocalWorkflow) parts.push('Newborn STAT · protect from light · 2h from Cedars receipt');
     if (test.secondaryCode) parts.push('Code: ' + test.secondaryCode);
     return parts.filter(Boolean).join(' · ');
   };
@@ -372,7 +373,7 @@
     if (/vancomycin|drug level|therapeutic|toxicology/.test(value)) return 'Therapeutic drug monitoring';
     if (/sedimentation|esr\b|blood count|cbc\b|coagulation|platelet/.test(value))
       return 'Hematology & coagulation';
-    if (/procalcitonin|electrolyte|chemistry|metabolic/.test(value)) return 'Chemistry & biomarkers';
+    if (/procalcitonin|electrolyte|chemistry|metabolic|bilirubin/.test(value)) return 'Chemistry & biomarkers';
     return 'Other clinical tests';
   }
   function cedarsGroupLabel(test, mode) {
@@ -432,6 +433,7 @@
       '<td><div class="test-name">' + esc(test.name) + '</div>' + specimenBadge(test.category) +
       '<div class="subtext cedars-row-source">' + esc(rowSummary(test)) + '</div>' +
        (test.statReference2022 ? '<div class="cedars-stat-legacy-tag" title="Listed on the April 2022 Cedars outreach STAT reference. Verify current availability.">STAT ELIGIBLE</div>' : '') +
+       (test.statLocalWorkflow ? '<div class="cedars-stat-local-tag" title="Local newborn STAT workflow; TAT begins when Cedars receives the specimen.">NEWBORN STAT · 2H AFTER RECEIPT</div>' : '') +
       (test.hold ? '<span class="cedars-hold">' + esc(test.blockReason || 'Not performed at this site') + '</span>' : '') + '</td>' +
       '<td><div class="cedars-container-cell">' + photoArt(primaryCedarsMenuContainer(test), 'table') +
       '<div class="cedars-container-copy"><div class="cedars-specimen-name">' + esc(primaryCedarsMenuSpecimen(test)) + '</div>' +
@@ -525,7 +527,8 @@
     $('cedarsCart').innerHTML = tests.length ? tests.map((test) =>
       '<article class="cedars-cart-item ' + specimenClass(test.category) + '"><div class="cedars-cart-top">' +
       '<div class="cedars-cart-heading"><strong>' + esc(test.name) + specimenBadge(test.category) +
-      '</strong>' + (test.code ? '<small>' + esc(test.code) + '</small>' : '') + '</div>' +
+      '</strong>' + (test.code ? '<small>' + esc(test.code) + '</small>' : '') +
+      (test.statLocalWorkflow ? '<small class="cedars-stat-local-tag">NEWBORN STAT · LIGHT PROTECTED</small>' : '') + '</div>' +
       '<button type="button" class="mini-button remove remove-flex cedars-cart-remove" data-remove="' + esc(test.id) +
       '" aria-label="Delete ' + esc(test.name) + '">' + removeXIcon + '</button></div>' +
       (showCartDetails ? '<div class="cedars-cart-details"><div class="cedars-cart-art-row">' +
@@ -594,7 +597,7 @@
     const order = ['eSwab','UTM','cobas urine','cobas swab','Affirm / ATTS',
       'Gray-top urine culture','UA swirl-top','3-vial ParaPak','Clean stool vial',
       'Adult blood culture','Pediatric blood culture','Myco/F Lytic',
-      'Gold SST','Lavender EDTA','Green heparin','Red serum',
+      'Gold SST','Lavender EDTA','Green heparin','Red serum','Microtainer',
       'Sterile container','Sterile 50 mL tube','FIT bottle','SurePath','Other / verify'];
     const sorted = Array.from(counts).sort(([a],[b]) =>
       order.indexOf(a) - order.indexOf(b) || a.localeCompare(b));
@@ -655,12 +658,13 @@
       '<p class="cedars-illustration-note">Color-matched illustration based on supplied kit photos. Verify the actual manufacturer container before collecting.</p>' +
       '<div class="cedars-summary-notice"><strong>' +
       (test.hold ? esc(test.blockReason || 'Not performed at this site') + '. Do not collect or submit until the workflow is approved.' :
-        '2023 reference only: verify the current Cedars/Lexicomp instructions.') +
+        (test.statLocalWorkflow ? 'Local newborn STAT bilirubin workflow: confirm current tube/handling requirements with Cedars.' : '2023 reference only: verify the current Cedars/Lexicomp instructions.')) +
       '</strong></div>' +
       '<dl>' +
       '<dt>Test code</dt><dd>' + esc([test.code, test.secondaryCode].filter(Boolean).join(' / ') || 'Not supplied') + '</dd>' +
       '<dt>Specimen</dt><dd>' + esc(test.specimen) + '</dd>' +
        (test.statReference2022 ? '<dt>Historical outreach STAT list</dt><dd>Included in Cedars 2022 reference (4-hour listed turnaround). Verify current STAT eligibility and actual turnaround.</dd>' : '') +
+      (test.statLocalWorkflow ? '<dt>Newborn STAT turnaround</dt><dd>' + esc(test.statTat) + '</dd><dt>Pickup</dt><dd>' + esc(test.statPickup) + '</dd><dt>Paper requisition</dt><dd>' + esc(test.orderInstructions) + '</dd><dt>Light protection</dt><dd>Protect microtainer specimen from light.</dd>' : '') +
       (Array.isArray(test.swabSites) && test.swabSites.length
         ? '<dt>Swab sites</dt><dd>' + esc(test.swabSites.join(' · ')) +
           '<small>Use the ordered site and verify current Cedars specimen acceptance.</small></dd>' : '') +
