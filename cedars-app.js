@@ -294,7 +294,7 @@
     const volume = (test.volumeDisplay || '').trim();
     if (volume && !/^(verify|not specified|n\/a|unknown)$/i.test(volume))
       parts.push('Volume: ' + volume);
-    if (test.statLocalWorkflow) parts.push('Newborn STAT · protect from light · 2h from Cedars receipt');
+    if (test.statLocalWorkflow) parts.push('Newborn STAT · ONE FULL amber SST microtainer for TBIL + DBIL · PROTECT FROM LIGHT · CALL APOLLO · 2h from Cedars receipt');
     if (test.secondaryCode) parts.push('Code: ' + test.secondaryCode);
     return parts.filter(Boolean).join(' · ');
   };
@@ -463,6 +463,14 @@
     return 'Clean-catch / routine urine';
   };
   const originalCollectionGroup = (test) => {
+    // Approved newborn STAT bilirubin exception: one shared full amber SST vial for TBIL + DBIL.
+    if (test.sharedSpecimenGroup === 'newborn-bilirubin') return {
+      key: 'blood|newborn-bilirubin|amber-sst',
+      container: collectionContainer(test),
+      category: 'Blood',
+      subtitle: 'ONE FULL VIAL for TBIL + DBIL · PROTECT FROM LIGHT',
+      shared: true
+    };
     // One source cup can supply compatible tests from the SAME stool specimen.
     // Dedicated collection kits, special timed collections and tests requiring
     // independent specimens retain their own source. Urine and stool NEVER
@@ -504,6 +512,8 @@
     };
   };
   const originalCupNote = (category, groupSize, subtitle) => {
+    if (category === 'Blood' && subtitle.startsWith('ONE FULL VIAL for TBIL + DBIL'))
+      return 'ONE FULL amber SST microtainer for BOTH TBIL + DBIL. PROTECT FROM LIGHT.';
     if (category === 'Stool') {
       if (subtitle) return 'Dedicated specimen: follow the collection kit instructions';
       return groupSize > 1
@@ -575,7 +585,7 @@
     });
     $('cedarsBagsCount').textContent = bags.size ? bags.size + ' temperature groups' : 'No transport groups';
     $('cedarsBags').innerHTML = tests.length ?
-      '<p class="cedars-mini-note">Keep containers separate. Temperature grouping is not permission to combine specimens.</p>' +
+      '<p class="cedars-mini-note">Do not combine specimens except where explicitly approved. TBIL + DBIL share ONE FULL amber SST microtainer.</p>' +
       Array.from(bags, ([bucket, items]) =>
         '<div class="cedars-bag"><div class="cedars-bag-header"><span class="badge ' +
         bagClass(bucket) + '">' + esc(bucket) + '</span><span>' + items.length + ' tests</span></div>' +
@@ -658,13 +668,13 @@
       '<p class="cedars-illustration-note">Color-matched illustration based on supplied kit photos. Verify the actual manufacturer container before collecting.</p>' +
       '<div class="cedars-summary-notice"><strong>' +
       (test.hold ? esc(test.blockReason || 'Not performed at this site') + '. Do not collect or submit until the workflow is approved.' :
-        (test.statLocalWorkflow ? 'Local newborn STAT bilirubin workflow: confirm current tube/handling requirements with Cedars.' : '2023 reference only: verify the current Cedars/Lexicomp instructions.')) +
+        (test.statLocalWorkflow ? 'NEWBORN STAT: 1 full amber SST microtainer for TBIL + DBIL. PROTECT FROM LIGHT. Submit STAT and CALL APOLLO.' : '2023 reference only: verify the current Cedars/Lexicomp instructions.')) +
       '</strong></div>' +
       '<dl>' +
       '<dt>Test code</dt><dd>' + esc([test.code, test.secondaryCode].filter(Boolean).join(' / ') || 'Not supplied') + '</dd>' +
       '<dt>Specimen</dt><dd>' + esc(test.specimen) + '</dd>' +
        (test.statReference2022 ? '<dt>Historical outreach STAT list</dt><dd>Included in Cedars 2022 reference (4-hour listed turnaround). Verify current STAT eligibility and actual turnaround.</dd>' : '') +
-      (test.statLocalWorkflow ? '<dt>Newborn STAT turnaround</dt><dd>' + esc(test.statTat) + '</dd><dt>Pickup</dt><dd>' + esc(test.statPickup) + '</dd><dt>Paper requisition</dt><dd>' + esc(test.orderInstructions) + '</dd><dt>Light protection</dt><dd>Protect microtainer specimen from light.</dd>' : '') +
+      (test.statLocalWorkflow ? '<dt>Newborn STAT turnaround</dt><dd>' + esc(test.statTat) + '</dd><dt>Pickup</dt><dd>' + esc(test.statPickup) + '</dd><dt>Paper requisition</dt><dd>' + esc(test.orderInstructions) + '</dd><dt>Shared vial</dt><dd>ONE FULL amber SST microtainer covers TBIL and DBIL.</dd><dt>Light protection</dt><dd><strong>PROTECT FROM LIGHT.</strong></dd>' : '') +
       (Array.isArray(test.swabSites) && test.swabSites.length
         ? '<dt>Swab sites</dt><dd>' + esc(test.swabSites.join(' · ')) +
           '<small>Use the ordered site and verify current Cedars specimen acceptance.</small></dd>' : '') +
@@ -714,7 +724,7 @@
     if (!tests.length) return;
 
     // The Cedars 2023 reference often lacks verified tube volumes or shipping
-    // temperatures. Counts are additive per test; never silently pool specimens.
+    // temperatures. Counts are additive, except where an approved sharedSpecimenGroup explicitly allows sharing.
     // Original urine collection cups can be shared across COMPATIBLE tests.
     // First-stream, clean-catch, and first-morning AFB collection remain separate.
     // Each test still has its own required transport tube and fill/handling rules.
@@ -775,7 +785,7 @@
         '<div class="cedars-print-card-name"><strong>' + esc(container) +
         '</strong>' + cupBadge +
         (subtitle ? '<small><strong>' + esc(subtitle) + '</strong></small>' : '') +
-        '<small>' + (cupCollection ?
+        '<small>' + (cupCollection || shared ?
           esc(originalCupNote(category, group.length, subtitle)) :
           'Keep specimens separate') + '</small></div></div>' +
         '<div class="cedars-print-for-tests">For ' + group.length +
@@ -886,11 +896,27 @@
 
     const totalContainers = Array.from(collection.values()).reduce((sum,group) =>
       sum + (group.shared ? 1 : group.tests.reduce((n,test) => n + initialCountFor(test),0)), 0);
+    const bilirubinTests = tests.filter(test => test.sharedSpecimenGroup === 'newborn-bilirubin');
+    const bilirubinCodes = bilirubinTests.map(test => test.code);
+    const sharedBilirubinVial = bilirubinCodes.includes('TBIL') && bilirubinCodes.includes('DBIL');
+    const bilirubinPrintCallout = bilirubinTests.length ?
+      '<section class="cedars-print-bili-callout">' +
+        '<div class="cedars-print-bili-heading"><strong>NEWBORN BILIRUBIN · STAT</strong><span>' +
+          esc(bilirubinCodes.join(' + ')) + '</span></div>' +
+        '<p><strong>1 FULL AMBER SST MICROTAINER</strong> ' +
+          (sharedBilirubinVial ? 'for BOTH TBIL + DBIL (one shared vial)' : 'for the selected bilirubin test') +
+          ' · <strong>PROTECT FROM LIGHT</strong> · <strong>SUBMIT STAT</strong> · ' +
+          '<strong>CALL APOLLO</strong> for pickup · <strong>2-HOUR TAT</strong> from Cedars receipt.</p>' +
+        '<small>Paper requisition, Additional Tests: ' +
+          esc(bilirubinTests.map(test => test.name + ' (' + test.code + ')').join(' + ')) +
+          '. Minimum 0.5 mL per test. Verify transport temperature with Cedars.</small>' +
+      '</section>' : '';
     $('cedarsPrintSheet').innerHTML =
       '<header class="cedars-print-header"><div><h1>Cedars Collection Summary</h1>' +
         '<p>Submission containers · Test method · Collection and transport</p></div>' +
         '<div class="cedars-print-meta"><span>' + esc(new Date().toLocaleString()) + '</span>' +
         '<strong>' + tests.length + (tests.length===1 ? ' test' : ' tests') + '</strong></div></header>' +
+      bilirubinPrintCallout +
       (precautionCards ? '<section class="cedars-print-precautions">' +
         '<div class="cedars-print-precautions-title"><strong>Check before collection</strong>' +
         '<span>Source-specific requirements that can affect specimen acceptance</span></div>' +
@@ -908,7 +934,7 @@
           (pendingCount ? ' · ' + pendingCount + ' pending' : '') + '</span></div>' +
         '<div class="cedars-print-grid">' + transportCards + '</div>' +
         '<p class="cedars-print-section-note">These are planning groups, not pre-approved bags. ' +
-          'Keep specimens separate and confirm unverified temperatures before sending.</p></section>' +
+          'Keep specimens separate unless explicitly approved for a shared vial (TBIL + DBIL). Confirm unverified temperatures before sending.</p></section>' +
       (handlingCards ? '<section class="cedars-print-section cedars-print-handling-section">' +
         '<div class="cedars-print-section-heading"><div><strong>3. Additional handling notes</strong>' +
         '<small>Test-specific instructions from the listed source</small></div></div>' +
@@ -916,7 +942,7 @@
       '<footer class="cedars-print-footer">Verify current Cedars/Lexicomp instructions before collecting. ' +
         'Compatible urine tests may share one sterile cup when collection method and volume allow; ' +
         'compatible stool tests from the same sample may share a separate sterile cup. ' +
-        'Never combine urine with stool, first-stream with clean-catch, or separate transport containers. ' +
+        'Never combine urine with stool, first-stream with clean-catch, or separate transport containers, except where a shared vial is explicitly approved (TBIL + DBIL). ' +
         'Confirm the original collection method and transfer process for each assay. No patient identifiers are required.</footer>';
     window.print();
   }
