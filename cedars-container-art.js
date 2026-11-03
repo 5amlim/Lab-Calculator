@@ -97,6 +97,11 @@
       line(86,21,86,80,'#829ca3',2.4)+
       '<ellipse cx="86" cy="17" rx="4.1" ry="7" fill="#fff" stroke="#96a5ab" stroke-width="1.4"/>';
   }
+  function microtainer() {
+    return roundBottomTube(13,25,22,62,'#cb4654','RED','#ad555e') +
+      roundBottomTube(53,25,22,62,'#94d4bd','MINT','#ad555e') +
+      roundBottomTube(93,25,22,62,'#268056','GRN','#ad555e');
+  }
   function qft() {
     return tube(9,17,20,71,'#7b858b','NIL')+
       tube(39,17,20,71,'#39a079','TB1')+
@@ -152,6 +157,7 @@
         roundBottomTube(90,20,28,68,'#eef1ee','CLEAN','#906b49');
       case 'cleanStool': return roundBottomTube(47,7,34,82,'#eef1ee','CLEAN','#956b48');
       case 'formalin': return roundBottomTube(47,7,34,82,'#c987a1','10%','#b38558');
+      case 'microtainer': return microtainer();
       case 'goldSst': return bloodTube('#d4a326','SST');
       case 'lavenderEdta': return bloodTube('#9980bb','EDTA');
       case 'greenHeparin': return bloodTube('#399a77','HEP');
@@ -181,6 +187,7 @@
     parapak:'Three ParaPak stool vials with yellow, pink and white caps',
     cleanStool:'White-cap clean stool collection vial',
     formalin:'Pink-cap 10 percent Formalin stool vial',
+    microtainer:'Newborn microtainer options: red, mint green, or dark green; protect from light',
     goldSst:'Gold-cap serum separator (SST) collection tube',
     lavenderEdta:'Lavender-cap EDTA whole-blood tube',
     greenHeparin:'Green-cap heparin blood collection tube',
@@ -195,6 +202,7 @@
   };
   function kind(value) {
     const s=String(value||'').toLowerCase();
+    if (/microtainer|micro[- ]?tainer/.test(s)) return 'microtainer';
     if (/myco\/?f|lytic|fungal blood/.test(s)) return 'fungal';
     if (/pediatric|peds/.test(s)&&/culture|bottle/.test(s))return 'peds';
     if (/adult blood culture|aerobic.*anaerobic.*bottle|blood.?pair/.test(s))return 'adult';
