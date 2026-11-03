@@ -132,6 +132,27 @@ body{margin:0}
  .page-5 .bilirubin-copy{font-size:9.3px}
  .page-5 .bilirubin-order{font-size:9.7px}
 }
+
+/* High-priority specimen handling warning: legible in color and grayscale PDFs. */
+.page-5 .bilirubin-light-warning{
+  display:flex;align-items:center;gap:12px;margin:8px 0 12px;
+  border:2px solid #843043;border-left:8px solid #843043;border-radius:7px;
+  background:#fff0f1;padding:10px 14px;color:#6d2133;
+  break-inside:avoid;page-break-inside:avoid;
+}
+.page-5 .bilirubin-light-icon{font-size:22px;font-weight:900;line-height:1;flex:0 0 auto}
+.page-5 .bilirubin-light-warning strong{display:block;font-size:17px;letter-spacing:.055em;line-height:1.15}
+.page-5 .bilirubin-light-warning small{display:block;font-size:11px;line-height:1.4;margin-top:3px;font-weight:650}
+@media print{
+ .page-5 .bilirubin-light-warning{
+   border:2.5px solid #000;border-left-width:9px;
+   color:#000;background:#f0f0f0;padding:9px 12px;margin:7px 0 9px;
+   -webkit-print-color-adjust:exact;print-color-adjust:exact;
+ }
+ .page-5 .bilirubin-light-icon{font-size:24px}
+ .page-5 .bilirubin-light-warning strong{font-size:15px;letter-spacing:.05em}
+ .page-5 .bilirubin-light-warning small{font-size:10px}
+}
 </style>
 </head>
 <body>
@@ -529,15 +550,19 @@ body{margin:0}
           <g fill="#ad5157"><path d="M18 61H34V79Q34 85 26 85Q18 85 18 79Z"/><path d="M56 61H72V79Q72 85 64 85Q56 85 56 79Z"/><path d="M94 61H110V79Q110 85 102 85Q94 85 94 79Z"/></g>
           <g fill="#fff"><rect x="18" y="43" width="16" height="15" rx="2"/><rect x="56" y="43" width="16" height="15" rx="2"/><rect x="94" y="43" width="16" height="15" rx="2"/></g>
         </svg></figure>
-        <div class="container-heading-copy"><div class="eyebrow">NEWBORN · STAT <span>Protect from light</span></div><h2>Red / mint green / dark green microtainer</h2><div class="card-count">2 STAT tests</div></div>
+        <div class="container-heading-copy"><div class="eyebrow">NEWBORN · STAT</div><h2>Red / mint green / dark green microtainer</h2><div class="card-count">2 STAT tests</div></div>
       </header>
+      <div class="bilirubin-light-warning" role="note" aria-label="Required: Protect from light">
+        <span class="bilirubin-light-icon" aria-hidden="true">&#9888;</span>
+        <div><strong>PROTECT FROM LIGHT</strong><small>Required for both TBIL and DBIL. Keep the microtainer shielded from light during handling and transport.</small></div>
+      </div>
       <div class="test-menu-label">Test menu · newborn STAT</div>
       <ul class="test-menu">
         <li class="test-row"><span class="test-name"><a href="cedars.html?test=newborn-total-bilirubin">Total bilirubin (TBIL)</a></span><span class="test-tags"><span class="alert">NEWBORN STAT</span></span></li>
         <li class="test-row"><span class="test-name"><a href="cedars.html?test=newborn-direct-bilirubin">Direct bilirubin (DBIL)</a></span><span class="test-tags"><span class="alert">NEWBORN STAT</span></span></li>
       </ul>
       <div class="source-menu"><strong>ACCEPTED MICROTAINERS</strong><span>Red</span><span>Mint green</span><span>Dark green</span></div>
-      <p class="container-note"><strong>Specimen:</strong> Collect newborn blood in an accepted microtainer. <strong>Protect from light.</strong> Confirm minimum fill, processing, and transport temperature with Cedars.</p>
+      <p class="container-note"><strong>Specimen:</strong> Collect newborn blood in an accepted microtainer. <strong>Minimum volume: 0.5 mL per test (TBIL and DBIL).</strong> Confirm processing and transport temperature with Cedars.</p>
     </article>
     <article class="container-card type-blood bilirubin-detail-card">
       <header class="container-heading"><div class="container-heading-copy"><div class="eyebrow">ORDERING · PAPER REQUISITION</div><h2>Additional Tests</h2></div></header>
@@ -552,10 +577,10 @@ body{margin:0}
     <article class="container-card type-blood bilirubin-detail-card">
       <header class="container-heading"><div class="container-heading-copy"><div class="eyebrow">COURIER &amp; VERIFICATION</div><h2>Apollo STAT pickup</h2></div></header>
       <p class="bilirubin-copy"><strong>Call Apollo</strong> to arrange STAT pickup.</p>
-      <p class="container-note">Verify minimum fill, specimen processing, and transport temperature with Cedars.</p>
+      <p class="container-note"><strong>Minimum: 0.5 mL per test.</strong> Verify specimen processing and transport temperature with Cedars.</p>
     </article>
   </main>
-  <footer class="page-footer"><span><b>STAT handling:</b> Keep microtainer protected from light; confirm current Cedars acceptance.</span><span>Transport temperature and minimum volume require verification.</span></footer>
+  <footer class="page-footer"><span><b>STAT handling:</b> Keep microtainer protected from light; confirm current Cedars acceptance.</span><span>Minimum 0.5 mL per test · confirm transport temperature.</span></footer>
 </section>
 <script src="assets/js/cedars-reference-photos.js"></script>
 <script src="assets/js/cedars-photo-updates.js"></script>
