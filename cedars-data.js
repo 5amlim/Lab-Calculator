@@ -813,3 +813,82 @@ window.CEDARS_TESTS.push(...[
     "notes": "Collect one 5 mL lithium-heparin green-top tube, then submit at room temperature as STAT per local workflow. Confirm patient/sample identification and follow current Cedars courier routing and STAT cutoffs. The historical Cedars STAT list identifies TRPI but does not specify collection tube, specimen processing, or transport temperature; confirm any assay-specific requirements with Cedars Lexicomp."
   }
 ]);
+
+
+/* Local newborn STAT bilirubin; separate from historical 2022 STAT list. */
+window.CEDARS_TESTS.push(...[
+  {
+    "id": "newborn-total-bilirubin",
+    "code": "TBIL",
+    "name": "Total bilirubin (newborn, STAT)",
+    "aliases": "TBIL|total bili|total bilirubin|bilirubin total|neonatal bilirubin|newborn bilirubin|jaundice|microtainer",
+    "category": "Blood",
+    "specimen": "Newborn blood specimen (microtainer)",
+    "collect": "Red microtainer (mint green or dark green alternative); protect from light",
+    "submit": "Red microtainer, protected from light",
+    "qty": 1,
+    "temp": "Verify",
+    "containerType": "Microtainer",
+    "testMethod": "Chemistry",
+    "submissionOptions": [
+      {
+        "name": "Red microtainer",
+        "requirements": "Accepted for newborn STAT bilirubin; protect from light. Verify fill and processing."
+      },
+      {
+        "name": "Mint green microtainer",
+        "requirements": "Accepted alternative; protect from light. Verify fill and processing."
+      },
+      {
+        "name": "Dark green microtainer",
+        "requirements": "Accepted alternative; protect from light. Verify fill and processing."
+      }
+    ],
+    "volumeDisplay": "Microtainer; verify minimum fill with Cedars",
+    "statLocalWorkflow": true,
+    "statTat": "2 hours from Cedars receipt (not from draw or courier pickup)",
+    "statPickup": "Call Apollo to arrange STAT pickup",
+    "orderInstructions": "On Cedars paper requisition, under Additional Tests write: Direct Bilirubin + Total Bilirubin (DBIL + TBIL).",
+    "notes": "Newborn STAT testing. Accepted microtainers: red, mint green, or dark green, protected from light. Cedars TAT is 2 hours from specimen receipt, not collection/pickup. Call Apollo for STAT pickup. On the paper requisition, under Additional Tests write: Direct Bilirubin + Total Bilirubin (DBIL + TBIL). Verify minimum fill, processing, and transport temperature with Cedars.",
+    "sourceNote": "Locally supplied newborn STAT bilirubin workflow, November 2026; verify current Cedars requirements",
+    "hold": false,
+    "blockReason": ""
+  },
+  {
+    "id": "newborn-direct-bilirubin",
+    "code": "DBIL",
+    "name": "Direct bilirubin (newborn, STAT)",
+    "aliases": "DBIL|direct bili|direct bilirubin|bilirubin direct|conjugated bilirubin|neonatal bilirubin|newborn bilirubin|jaundice|microtainer",
+    "category": "Blood",
+    "specimen": "Newborn blood specimen (microtainer)",
+    "collect": "Red microtainer (mint green or dark green alternative); protect from light",
+    "submit": "Red microtainer, protected from light",
+    "qty": 1,
+    "temp": "Verify",
+    "containerType": "Microtainer",
+    "testMethod": "Chemistry",
+    "submissionOptions": [
+      {
+        "name": "Red microtainer",
+        "requirements": "Accepted for newborn STAT bilirubin; protect from light. Verify fill and processing."
+      },
+      {
+        "name": "Mint green microtainer",
+        "requirements": "Accepted alternative; protect from light. Verify fill and processing."
+      },
+      {
+        "name": "Dark green microtainer",
+        "requirements": "Accepted alternative; protect from light. Verify fill and processing."
+      }
+    ],
+    "volumeDisplay": "Microtainer; verify minimum fill with Cedars",
+    "statLocalWorkflow": true,
+    "statTat": "2 hours from Cedars receipt (not from draw or courier pickup)",
+    "statPickup": "Call Apollo to arrange STAT pickup",
+    "orderInstructions": "On Cedars paper requisition, under Additional Tests write: Direct Bilirubin + Total Bilirubin (DBIL + TBIL).",
+    "notes": "Newborn STAT testing. Accepted microtainers: red, mint green, or dark green, protected from light. Cedars TAT is 2 hours from specimen receipt, not collection/pickup. Call Apollo for STAT pickup. On the paper requisition, under Additional Tests write: Direct Bilirubin + Total Bilirubin (DBIL + TBIL). Verify minimum fill, processing, and transport temperature with Cedars.",
+    "sourceNote": "Locally supplied newborn STAT bilirubin workflow, November 2026; verify current Cedars requirements",
+    "hold": false,
+    "blockReason": ""
+  }
+]);
