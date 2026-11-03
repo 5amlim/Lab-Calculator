@@ -3476,3 +3476,31 @@
     box-shadow: none !important;
   }
 }
+
+/* STAT newborn bilirubin: visible light-protection and pickup directions in PDF. */
+@media print {
+  .cedars-print-bili-callout {
+    margin: 0 0 12px;
+    padding: 10px 12px;
+    border: 2px solid #b36a1a;
+    border-left: 7px solid #b36a1a;
+    border-radius: 7px;
+    background: #fff3db !important;
+    color: #603c13;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .cedars-print-bili-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .cedars-print-bili-heading strong { font-size: 11pt; letter-spacing: .02em; }
+  .cedars-print-bili-heading span { font-size: 9pt; font-weight: 800; }
+  .cedars-print-bili-callout p { margin: 6px 0 4px; font-size: 9.6pt; line-height: 1.5; }
+  .cedars-print-bili-callout strong { color: #63360a; }
+  .cedars-print-bili-callout small { display: block; font-size: 8pt; color: #684821; }
+}
