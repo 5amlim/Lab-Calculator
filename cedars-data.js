@@ -837,23 +837,23 @@ window.CEDARS_TESTS.push(...[
       },
       {
         "name": "Red microtainer",
-        "requirements": "Accepted alternative; protect from light. Minimum 0.5 mL per test."
+        "requirements": "Accepted alternative; protect from light. Follow current Cedars fill requirements."
       },
       {
         "name": "Mint green microtainer",
-        "requirements": "Accepted alternative; protect from light. Minimum 0.5 mL per test."
+        "requirements": "Accepted alternative; protect from light. Follow current Cedars fill requirements."
       },
       {
         "name": "Dark green microtainer",
-        "requirements": "Accepted alternative; protect from light. Minimum 0.5 mL per test."
+        "requirements": "Accepted alternative; protect from light. Follow current Cedars fill requirements."
       }
     ],
-    "volumeDisplay": "ONE FULL amber SST microtainer for BOTH TBIL + DBIL (minimum 0.5 mL per test)",
+    "volumeDisplay": "ONE FULL amber SST microtainer for BOTH TBIL + DBIL (one shared vial)",
     "statLocalWorkflow": true,
     "statTat": "2 hours from Cedars receipt, not collection or courier pickup",
     "statPickup": "Submit STAT and call Apollo for STAT pickup",
     "orderInstructions": "On Cedars paper requisition, under Additional Tests write: Direct Bilirubin + Total Bilirubin (DBIL + TBIL).",
-    "notes": "Newborn bilirubin STAT. Submit ONE FULL amber SST microtainer for BOTH TBIL + DBIL, not two separate vials. PROTECT FROM LIGHT. Submit STAT and CALL APOLLO for pickup. TAT is 2 hours from Cedars receipt, not collection. On the Cedars paper requisition under Additional Tests, write Direct Bilirubin + Total Bilirubin (DBIL + TBIL). Minimum 0.5 mL per test; verify transport temperature with Cedars.",
+    "notes": "Newborn bilirubin STAT. Submit ONE FULL amber SST microtainer for BOTH TBIL + DBIL, not two separate vials. PROTECT FROM LIGHT. Submit STAT and CALL APOLLO for pickup. TAT is 2 hours from Cedars receipt, not collection. On the Cedars paper requisition under Additional Tests, write Direct Bilirubin + Total Bilirubin (DBIL + TBIL). For paired TBIL + DBIL, submit one full vial; verify transport temperature with Cedars.",
     "sourceNote": "Locally supplied newborn STAT bilirubin workflow, November 2026; verify current Cedars requirements",
     "hold": false,
     "blockReason": "",
@@ -879,23 +879,23 @@ window.CEDARS_TESTS.push(...[
       },
       {
         "name": "Red microtainer",
-        "requirements": "Accepted alternative; protect from light. Minimum 0.5 mL per test."
+        "requirements": "Accepted alternative; protect from light. Follow current Cedars fill requirements."
       },
       {
         "name": "Mint green microtainer",
-        "requirements": "Accepted alternative; protect from light. Minimum 0.5 mL per test."
+        "requirements": "Accepted alternative; protect from light. Follow current Cedars fill requirements."
       },
       {
         "name": "Dark green microtainer",
-        "requirements": "Accepted alternative; protect from light. Minimum 0.5 mL per test."
+        "requirements": "Accepted alternative; protect from light. Follow current Cedars fill requirements."
       }
     ],
-    "volumeDisplay": "ONE FULL amber SST microtainer for BOTH TBIL + DBIL (minimum 0.5 mL per test)",
+    "volumeDisplay": "ONE FULL amber SST microtainer for BOTH TBIL + DBIL (one shared vial)",
     "statLocalWorkflow": true,
     "statTat": "2 hours from Cedars receipt, not collection or courier pickup",
     "statPickup": "Submit STAT and call Apollo for STAT pickup",
     "orderInstructions": "On Cedars paper requisition, under Additional Tests write: Direct Bilirubin + Total Bilirubin (DBIL + TBIL).",
-    "notes": "Newborn bilirubin STAT. Submit ONE FULL amber SST microtainer for BOTH TBIL + DBIL, not two separate vials. PROTECT FROM LIGHT. Submit STAT and CALL APOLLO for pickup. TAT is 2 hours from Cedars receipt, not collection. On the Cedars paper requisition under Additional Tests, write Direct Bilirubin + Total Bilirubin (DBIL + TBIL). Minimum 0.5 mL per test; verify transport temperature with Cedars.",
+    "notes": "Newborn bilirubin STAT. Submit ONE FULL amber SST microtainer for BOTH TBIL + DBIL, not two separate vials. PROTECT FROM LIGHT. Submit STAT and CALL APOLLO for pickup. TAT is 2 hours from Cedars receipt, not collection. On the Cedars paper requisition under Additional Tests, write Direct Bilirubin + Total Bilirubin (DBIL + TBIL). For paired TBIL + DBIL, submit one full vial; verify transport temperature with Cedars.",
     "sourceNote": "Locally supplied newborn STAT bilirubin workflow, November 2026; verify current Cedars requirements",
     "hold": false,
     "blockReason": "",
