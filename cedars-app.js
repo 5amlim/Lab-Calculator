@@ -910,7 +910,7 @@
           '<strong>CALL APOLLO</strong> for pickup · <strong>2-HOUR TAT</strong> from Cedars receipt.</p>' +
         '<small>Paper requisition, Additional Tests: ' +
           esc(bilirubinTests.map(test => test.name + ' (' + test.code + ')').join(' + ')) +
-          '. Minimum 0.5 mL per test. Verify transport temperature with Cedars.</small>' +
+          '. ONE FULL shared vial for TBIL + DBIL. Verify transport temperature with Cedars.</small>' +
       '</section>' : '';
     $('cedarsPrintSheet').innerHTML =
       '<header class="cedars-print-header"><div><h1>Cedars Collection Summary</h1>' +
