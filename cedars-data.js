@@ -823,16 +823,16 @@ window.CEDARS_TESTS.push(...[
     "name": "Total bilirubin (newborn, STAT)",
     "aliases": "TBIL|total bili|total bilirubin|bilirubin total|neonatal bilirubin|newborn bilirubin|jaundice|microtainer|amber SST|amber SST microtainer",
     "category": "Blood",
-    "specimen": "Newborn serum (microtainer)",
-    "collect": "Amber SST microtainer (preferred; red, mint green or dark green alternatives). PROTECT FROM LIGHT",
-    "submit": "Amber SST microtainer; 1 FULL VIAL for TBIL + DBIL together. PROTECT FROM LIGHT",
+    "specimen": "Newborn blood specimen (microtainer)",
+    "collect": "Amber SST microtainer (accepted; red, mint green or dark green alternatives). PROTECT FROM LIGHT",
+    "submit": "Amber SST microtainer (1 full vial; light protected)",
     "qty": 1,
     "temp": "Verify",
     "containerType": "Microtainer",
     "testMethod": "Chemistry",
     "submissionOptions": [
       {
-        "name": "Amber SST microtainer (preferred)",
+        "name": "Amber SST microtainer (accepted)",
         "requirements": "Submit ONE FULL vial for TBIL and DBIL together. PROTECT FROM LIGHT."
       },
       {
@@ -865,16 +865,16 @@ window.CEDARS_TESTS.push(...[
     "name": "Direct bilirubin (newborn, STAT)",
     "aliases": "DBIL|direct bili|direct bilirubin|bilirubin direct|conjugated bilirubin|neonatal bilirubin|newborn bilirubin|jaundice|microtainer|amber SST|amber SST microtainer",
     "category": "Blood",
-    "specimen": "Newborn serum (microtainer)",
-    "collect": "Amber SST microtainer (preferred; red, mint green or dark green alternatives). PROTECT FROM LIGHT",
-    "submit": "Amber SST microtainer; 1 FULL VIAL for TBIL + DBIL together. PROTECT FROM LIGHT",
+    "specimen": "Newborn blood specimen (microtainer)",
+    "collect": "Amber SST microtainer (accepted; red, mint green or dark green alternatives). PROTECT FROM LIGHT",
+    "submit": "Amber SST microtainer (1 full vial; light protected)",
     "qty": 1,
     "temp": "Verify",
     "containerType": "Microtainer",
     "testMethod": "Chemistry",
     "submissionOptions": [
       {
-        "name": "Amber SST microtainer (preferred)",
+        "name": "Amber SST microtainer (accepted)",
         "requirements": "Submit ONE FULL vial for TBIL and DBIL together. PROTECT FROM LIGHT."
       },
       {
