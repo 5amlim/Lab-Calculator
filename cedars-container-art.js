@@ -239,8 +239,13 @@
   window.CEDARS_CONTAINER_ART = function (container,size) {
     const key=kind(container),label=descriptions[key]||descriptions.unknown;
     const sizeClass=['table','card','print','detail','small'].includes(size)?size:'card';
-    return '<span class="cedars-container-art cedars-container-art-'+sizeClass+' cedars-container-drawing" role="img"'+
+    const amberPhoto = key === 'amberMicrotainer' ?
+      '<img class="cedars-container-amber-photo" src="https://cdn11.bigcommerce.com/s-3yvzqa/images/stencil/1280x1280/products/46246/342213/SKU365978__84774.1692282450.png?c=2" ' +
+        'alt="BD amber SST microtainer with gold cap" loading="eager" ' +
+        'onerror="this.style.display=\'none\'" />' : '';
+    return '<span class="cedars-container-art cedars-container-art-'+sizeClass+' cedars-container-drawing' + (key==='amberMicrotainer'?' cedars-container-art-amber':'') + '" role="img"'+
       ' aria-label="'+E('Illustration: '+label)+'" title="'+E('Drawing based on supplied container photos; verify exact kit')+'">'+
+      amberPhoto +
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 96" role="presentation" aria-hidden="true" focusable="false">'+
       '<ellipse cx="64" cy="91" rx="47" ry="3" fill="#e5ebee"/>'+art(key)+'</svg></span>';
   };
