@@ -52,7 +52,8 @@
     sterile:{label:'Sterile specimen collection cup (green lid)'} ,
     ua:{label:'Red and yellow swirl-top urinalysis preservative tube'},
     cleanStool:{label:'ParaPak three-vial set, including clean stool vial', imageKey:'parapak'},
-    formalin:{label:'ParaPak three-vial set, including formalin vial', imageKey:'parapak'}
+    formalin:{label:'ParaPak three-vial set, including formalin vial', imageKey:'parapak'},
+    amberMicrotainer:{label:'BD amber SST microtainer with gold cap, catalog 365978', url:'https://cdn11.bigcommerce.com/s-3yvzqa/images/stencil/1280x1280/products/46246/342213/SKU365978__84774.1692282450.png?c=2'}
   };
   const photoReference = (container) => {
     const key = typeof window.CEDARS_CONTAINER_KIND === 'function'
@@ -77,7 +78,7 @@
   function openPhoto(key) {
     const photo = photoCatalog[key];
     const sourceKey = photo && (photo.imageKey || key);
-    const src = sourceKey && window.CEDARS_CONTAINER_PHOTOS && window.CEDARS_CONTAINER_PHOTOS[sourceKey];
+    const src = (sourceKey && window.CEDARS_CONTAINER_PHOTOS && window.CEDARS_CONTAINER_PHOTOS[sourceKey]) || (photo && photo.url);
     if (!photo || !src) return;
     const dialog = $('cedarsPhotoDialog');
     const image = $('cedarsPhotoImage');
