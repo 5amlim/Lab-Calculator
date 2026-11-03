@@ -160,3 +160,11 @@
     vertical-align: middle;
   }
 }
+
+/* Dedicated NMR LipoTube has a black/yellow cap, not Yellow ACD. */
+.labcorp-page .tube-nmr-lipotube::before {
+  background: linear-gradient(to bottom, #20272d 0 32%, #f3d64b 32% 61%, #edf2f4 61% 100%);
+  border-color: #555e62;
+  border-style: solid;
+  border-radius: 3px 3px 5px 5px;
+}
