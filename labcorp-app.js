@@ -576,7 +576,7 @@
       specialInstructions: String(record.specialInstructions || ''),
       fastingStatus: ['required', 'preferred'].includes(String(record.fastingStatus || '').toLowerCase()) ? String(record.fastingStatus).toLowerCase() : '',
       fastingInstructions: String(record.fastingInstructions || '').trim(),
-      status: record.status === 'blocked' ? 'blocked' : 'active',
+      status: ['blocked', 'pending'].includes(record.status) ? record.status : 'active',
       source: String(record.source || 'Custom entry'),
       sourceRow: record.sourceRow || null
     };
@@ -1145,7 +1145,7 @@
 
   function canAutoAddBatchRow(row) {
     const chosen = chosenBatchMatch(row);
-    if (!chosen || chosen.test.status === 'blocked' || !isExactBatchMatch(row.query, chosen.test)) return false;
+    if (!chosen || chosen.test.status !== 'active' || !isExactBatchMatch(row.query, chosen.test)) return false;
     if (chosen !== row.matches[0]) return false;
     // An identical name shared by multiple distinct codes cannot be silently
     // resolved without the user specifying a code.
@@ -1166,6 +1166,7 @@
     const chosen = chosenBatchMatch(row);
     if (!chosen) return 'no-match';
     if (chosen.test.status === 'blocked') return 'blocked';
+    if (chosen.test.status === 'pending') return 'pending';
     if (chosen.score < 550) return 'low-confidence';
     return canAutoAddBatchRow(row) ? 'exact-match' : 'confirm-match';
   }
@@ -1216,8 +1217,8 @@
     const categoryRows = rows.filter(row => row.category);
     const confirmCount = rows.filter(row => row.outcome === 'confirm-match').length;
     const inSummaryCount = rows.filter(row => ['added', 'already-selected'].includes(row.outcome)).length;
-    const hardIssueCount = rows.filter(row => ['no-match', 'blocked', 'low-confidence', 'not-added'].includes(row.outcome)).length;
-    const unresolved = rows.filter(row => ['no-match', 'blocked', 'low-confidence', 'confirm-match', 'not-added'].includes(row.outcome));
+    const hardIssueCount = rows.filter(row => ['no-match', 'blocked', 'pending', 'low-confidence', 'not-added'].includes(row.outcome)).length;
+    const unresolved = rows.filter(row => ['no-match', 'blocked', 'pending', 'low-confidence', 'confirm-match', 'not-added'].includes(row.outcome));
     const resultSummary = renderBatchResultSummary(rows, addBest);
     const reviewSummary = renderBatchReviewSummary(inSummaryCount, confirmCount, hardIssueCount, addBest);
 
@@ -1272,7 +1273,7 @@
 
     // Possible matches that simply need confirmation are shown directly on their cards.
     // Keep this summary only for true problems so the same warning is not repeated twice.
-    const unresolved = rows.filter(row => ['no-match', 'blocked', 'low-confidence', 'not-added'].includes(row.outcome));
+    const unresolved = rows.filter(row => ['no-match', 'blocked', 'pending', 'low-confidence', 'not-added'].includes(row.outcome));
     if (!unresolved.length) return '';
 
     const label = addBest ? 'Needs attention' : 'Needs attention';
@@ -1289,6 +1290,7 @@
     if (outcome === 'low-confidence') return 'Low-confidence match — verify before adding';
     if (outcome === 'confirm-match') return 'Possible match — confirm before adding';
     if (outcome === 'blocked') return 'This test is marked “do not perform”';
+    if (outcome === 'pending') return 'LabCorp test name and specimen requirements need verification';
     return 'Could not be added';
   }
 
@@ -1303,17 +1305,19 @@
     }
     const choice = chosenBatchMatch(row);
     const blocked = choice.test.status === 'blocked';
+    const pending = choice.test.status === 'pending';
     const autoSafe = canAutoAddBatchRow(row);
-    const needsConfirmation = !blocked && !autoSafe;
+    const needsConfirmation = !blocked && !pending && !autoSafe;
     const selected = selectedIds.includes(choice.test.id);
-    const rowClass = blocked ? 'unmatched' : needsConfirmation ? 'needs-confirmation' : 'exact-match';
+    const rowClass = blocked || pending ? 'unmatched' : needsConfirmation ? 'needs-confirmation' : 'exact-match';
     const exactLabel = autoSafe ? 'Exact match' : 'Confirm test code/name';
     const status = blocked
       ? '<span class="batch-match-warning is-blocked">Do not perform</span>'
+      : pending ? '<span class="batch-match-warning">Verify LabCorp details</span>'
       : autoSafe
         ? `<span class="batch-match-exact">${exactLabel}</span>`
         : `<span class="batch-match-warning">${exactLabel}</span>`;
-    const options = row.matches.length > 1 && (needsConfirmation || blocked || row.matches.some(match => normalizeSearch(match.test.testName) === normalizeSearch(row.query)));
+    const options = row.matches.length > 1 && (needsConfirmation || blocked || pending || row.matches.some(match => normalizeSearch(match.test.testName) === normalizeSearch(row.query)));
     // An in-page dropdown supports per-choice STAT/blocked badges.
     // Eligibility always uses the receiving-lab menu via isStatEligible().
     const picker = options ? `<div class="batch-choice-control">
@@ -1329,18 +1333,18 @@
                 data-action="choose-batch-test" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}"
                 aria-pressed="${test.id === choice.test.id ? 'true' : 'false'}">
                 <span class="batch-choice-option-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</span>
-                <span class="batch-choice-option-tags">${isStatEligible(test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}${test.status === 'blocked' ? '<span class="batch-choice-blocked">Do not perform</span>' : ''}</span>
+                <span class="batch-choice-option-tags">${isStatEligible(test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}${test.status === 'blocked' ? '<span class="batch-choice-blocked">Do not perform</span>' : test.status === 'pending' ? '<span class="batch-choice-blocked">Verification required</span>' : ''}</span>
               </button>
               <button type="button" class="batch-choice-quick-add batch-add-toggle" data-action="toggle-batch-add-options"
                 data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}"
                 aria-controls="batch-choice-stat-options-${row.index}-${matchIndex}" aria-expanded="false" aria-haspopup="true"
-                title="${selectedIds.includes(test.id) ? 'Already in cart' : test.status === 'blocked' ? 'Do not perform' : 'Choose Routine or STAT priority'}"
+                title="${selectedIds.includes(test.id) ? 'Already in cart' : test.status === 'blocked' ? 'Do not perform' : test.status === 'pending' ? 'Verification required' : 'Choose Routine or STAT priority'}"
                 aria-label="${selectedIds.includes(test.id) ? 'Already in cart: ' : 'Choose how to add: '}${escapeAttr(displayCode(test) + ' ' + test.testName)}"
-                ${selectedIds.includes(test.id) || test.status === 'blocked' ? 'disabled' : ''}>${selectedIds.includes(test.id) ? '✓' : '+'}</button>
+                ${selectedIds.includes(test.id) || test.status !== 'active' ? 'disabled' : ''}>${selectedIds.includes(test.id) ? '✓' : '+'}</button>
               <button type="button" class="batch-choice-details-button" data-action="toggle-batch-test-details"
                 aria-expanded="false" aria-controls="batch-choice-details-${row.index}-${matchIndex}" aria-label="Details for ${escapeAttr(displayCode(test) + ' ' + test.testName)}">Details</button>
             </div>
-            ${!selectedIds.includes(test.id) && test.status !== 'blocked' ? `<div class="batch-choice-stat-options" id="batch-choice-stat-options-${row.index}-${matchIndex}" hidden role="group"
+            ${!selectedIds.includes(test.id) && test.status === 'active' ? `<div class="batch-choice-stat-options" id="batch-choice-stat-options-${row.index}-${matchIndex}" hidden role="group"
               aria-label="Choose priority for ${escapeAttr(displayCode(test) + ' ' + test.testName)}">
               <button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" data-priority="routine" data-source="match">+ Add as Routine</button>
               ${isStatEligible(test) ? `<button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" data-priority="stat" data-source="match" data-stat-note="Confirm receiving-lab acceptance"><span>+ Add as <b>STAT</b></span></button>` : ''}
@@ -1361,13 +1365,13 @@
         </div>
       </div>
     </div>` : '';
-    const buttonLabel = selected ? '✓ Added' : needsConfirmation ? 'Confirm & add' : '+ Add';
+    const buttonLabel = selected ? '✓ Added' : pending ? 'Verification required' : needsConfirmation ? 'Confirm & add' : '+ Add';
     return `<div class="batch-row ${rowClass}" data-batch-index="${row.index}">
       <div class="batch-query-block"><span class="batch-kicker">You entered</span><div class="batch-query">${escapeHtml(row.query)}</div></div>
       <div class="batch-match">
         <div class="batch-match-title"><span class="batch-kicker">${choice === row.matches[0] ? 'Best match' : 'Selected match'}</span>${status}</div>
         <strong>${escapeHtml(displayCode(choice.test))} · ${escapeHtml(choice.test.testName)}</strong>
-        <div class="batch-match-meta">${blocked ? '<span>Marked do not perform</span>' : ''}${requiredSpecimenBadges(choice.test)}<span class="batch-meta-dot">·</span>${requiredDrawContainerBadges(choice.test)}${isStatEligible(choice.test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}</div>
+        <div class="batch-match-meta">${blocked ? '<span>Marked do not perform</span>' : pending ? '<span>Collection details not verified</span>' : ''}${requiredSpecimenBadges(choice.test)}<span class="batch-meta-dot">·</span>${requiredDrawContainerBadges(choice.test)}${isStatEligible(choice.test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}</div>
         ${picker}
       </div>
       <div class="batch-row-action">
@@ -1375,8 +1379,8 @@
           <button type="button" class="mini-button batch-main-add-toggle batch-add-toggle ${needsConfirmation ? 'confirm-match-button' : ''}" data-action="toggle-batch-add-options"
             data-batch-index="${row.index}" data-id="${escapeAttr(choice.test.id)}" aria-haspopup="true"
             aria-expanded="false" aria-controls="batch-main-add-options-${row.index}"
-            ${blocked || selected ? 'disabled' : ''}>${buttonLabel}<span class="batch-main-add-chevron shared-chevron" aria-hidden="true"></span></button>
-          ${!blocked && !selected ? `<div class="batch-choice-stat-options batch-main-add-options" id="batch-main-add-options-${row.index}" hidden role="group"
+            ${blocked || pending || selected ? 'disabled' : ''}>${buttonLabel}<span class="batch-main-add-chevron shared-chevron" aria-hidden="true"></span></button>
+          ${!blocked && !pending && !selected ? `<div class="batch-choice-stat-options batch-main-add-options" id="batch-main-add-options-${row.index}" hidden role="group"
              aria-label="Choose priority for ${escapeAttr(displayCode(choice.test) + ' ' + choice.test.testName)}">
              <button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(choice.test.id)}" data-priority="routine" data-source="main">+ Add as Routine</button>
              ${isStatEligible(choice.test) ? `<button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(choice.test.id)}" data-priority="stat" data-source="main" data-stat-note="Confirm receiving-lab acceptance"><span>+ Add as <b>STAT</b></span></button>` : ''}
@@ -1405,7 +1409,7 @@
               ${isStatEligible(test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}
             </div>
             <button type="button" class="mini-button batch-category-add" data-action="add-category-test"
-              data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" ${selected ? 'disabled' : ''}>${selected ? '✓ Added' : '+ Add'}</button>
+              data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" ${selected || test.status !== 'active' ? 'disabled' : ''}>${selected ? '✓ Added' : test.status === 'pending' ? 'Verification required' : '+ Add'}</button>
           </div>`;
         }).join('')}
       </div>
@@ -1611,6 +1615,7 @@
   function renderLibraryRow(test) {
     const selected = selectedIds.includes(test.id);
     const blocked = test.status === 'blocked';
+    const pending = test.status === 'pending';
     return `<tr class="${selected ? 'is-selected' : ''}">
       <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
       <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${manualLibraryTag(test)}${statSelectedIds.includes(test.id) && isStatEligible(test) ? '<span class="library-stat-eligible selected" title="Manually marked STAT; verify receiving-lab acceptance and courier routing.">STAT selected</span>' : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
@@ -1618,7 +1623,7 @@
       <td data-label="Temperature"><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td>
       <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(menuVolumeText(test, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(menuVolumeText(test, 'minimum') || '—')}</div></td>
       <td class="row-actions" data-label="Actions">
-        ${blocked ? '<span class="badge temp-unknown">Do not perform</span>' : selected
+        ${blocked ? '<span class="badge temp-unknown">Do not perform</span>' : pending ? '<span class="badge temp-unknown">Verification required</span>' : selected
           ? `<button class="mini-button" disabled>✓ Added${statSelectedIds.includes(test.id) ? ' · STAT' : ''}</button>`
           : isStatEligible(test)
             ? `<button type="button" class="mini-button library-routine-action" data-action="add" data-id="${escapeAttr(test.id)}">Add as routine</button><button type="button" class="mini-button library-stat-action" data-action="add-stat" data-id="${escapeAttr(test.id)}" title="Confirm eligibility and add as STAT">Add as STAT</button>`
@@ -1737,7 +1742,7 @@
     if (button.dataset.action === 'add-category-test') {
       const row = batchReviewRows[Number(button.dataset.batchIndex)];
       const test = row?.category?.results.find(test => test.id === button.dataset.id);
-      if (!test || test.status === 'blocked') return;
+      if (!test || test.status !== 'active') return;
       if (selectedIds.includes(test.id)) return;
       // Rebuilding the review refreshes Added badges; preserve the scroll position.
       const scrollTop = button.closest('.batch-category-list')?.scrollTop || 0;
@@ -1765,7 +1770,7 @@
       const match = row?.matches.find(item => item.test.id === button.dataset.id);
       const test = match?.test;
       const wantStat = button.dataset.priority === 'stat';
-      if (!test || test.status === 'blocked' || selectedIds.includes(test.id)) return;
+      if (!test || test.status !== 'active' || selectedIds.includes(test.id)) return;
       if (wantStat && !isStatEligible(test)) return;
       // The main action retains its ambiguity check. Choosing an alternate
       // candidate or a fuzzy match from the list also requires confirmation.
@@ -1875,7 +1880,7 @@
     // Only an explicitly verified per-region LabCorp code may be marked STAT.
     // Selecting a region alone is NOT eligibility. An empty list disables STAT.
     const area = STAT_AREAS[statArea];
-    return Boolean(test && test.status !== 'blocked' && area &&
+    return Boolean(test && test.status === 'active' && area &&
       statArea !== 'unselected' &&
       area.codes.some(code => String(code) === String(test.testCode || '').trim()));
   }
@@ -2088,14 +2093,14 @@
       ? '<p class="stat-menu-empty">No verified LabCorp STAT codes are configured for this receiving area. STAT actions are disabled until an approved local menu is added. Confirm with the receiving lab before requesting STAT testing.</p>'
       : matches.length
         ? matches.map(({code,test}) => {
-          const available = test && test.status !== 'blocked';
+          const available = test && test.status === 'active';
           const added = available && selectedIds.includes(test.id);
           const button = available
             ? added
               ? `<button type="button" class="stat-menu-add is-added" data-action="stat-menu-remove" data-id="${escapeAttr(test.id)}" aria-label="Remove ${escapeAttr(info.names?.[code] || test.testName)} from cart" title="Remove from cart">✓</button>`
               : `<button type="button" class="stat-menu-add" data-action="stat-menu-add" data-id="${escapeAttr(test.id)}" aria-label="Add ${escapeAttr(info.names?.[code] || test.testName)} as STAT" title="Add as STAT (confirmation required)">+</button>`
             : `<button type="button" class="stat-menu-add needs-setup" data-action="stat-menu-setup" data-code="${escapeAttr(code)}" aria-label="Set up missing test ${escapeAttr(code)}" title="Open Add missing test to enter verified collection requirements">+</button>`;
-          return `<div class="stat-menu-test"><strong>${escapeHtml(code)}</strong><span>${escapeHtml(info.names?.[code] || test?.testName || 'Needs verified specimen details')}</span>${test?.status === 'blocked' ? '<small>Not available for onsite collection</small>' : ''}${button}</div>`;
+          return `<div class="stat-menu-test"><strong>${escapeHtml(code)}</strong><span>${escapeHtml(info.names?.[code] || test?.testName || 'Needs verified specimen details')}</span>${test?.status === 'blocked' ? '<small>Not available for onsite collection</small>' : test?.status === 'pending' ? '<small>Collection instructions require verification</small>' : ''}${button}</div>`;
         }).join('')
         : '<p class="stat-menu-empty">No codes or tests match this search.</p>';
   }
@@ -2194,7 +2199,7 @@
 
   function addSelected(id, rerender = true) {
     const test = database.find(item => item.id === id);
-    if (!test || test.status === 'blocked') return false;
+    if (!test || test.status !== 'active') return false;
     if (selectedIds.includes(id)) return false;
     selectedIds.push(id);
     if (DEFAULT_STAT_TEST_CODES.has(String(test.testCode)) && isStatEligible(test)) {
