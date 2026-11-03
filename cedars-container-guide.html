@@ -153,6 +153,15 @@ body{margin:0}
  .page-5 .bilirubin-light-warning strong{font-size:15px;letter-spacing:.05em}
  .page-5 .bilirubin-light-warning small{font-size:10px}
 }
+
+/* Amber SST microtainer photo and backup drawing on newborn STAT page. */
+.page-5 .cedars-amber-photo{width:142px;height:116px;flex:0 0 142px;background:#fffaf1;border-color:#e7d5ad}
+.page-5 .cedars-amber-photo img{object-fit:contain}
+.page-5 .cedars-amber-fallback[hidden]{display:none}
+.page-5 .cedars-amber-fallback:not([hidden]){display:block}
+.page-5 .cedars-photo-caption{display:block;margin-top:4px;color:#78838b;font-size:10px}
+.page-5 .source-menu{margin-top:6px}
+@media print{.page-5 .cedars-amber-photo{width:118px;height:98px;flex-basis:118px}}
 </style>
 </head>
 <body>
@@ -540,29 +549,37 @@ body{margin:0}
   </main>
   <footer class="page-footer"><span><b>Check Cedars Lexicomp</b> for current tubes, specimen acceptance, temperature and timed draws.</span><span>Alternatives are listed, not automatically selected in the calculator</span></footer>
 </section>
+
 <section class="page page-5" aria-label="CEDARS NEWBORN STAT BILIRUBIN">
-  <header class="page-header"><div><div class="supertitle">CEDARS TEST MENU · NEWBORN STAT</div><h1>NEWBORN STAT BILIRUBIN</h1><p>Direct and total bilirubin · light-protected microtainer specimen.</p></div><span class="page-indicator">5 / 5</span></header>
+  <header class="page-header"><div><div class="supertitle">CEDARS TEST MENU · NEWBORN STAT</div><h1>NEWBORN STAT BILIRUBIN</h1><p>Total and direct bilirubin · one full amber SST microtainer for both tests.</p></div><span class="page-indicator">5 / 5</span></header>
   <main class="container-grid">
     <article class="container-card type-blood wide">
       <header class="container-heading">
-        <figure class="container-image"><svg viewBox="0 0 128 96" role="img" aria-label="Red, mint green and dark green microtainer options">
-          <g stroke="#7e96a0" stroke-width="1.5"><path d="M16 30H36V79Q36 87 26 87Q16 87 16 79Z" fill="#f4f9fa"/><path d="M54 30H74V79Q74 87 64 87Q54 87 54 79Z" fill="#f4f9fa"/><path d="M92 30H112V79Q112 87 102 87Q92 87 92 79Z" fill="#f4f9fa"/><rect x="14" y="19" width="24" height="15" rx="3" fill="#ca4754"/><rect x="52" y="19" width="24" height="15" rx="3" fill="#91d0b9"/><rect x="90" y="19" width="24" height="15" rx="3" fill="#2e8559"/></g>
-          <g fill="#ad5157"><path d="M18 61H34V79Q34 85 26 85Q18 85 18 79Z"/><path d="M56 61H72V79Q72 85 64 85Q56 85 56 79Z"/><path d="M94 61H110V79Q110 85 102 85Q94 85 94 79Z"/></g>
-          <g fill="#fff"><rect x="18" y="43" width="16" height="15" rx="2"/><rect x="56" y="43" width="16" height="15" rx="2"/><rect x="94" y="43" width="16" height="15" rx="2"/></g>
-        </svg></figure>
-        <div class="container-heading-copy"><div class="eyebrow">NEWBORN · STAT</div><h2>Red / mint green / dark green microtainer</h2><div class="card-count">2 STAT tests</div></div>
+        <figure class="container-image cedars-amber-photo" title="BD amber SST microtainer with gold cap, catalog 365978">
+          <img src="https://cdn11.bigcommerce.com/s-3yvzqa/images/stencil/1280x1280/products/46246/342213/SKU365978__84774.1692282450.png?c=2" alt="Actual photo of an amber SST BD Microtainer with gold cap (catalog 365978)" loading="eager"
+               onerror="this.hidden=true; this.nextElementSibling.hidden=false">
+          <svg class="cedars-amber-fallback" viewBox="0 0 128 96" role="img" aria-label="Amber SST microtainer with gold cap" hidden>
+            <rect x="43" y="26" width="42" height="61" rx="8" fill="#b66d38" stroke="#95592a" stroke-width="2"/>
+            <rect x="40" y="11" width="48" height="24" rx="4" fill="#e5ad22" stroke="#ac7d20" stroke-width="2"/>
+            <rect x="48" y="49" width="32" height="26" rx="3" fill="#ead29c" stroke="#b58f53"/>
+            <text x="64" y="60" text-anchor="middle" font-size="9" font-weight="bold" fill="#694323">AMBER</text>
+            <text x="64" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="#694323">SST</text>
+          </svg>
+        </figure>
+        <div class="container-heading-copy"><div class="eyebrow">NEWBORN · STAT</div><h2>Amber SST microtainer</h2><div class="card-count">1 full vial · 2 STAT tests</div><small class="cedars-photo-caption">Reference: BD SST Amber, catalog 365978</small></div>
       </header>
       <div class="bilirubin-light-warning" role="note" aria-label="Required: Protect from light">
         <span class="bilirubin-light-icon" aria-hidden="true">&#9888;</span>
-        <div><strong>PROTECT FROM LIGHT</strong><small>Required for both TBIL and DBIL. Keep the microtainer shielded from light during handling and transport.</small></div>
+        <div><strong>PROTECT FROM LIGHT</strong><small>One FULL amber SST microtainer for BOTH TBIL and DBIL. Keep specimen shielded from light throughout handling and transit.</small></div>
       </div>
       <div class="test-menu-label">Test menu · newborn STAT</div>
       <ul class="test-menu">
         <li class="test-row"><span class="test-name"><a href="cedars.html?test=newborn-total-bilirubin">Total bilirubin (TBIL)</a></span><span class="test-tags"><span class="alert">NEWBORN STAT</span></span></li>
         <li class="test-row"><span class="test-name"><a href="cedars.html?test=newborn-direct-bilirubin">Direct bilirubin (DBIL)</a></span><span class="test-tags"><span class="alert">NEWBORN STAT</span></span></li>
       </ul>
-      <div class="source-menu"><strong>ACCEPTED MICROTAINERS</strong><span>Red</span><span>Mint green</span><span>Dark green</span></div>
-      <p class="container-note"><strong>Specimen:</strong> Collect newborn blood in an accepted microtainer. <strong>Minimum volume: 0.5 mL per test (TBIL and DBIL).</strong> Confirm processing and transport temperature with Cedars.</p>
+      <div class="source-menu"><strong>ACCEPTED AMBER SST</strong><span>1 FULL VIAL FOR BOTH TESTS</span><span>GOLD CAP · AMBER BODY</span></div>
+      <div class="source-menu"><strong>OTHER ACCEPTED MICROTAINERS</strong><span>Red</span><span>Mint green</span><span>Dark green</span></div>
+      <p class="container-note"><strong>Collect and submit:</strong> ONE FULL amber SST microtainer for TBIL + DBIL together, not two separate vials. Fill to manufacturer's specified mark. Confirm processing and transport temperature with Cedars.</p>
     </article>
     <article class="container-card type-blood bilirubin-detail-card">
       <header class="container-heading"><div class="container-heading-copy"><div class="eyebrow">ORDERING · PAPER REQUISITION</div><h2>Additional Tests</h2></div></header>
@@ -571,16 +588,16 @@ body{margin:0}
     </article>
     <article class="container-card type-blood bilirubin-detail-card">
       <header class="container-heading"><div class="container-heading-copy"><div class="eyebrow">STAT TURNAROUND</div><h2>2 hours from receipt</h2></div></header>
-      <p class="bilirubin-copy">Turnaround starts when <strong>Cedars receives the specimen</strong>.</p>
+      <p class="bilirubin-copy">Turnaround begins when <strong>Cedars receives the specimen</strong>.</p>
       <p class="container-note">Collection and courier transit time are not included.</p>
     </article>
     <article class="container-card type-blood bilirubin-detail-card">
-      <header class="container-heading"><div class="container-heading-copy"><div class="eyebrow">COURIER &amp; VERIFICATION</div><h2>Apollo STAT pickup</h2></div></header>
-      <p class="bilirubin-copy"><strong>Call Apollo</strong> to arrange STAT pickup.</p>
-      <p class="container-note"><strong>Minimum: 0.5 mL per test.</strong> Verify specimen processing and transport temperature with Cedars.</p>
+      <header class="container-heading"><div class="container-heading-copy"><div class="eyebrow">COURIER &amp; STAT SUBMISSION</div><h2>Apollo STAT pickup</h2></div></header>
+      <p class="bilirubin-copy"><strong>SUBMIT STAT</strong> and <strong>CALL APOLLO</strong> to arrange STAT pickup.</p>
+      <p class="container-note">One full vial for both tests. Confirm specimen transport temperature with Cedars.</p>
     </article>
   </main>
-  <footer class="page-footer"><span><b>STAT handling:</b> Keep microtainer protected from light; confirm current Cedars acceptance.</span><span>Minimum 0.5 mL per test · confirm transport temperature.</span></footer>
+  <footer class="page-footer"><span><b>STAT:</b> PROTECT FROM LIGHT · CALL APOLLO · 2-hour TAT from Cedars receipt.</span><span>ONE FULL amber SST microtainer for TBIL + DBIL · verify transport temperature.</span></footer>
 </section>
 <script src="assets/js/cedars-reference-photos.js"></script>
 <script src="assets/js/cedars-photo-updates.js"></script>
