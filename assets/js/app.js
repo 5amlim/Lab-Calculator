@@ -3255,7 +3255,7 @@
   }
 
   function isLavenderDraw(test) {
-    return tubeClass(test.drawContainer) === 'tube-lavender';
+    return tubeClass(test.drawContainer) === 'tube-lavender' && !collectionTubeException(test)?.label;
   }
 
   function isRedTopDraw(test) {
@@ -3287,6 +3287,49 @@
     return fallback ? [`transfer|${fallback}`] : ['transfer|verify'];
   }
 
+  // Explicit lab requirements override the standard volume estimate.
+  const COLLECTION_TUBE_EXCEPTIONS = Object.freeze({
+    '19790': { count: 4, dedicated: true },
+    '15540': { count: 4, dedicated: true },
+    '33743': { count: 5, submissionCount: 5, dedicated: true },
+    '16983': { count: 5, dedicated: true },
+    '36970': { count: 1, tubeMl: 6, label: 'Green Lithium Heparin (no gel, 6 mL)', dedicated: true },
+    '37737': { count: 1, tubeMl: 9, label: 'Green Lithium Heparin (Greiner 9 mL)', dedicated: true },
+    '38287': { count: 2, tubeMl: 5, label: 'Green Sodium Heparin (5 mL)', dedicated: true },
+    '7197': { count: 1, tubeMl: 5, label: 'Lavender EDTA (5 mL)', dedicated: true }
+  });
+
+  function collectionTubeException(test) {
+    return COLLECTION_TUBE_EXCEPTIONS[String(test.testCode || '').trim()] || null;
+  }
+
+  function requiredSourceSpecimenMl(test) {
+    const preferred = parseListedSpecimenVolumeMl(test.preferredVolume);
+    return preferred === null ? parseListedSpecimenVolumeMl(test.minimumVolume) : preferred;
+  }
+
+  function usableSourceSpecimenMl(test, material) {
+    const cls = tubeClass(test.drawContainer);
+    const exception = collectionTubeException(test);
+    // Standard 4 mL light-blue, green, and lavender collection tubes:
+    // planned plasma yield = 4 / 2.5 = 1.6 mL. Whole blood retains its
+    // nominal fill capacity. Explicit 5/6/9 mL tubes remain separate.
+    if (['tube-blue', 'tube-green', 'tube-lavender'].includes(cls)) {
+      const drawMl = exception && exception.tubeMl ? exception.tubeMl : WHOLE_BLOOD_USABLE_ML_PER_TUBE;
+      return drawMl / (material === 'whole blood' ? 1 : SERUM_PLASMA_TO_WHOLE_BLOOD_FACTOR);
+    }
+    return pooledCollectionCapacity(material);
+  }
+
+  function recommendedCollectionTubesForTest(test) {
+    const explicit = explicitCollectionCount(test);
+    const exception = collectionTubeException(test);
+    if (exception && exception.count) return Math.max(explicit, exception.count);
+    const volume = requiredSourceSpecimenMl(test);
+    if (volume === null || volume <= 0) return explicit;
+    return Math.max(explicit, Math.ceil(volume / usableSourceSpecimenMl(test, pooledCollectionMaterial(test)) - 1e-9));
+  }
+
   function pooledCollectionCapacity(material) {
     return material === 'whole blood'
       ? WHOLE_BLOOD_USABLE_ML_PER_TUBE
@@ -3296,42 +3339,31 @@
   function requiresDedicatedCollectionTube(test) {
     const text = `${test.drawContainer || ''} ${test.preferredVolume || ''} ${test.minimumVolume || ''} ${test.specialInstructions || ''}`.toLowerCase();
     return /\bdedicated(?:\s+collection)?\s+tube\b|\bown\s+tube\b|\bdo\s+not\s+share\b|\bfull\s+(?:lavender|red(?:-top)?|edta|collection)?\s*tube\b|\b(?:each|individual)\s+(?:lavender|red(?:-top)?|edta|collection)\s+tube\b/.test(text)
-      || explicitCollectionCount(test) > 1;
+      || explicitCollectionCount(test) > 1
+      || Boolean(collectionTubeException(test)?.dedicated);
   }
 
   function pooledTubeEstimateForTests(tests, material) {
     const capacityMl = pooledCollectionCapacity(material);
     let sharedMl = 0;
+    let sharedTubeEquivalents = 0;
     let dedicatedTubes = 0;
     let unmeasuredTubes = 0;
-
     tests.forEach(test => {
-      const preferredMl = parseVolumeMl(test.preferredVolume);
-      const fallbackMl = preferredMl === null ? parseVolumeMl(test.minimumVolume) : null;
-      const plannedMl = preferredMl === null ? fallbackMl : preferredMl;
-      const explicitCount = explicitCollectionCount(test);
-
-      // One test never creates multiple draw tubes solely because of its listed
-      // volume. Extra tubes are added only for an explicit collection count or
-      // a dedicated/full-tube instruction.
-      if (requiresDedicatedCollectionTube(test)) {
-        dedicatedTubes += Math.max(explicitCount, 1);
-      } else if (plannedMl !== null) {
-        sharedMl += Math.min(plannedMl, capacityMl);
+      const volume = requiredSourceSpecimenMl(test);
+      const tubes = recommendedCollectionTubesForTest(test);
+      if (requiresDedicatedCollectionTube(test) || tubes > 1) {
+        dedicatedTubes += tubes;
+      } else if (volume !== null) {
+        sharedMl += volume;
+        sharedTubeEquivalents += volume / usableSourceSpecimenMl(test, material);
       } else {
-        unmeasuredTubes += 1;
+        unmeasuredTubes++;
       }
     });
-
-    const sharedTubes = sharedMl > 0 ? Math.ceil(sharedMl / capacityMl) : 0;
-    return {
-      capacityMl,
-      sharedMl,
-      sharedTubes,
-      dedicatedTubes,
-      unmeasuredTubes,
-      totalTubes: sharedTubes + dedicatedTubes + unmeasuredTubes
-    };
+    const sharedTubes = Math.ceil(sharedTubeEquivalents - 1e-9);
+    return { capacityMl, sharedMl, sharedTubes, dedicatedTubes, unmeasuredTubes,
+      totalTubes: sharedTubes + dedicatedTubes + unmeasuredTubes };
   }
 
   function pooledCollectionEstimateForTests(tests, matchesTube) {
@@ -3510,7 +3542,7 @@
       'tube-ua-swirl': 'Red/Yellow Swirl UA Preservative Tube',
       'tube-urine-culture': 'Gray-Top Urine Culture Preservative Tube'
     };
-    const label = labels[cls] || draw;
+    const label = collectionTubeException(test)?.label || labels[cls] || draw;
     return { key: `${cls || 'other'}|${normalizeSearch(label)}`, label, className: cls };
   }
 
@@ -3593,6 +3625,7 @@
     const specimen = String(test.specimenType || '').toLowerCase();
     if (!/blood|plasma|serum|rbcs?|platelet/.test(specimen)) return false;
     const cls = tubeClass(test.drawContainer);
+    if (cls === 'tube-lavender') return Boolean(collectionTubeException(test)?.label);
     return ['tube-blue', 'tube-green', 'tube-pink', 'tube-tan', 'tube-royal', 'tube-royal-edta',
       'tube-royal-no-additive', 'tube-royal-heparin', 'tube-gray', 'tube-yellow'].includes(cls);
   }
@@ -4034,6 +4067,8 @@
   function explicitSubmissionCount(test) {
     const structured = Math.floor(Number(test.submissionCount) || 1);
     if (structured > 1) return structured;
+    const exception = collectionTubeException(test);
+    if (exception?.submissionCount) return Math.max(structured, exception.submissionCount);
 
     const containerText = String(test.transportContainer || '').toLowerCase();
     const note = String(test.specialInstructions || '').toLowerCase();
@@ -4217,7 +4252,7 @@
     const draw = String(test.drawContainer || 'Original collection container').trim();
     const sourceSpecimen = specificSpecimenSource(test);
     const isAptima70049 = String(test.testCode || '').trim() === '70049';
-    const label = isAptima70049 ? 'Aptima' : draw;
+    const label = isAptima70049 ? 'Aptima' : (collectionTubeException(test)?.label || draw);
     const processing = isAptima70049
       ? `${sourceSpecimen} · Submit as Aptima`
       : (String(test.spin || '').toLowerCase() === 'yes' ? 'Process as directed; submit in original tube' : 'Submit in original tube');
@@ -4228,7 +4263,7 @@
       // Every original collection tube must travel as an original submission.
       // If two distinct whole-blood tubes are drawn, they cannot be compressed
       // into a single original tube in the bag plan (e.g. 38287).
-      count: Math.max(explicitSubmissionCount(test), explicitCollectionCount(test)),
+      count: Math.max(explicitSubmissionCount(test), recommendedCollectionTubesForTest(test)),
       detail: isAptima70049 ? processing : `${sourceSpecimen} · ${processing}`,
       originalTube: true
     };
@@ -4881,7 +4916,7 @@
       }
 
       const group = groups.get(key);
-      const count = Math.max(explicitCollectionCount(test), 1);
+      const count = Math.max(recommendedCollectionTubesForTest(test), 1);
       const dedicated = requiresDedicatedCollectionTube(test);
       const fillRule = hasCollectionFillRule(test);
       const isCitrate = source.className === 'tube-blue';
