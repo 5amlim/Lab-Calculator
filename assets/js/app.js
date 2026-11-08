@@ -120,7 +120,7 @@
   // All STAT-eligible tests, including sedimentation rate (809), start as Routine.
   const DEFAULT_STAT_TEST_CODES = new Set();
   const LEGACY_SELECTED_KEYS = [`${LEGACY_STORAGE_PREFIX}.selected.v1`];
-  const PAGE_STEP = 30;
+  const PAGE_STEP = 10;
   // SST pooling plans use estimated usable serum, not the source tube's
   // nominal whole-blood draw capacity. These are planning assumptions only.
   const SST_USABLE_ML_PER_TUBE = 2.5;       // Gold: 5 mL blood draw.
