@@ -699,10 +699,7 @@
   // Surface the transport tube instead of the source collection tube/cup.
   function librarySubmissionBadges(test, className = 'badge') {
     const transport = String(finalTransportContainer(test) || '').trim();
-    const combined = `${transport} ${test.specialInstructions || ''}`;
-    const isMultiple = String(test.testCode || '') === '3020'
-      || (/red\s*\/\s*yellow|red-yellow|swirl/i.test(combined)
-        && /gray|grey|urisponge/i.test(combined) && /urine|culture/i.test(combined));
+    const isMultiple = requiresDualUrinalysisCultureContainers(test);
     const parts = isMultiple
       ? splitSubmissionContainers(test).map(item => ({ label: item.label, cls: item.className }))
       : [{
@@ -4314,10 +4311,22 @@
     };
   }
 
+  // Do not infer a second urine tube from exclusions, alternatives, or
+  // references to other order codes in the free-text instructions.
+  // Two submitted preservative tubes must be listed in the required transport
+  // field (or be Quest's confirmed two-specimen reflex code 3020).
+  function requiresDualUrinalysisCultureContainers(test) {
+    if (!isUrineTest(test)) return false;
+    if (String(test.testCode || '').trim() === '3020') return true;
+    const transport = String(finalTransportContainer(test) || '').toLowerCase();
+    return /red\s*\/\s*yellow|yellow\s*\/\s*red|red[- ]yellow|yellow[- ]red|swirl/.test(transport)
+      && /gray|grey|uri[- ]?sponge/.test(transport)
+      && /urine|culture/.test(transport);
+  }
+
   function splitSubmissionContainers(test) {
     const transport = finalTransportContainer(test);
-    const combined = `${transport} ${test.specialInstructions || ''}`.toLowerCase();
-    if (String(test.testCode || '') === '3020' || (/red\s*\/\s*yellow|red-yellow|swirl/.test(combined) && /gray|grey|urisponge/.test(combined) && /urine|culture/.test(combined))) {
+    if (requiresDualUrinalysisCultureContainers(test)) {
       return [
         { key: 'ua-swirl', label: 'Red/Yellow Swirl UA Preservative Tube', className: 'tube-ua-swirl', count: 1, detail: 'Urine in preservative tube' },
         selectedUrineCultureIsSponge() && isCultureTransportEligible(test)
