@@ -40,11 +40,14 @@ for(const [code,draw,ship,label] of [
 ]) check(quest,code,draw,ship,label);
 const labcorp=start('labcorp-app.js',[
   'labcorp-data.js',
+  'assets/js/labcorp/catalog/workbook-additions-specialty.js',
+  'assets/js/labcorp/catalog/infectious-and-immunity.js',
   'assets/js/labcorp/catalog/verified-expansions-a-e.js',
   'assets/js/labcorp/catalog/workbook-additions-core.js',
   'assets/js/labcorp/catalog/specialty-chemistry-and-hormones.js'
 ]);
 for(const [code,draw,ship] of [['511238',2,2],['511154',2,2],
-  ['001917',2,2],['120089',3,1],['225250',2,2],['038901',7,7]])
+  ['001917',2,2],['120089',3,1],['225250',2,2],['038901',7,7],
+  ['001610',1,1],['020321',1,1],['550655',3,2]])
   check(labcorp,code,draw,ship);
 console.log('PASS: preferred-yield tube counts, explicit source tubes, and submission counts');

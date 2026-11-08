@@ -12,3 +12,5 @@ Quest's general specimen collection guidance: https://www.questdiagnostics.com/h
 
 Regression tests: tests/source-tube-volume-regression.test.cjs
 Full Quest code-level before/after results: docs/QUEST_TUBE_COUNT_CHANGES_20261108.csv
+
+Full LabCorp before/after audit: docs/LABCORP_TUBE_COUNT_CHANGES_20261108.csv

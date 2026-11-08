@@ -3285,6 +3285,12 @@
   }
 
   function requiredSourceSpecimenMl(test) {
+    const description = String(test.preferredVolume || '');
+    // "One full citrate tube: 1.8, 2.7, or 4.5 mL" names approved
+    // draw-tube sizes; none of those amounts is plasma to transfer.
+    if (/^\s*(?:one\s+|1\s+)?full\b[^;]{0,120}\b(?:tube|blue[- ]top|citrate)\b/i.test(description)) {
+      return null;
+    }
     const preferred = parseListedSpecimenVolumeMl(test.preferredVolume);
     return preferred === null ? parseListedSpecimenVolumeMl(test.minimumVolume) : preferred;
   }
@@ -3306,6 +3312,8 @@
     const explicit = explicitCollectionCount(test);
     const exception = collectionTubeException(test);
     if (exception && exception.count) return Math.max(explicit, exception.count);
+    // Lab-prescribed multiple distinct tubes/timepoints are authoritative.
+    if (explicit > 1) return explicit;
     const volume = requiredSourceSpecimenMl(test);
     if (volume === null || volume <= 0) return explicit;
     return Math.max(explicit, Math.ceil(volume / usableSourceSpecimenMl(test, pooledCollectionMaterial(test)) - 1e-9));
