@@ -168,8 +168,6 @@
   let blockedListOpen = false;
   let toastTimer;
 
-  init();
-
   function init() {
     if (els.categoryFilter && window.LabClinicalCategories) {
       els.categoryFilter.innerHTML = '<option value="">All categories</option>' +
@@ -5976,4 +5974,5 @@
     els.toast.classList.add('show');
     toastTimer = setTimeout(() => els.toast.classList.remove('show'), 2300);
   }
+  init();
 })();
