@@ -33,8 +33,9 @@ function check(runtime,code,from,to,collectionLabel='') {
 const quest=start('assets/js/app.js',['assets/js/data.js']);
 for(const [code,draw,ship,label] of [
   ['19790',4,4],['15540',4,4],['33743',5,5],['16983',5,1],
-  ['90842',2,1],['90843',2,1],['400',3,3],['91691',5,1],
-  ['91692',3,1],['19672',6,6],['90923',5,5],['216',1,1],
+  ['22',1,1],['10098',2,1],
+  ['90842',1,1],['90843',1,1],['400',1,1],['91691',3,1],
+  ['91692',1,1],['19672',6,6],['90923',5,5],['216',1,1],
   ['36970',1,1,'no gel, 6 mL'],['37737',1,1,'Greiner 9 mL'],
   ['38287',2,2,'5 mL'],['7197',1,1,'5 mL']
 ]) check(quest,code,draw,ship,label);
@@ -46,8 +47,9 @@ const labcorp=start('labcorp-app.js',[
   'assets/js/labcorp/catalog/workbook-additions-core.js',
   'assets/js/labcorp/catalog/specialty-chemistry-and-hormones.js'
 ]);
-for(const [code,draw,ship] of [['511238',2,2],['511154',2,2],
+for(const [code,draw,ship] of [['511238',1,1],['511154',1,1],
   ['001917',2,2],['120089',3,1],['225250',2,2],['038901',7,7],
-  ['001610',1,1],['020321',1,1],['550655',3,2]])
+  ['001610',1,1],['020321',1,1],['550655',3,2],
+  ['706994',1,1],['117892',1,1],['550880',1,1],['550420',1,1]])
   check(labcorp,code,draw,ship);
-console.log('PASS: preferred-yield tube counts, explicit source tubes, and submission counts');
+console.log('PASS: minimum-volume reversion, explicit source tubes, and submission counts');
