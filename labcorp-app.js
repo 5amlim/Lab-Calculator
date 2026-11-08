@@ -4362,6 +4362,18 @@
     };
   }
 
+  // A rejected gray-top culture tube must never become a second submission.
+  // The required transport field, not free-text instructions, determines
+  // whether a UA and culture need separate preservative containers.
+  function requiresDualUrinalysisCultureContainers(test) {
+    if (!isUrineTest(test)) return false;
+    if (String(test.testCode || '').trim() === '3020') return true;
+    const transport = String(finalTransportContainer(test) || '').toLowerCase();
+    return /red\s*\/\s*yellow|yellow\s*\/\s*red|red[- ]yellow|yellow[- ]red|swirl/.test(transport)
+      && /gray|grey|uri[- ]?sponge/.test(transport)
+      && /urine|culture/.test(transport);
+  }
+
   function splitSubmissionContainers(test) {
     // LabCorp O&P (008623) and Giardia + O&P (188110) require TWO DIFFERENT
     // preservative vials, pink formalin and gray PVA. Never treat them as one.
@@ -4410,8 +4422,7 @@
           detail: 'Separate serum aliquot · protect from light · room temperature' }
       ];
     }
-    const combined = `${transport} ${test.specialInstructions || ''}`.toLowerCase();
-    if (String(test.testCode || '') === '3020' || (/red\s*\/\s*yellow|red-yellow|swirl/.test(combined) && /gray|grey|urisponge/.test(combined) && /urine|culture/.test(combined))) {
+    if (requiresDualUrinalysisCultureContainers(test)) {
       return [
         { key: 'ua-swirl', label: 'Red/Yellow Swirl UA Preservative Tube', className: 'tube-ua-swirl', count: 1, detail: 'Urine in preservative tube' },
         selectedUrineCultureIsSponge() && isCultureTransportEligible(test)
