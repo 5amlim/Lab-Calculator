@@ -3284,6 +3284,12 @@
     return COLLECTION_TUBE_EXCEPTIONS[String(test.testCode || '').trim()] || null;
   }
 
+  // Only entries modified in the November 8 source-tube audit are eligible.
+  // Explicit multi-tube, special-size and split-aliquot requirements stay authoritative.
+  const MINIMUM_DRAW_VOLUME_REVERSION_CODES = new Set([
+    '706994', '115188', '144600', '511238', '511035', '117892', '511154', '167443', '550880', '550420', '500033', '015057', '164530', '809569', '700902'
+  ]);
+
   function requiredSourceSpecimenMl(test) {
     const description = String(test.preferredVolume || '');
     // "One full citrate tube: 1.8, 2.7, or 4.5 mL" names approved
@@ -3292,7 +3298,21 @@
       return null;
     }
     const preferred = parseListedSpecimenVolumeMl(test.preferredVolume);
-    return preferred === null ? parseListedSpecimenVolumeMl(test.minimumVolume) : preferred;
+    const minimumText = String(test.minimumVolume || '').trim();
+    const minimum = parseListedSpecimenVolumeMl(minimumText);
+    const sourceCapacity = usableSourceSpecimenMl(test, pooledCollectionMaterial(test));
+    if (MINIMUM_DRAW_VOLUME_REVERSION_CODES.has(String(test.testCode || '').trim())
+        && preferred !== null && minimum !== null && minimum > 0 && minimum < preferred
+        && /^\d+(?:\.\d+)?\s*m\s*l\b/i.test(minimumText)
+        && !/\b(?:pediatric|neonate|infants?|children)\b/i.test(minimumText)
+        && !/[x×]\s*\d+|\d+\s*[x×]\s*\d+(?:\.\d+)?\s*m\s*l\b/i.test(minimumText)
+        && !listedVolumeAlreadyTotalsMultipleTubes(test.preferredVolume)
+        && !collectionTubeException(test)
+        && explicitCollectionCount(test) === 1
+        && Math.ceil(minimum / sourceCapacity - 1e-9) < Math.ceil(preferred / sourceCapacity - 1e-9)) {
+      return minimum;
+    }
+    return preferred === null ? minimum : preferred;
   }
 
   function usableSourceSpecimenMl(test, material) {
