@@ -5,6 +5,16 @@ const path = require('node:path');
 const root = path.join(__dirname, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 
+// Persisted selections must render after collection constants are initialized.
+for (const app of ['assets/js/app.js', 'labcorp-app.js']) {
+  const code = read(app);
+  const initCall = code.lastIndexOf('\n  init();');
+  assert(initCall > code.indexOf('const COLLECTION_TUBE_EXCEPTIONS ='), app + ' collection config before init');
+  assert(initCall > code.indexOf('const MINIMUM_DRAW_VOLUME_REVERSION_CODES ='), app + ' minimum config before init');
+  assert.equal((code.match(/\n  init\(\);/g) || []).length, 1, app + ' initializes exactly once');
+}
+
+
 function start(app, scripts) {
   const context = vm.createContext({window:{SEED_TESTS:[]},
     document:{getElementById:()=>null,querySelectorAll:()=>[]},
