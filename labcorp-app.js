@@ -4720,6 +4720,7 @@
   }
 
   function printLabelingNotes(item) {
+    if (item.printVisualGroupParts) return item.printVisualGroupParts.map(printLabelingNotes).join('');
     const grouped = new Map();
     uniqueTests(item.tests).forEach(test => {
       const is24Hour = is24HourUrineTest(test);
@@ -5334,6 +5335,81 @@
     ? (replacements.get(item) ? [replacements.get(item)] : []) : [item]);
 }
 
+
+  // Print-only grouping. A shared card is NOT permission to pool specimens.
+  // Keep each required tube, code, label, and source allocation intact.
+  function printContainerPresentationKey(item) {
+    if (!item || !(item.count > 0) || !item.className || !item.label
+      || item.printAllocationNote || item.pooledSerumPlasmaTransport
+      || !Array.isArray(item.tests) || !item.tests.length) return '';
+    const id = String(item.key || '');
+    // Existing SST pooling and deliberately dedicated specimens are kept apart.
+    if (/^(?:sst-spun|pooled-original\|frozen-transport\||vitamin-profile-|081162-|007010-|labcorp-op-)/.test(id)
+      || /\|dedicated-|\|separate\|/.test(id)) return '';
+    const cls = String(item.className);
+    const label = normalizeSearch(item.label);
+    if (!label || /verify|unknown|unspecified/.test(label)) return '';
+    const materials = new Set(uniqueTests(item.tests).map(test => [
+      collectionSpecimenGroupForTest(test),
+      normalizeSearch(normalizeSpecimenType(test.specimenType)),
+      isUrineTest(test) ? urineCollectionType(test).key : '',
+      normalizeSearch(specificSpecimenSource(test)),
+      /^yes$/i.test(String(test.spin || '')) ? 'spun' : 'unspun'
+    ].join('|')));
+    if (materials.size !== 1) return '';
+    const source = Array.from(submissionSourceGroupsForItem(item).keys()).sort().join(',');
+    // These are vetted aliases for identical urine preservative devices.
+    // A gray fluoride/oxalate blood tube will never match the urine culture type.
+    const container = cls === 'tube-ua-swirl' && /red\s*\/\s*yellow|red[- ]yellow|swirl/.test(label)
+      ? 'red-yellow-ua-preservative'
+      : cls === 'tube-urine-culture' && /gray[- ]?top.*(?:urine|culture)/.test(label)
+        ? 'gray-top-urine-culture'
+        : label;
+    const detail = normalizeSearch(item.detail || '');
+    const handling = container === 'red-yellow-ua-preservative' && /^(?:urine|urine in preservative tube)$/.test(detail)
+      ? 'urine-ua-preserved'
+      : container === 'gray-top-urine-culture' && /^(?:urine|urine in culture preservative tube)$/.test(detail)
+        ? 'urine-culture-preserved'
+        : detail;
+    return [cls, container, item.originalTube ? 'original' : 'transfer',
+      materials.values().next().value, source, handling].join('||');
+  }
+
+  function groupSubmissionContainersForPrint(contents) {
+    const groups = new Map();
+    contents.forEach(item => {
+      const key = printContainerPresentationKey(item);
+      if (!key) return;
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(item);
+    });
+    const replacement = new Map();
+    groups.forEach(parts => {
+      if (parts.length < 2) return;
+      const first = parts[0];
+      const sourceOverrides = new Map();
+      parts.forEach(part => {
+        if (!(part.sourceCountOverrides instanceof Map)) return;
+        part.sourceCountOverrides.forEach((count, key) => {
+          sourceOverrides.set(key, (sourceOverrides.get(key) || 0) + count);
+        });
+      });
+      replacement.set(first, {
+        ...first,
+        count: parts.reduce((total, part) => total + part.count, 0),
+        tests: uniqueTests(parts.flatMap(part => part.tests || [])),
+        sourceCountOverrides: sourceOverrides.size ? sourceOverrides : first.sourceCountOverrides,
+        printVisualGroupParts: parts,
+        printAllocationNote: 'Separate containers: ' + parts.map(part =>
+          part.count + ' for ' + uniqueTests(part.tests).map(displayCode).join(', ')
+        ).join(' · ')
+      });
+      parts.slice(1).forEach(part => replacement.set(part, null));
+    });
+    return contents.flatMap(item => replacement.has(item)
+      ? (replacement.get(item) ? [replacement.get(item)] : []) : [item]);
+  }
+
   function printBagItemProgress(item, itemIndex, contents) {
   const manual = uniqueTests(item.tests || []).some(isManuallyAddedTest);
   if (!manual && contents.length < 2) return '';
@@ -5362,7 +5438,7 @@
       const totalContainers = contents.reduce((sum, item) => sum + item.count, 0);
       // Combine compatible SST-derived serum transport items for the printout
       // without merging their real tube allocations or labels.
-      return { bag, contents: printSstSerumTransportGroupContents(contents), totalContainers };
+      return { bag, contents: groupSubmissionContainersForPrint(printSstSerumTransportGroupContents(contents)), totalContainers };
     });
     // v11.25: Print in a predictable left-to-right, then top-to-bottom order:
     // all routine bags first, then STAT bags. Within each priority group the
