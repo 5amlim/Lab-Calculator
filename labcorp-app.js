@@ -569,7 +569,8 @@
       transportTemperature: String(record.transportTemperature || 'Not specified'),
       transportTemperatureRaw: String(record.transportTemperatureRaw || ''),
       stability: String(record.stability || ''),
-      spin: String(record.spin || 'Verify'),
+      spin: specimenType === 'Whole Blood' && /^(?:yes|true|spin|centrifuge)$/i.test(String(record.spin || '').trim())
+        ? 'No' : String(record.spin || 'Verify'),
       specialLabeling: String(record.specialLabeling || '').trim(),
       specialInstructions: String(record.specialInstructions || ''),
       fastingStatus: ['required', 'preferred'].includes(String(record.fastingStatus || '').toLowerCase()) ? String(record.fastingStatus).toLowerCase() : '',
@@ -5540,7 +5541,10 @@
         : /\bswab\b/i.test(label) ? 'specimen-swab' : '';
       return `<span class="specimen-badge ${specimenClass(label)} ${group} print-specimen-badge">${escapeHtml(label)}</span>`;
     }).join(' ');
-    const spinValue = String(test.spin || '').trim();
+    // Transferring intact whole blood does not require centrifugation.
+    // Keep the spin cue for serum, plasma and RBC preparations.
+    const spinValue = normalizeSpecimenType(test.specimenType) === 'Whole Blood'
+      ? 'No' : String(test.spin || '').trim();
     const spinDisplay = /^(?:yes|true|spin|centrifuge)$/i.test(spinValue)
       ? 'Spin ✓'
       : /^(?:no|false|do not spin)$/i.test(spinValue) ? ''
