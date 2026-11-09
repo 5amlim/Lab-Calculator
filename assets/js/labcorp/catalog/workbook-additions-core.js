@@ -798,7 +798,7 @@ const additions=[
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature, refrigerated, or frozen 14 days",
-    "spin": "Yes",
+    "spin": "No",
     "specialInstructions": "Adult venous lead level. Draw into ROYAL BLUE EDTA trace-element tube or TAN LEAD-FREE tube. Submit original UNSPUN whole-blood tube. Avoid clotting.",
     "fastingStatus": "",
     "fastingInstructions": "",
