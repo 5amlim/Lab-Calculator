@@ -40,5 +40,41 @@ for (const [lab, script] of [['Quest', 'assets/js/app.js'], ['LabCorp', 'labcorp
   const special = render({specimenType:'Plasma', transfer:true, spin:'per protocol'});
   assert.doesNotMatch(special, /print-transfer-spin/);
   assert.match(special, /Spin: per protocol/);
+  const wholeBloodTransfer = render({specimenType:'Whole Blood', transfer:true, spin:'Yes'});
+  assert.doesNotMatch(wholeBloodTransfer, /print-transfer-spin|print-detail-spin|Spin ✓|Spin, then transfer to/,
+    lab + ': intact whole blood must not inherit a spin cue from transfer');
+  assert.match(wholeBloodTransfer, /aria-label="Then transfer to"/,
+    lab + ': whole-blood transfer arrow must remain visible');
+  const wholeBloodOriginal = render({specimenType:'Whole Blood', transfer:false, spin:'Yes'});
+  assert.doesNotMatch(wholeBloodOriginal, /print-transfer-spin|print-detail-spin|Spin ✓/,
+    lab + ': whole blood in original tube must remain unspun');
+  for (const material of ['Plasma', 'RBCs', 'Platelet-poor plasma']) {
+    const processedTransfer = render({specimenType:material, transfer:true, spin:'Yes'});
+    assert.match(processedTransfer, /aria-label="Spin, then transfer to"/,
+      lab + ': ' + material + ' should retain centrifugation when indicated');
+  }
   console.log(lab + ': print spin/transfer cases passed');
 }
+
+
+const questSeedSource = fs.readFileSync(path.join(root, 'assets/js/data.js'), 'utf8');
+const questRecords = JSON.parse(questSeedSource.replace(/^window\.SEED_TESTS\s*=\s*/, '').replace(/;\s*$/, ''));
+const b1 = questRecords.find(test => test.testCode === '10189');
+assert.ok(b1, 'Quest 10189 should exist');
+assert.equal(b1.specimenType, 'Whole Blood');
+assert.equal(b1.spin, 'No');
+assert.match(b1.transportContainer, /Amber transport tube/i);
+assert.match(b1.specialInstructions, /Do not centrifuge/);
+assert.match(b1.specialInstructions, /freeze immediately/i);
+
+const labcorpAdditions = fs.readFileSync(path.join(root, 'assets/js/labcorp/catalog/workbook-additions-core.js'), 'utf8');
+const leadOffset = labcorpAdditions.indexOf('"testCode": "007625"');
+assert.ok(leadOffset >= 0, 'LabCorp 007625 should exist');
+const leadStart = labcorpAdditions.lastIndexOf('  {', leadOffset);
+const leadEnd = labcorpAdditions.indexOf('\n  },', leadOffset);
+assert.ok(leadStart >= 0 && leadEnd > leadStart, 'LabCorp 007625 object boundary');
+const lead = JSON.parse(labcorpAdditions.slice(leadStart, leadEnd + 4));
+assert.equal(lead.specimenType, 'Whole Blood');
+assert.equal(lead.spin, 'No');
+assert.match(lead.transportContainer, /Original Tube/i);
+console.log('Quest 10189 and LabCorp 007625 specimen prep data passed');
