@@ -711,6 +711,7 @@ window.CEDARS_TESTS = [
   {
     "id": "procalcitonin",
     "code": "",
+    "secondaryCode": "LAB2289",
     "name": "Procalcitonin, serum or plasma (PCT)",
     "category": "Blood",
     "specimen": "Serum or plasma (lithium heparin or K2EDTA)",
@@ -719,7 +720,7 @@ window.CEDARS_TESTS = [
     "qty": 1,
     "temp": "Room Temperature",
     "containerType": "Gold SST",
-    "testMethod": "Immunoassay",
+    "testMethod": "Chemiluminescent microparticle immunoassay (CMIA)",
     "submissionOptions": [
       {
         "name": "Preferred: Spun gold-top SST",
@@ -734,9 +735,9 @@ window.CEDARS_TESTS = [
         "requirements": "K2EDTA tube; confirm required volume."
       }
     ],
-    "notes": "Cedars accepts 5 mL gold SST (preferred), 3 mL light green lithium-heparin PST or K2EDTA. Spin the gold-top SST to obtain serum; collection occurs in the original gold SST. At room temperature, specimens on clot/RBCs/gel are stable 8 hours; separated serum/plasma is stable 24 hours. Removed serum/plasma is stable 48 hours refrigerated or 15 days frozen. Confirm current handling and transport in Cedars Lexicomp.",
-    "sourceNote": "Cedars Lexicomp screenshot: Procalcitonin, Serum or Plasma (CMIA)",
-    "aliases": "procalcitonin|PCT|sepsis",
+    "notes": "CS-Link test code LAB2289 (CMIA). Cedars accepts 5 mL gold SST (preferred), 3 mL light green lithium-heparin PST or K2EDTA. Spin the gold-top SST to obtain serum; collection occurs in the original gold SST. At room temperature, specimens on clot/RBCs/gel are stable 8 hours; separated serum/plasma is stable 24 hours. Removed serum/plasma is stable 48 hours refrigerated or 15 days frozen. Confirm current handling and transport in Cedars Lexicomp.",
+    "sourceNote": "Cedars Lexicomp screenshot: Procalcitonin, Serum or Plasma, CS-Link LAB2289 (CMIA)",
+    "aliases": "procalcitonin|PCT|sepsis|LAB2289",
     "hold": false,
     "blockReason": "",
     "volumeDisplay": "SST 5 mL preferred; PST 3 mL; K2EDTA volume verify"
