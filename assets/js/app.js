@@ -1665,17 +1665,21 @@
           // Missing zeroes can be suggested, but never silently rewritten.
           else if (q.length >= 3 && /^0/.test(code) && code.replace(/^0+/, '').startsWith(q))
             score = 1650 - Math.min(100, code.length - q.length);
-        } else if (codePlusName) {
-          if (code === codePlusName[1] && rankLibraryTest(codePlusName[2], test) >= 500) score = 2800;
         } else {
-          score = rankLibraryTest(q, test);
+          // A name such as "25 hydroxy vitamin D" also starts with digits.
+          // Treat it as a code+name pair only when that exact code exists.
+          if (codePlusName && code === codePlusName[1] &&
+            rankLibraryTest(codePlusName[2], test) >= 500) score = 2800;
+          else score = rankLibraryTest(q, test);
           if (index.aliases.includes(q)) score = Math.max(score, 1550);
           else if (q.length >= 2 && index.aliases.some(alias => alias.startsWith(q)))
             score = Math.max(score, 1260 - Math.min(100, name.length / 2));
           // Search suggestions should include common misspellings of a full
           // shorthand, not just misspellings of canonical test-name words.
           if (q.length >= 5 && shorterTokens.length === 1 &&
+            !/^(?:hbsag|hbsab|hbcab|hbcag|hstni|hstnt|hscrp|ft3|ft4|tni|tnt)$/.test(q) &&
             index.aliases.some(alias => !alias.includes(' ') && alias.length >= 5 &&
+              !/^(?:hbsag|hbsab|hbcab|hbcag|hstni|hstnt|hscrp|ft3|ft4|tni|tnt)$/.test(alias) &&
               libraryEditDistanceWithin(q, alias, q.length >= 7 ? 2 : 1)))
             score = Math.max(score, 725);
           // Do not suggest a clinically different qualified assay as though
