@@ -1031,9 +1031,32 @@
     { name: /^dihydrotestosterone$/, terms: ['dht'] }
   ];
 
+  // Additional catalog-name variants shared by Quest and Labcorp.
+  // These are search hints only; they never substitute an order code.
+  const SMART_LAB_ALIAS_RULES = [
+    { name: /^(?:sed rate|sedimentation rate|erythrocyte sedimentation rate)\b/, terms: ['esr', 'sed rate', 'sedimentation rate', 'westergren'] },
+    { name: /^(?:metabolic panel\b.*\bbasic\b|basic metabolic panel\b|bmp\b)/, terms: ['bmp', 'basic metabolic panel', 'chem 7', 'chem 8'] },
+    { name: /^(?:metabolic panel\b.*\bcomprehensive\b|comprehensive metabolic panel\b|cmp\b)/, terms: ['cmp', 'comprehensive metabolic panel', 'chem 14'] },
+    { name: /^(?:complete blood count|cbc)\b.*\b(?:with|w)\b.*\b(?:diff|differential)\b/, terms: ['cbc diff', 'cbc with diff', 'cbc w diff', 'cbc differential'] },
+    { name: /^(?:complete blood count|cbc)\b.*\b(?:without|no)\b.*\b(?:diff|differential)\b/, terms: ['cbc no diff', 'cbc without diff', 'cbc w o diff'] },
+    { name: /^(?:hemoglobin a1c|hba1c|glycohemoglobin)\b/, terms: ['a1c', 'hba1c', 'hgb a1c', 'glycated hemoglobin'] },
+    { name: /^troponin i\b.*\b(?:high sensitivity|highly sensitive)\b/, terms: ['hs trop i', 'hs troponin i', 'hstni', 'tni hs'] },
+    { name: /^troponin t\b.*\b(?:high sensitivity|highly sensitive)\b/, terms: ['hs trop t', 'hs troponin t', 'hstnt', 'tnt hs'] },
+    { name: /^(?:nt pro bnp|pro bnp|n terminal pro bnp|b type natriuretic peptide n terminal)\b/, terms: ['nt probnp', 'nt pro bnp', 'pro bnp'] },
+    { name: /^(?:culture urine|urine culture)\b/, terms: ['ucx', 'urine cx', 'urine culture'] },
+    { name: /^urinalysis\b.*\breflex\b.*\bculture\b/, terms: ['ua reflex culture', 'ua reflex', 'ua with reflex culture'] },
+    { name: /^(?:25 hydroxy vitamin d|vitamin d 25 hydroxy|vitamin d 25 oh)\b/, terms: ['25ohd', '25 oh vit d', 'vit d 25', 'vitamin d 25'] },
+    { name: /^(?:quanti feron|quantiferon)\b/, terms: ['qft', 'quant gold', 'quantiferon gold', 'tb gold', 'igra'] },
+    { name: /^(?:iron and tibc|iron total and total iron binding capacity)\b/, terms: ['iron tibc', 'tibc', 'iron binding capacity'] },
+    { name: /^(?:c reactive protein|crp)\b(?!.*\bhigh sensitivity\b)/, terms: ['crp', 'c reactive protein'] },
+    { name: /^c reactive protein\b.*\b(?:high sensitivity|cardiac)\b|^hs crp\b/, terms: ['hscrp', 'hs crp', 'high sensitivity crp'] },
+    { name: /^thyroid stimulating hormone\b/, terms: ['tsh', 'thyrotropin'] },
+    { name: /^thyroid stimulating hormone\b.*\breflex\b/, terms: ['tsh reflex', 'thyroid reflex'] }
+  ];
+
   function curatedLabAliases(normalizedName) {
     const aliases = [];
-    LAB_SEARCH_ALIAS_RULES.forEach(({ name, terms }) => {
+    [...LAB_SEARCH_ALIAS_RULES, ...SMART_LAB_ALIAS_RULES].forEach(({ name, terms }) => {
       if (name.test(normalizedName)) aliases.push(...terms);
     });
     return aliases;
@@ -1620,24 +1643,63 @@
     input.removeAttribute('aria-activedescendant');
   }
 
+  // Rank exact identity first, then code prefixes, name matches, curated
+  // shorthand, and only finally typo matches. Do not fuzzy-match codes.
   function suggestionMatches(query, kind) {
     const q = normalizeSearch(query);
     if (!q) return [];
     const numeric = /^\d+$/.test(q);
+    const codePlusName = q.match(/^(\d{2,})\s+(.+)$/);
+    const codeLiteral = String(query || '').trim();
+    const shorterTokens = q.split(' ').filter(Boolean);
     return database
       .filter(test => test.status !== 'blocked' && (kind !== 'library' || matchesLibraryFilters(test)))
-      .map(test => ({
-        test,
-        score: numeric
-          ? (String(test.testCode || '').startsWith(q) ? 1650 + (String(test.testCode) === q ? 350 : 0) : 0)
-          : rankLibraryTest(q, test)
-      }))
+      .map(test => {
+        const index = librarySearchIndex(test);
+        const code = index.code;
+        const name = index.name;
+        let score = 0;
+        if (numeric) {
+          if (code === q) score = 3000;
+          else if (code.startsWith(q)) score = 2300 - Math.min(100, code.length - q.length);
+          // Labcorp's published six-digit codes retain leading zeroes.
+          // Missing zeroes can be suggested, but never silently rewritten.
+          else if (q.length >= 3 && /^0/.test(code) && code.replace(/^0+/, '').startsWith(q))
+            score = 1650 - Math.min(100, code.length - q.length);
+        } else if (codePlusName) {
+          if (code === codePlusName[1] && rankLibraryTest(codePlusName[2], test) >= 500) score = 2800;
+        } else {
+          score = rankLibraryTest(q, test);
+          if (index.aliases.includes(q)) score = Math.max(score, 1550);
+          else if (q.length >= 2 && index.aliases.some(alias => alias.startsWith(q)))
+            score = Math.max(score, 1260 - Math.min(100, name.length / 2));
+          // Search suggestions should include common misspellings of a full
+          // shorthand, not just misspellings of canonical test-name words.
+          if (q.length >= 5 && shorterTokens.length === 1 &&
+            index.aliases.some(alias => !alias.includes(' ') && alias.length >= 5 &&
+              libraryEditDistanceWithin(q, alias, q.length >= 7 ? 2 : 1)))
+            score = Math.max(score, 725);
+          // Do not suggest a clinically different qualified assay as though
+          // it were the exact one requested.
+          if (/\b(?:without|no) (?:diff|differential)\b/.test(q) &&
+            /\bwith (?:diff|differential)\b/.test(name) &&
+            !/\b(?:without|no)\b/.test(name)) score = 0;
+          if (/\b(?:qualitative|qual)\b/.test(q) &&
+            /\bquantitative\b/.test(name) && !/\bqualitative\b/.test(name)) score = 0;
+          if (/\b(?:quantitative|quant)\b/.test(q) &&
+            /\bqualitative\b/.test(name) && !/\bquantitative\b/.test(name)) score = 0;
+          if (/\btroponin i\b/.test(q) && /\btroponin t\b/.test(name)) score = 0;
+          if (/\btroponin t\b/.test(q) && /\btroponin i\b/.test(name)) score = 0;
+        }
+        return { test, score };
+      })
       .filter(item => item.score >= 500)
       .sort((a, b) => b.score - a.score ||
         (numeric ? String(a.test.testCode || '').length - String(b.test.testCode || '').length : 0) ||
+        a.test.testName.length - b.test.testName.length ||
         a.test.testName.localeCompare(b.test.testName) ||
         String(a.test.testCode || '').localeCompare(String(b.test.testCode || '')))
-      .slice(0, 7);
+      .slice(0, 8);
   }
 
   function renderSuggestions(kind) {
@@ -1662,7 +1724,9 @@
           '</strong><small>' + escapeHtml(meta) +
           '</small></span><span class="calc-suggestion-arrow" aria-hidden="true">›</span></button>';
       }).join('') +
-      '<div class="calc-suggestion-footer">↑ ↓ to navigate · Enter to choose · Esc to close</div>';
+      '<div class="calc-suggestion-footer">' +
+      (kind === 'batch' ? 'Click a suggestion to fill this line · Enter starts a new line' :
+        '↑ ↓ to navigate · Enter to choose · Esc to close') + '</div>';
     panel.classList.remove('hidden');
     input.setAttribute('aria-expanded', 'true');
     input.removeAttribute('aria-activedescendant');
@@ -1704,6 +1768,7 @@
     const state = suggestionState[kind];
     const panel = kind === 'library' ? els.librarySuggestions : els.batchSuggestions;
     if (panel.classList.contains('hidden') || !state.items.length) return false;
+    if (kind === 'batch' && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) return false;
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       event.preventDefault();
       setActiveSuggestion(kind, state.active === -1
@@ -1711,7 +1776,11 @@
         : state.active + (event.key === 'ArrowDown' ? 1 : -1));
       return true;
     }
-    if (event.key === 'Enter' && state.active !== -1 && !event.metaKey && !event.ctrlKey) {
+    if (event.key === 'Enter' && kind === 'batch' && !event.metaKey && !event.ctrlKey) {
+      closeSuggestions('batch');
+      return false; // Let textarea insert its native newline.
+    }
+    if (event.key === 'Enter' && kind === 'library' && state.active !== -1 && !event.metaKey && !event.ctrlKey) {
       event.preventDefault();
       chooseSuggestion(kind, state.active);
       return true;
