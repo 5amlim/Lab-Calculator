@@ -152,6 +152,7 @@
   const els = {
     recordCount: $('recordCount'), searchInput: $('searchInput'), addBestButton: $('addBestButton'),
     previewButton: $('previewButton'), clearSearchButton: $('clearSearchButton'), batchResults: $('batchResults'),
+    librarySuggestions: $('librarySuggestions'), batchSuggestions: $('batchSuggestions'),
     libraryFilter: $('libraryFilter'), categoryFilter: $('categoryFilter'), specimenFilter: $('specimenFilter'), temperatureFilter: $('temperatureFilter'), transportContainerFilter: $('transportContainerFilter'), fastingFilter: $('fastingFilter'), pediatricFilter: $('pediatricFilter'), spinFilter: $('spinFilter'), catalogFilterButton: $('catalogFilterButton'), catalogFilterButtonText: $('catalogFilterButtonText'), catalogFilterPanel: $('catalogFilterPanel'), catalogFilterReset: $('catalogFilterReset'), catalogFilterDone: $('catalogFilterDone'), catalogFilterControl: $('catalogFilterControl'), clearBrowserTestsButton: $('clearBrowserTestsButton'), browserCustomCount: $('browserCustomCount'),
     libraryBody: $('libraryBody'), libraryStatus: $('libraryStatus'), loadMoreButton: $('loadMoreButton'), loadMoreInlineButton: $('loadMoreInlineButton'),
     blockedListButton: $('blockedListButton'), blockedListPanel: $('blockedListPanel'), blockedListBody: $('blockedListBody'),
@@ -191,6 +192,10 @@
   let statActionTipButton = null;
   let libraryLimit = PAGE_STEP;
   let blockedListOpen = false;
+  const suggestionState = {
+    library: { active: -1, items: [] },
+    batch: { active: -1, items: [] }
+  };
   let toastTimer;
 
   function init() {
@@ -208,14 +213,39 @@
     els.addBestButton.addEventListener('click', () => renderBatch(true));
     els.clearSearchButton.addEventListener('click', () => {
       els.searchInput.value = '';
+      closeSuggestions('batch');
       els.batchResults.classList.add('hidden');
       els.batchResults.innerHTML = '';
       els.searchInput.focus();
     });
+    els.searchInput.addEventListener('input', () => renderSuggestions('batch'));
+    els.searchInput.addEventListener('focus', () => renderSuggestions('batch'));
+    els.searchInput.addEventListener('click', () => renderSuggestions('batch'));
     els.searchInput.addEventListener('keydown', (event) => {
-      if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') renderBatch(true);
+      if (handleSuggestionKeydown('batch', event)) return;
+      if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {
+        closeSuggestions('batch');
+        renderBatch(true);
+      }
     });
-    els.libraryFilter.addEventListener('input', () => { libraryLimit = PAGE_STEP; renderLibrary(); });
+    els.libraryFilter.addEventListener('input', () => {
+      libraryLimit = PAGE_STEP;
+      renderLibrary();
+      renderSuggestions('library');
+    });
+    els.libraryFilter.addEventListener('focus', () => renderSuggestions('library'));
+    els.libraryFilter.addEventListener('keydown', event => handleSuggestionKeydown('library', event));
+    for (const kind of ['library', 'batch']) {
+      const panel = kind === 'library' ? els.librarySuggestions : els.batchSuggestions;
+      panel.addEventListener('click', event => {
+        const option = event.target.closest('.calc-suggestion-option');
+        if (option) chooseSuggestion(kind, Number(option.dataset.index));
+      });
+    }
+    document.addEventListener('pointerdown', event => {
+      if (!event.target.closest('#libraryAutocomplete')) closeSuggestions('library');
+      if (!event.target.closest('#batchAutocomplete')) closeSuggestions('batch');
+    });
     [els.categoryFilter, els.specimenFilter, els.temperatureFilter, els.transportContainerFilter, els.fastingFilter, els.pediatricFilter, els.spinFilter].forEach(control => control.addEventListener('change', () => { libraryLimit = PAGE_STEP; renderLibrary(); }));
     els.catalogFilterButton.addEventListener('click', () => { if (els.catalogFilterPanel.classList.contains('hidden')) setStatPickerOpen(false); toggleCatalogFilters(); });
     els.catalogFilterDone.addEventListener('click', () => toggleCatalogFilters(false));
@@ -1564,6 +1594,135 @@
     persistDatabase();
     renderAll();
     showToast(`${custom.length} manual ${custom.length === 1 ? 'entry' : 'entries'} removed. Packaged tests preserved.`);
+  }
+
+
+  // Search suggestions share the established catalog ranking and never guess
+  // numeric order codes. Selecting a suggestion only fills a search field:
+  // the existing Add / Review actions remain the confirmation step.
+  function activeBatchLine() {
+    const value = els.searchInput.value;
+    const caret = els.searchInput.selectionStart ?? value.length;
+    const start = value.lastIndexOf('\n', Math.max(0, caret - 1)) + 1;
+    const endIndex = value.indexOf('\n', caret);
+    const end = endIndex === -1 ? value.length : endIndex;
+    return { start, end, query: value.slice(start, end).trim() };
+  }
+
+  function closeSuggestions(kind) {
+    const input = kind === 'library' ? els.libraryFilter : els.searchInput;
+    const panel = kind === 'library' ? els.librarySuggestions : els.batchSuggestions;
+    suggestionState[kind].active = -1;
+    suggestionState[kind].items = [];
+    panel.innerHTML = '';
+    panel.classList.add('hidden');
+    input.setAttribute('aria-expanded', 'false');
+    input.removeAttribute('aria-activedescendant');
+  }
+
+  function suggestionMatches(query, kind) {
+    const q = normalizeSearch(query);
+    if (!q) return [];
+    const numeric = /^\d+$/.test(q);
+    return database
+      .filter(test => test.status !== 'blocked' && (kind !== 'library' || matchesLibraryFilters(test)))
+      .map(test => ({
+        test,
+        score: numeric
+          ? (String(test.testCode || '').startsWith(q) ? 1650 + (String(test.testCode) === q ? 350 : 0) : 0)
+          : rankLibraryTest(q, test)
+      }))
+      .filter(item => item.score >= 500)
+      .sort((a, b) => b.score - a.score ||
+        (numeric ? String(a.test.testCode || '').length - String(b.test.testCode || '').length : 0) ||
+        a.test.testName.localeCompare(b.test.testName) ||
+        String(a.test.testCode || '').localeCompare(String(b.test.testCode || '')))
+      .slice(0, 7);
+  }
+
+  function renderSuggestions(kind) {
+    const input = kind === 'library' ? els.libraryFilter : els.searchInput;
+    const panel = kind === 'library' ? els.librarySuggestions : els.batchSuggestions;
+    const query = kind === 'library' ? input.value.trim() : activeBatchLine().query;
+    if (!query) { closeSuggestions(kind); return; }
+    const matches = suggestionMatches(query, kind);
+    const state = suggestionState[kind];
+    state.items = matches.map(item => item.test);
+    state.active = -1;
+    if (!matches.length) { closeSuggestions(kind); return; }
+    const label = kind === 'library' ? 'Matching Quest tests' : 'Matching tests for this line';
+    panel.innerHTML = '<div class="calc-suggestion-heading">' + label + '</div>' +
+      matches.map(({test}, index) => {
+        const code = displayCode(test);
+        const meta = [test.specimenType, test.transportTemperature].filter(Boolean).join(' · ');
+        return '<button type="button" class="calc-suggestion-option" role="option" id="' +
+          kind + '-suggestion-' + index + '" aria-selected="false" data-index="' + index +
+          '" tabindex="-1"><span class="calc-suggestion-code">' + escapeHtml(code) +
+          '</span><span class="calc-suggestion-copy"><strong>' + escapeHtml(test.testName) +
+          '</strong><small>' + escapeHtml(meta) +
+          '</small></span><span class="calc-suggestion-arrow" aria-hidden="true">›</span></button>';
+      }).join('') +
+      '<div class="calc-suggestion-footer">↑ ↓ to navigate · Enter to choose · Esc to close</div>';
+    panel.classList.remove('hidden');
+    input.setAttribute('aria-expanded', 'true');
+    input.removeAttribute('aria-activedescendant');
+  }
+
+  function setActiveSuggestion(kind, index) {
+    const state = suggestionState[kind];
+    const panel = kind === 'library' ? els.librarySuggestions : els.batchSuggestions;
+    const input = kind === 'library' ? els.libraryFilter : els.searchInput;
+    if (!state.items.length) return;
+    state.active = (index + state.items.length) % state.items.length;
+    panel.querySelectorAll('.calc-suggestion-option').forEach((option, i) => {
+      option.classList.toggle('is-active', i === state.active);
+      option.setAttribute('aria-selected', String(i === state.active));
+    });
+    const current = panel.querySelectorAll('.calc-suggestion-option')[state.active];
+    input.setAttribute('aria-activedescendant', current.id);
+    current.scrollIntoView({ block: 'nearest' });
+  }
+
+  function chooseSuggestion(kind, index) {
+    const test = suggestionState[kind].items[index];
+    if (!test) return;
+    const value = String(test.testCode || '').trim() || test.testName;
+    if (kind === 'library') {
+      els.libraryFilter.value = value;
+      libraryLimit = PAGE_STEP;
+      renderLibrary();
+      els.libraryFilter.focus();
+    } else {
+      const { start, end } = activeBatchLine();
+      els.searchInput.setRangeText(value, start, end, 'end');
+      els.searchInput.focus();
+    }
+    closeSuggestions(kind);
+  }
+
+  function handleSuggestionKeydown(kind, event) {
+    const state = suggestionState[kind];
+    const panel = kind === 'library' ? els.librarySuggestions : els.batchSuggestions;
+    if (panel.classList.contains('hidden') || !state.items.length) return false;
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      setActiveSuggestion(kind, state.active === -1
+        ? (event.key === 'ArrowDown' ? 0 : state.items.length - 1)
+        : state.active + (event.key === 'ArrowDown' ? 1 : -1));
+      return true;
+    }
+    if (event.key === 'Enter' && state.active !== -1 && !event.metaKey && !event.ctrlKey) {
+      event.preventDefault();
+      chooseSuggestion(kind, state.active);
+      return true;
+    }
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeSuggestions(kind);
+      return true;
+    }
+    if (event.key === 'Tab') closeSuggestions(kind);
+    return false;
   }
 
   function renderLibrary() {
