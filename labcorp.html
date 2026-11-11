@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="assets/css/experience.css?v=12.02">
   <link rel="stylesheet" href="market-switch.css?v=10">
   <link rel="stylesheet" href="labcorp-theme.css?v=12">
+<link rel="stylesheet" href="assets/css/search-suggestions.css?v=20261110-2">
   <link rel="stylesheet" href="labcorp-crosswalk.css?v=1">
   <link rel="stylesheet" href="print-button-theme.css?v=8">
   <link rel="stylesheet" href="assets/css/scroll-cues.css?v=4">
@@ -74,7 +75,7 @@
         </div>
         <div class="batch-entry-body">
           <label for="searchInput" class="sr-only">Test names or codes, one per line</label>
-          <textarea id="searchInput" rows="4" placeholder="322758&#10;Hemoglobin A1c&#10;Cat dander" aria-describedby="batchEntryDescription"></textarea>
+          <div class="calc-autocomplete-field" id="batchAutocomplete"><textarea id="searchInput" rows="4" placeholder="322758&#10;Hemoglobin A1c&#10;Cat dander" aria-describedby="batchEntryDescription" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="batchSuggestions"></textarea><div id="batchSuggestions" class="calc-suggestions hidden" role="listbox" aria-label="Matching tests for current line"></div></div>
           <div class="search-actions">
             <button class="button ghost" id="clearSearchButton">Clear</button>
             <button class="button secondary" id="previewButton">Review matches</button>
@@ -87,7 +88,7 @@
         <div id="batchResults" class="panel batch-panel hidden" aria-live="polite"></div>
 
         <div class="filter-row">
-          <label class="library-search"><span class="field-label">Search tests</span><input id="libraryFilter" type="search" placeholder="Name, code, or category (e.g. STI, GI, CBC)" autocomplete="off"></label>
+          <div class="library-search"><label class="field-label" for="libraryFilter">Search tests</label><div class="calc-autocomplete-field" id="libraryAutocomplete"><input id="libraryFilter" type="search" placeholder="Name, code, or category (e.g. STI, GI, CBC)" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="librarySuggestions"><div id="librarySuggestions" class="calc-suggestions hidden" role="listbox" aria-label="Suggested Labcorp tests"></div></div></div>
           <div class="catalog-filter-control" id="catalogFilterControl">
             <button class="catalog-filter-toggle" id="catalogFilterButton" type="button" aria-expanded="false" aria-controls="catalogFilterPanel"><svg class="catalog-filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h6m4 0h6M4 17h2m4 0h10"/><circle cx="12" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg><span id="catalogFilterButtonText">Filters</span><span class="catalog-filter-chevron shared-chevron" aria-hidden="true"></span></button>
             <div class="catalog-filter-panel hidden" id="catalogFilterPanel">
