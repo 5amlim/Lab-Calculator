@@ -1731,7 +1731,7 @@
           '</small></span><span class="calc-suggestion-arrow" aria-hidden="true">›</span></button>';
       }).join('') +
       '<div class="calc-suggestion-footer">' +
-      (kind === 'batch' ? 'Click a suggestion to fill this line · Enter starts a new line' :
+      (kind === 'batch' ? 'Click to fill this test and start the next line · Enter also starts a new line' :
         '↑ ↓ to navigate · Enter to choose · Esc to close') + '</div>';
     panel.classList.remove('hidden');
     input.setAttribute('aria-expanded', 'true');
@@ -1764,8 +1764,17 @@
       els.libraryFilter.focus();
     } else {
       const { start, end } = activeBatchLine();
-      els.searchInput.setRangeText(value, start, end, 'end');
+      const following = els.searchInput.value.slice(end);
+      // Leave the caret on an empty next line, without duplicating an
+      // existing blank line or overwriting tests entered below.
+      const nextLineIsBlank = following.startsWith('\n') &&
+        (following.length === 1 || following[1] === '\n');
+      els.searchInput.setRangeText(nextLineIsBlank ? value : value + '\n', start, end, 'end');
       els.searchInput.focus();
+      if (nextLineIsBlank) {
+        const nextLineStart = start + value.length + 1;
+        els.searchInput.setSelectionRange(nextLineStart, nextLineStart);
+      }
     }
     closeSuggestions(kind);
   }
