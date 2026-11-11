@@ -1617,7 +1617,6 @@
     if (!q) return [];
     const numeric = /^\d+$/.test(q);
     const codePlusName = q.match(/^(\d{2,})\s+(.+)$/);
-    const codeLiteral = String(query || '').trim();
     const shorterTokens = q.split(' ').filter(Boolean);
     return database
       .filter(test => test.status !== 'blocked' && (kind !== 'library' || matchesLibraryFilters(test)))
@@ -1648,15 +1647,18 @@
             score = Math.max(score, 725);
           // Do not suggest a clinically different qualified assay as though
           // it were the exact one requested.
-          if (/\b(?:without|no) (?:diff|differential)\b/.test(q) &&
-            /\bwith (?:diff|differential)\b/.test(name) &&
-            !/\b(?:without|no)\b/.test(name)) score = 0;
+          const requestedDiff = /\b(?:cbc|blood count)\b.*\b(?:diff|differential)\b/.test(q);
+          const queryNoDiff = /\b(?:without|no|w o)\s+(?:diff|differential)\b/.test(q);
+          const nameNoDiff = /\b(?:without|no)\s+(?:diff|differential)\b/.test(name);
+          if (requestedDiff && queryNoDiff && !nameNoDiff &&
+            /\b(?:with|w)\s+(?:diff|differential)\b/.test(name)) score = 0;
+          if (requestedDiff && !queryNoDiff && nameNoDiff) score = 0;
           if (/\b(?:qualitative|qual)\b/.test(q) &&
             /\bquantitative\b/.test(name) && !/\bqualitative\b/.test(name)) score = 0;
           if (/\b(?:quantitative|quant)\b/.test(q) &&
             /\bqualitative\b/.test(name) && !/\bquantitative\b/.test(name)) score = 0;
-          if (/\btroponin i\b/.test(q) && /\btroponin t\b/.test(name)) score = 0;
-          if (/\btroponin t\b/.test(q) && /\btroponin i\b/.test(name)) score = 0;
+          if (/\b(?:troponin|trop) i\b/.test(q) && /\btroponin t\b/.test(name)) score = 0;
+          if (/\b(?:troponin|trop) t\b/.test(q) && /\btroponin i\b/.test(name)) score = 0;
         }
         return { test, score };
       })
