@@ -848,12 +848,13 @@
     const requirements = additionalDrawRequirements(test);
     if (!requirements.length) return menuSingleContainerPath(test);
     const primary = libraryContainerRoutes(test)[0];
+    const count = requirements.length + 1;
     return '<div class="library-container-route-summary">' +
-      '<div class="library-container-main-route">' +
-        '<div class="library-container-mini-heading"><span class="library-container-number" aria-label="First required collection route">1</span></div>' +
-        menuSingleContainerPath(primary) +
-      '</div>' +
-      '<button type="button" class="library-container-more" data-container-more data-id="' + escapeAttr(test.id) + '" aria-expanded="false" aria-label="Show all ' + (requirements.length + 1) + ' collection routes for ' + escapeAttr(test.testName) + '">More <span class="library-container-more-count">' + (requirements.length + 1) + '</span></button>' +
+      '<div class="library-container-main-route">' + menuSingleContainerPath(primary) + '</div>' +
+      '<div class="subtext specimen-line">' + specimenBadge(primary.specimenType) + '</div>' +
+      '<button type="button" class="library-container-more" data-container-more data-id="' + escapeAttr(test.id) + '" aria-expanded="false" aria-label="View all ' + count + ' collection paths for ' + escapeAttr(test.testName) + '">' +
+        'View ' + count + ' collection paths <span class="library-container-more-chevron" aria-hidden="true">⌄</span>' +
+      '</button>' +
     '</div>';
   }
 
@@ -1998,11 +1999,11 @@
     const blocked = test.status === 'blocked';
     const hasMultipleContainers = additionalDrawRequirements(test).length > 0;
     const primaryDisplay = hasMultipleContainers ? { ...test, additionalDrawRequirements: [] } : test;
-    const primaryOnlyNote = hasMultipleContainers ? '<div class="library-container-primary-note">See More for all</div>' : '';
+    const primaryOnlyNote = hasMultipleContainers ? '<div class="library-container-primary-note">First path only</div>' : '';
     return `<tr class="${selected ? 'is-selected' : ''}">
       <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
       <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${manualLibraryTag(test)}${isStatEligible(test) ? `<span class="library-stat-eligible${statSelectedIds.includes(test.id) ? ' selected' : ''}" title="Eligible on the selected receiving laboratory's STAT menu. Confirm current acceptance before sending.">${statSelectedIds.includes(test.id) ? 'STAT selected' : 'STAT eligible'}</span>` : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
-      <td data-label="Container">${menuContainerBadges(test)}<div class="subtext specimen-line">${additionalDrawRequirements(test).length ? specimenBadge(test.specimenType) : requiredSpecimenBadges(test)}</div></td>
+      <td data-label="Container">${menuContainerBadges(test)}${hasMultipleContainers ? '' : '<div class="subtext specimen-line">' + requiredSpecimenBadges(test) + '</div>'}</td>
       <td data-label="Temperature"><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span>${primaryOnlyNote}</td>
       <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(menuVolumeText(primaryDisplay, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(menuVolumeText(primaryDisplay, 'minimum') || '—')}</div>${primaryOnlyNote}</td>
       <td class="row-actions" data-label="Actions">
