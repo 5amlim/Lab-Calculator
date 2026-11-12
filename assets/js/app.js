@@ -851,13 +851,10 @@
     const count = requirements.length + 1;
     const extra = count - 1;
     return '<div class="library-container-route-summary">' +
-      '<div class="library-container-route-top">' +
-        '<div class="library-container-main-route">' + menuSingleContainerPath(primary) + '</div>' +
-        '<span class="library-container-extra-required" title="All collection requirements are mandatory">+' + extra + ' more required</span>' +
-      '</div>' +
+      '<div class="library-container-main-route">' + menuSingleContainerPath(primary) + '</div>' +
       '<div class="subtext specimen-line">' + specimenBadge(primary.specimenType) + '</div>' +
-      '<button type="button" class="library-container-more" data-container-more data-id="' + escapeAttr(test.id) + '" aria-expanded="false" aria-label="View all ' + count + ' required collection paths for ' + escapeAttr(test.testName) + '">' +
-        'View all collection paths <span class="library-container-more-chevron" aria-hidden="true">⌄</span>' +
+      '<button type="button" class="library-container-more" data-container-more data-id="' + escapeAttr(test.id) + '" aria-expanded="false" aria-label="Show all ' + count + ' required specimen collection paths for ' + escapeAttr(test.testName) + '">' +
+        '+' + extra + ' more required <span class="library-container-more-chevron" aria-hidden="true">⌄</span>' +
       '</button>' +
     '</div>';
   }
@@ -6180,8 +6177,8 @@
       ${printCompactAlertSummary(tests, alerts)}
       <table class="print-table">
         ${printDetailWithNotes
-          ? '<colgroup><col style="width:7%"><col style="width:17%"><col style="width:27%"><col style="width:11%"><col style="width:11%"><col style="width:8%"><col style="width:19%"></colgroup>'
-          : '<colgroup><col style="width:7%"><col style="width:19%"><col style="width:34%"><col style="width:14%"><col style="width:13%"><col style="width:13%"></colgroup>'}
+          ? '<colgroup><col style="width:7%"><col style="width:16%"><col style="width:23%"><col style="width:10%"><col style="width:9%"><col style="width:6%"><col style="width:29%"></colgroup>'
+          : '<colgroup><col style="width:7%"><col style="width:18%"><col style="width:34%"><col style="width:14%"><col style="width:13%"><col style="width:14%"></colgroup>'}
         <thead><tr class="print-detail-title-row"><th colspan="${printDetailWithNotes ? 7 : 6}" class="print-detail-title-cell"><div class="print-detail-lab-heading"><strong>Test details</strong><span class="print-detail-lab-badge">QUEST</span></div></th></tr><tr><th>Code</th><th>Test</th><th>Collection / transport</th><th>Temperature</th><th>Volume</th><th>Stability</th>${printDetailWithNotes ? '<th>Notes</th>' : ''}</tr></thead>
         ${tests.map(test => printDetailRows(test, printDetailWithNotes)).join('')}
       </table>
