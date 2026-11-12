@@ -69,11 +69,12 @@
     cursor: pointer;
     transition: background .15s ease, border-color .15s ease;
   }
-  .library-container-more-chevron {
+  .library-table .library-container-more .library-container-more-chevron {
     display: inline-block;
-    flex-shrink: 0;
-    font-size: 16px;
-    line-height: 1;
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+    margin: 0;
     transition: transform 150ms ease;
   }
   .library-table .library-container-more:hover,
