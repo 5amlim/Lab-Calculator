@@ -4,6 +4,7 @@
   const selectors = ['categoryFilter','specimenFilter','temperatureFilter','transportContainerFilter','fastingFilter','specimenType','drawContainer','transportContainer','transportTemperature','spin'];
   const labels = {categoryFilter:'Clinical category',specimenFilter:'Specimen type',temperatureFilter:'Transport temperature',transportContainerFilter:'Transport container',fastingFilter:'Fasting',specimenType:'Specimen type',drawContainer:'Draw container',transportContainer:'Transport tube / container',transportTemperature:'Transport temperature',spin:'Spin requirement'};
   const controls = [];
+  let additionalSequence = 0;
   let active = null;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   // These are the same tube illustration classes used by the results and print cards.
@@ -42,26 +43,34 @@
     if (/yellow/.test(value)) return 'tube-yellow';
     return '';
   }
-  function sourceContainerName() {
-    const draw = document.getElementById('drawContainer');
+  function fieldName(item) {
+    return item.select.dataset.field || item.select.id;
+  }
+  function accessibleLabel(item) {
+    return labels[item.select.id] || item.select.closest('label')?.querySelector('.form-label-text')?.textContent.trim() || fieldName(item);
+  }
+  function sourceContainerName(item) {
+    const card = item?.select.closest('.additional-container-card');
+    const draw = card ? card.querySelector('[data-field="drawContainer"]') : document.getElementById('drawContainer');
     if (!draw) return '';
-    return draw.value === '__other__' ? document.getElementById('customDrawContainer')?.value : draw.value;
+    const custom = card ? card.querySelector('[data-field="customDrawContainer"]') : document.getElementById('customDrawContainer');
+    return draw.value === '__other__' ? custom?.value : draw.value;
   }
   // Keep one stored original-tube choice, with display wording specific to
   // the selected collection tube. Changing wording must not change saved values.
-  function isSstSource() {
-    return /\bsst\b|\bgold\b|serum separator|red\s*\/\s*black/i.test(String(sourceContainerName() || ''));
+  function isSstSource(item) {
+    return /\bsst\b|\bgold\b|serum separator|red\s*\/\s*black/i.test(String(sourceContainerName(item) || ''));
   }
   function optionLabel(item, option) {
-    if (item.select.id === 'transportContainer' && option.value === 'Submit in original tube') {
-      return isSstSource() ? 'Spun SST / Original tube' : 'Submit in original tube';
+    if (fieldName(item) === 'transportContainer' && option.value === 'Submit in original tube') {
+      return isSstSource(item) ? 'Spun SST / Original tube' : 'Submit in original tube';
     }
     return option.textContent.trim();
   }
   function iconFor(item, value) {
-    if (!['drawContainer', 'transportContainer'].includes(item.select.id) || !value || value === '__other__') return '';
-    if (item.select.id === 'transportContainer' && /^submit in original tube$/i.test(value)) {
-      return tubeIconClass(sourceContainerName());
+    if (!['drawContainer', 'transportContainer'].includes(fieldName(item)) || !value || value === '__other__') return '';
+    if (fieldName(item) === 'transportContainer' && /^submit in original tube$/i.test(value)) {
+      return tubeIconClass(sourceContainerName(item));
     }
     return tubeIconClass(value);
   }
@@ -100,7 +109,7 @@
     if (item.icon) item.button.insertBefore(item.icon, item.text);
     item.button.classList.toggle('portal-select-placeholder', !item.select.value);
     item.button.disabled = item.select.disabled;
-    item.button.setAttribute('aria-label', `${labels[item.select.id]}: ${item.text.textContent}`);
+    item.button.setAttribute('aria-label', `${accessibleLabel(item)}: ${item.text.textContent}`);
   }
   function position(item) {
     if (!active || active !== item) return;
@@ -169,7 +178,7 @@
     menu.className = 'portal-select-menu';
     menu.id = `portal-menu-${item.select.id}`;
     menu.setAttribute('role','listbox');
-    menu.setAttribute('aria-label',labels[item.select.id]);
+    menu.setAttribute('aria-label',accessibleLabel(item));
     [...item.select.options].forEach((option, index) => {
       if (option.hidden) return;
       const choice = document.createElement('button');
@@ -208,6 +217,66 @@
         e.preventDefault();
         const next = e.key === 'Home' ? 0 : e.key === 'End' ? choices.length-1 : (i + (e.key === 'ArrowDown' ? 1 : -1) + choices.length) % choices.length;
         choices[next]?.focus();
+      }
+    });
+  }
+  // Enhance the separate specimen cards created after the form has loaded.
+  // Retain their native select values for saving, validation, and existing workflows.
+  function pruneAdditionalControls() {
+    for (let i = controls.length - 1; i >= 0; i--) {
+      if (controls[i].select.isConnected) continue;
+      if (active === controls[i]) closeAll();
+      controls.splice(i, 1);
+    }
+  }
+  function enhanceAdditionalSelect(select) {
+    if (!select || select.dataset.portalReady) return;
+    select.id = 'portal-additional-' + (++additionalSequence);
+    select.dataset.portalReady = 'true';
+    // Additional specimen validation remains in collectAdditionalContainerRequirements.
+    select.required = false;
+    select.classList.add('portal-select-native');
+    select.tabIndex = -1;
+    select.setAttribute('aria-hidden', 'true');
+    const wrap = document.createElement('span');
+    wrap.className = 'portal-select-wrap';
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.id = 'portal-trigger-' + select.id;
+    button.className = 'portal-select-button';
+    button.setAttribute('aria-haspopup', 'listbox');
+    button.setAttribute('aria-expanded', 'false');
+    button.setAttribute('aria-controls', 'portal-menu-' + select.id);
+    const text = document.createElement('span');
+    text.className = 'portal-select-text';
+    const chevron = document.createElement('span');
+    chevron.className = 'shared-chevron';
+    chevron.setAttribute('aria-hidden', 'true');
+    button.append(text, chevron);
+    wrap.append(button);
+    select.after(wrap);
+    const item = {select, button, text, wrap, menu: null, icon: null};
+    controls.push(item);
+    sync(item);
+    button.addEventListener('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      open(item);
+    });
+    button.addEventListener('keydown', event => {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        open(item);
+        const choices = [...item.menu?.querySelectorAll('.portal-select-option:not(:disabled)') || []];
+        const index = choices.findIndex(choice => choice.dataset.value === select.value);
+        choices[Math.max(0, Math.min(choices.length - 1, index + (event.key === 'ArrowDown' ? 1 : -1)))]?.focus();
+      }
+    });
+    select.addEventListener('change', () => {
+      sync(item);
+      if (select.dataset.field === 'drawContainer') {
+        const other = controls.find(control => control.select === select.closest('.additional-container-card')?.querySelector('[data-field="transportContainer"]'));
+        if (other) sync(other);
       }
     });
   }
@@ -259,7 +328,12 @@
     const transport = controls.find(item => item.select.id === 'transportContainer');
     draw?.addEventListener('change', () => { if (transport) sync(transport); });
     customDraw?.addEventListener('input', () => { if (transport) sync(transport); });
-    window.syncPortalSelects = () => { syncFrozenTransportOption(); controls.forEach(sync); };
+    window.syncPortalSelects = () => { pruneAdditionalControls(); syncFrozenTransportOption(); controls.forEach(sync); };
+    window.enhanceAdditionalPortalSelects = card => {
+      pruneAdditionalControls();
+      card?.querySelectorAll('select[data-field]').forEach(enhanceAdditionalSelect);
+      window.syncPortalSelects();
+    };
     wireFrozenTransport();
     window.closePortalSelects = closeAll;
     window.focusPortalSelect = select => {
