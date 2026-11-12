@@ -65,6 +65,13 @@
     outline: 2px solid #197d86;
     outline-offset: 2px;
   }
+  .library-table .library-container-primary-note {
+    margin-top: 6px;
+    color: #69828b;
+    font-size: 10px;
+    line-height: 1.35;
+    font-weight: 600;
+  }
   .library-container-more-count {
     display: inline-grid;
     place-items: center;
