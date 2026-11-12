@@ -56,28 +56,42 @@
     overflow: hidden;
     box-shadow: 0 2px 9px rgba(41, 71, 82, .025);
   }
+  /* Clear section distinction without increasing the form's visual weight. */
   #testForm .form-section-emphasis > .form-section-heading {
     margin: 0;
-    padding: 15px 19px 14px;
+    padding: 17px 19px 16px;
     align-items: center;
     gap: 12px;
-    background: #f5faf9;
-    color: #263f49;
-    border-left: 0;
-    border-bottom: 1px solid #dfebeb;
+    background: linear-gradient(105deg, #ddf0ec 0%, #ecf8f5 60%, #f8fbfa 100%);
+    color: #224851;
+    border-left: 5px solid #108a86;
+    border-bottom: 1px solid #c8e1dd;
+    box-shadow: inset 0 -1px 0 rgba(255, 255, 255, .5);
+  }
+  #testForm .collection-info-section > .form-section-heading {
+    background: linear-gradient(105deg, #dfedf6 0%, #edf6fa 60%, #f8fbfd 100%);
+    border-left-color: #4184a6;
+    border-bottom-color: #cbdfe9;
   }
   #testForm .form-section-emphasis > .form-section-heading h3 {
     margin: 0 0 4px;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.25;
     font-weight: 850;
-    color: #28434d;
+    color: #1c5253;
+    letter-spacing: -.01em;
+  }
+  #testForm .collection-info-section > .form-section-heading h3 {
+    color: #28556d;
   }
   #testForm .form-section-emphasis > .form-section-heading p {
-    color: #69808a;
+    color: #52747c;
     font-size: 11px;
     line-height: 1.4;
-    font-weight: 500;
+    font-weight: 550;
+  }
+  #testForm .collection-info-section > .form-section-heading p {
+    color: #587788;
   }
   #testForm .form-section-emphasis > .form-section-heading .directory-text-button {
     color: #08767e;
