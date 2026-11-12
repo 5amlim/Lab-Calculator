@@ -3114,11 +3114,14 @@
       spin.disabled = true;
       spin.title = 'Whole blood must not be centrifuged.';
     }
+    window.syncPortalSelects?.();
   }
 
   function renumberAdditionalContainers() {
     Array.from(els.additionalContainers.children).forEach((card, index) => {
-      card.querySelector('[data-container-heading]').textContent = 'Container ' + (index + 2);
+      const number = index + 2;
+      card.querySelector('[data-container-number]').textContent = number;
+      card.querySelector('[data-container-heading]').textContent = 'Container ' + number;
     });
   }
 
@@ -3126,7 +3129,7 @@
     const card = document.createElement('div');
     card.className = 'additional-container-card';
     card.innerHTML =
-      '<div class="additional-container-head"><div><h4 data-container-heading>Additional container</h4><p>Enter separate collection, transfer, and transport requirements.</p></div><button class="additional-container-remove" data-remove type="button">Remove</button></div>' +
+      '<div class="additional-container-head"><div><h4><span class="container-number-badge" data-container-number>2</span><span data-container-heading>Container 2</span></h4><p>Enter separate collection, transfer, and transport requirements.</p></div><button class="additional-container-remove" data-remove type="button">Remove</button></div>' +
       '<div class="form-grid form-grid-compact">' +
         '<label><span class="form-label-text">Specimen type <span class="required-mark">*</span></span><select data-field="specimenType" required></select></label>' +
         '<label><span class="form-label-text">Draw container <span class="required-mark">*</span></span><select data-field="drawContainer" required></select></label>' +
@@ -3181,12 +3184,14 @@
       if (additionalContainerValue(card, 'transportContainer') === 'Frozen Transport Tube') {
         additionalContainerField(card, 'transportTemperature').value = 'Frozen';
       }
+      window.syncPortalSelects?.();
     });
     additionalContainerField(card, 'transportTemperature').addEventListener('change', () => {
       if (additionalContainerValue(card, 'transportContainer') === 'Frozen Transport Tube' &&
           additionalContainerValue(card, 'transportTemperature') !== 'Frozen') {
         additionalContainerField(card, 'transportContainer').value = '';
       }
+      window.syncPortalSelects?.();
     });
     additionalContainerField(card, 'specimenType').addEventListener('change', () => {
       if (additionalContainerValue(card, 'specimenType') === 'Stool' &&
@@ -3198,10 +3203,16 @@
     card.querySelector('[data-remove]').addEventListener('click', () => {
       card.remove();
       renumberAdditionalContainers();
+      window.syncPortalSelects?.();
     });
     updateAdditionalSpin(card);
     renumberAdditionalContainers();
-    if (focus) additionalContainerField(card, 'specimenType').focus();
+    window.enhanceAdditionalPortalSelects?.(card);
+    if (focus) {
+      const specimen = additionalContainerField(card, 'specimenType');
+      if (window.focusPortalSelect) window.focusPortalSelect(specimen);
+      else specimen.focus();
+    }
   }
 
   function collectAdditionalContainerRequirements() {
@@ -3214,7 +3225,8 @@
         const element = additionalContainerField(card, name);
         if (additionalContainerValue(card, name)) return true;
         showToast(label + ': ' + message);
-        element.focus();
+        if (window.focusPortalSelect) window.focusPortalSelect(element);
+        else element.focus();
         return false;
       }
       if (!requireField('specimenType', 'choose a specimen type.') ||
