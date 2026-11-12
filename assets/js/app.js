@@ -6174,9 +6174,9 @@
       ${printCollectionSubmissionPlan(tests)}
       <section class="print-detail-table-section${tests.length <= 3 ? ' print-brief-order' : ''}">
       ${printCompactAlertSummary(tests, alerts)}
-      <table class="print-table">
+      <table class="print-table${printDetailWithNotes ? ' print-table-with-notes' : ''}">
         ${printDetailWithNotes
-          ? '<colgroup><col style="width:19%"><col style="width:25%"><col style="width:10%"><col style="width:9%"><col style="width:6%"><col style="width:31%"></colgroup>'
+          ? '<colgroup><col style="width:19%"><col style="width:25%"><col style="width:10%"><col style="width:9%"><col style="width:9%"><col style="width:28%"></colgroup>'
           : '<colgroup><col style="width:21%"><col style="width:39%"><col style="width:14%"><col style="width:12%"><col style="width:14%"></colgroup>'}
         <thead><tr class="print-detail-title-row"><th colspan="${printDetailWithNotes ? 6 : 5}" class="print-detail-title-cell"><div class="print-detail-lab-heading"><strong>Test details</strong><span class="print-detail-lab-badge">QUEST</span></div></th></tr><tr><th>Code / test</th><th>Collection / transport</th><th>Temperature</th><th>Volume</th><th>Stability</th>${printDetailWithNotes ? '<th>Notes</th>' : ''}</tr></thead>
         ${tests.map(test => printDetailRows(test, printDetailWithNotes)).join('')}
