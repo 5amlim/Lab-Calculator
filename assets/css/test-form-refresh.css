@@ -1,0 +1,362 @@
+/* Refresh of Add/Edit Test only. Keeps the calculator, printout and all field IDs unchanged. */
+@media screen {
+  #testDialog {
+    width: min(910px, calc(100vw - 28px));
+    max-height: min(92dvh, 960px);
+    overflow-y: auto;
+    border: 1px solid #e0e9eb;
+    border-radius: 18px;
+    background: #f9fbfb;
+    box-shadow: 0 24px 80px rgba(18, 40, 50, .25);
+  }
+  #testForm {
+    padding: 0;
+    background: #f9fbfb;
+  }
+  #testForm .dialog-header {
+    padding: 23px 26px 19px;
+    margin: 0;
+    background: #fff;
+    border-bottom: 1px solid #e2eaed;
+    gap: 18px;
+  }
+  #testForm .dialog-header .eyebrow {
+    color: #177e82;
+    letter-spacing: .08em;
+  }
+  #testForm .dialog-header h2 {
+    font-size: clamp(20px, 2.3vw, 24px);
+    line-height: 1.18;
+    letter-spacing: -.02em;
+  }
+  #testForm .dialog-subtitle {
+    margin-top: 4px;
+    color: #627781;
+  }
+  #testForm .icon-button {
+    flex: 0 0 36px;
+    cursor: pointer;
+    background: #f3f7f7;
+  }
+  #testForm .dialog-required-note {
+    padding: 14px 26px 0;
+    margin: 0;
+    color: #697b83;
+    font-size: 11px;
+    font-weight: 650;
+  }
+  #testForm .dialog-form-sections {
+    padding: 14px 24px 2px;
+    gap: 15px;
+  }
+  #testForm .form-section-emphasis {
+    border: 1px solid #d9e5e8;
+    border-radius: 14px;
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0 2px 9px rgba(41, 71, 82, .025);
+  }
+  #testForm .form-section-emphasis > .form-section-heading {
+    margin: 0;
+    padding: 15px 19px 14px;
+    align-items: center;
+    gap: 12px;
+    background: #f5faf9;
+    color: #263f49;
+    border-left: 0;
+    border-bottom: 1px solid #dfebeb;
+  }
+  #testForm .form-section-emphasis > .form-section-heading h3 {
+    margin: 0 0 4px;
+    font-size: 15px;
+    line-height: 1.25;
+    font-weight: 850;
+    color: #28434d;
+  }
+  #testForm .form-section-emphasis > .form-section-heading p {
+    color: #69808a;
+    font-size: 11px;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+  #testForm .form-section-emphasis > .form-section-heading .directory-text-button {
+    color: #08767e;
+    padding: 7px 11px;
+    border-radius: 8px;
+    border: 1px solid #c9e1e2;
+    background: #fff;
+    font-size: 11px;
+    font-weight: 750;
+    text-decoration: none;
+  }
+  #testForm .form-section-emphasis > .form-section-heading .directory-text-button:hover {
+    background: #e7f4f3;
+    border-color: #90c5c8;
+  }
+  #testForm .form-section-emphasis > .form-grid {
+    padding: 17px 19px 17px;
+    gap: 14px 16px;
+  }
+  #testForm .test-info-section > .form-grid {
+    grid-template-columns: minmax(175px, .82fr) minmax(0, 1.65fr);
+  }
+  #testForm .form-grid label {
+    color: #364c56;
+    font-size: 12px;
+    font-weight: 750;
+    gap: 6px;
+    min-width: 0;
+  }
+  #testForm .form-grid .manual-added-by-row input {
+    max-width: 230px;
+  }
+  #testForm .manual-added-by-row small {
+    font-size: 10.5px;
+    color: #71838a;
+    font-weight: 500;
+  }
+  #testForm .form-grid input:not([type="checkbox"]),
+  #testForm .form-grid select,
+  #testForm .form-grid textarea,
+  #testForm .portal-select-button {
+    min-height: 42px;
+    border-radius: 9px;
+    border-color: #cbdade;
+    font-size: 12.5px;
+  }
+  #testForm .portal-select-button {
+    background: #fff;
+    font-weight: 600;
+  }
+  #testForm .form-grid input:not([type="checkbox"]):focus,
+  #testForm .form-grid textarea:focus {
+    border-color: #1e9295;
+    box-shadow: 0 0 0 3px rgba(18, 134, 140, .11);
+  }
+  #testForm .source-clarification-note {
+    padding: 9px 11px;
+    background: #f5f8f8;
+    border: 1px solid #edf1f2;
+    color: #61757e;
+    font-size: 11px;
+    border-radius: 8px;
+  }
+  #testForm .source-clarification-note strong {
+    color: #47616a;
+  }
+  #testForm .primary-container-tag {
+    align-self: center;
+    flex-shrink: 0;
+    padding: 7px 10px;
+    border: 1px solid #bfe1df;
+    border-radius: 999px;
+    background: #e8f5f2;
+    color: #187579;
+    font-size: 10px;
+    line-height: 1;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  #testForm .collection-info-section > .form-grid {
+    padding-bottom: 14px;
+  }
+  /* The primary container's optional fields remain attached to that container. */
+  #testForm .collection-info-section > .optional-details {
+    margin: 0 19px 16px;
+    border: 1px solid #dce9e9;
+    border-radius: 10px;
+    background: #fafdfc;
+    overflow: hidden;
+  }
+  #testForm .collection-info-section > .optional-details summary {
+    padding: 12px 13px;
+    align-items: center;
+    min-height: 44px;
+    gap: 9px;
+    font-size: 11.5px;
+    color: #31535d;
+  }
+  #testForm .collection-info-section > .optional-details summary::after {
+    content: 'Show details';
+    margin-left: auto;
+    white-space: nowrap;
+    color: #177b82;
+  }
+  #testForm .collection-info-section > .optional-details[open] summary::after {
+    content: 'Hide details';
+  }
+  #testForm .collection-info-section > .optional-details summary small {
+    font-size: 10.5px;
+    color: #72848c;
+    font-weight: 500;
+  }
+  #testForm .collection-info-section > .optional-details .optional-details-grid {
+    padding: 15px 13px 16px;
+    background: #fff;
+  }
+  /* A clearly identified button group, visually part of the collection section. */
+  #testForm .additional-containers {
+    margin: 0 19px;
+    gap: 12px;
+  }
+  #testForm .additional-container-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 15px 19px 16px;
+    border-top: 1px solid #e3eded;
+    background: #f6faf9;
+  }
+  #testForm .additional-container-copy {
+    display: grid;
+    gap: 3px;
+    flex: 1 1 220px;
+    min-width: 0;
+  }
+  #testForm .additional-container-copy strong {
+    font-size: 11.5px;
+    color: #31525a;
+    font-weight: 800;
+  }
+  #testForm .additional-container-copy span {
+    color: #75868d;
+    font-size: 10.5px;
+    line-height: 1.35;
+    max-width: 500px;
+  }
+  #testForm .additional-container-button {
+    flex: 0 0 auto;
+    border-radius: 9px;
+    background: #e7f4f2;
+    border: 1px solid #91c8c6;
+    color: #116e73;
+    padding: 10px 13px;
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11.5px;
+    font-weight: 850;
+    box-shadow: 0 1px 0 rgba(12, 86, 88, .06);
+  }
+  #testForm .additional-container-button span {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1;
+  }
+  #testForm .additional-container-button:hover,
+  #testForm .additional-container-button:focus-visible {
+    background: #d9efeb;
+    border-color: #519e9d;
+    text-decoration: none;
+  }
+  #testForm .additional-container-card {
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #cfe4e2;
+    border-radius: 11px;
+    background: #fff;
+  }
+  #testForm .additional-container-head {
+    margin: 0;
+    padding: 13px 14px;
+    background: #f0f8f6;
+    border-bottom: 1px solid #dcebea;
+    align-items: center;
+  }
+  #testForm .additional-container-head h4 {
+    color: #205d61;
+    margin-bottom: 3px;
+    font-size: 13px;
+  }
+  #testForm .additional-container-head p {
+    color: #658087;
+    font-size: 10.5px;
+  }
+  #testForm .additional-container-card > .form-grid {
+    padding: 14px;
+    gap: 12px 14px;
+  }
+  #testForm .additional-container-optional {
+    margin: 0 14px 14px;
+    padding: 0;
+    border: 1px solid #e2ecec;
+    border-radius: 8px;
+    background: #f9fcfc;
+  }
+  #testForm .additional-container-optional summary {
+    padding: 10px 12px;
+    color: #416b70;
+    font-weight: 800;
+  }
+  #testForm .additional-container-optional-grid {
+    padding: 12px;
+    border-top: 1px solid #e5efef;
+    background: #fff;
+  }
+  #testForm .additional-container-remove {
+    padding: 6px 9px;
+    border: 1px solid #ead4d2;
+    border-radius: 7px;
+    color: #a7534a;
+    background: #fff;
+  }
+  #testForm .additional-container-remove:hover {
+    background: #fff4f3;
+    text-decoration: none;
+  }
+  #testForm .form-status-options {
+    padding: 11px 14px;
+    margin: 0 0 3px;
+    border: 1px solid #e0e9eb;
+    border-radius: 11px;
+    background: #fff;
+    gap: 12px 22px;
+  }
+  #testForm .form-status-options label {
+    font-size: 11.5px;
+    font-weight: 650;
+  }
+  #testForm .dialog-actions {
+    position: sticky;
+    z-index: 5;
+    bottom: 0;
+    margin: 16px 0 0;
+    padding: 15px 24px 17px;
+    border-top: 1px solid #e1e9eb;
+    background: rgba(255, 255, 255, .98);
+    box-shadow: 0 -5px 16px rgba(29, 65, 75, .035);
+    backdrop-filter: blur(10px);
+  }
+  #testForm .dialog-actions .button {
+    min-height: 41px;
+    border-radius: 9px;
+  }
+}
+@media screen and (max-width: 720px) {
+  #testDialog { width: calc(100vw - 18px); max-height: 94dvh; border-radius: 14px; }
+  #testForm .dialog-header { padding: 18px 17px 16px; }
+  #testForm .dialog-required-note { padding: 12px 17px 0; }
+  #testForm .dialog-form-sections { padding: 13px 13px 2px; gap: 12px; }
+  #testForm .form-section-emphasis > .form-section-heading {
+    padding: 13px 14px;
+    align-items: flex-start;
+  }
+  #testForm .form-section-emphasis > .form-grid,
+  #testForm .test-info-section > .form-grid {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 13px 14px;
+  }
+  #testForm .primary-container-tag { align-self: flex-start; }
+  #testForm .collection-info-section > .optional-details { margin: 0 13px 12px; }
+  #testForm .collection-info-section > .optional-details summary { align-items: flex-start; flex-wrap: wrap; }
+  #testForm .collection-info-section > .optional-details summary small { flex-basis: 100%; }
+  #testForm .additional-containers { margin: 0 13px; }
+  #testForm .additional-container-actions { padding: 13px; }
+  #testForm .additional-container-button { width: 100%; justify-content: center; }
+  #testForm .form-status-options { padding: 11px 13px; }
+  #testForm .dialog-actions { padding: 12px 13px 14px; }
+}
