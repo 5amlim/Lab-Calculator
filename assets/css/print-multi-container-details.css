@@ -351,3 +351,57 @@
     width: 100%;
   }
 }
+
+/* v5: clearer code / test hierarchy for printed manual entries.
+   Preserve font scaling for dense printouts and the Notes column allocation. */
+@media print {
+  .print-sheet .print-detail-table-section .print-table
+  .print-detail-identity .print-manual-verification {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    margin-top: 6px !important;
+    width: 100%;
+    max-width: 100%;
+    white-space: normal;
+    break-inside: avoid;
+  }
+  .print-sheet .print-detail-table-section .print-table
+  .print-detail-identity .print-manual-owner,
+  .print-sheet .print-detail-table-section .print-table
+  .print-detail-identity .print-manual-confirm {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    font-size: 8px;
+    line-height: 1.32;
+    overflow-wrap: break-word;
+  }
+  .print-sheet .print-detail-table-section .print-table
+  .print-detail-identity .print-manual-owner {
+    color: #805c2b;
+    font-weight: 750;
+  }
+  .print-sheet .print-detail-table-section .print-table
+  .print-detail-identity .print-manual-confirm {
+    padding-left: 7px;
+    border-left: 2px solid #bca46d;
+    color: #5b666e;
+    font-weight: 650;
+  }
+  .print-sheet .print-detail-table-section .print-table
+  .print-detail-identity .print-detail-inline-code {
+    margin-bottom: 5px;
+    color: #2c606b;
+  }
+  .print-sheet .print-detail-table-section .print-table
+  .print-detail-identity .print-test-name-stack > strong {
+    margin-bottom: 1px;
+  }
+  .print-sheet .print-detail-table-section .print-table
+  .print-detail-identity .print-route-count {
+    margin-top: 9px;
+  }
+}
