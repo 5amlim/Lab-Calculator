@@ -231,6 +231,9 @@
     margin: 0 19px;
     gap: 12px;
   }
+  #testForm .additional-containers:not(:empty) {
+    margin-bottom: 15px;
+  }
   #testForm .additional-container-actions {
     display: flex;
     align-items: center;
