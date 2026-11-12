@@ -6368,7 +6368,7 @@
 
   function printManualTestNote(test) {
     return isManuallyAddedTest(test)
-      ? `<span class="print-manual-verification">Manual entry · Added by ${escapeHtml(manualEntryOwner(test))} · Confirm in official directory</span>`
+      ? `<span class="print-manual-verification"><span class="print-manual-owner">Manual entry · Added by ${escapeHtml(manualEntryOwner(test))}</span><span class="print-manual-confirm">Confirm in official directory</span></span>`
       : '';
   }
 
