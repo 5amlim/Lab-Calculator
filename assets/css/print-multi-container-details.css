@@ -323,3 +323,31 @@
     white-space: normal;
   }
 }
+
+/* Code and name share one printed identity column. Existing print typography,
+   specimen route rows, pagination, and conditional Notes logic stay intact. */
+@media print {
+  .print-sheet .print-detail-table-section .print-table
+  tbody.print-detail-test-group > tr > td.print-detail-identity {
+    vertical-align: top;
+    border-right: 1px solid #deeaec;
+    background: #f3f8f8 !important;
+  }
+  .print-sheet .print-detail-table-section .print-table
+  .print-detail-identity .print-detail-inline-code {
+    display: block;
+    margin: 0 0 6px;
+    color: #264b57;
+    font-size: 9.3px;
+    font-weight: 850;
+    letter-spacing: .02em;
+    line-height: 1.25;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+  }
+  .print-sheet .print-detail-table-section .print-table
+  .print-detail-identity .print-test-name-stack {
+    min-width: 0;
+    width: 100%;
+  }
+}
