@@ -849,11 +849,15 @@
     if (!requirements.length) return menuSingleContainerPath(test);
     const primary = libraryContainerRoutes(test)[0];
     const count = requirements.length + 1;
+    const extra = count - 1;
     return '<div class="library-container-route-summary">' +
-      '<div class="library-container-main-route">' + menuSingleContainerPath(primary) + '</div>' +
+      '<div class="library-container-route-top">' +
+        '<div class="library-container-main-route">' + menuSingleContainerPath(primary) + '</div>' +
+        '<span class="library-container-extra-required" title="All collection requirements are mandatory">+' + extra + ' more required</span>' +
+      '</div>' +
       '<div class="subtext specimen-line">' + specimenBadge(primary.specimenType) + '</div>' +
-      '<button type="button" class="library-container-more" data-container-more data-id="' + escapeAttr(test.id) + '" aria-expanded="false" aria-label="View all ' + count + ' collection paths for ' + escapeAttr(test.testName) + '">' +
-        'View ' + count + ' collection paths <span class="library-container-more-chevron" aria-hidden="true">⌄</span>' +
+      '<button type="button" class="library-container-more" data-container-more data-id="' + escapeAttr(test.id) + '" aria-expanded="false" aria-label="View all ' + count + ' required collection paths for ' + escapeAttr(test.testName) + '">' +
+        'View all collection paths <span class="library-container-more-chevron" aria-hidden="true">⌄</span>' +
       '</button>' +
     '</div>';
   }
