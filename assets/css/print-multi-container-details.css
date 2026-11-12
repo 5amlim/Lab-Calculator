@@ -406,18 +406,27 @@
   }
 }
 
-/* Separate the Stability and Notes columns on printed detail tables.
-   Applies only when Notes is present, so a notes-free table is unchanged. */
+/* Temperature and stability share a print column; Notes keeps its original
+   spacing and the most width when handling instructions are present. */
 @media print {
-  .print-sheet .print-detail-table-section
-  .print-table.print-table-with-notes thead > tr:last-child > th:last-child {
-    padding-left: 15px !important;
-    border-left: 1px solid #bdcfd4;
+  .print-sheet .print-detail-table-section .print-table
+  .print-detail-temperature-stability .print-detail-stability {
+    display: block;
+    margin-top: 7px;
+    color: #536872;
+    font-size: 8px;
+    line-height: 1.35;
+    overflow-wrap: break-word;
   }
-  .print-sheet .print-detail-table-section
-  .print-table.print-table-with-notes tbody.print-detail-test-group
-  > tr > td.print-detail-route-notes {
-    padding-left: 15px !important;
-    border-left: 1px solid #d1dfe3;
+  .print-sheet .print-detail-table-section .print-table
+  .print-detail-temperature-stability .print-detail-stability strong {
+    font-weight: 800;
+  }
+  .print-sheet .print-detail-table-section .print-table
+  .print-detail-temperature-stability .print-stability-period {
+    display: inline;
+    font-size: inherit !important;
+    line-height: inherit !important;
+    color: inherit;
   }
 }
