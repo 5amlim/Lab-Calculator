@@ -6128,7 +6128,14 @@
     });
   }
 
-  function printDetailRows(test) {
+  function printDetailHasNotes(route) {
+    const notes = String(printSpecialInstructions(route) || '').trim();
+    return (notes && notes !== '—') ||
+      Boolean(String(route.alternativeContainer || '').trim()) ||
+      Boolean(String(route.specialLabeling || '').trim());
+  }
+
+  function printDetailRows(test, showNotes = true) {
     const routes = printDetailRoutes(test);
     const multi = routes.length > 1;
     const testIdentity = `<td class="print-detail-test-code" rowspan="${routes.length}">${escapeHtml(displayCode(test))}</td>` +
@@ -6147,13 +6154,16 @@
           `<td><span class="print-temp-badge ${temperatureClass(route.transportTemperature)}">${escapeHtml(route.transportTemperature)}</span></td>` +
           `<td><span class="print-preferred-volume">${escapeHtml(printDetailVolumeText(route, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(printDetailVolumeText(route, 'minimum') || '—')}</span></td>` +
           `<td><span class="print-stability-period">${escapeHtml(printStabilityForTemperature(route))}</span></td>` +
-          `<td class="print-detail-route-notes">${printDetailHandling(route)}</td></tr>`;
+          (showNotes ? `<td class="print-detail-route-notes">${printDetailHasNotes(route) ? printDetailHandling(route) : ''}</td>` : '') +
+          '</tr>';
       }).join('') + '</tbody>';
   }
 
   function printSummary() {
     const tests = selectedTests();
     if (!tests.length) return showToast('Add at least one test before printing.');
+    const printDetailWithNotes = tests.some(test =>
+      printDetailRoutes(test).some(printDetailHasNotes));
     // Pre-draw warnings already appear in Collection precautions.
     const preparationTexts = new Set(tests.flatMap(test =>
       preCollectionPrecautions(test).map(req => `${displayCode(test)} ${test.testName}: ${req.note}`)
@@ -6169,9 +6179,11 @@
       <section class="print-detail-table-section${tests.length <= 3 ? ' print-brief-order' : ''}">
       ${printCompactAlertSummary(tests, alerts)}
       <table class="print-table">
-        <colgroup><col style="width:6%"><col style="width:18%"><col style="width:23%"><col style="width:10%"><col style="width:11%"><col style="width:8%"><col style="width:24%"></colgroup>
-        <thead><tr class="print-detail-title-row"><th colspan="7" class="print-detail-title-cell"><div class="print-detail-lab-heading"><strong>Test details</strong><span class="print-detail-lab-badge">QUEST</span></div></th></tr><tr><th>Code</th><th>Test</th><th>Container / specimen</th><th>Temperature</th><th>Volume</th><th>Stability</th><th>Notes</th></tr></thead>
-        ${tests.map(printDetailRows).join('')}
+        ${printDetailWithNotes
+          ? '<colgroup><col style="width:7%"><col style="width:17%"><col style="width:27%"><col style="width:11%"><col style="width:11%"><col style="width:8%"><col style="width:19%"></colgroup>'
+          : '<colgroup><col style="width:7%"><col style="width:19%"><col style="width:34%"><col style="width:14%"><col style="width:13%"><col style="width:13%"></colgroup>'}
+        <thead><tr class="print-detail-title-row"><th colspan="${printDetailWithNotes ? 7 : 6}" class="print-detail-title-cell"><div class="print-detail-lab-heading"><strong>Test details</strong><span class="print-detail-lab-badge">QUEST</span></div></th></tr><tr><th>Code</th><th>Test</th><th>Collection / transport</th><th>Temperature</th><th>Volume</th><th>Stability</th>${printDetailWithNotes ? '<th>Notes</th>' : ''}</tr></thead>
+        ${tests.map(test => printDetailRows(test, printDetailWithNotes)).join('')}
       </table>
       </section>
       ${printNotesFooter()}
