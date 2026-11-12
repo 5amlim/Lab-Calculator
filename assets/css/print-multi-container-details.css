@@ -405,3 +405,19 @@
     margin-top: 9px;
   }
 }
+
+/* Separate the Stability and Notes columns on printed detail tables.
+   Applies only when Notes is present, so a notes-free table is unchanged. */
+@media print {
+  .print-sheet .print-detail-table-section
+  .print-table.print-table-with-notes thead > tr:last-child > th:last-child {
+    padding-left: 15px !important;
+    border-left: 1px solid #bdcfd4;
+  }
+  .print-sheet .print-detail-table-section
+  .print-table.print-table-with-notes tbody.print-detail-test-group
+  > tr > td.print-detail-route-notes {
+    padding-left: 15px !important;
+    border-left: 1px solid #d1dfe3;
+  }
+}
