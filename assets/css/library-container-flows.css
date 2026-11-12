@@ -9,32 +9,20 @@
     min-width: 0;
     max-width: 100%;
   }
-  .library-table .library-container-route-top {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 7px 9px;
-    min-width: 0;
+  /* Manual entries stay below the test name, even for short titles. */
+  .library-table .test-name .manual-added-by-label {
+    display: block;
+    margin: 3px 0 0;
+    width: fit-content;
     max-width: 100%;
+    font-size: 11px;
+    line-height: 1.35;
+    font-weight: 750;
+    white-space: normal;
   }
   .library-table .library-container-main-route {
     min-width: 0;
     max-width: 100%;
-  }
-  .library-table .library-container-extra-required {
-    display: inline-flex;
-    align-items: center;
-    flex: 0 0 auto;
-    min-height: 21px;
-    padding: 3px 7px;
-    border: 1px solid #a9cfc9;
-    border-radius: 6px;
-    background: #dff1ec;
-    color: #156f68;
-    font-size: 10.5px;
-    font-weight: 850;
-    line-height: 1.15;
-    white-space: nowrap;
   }
   .library-container-preview-route-heading {
     display: inline-flex;
@@ -69,13 +57,13 @@
     min-height: 30px;
     max-width: 100%;
     padding: 5px 9px;
-    border: 1px solid #c5e3e3;
+    border: 1px solid #a9d1cc;
     border-radius: 8px;
-    background: #f1f8f8;
-    color: #126e78;
+    background: #e0f1ed;
+    color: #176b69;
     font: inherit;
     font-size: 11.5px;
-    font-weight: 750;
+    font-weight: 850;
     line-height: 1.25;
     text-align: left;
     cursor: pointer;
