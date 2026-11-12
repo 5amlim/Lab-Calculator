@@ -1996,12 +1996,15 @@
   function renderLibraryRow(test) {
     const selected = selectedIds.includes(test.id);
     const blocked = test.status === 'blocked';
+    const hasMultipleContainers = additionalDrawRequirements(test).length > 0;
+    const primaryDisplay = hasMultipleContainers ? { ...test, additionalDrawRequirements: [] } : test;
+    const primaryOnlyNote = hasMultipleContainers ? '<div class="library-container-primary-note">Container 1 · See More for all</div>' : '';
     return `<tr class="${selected ? 'is-selected' : ''}">
       <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
       <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${manualLibraryTag(test)}${isStatEligible(test) ? `<span class="library-stat-eligible${statSelectedIds.includes(test.id) ? ' selected' : ''}" title="Eligible on the selected receiving laboratory's STAT menu. Confirm current acceptance before sending.">${statSelectedIds.includes(test.id) ? 'STAT selected' : 'STAT eligible'}</span>` : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
       <td data-label="Container">${menuContainerBadges(test)}<div class="subtext specimen-line">${additionalDrawRequirements(test).length ? specimenBadge(test.specimenType) : requiredSpecimenBadges(test)}</div></td>
-      <td data-label="Temperature"><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td>
-      <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(menuVolumeText(test, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(menuVolumeText(test, 'minimum') || '—')}</div></td>
+      <td data-label="Temperature"><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span>${primaryOnlyNote}</td>
+      <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(menuVolumeText(primaryDisplay, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(menuVolumeText(primaryDisplay, 'minimum') || '—')}</div>${primaryOnlyNote}</td>
       <td class="row-actions" data-label="Actions">
         ${blocked ? '<span class="badge temp-unknown">Do not perform</span>' : selected
           ? `<button class="mini-button" disabled>✓ Added${statSelectedIds.includes(test.id) ? ' · STAT' : ''}</button>`
