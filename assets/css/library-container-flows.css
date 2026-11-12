@@ -9,9 +9,32 @@
     min-width: 0;
     max-width: 100%;
   }
+  .library-table .library-container-route-top {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px 9px;
+    min-width: 0;
+    max-width: 100%;
+  }
   .library-table .library-container-main-route {
     min-width: 0;
     max-width: 100%;
+  }
+  .library-table .library-container-extra-required {
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    min-height: 21px;
+    padding: 3px 7px;
+    border: 1px solid #a9cfc9;
+    border-radius: 6px;
+    background: #dff1ec;
+    color: #156f68;
+    font-size: 10.5px;
+    font-weight: 850;
+    line-height: 1.15;
+    white-space: nowrap;
   }
   .library-container-preview-route-heading {
     display: inline-flex;
