@@ -6147,9 +6147,8 @@
         return `<tr class="print-detail-route-row${index ? ' print-detail-route-secondary' : ''}">` +
           (index === 0 ? testIdentity : '') +
           `<td class="print-detail-route-container">${routeIndex}${printDetailContainerPath(route)}${quantities}</td>` +
-          `<td><span class="print-temp-badge ${temperatureClass(route.transportTemperature)}">${escapeHtml(route.transportTemperature)}</span></td>` +
+          `<td class="print-detail-temperature-stability"><span class="print-temp-badge ${temperatureClass(route.transportTemperature)}">${escapeHtml(route.transportTemperature)}</span><div class="print-detail-stability"><strong>Stability:</strong> <span class="print-stability-period">${escapeHtml(printStabilityForTemperature(route))}</span></div></td>` +
           `<td><span class="print-preferred-volume">${escapeHtml(printDetailVolumeText(route, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(printDetailVolumeText(route, 'minimum') || '—')}</span></td>` +
-          `<td><span class="print-stability-period">${escapeHtml(printStabilityForTemperature(route))}</span></td>` +
           (showNotes ? `<td class="print-detail-route-notes">${printDetailHasNotes(route) ? printDetailHandling(route) : ''}</td>` : '') +
           '</tr>';
       }).join('') + '</tbody>';
@@ -6174,11 +6173,11 @@
       ${printCollectionSubmissionPlan(tests)}
       <section class="print-detail-table-section${tests.length <= 3 ? ' print-brief-order' : ''}">
       ${printCompactAlertSummary(tests, alerts)}
-      <table class="print-table${printDetailWithNotes ? ' print-table-with-notes' : ''}">
+      <table class="print-table">
         ${printDetailWithNotes
-          ? '<colgroup><col style="width:19%"><col style="width:25%"><col style="width:10%"><col style="width:9%"><col style="width:9%"><col style="width:28%"></colgroup>'
-          : '<colgroup><col style="width:21%"><col style="width:39%"><col style="width:14%"><col style="width:12%"><col style="width:14%"></colgroup>'}
-        <thead><tr class="print-detail-title-row"><th colspan="${printDetailWithNotes ? 6 : 5}" class="print-detail-title-cell"><div class="print-detail-lab-heading"><strong>Test details</strong><span class="print-detail-lab-badge">QUEST</span></div></th></tr><tr><th>Code / test</th><th>Collection / transport</th><th>Temperature</th><th>Volume</th><th>Stability</th>${printDetailWithNotes ? '<th>Notes</th>' : ''}</tr></thead>
+          ? '<colgroup><col style="width:19%"><col style="width:25%"><col style="width:16%"><col style="width:9%"><col style="width:31%"></colgroup>'
+          : '<colgroup><col style="width:21%"><col style="width:45%"><col style="width:20%"><col style="width:14%"></colgroup>'}
+        <thead><tr class="print-detail-title-row"><th colspan="${printDetailWithNotes ? 5 : 4}" class="print-detail-title-cell"><div class="print-detail-lab-heading"><strong>Test details</strong><span class="print-detail-lab-badge">QUEST</span></div></th></tr><tr><th>Code / test</th><th>Collection / transport</th><th>Temperature / stability</th><th>Volume</th>${printDetailWithNotes ? '<th>Notes</th>' : ''}</tr></thead>
         ${tests.map(test => printDetailRows(test, printDetailWithNotes)).join('')}
       </table>
       </section>
