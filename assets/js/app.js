@@ -854,7 +854,7 @@
       '<div class="library-container-main-route">' + menuSingleContainerPath(primary) + '</div>' +
       '<div class="subtext specimen-line">' + specimenBadge(primary.specimenType) + '</div>' +
       '<button type="button" class="library-container-more" data-container-more data-id="' + escapeAttr(test.id) + '" aria-expanded="false" aria-label="Show all ' + count + ' required specimen collection paths for ' + escapeAttr(test.testName) + '">' +
-        '+' + extra + ' more required <span class="library-container-more-chevron" aria-hidden="true">⌄</span>' +
+        '+' + extra + ' more required <span class="shared-chevron library-container-more-chevron" aria-hidden="true"></span>' +
       '</button>' +
     '</div>';
   }
