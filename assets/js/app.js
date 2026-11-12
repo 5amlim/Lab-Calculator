@@ -190,6 +190,9 @@
   let batchReviewRows = [];
   let statActionTip = null;
   let statActionTipButton = null;
+  let containerFlowTip = null;
+  let containerFlowButton = null;
+  let containerFlowPinned = false;
   let libraryLimit = PAGE_STEP;
   let blockedListOpen = false;
   const suggestionState = {
@@ -257,6 +260,30 @@
     els.blockedListButton?.addEventListener('click', () => { blockedListOpen = !blockedListOpen; renderBlockedList(); });
     els.loadMoreInlineButton?.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
     els.libraryBody.addEventListener('click', handleLibraryClick);
+    els.libraryBody.addEventListener('pointerover', event => {
+      if (event.pointerType === 'touch') return;
+      const button = event.target.closest('button[data-container-more]');
+      if (button) showContainerFlowTip(button);
+    });
+    els.libraryBody.addEventListener('pointerout', event => {
+      const button = event.target.closest('button[data-container-more]');
+      if (button && !button.contains(event.relatedTarget) && !containerFlowPinned) hideContainerFlowTip();
+    });
+    els.libraryBody.addEventListener('focusin', event => {
+      const button = event.target.closest('button[data-container-more]');
+      if (button) showContainerFlowTip(button);
+    });
+    els.libraryBody.addEventListener('focusout', event => {
+      if (event.target === containerFlowButton && !containerFlowPinned) hideContainerFlowTip();
+    });
+    document.addEventListener('pointerdown', event => {
+      if (containerFlowPinned && !event.target.closest('button[data-container-more]')) hideContainerFlowTip();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && containerFlowTip) hideContainerFlowTip();
+    });
+    document.addEventListener('scroll', hideContainerFlowTip, true);
+    window.addEventListener('resize', hideContainerFlowTip);
     els.batchResults.addEventListener('click', handleBatchClick);
     // These delegated handlers continue to work after matches are refreshed.
     els.batchResults.addEventListener('pointerover', event => {
@@ -765,9 +792,9 @@
     }).join(' ');
   }
 
-  // Search results only: show the final submission vial for urine/stool.
-  // For blood and all other specimens retain the original collection-badge display.
-  function menuContainerBadges(test) {
+  // Render one collection-to-submission path at a time. Never combine sources or
+  // destinations belonging to separate specimen requirements.
+  function menuSingleContainerPath(test) {
     // Directory-only presentation. Never change collection, processing or pooling.
     // Display the physical source followed by its distinct submission container.
     const specimen = String(test.specimenType || '').toLowerCase();
@@ -776,8 +803,7 @@
     const transport = String(finalTransportContainer(test) || '').trim();
     const isCup = /^(?:sterile\s+(?:urine\s+|stool\s+|specimen\s+)?cup|stool\s+collection\s+cup|urine\s+collection\s+cup)$/i.test(rawDraw);
     const collectionLabel = isCup ? 'Sterile cup' : draw;
-    const drawBadges = drawContainerBadge(collectionLabel) +
-      additionalDrawRequirements(test).map(req => drawContainerBadge(cleanCollectionContainer(req.container || 'Verify collection container'))).join(' ');
+    const drawBadges = drawContainerBadge(collectionLabel);
     const cleanName = value => {
       const text = normalizeSearch(cleanCollectionContainer(value))
         .replace(/\b(?:spun|centrifuged|original|tube)\b/g, ' ').replace(/\s+/g, ' ').trim();
@@ -805,6 +831,93 @@
       '<span class="container-path-arrow" role="img" aria-label="Then transfer to">↓</span>' +
       '<span class="container-path-submit" aria-label="Submit in">' + sendBadges + '</span>' +
       '</span>';
+  }
+
+  function libraryContainerRoutes(test) {
+    // Reuse the existing expansion so display matches the collection and
+    // submission requirements already saved for each container.
+    return expandedCollectionTests([test]).map(route => ({ ...route, additionalDrawRequirements: [] }));
+  }
+
+  function menuContainerBadges(test) {
+    const requirements = additionalDrawRequirements(test);
+    if (!requirements.length) return menuSingleContainerPath(test);
+    const primary = libraryContainerRoutes(test)[0];
+    return '<div class="library-container-route-summary">' +
+      '<div class="library-container-main-route">' +
+        '<div class="library-container-mini-heading"><span class="library-container-number">1</span> Container 1</div>' +
+        menuSingleContainerPath(primary) +
+      '</div>' +
+      '<button type="button" class="library-container-more" data-container-more data-id="' + escapeAttr(test.id) + '" aria-expanded="false" aria-label="Show all ' + (requirements.length + 1) + ' collection routes for ' + escapeAttr(test.testName) + '">More <span class="library-container-more-count">' + (requirements.length + 1) + '</span></button>' +
+    '</div>';
+  }
+
+  function libraryContainerFlowCard(test) {
+    const routes = libraryContainerRoutes(test);
+    return '<div class="library-container-preview-heading"><strong>Collection &amp; transport</strong>' +
+      '<span>' + routes.length + ' required containers</span></div>' +
+      routes.map((route, index) => {
+        const preferred = cleanVolumeDisplayText(route.preferredVolume);
+        const minimum = cleanVolumeDisplayText(route.minimumVolume);
+        const quantity = Math.max(1, Number(route.collectionCount) || 1);
+        const details = [preferred && 'Preferred: ' + preferred, minimum && 'Minimum: ' + minimum,
+          quantity > 1 && quantity + ' draw tubes'].filter(Boolean);
+        return '<section class="library-container-preview-route">' +
+          '<div class="library-container-preview-route-heading"><span class="library-container-number">' + (index + 1) + '</span><strong>Container ' + (index + 1) + '</strong></div>' +
+          '<div class="library-container-preview-path">' + menuSingleContainerPath(route) + '</div>' +
+          '<div class="library-container-preview-meta">' + specimenBadge(route.specimenType) +
+            '<span class="badge ' + temperatureClass(route.transportTemperature) + '">' + escapeHtml(route.transportTemperature || 'Verify temperature') + '</span></div>' +
+          (details.length ? '<div class="library-container-preview-detail">' + escapeHtml(details.join(' · ')) + '</div>' : '') +
+        '</section>';
+      }).join('');
+  }
+
+  function hideContainerFlowTip() {
+    if (containerFlowButton) {
+      containerFlowButton.setAttribute('aria-expanded', 'false');
+      containerFlowButton.removeAttribute('aria-describedby');
+    }
+    containerFlowTip?.remove();
+    containerFlowTip = null;
+    containerFlowButton = null;
+    containerFlowPinned = false;
+  }
+
+  function positionContainerFlowTip(button, tip) {
+    const box = button.getBoundingClientRect();
+    const gutter = 12;
+    const width = Math.min(350, window.innerWidth - gutter * 2);
+    tip.style.width = width + 'px';
+    const height = tip.getBoundingClientRect().height;
+    const left = Math.min(Math.max(box.left, gutter), window.innerWidth - width - gutter);
+    const spaceBelow = window.innerHeight - box.bottom - gutter;
+    const above = spaceBelow < Math.min(height, 260) && box.top > spaceBelow;
+    tip.style.left = left + 'px';
+    tip.style.top = Math.max(gutter, above
+      ? box.top - Math.min(height, window.innerHeight - gutter * 2) - 8
+      : Math.min(box.bottom + 8, window.innerHeight - height - gutter)) + 'px';
+  }
+
+  function showContainerFlowTip(button, pin = false) {
+    if (containerFlowButton === button && containerFlowTip?.isConnected) {
+      if (pin) containerFlowPinned = true;
+      return;
+    }
+    hideContainerFlowTip();
+    const test = database.find(item => item.id === button?.dataset.id);
+    if (!test || !additionalDrawRequirements(test).length) return;
+    const tip = document.createElement('div');
+    tip.id = 'library-container-flow-preview';
+    tip.className = 'library-container-flow-preview';
+    tip.setAttribute('role', 'tooltip');
+    tip.innerHTML = libraryContainerFlowCard(test);
+    document.body.appendChild(tip);
+    containerFlowButton = button;
+    containerFlowTip = tip;
+    containerFlowPinned = pin;
+    button.setAttribute('aria-describedby', tip.id);
+    button.setAttribute('aria-expanded', 'true');
+    positionContainerFlowTip(button, tip);
   }
 
   function menuVolumeText(test, label) {
@@ -1814,6 +1927,7 @@
   }
 
   function renderLibrary() {
+    hideContainerFlowTip();
     const filter = normalizeSearch(els.libraryFilter.value);
     const filtered = database
       .filter(test => test.status !== 'blocked' && matchesLibraryFilters(test))
@@ -1865,7 +1979,7 @@
     return `<tr class="${selected ? 'is-selected' : ''}">
       <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
       <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${manualLibraryTag(test)}${isStatEligible(test) ? `<span class="library-stat-eligible${statSelectedIds.includes(test.id) ? ' selected' : ''}" title="Eligible on the selected receiving laboratory's STAT menu. Confirm current acceptance before sending.">${statSelectedIds.includes(test.id) ? 'STAT selected' : 'STAT eligible'}</span>` : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
-      <td data-label="Container">${menuContainerBadges(test)}<div class="subtext specimen-line">${requiredSpecimenBadges(test)}</div></td>
+      <td data-label="Container">${menuContainerBadges(test)}<div class="subtext specimen-line">${additionalDrawRequirements(test).length ? specimenBadge(test.specimenType) : requiredSpecimenBadges(test)}</div></td>
       <td data-label="Temperature"><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td>
       <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(menuVolumeText(test, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(menuVolumeText(test, 'minimum') || '—')}</div></td>
       <td class="row-actions" data-label="Actions">
@@ -1880,6 +1994,12 @@
   }
 
   function handleLibraryClick(event) {
+    const more = event.target.closest('button[data-container-more]');
+    if (more) {
+      if (containerFlowButton === more && containerFlowPinned) hideContainerFlowTip();
+      else showContainerFlowTip(more, true);
+      return;
+    }
     const button = event.target.closest('button[data-action]');
     if (!button) return;
     if (button.dataset.action === 'new-from-query') {
