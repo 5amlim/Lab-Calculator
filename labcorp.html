@@ -15,7 +15,9 @@
   <link rel="stylesheet" href="print-button-theme.css?v=8">
   <link rel="stylesheet" href="assets/css/scroll-cues.css?v=4">
 <link rel="stylesheet" href="assets/css/container-gallery.css?v=20261031-1">
-  <link rel="stylesheet" href="assets/css/test-form-refresh.css?v=1">
+  <link rel="stylesheet" href="assets/css/test-form-refresh.css?v=4">
+  <link rel="stylesheet" href="assets/css/library-container-flows.css?v=6">
+  <link rel="stylesheet" href="assets/css/print-multi-container-details.css?v=8">
 </head>
 <body class="labcorp-page" data-gallery-lab="L">
   <a class="skip-link" href="#libraryFilter">Skip to test search</a>
@@ -328,7 +330,7 @@
               <h3 id="collectionInfoHeading">Collection &amp; transport</h3>
               <p>Specify how each required specimen is collected and shipped.</p>
             </div>
-            <span class="primary-container-tag">Container 1 · Primary</span>
+            <span class="primary-container-tag"><span class="container-number-badge" aria-hidden="true">1</span><span>Container 1 · Primary</span></span>
           </div>
           <div class="form-grid form-grid-compact">
             <label><span class="form-label-text">Specimen type <span class="required-mark" aria-hidden="true">*</span></span><select id="specimenType" required>
@@ -396,7 +398,6 @@
             <label><span class="form-label-text">Transport temperature <span class="required-mark" aria-hidden="true">*</span></span><select id="transportTemperature" required>
               <option value="">Choose a transport temperature</option><option>Room Temperature</option><option>Refrigerated</option><option>Frozen</option><option>Room / Refrigerated</option><option>Mixed</option><option>Not specified</option>
             </select></label>
-            <div class="source-clarification-note full-width" role="note"><strong>Labeling:</strong> Include the source tube for plasma/RBCs, specimen type for urine/stool, and collection site for swabs when known.</div>
           </div>
 
           <details class="form-section optional-details" id="optionalDetails">
@@ -432,6 +433,7 @@
           <label class="check-label" id="addToSummaryRow"><input type="checkbox" id="addToSummary" checked> Add this test to the current collection summary</label>
           <label class="check-label"><input type="checkbox" id="blockedStatus"> Mark as do not perform / blocked</label>
         </div>
+        <div class="source-clarification-note full-width" role="note"><strong>Labeling:</strong> Include the source tube for plasma/RBCs, specimen type for urine/stool, and collection site for swabs when known.</div>
       </div>
       <div class="dialog-actions">
         <button type="button" class="button danger-ghost hidden" id="deleteTestButton">Delete manual entry</button>
@@ -490,9 +492,9 @@
   <script src="labcorp-specialty-additions-20261027.js?v=1"></script>
   <script src="labcorp-20261027-neuroimmune-fibrosis.js?v=1"></script>
   <script src="labcorp-heme-specialty-expansion-20261027.js?v=1"></script>
-  <script src="labcorp-app.js?v=91"></script>
+  <script src="labcorp-app.js?v=92"></script>
   <script src="labcorp-crosswalk-ui.js?v=2"></script>
-  <script src="assets/js/portal-selects.js?v=11.86"></script>
+  <script src="assets/js/portal-selects.js?v=11.87"></script>
   <script src="assets/js/lab-select.js?v=2"></script>
   <script src="assets/js/scroll-cues.js?v=1"></script>
 <dialog id="calculatorGalleryDialog" class="calc-gallery-dialog no-print" aria-labelledby="calculatorGalleryTitle">
