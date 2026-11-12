@@ -850,7 +850,7 @@
     const primary = libraryContainerRoutes(test)[0];
     return '<div class="library-container-route-summary">' +
       '<div class="library-container-main-route">' +
-        '<div class="library-container-mini-heading"><span class="library-container-number">1</span> Container 1</div>' +
+        '<div class="library-container-mini-heading"><span class="library-container-number" aria-label="First required collection route">1</span></div>' +
         menuSingleContainerPath(primary) +
       '</div>' +
       '<button type="button" class="library-container-more" data-container-more data-id="' + escapeAttr(test.id) + '" aria-expanded="false" aria-label="Show all ' + (requirements.length + 1) + ' collection routes for ' + escapeAttr(test.testName) + '">More <span class="library-container-more-count">' + (requirements.length + 1) + '</span></button>' +
@@ -1998,7 +1998,7 @@
     const blocked = test.status === 'blocked';
     const hasMultipleContainers = additionalDrawRequirements(test).length > 0;
     const primaryDisplay = hasMultipleContainers ? { ...test, additionalDrawRequirements: [] } : test;
-    const primaryOnlyNote = hasMultipleContainers ? '<div class="library-container-primary-note">Container 1 · See More for all</div>' : '';
+    const primaryOnlyNote = hasMultipleContainers ? '<div class="library-container-primary-note">See More for all</div>' : '';
     return `<tr class="${selected ? 'is-selected' : ''}">
       <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
       <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${manualLibraryTag(test)}${isStatEligible(test) ? `<span class="library-stat-eligible${statSelectedIds.includes(test.id) ? ' selected' : ''}" title="Eligible on the selected receiving laboratory's STAT menu. Confirm current acceptance before sending.">${statSelectedIds.includes(test.id) ? 'STAT selected' : 'STAT eligible'}</span>` : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
