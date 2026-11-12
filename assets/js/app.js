@@ -283,7 +283,11 @@
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape' && containerFlowTip) hideContainerFlowTip();
     });
-    document.addEventListener('scroll', hideContainerFlowTip, true);
+    document.addEventListener('scroll', event => {
+      // Scrolling inside a long preview should not dismiss it.
+      if (containerFlowTip && containerFlowTip.contains(event.target)) return;
+      hideContainerFlowTip();
+    }, true);
     window.addEventListener('resize', hideContainerFlowTip);
     els.batchResults.addEventListener('click', handleBatchClick);
     // These delegated handlers continue to work after matches are refreshed.
