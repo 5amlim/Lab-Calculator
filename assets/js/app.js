@@ -6142,7 +6142,7 @@
       `<td class="print-detail-test-name" rowspan="${routes.length}"><div class="print-test-name-stack${test.testName.length > 48 ? ' print-long-test-name' : ''}"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}${printManualTestNote(test)}</div>${multi ? `<div class="print-route-count">${routes.length} required specimens</div>` : ''}</td>`;
     return `<tbody class="print-detail-test-group${multi ? ' print-detail-multi-group' : ''}">` +
       routes.map((route, index) => {
-        const routeIndex = multi ? `<span class="print-detail-route-number" aria-label="Required specimen ${index + 1} of ${routes.length}">${index + 1} of ${routes.length}</span>` : '';
+        const routeIndex = multi ? `<span class="print-detail-route-number" aria-label="Required specimen ${index + 1} of ${routes.length}">Specimen ${index + 1} of ${routes.length}</span>` : '';
         const drawCount = Math.max(1, Number(route.collectionCount) || 1);
         const submitCount = Math.max(1, Number(route.submissionCount) || 1);
         const quantities = drawCount > 1 || submitCount > 1
