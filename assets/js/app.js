@@ -193,6 +193,7 @@
   let containerFlowTip = null;
   let containerFlowButton = null;
   let containerFlowPinned = false;
+  let containerFlowHideTimer = null;
   let libraryLimit = PAGE_STEP;
   let blockedListOpen = false;
   const suggestionState = {
@@ -267,14 +268,14 @@
     });
     els.libraryBody.addEventListener('pointerout', event => {
       const button = event.target.closest('button[data-container-more]');
-      if (button && !button.contains(event.relatedTarget) && !containerFlowPinned) hideContainerFlowTip();
+      if (button && !button.contains(event.relatedTarget) && !containerFlowPinned) scheduleContainerFlowTipHide();
     });
     els.libraryBody.addEventListener('focusin', event => {
       const button = event.target.closest('button[data-container-more]');
       if (button) showContainerFlowTip(button);
     });
     els.libraryBody.addEventListener('focusout', event => {
-      if (event.target === containerFlowButton && !containerFlowPinned) hideContainerFlowTip();
+      if (event.target === containerFlowButton && !containerFlowPinned) scheduleContainerFlowTipHide();
     });
     document.addEventListener('pointerdown', event => {
       if (containerFlowPinned && !event.target.closest('button[data-container-more]')) hideContainerFlowTip();
@@ -872,7 +873,19 @@
       }).join('');
   }
 
+  function cancelContainerFlowTipHide() {
+    clearTimeout(containerFlowHideTimer);
+    containerFlowHideTimer = null;
+  }
+
+  function scheduleContainerFlowTipHide() {
+    if (containerFlowPinned) return;
+    cancelContainerFlowTipHide();
+    containerFlowHideTimer = setTimeout(hideContainerFlowTip, 170);
+  }
+
   function hideContainerFlowTip() {
+    cancelContainerFlowTipHide();
     if (containerFlowButton) {
       containerFlowButton.setAttribute('aria-expanded', 'false');
       containerFlowButton.removeAttribute('aria-describedby');
@@ -899,6 +912,7 @@
   }
 
   function showContainerFlowTip(button, pin = false) {
+    cancelContainerFlowTipHide();
     if (containerFlowButton === button && containerFlowTip?.isConnected) {
       if (pin) containerFlowPinned = true;
       return;
@@ -911,6 +925,8 @@
     tip.className = 'library-container-flow-preview';
     tip.setAttribute('role', 'tooltip');
     tip.innerHTML = libraryContainerFlowCard(test);
+    tip.addEventListener('pointerenter', cancelContainerFlowTipHide);
+    tip.addEventListener('pointerleave', scheduleContainerFlowTipHide);
     document.body.appendChild(tip);
     containerFlowButton = button;
     containerFlowTip = tip;
