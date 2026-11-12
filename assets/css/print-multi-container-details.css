@@ -295,3 +295,31 @@
     font-size: 8.4px;
   }
 }
+
+/* v3: manual-entry information always starts below the test name. Preserve
+   adaptive font sizes and spacing for short versus longer print orders. */
+@media print {
+  .print-sheet .print-detail-table-section .print-table
+  .print-detail-test-name .print-test-name-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+  }
+  .print-sheet .print-detail-table-section .print-table
+  .print-detail-test-name .print-manual-verification {
+    display: block !important;
+    flex: 0 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 4px 0 0 !important;
+    padding: 0;
+    line-height: 1.32 !important;
+    white-space: normal !important;
+  }
+  .print-sheet .print-detail-table-section .print-table .print-detail-route-notes {
+    overflow-wrap: anywhere;
+    word-break: normal;
+    white-space: normal;
+  }
+}
