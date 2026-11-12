@@ -6135,12 +6135,10 @@
 
 
   function printDetailContainerPath(test) {
-    let path = menuContainerBadges(test)
+    let path = menuSingleContainerPath(test)
       .replaceAll('class="badge tube ', 'class="print-tube-badge tube ')
       .replace(/(<span class="container-path-arrow"[^>]*>)→(<\/span>)/g, '$1↓$2');
-    const labels = [normalizeSpecimenType(test.specimenType),
-      ...additionalDrawRequirements(test).map(req => normalizeSpecimenType(req.specimenType))]
-      .filter(Boolean);
+    const labels = [normalizeSpecimenType(test.specimenType)].filter(Boolean);
     const badges = Array.from(new Set(labels)).map(label => {
       const group = /\burine\b/i.test(label) ? 'specimen-urine'
         : /\bstool\b/i.test(label) ? 'specimen-stool'
@@ -6203,8 +6201,10 @@
       .includes(alt.toLowerCase().replace(/\s+/g, ' '));
     const altNote = alt && !altAlreadyInNotes
       ? `<div class="print-detail-alt-note"><strong>Alternative:</strong> ${escapeHtml(alt)}</div>` : '';
-    const extraRequirements = additionalRequirementSummary(test, true);
-    return `<div class="print-detail-handling-text">${escapeHtml(notes)}</div>${altNote}${extraRequirements}`;
+    const label = String(test.specialLabeling || '').trim();
+    const labelNote = label && !notes.toLowerCase().includes(label.toLowerCase())
+      ? `<div class="print-detail-label-note"><strong>Label:</strong> ${escapeHtml(label)}</div>` : '';
+    return `<div class="print-detail-handling-text">${escapeHtml(notes)}</div>${altNote}${labelNote}`;
   }
 
 
@@ -6230,9 +6230,75 @@
     return volume.replace(new RegExp('(\\b\\d+(?:\\.\\d+)?\\s*mL)\\s+' + name + '\\b', 'gi'), '$1');
   }
 
+  // The test-details print table has one row per independently required
+  // collection route. Keep each route's collection, transport and lab metadata
+  // aligned; never concatenate unrelated specimens into one table cell.
+  function printDetailRoutes(test) {
+    const extras = additionalDrawRequirements(test);
+    return expandedCollectionTests([test]).map((route, index) => {
+      const requirement = extras[index - 1];
+      if (!requirement) return { ...route, additionalDrawRequirements: [] };
+      return {
+        ...route,
+        additionalDrawRequirements: [],
+        // Do not copy the primary container's values into an unspecified
+        // secondary route. These are separate specimens and requirements.
+        // LabCorp can specify a second transport aliquot from the SAME tube.
+        drawContainer: requirement.transportOnly ? test.drawContainer : (requirement.container || 'Verify collection container'),
+        transportOnly: Boolean(requirement.transportOnly),
+        transportContainer: requirement.transportContainer || (requirement.transportOnly ? test.transportContainer : requirement.container) || '',
+        transportTemperature: requirement.transportTemperature || (requirement.transportOnly ? test.transportTemperature : 'Not specified'),
+        transportTemperatureRaw: requirement.transportTemperatureRaw || '',
+        preferredVolume: requirement.preferredVolume || '',
+        minimumVolume: requirement.minimumVolume || '',
+        stability: requirement.stability || '',
+        spin: requirement.spin || 'Verify',
+        specialInstructions: requirement.specialInstructions || '',
+        specialLabeling: requirement.specialLabeling || '',
+        alternativeContainer: requirement.alternativeContainer || '',
+        collectionCount: requirement.transportOnly ? 1 : Math.max(Number(requirement.count) || 1, 1),
+        submissionCount: Math.max(Number(requirement.submissionCount) || 1, 1)
+      };
+    });
+  }
+
+  function printDetailHasNotes(route) {
+    const notes = String(printSpecialInstructions(route) || '').trim();
+    return (notes && notes !== '—') ||
+      Boolean(String(route.alternativeContainer || '').trim()) ||
+      Boolean(String(route.specialLabeling || '').trim());
+  }
+
+  function printDetailRows(test, showNotes = true) {
+    const routes = printDetailRoutes(test);
+    const multi = routes.length > 1;
+    const hasTransportOnlyPath = additionalDrawRequirements(test).some(req => req.transportOnly);
+    const noun = hasTransportOnlyPath ? 'collection paths' : 'required specimens';
+    const testIdentity = `<td class="print-detail-test-name print-detail-identity" rowspan="${routes.length}"><span class="print-detail-inline-code">${escapeHtml(displayCode(test))}</span><div class="print-test-name-stack${test.testName.length > 48 ? ' print-long-test-name' : ''}"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}${printManualTestNote(test)}</div>${multi ? `<div class="print-route-count">${routes.length} ${noun}</div>` : ''}</td>`;
+    return `<tbody class="print-detail-test-group${multi ? ' print-detail-multi-group' : ''}">` +
+      routes.map((route, index) => {
+        const routeIndex = multi ? `<span class="print-detail-route-number" aria-label="Collection path ${index + 1} of ${routes.length}">${hasTransportOnlyPath ? 'Path' : 'Specimen'} ${index + 1} of ${routes.length}</span>` : '';
+        const drawCount = Math.max(1, Number(route.collectionCount) || 1);
+        const submitCount = Math.max(1, Number(route.submissionCount) || 1);
+        const quantities = drawCount > 1 || submitCount > 1
+          ? `<div class="print-detail-quantity">${drawCount > 1 ? `Draw ${drawCount}${submitCount > 1 ? ' · ' : ''}` : ''}${submitCount > 1 ? `Submit ${submitCount}` : ''}</div>`
+          : '';
+        const reuseNote = route.transportOnly ? '<div class="print-detail-quantity">From same collected specimen</div>' : '';
+        return `<tr class="print-detail-route-row${index ? ' print-detail-route-secondary' : ''}">` +
+          (index === 0 ? testIdentity : '') +
+          `<td class="print-detail-route-container">${routeIndex}${printDetailContainerPath(route)}${quantities}${reuseNote}</td>` +
+          `<td class="print-detail-temperature-stability"><span class="print-temp-badge ${temperatureClass(route.transportTemperature)}">${escapeHtml(route.transportTemperature)}</span><div class="print-detail-stability"><strong>Stability:</strong> <span class="print-stability-period">${escapeHtml(printStabilityForTemperature(route))}</span></div></td>` +
+          `<td><span class="print-preferred-volume">${escapeHtml(printDetailVolumeText(route, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(printDetailVolumeText(route, 'minimum') || '—')}</span></td>` +
+          (showNotes ? `<td class="print-detail-route-notes">${printDetailHasNotes(route) ? printDetailHandling(route) : ''}</td>` : '') +
+          '</tr>';
+      }).join('') + '</tbody>';
+  }
+
   function printSummary() {
     const tests = selectedTests();
     if (!tests.length) return showToast('Add at least one test before printing.');
+    const printDetailWithNotes = tests.some(test =>
+      printDetailRoutes(test).some(printDetailHasNotes));
     // Pre-draw warnings already appear in Collection precautions.
     const preparationTexts = new Set(tests.flatMap(test =>
       preCollectionPrecautions(test).map(req => `${displayCode(test)} ${test.testName}: ${req.note}`)
@@ -6248,9 +6314,11 @@
       <section class="print-detail-table-section${tests.length <= 3 ? ' print-brief-order' : ''}">
       ${printCompactAlertSummary(tests, alerts)}
       <table class="print-table">
-        <colgroup><col style="width:6%"><col style="width:15%"><col style="width:14%"><col style="width:8%"><col style="width:8%"><col style="width:6%"><col style="width:43%"></colgroup>
-        <thead><tr class="print-detail-title-row"><th colspan="7" class="print-detail-title-cell"><div class="print-detail-lab-heading"><strong>Test details</strong><span class="print-detail-lab-badge">LABCORP</span></div></th></tr><tr><th>Code</th><th>Test</th><th>Container / specimen</th><th>Temperature</th><th>Volume</th><th>Stability</th><th>Notes</th></tr></thead>
-        <tbody>${tests.map(test => `<tr><td>${escapeHtml(displayCode(test))}</td><td><div class="print-test-name-stack${test.testName.length > 48 ? ' print-long-test-name' : ''}"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}${printManualTestNote(test)}</div></td><td>${printDetailContainerPath(test)}</td><td><span class="print-temp-badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span></td><td><span class="print-preferred-volume">${escapeHtml(printDetailVolumeText(test, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(printDetailVolumeText(test, 'minimum') || '—')}</span></td><td><span class="print-stability-period">${escapeHtml(printStabilityForTemperature(test))}</span></td><td>${printDetailHandling(test)}</td></tr>`).join('')}</tbody>
+        ${printDetailWithNotes
+          ? '<colgroup><col style="width:19%"><col style="width:25%"><col style="width:16%"><col style="width:9%"><col style="width:31%"></colgroup>'
+          : '<colgroup><col style="width:21%"><col style="width:45%"><col style="width:20%"><col style="width:14%"></colgroup>'}
+        <thead><tr class="print-detail-title-row"><th colspan="${printDetailWithNotes ? 5 : 4}" class="print-detail-title-cell"><div class="print-detail-lab-heading"><strong>Test details</strong><span class="print-detail-lab-badge">LABCORP</span></div></th></tr><tr><th>Code / test</th><th>Collection / transport</th><th>Temperature / stability</th><th>Volume</th>${printDetailWithNotes ? '<th>Notes</th>' : ''}</tr></thead>
+        ${tests.map(test => printDetailRows(test, printDetailWithNotes)).join('')}
       </table>
       </section>
       ${printNotesFooter()}
@@ -6441,7 +6509,7 @@
 
   function printManualTestNote(test) {
     return isManuallyAddedTest(test)
-      ? `<span class="print-manual-verification">Manual entry · Added by ${escapeHtml(manualEntryOwner(test))} · Confirm in official directory</span>`
+      ? `<span class="print-manual-verification"><span class="print-manual-owner">Manual entry · Added by ${escapeHtml(manualEntryOwner(test))}</span><span class="print-manual-confirm">Confirm in official directory</span></span>`
       : '';
   }
 
