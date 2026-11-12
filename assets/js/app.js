@@ -156,7 +156,7 @@
     libraryFilter: $('libraryFilter'), categoryFilter: $('categoryFilter'), specimenFilter: $('specimenFilter'), temperatureFilter: $('temperatureFilter'), transportContainerFilter: $('transportContainerFilter'), fastingFilter: $('fastingFilter'), pediatricFilter: $('pediatricFilter'), spinFilter: $('spinFilter'), catalogFilterButton: $('catalogFilterButton'), catalogFilterButtonText: $('catalogFilterButtonText'), catalogFilterPanel: $('catalogFilterPanel'), catalogFilterReset: $('catalogFilterReset'), catalogFilterDone: $('catalogFilterDone'), catalogFilterControl: $('catalogFilterControl'), clearBrowserTestsButton: $('clearBrowserTestsButton'), browserCustomCount: $('browserCustomCount'),
     libraryBody: $('libraryBody'), libraryStatus: $('libraryStatus'), loadMoreButton: $('loadMoreButton'), loadMoreInlineButton: $('loadMoreInlineButton'),
     blockedListButton: $('blockedListButton'), blockedListPanel: $('blockedListPanel'), blockedListBody: $('blockedListBody'),
-    addTestButton: $('addTestButton'), addSelectedTestButton: $('addSelectedTestButton'), testsDetailsButton: $('testsDetailsButton'), testsDetailsPanel: $('testsDetailsPanel'),
+    addTestButton: $('addTestButton'), addSelectedTestButton: $('addSelectedTestButton'), additionalContainers: $('additionalContainers'), addAdditionalContainerButton: $('addAdditionalContainerButton'), testsDetailsButton: $('testsDetailsButton'), testsDetailsPanel: $('testsDetailsPanel'),
     selectedCount: $('selectedCount'), selectedList: $('selectedList'), testsOverviewList: $('testsOverviewList'), testsOverviewSummary: $('testsOverviewSummary'),
     drawPlan: $('drawPlan'), drawPlanSummary: $('drawPlanSummary'), orderOfDraw: $('orderOfDraw'), orderOfDrawSummary: $('orderOfDrawSummary'), collectionAlerts: $('collectionAlerts'), clearOrderButton: $('clearOrderButton'),
     printButton: $('printButton'), exportSummaryButton: $('exportSummaryButton'),
@@ -348,6 +348,7 @@
     els.testForm.addEventListener('submit', saveTestFromForm);
     els.deleteTestButton.addEventListener('click', deleteCustomTest);
     els.openDirectoryFromDialogButton.addEventListener('click', openDirectoryFromDialog);
+    els.addAdditionalContainerButton.addEventListener('click', () => addAdditionalContainerForm());
     els.drawContainer.addEventListener('change', () => { toggleCustomDrawContainer(); updateSstSpinRequirement(); });
     els.customDrawContainer.addEventListener('input', updateSstSpinRequirement);
     els.transportContainer.addEventListener('change', toggleCustomTransportContainer);
@@ -557,6 +558,8 @@
         preferredVolume: interfaceWording(String(source.preferredVolume || '')).trim(),
         minimumVolume: interfaceWording(String(source.minimumVolume || '')).trim(),
         purpose: interfaceWording(String(source.purpose || '')).trim(),
+        alternativeContainer: cleanCollectionContainer(interfaceWording(String(source.alternativeContainer || '')).trim()),
+        submissionCount: Math.max(Number(source.submissionCount) || 1, 1),
         transportContainer: cleanTransportContainer(interfaceWording(String(source.transportContainer || '')).trim()),
         transportTemperature: interfaceWording(String(source.transportTemperature || '')).trim(),
         transportTemperatureRaw: interfaceWording(String(source.transportTemperatureRaw || '')).trim(),
@@ -693,7 +696,7 @@
           id: `${test.id}::additional-draw-${index}`,
           sourceTestId: test.sourceTestId || test.id,
           drawContainer: requirement.container,
-          alternativeContainer: '',
+          alternativeContainer: requirement.alternativeContainer || '',
           additionalDrawRequirements: [],
           specimenType: requirement.specimenType || test.specimenType,
           preferredVolume: requirement.preferredVolume || '',
@@ -705,7 +708,8 @@
           spin: requirement.spin || test.spin,
           specialLabeling: requirement.specialLabeling || '',
           specialInstructions: requirementNote,
-          collectionCount: count
+          collectionCount: count,
+          submissionCount: Math.max(Number(requirement.submissionCount) || 1, 1)
         });
       });
       return expanded;
@@ -3054,6 +3058,201 @@
     openMissingTestFromQuery(missingTestPrefillQuery());
   }
 
+
+  // An additional collection is a separate required specimen/transport route,
+  // not an alternate choice for the primary container.
+  function additionalContainerField(card, name) {
+    return card.querySelector('[data-field="' + name + '"]');
+  }
+
+  function additionalContainerValue(card, name) {
+    return String(additionalContainerField(card, name)?.value || '').trim();
+  }
+
+  function toggleAdditionalCustomContainer(card, name) {
+    const select = additionalContainerField(card, name);
+    const custom = additionalContainerField(card, name === 'drawContainer' ? 'customDrawContainer' : 'customTransportContainer');
+    const row = card.querySelector('[data-other-row="' + name + '"]');
+    const enabled = select.value === '__other__';
+    row.classList.toggle('hidden', !enabled);
+    custom.disabled = !enabled;
+    custom.required = enabled;
+    if (!enabled) custom.value = '';
+  }
+
+  function setAdditionalContainerChoice(card, name, value) {
+    const select = additionalContainerField(card, name);
+    const text = String(value || '').trim();
+    if (Array.from(select.options).some(option => option.value === text)) {
+      select.value = text;
+    } else if (text && (name === 'drawContainer' || name === 'transportContainer')) {
+      select.value = '__other__';
+      additionalContainerField(card, name === 'drawContainer' ? 'customDrawContainer' : 'customTransportContainer').value = text;
+    } else {
+      select.value = '';
+    }
+    if (name === 'drawContainer' || name === 'transportContainer') {
+      const custom = additionalContainerField(card, name === 'drawContainer' ? 'customDrawContainer' : 'customTransportContainer');
+      const row = card.querySelector('[data-other-row="' + name + '"]');
+      const enabled = select.value === '__other__';
+      row.classList.toggle('hidden', !enabled);
+      custom.disabled = !enabled;
+      custom.required = enabled;
+    }
+  }
+
+  function updateAdditionalSpin(card) {
+    const draw = additionalContainerValue(card, 'drawContainer') === '__other__'
+      ? additionalContainerValue(card, 'customDrawContainer') : additionalContainerValue(card, 'drawContainer');
+    const isSst = /\bsst\b|gold|serum separator|red\s*\/\s*black/i.test(draw);
+    const spin = additionalContainerField(card, 'spin');
+    if (isSst) spin.value = 'Yes';
+    spin.disabled = isSst;
+    spin.title = isSst ? 'SST specimens must be spun before submission.' : '';
+    if (additionalContainerValue(card, 'specimenType') === 'Whole Blood') {
+      spin.value = 'No';
+      spin.disabled = true;
+      spin.title = 'Whole blood must not be centrifuged.';
+    }
+  }
+
+  function renumberAdditionalContainers() {
+    Array.from(els.additionalContainers.children).forEach((card, index) => {
+      card.querySelector('[data-container-heading]').textContent = 'Container ' + (index + 2);
+    });
+  }
+
+  function addAdditionalContainerForm(requirement = {}, focus = true) {
+    const card = document.createElement('div');
+    card.className = 'additional-container-card';
+    card.innerHTML =
+      '<div class="additional-container-head"><div><h4 data-container-heading>Additional container</h4><p>Enter separate collection, transfer, and transport requirements.</p></div><button class="additional-container-remove" data-remove type="button">Remove</button></div>' +
+      '<div class="form-grid form-grid-compact">' +
+        '<label><span class="form-label-text">Specimen type <span class="required-mark">*</span></span><select data-field="specimenType" required></select></label>' +
+        '<label><span class="form-label-text">Draw container <span class="required-mark">*</span></span><select data-field="drawContainer" required></select></label>' +
+        '<label class="full-width custom-draw-container-row hidden" data-other-row="drawContainer"><span class="form-label-text">Custom draw container <span class="required-mark">*</span></span><input data-field="customDrawContainer" disabled placeholder="Tube, cup, swab, or kit"></label>' +
+        '<label><span class="form-label-text">Transport tube / container <span class="required-mark">*</span></span><select data-field="transportContainer" required></select></label>' +
+        '<label class="full-width custom-draw-container-row hidden" data-other-row="transportContainer"><span class="form-label-text">Custom transport container <span class="required-mark">*</span></span><input data-field="customTransportContainer" disabled placeholder="Transport container exactly as specified"></label>' +
+        '<label><span class="form-label-text">Transport temperature <span class="required-mark">*</span></span><select data-field="transportTemperature" required></select></label>' +
+      '</div>' +
+      '<details class="additional-container-optional"><summary>Volumes, spin, and special handling <span>(optional)</span></summary>' +
+        '<div class="form-grid form-grid-compact additional-container-optional-grid">' +
+          '<label>Draw containers needed<input type="number" min="1" step="1" value="1" data-field="count"></label>' +
+          '<label>Submission containers needed<input type="number" min="1" step="1" value="1" data-field="submissionCount"></label>' +
+          '<label>Alternative container<input data-field="alternativeContainer" placeholder="Optional alternative"></label>' +
+          '<label>Preferred volume<input data-field="preferredVolume" placeholder="Example: 1 mL plasma"></label>' +
+          '<label>Minimum volume<input data-field="minimumVolume" placeholder="Example: 0.5 mL"></label>' +
+          '<label>Exact temperature wording<input data-field="transportTemperatureRaw" placeholder="From official directory"></label>' +
+          '<label>Stability / viability<input data-field="stability" placeholder="Example: 2 days refrigerated"></label>' +
+          '<label>Spin?<select data-field="spin"></select></label>' +
+          '<label class="full-width">Special submission label<input data-field="specialLabeling" placeholder="Example: Label vial PLASMA"></label>' +
+          '<label class="full-width">Special handling and collection notes<textarea data-field="specialInstructions" rows="3" placeholder="Transfer, centrifugation, timing, light protection, or dedicated specimen requirements"></textarea></label>' +
+        '</div>' +
+      '</details>';
+    for (const name of ['specimenType', 'drawContainer', 'transportContainer', 'transportTemperature', 'spin']) {
+      additionalContainerField(card, name).innerHTML = els[name].innerHTML;
+    }
+    els.additionalContainers.appendChild(card);
+    for (const [name, value] of Object.entries({
+      specimenType: requirement.specimenType || '',
+      drawContainer: requirement.container || '',
+      transportContainer: requirement.transportContainer || '',
+      transportTemperature: requirement.transportTemperature || '',
+      spin: requirement.spin || 'Verify'
+    })) {
+      setAdditionalContainerChoice(card, name, value);
+    }
+    for (const name of ['count','submissionCount','alternativeContainer','preferredVolume','minimumVolume','transportTemperatureRaw','stability','specialLabeling','specialInstructions']) {
+      additionalContainerField(card, name).value = requirement[name] ?? (name === 'count' || name === 'submissionCount' ? 1 : '');
+    }
+    additionalContainerField(card, 'drawContainer').addEventListener('change', () => {
+      toggleAdditionalCustomContainer(card, 'drawContainer');
+      updateAdditionalSpin(card);
+    });
+    additionalContainerField(card, 'customDrawContainer').addEventListener('input', () => updateAdditionalSpin(card));
+    additionalContainerField(card, 'transportContainer').addEventListener('change', () => {
+      toggleAdditionalCustomContainer(card, 'transportContainer');
+      if (additionalContainerValue(card, 'transportContainer') === 'Frozen Transport Tube') {
+        additionalContainerField(card, 'transportTemperature').value = 'Frozen';
+      }
+    });
+    additionalContainerField(card, 'transportTemperature').addEventListener('change', () => {
+      if (additionalContainerValue(card, 'transportContainer') === 'Frozen Transport Tube' &&
+          additionalContainerValue(card, 'transportTemperature') !== 'Frozen') {
+        additionalContainerField(card, 'transportContainer').value = '';
+      }
+    });
+    additionalContainerField(card, 'specimenType').addEventListener('change', () => {
+      if (additionalContainerValue(card, 'specimenType') === 'Stool' &&
+          additionalContainerValue(card, 'drawContainer') !== '__other__') {
+        setAdditionalContainerChoice(card, 'drawContainer', 'Sterile cup');
+      }
+      updateAdditionalSpin(card);
+    });
+    card.querySelector('[data-remove]').addEventListener('click', () => {
+      card.remove();
+      renumberAdditionalContainers();
+    });
+    updateAdditionalSpin(card);
+    renumberAdditionalContainers();
+    if (focus) additionalContainerField(card, 'specimenType').focus();
+  }
+
+  function collectAdditionalContainerRequirements() {
+    const requirements = [];
+    const cards = Array.from(els.additionalContainers.children);
+    for (let index = 0; index < cards.length; index++) {
+      const card = cards[index];
+      const label = 'Container ' + (index + 2);
+      function requireField(name, message) {
+        const element = additionalContainerField(card, name);
+        if (additionalContainerValue(card, name)) return true;
+        showToast(label + ': ' + message);
+        element.focus();
+        return false;
+      }
+      if (!requireField('specimenType', 'choose a specimen type.') ||
+          !requireField('drawContainer', 'choose a draw container.') ||
+          !requireField('transportContainer', 'choose a transport container.') ||
+          !requireField('transportTemperature', 'choose a transport temperature.')) return null;
+      const draw = additionalContainerValue(card, 'drawContainer') === '__other__'
+        ? additionalContainerValue(card, 'customDrawContainer') : additionalContainerValue(card, 'drawContainer');
+      const transport = additionalContainerValue(card, 'transportContainer') === '__other__'
+        ? additionalContainerValue(card, 'customTransportContainer') : additionalContainerValue(card, 'transportContainer');
+      if (!draw || !transport) {
+        const name = !draw ? 'customDrawContainer' : 'customTransportContainer';
+        showToast(label + ': enter the custom ' + (!draw ? 'draw' : 'transport') + ' container.');
+        additionalContainerField(card, name).focus();
+        return null;
+      }
+      const count = Number(additionalContainerValue(card, 'count'));
+      const submissionCount = Number(additionalContainerValue(card, 'submissionCount'));
+      if (!Number.isInteger(count) || count < 1 || !Number.isInteger(submissionCount) || submissionCount < 1) {
+        showToast(label + ': enter valid draw and submission quantities.');
+        (count < 1 || !Number.isInteger(count) ? additionalContainerField(card, 'count') : additionalContainerField(card, 'submissionCount')).focus();
+        return null;
+      }
+      const specimenType = additionalContainerValue(card, 'specimenType');
+      requirements.push({
+        container: draw,
+        specimenType,
+        transportContainer: transport,
+        transportTemperature: additionalContainerValue(card, 'transportTemperature'),
+        count,
+        submissionCount,
+        alternativeContainer: additionalContainerValue(card, 'alternativeContainer'),
+        preferredVolume: additionalContainerValue(card, 'preferredVolume'),
+        minimumVolume: additionalContainerValue(card, 'minimumVolume'),
+        transportTemperatureRaw: additionalContainerValue(card, 'transportTemperatureRaw'),
+        stability: additionalContainerValue(card, 'stability'),
+        spin: specimenType === 'Whole Blood' ? 'No' : additionalContainerField(card, 'spin').disabled && /\bsst\b|gold|serum separator|red\s*\/\s*black/i.test(draw) ? 'Yes' : additionalContainerValue(card, 'spin'),
+        specialLabeling: additionalContainerValue(card, 'specialLabeling'),
+        specialInstructions: additionalContainerValue(card, 'specialInstructions')
+      });
+    }
+    return requirements;
+  }
+
   function openDialog(test = null, options = {}) {
     const isExisting = Boolean(test && test.id);
     const record = normalizeRecord(test || {});
@@ -3083,6 +3282,8 @@
     updateSstSpinRequirement();
     els.specialLabeling.value = record.specialLabeling;
     els.specialInstructions.value = record.specialInstructions;
+    els.additionalContainers.replaceChildren();
+    additionalDrawRequirements(record).forEach(requirement => addAdditionalContainerForm(requirement, false));
     els.blockedStatus.checked = record.status === 'blocked';
     els.addToSummary.checked = options.addToSummary !== false;
     els.addToSummaryRow.classList.toggle('hidden', isExisting);
@@ -3103,6 +3304,8 @@
     event.preventDefault();
     const id = els.testId.value || `custom-${Date.now()}`;
     const existingIndex = database.findIndex(test => test.id === id);
+    const additionalRequirements = collectAdditionalContainerRequirements();
+    if (additionalRequirements === null) return;
     const record = normalizeRecord({
       id,
       testCode: els.testCode.value,
@@ -3111,7 +3314,7 @@
       specimenType: els.specimenType.value,
       drawContainer: selectedDrawContainer(),
       alternativeContainer: els.alternativeContainer.value,
-      additionalDrawRequirements: existingIndex >= 0 ? database[existingIndex].additionalDrawRequirements : [],
+      additionalDrawRequirements: additionalRequirements,
       collectionCount: Number(els.collectionCount.value || 1),
       submissionCount: Number(els.submissionCount.value || 1),
       transportContainer: selectedTransportContainer(),

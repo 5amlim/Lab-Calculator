@@ -5267,3 +5267,46 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     page-break-after: auto !important;
   }
 }
+
+/* Additional required container types in the Add / Edit Test form. */
+.additional-containers { display: grid; gap: 10px; margin-top: 14px; }
+.additional-container-actions {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 9px 12px;
+  padding-top: 12px; margin-top: 12px; border-top: 1px solid #e5ebee;
+}
+.additional-container-actions span { font-size: 10.5px; color: #63747c; line-height: 1.4; }
+.additional-container-button {
+  appearance: none; border: 1px solid #86b9bc; border-radius: 8px;
+  padding: 9px 13px; background: #eef8f7; color: #12676e;
+  font-size: 11.5px; font-weight: 850; cursor: pointer;
+}
+.additional-container-button:hover, .additional-container-button:focus-visible {
+  border-color: #227e81; background: #e2f2f0;
+}
+.additional-container-card {
+  padding: 13px; border-radius: 11px; border: 1px solid #c4dde0;
+  background: #f8fbfb;
+}
+.additional-container-head {
+  display: flex; justify-content: space-between; align-items: start;
+  flex-wrap: wrap; gap: 8px; margin-bottom: 11px;
+}
+.additional-container-head h4 { margin: 0 0 2px; color: #284850; font-size: 12.5px; }
+.additional-container-head p { margin: 0; color: #627680; font-size: 10.5px; }
+.additional-container-remove {
+  border: 0; background: transparent; color: #9b4b43; cursor: pointer;
+  padding: 2px 4px; font-size: 10.5px; font-weight: 800;
+}
+.additional-container-remove:hover { text-decoration: underline; }
+.additional-container-optional { margin-top: 11px; border-top: 1px dashed #cedfe3; }
+.additional-container-optional summary {
+  cursor: pointer; padding: 11px 1px 7px; font-size: 11px;
+  font-weight: 800; color: #3c6269;
+}
+.additional-container-optional summary span { color: #758891; font-weight: 500; }
+.additional-container-optional-grid { padding-top: 7px; }
+.additional-container-card .form-grid label { min-width: 0; }
+@media (max-width: 640px) {
+  .additional-container-card { padding: 11px; }
+  .additional-container-actions { align-items: flex-start; }
+}
