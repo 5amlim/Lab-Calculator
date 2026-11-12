@@ -145,3 +145,153 @@
     color: #315d63;
   }
 }
+
+/* v2: stronger print hierarchy, especially when only a few tests occupy a
+   landscape page. Keep long orders slightly denser and avoid any font scaling
+   outside the Test Details table. */
+@media print {
+  .print-sheet .print-detail-table-section .print-table thead > tr:last-child > th {
+    padding: 9px 7px !important;
+    border-bottom: 1.5px solid #9bbdc3;
+    background: #e9f1f2 !important;
+    color: #344f58 !important;
+    font-size: 8.7px !important;
+    font-weight: 900 !important;
+    letter-spacing: .055em;
+    line-height: 1.2;
+  }
+  .print-sheet .print-detail-table-section .print-table tbody.print-detail-test-group > tr > td {
+    padding: 10px 7px !important;
+    font-size: 9.2px;
+    line-height: 1.42 !important;
+    border-bottom-color: #dce6e8;
+  }
+  .print-sheet .print-detail-table-section .print-table tbody.print-detail-test-group > tr:first-child > td {
+    border-top: 1px solid #b2cbd0;
+  }
+  .print-sheet .print-detail-table-section .print-table tbody.print-detail-test-group > tr > td.print-detail-test-code {
+    color: #203e49;
+    font-size: 11.5px !important;
+    font-weight: 850 !important;
+    font-variant-numeric: tabular-nums;
+  }
+  .print-sheet .print-detail-table-section .print-table .print-test-name-stack > strong {
+    font-size: 12px !important;
+    line-height: 1.3 !important;
+    font-weight: 900 !important;
+    color: #1c3540;
+  }
+  .print-sheet .print-detail-table-section .print-table .print-test-name-stack .print-manual-verification {
+    display: block;
+    margin-top: 4px;
+    color: #875f26 !important;
+    font-size: 8.2px !important;
+    line-height: 1.3;
+  }
+  .print-sheet .print-detail-table-section .print-table .print-route-count {
+    display: inline-block;
+    width: fit-content;
+    margin-top: 9px;
+    padding: 4px 7px;
+    border: 1px solid #bfdbda;
+    border-radius: 4px;
+    background: #e5f3f2 !important;
+    color: #25636a !important;
+    font-size: 8px;
+    font-weight: 900;
+  }
+  .print-sheet .print-detail-table-section .print-table .print-detail-route-number {
+    display: block;
+    width: fit-content;
+    margin: 0 0 7px;
+    padding: 3px 7px;
+    border: 1px solid #a9c8ca;
+    border-radius: 5px;
+    background: #e0eeee !important;
+    color: #205960 !important;
+    font-size: 8px;
+    letter-spacing: .015em;
+    line-height: 1.2;
+    font-weight: 900;
+  }
+  .print-sheet .print-detail-table-section .print-table .print-detail-route-secondary .print-detail-route-number {
+    background: #edf2f7 !important;
+    border-color: #b6cbd8;
+    color: #355a72 !important;
+  }
+  .print-sheet .print-detail-table-section .print-table .print-detail-route-container .print-tube-badge {
+    font-size: 9px !important;
+    line-height: 1.24 !important;
+    min-height: 18px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+  .print-sheet .print-detail-table-section .print-table .print-detail-route-container .container-path.is-transfer .container-path-arrow {
+    margin: 3px 0 3px 10px !important;
+    color: #3c7881 !important;
+    font-size: 14px !important;
+    line-height: 1.1 !important;
+  }
+  .print-sheet .print-detail-table-section .print-table .print-detail-route-container .print-detail-specimens {
+    margin-top: 5px;
+    gap: 4px;
+  }
+  .print-sheet .print-detail-table-section .print-table .print-detail-route-container .print-specimen-badge {
+    font-size: 9px !important;
+    line-height: 1.25 !important;
+  }
+  .print-sheet .print-detail-table-section .print-table .print-detail-route-container .print-detail-spin {
+    font-size: 8.6px !important;
+    line-height: 1.25 !important;
+  }
+  .print-sheet .print-detail-table-section .print-table .print-detail-quantity {
+    margin-top: 5px;
+    font-size: 8.2px;
+  }
+  .print-sheet .print-detail-table-section .print-table .print-temp-badge {
+    display: inline-flex;
+    padding: 4px 6px;
+    font-size: 8.6px !important;
+    line-height: 1.25 !important;
+    max-width: 100%;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+  .print-sheet .print-detail-table-section .print-table .print-preferred-volume {
+    font-size: 8.4px !important;
+    padding: 4px 6px;
+    line-height: 1.25 !important;
+  }
+  .print-sheet .print-detail-table-section .print-table .print-minimum-volume {
+    display: block;
+    margin-top: 5px;
+    font-size: 8.4px !important;
+    line-height: 1.3 !important;
+  }
+  .print-sheet .print-detail-table-section .print-table .print-stability-period {
+    font-size: 9px !important;
+    line-height: 1.3 !important;
+  }
+  .print-sheet .print-detail-table-section .print-table .print-detail-route-notes,
+  .print-sheet .print-detail-table-section .print-table .print-detail-route-notes .print-detail-handling-text {
+    font-size: 9px !important;
+    line-height: 1.4 !important;
+    color: #3c5058;
+  }
+  .print-sheet .print-detail-table-section.print-brief-order .print-table tbody.print-detail-test-group > tr > td {
+    padding: 12px 8px !important;
+  }
+  .print-sheet .print-detail-table-section.print-brief-order .print-table .print-detail-route-container .print-tube-badge {
+    font-size: 9.8px !important;
+    min-height: 20px;
+  }
+  .print-sheet .print-detail-table-section.print-brief-order .print-table .print-test-name-stack > strong {
+    font-size: 12.5px !important;
+  }
+  .print-sheet .print-detail-table-section.print-brief-order .print-table .print-detail-route-container .print-specimen-badge {
+    font-size: 9.4px !important;
+  }
+  .print-sheet .print-detail-table-section.print-brief-order .print-table .print-detail-route-number {
+    font-size: 8.4px;
+  }
+}
