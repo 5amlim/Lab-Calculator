@@ -1,0 +1,147 @@
+/* Quest print summary: each independent required specimen gets its own
+   aligned table row. Screen layout, collection calculations and bag plans
+   are intentionally untouched. */
+@media print {
+  .print-sheet .print-detail-table-section .print-table {
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  /* Keep a test's associated specimen rows together when the page permits. */
+  .print-sheet .print-table tbody.print-detail-test-group {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .print-sheet .print-table tbody.print-detail-test-group > tr > td {
+    padding: 7px 5px;
+    vertical-align: top;
+    border-bottom: 1px solid #e2ecee;
+    line-height: 1.36;
+  }
+
+  /* A stronger rule starts a new test, while thin rules separate its routes. */
+  .print-sheet .print-table tbody.print-detail-test-group:not(:first-of-type)
+    > tr:first-child > td {
+    border-top: 1px solid #9fb9bf;
+  }
+  .print-sheet .print-table tbody.print-detail-multi-group > tr > td {
+    background: #f8fbfc !important;
+  }
+  .print-sheet .print-table tbody.print-detail-multi-group > tr.print-detail-route-secondary > td {
+    background: #fff !important;
+    border-top: 1px dashed #cfdee1;
+  }
+
+  .print-sheet .print-table tbody.print-detail-test-group > tr > td.print-detail-test-code,
+  .print-sheet .print-table tbody.print-detail-test-group > tr > td.print-detail-test-name {
+    background: #f3f8f8 !important;
+    border-right: 1px solid #deeaec;
+  }
+  .print-sheet .print-table tbody.print-detail-multi-group > tr > td.print-detail-test-code {
+    border-left: 3px solid #347d84;
+  }
+  .print-sheet .print-table .print-detail-test-name .print-test-name-stack > strong {
+    font-weight: 900;
+  }
+  .print-sheet .print-table .print-route-count {
+    margin-top: 6px;
+    color: #406872;
+    font-size: 7px;
+    font-weight: 850;
+    line-height: 1.25;
+  }
+
+  .print-sheet .print-table .print-detail-route-number {
+    display: inline-block;
+    width: fit-content;
+    margin-bottom: 5px;
+    padding: 2px 5px;
+    border: 1px solid #aeced2;
+    border-radius: 4px;
+    background: #e5f2f2 !important;
+    color: #235b64 !important;
+    font-size: 7px;
+    font-weight: 900;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .print-sheet .print-table tr.print-detail-route-secondary .print-detail-route-number {
+    background: #edf4f8 !important;
+    border-color: #c1d2dc;
+    color: #385f79 !important;
+  }
+
+  .print-sheet .print-table .print-detail-route-container .print-detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .print-sheet .print-table .print-detail-route-container .container-path {
+    max-width: 100%;
+  }
+  .print-sheet .print-table .print-detail-route-container .container-path.is-transfer {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+    align-items: start;
+    gap: 2px;
+  }
+  .print-sheet .print-table .print-detail-route-container
+    :is(.container-path-source, .container-path-submit) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    min-width: 0;
+    max-width: 100%;
+    gap: 3px;
+  }
+  .print-sheet .print-table .print-detail-route-container .container-path-arrow {
+    justify-self: start;
+    margin: 1px 0 1px 13px;
+    color: #385d68;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .print-sheet .print-table .print-detail-route-container .tube {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+  .print-sheet .print-table .print-detail-route-container .print-detail-specimens {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 3px;
+    margin-top: 4px;
+  }
+  .print-sheet .print-table .print-detail-route-container .print-detail-spin {
+    font-size: 7px;
+    white-space: normal;
+  }
+  .print-sheet .print-table .print-detail-quantity {
+    margin-top: 5px;
+    color: #3f5964;
+    font-size: 7.3px;
+    font-weight: 800;
+    line-height: 1.3;
+  }
+  .print-sheet .print-table .print-detail-route-notes {
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+  .print-sheet .print-table .print-detail-route-notes
+    :is(.print-detail-alt-note, .print-detail-label-note) {
+    margin-top: 4px;
+    color: #3f5964;
+    font-size: 8px;
+    line-height: 1.3;
+  }
+  .print-sheet .print-table .print-detail-route-notes .print-detail-label-note strong {
+    color: #315d63;
+  }
+}
