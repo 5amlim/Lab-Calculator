@@ -382,7 +382,7 @@
               <option value="__other__">Other / manually type</option>
             </select></label>
             <label id="customTransportContainerRow" class="custom-draw-container-row full-width hidden"><span class="form-label-text">Custom transport container <span class="required-mark" aria-hidden="true">*</span></span><input id="customTransportContainer" disabled placeholder="Enter the transport container exactly as specified" autocomplete="off"></label>
-            <div class="tube-count-hint full-width" role="note">Need more than one draw or submission tube? Set the quantities under <strong>Optional details</strong> below.</div>
+            <div class="tube-count-hint full-width" role="note">Need multiple of this same container? Set the quantities under <strong>Container 1 optional details</strong> below. For a different container type, use the button below.</div>
             <label><span class="form-label-text">Transport temperature <span class="required-mark" aria-hidden="true">*</span></span><select id="transportTemperature" required>
               <option value="">Choose a transport temperature</option><option>Room Temperature</option><option>Refrigerated</option><option>Frozen</option><option>Room / Refrigerated</option><option>Mixed</option><option>Not specified</option>
             </select></label>
@@ -398,8 +398,8 @@
 
         <details class="form-section optional-details" id="optionalDetails">
           <summary>
-            <span>Optional details</span>
-            <small>Volumes, stability, special handling, and alternatives</small>
+            <span>Container 1 optional details</span>
+            <small>Volumes, stability, special handling, and alternatives for the primary container</small>
           </summary>
           <div class="form-grid form-grid-compact optional-details-grid">
             <label>Draw containers needed <span class="optional">(default 1)</span><input id="collectionCount" type="number" min="1" step="1" inputmode="numeric" value="1"></label>
