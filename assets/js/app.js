@@ -3151,6 +3151,12 @@
       '</details>';
     for (const name of ['specimenType', 'drawContainer', 'transportContainer', 'transportTemperature', 'spin']) {
       additionalContainerField(card, name).innerHTML = els[name].innerHTML;
+      // The primary form may temporarily disable this option for its own temperature.
+      // A second specimen has an independent temperature, so do not inherit that state.
+      if (name === 'transportContainer') {
+        const frozen = additionalContainerField(card, name).querySelector('option[value="Frozen Transport Tube"]');
+        if (frozen) { frozen.disabled = false; frozen.hidden = false; }
+      }
     }
     els.additionalContainers.appendChild(card);
     for (const [name, value] of Object.entries({
