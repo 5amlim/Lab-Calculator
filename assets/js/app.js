@@ -6135,8 +6135,7 @@
   function printDetailRows(test, showNotes = true) {
     const routes = printDetailRoutes(test);
     const multi = routes.length > 1;
-    const testIdentity = `<td class="print-detail-test-code" rowspan="${routes.length}">${escapeHtml(displayCode(test))}</td>` +
-      `<td class="print-detail-test-name" rowspan="${routes.length}"><div class="print-test-name-stack${test.testName.length > 48 ? ' print-long-test-name' : ''}"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}${printManualTestNote(test)}</div>${multi ? `<div class="print-route-count">${routes.length} required specimens</div>` : ''}</td>`;
+    const testIdentity = `<td class="print-detail-test-name print-detail-identity" rowspan="${routes.length}"><span class="print-detail-inline-code">${escapeHtml(displayCode(test))}</span><div class="print-test-name-stack${test.testName.length > 48 ? ' print-long-test-name' : ''}"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}${printManualTestNote(test)}</div>${multi ? `<div class="print-route-count">${routes.length} required specimens</div>` : ''}</td>`;
     return `<tbody class="print-detail-test-group${multi ? ' print-detail-multi-group' : ''}">` +
       routes.map((route, index) => {
         const routeIndex = multi ? `<span class="print-detail-route-number" aria-label="Required specimen ${index + 1} of ${routes.length}">Specimen ${index + 1} of ${routes.length}</span>` : '';
@@ -6177,9 +6176,9 @@
       ${printCompactAlertSummary(tests, alerts)}
       <table class="print-table">
         ${printDetailWithNotes
-          ? '<colgroup><col style="width:7%"><col style="width:16%"><col style="width:23%"><col style="width:10%"><col style="width:9%"><col style="width:6%"><col style="width:29%"></colgroup>'
-          : '<colgroup><col style="width:7%"><col style="width:18%"><col style="width:34%"><col style="width:14%"><col style="width:13%"><col style="width:14%"></colgroup>'}
-        <thead><tr class="print-detail-title-row"><th colspan="${printDetailWithNotes ? 7 : 6}" class="print-detail-title-cell"><div class="print-detail-lab-heading"><strong>Test details</strong><span class="print-detail-lab-badge">QUEST</span></div></th></tr><tr><th>Code</th><th>Test</th><th>Collection / transport</th><th>Temperature</th><th>Volume</th><th>Stability</th>${printDetailWithNotes ? '<th>Notes</th>' : ''}</tr></thead>
+          ? '<colgroup><col style="width:19%"><col style="width:25%"><col style="width:10%"><col style="width:9%"><col style="width:6%"><col style="width:31%"></colgroup>'
+          : '<colgroup><col style="width:21%"><col style="width:39%"><col style="width:14%"><col style="width:12%"><col style="width:14%"></colgroup>'}
+        <thead><tr class="print-detail-title-row"><th colspan="${printDetailWithNotes ? 6 : 5}" class="print-detail-title-cell"><div class="print-detail-lab-heading"><strong>Test details</strong><span class="print-detail-lab-badge">QUEST</span></div></th></tr><tr><th>Code / test</th><th>Collection / transport</th><th>Temperature</th><th>Volume</th><th>Stability</th>${printDetailWithNotes ? '<th>Notes</th>' : ''}</tr></thead>
         ${tests.map(test => printDetailRows(test, printDetailWithNotes)).join('')}
       </table>
       </section>
