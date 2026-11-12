@@ -25,16 +25,16 @@
     > tr:first-child > td {
     border-top: 1px solid #9fb9bf;
   }
-  .print-sheet .print-table tbody.print-detail-multi-group > tr > td {
+  .print-sheet .print-detail-table-section .print-table tbody.print-detail-multi-group > tr > td {
     background: #f8fbfc !important;
   }
-  .print-sheet .print-table tbody.print-detail-multi-group > tr.print-detail-route-secondary > td {
+  .print-sheet .print-detail-table-section .print-table tbody.print-detail-multi-group > tr.print-detail-route-secondary > td {
     background: #fff !important;
     border-top: 1px dashed #cfdee1;
   }
 
-  .print-sheet .print-table tbody.print-detail-test-group > tr > td.print-detail-test-code,
-  .print-sheet .print-table tbody.print-detail-test-group > tr > td.print-detail-test-name {
+  .print-sheet .print-detail-table-section .print-table tbody.print-detail-test-group > tr > td.print-detail-test-code,
+  .print-sheet .print-detail-table-section .print-table tbody.print-detail-test-group > tr > td.print-detail-test-name {
     background: #f3f8f8 !important;
     border-right: 1px solid #deeaec;
   }
