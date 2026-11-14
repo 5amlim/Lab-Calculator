@@ -3453,9 +3453,16 @@
     els.saveTestButton.textContent = isExisting ? 'Save changes' : 'Save test';
     els.deleteTestButton.classList.toggle('hidden', !isExisting || !record.id.startsWith('custom-'));
     if (els.optionalDetails) els.optionalDetails.open = isExisting;
-    els.testDialog.showModal();
-    window.syncPortalSelects?.();
-    setTimeout(() => (isExisting ? els.testName : els.testCode.value ? els.testName : els.testName.value ? els.testCode : els.testCode).focus(), 0);
+    const showPreparedForm = () => {
+      els.testDialog.showModal();
+      window.syncPortalSelects?.();
+      setTimeout(() => (isExisting ? els.testName : els.testCode.value ? els.testName : els.testName.value ? els.testCode : els.testCode).focus(), 0);
+    };
+    if (!isExisting && typeof window.showManualTestNotice === 'function') {
+      window.showManualTestNotice(showPreparedForm);
+    } else {
+      showPreparedForm();
+    }
   }
 
   function closeDialog() {
