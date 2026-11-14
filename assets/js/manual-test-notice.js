@@ -52,40 +52,64 @@
         <span class="manual-form-alert-icon" aria-hidden="true">${laptop}</span>
         <div><strong>Manual entries stay in this browser</strong><p>Other staff will not see them. Always verify collection and processing details with the official lab directory before using a manual entry.</p></div>
       </div>
-      <div class="manual-help-hover">
-        <button type="button" class="manual-help-toggle" aria-expanded="false" aria-controls="manualDeleteIllustration">
-          <span class="manual-help-question">?</span>
-          <span><strong>How do I delete a manually added test?</strong><small>Hover or tap to see the illustrated steps</small></span>
-          <span class="manual-help-chevron" aria-hidden="true">⌄</span>
-        </button>
-        <div class="manual-help-popover" id="manualDeleteIllustration">
-          <p class="manual-guide-title">Remove a test from this browser</p>
-          <div class="manual-guide-steps">
-            <div class="manual-guide-step">
-              <span class="manual-guide-number">1</span>
-              <strong>Find the test</strong>
-              <div class="manual-mock-search"><span>${magnifier}</span> Search test name or code</div>
+      <div class="manual-help-accordion">
+        <details class="manual-help-details">
+          <summary class="manual-help-toggle">
+            <span class="manual-help-question" aria-hidden="true">?</span>
+            <span class="manual-help-copy"><strong>How do I delete a manually added test?</strong><small>Click or tap to view the steps</small></span>
+            <span class="manual-help-chevron shared-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="manual-help-popover" id="manualDeleteIllustration">
+            <p class="manual-guide-title">Remove a test from this browser</p>
+            <div class="manual-guide-steps">
+              <div class="manual-guide-step">
+                <span class="manual-guide-number" aria-hidden="true">1</span>
+                <strong>Find the test</strong>
+                <div class="manual-mock-search" aria-hidden="true">
+                  <span class="manual-mock-field-label">Search tests</span>
+                  <div class="manual-mock-input"><span class="manual-mock-search-icon">${magnifier}</span><span>Search by name or code</span></div>
+                </div>
+                <p>Search the test list for the entry you added.</p>
+              </div>
+              <div class="manual-guide-step">
+                <span class="manual-guide-number" aria-hidden="true">2</span>
+                <strong>Select Edit</strong>
+                <div class="manual-mock-row" aria-hidden="true">
+                  <div class="manual-mock-row-copy"><b>Your manually added test</b><small>Manual entry · Added by XX</small></div>
+                  <span class="manual-mock-edit">Edit</span>
+                </div>
+                <p>Choose <b>Edit</b> beside that test in the list.</p>
+              </div>
+              <div class="manual-guide-step">
+                <span class="manual-guide-number" aria-hidden="true">3</span>
+                <strong>Scroll down in the form</strong>
+                <div class="manual-mock-form" aria-hidden="true">
+                  <div class="manual-mock-form-heading">Edit test <span>×</span></div>
+                  <div class="manual-mock-form-fields"><span></span><span></span><span></span><div>↓ Scroll to bottom</div></div>
+                  <div class="manual-mock-form-actions">
+                    <span class="manual-mock-delete">Delete manual entry</span>
+                    <span class="manual-mock-secondary">Cancel</span>
+                    <span class="manual-mock-primary">Save changes</span>
+                  </div>
+                </div>
+                <p>At the bottom of the Edit test form, select <b>Delete manual entry</b>.</p>
+              </div>
+              <div class="manual-guide-step">
+                <span class="manual-guide-number" aria-hidden="true">4</span>
+                <strong>Confirm deletion</strong>
+                <div class="manual-mock-confirm" aria-hidden="true">
+                  <div class="manual-mock-confirm-heading">Browser confirmation</div>
+                  <p>Delete the custom entry “Your manually added test”?</p>
+                  <div><span>Cancel</span><span class="manual-mock-ok">OK</span></div>
+                </div>
+                <p>Select <b>OK</b> in the browser confirmation to remove the test.</p>
+              </div>
             </div>
-            <div class="manual-guide-step">
-              <span class="manual-guide-number">2</span>
-              <strong>Select Edit</strong>
-              <div class="manual-mock-row"><span>Manual test <em>Added manually</em></span><b>Edit</b></div>
-            </div>
-            <div class="manual-guide-step">
-              <span class="manual-guide-number">3</span>
-              <strong>Scroll to the bottom</strong>
-              <div class="manual-mock-bottom"><span>↓ Scroll in the form</span><b>Delete manual entry</b></div>
-            </div>
-            <div class="manual-guide-step">
-              <span class="manual-guide-number">4</span>
-              <strong>Confirm deletion</strong>
-              <div class="manual-mock-confirm"><span>Delete this entry?</span><b>OK</b></div>
-            </div>
+            <p class="manual-guide-footnote">The delete option only appears when editing a manually added test. It removes that entry from this browser, not from anyone else's calculator.</p>
           </div>
-          <p class="manual-guide-footnote">The Delete button appears only when editing a manually added test. Deletion affects this browser only.</p>
-        </div>
+        </details>
       </div>
-      <p class="manual-help-permanent"><strong>Want to add a test for everyone?</strong> Contact <strong>Sam Hay</strong> for a permanent addition.</p>`;
+            <p class="manual-help-permanent"><strong>Want to add a test for everyone?</strong> Contact <strong>Sam Hay</strong> for a permanent addition.</p>`;
     actions.parentElement.insertBefore(guide, actions);
 
     const cancel = document.getElementById('manualNoticeCancel');
@@ -99,24 +123,6 @@
       if (typeof callback === 'function') callback();
     });
 
-    const toggle = guide.querySelector('.manual-help-toggle');
-    const hover = guide.querySelector('.manual-help-hover');
-    toggle.addEventListener('click', () => {
-      const open = hover.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', String(open));
-    });
-    document.addEventListener('click', event => {
-      if (!hover.contains(event.target) && hover.classList.contains('is-open')) {
-        hover.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-    document.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && hover.classList.contains('is-open')) {
-        hover.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
-      }
-    });
   }
 
   window.showManualTestNotice = function(onContinue) {
