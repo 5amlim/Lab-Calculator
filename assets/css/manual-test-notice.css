@@ -135,112 +135,236 @@
 .manual-test-form-help .manual-form-alert-icon svg { width: 19px; height: 19px; }
 .manual-test-form-help .manual-form-alert strong { font-size: 13px; color: #403066; }
 .manual-test-form-help .manual-form-alert p { margin: 5px 0 0; color: #626b7b; font-size: 12.5px; line-height: 1.5; }
-.manual-test-form-help .manual-help-hover { border: 1px solid #dddfe9; border-radius: 12px; background: #fff; min-width: 0; }
+
+/* Native accordion: no hover-only opening or click/hover state conflicts. */
+.manual-test-form-help .manual-help-accordion {
+  border: 1px solid #dddfe9;
+  border-radius: 12px;
+  background: #fff;
+  min-width: 0;
+  overflow: hidden;
+}
+.manual-test-form-help .manual-help-details { display: block; min-width: 0; }
+.manual-test-form-help .manual-help-details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+.manual-test-form-help .manual-help-details > summary::-webkit-details-marker { display: none; }
 .manual-test-form-help .manual-help-toggle {
-  appearance: none;
   display: flex;
   align-items: center;
   gap: 11px;
   width: 100%;
-  background: transparent;
+  min-height: 56px;
+  box-sizing: border-box;
   border: 0;
-  color: #363754;
   padding: 13px 15px;
-  text-align: left;
+  color: #363754;
   font-family: inherit;
-  cursor: pointer;
+  text-align: left;
+  user-select: none;
 }
-.manual-test-form-help .manual-help-toggle > span:nth-child(2) { flex: 1; min-width: 0; }
+.manual-test-form-help .manual-help-toggle:hover,
+.manual-test-form-help .manual-help-details[open] .manual-help-toggle { background: #faf8ff; }
+.manual-test-form-help .manual-help-toggle:focus-visible {
+  outline: 3px solid #9b79df;
+  outline-offset: -4px;
+  border-radius: 10px;
+}
+.manual-test-form-help .manual-help-copy { flex: 1; min-width: 0; }
 .manual-test-form-help .manual-help-toggle strong { display: block; font-size: 13px; }
-.manual-test-form-help .manual-help-toggle small { display: block; margin-top: 3px; color: #777f8f; font-size: 11.5px; }
-.manual-test-form-help .manual-help-question {
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  flex: none;
-  border-radius: 50%;
-  background: #f1eafd;
-  color: #744ebc;
-  font-size: 16px;
-  font-weight: 800;
+.manual-test-form-help .manual-help-toggle small {
+  display: block; margin-top: 3px; color: #777f8f; font-size: 11.5px;
 }
-.manual-test-form-help .manual-help-chevron { font-size: 23px; color: #7552b7; transition: transform .18s; }
+.manual-test-form-help .manual-help-question {
+  display: grid; place-items: center;
+  width: 28px; height: 28px; flex: none;
+  border-radius: 50%;
+  background: #f1eafd; color: #744ebc;
+  font-size: 16px; font-weight: 800;
+}
+/* Use the exact shared SVG chevron from experience.css, not a text glyph. */
+.manual-test-form-help .manual-help-chevron.shared-chevron {
+  display: block;
+  flex: 0 0 18px;
+  width: 18px; height: 18px;
+  margin-left: auto;
+  background-position: center;
+  background-size: 18px 18px;
+  transition: transform .18s ease;
+}
+.manual-test-form-help .manual-help-details[open] .manual-help-chevron.shared-chevron {
+  transform: rotate(180deg);
+}
+.manual-test-form-help .manual-help-details:not([open]) > .manual-help-popover { display: none; }
+.manual-test-form-help .manual-help-details[open] > .manual-help-popover { display: block; }
 .manual-test-form-help .manual-help-popover {
-  display: none;
   padding: 17px;
   border-top: 1px solid #e7e0f3;
   background: #fbfaff;
-  border-radius: 0 0 12px 12px;
 }
-.manual-test-form-help .manual-help-hover:hover .manual-help-popover,
-.manual-test-form-help .manual-help-hover:focus-within .manual-help-popover,
-.manual-test-form-help .manual-help-hover.is-open .manual-help-popover { display: block; }
-.manual-test-form-help .manual-help-hover.is-open .manual-help-chevron { transform: rotate(180deg); }
-.manual-test-form-help .manual-guide-title { margin: 0 0 13px; color: #42316f; font-size: 13px; font-weight: 800; }
-.manual-test-form-help .manual-guide-steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
+.manual-test-form-help .manual-guide-title {
+  margin: 0 0 13px; color: #42316f; font-size: 13px; font-weight: 800;
+}
+.manual-test-form-help .manual-guide-steps {
+  display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 11px;
+}
 .manual-test-form-help .manual-guide-step {
   position: relative;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
+  display: flex; flex-direction: column;
+  gap: 10px; min-width: 0;
   padding: 13px;
   background: #fff;
   border: 1px solid #e5dff2;
   border-radius: 11px;
   box-shadow: 0 2px 6px rgba(58,38,96,.035);
 }
-.manual-test-form-help .manual-guide-step > strong { font-size: 12px; color: #30324d; padding-left: 29px; line-height: 20px; }
-.manual-test-form-help .manual-guide-number {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  display: grid;
-  place-items: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 8px;
+.manual-test-form-help .manual-guide-step > strong {
+  padding-left: 30px;
+  font-size: 12px;
+  line-height: 22px;
+  color: #30324d;
+}
+.manual-test-form-help .manual-guide-step > p {
+  margin: auto 0 0;
+  padding-top: 2px;
   font-size: 11px;
-  font-weight: 800;
-  color: #fff;
-  background: #8055c9;
+  line-height: 1.45;
+  color: #697081;
+}
+.manual-test-form-help .manual-guide-number {
+  position: absolute; top: 12px; left: 12px;
+  display: grid; place-items: center;
+  width: 22px; height: 22px;
+  border-radius: 8px;
+  color: #fff; background: #8055c9;
+  font-size: 11px; font-weight: 800;
 }
 .manual-test-form-help .manual-mock-search,
 .manual-test-form-help .manual-mock-row,
-.manual-test-form-help .manual-mock-bottom,
+.manual-test-form-help .manual-mock-form,
 .manual-test-form-help .manual-mock-confirm {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
   width: 100%;
-  box-sizing: border-box;
   min-width: 0;
-  min-height: 40px;
-  padding: 9px 10px;
-  border-radius: 8px;
+  box-sizing: border-box;
   border: 1px solid #d9dce7;
-  background: #fbfcff;
-  color: #6a7183;
+  border-radius: 9px;
+  background: #fff;
+  color: #576073;
   font-size: 11px;
 }
-.manual-test-form-help .manual-mock-search { justify-content: flex-start; color: #89909c; }
-.manual-test-form-help .manual-mock-search svg { width: 14px; height: 14px; }
-.manual-test-form-help .manual-mock-row span { font-weight: 650; color: #4f5770; }
-.manual-test-form-help .manual-mock-row em { display: block; margin-top: 3px; font-style: normal; color: #7857b8; font-size: 9px; }
-.manual-test-form-help .manual-mock-row b,
-.manual-test-form-help .manual-mock-confirm b {
-  padding: 5px 9px;
-  color: #7650b7;
-  border: 1px solid #d9c9f3;
-  background: #f4edfe;
-  border-radius: 6px;
+.manual-test-form-help .manual-mock-search { padding: 9px; background: #fafcff; }
+.manual-test-form-help .manual-mock-field-label {
+  display: block;
+  margin-bottom: 5px;
   font-size: 10px;
+  font-weight: 750;
+  color: #586b77;
 }
-.manual-test-form-help .manual-mock-bottom { display: grid; gap: 8px; justify-items: center; }
-.manual-test-form-help .manual-mock-bottom b { border-radius: 6px; padding: 5px 10px; color: #b43f58; background: #fff2f5; border: 1px solid #f5c6d1; font-size: 10px; }
-.manual-test-form-help .manual-guide-footnote { margin: 13px 0 0; color: #686b7c; font-size: 11.5px; line-height: 1.5; }
+.manual-test-form-help .manual-mock-input {
+  display: flex; align-items: center; gap: 7px;
+  padding: 9px;
+  border: 1px solid #9baab9;
+  border-radius: 7px;
+  background: #fff;
+  color: #9197a2;
+}
+.manual-test-form-help .manual-mock-search-icon { display: inline-flex; }
+.manual-test-form-help .manual-mock-search-icon svg { width: 14px; height: 14px; }
+.manual-test-form-help .manual-mock-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 11px;
+  min-height: 66px;
+}
+.manual-test-form-help .manual-mock-row-copy { min-width: 0; flex: 1; }
+.manual-test-form-help .manual-mock-row-copy b { display: block; font-size: 11px; color: #374350; }
+.manual-test-form-help .manual-mock-row-copy small {
+  display: block; margin-top: 4px;
+  color: #7b55b8; font-size: 9px; line-height: 1.4; font-weight: 650;
+}
+.manual-test-form-help .manual-mock-edit {
+  display: inline-flex; flex: none;
+  padding: 7px 9px;
+  border-radius: 7px;
+  border: 1px solid #d5dce0;
+  background: #f1f3f5; color: #52636c;
+  font-size: 11px; font-weight: 800;
+}
+.manual-test-form-help .manual-mock-form { overflow: hidden; }
+.manual-test-form-help .manual-mock-form-heading {
+  display: flex; justify-content: space-between;
+  padding: 8px 11px;
+  border-bottom: 1px solid #e6eaf0;
+  background: #f7f8fa;
+  color: #344650;
+  font-size: 11px; font-weight: 800;
+}
+.manual-test-form-help .manual-mock-form-heading span { font-size: 14px; font-weight: 600; color: #83919a; }
+.manual-test-form-help .manual-mock-form-fields {
+  padding: 12px 11px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 7px;
+}
+.manual-test-form-help .manual-mock-form-fields > span {
+  height: 12px; border-radius: 4px;
+  border: 1px solid #e0e7ec;
+  background: #f0f4f7;
+}
+.manual-test-form-help .manual-mock-form-fields > div {
+  grid-column: 1/-1;
+  text-align: center;
+  color: #7751b6;
+  font-size: 10px;
+  font-weight: 700;
+  padding-top: 4px;
+}
+.manual-test-form-help .manual-mock-form-actions {
+  display: flex; align-items: center; gap: 5px; flex-wrap: wrap;
+  padding: 8px;
+  border-top: 1px solid #e3e9ef;
+  background: #fafbfc;
+}
+.manual-test-form-help .manual-mock-form-actions > span {
+  display: inline-block; padding: 6px;
+  border-radius: 5px;
+  font-size: 9px; font-weight: 750; white-space: nowrap;
+}
+.manual-test-form-help .manual-mock-delete {
+  margin-right: auto;
+  color: #ae4860; background: #fff; border: 1px solid #f0ced6;
+}
+.manual-test-form-help .manual-mock-secondary {
+  color: #52636c; background: #f4f6f7; border: 1px solid #d7dfe4;
+}
+.manual-test-form-help .manual-mock-primary {
+  color: #fff; background: #127782; border: 1px solid #127782;
+}
+.manual-test-form-help .manual-mock-confirm { overflow: hidden; }
+.manual-test-form-help .manual-mock-confirm-heading {
+  padding: 8px 11px; background: #f7f8fa;
+  border-bottom: 1px solid #e6eaf0;
+  color: #586271; font-size: 10px; font-weight: 800;
+}
+.manual-test-form-help .manual-mock-confirm > p {
+  margin: 0; padding: 13px 11px 10px;
+  color: #394550; font-size: 11px; line-height: 1.45;
+}
+.manual-test-form-help .manual-mock-confirm > div:last-child {
+  display: flex; align-items: center; justify-content: flex-end; gap: 7px;
+  padding: 0 11px 11px;
+}
+.manual-test-form-help .manual-mock-confirm > div:last-child span {
+  padding: 5px 11px;
+  border: 1px solid #c9d0d7;
+  border-radius: 5px;
+  background: #f7f8fa; font-size: 10px; color: #485564;
+}
+.manual-test-form-help .manual-mock-confirm > div:last-child .manual-mock-ok {
+  background: #e5f0fe; border-color: #9abced; color: #185fa3;
+}
+.manual-test-form-help .manual-guide-footnote {
+  margin: 13px 0 0;
+  font-size: 11.5px; line-height: 1.5; color: #686b7c;
+}
 .manual-test-form-help .manual-help-permanent {
   margin: 0;
   padding: 0 3px;
