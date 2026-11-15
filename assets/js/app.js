@@ -1,5 +1,6 @@
 (() => {
   'use strict';
+  const launchQuestCalculator = () => {
 
   // Built-in catalog records live in data.js. Browser storage is reserved for
   // user-created tests and edits only, so catalog growth cannot exhaust localStorage.
@@ -396,7 +397,7 @@
   }
 
   function renderAll() {
-    els.recordCount.textContent = `${database.length} tests`;
+    els.recordCount.textContent = `${database.filter(test => test.status === 'active').length} active tests · ${database.filter(test => test.status === 'reference').length} directory-only references`;
     renderLibrary();
     renderBlockedList();
     renderOrder();
@@ -545,7 +546,7 @@
   function loadSelectedIds() {
     const reconcile = ids => Array.from(new Set(ids
       .map(id => CONSOLIDATED_TEST_IDS[id] || id)
-      .filter(id => database.some(test => test.id === id))));
+      .filter(id => database.some(test => test.id === id && test.status === 'active'))));
     const current = loadJson(SELECTED_KEY, null);
     if (Array.isArray(current)) {
       const migrated = reconcile(current);
@@ -705,7 +706,7 @@
       specialInstructions: String(record.specialInstructions || ''),
       fastingStatus: ['required', 'preferred'].includes(String(record.fastingStatus || '').toLowerCase()) ? String(record.fastingStatus).toLowerCase() : '',
       fastingInstructions: String(record.fastingInstructions || '').trim(),
-      status: record.status === 'blocked' ? 'blocked' : 'active',
+      status: record.status === 'blocked' ? 'blocked' : record.status === 'reference' ? 'reference' : 'active',
       source: String(record.source || 'Custom entry'),
       sourceRow: record.sourceRow || null
     };
@@ -1351,7 +1352,7 @@
     const category = window.LabClinicalCategories?.matchQuery(query);
     if (!category) return null;
     const results = database
-      .filter(test => test.status !== 'blocked' &&
+      .filter(test => test.status === 'active' &&
         window.LabClinicalCategories.forTest(test).includes(category.id) &&
         (!category.rest || rankLibraryTest(category.rest, test) > 0))
       .sort((a, b) => a.testName.localeCompare(b.testName) ||
@@ -1374,7 +1375,7 @@
 
   function canAutoAddBatchRow(row) {
     const chosen = chosenBatchMatch(row);
-    if (!chosen || chosen.test.status === 'blocked' || !isExactBatchMatch(row.query, chosen.test)) return false;
+    if (!chosen || chosen.test.status !== 'active' || !isExactBatchMatch(row.query, chosen.test)) return false;
     if (chosen !== row.matches[0]) return false;
     // An identical name shared by multiple distinct codes cannot be silently
     // resolved without the user specifying a code.
@@ -1395,6 +1396,7 @@
     const chosen = chosenBatchMatch(row);
     if (!chosen) return 'no-match';
     if (chosen.test.status === 'blocked') return 'blocked';
+    if (chosen.test.status === 'reference') return 'reference-only';
     if (chosen.score < 550) return 'low-confidence';
     return canAutoAddBatchRow(row) ? 'exact-match' : 'confirm-match';
   }
@@ -1445,8 +1447,8 @@
     const categoryRows = rows.filter(row => row.category);
     const confirmCount = rows.filter(row => row.outcome === 'confirm-match').length;
     const inSummaryCount = rows.filter(row => ['added', 'already-selected'].includes(row.outcome)).length;
-    const hardIssueCount = rows.filter(row => ['no-match', 'blocked', 'low-confidence', 'not-added'].includes(row.outcome)).length;
-    const unresolved = rows.filter(row => ['no-match', 'blocked', 'low-confidence', 'confirm-match', 'not-added'].includes(row.outcome));
+    const hardIssueCount = rows.filter(row => ['no-match', 'blocked', 'reference-only', 'low-confidence', 'not-added'].includes(row.outcome)).length;
+    const unresolved = rows.filter(row => ['no-match', 'blocked', 'reference-only', 'low-confidence', 'confirm-match', 'not-added'].includes(row.outcome));
     const resultSummary = renderBatchResultSummary(rows, addBest);
     const reviewSummary = renderBatchReviewSummary(inSummaryCount, confirmCount, hardIssueCount, addBest);
 
@@ -1501,7 +1503,7 @@
 
     // Possible matches that simply need confirmation are shown directly on their cards.
     // Keep this summary only for true problems so the same warning is not repeated twice.
-    const unresolved = rows.filter(row => ['no-match', 'blocked', 'low-confidence', 'not-added'].includes(row.outcome));
+    const unresolved = rows.filter(row => ['no-match', 'blocked', 'reference-only', 'low-confidence', 'not-added'].includes(row.outcome));
     if (!unresolved.length) return '';
 
     const label = addBest ? 'Needs attention' : 'Needs attention';
@@ -1518,6 +1520,7 @@
     if (outcome === 'low-confidence') return 'Low-confidence match — verify before adding';
     if (outcome === 'confirm-match') return 'Possible match — confirm before adding';
     if (outcome === 'blocked') return 'This test is marked “do not perform”';
+    if (outcome === 'reference-only') return 'Directory reference only; collection requirements need verification';
     return 'Could not be added';
   }
 
@@ -1531,6 +1534,11 @@
       </div>`;
     }
     const choice = chosenBatchMatch(row);
+    if (choice.test.status === 'reference') return `<div class="batch-row needs-confirmation" data-batch-index="${row.index}">
+      <div class="batch-query-block"><span class="batch-kicker">You entered</span><div class="batch-query">${escapeHtml(row.query)}</div></div>
+      <div class="batch-match"><span class="badge temp-unknown">Directory only</span><strong>${escapeHtml(displayCode(choice.test))} · ${escapeHtml(choice.test.testName)}</strong><small>Quest code/name is indexed, but specimen and collection requirements are not verified. Cannot add to the draw plan.</small></div>
+      <a class="mini-button edit" href="${escapeAttr(directoryUrl(choice.test))}" target="_blank" rel="noreferrer">Verify with Quest directory ↗</a>
+    </div>`;
     const blocked = choice.test.status === 'blocked';
     const autoSafe = canAutoAddBatchRow(row);
     const needsConfirmation = !blocked && !autoSafe;
@@ -1996,6 +2004,14 @@
   }
 
   function renderLibraryRow(test) {
+    if (test.status === 'reference') return `<tr class="quest-directory-reference-row">
+      <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
+      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)} <span class="badge temp-unknown">Directory only</span></div><div class="subtext">Collection instructions not verified. Confirm in Quest directory before collection.</div></td>
+      <td data-label="Container">Not verified</td>
+      <td data-label="Temperature"><span class="badge temp-unknown">Not verified</span></td>
+      <td data-label="Volume">Not verified</td>
+      <td class="row-actions" data-label="Actions"><a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Verify with Quest ↗</a></td>
+    </tr>`;
     const selected = selectedIds.includes(test.id);
     const blocked = test.status === 'blocked';
     const hasMultipleContainers = additionalDrawRequirements(test).length > 0;
@@ -2161,7 +2177,7 @@
       const match = row?.matches.find(item => item.test.id === button.dataset.id);
       const test = match?.test;
       const wantStat = button.dataset.priority === 'stat';
-      if (!test || test.status === 'blocked' || selectedIds.includes(test.id)) return;
+      if (!test || test.status !== 'active' || selectedIds.includes(test.id)) return;
       if (wantStat && !isStatEligible(test)) return;
       // The main action retains its ambiguity check. Choosing an alternate
       // candidate or a fuzzy match from the list also requires confirmation.
@@ -2268,7 +2284,7 @@
   }
 
   function isStatEligible(test) {
-    if (!test || test.status === 'blocked') return false;
+    if (!test || test.status !== 'active') return false;
     return STAT_AREAS[statArea].codes.includes(String(test.testCode || '').trim());
   }
 
@@ -2586,7 +2602,7 @@
 
   function addSelected(id, rerender = true) {
     const test = database.find(item => item.id === id);
-    if (!test || test.status === 'blocked') return false;
+    if (!test || test.status !== 'active') return false;
     if (selectedIds.includes(id)) return false;
     selectedIds.push(id);
     if (DEFAULT_STAT_TEST_CODES.has(String(test.testCode)) && isStatEligible(test)) {
@@ -2743,7 +2759,7 @@
   }
 
   function selectedTests() {
-    return selectedIds.map(id => database.find(test => test.id === id)).filter(Boolean)
+    return selectedIds.map(id => database.find(test => test.id === id)).filter(test => test && test.status === 'active')
       .map(test => ({ ...withSelectedCultureTransport(test), isStat: isStatEligible(test) && statSelectedIds.includes(test.id) }));
   }
 
@@ -3585,7 +3601,7 @@
     if (!saveUserState(state)) {
       window.alert('This change is visible now but could not be saved in this browser. Browser storage may be unavailable.');
     }
-    els.recordCount.textContent = `${database.length} tests`;
+    els.recordCount.textContent = `${database.filter(test => test.status === 'active').length} active tests · ${database.filter(test => test.status === 'reference').length} directory-only references`;
   }
 
 
@@ -6601,4 +6617,9 @@
     toastTimer = setTimeout(() => els.toast.classList.remove('show'), 2300);
   }
   init();
+  };
+  Promise.resolve(window.QUEST_MISSING_DIRECTORY_READY).then(launchQuestCalculator, error => {
+    console.error('Quest reference catalog failed to load:', error);
+    launchQuestCalculator();
+  });
 })();
