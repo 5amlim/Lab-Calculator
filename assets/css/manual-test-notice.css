@@ -375,6 +375,10 @@
   color: #657081;
 }
 .manual-test-form-help .manual-help-permanent strong { color: #5a3f93; }
+/* Form section gutters switch to 13px at tablet/mobile widths. */
+@media (max-width: 720px) {
+  .manual-test-form-help { margin-left: 13px; margin-right: 13px; }
+}
 @media (max-width: 520px) {
   #manualTestNotice .manual-notice-header { grid-template-columns: 39px 1fr; gap: 11px; padding: 21px 17px; }
   #manualTestNotice .manual-notice-icon { width: 39px; height: 39px; border-radius: 11px; }
@@ -383,7 +387,6 @@
   #manualTestNotice .manual-notice-permanent { margin: 0 17px 13px; padding: 12px; }
   #manualTestNotice .manual-notice-actions { padding: 14px 17px; }
   #manualTestNotice .manual-notice-actions button { padding: 10px 12px; font-size: 12px; }
-  .manual-test-form-help { margin-left: 13px; margin-right: 13px; }
   .manual-test-form-help .manual-guide-steps { grid-template-columns: 1fr; }
 }
 @media print {
