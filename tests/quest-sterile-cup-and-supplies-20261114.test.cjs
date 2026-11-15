@@ -37,19 +37,25 @@ function plan(h,records){
   const bags=h.buildTransportBagPlan(ex);
   return {ex,bags,collection:h.buildCollectionPlan(ex,bags),submission:bags.flatMap(b=>h.buildSubmissionContents(b))};
 }
-test('Unsupported onsite kit codes are blocked and existing supported urine/standard Aptima codes remain active',async()=>{
+test('Special collection requirements stay flagged while Affirm VPIII remains selectable with its dedicated kit',async()=>{
  const h=await calculator();
  const byCode=new Map(h.database.map(t=>[t.testCode,t]));
- for(const code of ['11290','91448','14577','1635']){
+ for(const code of ['11290','91448','1635']){
    assert.equal(byCode.get(code)?.status,'blocked',code);
  }
+ const affirm=byCode.get('14577');
+ assert.equal(affirm?.status,'active');
+ assert.match(affirm.drawContainer,/Affirm VPIII ATTS/i);
+ assert.match(affirm.transportContainer,/Affirm VPIII ATTS/i);
+ assert.match(affirm.specialInstructions,/72 hours/i);
+ assert.doesNotMatch(affirm.drawContainer,/Do Not Collect/i);
  for(const code of ['523','39625','1648','14962','11362']){
    assert.equal(byCode.get(code)?.status,'active',code);
  }
  const active=h.database.filter(t=>t.status==='active');
  const unsupported=active.filter(t=>{
   const mandatory=[t.drawContainer,t.transportContainer,...(t.additionalDrawRequirements||[]).flatMap(x=>[x.container,x.transportContainer])].join(' ');
-  return /6\s*N\s*HCl|acid[- ]preserv(?:ed|ative)?\s+urine|HCl[- ]preserv|aptima[^,;]{0,100}green[- ]label|\binsure\b|bd\s*affirm\s*vp/i.test(mandatory);
+  return /6\s*N\s*HCl|acid[- ]preserv(?:ed|ative)?\s+urine|HCl[- ]preserv|aptima[^,;]{0,100}green[- ]label|\binsure\b/i.test(mandatory);
  });
  assert.equal(unsupported.length,0);
 });
