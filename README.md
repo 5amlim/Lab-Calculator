@@ -61,3 +61,19 @@ Proprietary software. See [LICENSE.md](LICENSE.md) for permitted use and licensi
 ## Clinical category search and filters
 
 Quest and LabCorp share 31 clinical categories for browsing. Search for category keywords such as `STI`, `GI`, `hematology`, `coagulation`, `allergy`, and `thyroid`, or select one under **Filters → Clinical category**. Category filters combine with specimen, container, temperature, fasting, pediatric, and spin filters. One test may appear under multiple categories. Categories are based on test-name rules and do not change specimen requirements, order codes, STAT availability, or collection calculations. The classifications are navigational aids, not official clinical classifications or test equivalence recommendations.
+
+
+## Quest MASTER missing-code integration (2026-11-14)
+
+The 1,068-code/name worksheet is indexed as a reference-only catalog rather than assumed safe for specimen collection. The reference layer does **not** provide collection or processing plans until the test-specific specimen details are verified against the official Quest directory.
+
+Four verified source bundles currently add **29** directory-reviewed workflows:
+
+- `assets/js/quest-verified-urine-20261114.js`: 7 special urine, 24-hour urine, and timed-urine assays
+- `assets/js/quest-verified-blood-specialty-20261114.js`: 9 whole-blood, paired-specimen, FIB-4, coagulation, and CSF assays
+- `assets/js/quest-verified-microbiology-20261114.js`: 10 culture, swab, cytology transfer, sputum, and special-kit assays
+- `assets/js/quest-verified-gestational-20261114.js`: 3 timed gestational glucose tests
+
+These follow the existing `SEED_TESTS` schema and preserve separate draw requirements, fasting flags, specimen-specific temperatures, transport containers, and original naming. Existing validated codes are not overwritten. The grouping logic keeps HCl-preserved urine separate from ordinary urine, does not merge cord blood with routine blood, and keeps different gestational timing protocols distinct. All references without verified specimen details remain **Directory only** and cannot be added to the cart, tube calculator, or printouts.
+
+**Clinical caution:** This is a national Quest MASTER lookup, not a confirmation that every code or special collection kit is accepted by each local receiving lab. Verify service-area availability and local supplies before collection. The remaining directory-only entries require individual Quest documentation before promotion to collectable status.
