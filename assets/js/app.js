@@ -475,7 +475,7 @@
     return normalizeRecord({
       ...test,
       testName: 'Bacterial Vaginosis/Vaginitis Panel (Affirm VPIII)',
-      specimenType: 'Vaginal swab',
+      specimenType: 'Vaginal Swab',
       drawContainer: 'BD Affirm VPIII ATTS swab transport kit',
       transportContainer: 'BD Affirm VPIII ATTS swab transport kit',
       alternativeContainer: '',
@@ -1737,36 +1737,72 @@
     </div>`;
   }
 
-  function specimenFilterCategory(specimenType) {
+  // A test may need multiple physical specimens. Filter by every required path,
+  // not just the primary specimen, while keeping precise fluid and swab subtypes.
+  function specimenFilterCategoriesForType(specimenType) {
     const value = normalizeSearch(specimenType || '');
-    if (['serum', 'plasma', 'platelet poor plasma', 'rbcs', 'whole blood'].includes(value)) return 'Blood';
-    if (value.includes('urine')) return 'Urine';
-    if (value.includes('stool')) return 'Stool';
-    if (value.includes('swab')) return 'Swab';
-    return 'Other';
+    if (/\b(?:serum|plasma|blood|rbcs?|erythrocytes?|red blood cells?)\b/.test(value)) return ['Blood'];
+    if (/\b(?:urine|urinary)\b/.test(value)) return ['Urine'];
+    if (/\b(?:stool|feces|fecal|faeces|faecal)\b/.test(value)) return ['Stool'];
+    if (/\bswab\b/.test(value)) {
+      return /\b(?:vaginal|cervicovaginal)\b/.test(value)
+        ? ['Swab', 'Vaginal Swab'] : ['Swab'];
+    }
+    if (/\b(?:csf|cerebrospinal)\b/.test(value)) return ['CSF'];
+    if (/\bsputum\b/.test(value)) return ['Sputum'];
+    if (/\bsaliva\b/.test(value)) return ['Saliva'];
+    if (/\btissue\b/.test(value)) return ['Tissue'];
+    for (const [pattern, name] of [
+      [/\bpericardial\b/, 'Pericardial Fluid'],
+      [/\bperitoneal\b|\bascit(?:es|ic)\b/, 'Peritoneal Fluid'],
+      [/\bpleural\b/, 'Pleural Fluid'],
+      [/\bsynovial\b|\bjoint fluid\b/, 'Synovial Fluid']
+    ]) {
+      if (pattern.test(value)) return ['Body Fluid', name];
+    }
+    if (/\b(?:fluid|ascites|effusion)\b/.test(value)) return ['Body Fluid'];
+    return ['Other'];
+  }
+
+  function specimenFilterCategories(test) {
+    const result = new Set(specimenFilterCategoriesForType(test.specimenType));
+    additionalDrawRequirements(test).forEach(requirement => {
+      if (!requirement.specimenType) return;
+      specimenFilterCategoriesForType(requirement.specimenType).forEach(category => result.add(category));
+    });
+    return Array.from(result);
   }
 
   // Filter by the transport requirement recorded for each test, not the draw
   // tube. Keep special containers separate from generic transport tubes.
-  function transportContainerFilterCategories(test) {
+  // Match the SUBMITTED container rather than a collection-tube alternative.
+  // Dedicated systems (Affirm, ESwab, Aptima) must never fall under a generic kit.
+  function transportCategoriesForPath(test) {
     const value = normalizeSearch(test.transportContainer || '');
+    const draw = normalizeSearch(test.drawContainer || '');
+    const original = /\b(?:original tube|original container|primary tube|no transfer|do not open)\b/.test(value);
+    if (/\baffirm\b|\batts\b/.test(value) || (original && /\baffirm\b|\batts\b/.test(draw)))
+      return original ? ['affirm', 'original'] : ['affirm'];
+    if (/\beswab\b|\be swab\b|\bamies\b/.test(value) ||
+        (original && /\beswab\b|\be swab\b|\bamies\b/.test(draw)))
+      return original ? ['amies', 'original'] : ['amies'];
+    if (/fetal fibronectin/.test(value) || (original && /fetal fibronectin/.test(draw)))
+      return original ? ['fetal-fibronectin', 'original'] : ['fetal-fibronectin'];
     if (isPlainUrineAliquotTransport(test, test.transportContainer)) return ['sterile-cup'];
-    // Direct submission in the collection cup is still sterile-cup transport,
-    // including records described as "original tube / no transfer".
     if (cleanCollectionContainer(test.transportContainer) === 'Sterile cup' ||
-        (/\b(?:original tube|primary tube|no transfer|do not open)\b/.test(value) &&
-          cleanCollectionContainer(test.drawContainer) === 'Sterile cup')) return ['sterile-cup', 'original'];
-    if (/red yellow|ua preservative/.test(value)) {
-      // A few urine panels require both UA and culture preservative tubes.
+        (original && cleanCollectionContainer(test.drawContainer) === 'Sterile cup'))
+      return ['sterile-cup', 'original'];
+    // Quest frozen plastic transport tubes use the standard transport category.
+    if (/red yellow|ua preservative/.test(value))
       return /gray top urine|urine culture|urisponge/.test(value)
         ? ['urine-ua', 'urine-culture'] : ['urine-ua'];
-    }
     if (/gray top urine|urine culture|urisponge/.test(value)) return ['urine-culture'];
     if (/amber|light protected|protect from light/.test(value)) return ['amber'];
     if (/acid washed|metal free|trace element|trace metal/.test(value)) return ['metal'];
     if (/sst|gold spun/.test(value)) return ['sst'];
-    if (/no transfer|original tube|primary tube|do not open/.test(value)) return ['original'];
-    if (/^(lavender edta|edta lavender top tube|gray top|gray fluoride oxalate|yellow acd b)$/.test(value)) return ['original'];
+    if (original) return ['original'];
+    if (/^(lavender edta|edta lavender top tube|gray top|gray fluoride oxalate|yellow acd b)$/.test(value))
+      return ['original'];
     if (/aptima/.test(value)) return ['aptima'];
     if (/viral|vcm|utm|transport media/.test(value)) return ['viral'];
     if (/total fix|stool container/.test(value)) return ['stool'];
@@ -1776,6 +1812,18 @@
     if (/serum transport|serum .* transport vial/.test(value)) return ['serum'];
     if (/^(?:(?:\d+|two)\s+)?(?:separate\s+)?transport tubes?$/.test(value)) return ['transport'];
     return ['special'];
+  }
+
+  function transportContainerFilterCategories(test) {
+    const result = new Set(transportCategoriesForPath(test));
+    additionalDrawRequirements(test).forEach(requirement => {
+      if (!requirement.transportContainer) return;
+      const route = { ...test, specimenType: requirement.specimenType || test.specimenType,
+        drawContainer: requirement.container || test.drawContainer,
+        transportContainer: requirement.transportContainer };
+      transportCategoriesForPath(route).forEach(category => result.add(category));
+    });
+    return Array.from(result);
   }
 
   // This is a TRANSPORT filter: a sterile source cup alone is not enough.
@@ -1812,7 +1860,7 @@
     const category = els.categoryFilter.value;
     if (category && !window.LabClinicalCategories?.forTest(test).includes(category)) return false;
     const specimen = els.specimenFilter.value;
-    if (specimen && specimenFilterCategory(test.specimenType) !== specimen) return false;
+    if (specimen && !specimenFilterCategories(test).includes(specimen)) return false;
     const temperature = els.temperatureFilter.value;
     if (temperature && transportBagInfo(test).key !== temperature) return false;
     const container = els.transportContainerFilter.value;
@@ -3367,6 +3415,12 @@
     const select = additionalContainerField(card, name);
     const text = String(value || '').trim();
     if (Array.from(select.options).some(option => option.value === text)) {
+      select.value = text;
+    } else if (text && name === 'specimenType') {
+      const option = document.createElement('option');
+      option.value = text;
+      option.textContent = text;
+      select.appendChild(option);
       select.value = text;
     } else if (text && (name === 'drawContainer' || name === 'transportContainer')) {
       select.value = '__other__';
@@ -6967,8 +7021,15 @@
   }
 
   function setSelectValue(select, value, fallback) {
-    const option = Array.from(select.options).find(item => item.value === value);
-    select.value = option ? value : fallback;
+    let option = Array.from(select.options).find(item => item.value === value);
+    if (!option && select === els.specimenType && String(value || '').trim()) {
+      option = document.createElement('option');
+      option.value = value;
+      option.textContent = value;
+      option.dataset.addedSpecimen = 'true';
+      select.appendChild(option);
+    }
+    select.value = option ? option.value : fallback;
   }
 
   function loadJson(key, fallback) {
