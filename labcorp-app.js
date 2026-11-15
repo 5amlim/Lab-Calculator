@@ -2002,7 +2002,7 @@
     const primaryOnlyNote = hasMultipleContainers ? '<div class="library-container-primary-note">First path only</div>' : '';
     return `<tr class="${selected ? 'is-selected' : ''}">
       <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
-      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${manualLibraryTag(test)}${statSelectedIds.includes(test.id) && isStatEligible(test) ? '<span class="library-stat-eligible selected" title="Manually marked STAT; verify receiving-lab acceptance and courier routing.">STAT selected</span>' : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
+      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${manualLibraryTag(test)}${gestationalWarningBadge(test)}${statSelectedIds.includes(test.id) && isStatEligible(test) ? '<span class="library-stat-eligible selected" title="Manually marked STAT; verify receiving-lab acceptance and courier routing.">STAT selected</span>' : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
       <td data-label="Container">${menuContainerBadges(test)}${hasMultipleContainers ? '' : '<div class="subtext specimen-line">' + requiredSpecimenBadges(test) + '</div>'}</td>
       <td data-label="Temperature"><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span>${primaryOnlyNote}</td>
       <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(menuVolumeText(primaryDisplay, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(menuVolumeText(primaryDisplay, 'minimum') || '—')}</div>${primaryOnlyNote}</td>
@@ -2772,7 +2772,7 @@
     els.selectedList.innerHTML = tests.map(test => `
       <article class="selected-card${test.isStat ? ' is-stat' : ''}">
         <div class="selected-card-top">
-          <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}${manualLibraryTag(test)}</div><div class="subtext specimen-line">${requiredSpecimenBadges(test)} <span>·</span> <span class="preferred-volume-inline">${escapeHtml(combinedVolumeText(test, 'preferred') || 'verify')}</span> <span>· Minimum ${escapeHtml(combinedVolumeText(test, 'minimum') || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}</div>
+          <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}${manualLibraryTag(test)}</div><div class="subtext specimen-line">${requiredSpecimenBadges(test)} <span>·</span> <span class="preferred-volume-inline">${escapeHtml(combinedVolumeText(test, 'preferred') || 'verify')}</span> <span>· Minimum ${escapeHtml(combinedVolumeText(test, 'minimum') || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}${gestationalWarningBadge(test, 'selected-gestational-warning')}</div>
           <div>${isStatEligible(test) ? `<button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Mark STAT'}</button>` : ''}<a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove selected-card-delete" data-action="remove" data-id="${escapeAttr(test.id)}" type="button" aria-label="Delete ${escapeAttr(test.testName)}">Delete</button></div>
         </div>
         <div class="selected-details">
@@ -2938,11 +2938,19 @@
   // Only flag actionable pre-collection requirements supported by a test's
   // recorded directions or a reviewed test-code-specific Quest instruction.
   // Do not apply hormone time windows to all similarly named assays.
+  function gestationalWarningBadge(test, className = '') {
+    const warning = window.gestationalTestWarning?.(test);
+    if (!warning) return '';
+    return `<span class="gestational-warning-tag ${className}" title="${escapeAttr(warning.note)}">⚠ ${escapeHtml(warning.label)}</span>`;
+  }
+
   function preCollectionPrecautions(test) {
     const code = ''; // Do not apply Quest-only test-code preparation rules to LabCorp codes.
     const notes = String(test.specialInstructions || '');
     const result = [];
     const add = (label, note) => result.push({ label, note });
+    const gestational = window.gestationalTestWarning?.(test);
+    if (gestational) add(gestational.label, gestational.note);
 
     if (code === '4212') {
       add('AM draw · 7–9 AM', 'Collect between 7 and 9 AM. Write the collection time on the tube and requisition.');
@@ -6281,7 +6289,7 @@
     const multi = routes.length > 1;
     const hasTransportOnlyPath = additionalDrawRequirements(test).some(req => req.transportOnly);
     const noun = hasTransportOnlyPath ? 'collection paths' : 'required specimens';
-    const testIdentity = `<td class="print-detail-test-name print-detail-identity" rowspan="${routes.length}"><span class="print-detail-inline-code">${escapeHtml(displayCode(test))}</span><div class="print-test-name-stack${test.testName.length > 48 ? ' print-long-test-name' : ''}"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}${printManualTestNote(test)}</div>${multi ? `<div class="print-route-count">${routes.length} ${noun}</div>` : ''}</td>`;
+    const testIdentity = `<td class="print-detail-test-name print-detail-identity" rowspan="${routes.length}"><span class="print-detail-inline-code">${escapeHtml(displayCode(test))}</span><div class="print-test-name-stack${test.testName.length > 48 ? ' print-long-test-name' : ''}"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}${gestationalWarningBadge(test, 'print-gestational-warning')}${printManualTestNote(test)}</div>${multi ? `<div class="print-route-count">${routes.length} ${noun}</div>` : ''}</td>`;
     return `<tbody class="print-detail-test-group${multi ? ' print-detail-multi-group' : ''}">` +
       routes.map((route, index) => {
         const routeIndex = multi ? `<span class="print-detail-route-number" aria-label="Collection path ${index + 1} of ${routes.length}">${hasTransportOnlyPath ? 'Path' : 'Specimen'} ${index + 1} of ${routes.length}</span>` : '';
