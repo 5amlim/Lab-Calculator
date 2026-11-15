@@ -2944,7 +2944,7 @@
       const shareable = urineCup && isShareableUrineCupTest(test);
       const stockSterileCup = source.className === 'tube-urine-cup' && /^sterile cup$/i.test(String(source.label || ''));
       const key = stockSterileCup
-        ? `Stock|Sterile cup|${test.isStat ? 'STAT' : 'Routine'}`
+        ? `Stock|Sterile cup|${sterileCupSpecimenSubtype(test)}|${test.isStat ? 'STAT' : 'Routine'}`
         : urineCup
           ? `Urine|${urineCollectionType(test).key}|${shareable ? 'shared' : `separate|${test.sourceTestId || test.id}|${test.isStat ? 'stat' : 'routine'}`}`
           : `${test.isStat ? 'STAT' : 'Routine'}|${test.drawContainer || 'Verify Official Instructions'}`;
@@ -4521,20 +4521,59 @@
     return 'other';
   }
 
+  // Sterile cup is one STOCK type, but each filled cup has a real specimen
+  // identity. This key is used in screen and printed collection grouping, not
+  // to allow cross-specimen pooling or to change the stock/container badge.
+  function sterileCupSpecimenSubtype(test) {
+    const group = collectionSpecimenGroupForTest(test);
+    if (group === 'urine') return urineCollectionType(test).key;
+    if (group !== 'other') return group;
+    return normalizeSearch(normalizeSpecimenType(test.specimenType)) || 'unspecified';
+  }
+
+  function isSterileCupCollectionItem(item) {
+    return item.className === 'tube-urine-cup' &&
+      /^sterile cup$/i.test(String(item.label || '').trim());
+  }
+
   function collectionSpecimenBadgeForItem(item) {
     const tests = uniqueTests(item.tests || []);
+    if (!tests.length) return '';
+    if (isSterileCupCollectionItem(item)) {
+      const labels = Array.from(new Set(tests.map(test => {
+        const group = collectionSpecimenGroupForTest(test);
+        if (group === 'urine') return urineCollectionType(test).label || 'Urine';
+        if (group === 'stool') return 'Stool';
+        if (group === 'csf') return 'CSF';
+        if (group === 'sputum') return 'Sputum';
+        return titleCaseSpecimen(normalizeSpecimenType(test.specimenType));
+      })));
+      return labels.length === 1 ? labels[0] : '';
+    }
     const groups = new Set(tests.map(collectionSpecimenGroupForTest));
     if (groups.size !== 1) return '';
     const group = Array.from(groups)[0];
     if (group === 'stool') return 'Stool';
     if (group !== 'urine') return '';
     const labels = Array.from(new Set(tests.map(test => urineCollectionType(test).label).filter(Boolean)));
-    if (labels.length === 1) return labels[0];
-    return 'Urine';
+    return labels.length === 1 ? labels[0] : 'Urine';
+  }
+
+  function collectionSpecimenBadgeKindForItem(item) {
+    const group = collectionSpecimenGroupForItem(item);
+    if (!isSterileCupCollectionItem(item)) return group;
+    if (group !== 'other') return group;
+    const label = collectionSpecimenBadgeForItem(item).toLowerCase();
+    return /(?:pleural|peritoneal|pericardial|synovial|ascitic|body) fluid|joint fluid/.test(label)
+      ? 'fluid' : 'other';
   }
 
   function collectionMergeSubtypeForItem(item) {
     const tests = uniqueTests(item.tests || []);
+    if (isSterileCupCollectionItem(item)) {
+      const keys = Array.from(new Set(tests.map(sterileCupSpecimenSubtype)));
+      return keys.length === 1 ? keys[0] : 'mixed';
+    }
     const groups = new Set(tests.map(collectionSpecimenGroupForTest));
     if (groups.size !== 1) return 'mixed';
     const group = Array.from(groups)[0];
@@ -4552,7 +4591,7 @@
   function printCollectionGroups(items, wholeBloodGroups) {
     const cards = items.map(item => {
       const specimenBadge = collectionSpecimenBadgeForItem(item);
-      const specimenGroup = collectionSpecimenGroupForItem(item);
+      const specimenGroup = collectionSpecimenBadgeKindForItem(item);
       const tigerBadge = printSstTigerBadge(item);
       const microtainerBadge = item.className === 'tube-microtainer' ? '<span class="microtainer-flag">MICROTAINER</span>' : '';
       const printedTestCount = uniqueTests(item.tests).length;
@@ -4816,7 +4855,9 @@
       // A Sterile cup, for example, may be used for either urine or stool, but those
       // specimens should never be combined into the same collection card/count.
       const specimenGroup = collectionSpecimenGroupForTest(test);
-      const specimenSubtype = specimenGroup === 'urine' ? urineCollectionType(test).key : specimenGroup;
+      const specimenSubtype = isSterileCupCollectionItem(info)
+        ? sterileCupSpecimenSubtype(test)
+        : specimenGroup === 'urine' ? urineCollectionType(test).key : specimenGroup;
       const urineCup = specimenGroup === 'urine' && info.className === 'tube-urine-cup';
       const separateCup = urineCup && !isShareableUrineCupTest(test);
       const separateStool = specimenGroup === 'stool' && info.className === 'tube-urine-cup';
@@ -4875,29 +4916,9 @@
       target.detail = Array.from(new Set(details)).join(' · ');
     });
 
-    // One inventory item for all empty sterile cups. Counts are SUMMED across
-    // distinct specimen types and dedicated collections. No cross-specimen
-    // pooling occurs: CSF, sputum, stool and urine keep separate source records,
-    // labels and final transport bags.
-    const sterileItems = mergedItems.filter(item =>
-      item.className === 'tube-urine-cup' && /^sterile cup$/i.test(String(item.label || '')));
-    if (sterileItems.length > 1) {
-      const breakdown = new Map();
-      sterileItems.forEach(item => {
-        const group = collectionMergeSubtypeForItem(item);
-        breakdown.set(group, (breakdown.get(group) || 0) + Number(item.count || 0));
-      });
-      const combined = {
-        ...sterileItems[0],
-        key: 'sterile-cup-stock|' + (isStat ? 'stat' : 'routine'),
-        count: sterileItems.reduce((sum, item) => sum + Number(item.count || 0), 0),
-        tests: uniqueTests(sterileItems.flatMap(item => item.tests || [])),
-        detail: 'Separate labeled Sterile cup for each specimen source. NEVER mix urine, stool, CSF and sputum. ' +
-          Array.from(breakdown, ([type, count]) => type + ': ' + count).join(' · ')
-      };
-      return [...mergedItems.filter(item => !sterileItems.includes(item)), combined]
-        .map(item => ({ ...item, isStat }));
-    }
+    // Keep one collection card per specimen, while reusing the same Sterile cup
+    // STOCK badge. Never combine body fluids, CSF, sputum, stool or urine into a
+    // single mixed-specimen card. Physical counts still sum to the same total.
     return mergedItems.map(item => ({ ...item, isStat }));
   }
 
@@ -6351,9 +6372,9 @@
       <div class="print-logistics-totals">
         <div class="print-total-box collect-total"><span>TOTAL TO COLLECT</span><strong>${totalCollect}</strong><small>tubes / collection containers</small></div>
         <div class="print-collect-chips">${collectionItems.map(item => {
-          const specimenGroup = collectionSpecimenGroupForItem(item);
-          const specimenTag = item.className === 'tube-urine-cup' && (specimenGroup === 'urine' || specimenGroup === 'stool')
-            ? `<span class="print-collect-chip-specimen specimen-${specimenGroup}">${escapeHtml(specimenGroup === 'stool' ? 'Stool' : 'Urine')}</span>`
+          const specimenLabel = isSterileCupCollectionItem(item) ? collectionSpecimenBadgeForItem(item) : '';
+          const specimenTag = specimenLabel
+            ? `<span class="print-collect-chip-specimen specimen-${collectionSpecimenBadgeKindForItem(item)}">${escapeHtml(specimenLabel)}</span>`
             : '';
           return `<span class="print-collect-chip tube ${item.displayClassName || item.className}"><b>${item.count}</b> ${escapeHtml(item.label)}${specimenTag}</span>`;
         }).join('')}</div>
