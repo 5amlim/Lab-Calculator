@@ -3100,6 +3100,9 @@
   }
 
   function fastingRequirement(test) {
+    // Gestational 50 g screening is nonfasting. Its dedicated warning already states
+    // the required 1-hour post-load collection, so do not show a false fasting badge.
+    if (window.gestationalTestWarning?.(test)?.label === 'Gestational · 50 g screen') return null;
     const explicitLevel = String(test.fastingStatus || '').toLowerCase();
     if (explicitLevel === 'required' || explicitLevel === 'preferred') {
       return {
