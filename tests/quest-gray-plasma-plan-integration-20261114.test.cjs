@@ -5,7 +5,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const root=path.resolve(__dirname,'..');
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
-const expected={8477:1,19833:1,484:1,1430:2,19834:2,16292:4,35181:2,18927:3,6745:4};
+const expected={8477:1,19833:1,484:1,1430:2,19834:2,16292:4,35181:2,23475:3,18927:3,6745:4};
 async function getCalculator(){
   const window={SEED_TESTS:[]};
   new Function('window',read('assets/js/quest-gray-plasma-processing-20261114.js'))(window);
@@ -35,7 +35,7 @@ function plan(h,tests) {
     collectionCount:collects.reduce((sum,item)=>sum+item.count,0),
     submissionCount:submits.reduce((sum,item)=>sum+item.count,0)};
 }
-test('For all nine verified gray-top glucose assays, planner outputs the correct number of original gray tubes and transferred plastic vials',async()=>{
+test('For all ten verified gray-top glucose assays, planner outputs the correct number of original gray tubes and transferred plastic vials',async()=>{
   const h=await getCalculator();
   for(const [code,count] of Object.entries(expected)){
     const item=h.database.find(t=>t.testCode===code);
@@ -50,12 +50,12 @@ test('For all nine verified gray-top glucose assays, planner outputs the correct
     assert.equal(new Set(p.submits.map(x=>x.key)).size,count,'no vial sharing '+code);
   }
 });
-test('Nine mixed protocols do not accidentally pool timepoints or transport vials',async()=>{
+test('Ten mixed protocols do not accidentally pool timepoints or transport vials',async()=>{
   const h=await getCalculator();
   const chosen=Object.keys(expected).map(code=>h.database.find(t=>t.testCode===code));
   const p=plan(h,chosen);
   const total=Object.values(expected).reduce((a,b)=>a+b,0);
-  assert.equal(total,20);
+  assert.equal(total,23);
   assert.equal(p.collectionCount,total);
   assert.equal(p.submissionCount,total);
   assert.equal(p.submits.length,total);
