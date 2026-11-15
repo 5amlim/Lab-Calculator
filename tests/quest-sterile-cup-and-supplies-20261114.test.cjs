@@ -51,7 +51,7 @@ test('Unsupported onsite kit codes are blocked and existing supported urine/stan
   const mandatory=[t.drawContainer,t.transportContainer,...(t.additionalDrawRequirements||[]).flatMap(x=>[x.container,x.transportContainer])].join(' ');
   return /6\s*N\s*HCl|acid[- ]preserv(?:ed|ative)?\s+urine|HCl[- ]preserv|aptima[^,;]{0,100}green[- ]label|\binsure\b|bd\s*affirm\s*vp/i.test(mandatory);
  });
- assert.deepEqual(unsupported.map(t=>t.testCode),[]);
+ assert.equal(unsupported.length,0);
 });
 test('All three HIAA workflows use only unpreserved Frozen sterile containers and do not add acid',async()=>{
  const h=await calculator();const byCode=new Map(h.database.map(t=>[t.testCode,t]));
