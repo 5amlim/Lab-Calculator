@@ -483,7 +483,7 @@
             if (updated[field] === oldValue) updated[field] = base[field];
           });
           builtIns[index] = updated;
-        } else if (/Quest Diagnostics official test directory, reviewed 2026-11-14/.test(base.source || '')) {
+        } else if (/Quest Diagnostics (?:official test directory, reviewed|test directory, verified) 2026-11-14/.test(base.source || '')) {
           // The recently verified Quest specimen instructions supersede stale
           // browser overrides. Keep user-controlled blocking and identity only.
           builtIns[index] = {
@@ -4035,6 +4035,7 @@
   }
 
   function requiresDedicatedCollectionTube(test) {
+    if (isGrayFluoridePlasmaTransfer(test)) return true;
     const text = `${test.drawContainer || ''} ${test.preferredVolume || ''} ${test.minimumVolume || ''} ${test.specialInstructions || ''}`.toLowerCase();
     return /\bdedicated(?:\s+collection)?\s+tube\b|\bown\s+tube\b|\bdo\s+not\s+share\b|\bfull\s+(?:lavender|red(?:-top)?|edta|collection)?\s*tube\b|\b(?:each|individual)\s+(?:lavender|red(?:-top)?|edta|collection)\s+tube\b/.test(text)
       || explicitCollectionCount(test) > 1
@@ -4337,7 +4338,9 @@
     const containerGroups = new Map();
     tests.filter(isAdditionalPoolableBloodDraw).forEach(test => {
       const info = canonicalCollectionContainer(test);
-      const groupKey = /\bcord\b/i.test(test.specimenType || '') ? `${info.key}|cord|${test.sourceTestId || test.id}` : info.key;
+      const groupKey = isGrayFluoridePlasmaTransfer(test)
+        ? `${info.key}|timed-gray-plasma|${test.id}`
+        : /\bcord\b/i.test(test.specimenType || '') ? `${info.key}|cord|${test.sourceTestId || test.id}` : info.key;
       if (!containerGroups.has(groupKey)) containerGroups.set(groupKey, { ...info, key: groupKey, tests: [] });
       containerGroups.get(groupKey).tests.push(test);
     });
@@ -4943,7 +4946,18 @@
     return raw;
   }
 
+  function isGrayFluoridePlasmaTransfer(test) {
+    // Quest-verified gray-top glucose assays using the separated-plasma
+    // plastic screw-cap VIAL alternative. No second anticoagulant tube.
+    const code = String(test.testCode || '').trim();
+    return /^(?:8477|19833|484|1430|19834|16292|35181|18927|6745)$/.test(code)
+      && /gray|fluoride/i.test(String(test.drawContainer || ''))
+      && /plastic screw-cap plasma vial/i.test(String(test.transportContainer || ''))
+      && /^plasma$/i.test(String(test.specimenType || '').trim());
+  }
+
   function isOriginalContainerSubmission(test) {
+    if (isGrayFluoridePlasmaTransfer(test)) return false;
     const draw = String(test.drawContainer || '').trim();
     const transport = finalTransportContainer(test);
     const combined = `${transport} ${test.specialInstructions || ''}`.toLowerCase();
@@ -5000,6 +5014,16 @@
 
   function splitSubmissionContainers(test) {
     const transport = finalTransportContainer(test);
+    if (isGrayFluoridePlasmaTransfer(test)) {
+      const timepoint = String(test.specialLabeling || 'record exact draw time').trim();
+      return [{
+        key: `gray-oxalate-separated-plasma|${test.id}`,
+        label: 'Plastic Plasma Transport Vial (Additive-Free)',
+        className: 'tube-transport',
+        count: explicitSubmissionCount(test),
+        detail: `Spun gray fluoride/oxalate source · separated plasma · ${timepoint} · each timed specimen in its own labeled additive-free vial`
+      }];
+    }
     // Distinguish the source timed/24-hour urine jug from the single UA tube submitted to Quest.
     if (isUrineTest(test) && /urinalysis\s+transport\s+tube/i.test(transport)
         && /yellow[- ]top|blue\s+fill/i.test(transport)) {
