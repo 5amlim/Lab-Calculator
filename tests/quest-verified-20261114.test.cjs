@@ -67,7 +67,7 @@ test('Verified addons precede the guarded directory-only fallback and applicatio
   const html = read('index.html');
   const positions = bundles.map(file => html.indexOf(file));
   const fallback = html.indexOf('quest-missing-directory-loader-20261114.js');
-  const app = html.indexOf('assets/js/app.js?v=12.94');
+  const app = html.indexOf('assets/js/app.js?v=12.95');
   assert.ok(positions.every(pos => pos >= 0 && pos < fallback));
   assert.ok(fallback > 0 && fallback < app);
 });
