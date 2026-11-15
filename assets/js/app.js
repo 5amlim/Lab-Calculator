@@ -4232,6 +4232,8 @@
   function isShareableUrineCupTest(test) {
     return isUrineTest(test)
       && ['random-urine', 'first-morning-urine', 'first-catch-urine'].includes(urineCollectionType(test).key)
+      && canonicalCollectionContainer(test).label === 'Sterile cup'
+      && !/metal[- ]?free|trace[- ]?metal|trace element|acid[- ]?washed|acid[- ]?preserv|6\s*N\s*HCl/i.test(String(test.transportContainer || ''))
       && !requiresSeparateUrineCollection(test);
   }
 
@@ -4280,7 +4282,10 @@
     if (isUrineTest(test) && /6\s*N\s*HCl|HCl[- ]preserv|acid[- ]preserv/i.test(draw)) {
       return { key: 'hcl-preserved-urine', label: '6N HCl Preserved Urine Container', className: 'tube-24h-urine' };
     }
-    if (isUrineTest(test) && !isTimedUrineTest(test)) {
+    // A clean sterile cup is not interchangeable with a metal-free, acid-
+    // washed, or specially preserved urine collection device.
+    const requiresSpecialSource = /metal[- ]?free|trace[- ]?metal|trace element|acid[- ]?washed|acid[- ]?preserv|6\s*N\s*HCl|specific gravity preservation|preloaded\s+preserv/i.test(draw);
+    if (isUrineTest(test) && !isTimedUrineTest(test) && !requiresSpecialSource) {
       return { key: 'sterile-urine-cup', label: 'Sterile cup', className: 'tube-urine-cup' };
     }
     if ((/\bcsf\b|cerebrospinal|\bsputum\b/i.test(String(test.specimenType || '')))
