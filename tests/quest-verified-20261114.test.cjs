@@ -24,7 +24,7 @@ test('Official Quest additions retain the established normalized schema, unique 
   assert.equal(new Set(tests.map(t => t.testCode)).size, 29);
   for (const entry of tests) {
     assert.match(entry.testCode, /^\d+$/);
-    assert.equal(entry.status, ['14577','91448','11290'].includes(entry.testCode) ? 'blocked' : 'active');
+    assert.equal(entry.status, ['91448','11290'].includes(entry.testCode) ? 'blocked' : 'active');
     for (const key of ['id','testName','specimenType','drawContainer','transportContainer','preferredVolume','minimumVolume','transportTemperature','stability','spin','specialInstructions','source']) {
       assert.ok(String(entry[key] || '').trim(), entry.testCode + ' missing ' + key);
     }
@@ -67,7 +67,7 @@ test('Verified addons precede the guarded directory-only fallback and applicatio
   const html = read('index.html');
   const positions = bundles.map(file => html.indexOf(file));
   const fallback = html.indexOf('quest-missing-directory-loader-20261114.js');
-  const app = html.indexOf('assets/js/app.js?v=12.95');
+  const app = html.indexOf('assets/js/app.js?v=');
   assert.ok(positions.every(pos => pos >= 0 && pos < fallback));
   assert.ok(fallback > 0 && fallback < app);
 });
@@ -90,10 +90,15 @@ test('Correct physical specimens and submission devices for Quest new codes', ()
   assert.equal(byCode.get('70028').drawContainer, 'Sterile cup');
   assert.equal(byCode.get('34194').additionalDrawRequirements[0].container, 'Sterile cup');
   assert.equal(byCode.get('4556').drawContainer, 'Sterile cup');
-  for (const code of ['14577','91448','11290']) {
+  const affirm = byCode.get('14577');
+  assert.equal(affirm.status, 'active');
+  assert.match(affirm.drawContainer, /BD Affirm VPIII ATTS/i);
+  assert.equal(affirm.drawContainer, affirm.transportContainer);
+  assert.match(affirm.specialInstructions, /72 hours/i);
+  for (const code of ['91448','11290']) {
     assert.equal(byCode.get(code).status, 'blocked');
-    assert.equal(byCode.get(code).drawContainer, 'Do Not Collect');
-    assert.equal(byCode.get(code).transportContainer, 'N/A');
+    assert.notEqual(byCode.get(code).drawContainer, 'Do Not Collect');
+    assert.notEqual(byCode.get(code).transportContainer, 'N/A');
   }
   assert.equal(byCode.get('4556').transportContainer, byCode.get('4556').drawContainer);
   assert.equal(byCode.get('16292').additionalDrawRequirements[0].count, 3);
