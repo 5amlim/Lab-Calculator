@@ -43,7 +43,14 @@
       if (event.target === dialog) settle(false);
     });
     dialog.addEventListener('close', () => {
-      if (active) settle(false);
+      // The native close event fires after the current dialog is fully closed.
+      // Wait for it before showing the next queued dialog.
+      if (active) {
+        const dismissed = active;
+        active = null;
+        dismissed.resolve(false);
+      }
+      pump();
     });
     return dialog;
   }
@@ -52,10 +59,10 @@
     if (!active) return;
     const item = active;
     active = null;
-    if (dialog?.open) dialog.close();
     item.resolve(Boolean(accepted));
-    // Only one modal is on top at a time, including repeated storage warnings.
-    Promise.resolve().then(pump);
+    // Wait for the close event before opening another queued action dialog.
+    if (dialog?.open) dialog.close();
+    else Promise.resolve().then(pump);
   }
 
   function pump() {
