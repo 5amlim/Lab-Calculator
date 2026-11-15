@@ -1936,6 +1936,14 @@
       .slice(0, 8);
   }
 
+  // A unique exact test code already identifies the requested assay.
+  // Keep the dropdown for partial codes, names, and duplicate exact codes.
+  function hasSingleExactCodeMatch(query, matches) {
+    const code = String(query || '').trim();
+    return /^\d+$/.test(code) &&
+      matches.filter(({ test }) => String(test.testCode || '').trim() === code).length === 1;
+  }
+
   function renderSuggestions(kind) {
     const input = kind === 'library' ? els.libraryFilter : els.searchInput;
     const panel = kind === 'library' ? els.librarySuggestions : els.batchSuggestions;
@@ -1945,7 +1953,10 @@
     const state = suggestionState[kind];
     state.items = matches.map(item => item.test);
     state.active = -1;
-    if (!matches.length) { closeSuggestions(kind); return; }
+    if (!matches.length || hasSingleExactCodeMatch(query, matches)) {
+      closeSuggestions(kind);
+      return;
+    }
     const label = kind === 'library' ? 'Matching Quest tests' : 'Matching tests for this line';
     panel.innerHTML = '<div class="calc-suggestion-heading">' + label + '</div>' +
       matches.map(({test}, index) => {
