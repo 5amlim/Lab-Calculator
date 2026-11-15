@@ -98,11 +98,11 @@
                 <span class="manual-guide-number" aria-hidden="true">4</span>
                 <strong>Confirm deletion</strong>
                 <div class="manual-mock-confirm" aria-hidden="true">
-                  <div class="manual-mock-confirm-heading">Browser confirmation</div>
+                  <div class="manual-mock-confirm-heading">Delete manually added test?</div>
                   <p>Delete the custom entry “Your manually added test”?</p>
-                  <div><span>Cancel</span><span class="manual-mock-ok">OK</span></div>
+                  <div><span>Cancel</span><span class="manual-mock-ok">Delete test</span></div>
                 </div>
-                <p>Select <b>OK</b> in the browser confirmation to remove the test.</p>
+                <p>In the in-page confirmation, select <b>Delete test</b>.</p>
               </div>
             </div>
             <p class="manual-guide-footnote">The delete option only appears when editing a manually added test. It removes that entry from this browser, not from anyone else's calculator.</p>
