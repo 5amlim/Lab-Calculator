@@ -179,7 +179,7 @@
     "specialInstructions": "REQUIRES PAIRED SERUM AND CSF collected within 24 hours of each other. Collect 2 mL serum (minimum 1 mL) from SST, clot/centrifuge and transfer to labeled serum vial; a separate 2 mL CSF (minimum 1 mL) in sterile leakproof container is mandatory. Label exact dates/times and source. DO NOT attempt an onsite CSF collection unless authorized; CSF is collected by a qualified procedural provider. Reject specimen pairs >24 hours apart.",
     "additionalDrawRequirements": [
       {
-        "container": "Sterile CSF Container",
+        "container": "Sterile Leak-Proof CSF Container",
         "specimenType": "CSF",
         "preferredVolume": "2 mL CSF",
         "minimumVolume": "1 mL CSF",
@@ -187,7 +187,7 @@
         "transportContainer": "Sterile Leak-Proof CSF Container",
         "transportTemperature": "Room Temperature",
         "spin": "No",
-        "specialInstructions": "Mandatory CSF, collected by qualified provider and paired with serum within 24 hours. Label specimen and collection time; keep physically separate."
+        "specialInstructions": "Mandatory CSF, collected by qualified procedural provider and paired with serum within 24 hours. Label specimen source/time; submit in the original sterile leak-proof CSF container, physically separate from serum."
       }
     ],
     "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/34194/lyme-disease-antibody-index-for-cns-infection?cc=MASTER"
@@ -198,15 +198,15 @@
     "testCode": "70028",
     "testName": "Lyme Disease Antibodies (IgG, IgM), Immunoblot, CSF",
     "specimenType": "CSF",
-    "drawContainer": "Sterile CSF Container",
+    "drawContainer": "Sterile Leak-Proof CSF Container",
     "transportContainer": "Sterile Leak-Proof CSF Container",
     "preferredVolume": "2 mL CSF",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
     "stability": "Room 7 days; refrigerated 14 days; frozen 30 days.",
     "spin": "No",
-    "specialInstructions": "CSF ONLY: collect 2 mL (minimum 0.5 mL) in plastic sterile leakproof CSF container, label source. CSF collection must be performed by an appropriately qualified procedural provider. Quest notes CSF immunoblot alone is not the preferred test for neuroborreliosis; use antibody index paired with serum if ordered. Do not substitute routine serum.",
+    "specialInstructions": "CSF ONLY: Submit in the original sterile leak-proof container. collect 2 mL (minimum 0.5 mL) in plastic sterile leakproof CSF container, label source. CSF collection must be performed by an appropriately qualified procedural provider. Quest notes CSF immunoblot alone is not the preferred test for neuroborreliosis; use antibody index paired with serum if ordered. Do not substitute routine serum.",
     "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/70028/lyme-disease-antibodies-igg-igm-immunoblot-csf?cc=MASTER"
   }
 ];
-const known=new Set(window.SEED_TESTS.map(t=>String(t.testCode||'').trim()));for(const test of additions){if(!known.has(test.testCode)){window.SEED_TESTS.push(test);known.add(test.testCode);}}})();
+for(const test of additions){const index=window.SEED_TESTS.findIndex(t=>String(t.testCode||'').trim()===test.testCode);if(index<0){window.SEED_TESTS.push(test);}else if(window.SEED_TESTS[index].status!=='blocked'){const existing=window.SEED_TESTS[index];window.SEED_TESTS[index]={...existing,...test,id:existing.id||test.id};}}})();
