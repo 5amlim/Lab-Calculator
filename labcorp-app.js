@@ -3720,6 +3720,7 @@
   }
 
   function requiresDedicatedSst(test) {
+    if (requiresDistinctDrawTransport(test)) return true;
     const text = `${test.drawContainer || ''} ${test.transportContainer || ''} ${test.specialInstructions || ''}`.toLowerCase();
     return /dedicated|own tube|separate (?:sst|gold|tube)|do not share|full tube|full sst|full gold|each tube|individual tube/.test(text)
       || explicitSstTubeCount(test) > 0;
@@ -4338,8 +4339,10 @@
     const containerGroups = new Map();
     tests.filter(isAdditionalPoolableBloodDraw).forEach(test => {
       const info = canonicalCollectionContainer(test);
-      if (!containerGroups.has(info.key)) containerGroups.set(info.key, { ...info, tests: [] });
-      containerGroups.get(info.key).tests.push(test);
+      const groupKey = requiresDistinctDrawTransport(test)
+        ? `${info.key}|required-draw|${test.id}` : info.key;
+      if (!containerGroups.has(groupKey)) containerGroups.set(groupKey, { ...info, key: groupKey, tests: [] });
+      containerGroups.get(groupKey).tests.push(test);
     });
 
     containerGroups.forEach(containerGroup => {
