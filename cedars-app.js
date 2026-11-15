@@ -147,7 +147,7 @@
       manualIndex = Math.max(manualIndex, number);
       knownManual.add(id);
       manual.push({
-        id, name, collect, submit, manual: true, hold: true, blockReason: 'Not performed at this site',
+        id, name, collect, submit, manual: true, hold: true, blockReason: 'Collection requirements pending review',
         code: field(record.code,40),
         category: types.includes(record.category) ? record.category : 'Other',
         specimen: field(record.specimen,120) || 'Verify',
@@ -435,7 +435,7 @@
       '<div class="subtext cedars-row-source">' + esc(rowSummary(test)) + '</div>' +
        (test.statReference2022 ? '<div class="cedars-stat-legacy-tag" title="Listed on the April 2022 Cedars outreach STAT reference. Verify current availability.">STAT ELIGIBLE</div>' : '') +
        (test.statLocalWorkflow ? '<div class="cedars-stat-local-tag" title="Local newborn STAT workflow; TAT begins when Cedars receives the specimen.">NEWBORN STAT · 2H AFTER RECEIPT</div>' : '') +
-      (test.hold ? '<span class="cedars-hold">' + esc(test.blockReason || 'Not performed at this site') + '</span>' : '') + '</td>' +
+      (test.hold ? '<span class="cedars-hold">' + esc(test.blockReason || 'Collection requirements pending review') + '</span>' : '') + '</td>' +
       '<td><div class="cedars-container-cell">' + photoArt(primaryCedarsMenuContainer(test), 'table') +
       '<div class="cedars-container-copy"><div class="cedars-specimen-name">' + esc(primaryCedarsMenuSpecimen(test)) + '</div>' +
       cedarsMenuContainerPath({...test, submit: primaryCedarsMenuContainer(test)}) + '</div></div></td>' +
@@ -448,7 +448,7 @@
       '</td></tr>';
     }).join('');
     if (!rows.length) $('cedarsLibraryBody').innerHTML =
-      '<tr><td colspan="5" class="cedars-empty">No matching tests. See Do Not Perform or contact Sam about new workflows.</td></tr>';
+      '<tr><td colspan="5" class="cedars-empty">No matching tests. Review collection requirements or contact Sam about new workflows.</td></tr>';
   }
 
   // Pool only the ORIGINAL urine collection CUP when collection methods are
@@ -640,11 +640,11 @@
   }
   function renderBlockedList() {
     const items = records().filter(test => test.hold).sort((a,b) => a.name.localeCompare(b.name));
-    $('cedarsBlockedButton').textContent = 'Do Not Perform list (' + items.length + ')';
+    $('cedarsBlockedButton').textContent = 'Special collection requirements (' + items.length + ')';
     $('cedarsBlockedList').innerHTML = items.map(test =>
       '<div class="cedars-blocked-item"><div class="cedars-blocked-item-info"><strong>' +
       esc(test.name) + '</strong><small>' + esc(test.code || 'Code not listed') +
-      ' · ' + esc(test.blockReason || 'Not performed at this site') + '</small></div>' +
+      ' · ' + esc(test.blockReason || 'Collection requirements pending review') + '</small></div>' +
       '<button type="button" class="mini-button edit" data-info="' + esc(test.id) +
       '">Details</button></div>').join('');
   }
@@ -668,7 +668,7 @@
       '</div>' +
       '<p class="cedars-illustration-note">Color-matched illustration based on supplied kit photos. Verify the actual manufacturer container before collecting.</p>' +
       '<div class="cedars-summary-notice"><strong>' +
-      (test.hold ? esc(test.blockReason || 'Not performed at this site') + '. Do not collect or submit until the workflow is approved.' :
+      (test.hold ? esc(test.blockReason || 'Collection requirements pending review') + '. Verify required supplies and receiving-lab acceptance before collecting or submitting.' :
         (test.statLocalWorkflow ? 'NEWBORN STAT: 1 full amber SST microtainer for TBIL + DBIL. PROTECT FROM LIGHT. Submit STAT and CALL APOLLO.' : '2023 reference only: verify the current Cedars/Lexicomp instructions.')) +
       '</strong></div>' +
       '<dl>' +
