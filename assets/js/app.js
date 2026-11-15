@@ -4007,6 +4007,9 @@
 
   function recommendedCollectionTubesForTest(test) {
     const explicit = explicitCollectionCount(test);
+    // Source capacity estimates apply only to blood draw tubes.
+    // Nonblood urine, stool, swab, CSF and sputum vessels use explicit counts.
+    if (collectionSpecimenGroupForTest(test) !== 'blood') return explicit;
     const exception = collectionTubeException(test);
     if (exception && exception.count) return Math.max(explicit, exception.count);
     // Lab-prescribed multiple distinct tubes/timepoints are authoritative.
