@@ -1,0 +1,32 @@
+/* Distinct from routine fasting and STAT badges; flags pregnancy-specific orders. */
+.gestational-warning-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 3px 3px 1px 7px;
+  padding: 3px 8px;
+  border: 1px solid #e9bb61;
+  border-radius: 999px;
+  background: #fff1ce;
+  color: #74480d;
+  font-size: 11px;
+  font-weight: 790;
+  line-height: 1.25;
+  white-space: normal;
+  vertical-align: middle;
+}
+.selected-card .gestational-warning-tag { margin: 7px 4px 0 0; }
+.print-test-name-stack .gestational-warning-tag { margin: 3px 0 0; font-size: 7pt; }
+@media print {
+  .gestational-warning-tag {
+    background: #fff4d7 !important;
+    color: #6b450e !important;
+    border-color: #e6bf6c !important;
+    padding: 2px 5px;
+    break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
