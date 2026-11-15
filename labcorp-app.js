@@ -6072,6 +6072,31 @@
 
   // Print-only grouping. A shared card is NOT permission to pool specimens.
   // Keep each required tube, code, label, and source allocation intact.
+  // Display-only grouping for independently collected timed aliquots.
+  // Never modify physical vial counts or allow different timepoints to pool.
+  function printTimedSpecimenGroupInfo(item) {
+    if (!item || item.originalTube || item.pooledSerumPlasmaTransport ||
+        item.printAllocationNote || !Array.isArray(item.tests) || item.tests.length !== 1 ||
+        !item.label || !item.className) return null;
+    const test = item.tests[0];
+    const labeling = String(test.specialLabeling || '').trim();
+    const timepoint = labeling.split(/\s+[-–]\s+|\s*:\s*/)[0].trim();
+    if (!/^(?:fasting|baseline|pre[- ]?(?:dose|load|glucose)|post[- ]?dose|\d+(?:\.\d+)?\s*[- ]?(?:hours?|hrs?|h|minutes?|mins?))$/i.test(timepoint)) return null;
+    const sourceId = String(test.sourceTestId || test.id || '').trim();
+    if (!sourceId || !String(test.testCode || '').trim()) return null;
+    const source = canonicalCollectionContainer(test);
+    if (!source || !source.key) return null;
+    return {
+      timepoint,
+      key: ['timed-separate-aliquots', sourceId, normalizeSearch(String(test.testCode)),
+        normalizeSearch(String(item.label)), String(item.className),
+        normalizeSearch(source.key), normalizeSearch(normalizeSpecimenType(test.specimenType)),
+        normalizeSearch(String(test.transportContainer || '')),
+        normalizeSearch(String(test.transportTemperature || '')),
+        normalizeSearch(String(test.spin || ''))].join('||')
+    };
+  }
+
   function printContainerPresentationKey(item) {
     if (!item || !(item.count > 0) || !item.className || !item.label
       || item.printAllocationNote || item.pooledSerumPlasmaTransport
@@ -6080,6 +6105,8 @@
     // Existing SST pooling and deliberately dedicated specimens are kept apart.
     if (/^(?:sst-spun|pooled-original\|frozen-transport\||vitamin-profile-|081162-|007010-|labcorp-op-)/.test(id)
       || /\|dedicated-|\|separate\|/.test(id)) return '';
+    const timed = printTimedSpecimenGroupInfo(item);
+    if (timed) return timed.key;
     const cls = String(item.className);
     const label = normalizeSearch(item.label);
     if (!label || /verify|unknown|unspecified/.test(label)) return '';
@@ -6128,15 +6155,22 @@
           sourceOverrides.set(key, (sourceOverrides.get(key) || 0) + count);
         });
       });
+      const timedInfo = parts.map(printTimedSpecimenGroupInfo);
+      const distinctTimepoints = timedInfo.every(Boolean) &&
+        new Set(timedInfo.map(info => info.timepoint.toLowerCase())).size === parts.length;
       replacement.set(first, {
         ...first,
         count: parts.reduce((total, part) => total + part.count, 0),
         tests: uniqueTests(parts.flatMap(part => part.tests || [])),
         sourceCountOverrides: sourceOverrides.size ? sourceOverrides : first.sourceCountOverrides,
         printVisualGroupParts: parts,
-        printAllocationNote: 'Separate containers: ' + parts.map(part =>
-          part.count + ' for ' + uniqueTests(part.tests).map(displayCode).join(', ')
-        ).join(' · ')
+        printAllocationNote: distinctTimepoints
+          ? 'Keep separate, do not pool: ' + parts.map((part, index) =>
+              timedInfo[index].timepoint + ' × ' + part.count
+            ).join(' · ') + ' · Label each container with its collection time'
+          : 'Separate containers: ' + parts.map(part =>
+              part.count + ' for ' + uniqueTests(part.tests).map(displayCode).join(', ')
+            ).join(' · ')
       });
       parts.slice(1).forEach(part => replacement.set(part, null));
     });
