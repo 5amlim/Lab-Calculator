@@ -74,6 +74,17 @@ const profiles=[
     "fast": true
   },
   {
+    "code": "23475",
+    "name": "Glucose Tolerance Test, 3 Specimens (75g)",
+    "dose": 75,
+    "times": [
+      "Fasting",
+      "1-hour",
+      "2-hour"
+    ],
+    "fast": true
+  },
+  {
     "code": "18927",
     "name": "Glucose Tolerance Test, Gestational, 3 Specimens (75g)",
     "dose": 75,
@@ -107,6 +118,7 @@ const urls={
   "19834":"https://testdirectory.questdiagnostics.com/test/test-detail/19834/?cc=MASTER",
   "16292":"https://testdirectory.questdiagnostics.com/test/test-detail/16292/?cc=MASTER",
   "35181":"https://testdirectory.questdiagnostics.com/test/test-detail/35181/?cc=MASTER",
+  "23475":"https://testdirectory.questdiagnostics.com/test/test-detail/23475/?cc=MASTER",
   "18927":"https://testdirectory.questdiagnostics.com/test/test-detail/18927/?cc=MASTER",
   "6745":"https://testdirectory.questdiagnostics.com/test/test-detail/6745/?cc=MASTER"
 };
