@@ -5311,3 +5311,27 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   .additional-container-card { padding: 11px; }
   .additional-container-actions { align-items: flex-start; }
 }
+
+
+/* Quest sterile-cup specimen badges: distinguish fluid sources without new stock types. */
+.print-collect-chip-specimen.specimen-fluid,
+.print-collection-specimen-badge.specimen-fluid,
+.print-sheet .print-submit-item-title > .print-bag-specimen-badge.specimen-fluid {
+  background: #dff1f2 !important;
+  border-color: #92c3c5 !important;
+  color: #255a61 !important;
+}
+.print-collect-chip-specimen.specimen-csf,
+.print-collection-specimen-badge.specimen-csf,
+.print-sheet .print-submit-item-title > .print-bag-specimen-badge.specimen-csf {
+  background: #eae4f8 !important;
+  border-color: #b8a9d6 !important;
+  color: #604a80 !important;
+}
+.print-collect-chip-specimen.specimen-sputum,
+.print-collection-specimen-badge.specimen-sputum,
+.print-sheet .print-submit-item-title > .print-bag-specimen-badge.specimen-sputum {
+  background: #e3f0df !important;
+  border-color: #a7caa1 !important;
+  color: #3d6640 !important;
+}
