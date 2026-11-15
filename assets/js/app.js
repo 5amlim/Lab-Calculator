@@ -433,6 +433,33 @@
     return { customTests: Array.from(custom.values()), overrides: [] };
   }
 
+  function applyLocalSupplyPolicy(test) {
+    if (!test || test.status === 'reference' || test.status === 'blocked') return test;
+    const code = String(test.testCode || '').trim();
+    const mandatory = [test.drawContainer, test.transportContainer,
+      ...(test.additionalDrawRequirements || []).flatMap(draw => [draw.container, draw.transportContainer])
+    ].join(' ');
+    const specialKit = {
+      '11290': 'InSure FOBT brush/card kit is not stocked. An ordinary sterile stool cup is NOT accepted for this Quest test.',
+      '91448': 'Green-label Aptima Pap-vial transfer tube is not stocked. Other Aptima colors or an original Pap vial must not be substituted without an approved Quest-specific alternate workflow.',
+      '14577': 'BD AFFIRM VPIII ATTS swab kit is not confirmed in onsite inventory; do not use a generic ESwab or Aptima swab.'
+    };
+    const acid = /6\s*N\s*HCl|acid[- ]preserv(?:ed|ative)?\s+urine|HCl[- ]preserv/i.test(mandatory);
+    const green = /aptima[^,;]{0,100}(?:green[- ]label|green label)|(?:green[- ]label|green label)[^,;]{0,100}aptima/i.test(mandatory);
+    const insure = /in\s*sure\s*(?:fo?bt|test)?\s*(?:card|kit)|\binsure\b/i.test(mandatory);
+    const affirm = /bd\s*affirm\s*vp|affirm\s*vpiii/i.test(mandatory);
+    const reason = specialKit[code] || (acid
+      ? 'Acid-preserved urine collection devices are not used onsite. Verify a separately documented unpreserved Quest alternative before collecting.'
+      : green ? 'Green-label Aptima transfer device is not stocked onsite; verify another Quest-approved test-specific workflow.'
+      : insure ? 'Dedicated InSure FOBT card is not stocked; do not use a stool cup as a substitute.'
+      : affirm ? 'Special BD AFFIRM ATTS kit has not been confirmed onsite; no substitution with generic swabs.'
+      : '');
+    if (!reason) return test;
+    return {...test, status: 'blocked', drawContainer: 'Do Not Collect',
+      alternativeContainer: '', transportContainer: 'N/A', additionalDrawRequirements: [],
+      specialInstructions: 'DO NOT PERFORM ONSITE. ' + reason};
+  }
+
   function applyUserState(state) {
     const builtIns = seedDatabase.map(test => ({ ...test }));
     const byId = new Map(builtIns.map((test, index) => [test.id, index]));
@@ -499,7 +526,9 @@
 
     const customTests = (state.customTests || []).map(normalizeRecord);
     // Retired Quest codes must not reappear through legacy user edits or saved custom tests.
-    return [...customTests, ...builtIns].filter(test => !RETIRED_TEST_CODES.has(test.testCode));
+    return [...customTests, ...builtIns]
+      .filter(test => !RETIRED_TEST_CODES.has(test.testCode))
+      .map(applyLocalSupplyPolicy);
   }
 
   function userStateFromDatabase() {
@@ -1049,6 +1078,10 @@
     const text = String(value || '').trim();
     // Local standard: generic urine cups/containers are the existing Sterile cup.
     // Keep truly special devices (24-hour jugs, preservative tubes, trace-metal containers, Aptima, etc.) distinct.
+    // The same empty leak-proof sterile cup is stocked for CSF, sputum, stool, and urine.
+    // This is container STOCK equivalence, never a claim the specimens can mix.
+    if (/^sterile\\s+(?:leak[- ]?proof\\s+)?(?:screw[- ]?cap\\s+)?(?:plastic\\s+)?(?:csf|sputum|stool)\\s+(?:cup|container)$/i.test(text)
+      || /^sterile\\s+leak[- ]?proof\\s+screw[- ]?cap\\s+(?:csf|sputum)\\s+container$/i.test(text)) return 'Sterile cup';
     if (/^(?:sterile\s*,?\s*)?(?:plastic\s+)?urine\s+(?:collection\s+)?(?:cup|container)$/i.test(text)) {
       return 'Sterile cup';
     }
@@ -2842,9 +2875,12 @@
       const urineCup = source.className === 'tube-urine-cup' && isUrineTest(test);
       const dedicated = urineCup && requiresSeparateUrineCollection(test);
       const shareable = urineCup && isShareableUrineCupTest(test);
-      const key = urineCup
-        ? `Urine|${urineCollectionType(test).key}|${shareable ? 'shared' : `separate|${test.sourceTestId || test.id}|${test.isStat ? 'stat' : 'routine'}`}`
-        : `${test.isStat ? 'STAT' : 'Routine'}|${test.drawContainer || 'Verify Official Instructions'}`;
+      const stockSterileCup = source.className === 'tube-urine-cup' && /^sterile cup$/i.test(String(source.label || ''));
+      const key = stockSterileCup
+        ? `Stock|Sterile cup|${test.isStat ? 'STAT' : 'Routine'}`
+        : urineCup
+          ? `Urine|${urineCollectionType(test).key}|${shareable ? 'shared' : `separate|${test.sourceTestId || test.id}|${test.isStat ? 'stat' : 'routine'}`}`
+          : `${test.isStat ? 'STAT' : 'Routine'}|${test.drawContainer || 'Verify Official Instructions'}`;
       if (!groups.has(key)) groups.set(key, { container: urineCup ? source.label : test.drawContainer || 'Verify Official Instructions', isStat: Boolean(test.isStat), urineCup, tests: [], specimenTypes: new Set(), minimumMl: 0, volumeCount: 0, hasStat: false, hasRoutine: false });
       const group = groups.get(key);
       group.tests.push(test);
@@ -4216,6 +4252,11 @@
     if (isUrineTest(test) && !isTimedUrineTest(test)) {
       return { key: 'sterile-urine-cup', label: 'Sterile cup', className: 'tube-urine-cup' };
     }
+    if ((/\\bcsf\\b|cerebrospinal|\\bsputum\\b/i.test(String(test.specimenType || '')))
+      && (/^sterile cup$/i.test(draw)
+        || /^sterile.*(?:csf|sputum).*(?:cup|container)$/i.test(draw))) {
+      return { key: 'sterile-cup-stock', label: 'Sterile cup', className: 'tube-urine-cup' };
+    }
 
     const cls = tubeClass(draw);
     const labels = {
@@ -4371,6 +4412,11 @@
   }
 
   function collectionSpecimenGroupForTest(test) {
+    // Separate specimen identity from physical cup inventory. Sputum and CSF
+    // can use the same cup PRODUCT as urine/stool but NEVER the same filled cup.
+    const exact = String(test.specimenType || '').toLowerCase();
+    if (/\\bcsf\\b|cerebrospinal/.test(exact)) return 'csf';
+    if (/\\bsputum\\b/.test(exact)) return 'sputum';
     // Classify by the actual required specimen, not the test title. Names such
     // as Maple Syrup Urine Disease and Thiopurine are BLOOD tests; relying on
     // substrings in the title incorrectly grouped them with urine specimens.
@@ -4744,6 +4790,29 @@
       target.detail = Array.from(new Set(details)).join(' · ');
     });
 
+    // One inventory item for all empty sterile cups. Counts are SUMMED across
+    // distinct specimen types and dedicated collections. No cross-specimen
+    // pooling occurs: CSF, sputum, stool and urine keep separate source records,
+    // labels and final transport bags.
+    const sterileItems = mergedItems.filter(item =>
+      item.className === 'tube-urine-cup' && /^sterile cup$/i.test(String(item.label || '')));
+    if (sterileItems.length > 1) {
+      const breakdown = new Map();
+      sterileItems.forEach(item => {
+        const group = collectionMergeSubtypeForItem(item);
+        breakdown.set(group, (breakdown.get(group) || 0) + Number(item.count || 0));
+      });
+      const combined = {
+        ...sterileItems[0],
+        key: 'sterile-cup-stock|' + (isStat ? 'stat' : 'routine'),
+        count: sterileItems.reduce((sum, item) => sum + Number(item.count || 0), 0),
+        tests: uniqueTests(sterileItems.flatMap(item => item.tests || [])),
+        detail: 'Separate labeled Sterile cup for each specimen source. NEVER mix urine, stool, CSF and sputum. ' +
+          Array.from(breakdown, ([type, count]) => type + ': ' + count).join(' · ')
+      };
+      return [...mergedItems.filter(item => !sterileItems.includes(item)), combined]
+        .map(item => ({ ...item, isStat }));
+    }
     return mergedItems.map(item => ({ ...item, isStat }));
   }
 
@@ -4960,6 +5029,8 @@
     if (isGrayFluoridePlasmaTransfer(test)) return false;
     const draw = String(test.drawContainer || '').trim();
     const transport = finalTransportContainer(test);
+    // A single sterile cup submitted unchanged is ONE physical device.
+    if (/^Sterile cup$/i.test(draw) && /^Sterile cup$/i.test(transport)) return true;
     const combined = `${transport} ${test.specialInstructions || ''}`.toLowerCase();
     // Ordinary stool is first collected into a sterile cup, and then moved to
     // Total-Fix. The preservative vial is a transport container, not the
