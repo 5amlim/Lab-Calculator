@@ -93,12 +93,12 @@ function checkSingleCard(api,t,expected,lab){
   }
 }
 
-test('Quest nine verified gray-plasma protocols use one visual card without combining any timepoints',async()=>{
+test('Quest ten verified gray-plasma protocols use one visual card without combining any timepoints',async()=>{
   const api=await openCalc('assets/js/app.js',
     ['assets/js/quest-gray-plasma-processing-20261114.js'],
     [timedOriginal,timedPlasma,routineSerum('99103'),routineSerum('99104')]);
   const expected={8477:1,19833:1,484:1,1430:2,19834:2,
-    16292:4,35181:2,18927:3,6745:4};
+    16292:4,35181:2,23475:3,18927:3,6745:4};
   for(const [code,n] of Object.entries(expected)){
     const t=api.database.find(t=>t.testCode===code);
     assert.ok(t,'Quest test '+code);
@@ -107,6 +107,18 @@ test('Quest nine verified gray-plasma protocols use one visual card without comb
   for(const code of ['99101','99102']){
     checkSingleCard(api,api.database.find(t=>t.testCode===code),2,'Quest synthetic');
   }
+  const specialty=await openCalc('assets/js/app.js',
+    ['assets/js/quest-directory-expansion-20261114.js',
+      'assets/js/quest-gray-plasma-processing-20261114.js']);
+  const proinsulin=specialty.database.find(t=>t.testCode==='15853');
+  assert.ok(proinsulin,'Quest 15853 present');
+  checkSingleCard(specialty,proinsulin,5,'Quest five timed frozen serum specimens');
+  const frozenPlan=plan(specialty,[proinsulin]);
+  assert.equal(frozenPlan.bags.length,1);
+  assert.ok(frozenPlan.submitted.every(x=>x.className==='tube-frozen-purple'));
+  assert.equal(new Set(frozenPlan.submitted.map(x=>x.key)).size,5);
+  assert.match(frozenPlan.displayed[0].printAllocationNote,/Timed specimen 5/);
+
   const combined=plan(api,['1430','19834'].map(code=>api.database.find(t=>t.testCode===code)));
   assert.equal(combined.submittedCount,4);
   assert.equal(combined.displayedCount,4);
