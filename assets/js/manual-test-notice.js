@@ -23,7 +23,7 @@
         <div>
           <div class="manual-notice-kicker">BEFORE YOU ADD A TEST</div>
           <h2 id="manualTestNoticeTitle">Saved in this browser only</h2>
-          <p id="manualTestNoticeDescription">Other staff and devices cannot see this test. Clearing browser data may remove it.</p>
+          <p id="manualTestNoticeDescription">This manually added test is not available to other staff or on other devices. Clearing browser data may remove it.</p>
         </div>
       </div>
       <div class="manual-notice-check">
