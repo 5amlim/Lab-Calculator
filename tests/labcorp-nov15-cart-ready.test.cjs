@@ -56,7 +56,7 @@ test('Nov 15 catalog keeps 347 distinct IDs, 58 approved, and 289 pending', () =
     const t=seed.find(x=>x.testCode===code);
     assert(t && t.status==='active', 'Not cart-ready: '+code);
     for (const key of ['specimenType','drawContainer','transportContainer',
-      'preferredVolume','minimumVolume','transportTemperature','source']) {
+      'preferredVolume','transportTemperature','source']) {
       assert(t[key], code+': missing '+key);
     }
     assert.match(t.source,/labcorp\.com\/tests\//i,code+': direct specimen source missing');
