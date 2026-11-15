@@ -3802,6 +3802,7 @@
   }
 
   function requiresDedicatedSst(test) {
+    if (requiresDistinctDrawTransport(test)) return true;
     const text = `${test.drawContainer || ''} ${test.transportContainer || ''} ${test.specialInstructions || ''}`.toLowerCase();
     return /dedicated|own tube|separate (?:sst|gold|tube)|do not share|full tube|full sst|full gold|each tube|individual tube/.test(text)
       || explicitSstTubeCount(test) > 0;
@@ -4447,7 +4448,9 @@
       const info = canonicalCollectionContainer(test);
       const groupKey = isGrayFluoridePlasmaTransfer(test)
         ? `${info.key}|timed-gray-plasma|${test.id}`
-        : /\bcord\b/i.test(test.specimenType || '') ? `${info.key}|cord|${test.sourceTestId || test.id}` : info.key;
+        : requiresDistinctDrawTransport(test)
+          ? `${info.key}|required-draw|${test.id}`
+          : /\bcord\b/i.test(test.specimenType || '') ? `${info.key}|cord|${test.sourceTestId || test.id}` : info.key;
       if (!containerGroups.has(groupKey)) containerGroups.set(groupKey, { ...info, key: groupKey, tests: [] });
       containerGroups.get(groupKey).tests.push(test);
     });
