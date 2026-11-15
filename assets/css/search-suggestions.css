@@ -90,32 +90,52 @@
     .calc-suggestion-copy strong { font-size: 13px; }
   }
 
-  /* Muted inline labels sit above the input but never become editable text. */
+  /* Ghost text is an independent visual layer, never part of the input flow. */
   .batch-inline-ghost {
     position: absolute;
     box-sizing: border-box;
     z-index: 1;
     overflow: hidden;
-    color: transparent;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-    word-break: normal;
     pointer-events: none;
     user-select: none;
     -webkit-user-select: none;
+  }
+  .batch-inline-ghost-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
   }
   .batch-inline-ghost-label {
     position: absolute;
     display: block;
+    color: #82919e;
+    font: inherit;
+    line-height: inherit;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    color: #81909b;
-    font: inherit;
-    margin-left: .35em;
     pointer-events: none;
     user-select: none;
     -webkit-user-select: none;
   }
+  .batch-inline-ghost-measurer {
+    position: absolute;
+    z-index: -1;
+    left: -100000px;
+    top: 0;
+    visibility: hidden;
+    pointer-events: none;
+    box-sizing: content-box;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+  .batch-inline-ghost-measured-line {
+    min-height: 1em;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
 }
 

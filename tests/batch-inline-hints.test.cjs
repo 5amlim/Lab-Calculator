@@ -39,68 +39,70 @@ test('hints require a unique, active, exact code or name', () => {
   assert.equal(catalog.length, 8);
 });
 
-test('multiline hints never modify the input and refresh when text changes', () => {
+test('multiline hints keep one visual row per input row and never modify the value', () => {
   const listeners = {};
-  const root = { insertBefore(el) { this.mirror = el; } };
+  const root = {
+    insertBefore(element) { this.overlay = element; },
+    appendChild(element) { this.measurer = element; },
+  };
   function element(tag) {
-    return {
-      tag, style: {}, attrs: {}, children: [], className: '', scrollTop: 0,
-      setAttribute(k, v) { this.attrs[k] = v; },
+    const node = {
+      tag, style: {}, children: [], className: '', textContent: '', attrs: {},
+      setAttribute(key, val) { this.attrs[key] = val; },
       appendChild(child) { this.children.push(child); },
       replaceChildren() { this.children = []; },
-      getBoundingClientRect() { return { left: 110, right: 500, top: 10, bottom: 200 }; },
+      getBoundingClientRect() {
+        if (this.className === 'batch-inline-ghost-measured-line') {
+          const width = parseFloat(root.measurer.style.width) || 320;
+          return { height: 24 * Math.max(1, Math.ceil(this.textContent.length * 8 / width)) };
+        }
+        return { height: 120 };
+      },
     };
+    if (tag === 'canvas') {
+      node.getContext = () => ({ measureText: (value) => ({ width: value.length * 8 }) });
+    }
+    return node;
   }
   const textarea = {
     parentElement: root, value: '809\nSed Rate\nunknown\n',
-    offsetWidth: 390, clientWidth: 388, offsetHeight: 120, offsetLeft: 0, offsetTop: 0,
-    scrollTop: 0, scrollLeft: 0,
+    offsetWidth: 390, clientWidth: 388, offsetHeight: 120,
+    offsetLeft: 0, offsetTop: 0, scrollTop: 0,
     addEventListener(type, fn) { listeners[type] = fn; },
+  };
+  const style = {
+    borderTopWidth: '1px', borderLeftWidth: '1px', borderRightWidth: '1px',
+    paddingLeft: '12px', paddingRight: '12px', paddingTop: '12px',
+    lineHeight: '24px', fontSize: '16px', fontFamily: 'Arial',
+    fontWeight: '400', fontStyle: 'normal', letterSpacing: 'normal',
+    wordSpacing: 'normal', tabSize: '8',
   };
   const context = {
     window: {
-      addEventListener() {},
-      getComputedStyle() {
-        return { borderLeftWidth: '1px', borderRightWidth: '1px',
-          paddingRight: '12px', marginLeft: '7px' };
-      },
+      addEventListener() {}, getComputedStyle: () => style,
       ResizeObserver: class { observe() {} },
     },
-    document: {
-      createElement: element,
-      createTextNode(text) { return { text, length: text.length, type: 'text' }; },
-      createRange() {
-        let node;
-        return {
-          setStart(textNode, offset) { node = textNode; assert.equal(offset, textNode.length); },
-          collapse() {},
-          getBoundingClientRect() {
-            const textNodes = root.mirror.children.filter(item => item.type === 'text');
-            const index = textNodes.indexOf(node);
-            const previousText = textNodes.slice(0, index).map(item => item.text).join('');
-            const row = previousText.split('\n').length - 1;
-            return { left: 125 + node.length * 9, top: 18 + row * 24, height: 24 };
-          },
-        };
-      },
-    },
+    document: { createElement: element },
   };
   const { mount, resolveExact } = loadHints(context);
   mount(textarea, query => resolveExact(query, catalog, normalize));
+  const labels = () => root.overlay.children[0].children;
   assert.equal(textarea.value, '809\nSed Rate\nunknown\n');
-  assert.equal(root.mirror.attrs['aria-hidden'], 'true');
-  const visibleLabels = () => root.mirror.children
-    .filter(n => n.className === 'batch-inline-ghost-label');
-  const labels = () => visibleLabels().map(n => n.textContent);
-  assert.deepEqual(labels(), ['• Sed Rate', '• 809']);
-  assert.deepEqual(visibleLabels().map(n => n.style.top), ['8px', '32px']);
-  assert.equal(root.mirror.children.filter(n => n.type === 'text').map(n => n.text).join(''),
-    textarea.value, 'the mirror text must preserve the original line breaks');
+  assert.equal(root.overlay.attrs['aria-hidden'], 'true');
+  assert.deepEqual(labels().map(node => node.textContent), ['• Sed Rate', '• 809']);
+  assert.deepEqual(labels().map(node => node.style.top), ['13px', '37px']);
   textarea.value = '809\nGlycated\n';
   listeners.input();
   assert.equal(textarea.value, '809\nGlycated\n');
-  assert.deepEqual(labels(), ['• Sed Rate']);
+  assert.deepEqual(labels().map(node => node.textContent), ['• Sed Rate']);
+
+  textarea.value = '809\n' + 'A'.repeat(200) + '\n809';
+  listeners.input();
+  assert.equal(labels().length, 2);
+  assert.ok(parseFloat(labels()[1].style.top) > 4 * 24,
+    'wrapped text above a match must not put the hint on the wrong row');
+
   textarea.scrollTop = 20;
   listeners.scroll();
-  assert.equal(root.mirror.scrollTop, 20);
+  assert.equal(root.overlay.children[0].style.transform, 'translateY(-20px)');
 });
