@@ -49,6 +49,9 @@ test('Special collection requirements stay flagged while Affirm VPIII remains se
  assert.match(affirm.transportContainer,/Affirm VPIII ATTS/i);
  assert.match(affirm.specialInstructions,/72 hours/i);
  assert.doesNotMatch(affirm.drawContainer,/Do Not Collect/i);
+ assert.equal(affirm.drawContainer,affirm.transportContainer,'Affirm uses its original kit for submission');
+ const affirmPlan=plan(h,[affirm]);
+ assert.equal(affirmPlan.submission.reduce((n,item)=>n+item.count,0),1,'one Affirm collection kit is submitted');
  for(const code of ['523','39625','1648','14962','11362']){
    assert.equal(byCode.get(code)?.status,'active',code);
  }
