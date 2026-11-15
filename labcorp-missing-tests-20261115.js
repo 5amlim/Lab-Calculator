@@ -1,0 +1,149 @@
+/* Labcorp 2026-11-15 missing-code audit: 347 code/name catalog records.
+ * Only directly reviewed tests below are active with specimen instructions.
+ * All other candidates stay pending and cannot enter collection calculations.
+ * The 40 older-syllabus leads are intentionally excluded.
+ */
+(() => {
+  'use strict';
+  const rows = "520149|ANCA Profile (RDL)\n520059|Anti-dsDNA Ab by Farr, RIA\n520134|Anti-Fodrin Antibodies, IgG and IgA (RDL)\n520057|Anti-HMGCR Ab (RDL)\n504400|Antiphospholipid Syndrome (APS), Comprehensive\n006981|Autoimmune Profile\n520340|Connective Tissue Disease (CTD) Cascade\n505715|Emicizumab Activity\n409500|Familial Hypercholesterolemia Lipid Profile With Interpretation\n520194|Glomerulonephritis (GNP) Profile (RDL)\n500140|Heart Disease and Stroke Risk Profile\n162045|Inflammatory Bowel Disease (IBD) Expanded Profile\n480260|Leukemia/Lymphoma Phenotyping, Flow Cytometry\n505770|Lupus Monitor Profile\n520555|Lupus Prognostic Profile\n336572|Menorrhagia Profile\n520298|RA Profile (RF, Anti-CCP) With Reflex SeroNeg RAdx4\n520293|Vasculitis Profile (RDL)\n005355|Crystals, Synovial/Joint Fluid\n160721|Antipancreatic Islet Cells\n140080|Galectin-3 With B-type Natriuretic Peptide\n100768|Glomerular Filtration Rate, Estimated (eGFR)\n335884|Metabolic Syndrome Profile\n116004|Abnormal Bleeding Profile\n117921|ADAMTS13 Activity Reflex Profile\n117915|ADAMTS13 Antibody\n164535|Antiphospholipid Syndrome (APS) Assessment\n117085|Apixaban\n117330|aPTT Mixing Studies\n117320|AspirinWorks® (11-Dehydro Thromboxane B2)\n117700|Bleeding With Normal aPTT/PT\n117410|Coagulation Activation Profile\n117250|Contact Factor Evaluation Profile\n164044|COVID-19 Induced Thrombotic Microangiopathy Profile\n184080|DDAVP (Desmopressin) Challenge Profile\n005200|Dilute Prothrombin Time\n116012|Disseminated Intravascular Coagulation (DIC) Profile\n117853|Disseminated Intravascular Coagulation (DIC) Profile, Comprehensive Plus\n086145|Euglobulin Clot Lysis Time (ECLT)\n500041|Extrinsic Pathway Coagulation Factor Profile\n511162|Factor II (Prothrombin) G20210A Mutation Analysis\n086231|Factor II Activity\n086233|Factor II Activity With Inhibitor Reflex\n086300|Factor IX Activity With Inhibitor Reflex\n086310|Factor IX Antigen\n086249|Factor V Activity\n086250|Factor V Activity With Inhibitor Reflex\n800599|Factor VII Activity\n086252|Factor VII Activity With Inhibitor Reflex\n086270|Factor VII Antigen\n086010|Factor VIII Activity With Inhibitor Reflex\n086295|Factor VIII Activity, Chromogenic\n086015|Factor VIII Antigen\n504722|Factor VIII Chromogenic Bethesda Profile, for Patients on Emicizumab\n086306|Factor X Activity\n117365|Factor X Activity With Inhibitor Reflex\n117904|Factor X, Chromogenic\n086302|Factor XI Activity With Inhibitor Reflex\n086304|Factor XII Activity With Inhibitor Reflex\n086330|Factor XIII\n115402|Fibrinogen Degradation Products (FDP), Plasma\n336624|Fibrinogen Evaluation Profile\n117310|Fibrinolysis Profile\n150018|Heparin-dependent Platelet Antibody (Serotonin Release Assay)\n117838|Hexagonal Phase Phospholipid (HPP)\n117359|High Molecular Weight Kininogen (HMWK)\n117985|Phosphatidylserine/Prothrombin Antibody (PS/PT), IgG and IgM\n117713|Plasminogen Activity\n117340|Plasminogen Antigen\n117150|Platelet Antibody Profile\n086075|Prekallikrein (Fletcher Factor)\n117796|Prolonged Activated Partial Thromboplastin Time (aPTT)\n117866|Prolonged Protime Profile\n086275|Protein C Antigen:Factor VII Antigen Ratio\n117230|Prothrombin Fragment 1+2\n117028|Prothrombin Time (PT) Mixing Study\n117180|Reptilase Time\n117050|Rivaroxaban\n117170|Thrombin Mixing Study\n015230|Thrombin Time\n117155|Thrombotic Risk Assessment\n117145|Thrombotic Risk, Acquired\n117185|Thrombotic Risk, Congenital (Extended)\n164509|von Willebrand Factor (vWF) Activity\n086280|von Willebrand Factor (vWF) Antigen\n117169|von Willebrand Factor (vWF) Collagen-Binding Activity (CBA)\n117245|von Willebrand Factor (vWF) Multimers\n086284|von Willebrand Factor Disease (vWD) Reflex Profile\n117739|α2-Antiplasmin\n163915|β2-Glycoprotein 1 Antibodies, IgA, IgG, IgM\n163882|β2-Glycoprotein 1 Antibodies, IgG\n163002|β2-Glycoprotein 1 Antibodies, IgG, IgM\n706705|Amiodarone (Cordarone), Serum\n791194|Comprehensive Drug Profile, urine\n705540|Drug Screen Only 18, Urine, Medication Assisted Treatment (MAT)\n500550|11-Deoxycortisol\n500171|11-Deoxycortisol, LC/MS-MS (Endocrine Sciences)\n504677|11-Hydroxyandrostenedione\n504680|11-Hydroxytestosterone\n504674|11-Ketotestosterone\n140715|17-Hydroxypregnenolone, Mass Spectrometry (Endocrine Sciences)\n070624|17-OH Progesterone, LC/MS, ACTH Stimulation\n500778|18-Hydroxycorticosterone, Serum (Endocrine Sciences)\n504045|21-Deoxycortisol, LC/MS (Endocrine Sciences)\n504510|5‐HIAA, Plasma\n504805|Adrenal 21-Hydroxylase Autoantibodies (Endocrine Sciences)\n503198|Adrenal Androgen Profile\n500471|Adrenocorticotropic Hormone (ACTH)\n500467|Aldosterone, LC/MS (Endocrine Sciences)\n502682|Alpha Reductase Profile, 5-\n500881|Androstanediol Glucuronide (Endocrine Sciences)\n140758|Androstenedione, ACTH Stimulation\n500152|Androstenedione, LC/MS, Serum or Plasma (Endocrine Sciences)\n504005|Androsterone\n503830|C-Peptide, Ultrasensitive (Endocrine Sciences)\n501878|Calcium\n500837|Catecholamine Test Group, Urine\n500520|Catecholamines, Fractionated, Urine (Includes Creatinine)\n500473|Catecholamines, Total, Urine (Includes Creatinine)\n500176|Congenital Adrenal Hyperplasia (CAH) Pediatric Profile 2, 11-OH Deficiency Screen\n502350|Congenital Adrenal Hyperplasia (CAH) Pediatric Profile 3, 17-OH-Deficiency Screen\n501023|Congenital Adrenal Hyperplasia (CAH) Pediatric Profile 4, 3B-HSD Deficiency Screen\n502348|Congenital Adrenal Hyperplasia (CAH) Pediatric Profile 5, 17, 20 Desmolase Deficiency\n501568|Congenital Adrenal Hyperplasia (CAH) Pediatric Profile One−21-Hydroxylase Deficiency Screen (Endocrine Sciences)\n500166|Congenital Adrenal Hyperplasia (CAH) Pediatric Profile Seven−Treatment (Endocrine Sciences)\n500175|Congenital Adrenal Hyperplasia (CAH) Pediatric Profile Six−Comprehensive Screen (Endocrine Sciences)\n503192|Congenital Adrenal Hyperplasia (CAH) Test Group I Adult (Late-onset)\n503194|Congenital Adrenal Hyperplasia (CAH) Test Group II Adult (Late-onset)\n501072|Congenital Adrenal Hyperplasia (CAH) Test Group III Adult (Late-onset)\n500130|Corticosteroid-binding Globulin (CBG)\n500135|Corticosterone (Endocrine Sciences)\n140761|Cortisol, ACTH Stimulation\n504020|Cortisol, Free, Equilibrium Dialysis and LC/MS-MS\n500440|Cortisol, Free, Total With CBG (Endocrine Sciences)\n500410|Cortisol, Free, Urine (Includes Creatinine)\n503715|Cortisol:Cortisone Ratio Profile, LC/MS-MS\n503725|Cortisone, LC/MS-MS (Endocrine Sciences)\n500156|Dehydroepiandrosterone (DHEA)\n140768|Dehydroepiandrosterone (DHEA), ACTH Stimulation\n500138|Deoxycorticosterone (DOC)\n500118|Dexamethasone (Endocrine Sciences)\n504050|Diabetes Autoimmune Profile\n500597|Diabetes Autoimmune Test Group\n500733|Dopamine, Urine (Includes Creatinine)\n500649|Estradiol Free, Equilibrium Dialysis, With Total Estradiol, HPLC/MS-MS (Endocrine Sciences)\n500108|Estradiol, LC/MS (Endocrine Sciences)\n504796|Estrogens, Total Serum by LC/MS-MS\n500634|Estrone, LC/MS (Endocrine Sciences)\n501949|Ferritin, Serum\n502280|Follicle-stimulating Hormone (FSH), Pediatric (Endocrine Sciences)\n500611|Glutamic Acid Decarboxylase (GAD-65) Autoantibodies\n502226|GlycoMark® and Hb A1c\n502421|Gonadotropin-releasing Hormone\n501007|Growth Assessment Test Group V\n500144|Growth Hormone Antibodies (Endocrine Sciences)\n504591|Growth Hormone Binding Protein\n500647|Growth Hormone, ICMA\n500632|Growth Hormone, RIA (Endocrine Sciences)\n501220|Growth Receptor Test Group I\n503205|Hemoglobin (Hb) A1c With GlycoMark® Reflex\n502236|Hirsutism Test Group II\n501663|Hirsutism Test Group IV\n501814|Homovanillic Acid (HVA), Urine (Includes Creatinine)\n500720|Hydroxyindoleacetic Acid, 5- (5-HIAA), Urine (Includes Creatinine)\n500163|Hydroxyprogesterone, 17a-, (17-OHP)\n503068|Insulin\n500485|Insulin-like Growth Factor 1 (IGF-1)\n140822|Insulin-like Growth Factor-binding Protein 1 (IGFBP-1) (Endocrine Sciences)\n500133|Insulin-like Growth Factor-binding Protein 2 (IGFBP-2) (Endocrine Sciences)\n500644|Insulin-like Growth Factor-binding Protein 3 (IGFBP-3)\n501807|Iron\n500716|Leptin\n502286|Luteinizing Hormone (LH), Pediatric (Endocrine Sciences)\n500888|Menopausal Test Group (Postmenopausal)\n501218|Menopausal Transition Profile I−Postmenopausal (Endocrine Sciences)\n501533|Metanephrines, Fractionated Urine (Includes Creatinine)\n500480|Metanephrines, Total, Urine (Includes Creatinine)\n503196|Mineralocorticoid Adult Test Group\n500285|Mineralocorticoid Pediatric Profile (Endocrine Sciences)\n500773|Pregnenolone, Pre- and Post-ACTH Stimulation\n500767|Premature Adrenarche Profile I\n500913|Premature Adrenarche Profile II\n503658|Progesterone, Free, With Total Progesterone, LC/MS-MS (Endocrine Sciences)\n500458|Renin, Plasma (Plasma Renin Activity)\n500850|Resin T3 Uptake, Serum\n500179|Salivary Cortisol, MS (Endocrine Sciences)\n500848|Sex Hormone-binding Globulin (SHBG), Serum\n501247|Testicular Function Complete Testosterone Evaluation Group\n501048|Testicular Function Group I\n503450|Testicular Function Group III\n500650|Testosterone, Bioavailable, With Sex Hormone-binding Globulin\n500102|Testosterone, Free, With Sex Hormone-binding Globulin\n500159|Testosterone, Total, Serum, Mass Spectrometry\n500540|Thyroglobulin (With Antithyroglobulin screen), Comprehensive\n502380|Thyroglobulin, Lymph Node Aspirate\n500713|Thyroid Function, Adult Hyperthyroid/TSH Suppression Test Group\n500712|Thyroid Function, Adult Thyroid Test Group\n501015|Thyroid Function, Pediatric Thyroid Autoantibodies Test Group\n500638|Thyroid Peroxidase Antibodies (Anti-TPO)\n500477|Thyroid Stimulating Hormone (TSH), ICMA\n500348|Thyroxine (T4), Automated\n501902|Thyroxine (T4), Free, Dialysis/Mass Spectrometry (Endocrine Sciences)\n500724|Thyroxine-binding Globulin (TBG)\n500563|Triiodothyronine (T3)\n503600|Triiodothyronine (T3), Free, Dialysis and LC/MS-MS (Endocrine Sciences)\n500834|Triiodothyronine, Free Only\n503663|Triiodothyronine, Reverse\n500496|Vanillylmandelic Acid (VMA) (Includes Creatinine)\n500600|Vitamin D, 1, 25-Dihydroxy\n500510|Vitamin D, 25-Hydroxy, Total, Mass Spectrometry\n140269|α-Subunit, Free (Endocrine Sciences)\n899722|ADAMTS13 Single Gene Diagnostic Test\n899755|CASR Invitae Single Gene Diagnostic Test\n899733|F9 Invitae Single Gene Diagnostic Test\n631413|Factor XIII Genetic Analysis\n630428|Fibrinogen Genetic Analysis\n898950|Invitae Arrhythmia and Cardiomyopathy Comprehensive Panel\n900668|Invitae Atypical Hemolytic Uremic Syndrome and Thrombotic Microangiopathies Panel\n898956|Invitae Cardiomyopathy Comprehensive Panel\n900286|Invitae Complement and Coagulation Mediated TMA (aHUS) Gene Panel\n898896|Invitae Comprehensive Genetic Risk Panel\n899667|Invitae Comprehensive Lipidemia Panel\n906252|Invitae Comprehensive Neurometabolic Disorders Panel\n899907|Invitae Comprehensive Neuromuscular Disorders Panel\n898960|Invitae Connective Tissue Disorders Panel\n900371|Invitae Expanded Renal Disease Panel\n899634|Invitae Familial Hypercholesterolemia Panel\n900061|Invitae Hereditary Thrombophilia Panel\n900080|Invitae Inborn Errors of Immunity and Cytopenias Panel\n900635|Invitae Inherited Platelet Disorders Including Thrombocytopenia Panel\n900153|Invitae Inherited Retinal Disorders Panel\n906219|Invitae Mendelian Disorders with Psychiatric Symptoms Panel\n906018|Invitae Metabolic Newborn Screening Confirmation Panel\n900020|Invitae Neurodevelopmental Disorders (NDD) Panel\n906186|Invitae Neurotransmitter Disorders Panel\n900072|Invitae Primary Immunodeficiency Panel\n900378|Invitae Progressive Renal Disease Panel\n900040|Invitae Rett and Angelman Syndromes and Related Disorders Panel\n900143|Invitae Rhabdomyolysis and Metabolic Myopathy Panel\n899744|PLG Invitae Single Gene Diagnostic Test\n483496|VistaSeq® MLH1 Comprehensive Analysis\n631443|von Willebrand Disease Genetic Analysis\n121363|Hemoglobinopathy Fractionation Cascade With Reflex to α-Thalassemia\n183531|Mycobacterium tuberculosis Complex Detection and Rifampin Resistance (PCR), Acid-fast Bacillus (AFB) Smear, and AFB Culture With Reflex to Identification and Susceptibility Testing (Nonsputum)\n139845|Respiratory Pathogen Panel With SARS-CoV-2, NAA\n008573|Viral Culture, General\n186023|Viral Culture, Rapid, Influenza A and Influenza B Virus\n186015|Viral Culture, Rapid, Respiratory\n125536|APOE Alzheimer's Disease Risk\n484647|Ataxia Repeat Expansion Panel\n484649|Dentatorubral-Pallidoluysian Atrophy (ATN1) Repeat Expansion\n481684|Fragile X Syndrome\n484650|Friedreich Ataxia (FXN) Repeat Expansion\n482466|GeneSeq® PLUS, DMD\n899839|HTRA1 Invitae Single Gene Diagnostic Test\n484653|Huntington Disease\n900069|Invitae Amyotrophic Lateral Sclerosis Panel\n900127|Invitae Amyotrophic Lateral Sclerosis with C9orf72 Panel\n900169|Invitae C9orf72-related Frontotemporal Dementia and Amyotrophic Lateral Sclerosis Repeat Expansion Test\n899885|Invitae Charcot-Marie-Tooth Disease Comprehensive Panel\n900599|Invitae Comprehensive Deafness Panel\n899940|Invitae Comprehensive Muscular Dystrophy Panel\n899863|Invitae Comprehensive Neuropathies Panel\n899962|Invitae Dystonia Comprehensive Panel\n899850|Invitae Epilepsy Panel\n900133|Invitae Familial Dysautonomia Test\n900144|Invitae Familial Hemiplegic Migraine Panel\n899874|Invitae Focused Epilepsy Gene Panel\n900098|Invitae Hereditary Alzheimer's Disease Panel\n900046|Invitae Hereditary Amyotrophic Lateral Sclerosis, Frontotemporal Dementia and Alzheimer Disease Panel\n900151|Invitae Hereditary Cerebral Small Vessel Disease Panel\n900152|Invitae Hereditary Moyamoya Disease Panel\n899973|Invitae Hereditary Parkinson Disease and Parkinsonism Panel\n900141|Invitae Hereditary Prion Disease Test\n899896|Invitae Hereditary Sensory and Autonomic Neuropathy Panel\n900121|Invitae Hereditary Spastic Paraplegia Comprehensive Panel\n899951|Invitae Limb-Girdle Muscular Dystrophy Panel\n899929|Invitae Malignant Hyperthermia Susceptibility Panel\n900557|Invitae NF2-related Schwannomatosis Test\n900225|Invitae Oculo-Facio-Cardio-Dental Syndrome Test\n899997|Invitae Periodic Paralysis Panel\n900113|Invitae Small Fiber Neuropathy Test\n900503|Invitae Tuberous Sclerosis Complex Panel\n899689|LRRK2 Invitae Single Gene Diagnostic Test\n899766|MECP2 Invitae Single Gene Diagnostic Test\n484656|Myotonic Dystrophy 1 (DMPK) Repeat Expansion\n484659|Myotonic Dystrophy 2 (CNBP) Repeat Expansion\n899828|NOTCH3 Invitae Single Gene Diagnostic Test\n899711|PMP22 Invitae Single Gene Diagnostic Test\n510002|Reveal® SNP Micorarray - Pediatric\n899700|SOD1 Invitae Single Gene Diagnostic Test\n481630|Spinal Muscular Atrophy (SMA)\n484660|Spinocerebellar Ataxia 1 (ATXN1) Repeat Expansion\n484666|Spinocerebellar Ataxia 10 (ATXN10) Repeat Expansion\n484668|Spinocerebellar Ataxia 12 (PPP2R2B) Repeat Expansion\n484669|Spinocerebellar Ataxia 17 (TBP) Repeat Expansion\n484661|Spinocerebellar Ataxia 2 (ATXN2) Repeat Expansion\n484662|Spinocerebellar Ataxia 3 (ATXN3) Repeat Expansion\n484663|Spinocerebellar Ataxia 6 (CACNA1A) Repeat Expansion\n484664|Spinocerebellar Ataxia 7 (ATXN7) Repeat Expansion\n484665|Spinocerebellar Ataxia 8 (ATXN8OS) Repeat Expansion\n484648|Spinocerebellar Ataxia Repeat Expansion Panel\n505500|Autoimmune Neurology/Comprehensive Paraneoplastic Profile\n505605|Autoimmune Neurology/Comprehensive Paraneoplastic Profile, Spinal Fluid\n505700|Paraneoplastic Autoantibody Profile, Spinal Fluid\n505575|Paraneoplastic, Autoantibody Profile\n510360|1p,19q Oncology FISH\n511077|Adult Acute Lymphoblastic Leukemia (ALL) Profile, FISH\n510344|Aggressive B-Cell lymphoma FISH Profile\n510950|ALK Gene Rearrangements\n510336|AML FISH Profile\n512280|B-ALL FISH Profile (Philadelphia-like)\n511520|BCR-ABL1 Oncology, FISH\n510995|Chromosome Analysis - Solid Tumor\n510999|Chromosome Analysis, Leukemia/Lymphoma\n511040|Chromosome Analysis, Leukemia/Lymphoma With Reflex to Chromosome Microarray (CMA)\n052052|Chromosome Analysis, Tissue Biopsies (Products of Conception, Skin)\n150500|Chronic Myelogenous Leukemia (CML) Profile: Chromosome Analysis and BCR-ABL, FISH\n510340|CLL FISH Profile\n510349|DDIT3 (CHOP) by FISH\n510355|EGFR Oncology FISH\n168138|Engraftment Monitoring, Pre\n510379|EWSR1 Oncology FISH\n510669|FISH (Fluorescence in situ Hybridization ), Oncology\n510371|FKHR Oncology FISH\n510825|Fluorescence in situ Hybridization (FISH), Paraffin Block\n483248|HER-2/CEP17, FISH\n510890|MET Oncology FISH\n511444|MPN with Eosinophilia FISH Profile\n510325|Multiple Myeloma (MM) Profile, FISH\n510904|Multiple Myeloma Enriched Microarray and Multiple Myeloma FISH\n510945|MYCN Oncology FISH\n511060|Myelodysplastic Syndrome (MDS), FISH\n511425|Myeloproliferative Neoplasms/Chronic Myelogenous Leukemia (MPN/CML), FISH\n510324|Pediatric Acute Lymphoblastic Leukemia (ALL) Profile, FISH\n511834|PML/RARA FISH Panel\n510374|RB1 Oncology Fluorescence in situ Hybridization (FISH)\n510315|RET Oncology FISH\n510146|Reveal SNP Microarray - Oncology\n510312|ROS1 Oncology FISH\n510384|SS18 (SYT) Oncology FISH\n510940|TP53 Oncology FISH\n017170|Integrated 2\n451941|MaterniT Genome\n144053|Pregnancy, Initial Screening Profile\n144059|Pregnancy, Initial Screening Profile With HBV Triple Panel\n144099|Pregnancy, Initial Screening Profile With HBV Triple Panel, VZV Immunity and QuantiFERON®-TB Gold Plus";
+  const referenceOnly = new Set("520149,520059,520134,520057,504400,520340,520194,162045,505770,520555,520298,520293,160721,140080,100768,335884,117739,706705,631413,630428,900286,631443,125536,484647,484649,481684,484650,482466,899839,484653,900069,900127,900169,899885,900599,899940,899863,899962,899850,900133,900144,899874,900098,900046,900151,900152,899973,900141,899896,900121,899951,899929,900557,900225,899997,900113,900503,899689,899766,484656,484659,899828,899711,510002,899700,481630,484660,484666,484668,484669,484661,484662,484663,484664,484665,484648".split(','));
+  const verified = {
+  "116004": {
+    "specimenType": "Whole Blood",
+    "drawContainer": "Lavender EDTA",
+    "transportContainer": "Lavender EDTA (original tube)",
+    "preferredVolume": "One full lavender EDTA tube",
+    "minimumVolume": "One full lavender EDTA tube",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "spin": "No",
+    "additionalDrawRequirements": [
+      {
+        "container": "Light Blue Sodium Citrate",
+        "specimenType": "Whole Blood",
+        "preferredVolume": "One full unopened light blue tube",
+        "minimumVolume": "One full unopened light blue tube",
+        "transportContainer": "Light Blue Sodium Citrate (original tube)",
+        "transportTemperature": "Room Temperature",
+        "spin": "No",
+        "purpose": "Unopened citrated whole blood"
+      },
+      {
+        "container": "Light Blue Sodium Citrate",
+        "specimenType": "Citrated Plasma",
+        "preferredVolume": "2 mL platelet-poor citrated plasma",
+        "minimumVolume": "1 mL platelet-poor citrated plasma",
+        "transportContainer": "Frozen Transport Tube (Purple Cap)",
+        "transportTemperature": "Frozen",
+        "spin": "Yes",
+        "purpose": "Frozen platelet-poor plasma",
+        "specialInstructions": "Double-spin citrated plasma, transfer to frozen purple-cap PP transport tube (Labcorp 49482), freeze immediately and maintain frozen."
+      }
+    ],
+    "specialInstructions": "Requires EDTA whole blood, an unopened fully filled citrate whole-blood tube, AND a separate double-spun frozen citrate-plasma aliquot. Fully fill 3.2% citrate tubes; high hematocrit above 55% requires anticoagulant adjustment. No slides. Labcorp 116004.",
+    "source": "Labcorp official test directory, verified 2026-11-15 • https://www.labcorp.com/tests/116004/abnormal-bleeding-profile"
+  },
+  "121363": {
+    "specimenType": "Whole Blood",
+    "drawContainer": "Lavender EDTA",
+    "transportContainer": "Lavender EDTA (original tube)",
+    "collectionCount": 3,
+    "preferredVolume": "Three full lavender EDTA tubes",
+    "minimumVolume": "Two full lavender EDTA tubes",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "spin": "No",
+    "additionalDrawRequirements": [
+      {
+        "container": "SST / Gold",
+        "specimenType": "Serum",
+        "preferredVolume": "0.8 mL serum",
+        "minimumVolume": "0.3 mL serum",
+        "transportContainer": "SST / Gold (spun)",
+        "transportTemperature": "Room Temperature",
+        "spin": "Yes",
+        "purpose": "Ferritin serum",
+        "specialInstructions": "Centrifuge SST and submit original spun tube; if red top used, transfer serum to plastic serum transport tube."
+      }
+    ],
+    "specialInstructions": "Three full lavender EDTA tubes preferred (two minimum), plus separate serum. Invert EDTA tubes 8–10 times. Whole-blood CBC stable at room temperature 24 hours; hemoglobin fractionation fraction stored refrigerated; DNA reflex at room temperature or refrigerated. Do not centrifuge or aliquot EDTA whole blood. Labcorp 121363.",
+    "source": "Labcorp official test directory, verified 2026-11-15 • https://www.labcorp.com/tests/121363/hemoglobinopathy-fractionation-cascade-with-reflex-to-a-thalassemia"
+  },
+  "139845": {
+    "specimenType": "Nasopharyngeal Swab",
+    "drawContainer": "Viral Transport Medium (VTM/UTM)",
+    "transportContainer": "Viral Transport Medium (VTM/UTM)",
+    "preferredVolume": "One NP swab in up to 3 mL VTM/UTM",
+    "minimumVolume": "One NP swab in 0.3 mL transport medium",
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "spin": "No",
+    "specialInstructions": "Nasopharyngeal swab only. Place in viral or universal transport medium, 0.3–3 mL. Freeze for shipment per Labcorp storage instructions; at room temperature stable 4 hours, refrigerated 3 days, frozen 30 days. Do not substitute nasal or other respiratory site swabs. Labcorp 139845.",
+    "source": "Labcorp official test directory, verified 2026-11-15 • https://www.labcorp.com/tests/139845/respiratory-pathogen-panel-with-sars-cov-2-naa"
+  },
+  "505715": {
+    "specimenType": "Citrated Plasma",
+    "drawContainer": "Light Blue Sodium Citrate",
+    "transportContainer": "Frozen Transport Tube (Purple Cap)",
+    "preferredVolume": "1 mL platelet-poor plasma",
+    "minimumVolume": "0.5 mL",
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "spin": "Yes",
+    "specialInstructions": "Collect a completely filled light-blue 3.2% citrate tube. Spin, transfer plasma, re-centrifuge to obtain platelet-poor plasma; aliquot into a plastic transport tube and freeze. Stable 6 hours at room temperature before processing. Labcorp 505715.",
+    "source": "Labcorp official test directory, verified 2026-11-15 • https://www.labcorp.com/tests/505715/emicizumab-activity"
+  },
+  "005355": {
+    "specimenType": "Synovial Fluid",
+    "drawContainer": "Green Top (Heparin)",
+    "alternativeContainer": "Lavender EDTA",
+    "transportContainer": "Green Top (Heparin) (original tube)",
+    "preferredVolume": "1 mL synovial fluid",
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "No",
+    "specialInstructions": "Submit synovial fluid in a heparin green-top tube, preferred, or EDTA lavender tube. Label collection site. Do not prepare slides. Do not use gel-barrier tubes; reject clotted or frozen fluid. Refrigerate; stable for 48 hours. Labcorp 005355.",
+    "source": "Labcorp official test directory, verified 2026-11-15 • https://www.labcorp.com/tests/005355/crystals-synovial-joint-fluid"
+  }
+};
+  const catalog = Array.isArray(window.SEED_TESTS) ? window.SEED_TESTS : [];
+  const knownCodes = new Set(catalog.map(t => String(t.testCode || '').trim()));
+  const parsed = rows.trim().split('\n').map(line => {
+    const divider = line.indexOf('|');
+    return {code:line.slice(0,divider), name:line.slice(divider+1)};
+  });
+  if (parsed.length !== 347 || new Set(parsed.map(t => t.code)).size !== 347) {
+    console.error('Labcorp 2026-11-15 audit data count mismatch');
+    return;
+  }
+  for (const {code, name} of parsed) {
+    if (knownCodes.has(code)) continue;
+    const isReferenceOnly = referenceOnly.has(code);
+    const details = verified[code] || {};
+    catalog.push({
+      id:'labcorp-'+code,
+      testCode:code,
+      testName:name,
+      specimenType:'Unverified',
+      drawContainer:'Verify Official Instructions',
+      alternativeContainer:'',
+      transportContainer:'Verify Official Instructions',
+      preferredVolume:'',
+      minimumVolume:'',
+      transportTemperature:'Not specified',
+      transportTemperatureRaw:'',
+      stability:'',
+      spin:'Verify',
+      specialInstructions: isReferenceOnly
+        ? 'Reference-menu listing only. Confirm current code, availability, specimen and processing before collection.'
+        : 'Listed on an individual Labcorp test page. Specimen type, collection, handling and local acceptance must be checked before use.',
+      status:'pending',
+      source: (isReferenceOnly ? 'Official Labcorp specialty/reference menu listing' : 'Individual Labcorp test page listing') +
+        ' (audit 2026-11-15) • https://www.labcorp.com/test-menu/search',
+      ...details,
+      ...(details.source ? {status:'active'} : {})
+    });
+    knownCodes.add(code);
+  }
+  window.SEED_TESTS = catalog;
+})();
