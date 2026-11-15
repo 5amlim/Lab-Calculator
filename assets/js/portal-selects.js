@@ -98,6 +98,7 @@
   function closeAll(restoreFocus = false) {
     if (!active) return;
     const old = active;
+    clearSubmenu(old);
     animateClose(old.menu);
     old.button.setAttribute('aria-expanded','false');
     active = null;
@@ -128,6 +129,121 @@
     item.menu.style.left = `${left}px`;
     item.menu.style.maxHeight = `${height}px`;
     item.menu.style.top = goUp ? `${Math.max(8, box.top - height - 7)}px` : `${Math.min(innerHeight - 10, box.bottom + 7)}px`;
+    positionSubmenu(item);
+  }
+  // Subtypes stay in the original native select, so saved test values,
+  // form edits, validation, and the filter engine never depend on visual menus.
+  const specimenSideGroups = {
+    Swab: ['Vaginal Swab', 'Vaginal-Rectal Swab', 'Cervicovaginal Swab',
+      'Throat Swab', 'Nasopharyngeal Swab', 'Site-Specific Culture Swab'],
+    'Body Fluid': ['CSF', 'Pericardial Fluid', 'Peritoneal Fluid', 'Pleural Fluid',
+      'Synovial Fluid', 'Cervical Cytology Fluid']
+  };
+  function isSpecimenPicker(item) {
+    return ['specimenType','specimenFilter'].includes(fieldName(item));
+  }
+  function specimenGroupForValue(item, value) {
+    if (!isSpecimenPicker(item)) return '';
+    const target = String(value || '').trim().toLowerCase();
+    for (const [parent, values] of Object.entries(specimenSideGroups)) {
+      if (values.some(value => value.toLowerCase() === target)) return parent;
+    }
+    return '';
+  }
+  function childOptionsFor(item, parent) {
+    return [...item.select.options].filter(option =>
+      !option.hidden && !option.disabled &&
+      specimenGroupForValue(item, option.value) === parent);
+  }
+  function clearSubmenu(item) {
+    if (!item) return;
+    if (item.submenuAnchor) item.submenuAnchor.setAttribute('aria-expanded','false');
+    item.submenu?.remove();
+    item.submenu = null;
+    item.submenuAnchor = null;
+  }
+  function positionSubmenu(item) {
+    if (!item?.submenu || !item.menu || !item.submenuAnchor) return;
+    const main = item.menu.getBoundingClientRect();
+    const anchor = item.submenuAnchor.getBoundingClientRect();
+    const width = Math.min(246, Math.max(180, innerWidth - 24));
+    const height = Math.min(innerHeight - 20, Math.max(110, item.submenu.scrollHeight + 8));
+    const rightSpace = innerWidth - main.right - 12;
+    const leftSpace = main.left - 12;
+    const left = rightSpace >= width + 6 ? main.right + 6
+      : leftSpace >= width + 6 ? main.left - width - 6
+      : Math.max(12, Math.min(main.left, innerWidth - width - 12));
+    const top = Math.max(10, Math.min(anchor.top - 5, innerHeight - height - 10));
+    item.submenu.style.width = width + 'px';
+    item.submenu.style.maxHeight = Math.max(90, innerHeight - 20) + 'px';
+    item.submenu.style.left = left + 'px';
+    item.submenu.style.top = top + 'px';
+  }
+  function openSubmenu(item, parentChoice, parent, root, focusFirst = false) {
+    const options = childOptionsFor(item, parent);
+    if (!options.length) return;
+    if (item.submenu?.dataset.group === parent && item.submenuAnchor === parentChoice) {
+      if (focusFirst) item.submenu.querySelector('.portal-select-option:not(:disabled)')?.focus();
+      return;
+    }
+    clearSubmenu(item);
+    const submenu = document.createElement('div');
+    submenu.className = 'portal-select-menu portal-select-submenu';
+    submenu.setAttribute('role','listbox');
+    submenu.setAttribute('aria-label', parent + ' specimen types');
+    submenu.dataset.group = parent;
+    const heading = document.createElement('button');
+    heading.type = 'button';
+    heading.className = 'portal-select-submenu-heading';
+    heading.textContent = '← ' + parent + ' types';
+    heading.setAttribute('aria-label','Back to specimen categories');
+    heading.addEventListener('click', e => {
+      e.stopPropagation();
+      clearSubmenu(item);
+      parentChoice.focus();
+    });
+    submenu.append(heading);
+    options.forEach((option, index) => {
+      const choice = document.createElement('button');
+      choice.type = 'button';
+      choice.className = 'portal-select-option';
+      choice.setAttribute('role','option');
+      choice.id = 'portal-subchoice-' + item.select.id + '-' + index;
+      choice.dataset.value = option.value;
+      choice.disabled = option.disabled;
+      choice.setAttribute('aria-selected',String(option.value === item.select.value));
+      if (option.value === item.select.value) choice.classList.add('is-selected');
+      const label = document.createElement('span');
+      label.className = 'portal-option-label';
+      label.textContent = optionLabel(item,option);
+      choice.append(label);
+      choice.addEventListener('click', e => {
+        e.stopPropagation();
+        selectChoice(item, option.value);
+      });
+      submenu.append(choice);
+    });
+    submenu.addEventListener('keydown', e => {
+      const choices = [...submenu.querySelectorAll('.portal-select-option:not(:disabled)')];
+      const index = choices.indexOf(document.activeElement);
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        clearSubmenu(item);
+        parentChoice.focus();
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp' ||
+                 e.key === 'Home' || e.key === 'End') {
+        e.preventDefault();
+        const next = e.key === 'Home' ? 0 : e.key === 'End' ? choices.length-1
+          : (index + (e.key === 'ArrowDown' ? 1 : -1) + choices.length) % choices.length;
+        choices[next]?.focus();
+      }
+    });
+    root.append(submenu);
+    item.submenu = submenu;
+    item.submenuAnchor = parentChoice;
+    parentChoice.setAttribute('aria-expanded','true');
+    positionSubmenu(item);
+    if (focusFirst) submenu.querySelector('.portal-select-option:not(:disabled)')?.focus();
   }
   function selectChoice(item, value) {
     item.select.value = value;
@@ -178,16 +294,21 @@
     if (item.select.id === 'transportContainer') syncFrozenTransportOption();
     const menu = document.createElement('div');
     menu.className = 'portal-select-menu';
-    menu.id = `portal-menu-${item.select.id}`;
+    menu.id = 'portal-menu-' + item.select.id;
     menu.setAttribute('role','listbox');
     menu.setAttribute('aria-label',accessibleLabel(item));
+    // Top-level options remain actionable. Hover/focus their chevron to open
+    // a side list. Tapping the chevron works on touch; clicking the label keeps
+    // the generic Swab / Body Fluid selection available.
+    const root = item.select.closest('dialog') ||
+      item.select.closest('#catalogFilterControl') || document.body;
     [...item.select.options].forEach((option, index) => {
-      if (option.hidden) return;
+      if (option.hidden || specimenGroupForValue(item, option.value)) return;
       const choice = document.createElement('button');
       choice.type = 'button';
       choice.className = 'portal-select-option';
       choice.setAttribute('role','option');
-      choice.id = `portal-choice-${item.select.id}-${index}`;
+      choice.id = 'portal-choice-' + item.select.id + '-' + index;
       choice.dataset.value = option.value;
       const icon = iconElement(iconFor(item, option.value));
       if (icon) choice.append(icon);
@@ -196,28 +317,67 @@
       optionText.textContent = optionLabel(item, option);
       choice.append(optionText);
       choice.disabled = option.disabled;
-      const chosen = option.value === item.select.value;
+      const children = isSpecimenPicker(item) ? childOptionsFor(item, option.value) : [];
+      const chosen = option.value === item.select.value ||
+        children.some(child => child.value === item.select.value);
       choice.setAttribute('aria-selected',String(chosen));
       if (chosen) choice.classList.add('is-selected');
-      choice.addEventListener('click', e => {e.stopPropagation();selectChoice(item, option.value);});
+      if (children.length) {
+        choice.classList.add('portal-select-has-submenu');
+        choice.setAttribute('aria-haspopup','listbox');
+        choice.setAttribute('aria-expanded','false');
+        const arrow = document.createElement('span');
+        arrow.className = 'portal-select-submenu-chevron';
+        arrow.setAttribute('aria-label','Show ' + option.value + ' types');
+        arrow.setAttribute('title','Show ' + option.value + ' types');
+        arrow.addEventListener('click', e => {
+          e.preventDefault();
+          e.stopPropagation();
+          openSubmenu(item,choice,option.value,root,true);
+        });
+        choice.append(arrow);
+        choice.addEventListener('pointerenter', () =>
+          openSubmenu(item,choice,option.value,root));
+        choice.addEventListener('focus', () =>
+          openSubmenu(item,choice,option.value,root));
+      } else {
+        choice.addEventListener('pointerenter', () => clearSubmenu(item));
+        choice.addEventListener('focus', () => clearSubmenu(item));
+      }
+      choice.addEventListener('click', e => {
+        e.stopPropagation();
+        selectChoice(item,option.value);
+      });
       menu.append(choice);
     });
-    // Dialogs are promoted to the browser top layer; popovers must remain inside the dialog.
-    const root = item.select.closest('dialog') || item.select.closest('#catalogFilterControl') || document.body;
     root.append(menu);
     item.menu = menu;
     active = item;
     item.button.setAttribute('aria-expanded','true');
     position(item);
     const selected = menu.querySelector('.is-selected');
-    (first ? menu.querySelector('.portal-select-option:not(:disabled)') : selected || menu.querySelector('.portal-select-option:not(:disabled)'))?.scrollIntoView({block:'nearest'});
+    (first ? menu.querySelector('.portal-select-option:not(:disabled)') :
+      selected || menu.querySelector('.portal-select-option:not(:disabled)'))
+      ?.scrollIntoView({block:'nearest'});
     menu.addEventListener('keydown', e => {
       const choices = [...menu.querySelectorAll('.portal-select-option:not(:disabled)')];
       const i = choices.indexOf(document.activeElement);
-      if (e.key === 'Escape') {e.preventDefault();e.stopPropagation();closeAll(true);return;}
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Home' || e.key === 'End') {
+      if (e.key === 'Escape') {
+        e.preventDefault();e.stopPropagation();closeAll(true);return;
+      }
+      if (e.key === 'ArrowRight') {
+        const choice = choices[i];
+        if (choice?.classList.contains('portal-select-has-submenu')) {
+          e.preventDefault();
+          openSubmenu(item, choice, choice.dataset.value, root, true);
+        }
+        return;
+      }
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp' ||
+          e.key === 'Home' || e.key === 'End') {
         e.preventDefault();
-        const next = e.key === 'Home' ? 0 : e.key === 'End' ? choices.length-1 : (i + (e.key === 'ArrowDown' ? 1 : -1) + choices.length) % choices.length;
+        const next = e.key === 'Home' ? 0 : e.key === 'End' ? choices.length-1
+          : (i + (e.key === 'ArrowDown' ? 1 : -1) + choices.length) % choices.length;
         choices[next]?.focus();
       }
     });
@@ -343,7 +503,8 @@
       if (item) item.button.focus(); else select.focus();
     };
     document.addEventListener('pointerdown', e => {
-      if (active && !active.wrap.contains(e.target) && !active.menu.contains(e.target)) closeAll();
+      if (active && !active.wrap.contains(e.target) && !active.menu.contains(e.target) &&
+          !active.submenu?.contains(e.target)) closeAll();
     });
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && active) {e.preventDefault();e.stopPropagation();closeAll(true);}
@@ -351,7 +512,10 @@
     // Reposition on resize or main scrolling, with no movement of the underlying form.
     window.addEventListener('resize',()=> {if(active) position(active);},{passive:true});
     document.addEventListener('scroll', e => {
-      if (active && !active.menu.contains(e.target)) position(active);
+      if (active) {
+        if (!active.menu.contains(e.target) && !active.submenu?.contains(e.target)) position(active);
+        else positionSubmenu(active);
+      }
     }, true);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',init);
