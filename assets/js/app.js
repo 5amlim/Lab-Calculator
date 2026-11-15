@@ -1385,7 +1385,7 @@
       if (sameCodeTests.length > 1) return false;
     }
     if (q === normalizeSearch(chosen.test.testName)) {
-      const sameNames = database.filter(test => test.status !== 'blocked' && normalizeSearch(test.testName) === q);
+      const sameNames = database.filter(test => test.status === 'active' && normalizeSearch(test.testName) === q);
       if (new Set(sameNames.map(test => normalizeSearch(test.testCode))).size > 1) return false;
     }
     return true;
@@ -1566,18 +1566,18 @@
                 data-action="choose-batch-test" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}"
                 aria-pressed="${test.id === choice.test.id ? 'true' : 'false'}">
                 <span class="batch-choice-option-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</span>
-                <span class="batch-choice-option-tags">${isStatEligible(test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}${test.status === 'blocked' ? '<span class="batch-choice-blocked">Do not perform</span>' : ''}</span>
+                <span class="batch-choice-option-tags">${isStatEligible(test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}${test.status === 'blocked' ? '<span class="batch-choice-blocked">Do not perform</span>' : test.status === 'reference' ? '<span class="batch-choice-blocked">Directory only · verify</span>' : ''}</span>
               </button>
               <button type="button" class="batch-choice-quick-add batch-add-toggle" data-action="toggle-batch-add-options"
                 data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}"
                 aria-controls="batch-choice-stat-options-${row.index}-${matchIndex}" aria-expanded="false" aria-haspopup="true"
-                title="${selectedIds.includes(test.id) ? 'Already in cart' : test.status === 'blocked' ? 'Do not perform' : 'Choose Routine or STAT priority'}"
+                title="${selectedIds.includes(test.id) ? 'Already in cart' : test.status !== 'active' ? 'Verify collection requirements before adding' : 'Choose Routine or STAT priority'}"
                 aria-label="${selectedIds.includes(test.id) ? 'Already in cart: ' : 'Choose how to add: '}${escapeAttr(displayCode(test) + ' ' + test.testName)}"
-                ${selectedIds.includes(test.id) || test.status === 'blocked' ? 'disabled' : ''}>${selectedIds.includes(test.id) ? '✓' : '+'}</button>
+                ${selectedIds.includes(test.id) || test.status !== 'active' ? 'disabled' : ''}>${selectedIds.includes(test.id) ? '✓' : '+'}</button>
               <button type="button" class="batch-choice-details-button" data-action="toggle-batch-test-details"
                 aria-expanded="false" aria-controls="batch-choice-details-${row.index}-${matchIndex}" aria-label="Details for ${escapeAttr(displayCode(test) + ' ' + test.testName)}">Details</button>
             </div>
-            ${!selectedIds.includes(test.id) && test.status !== 'blocked' ? `<div class="batch-choice-stat-options" id="batch-choice-stat-options-${row.index}-${matchIndex}" hidden role="group"
+            ${!selectedIds.includes(test.id) && test.status === 'active' ? `<div class="batch-choice-stat-options" id="batch-choice-stat-options-${row.index}-${matchIndex}" hidden role="group"
               aria-label="Choose priority for ${escapeAttr(displayCode(test) + ' ' + test.testName)}">
               <button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" data-priority="routine" data-source="match">+ Add as Routine</button>
               ${isStatEligible(test) ? `<button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" data-priority="stat" data-source="match" data-stat-note="Confirm receiving-lab acceptance"><span>+ Add as <b>STAT</b></span></button>` : ''}
@@ -2496,7 +2496,7 @@
       ? '<p class="stat-menu-empty">No verified STAT codes configured for this receiving area.</p>'
       : matches.length
         ? matches.map(({code,test,sourceName}) => {
-          const available = test && test.status !== 'blocked';
+          const available = test && test.status === 'active';
           const added = available && selectedIds.includes(test.id);
           const button = available
             ? added
