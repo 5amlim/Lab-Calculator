@@ -7,8 +7,8 @@ const vm = require('node:vm');
 const root = path.resolve(__dirname, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 const source = read('assets/js/quest-gray-plasma-processing-20261114.js');
-const codes = ['8477','19833','484','1430','19834','16292','35181','18927','6745'];
-const expectedDraws = {8477:1,19833:1,484:1,1430:2,19834:2,16292:4,35181:2,18927:3,6745:4};
+const codes = ['8477','19833','484','1430','19834','16292','35181','23475','18927','6745'];
+const expectedDraws = {8477:1,19833:1,484:1,1430:2,19834:2,16292:4,35181:2,23475:3,18927:3,6745:4};
 function load(extra=[]) {
   const sandbox = {window: {SEED_TESTS:extra}};
   vm.runInNewContext(source, sandbox);
@@ -16,8 +16,8 @@ function load(extra=[]) {
 }
 test('Quest fluoride/oxalate glucose tests all produce a separated-plasma submission pathway', () => {
   const {SEED_TESTS} = load();
-  assert.equal(SEED_TESTS.length, 9);
-  assert.equal(new Set(SEED_TESTS.map(t => t.testCode)).size, 9);
+  assert.equal(SEED_TESTS.length, 10);
+  assert.equal(new Set(SEED_TESTS.map(t => t.testCode)).size, 10);
   for(const code of codes) {
     const t=SEED_TESTS.find(t=>t.testCode===code);
     assert.ok(t, 'Missing '+code);
@@ -49,7 +49,7 @@ test('50g one-hour screens are not mistaken for fasting GTTs',()=>{
    assert.match(t.specialLabeling,/1-hour/,code);
    assert.equal(t.additionalDrawRequirements.length,0,code);
  }
- for(const code of ['1430','19834','16292','35181','18927','6745','484']) {
+ for(const code of ['1430','19834','16292','35181','23475','18927','6745','484']) {
    assert.equal(SEED_TESTS.find(t=>t.testCode===code).fastingStatus,'required',code);
  }
 });
