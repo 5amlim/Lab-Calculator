@@ -94,12 +94,24 @@ for (const transport of [
 }
 for (const transport of [
   'Plastic Urine Aliquot Container',
+  'Urine Aliquot Transport Tube',
+  'Plastic Urine Container',
+  'Plastic Urine Container, No Preservative'
+]) {
+  const t = fixture('910002', transport);
+  assert.equal(t.transportContainer, 'Sterile cup', 'Plain urine aliquot uses sterile cup: ' + transport);
+  assert.doesNotMatch(api.menuContainerBadges(t), /container-path-arrow/,
+    'No extra transfer container needed for original spot urine cup');
+  assert.equal(contents([t])[0].label, 'Sterile cup');
+}
+for (const transport of [
   'Gray Top Urine Culture Tube',
   'Aptima Urine Transport Tube',
   'Amber Frozen Urine Transport Tube',
-  'Acidified Plastic Urine Aliquot Container'
+  'Acidified Plastic Urine Aliquot Container',
+  'Metal-Free Plastic Urine Container'
 ]) {
-  const t = fixture('910002', transport);
+  const t = fixture('910003', transport);
   assert.notEqual(t.transportContainer, 'Sterile cup',
     'Special transport cannot be disguised as an original cup: ' + transport);
   assert.match(api.menuContainerBadges(t), /container-path-arrow/);
