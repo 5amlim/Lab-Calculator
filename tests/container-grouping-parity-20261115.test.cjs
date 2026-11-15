@@ -137,6 +137,22 @@ for (const [lab, appFile] of [['Quest','assets/js/app.js'],['Labcorp','labcorp-a
   });
 }
 
+test('Labcorp 809523 metal-free urine collection stays a dedicated specialty container',()=>{
+  const window={SEED_TESTS:[]};
+  vm.runInNewContext(read('assets/js/labcorp/catalog/therapeutic-drug-monitoring-20261023.js'),{window});
+  const api=openCalculator('labcorp-app.js',window.SEED_TESTS);
+  const specimen=api.database.find(t=>t.testCode==='809523');
+  assert.ok(specimen,'809523 is in the real Labcorp catalog');
+  const source=api.canonicalCollectionContainer(specimen);
+  assert.match(source.label,/metal.free.*urine/i);
+  assert.notEqual(source.label,'Sterile cup');
+  assert.equal(source.className,'tube-trace-metal-container');
+  const submitted=plan(api,[specimen]).submitted;
+  assert.equal(submitted.length,1);
+  assert.match(submitted[0].label,/metal.free/i);
+  assert.notEqual(submitted[0].label,'Sterile cup');
+});
+
 test('Quest 1430: two separate gray-top draws, two centrifuged additive-free plasma vials, green transport badge',()=>{
   const window={SEED_TESTS:[]};
   vm.runInNewContext(read('assets/js/quest-gray-plasma-processing-20261114.js'),{window});
