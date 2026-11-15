@@ -5048,6 +5048,9 @@
     if (explicitSubmissionCount(test) > 1) return true;
     const transport = String(test.transportContainer || '').toLowerCase();
     const notes = String(test.specialInstructions || '').toLowerCase();
+    // "Dedicated plastic serum transport tube" is a physical stock alias,
+    // never permission to pool it with another test's specimen.
+    if (/\bdedicated\b/.test(transport)) return true;
     return /\b(?:dedicated|individual|separate|own|additional)\s+(?:(?:serum|plasma|specimen|sample)\s+)?(?:transport\s+)?(?:tube|vial|aliquot|cryovial|container)\b/.test(transport)
       || /\b(?:dedicated|individual|separate|own|additional)\s+(?:(?:serum|plasma|specimen|sample)\s+)?(?:transport\s+)?(?:tube|vial|aliquot|cryovial|container)\s+(?:required|needed)\b/.test(notes)
       || /\b(?:submit|provide|prepare|transfer|use|requires?)\s+(?:a[n]?\s+)?(?:dedicated|individual|separate|own|additional|second)\s+(?:(?:serum|plasma|specimen|sample)\s+)?(?:transport\s+)?(?:tube|vial|aliquot|cryovial|container)\b/.test(notes)
