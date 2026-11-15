@@ -2,9 +2,10 @@
    Do not store lab choice; the main index page is always Quest. */
 (function () {
   'use strict';
-  // Verified published counts; update the active page from its live #recordCount.
-  const counts = {quest:2692, cedars:39, labcorp:1072};
-  const cacheKey = 'lab-selector-counts-v2:' + (location.pathname.split('/').filter(Boolean)[0] || 'site');
+  // Fallback counts are the current cart-eligible catalog snapshots, not all directory records.
+  // Once a laboratory page loads, its live active count replaces this snapshot for this tab.
+  const counts = {quest:2774, cedars:39, labcorp:1454};
+  const cacheKey = 'lab-selector-counts-v3:' + (location.pathname.split('/').filter(Boolean)[0] || 'site');
   try {
     const cached = JSON.parse(sessionStorage.getItem(cacheKey) || '{}');
     for (const name of Object.keys(counts)) if (Number.isInteger(cached[name]) && cached[name] > 0) counts[name] = cached[name];
@@ -13,7 +14,7 @@
     : document.querySelector('.lab-select--labcorp') ? 'labcorp' : 'cedars';
   const recordCount = document.getElementById('recordCount');
   function syncLabBadges() {
-    const match = /^\s*(\d+)\s+tests?\b/i.exec(recordCount?.textContent || '');
+    const match = /^\s*(\d+)\s+(?:active\s+)?tests?\b/i.exec(recordCount?.textContent || '');
     if (match && Number(match[1]) > 0) {
       counts[current] = Number(match[1]);
       try { sessionStorage.setItem(cacheKey, JSON.stringify(counts)); } catch (_) {}
