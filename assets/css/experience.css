@@ -1844,3 +1844,70 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     .stat-area-common-tag { margin-left: 5px; }
   }
 }
+
+/* Swab and Body Fluid specimen side menus (existing portal select styling). */
+@media screen {
+  .portal-select-has-submenu { position: relative; }
+  .portal-select-submenu-chevron {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 27px;
+    flex: 0 0 25px;
+    margin: -5px -4px -5px 3px;
+    border-radius: 6px;
+    color: #466b74;
+    cursor: pointer;
+  }
+  .portal-select-submenu-chevron::after {
+    content: '';
+    display: block;
+    width: 7px;
+    height: 7px;
+    border-top: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    transform: rotate(45deg);
+  }
+  .portal-select-has-submenu:hover .portal-select-submenu-chevron,
+  .portal-select-has-submenu:focus-visible .portal-select-submenu-chevron,
+  .portal-select-has-submenu[aria-expanded="true"] .portal-select-submenu-chevron {
+    background: #dceef0;
+    color: #116f77;
+  }
+  .portal-select-menu.portal-select-submenu {
+    z-index: 100002;
+    width: 230px;
+    max-width: calc(100vw - 24px);
+    max-height: calc(100vh - 20px);
+    overflow-y: auto;
+    padding: 6px;
+    border-color: #b9d4d9;
+  }
+  .portal-select-submenu-heading {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    margin: 0 0 3px;
+    border: none;
+    border-bottom: 1px solid #e2ecee;
+    background: transparent;
+    color: #486c75;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 850;
+    line-height: 1.35;
+    text-align: left;
+    cursor: pointer;
+  }
+  .portal-select-submenu-heading:hover,
+  .portal-select-submenu-heading:focus-visible {
+    color: #096b73;
+    background: #eff6f7;
+    outline: none;
+  }
+}
+@media print {
+  .portal-select-submenu, .portal-select-submenu-heading { display: none !important; }
+}
