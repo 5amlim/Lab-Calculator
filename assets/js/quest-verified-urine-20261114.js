@@ -119,7 +119,7 @@
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Refrigerate during and after collection; send aliquot at Room Temperature",
     "stability": "Room 7 days; refrigerated 28 days; frozen 21 days.",
-    "specialInstructions": "Collect full 24-hour urine and REFRIGERATE during and after collection. After mixing, submit 5 mL (minimum 0.5 mL) aliquot in labeled transport tube; record total 24-hour volume on vial and requisition. Quest allows a 10 g boric acid 24-hour container as an alternate; random urine may be accepted but 24-hour reference ranges do not apply. The official directory specifies a transport tube for submission. The calculator groups a plain unpreserved urine aliquot tube with a sterile leakproof screw-cap cup; confirm the receiving laboratory accepts the cup used for this test. HCl-preserved urine is REJECTED; never pool with HCl-preserved 5-HIAA.",
+    "specialInstructions": "Collect full 24-hour urine and REFRIGERATE during and after collection. After mixing, submit 5 mL (minimum 0.5 mL) aliquot in labeled transport tube; record total 24-hour volume on vial and requisition. Quest allows a 10 g boric acid 24-hour container as an alternate; random urine may be accepted but 24-hour reference ranges do not apply. The official directory specifies a transport tube for submission. If submitting the unpreserved aliquot in a sterile leakproof screw-cap cup, confirm the receiving Quest laboratory accepts that specific container for this test. HCl-preserved urine is REJECTED; never pool with HCl-preserved 5-HIAA.",
     "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/229/aldosterone-24-hour-urine?cc=MASTER"
   }
 ];
