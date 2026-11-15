@@ -82,6 +82,6 @@ test('New data loads after other verified test records and before directory-only
  const p=html.indexOf('quest-gray-plasma-processing-20261114.js');
  const v=html.indexOf('quest-verified-gestational-20261114.js');
  const d=html.indexOf('quest-missing-directory-loader-20261114.js');
- const a=html.indexOf('assets/js/app.js?v=12.94');
+ const a=html.indexOf('assets/js/app.js?v=12.95');
  assert.ok(v>=0&&v<p&&p<d&&d<a);
 });
