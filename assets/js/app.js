@@ -1080,8 +1080,8 @@
     // Keep truly special devices (24-hour jugs, preservative tubes, trace-metal containers, Aptima, etc.) distinct.
     // The same empty leak-proof sterile cup is stocked for CSF, sputum, stool, and urine.
     // This is container STOCK equivalence, never a claim the specimens can mix.
-    if (/^sterile\\s+(?:leak[- ]?proof\\s+)?(?:screw[- ]?cap\\s+)?(?:plastic\\s+)?(?:csf|sputum|stool)\\s+(?:cup|container)$/i.test(text)
-      || /^sterile\\s+leak[- ]?proof\\s+screw[- ]?cap\\s+(?:csf|sputum)\\s+container$/i.test(text)) return 'Sterile cup';
+    if (/^sterile\s+(?:leak[- ]?proof\s+)?(?:screw[- ]?cap\s+)?(?:plastic\s+)?(?:csf|sputum|stool)\s+(?:cup|container)$/i.test(text)
+      || /^sterile\s+leak[- ]?proof\s+screw[- ]?cap\s+(?:csf|sputum)\s+container$/i.test(text)) return 'Sterile cup';
     if (/^(?:sterile\s*,?\s*)?(?:plastic\s+)?urine\s+(?:collection\s+)?(?:cup|container)$/i.test(text)) {
       return 'Sterile cup';
     }
@@ -2881,7 +2881,7 @@
         : urineCup
           ? `Urine|${urineCollectionType(test).key}|${shareable ? 'shared' : `separate|${test.sourceTestId || test.id}|${test.isStat ? 'stat' : 'routine'}`}`
           : `${test.isStat ? 'STAT' : 'Routine'}|${test.drawContainer || 'Verify Official Instructions'}`;
-      if (!groups.has(key)) groups.set(key, { container: urineCup ? source.label : test.drawContainer || 'Verify Official Instructions', isStat: Boolean(test.isStat), urineCup, tests: [], specimenTypes: new Set(), minimumMl: 0, volumeCount: 0, hasStat: false, hasRoutine: false });
+      if (!groups.has(key)) groups.set(key, { container: stockSterileCup ? 'Sterile cup' : (urineCup ? source.label : test.drawContainer || 'Verify Official Instructions'), isStat: Boolean(test.isStat), urineCup, tests: [], specimenTypes: new Set(), minimumMl: 0, volumeCount: 0, hasStat: false, hasRoutine: false });
       const group = groups.get(key);
       group.tests.push(test);
       group.hasStat ||= Boolean(test.isStat);
@@ -4252,7 +4252,7 @@
     if (isUrineTest(test) && !isTimedUrineTest(test)) {
       return { key: 'sterile-urine-cup', label: 'Sterile cup', className: 'tube-urine-cup' };
     }
-    if ((/\\bcsf\\b|cerebrospinal|\\bsputum\\b/i.test(String(test.specimenType || '')))
+    if ((/\bcsf\b|cerebrospinal|\bsputum\b/i.test(String(test.specimenType || '')))
       && (/^sterile cup$/i.test(draw)
         || /^sterile.*(?:csf|sputum).*(?:cup|container)$/i.test(draw))) {
       return { key: 'sterile-cup-stock', label: 'Sterile cup', className: 'tube-urine-cup' };
@@ -4415,8 +4415,8 @@
     // Separate specimen identity from physical cup inventory. Sputum and CSF
     // can use the same cup PRODUCT as urine/stool but NEVER the same filled cup.
     const exact = String(test.specimenType || '').toLowerCase();
-    if (/\\bcsf\\b|cerebrospinal/.test(exact)) return 'csf';
-    if (/\\bsputum\\b/.test(exact)) return 'sputum';
+    if (/\bcsf\b|cerebrospinal/.test(exact)) return 'csf';
+    if (/\bsputum\b/.test(exact)) return 'sputum';
     // Classify by the actual required specimen, not the test title. Names such
     // as Maple Syrup Urine Disease and Thiopurine are BLOOD tests; relying on
     // substrings in the title incorrectly grouped them with urine specimens.
