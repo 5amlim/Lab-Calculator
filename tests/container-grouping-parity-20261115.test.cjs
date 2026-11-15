@@ -56,7 +56,8 @@ for (const [lab, appFile] of [['Quest','assets/js/app.js'],['Labcorp','labcorp-a
   test(lab+': unpreserved urine aliquot labels map to the sterile-cup stock', () => {
     const api=openCalculator(appFile);
     for (const transport of ['Urine Aliquot Tube','Plastic Urine Aliquot Vial',
-      'Unpreserved Urine Container','Plastic Screw-Cap Urine Aliquot Tube']) {
+      'Unpreserved Urine Container','Plastic Screw-Cap Urine Aliquot Tube',
+      'Plastic Urine Aliquot Container, No Preservative']) {
       const spot=make(api,901,'Urine','Sterile cup',transport);
       assert.equal(api.isPlainUrineAliquotTransport(spot,transport),true,transport);
       assert.equal(api.canonicalCollectionContainer(spot).label,'Sterile cup',transport);
@@ -107,13 +108,21 @@ for (const [lab, appFile] of [['Quest','assets/js/app.js'],['Labcorp','labcorp-a
     const api=openCalculator(appFile);
     const normal=['Serum Transport Tube','Plastic Serum Transport Vial',
       'Plastic Screw-Cap Serum Vial','Plastic Plasma Transport Vial (Additive-Free)',
-      'Plasma Transfer Tube','Polypropylene Plasma Aliquot Container'];
+      'Plasma Transfer Tube','Polypropylene Plasma Aliquot Container',
+      'Dedicated Plastic Serum Transport Tube'];
     for(const value of normal){
       const material=/serum/i.test(value)?'Serum':'Plasma';
       const sample=make(api,905,material,'Red Top',value);
       assert.equal(api.isGenericSerumPlasmaTransport(sample,value),true,value);
       assert.equal(api.transportTubeClass(sample,value),'tube-transport tube-transport-green-top',value);
     }
+    const mixed=make(api,908,'Serum or Plasma','Red Top','Plastic Serum/Plasma Transport Tube');
+    assert.equal(api.isGenericSerumPlasmaTransport(mixed,mixed.transportContainer),true);
+    assert.equal(api.transportTubeClass(mixed,mixed.transportContainer),'tube-transport tube-transport-green-top');
+    const dedicated=make(api,909,'Serum','Red Top','Dedicated Plastic Serum Transport Tube');
+    const regular=make(api,910,'Serum','Red Top','Plastic Serum Transport Tube');
+    const distinct=plan(api,[dedicated,regular]);
+    assert.equal(distinct.submitted.reduce((n,x)=>n+x.count,0),2);
     const exceptions=['Amber Serum Transport Tube','Acid-Washed Plasma Transport Tube',
       'Metal-Free Serum Transport Vial','Frozen Plasma Transport Tube',
       'Platelet-Poor Plasma Transport Tube','EDTA Plasma Transport Tube'];
