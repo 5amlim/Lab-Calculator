@@ -1,0 +1,130 @@
+/* In-page confirmation/notice dialog shared by Quest and Labcorp. */
+.portal-action-dialog {
+  box-sizing: border-box;
+  width: min(500px, calc(100vw - 32px));
+  max-width: 500px;
+  max-height: min(88dvh, 680px);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  color: #30334b;
+  border: 1px solid #e3ddf0;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 26px 76px rgba(31, 25, 65, .26), 0 7px 22px rgba(31, 25, 65, .08);
+  font-family: inherit;
+}
+.portal-action-dialog::backdrop {
+  background: rgba(23, 23, 46, .53);
+  backdrop-filter: blur(4px);
+}
+.portal-action-dialog .portal-action-content { min-width: 0; }
+.portal-action-dialog .portal-action-header {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  padding: 24px 25px 18px;
+  background: linear-gradient(120deg, #f6f1ff, #fbfaff 70%, #f4f8fc);
+  border-bottom: 1px solid #ede6f8;
+}
+.portal-action-dialog .portal-action-icon {
+  display: grid;
+  flex: 0 0 45px;
+  width: 45px;
+  height: 45px;
+  place-items: center;
+  border-radius: 13px;
+  background: #ebe1ff;
+  color: #7046bc;
+}
+.portal-action-dialog .portal-action-icon svg { width: 23px; height: 23px; }
+.portal-action-dialog .portal-action-heading { min-width: 0; }
+.portal-action-dialog .portal-action-kicker {
+  display: block;
+  margin: 1px 0 7px;
+  color: #7452ad;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: .12em;
+}
+.portal-action-dialog h2 {
+  margin: 0;
+  color: #30224f;
+  font-size: clamp(19px, 3vw, 23px);
+  font-weight: 800;
+  line-height: 1.23;
+  letter-spacing: -.02em;
+  overflow-wrap: anywhere;
+}
+.portal-action-dialog .portal-action-message {
+  margin: 0;
+  padding: 20px 25px 23px;
+  color: #5d6679;
+  font-size: 13.5px;
+  line-height: 1.65;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.portal-action-dialog .portal-action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 15px 25px 19px;
+  border-top: 1px solid #edf0f5;
+  background: #fff;
+}
+.portal-action-dialog button {
+  min-height: 40px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, filter .15s ease;
+}
+.portal-action-dialog .portal-action-cancel {
+  border: 1px solid #d9dfe8;
+  background: #fff;
+  color: #586278;
+}
+.portal-action-dialog .portal-action-cancel:hover { background: #f5f7fa; }
+.portal-action-dialog .portal-action-proceed {
+  border: 1px solid #7350bc;
+  background: #7350bc;
+  color: #fff;
+  box-shadow: 0 3px 11px rgba(115, 80, 188, .15);
+}
+.portal-action-dialog .portal-action-proceed:hover { filter: brightness(.95); }
+.portal-action-dialog [hidden] { display: none !important; }
+.portal-action-dialog button:focus-visible {
+  outline: 3px solid #80b7c7;
+  outline-offset: 3px;
+}
+.portal-action-dialog[data-tone="danger"] .portal-action-icon {
+  background: #fff0ef;
+  color: #b14c56;
+}
+.portal-action-dialog[data-tone="danger"] .portal-action-kicker { color: #a14c58; }
+.portal-action-dialog[data-tone="danger"] .portal-action-proceed {
+  border-color: #ae4555;
+  background: #ae4555;
+  box-shadow: 0 3px 11px rgba(174, 69, 85, .14);
+}
+.portal-action-dialog[data-tone="warning"] .portal-action-icon {
+  background: #fff4df;
+  color: #a16e20;
+}
+.portal-action-dialog[data-tone="warning"] .portal-action-kicker { color: #93652a; }
+@media (max-width: 520px) {
+  .portal-action-dialog { width: calc(100vw - 22px); border-radius: 16px; }
+  .portal-action-dialog .portal-action-header { padding: 20px 17px 15px; gap: 11px; }
+  .portal-action-dialog .portal-action-icon { flex-basis: 39px; width: 39px; height: 39px; }
+  .portal-action-dialog .portal-action-message { padding: 17px 18px 19px; }
+  .portal-action-dialog .portal-action-buttons { padding: 14px 17px 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portal-action-dialog button { transition: none; }
+}
+@media print { .portal-action-dialog { display: none !important; } }
