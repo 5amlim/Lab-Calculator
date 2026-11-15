@@ -4197,7 +4197,7 @@
     const draw = String(test.drawContainer || 'Verify collection container').trim();
     // Preservative type is part of collection identity: acid-preserved urine
     // must never group with plain 24h/timed urine or ordinary spot urine.
-    if (isUrineTest(test) && /6\\s*N\\s*HCl|HCl[- ]preserv|acid[- ]preserv/i.test(draw)) {
+    if (isUrineTest(test) && /6\s*N\s*HCl|HCl[- ]preserv|acid[- ]preserv/i.test(draw)) {
       return { key: 'hcl-preserved-urine', label: '6N HCl Preserved Urine Container', className: 'tube-24h-urine' };
     }
     if (isUrineTest(test) && !isTimedUrineTest(test)) {
@@ -4643,7 +4643,7 @@
       spotUrineGroups.get(key).tests.push(test);
     });
     spotUrineGroups.forEach(group => {
-      const hclPreserved = group.tests.some(test => /6\\s*N\\s*HCl|HCl[- ]preserv|acid[- ]preserv/i.test(String(test.drawContainer || '')));
+      const hclPreserved = group.tests.some(test => /6\s*N\s*HCl|HCl[- ]preserv|acid[- ]preserv/i.test(String(test.drawContainer || '')));
       items.push({
         key: `sterile-urine-cup|${group.key}`,
         label: hclPreserved ? '6N HCl Preserved Urine Container' : 'Sterile cup',
@@ -4675,8 +4675,8 @@
       // Cord blood and gestational timed assays must not be pooled with a
       // different patient's or different protocol's same-colored tube.
       const dedicatedBlood = specimenGroup === 'blood' &&
-        (/\\bcord\\b/i.test(test.specimenType || '') ||
-         /\\bgestational\\b/i.test(test.testName || ''));
+        (/\bcord\b/i.test(test.specimenType || '') ||
+         /\bgestational\b/i.test(test.testName || ''));
       const groupKey = `${specimenSubtype}|${info.key}${separateCup || separateStool || dedicatedBlood ? `|separate|${test.sourceTestId || test.id}` : ''}`;
       if (!grouped.has(groupKey)) grouped.set(groupKey, { ...info, key: groupKey, urineSeparateCollection: separateCup, stoolSeparateCollection: separateStool, urineCollectionKey: groupKey, count: 0, tests: [], detail: '' });
       const item = grouped.get(groupKey);
