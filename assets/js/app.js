@@ -4844,6 +4844,7 @@
 
   function transportTubeClass(test, container) {
     const value = String(container || '').toLowerCase();
+    if (/^frozen platelet[- ]poor plasma transport tube/.test(value)) return 'tube-frozen-purple';
     if (/^frozen transport tube(?:\s*\(.*\))?$/.test(value)) return 'tube-frozen-purple';
     const specimen = normalizeSpecimenType(test.specimenType).toLowerCase();
     const specimenAndContainer = `${specimen} ${value}`;
@@ -5044,6 +5045,17 @@
 
     const specimen = titleCaseSpecimen(normalizeSpecimenType(test.specimenType));
     const sourceSpecimen = specificSpecimenSource(test);
+
+    // Frozen PPP remains a frozen aliquot, not a standard green-top transfer tube.
+    if (/^frozen platelet[- ]poor plasma transport tube/i.test(transport)) {
+      return [{
+        key: 'frozen-platelet-poor-plasma|' + (test.sourceTestId || test.id),
+        label: 'Frozen Platelet-Poor Plasma Transport Tube',
+        className: 'tube-frozen-purple',
+        count: explicitSubmissionCount(test),
+        detail: 'Double-spun platelet-poor citrated plasma, frozen immediately; ship on dry ice'
+      }];
+    }
 
     if (/amber|protect from light|light[- ]?protected/i.test(transport)) {
       const sourcePhrase = specimenSourceDetail(test);
