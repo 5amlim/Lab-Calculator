@@ -5001,6 +5001,10 @@
 
   function transportTubeClass(test, container) {
     const value = String(container || '').toLowerCase();
+    // Fluoride/oxalate plasma stays dedicated by timepoint, but the accepted
+    // additive-free plastic submission vial uses the regular green transport badge.
+    if (isGrayFluoridePlasmaTransfer({ ...test, transportContainer: container }))
+      return 'tube-transport tube-transport-green-top';
     if (isFrozenSerumPlasmaTransport(test, container)) return 'tube-frozen-purple';
     if (/^frozen platelet[- ]poor plasma transport tube/.test(value)) return 'tube-frozen-purple';
     if (/^frozen transport tube(?:\s*\(.*\))?$/.test(value)) return 'tube-frozen-purple';
