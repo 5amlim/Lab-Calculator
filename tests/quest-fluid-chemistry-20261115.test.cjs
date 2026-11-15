@@ -71,7 +71,8 @@ test('Different body fluid sources do not share submission or collection contain
   const api=await calculator();
   const codes=['17593','17596','17658','17417'];
   const p=plan(api,codes.map(c=>api.database.find(x=>x.testCode===c)));
-  assert.equal(p.collection.find(x=>x.label==='Sterile cup')?.count,4);
+  assert.equal(p.collection.filter(x=>x.label==='Sterile cup').length,4);
+  assert.equal(p.collection.reduce((n,x)=>n+x.count,0),4);
   assert.equal(p.submission.reduce((n,x)=>n+x.count,0),4);
   assert.equal(new Set(p.submission.map(x=>x.label)).size,1,'all use identical Sterile cup inventory');
   assert.equal(new Set(p.submission.map(x=>x.key)).size,4,'separate specimen identities remain separate');
@@ -81,9 +82,9 @@ test('All 18 fluid tests share the Sterile cup stock type without doubling the t
   const api=await calculator();
   const all=catalog().map(t=>api.database.find(x=>x.testCode===t.testCode));
   const p=plan(api,all);
-  assert.equal(p.collection.length,1,'one collection stock card');
-  assert.equal(p.collection[0].label,'Sterile cup');
-  assert.equal(p.collection[0].count,18);
+  assert.equal(p.collection.length,5,'one labeled collection card per fluid source');
+  assert(p.collection.every(item=>item.label==='Sterile cup'));
+  assert.equal(p.collection.reduce((n,item)=>n+item.count,0),18);
   assert.equal(p.submission.reduce((n,x)=>n+x.count,0),18);
   assert(p.submission.every(x=>x.label==='Sterile cup'&&x.className==='tube-urine-cup'));
   assert.equal(new Set(p.submission.map(x=>x.key)).size,5,'five distinct body-fluid specimen sources');
