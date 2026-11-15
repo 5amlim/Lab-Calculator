@@ -1810,7 +1810,7 @@
     if (/plastic urine container|24 hour urine/.test(value)) return ['urine-cup'];
     if (/plasma transport/.test(value)) return ['plasma'];
     if (/serum transport|serum .* transport vial/.test(value)) return ['serum'];
-    if (/^(?:(?:\d+|two)\s+)?(?:separate\s+)?transport tubes?$/.test(value)) return ['transport'];
+    if (/^(?:(?:\d+|two)\s+)?(?:separate\s+)?(?:frozen\s+)?transport tubes?$/.test(value)) return ['transport'];
     return ['special'];
   }
 
