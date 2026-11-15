@@ -45,12 +45,12 @@ function load() {
   return { seed:window.SEED_TESTS, api:window.__cartAudit };
 }
 
-test('Nov 15 catalog keeps 347 distinct IDs, 58 approved, and 289 pending', () => {
+test('Nov 15 catalog keeps 347 distinct IDs, 85 approved, and 262 pending', () => {
   const {seed}=load();
   assert.equal(seed.length,347);
   assert.equal(new Set(seed.map(x=>x.testCode)).size,347);
-  assert.equal(seed.filter(x=>x.status==='active').length,58);
-  assert.equal(seed.filter(x=>x.status==='pending').length,289);
+  assert.equal(seed.filter(x=>x.status==='active').length,85);
+  assert.equal(seed.filter(x=>x.status==='pending').length,262);
   assert.equal(new Set(addedCodes).size,53);
   for (const code of addedCodes) {
     const t=seed.find(x=>x.testCode===code);

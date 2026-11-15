@@ -110,7 +110,8 @@ for (const [lab, appFile] of [['Quest','assets/js/app.js'],['Labcorp','labcorp-a
       'Plastic Screw-Cap Serum Vial','Plastic Plasma Transport Vial (Additive-Free)',
       'Plasma Transfer Tube','Polypropylene Plasma Aliquot Container',
       'Plastic Plasma Transport Vial, No Preservative',
-      'Dedicated Plastic Serum Transport Tube'];
+      'Dedicated Plastic Serum Transport Tube','Unpreserved Plastic Serum Transport Tube',
+      'Preservative-Free Plasma Transport Tube'];
     for(const value of normal){
       const material=/serum/i.test(value)?'Serum':'Plasma';
       const sample=make(api,905,material,'Red Top',value);

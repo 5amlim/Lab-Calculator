@@ -4976,7 +4976,7 @@
     if (String(test.transportTemperature || '').toLowerCase().trim() === 'frozen') return false;
     if (typeof isFrozenSerumPlasmaTransport === 'function' && isFrozenSerumPlasmaTransport(test, transport)) return false;
     const raw = normalizeSearch(transport)
-      .replace(/\b(?:no preservatives?|without preservatives?)\b/g, '').replace(/\s+/g, ' ').trim();
+      .replace(/\b(?:no preservatives?|without preservatives?|unpreserved|preservative[ -]?free)\b/g, '').replace(/\s+/g, ' ').trim();
     // Generic plastic vials share green transport badges, never specialty media.
     if (/amber|light protect|metal free|acid washed|acid rinsed|trace metal|trace element|preserv|cryovial|glass|royal blue|nmr|citrate|heparin|edta|platelet poor|special|frozen|transpak|fluoride|oxalate|formalin|cary blair/.test(raw)) return false;
     const clean = raw.replace(/\b(?:additive free|no additive|sterile|plain|unpreserved|dedicated)\b/g, '').replace(/\s+/g, ' ').trim();
@@ -4986,7 +4986,7 @@
   }
   function isPlainUrineAliquotTransport(test, transport) {
     if (!isUrineTest(test)) return false;
-    const raw = normalizeSearch(transport).replace(/\b(?:no preservatives?|without preservatives?)\b/g, '').replace(/\s+/g, ' ').trim();
+    const raw = normalizeSearch(transport).replace(/\b(?:no preservatives?|without preservatives?|unpreserved|preservative[ -]?free)\b/g, '').replace(/\s+/g, ' ').trim();
     // A negative qualifier such as "no HCl" describes an unpreserved source,
     // not an acid-preserved specialty collection device.
     const source = normalizeSearch(test.drawContainer)
