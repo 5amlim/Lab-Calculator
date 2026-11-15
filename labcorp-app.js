@@ -4990,7 +4990,7 @@
   function timedSpecimenLabel(test) {
     const labeling = String(test?.specialLabeling || '').trim();
     const timepoint = labeling.split(/\s+[-–]\s+|\s*:\s*/)[0].trim();
-    return /^(?:fasting|baseline|pre[- ]?(?:dose|load|glucose)|post[- ]?dose|\d+(?:\.\d+)?\s*[- ]?(?:hours?|hrs?|h|minutes?|mins?))$/i.test(timepoint)
+    return /^(?:fasting|baseline|pre[- ]?(?:dose|load|glucose)|post[- ]?dose|timed\s+(?:specimen|sample)\s+\d+|\d+(?:\.\d+)?\s*[- ]?(?:hours?|hrs?|h|minutes?|mins?))$/i.test(timepoint)
       ? timepoint : '';
   }
 
