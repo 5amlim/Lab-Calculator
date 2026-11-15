@@ -736,6 +736,11 @@
         transportContainer
       )
     );
+    // Surface the same unpreserved Sterile cup in search, gallery, collection,
+    // submission and print views; leave 24-hour source jugs unchanged.
+    if (isPlainUrineAliquotTransport({ ...record, specimenType, drawContainer }, transportContainer)) {
+      transportContainer = 'Sterile cup';
+    }
     // Microtainer-only neonatal instructions override the generic SST/Gold
     // source. Never count these small-volume microcollection tubes as regular
     // 5 mL Gold or 7.5 mL Tiger SSTs. Preserve the full manufacturer notes.
@@ -4970,7 +4975,7 @@
   // Never convert culture/UA preservatives, trace-metal, acid, amber or 24h jugs.
   function isPlainUrineAliquotTransport(test, transport) {
     if (!isUrineTest(test)) return false;
-    const raw = normalizeSearch(transport);
+    const raw = normalizeSearch(transport).replace(/\s+(?:no preservative|without preservative|unpreserved)$/, '');
     const source = normalizeSearch(test.drawContainer);
     if (/acid|hcl|metal free|trace metal|trace element|boric|preserv|culture|swirl|urinalysis|ua tube|uri sponge|amber|light protect|formalin|special|24 hour|timed|para pak/.test(raw)) return false;
     if (/acid|hcl|metal free|trace metal|trace element/.test(source)) return false;
