@@ -4868,20 +4868,20 @@
   // protected containers separate; specimen identity and source still matter.
   function isGenericSerumPlasmaTransport(test, transport) {
     const material = normalizeSpecimenType(test.specimenType).toLowerCase().trim();
-    if (material !== 'serum' && material !== 'plasma') return false;
+    if (!['serum', 'plasma', 'serum or plasma'].includes(material)) return false;
     if (String(test.transportTemperature || '').toLowerCase().trim() === 'frozen') return false;
     if (typeof isFrozenSerumPlasmaTransport === 'function' && isFrozenSerumPlasmaTransport(test, transport)) return false;
     const raw = normalizeSearch(transport);
     // Generic plastic vials share green transport badges, never specialty media.
     if (/amber|light protect|metal free|acid washed|acid rinsed|trace metal|trace element|preserv|cryovial|glass|royal blue|nmr|citrate|heparin|edta|platelet poor|special|frozen|transpak|fluoride|oxalate|formalin|cary blair/.test(raw)) return false;
-    const clean = raw.replace(/\b(?:additive free|no additive|sterile|plain|unpreserved)\b/g, '').replace(/\s+/g, ' ').trim();
+    const clean = raw.replace(/\b(?:additive free|no additive|sterile|plain|unpreserved|dedicated)\b/g, '').replace(/\s+/g, ' ').trim();
     if (!/\b(?:tube|vial|container)s?\b/.test(clean)) return false;
     if (!/\b(?:serum|plasma|plastic|polypropylene|transport|transfer|aliquot|screw cap)\b/.test(clean)) return false;
     return !clean.replace(/\b(?:serum|plasma|plastic|polypropylene|transport|transfer|aliquot|screw cap|tubes?|vials?|containers?)\b/g, '').replace(/\s+/g, '').trim();
   }
   function isPlainUrineAliquotTransport(test, transport) {
     if (!isUrineTest(test)) return false;
-    const raw = normalizeSearch(transport);
+    const raw = normalizeSearch(transport).replace(/\b(?:no preservatives?|without preservatives?)\b/g, '').replace(/\s+/g, ' ').trim();
     const source = normalizeSearch(test.drawContainer);
     // A plain urine aliquot can use a sterile leakproof screw-cap cup.
     // Do not convert preservative, molecular or specialty transport devices.
@@ -4898,7 +4898,7 @@
     if (/^tube-(?:qft-|eswab|utm|frozen-purple|op-|stool-clean)/.test(specialty)) return specialty;
     const specimen = normalizeSpecimenType(test.specimenType).toLowerCase();
     const specimenAndContainer = `${specimen} ${value}`;
-    const isStandardSerumOrPlasma = /^(?:serum|plasma)$/.test(specimen) && isGenericSerumPlasmaTransport(test, container);
+    const isStandardSerumOrPlasma = isGenericSerumPlasmaTransport(test, container);
     const isSpecialtyMetalContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal/.test(value);
 
     if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
@@ -4960,6 +4960,8 @@
       .replace(/\s+/g, ' ').trim();
     if (isGenericSerumPlasmaTransport(test, transport)) {
       const material = normalizeSpecimenType(test.specimenType).toLowerCase();
+      if (material !== 'serum' && material !== 'plasma')
+        return `${raw}|uncertain-matrix-${normalizeSearch(String(test.sourceTestId || test.id || displayCode(test)))}`;
       const key = `standard-${material}-transport|spin-${normalizeSearch(String(test.spin || '').trim()) || 'verify'}`;
       return requiresSeparateTransportAliquot(test)
         ? `${key}|dedicated-${normalizeSearch(String(test.sourceTestId || test.id || displayCode(test)))}`
