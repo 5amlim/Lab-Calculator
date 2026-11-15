@@ -4977,8 +4977,20 @@
     return /^(?:sterile\s+(?:urine\s+)?cup|(?:sterile\s+|unpreserved\s+|plain\s+)?(?:plastic\s+)?urine\s+(?:aliquot\s+)?(?:transport\s+)?(?:cup|container|vial|tube)|plastic\s+(?:screw\s+cap\s+)?(?:urine\s+)?(?:aliquot\s+)?(?:transport\s+)?(?:cup|container|vial))$/.test(raw);
   }
 
+  // Frozen serum, plasma and citrated platelet-poor plasma need distinct
+  // frozen transport submissions, not the routine green-cap visual group.
+  function isFrozenSerumPlasmaTransport(test, container) {
+    const material = normalizeSpecimenType(test.specimenType).toLowerCase().trim();
+    const raw = normalizeSearch(container);
+    return String(test.transportTemperature || '').toLowerCase().trim() === 'frozen'
+      && /^(?:serum|plasma|platelet poor plasma)$/.test(material)
+      && /(?:transport|transfer|aliquot)\s+(?:tube|vial|container)|(?:plastic|polypropylene)\s+screw\s+cap\s+(?:tube|vial)/.test(raw)
+      && !/amber|light protect|metal free|trace metal|acid washed|glass|cryovial|preserv|special|nmr|transpak/.test(raw);
+  }
+
   function transportTubeClass(test, container) {
     const value = String(container || '').toLowerCase();
+    if (isFrozenSerumPlasmaTransport(test, container)) return 'tube-frozen-purple';
     if (/^frozen platelet[- ]poor plasma transport tube/.test(value)) return 'tube-frozen-purple';
     if (/^frozen transport tube(?:\s*\(.*\))?$/.test(value)) return 'tube-frozen-purple';
     const specimen = normalizeSpecimenType(test.specimenType).toLowerCase();
@@ -5199,6 +5211,17 @@
     const specimen = titleCaseSpecimen(normalizeSpecimenType(test.specimenType));
     const sourceSpecimen = specificSpecimenSource(test);
 
+    // Generic frozen serum/plasma and platelet-poor plasma aliquots each need
+    // a dedicated frozen tube, even when directory wording says "Transport tube".
+    if (isFrozenSerumPlasmaTransport(test, transport)) {
+      return [{
+        key: `frozen-processed|${normalizeSearch(test.sourceTestId || test.id || test.testCode)}`,
+        label: 'Frozen Transport Tube',
+        className: 'tube-frozen-purple',
+        count: explicitSubmissionCount(test),
+        detail: specimenSourceDetail(test) + ' · dedicated frozen aliquot, ship frozen'
+      }];
+    }
     // Frozen PPP remains a frozen aliquot, not a standard green-top transfer tube.
     if (/^frozen platelet[- ]poor plasma transport tube/i.test(transport)) {
       return [{
