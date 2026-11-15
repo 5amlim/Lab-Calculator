@@ -14,7 +14,7 @@
     "stability": "Room 72 hours; refrigerated 72 hours; frozen unacceptable.",
     "spin": "No",
     "specialInstructions": "Use only the BD Affirm VPIII Ambient Temperature Transport System (ATTS) for a vaginal swab. Add ATTS ampule reagent to collection tube. Swab posterior vaginal fornix, place swab into collection tube immediately, break shaft at score mark, snap cap shut, and label patient details, collection date and time. Room temperature or refrigerated for up to 72 hours; do not freeze. Generic swabs, Aptima or ESwab are not substitutes.",
-    "source": "Quest West Hills performing-lab instructions, verified 2026-11-14 • https://www.rchsd.org/lab-test/bacterial-vaginosis-vaginitis-panel-14577/",
+    "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/14577/bacterial-vaginosis-vaginitis-panel?cc=MASTER",
     "alternativeContainer": ""
   },
   {
