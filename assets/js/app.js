@@ -5103,6 +5103,21 @@
     });
   }
 
+  // Each additional/timed draw is a distinct specimen, irrespective of
+  // whether its transport device matches another sample.
+  function timedSpecimenLabel(test) {
+    const labeling = String(test?.specialLabeling || '').trim();
+    const timepoint = labeling.split(/\s+[-–]\s+|\s*:\s*/)[0].trim();
+    return /^(?:fasting|baseline|pre[- ]?(?:dose|load|glucose)|post[- ]?dose|\d+(?:\.\d+)?\s*[- ]?(?:hours?|hrs?|h|minutes?|mins?))$/i.test(timepoint)
+      ? timepoint : '';
+  }
+
+  function requiresDistinctDrawTransport(test) {
+    return Boolean(timedSpecimenLabel(test) ||
+      test.sourceTestId ||
+      (Array.isArray(test.additionalDrawRequirements) && test.additionalDrawRequirements.length));
+  }
+
   function submissionTransportGroupingKey(test, transport) {
     const raw = normalizeSearch(transport)
       .replace(/^\d+\s*(?:x|×)?\s*(?:separate\s+)?/, '')
@@ -5112,11 +5127,17 @@
       if (material !== 'serum' && material !== 'plasma')
         return `${raw}|uncertain-matrix-${normalizeSearch(String(test.sourceTestId || test.id || displayCode(test)))}`;
       const key = `standard-${material}-transport|spin-${normalizeSearch(String(test.spin || '').trim()) || 'verify'}`;
+      if (requiresDistinctDrawTransport(test)) {
+        // Never pool separate collection timepoints into one physical vial.
+        return `${key}|required-draw-${normalizeSearch(String(test.id || test.sourceTestId || displayCode(test)))}`;
+      }
       return requiresSeparateTransportAliquot(test)
         ? `${key}|dedicated-${normalizeSearch(String(test.sourceTestId || test.id || displayCode(test)))}`
         : key;
     }
-    return raw;
+    return requiresDistinctDrawTransport(test)
+      ? `${raw}|required-draw-${normalizeSearch(String(test.id || test.sourceTestId || displayCode(test)))}`
+      : raw;
   }
 
   function isGrayFluoridePlasmaTransfer(test) {
@@ -6132,9 +6153,8 @@
         item.printAllocationNote || !Array.isArray(item.tests) || item.tests.length !== 1 ||
         !item.label || !item.className) return null;
     const test = item.tests[0];
-    const labeling = String(test.specialLabeling || '').trim();
-    const timepoint = labeling.split(/\s+[-–]\s+|\s*:\s*/)[0].trim();
-    if (!/^(?:fasting|baseline|pre[- ]?(?:dose|load|glucose)|post[- ]?dose|\d+(?:\.\d+)?\s*[- ]?(?:hours?|hrs?|h|minutes?|mins?))$/i.test(timepoint)) return null;
+    const timepoint = timedSpecimenLabel(test);
+    if (!timepoint) return null;
     const sourceId = String(test.sourceTestId || test.id || '').trim();
     if (!sourceId || !String(test.testCode || '').trim()) return null;
     const source = canonicalCollectionContainer(test);
