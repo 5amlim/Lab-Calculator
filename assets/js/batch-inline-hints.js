@@ -62,32 +62,44 @@
       mirror.replaceChildren();
       if (!textarea.value) { syncScroll(); return; }
 
+      // Rebuild the mirror using only the original textarea text. Inline
+      // positioning elements can increase a line box's height and progressively
+      // misalign subsequent rows. Collapsed ranges locate the true caret instead.
       var lines = textarea.value.split('\n');
       var hints = [];
+      mirror.scrollTop = 0;
+      mirror.scrollLeft = 0;
       lines.forEach(function (line, index) {
         if (index) mirror.appendChild(document.createTextNode('\n'));
-        mirror.appendChild(document.createTextNode(line));
+        var node = document.createTextNode(line);
+        mirror.appendChild(node);
         var query = line.trim();
         if (!query) return;
         var hint = resolveExactHint(query);
-        if (!hint) return;
-        var anchor = document.createElement('span');
-        anchor.className = 'batch-inline-ghost-anchor';
-        var label = document.createElement('span');
-        label.className = 'batch-inline-ghost-label';
-        label.textContent = ' • ' + hint;
-        anchor.appendChild(label);
-        mirror.appendChild(anchor);
-        hints.push({ anchor: anchor, label: label });
+        if (hint) hints.push({ node: node, hint: hint });
       });
 
-      // A long name must never cover the next line or shift the textarea layout.
-      var rightEdge = mirror.getBoundingClientRect().right -
+      var mirrorRect = mirror.getBoundingClientRect();
+      var rightEdge = mirrorRect.right -
         parseFloat(window.getComputedStyle(mirror).paddingRight || '0') - 5;
       hints.forEach(function (entry) {
-        var free = Math.floor(rightEdge - entry.anchor.getBoundingClientRect().left);
-        entry.label.style.maxWidth = Math.max(0, free) + 'px';
-        if (free < 35) entry.label.style.display = 'none';
+        var caret = document.createRange();
+        caret.setStart(entry.node, entry.node.length);
+        caret.collapse(true);
+        var rect = caret.getBoundingClientRect();
+        if (!rect || !rect.height) return;
+
+        var label = document.createElement('span');
+        label.className = 'batch-inline-ghost-label';
+        label.textContent = '• ' + entry.hint;
+        label.style.left = (rect.left - mirrorRect.left) + 'px';
+        label.style.top = (rect.top - mirrorRect.top) + 'px';
+        mirror.appendChild(label);
+
+        var gap = parseFloat(window.getComputedStyle(label).marginLeft || '0');
+        var free = Math.floor(rightEdge - rect.left - gap);
+        label.style.maxWidth = Math.max(0, free) + 'px';
+        if (free < 35) label.style.display = 'none';
       });
       syncScroll();
     }

@@ -104,18 +104,15 @@
     user-select: none;
     -webkit-user-select: none;
   }
-  .batch-inline-ghost-anchor { position: relative; display: inline; }
   .batch-inline-ghost-label {
     position: absolute;
-    top: 0;
-    left: 0;
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #81909b;
     font: inherit;
-    font-weight: 500;
+    margin-left: .35em;
     pointer-events: none;
     user-select: none;
     -webkit-user-select: none;
