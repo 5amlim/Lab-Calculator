@@ -4955,6 +4955,9 @@
   }
 
   function isShareableSerumPlasmaTransport(test, container) {
+    // Different collection timepoints and required additional draws are never
+    // eligible for ordinary same-sample serum/plasma vial pooling.
+    if (requiresDistinctDrawTransport(test)) return false;
     const specimen = normalizeSpecimenType(test.specimenType).toLowerCase();
     if (!/^(?:serum|plasma)$/.test(specimen)) return false;
     if (requiresSeparateTransportAliquot(test)) return false;
