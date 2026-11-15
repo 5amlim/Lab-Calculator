@@ -1298,6 +1298,12 @@
     "status": "active"
   }
 };
+  // Preferred serum volumes above one Gold SST's usable yield must increase actual draw count.
+  // This preserves the Gold/Tiger toggle: e.g., 3 mL means two Gold or one Tiger; 5 mL means two of either.
+  // multi-SST count audit 2026-11-15.
+  for (const code of ['500108', '504796', '500540', '500649']) {
+    thirdVerified[code].specialInstructions += ' Preferred serum yield requires multi-SST calculation.';
+  }
   Object.assign(verified, thirdVerified);
   const catalog = Array.isArray(window.SEED_TESTS) ? window.SEED_TESTS : [];
   const knownCodes = new Set(catalog.map(t => String(t.testCode || '').trim()));
