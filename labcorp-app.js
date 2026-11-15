@@ -179,12 +179,17 @@
     batch: { active: -1, items: [] }
   };
   let toastTimer;
+  let refreshBatchHints = () => {};
 
   function init() {
     if (els.categoryFilter && window.LabClinicalCategories) {
       els.categoryFilter.innerHTML = '<option value="">All categories</option>' +
         window.LabClinicalCategories.options.map(({id,label}) =>
           `<option value="${id}">${label.replace(/&/g, '&amp;')}</option>`).join('');
+    }
+    if (window.LabBatchInlineHints) {
+      refreshBatchHints = window.LabBatchInlineHints.mount(els.searchInput, query =>
+        window.LabBatchInlineHints.resolveExact(query, database, normalizeSearch));
     }
     bindEvents();
     renderAll();
@@ -195,6 +200,7 @@
     els.addBestButton.addEventListener('click', () => renderBatch(true));
     els.clearSearchButton.addEventListener('click', () => {
       els.searchInput.value = '';
+      refreshBatchHints();
       closeSuggestions('batch');
       els.batchResults.classList.add('hidden');
       els.batchResults.innerHTML = '';
@@ -379,6 +385,7 @@
     renderLibrary();
     renderBlockedList();
     renderOrder();
+    refreshBatchHints();
   }
 
   function loadDatabase() {
@@ -1859,6 +1866,14 @@
       matches.filter(({ test }) => String(test.testCode || '').trim() === code).length === 1;
   }
 
+  // An unambiguous full test name is already confirmed by the inline code hint.
+  // Partial names and shared names still show the suggestion dropdown.
+  function hasSingleExactNameMatch(query) {
+    const name = normalizeSearch(query);
+    return Boolean(name) && database.filter(test =>
+      test.status === 'active' && normalizeSearch(test.testName) === name).length === 1;
+  }
+
   function renderSuggestions(kind) {
     const input = kind === 'library' ? els.libraryFilter : els.searchInput;
     const panel = kind === 'library' ? els.librarySuggestions : els.batchSuggestions;
@@ -1868,7 +1883,8 @@
     const state = suggestionState[kind];
     state.items = matches.map(item => item.test);
     state.active = -1;
-    if (!matches.length || hasSingleExactCodeMatch(query, matches)) {
+    if (!matches.length || hasSingleExactCodeMatch(query, matches) ||
+      (kind === 'batch' && hasSingleExactNameMatch(query))) {
       closeSuggestions(kind);
       return;
     }
@@ -1929,6 +1945,7 @@
         const nextLineStart = start + value.length + 1;
         els.searchInput.setSelectionRange(nextLineStart, nextLineStart);
       }
+      refreshBatchHints();
     }
     closeSuggestions(kind);
   }
