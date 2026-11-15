@@ -79,7 +79,8 @@
 }
 #manualTestNotice .manual-notice-check-icon svg { width: 17px; height: 17px; }
 #manualTestNotice .manual-notice-check strong,
-#manualTestNotice .manual-notice-permanent strong { display: block; margin-bottom: 5px; color: #30324a; font-size: 14px; }
+#manualTestNotice .manual-notice-permanent > div > strong { display: block; margin-bottom: 5px; color: #30324a; font-size: 14px; }
+#manualTestNotice .manual-notice-permanent p strong { display: inline; margin: 0; font-size: inherit; }
 #manualTestNotice .manual-notice-permanent {
   display: flex;
   align-items: start;
