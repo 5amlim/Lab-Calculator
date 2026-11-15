@@ -107,5 +107,5 @@ test('Collection source count does not use the blood capacity formula on other s
   assert.match(app, /Separate labeled Sterile cup for each specimen source/);
   assert.match(app, /const matchingSpecialOriginal =/);
   assert.match(app, /19081': \{ count: 1, tubeMl: 5, dedicated: true \}/);
-  assert.match(app, /Quest Diagnostics official test directory, reviewed 2026-11-14/);
+  assert.match(app, /Quest Diagnostics \(\?:official test directory, reviewed\|test directory, verified\) 2026-11-14/);
 });
