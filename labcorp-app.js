@@ -4847,6 +4847,31 @@
     return 'Frozen Transport Tube';
   }
 
+  // Generic empty plastic serum/plasma transport vials use the same green
+  // badge. Keep frozen, special media, metal-free, platelet-poor and light-
+  // protected containers separate; specimen identity and source still matter.
+  function isGenericSerumPlasmaTransport(test, transport) {
+    const material = normalizeSpecimenType(test.specimenType).toLowerCase().trim();
+    if (material !== 'serum' && material !== 'plasma') return false;
+    if (String(test.transportTemperature || '').toLowerCase().trim() === 'frozen') return false;
+    const raw = normalizeSearch(transport);
+    if (/amber|light protect|metal free|acid washed|trace metal|trace element|preserv|cryovial|glass|royal blue|nmr|citrate|heparin|edta|platelet poor|special|frozen|transpak/.test(raw)) return false;
+    return /^(?:(?:plastic|polypropylene)\s+)?(?:(?:screw\s*cap)\s+)?(?:(?:serum|plasma)\s+)?(?:transport|transfer|aliquot)\s+(?:tube|vial|container)s?$/.test(raw)
+      || /^(?:(?:plastic|polypropylene)\s+)?(?:serum|plasma)\s+(?:transport|transfer|aliquot)\s+(?:tube|vial|container)s?$/.test(raw)
+      || /^(?:(?:plastic|polypropylene)\s+)?(?:screw\s*cap)\s+(?:serum|plasma)\s+(?:transport|transfer|aliquot)\s+(?:tube|vial|container)s?$/.test(raw)
+      || /^(?:(?:plastic|polypropylene)\s+)?(?:screw\s*cap)\s+(?:tube|vial|container)s?$/.test(raw)
+      || /^(?:serum|plasma)\s+(?:plastic|polypropylene)\s+(?:screw\s*cap\s+)?(?:transport|transfer|aliquot)\s+(?:tube|vial|container)s?$/.test(raw);
+  }
+
+  function isPlainUrineAliquotTransport(test, transport) {
+    if (!isUrineTest(test)) return false;
+    const raw = normalizeSearch(transport);
+    const source = normalizeSearch(test.drawContainer);
+    if (/acid|hcl|metal free|trace metal|trace element|boric|preserv|culture|swirl|urinalysis|ua tube|uri sponge|amber|light protect|formalin|special|24 hour|timed|para pak/.test(raw)) return false;
+    if (/acid|hcl|metal free|trace metal|trace element/.test(source)) return false;
+    return /^(?:sterile\s+(?:urine\s+)?cup|(?:sterile\s+|unpreserved\s+|plain\s+)?(?:plastic\s+)?urine\s+(?:aliquot\s+)?(?:transport\s+)?(?:cup|container|vial|tube)|plastic\s+(?:screw\s+cap\s+)?(?:urine\s+)?(?:aliquot\s+)?(?:transport\s+)?(?:cup|container|vial))$/.test(raw);
+  }
+
   function transportTubeClass(test, container) {
     const value = String(container || '').toLowerCase();
     const specialty = tubeClass(container);
@@ -4854,7 +4879,7 @@
     if (/^tube-(?:qft-|eswab|utm|frozen-purple|op-|stool-clean)/.test(specialty)) return specialty;
     const specimen = normalizeSpecimenType(test.specimenType).toLowerCase();
     const specimenAndContainer = `${specimen} ${value}`;
-    const isStandardSerumOrPlasma = /\b(?:serum|plasma)\b/.test(specimenAndContainer);
+    const isStandardSerumOrPlasma = /^(?:serum|plasma)$/.test(specimen) && isGenericSerumPlasmaTransport(test, container);
     const isSpecialtyMetalContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal/.test(value);
 
     if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
@@ -4864,8 +4889,8 @@
     // Specialty acid-washed/metal-free tubes must stay neutral, regardless of specimen type.
     if (isSpecialtyMetalContainer) return 'tube-transport';
 
-    if (/transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/.test(value)) {
-      // Serum, plasma, and platelet-poor plasma use the green-top transport badge.
+    if (/transport tube|transfer tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off|plastic.*vial/.test(value)) {
+      // Ordinary serum/plasma plastic vials use the green-top transport badge; specialty devices do not.
       return isStandardSerumOrPlasma
         ? 'tube-transport tube-transport-green-top'
         : 'tube-transport';
@@ -4913,32 +4938,22 @@
   function submissionTransportGroupingKey(test, transport) {
     const raw = normalizeSearch(transport)
       .replace(/^\d+\s*(?:x|×)?\s*(?:separate\s+)?/, '')
-      .replace(/\s+/g, ' ')
-      .trim();
-    const specimen = normalizeSpecimenType(test.specimenType).toLowerCase();
-    const specialContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal|amber|protect from light|light[- ]?protected|aptima|preservative|cryovial|glass|royal blue|trace element/.test(raw);
-    const genericTransport = /^(?:(?:serum|plasma)\s+)?(?:plastic\s+)?transport\s+tubes?$/.test(raw);
-
-    // Normalize only ordinary generic serum/plasma transport tubes. Specialty
-    // containers (acid-washed, metal-free, amber, cryovial, etc.) retain their
-    // exact container identity and can never merge into the standard green-top group.
-    if (!specialContainer && /^(?:serum|plasma)$/.test(specimen) && genericTransport) {
-      const standardKey = `standard-${specimen}-transport`;
-      // Explicit separate aliquots keep their own card, even if only one
-      // dedicated transport tube is requested.
-      const processing = normalizeSearch(String(test.spin || '').trim());
-      const sharingKey = `${standardKey}|spin-${processing || 'verify'}`;
+      .replace(/\s+/g, ' ').trim();
+    if (isGenericSerumPlasmaTransport(test, transport)) {
+      const material = normalizeSpecimenType(test.specimenType).toLowerCase();
+      const key = `standard-${material}-transport|spin-${normalizeSearch(String(test.spin || '').trim()) || 'verify'}`;
       return requiresSeparateTransportAliquot(test)
-        ? `${sharingKey}|dedicated-${normalizeSearch(String(test.sourceTestId || test.id || displayCode(test)))}`
-        : sharingKey;
+        ? `${key}|dedicated-${normalizeSearch(String(test.sourceTestId || test.id || displayCode(test)))}`
+        : key;
     }
-
     return raw;
   }
 
   function isOriginalContainerSubmission(test) {
     const draw = String(test.drawContainer || '').trim();
     const transport = finalTransportContainer(test);
+    if (isPlainUrineAliquotTransport(test, transport) && !isTimedUrineTest(test) &&
+      cleanCollectionContainer(draw) === 'Sterile cup') return true;
     const combined = `${transport} ${test.specialInstructions || ''}`.toLowerCase();
     // Ordinary stool is first collected into a sterile cup, and then moved to
     // Total-Fix. The preservative vial is a transport container, not the
@@ -5077,6 +5092,23 @@
           detail: 'Separate serum aliquot · protect from light · room temperature' }
       ];
     }
+    // Plain urine aliquot transport tubes/containers can use the same sterile
+    // screw-cap specimen cup. Timed collections still need the original jug.
+    if (isPlainUrineAliquotTransport(test, transport)) {
+      const original = !isTimedUrineTest(test) &&
+        cleanCollectionContainer(test.drawContainer) === 'Sterile cup';
+      const share = original && isShareableUrineCupTest(test) &&
+        !requiresSeparateTransportAliquot(test) && explicitSubmissionCount(test) === 1;
+      return [{
+        key: `original-urine-cup|${urineCollectionType(test).key}|${share ? 'shared' : String(test.sourceTestId || test.id || test.testCode)}`,
+        label: 'Sterile cup', className: 'tube-urine-cup',
+        originalTube: original, shareableOriginalUrineCup: share,
+        count: explicitSubmissionCount(test),
+        detail: original ? 'Submit the original unpreserved sterile cup; no transfer'
+          : 'Aliquot from the well-mixed timed/24-hour source into a sterile screw-cap cup; record total volume'
+      }];
+    }
+
     if (requiresDualUrinalysisCultureContainers(test)) {
       return [
         { key: 'ua-swirl', label: 'Red/Yellow Swirl UA Preservative Tube', className: 'tube-ua-swirl', count: 1, detail: 'Urine in preservative tube' },
