@@ -118,7 +118,8 @@
 #manualTestNotice .manual-notice-continue { background: #7350bc; color: #fff; border: 1px solid #7350bc; box-shadow: 0 4px 13px rgba(115, 80, 188, .18); }
 
 .manual-test-form-help {
-  margin: 18px 0 12px;
+  /* Match the horizontal inset of the Add/Edit Test form sections. */
+  margin: 18px 24px 12px;
   display: grid;
   gap: 12px;
   font-family: inherit;
@@ -382,6 +383,7 @@
   #manualTestNotice .manual-notice-permanent { margin: 0 17px 13px; padding: 12px; }
   #manualTestNotice .manual-notice-actions { padding: 14px 17px; }
   #manualTestNotice .manual-notice-actions button { padding: 10px 12px; font-size: 12px; }
+  .manual-test-form-help { margin-left: 13px; margin-right: 13px; }
   .manual-test-form-help .manual-guide-steps { grid-template-columns: 1fr; }
 }
 @media print {
