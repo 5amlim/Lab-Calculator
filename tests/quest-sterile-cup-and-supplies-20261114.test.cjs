@@ -84,12 +84,12 @@ test('Same sterile-cup inventory for urine, stool, CSF and sputum, but different
     ['urine','stool','csf','sputum']);
  const p=plan(h,selected);
  const cups=p.collection.filter(item=>item.label==='Sterile cup');
- assert.equal(cups.length,1);
- assert.equal(cups[0].count,4);
- assert.match(cups[0].detail,/NEVER mix urine, stool, CSF and sputum/);
+ assert.equal(cups.length,4,'distinct specimens must have separate collection cards');
+ assert.equal(cups.reduce((sum,item)=>sum+item.count,0),4);
+ assert(cups.every(item=>item.count===1));
  assert.equal(p.submission.filter(item=>item.label==='Sterile cup').reduce((n,x)=>n+x.count,0),4);
  assert.equal(new Set(p.submission.filter(item=>item.label==='Sterile cup').map(item=>item.key)).size,4);
- assert.equal(h.buildDrawGroups(p.ex).filter(group=>group.container==='Sterile cup').length,1);
+ assert.equal(h.buildDrawGroups(p.ex).filter(group=>group.container==='Sterile cup').length,4);
  assert.equal(byCode.get('70028').transportTemperature,'Room Temperature');
  assert.equal(byCode.get('4556').transportTemperature,'Refrigerated');
 });
