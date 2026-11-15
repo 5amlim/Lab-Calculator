@@ -45,7 +45,7 @@ function loadedApp(appPath) {
   assert(src.includes('  init();'));
   vm.runInNewContext(src.replace('  init();',
     '  window.__test = { database, specimenFilterCategories, transportContainerFilterCategories, '+
-    'setSelectValue, specimenSelect:els.specimenType };'),
+    'setSelectValue, specimenSelect:els.specimenType, matchesLibraryFilters, filters:els };'),
     {window,document,localStorage:{getItem(){return null;},setItem(){},removeItem(){}},
      setTimeout(){return 0;},clearTimeout(){},
      console:{warn(){},error(){}}},
@@ -94,6 +94,24 @@ for (const [name,page,app] of pages) {
    assert(specimens.includes('Blood')&&specimens.includes('Vaginal Swab'));
    assert(containers.includes('serum')&&containers.includes('affirm'));
  });
+ test(name+' live filter values find Affirm, Pleural Fluid and second required specimens',async()=>{
+   const w=loadedApp(app);await Promise.resolve();const h=w.__test;
+   const byCode=Object.fromEntries(h.database.filter(t=>['a','b','c','d'].includes(t.id))
+     .map(t=>[t.id,t]));
+   // Native dropdowns remain the source of truth for the portal menu.
+   h.filters.specimenFilter.value='Vaginal Swab';
+   h.filters.transportContainerFilter.value='affirm';
+   assert(h.matchesLibraryFilters(byCode.a),'Affirm was hidden by its dedicated filter');
+   assert(h.matchesLibraryFilters(byCode.c),'a secondary required Affirm specimen was omitted');
+   assert.equal(h.matchesLibraryFilters(byCode.b),false);
+   h.filters.specimenFilter.value='Pleural Fluid';
+   h.filters.transportContainerFilter.value='sterile-cup';
+   assert(h.matchesLibraryFilters(byCode.b),'pleural fluid was missing under sterile cup');
+   assert.equal(h.matchesLibraryFilters(byCode.a),false);
+   h.filters.specimenFilter.value='Swab';
+   h.filters.transportContainerFilter.value='amies';
+   assert(h.matchesLibraryFilters(byCode.d),'Amies swab was not searchable by both filters');
+ });
  test(name+' edits preserve uncommon exact specimen names instead of Other / Verify',async()=>{
    const w=loadedApp(app);await Promise.resolve();
    const h=w.__test;
@@ -129,4 +147,11 @@ test('Quest and Labcorp filters retain generic swab and original sterile-cup pat
      specimenType:'Urine',drawContainer:'Sterile cup',transportContainer:'Sterile cup'})
      .includes('sterile-cup'));
  }
+});
+
+test('Portal menu displays original container wording while preserving legacy saved values',()=>{
+ const code=read('assets/js/portal-selects.js');
+ assert.match(code,/option\.value === 'Submit in original tube'/);
+ assert.match(code,/isSstSource\(item\) \? 'Spun SST \/ Original tube' : 'Submit in original container'/);
+ assert.match(code,/tube-eswab/);
 });
