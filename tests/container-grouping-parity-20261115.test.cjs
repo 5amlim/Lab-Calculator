@@ -30,7 +30,7 @@ function openCalculator(appFile, seed = []) {
   vm.runInNewContext(app.replace('  init();', replacement), {
     window, document, localStorage, setTimeout:()=>0, clearTimeout(){},
     console:{warn(){},error(){}}
-  }, {filename:appFile, timeout:30000});
+  }, {filename:appFile, timeout:30000, microtaskMode:'afterEvaluate'});
   assert.ok(window.__groupingAudit, appFile + ': audit hooks available');
   return window.__groupingAudit;
 }
