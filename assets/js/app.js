@@ -5115,7 +5115,7 @@
   function timedSpecimenLabel(test) {
     const labeling = String(test?.specialLabeling || '').trim();
     const timepoint = labeling.split(/\s+[-–]\s+|\s*:\s*/)[0].trim();
-    return /^(?:fasting|baseline|pre[- ]?(?:dose|load|glucose)|post[- ]?dose|\d+(?:\.\d+)?\s*[- ]?(?:hours?|hrs?|h|minutes?|mins?))$/i.test(timepoint)
+    return /^(?:fasting|baseline|pre[- ]?(?:dose|load|glucose)|post[- ]?dose|timed\s+(?:specimen|sample)\s+\d+|\d+(?:\.\d+)?\s*[- ]?(?:hours?|hrs?|h|minutes?|mins?))$/i.test(timepoint)
       ? timepoint : '';
   }
 
@@ -5285,7 +5285,7 @@
     // a dedicated frozen tube, even when directory wording says "Transport tube".
     if (isFrozenSerumPlasmaTransport(test, transport)) {
       return [{
-        key: `frozen-processed|${normalizeSearch(test.sourceTestId || test.id || test.testCode)}`,
+        key: `frozen-processed|${normalizeSearch(requiresDistinctDrawTransport(test) ? test.id : (test.sourceTestId || test.id || test.testCode))}`,
         label: 'Frozen Transport Tube',
         className: 'tube-frozen-purple',
         count: explicitSubmissionCount(test),
