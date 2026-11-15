@@ -22,7 +22,7 @@ async function calculator() {
   const app=read('assets/js/app.js');
   assert(app.includes('  init();\n  };'));
   vm.runInNewContext(app.replace('  init();\n  };',
-    '  window.__questFluidAudit={database,expandedCollectionTests,buildTransportBagPlan,buildCollectionPlan,buildSubmissionContents,menuContainerBadges,canonicalCollectionContainer};\n  };'),
+    '  window.__questFluidAudit={database,expandedCollectionTests,buildTransportBagPlan,buildCollectionPlan,buildSubmissionContents,menuContainerBadges,canonicalCollectionContainer,printSubmissionItemDetail};\n  };'),
     {window,document,localStorage:{getItem(){return null;},setItem(){},removeItem(){}},setTimeout:()=>0,clearTimeout(){},console:{warn(){},error(){}}},
     {filename:'assets/js/app.js',timeout:30000});
   await Promise.resolve();
@@ -64,7 +64,7 @@ test('Source lab fluid and downstream frozen transport show existing badges and 
   assert.equal(p.submission.length,1,'group the same physical stock and source under one card');
   assert(p.submission.every(x=>x.className==='tube-urine-cup'));
   assert(p.submission.every(x=>x.label==='Sterile cup'));
-  assert.match(p.submission[0].detail,/Submit in original sterile cup/i);
+  assert.match(p.submission[0].detail,/Submit in original container/i);
   assert(records.every(x=>api.canonicalCollectionContainer(x).label==='Sterile cup'));
 });
 test('Different body fluid sources do not share submission or collection containers',async()=>{
@@ -75,7 +75,7 @@ test('Different body fluid sources do not share submission or collection contain
   assert.equal(p.submission.reduce((n,x)=>n+x.count,0),4);
   assert.equal(new Set(p.submission.map(x=>x.label)).size,1,'all use identical Sterile cup inventory');
   assert.equal(new Set(p.submission.map(x=>x.key)).size,4,'separate specimen identities remain separate');
-  assert(p.submission.every(x=>/original sterile cup/i.test(x.detail)));
+  assert(p.submission.every(x=>/original container/i.test(x.detail)));
 });
 test('All 18 fluid tests share the Sterile cup stock type without doubling the transport inventory',async()=>{
   const api=await calculator();
@@ -88,6 +88,16 @@ test('All 18 fluid tests share the Sterile cup stock type without doubling the t
   assert(p.submission.every(x=>x.label==='Sterile cup'&&x.className==='tube-urine-cup'));
   assert.equal(new Set(p.submission.map(x=>x.key)).size,5,'five distinct body-fluid specimen sources');
   assert(p.submission.every(x=>x.originalTube===true),'one physical cup is collected and submitted, not extra transfer tubes');
+});
+test('Printed Sterile cup submissions say original container, not original tube',async()=>{
+  const api=await calculator();
+  const tests=['17593','17417'].map(code=>api.database.find(x=>x.testCode===code));
+  const p=plan(api,tests);
+  for(const item of p.submission){
+    const text=api.printSubmissionItemDetail(item);
+    assert.match(text,/Submit in original container/);
+    assert.doesNotMatch(text,/Submit in original tube/);
+  }
 });
 test('Quest loads active additions before the directory-only fallback',()=>{
   const html=read('index.html');
