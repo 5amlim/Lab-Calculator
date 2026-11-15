@@ -1,27 +1,6 @@
 /* Source-verified Labcorp routine and Esoterix specialty additions, 2026-11-14. */
 (()=>{'use strict';if(!Array.isArray(window.SEED_TESTS))return;const additions=[
   {
-    "id": "labcorp-002071-verified-20261114b",
-    "testCode": "002071",
-    "testName": "Osmolality, Serum or Plasma",
-    "specimenType": "Serum or Plasma",
-    "drawContainer": "SST / Gold",
-    "alternativeContainer": "Red Top serum or Green Top heparin plasma",
-    "transportContainer": "Plastic Serum/Plasma Transport Tube",
-    "preferredVolume": "2 mL serum or heparin plasma",
-    "minimumVolume": "0.2 mL",
-    "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
-    "stability": "Room, refrigerated or frozen: 14 days",
-    "spin": "Yes",
-    "specialInstructions": "Separate serum or heparin plasma from cells promptly, transfer to plastic tube, refrigerate. Red-top serum or green-top heparin may also be used. EDTA plasma is REJECTED. Include patient age on requisition.",
-    "additionalDrawRequirements": [],
-    "fastingStatus": "",
-    "fastingInstructions": "",
-    "status": "active",
-    "source": "Labcorp official test directory, reviewed 2026-11-14 • https://www.labcorp.com/tests/002071/osmolality"
-  },
-  {
     "id": "labcorp-500722-verified-20261114b",
     "testCode": "500722",
     "testName": "Proinsulin (Esoterix Specialty)",
