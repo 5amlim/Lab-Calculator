@@ -4122,6 +4122,7 @@
   }
 
   function requiresDedicatedCollectionTube(test) {
+    if (requiresDistinctDrawTransport(test)) return true;
     if (isGrayFluoridePlasmaTransfer(test)) return true;
     const text = `${test.drawContainer || ''} ${test.preferredVolume || ''} ${test.minimumVolume || ''} ${test.specialInstructions || ''}`.toLowerCase();
     return /\bdedicated(?:\s+collection)?\s+tube\b|\bown\s+tube\b|\bdo\s+not\s+share\b|\bfull\s+(?:lavender|red(?:-top)?|edta|collection)?\s*tube\b|\b(?:each|individual)\s+(?:lavender|red(?:-top)?|edta|collection)\s+tube\b/.test(text)
@@ -5194,7 +5195,8 @@
     return {
       key: directUrineCup
         ? `original-urine-cup|${urineCollectionType(test).key}|${shareUrineCup ? 'shared' : String(test.sourceTestId || test.id || test.testCode)}`
-        : `original|${normalizeSearch(label)}|${normalizeSearch(sourceSpecimen)}`,
+        : `original|${normalizeSearch(label)}|${normalizeSearch(sourceSpecimen)}${requiresDistinctDrawTransport(test)
+          ? '|required-draw-' + normalizeSearch(String(test.id || test.sourceTestId || displayCode(test))) : ''}`,
       shareableOriginalUrineCup: shareUrineCup,
       label,
       className: tubeClass(draw),
@@ -6152,7 +6154,7 @@
   // Display-only grouping for independently collected timed aliquots.
   // Never modify physical vial counts or allow different timepoints to pool.
   function printTimedSpecimenGroupInfo(item) {
-    if (!item || item.originalTube || item.pooledSerumPlasmaTransport ||
+    if (!item || item.pooledSerumPlasmaTransport ||
         item.printAllocationNote || !Array.isArray(item.tests) || item.tests.length !== 1 ||
         !item.label || !item.className) return null;
     const test = item.tests[0];
