@@ -40,6 +40,6 @@ test('directory-only records preserve names but are excluded from collection pla
   assert.match(app, /window\.QUEST_MISSING_DIRECTORY_READY/);
   const data = html.indexOf('quest-missing-directory-b64-20261114.js');
   const loaderScript = html.indexOf('quest-missing-directory-loader-20261114.js');
-  const appScript = html.indexOf('assets/js/app.js?v=12.94');
+  const appScript = html.indexOf('assets/js/app.js?v=12.95');
   assert.ok(data >= 0 && data < loaderScript && loaderScript < appScript, 'catalog loads before app');
 });
