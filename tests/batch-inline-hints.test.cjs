@@ -78,7 +78,7 @@ test('multiline hints never modify the input and refresh when text changes', () 
             const textNodes = root.mirror.children.filter(item => item.type === 'text');
             const index = textNodes.indexOf(node);
             const previousText = textNodes.slice(0, index).map(item => item.text).join('');
-            const row = previousText.split('\\n').length - 1;
+            const row = previousText.split('\n').length - 1;
             return { left: 125 + node.length * 9, top: 18 + row * 24, height: 24 };
           },
         };
