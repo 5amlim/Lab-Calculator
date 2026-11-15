@@ -56,6 +56,15 @@
   letter-spacing: -.02em;
   overflow-wrap: anywhere;
 }
+.portal-action-dialog .portal-action-subject {
+  padding: 20px 25px 0;
+  color: #30224f;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.portal-action-dialog.has-subject .portal-action-message { padding-top: 9px; }
 .portal-action-dialog .portal-action-message {
   margin: 0;
   padding: 20px 25px 23px;
@@ -121,7 +130,9 @@
   .portal-action-dialog { width: calc(100vw - 22px); border-radius: 16px; }
   .portal-action-dialog .portal-action-header { padding: 20px 17px 15px; gap: 11px; }
   .portal-action-dialog .portal-action-icon { flex-basis: 39px; width: 39px; height: 39px; }
+  .portal-action-dialog .portal-action-subject { padding: 17px 18px 0; }
   .portal-action-dialog .portal-action-message { padding: 17px 18px 19px; }
+  .portal-action-dialog.has-subject .portal-action-message { padding-top: 9px; }
   .portal-action-dialog .portal-action-buttons { padding: 14px 17px 17px; }
 }
 @media (prefers-reduced-motion: reduce) {
