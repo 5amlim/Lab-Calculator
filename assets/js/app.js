@@ -2100,7 +2100,7 @@
   function renderBlockedList() {
     if (!els.blockedListButton || !els.blockedListPanel || !els.blockedListBody) return;
     const blocked = database.filter(test => test.status === 'blocked');
-    els.blockedListButton.textContent = blockedListOpen ? `Hide special collection requirements (${blocked.length})` : `Special collection requirements (${blocked.length})`;
+    els.blockedListButton.textContent = blockedListOpen ? `Hide Do Not Perform (${blocked.length})` : `Do Not Perform (${blocked.length})`;
     els.blockedListButton.setAttribute('aria-expanded', String(blockedListOpen));
     els.blockedListPanel.classList.toggle('hidden', !blockedListOpen);
     if (!blockedListOpen) return;
