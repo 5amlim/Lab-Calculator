@@ -5005,8 +5005,10 @@
     const sourceSpecimen = specificSpecimenSource(test);
     const isAptima70049 = String(test.testCode || '').trim() === '70049';
     const label = isAptima70049 ? 'Aptima' : (collectionTubeException(test)?.label || draw);
-    const directUrineCup = isUrineTest(test) && cleanCollectionContainer(draw) === 'Sterile cup' &&
-      cleanCollectionContainer(finalTransportContainer(test)) === 'Sterile cup';
+    const directUrineCup = isUrineTest(test) && !isTimedUrineTest(test) &&
+      cleanCollectionContainer(draw) === 'Sterile cup' &&
+      (cleanCollectionContainer(finalTransportContainer(test)) === 'Sterile cup' ||
+        isPlainUrineAliquotTransport(test, finalTransportContainer(test)));
     const shareUrineCup = directUrineCup && isShareableUrineCupTest(test) &&
       explicitSubmissionCount(test) === 1;
     const processing = isAptima70049
