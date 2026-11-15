@@ -115,6 +115,9 @@ for(const profile of profiles){
   const existingIndex=window.SEED_TESTS.findIndex(item=>String(item.testCode||'').trim()===code);
   const existing=existingIndex>=0?window.SEED_TESTS[existingIndex]:null;
   if(existing && existing.status==='blocked')continue;
+  const codeSpecificCaution=code==="16292"
+    ? " IMPORTANT: the code-16292 test-specific Quest page specifies gray-top plasma but does not separately list the plastic-vial alternative. The transfer route follows Quest general nongel-plasma handling guidance and must be confirmed with the receiving laboratory before submitting this panel."
+    : "";
   const timeInfo=times.length===1
     ?(dose ? `Single 1-hour draw after the ${dose} g oral glucose load. NO fasting needed. Screening is usually performed at gestational weeks 24-28.` : "Fasting specimen only.")
     :`Separate timed specimens: ${times.join(', ')}. Draw fasting specimen BEFORE the ${dose} g oral glucose load; label each specimen with actual clock time and timepoint.`;
@@ -149,7 +152,7 @@ for(const profile of profiles){
     collectionCount:1,
     submissionCount:1,
     specialLabeling:`${times[0]} - record collection time`,
-    specialInstructions:`${timeInfo} ${times[0]} TIMEPOINT: ${process}`,
+    specialInstructions:`${timeInfo} ${times[0]} TIMEPOINT: ${process}${codeSpecificCaution}`,
     additionalDrawRequirements,
     fastingStatus:fast?"required":"",
     fastingInstructions:fast?"At least 8-hour fast; water only. Collect fasting timepoint before glucose challenge.":"Fasting is not required for this 50 g gestational screen.",
