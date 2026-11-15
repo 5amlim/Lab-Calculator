@@ -483,7 +483,7 @@
       spin: 'No',
       status: 'active',
       specialInstructions: 'Use only the BD Affirm VPIII ATTS kit. Break the reagent ampule and dispense reagent into the collection tube. Collect from the posterior vaginal fornix using the supplied swab, immediately insert it into the tube, break the swab shaft at the score mark, and snap the cap firmly closed. Label patient identifiers, collection date and time. Ship at room temperature or refrigerated within 72 hours; do not freeze. A generic ESwab or Aptima swab is not an acceptable substitute.',
-      source: 'Quest Diagnostics West Hills performing-lab collection guide: https://www.rchsd.org/lab-test/bacterial-vaginosis-vaginitis-panel-14577/'
+      source: 'Quest Diagnostics test directory: https://testdirectory.questdiagnostics.com/test/test-detail/14577/bacterial-vaginosis-vaginitis-panel?cc=MASTER'
     });
   }
 
