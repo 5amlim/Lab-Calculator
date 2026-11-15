@@ -89,4 +89,36 @@
     .calc-suggestion-code { min-width: 45px; font-size: 11px; }
     .calc-suggestion-copy strong { font-size: 13px; }
   }
+
+  /* Muted inline labels sit above the input but never become editable text. */
+  .batch-inline-ghost {
+    position: absolute;
+    box-sizing: border-box;
+    z-index: 1;
+    overflow: hidden;
+    color: transparent;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-break: normal;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .batch-inline-ghost-anchor { position: relative; display: inline; }
+  .batch-inline-ghost-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #81909b;
+    font: inherit;
+    font-weight: 500;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
 }
+
