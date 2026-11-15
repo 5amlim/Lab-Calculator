@@ -14,6 +14,7 @@
     if (!value || /^(other \/ manually type|do not collect|verify official instructions)$/.test(value)) return '';
     if (/microtainer/.test(value)) return 'tube-microtainer';
     if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
+    if (/e[- ]?swab|\bamies\b/.test(value)) return 'tube-eswab';
     if (/aptima/.test(value)) return 'tube-aptima';
     if (/total[- ]?fix/.test(value)) return 'tube-total-fix';
     if (/(?:trace[ -]?metal[- ]?free|acid[- ]?washed).*container|container.*(?:trace[ -]?metal[- ]?free|acid[- ]?washed)/.test(value)) return 'tube-trace-metal-container';
@@ -64,7 +65,7 @@
   }
   function optionLabel(item, option) {
     if (fieldName(item) === 'transportContainer' && option.value === 'Submit in original tube') {
-      return isSstSource(item) ? 'Spun SST / Original tube' : 'Submit in original tube';
+      return isSstSource(item) ? 'Spun SST / Original tube' : 'Submit in original container';
     }
     return option.textContent.trim();
   }
