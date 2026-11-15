@@ -103,7 +103,7 @@
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room 7 days; refrigerated 7 days; frozen 14 days",
     "spin": "Yes",
-    "specialInstructions": "TWO SEPARATE serum specimen tubes required. Draw SST/Gold or red tops, centrifuge, separate serum and submit two separately labeled plastic transport tubes. Tg antibody is assayed first; subsequent Tg IMA or LC/MS-MS testing follows the lab reflex algorithm. Do not combine the two required aliquots into one tube.",
+    "specialInstructions": "TWO SEPARATE serum specimen tubes required. Draw SST/Gold or red tops, centrifuge, separate serum, and submit one labeled plastic transport tube for each of the TWO required serum aliquots. Tg antibody is assayed first; subsequent Tg IMA or LC/MS-MS testing follows the lab reflex algorithm. Do not combine the two required aliquots into one tube.",
     "additionalDrawRequirements": [
       {
         "container": "SST / Gold",
