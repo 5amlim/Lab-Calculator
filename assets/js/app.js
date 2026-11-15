@@ -4306,6 +4306,12 @@
       return { key: 'sterile-cup-stock', label: 'Sterile cup', className: 'tube-urine-cup' };
     }
 
+    if (isUrineTest(test) && requiresSpecialSource) {
+      const specialtyClass = /metal[- ]?free|trace[- ]?metal|trace element|acid[- ]?washed/i.test(draw)
+        ? 'tube-trace-metal-container' : (tubeClass(draw) || 'tube-transport');
+      return { key: 'special-urine|' + normalizeSearch(draw),
+        label: draw, className: specialtyClass };
+    }
     const cls = tubeClass(draw);
     const labels = {
       'tube-culture': 'Blood Culture Bottles',
