@@ -5,7 +5,7 @@ const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const read=file=>fs.readFileSync(path.join(__dirname,'..',file),'utf8');
 const apps=[['Quest','index.html','assets/js/app.js'],['Labcorp','labcorp.html','labcorp-app.js']];
 
-function inspectApp(source){
+async function inspectApp(source){
  const window={SEED_TESTS:[]};
  const document={
   getElementById:id=>({id,value:'',checked:false,options:[],classList:{add(){},remove(){},toggle(){}},addEventListener(){},setAttribute(){},querySelector(){return null;}}),
@@ -18,6 +18,7 @@ function inspectApp(source){
   {window,document,localStorage:{getItem(){return null;},setItem(){},removeItem(){}},
    setTimeout(){return 0;},clearTimeout(){},console:{warn(){},error(){}}},
   {filename:source,timeout:30000});
+ await Promise.resolve();
  return window.__audit;
 }
 function inspectFlyout(){
@@ -77,7 +78,7 @@ test('Swab and Body Fluid subtypes show in flyouts while common specimens stay a
  }
 });
 
-test('Specimen filter subchoices accurately match real samples and multiple required specimen routes',()=>{
+test('Specimen filter subchoices accurately match real samples and multiple required specimen routes',async()=>{
  for(const [lab,html,app] of apps){
   const source=read(html);
   const opts=values(source,'specimenFilter');
@@ -87,7 +88,7 @@ test('Specimen filter subchoices accurately match real samples and multiple requ
   assert.equal(menu.childOptionsFor(item,'Body Fluid').length,6);
   for(const label of ['Blood','Serum','Plasma','Whole Blood','RBCs','Urine','Stool','Swab','Body Fluid'])
    assert(opts.includes(label),lab+' '+label);
-  const api=inspectApp(app);
+  const api=await inspectApp(app);
   for(const [specimen,required] of [
    ['Serum','Serum'],['Platelet-poor plasma','Plasma'],['Whole Blood','Whole Blood'],
    ['Vaginal Swab','Vaginal Swab'],['Vaginal-Rectal Swab','Vaginal-Rectal Swab'],
@@ -101,9 +102,9 @@ test('Specimen filter subchoices accurately match real samples and multiple requ
  }
 });
 
-test('Dedicated container filters do not group Affirm, Amies and other kits as generic transport',()=>{
+test('Dedicated container filters do not group Affirm, Amies and other kits as generic transport',async()=>{
  for(const [lab,,app] of apps){
-  const api=inspectApp(app);
+  const api=await inspectApp(app);
   for(const [name,category] of [
    ['BD Affirm VPIII ATTS swab transport kit','affirm'],
    ['ESwab (Amies)','amies'],
