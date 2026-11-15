@@ -4815,9 +4815,13 @@
       items.push({ key: 'stool-shared-source-cup', label: 'Sterile cup',
         className: 'tube-urine-cup', count: 1, tests: sharedStoolTests,
         sharedStoolSource: true,
-        detail: sharedStoolTests.length > 1
-          ? 'Collect stool in one sterile cup, then transfer to each required transport or preservative container. Verify sufficient quantity and transfer timing.'
-          : 'Collect stool in a sterile cup; transfer to the required transport or preservative container as needed.' });
+        detail: sharedStoolTests.every(test =>
+          /^sterile cup$/i.test(String(finalTransportContainer(test)).trim()) &&
+          isOriginalContainerSubmission(test))
+          ? 'Collect one adequately filled stool specimen in a Sterile cup; submit the original container. Check total volume for all tests.'
+          : sharedStoolTests.length > 1
+            ? 'Collect stool in one sterile cup, then transfer to each required transport or preservative container. Verify sufficient quantity and transfer timing.'
+            : 'Collect stool in a sterile cup; transfer to the required transport or preservative container as needed.' });
     }
 
     const spotUrineGroups = new Map();
@@ -5809,7 +5813,10 @@
       if (/\bwhole blood\b/.test(specimen)) return ['Whole Blood', 'blood'];
       if (/\b(?:blood)\b/.test(specimen)) return ['Blood', 'blood'];
       if (/\bswab\b/.test(specimen)) return ['Swab', 'swab'];
-      if (/\b(?:csf|cerebrospinal)\b/.test(specimen)) return ['CSF', 'other'];
+      if (/\b(?:csf|cerebrospinal)\b/.test(specimen)) return ['CSF', 'csf'];
+      if (/\bsputum\b/.test(specimen)) return ['Sputum', 'sputum'];
+      if (/\b(?:pericardial|peritoneal|pleural|synovial)\b.*\bfluid\b/.test(specimen))
+        return [titleCaseSpecimen(test.specimenType), 'fluid'];
       if (/\bsaliva\b/.test(specimen)) return ['Saliva', 'other'];
       if (/\btissue\b/.test(specimen)) return ['Tissue', 'other'];
       return ['Verify Specimen', 'other'];
