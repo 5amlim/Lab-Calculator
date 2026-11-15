@@ -5413,7 +5413,15 @@
       splitSubmissionContainers(test).forEach(container => {
         if (!items.has(container.key)) items.set(container.key, { ...container, tests: [] });
         const item = items.get(container.key);
-        if (container.shareableOriginalUrineCup) item.count = Math.max(item.count, container.count);
+        // Original sterile cups containing the same shareable stool specimen are one
+        // physical submitted cup, just like the shared source cup in What to Collect.
+        // Separate specimens, special kits and non-original aliquots retain their counts.
+        const shareableOriginalStoolCup = container.originalTube
+          && container.className === 'tube-urine-cup'
+          && isShareableStoolSourceTest(test)
+          && item.tests.every(isShareableStoolSourceTest);
+        if (container.shareableOriginalUrineCup || shareableOriginalStoolCup)
+          item.count = Math.max(item.count, container.count);
         else item.count += item.tests.length ? container.count : 0;
         if (!item.detail && container.detail) item.detail = container.detail;
         item.tests.push(test);
