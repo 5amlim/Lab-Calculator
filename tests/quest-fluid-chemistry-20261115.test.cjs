@@ -41,13 +41,14 @@ test('Quest adds exactly 18 unique slide-free, verified fluid entries',()=>{
   for(const item of list) {
     assert.equal(item.status,'active');
     assert.equal(item.drawContainer,'Sterile cup');
-    assert.equal(item.transportContainer,'Sterile Transport Tube');
+    assert.equal(item.transportContainer,'Sterile cup');
     assert.equal(item.transportTemperature,'Frozen');
     assert.equal(item.spin,'No');
     for(const field of ['testName','specimenType','preferredVolume','source','specialLabeling','specialInstructions'])
       assert(item[field],item.testCode+': missing '+field);
     assert.match(item.source,/https:\/\//);
-    assert.match(item.specialInstructions,/do not pool or combine/i);
+    assert.match(item.specialInstructions,/Do not mix different specimen sources/i);
+    assert.match(item.specialInstructions,/Submit the original labeled Sterile cup/i);
     assert.doesNotMatch(item.drawContainer+' '+item.transportContainer,/slide|6N HCl|acid-preserv|Aptima|InSure/i);
   }
 });
@@ -59,9 +60,11 @@ test('Source lab fluid and downstream frozen transport show existing badges and 
   const p=plan(api,records);
   assert.equal(p.bags.length,1,'same frozen bag, but physically separate source specimens');
   assert.equal(p.collection.find(x=>x.label==='Sterile cup').count,4);
-  assert.equal(p.submission.reduce((n,x)=>n+x.count,0),4,'one distinct frozen submission per test');
-  assert(p.submission.every(x=>x.className==='tube-transport'));
-  assert(p.submission.every(x=>x.label==='Pleural Fluid Transport Tube'));
+  assert.equal(p.submission.reduce((n,x)=>n+x.count,0),4,'one physically separate sterile cup per test');
+  assert.equal(p.submission.length,1,'group the same physical stock and source under one card');
+  assert(p.submission.every(x=>x.className==='tube-urine-cup'));
+  assert(p.submission.every(x=>x.label==='Sterile cup'));
+  assert.match(p.submission[0].detail,/Submit in original sterile cup/i);
   assert(records.every(x=>api.canonicalCollectionContainer(x).label==='Sterile cup'));
 });
 test('Different body fluid sources do not share submission or collection containers',async()=>{
@@ -70,7 +73,21 @@ test('Different body fluid sources do not share submission or collection contain
   const p=plan(api,codes.map(c=>api.database.find(x=>x.testCode===c)));
   assert.equal(p.collection.find(x=>x.label==='Sterile cup')?.count,4);
   assert.equal(p.submission.reduce((n,x)=>n+x.count,0),4);
-  assert.equal(new Set(p.submission.map(x=>x.label)).size,4);
+  assert.equal(new Set(p.submission.map(x=>x.label)).size,1,'all use identical Sterile cup inventory');
+  assert.equal(new Set(p.submission.map(x=>x.key)).size,4,'separate specimen identities remain separate');
+  assert(p.submission.every(x=>/original sterile cup/i.test(x.detail)));
+});
+test('All 18 fluid tests share the Sterile cup stock type without doubling the transport inventory',async()=>{
+  const api=await calculator();
+  const all=catalog().map(t=>api.database.find(x=>x.testCode===t.testCode));
+  const p=plan(api,all);
+  assert.equal(p.collection.length,1,'one collection stock card');
+  assert.equal(p.collection[0].label,'Sterile cup');
+  assert.equal(p.collection[0].count,18);
+  assert.equal(p.submission.reduce((n,x)=>n+x.count,0),18);
+  assert(p.submission.every(x=>x.label==='Sterile cup'&&x.className==='tube-urine-cup'));
+  assert.equal(new Set(p.submission.map(x=>x.key)).size,5,'five distinct body-fluid specimen sources');
+  assert(p.submission.every(x=>x.originalTube===true),'one physical cup is collected and submitted, not extra transfer tubes');
 });
 test('Quest loads active additions before the directory-only fallback',()=>{
   const html=read('index.html');
