@@ -100,4 +100,4 @@
     "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/16292/glucose-tolerance-test-gestational-4-specimens-100g-with-nddg?cc=MASTER"
   }
 ];
-const known=new Set(window.SEED_TESTS.map(t=>String(t.testCode||'').trim()));for(const test of additions){if(!known.has(test.testCode)){window.SEED_TESTS.push(test);known.add(test.testCode);}}})();
+for(const test of additions){const index=window.SEED_TESTS.findIndex(t=>String(t.testCode||'').trim()===test.testCode);if(index<0){window.SEED_TESTS.push(test);}else if(window.SEED_TESTS[index].status!=='blocked'){const existing=window.SEED_TESTS[index];window.SEED_TESTS[index]={...existing,...test,id:existing.id||test.id};}}})();
