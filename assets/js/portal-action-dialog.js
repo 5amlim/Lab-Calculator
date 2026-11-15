@@ -26,6 +26,7 @@
             <h2 id="portalActionTitle"></h2>
           </div>
         </header>
+        <div class="portal-action-subject" id="portalActionSubject" hidden></div>
         <p class="portal-action-message" id="portalActionMessage"></p>
         <footer class="portal-action-buttons">
           <button type="button" class="portal-action-cancel" id="portalActionCancel">Cancel</button>
@@ -86,6 +87,11 @@
       (item.kind === 'alert' ? 'NOTICE' : tone === 'danger' ? 'PLEASE CONFIRM' : tone === 'warning' ? 'REVIEW BEFORE CONTINUING' : 'CONFIRM ACTION');
     node.querySelector('#portalActionTitle').textContent = opts.title ||
       (item.kind === 'alert' ? 'Notice' : 'Confirm action');
+    const subject = String(opts.subject || '').trim();
+    const subjectNode = node.querySelector('#portalActionSubject');
+    subjectNode.textContent = subject;
+    subjectNode.hidden = !subject;
+    node.classList.toggle('has-subject', Boolean(subject));
     node.querySelector('#portalActionMessage').textContent = item.message;
     const cancel = node.querySelector('#portalActionCancel');
     const proceed = node.querySelector('#portalActionProceed');
