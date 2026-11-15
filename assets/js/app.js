@@ -483,6 +483,14 @@
             if (updated[field] === oldValue) updated[field] = base[field];
           });
           builtIns[index] = updated;
+        } else if (/Quest Diagnostics official test directory, reviewed 2026-11-14/.test(base.source || '')) {
+          // The recently verified Quest specimen instructions supersede stale
+          // browser overrides. Keep user-controlled blocking and identity only.
+          builtIns[index] = {
+            ...override, ...base,
+            id: base.id,
+            status: override.status === 'blocked' ? 'blocked' : base.status
+          };
         } else {
           builtIns[index] = override;
         }
