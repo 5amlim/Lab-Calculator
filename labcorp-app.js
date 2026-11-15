@@ -4877,7 +4877,8 @@
     if (!['serum', 'plasma', 'serum or plasma'].includes(material)) return false;
     if (String(test.transportTemperature || '').toLowerCase().trim() === 'frozen') return false;
     if (typeof isFrozenSerumPlasmaTransport === 'function' && isFrozenSerumPlasmaTransport(test, transport)) return false;
-    const raw = normalizeSearch(transport);
+    const raw = normalizeSearch(transport)
+      .replace(/\b(?:no preservatives?|without preservatives?)\b/g, '').replace(/\s+/g, ' ').trim();
     // Generic plastic vials share green transport badges, never specialty media.
     if (/amber|light protect|metal free|acid washed|acid rinsed|trace metal|trace element|preserv|cryovial|glass|royal blue|nmr|citrate|heparin|edta|platelet poor|special|frozen|transpak|fluoride|oxalate|formalin|cary blair/.test(raw)) return false;
     const clean = raw.replace(/\b(?:additive free|no additive|sterile|plain|unpreserved|dedicated)\b/g, '').replace(/\s+/g, ' ').trim();
