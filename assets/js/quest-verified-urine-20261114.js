@@ -8,7 +8,7 @@
     "testName": "5-Hydroxyindoleacetic Acid (5-HIAA), 24-Hour Urine without Creatinine",
     "specimenType": "24-Hour Urine",
     "drawContainer": "24-Hour Urine Container (6N HCl preserved)",
-    "transportContainer": "Plastic Urine Container (acid-preserved aliquot)",
+    "transportContainer": "Plastic Screw-Cap Urine Aliquot Container (6N HCl preserved)",
     "preferredVolume": "10 mL urine aliquot",
     "minimumVolume": "5 mL",
     "transportTemperature": "Room Temperature",
@@ -25,13 +25,13 @@
     "testName": "5-Hydroxyindoleacetic Acid (5-HIAA), 24-Hour Urine, with Creatinine",
     "specimenType": "24-Hour Urine",
     "drawContainer": "24-Hour Urine Container (6N HCl preserved)",
-    "transportContainer": "Plastic Urine Container (acid-preserved aliquot)",
+    "transportContainer": "Plastic Screw-Cap Urine Aliquot Container (6N HCl preserved)",
     "preferredVolume": "10 mL urine aliquot",
     "minimumVolume": "5 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Preserved urine: Room Temperature; unpreserved urine: Frozen only",
     "stability": "Acid-preserved: room 7 days, refrigerated 30 days, frozen 30 days. Unpreserved: frozen 30 days only.",
-    "specialInstructions": "SPECIAL PRESERVATIVE. Collect complete 24-hour urine with 25 mL 6N HCl, target pH ≤3. Use an approved acid-preserved collection kit and trained handling only. Mix 24-hour collection and submit 10 mL urine aliquot (minimum 5 mL). Record total urine volume and patient age on requisition and vial. Alternative unpreserved 24-hour urine must have pH ≤6, remain refrigerated during collection and be shipped frozen. Do not combine preserved/unpreserved pathways or pool with non-acid urine. Confirm regional availability.",
+    "specialInstructions": "SPECIAL PRESERVATIVE. Collect complete 24-hour urine with 25 mL 6N HCl, target pH ≤3. Use an approved acid-preserved collection kit and trained handling only. Mix 24-hour collection and submit ONE 10 mL aliquot in a plastic urine screw-cap container (minimum 5 mL). Record total urine volume and patient age on requisition and vial. Alternative unpreserved 24-hour urine must have pH ≤6, remain refrigerated during collection and be shipped frozen. Do not combine preserved/unpreserved pathways or pool with non-acid urine. Confirm regional availability.",
     "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/39625/5-hydroxyindoleacetic-acid-5-hiaa-24-hour-urine-with-creatinine?cc=MASTER"
   },
   {
@@ -41,14 +41,14 @@
     "testCode": "1648",
     "testName": "5-Hydroxyindoleacetic Acid (5-HIAA), Random Urine with Creatinine",
     "specimenType": "Random Urine",
-    "drawContainer": "Plastic Urine Container (6N HCl preserved)",
-    "transportContainer": "Plastic Urine Container (acid-preserved aliquot)",
+    "drawContainer": "Sterile Urine Cup (unpreserved collection)",
+    "transportContainer": "Plastic Screw-Cap Urine Container (6N HCl preserved)",
     "preferredVolume": "10 mL random urine",
     "minimumVolume": "5 mL",
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Preserved urine: Room Temperature; unpreserved urine: Frozen only",
     "stability": "Room 7 days; refrigerated 30 days; frozen 30 days. Unpreserved urine must be shipped frozen.",
-    "specialInstructions": "SPECIAL PRESERVATIVE. Collect random urine in approved plastic screw-cap container and preserve with 6N HCl to pH <3; acid addition requires approved kit and trained handling. Record patient age. Avoid foods high in indoles (avocado, banana, tomato, plum, walnut, pineapple, eggplant) per clinician instructions. Alternative unpreserved sample accepted only if pH <6 and shipped frozen. Reject pH >3 if shipped unfrozen. Do not pool with unpreserved routine urine.",
+    "specialInstructions": "COLLECT RANDOM URINE IN A CLEAN STERILE CUP FIRST, then using an approved laboratory acid-handling protocol transfer the 10 mL aliquot (minimum 5 mL) to a plastic screw-cap transport container and add 6N HCl to pH <3. Do NOT add acid directly to a patient collection cup. Keep acidified specimen separate from routine UA/urine culture samples. Quest also allows an unpreserved random urine alternative only when pH <6 and shipped frozen. Record patient age and specimen source. Handling 6N HCl requires trained staff and appropriate safety controls; verify local capability before collection.",
     "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/1648/5-hydroxyindoleacetic-acid-5-hiaa-random-urine-with-creatinine?cc=MASTER"
   },
   {
@@ -59,13 +59,14 @@
     "testName": "Albumin, 24-Hour Urine with Creatinine",
     "specimenType": "24-Hour Urine",
     "drawContainer": "24-Hour Urine Container (no preservative)",
-    "transportContainer": "Plastic Urine Container (aliquot)",
+    "transportContainer": "Urinalysis Transport Tube (Yellow-Top, Blue Fill Line)",
     "preferredVolume": "5 mL urine aliquot",
     "minimumVolume": "2 mL",
     "transportTemperature": "Room Temperature",
     "stability": "Room 7 days; refrigerated 7 days; frozen 28 days.",
-    "specialInstructions": "Collect a complete 24-hour urine in a no-preservative 24-hour container; mix well before obtaining a separate 5 mL aliquot (minimum 2 mL). Record total collection volume and the 24-hour period on the container and requisition. The Quest yellow-top/blue-fill urinalysis preservative transport tube is an alternative if approved. Reject acid-preserved specimens; do not pool with HCl-preserved collections.",
-    "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/15281/albumin-24-hour-urine-with-creatinine?cc=MASTER"
+    "specialInstructions": "Collect the COMPLETE 24-hour urine specimen in an unpreserved collection container. Mix the entire collection thoroughly. QUEST ALLOWS a single yellow-top, blue-fill-line urinalysis preservative tube as an ALTERNATIVE submission device in place of the directory's preferred 5 mL unpreserved aliquot in a plastic screw-cap urine container (minimum 2 mL). For Sollis' UA-tube workflow, fill the yellow-top tube to its indicated fill mark from the mixed collection, mix preservative per tube instructions and submit ONE labeled UA transport tube, not the large collection jug and not two tubes. Record 24-hour total collection volume on BOTH submitted specimen and requisition. The red/yellow swirl tube is not listed as an alternative for this assay in Quest MASTER; use the specified yellow-top/blue-line tube. Do not add acid or pool with preserved 5-HIAA collections. Verify receiving Quest service-area acceptance and local tube availability.",
+    "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/15281/albumin-24-hour-urine-with-creatinine?cc=MASTER",
+    "transportTemperatureRaw": "Room Temperature (Quest lists this for submitted urine; preservative-tube stability may differ from unpreserved aliquot)"
   },
   {
     "id": "quest-official-4555-20261114",
@@ -75,13 +76,14 @@
     "testName": "Albumin, 24-Hour Urine without Creatinine",
     "specimenType": "24-Hour Urine",
     "drawContainer": "24-Hour Urine Container (no preservative)",
-    "transportContainer": "Plastic Urine Container (aliquot)",
+    "transportContainer": "Urinalysis Transport Tube (Yellow-Top, Blue Fill Line)",
     "preferredVolume": "5 mL urine aliquot",
     "minimumVolume": "2 mL",
     "transportTemperature": "Room Temperature",
     "stability": "Room 7 days; refrigerated 14 days; frozen 6 months.",
-    "specialInstructions": "Collect 24-hour urine without preservative. Thoroughly mix complete collection, then submit 5 mL aliquot (minimum 2 mL) in a plastic urine container. Record total 24-hour volume on specimen and requisition. Quest urinalysis yellow-top/blue-fill preservative vial is an alternate submission. Reject acid-preserved urine; do not pool with HCl-preserved collections.",
-    "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/4555/albumin-24-hour-urine-without-creatinine?cc=MASTER"
+    "specialInstructions": "Collect the COMPLETE 24-hour urine specimen in an unpreserved collection container. Mix the entire collection thoroughly. QUEST ALLOWS a single yellow-top, blue-fill-line urinalysis preservative tube as an ALTERNATIVE submission device in place of the directory's preferred 5 mL unpreserved aliquot in a plastic screw-cap urine container (minimum 2 mL). For Sollis' UA-tube workflow, fill the yellow-top tube to its indicated fill mark from the mixed collection, mix preservative per tube instructions and submit ONE labeled UA transport tube, not the large collection jug and not two tubes. Record 24-hour total collection volume on BOTH submitted specimen and requisition. The red/yellow swirl tube is not listed as an alternative for this assay in Quest MASTER; use the specified yellow-top/blue-line tube. Do not add acid or pool with preserved 5-HIAA collections. Verify receiving Quest service-area acceptance and local tube availability.",
+    "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/4555/albumin-24-hour-urine-without-creatinine?cc=MASTER",
+    "transportTemperatureRaw": "Room Temperature (Quest lists this for submitted urine; preservative-tube stability may differ from unpreserved aliquot)"
   },
   {
     "id": "quest-official-8280-20261114",
@@ -91,13 +93,14 @@
     "testName": "Albumin, Timed Urine",
     "specimenType": "Timed Urine",
     "drawContainer": "Timed Urine Container (no preservative)",
-    "transportContainer": "Plastic Urine Container (aliquot)",
+    "transportContainer": "Urinalysis Transport Tube (Yellow-Top, Blue Fill Line)",
     "preferredVolume": "5 mL urine aliquot",
     "minimumVolume": "2 mL",
     "transportTemperature": "Room Temperature",
     "stability": "Room 7 days; refrigerated 14 days; frozen 6 months.",
-    "specialInstructions": "Collect urine for the exact physician-ordered timed interval without preservative. Mix the timed collection and submit 5 mL aliquot (minimum 2 mL). Record BOTH total volume and timed duration on vial and requisition. Yellow-top/blue-fill Quest urinalysis preservative vial may be accepted as alternative. Acid-preserved urine is unacceptable; never merge timed collection intervals.",
-    "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/8280/albumin-timed-urine?cc=MASTER"
+    "specialInstructions": "Collect the COMPLETE ordered timed urine specimen in an unpreserved collection container. Mix the entire collection thoroughly. QUEST ALLOWS a single yellow-top, blue-fill-line urinalysis preservative tube as an ALTERNATIVE submission device in place of the directory's preferred 5 mL unpreserved aliquot in a plastic screw-cap urine container (minimum 2 mL). For Sollis' UA-tube workflow, fill the yellow-top tube to its indicated fill mark from the mixed collection, mix preservative per tube instructions and submit ONE labeled UA transport tube, not the large collection jug and not two tubes. Record timed collection volume and duration on BOTH submitted specimen and requisition. The red/yellow swirl tube is not listed as an alternative for this assay in Quest MASTER; use the specified yellow-top/blue-line tube. Do not add acid or pool with preserved 5-HIAA collections. Verify receiving Quest service-area acceptance and local tube availability.",
+    "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/8280/albumin-timed-urine?cc=MASTER",
+    "transportTemperatureRaw": "Room Temperature (Quest lists this for submitted urine; preservative-tube stability may differ from unpreserved aliquot)"
   },
   {
     "id": "quest-official-229-20261114",
@@ -107,7 +110,7 @@
     "testName": "Aldosterone, 24-Hour Urine",
     "specimenType": "24-Hour Urine",
     "drawContainer": "24-Hour Urine Container (no HCl)",
-    "transportContainer": "Urine Transport Tube (aliquot)",
+    "transportContainer": "Urine Aliquot Transport Tube",
     "preferredVolume": "5 mL 24-hour urine aliquot",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
@@ -117,4 +120,4 @@
     "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/229/aldosterone-24-hour-urine?cc=MASTER"
   }
 ];
-const known=new Set(window.SEED_TESTS.map(t=>String(t.testCode||'').trim()));for(const test of additions){if(!known.has(test.testCode)){window.SEED_TESTS.push(test);known.add(test.testCode);}}})();
+for(const test of additions){const index=window.SEED_TESTS.findIndex(t=>String(t.testCode||'').trim()===test.testCode);if(index<0){window.SEED_TESTS.push(test);}else if(window.SEED_TESTS[index].status!=='blocked'){const existing=window.SEED_TESTS[index];window.SEED_TESTS[index]={...existing,...test,id:existing.id||test.id};}}})();
