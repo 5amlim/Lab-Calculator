@@ -42,6 +42,20 @@ This is a static website. The calculators operate in the browser; they do not re
 
 `VERSION.txt` records the release label. `docs/CHANGELOG.md` preserves the development history, while `docs/SOURCES.txt` and the collection audit documents record the basis and limitations of historical specimen-handling decisions. `docs/Sam_Hay_Workplace_Use_Agreement.docx` is retained as a workplace-use record. The project license is at the repository root in `LICENSE.md`; no second license copy is needed under `docs/`.
 
+## Quest MASTER worksheet: feasible additions (2026-11-15)
+
+From the user-supplied Quest 1,068-code MASTER missing-test workbook, **26 additional codes** have been promoted into verified, collectable workflows. Source modules:
+
+- `assets/js/quest-feasible-from-master-20261115.js` (14 codes)
+- `assets/js/quest-feasible-stool-stone-20261115.js` (5 codes)
+- `assets/js/quest-feasible-24hr-urine-20261115.js` (7 codes)
+
+Each added record includes the official directory source, collection/transport containers, preferred and minimum volumes, transport temperature, stability, and processing or handling notes. Multi-specimen panels retain distinct draw and submission requirements. These additions load before the directory-only reference catalog so verified codes are not overwritten.
+
+**Collection scope:** The clinics do not prepare or submit microscope slides or smears, acid-preserved urine containers, green Aptima kits, or InSure cards. Tests requiring those are not promoted to collectable status. Stone Analysis **with Image** is a dry-stone specimen and does not mean a glass slide. If an otherwise eligible test can use an unpreserved collection route explicitly accepted by Quest, only that non-acid route is represented. The rest of the 1,068-code source remains **directory reference only** unless an independently verified and locally supported collection procedure is added; not every remaining test is intrinsically unsuitable.
+
+**Important:** Quest's MASTER directory does not guarantee regional availability, and a verified national specimen route is not necessarily approved by the receiving service area. Confirm local acceptance, collection capability and current lab instructions before patient collection. This pass includes record-schema and duplicate/load-order checks, but not a full browser end-to-end test of every new draw plan.
+
 ## Adding LabCorp tests
 
 LabCorp assay definitions are intentionally separate from Quest and Cedars. For each new LabCorp code, verify the test-specific collection and submission requirements before adding it. Include specimen type, draw and submit containers, minimum/preferred volume, transport temperature, stability, spin/processing, and test-specific handling.
