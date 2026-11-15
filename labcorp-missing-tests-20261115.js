@@ -106,6 +106,52 @@
     "source": "Labcorp official test directory, verified 2026-11-15 • https://www.labcorp.com/tests/005355/crystals-synovial-joint-fluid"
   }
 };
+  // Labcorp 121363 uses three distinct EDTA routes: CBC room temperature,
+  // hemoglobin fractionation refrigerated, and potential DNA reflex room temp.
+  // Keep the serum SST as its own fourth path rather than grouping all EDTA
+  // tubes into one bag.
+  Object.assign(verified["121363"], {
+    collectionCount: 1,
+    preferredVolume: "One full lavender EDTA tube (CBC)",
+    minimumVolume: "One full lavender EDTA tube (CBC)",
+    additionalDrawRequirements: [
+      {
+        container: "Lavender EDTA",
+        specimenType: "Whole Blood",
+        preferredVolume: "One full lavender EDTA tube",
+        minimumVolume: "One full lavender EDTA tube",
+        transportContainer: "Lavender EDTA (original tube)",
+        transportTemperature: "Refrigerated",
+        spin: "No",
+        purpose: "Hemoglobin fractionation",
+        specialInstructions: "Keep whole blood refrigerated; do not spin or transfer."
+      },
+      {
+        container: "Lavender EDTA",
+        specimenType: "Whole Blood",
+        preferredVolume: "One full lavender EDTA tube",
+        minimumVolume: "One full lavender EDTA tube",
+        transportContainer: "Lavender EDTA (original tube)",
+        transportTemperature: "Room Temperature",
+        spin: "No",
+        purpose: "Potential alpha-thalassemia DNA reflex",
+        specialInstructions: "Keep whole blood at room temperature or refrigerated; do not spin or freeze."
+      },
+      {
+        container: "SST / Gold",
+        specimenType: "Serum",
+        preferredVolume: "0.8 mL serum",
+        minimumVolume: "0.3 mL serum",
+        transportContainer: "SST / Gold (spun)",
+        transportTemperature: "Room Temperature",
+        spin: "Yes",
+        purpose: "Ferritin serum",
+        specialInstructions: "Spin SST and submit original spun tube. Red top is an alternative if separated serum is transferred into a plastic serum tube."
+      }
+    ],
+    specialInstructions: "Three full EDTA tubes preferred (two minimum), plus separate serum. CBC whole blood: room temperature up to 24 hours; hemoglobin fractionation: refrigerated; reflex DNA: room temperature or refrigerated. Do not spin any EDTA tube."
+  });
+
   const catalog = Array.isArray(window.SEED_TESTS) ? window.SEED_TESTS : [];
   const knownCodes = new Set(catalog.map(t => String(t.testCode || '').trim()));
   const parsed = rows.trim().split('\n').map(line => {
