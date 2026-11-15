@@ -2621,7 +2621,7 @@
   }
 
   function confirmStatSelection(test) {
-    return window.PortalDialog.confirm(`Test: ${displayCode(test)} · ${test.testName}\nReceiving lab: ${STAT_AREAS[statArea].label}\n\nConfirm current receiving-lab acceptance, cutoff, requisition, and separate STAT courier routing before proceeding.`, { title: 'Mark test as STAT?', confirmLabel: 'Mark STAT', tone: 'warning' });
+    return window.PortalDialog.confirm(`Test: ${displayCode(test)} · ${test.testName}\nReceiving lab: ${STAT_AREAS[statArea].label}\n\nMarking this test STAT will separate it from routine specimens in the collection summary. Confirm STAT availability with the receiving lab before collection.`, { title: 'Mark test as STAT?', confirmLabel: 'Mark STAT', tone: 'warning' });
   }
 
   async function toggleStatPriority(id) {
