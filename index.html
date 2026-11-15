@@ -144,7 +144,7 @@
         <button id="statMenuButton" class="button secondary stat-menu-button" type="button" aria-expanded="false" aria-controls="statMenuPanel">Show STAT tests</button>
       </div>
 
-          <button class="button ghost blocked-list-button" id="blockedListButton" type="button" aria-expanded="false" aria-controls="blockedListPanel">Do not perform list</button>
+          <button class="button ghost blocked-list-button" id="blockedListButton" type="button" aria-expanded="false" aria-controls="blockedListPanel">Special collection requirements</button>
         </div>
         <section class="stat-menu-panel hidden" id="statMenuPanel" aria-label="STAT tests offered by receiving lab">
           <div class="stat-menu-heading"><div><strong id="statMenuTitle">STAT test menu</strong><span id="statMenuCount"></span></div><button type="button" class="mini-button edit" id="statMenuClose">Close</button></div>
@@ -152,9 +152,9 @@
           <label class="stat-menu-filter">Find an eligible code or test<input id="statMenuSearch" type="search" placeholder="Search this lab's STAT menu"></label>
           <div class="stat-menu-results" id="statMenuResults"></div>
         </section>
-        <section class="blocked-list-panel hidden" id="blockedListPanel" aria-label="Do not perform list">
+        <section class="blocked-list-panel hidden" id="blockedListPanel" aria-label="Special collection requirements">
           <div class="blocked-list-heading">
-            <div><strong>Do not perform</strong><span>Tests that require collection, processing, storage, or supplies outside the supported onsite workflow.</span></div>
+            <div><strong>Special collection requirements</strong><span>Some tests require dedicated supplies or handling. Verify the receiving laboratory instructions and availability before collecting.</span></div>
           </div>
           <div class="blocked-list" id="blockedListBody"></div>
         </section>
@@ -424,7 +424,7 @@
 
         <div class="form-status-options">
           <label class="check-label" id="addToSummaryRow"><input type="checkbox" id="addToSummary" checked> Add this test to the current collection summary</label>
-          <label class="check-label"><input type="checkbox" id="blockedStatus"> Mark as do not perform / blocked</label>
+          <label class="check-label"><input type="checkbox" id="blockedStatus"> Flag for collection verification (not selectable until reviewed)</label>
         </div>
         <div class="source-clarification-note full-width" role="note"><strong>Labeling:</strong> Include the source tube for plasma/RBCs, specimen type for urine/stool, and collection site for swabs when known.</div>
       </div>
