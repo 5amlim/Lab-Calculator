@@ -4637,8 +4637,9 @@
     const spotUrineGroups = new Map();
     tests.filter(test => isUrineTest(test) && !isTimedUrineTest(test)).forEach(test => {
       const urineType = urineCollectionType(test);
-      const dedicated = requiresSeparateUrineCollection(test);
-      const key = dedicated ? `${urineType.key}|separate|${test.sourceTestId || test.id}` : urineType.key;
+      const acidPreserved = /6\s*N\s*HCl|HCl[- ]preserv|acid[- ]preserv/i.test(String(test.drawContainer || ''));
+      const dedicated = requiresSeparateUrineCollection(test) || acidPreserved;
+      const key = dedicated ? `${urineType.key}|${acidPreserved ? 'acid-preserved' : 'separate'}|${test.sourceTestId || test.id}` : urineType.key;
       if (!spotUrineGroups.has(key)) spotUrineGroups.set(key, { ...urineType, key, dedicated, tests: [] });
       spotUrineGroups.get(key).tests.push(test);
     });
