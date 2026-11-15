@@ -175,6 +175,10 @@
   };
 
   const seedDatabase = (window.SEED_TESTS || []).map(normalizeRecord);
+  // Keep Affirm visible even if a bundled regional directory omitted the record.
+  if (!seedDatabase.some(test => test.testCode === '14577')) {
+    seedDatabase.push(normalizeRecord({ id: 'quest-14577', testCode: '14577' }));
+  }
   let pendingUserState = null;
   let database = loadDatabase();
   let selectedIds = loadSelectedIds();
@@ -433,31 +437,54 @@
     return { customTests: Array.from(custom.values()), overrides: [] };
   }
 
+  // These warnings describe special collection requirements, not a clinic's supply inventory.
+  // Retain review flags for specialized tests without replacing the actual tube instructions.
   function applyLocalSupplyPolicy(test) {
-    if (!test || test.status === 'reference' || test.status === 'blocked') return test;
+    if (!test || test.status === 'reference' || test.status === 'blocked' || test.testCode === '14577') return test;
     const code = String(test.testCode || '').trim();
     const mandatory = [test.drawContainer, test.transportContainer,
       ...(test.additionalDrawRequirements || []).flatMap(draw => [draw.container, draw.transportContainer])
     ].join(' ');
     const specialKit = {
-      '11290': 'InSure FOBT brush/card kit is not stocked. An ordinary sterile stool cup is NOT accepted for this Quest test.',
-      '91448': 'Green-label Aptima Pap-vial transfer tube is not stocked. Other Aptima colors or an original Pap vial must not be substituted without an approved Quest-specific alternate workflow.',
-      '14577': 'BD AFFIRM VPIII ATTS swab kit is not confirmed in onsite inventory; do not use a generic ESwab or Aptima swab.'
+      '11290': 'Requires the dedicated InSure FOBT brush/card kit. An ordinary stool cup is not a substitute.',
+      '91448': 'Requires the specified green-label Aptima Pap-vial transfer device. Confirm approved alternatives with Quest.'
     };
-    const acid = /6\s*N\s*HCl|acid[- ]preserv(?:ed|ative)?\s+urine|HCl[- ]preserv/i.test(mandatory);
+    const acid = /6\\s*N\\s*HCl|acid[- ]preserv(?:ed|ative)?\\s+urine|HCl[- ]preserv/i.test(mandatory);
     const green = /aptima[^,;]{0,100}(?:green[- ]label|green label)|(?:green[- ]label|green label)[^,;]{0,100}aptima/i.test(mandatory);
-    const insure = /in\s*sure\s*(?:fo?bt|test)?\s*(?:card|kit)|\binsure\b/i.test(mandatory);
-    const affirm = /bd\s*affirm\s*vp|affirm\s*vpiii/i.test(mandatory);
+    const insure = /in\\s*sure\\s*(?:fo?bt|test)?\\s*(?:card|kit)|\\binsure\\b/i.test(mandatory);
     const reason = specialKit[code] || (acid
-      ? 'Acid-preserved urine collection devices are not used onsite. Verify a separately documented unpreserved Quest alternative before collecting.'
-      : green ? 'Green-label Aptima transfer device is not stocked onsite; verify another Quest-approved test-specific workflow.'
-      : insure ? 'Dedicated InSure FOBT card is not stocked; do not use a stool cup as a substitute.'
-      : affirm ? 'Special BD AFFIRM ATTS kit has not been confirmed onsite; no substitution with generic swabs.'
+      ? 'Requires a dedicated acid-preserved urine collection system. Confirm an acceptable alternative with the receiving laboratory.'
+      : green ? 'Requires the specified green-label Aptima device. Confirm the correct kit with the receiving laboratory.'
+      : insure ? 'Requires a dedicated InSure FOBT card kit; a standard stool cup is not a substitute.'
       : '');
     if (!reason) return test;
-    return {...test, status: 'blocked', drawContainer: 'Do Not Collect',
-      alternativeContainer: '', transportContainer: 'N/A', additionalDrawRequirements: [],
-      specialInstructions: 'DO NOT PERFORM ONSITE. ' + reason};
+    return { ...test, status: 'blocked',
+      specialInstructions: 'Special collection verification: ' + reason + ' ' + String(test.specialInstructions || '').replace(/^DO NOT PERFORM ONSITE\\.\\s*/i, '') };
+  }
+
+  // Use the receiving laboratory's published collection requirements for Affirm VPIII.
+  function verifiedAffirmRecord(test) {
+    if (String(test.testCode || '').trim() !== '14577') return test;
+    return normalizeRecord({
+      ...test,
+      testName: 'Bacterial Vaginosis/Vaginitis Panel (Affirm VPIII)',
+      specimenType: 'Vaginal swab',
+      drawContainer: 'BD Affirm VPIII ATTS swab kit',
+      transportContainer: 'BD Affirm VPIII ATTS tube (original swab)',
+      alternativeContainer: '',
+      additionalDrawRequirements: [],
+      collectionCount: 1,
+      submissionCount: 1,
+      preferredVolume: '1 vaginal swab in Affirm ATTS tube',
+      minimumVolume: '1 swab in Affirm ATTS tube',
+      transportTemperature: 'Room Temperature',
+      transportTemperatureRaw: 'Room temperature or refrigerated; do not freeze',
+      stability: '72 hours room temperature or refrigerated; do not freeze',
+      spin: 'No',
+      status: 'active',
+      specialInstructions: 'Use only the BD Affirm VPIII ATTS kit. Break the reagent ampule and dispense reagent into the collection tube. Collect from the posterior vaginal fornix using the supplied swab, immediately insert it into the tube, break the swab shaft at the score mark, and snap the cap firmly closed. Label patient identifiers, collection date and time. Ship at room temperature or refrigerated within 72 hours; do not freeze. A generic ESwab or Aptima swab is not an acceptable substitute.',
+      source: 'Quest Diagnostics West Hills performing-lab collection guide: https://www.rchsd.org/lab-test/bacterial-vaginosis-vaginitis-panel-14577/'
+    });
   }
 
   function applyUserState(state) {
@@ -528,7 +555,8 @@
     // Retired Quest codes must not reappear through legacy user edits or saved custom tests.
     return [...customTests, ...builtIns]
       .filter(test => !RETIRED_TEST_CODES.has(test.testCode))
-      .map(applyLocalSupplyPolicy);
+      .map(applyLocalSupplyPolicy)
+      .map(verifiedAffirmRecord);
   }
 
   function userStateFromDatabase() {
@@ -614,7 +642,10 @@
     return String(value ?? '')
       .replace(/\bQuest(?:\s+Diagnostics)?[- ]referral\b/gi, 'referral')
       .replace(/\bQuest(?:\s+Diagnostics)?\s+MASTER\b/gi, 'official')
-      .replace(/\bQuest(?:\s+Diagnostics)?(?:[’']s)?\b/gi, 'the laboratory');
+      .replace(/\bQuest(?:\s+Diagnostics)?(?:[’']s)?\b/gi, 'the laboratory')
+      .replace(/\bSollis(?: Health)?\b/gi, 'the collecting facility')
+      .replace(/\bDO NOT PERFORM(?:\s+ONSITE)?\.?\s*/gi, 'Collection requirements must be verified. ')
+      .replace(/\bnot (?:stocked|used) onsite\b/gi, 'subject to local availability confirmation');
   }
 
   function normalizeAdditionalDrawRequirements(value) {
@@ -1560,7 +1591,7 @@
     if (outcome === 'no-match') return 'No local match found';
     if (outcome === 'low-confidence') return 'Low-confidence match — verify before adding';
     if (outcome === 'confirm-match') return 'Possible match — confirm before adding';
-    if (outcome === 'blocked') return 'This test is marked “do not perform”';
+    if (outcome === 'blocked') return 'This test requires collection verification before adding';
     if (outcome === 'reference-only') return 'Directory reference only; collection requirements need verification';
     return 'Could not be added';
   }
@@ -1587,7 +1618,7 @@
     const rowClass = blocked ? 'unmatched' : needsConfirmation ? 'needs-confirmation' : 'exact-match';
     const exactLabel = autoSafe ? 'Exact match' : 'Confirm test code/name';
     const status = blocked
-      ? '<span class="batch-match-warning is-blocked">Do not perform</span>'
+      ? '<span class="batch-match-warning is-blocked">Review collection</span>'
       : autoSafe
         ? `<span class="batch-match-exact">${exactLabel}</span>`
         : `<span class="batch-match-warning">${exactLabel}</span>`;
@@ -1607,7 +1638,7 @@
                 data-action="choose-batch-test" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}"
                 aria-pressed="${test.id === choice.test.id ? 'true' : 'false'}">
                 <span class="batch-choice-option-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</span>
-                <span class="batch-choice-option-tags">${isStatEligible(test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}${test.status === 'blocked' ? '<span class="batch-choice-blocked">Do not perform</span>' : test.status === 'reference' ? '<span class="batch-choice-blocked">Directory only · verify</span>' : ''}</span>
+                <span class="batch-choice-option-tags">${isStatEligible(test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}${test.status === 'blocked' ? '<span class="batch-choice-blocked">Review collection</span>' : test.status === 'reference' ? '<span class="batch-choice-blocked">Directory only · verify</span>' : ''}</span>
               </button>
               <button type="button" class="batch-choice-quick-add batch-add-toggle" data-action="toggle-batch-add-options"
                 data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}"
@@ -1645,7 +1676,7 @@
       <div class="batch-match">
         <div class="batch-match-title"><span class="batch-kicker">${choice === row.matches[0] ? 'Best match' : 'Selected match'}</span>${status}</div>
         <strong>${escapeHtml(displayCode(choice.test))} · ${escapeHtml(choice.test.testName)}</strong>
-        <div class="batch-match-meta">${blocked ? '<span>Marked do not perform</span>' : ''}${requiredSpecimenBadges(choice.test)}<span class="batch-meta-dot">·</span>${requiredDrawContainerBadges(choice.test)}${isStatEligible(choice.test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}</div>
+        <div class="batch-match-meta">${blocked ? '<span>Collection review required</span>' : ''}${requiredSpecimenBadges(choice.test)}<span class="batch-meta-dot">·</span>${requiredDrawContainerBadges(choice.test)}${isStatEligible(choice.test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}</div>
         ${picker}
       </div>
       <div class="batch-row-action">
@@ -2021,18 +2052,18 @@
 
   function blockedReason(test) {
     const raw = String(test.specialInstructions || '').trim();
-    if (!raw) return 'This test is not supported by the current onsite collection or processing workflow.';
+    if (!raw) return 'Confirm the required supplies and processing with the receiving laboratory before collection.';
     const cleaned = raw
-      .replace(/^Do not perform onsite\.\s*/i, '')
+      .replace(/^Review collection onsite\.\s*/i, '')
       .split(/\s+(?:Patient preparation|Collection details|Unacceptable specimens):/i)[0]
       .trim();
-    return cleaned || 'This test is not supported by the current onsite collection or processing workflow.';
+    return cleaned || 'Confirm the required supplies and processing with the receiving laboratory before collection.';
   }
 
   function renderBlockedList() {
     if (!els.blockedListButton || !els.blockedListPanel || !els.blockedListBody) return;
     const blocked = database.filter(test => test.status === 'blocked');
-    els.blockedListButton.textContent = blockedListOpen ? `Hide do not perform list (${blocked.length})` : `Do not perform list (${blocked.length})`;
+    els.blockedListButton.textContent = blockedListOpen ? `Hide special collection requirements (${blocked.length})` : `Special collection requirements (${blocked.length})`;
     els.blockedListButton.setAttribute('aria-expanded', String(blockedListOpen));
     els.blockedListPanel.classList.toggle('hidden', !blockedListOpen);
     if (!blockedListOpen) return;
@@ -2041,7 +2072,7 @@
         <div class="blocked-list-code">${escapeHtml(displayCode(test))}</div>
         <div class="blocked-list-copy"><strong>${escapeHtml(test.testName)}</strong><p>${escapeHtml(blockedReason(test))}</p></div>
         <a class="blocked-list-link" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a>
-      </article>`).join('') : '<div class="empty-state">No tests are currently marked do not perform.</div>';
+      </article>`).join('') : '<div class="empty-state">No tests currently require additional collection review.</div>';
   }
 
   function renderLibraryRow(test) {
@@ -2065,7 +2096,7 @@
       <td data-label="Temperature"><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span>${primaryOnlyNote}</td>
       <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(menuVolumeText(primaryDisplay, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(menuVolumeText(primaryDisplay, 'minimum') || '—')}</div>${primaryOnlyNote}</td>
       <td class="row-actions" data-label="Actions">
-        ${blocked ? '<span class="badge temp-unknown">Do not perform</span>' : selected
+        ${blocked ? '<span class="badge temp-unknown">Review collection</span>' : selected
           ? `<button class="mini-button" disabled>✓ Added${statSelectedIds.includes(test.id) ? ' · STAT' : ''}</button>`
           : isStatEligible(test)
             ? `<button type="button" class="mini-button library-routine-action" data-action="add" data-id="${escapeAttr(test.id)}">Add as routine</button><button type="button" class="mini-button library-stat-action" data-action="add-stat" data-id="${escapeAttr(test.id)}" title="Confirm eligibility and add as STAT">Add as STAT</button>`
@@ -2544,7 +2575,7 @@
               ? `<button type="button" class="stat-menu-add is-added" data-action="stat-menu-remove" data-id="${escapeAttr(test.id)}" aria-label="Remove ${escapeAttr(test.testName)} from cart" title="Remove from cart">✓</button>`
               : `<button type="button" class="stat-menu-add" data-action="stat-menu-add" data-id="${escapeAttr(test.id)}" aria-label="Add ${escapeAttr(test.testName)} as STAT" title="Add as STAT (confirmation required)">+</button>`
             : `<button type="button" class="stat-menu-add needs-setup" data-action="stat-menu-setup" data-code="${escapeAttr(code)}" aria-label="Set up missing test ${escapeAttr(code)}" title="Open Add missing test to enter verified collection requirements">+</button>`;
-          return `<div class="stat-menu-test"><strong>${escapeHtml(code)}</strong><span>${escapeHtml(test?.testName || sourceName || 'Needs verified specimen details')}</span>${test?.status === 'blocked' ? '<small>Not available for onsite collection</small>' : !test ? '<small>Verify collection details before adding</small>' : ''}${button}</div>`;
+          return `<div class="stat-menu-test"><strong>${escapeHtml(code)}</strong><span>${escapeHtml(test?.testName || sourceName || 'Needs verified specimen details')}</span>${test?.status === 'blocked' ? '<small>Collection requirements need verification</small>' : !test ? '<small>Verify collection details before adding</small>' : ''}${button}</div>`;
         }).join('')
         : '<p class="stat-menu-empty">No codes or tests match this search.</p>';
   }
@@ -3208,7 +3239,7 @@
       preCollectionPrecautions(test).forEach(req => {
         alerts.push({ type: 'warning', text: `${displayCode(test)} ${test.testName}: ${req.note}` });
       });
-      if (test.status === 'blocked') alerts.push({ type: 'danger', text: `${test.testName}: marked do not perform.` });
+      if (test.status === 'blocked') alerts.push({ type: 'danger', text: `${test.testName}: requires collection verification.` });
       const sstYieldWarning = singleSstSpecimenVolumeWarning(test);
       if (sstYieldWarning) alerts.push({ type: singleSstSpecimenVolumeLevel(test) === 'minimum' ? 'danger' : 'warning', text: `${test.testName}: ${sstYieldWarning}` });
       if (/own tube|dedicated tube|needs own tube|two separate|full tube|required on label|draw waste|discard tube/.test(note)) alerts.push({ type: 'warning', text: `${test.testName}: dedicated tube, fill, labeling, or discard instructions may apply.` });
