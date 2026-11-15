@@ -4,8 +4,8 @@
   'use strict';
   // Fallback counts are the current cart-eligible catalog snapshots, not all directory records.
   // Once a laboratory page loads, its live active count replaces this snapshot for this tab.
-  const counts = {quest:2774, cedars:39, labcorp:1481};
-  const cacheKey = 'lab-selector-counts-v3:' + (location.pathname.split('/').filter(Boolean)[0] || 'site');
+  const counts = {quest:2792, cedars:39, labcorp:1481};
+  const cacheKey = 'lab-selector-counts-v4:' + (location.pathname.split('/').filter(Boolean)[0] || 'site');
   try {
     const cached = JSON.parse(sessionStorage.getItem(cacheKey) || '{}');
     for (const name of Object.keys(counts)) if (Number.isInteger(cached[name]) && cached[name] > 0) counts[name] = cached[name];
