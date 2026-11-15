@@ -3928,6 +3928,7 @@
 
   // Explicit lab requirements override the standard volume estimate.
   const COLLECTION_TUBE_EXCEPTIONS = Object.freeze({
+    '19081': { count: 1, tubeMl: 5, dedicated: true },
     '19790': { count: 4, dedicated: true },
     '15540': { count: 4, dedicated: true },
     '33743': { count: 5, submissionCount: 5, dedicated: true },
@@ -4328,8 +4329,9 @@
     const containerGroups = new Map();
     tests.filter(isAdditionalPoolableBloodDraw).forEach(test => {
       const info = canonicalCollectionContainer(test);
-      if (!containerGroups.has(info.key)) containerGroups.set(info.key, { ...info, tests: [] });
-      containerGroups.get(info.key).tests.push(test);
+      const groupKey = /\bcord\b/i.test(test.specimenType || '') ? `${info.key}|cord|${test.sourceTestId || test.id}` : info.key;
+      if (!containerGroups.has(groupKey)) containerGroups.set(groupKey, { ...info, key: groupKey, tests: [] });
+      containerGroups.get(groupKey).tests.push(test);
     });
 
     containerGroups.forEach(containerGroup => {
@@ -4640,7 +4642,7 @@
     const spotUrineGroups = new Map();
     tests.filter(test => isUrineTest(test) && !isTimedUrineTest(test)).forEach(test => {
       const urineType = urineCollectionType(test);
-      const acidPreserved = /6\s*N\s*HCl|HCl[- ]preserv|acid[- ]preserv/i.test(String(test.drawContainer || ''));
+      const acidPreserved = /6\s*N\s*HCl|HCl[- ]preserv|acid[- ]preserv/i.test(`${test.drawContainer || ''} ${test.transportContainer || ''}`);
       const dedicated = requiresSeparateUrineCollection(test) || acidPreserved;
       const key = dedicated ? `${urineType.key}|${acidPreserved ? 'acid-preserved' : 'separate'}|${test.sourceTestId || test.id}` : urineType.key;
       if (!spotUrineGroups.has(key)) spotUrineGroups.set(key, { ...urineType, key, dedicated, tests: [] });
@@ -4946,7 +4948,10 @@
     const explicitOriginal = /no transfer|original tube|same tube|primary tube|do not open|unopened|submit (?:the )?(?:spun )?(?:original|collection|primary) tube|leave .* in (?:the )?original tube/.test(combined);
     const matchingTube = Boolean(drawClass && transportClass && drawClass === transportClass)
       && !/transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/.test(combined);
-    return explicitOriginal || matchingTube;
+    // CSF, sputum, culture swabs, AFFIRM and InSure kits travel in their source device.
+    const matchingSpecialOriginal = normalizeSearch(draw) === normalizeSearch(transport)
+      && /csf|sputum|eswab|affirm|insure|culture swab/i.test(draw);
+    return explicitOriginal || matchingTube || matchingSpecialOriginal;
   }
 
   function originalContainerSubmission(test) {
