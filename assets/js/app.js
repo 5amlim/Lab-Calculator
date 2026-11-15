@@ -4991,7 +4991,7 @@
     return !raw.replace(/\b(?:sterile|unpreserved|plain|plastic|polypropylene|screw cap|leakproof|leak proof|urine|aliquot|transport|transfer|collection|cup|tube|vial|container)s?\b/g, '').replace(/\s+/g, '').trim();
   }
   function isFrozenSerumPlasmaTransport(test, container) {
-    const material = normalizeSpecimenType(test.specimenType).toLowerCase().trim();
+    const material = normalizeSpecimenType(test.specimenType).toLowerCase().trim().replace(/[-–]/g, ' ');
     const raw = normalizeSearch(container);
     return String(test.transportTemperature || '').toLowerCase().trim() === 'frozen'
       && /^(?:serum|plasma|platelet poor plasma)$/.test(material)
