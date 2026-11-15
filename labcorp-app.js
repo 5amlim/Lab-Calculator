@@ -5157,7 +5157,7 @@
       }];
     }
 
-    if (/transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/i.test(transport)) {
+    if (/transport tube|transfer tube|transport vial|transfer vial|aliquot|cryovial|screw[- ]?cap|pour[- ]?off|plastic.*(?:vial|container)/i.test(transport)) {
       const sourcePhrase = specimenSourceDetail(test);
       const isSwab = /swab/i.test(sourceSpecimen);
       const isSpecialtyMetalContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal/i.test(transport);
