@@ -13,7 +13,7 @@ const bundles = [
 ];
 function catalog() {
   return bundles.flatMap(bundle => {
-    const match = read(bundle).match(/const additions=(\[[\s\S]*?\]);\nconst known=/);
+    const match = read(bundle).match(/const additions=(\[[\s\S]*?\]);\nfor\(const test of additions\)/);
     assert.ok(match, bundle + ' contains a JSON additions catalog');
     return JSON.parse(match[1]);
   });
@@ -46,7 +46,8 @@ test('Acid-preserved and unpreserved urine, cord blood and gestational draws hav
   const byCode = new Map(catalog().map(t => [t.testCode, t]));
   assert.match(byCode.get('523').drawContainer, /6N HCl/);
   assert.match(byCode.get('39625').drawContainer, /6N HCl/);
-  assert.match(byCode.get('1648').drawContainer, /6N HCl/);
+  assert.match(byCode.get('1648').transportContainer, /6N HCl/);
+  assert.match(byCode.get('1648').drawContainer, /Sterile Urine Cup/);
   assert.match(byCode.get('15281').drawContainer, /no preservative/);
   assert.match(byCode.get('4555').drawContainer, /no preservative/);
   assert.match(byCode.get('229').specialInstructions, /HCl-preserved urine is REJECTED/);
@@ -60,7 +61,37 @@ test('Verified addons precede the guarded directory-only fallback and applicatio
   const html = read('index.html');
   const positions = bundles.map(file => html.indexOf(file));
   const fallback = html.indexOf('quest-missing-directory-loader-20261114.js');
-  const app = html.indexOf('assets/js/app.js?v=12.91');
+  const app = html.indexOf('assets/js/app.js?v=12.92');
   assert.ok(positions.every(pos => pos >= 0 && pos < fallback));
   assert.ok(fallback > 0 && fallback < app);
+});
+
+test('Correct physical specimens and submission devices for Quest new codes', () => {
+  const byCode = new Map(catalog().map(t => [t.testCode, t]));
+  for (const code of ['8280','15281','4555']) {
+    const entry = byCode.get(code);
+    assert.match(entry.drawContainer, /Timed Urine|24-Hour Urine/);
+    assert.match(entry.transportContainer, /Urinalysis Transport Tube \(Yellow-Top, Blue Fill Line\)/);
+    assert.equal(entry.collectionCount || 1, 1);
+    assert.equal(entry.submissionCount || 1, 1);
+    assert.match(entry.specialInstructions, /ONE labeled UA transport tube/);
+  }
+  for (const code of ['523','39625','1648']) {
+    assert.match(byCode.get(code).transportContainer, /6N HCl preserved/);
+  }
+  assert.match(byCode.get('229').transportContainer, /Urine Aliquot Transport Tube/);
+  assert.match(byCode.get('19081').transportContainer, /ACD Yellow Top/);
+  assert.match(byCode.get('70028').drawContainer, /Sterile Leak-Proof CSF Container/);
+  assert.equal(byCode.get('4556').transportContainer, byCode.get('4556').drawContainer);
+  assert.equal(byCode.get('16292').additionalDrawRequirements[0].count, 3);
+  assert.equal(byCode.get('1430').additionalDrawRequirements[0].count, 1);
+});
+test('Collection source count does not use the blood capacity formula on other specimen types', () => {
+  const app = read('assets/js/app.js');
+  assert.match(app, /if \(collectionSpecimenGroupForTest\(test\) !== 'blood'\) return explicit;/);
+  assert.match(app, /Yellow-Top UA Preservative Tube \(Blue Fill Line\)/);
+  assert.match(app, /Acid-Preserved Plastic Urine Aliquot Container/);
+  assert.match(app, /const matchingSpecialOriginal =/);
+  assert.match(app, /19081': \{ count: 1, tubeMl: 5, dedicated: true \}/);
+  assert.match(app, /Quest Diagnostics official test directory, reviewed 2026-11-14/);
 });
