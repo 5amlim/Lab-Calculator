@@ -154,7 +154,7 @@
     "drawContainer": "Sterile Sputum Cup",
     "transportContainer": "Sterile Leak-Proof Screw-Cap Sputum Container",
     "preferredVolume": "3–5 mL sputum",
-    "minimumVolume": "3 mL (verify with Quest, directory gives preferred range only)",
+    "minimumVolume": "Not specified in Quest directory",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Room Temperature under 2 hours, then Refrigerated on cold packs",
     "stability": "Room maximum 2 hours; refrigerated 24 hours; frozen unacceptable.",
