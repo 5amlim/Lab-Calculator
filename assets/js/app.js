@@ -4969,8 +4969,7 @@
     const source = normalizeSearch(test.drawContainer);
     if (/acid|hcl|metal free|trace metal|trace element|boric|preserv|culture|swirl|urinalysis|ua tube|uri sponge|amber|light protect|formalin|special|24 hour|timed|para pak/.test(raw)) return false;
     if (/acid|hcl|metal free|trace metal|trace element/.test(source)) return false;
-    return /^(?:(?:sterile|plain|unpreserved)\s+)?(?:plastic\s+)?(?:urine\s+)?(?:aliquot\s+)?(?:transport\s+)?(?:cup|container|vial|tube)$/.test(raw)
-      || /^(?:urine\s+aliquot\s+transport\s+tube|plastic\s+urine\s+container|plastic\s+screw\s+cap\s+urine\s+(?:container|vial)|sterile\s+(?:urine\s+)?cup)$/.test(raw);
+    return /^(?:sterile\s+(?:urine\s+)?cup|(?:sterile\s+|unpreserved\s+|plain\s+)?(?:plastic\s+)?urine\s+(?:aliquot\s+)?(?:transport\s+)?(?:cup|container|vial|tube)|plastic\s+(?:screw\s+cap\s+)?(?:urine\s+)?(?:aliquot\s+)?(?:transport\s+)?(?:cup|container|vial))$/.test(raw);
   }
 
   function transportTubeClass(test, container) {
