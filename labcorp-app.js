@@ -1656,17 +1656,31 @@
   // not just the primary specimen, while keeping precise fluid and swab subtypes.
   function specimenFilterCategoriesForType(specimenType) {
     const value = normalizeSearch(specimenType || '');
-    if (/\b(?:serum|plasma|blood|rbcs?|erythrocytes?|red blood cells?)\b/.test(value)) return ['Blood'];
+    if (/\b(?:serum|plasma|blood|rbcs?|erythrocytes?|red blood cells?)\b/.test(value)) {
+      const result = ['Blood'];
+      if (/\bserum\b/.test(value)) result.push('Serum');
+      if (/\bplasma\b/.test(value)) result.push('Plasma');
+      if (/\bwhole blood\b/.test(value)) result.push('Whole Blood');
+      if (/\b(?:rbcs?|erythrocytes?|red blood cells?)\b/.test(value)) result.push('RBCs');
+      return result;
+    }
     if (/\b(?:urine|urinary)\b/.test(value)) return ['Urine'];
     if (/\b(?:stool|feces|fecal|faeces|faecal)\b/.test(value)) return ['Stool'];
     if (/\bswab\b/.test(value)) {
-      return /\b(?:vaginal|cervicovaginal)\b/.test(value)
-        ? ['Swab', 'Vaginal Swab'] : ['Swab'];
+      const result = ['Swab'];
+      if (/\bvaginal\s+rectal\b/.test(value)) result.push('Vaginal-Rectal Swab', 'Vaginal Swab');
+      else if (/\bcervicovaginal\b/.test(value)) result.push('Cervicovaginal Swab', 'Vaginal Swab');
+      else if (/\bvaginal\b/.test(value)) result.push('Vaginal Swab');
+      if (/\bthroat\b|\bpharyng/.test(value)) result.push('Throat Swab');
+      if (/\bnasopharyngeal\b/.test(value)) result.push('Nasopharyngeal Swab');
+      if (/\bsite specific\b|\bculture swab\b/.test(value)) result.push('Site-Specific Culture Swab');
+      return result;
     }
-    if (/\b(?:csf|cerebrospinal)\b/.test(value)) return ['CSF'];
+    if (/\b(?:csf|cerebrospinal)\b/.test(value)) return ['Body Fluid', 'CSF'];
     if (/\bsputum\b/.test(value)) return ['Sputum'];
     if (/\bsaliva\b/.test(value)) return ['Saliva'];
     if (/\btissue\b/.test(value)) return ['Tissue'];
+    if (/\bcervical\b.*\bcytology\b.*\bfluid\b/.test(value)) return ['Body Fluid', 'Cervical Cytology Fluid'];
     for (const [pattern, name] of [
       [/\bpericardial\b/, 'Pericardial Fluid'],
       [/\bperitoneal\b|\bascit(?:es|ic)\b/, 'Peritoneal Fluid'],
