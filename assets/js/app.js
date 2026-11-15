@@ -5036,9 +5036,9 @@
     const material = normalizeSpecimenType(test.specimenType).toLowerCase().trim().replace(/[-–]/g, ' ');
     const raw = normalizeSearch(container);
     return String(test.transportTemperature || '').toLowerCase().trim() === 'frozen'
-      && /^(?:serum|plasma|platelet poor plasma)$/.test(material)
+      && /^(?:serum|plasma|serum or plasma|platelet poor plasma)$/.test(material)
       && /(?:transport|transfer|aliquot)\s+(?:tube|vial|container)|(?:plastic|polypropylene)\s+screw\s+cap\s+(?:tube|vial)/.test(raw)
-      && !/amber|light protect|metal free|trace metal|acid washed|glass|cryovial|preserv|special|nmr|transpak/.test(raw);
+      && !/amber|light protect|metal free|trace metal|acid washed|glass|cryovial|preserv|special|nmr|transpak|citrate|heparin|edta|fluoride|oxalate/.test(raw);
   }
 
   function transportTubeClass(test, container) {
@@ -5047,9 +5047,9 @@
     // additive-free plastic submission vial uses the regular green transport badge.
     if (isGrayFluoridePlasmaTransfer({ ...test, transportContainer: container }))
       return 'tube-transport tube-transport-green-top';
-    if (isFrozenSerumPlasmaTransport(test, container)) return 'tube-frozen-purple';
-    if (/^frozen platelet[- ]poor plasma transport tube/.test(value)) return 'tube-frozen-purple';
-    if (/^frozen transport tube(?:\s*\(.*\))?$/.test(value)) return 'tube-frozen-purple';
+    if (isFrozenSerumPlasmaTransport(test, container)) return 'tube-transport tube-transport-green-top';
+    if (/^frozen platelet[- ]poor plasma transport tube/.test(value)) return 'tube-transport tube-transport-green-top';
+    if (/^frozen transport tube(?:\s*\(.*\))?$/.test(value)) return 'tube-transport tube-transport-green-top';
     const specimen = normalizeSpecimenType(test.specimenType).toLowerCase();
     const specimenAndContainer = `${specimen} ${value}`;
     const isStandardSerumOrPlasma = isGenericSerumPlasmaTransport(test, container);
@@ -5298,23 +5298,24 @@
     const specimen = titleCaseSpecimen(normalizeSpecimenType(test.specimenType));
     const sourceSpecimen = specificSpecimenSource(test);
 
-    // Generic frozen serum/plasma and platelet-poor plasma aliquots each need
-    // a dedicated frozen tube, even when directory wording says "Transport tube".
+    // Generic Quest frozen serum/plasma and platelet-poor plasma aliquots use the
+    // standard plastic screw-cap transport badge, but remain separate aliquots.
     if (isFrozenSerumPlasmaTransport(test, transport)) {
       return [{
         key: `frozen-processed|${normalizeSearch(requiresDistinctDrawTransport(test) ? test.id : (test.sourceTestId || test.id || test.testCode))}`,
         label: 'Frozen Transport Tube',
-        className: 'tube-frozen-purple',
+        className: 'tube-transport tube-transport-green-top',
         count: explicitSubmissionCount(test),
         detail: specimenSourceDetail(test) + ' · dedicated frozen aliquot, ship frozen'
       }];
     }
-    // Frozen PPP remains a frozen aliquot, not a standard green-top transfer tube.
+    // Frozen PPP stays separately processed and shipped, while using the
+    // standard Quest plastic screw-cap transport badge.
     if (/^frozen platelet[- ]poor plasma transport tube/i.test(transport)) {
       return [{
         key: 'frozen-platelet-poor-plasma|' + (test.sourceTestId || test.id),
         label: 'Frozen Platelet-Poor Plasma Transport Tube',
-        className: 'tube-frozen-purple',
+        className: 'tube-transport tube-transport-green-top',
         count: explicitSubmissionCount(test),
         detail: 'Double-spun platelet-poor citrated plasma, frozen immediately; ship on dry ice'
       }];
@@ -6795,7 +6796,7 @@
 
   function tubeClass(container) {
     const value = String(container || '').toLowerCase();
-    if (/^frozen transport tube(?:\s*\(.*\))?$/.test(value)) return 'tube-frozen-purple';
+    if (/^frozen transport tube(?:\s*\(.*\))?$/.test(value)) return 'tube-transport tube-transport-green-top';
     if (/microtainer/.test(value)) return 'tube-microtainer';
     if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
     if (/urinalysis\s+transport\s+tube/i.test(value) && /yellow[- ]top|blue\s+fill/i.test(value)) return 'tube-ua-yellow';
