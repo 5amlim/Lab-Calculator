@@ -5208,8 +5208,11 @@
       !requiresSeparateTransportAliquot(test) && explicitSubmissionCount(test) === 1;
     const isAptima70049 = String(test.testCode || '').trim() === '70049';
     const label = isAptima70049 ? 'Aptima' : (collectionTubeException(test)?.label || draw);
+    const originalSterileCup = /^sterile cup$/i.test(draw) &&
+      /^sterile cup$/i.test(finalTransportContainer(test));
     const processing = isAptima70049
       ? `${sourceSpecimen} · Submit as Aptima`
+      : originalSterileCup ? 'Submit in original sterile cup'
       : (String(test.spin || '').toLowerCase() === 'yes' ? 'Process as directed; submit in original tube' : 'Submit in original tube');
     return {
       key: directUrineCup
