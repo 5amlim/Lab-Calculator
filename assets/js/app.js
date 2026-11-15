@@ -4195,6 +4195,11 @@
 
   function canonicalCollectionContainer(test) {
     const draw = String(test.drawContainer || 'Verify collection container').trim();
+    // Preservative type is part of collection identity: acid-preserved urine
+    // must never group with plain 24h/timed urine or ordinary spot urine.
+    if (isUrineTest(test) && /6\\s*N\\s*HCl|HCl[- ]preserv|acid[- ]preserv/i.test(draw)) {
+      return { key: 'hcl-preserved-urine', label: '6N HCl Preserved Urine Container', className: 'tube-24h-urine' };
+    }
     if (isUrineTest(test) && !isTimedUrineTest(test)) {
       return { key: 'sterile-urine-cup', label: 'Sterile cup', className: 'tube-urine-cup' };
     }
@@ -4638,10 +4643,11 @@
       spotUrineGroups.get(key).tests.push(test);
     });
     spotUrineGroups.forEach(group => {
+      const hclPreserved = group.tests.some(test => /6\\s*N\\s*HCl|HCl[- ]preserv|acid[- ]preserv/i.test(String(test.drawContainer || '')));
       items.push({
         key: `sterile-urine-cup|${group.key}`,
-        label: 'Sterile cup',
-        className: 'tube-urine-cup',
+        label: hclPreserved ? '6N HCl Preserved Urine Container' : 'Sterile cup',
+        className: hclPreserved ? 'tube-24h-urine' : 'tube-urine-cup',
         urineSeparateCollection: group.dedicated,
         urineCollectionKey: group.key,
         count: group.dedicated ? Math.max(...group.tests.map(explicitCollectionCount)) : 1,
@@ -4666,7 +4672,12 @@
       const urineCup = specimenGroup === 'urine' && info.className === 'tube-urine-cup';
       const separateCup = urineCup && !isShareableUrineCupTest(test);
       const separateStool = specimenGroup === 'stool' && info.className === 'tube-urine-cup';
-      const groupKey = `${specimenSubtype}|${info.key}${separateCup || separateStool ? `|separate|${test.sourceTestId || test.id}` : ''}`;
+      // Cord blood and gestational timed assays must not be pooled with a
+      // different patient's or different protocol's same-colored tube.
+      const dedicatedBlood = specimenGroup === 'blood' &&
+        (/\\bcord\\b/i.test(test.specimenType || '') ||
+         /\\bgestational\\b/i.test(test.testName || ''));
+      const groupKey = `${specimenSubtype}|${info.key}${separateCup || separateStool || dedicatedBlood ? `|separate|${test.sourceTestId || test.id}` : ''}`;
       if (!grouped.has(groupKey)) grouped.set(groupKey, { ...info, key: groupKey, urineSeparateCollection: separateCup, stoolSeparateCollection: separateStool, urineCollectionKey: groupKey, count: 0, tests: [], detail: '' });
       const item = grouped.get(groupKey);
       if (urineCup && !separateCup) item.count = Math.max(item.count, explicitCollectionCount(test));
