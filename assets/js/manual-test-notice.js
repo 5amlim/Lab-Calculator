@@ -22,14 +22,14 @@
         <div class="manual-notice-icon" aria-hidden="true">${laptop}</div>
         <div>
           <div class="manual-notice-kicker">BEFORE YOU ADD A TEST</div>
-          <h2 id="manualTestNoticeTitle">This entry is saved in your browser only</h2>
-          <p id="manualTestNoticeDescription">Manually added tests are not shared with other staff or devices. They may be lost if browser data is cleared.</p>
+          <h2 id="manualTestNoticeTitle">Saved in this browser only</h2>
+          <p id="manualTestNoticeDescription">Other staff and devices cannot see this test. Clearing browser data may remove it.</p>
         </div>
       </div>
       <div class="manual-notice-check">
         <span class="manual-notice-check-icon" aria-hidden="true">${check}</span>
         <div><strong>Double-check before collecting and processing</strong>
-          <p>Verify the test code, specimen, collection and transport containers, tube quantities, volume, processing steps, and temperature against the official lab directory.</p>
+          <p>Verify test details in the official test directory.</p>
         </div>
       </div>
       <div class="manual-notice-permanent">
@@ -50,13 +50,13 @@
     guide.innerHTML = `
       <div class="manual-form-alert">
         <span class="manual-form-alert-icon" aria-hidden="true">${laptop}</span>
-        <div><strong>Manual entries stay in this browser</strong><p>Other staff will not see them. Always verify collection and processing details with the official lab directory before using a manual entry.</p></div>
+        <div><strong>Manual entries stay in this browser</strong><p>Only visible in this browser. Verify details in the official test directory before use.</p></div>
       </div>
       <div class="manual-help-accordion">
         <details class="manual-help-details">
           <summary class="manual-help-toggle">
             <span class="manual-help-question" aria-hidden="true">?</span>
-            <span class="manual-help-copy"><strong>How do I delete a manually added test?</strong><small>Click or tap to view the steps</small></span>
+            <span class="manual-help-copy"><strong>How do I delete a manually added test?</strong><small>View deletion steps</small></span>
             <span class="manual-help-chevron shared-chevron" aria-hidden="true"></span>
           </summary>
           <div class="manual-help-popover" id="manualDeleteIllustration">
@@ -109,7 +109,7 @@
           </div>
         </details>
       </div>
-            <p class="manual-help-permanent"><strong>Want to add a test for everyone?</strong> Contact <strong>Sam Hay</strong> for a permanent addition.</p>`;
+            <p class="manual-help-permanent"><strong>Need this test available to everyone?</strong> Contact <strong>Sam Hay</strong> to add it permanently.</p>`;
     actions.parentElement.insertBefore(guide, actions);
 
     const cancel = document.getElementById('manualNoticeCancel');
