@@ -4985,6 +4985,28 @@
 
   function splitSubmissionContainers(test) {
     const transport = finalTransportContainer(test);
+    // Distinguish the source timed/24-hour urine jug from the single UA tube submitted to Quest.
+    if (isUrineTest(test) && /urinalysis\s+transport\s+tube/i.test(transport)
+        && /yellow[- ]top|blue\s+fill/i.test(transport)) {
+      return [{ key: 'urine-ua-yellow|' + urineCollectionType(test).key,
+        label: 'Yellow-Top UA Preservative Tube (Blue Fill Line)',
+        className: 'tube-ua-yellow', count: explicitSubmissionCount(test),
+        detail: 'One aliquot from well-mixed timed/24-hour urine; record source collection volume and duration' }];
+    }
+    // A plastic urine screw-cap vial is a real container, not a generic Timed Urine Transport Tube.
+    if (isUrineTest(test) && /urine/i.test(transport)
+        && /plastic.*container|container.*plastic|screw[- ]?cap/i.test(transport)) {
+      const acid = /6\s*N\s*HCl|acid[- ]preserv|HCl[- ]preserv/i.test(transport);
+      return [{ key: 'urine-plastic-aliquot|' + (acid ? 'acid' : 'plain') + '|' + urineCollectionType(test).key,
+        label: acid ? 'Acid-Preserved Plastic Urine Aliquot Container' : 'Plastic Urine Aliquot Container',
+        className: 'tube-urine-cup', count: explicitSubmissionCount(test),
+        detail: acid ? 'Urine aliquot preserved with HCl in screw-cap vial' : 'Well-mixed urine aliquot in plastic screw-cap vial' }];
+    }
+    if (isUrineTest(test) && /urine\s+aliquot\s+transport\s+tube/i.test(transport)) {
+      return [{ key: 'urine-aliquot-tube|' + urineCollectionType(test).key,
+        label: 'Urine Aliquot Transport Tube', className: 'tube-transport',
+        count: explicitSubmissionCount(test), detail: 'Aliquot from complete urine collection; record total volume' }];
+    }
     if (requiresDualUrinalysisCultureContainers(test)) {
       return [
         { key: 'ua-swirl', label: 'Red/Yellow Swirl UA Preservative Tube', className: 'tube-ua-swirl', count: 1, detail: 'Urine in preservative tube' },
