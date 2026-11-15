@@ -2,19 +2,20 @@
 (()=>{'use strict';if(!Array.isArray(window.SEED_TESTS))return;const additions=[
   {
     "id": "quest-official-14577-20261114",
-    "status": "active",
+    "status": "blocked",
     "testCode": "14577",
     "testName": "Bacterial Vaginosis/Vaginitis Panel",
     "specimenType": "Vaginal Swab",
-    "drawContainer": "BD AFFIRM VPIII ATTS Swab",
-    "transportContainer": "BD AFFIRM VPIII ATTS Swab",
+    "drawContainer": "Do Not Collect",
+    "transportContainer": "N/A",
     "preferredVolume": "1 BD AFFIRM ATTS vaginal swab",
     "minimumVolume": "1 BD AFFIRM ATTS swab",
     "transportTemperature": "Room Temperature",
     "stability": "Room 72 hours; refrigerated 72 hours; frozen unacceptable.",
     "spin": "No",
-    "specialInstructions": "SPECIAL KIT ONLY. Collect swab from posterior vaginal fornix and vaginal wall, and IMMEDIATELY place in BD AFFIRM VPIII Ambient Temperature Transport System (ATTS). Do not use standard Amies ESwab, Aptima, viral transport or a generic swab. Reject any transport other than the BD AFFIRM VPIII ATTS, samples >72 hours old, or frozen samples. Confirm kit in stock and site acceptance BEFORE collection.",
-    "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/14577/bacterial-vaginosis-vaginitis-panel?cc=MASTER"
+    "specialInstructions": "DO NOT PERFORM ONSITE. Requires BD AFFIRM VPIII ATTS special collection kit. Not part of the confirmed standard onsite container inventory; do not substitute ESwab or generic swab. Route to Quest or confirm ATTS kit availability and approval before enabling onsite.",
+    "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/14577/bacterial-vaginosis-vaginitis-panel?cc=MASTER • Local supply restriction checked 2026-11-14",
+    "alternativeContainer": ""
   },
   {
     "id": "quest-official-5617-20261114",
@@ -114,36 +115,37 @@
   },
   {
     "id": "quest-official-91448-20261114",
-    "status": "active",
+    "status": "blocked",
     "testCode": "91448",
     "testName": "Chlamydia/N. gonorrhoeae and T. vaginalis RNA, Qualitative, TMA, Pap Vial",
     "specimenType": "Cervical Cytology Fluid",
-    "drawContainer": "PreservCyt (ThinPrep) Pap Vial",
-    "alternativeContainer": "SurePath Pap Vial (before cytology processing)",
-    "transportContainer": "Aptima Specimen Transfer Tube (green label)",
+    "drawContainer": "Do Not Collect",
+    "alternativeContainer": "",
+    "transportContainer": "N/A",
     "preferredVolume": "1 mL PreservCyt or 0.5 mL SurePath",
     "minimumVolume": "1 mL PreservCyt or 0.5 mL SurePath",
     "transportTemperature": "Room Temperature",
     "stability": "PreservCyt in Aptima tube: room/refrigerated 14 days, frozen 30 days. SurePath in Aptima tube: room/refrigerated 14 days; frozen unacceptable.",
     "spin": "No",
-    "specialInstructions": "PAP VIAL TRANSFER. This is not a vaginal ESwab or a regular Aptima swab. Transfer 1 mL PreservCyt (ThinPrep) OR 0.5 mL SurePath cytology fluid into Aptima Specimen Transfer Tube with GREEN LABEL before any cytology processing. For SurePath, transfer within 4 days of collection. Do NOT submit previously processed Pap material or original Pap vial as final molecular transport. Keep separate from other swab collection workflows. Check facility transfer supplies and service area.",
-    "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/91448/chlamydia-n-gonorrhoeae-and-t-vaginalis-rna-qualitative-tma-pap-vial?cc=MASTER"
+    "specialInstructions": "DO NOT PERFORM ONSITE. Requires a validated Pap-vial / Aptima specimen transfer workflow. Sollis does not stock the green-label Aptima transfer tube. Do not substitute an ordinary orange Aptima swab tube without verifying Quest acceptance for this exact Pap-vial specimen; refer to Quest or the performing cytology lab.",
+    "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/91448/chlamydia-n-gonorrhoeae-and-t-vaginalis-rna-qualitative-tma-pap-vial?cc=MASTER • Local supply restriction checked 2026-11-14"
   },
   {
     "id": "quest-official-11290-20261114",
-    "status": "active",
+    "status": "blocked",
     "testCode": "11290",
     "testName": "Fecal Globin by Immunochemistry (InSure®)",
     "specimenType": "Stool (InSure FOBT Card)",
-    "drawContainer": "InSure FOBT Test Card",
-    "transportContainer": "InSure FOBT Test Card",
+    "drawContainer": "Do Not Collect",
+    "transportContainer": "N/A",
     "preferredVolume": "1 InSure FOBT card with specimen on both windows",
     "minimumVolume": "1 completed InSure kit card",
     "transportTemperature": "Room Temperature",
     "stability": "Room 14 days; refrigeration and freezing unacceptable.",
     "spin": "No",
-    "specialInstructions": "SPECIAL IN SURE KIT (NOT STOOL CUP). Patient uses the InSure brush on toilet water and applies specimen to the dedicated InSure FOBT card, BOTH designated collection windows, following kit insert. No dietary restriction required. Do not use a sterile stool cup, standard FIT tube, or place bulk stool directly on sample windows. Transport card at ROOM TEMPERATURE; reject refrigerated or frozen cards, obvious blood, or wrong sample application. Verify InSure kit availability.",
-    "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/11290/fecal-globin-by-immunochemistry-insure?cc=MASTER"
+    "specialInstructions": "DO NOT PERFORM ONSITE. Requires the dedicated InSure FOBT brush/card kit, which is not stocked onsite. Quest explicitly rejects stool submitted in an ordinary sterile cup for code 11290. Order an appropriate alternate FIT test code with its own verified transport instructions, or refer patient to Quest.",
+    "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/11290/fecal-globin-by-immunochemistry-insure?cc=MASTER • Local supply restriction checked 2026-11-14",
+    "alternativeContainer": ""
   },
   {
     "id": "quest-official-4556-20261114",
@@ -151,15 +153,15 @@
     "testCode": "4556",
     "testName": "Culture, Sputum/Lower Respiratory",
     "specimenType": "Sputum",
-    "drawContainer": "Sterile Leak-Proof Screw-Cap Sputum Container",
-    "transportContainer": "Sterile Leak-Proof Screw-Cap Sputum Container",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Sterile cup",
     "preferredVolume": "3–5 mL sputum",
     "minimumVolume": "Not specified in Quest directory",
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Room Temperature under 2 hours, then Refrigerated on cold packs",
     "stability": "Room maximum 2 hours; refrigerated 24 hours; frozen unacceptable.",
     "spin": "No",
-    "specialInstructions": "Collect EARLY MORNING deep-cough expectorated sputum (3–5 mL) into sterile leakproof screw-cap container, not saliva and not pooled 24-hour sputum. Transfer to fridge as soon as possible; room-temperature holding must be LESS THAN 2 hours. Ship refrigerated and ensure receipt ASAP, ideally within 24 hours. Bronchial wash/tracheal aspirate is a different specimen path (5–10 mL). Reject frozen or leaking samples, stale sputum, and wrong source. Label source. Submit in the original sterile leak-proof collection container; no additional transport vessel is needed.",
+    "specialInstructions": "Collect an early-morning, deep-cough sputum specimen (3–5 mL) in ONE ordinary Sterile cup that is plastic, leakproof and screw-capped, exactly the same cup type stocked for urine and stool. Do not submit saliva or pool sputum from different collections. Keep labeled sputum separate from urine, stool and CSF. Submit the original cup, without a second transport cup. Room temperature holding should be under 2 hours; refrigerate and ship on cold packs, ideally within 24 hours. Do not freeze.",
     "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/4556/culture-sputum-lower-respiratory?cc=MASTER"
   }
 ];
