@@ -96,21 +96,21 @@ for (const [name,page,app] of pages) {
  });
  test(name+' live filter values find Affirm, Pleural Fluid and second required specimens',async()=>{
    const w=loadedApp(app);await Promise.resolve();const h=w.__test;
-   const byCode=Object.fromEntries(h.database.filter(t=>['a','b','c','d'].includes(t.id))
+   const byCode=Object.fromEntries(h.database.filter(t=>['affirm','fluid','paired','amies'].includes(t.id))
      .map(t=>[t.id,t]));
    // Native dropdowns remain the source of truth for the portal menu.
    h.filters.specimenFilter.value='Vaginal Swab';
    h.filters.transportContainerFilter.value='affirm';
-   assert(h.matchesLibraryFilters(byCode.a),'Affirm was hidden by its dedicated filter');
-   assert(h.matchesLibraryFilters(byCode.c),'a secondary required Affirm specimen was omitted');
-   assert.equal(h.matchesLibraryFilters(byCode.b),false);
+   assert(h.matchesLibraryFilters(byCode.affirm),'Affirm was hidden by its dedicated filter');
+   assert(h.matchesLibraryFilters(byCode.paired),'a secondary required Affirm specimen was omitted');
+   assert.equal(h.matchesLibraryFilters(byCode.fluid),false);
    h.filters.specimenFilter.value='Pleural Fluid';
    h.filters.transportContainerFilter.value='sterile-cup';
-   assert(h.matchesLibraryFilters(byCode.b),'pleural fluid was missing under sterile cup');
-   assert.equal(h.matchesLibraryFilters(byCode.a),false);
+   assert(h.matchesLibraryFilters(byCode.fluid),'pleural fluid was missing under sterile cup');
+   assert.equal(h.matchesLibraryFilters(byCode.affirm),false);
    h.filters.specimenFilter.value='Swab';
    h.filters.transportContainerFilter.value='amies';
-   assert(h.matchesLibraryFilters(byCode.d),'Amies swab was not searchable by both filters');
+   assert(h.matchesLibraryFilters(byCode.amies),'Amies swab was not searchable by both filters');
  });
  test(name+' edits preserve uncommon exact specimen names instead of Other / Verify',async()=>{
    const w=loadedApp(app);await Promise.resolve();
