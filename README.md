@@ -77,3 +77,12 @@ Four verified source bundles currently add **29** directory-reviewed workflows:
 These follow the existing `SEED_TESTS` schema and preserve separate draw requirements, fasting flags, specimen-specific temperatures, transport containers, and original naming. Existing validated codes are not overwritten. The grouping logic keeps HCl-preserved urine separate from ordinary urine, does not merge cord blood with routine blood, and keeps different gestational timing protocols distinct. All references without verified specimen details remain **Directory only** and cannot be added to the cart, tube calculator, or printouts.
 
 **Clinical caution:** This is a national Quest MASTER lookup, not a confirmation that every code or special collection kit is accepted by each local receiving lab. Verify service-area availability and local supplies before collection. The remaining directory-only entries require individual Quest documentation before promotion to collectable status.
+
+
+### Fluoride/oxalate plasma processing, Nov 14 2026
+
+Code 8477 (50 g gestational screen, 135 cutoff), 19833 (140 cutoff), 484 (fasting glucose plasma), 1430, 19834, 16292, 35181, 18927 and 6745 use a standardized **gray fluoride/oxalate source tube → centrifuge → separated plasma in a fresh additive-free plastic screw-cap transport vial** workflow. Quest lists the latter as an accepted alternative. Do not transfer into a second gray-top blood-collection tube with anticoagulant additive. The vial must be identified as fluoride/oxalate plasma and separately labeled for its fasting/1-hour/2-hour/3-hour draw. 
+
+The cart, collection plan, transport bag, and printouts use matching physical counts and never pool timed specimens. Tests 8477 and 19833 are one-hour, **nonfasting** 50 g screening tests, unlike fasting multi-timepoint tests. This workflow is subject to regional Quest acceptance and staff competency for plasma separation. The official directory also lists the original fluoride/oxalate gray tube as the preferred container; local use of the additive-free plastic vial should be confirmed with the receiving lab. Source: https://www.questdiagnostics.com/healthcare-professionals/test-directory/specimen-handling/specimen-collection and https://testdirectory.questdiagnostics.com/test/test-detail/8477/?cc=MASTER .
+
+Coverage: `assets/js/quest-gray-plasma-processing-20261114.js`; tests: `tests/quest-gray-plasma-20261114.test.cjs` and `tests/quest-gray-plasma-plan-integration-20261114.test.cjs`.
