@@ -86,3 +86,14 @@ Code 8477 (50 g gestational screen, 135 cutoff), 19833 (140 cutoff), 484 (fastin
 The cart, collection plan, transport bag, and printouts use matching physical counts and never pool timed specimens. Tests 8477 and 19833 are one-hour, **nonfasting** 50 g screening tests, unlike fasting multi-timepoint tests. This workflow is subject to regional Quest acceptance and staff competency for plasma separation. The official directory also lists the original fluoride/oxalate gray tube as the preferred container; local use of the additive-free plastic vial should be confirmed with the receiving lab. Source: https://www.questdiagnostics.com/healthcare-professionals/test-directory/specimen-handling/specimen-collection and https://testdirectory.questdiagnostics.com/test/test-detail/8477/?cc=MASTER .
 
 Coverage: `assets/js/quest-gray-plasma-processing-20261114.js`; tests: `tests/quest-gray-plasma-20261114.test.cjs` and `tests/quest-gray-plasma-plan-integration-20261114.test.cjs`.
+
+
+### Sollis supply policy and common sterile cups (November 14, 2026)
+
+The Quest directory is broader than the collection supplies actually stocked onsite. **Do not perform onsite** is enforced after local browser overrides for test codes **11290** (InSure card), **91448** (green-label Aptima Pap-vial transfer), and **14577** (BD AFFIRM VPIII ATTS kit not confirmed onsite). These remain discoverable but must not produce a collection or submission plan. The existing **1635** acid-preservation restriction remains blocked. Orange-label Aptima and other validated test-specific workflows are not prohibited merely because they mention an alternate green-label method in notes.
+
+**Quest 523, 39625, 1648** now follow the Quest-listed **unpreserved frozen** 5-HIAA specimen pathway with no acid-containing container. The specimen must have pH 6 or below and be frozen, with any 24-hour urine refrigerated during collection and total volume documented. Staff must NOT collect onsite unless specimen pH, freezer-safe leakproof container, frozen transport, service-area acceptance and patient instructions are confirmed. This is distinct from a routine refrigerated urine sendout.
+
+One stock **Sterile cup** is used for compatible **urine, stool, sputum, and CSF** submissions. Collection inventory groups and adds the number of physical cups, while maintaining each specimen's own label, contents, temperature, and submission. CSF collection remains a procedural-provider activity; microbiology CSF specimens that require particular numbered tubes or special media are not replaced by a cup. The container gallery shows a single sterile cup reference, searchable for all four source types, rather than duplicate stool/sputum/CSF cup products.
+
+Code: `assets/js/app.js` and the `quest-verified-*-20261114.js` bundles. Regression: `tests/quest-sterile-cup-and-supplies-20261114.test.cjs` plus the updated 29-code catalog tests.
