@@ -381,7 +381,7 @@
   }
 
   function renderAll() {
-    els.recordCount.textContent = `${database.length} tests`;
+    els.recordCount.textContent = `${database.filter(test => test.status === 'active').length} active tests · ${database.filter(test => test.status === 'pending').length} directory-only references`;
     renderLibrary();
     renderBlockedList();
     renderOrder();
@@ -3650,7 +3650,7 @@
     if (!saveUserState(state)) {
       void window.PortalDialog.alert('Your change is visible for now but was not saved. Check browser storage before relying on this entry.', { title: 'Change not saved', tone: 'warning' });
     }
-    els.recordCount.textContent = `${database.length} tests`;
+    els.recordCount.textContent = `${database.filter(test => test.status === 'active').length} active tests · ${database.filter(test => test.status === 'pending').length} directory-only references`;
   }
 
 
