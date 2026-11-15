@@ -4843,6 +4843,7 @@
     const isSpecialtyMetalContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal/.test(value);
 
     if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
+    if (/urinalysis\s+transport\s+tube/i.test(value) && /yellow[- ]top|blue\s+fill/i.test(value)) return 'tube-ua-yellow';
     if (/aptima/.test(value)) return 'tube-aptima';
     if (/amber|protect from light|light[- ]?protected/.test(value)) return 'tube-amber';
 
@@ -6480,6 +6481,7 @@
     if (/^frozen transport tube(?:\s*\(.*\))?$/.test(value)) return 'tube-frozen-purple';
     if (/microtainer/.test(value)) return 'tube-microtainer';
     if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
+    if (/urinalysis\s+transport\s+tube/i.test(value) && /yellow[- ]top|blue\s+fill/i.test(value)) return 'tube-ua-yellow';
     if (/aptima/.test(value)) return 'tube-aptima';
     if (/total[- ]?fix/.test(value)) return 'tube-total-fix';
     if (/(?:trace[ -]?metal[- ]?free|acid[- ]?washed).*container|container.*(?:trace[ -]?metal[- ]?free|acid[- ]?washed)/.test(value)) return 'tube-trace-metal-container';
