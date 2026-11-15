@@ -1,0 +1,66 @@
+'use strict';
+const { test } = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const root = path.resolve(__dirname, '..');
+const read = file => fs.readFileSync(path.join(root, file), 'utf8');
+const bundles = [
+  'assets/js/quest-verified-urine-20261114.js',
+  'assets/js/quest-verified-blood-specialty-20261114.js',
+  'assets/js/quest-verified-microbiology-20261114.js',
+  'assets/js/quest-verified-gestational-20261114.js'
+];
+function catalog() {
+  return bundles.flatMap(bundle => {
+    const match = read(bundle).match(/const additions=(\[[\s\S]*?\]);\nconst known=/);
+    assert.ok(match, bundle + ' contains a JSON additions catalog');
+    return JSON.parse(match[1]);
+  });
+}
+test('Official Quest additions retain the established normalized schema, unique codes and direct provenance', () => {
+  const tests = catalog();
+  assert.equal(tests.length, 29);
+  assert.equal(new Set(tests.map(t => t.testCode)).size, 29);
+  for (const entry of tests) {
+    assert.match(entry.testCode, /^\d+$/);
+    assert.equal(entry.status, 'active');
+    for (const key of ['id','testName','specimenType','drawContainer','transportContainer','preferredVolume','minimumVolume','transportTemperature','stability','spin','specialInstructions','source']) {
+      assert.ok(String(entry[key] || '').trim(), entry.testCode + ' missing ' + key);
+    }
+    assert.ok(entry.source.includes('/test/test-detail/' + entry.testCode + '/'));
+  }
+});
+test('Multi-specimen assays contain required additional draw plans', () => {
+  const byCode = new Map(catalog().map(t => [t.testCode, t]));
+  for (const code of ['19704','10372','12736','34194','1430','19834','16292']) {
+    assert.ok(byCode.get(code).additionalDrawRequirements?.length > 0, code + ' requires additional specimen');
+  }
+  assert.equal(byCode.get('1430').additionalDrawRequirements[0].count, 1);
+  assert.equal(byCode.get('19834').additionalDrawRequirements[0].count, 1);
+  assert.equal(byCode.get('16292').additionalDrawRequirements[0].count, 3);
+  assert.ok(byCode.get('19704').specialInstructions.includes('SECOND time'));
+  assert.ok(byCode.get('10372').additionalDrawRequirements.some(x => /Lavender/.test(x.container)));
+});
+test('Acid-preserved and unpreserved urine, cord blood and gestational draws have distinct grouping guards', () => {
+  const byCode = new Map(catalog().map(t => [t.testCode, t]));
+  assert.match(byCode.get('523').drawContainer, /6N HCl/);
+  assert.match(byCode.get('39625').drawContainer, /6N HCl/);
+  assert.match(byCode.get('1648').drawContainer, /6N HCl/);
+  assert.match(byCode.get('15281').drawContainer, /no preservative/);
+  assert.match(byCode.get('4555').drawContainer, /no preservative/);
+  assert.match(byCode.get('229').specialInstructions, /HCl-preserved urine is REJECTED/);
+  const app = read('assets/js/app.js');
+  assert.ok(app.includes("6N HCl Preserved Urine Container"));
+  assert.ok(app.includes("const dedicatedBlood ="));
+  assert.ok(app.includes("/\\bcord\\b/i"));
+  assert.ok(app.includes("/\\bgestational\\b/i"));
+});
+test('Verified addons precede the guarded directory-only fallback and application initialization', () => {
+  const html = read('index.html');
+  const positions = bundles.map(file => html.indexOf(file));
+  const fallback = html.indexOf('quest-missing-directory-loader-20261114.js');
+  const app = html.indexOf('assets/js/app.js?v=12.91');
+  assert.ok(positions.every(pos => pos >= 0 && pos < fallback));
+  assert.ok(fallback > 0 && fallback < app);
+});
