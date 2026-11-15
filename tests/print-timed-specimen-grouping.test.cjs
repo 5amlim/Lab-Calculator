@@ -115,7 +115,7 @@ test('Quest ten verified gray-plasma protocols use one visual card without combi
   checkSingleCard(specialty,proinsulin,5,'Quest five timed frozen serum specimens');
   const frozenPlan=plan(specialty,[proinsulin]);
   assert.equal(frozenPlan.bags.length,1);
-  assert.ok(frozenPlan.submitted.every(x=>x.className==='tube-frozen-purple'));
+  assert.ok(frozenPlan.submitted.every(x=>x.className==='tube-transport tube-transport-green-top'));
   assert.equal(new Set(frozenPlan.submitted.map(x=>x.key)).size,5);
   assert.match(frozenPlan.displayed[0].printAllocationNote,/Timed specimen 5/);
 
