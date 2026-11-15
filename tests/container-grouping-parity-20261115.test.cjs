@@ -137,6 +137,23 @@ for (const [lab, appFile] of [['Quest','assets/js/app.js'],['Labcorp','labcorp-a
   });
 }
 
+for (const [lab, appFile] of [['Quest','assets/js/app.js'],['Labcorp','labcorp-app.js']]) {
+  test(lab+': no HCl qualifiers do not mask a plain urine aliquot transport', () => {
+    const api=openCalculator(appFile);
+    for (const qualifier of ['no HCl', 'without HCl', 'no acid preservative']) {
+      const sample=make(api,911,'24-Hour Urine','24-Hour Urine Container ('+qualifier+')','Urine Aliquot Transport Tube');
+      assert.equal(api.isPlainUrineAliquotTransport(sample,sample.transportContainer),true,qualifier);
+      const submitted=plan(api,[sample]).submitted;
+      assert.equal(submitted.length,1,qualifier);
+      assert.equal(submitted[0].label,'Sterile cup',qualifier);
+      assert.equal(submitted[0].count,1,qualifier);
+    }
+    const actuallyAcid=make(api,912,'24-Hour Urine','24-Hour Urine Container (6N HCl Preserved)','Urine Aliquot Transport Tube');
+    assert.equal(api.isPlainUrineAliquotTransport(actuallyAcid,actuallyAcid.transportContainer),false);
+    assert.notEqual(plan(api,[actuallyAcid]).submitted[0].label,'Sterile cup');
+  });
+}
+
 test('Labcorp 809523 metal-free urine collection stays a dedicated specialty container',()=>{
   const window={SEED_TESTS:[]};
   vm.runInNewContext(read('assets/js/labcorp/catalog/therapeutic-drug-monitoring-20261023.js'),{window});
