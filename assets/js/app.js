@@ -5151,7 +5151,7 @@
     // Quest-verified gray-top glucose assays using the separated-plasma
     // plastic screw-cap VIAL alternative. No second anticoagulant tube.
     const code = String(test.testCode || '').trim();
-    return /^(?:8477|19833|484|1430|19834|16292|35181|18927|6745)$/.test(code)
+    return /^(?:8477|19833|484|1430|19834|16292|35181|23475|18927|6745)$/.test(code)
       && /gray|fluoride/i.test(String(test.drawContainer || ''))
       && /plastic screw-cap plasma vial/i.test(String(test.transportContainer || ''))
       && /^plasma$/i.test(String(test.specimenType || '').trim());
