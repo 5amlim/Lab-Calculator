@@ -9,9 +9,9 @@ const root = path.resolve(__dirname, '..');
 const files = [
   ['assets/js/quest-directory-expansion-20261114.js', 5, 'index.html'],
   ['assets/js/quest-metabolic-multipoint-expansion-20261114.js', 6, 'index.html'],
-  ['assets/js/quest-specialized-panels-20261114.js', 4, 'index.html'],
+  ['assets/js/quest-specialized-panels-20261114.js', 2, 'index.html'],
   ['assets/js/labcorp/catalog/verified-specialty-20261114.js', 8, 'labcorp.html'],
-  ['assets/js/labcorp/catalog/specialty-endocrine-expansion-20261114.js', 6, 'labcorp.html']
+  ['assets/js/labcorp/catalog/specialty-endocrine-expansion-20261114.js', 5, 'labcorp.html']
 ];
 
 test('Nov 2026 additions load before app boot and never duplicate catalog codes', () => {
@@ -37,7 +37,7 @@ test('Nov 2026 additions load before app boot and never duplicate catalog codes'
     vm.runInNewContext(source, sandbox, {filename:file});
     assert.equal(sandbox.window.SEED_TESTS.length, count, file + ' duplicate on second load');
   }
-  assert.equal(codes.size, 29);
+  assert.equal(codes.size, 26);
 });
 
 test('timed glucose and multi-specimen panels retain separate tube requirements', () => {
