@@ -169,3 +169,17 @@ test('Quest 1430: two separate gray-top draws, two centrifuged additive-free pla
   assert(p.submitted.every(item=>item.className==='tube-transport tube-transport-green-top'));
   assert.match(api.menuContainerBadges(specimen),/tube-transport-green-top/);
 });
+
+test('Quest 229 retains 24-hour source collection but submits one unpreserved sterile-cup aliquot',()=>{
+  const window={SEED_TESTS:[]};
+  vm.runInNewContext(read('assets/js/quest-verified-urine-20261114.js'),{window});
+  const api=openCalculator('assets/js/app.js',window.SEED_TESTS);
+  const item=api.database.find(t=>t.testCode==='229');
+  assert.ok(item,'Quest 229 exists in verified urine catalog');
+  assert.equal(api.isPlainUrineAliquotTransport(item,item.transportContainer),true);
+  assert.equal(api.isTimedUrineTest(item),true);
+  const p=plan(api,[item]);
+  assert.match(api.canonicalCollectionContainer(item).label,/24.Hour|Timed/i);
+  assert.equal(p.submitted.length,1);
+  assert.equal(p.submitted[0].label,'Sterile cup');
+});
