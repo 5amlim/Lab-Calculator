@@ -4988,7 +4988,10 @@
   function isPlainUrineAliquotTransport(test, transport) {
     if (!isUrineTest(test)) return false;
     const raw = normalizeSearch(transport).replace(/\b(?:no preservatives?|without preservatives?)\b/g, '').replace(/\s+/g, ' ').trim();
-    const source = normalizeSearch(test.drawContainer);
+    // A negative qualifier such as "no HCl" describes an unpreserved source,
+    // not an acid-preserved specialty collection device.
+    const source = normalizeSearch(test.drawContainer)
+      .replace(/\b(?:no|without)\s+(?:\d+\s*n\s*)?(?:hcl|acid(?:\s+preservative)?)\b/g, '').trim();
     // A plain urine aliquot can use a sterile leakproof screw-cap cup.
     // Do not convert preservative, molecular or specialty transport devices.
     if (/acid|hcl|metal free|trace metal|trace element|boric|preserv|culture|swirl|urinalysis|ua tube|uri sponge|amber|light protect|formalin|special|24 hour|timed|para pak|aptima|cobas|cary blair/.test(raw)) return false;
