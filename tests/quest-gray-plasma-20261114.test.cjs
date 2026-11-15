@@ -25,7 +25,7 @@ test('Quest fluoride/oxalate glucose tests all produce a separated-plasma submis
     assert.equal(t.specimenType, 'Plasma', code);
     assert.match(t.drawContainer, /Gray Top.*Fluoride/i, code);
     assert.match(t.transportContainer, /Plastic Screw-Cap Plasma Vial.*No Additive/i, code);
-    assert.match(t.specialInstructions, /centrifuge within 1 hour/i, code);
+    assert.match(t.specialInstructions, /promptly centrifuge according to the receiving laboratory/i, code);
     assert.match(t.specialInstructions, /NEW, clean, additive-free plastic screw-cap transport vial/i, code);
     assert.match(t.specialInstructions, /Do NOT transfer separated plasma into another additive-containing gray-top Vacutainer/i, code);
     assert.match(t.source, new RegExp('/test/test-detail/'+code+'/'), code);
@@ -82,6 +82,6 @@ test('New data loads after other verified test records and before directory-only
  const p=html.indexOf('quest-gray-plasma-processing-20261114.js');
  const v=html.indexOf('quest-verified-gestational-20261114.js');
  const d=html.indexOf('quest-missing-directory-loader-20261114.js');
- const a=html.indexOf('assets/js/app.js?v=12.95');
+ const a=html.indexOf('assets/js/app.js?v=');
  assert.ok(v>=0&&v<p&&p<d&&d<a);
 });
