@@ -96,6 +96,6 @@ test('All 13 routes reconcile the physical count of collection and submission cu
 test('New Quest file loads before reference-only directory and dropdown falls back to 2805',()=>{
  const html=read('index.html');
  assert(html.indexOf(bundle)>0&&html.indexOf(bundle)<html.indexOf('quest-missing-directory-loader'));
- assert.match(html,/assets\/js\/app\.js\?v=13\.11/);
+ assert.match(html,/assets\/js\/app\.js\?v=13\.12/);
  assert.match(read('assets/js/lab-select.js'),/quest:2805/);
 });
