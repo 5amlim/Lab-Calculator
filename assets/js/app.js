@@ -5212,7 +5212,7 @@
       /^sterile cup$/i.test(finalTransportContainer(test));
     const processing = isAptima70049
       ? `${sourceSpecimen} · Submit as Aptima`
-      : originalSterileCup ? 'Submit in original sterile cup'
+      : originalSterileCup ? 'Submit in original container'
       : (String(test.spin || '').toLowerCase() === 'yes' ? 'Process as directed; submit in original tube' : 'Submit in original tube');
     return {
       key: directUrineCup
@@ -5820,9 +5820,11 @@
       const spins = /\bspun\b|\bcentrifug/i.test(detail)
         || (isMicrotainerSst && uniqueTests(item.tests || []).every(test => /^yes$/i.test(String(test.spin || '').trim())));
       const exceptional = /fully saturate|do not pour|protect from light/i.test(detail) ? detail : '';
+      const originalSterileCup = item.className === 'tube-urine-cup'
+        && /^sterile cup$/i.test(String(item.label || '').trim());
       const handling = isSpunSst
         ? 'Submit in original tube · Spin ✓'
-        : `Submit in original tube${spins ? ' · Spin ✓' : ''}`;
+        : `${originalSterileCup ? 'Submit in original container' : 'Submit in original tube'}${spins ? ' · Spin ✓' : ''}`;
       const lightProtection = isMicrotainerSst ? ' · Protect from light' : '';
       const text = `${handling}${lightProtection}${exceptional ? ` · ${exceptional}` : ''}`;
       return `<div class="print-submit-item-detail">${escapeHtml(text)}</div>`;
