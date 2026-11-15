@@ -95,7 +95,7 @@
     textarea.addEventListener('input', refresh);
     textarea.addEventListener('scroll', syncScroll, { passive: true });
     window.addEventListener('resize', refresh, { passive: true });
-    if (window.ResizeObserver) new ResizeObserver(refresh).observe(textarea);
+    if (window.ResizeObserver) new window.ResizeObserver(refresh).observe(textarea);
     refresh();
     return refresh;
   }
