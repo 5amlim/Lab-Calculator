@@ -29,7 +29,8 @@
     }
     if (/amber/.test(value)) return 'tube-amber';
     if (/acid[- ]?washed|metal[- ]?free/.test(value)) return 'tube-transport-green-top';
-    if (/^frozen transport tube(?:\s*\(.*\))?$/.test(value)) return 'tube-frozen-purple';
+    if (/^frozen transport tube(?:\s*\(.*\))?$/.test(value))
+      return document.body?.getAttribute('data-gallery-lab') === 'L' ? 'tube-frozen-purple' : 'tube-transport-green-top';
     if (/serum transport|plasma transport/.test(value)) return 'tube-transport-green-top';
     if (/viral transport|transport media|swab|collection kit|transport tube|transport vial|screw[- ]?cap vial|fibronectin/.test(value)) return 'tube-transport';
     if (/sst|gold/.test(value)) return 'tube-sst';
@@ -134,7 +135,7 @@
     sync(item);
     item.button.focus();
   }
-  // A purple-cap frozen tube is a temperature-specific submission choice.
+  // Frozen transport remains a temperature-specific submission choice in either lab.
   // When no temperature has been chosen, it remains available as a shortcut.
   function syncFrozenTransportOption() {
     const transport = document.getElementById('transportContainer');
