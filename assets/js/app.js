@@ -449,9 +449,9 @@
       '11290': 'Requires the dedicated InSure FOBT brush/card kit. An ordinary stool cup is not a substitute.',
       '91448': 'Requires the specified green-label Aptima Pap-vial transfer device. Confirm approved alternatives with Quest.'
     };
-    const acid = /6\\s*N\\s*HCl|acid[- ]preserv(?:ed|ative)?\\s+urine|HCl[- ]preserv/i.test(mandatory);
+    const acid = /6\s*N\s*HCl|acid[- ]preserv(?:ed|ative)?\s+urine|HCl[- ]preserv/i.test(mandatory);
     const green = /aptima[^,;]{0,100}(?:green[- ]label|green label)|(?:green[- ]label|green label)[^,;]{0,100}aptima/i.test(mandatory);
-    const insure = /in\\s*sure\\s*(?:fo?bt|test)?\\s*(?:card|kit)|\\binsure\\b/i.test(mandatory);
+    const insure = /in\s*sure\s*(?:fo?bt|test)?\s*(?:card|kit)|\binsure\b/i.test(mandatory);
     const reason = specialKit[code] || (acid
       ? 'Requires a dedicated acid-preserved urine collection system. Confirm an acceptable alternative with the receiving laboratory.'
       : green ? 'Requires the specified green-label Aptima device. Confirm the correct kit with the receiving laboratory.'
@@ -459,7 +459,7 @@
       : '');
     if (!reason) return test;
     return { ...test, status: 'blocked',
-      specialInstructions: 'Special collection verification: ' + reason + ' ' + String(test.specialInstructions || '').replace(/^DO NOT PERFORM ONSITE\\.\\s*/i, '') };
+      specialInstructions: 'Special collection verification: ' + reason + ' ' + String(test.specialInstructions || '').replace(/^DO NOT PERFORM ONSITE\.\s*/i, '') };
   }
 
   // Use the receiving laboratory's published collection requirements for Affirm VPIII.
