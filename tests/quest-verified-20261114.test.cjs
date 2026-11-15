@@ -24,7 +24,7 @@ test('Official Quest additions retain the established normalized schema, unique 
   assert.equal(new Set(tests.map(t => t.testCode)).size, 29);
   for (const entry of tests) {
     assert.match(entry.testCode, /^\d+$/);
-    assert.equal(entry.status, 'active');
+    assert.equal(entry.status, ['14577','91448','11290'].includes(entry.testCode) ? 'blocked' : 'active');
     for (const key of ['id','testName','specimenType','drawContainer','transportContainer','preferredVolume','minimumVolume','transportTemperature','stability','spin','specialInstructions','source']) {
       assert.ok(String(entry[key] || '').trim(), entry.testCode + ' missing ' + key);
     }
@@ -42,20 +42,26 @@ test('Multi-specimen assays contain required additional draw plans', () => {
   assert.ok(byCode.get('19704').specialInstructions.includes('SECOND time'));
   assert.ok(byCode.get('10372').additionalDrawRequirements.some(x => /Lavender/.test(x.container)));
 });
-test('Acid-preserved and unpreserved urine, cord blood and gestational draws have distinct grouping guards', () => {
+test('Local no-acid Quest pathways and independent cord/gestational groups', () => {
   const byCode = new Map(catalog().map(t => [t.testCode, t]));
-  assert.match(byCode.get('523').drawContainer, /6N HCl/);
-  assert.match(byCode.get('39625').drawContainer, /6N HCl/);
-  assert.match(byCode.get('1648').transportContainer, /6N HCl/);
-  assert.match(byCode.get('1648').drawContainer, /Sterile Urine Cup/);
+  for (const code of ['523','39625','1648']) {
+    const t = byCode.get(code);
+    assert.equal(t.status, 'active');
+    assert.equal(t.transportContainer, 'Sterile cup');
+    assert.equal(t.transportTemperature, 'Frozen');
+    assert.doesNotMatch(t.drawContainer, /HCl|acid[- ]preserv/i);
+    assert.doesNotMatch(t.transportContainer, /HCl|acid[- ]preserv/i);
+    assert.match(t.specialInstructions, /pH is 6 or below/i);
+    assert.match(t.specialInstructions, /FREEZE/i);
+  }
   assert.match(byCode.get('15281').drawContainer, /no preservative/);
   assert.match(byCode.get('4555').drawContainer, /no preservative/);
   assert.match(byCode.get('229').specialInstructions, /HCl-preserved urine is REJECTED/);
   const app = read('assets/js/app.js');
-  assert.ok(app.includes("6N HCl Preserved Urine Container"));
-  assert.ok(app.includes("const dedicatedBlood ="));
-  assert.ok(app.includes("/\\bcord\\b/i"));
-  assert.ok(app.includes("/\\bgestational\\b/i"));
+  assert.ok(app.includes('applyLocalSupplyPolicy'));
+  assert.ok(app.includes('const dedicatedBlood ='));
+  assert.ok(app.includes('/\\bcord\\b/i'));
+  assert.ok(app.includes('/\\bgestational\\b/i'));
 });
 test('Verified addons precede the guarded directory-only fallback and application initialization', () => {
   const html = read('index.html');
@@ -77,11 +83,18 @@ test('Correct physical specimens and submission devices for Quest new codes', ()
     assert.match(entry.specialInstructions, /ONE labeled UA transport tube/);
   }
   for (const code of ['523','39625','1648']) {
-    assert.match(byCode.get(code).transportContainer, /6N HCl preserved/);
+    assert.equal(byCode.get(code).transportContainer, 'Sterile cup');
   }
   assert.match(byCode.get('229').transportContainer, /Urine Aliquot Transport Tube/);
   assert.match(byCode.get('19081').transportContainer, /ACD Yellow Top/);
-  assert.match(byCode.get('70028').drawContainer, /Sterile Leak-Proof CSF Container/);
+  assert.equal(byCode.get('70028').drawContainer, 'Sterile cup');
+  assert.equal(byCode.get('34194').additionalDrawRequirements[0].container, 'Sterile cup');
+  assert.equal(byCode.get('4556').drawContainer, 'Sterile cup');
+  for (const code of ['14577','91448','11290']) {
+    assert.equal(byCode.get(code).status, 'blocked');
+    assert.equal(byCode.get(code).drawContainer, 'Do Not Collect');
+    assert.equal(byCode.get(code).transportContainer, 'N/A');
+  }
   assert.equal(byCode.get('4556').transportContainer, byCode.get('4556').drawContainer);
   assert.equal(byCode.get('16292').additionalDrawRequirements[0].count, 3);
   assert.equal(byCode.get('1430').additionalDrawRequirements[0].count, 1);
@@ -90,7 +103,8 @@ test('Collection source count does not use the blood capacity formula on other s
   const app = read('assets/js/app.js');
   assert.match(app, /if \(collectionSpecimenGroupForTest\(test\) !== 'blood'\) return explicit;/);
   assert.match(app, /Yellow-Top UA Preservative Tube \(Blue Fill Line\)/);
-  assert.match(app, /Acid-Preserved Plastic Urine Aliquot Container/);
+  assert.match(app, /function applyLocalSupplyPolicy/);
+  assert.match(app, /Separate labeled Sterile cup for each specimen source/);
   assert.match(app, /const matchingSpecialOriginal =/);
   assert.match(app, /19081': \{ count: 1, tubeMl: 5, dedicated: true \}/);
   assert.match(app, /Quest Diagnostics official test directory, reviewed 2026-11-14/);
