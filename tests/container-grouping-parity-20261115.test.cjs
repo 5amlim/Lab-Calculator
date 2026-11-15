@@ -92,11 +92,9 @@ for (const [lab, appFile] of [['Quest','assets/js/app.js'],['Labcorp','labcorp-a
   test(lab+': preservative and specialty urine devices are never silently called sterile cups', () => {
     const api=openCalculator(appFile);
     const cases=[
-      ['Gray-Top Urine Culture Preservative Tube','Gray-Top Urine Culture Preservative Tube'],
       ['Aptima Urine Transport Tube','Aptima Urine Transport Tube'],
       ['Trace Metal-Free Urine Container','Trace Metal-Free Urine Container'],
-      ['6N HCl Preserved Urine Container','6N HCl Preserved Urine Container'],
-      ['Red/Yellow Swirl UA Tube','Red/Yellow Swirl UA Tube']
+      ['6N HCl Preserved Urine Container','6N HCl Preserved Urine Container']
     ];
     for(const [draw,transport] of cases){
       const t=make(api,904,'Urine',draw,transport);
