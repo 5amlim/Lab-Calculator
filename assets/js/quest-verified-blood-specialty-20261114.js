@@ -176,18 +176,18 @@
     "transportTemperature": "Room Temperature",
     "stability": "Room 7 days; refrigerated 14 days; frozen 30 days.",
     "spin": "Yes",
-    "specialInstructions": "REQUIRES PAIRED SERUM AND CSF collected within 24 hours of each other. Collect 2 mL serum (minimum 1 mL) from SST, clot/centrifuge and transfer to labeled serum vial; a separate 2 mL CSF (minimum 1 mL) in sterile leakproof container is mandatory. Label exact dates/times and source. DO NOT attempt an onsite CSF collection unless authorized; CSF is collected by a qualified procedural provider. Reject specimen pairs >24 hours apart.",
+    "specialInstructions": "REQUIRES PAIRED SERUM AND CSF collected within 24 hours of each other. Collect 2 mL serum (minimum 1 mL) from SST, clot/centrifuge and transfer to labeled serum vial; a separate 2 mL CSF (minimum 1 mL) in a dedicated, sterile, leakproof Sterile cup is mandatory. Label exact dates/times and source. DO NOT attempt an onsite CSF collection unless authorized; CSF is collected by a qualified procedural provider. Reject specimen pairs >24 hours apart.",
     "additionalDrawRequirements": [
       {
-        "container": "Sterile Leak-Proof CSF Container",
+        "container": "Sterile cup",
         "specimenType": "CSF",
         "preferredVolume": "2 mL CSF",
         "minimumVolume": "1 mL CSF",
         "purpose": "Required CSF paired with serum within 24 hours",
-        "transportContainer": "Sterile Leak-Proof CSF Container",
+        "transportContainer": "Sterile cup",
         "transportTemperature": "Room Temperature",
         "spin": "No",
-        "specialInstructions": "Mandatory CSF, collected by qualified procedural provider and paired with serum within 24 hours. Label specimen source/time; submit in the original sterile leak-proof CSF container, physically separate from serum."
+        "specialInstructions": "Required paired 2 mL CSF (minimum 1 mL), collected within 24 hours of the serum sample by a qualified procedural clinician into ONE sterile plastic leakproof Sterile cup. Submit original cup at room temperature. This is the same stock container TYPE used for urine/stool/sputum, but MUST be a separate specimen with its own label and collection time; never pool different specimens."
       }
     ],
     "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/34194/lyme-disease-antibody-index-for-cns-infection?cc=MASTER"
@@ -198,14 +198,14 @@
     "testCode": "70028",
     "testName": "Lyme Disease Antibodies (IgG, IgM), Immunoblot, CSF",
     "specimenType": "CSF",
-    "drawContainer": "Sterile Leak-Proof CSF Container",
-    "transportContainer": "Sterile Leak-Proof CSF Container",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Sterile cup",
     "preferredVolume": "2 mL CSF",
     "minimumVolume": "0.5 mL",
     "transportTemperature": "Room Temperature",
     "stability": "Room 7 days; refrigerated 14 days; frozen 30 days.",
     "spin": "No",
-    "specialInstructions": "CSF ONLY: Submit in the original sterile leak-proof container. collect 2 mL (minimum 0.5 mL) in plastic sterile leakproof CSF container, label source. CSF collection must be performed by an appropriately qualified procedural provider. Quest notes CSF immunoblot alone is not the preferred test for neuroborreliosis; use antibody index paired with serum if ordered. Do not substitute routine serum.",
+    "specialInstructions": "CSF ONLY. Qualified procedural clinician collects 2 mL (minimum 0.5 mL) CSF into ONE sterile, plastic, leakproof, screw-cap Sterile cup, the same empty container type stocked for urine, stool and sputum when suitable for the required volume. This refers to the physical cup TYPE only: collect and submit CSF in its own dedicated, labeled sterile container; NEVER combine with urine, stool or sputum, and keep CSF tube sequence/source documentation as clinically required. Submit the original specimen cup. Quest requires room-temperature transport for this assay. Provider must confirm collection feasibility and lab requirements; do not do a CSF procedure by unqualified clinic staff.",
     "source": "Quest Diagnostics official test directory, reviewed 2026-11-14 • https://testdirectory.questdiagnostics.com/test/test-detail/70028/lyme-disease-antibodies-igg-igm-immunoblot-csf?cc=MASTER"
   }
 ];
