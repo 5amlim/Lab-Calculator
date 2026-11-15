@@ -1,9 +1,7 @@
-/* Decorative, non-interactive exact-match hints for multi-line lab test entry. */
+/* Decorative, noninteractive exact-match hints for multiline lab entry. */
 (function () {
   'use strict';
 
-  // Only show a label when exactly one active catalog record owns the code/name.
-  // No guesses from partial names, aliases, fuzzy matches, or leading-zero changes.
   function resolveExact(query, database, normalizeSearch) {
     var value = String(query || '').trim();
     if (!value || !Array.isArray(database)) return null;
@@ -26,80 +24,101 @@
   function mount(textarea, resolveExactHint) {
     if (!textarea || !textarea.parentElement || typeof resolveExactHint !== 'function') return function () {};
 
-    var mirror = document.createElement('div');
-    mirror.className = 'batch-inline-ghost';
-    mirror.setAttribute('aria-hidden', 'true');
-    textarea.parentElement.insertBefore(mirror, textarea);
+    // Only the textarea owns the text and caret. The overlay contains labels
+    // with explicit coordinates, so it cannot affect any row's line height.
+    var overlay = document.createElement('div');
+    overlay.className = 'batch-inline-ghost';
+    overlay.setAttribute('aria-hidden', 'true');
+    var layer = document.createElement('div');
+    layer.className = 'batch-inline-ghost-layer';
+    overlay.appendChild(layer);
+    textarea.parentElement.insertBefore(overlay, textarea);
 
-    function copyMetrics() {
-      var style = window.getComputedStyle(textarea);
-      var keys = [
-        'fontFamily', 'fontSize', 'fontWeight', 'fontStyle', 'fontStretch',
-        'lineHeight', 'letterSpacing', 'wordSpacing', 'textAlign', 'textIndent',
-        'textTransform', 'tabSize', 'paddingTop', 'paddingBottom',
-        'paddingLeft', 'borderTopWidth', 'borderBottomWidth',
-        'borderLeftWidth', 'borderRightWidth'
-      ];
-      keys.forEach(function (key) { mirror.style[key] = style[key]; });
-      var scrollbarWidth = textarea.offsetWidth - textarea.clientWidth -
-        parseFloat(style.borderLeftWidth || '0') - parseFloat(style.borderRightWidth || '0');
-      mirror.style.paddingRight = (parseFloat(style.paddingRight || '0') + Math.max(0, scrollbarWidth)) + 'px';
-      mirror.style.borderStyle = 'solid';
-      mirror.style.borderColor = 'transparent';
-      mirror.style.left = textarea.offsetLeft + 'px';
-      mirror.style.top = textarea.offsetTop + 'px';
-      mirror.style.width = textarea.offsetWidth + 'px';
-      mirror.style.height = textarea.offsetHeight + 'px';
+    // An invisible measuring column reproduces native soft-wrapped rows.
+    // It is never overlaid on the text and cannot change textarea layout.
+    var measurer = document.createElement('div');
+    measurer.className = 'batch-inline-ghost-measurer';
+    textarea.parentElement.appendChild(measurer);
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+
+    function numeric(value) {
+      var number = parseFloat(value);
+      return Number.isFinite(number) ? number : 0;
     }
 
     function syncScroll() {
-      mirror.scrollTop = textarea.scrollTop;
-      mirror.scrollLeft = textarea.scrollLeft;
+      layer.style.transform = 'translateY(' + (-textarea.scrollTop) + 'px)';
     }
 
     function refresh() {
-      copyMetrics();
-      mirror.replaceChildren();
-      if (!textarea.value) { syncScroll(); return; }
+      var style = window.getComputedStyle(textarea);
+      var borderTop = numeric(style.borderTopWidth);
+      var borderLeft = numeric(style.borderLeftWidth);
+      var borderRight = numeric(style.borderRightWidth);
+      var paddingLeft = numeric(style.paddingLeft);
+      var paddingRight = numeric(style.paddingRight);
+      var paddingTop = numeric(style.paddingTop);
+      var lineHeight = numeric(style.lineHeight) || numeric(style.fontSize) * 1.5;
+      var fontSize = numeric(style.fontSize);
+      var letterSpacing = style.letterSpacing === 'normal' ? 0 : numeric(style.letterSpacing);
+      var wordSpacing = style.wordSpacing === 'normal' ? 0 : numeric(style.wordSpacing);
+      var scrollbarWidth = Math.max(0, textarea.offsetWidth - textarea.clientWidth - borderLeft - borderRight);
+      var innerWidth = Math.max(0, textarea.offsetWidth - borderLeft - borderRight - paddingLeft - paddingRight - scrollbarWidth);
 
-      // Rebuild the mirror using only the original textarea text. Inline
-      // positioning elements can increase a line box's height and progressively
-      // misalign subsequent rows. Collapsed ranges locate the true caret instead.
+      overlay.style.left = textarea.offsetLeft + 'px';
+      overlay.style.top = textarea.offsetTop + 'px';
+      overlay.style.width = textarea.offsetWidth + 'px';
+      overlay.style.height = textarea.offsetHeight + 'px';
+      overlay.style.fontFamily = style.fontFamily;
+      overlay.style.fontSize = style.fontSize;
+      overlay.style.fontWeight = style.fontWeight;
+      overlay.style.fontStyle = style.fontStyle;
+      overlay.style.lineHeight = style.lineHeight;
+      overlay.style.letterSpacing = style.letterSpacing;
+
+      measurer.style.width = innerWidth + 'px';
+      measurer.style.fontFamily = style.fontFamily;
+      measurer.style.fontSize = style.fontSize;
+      measurer.style.fontWeight = style.fontWeight;
+      measurer.style.fontStyle = style.fontStyle;
+      measurer.style.lineHeight = style.lineHeight;
+      measurer.style.letterSpacing = style.letterSpacing;
+      measurer.style.wordSpacing = style.wordSpacing;
+      measurer.style.tabSize = style.tabSize;
+      ctx.font = [style.fontStyle, style.fontWeight, style.fontSize, style.fontFamily].join(' ');
+
+      layer.replaceChildren();
+      measurer.replaceChildren();
+      if (!textarea.value || innerWidth < 45) { syncScroll(); return; }
+      var row = 0;
       var lines = textarea.value.split('\n');
-      var hints = [];
-      mirror.scrollTop = 0;
-      mirror.scrollLeft = 0;
-      lines.forEach(function (line, index) {
-        if (index) mirror.appendChild(document.createTextNode('\n'));
-        var node = document.createTextNode(line);
-        mirror.appendChild(node);
+      lines.forEach(function (line) {
+        var measuredLine = document.createElement('div');
+        measuredLine.className = 'batch-inline-ghost-measured-line';
+        measuredLine.textContent = line || '\u200b';
+        measurer.appendChild(measuredLine);
+        var renderedHeight = measuredLine.getBoundingClientRect().height;
+        var visualRows = Math.max(1, Math.round(renderedHeight / lineHeight));
+
         var query = line.trim();
-        if (!query) return;
-        var hint = resolveExactHint(query);
-        if (hint) hints.push({ node: node, hint: hint });
-      });
-
-      var mirrorRect = mirror.getBoundingClientRect();
-      var rightEdge = mirrorRect.right -
-        parseFloat(window.getComputedStyle(mirror).paddingRight || '0') - 5;
-      hints.forEach(function (entry) {
-        var caret = document.createRange();
-        caret.setStart(entry.node, entry.node.length);
-        caret.collapse(true);
-        var rect = caret.getBoundingClientRect();
-        if (!rect || !rect.height) return;
-
-        var label = document.createElement('span');
-        label.className = 'batch-inline-ghost-label';
-        label.textContent = '• ' + entry.hint;
-        label.style.left = (rect.left - mirrorRect.left) + 'px';
-        label.style.top = (rect.top - mirrorRect.top) + 'px';
-        mirror.appendChild(label);
-
-        var gap = parseFloat(window.getComputedStyle(label).marginLeft || '0');
-        var free = Math.floor(rightEdge - rect.left - gap);
-        label.style.maxWidth = Math.max(0, free) + 'px';
-        if (free < 35) label.style.display = 'none';
+        var hint = query && resolveExactHint(query);
+        if (hint && visualRows === 1) {
+          var prefixWidth = ctx.measureText(line).width + letterSpacing * line.length +
+            wordSpacing * (line.match(/ /g) || []).length;
+          var gap = fontSize * 0.38;
+          var space = innerWidth - prefixWidth - gap;
+          if (space >= 32) {
+            var label = document.createElement('span');
+            label.className = 'batch-inline-ghost-label';
+            label.textContent = '\u2022 ' + hint;
+            label.style.left = (borderLeft + paddingLeft + prefixWidth + gap) + 'px';
+            label.style.top = (borderTop + paddingTop + row * lineHeight) + 'px';
+            label.style.maxWidth = space + 'px';
+            layer.appendChild(label);
+          }
+        }
+        row += visualRows;
       });
       syncScroll();
     }
