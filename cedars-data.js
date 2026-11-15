@@ -386,7 +386,7 @@ window.CEDARS_TESTS = [
     "slide": "14",
     "aliases": "fecal immunochemical test",
     "hold": true,
-    "blockReason": "Not performed at this site",
+    "blockReason": "Collection requirements pending review",
     "containerType": "FIT bottle"
   },
   {
@@ -516,7 +516,7 @@ window.CEDARS_TESTS = [
     "notes": "Guide lists SurePath vial supply #609283, Rovers brush #609282, brush/spatula #600566. Follow current collection instructions.",
     "slide": "8-10",
     "hold": true,
-    "blockReason": "Not performed at this site",
+    "blockReason": "Collection requirements pending review",
     "containerType": "SurePath"
   },
   {
