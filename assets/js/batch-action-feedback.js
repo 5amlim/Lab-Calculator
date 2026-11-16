@@ -17,19 +17,21 @@
     return Number.isFinite(value) ? value : 0;
   };
 
-  function highlight(element, tone) {
-    if (!element) return;
+  function highlight(element, tone, duration = DURATION) {
+    if (!element || duration <= 0) return;
     const prior = timers.get(element);
     if (prior) clearTimeout(prior);
     element.classList.remove('calculator-action-glow',
       ...TONES.map(value => 'calculator-action-glow--' + value));
+    element.style.animationDuration = `${duration}ms`;
     // Re-run the animation when the same control is clicked again.
     void element.offsetWidth;
     element.classList.add('calculator-action-glow', 'calculator-action-glow--' + tone);
     timers.set(element, setTimeout(() => {
       element.classList.remove('calculator-action-glow', 'calculator-action-glow--' + tone);
+      element.style.removeProperty('animation-duration');
       timers.delete(element);
-    }, DURATION));
+    }, duration));
   }
 
   function highlightUnresolved() {
@@ -57,19 +59,27 @@
         button => button.dataset.id).filter(Boolean)
     );
     let previouslySelected = selectedIds();
+    const recentAdditions = new Map();
 
     const onCartChange = () => {
       const current = selectedIds();
-      const added = new Set([...current].filter(id => !previouslySelected.has(id)));
+      const now = Date.now();
+      for (const id of current) {
+        if (!previouslySelected.has(id)) recentAdditions.set(id, now + DURATION);
+      }
       previouslySelected = current;
-      if (!added.size) return;
+      for (const [id, expires] of recentAdditions) {
+        if (!current.has(id) || expires <= now) recentAdditions.delete(id);
+      }
+      if (!recentAdditions.size) return;
 
       // Both cart presentations are rebuilt together. Highlight matching rows
-      // in each so the effect also works when expanded details are visible.
+      // in each so the effect works in either view, even after another re-render.
       for (const container of [overview, details]) {
         container.querySelectorAll('.tests-overview-row, .selected-card').forEach(row => {
           const id = row.querySelector('[data-action="remove"][data-id]')?.dataset.id;
-          if (added.has(id)) highlight(row, 'cart');
+          const remaining = recentAdditions.get(id) - now;
+          if (remaining > 0) highlight(row, 'cart', remaining);
         });
       }
     };
