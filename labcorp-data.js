@@ -2,6 +2,26 @@
    Verify with the current performing laboratory prior to collection and shipment. */
 window.SEED_TESTS = [
   {
+    "id": "labcorp-834968",
+    "testCode": "834968",
+    "testName": "Pneumococcal Antibody Panel (PPSV23), 23 Serotypes",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "Red Top serum",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.5 mL serum",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Up to 1 week at room temperature or refrigerated per Labcorp Oklahoma reference catalog; confirm with receiving Labcorp.",
+    "spin": "Yes",
+    "specialInstructions": "Collect into an SST / Gold or plain red-top serum tube. Allow to clot at least 30 minutes and centrifuge within 2 hours of collection. Transfer separated serum to a properly labeled plastic screw-cap Transport Tube; submit the serum aliquot, not the original draw tube. Room-temperature transport preferred; refrigerated transport acceptable. Minimum 0.5 mL does not allow repeat testing. Confirm current receiving-lab requirements before collection.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "status": "active",
+    "source": "Labcorp Oklahoma replacement test directory, test 834968 (PPSV23); Allina Health reference lab via Labcorp/Viracor, updated 2026-04-28 • https://rml.labcatalog.net/tests/?test=30321 • https://labs.allinahealth.org/Lab/View?customObjectUID=62a113a2-feef-4f76-9206-a0e92c7c6453&templateUID=ff24f908-cdc8-4068-84eb-6ce60783f288"
+  },
+  {
     "id": "labcorp-322000",
     "testCode": "322000",
     "testName": "Metabolic Panel (14), Comprehensive",
