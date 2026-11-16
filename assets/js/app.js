@@ -210,6 +210,11 @@
 
   function init() {
     window.LabMarketAvailability.mount();
+    if (statArea !== 'unselected' && !window.LabMarketAvailability.statAreaCompatible(statArea)) {
+      statArea = 'unselected';
+      try { localStorage.setItem(STAT_AREA_KEY, statArea); } catch (_) {}
+      reconcileStatWithArea();
+    }
     document.addEventListener('labmarketchange', () => {
       const before = selectedIds.length;
       selectedIds = selectedIds.filter(id => {
@@ -217,6 +222,7 @@
         return !test || window.LabMarketAvailability.status(test, 'quest').kind !== 'restricted';
       });
       if (before !== selectedIds.length) saveSelected();
+      if (statArea !== 'unselected' && !window.LabMarketAvailability.statAreaCompatible(statArea)) changeStatArea('unselected');
       reconcileStatWithArea();
       renderAll();
       if (before > selectedIds.length) showToast((before - selectedIds.length) + ' market-restricted test(s) removed from the cart.');
@@ -1656,16 +1662,19 @@
     const choice = chosenBatchMatch(row);
     if (choice.test.status === 'reference') return `<div class="batch-row needs-confirmation" data-batch-index="${row.index}">
       <div class="batch-query-block"><span class="batch-kicker">You entered</span><div class="batch-query">${escapeHtml(row.query)}</div></div>
-      <div class="batch-match"><span class="badge temp-unknown">Directory only</span><strong>${escapeHtml(displayCode(choice.test))} · ${escapeHtml(choice.test.testName)}</strong><small>Quest code/name is indexed, but specimen and collection requirements are not verified. Cannot add to the draw plan.</small></div>
+      <div class="batch-match"><span class="badge temp-unknown">Directory only</span><strong>${escapeHtml(displayCode(choice.test))} · ${escapeHtml(choice.test.testName)}</strong>${window.LabMarketAvailability.badge(choice.test, 'quest')}<small>Quest code/name is indexed, but specimen and collection requirements are not verified. Cannot add to the draw plan.</small></div>
       <a class="mini-button edit" href="${escapeAttr(directoryUrl(choice.test))}" target="_blank" rel="noreferrer">Verify with Quest directory ↗</a>
     </div>`;
-    const blocked = choice.test.status === 'blocked' || !window.LabMarketAvailability.canAdd(choice.test, 'quest');
+    const marketHold = !window.LabMarketAvailability.canAdd(choice.test, 'quest');
+    const blocked = choice.test.status === 'blocked' || marketHold;
     const autoSafe = canAutoAddBatchRow(row);
     const needsConfirmation = !blocked && !autoSafe;
     const selected = selectedIds.includes(choice.test.id);
     const rowClass = blocked ? 'unmatched' : needsConfirmation ? 'needs-confirmation' : 'exact-match';
     const exactLabel = autoSafe ? 'Exact match' : 'Confirm test code/name';
-    const status = blocked
+    const status = marketHold
+      ? '<span class="batch-match-warning is-blocked">' + escapeHtml(window.LabMarketAvailability.status(choice.test, 'quest').label) + '</span>'
+      : blocked
       ? '<span class="batch-match-warning is-blocked">Review collection</span>'
       : autoSafe
         ? `<span class="batch-match-exact">${exactLabel}</span>`
@@ -1758,11 +1767,11 @@
           const selected = selectedIds.includes(test.id);
           return `<div class="batch-category-item">
             <div class="batch-category-test"><span class="batch-category-code">${escapeHtml(displayCode(test))}</span>
-              <span class="batch-category-name">${escapeHtml(test.testName)}</span>
+              <span class="batch-category-name">${escapeHtml(test.testName)}</span>${window.LabMarketAvailability.badge(test, 'quest')}
               ${isStatEligible(test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}
             </div>
             <button type="button" class="mini-button batch-category-add" data-action="add-category-test"
-              data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" ${selected ? 'disabled' : ''}>${selected ? '✓ Added' : '+ Add'}</button>
+              data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" ${selected || !window.LabMarketAvailability.canAdd(test, 'quest') ? 'disabled' : ''}>${selected ? '✓ Added' : window.LabMarketAvailability.canAdd(test, 'quest') ? '+ Add' : 'Unavailable'}</button>
           </div>`;
         }).join('')}
       </div>
@@ -2663,6 +2672,7 @@
 
   function changeStatArea(value) {
     if (!STAT_AREAS[value] || value === statArea) return;
+    if (value !== 'unselected' && !window.LabMarketAvailability.statAreaCompatible(value)) { showToast('Choose a matching collection market before selecting this STAT receiving lab.'); return; }
     statAreaResetNotice = '';
     statArea = value;
     if (els.statAreaSelect) els.statAreaSelect.value = value;
