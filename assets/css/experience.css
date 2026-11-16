@@ -1911,3 +1911,16 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
 @media print {
   .portal-select-submenu, .portal-select-submenu-heading { display: none !important; }
 }
+
+/* Mobile summary shortcut stays above the page, but never covers Cart actions. */
+@media screen and (max-width: 1100px) {
+  .mobile-summary {
+    z-index: 120;
+    pointer-events: auto;
+    touch-action: manipulation;
+  }
+  .mobile-summary.is-in-summary {
+    display: none;
+    pointer-events: none;
+  }
+}
