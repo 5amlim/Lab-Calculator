@@ -1924,3 +1924,23 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     pointer-events: none;
   }
 }
+
+/* A brief teal focus cue when View cart navigates to Cart. */
+@media screen {
+  #collectionSummary > #testsOverviewSection.cart-jump-highlight {
+    animation: cart-arrival-accent 2.1s ease-out both;
+  }
+  @keyframes cart-arrival-accent {
+    0% { box-shadow: 0 3px 12px rgba(23, 60, 75, .055); }
+    18% { box-shadow: 0 0 0 3px rgba(8, 126, 131, .25), 0 5px 18px rgba(8, 126, 131, .12); }
+    65% { box-shadow: 0 0 0 2px rgba(8, 126, 131, .13), 0 4px 14px rgba(8, 126, 131, .07); }
+    100% { box-shadow: 0 3px 12px rgba(23, 60, 75, .055); }
+  }
+}
+@media screen and (prefers-reduced-motion: reduce) {
+  #collectionSummary > #testsOverviewSection.cart-jump-highlight {
+    animation: none;
+    outline: 2px solid rgba(8, 126, 131, .3);
+    outline-offset: 2px;
+  }
+}
