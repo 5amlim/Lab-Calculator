@@ -50,3 +50,48 @@
 #batchResults:not(.hidden) + .filter-row {
   margin-top: 24px;
 }
+
+/* Highlight newly added tests within either Cart view, not the existing rows. */
+@keyframes calculator-added-test-glow {
+  0% {
+    background-color: rgba(34, 154, 109, .04);
+    box-shadow: inset 0 0 0 1px rgba(34, 154, 109, .16);
+  }
+  16% {
+    background-color: rgba(34, 154, 109, .14);
+    box-shadow: inset 0 0 0 2px rgba(34, 154, 109, .52),
+                0 0 14px rgba(34, 154, 109, .22);
+  }
+  50% {
+    background-color: rgba(34, 154, 109, .07);
+    box-shadow: inset 0 0 0 2px rgba(34, 154, 109, .24),
+                0 0 10px rgba(34, 154, 109, .10);
+  }
+  100% {
+    background-color: rgba(34, 154, 109, 0);
+    box-shadow: inset 0 0 0 1px rgba(34, 154, 109, 0);
+  }
+}
+#testsOverviewSection .tests-overview-row.calculator-action-glow--cart,
+#testsOverviewSection .selected-card.calculator-action-glow--cart {
+  animation-name: calculator-added-test-glow;
+  outline: none;
+  outline-offset: 0;
+}
+#testsOverviewSection .tests-overview-row.calculator-action-glow--cart {
+  border-radius: 8px;
+}
+@media (prefers-reduced-motion: reduce) {
+  #testsOverviewSection .tests-overview-row.calculator-action-glow--cart,
+  #testsOverviewSection .selected-card.calculator-action-glow--cart {
+    background-color: rgba(34, 154, 109, .10);
+    box-shadow: inset 0 0 0 2px rgba(34, 154, 109, .40);
+  }
+}
+@media print {
+  #testsOverviewSection .tests-overview-row.calculator-action-glow--cart,
+  #testsOverviewSection .selected-card.calculator-action-glow--cart {
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+}
