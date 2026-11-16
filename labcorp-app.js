@@ -1748,7 +1748,15 @@
     if (original) return ['original'];
     if (/^(lavender edta|edta lavender top tube|gray top|gray fluoride oxalate|yellow acd b)$/.test(value))
       return ['original'];
-    if (/aptima/.test(value)) return ['aptima'];
+    if (/aptima/.test(value)) {
+      const specimen = normalizeSearch(test.specimenType || '');
+      const source = normalizeSearch(test.drawContainer || '');
+      if (/\burine\b/.test(specimen) || /\burine\b/.test(value)) return ['aptima', 'aptima-urine'];
+      if (/\bunisex\b|white label/.test(value + ' ' + source)) return ['aptima', 'aptima-unisex'];
+      if (/multitest|multi test|orange label/.test(value + ' ' + source) || /\bswab\b/.test(specimen))
+        return ['aptima', 'aptima-multitest'];
+      return ['aptima', 'aptima-other'];
+    }
     if (/viral|vcm|utm|transport media/.test(value)) return ['viral'];
     if (/total fix|stool container/.test(value)) return ['stool'];
     if (/sterile (?:urine )?cup/.test(value)) return ['sterile-cup'];
@@ -5028,12 +5036,22 @@
     const isSpecialtyMetalContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal/.test(value);
 
     if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
-    if (/aptima/.test(value) && /\burine\b/i.test(String(test.specimenType || ''))) return 'tube-aptima-urine';
-    if (/aptima/.test(value)) return 'tube-aptima';
+    if (/aptima/.test(value)) {
+      const drawn = String(test.drawContainer || '').toLowerCase() + ' ' + value;
+      if (/\burine\b/i.test(String(test.specimenType || '')) || /\burine\b/.test(value))
+        return 'tube-aptima-urine';
+      if (/\bunisex\b|white[- ]?label/.test(drawn)) return 'tube-aptima-unisex';
+      if (/pap[- ]?vial|green[- ]?label|specimen transfer/.test(drawn)) return 'tube-aptima-transfer';
+      return 'tube-aptima';
+    }
     if (/amber|protect from light|light[- ]?protected/.test(value)) return 'tube-amber';
 
     // Specialty acid-washed/metal-free tubes must stay neutral, regardless of specimen type.
-    if (isSpecialtyMetalContainer) return 'tube-transport tube-metal-free-neutral';
+    if (isSpecialtyMetalContainer) {
+      if (/\burine\b/.test(specimen) || /\burine\b|\bcup\b/.test(value))
+        return 'tube-trace-metal-container';
+      return 'tube-transport tube-metal-free-neutral';
+    }
 
     if (isStandardSerumOrPlasma || /transport tube|transfer tube|transfer vial|aliquot|cryovial|screw[- ]?cap|pour[- ]?off|plastic.*(?:vial|container)/.test(value)) {
       // Ordinary serum/plasma plastic vials use the green-top transport badge; specialty devices do not.
@@ -6879,6 +6897,8 @@
     if (/microtainer/.test(value)) return 'tube-microtainer';
     if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
     if (/aptima/.test(value) && /\burine\b/.test(value)) return 'tube-aptima-urine';
+    if (/aptima/.test(value) && /\bunisex\b|white[- ]?label/.test(value)) return 'tube-aptima-unisex';
+    if (/aptima/.test(value) && /pap[- ]?vial|green[- ]?label|specimen transfer/.test(value)) return 'tube-aptima-transfer';
     if (/aptima/.test(value)) return 'tube-aptima';
     if (/total[- ]?fix/.test(value)) return 'tube-total-fix';
     if (/(?:trace[ -]?metal[- ]?free|acid[- ]?washed).*container|container.*(?:trace[ -]?metal[- ]?free|acid[- ]?washed)/.test(value)) return 'tube-trace-metal-container';
