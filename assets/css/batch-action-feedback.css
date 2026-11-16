@@ -108,7 +108,7 @@
   }
 }
 
-/* Repeated attention cues for unresolved entries: twelve complete pulses
+/* Repeated attention cues for unresolved entries: five complete pulses
    across ten seconds, with amber for confirmation and coral for no usable match. */
 @keyframes calculator-unresolved-pulse {
   0%, 100% {
@@ -126,7 +126,7 @@
 #batchResults .batch-row.calculator-action-glow--issue {
   animation-name: calculator-unresolved-pulse;
   animation-timing-function: ease-in-out;
-  animation-iteration-count: 12;
+  animation-iteration-count: 5;
 }
 #batchResults .batch-row.calculator-action-glow--confirm {
   --calculator-glow-rgb: 224, 151, 39;
