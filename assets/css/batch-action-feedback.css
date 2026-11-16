@@ -191,3 +191,18 @@
   color: #1b7049;
   border: 1px solid #b9e3cb;
 }
+
+/* Keep tinted item backgrounds inside the same rounded shape as each card.
+   Preserve their existing colors and don't clip interactive menus or glow. */
+@media screen {
+  #testsOverviewSection .tests-overview-row,
+  #testsOverviewSection .selected-card,
+  #batchResults .batch-row {
+    border-radius: 11px;
+    background-clip: padding-box;
+  }
+  #batchResults .batch-category-item {
+    border-radius: 11px;
+    background-clip: padding-box;
+  }
+}
