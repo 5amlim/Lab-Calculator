@@ -52,13 +52,23 @@
       }, 2200);
     });
 
-    // Return to the Add Tests entry area without opening the mobile keyboard
-    // or changing the selected tests, input text, or filters.
+    // Return to Add Tests without opening the keyboard or changing any selections.
+    let addTestsAccentTimer = null;
     returnShortcut.addEventListener('click', function (event) {
       event.preventDefault();
       event.stopPropagation();
       const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       addTests.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+
+      // Match the subtle Cart accent and reset it after the same short duration.
+      window.clearTimeout(addTestsAccentTimer);
+      addTests.classList.remove('add-tests-jump-highlight');
+      void addTests.offsetWidth;
+      addTests.classList.add('add-tests-jump-highlight');
+      addTestsAccentTimer = window.setTimeout(function () {
+        addTests.classList.remove('add-tests-jump-highlight');
+        addTestsAccentTimer = null;
+      }, 2200);
     });
 
     window.addEventListener('scroll', requestVisibilityUpdate, { passive: true });
