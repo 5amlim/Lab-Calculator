@@ -4,9 +4,11 @@
 
   function initMobileSummaryNav() {
     const shortcut = document.querySelector('a.mobile-summary[href="#testsOverviewSection"]');
+    const returnShortcut = document.querySelector('a.mobile-search-return[href="#libraryFilter"]');
     const cart = document.getElementById('testsOverviewSection');
     const summary = document.getElementById('collectionSummary');
-    if (!shortcut || !cart || !summary) return;
+    const search = document.getElementById('libraryFilter');
+    if (!shortcut || !returnShortcut || !cart || !summary || !search) return;
 
     let updateQueued = false;
     function updateVisibility() {
@@ -19,7 +21,10 @@
       const cartReached = cartBounds.top < viewportHeight - 96 && summaryBounds.bottom > 72;
       shortcut.classList.toggle('is-in-cart', cartReached);
       shortcut.setAttribute('aria-hidden', String(cartReached));
+      returnShortcut.classList.toggle('is-in-cart', cartReached);
+      returnShortcut.setAttribute('aria-hidden', String(!cartReached));
       if (cartReached && document.activeElement === shortcut) shortcut.blur();
+      if (!cartReached && document.activeElement === returnShortcut) returnShortcut.blur();
     }
 
     function requestVisibilityUpdate() {
@@ -45,6 +50,15 @@
         cart.classList.remove('cart-jump-highlight');
         cartAccentTimer = null;
       }, 2200);
+    });
+
+    // The reverse shortcut goes to the catalog search field without opening
+    // the mobile keyboard or changing any selected tests or filters.
+    returnShortcut.addEventListener('click', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      search.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
     });
 
     window.addEventListener('scroll', requestVisibilityUpdate, { passive: true });
