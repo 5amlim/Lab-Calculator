@@ -1816,31 +1816,36 @@
         ? ['urine-ua', 'urine-culture'] : ['urine-ua'];
     if (/gray top urine|urine culture|urisponge/.test(value)) return ['urine-culture'];
     if (/amber|light protected|protect from light/.test(value)) return ['amber'];
-    if (/acid washed|metal free|trace element|trace metal/.test(value)) {
+    if (/acid washed|metal free|trace element|trace metal/.test(value) ||
+        (original && /acid washed|metal free|trace element|trace metal/.test(draw))) {
+      const metalLabel = /acid washed|metal free|trace element|trace metal/.test(value) ? value : draw;
+      const withOriginal = categories => original ? [...categories, 'original'] : categories;
       const specimen = normalizeSearch(test.specimenType || '');
       // Distinguish the submitted material, while retaining the legacy metal key.
-      if (/\burine\b/.test(specimen) || /\burine\b|\bcup\b/.test(value))
-        return ['metal', 'metal-urine'];
-      if (/\bserum\b/.test(specimen) || /\bserum\b/.test(value))
-        return ['metal', 'metal-serum'];
+      if (/\burine\b/.test(specimen) || /\burine\b|\bcup\b/.test(metalLabel))
+        return withOriginal(['metal', 'metal-urine']);
+      if (/\bserum\b/.test(specimen) || /\bserum\b/.test(metalLabel))
+        return withOriginal(['metal', 'metal-serum']);
       if (/\bplasma\b|\bwhole blood\b|\brbcs?\b|\bred blood cells?\b/.test(specimen) ||
-          /\bplasma\b|\bwhole blood\b|\brbcs?\b/.test(value))
-        return ['metal', 'metal-purple'];
-      return ['metal', 'metal-other'];
+          /\bplasma\b|\bwhole blood\b|\brbcs?\b/.test(metalLabel))
+        return withOriginal(['metal', 'metal-purple']);
+      return withOriginal(['metal', 'metal-other']);
     }
     if (/sst|gold spun/.test(value)) return ['sst'];
+    if (/aptima/.test(value) || (original && /aptima/.test(draw))) {
+      const kitName = /aptima/.test(value) ? value : draw;
+      const withOriginal = cats => original ? [...cats, 'original'] : cats;
+      const specimen = normalizeSearch(test.specimenType || '');
+      const source = normalizeSearch(test.drawContainer || '');
+      if (/\burine\b/.test(specimen) || /\burine\b/.test(kitName)) return withOriginal(['aptima', 'aptima-urine']);
+      if (/\bunisex\b|white label/.test(kitName + ' ' + source)) return withOriginal(['aptima', 'aptima-unisex']);
+      if (/multitest|multi test|orange label/.test(kitName + ' ' + source) || /\bswab\b/.test(specimen))
+        return withOriginal(['aptima', 'aptima-multitest']);
+      return withOriginal(['aptima', 'aptima-other']);
+    }
     if (original) return ['original'];
     if (/^(lavender edta|edta lavender top tube|gray top|gray fluoride oxalate|yellow acd b)$/.test(value))
       return ['original'];
-    if (/aptima/.test(value)) {
-      const specimen = normalizeSearch(test.specimenType || '');
-      const source = normalizeSearch(test.drawContainer || '');
-      if (/\burine\b/.test(specimen) || /\burine\b/.test(value)) return ['aptima', 'aptima-urine'];
-      if (/\bunisex\b|white label/.test(value + ' ' + source)) return ['aptima', 'aptima-unisex'];
-      if (/multitest|multi test|orange label/.test(value + ' ' + source) || /\bswab\b/.test(specimen))
-        return ['aptima', 'aptima-multitest'];
-      return ['aptima', 'aptima-other'];
-    }
     if (/viral|vcm|utm|transport media/.test(value)) return ['viral'];
     if (/total fix|stool container/.test(value)) return ['stool'];
     if (/sterile (?:urine )?cup/.test(value)) return ['sterile-cup'];
