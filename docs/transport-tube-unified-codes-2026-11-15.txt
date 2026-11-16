@@ -1,9 +1,11 @@
 TRANSPORT TUBE ALIAS CONSOLIDATION | Quest / Labcorp
 Updated: 2026-11-15
-This is a change audit for currently active catalog records, not a certification of tube interchangeability.
-Original specimen, aliquot count, processing, and shipping-temperature instructions remain mandatory. Labcorp frozen PP Transpak 49482 remains a distinct purple-cap option.
+These are unique currently active catalog test codes found across base data and loaded catalog expansions whose primary or additional transport route used the listed ordinary tube aliases. Multiple catalog layers may refer to the same test code.
+Unified display name: Transport Tube (green-cap badge).
+Aliases: Transport Tube; Serum Transport Tube; Plasma Transport Tube; Frozen Transport Tube (plastic screw-cap, Quest); Plastic Screw-Cap Serum Transport Vial; Polypropylene Transport Tube; Plastic Serum Transport Tube.
+No changes to collection tube, specimen matrix, aliquot counts, spin requirements, dedicated aliquots or transport temperatures. Green-top icon denotes a generic transport vial, not permission to combine specimens. Labcorp frozen PP Transpak 49482 retains its distinct purple-cap option. Specialty metal-free/acid-washed, amber/light-protected, preservative, swab media and other dedicated devices remain separate.
 
-QUEST CODES (intermediate scan; consolidated after all catalog layers)
+QUEST | 1,229 active codes
 22
 201
 206
@@ -1234,7 +1236,7 @@ QUEST CODES (intermediate scan; consolidated after all catalog layers)
 95084
 95856
 
-LABCORP CODES (intermediate scan; consolidated after all catalog layers)
+LABCORP | 197 active codes
 001560
 001834
 002030
