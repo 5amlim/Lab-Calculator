@@ -28,11 +28,23 @@
       window.requestAnimationFrame(updateVisibility);
     }
 
+    let cartAccentTimer = null;
     shortcut.addEventListener('click', function (event) {
       event.preventDefault();
       event.stopPropagation();
       const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       cart.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+
+      // Briefly emphasize the destination, then restore its normal appearance.
+      window.clearTimeout(cartAccentTimer);
+      cart.classList.remove('cart-jump-highlight');
+      // Restart the animation on repeated taps.
+      void cart.offsetWidth;
+      cart.classList.add('cart-jump-highlight');
+      cartAccentTimer = window.setTimeout(function () {
+        cart.classList.remove('cart-jump-highlight');
+        cartAccentTimer = null;
+      }, 2200);
     });
 
     window.addEventListener('scroll', requestVisibilityUpdate, { passive: true });
