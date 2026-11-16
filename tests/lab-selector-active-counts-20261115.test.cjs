@@ -85,5 +85,5 @@ test('All receiving lab pages load the refreshed selector script', () => {
   for (const page of ['index.html', 'labcorp.html', 'cedars.html']) {
     assert.match(read(page), /src="assets\/js\/lab-select\.js\?v=8"/);
   }
-  assert.match(read('labcorp.html'), /src="labcorp-app\.js\?v=109"/);
+  assert.match(read('labcorp.html'), /src="labcorp-app\.js\?v=110"/);
 });

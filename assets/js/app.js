@@ -5671,6 +5671,25 @@
     return true;
   }
 
+  // Source-only labeling directions should name the actual specimen on the
+  // printed label. Render the existing specimen color badge rather than the
+  // vague phrase "specimen source". Do not reinterpret specialized directions.
+  function printGenericSpecimenSourceLabel(test, explicit) {
+    const wording = String(explicit || '').trim().replace(/\s+/g, ' ').replace(/[.]$/, '');
+    if (!/^(?:label|mark)\s+(?:(?:the|exact|precise|specific)\s+)?(?:specimen\s+)?source\s*(?:and|,)\s*(?:collection\s+)?date\s*(?:\/|and|&)\s*time$/i.test(wording)) return null;
+    const specimen = normalizeSpecimenType(test.specimenType).toLowerCase().trim();
+    // Generic blood and swab badges cannot safely replace anatomical source
+    // details. Keep those original instructions unchanged.
+    if (!/(?:\bcsf\b|cerebrospinal|\b(?:pleural|pericardial|peritoneal|synovial)\s+fluid\b|\bsputum\b|\burine\b|\bstool\b|\bfeces\b)/i.test(specimen)) return null;
+    const badge = printBagSpecimenBadge({ tests: [test] });
+    if (/Verify Specimen|Mixed Specimens/.test(badge)) return null;
+    const token = `\uE000${specimen}\uE001`;
+    return {
+      token,
+      note: `${token} and collection date and time`,
+      badge: badge.replace('print-bag-specimen-badge', 'print-collect-chip-specimen')
+    };
+  }
   function printLabelingNotes(item) {
     if (item.printVisualGroupParts) return item.printVisualGroupParts.map(printLabelingNotes).join('');
     const grouped = new Map();
@@ -5678,6 +5697,7 @@
       const is24Hour = is24HourUrineTest(test);
       const derived = derivedSpecimenSourceLabel(test, item);
       let explicit = String(test.specialLabeling || '').trim();
+      const sourceLabel = printGenericSpecimenSourceLabel(test, explicit);
       // A basic patient ID is already part of routine specimen identification.
       // "Submit only for ..." is a processing restriction, not label wording;
       // the HIV-specific restrictions remain in the test's handling field.
@@ -5702,7 +5722,8 @@
       }
       if (is24Hour) parts.push('24h urine · Total volume: ____ mL · Start: ____ · End: ____');
       const explicitIsRedundant24hUrine = is24Hour && /^urine$/i.test(explicit.trim());
-      if (!explicitIsRedundant24hUrine && explicitLabelAddsInformation(explicit, derived)) parts.push(explicit);
+      if (sourceLabel) parts.push(sourceLabel.note);
+      else if (!explicitIsRedundant24hUrine && explicitLabelAddsInformation(explicit, derived)) parts.push(explicit);
       // Deduplicate equivalent labels from the same test before comparing across
       // tests. Preserve instructions that add a distinct labeling requirement.
       const uniqueParts = [];
@@ -5718,11 +5739,15 @@
       const groupKey = note.toLowerCase()
         .replace(/\b(?:sst\s*\/\s*gold|gold\s*\/\s*sst)\b/g, 'gold/sst')
         .replace(/\s+/g, ' ').trim();
-      if (!grouped.has(groupKey)) grouped.set(groupKey, { note, codes: [] });
+      if (!grouped.has(groupKey)) grouped.set(groupKey, { note, codes: [], sourceLabel });
       grouped.get(groupKey).codes.push(displayCode(test));
     });
     if (!grouped.size) return '';
-    return `<div class="print-label-notes">${Array.from(grouped.values()).map(({ note, codes }) => `<div class="print-label-note"><span>Label</span><div>${escapeHtml(note)} <small>${escapeHtml([...new Set(codes)].join(', '))}</small></div></div>`).join('')}</div>`;
+    return `<div class="print-label-notes">${Array.from(grouped.values()).map(({ note, codes, sourceLabel }) => {
+      const safeNote = escapeHtml(note);
+      const message = sourceLabel ? safeNote.replace(escapeHtml(sourceLabel.token), sourceLabel.badge) : safeNote;
+      return `<div class="print-label-note"><span>Label</span><div>${message} <small>${escapeHtml([...new Set(codes)].join(', '))}</small></div></div>`;
+    }).join('')}</div>`;
   }
 
   function isTransferSubmission(test) {
