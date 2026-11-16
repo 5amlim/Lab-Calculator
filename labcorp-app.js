@@ -636,6 +636,8 @@
     // the actual Amies/viral/Aptima swab kit as both draw and submit container.
     if (/\bswab\b/i.test(specimenType) &&
         !/\b(?:urine|stool|feces|faeces|fecal|faecal)\b/i.test(specimenType) &&
+        !/\b(?:thinprep|preservcyt|surepath|cytology|pap[- ]?vial|fixative)\b/i.test(transportContainer) &&
+        !/\b(?:swab\s+transferred|transfer\s+(?:the\s+)?specimen\s+(?:to|into)\s+(?:another|a separate))\b/i.test(transportContainer+' '+String(record.specialInstructions||'')) &&
         /(?:swab|amies|aptima|cobas|viral transport|\butm\b|\bvtm\b)/i.test(transportContainer) &&
         !/^(?:verify|other \/ verify)/i.test(transportContainer)) {
       if (/^swab$/i.test(specimenType) &&
@@ -5181,6 +5183,8 @@
     const draw = String(test.drawContainer || '').toLowerCase().trim();
     const transport = String(finalTransportContainer(test) || '').toLowerCase().trim();
     const notes = String(test.specialInstructions || '').toLowerCase();
+    // Cytology/Pap receiving vials are separate devices, not swab transport kits.
+    if (/\b(?:thinprep|preservcyt|surepath|cytology|pap[- ]?vial|fixative)\b/i.test(transport)) return false;
     if (!draw || !transport || /^(?:verify|do not collect|n\/?a\b)/.test(draw) ||
         /^(?:verify|do not collect|n\/?a\b)/.test(transport)) return false;
 
