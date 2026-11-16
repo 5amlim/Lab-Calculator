@@ -18,7 +18,7 @@ const additions=[
     "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "Room temperature 7 days; refrigerated 14 days; frozen 60 days",
     "spin": "Yes",
-    "specialInstructions": "Separate serum from cells within 1 hour, transfer separated serum into a labeled plastic Transport Tube and refrigerate. Plain red top is an acceptable serum source alternative. If shipping frozen, prepare a separate dedicated aliquot for each frozen test; do not pool frozen orders.",
+    "specialInstructions": "Separate serum from cells within one hour, transfer to a labeled plastic Transport Tube, and refrigerate. Red Top is also acceptable for serum collection. This record plans refrigerated shipment; follow the official directory if switching to frozen shipment.",
     "source": "Labcorp official test directory, verified 2026-11-15: https://www.labcorp.com/tests/520123/anti-ribosomal-p-protein-ab-rdl"
   },
   {
@@ -38,7 +38,7 @@ const additions=[
     "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "Room temperature 7 days; refrigerated 14 days; frozen 60 days",
     "spin": "Yes",
-    "specialInstructions": "Separate serum from cells within 1 hour, transfer separated serum into a labeled plastic Transport Tube and refrigerate. Plain red top is an acceptable serum source alternative. If shipping frozen, prepare a separate dedicated aliquot for each frozen test; do not pool frozen orders.",
+    "specialInstructions": "Separate serum from cells within one hour, transfer to a labeled plastic Transport Tube, and refrigerate. Red Top is also acceptable for serum collection. This record plans refrigerated shipment; follow the official directory if switching to frozen shipment.",
     "source": "Labcorp official test directory, verified 2026-11-15: https://www.labcorp.com/tests/520114/anti-soluble-liver-ag-ab-rdl"
   },
   {
@@ -58,7 +58,7 @@ const additions=[
     "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "Room temperature 7 days; refrigerated 14 days; frozen 60 days",
     "spin": "Yes",
-    "specialInstructions": "Separate serum from cells within 1 hour, transfer separated serum into a labeled plastic Transport Tube and refrigerate. Plain red top is an acceptable serum source alternative. If shipping frozen, prepare a separate dedicated aliquot for each frozen test; do not pool frozen orders.",
+    "specialInstructions": "Separate serum from cells within one hour, transfer to a labeled plastic Transport Tube, and refrigerate. Red Top is also acceptable for serum collection. This record plans refrigerated shipment; follow the official directory if switching to frozen shipment.",
     "source": "Labcorp official test directory, verified 2026-11-15: https://www.labcorp.com/tests/520108/igg-immunoglobulin-g-rdl"
   },
   {
@@ -78,7 +78,7 @@ const additions=[
     "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "Room temperature 7 days; refrigerated 14 days; frozen 60 days",
     "spin": "Yes",
-    "specialInstructions": "Separate serum from cells within 1 hour, transfer separated serum into a labeled plastic Transport Tube and refrigerate. Plain red top is an acceptable serum source alternative. If shipping frozen, prepare a separate dedicated aliquot for each frozen test; do not pool frozen orders.",
+    "specialInstructions": "Separate serum from cells within one hour, transfer to a labeled plastic Transport Tube, and refrigerate. Red Top is also acceptable for serum collection. This record plans refrigerated shipment; follow the official directory if switching to frozen shipment.",
     "source": "Labcorp official test directory, verified 2026-11-15: https://www.labcorp.com/tests/520081/anti-sa-ab-igg-rdl"
   },
   {
@@ -98,7 +98,7 @@ const additions=[
     "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "Room temperature 7 days; refrigerated 14 days; frozen 60 days",
     "spin": "Yes",
-    "specialInstructions": "Separate serum from cells within 1 hour, transfer separated serum into a labeled plastic Transport Tube and refrigerate. Plain red top is an acceptable serum source alternative. If shipping frozen, prepare a separate dedicated aliquot for each frozen test; do not pool frozen orders.",
+    "specialInstructions": "Separate serum from cells within one hour, transfer to a labeled plastic Transport Tube, and refrigerate. Red Top is also acceptable for serum collection. This record plans refrigerated shipment; follow the official directory if switching to frozen shipment.",
     "source": "Labcorp official test directory, verified 2026-11-15: https://www.labcorp.com/tests/520063/anti-chromatin-ab-igg-rdl"
   },
   {
@@ -118,7 +118,7 @@ const additions=[
     "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "Room temperature 7 days; refrigerated 14 days; frozen 60 days",
     "spin": "Yes",
-    "specialInstructions": "Separate serum from cells within 1 hour, transfer separated serum into a labeled plastic Transport Tube and refrigerate. Plain red top is an acceptable serum source alternative. If shipping frozen, prepare a separate dedicated aliquot for each frozen test; do not pool frozen orders.",
+    "specialInstructions": "Separate serum from cells within one hour, transfer to a labeled plastic Transport Tube, and refrigerate. Red Top is also acceptable for serum collection. This record plans refrigerated shipment; follow the official directory if switching to frozen shipment.",
     "source": "Labcorp official test directory, verified 2026-11-15: https://www.labcorp.com/tests/520174/anti-ena-abs-rdl"
   },
   {
@@ -138,7 +138,7 @@ const additions=[
     "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "Room temperature 4 days; refrigerated 8 days; frozen 8 days",
     "spin": "Yes",
-    "specialInstructions": "Allow serum to clot and separate from cells within 1 hour. Transfer separated serum into a labeled plastic Transport Tube; refrigerate. The Labcorp directory requires a plastic aliquot if freezing; when freezing for a different shipment, use an individual frozen aliquot and do not pool different frozen tests.",
+    "specialInstructions": "Allow serum to clot, separate serum from cells within one hour, transfer to a labeled plastic Transport Tube, and refrigerate. A frozen shipment requires the official Labcorp frozen specimen workflow instead of this refrigerated plan.",
     "source": "Labcorp official test directory, verified 2026-11-15: https://www.labcorp.com/tests/520168/c3-complement-rdl"
   },
   {
@@ -158,7 +158,7 @@ const additions=[
     "transportTemperatureRaw": "Refrigerated (cold packs)",
     "stability": "Room temperature 2 days; refrigerated 8 days; frozen 3 months",
     "spin": "Yes",
-    "specialInstructions": "Allow serum to clot and separate from cells within 1 hour. Transfer separated serum into a labeled plastic Transport Tube; refrigerate. The Labcorp directory requires a plastic aliquot if freezing; when freezing for a different shipment, use an individual frozen aliquot and do not pool different frozen tests.",
+    "specialInstructions": "Allow serum to clot, separate serum from cells within one hour, transfer to a labeled plastic Transport Tube, and refrigerate. A frozen shipment requires the official Labcorp frozen specimen workflow instead of this refrigerated plan.",
     "source": "Labcorp official test directory, verified 2026-11-15: https://www.labcorp.com/tests/520166/c4-complement-rdl"
   }
 ];
