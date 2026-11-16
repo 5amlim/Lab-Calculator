@@ -4,11 +4,11 @@
 
   function initMobileSummaryNav() {
     const shortcut = document.querySelector('a.mobile-summary[href="#testsOverviewSection"]');
-    const returnShortcut = document.querySelector('a.mobile-search-return[href="#libraryFilter"]');
+    const returnShortcut = document.querySelector('a.mobile-search-return[href="#batchEntry"]');
     const cart = document.getElementById('testsOverviewSection');
     const summary = document.getElementById('collectionSummary');
-    const search = document.getElementById('libraryFilter');
-    if (!shortcut || !returnShortcut || !cart || !summary || !search) return;
+    const addTests = document.getElementById('batchEntry');
+    if (!shortcut || !returnShortcut || !cart || !summary || !addTests) return;
 
     let updateQueued = false;
     function updateVisibility() {
@@ -52,13 +52,13 @@
       }, 2200);
     });
 
-    // The reverse shortcut goes to the catalog search field without opening
-    // the mobile keyboard or changing any selected tests or filters.
+    // Return to the Add Tests entry area without opening the mobile keyboard
+    // or changing the selected tests, input text, or filters.
     returnShortcut.addEventListener('click', function (event) {
       event.preventDefault();
       event.stopPropagation();
       const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      search.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+      addTests.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
     });
 
     window.addEventListener('scroll', requestVisibilityUpdate, { passive: true });
