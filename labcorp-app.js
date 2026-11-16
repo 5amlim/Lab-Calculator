@@ -804,6 +804,9 @@
     const isCup = /^(?:sterile\s+(?:urine\s+|stool\s+|specimen\s+)?cup|stool\s+collection\s+cup|urine\s+collection\s+cup)$/i.test(rawDraw);
     const collectionLabel = isCup ? 'Sterile cup' : draw;
     const drawBadges = drawContainerBadge(collectionLabel);
+    // Do not draw a second tube or arrow for original swab transport kits.
+    if (isDirectSwabKitSubmission(test))
+      return '<span class="container-path is-single">' + drawBadges + '</span>';
     const cleanName = value => {
       const text = normalizeSearch(cleanCollectionContainer(value))
         .replace(/\b(?:spun|centrifuged|original|tube)\b/g, ' ').replace(/\s+/g, ' ').trim();
@@ -5153,7 +5156,40 @@
       : raw;
   }
 
+  // Swab collection devices are generally submitted intact in their supplied
+  // medium. Directory aliases such as "Aptima" versus "Aptima Multitest
+  // Transport Tube" describe ONE device, not a separate aliquot destination.
+  // Do not apply this to urine/stool swabs or to explicit fluid transfers.
+  function isDirectSwabKitSubmission(test) {
+    const specimen = String(test.specimenType || '').toLowerCase();
+    if (!/\bswabs?\b/.test(specimen) ||
+        /\b(?:urine|stool|feces|faeces|fecal|faecal)\b/.test(specimen)) return false;
+
+    const draw = String(test.drawContainer || '').toLowerCase().trim();
+    const transport = String(finalTransportContainer(test) || '').toLowerCase().trim();
+    const notes = String(test.specialInstructions || '').toLowerCase();
+    if (!draw || !transport || /^(?:verify|do not collect|n\/?a\b)/.test(draw) ||
+        /^(?:verify|do not collect|n\/?a\b)/.test(transport)) return false;
+
+    // A specimen in a primary cup or liquid vial must not be reclassified as
+    // a direct swab, even if the test name contains "swab".
+    const fluidSource = /\b(?:urine|stool|feces|faeces|fecal|faecal)\b/.test(draw + ' ' + transport) &&
+      /\b(?:cup|aliquot|specimen|sample|container|transfer)\b/.test(draw + ' ' + transport);
+    if (fluidSource) return false;
+    const explicitLiquidTransfer =
+      /\b(?:aliquot|pour\s*(?:off|into)|decant)\b/.test(notes) ||
+      /\btransfer\s+(?:the\s+)?(?:urine|stool|feces|faeces|liquid|supernatant|specimen)\b/.test(notes) ||
+      /\b(?:transfer|move)\b.{0,75}\b(?:another|second|separate|different)\s+(?:tube|vial|container)\b/.test(notes);
+    if (explicitLiquidTransfer) return false;
+
+    const kit = /\b(?:swab|aptima|affirm|atts|eswab|e-swab|amies|cobas|multitest|unisex|fibronectin)\b|(?:viral|universal)\s+transport|(?:\butm\b|\bvtm\b)/;
+    const originalLabel = /\b(?:original|same|primary)\s+(?:swab|collection|transport)?\s*(?:tube|container|kit)\b|no\s+transfer/.test(transport);
+    if (!kit.test(draw)) return false;
+    return kit.test(transport) || originalLabel;
+  }
+
   function isOriginalContainerSubmission(test) {
+    if (isDirectSwabKitSubmission(test)) return true;
     const draw = String(test.drawContainer || '').trim();
     const transport = finalTransportContainer(test);
     if (isPlainUrineAliquotTransport(test, transport) && !isTimedUrineTest(test) &&
