@@ -954,10 +954,9 @@
         }));
       }
       if (draws === 1 && submits > 1) {
-        return Array.from({ length: submits }, (_, index) => ({
-          ...route, collectionCount: 1, submissionCount: 1,
-          _librarySeparateAliquot: true, _libraryRouteNumber: index + 1
-        }));
+        // One collection source feeds several destination vials. Do not show
+        // multiple independent source tubes in the hover.
+        return [route];
       }
       // When the numbers differ, never invent a one-to-one collection/transfer
       // relationship. Show the actual counts in one route instead.
@@ -985,6 +984,24 @@
     '</div>';
   }
 
+  function librarySingleDrawMultiSubmitPath(route) {
+    const draws = Math.max(1, Number(route.collectionCount) || 1);
+    const submits = Math.max(1, Number(route.submissionCount) || 1);
+    if (draws !== 1 || submits < 2) return menuSingleContainerPath(route);
+    // Render the physical draw tube ONCE, followed by each distinct transport
+    // aliquot. This is a split, not one source tube per submitted vial.
+    const destinations = Array.from({ length: submits }, (_, index) =>
+      '<span class="library-container-multi-submit-item"><strong>Aliquot ' +
+      (index + 1) + '</strong>' + librarySubmissionBadges(route) + '</span>'
+    ).join('');
+    return '<span class="container-path is-transfer">' +
+      '<span class="container-path-source" aria-label="Collect in">' +
+      drawContainerBadge(route.drawContainer) + '</span>' +
+      '<span class="container-path-arrow" role="img" aria-label="Process and split into separate transport aliquots">↓</span>' +
+      '<span class="container-path-submit" aria-label="Submit in">' +
+      '<span class="library-container-multi-submit">' + destinations + '</span></span></span>';
+  }
+
   function libraryContainerFlowCard(test) {
     const routes = libraryContainerPreviewRoutes(test);
     const originals = libraryContainerRoutes(test);
@@ -993,7 +1010,7 @@
     const submits = Math.max(1, Number(test.submissionCount) || 1);
     const countLabel = onlyOneType && (draws > 1 || submits > 1)
       ? (draws === submits ? draws + ' draw · ' + submits + ' submit containers'
-        : draws === 1 ? submits + ' separate submit containers'
+        : draws === 1 ? '1 draw · ' + submits + ' separate submit containers'
         : draws + ' draw · ' + submits + ' submit containers')
       : routes.length + ' required container paths';
     return '<div class="library-container-preview-heading"><strong>Collection &amp; transport</strong>' +
@@ -1005,8 +1022,8 @@
         const submitQuantity = Math.max(1, Number(route.submissionCount) || 1);
         const note = route._libraryRepeatedPair
           ? 'Independent collection and submission; keep aliquots separate'
-          : route._librarySeparateAliquot
-            ? 'Separate transport aliquot; verify sufficient collected volume'
+          : quantity === 1 && submitQuantity > 1
+            ? 'Split the collected specimen into ' + submitQuantity + ' separate transport aliquots'
             : quantity !== submitQuantity
               ? quantity + ' collection tube(s) and ' + submitQuantity + ' submission container(s)'
               : '';
@@ -1014,7 +1031,7 @@
           minimum && 'Minimum: ' + minimum, note].filter(Boolean);
         return '<section class="library-container-preview-route">' +
           '<div class="library-container-preview-route-heading"><span class="library-container-number">' + (index + 1) + '</span><strong>Container ' + (index + 1) + '</strong></div>' +
-          '<div class="library-container-preview-path">' + menuSingleContainerPath(route) + '</div>' +
+          '<div class="library-container-preview-path">' + librarySingleDrawMultiSubmitPath(route) + '</div>' +
           '<div class="library-container-preview-meta">' + specimenBadge(route.specimenType) +
             '<span class="badge ' + temperatureClass(route.transportTemperature) + '">' + escapeHtml(route.transportTemperature || 'Verify temperature') + '</span></div>' +
           (details.length ? '<div class="library-container-preview-detail">' + escapeHtml(details.join(' · ')) + '</div>' : '') +
