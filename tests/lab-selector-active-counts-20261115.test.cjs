@@ -85,7 +85,7 @@ test('Lab selection dropdown shows only active test totals, keeping X tests badg
 
 test('All receiving lab pages load the refreshed selector script', () => {
   for (const page of ['index.html', 'labcorp.html', 'cedars.html']) {
-    assert.match(read(page), /src="assets\/js\/lab-select\.js\?v=12"/);
+    assert.match(read(page), /src="assets\/js\/lab-select\.js\?v=13"/);
   }
   assert.match(read('labcorp.html'), /src="labcorp-app\.js\?v=[^"\s]+"/);
 });
