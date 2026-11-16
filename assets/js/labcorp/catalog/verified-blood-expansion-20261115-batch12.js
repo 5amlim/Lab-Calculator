@@ -111,7 +111,7 @@ const additions=[
     "status": "active",
     "specimenType": "Serum",
     "drawContainer": "SST / Gold",
-    "alternativeContainer": "Red Top; Green Lithium Heparin (plasma); Lavender EDTA (plasma)",
+    "alternativeContainer": "Red Top",
     "transportContainer": "SST / Gold (spun)",
     "collectionCount": 1,
     "submissionCount": 1,
