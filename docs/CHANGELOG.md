@@ -1,3 +1,10 @@
+## November 15, 2026: Blood-first verified catalog expansion (Batch 8)
+
+- Added three new Quest blood coagulation panels: 19651, 19903, 19671. Each preserves three, four, or four individually frozen platelet-poor citrated plasma aliquots respectively; 19671 also requires separate frozen serum and ambient EDTA whole blood. Kept Quest frozen containers as standard plasma/serum transport tubes, not the LabCorp purple-cap transport tube.
+- Activated thirteen LabCorp blood tests that previously existed only as pending reference names: 117170, 117245, 117365, 117904, 511162, 800599, 086015, 086075, 086302, 086304, 086250, 086233 and 086300. Double-spun citrate plasma is submitted in separate LabCorp purple-cap PP frozen transport tubes; 117245 needs two transport aliquots, while 511162 remains unspun in original EDTA whole blood at room temperature.
+- Existing Quest 18634 Cognitive Assessment Panel was already active and was not duplicated or changed. All new tests retain official directory sources and receiving-area verification notes. No unsupported slides, smears or acid-preserved collections were introduced.
+- Updated cart-ready lab selector fallback counts to Quest 2,828 / Cedars 39 / LabCorp 1,523 and reset selector cache generation. Added `verified-blood-expansion-batch8-20261115.test.cjs` for collection, submission, temperature and grouping regressions.
+
 - Extended the directory-verified Quest display-name audit to 33 codes, including ANA Screen (249), T3 Total (859), acute hepatitis diagnostic panel (10306), and ANAlyzeR panel (36378). Existing workbook shorthand remains code-specific and searchable.
 
 ## October 22, 2026: Verified Quest names and searchable workbook shorthand
