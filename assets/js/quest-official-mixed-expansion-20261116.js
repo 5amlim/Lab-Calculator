@@ -100,6 +100,26 @@ const additions=[
     "spin": "Yes",
     "specialInstructions": "For suspected acute mast-cell activation, provider directs collection 15 minutes to 3 hours after event; baseline testing may require a separately timed specimen. Clot/centrifuge and transfer serum to labeled standard Transport Tube within 3 hours. Refrigerate and ship on cold packs; room-temperature shipment unacceptable. Confirm local test availability.",
     "source": "Quest official test directory reviewed 2026-11-16: https://testdirectory.questdiagnostics.com/test/test-detail/34484/tryptase?cc=MASTER"
+  },
+  {
+    "id": "quest-verified-nov16-2026-968",
+    "testCode": "968",
+    "testName": "Osmolality, Feces",
+    "status": "active",
+    "specimenType": "Stool",
+    "drawContainer": "Sterile cup",
+    "alternativeContainer": "",
+    "transportContainer": "Sterile cup",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "preferredVolume": "1 mL liquid watery stool",
+    "minimumVolume": "0.2 mL",
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "stability": "Room temperature unacceptable; refrigerated 48h; frozen 60d",
+    "spin": "No",
+    "specialInstructions": "WATERY LIQUID STOOL ONLY; formed stool rejected. Collect into clean plastic leakproof screw-cap Sterile cup without preservative. Submit the original labeled Sterile cup, freeze immediately and ship frozen. Keep this separate from formed stool, urine or other body fluids; confirm Quest service-area availability.",
+    "source": "Quest official test directory reviewed 2026-11-16: https://testdirectory.questdiagnostics.com/test/test-detail/968/osmolality-feces?cc=MASTER"
   }
 ];
 for(const row of additions){const old=window.SEED_TESTS.find(t=>String(t.testCode||'').trim()===row.testCode);
