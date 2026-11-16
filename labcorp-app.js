@@ -5429,9 +5429,11 @@
       const sourcePhrase = specimenSourceDetail(test);
       const isSwab = /swab/i.test(sourceSpecimen);
       const isSpecialtyMetalContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal/i.test(transport);
-      const label = isSwab
-        ? 'Swab Transport Tube'
-        : (isSpecialtyMetalContainer ? `Acid-Washed / Metal-Free ${specimen} Transport Tube` : `${specimen} Transport Tube`);
+      const label = /^transport tube$/i.test(transport)
+        ? 'Transport Tube'
+        : isSwab
+          ? 'Swab Transport Tube'
+          : (isSpecialtyMetalContainer ? `Acid-Washed / Metal-Free ${specimen} Transport Tube` : `${specimen} Transport Tube`);
       return [{
         key: `transport|${normalizeSearch(sourcePhrase)}|${submissionTransportGroupingKey(test, transport)}`,
         label,
