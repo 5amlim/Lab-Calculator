@@ -1976,3 +1976,17 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     outline-offset: 3px;
   }
 }
+
+/* Match the Cart arrival cue when returning to the Add Tests input area. */
+@media screen {
+  #batchEntry.add-tests-jump-highlight {
+    animation: cart-arrival-accent 2.1s ease-out both;
+  }
+}
+@media screen and (prefers-reduced-motion: reduce) {
+  #batchEntry.add-tests-jump-highlight {
+    animation: none;
+    outline: 2px solid rgba(8, 126, 131, .3);
+    outline-offset: 2px;
+  }
+}
