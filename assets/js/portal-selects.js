@@ -12,12 +12,33 @@
   function tubeIconClass(name) {
     const value = String(name || '').toLowerCase();
     if (!value || /^(other \/ manually type|do not collect|verify official instructions)$/.test(value)) return '';
+    const labcorp = document.body?.getAttribute('data-gallery-lab') === 'L';
+    if (/\bnmr\s*lipo\s*tube\b/.test(value)) return 'tube-nmr-lipotube';
+    if (/quanti[- ]?feron/.test(value)) {
+      if (/\bnil\b/.test(value)) return 'tube-qft-nil';
+      if (/\btb\s*1\b/.test(value)) return 'tube-qft-tb1';
+      if (/\btb\s*2\b/.test(value)) return 'tube-qft-tb2';
+      if (/\bmitogen\b/.test(value)) return 'tube-qft-mitogen';
+    }
     if (/microtainer/.test(value)) return 'tube-microtainer';
     if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
     if (/e[- ]?swab|\bamies\b/.test(value)) return 'tube-eswab';
+    if (/\butm\b|\bvtm\b|viral transport|universal transport/.test(value)) return 'tube-utm';
+    if (/cary[- ]?blair|para[- ]?pak\s+c\s*&\s*s/.test(value)) return 'tube-cary-blair';
+    if (/\baffirm\b|\batts\b/.test(value)) return 'tube-affirm';
+    if (/aptima/.test(value) && /\burine\b/.test(value)) return 'tube-aptima-urine';
     if (/aptima/.test(value)) return 'tube-aptima';
     if (/total[- ]?fix/.test(value)) return 'tube-total-fix';
-    if (/(?:trace[ -]?metal[- ]?free|acid[- ]?washed).*container|container.*(?:trace[ -]?metal[- ]?free|acid[- ]?washed)/.test(value)) return 'tube-trace-metal-container';
+    if (/acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?(?:metal|element)/.test(value) && !/royal[- ]?blue/.test(value)) {
+      if (/\burine\b|\bcup\b|plastic\s+container/.test(value) &&
+          !/\b(?:serum|plasma|whole\s*blood|rbcs?)\b/.test(value))
+        return 'tube-trace-metal-container';
+      if (labcorp) return 'tube-transport tube-metal-free-neutral';
+      if (/\bserum\b|red[- ]?label/.test(value)) return 'tube-transport tube-metal-free-red-label';
+      if (/\bplasma\b|whole\s*blood|\brbcs?\b|purple[- ]?label/.test(value))
+        return 'tube-transport tube-metal-free-purple-label';
+      return 'tube-trace-metal-container';
+    }
     if (/24\s*[- ]?hour\s+urine\s+(?:container|jug)/.test(value)) return 'tube-24h-urine';
     if (/sterile\s+(?:urine\s+)?cup|urine\s+collection\s+cup/.test(value)) return 'tube-urine-cup';
     if (/red\/yellow/.test(value)) return 'tube-ua-swirl';
@@ -29,10 +50,9 @@
       return 'tube-royal';
     }
     if (/amber/.test(value)) return 'tube-amber';
-    if (/acid[- ]?washed|metal[- ]?free/.test(value)) return 'tube-transport-green-top';
     if (/^frozen transport tube(?:\s*\(.*\))?$/.test(value))
-      return document.body?.getAttribute('data-gallery-lab') === 'L' ? 'tube-frozen-purple' : 'tube-transport-green-top';
-    if (/serum transport|plasma transport/.test(value)) return 'tube-transport-green-top';
+      return labcorp ? 'tube-frozen-purple' : 'tube-transport tube-transport-green-top';
+    if (/serum transport|plasma transport/.test(value)) return 'tube-transport tube-transport-green-top';
     if (/viral transport|transport media|swab|collection kit|transport tube|transport vial|screw[- ]?cap vial|fibronectin/.test(value)) return 'tube-transport';
     if (/sst|gold/.test(value)) return 'tube-sst';
     if (/lavender/.test(value)) return 'tube-lavender';
@@ -44,6 +64,27 @@
     if (/gray|grey/.test(value)) return 'tube-gray';
     if (/yellow/.test(value)) return 'tube-yellow';
     return '';
+  }
+  // Filter option values are category IDs, not names of physical tubes.
+  function transportFilterIcon(value) {
+    const labcorp = document.body?.getAttribute('data-gallery-lab') === 'L';
+    return ({
+      transport:'tube-transport', sst:'tube-sst', original:'',
+      serum:'tube-transport tube-transport-green-top',
+      plasma:'tube-transport tube-transport-green-top',
+      'frozen-transport': labcorp ? 'tube-frozen-purple' : 'tube-transport tube-transport-green-top',
+      amber:'tube-amber',
+      metal:'tube-trace-metal-container',
+      'metal-serum':labcorp ? 'tube-transport tube-metal-free-neutral' : 'tube-transport tube-metal-free-red-label',
+      'metal-purple':'tube-transport tube-metal-free-purple-label',
+      'metal-plasma':'tube-transport tube-metal-free-neutral',
+      'metal-urine':'tube-trace-metal-container',
+      'metal-other':'tube-trace-metal-container',
+      'sterile-cup':'tube-urine-cup', 'urine-cup':'tube-24h-urine',
+      'urine-ua':'tube-ua-swirl', 'urine-culture':'tube-urine-culture',
+      affirm:'tube-affirm', amies:'tube-eswab', 'fetal-fibronectin':'tube-transport',
+      aptima:'tube-aptima', viral:'tube-utm', stool:'tube-total-fix', special:'tube-transport'
+    })[value] || '';
   }
   function fieldName(item) {
     return item.select.dataset.field || item.select.id;
@@ -70,7 +111,10 @@
     return option.textContent.trim();
   }
   function iconFor(item, value) {
-    if (!['drawContainer', 'transportContainer'].includes(fieldName(item)) || !value || value === '__other__') return '';
+    const field = fieldName(item);
+    if (!value || value === '__other__') return '';
+    if (field === 'transportContainerFilter') return transportFilterIcon(value);
+    if (!['drawContainer', 'transportContainer'].includes(field)) return '';
     if (fieldName(item) === 'transportContainer' && /^submit in original tube$/i.test(value)) {
       return tubeIconClass(sourceContainerName(item));
     }
