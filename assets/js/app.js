@@ -941,31 +941,77 @@
     return expandedCollectionTests([test]).map(route => ({ ...route, additionalDrawRequirements: [] }));
   }
 
+  function libraryContainerPreviewRoutes(test) {
+    // Screen-only expansion. The source record retains its actual draw and
+    // submission counts for cart planning, bagging and print output.
+    return libraryContainerRoutes(test).flatMap(route => {
+      const draws = Math.max(1, Math.floor(Number(route.collectionCount) || 1));
+      const submits = Math.max(1, Math.floor(Number(route.submissionCount) || 1));
+      if (draws === submits && draws > 1) {
+        return Array.from({ length: draws }, (_, index) => ({
+          ...route, collectionCount: 1, submissionCount: 1,
+          _libraryRepeatedPair: true, _libraryRouteNumber: index + 1
+        }));
+      }
+      if (draws === 1 && submits > 1) {
+        return Array.from({ length: submits }, (_, index) => ({
+          ...route, collectionCount: 1, submissionCount: 1,
+          _librarySeparateAliquot: true, _libraryRouteNumber: index + 1
+        }));
+      }
+      // When the numbers differ, never invent a one-to-one collection/transfer
+      // relationship. Show the actual counts in one route instead.
+      return [route];
+    });
+  }
+
+  function menuHasMultipleRoutes(test) {
+    const paths = libraryContainerRoutes(test);
+    return paths.length > 1 || paths.some(route =>
+      Math.max(Number(route.collectionCount) || 1, Number(route.submissionCount) || 1) > 1);
+  }
+
   function menuContainerBadges(test) {
-    const requirements = additionalDrawRequirements(test);
-    if (!requirements.length) return menuSingleContainerPath(test);
-    const primary = libraryContainerRoutes(test)[0];
-    const count = requirements.length + 1;
-    const extra = count - 1;
+    if (!menuHasMultipleRoutes(test)) return menuSingleContainerPath(test);
+    const routes = libraryContainerPreviewRoutes(test);
+    const primary = routes[0];
+    const moreText = routes.length > 1 ? '+' + (routes.length - 1) + ' more required' : 'View required quantities';
     return '<div class="library-container-route-summary">' +
       '<div class="library-container-main-route">' + menuSingleContainerPath(primary) + '</div>' +
       '<div class="subtext specimen-line">' + specimenBadge(primary.specimenType) + '</div>' +
-      '<button type="button" class="library-container-more" data-container-more data-id="' + escapeAttr(test.id) + '" aria-expanded="false" aria-label="Show all ' + count + ' required specimen collection paths for ' + escapeAttr(test.testName) + '">' +
-        '+' + extra + ' more required <span class="shared-chevron library-container-more-chevron" aria-hidden="true"></span>' +
+      '<button type="button" class="library-container-more" data-container-more data-id="' + escapeAttr(test.id) + '" aria-expanded="false" aria-label="Show required collection and submission containers for ' + escapeAttr(test.testName) + '">' +
+        moreText + ' <span class="shared-chevron library-container-more-chevron" aria-hidden="true"></span>' +
       '</button>' +
     '</div>';
   }
 
   function libraryContainerFlowCard(test) {
-    const routes = libraryContainerRoutes(test);
+    const routes = libraryContainerPreviewRoutes(test);
+    const originals = libraryContainerRoutes(test);
+    const onlyOneType = originals.length === 1;
+    const draws = Math.max(1, Number(test.collectionCount) || 1);
+    const submits = Math.max(1, Number(test.submissionCount) || 1);
+    const countLabel = onlyOneType && (draws > 1 || submits > 1)
+      ? (draws === submits ? draws + ' draw · ' + submits + ' submit containers'
+        : draws === 1 ? submits + ' separate submit containers'
+        : draws + ' draw · ' + submits + ' submit containers')
+      : routes.length + ' required container paths';
     return '<div class="library-container-preview-heading"><strong>Collection &amp; transport</strong>' +
-      '<span>' + routes.length + ' required containers</span></div>' +
+      '<span>' + escapeHtml(countLabel) + '</span></div>' +
       routes.map((route, index) => {
         const preferred = cleanVolumeDisplayText(route.preferredVolume);
         const minimum = cleanVolumeDisplayText(route.minimumVolume);
         const quantity = Math.max(1, Number(route.collectionCount) || 1);
-        const details = [preferred && 'Preferred: ' + preferred, minimum && 'Minimum: ' + minimum,
-          quantity > 1 && quantity + ' draw tubes'].filter(Boolean);
+        const submitQuantity = Math.max(1, Number(route.submissionCount) || 1);
+        const note = route._libraryRepeatedPair
+          ? 'Independent collection and submission; keep aliquots separate'
+          : route._librarySeparateAliquot
+            ? 'Separate transport aliquot; verify sufficient collected volume'
+            : quantity !== submitQuantity
+              ? quantity + ' collection tube(s) and ' + submitQuantity + ' submission container(s)'
+              : '';
+        const details = [preferred && 'Preferred: ' + preferred,
+          minimum && 'Minimum: ' + minimum, note].filter(Boolean);
         return '<section class="library-container-preview-route">' +
           '<div class="library-container-preview-route-heading"><span class="library-container-number">' + (index + 1) + '</span><strong>Container ' + (index + 1) + '</strong></div>' +
           '<div class="library-container-preview-path">' + menuSingleContainerPath(route) + '</div>' +
@@ -1022,7 +1068,7 @@
     }
     hideContainerFlowTip();
     const test = database.find(item => item.id === button?.dataset.id);
-    if (!test || !additionalDrawRequirements(test).length) return;
+    if (!test || !menuHasMultipleRoutes(test)) return;
     const tip = document.createElement('div');
     tip.id = 'library-container-flow-preview';
     tip.className = 'library-container-flow-preview';
@@ -2229,7 +2275,7 @@
     </tr>`;
     const selected = selectedIds.includes(test.id);
     const blocked = test.status === 'blocked';
-    const hasMultipleContainers = additionalDrawRequirements(test).length > 0;
+    const hasMultipleContainers = menuHasMultipleRoutes(test);
     const primaryDisplay = hasMultipleContainers ? { ...test, additionalDrawRequirements: [] } : test;
     const primaryOnlyNote = hasMultipleContainers ? '<div class="library-container-primary-note">First path only</div>' : '';
     return `<tr class="${selected ? 'is-selected' : ''}">
