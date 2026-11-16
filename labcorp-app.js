@@ -1703,7 +1703,7 @@
     return `<div class="batch-row ${rowClass}" data-batch-index="${row.index}">
       <div class="batch-query-block"><span class="batch-kicker">You entered</span><div class="batch-query">${escapeHtml(row.query)}</div></div>
       <div class="batch-match">
-        <div class="batch-match-title"><span class="batch-kicker">${choice === row.matches[0] ? 'Best match' : 'Selected match'}</span>${status}</div>
+        <div class="batch-match-title">${autoSafe ? '' : `<span class="batch-kicker">${choice === row.matches[0] ? 'Best match' : 'Selected match'}</span>`}${status}</div>
         <strong>${escapeHtml(displayCode(choice.test))} · ${escapeHtml(choice.test.testName)}</strong>${window.LabRegionalRestrictions.badge(choice.test, 'labcorp')}
         <div class="batch-match-meta">${blocked ? '<span>Collection review required</span>' : pending ? '<span>Collection details not verified</span>' : ''}${requiredSpecimenBadges(choice.test)}<span class="batch-meta-dot">·</span>${requiredDrawContainerBadges(choice.test)}${isStatEligible(choice.test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}</div>
         ${picker}
