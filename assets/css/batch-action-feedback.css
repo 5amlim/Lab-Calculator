@@ -95,3 +95,38 @@
     box-shadow: none !important;
   }
 }
+
+/* Three distinct warning pulses for unadded batch results.
+   Amber means a match needs confirmation. Coral means no usable match or
+   collection details still need review. Cart/review fade effects are unchanged. */
+@keyframes calculator-unresolved-three-pulses {
+  0%, 33.333%, 66.666%, 100% {
+    outline-color: transparent;
+    box-shadow: 0 0 0 0 rgba(var(--calculator-glow-rgb), 0),
+                0 0 0 rgba(var(--calculator-glow-rgb), 0);
+  }
+  16.666%, 50%, 83.333% {
+    outline-color: rgba(var(--calculator-glow-rgb), .96);
+    box-shadow: 0 0 0 4px rgba(var(--calculator-glow-rgb), .29),
+                0 0 22px rgba(var(--calculator-glow-rgb), .32);
+  }
+}
+#batchResults .batch-row.calculator-action-glow--confirm,
+#batchResults .batch-row.calculator-action-glow--issue {
+  animation-name: calculator-unresolved-three-pulses;
+  animation-timing-function: ease-in-out;
+}
+#batchResults .batch-row.calculator-action-glow--confirm {
+  --calculator-glow-rgb: 224, 151, 39;
+}
+#batchResults .batch-row.calculator-action-glow--issue {
+  --calculator-glow-rgb: 210, 85, 84;
+}
+@media (prefers-reduced-motion: reduce) {
+  #batchResults .batch-row.calculator-action-glow--confirm,
+  #batchResults .batch-row.calculator-action-glow--issue {
+    animation: none;
+    outline-color: rgba(var(--calculator-glow-rgb), .85);
+    box-shadow: 0 0 0 3px rgba(var(--calculator-glow-rgb), .16);
+  }
+}
