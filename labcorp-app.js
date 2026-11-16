@@ -183,6 +183,11 @@
 
   function init() {
     window.LabMarketAvailability.mount();
+    if (statArea !== 'unselected' && !window.LabMarketAvailability.statAreaCompatible(statArea)) {
+      statArea = 'unselected';
+      try { localStorage.setItem(STAT_AREA_KEY, statArea); } catch (_) {}
+      reconcileStatWithArea();
+    }
     document.addEventListener('labmarketchange', () => {
       const before = selectedIds.length;
       selectedIds = selectedIds.filter(id => {
@@ -190,6 +195,7 @@
         return !test || window.LabMarketAvailability.status(test, 'labcorp').kind !== 'restricted';
       });
       if (before !== selectedIds.length) saveSelected();
+      if (statArea !== 'unselected' && !window.LabMarketAvailability.statAreaCompatible(statArea)) changeStatArea('unselected');
       reconcileStatWithArea();
       renderAll();
       if (before > selectedIds.length) showToast((before - selectedIds.length) + ' market-restricted test(s) removed from the cart.');
@@ -1588,14 +1594,17 @@
       </div>`;
     }
     const choice = chosenBatchMatch(row);
-    const blocked = choice.test.status === 'blocked' || !window.LabMarketAvailability.canAdd(choice.test, 'labcorp');
+    const marketHold = !window.LabMarketAvailability.canAdd(choice.test, 'labcorp');
+    const blocked = choice.test.status === 'blocked' || marketHold;
     const pending = choice.test.status === 'pending';
     const autoSafe = canAutoAddBatchRow(row);
     const needsConfirmation = !blocked && !pending && !autoSafe;
     const selected = selectedIds.includes(choice.test.id);
     const rowClass = blocked || pending ? 'unmatched' : needsConfirmation ? 'needs-confirmation' : 'exact-match';
     const exactLabel = autoSafe ? 'Exact match' : 'Confirm test code/name';
-    const status = blocked
+    const status = marketHold
+      ? '<span class="batch-match-warning is-blocked">' + escapeHtml(window.LabMarketAvailability.status(choice.test, 'labcorp').label) + '</span>'
+      : blocked
       ? '<span class="batch-match-warning is-blocked">Review collection</span>'
       : pending ? '<span class="batch-match-warning">Verify LabCorp details</span>'
       : autoSafe
@@ -1654,7 +1663,7 @@
       <div class="batch-query-block"><span class="batch-kicker">You entered</span><div class="batch-query">${escapeHtml(row.query)}</div></div>
       <div class="batch-match">
         <div class="batch-match-title"><span class="batch-kicker">${choice === row.matches[0] ? 'Best match' : 'Selected match'}</span>${status}</div>
-        <strong>${escapeHtml(displayCode(choice.test))} · ${escapeHtml(choice.test.testName)}</strong>
+        <strong>${escapeHtml(displayCode(choice.test))} · ${escapeHtml(choice.test.testName)}</strong>${window.LabMarketAvailability.badge(choice.test, 'labcorp')}
         <div class="batch-match-meta">${blocked ? '<span>Collection review required</span>' : pending ? '<span>Collection details not verified</span>' : ''}${requiredSpecimenBadges(choice.test)}<span class="batch-meta-dot">·</span>${requiredDrawContainerBadges(choice.test)}${isStatEligible(choice.test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}</div>
         ${picker}
       </div>
@@ -1689,11 +1698,11 @@
           const selected = selectedIds.includes(test.id);
           return `<div class="batch-category-item">
             <div class="batch-category-test"><span class="batch-category-code">${escapeHtml(displayCode(test))}</span>
-              <span class="batch-category-name">${escapeHtml(test.testName)}</span>
+              <span class="batch-category-name">${escapeHtml(test.testName)}</span>${window.LabMarketAvailability.badge(test, 'labcorp')}
               ${isStatEligible(test) ? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT</span> eligible</span>' : ''}
             </div>
             <button type="button" class="mini-button batch-category-add" data-action="add-category-test"
-              data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" ${selected || test.status !== 'active' ? 'disabled' : ''}>${selected ? '✓ Added' : test.status === 'pending' ? 'Verification required' : '+ Add'}</button>
+              data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" ${selected || test.status !== 'active' || !window.LabMarketAvailability.canAdd(test, 'labcorp') ? 'disabled' : ''}>${selected ? '✓ Added' : test.status === 'pending' ? 'Verification required' : window.LabMarketAvailability.canAdd(test, 'labcorp') ? '+ Add' : 'Unavailable'}</button>
           </div>`;
         }).join('')}
       </div>
@@ -2622,6 +2631,7 @@
 
   function changeStatArea(value) {
     if (!STAT_AREAS[value] || value === statArea) return;
+    if (value !== 'unselected' && !window.LabMarketAvailability.statAreaCompatible(value)) { showToast('Choose a matching collection market before selecting this STAT receiving lab.'); return; }
     statAreaResetNotice = '';
     statArea = value;
     if (els.statAreaSelect) els.statAreaSelect.value = value;
