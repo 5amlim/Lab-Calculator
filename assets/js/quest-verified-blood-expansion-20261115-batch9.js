@@ -66,35 +66,6 @@ const additions=[
     "source": "Quest official test directory (verified 2026-11-15) • https://testdirectory.questdiagnostics.com/test/test-detail/10379/hemoglobin-a1c-with-eag-with-reflex-to-15-anhydroglucitol-15-ag?cc=MASTER"
   },
   {
-    "testCode": "17307",
-    "testName": "Alpha-1-Antitrypsin (AAT) Quantitation and Mutation Analysis",
-    "specimenType": "Serum",
-    "drawContainer": "SST / Gold",
-    "transportContainer": "Transport Tube",
-    "preferredVolume": "1 mL serum",
-    "minimumVolume": "0.5 mL serum",
-    "transportTemperature": "Refrigerated",
-    "stability": "Serum room/refrigerated 7 days; whole blood room/refrigerated 8 days; never freeze whole blood",
-    "spin": "Yes",
-    "specialInstructions": "TWO DISTINCT SPECIMENS: spun serum into green-badge Transport Tube, plus independent unspun EDTA whole blood for AAT mutation analysis. Keep EDTA original tube intact; separate from serum aliquot. Verify patient consent/attestation requirements in applicable states.",
-    "additionalDrawRequirements": [
-      {
-        "container": "Lavender EDTA",
-        "specimenType": "Whole Blood",
-        "count": 1,
-        "preferredVolume": "5 mL EDTA whole blood",
-        "minimumVolume": "2 mL",
-        "transportContainer": "Lavender EDTA (original tube)",
-        "transportTemperature": "Refrigerated",
-        "spin": "No",
-        "specialInstructions": "Draw and submit a separate intact EDTA tube. Do not spin or transfer; no freezing."
-      }
-    ],
-    "id": "quest-blood-verified-20261115-batch9-17307",
-    "status": "active",
-    "source": "Quest official test directory (verified 2026-11-15) • https://testdirectory.questdiagnostics.com/test/test-detail/17307/alpha-1-antitrypsin-aat-quantitation-and-mutation-analysis?cc=MASTER"
-  },
-  {
     "testCode": "58689",
     "testName": "Alternative Complement Pathway Functional, Serum (AH50)",
     "specimenType": "Serum",
