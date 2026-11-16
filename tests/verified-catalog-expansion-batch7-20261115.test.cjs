@@ -84,7 +84,7 @@ test('Catalog scripts load before calculators and selector fallback uses cart-re
  assert(read('index.html').includes('src="'+QUEST_BUNDLE+'?v=1"'));
  assert(read('labcorp.html').includes('src="'+LABCORP_BUNDLE+'?v=1"'));
  const counts=read('assets/js/lab-select.js');
- assert(counts.includes('quest:2825, cedars:39, labcorp:1510'));
+ assert(counts.includes('quest:2828, cedars:39, labcorp:1523'));
  for(const file of ['index.html','labcorp.html','cedars.html'])
-  assert(read(file).includes('assets/js/lab-select.js?v=9'));
+  assert(read(file).includes('assets/js/lab-select.js?v=10'));
 });
