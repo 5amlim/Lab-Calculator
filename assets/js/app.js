@@ -1156,7 +1156,14 @@
       .replace(/^labeled\s+transport\s+tube$/i, 'Transport tube')
       .replace(/\blabeled transport tube\b/gi, 'transport tube')
       .replace(/\s{2,}/g, ' ');
-    return cleanCollectionContainer(cleaned);
+    const container = cleanCollectionContainer(cleaned);
+    // Ordinary plastic transport tubes and vials use one stock label and icon.
+    // Preserve specialty media, timed/dedicated aliquots, and specimen/temperature
+    // requirements elsewhere in each test's collection record.
+    if (/^(?:transport tube|serum transport tube|plasma transport tube|frozen transport tube(?:\\s*\\(plastic screw-cap\\))?|plastic screw-cap serum transport vial|polypropylene transport tube|plastic serum transport tube)$/i.test(container)) {
+      return 'Transport Tube';
+    }
+    return container;
   }
 
 
@@ -5216,6 +5223,7 @@
       return material ? `tube-transport tube-metal-free-${material}-label` : 'tube-transport';
     }
 
+    if (/^transport tube$/.test(value)) return 'tube-transport tube-transport-green-top';
     if (isStandardSerumOrPlasma || /transport tube|transfer tube|transfer vial|aliquot|cryovial|screw[- ]?cap|pour[- ]?off|plastic.*(?:vial|container)/.test(value)) {
       // Ordinary serum/plasma plastic vials use the green-top transport badge; specialty devices do not.
       return isStandardSerumOrPlasma
