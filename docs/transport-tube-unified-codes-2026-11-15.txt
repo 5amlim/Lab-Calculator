@@ -552,6 +552,7 @@ QUEST CODES (intermediate scan; consolidated after all catalog layers)
 17255
 17286
 17306
+17307
 17406
 17408
 17454
@@ -616,7 +617,9 @@ QUEST CODES (intermediate scan; consolidated after all catalog layers)
 19573
 19583
 19595
+19651
 19654
+19671
 19672
 19674
 19705
@@ -635,6 +638,7 @@ QUEST CODES (intermediate scan; consolidated after all catalog layers)
 19887
 19894
 19899
+19903
 19946
 19955
 19963
