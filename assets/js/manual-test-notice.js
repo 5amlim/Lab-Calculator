@@ -35,7 +35,7 @@
       <div class="manual-notice-permanent">
         <span aria-hidden="true" class="manual-notice-spark">✳</span>
         <div><strong>Need this test available to everyone?</strong>
-          <p>Contact <strong>Sam Hay</strong> to request a permanent addition to the calculator.</p>
+          <p>Contact <strong>Sam Hay</strong> with the test code to have it added to the calculator for everyone.</p>
         </div>
       </div>
       <div class="manual-notice-actions">
