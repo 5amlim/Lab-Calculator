@@ -1,39 +1,59 @@
-/* Preserve independent collection and submission quantities in Quest's
-   published catalog. Runs after all catalog extensions, before app.js.
-   Do not convert a two-aliquot requirement into two draws without evidence. */
+/* Keep independently required draws and submit aliquots visible in Quest.
+   Runs after catalog extensions, before app.js. Never assume two aliquots
+   require two draws unless the directory instructions support that count. */
 (() => {
   'use strict';
   if (!Array.isArray(window.SEED_TESTS)) return;
   const words = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6,
     seven: 7, eight: 8, nine: 9, ten: 10 };
   const number = value => words[String(value).toLowerCase()] || Number(value) || 0;
-  // The directory describes a quantity of tubes, not a different tube type.
-  const quantityContainer = /^\s*(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+(?:(?:separate)\s+)?(?:(serum|polypropylene|plastic)\s+)?transport\s+tubes?\s*$/i;
-  // These have independently documented collection requirements, even where
-  // the older catalog text only specified repeated plasma aliquots.
+  const quantity = '(\\d+|one|two|three|four|five|six|seven|eight|nine|ten)';
+  const quantityContainer = new RegExp('^\\s*' + quantity +
+    '\\s+(?:(?:separate)\\s+)?(?:(serum|polypropylene|plastic)\\s+)?transport\\s+tubes?\\s*$', 'i');
+  const drawPattern = new RegExp('\\bDraw\\s+' + quantity +
+    '\\s+(?:separate\\s+)?(?:light[- ]blue[- ]top\\s+)?tubes?\\b', 'i');
+  const collectPattern = new RegExp('\\bCollect\\s+' + quantity +
+    '\\s+separate\\b[^.]{0,80}\\btubes?\\b', 'i');
+  const submitPattern = new RegExp('\\bSubmit\\s+' + quantity +
+    '\\s+(?:separate\\s+)?transport\\s+tubes?\\b', 'i');
   const verifiedTwoCitrateDraws = new Set(['7017','7942','8267','8754','8757','17854','39457']);
   for (const test of window.SEED_TESTS) {
     if (!test || test.status === 'reference' || test.status === 'blocked') continue;
-    const match = String(test.transportContainer || '').match(quantityContainer);
-    if (!match) continue;
-    const submit = number(match[1]);
-    if (!Number.isInteger(submit) || submit < 2 || submit > 10) continue;
-    test.submissionCount = Math.max(Number(test.submissionCount) || 1, submit);
-    const modifier = String(match[2] || '').toLowerCase();
-    test.transportContainer = modifier === 'polypropylene' ? 'Polypropylene Transport Tube'
-      : modifier === 'serum' ? 'Serum Transport Tube'
-      : modifier === 'plastic' ? 'Plastic Transport Tube' : 'Transport Tube';
     const instructions = String(test.specialInstructions || '');
-    const drawMatch = instructions.match(/\bDraw\s+(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+(?:separate\s+)?(?:light[- ]blue[- ]top\s+)?tubes?\b/i);
+    const drawMatch = instructions.match(drawPattern) || instructions.match(collectPattern);
     const explicitDraw = drawMatch ? number(drawMatch[1]) : 0;
-    if (explicitDraw > 1) test.collectionCount = Math.max(Number(test.collectionCount) || 1, explicitDraw);
-    if (submit === 2 && verifiedTwoCitrateDraws.has(String(test.testCode)) &&
-        /light\s+blue|citrate/i.test(test.drawContainer || '')) {
-      test.collectionCount = 2;
+    if (explicitDraw > 1 && explicitDraw <= 10)
+      test.collectionCount = Math.max(Number(test.collectionCount) || 1, explicitDraw);
+    const match = String(test.transportContainer || '').match(quantityContainer);
+    const normalizedTransport = match ? number(match[1]) : 0;
+    if (normalizedTransport >= 2 && normalizedTransport <= 10) {
+      test.submissionCount = Math.max(Number(test.submissionCount) || 1, normalizedTransport);
+      const modifier = String(match[2] || '').toLowerCase();
+      test.transportContainer = modifier === 'polypropylene' ? 'Polypropylene Transport Tube'
+        : modifier === 'serum' ? 'Serum Transport Tube'
+        : modifier === 'plastic' ? 'Plastic Transport Tube' : 'Transport Tube';
+      if (normalizedTransport === 2 && verifiedTwoCitrateDraws.has(String(test.testCode)) &&
+          /light\s+blue|citrate/i.test(test.drawContainer || '')) {
+        test.collectionCount = 2;
+      }
     }
-    // One EDTA tube deliberately split into TWO polypropylene aliquots.
+    // Also cover the directory records that say "Transport Tube" but require
+    // multiple distinct frozen aliquots in the collection instructions.
+    const submitted = instructions.match(submitPattern);
+    const submitCount = submitted ? number(submitted[1]) : 0;
+    if (submitCount > 1 && submitCount <= 10 &&
+        /(?:^|\\b)transport\\s+tubes?\\b/i.test(String(test.transportContainer || ''))) {
+      test.submissionCount = Math.max(Number(test.submissionCount) || 1, submitCount);
+    }
+    // A few panels explicitly require distinct primary tubes but are shipped
+    // in those same original tubes rather than poured into another vial.
+    if (['38287','94345'].includes(String(test.testCode)) &&
+        /\b(?:original|spun|SST|serum separator)\b/i.test(String(test.transportContainer || ''))) {
+      test.collectionCount = 2;
+      test.submissionCount = 2;
+    }
+    // These are intentional ONE-draw-to-TWO-aliquot workflows, not two draws.
     if (String(test.testCode) === '14258') test.collectionCount = 1;
-    // One red-top serum collection split into TWO refrigerated aliquots.
     if (String(test.testCode) === '37077') test.collectionCount = 1;
   }
 })();
