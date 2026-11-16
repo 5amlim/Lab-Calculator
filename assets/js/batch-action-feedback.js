@@ -74,13 +74,30 @@
       }
       if (!recentAdditions.size) return;
 
-      // Both cart presentations are rebuilt together. Highlight matching rows
-      // in each so the effect works in either view, even after another re-render.
+      // Keep cart highlights across rerenders of its regular and expanded views.
       for (const container of [overview, details]) {
         container.querySelectorAll('.tests-overview-row, .selected-card').forEach(row => {
           const id = row.querySelector('[data-action="remove"][data-id]')?.dataset.id;
           const remaining = recentAdditions.get(id) - now;
           if (remaining > 0) highlight(row, 'cart', remaining);
+        });
+      }
+
+      // The matching test card should confirm a successful addition too.
+      // These IDs come from actual changes to the cart, not from a click
+      // that could be cancelled, rejected, or already selected.
+      if (!results.classList.contains('hidden')) {
+        results.querySelectorAll('.batch-row:not(.batch-category-row)').forEach(row => {
+          const button = row.querySelector('.batch-main-add-toggle[data-id]');
+          const remaining = recentAdditions.get(button?.dataset.id) - now;
+          if (button?.disabled && remaining > 0) highlight(row, 'cart', remaining);
+        });
+        // Category search results have individual add buttons rather than
+        // a single match card. Only highlight the added category item.
+        results.querySelectorAll('.batch-category-item').forEach(item => {
+          const button = item.querySelector('.batch-category-add[data-id]');
+          const remaining = recentAdditions.get(button?.dataset.id) - now;
+          if (remaining > 0) highlight(item, 'cart', remaining);
         });
       }
     };
