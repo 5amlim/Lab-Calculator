@@ -4632,7 +4632,7 @@
     if (!isSterileCupCollectionItem(item)) return group;
     if (group !== 'other') return group;
     const label = collectionSpecimenBadgeForItem(item).toLowerCase();
-    return /(?:pleural|peritoneal|pericardial|synovial|ascitic|body) fluid|joint fluid/.test(label)
+    return /(?:pleural|peritoneal|pericardial|synovial|ascitic|pancreatic|body) fluid|joint fluid|jp drainage/.test(label)
       ? 'fluid' : 'other';
   }
 
@@ -5908,8 +5908,9 @@
       if (/\bswab\b/.test(specimen)) return ['Swab', 'swab'];
       if (/\b(?:csf|cerebrospinal)\b/.test(specimen)) return ['CSF', 'csf'];
       if (/\bsputum\b/.test(specimen)) return ['Sputum', 'sputum'];
-      if (/\b(?:pericardial|peritoneal|pleural|synovial)\b.*\bfluid\b/.test(specimen))
+      if (/\b(?:pericardial|peritoneal|pleural|synovial|pancreatic)\b.*\bfluid\b/.test(specimen))
         return [titleCaseSpecimen(test.specimenType), 'fluid'];
+      if (/\bjp drainage\b/.test(specimen)) return ['JP Drainage', 'fluid'];
       if (/\bsaliva\b/.test(specimen)) return ['Saliva', 'other'];
       if (/\btissue\b/.test(specimen)) return ['Tissue', 'other'];
       return ['Verify Specimen', 'other'];
