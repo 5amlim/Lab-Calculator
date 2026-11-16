@@ -45,3 +45,8 @@
     box-shadow: none !important;
   }
 }
+
+/* Keep the Search tests controls separate from an open Review matches card. */
+#batchResults:not(.hidden) + .filter-row {
+  margin-top: 24px;
+}
