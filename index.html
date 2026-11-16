@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="assets/css/manual-test-notice.css?v=20261115-2">
   <link rel="stylesheet" href="assets/css/portal-action-dialog.css?v=20261115-2">
   <link rel="stylesheet" href="assets/css/gestational-test-warnings.css?v=20261114-1">
-  <link rel="stylesheet" href="assets/css/market-availability.css?v=20261115-1">
+  <link rel="stylesheet" href="assets/css/market-restrictions.css?v=20261115-1">
 </head>
 <body data-gallery-lab="Q">
   <a class="skip-link" href="#libraryFilter">Skip to test search</a>
@@ -64,19 +64,6 @@
 <main class="app-shell no-print">
     <section class="workspace">
       <div class="panel library-panel">
-        <section class="market-context-bar no-print" aria-label="Collection market selection">
-          <div class="market-context-control">
-            <label for="collectionMarketSelect">Collection market</label>
-            <select id="collectionMarketSelect" aria-describedby="marketSelectionHelp" required>
-              <option value="">Choose market</option>
-              <option value="socal">Southern California</option>
-              <option value="norcal">Northern California</option>
-              <option value="ny">New York</option>
-              <option value="fl">Florida</option>
-            </select>
-          </div>
-          <span class="market-selection-help" id="marketSelectionHelp">Choose a market before adding tests. The STAT receiving lab is a separate setting.</span>
-        </section>
         <div class="panel-heading library-heading">
           <div>
             <div class="eyebrow">1. SELECT TESTS</div>
@@ -253,12 +240,6 @@
             <div id="selectedList" class="selected-list empty-state">No tests selected.</div>
           </div>
         </div>
-        <section id="marketReviewPanel" class="market-review-panel no-print" aria-label="Receiving-lab market verification">
-          <div class="market-review-title">Market availability review</div>
-          <p id="marketReviewDescription" class="market-review-description">Select a market and add tests to review local receiving-lab acceptance.</p>
-          <label class="market-review-check"><input type="checkbox" id="marketAcceptanceCheck" disabled><span id="marketAcceptanceLabel">I confirmed acceptance of each selected test with the receiving laboratory and account.</span></label>
-          <p class="market-review-caption">A national directory listing or STAT menu does not establish routine acceptance in every market. This confirmation applies only to the current cart.</p>
-        </section>
       </section>
 
       <details class="summary-section cart-collapse" id="drawPlanSection">
@@ -507,8 +488,8 @@
 <script src="assets/js/quest-missing-directory-loader-20261114.js?v=1"></script>
 <script src="assets/js/batch-inline-hints.js?v=20261115-2"></script>
 <script src="assets/js/portal-action-dialog.js?v=20261115-2"></script>
-  <script src="assets/js/market-availability.js?v=20261115-1"></script>
-<script src="assets/js/app.js?v=marketguard-20261115-1"></script>
+<script src="assets/js/market-restrictions.js?v=20261115-1"></script>
+  <script src="assets/js/app.js?v=regional-flags-20261115-1"></script>
   <script src="assets/js/portal-selects.js?v=11.94"></script>
   <script src="assets/js/lab-select.js?v=13"></script>
   <script src="assets/js/scroll-cues.js?v=1"></script>
