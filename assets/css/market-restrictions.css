@@ -1,0 +1,42 @@
+/* Only tests with a documented regional limitation receive this inline flag. */
+.regional-restriction-badge {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  margin-left: 7px;
+  padding: 3px 7px;
+  border: 1px solid rgba(177, 99, 25, .25);
+  border-radius: 999px;
+  background: rgba(196, 116, 29, .09);
+  color: #99520e;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: .005em;
+  white-space: normal;
+}
+.regional-restriction-print {
+  padding: 8px 11px;
+  margin: 9px 0;
+  border: 1px solid rgba(177, 99, 25, .45);
+  border-radius: 7px;
+  background: #fff9ee;
+  color: #573611;
+  font-size: 10px;
+  line-height: 1.45;
+  break-inside: avoid;
+}
+.regional-restriction-print strong { display: block; margin-bottom: 4px; font-size: 11px; }
+.regional-restriction-print ul { margin: 4px 0; padding-left: 16px; }
+.regional-restriction-print li + li { margin-top: 3px; }
+.regional-restriction-print p { margin: 4px 0 0; }
+@media print {
+  .regional-restriction-badge {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .regional-restriction-print {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

@@ -56,6 +56,13 @@ Each added record includes the official directory source, collection/transport c
 
 **Important:** Quest's MASTER directory does not guarantee regional availability, and a verified national specimen route is not necessarily approved by the receiving service area. Confirm local acceptance, collection capability and current lab instructions before patient collection. This pass includes record-schema and duplicate/load-order checks, but not a full browser end-to-end test of every new draw plan.
 
+
+## Explicit regional test flags (November 2026)
+
+Quest and LabCorp test search results, batch matches and cart entries show a compact amber badge **only** when the laboratory explicitly documents a patient-state or regional restriction for that exact test code. Known restrictions also appear on collection printouts. All ordinary tests keep their original display and all existing Add / STAT controls remain unchanged. There is no market selector, broad verification badge, or new approval step.
+
+Rules and official-directory source URLs: `assets/js/market-restrictions.js`. The initial set includes Quest California patient codes (`90368`, `90369`, `90372`), their non-California counterparts (`335`, `39481`), specific NY-only and NY-ineligible codes, and LabCorp blood lead filter-paper code `791280` (not available in CA or NY). These flags reflect **patient-state or test-code restrictions** and do not assert that other markets or receiving laboratories accept the test. Add further flags only when the exact code and limitation have a verified official source. Run `node --test tests/market-restrictions.test.cjs` for coverage.
+
 ## Adding LabCorp tests
 
 LabCorp assay definitions are intentionally separate from Quest and Cedars. For each new LabCorp code, verify the test-specific collection and submission requirements before adding it. Include specimen type, draw and submit containers, minimum/preferred volume, transport temperature, stability, spin/processing, and test-specific handling.
