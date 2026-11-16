@@ -33,7 +33,7 @@
       event.preventDefault();
       event.stopPropagation();
       const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      cart.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      cart.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
 
       // Briefly emphasize the destination, then restore its normal appearance.
       window.clearTimeout(cartAccentTimer);
