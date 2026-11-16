@@ -13,7 +13,7 @@
   const drawPattern = new RegExp('\\bDraw\\s+' + quantity +
     '\\s+(?:separate\\s+)?(?:light[- ]blue[- ]top\\s+)?tubes?\\b', 'i');
   const collectPattern = new RegExp('\\bCollect\\s+' + quantity +
-    '\\s+separate\\b[^.]{0,80}\\btubes?\\b', 'i');
+    '\\s+separate\\b[^;]{0,95}?\\btubes?\\b', 'i');
   const submitPattern = new RegExp('\\bSubmit\\s+' + quantity +
     '\\s+(?:separate\\s+)?transport\\s+tubes?\\b', 'i');
   const verifiedTwoCitrateDraws = new Set(['7017','7942','8267','8754','8757','17854','39457']);
@@ -51,6 +51,14 @@
         /\b(?:original|spun|SST|serum separator)\b/i.test(String(test.transportContainer || ''))) {
       test.collectionCount = 2;
       test.submissionCount = 2;
+    }
+    // Independently documented multi-vial citrate panels. The existing
+    // collection planner already reserves these respective tube counts.
+    const knownCitratePanelCounts = { '15540': 4, '19790': 4, '33743': 5 };
+    const panelCount = knownCitratePanelCounts[String(test.testCode)];
+    if (panelCount && /light\\s+blue|citrate/i.test(String(test.drawContainer || ''))) {
+      test.collectionCount = panelCount;
+      test.submissionCount = panelCount;
     }
     // These are intentional ONE-draw-to-TWO-aliquot workflows, not two draws.
     if (String(test.testCode) === '14258') test.collectionCount = 1;
