@@ -184,3 +184,10 @@
     }
   }
 }
+
+/* Exact matches have one clear green status badge, not a secondary label. */
+#batchResults .batch-match-title .batch-match-exact {
+  background: #e4f5e9;
+  color: #1b7049;
+  border: 1px solid #b9e3cb;
+}
