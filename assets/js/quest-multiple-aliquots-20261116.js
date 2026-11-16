@@ -42,7 +42,7 @@
     const submitted = instructions.match(submitPattern);
     const submitCount = submitted ? number(submitted[1]) : 0;
     if (submitCount > 1 && submitCount <= 10 &&
-        /(?:^|\\b)transport\\s+tubes?\\b/i.test(String(test.transportContainer || ''))) {
+        /\btransport\s+tubes?\b/i.test(String(test.transportContainer || ''))) {
       test.submissionCount = Math.max(Number(test.submissionCount) || 1, submitCount);
     }
     // A few panels explicitly require distinct primary tubes but are shipped
