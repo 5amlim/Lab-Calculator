@@ -1093,7 +1093,14 @@
       .replace(/\blabeled transport tube\b/gi, 'transport tube')
       .replace(/\s*\(original device\)\s*$/i, '')
       .replace(/\s{2,}/g, ' ');
-    return cleanCollectionContainer(cleaned);
+    const container = cleanCollectionContainer(cleaned);
+    // Standard plastic serum/plasma transport aliases are the same stock
+    // vessel in the catalog. Keep Labcorp frozen purple-cap transport separate
+    // because it is a distinct supplied device (PP Transpak 49482).
+    if (/^(?:transport tube|serum transport tube|plasma transport tube|plastic screw-cap serum transport vial|polypropylene transport tube|plastic serum transport tube)$/i.test(container)) {
+      return 'Transport Tube';
+    }
+    return container;
   }
 
 
@@ -5082,6 +5089,7 @@
       return 'tube-transport tube-metal-free-neutral';
     }
 
+    if (/^transport tube$/.test(value)) return 'tube-transport tube-transport-green-top';
     if (isStandardSerumOrPlasma || /transport tube|transfer tube|transfer vial|aliquot|cryovial|screw[- ]?cap|pour[- ]?off|plastic.*(?:vial|container)/.test(value)) {
       // Ordinary serum/plasma plastic vials use the green-top transport badge; specialty devices do not.
       return isStandardSerumOrPlasma
