@@ -87,6 +87,13 @@ for (const filename of ['assets/js/app.js', 'labcorp-app.js']) {
         'Transfer stool from the collection cup using a swab.'),
       specimen('swab-special', 'Swab', 'Swab Collection Kit', 'Special Transfer Vial',
         'Transfer the specimen into another tube.'),
+      specimen('quest-14263', 'Vaginal Swab',
+        'COPAN FLOQSwab 552C.RM (self-collected in healthcare setting)',
+        'ThinPrep vial (swab transferred immediately)',
+        'Immediately transfer the collected swab into the ThinPrep vial.'),
+      specimen('labcorp-008540', 'Swab or Material from Infected Site',
+        'Clean Glass Slide (air dried)', 'Clean Glass Slide in Slide Holder',
+        'Roll swab onto clean slide, air dry, and submit in slide holder.'),
       specimen('pap-aptima', 'Cervical Cytology Fluid', 'PreservCyt Pap Vial',
         'Aptima Pap-vial transfer tube (green label)', 'Transfer from the original Pap vial.')
     ];
