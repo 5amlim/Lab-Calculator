@@ -45,6 +45,42 @@
     });
   }
 
+  function watchNewCartItems() {
+    const overview = $('testsOverviewList');
+    const details = $('selectedList');
+    if (!overview || !details) return;
+
+    // The existing remove controls carry each test's unique ID, so the cue
+    // follows actual cart additions rather than a change in the total count.
+    const selectedIds = () => new Set(
+      Array.from(overview.querySelectorAll('.tests-overview-remove[data-id]'),
+        button => button.dataset.id).filter(Boolean)
+    );
+    let previouslySelected = selectedIds();
+
+    const onCartChange = () => {
+      const current = selectedIds();
+      const added = new Set([...current].filter(id => !previouslySelected.has(id)));
+      previouslySelected = current;
+      if (!added.size) return;
+
+      // Both cart presentations are rebuilt together. Highlight matching rows
+      // in each so the effect also works when expanded details are visible.
+      for (const container of [overview, details]) {
+        container.querySelectorAll('.tests-overview-row, .selected-card').forEach(row => {
+          const id = row.querySelector('[data-action="remove"][data-id]')?.dataset.id;
+          if (added.has(id)) highlight(row, 'cart');
+        });
+      }
+    };
+
+    const observer = new MutationObserver(onCartChange);
+    observer.observe(overview, { childList: true });
+    observer.observe(details, { childList: true });
+  }
+
+  watchNewCartItems();
+
   function trigger(kind) {
     if (!search.value.trim()) return;
     const before = selectedCount();
