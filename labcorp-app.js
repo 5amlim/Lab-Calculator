@@ -635,6 +635,7 @@
     // a second tube. Preserve the site in the specimen column while treating
     // the actual Amies/viral/Aptima swab kit as both draw and submit container.
     if (/\bswab\b/i.test(specimenType) &&
+        !/\b(?:urine|stool|feces|faeces|fecal|faecal)\b/i.test(specimenType) &&
         /(?:swab|amies|aptima|cobas|viral transport|\butm\b|\bvtm\b)/i.test(transportContainer) &&
         !/^(?:verify|other \/ verify)/i.test(transportContainer)) {
       if (/^swab$/i.test(specimenType) &&
