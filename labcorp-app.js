@@ -5386,6 +5386,25 @@
       ];
     }
 
+    // Multiple compatible unpreserved stool assays from the same bowel movement
+    // share one original sterile cup. Keep different sources, timed collections,
+    // dedicated kits, and separately submitted specimens distinct.
+    if (collectionSpecimenGroupForTest(test) === 'stool'
+        && cleanCollectionContainer(test.drawContainer) === 'Sterile cup'
+        && cleanCollectionContainer(transport) === 'Sterile cup'
+        && explicitSubmissionCount(test) === 1
+        && isShareableStoolSourceTest(test)) {
+      return [{
+        key: 'original-stool-cup|shared',
+        label: 'Sterile cup',
+        className: 'tube-urine-cup',
+        originalTube: true,
+        shareableOriginalStoolCup: true,
+        count: 1,
+        detail: 'Submit original unpreserved stool cup; no transfer'
+      }];
+    }
+
     if (isOriginalContainerSubmission(test)) return [originalContainerSubmission(test)];
 
     if (isCultureTransportEligible(test) && /uri[- ]?sponge/i.test(transport)) {
@@ -5519,7 +5538,7 @@
         // Compatible direct-submit urine assays can share the very same
         // original sterile cup within a bag, provided volume is sufficient.
         // Dedicated or different urine collection types are never merged.
-        if (container.shareableOriginalUrineCup) item.count = Math.max(item.count, container.count);
+        if (container.shareableOriginalUrineCup || container.shareableOriginalStoolCup) item.count = Math.max(item.count, container.count);
         else item.count += item.tests.length ? container.count : 0;
         if (!item.detail && container.detail) item.detail = container.detail;
         item.tests.push(test);
