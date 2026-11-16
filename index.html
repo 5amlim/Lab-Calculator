@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="assets/css/gestational-test-warnings.css?v=20261114-1">
   <link rel="stylesheet" href="assets/css/market-restrictions.css?v=20261115-1">
   <link rel="stylesheet" href="assets/css/batch-action-feedback.css?v=20261116-6">
+  <link rel="stylesheet" href="assets/css/test-directory-section.css?v=20261116-1">
 </head>
 <body data-gallery-lab="Q">
   <a class="skip-link" href="#libraryFilter">Skip to test search</a>
@@ -94,6 +95,13 @@
       </section>
 
         <div id="batchResults" class="panel batch-panel hidden" aria-live="polite"></div>
+
+        <section class="catalog-browser-section" aria-labelledby="catalogBrowserTitle">
+          <header class="catalog-browser-heading">
+            <span class="catalog-browser-kicker">Test directory</span>
+            <h3 id="catalogBrowserTitle">Browse tests</h3>
+            <p>Search available tests and review collection requirements.</p>
+          </header>
 
         <div class="filter-row">
           <div class="library-search"><label class="field-label" for="libraryFilter">Search tests</label><div class="calc-autocomplete-field" id="libraryAutocomplete"><input id="libraryFilter" type="search" placeholder="Name, code, or category (e.g. STI, GI, CBC)" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="librarySuggestions"><div id="librarySuggestions" class="calc-suggestions hidden" role="listbox" aria-label="Suggested Quest tests"></div></div></div>
@@ -185,6 +193,7 @@
           <div class="library-footer-actions"><button class="button ghost" id="loadMoreButton">Show more tests</button><button class="button browser-custom-clear" id="clearBrowserTestsButton" type="button" disabled title="Only manual entries saved in this browser; packaged tests stay">Clear manual entries <span id="browserCustomCount"></span></button></div>
         </div>
         <p class="library-help">Can’t find a test? <a href="https://testdirectory.questdiagnostics.com/" target="_blank" rel="noreferrer">Check the official directory ↗</a> or contact Sam to have it added.</p>
+        </section>
       </div>
     </section>
 
