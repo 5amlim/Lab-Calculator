@@ -200,6 +200,9 @@
     return '';
   }
   function childOptionsFor(item, parent) {
+    // Only actual specimen categories open submenus. Empty placeholder values
+    // must remain normal choices so users can clear the selection.
+    if (!Object.prototype.hasOwnProperty.call(specimenSideGroups, parent)) return [];
     return [...item.select.options].filter(option =>
       !option.hidden && !option.disabled &&
       specimenGroupForValue(item, option.value) === parent);
