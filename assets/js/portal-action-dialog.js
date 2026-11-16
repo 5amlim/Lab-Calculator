@@ -6,6 +6,9 @@
   const queue = [];
   let active = null;
   let dialog = null;
+  // Closing a native dialog dispatches its close event asynchronously.
+  // Do not open the next queued confirmation until that event has fired.
+  let closing = false;
 
   function ensureDialog() {
     if (dialog?.isConnected) return dialog;
@@ -44,8 +47,9 @@
       if (event.target === dialog) settle(false);
     });
     dialog.addEventListener('close', () => {
-      // The native close event fires after the current dialog is fully closed.
-      // Wait for it before showing the next queued dialog.
+      // A previous confirmation must not dismiss a newer one. The close event
+      // belongs to the dialog that just finished, not a pending queued action.
+      closing = false;
       if (active) {
         const dismissed = active;
         active = null;
@@ -60,14 +64,18 @@
     if (!active) return;
     const item = active;
     active = null;
+    // Set the closing guard before resolving the promise, since an awaiting
+    // handler may immediately request a second confirmation (e.g. STAT).
+    if (dialog?.open) {
+      closing = true;
+      dialog.close();
+    }
     item.resolve(Boolean(accepted));
-    // Wait for the close event before opening another queued action dialog.
-    if (dialog?.open) dialog.close();
-    else Promise.resolve().then(pump);
+    if (!closing) Promise.resolve().then(pump);
   }
 
   function pump() {
-    if (active || !queue.length) return;
+    if (active || closing || !queue.length) return;
     if (!document.body) {
       document.addEventListener('DOMContentLoaded', pump, { once: true });
       return;
