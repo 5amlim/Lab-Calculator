@@ -162,6 +162,13 @@
     item.submenu = null;
     item.submenuAnchor = null;
   }
+  // Returning from a nested specimen menu must not immediately reopen it
+  // when keyboard focus moves back onto the parent option.
+  function returnToSpecimenCategories(item, parentChoice) {
+    clearSubmenu(item);
+    item.submenuReturnTarget = parentChoice;
+    parentChoice.focus({preventScroll:true});
+  }
   function positionSubmenu(item) {
     if (!item?.submenu || !item.menu || !item.submenuAnchor) return;
     const main = item.menu.getBoundingClientRect();
@@ -187,6 +194,7 @@
       return;
     }
     clearSubmenu(item);
+    item.submenuReturnTarget = null;
     const submenu = document.createElement('div');
     submenu.className = 'portal-select-menu portal-select-submenu';
     submenu.setAttribute('role','listbox');
@@ -198,9 +206,9 @@
     heading.textContent = '← ' + parent + ' types';
     heading.setAttribute('aria-label','Back to specimen categories');
     heading.addEventListener('click', e => {
+      e.preventDefault();
       e.stopPropagation();
-      clearSubmenu(item);
-      parentChoice.focus();
+      returnToSpecimenCategories(item, parentChoice);
     });
     submenu.append(heading);
     options.forEach((option, index) => {
@@ -228,8 +236,7 @@
       const index = choices.indexOf(document.activeElement);
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
-        clearSubmenu(item);
-        parentChoice.focus();
+        returnToSpecimenCategories(item, parentChoice);
       } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp' ||
                  e.key === 'Home' || e.key === 'End') {
         e.preventDefault();
@@ -336,10 +343,22 @@
           openSubmenu(item,choice,option.value,root,true);
         });
         choice.append(arrow);
-        choice.addEventListener('pointerenter', () =>
-          openSubmenu(item,choice,option.value,root));
-        choice.addEventListener('focus', () =>
-          openSubmenu(item,choice,option.value,root));
+        choice.addEventListener('pointerenter', () => {
+          if (item.submenuReturnTarget === choice) return;
+          openSubmenu(item,choice,option.value,root);
+        });
+        choice.addEventListener('focus', () => {
+          if (item.submenuReturnTarget === choice) return;
+          openSubmenu(item,choice,option.value,root);
+        });
+        // Only suppress the immediate re-entry after Back. A later hover,
+        // keyboard revisit, chevron click, or ArrowRight may open it normally.
+        choice.addEventListener('pointerleave', () => {
+          if (item.submenuReturnTarget === choice) item.submenuReturnTarget = null;
+        });
+        choice.addEventListener('blur', () => {
+          if (item.submenuReturnTarget === choice) item.submenuReturnTarget = null;
+        });
       } else {
         choice.addEventListener('pointerenter', () => clearSubmenu(item));
         choice.addEventListener('focus', () => clearSubmenu(item));
