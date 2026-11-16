@@ -1832,7 +1832,15 @@
     if (original) return ['original'];
     if (/^(lavender edta|edta lavender top tube|gray top|gray fluoride oxalate|yellow acd b)$/.test(value))
       return ['original'];
-    if (/aptima/.test(value)) return ['aptima'];
+    if (/aptima/.test(value)) {
+      const specimen = normalizeSearch(test.specimenType || '');
+      const source = normalizeSearch(test.drawContainer || '');
+      if (/\burine\b/.test(specimen) || /\burine\b/.test(value)) return ['aptima', 'aptima-urine'];
+      if (/\bunisex\b|white label/.test(value + ' ' + source)) return ['aptima', 'aptima-unisex'];
+      if (/multitest|multi test|orange label/.test(value + ' ' + source) || /\bswab\b/.test(specimen))
+        return ['aptima', 'aptima-multitest'];
+      return ['aptima', 'aptima-other'];
+    }
     if (/viral|vcm|utm|transport media/.test(value)) return ['viral'];
     if (/total fix|stool container/.test(value)) return ['stool'];
     if (/sterile (?:urine )?cup/.test(value)) return ['sterile-cup'];
@@ -5167,14 +5175,22 @@
     if (/\baffirm\b|\batts\b/.test(value)) return 'tube-affirm';
     if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
     if (/urinalysis\s+transport\s+tube/i.test(value) && /yellow[- ]top|blue\s+fill/i.test(value)) return 'tube-ua-yellow';
-    if (/aptima/.test(value) && /\burine\b/i.test(String(test.specimenType || ''))) return 'tube-aptima-urine';
-    if (/aptima/.test(value)) return 'tube-aptima';
+    if (/aptima/.test(value)) {
+      const drawn = String(test.drawContainer || '').toLowerCase() + ' ' + value;
+      if (/\burine\b/i.test(String(test.specimenType || '')) || /\burine\b/.test(value))
+        return 'tube-aptima-urine';
+      if (/\bunisex\b|white[- ]?label/.test(drawn)) return 'tube-aptima-unisex';
+      if (/pap[- ]?vial|green[- ]?label|specimen transfer/.test(drawn)) return 'tube-aptima-transfer';
+      return 'tube-aptima';
+    }
     if (/amber|protect from light|light[- ]?protected/.test(value)) return 'tube-amber';
 
     // Quest metal-free transport vials have white caps and clear bodies.
     // The LABEL is red for serum and purple for plasma, whole blood, or RBCs.
     // Use specimen identity first; the container label is a fallback.
     if (isSpecialtyMetalContainer) {
+      if (/\burine\b/.test(specimen) || /\burine\b|\bcup\b/.test(value))
+        return 'tube-trace-metal-container';
       const material = /\b(?:plasma|whole blood|blood|rbcs?|red blood cells?|packed red cells?)\b/i.test(specimen)
         ? 'purple'
         : /\bserum\b/i.test(specimen)
@@ -6957,6 +6973,8 @@
     if (/\butm\b|\bvtm\b|universal transport medium|viral transport medium/.test(value)) return 'tube-utm';
     if (/\baffirm\b|\batts\b/.test(value)) return 'tube-affirm';
     if (/aptima/.test(value) && /\burine\b/.test(value)) return 'tube-aptima-urine';
+    if (/aptima/.test(value) && /\bunisex\b|white[- ]?label/.test(value)) return 'tube-aptima-unisex';
+    if (/aptima/.test(value) && /pap[- ]?vial|green[- ]?label|specimen transfer/.test(value)) return 'tube-aptima-transfer';
     if (/aptima/.test(value)) return 'tube-aptima';
     if (/total[- ]?fix/.test(value)) return 'tube-total-fix';
     if (/(?:trace[ -]?metal[- ]?free|acid[- ]?washed).*container|container.*(?:trace[ -]?metal[- ]?free|acid[- ]?washed)/.test(value)) return 'tube-trace-metal-container';
