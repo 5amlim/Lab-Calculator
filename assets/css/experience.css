@@ -1944,3 +1944,35 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     outline-offset: 2px;
   }
 }
+
+/* Context-aware reverse shortcut: show this instead of View cart on Cart. */
+@media screen {
+  .mobile-search-return { display: none; }
+}
+@media screen and (max-width: 1100px) {
+  .mobile-search-return.is-in-cart {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: fixed;
+    bottom: 16px;
+    right: 20px;
+    z-index: 120;
+    padding: 12px 18px;
+    border-radius: 12px;
+    background: #142f46;
+    box-shadow: 0 5px 20px #142f4630;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-decoration: none;
+    touch-action: manipulation;
+  }
+  .mobile-search-return.is-in-cart > span { color: #89e2d7; font-size: 17px; line-height: 1; }
+  .mobile-search-return.is-in-cart:focus-visible {
+    outline: 3px solid #118a96;
+    outline-offset: 3px;
+  }
+}
