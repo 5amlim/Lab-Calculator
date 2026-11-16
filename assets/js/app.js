@@ -1816,7 +1816,18 @@
         ? ['urine-ua', 'urine-culture'] : ['urine-ua'];
     if (/gray top urine|urine culture|urisponge/.test(value)) return ['urine-culture'];
     if (/amber|light protected|protect from light/.test(value)) return ['amber'];
-    if (/acid washed|metal free|trace element|trace metal/.test(value)) return ['metal'];
+    if (/acid washed|metal free|trace element|trace metal/.test(value)) {
+      const specimen = normalizeSearch(test.specimenType || '');
+      // Distinguish the submitted material, while retaining the legacy metal key.
+      if (/\burine\b/.test(specimen) || /\burine\b|\bcup\b/.test(value))
+        return ['metal', 'metal-urine'];
+      if (/\bserum\b/.test(specimen) || /\bserum\b/.test(value))
+        return ['metal', 'metal-serum'];
+      if (/\bplasma\b|\bwhole blood\b|\brbcs?\b|\bred blood cells?\b/.test(specimen) ||
+          /\bplasma\b|\bwhole blood\b|\brbcs?\b/.test(value))
+        return ['metal', 'metal-purple'];
+      return ['metal', 'metal-other'];
+    }
     if (/sst|gold spun/.test(value)) return ['sst'];
     if (original) return ['original'];
     if (/^(lavender edta|edta lavender top tube|gray top|gray fluoride oxalate|yellow acd b)$/.test(value))
@@ -5149,10 +5160,14 @@
     const specimen = normalizeSpecimenType(test.specimenType).toLowerCase();
     const specimenAndContainer = `${specimen} ${value}`;
     const isStandardSerumOrPlasma = isGenericSerumPlasmaTransport(test, container);
-    const isSpecialtyMetalContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal/.test(value);
+    const isSpecialtyMetalContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?(?:metal|element)/.test(value);
 
+    if (/e[- ]?swab|\bliquid\s+amies\b|\bamies\s+liquid\b/.test(value)) return 'tube-eswab';
+    if (/\butm\b|\bvtm\b|universal transport medium|viral transport medium/.test(value)) return 'tube-utm';
+    if (/\baffirm\b|\batts\b/.test(value)) return 'tube-affirm';
     if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
     if (/urinalysis\s+transport\s+tube/i.test(value) && /yellow[- ]top|blue\s+fill/i.test(value)) return 'tube-ua-yellow';
+    if (/aptima/.test(value) && /\burine\b/i.test(String(test.specimenType || ''))) return 'tube-aptima-urine';
     if (/aptima/.test(value)) return 'tube-aptima';
     if (/amber|protect from light|light[- ]?protected/.test(value)) return 'tube-amber';
 
@@ -6938,6 +6953,10 @@
     if (/microtainer/.test(value)) return 'tube-microtainer';
     if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
     if (/urinalysis\s+transport\s+tube/i.test(value) && /yellow[- ]top|blue\s+fill/i.test(value)) return 'tube-ua-yellow';
+    if (/e[- ]?swab|\bliquid\s+amies\b|\bamies\s+liquid\b/.test(value)) return 'tube-eswab';
+    if (/\butm\b|\bvtm\b|universal transport medium|viral transport medium/.test(value)) return 'tube-utm';
+    if (/\baffirm\b|\batts\b/.test(value)) return 'tube-affirm';
+    if (/aptima/.test(value) && /\burine\b/.test(value)) return 'tube-aptima-urine';
     if (/aptima/.test(value)) return 'tube-aptima';
     if (/total[- ]?fix/.test(value)) return 'tube-total-fix';
     if (/(?:trace[ -]?metal[- ]?free|acid[- ]?washed).*container|container.*(?:trace[ -]?metal[- ]?free|acid[- ]?washed)/.test(value)) return 'tube-trace-metal-container';
@@ -6955,6 +6974,15 @@
       if (/heparin|green band|green stripe/.test(value)) return 'tube-royal-heparin';
       if (/edta|purple stripe|purple strip|lavender stripe|lavender strip/.test(value)) return 'tube-royal-edta';
       return 'tube-royal';
+    }
+
+    if (/acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?(?:metal|element)/.test(value)) {
+      if (/\burine\b|\bcup\b|plastic\s+container/.test(value) &&
+          !/\b(?:serum|plasma|whole blood|rbcs?)\b/.test(value)) return 'tube-trace-metal-container';
+      if (/\bserum\b|red[- ]?label/.test(value)) return 'tube-transport tube-metal-free-red-label';
+      if (/\bplasma\b|\bwhole blood\b|\brbcs?\b|purple[- ]?label/.test(value))
+        return 'tube-transport tube-metal-free-purple-label';
+      return 'tube-trace-metal-container';
     }
 
     if (value.includes('tan')) return 'tube-tan';
