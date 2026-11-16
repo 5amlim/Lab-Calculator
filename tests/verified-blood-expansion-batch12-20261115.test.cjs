@@ -5,7 +5,7 @@ const fs=require('node:fs'), path=require('node:path'), vm=require('node:vm');
 const root=path.join(__dirname,'..');
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const bundles={
-  quest:{file:'assets/js/quest-verified-blood-expansion-20261115-batch12.js',page:'index.html',app:'assets/js/app.js',codes:['15584','16485','92416','90382','93893','38312','37093','93883']},
+  quest:{file:'assets/js/quest-verified-blood-expansion-20261115-batch12.js',page:'index.html',app:'assets/js/app.js',codes:['16485','37838','37866']},
   labcorp:{file:'assets/js/labcorp/catalog/verified-blood-expansion-20261115-batch12.js',page:'labcorp.html',app:'labcorp-app.js',codes:['520018','520023','163050','520158','520119','004575']}
 };
 const apply=(type,initial=[])=>{
@@ -25,8 +25,8 @@ test('Every order code is a unique active blood record with a source and support
   const rows=apply(lab);assert.equal(rows.length,b.codes.length);
   for(const code of b.codes){
    const r=rows.find(t=>t.testCode===code);assert(r,code);
-   assert.equal(r.status,'active');assert.equal(r.spin,['15584'].includes(code)?'No':'Yes');
-   assert(['Whole Blood','Serum'].includes(r.specimenType));
+   assert.equal(r.status,'active');assert.equal(r.spin,'Yes');
+   assert.equal(r.specimenType,'Serum');
    for(const k of ['testName','drawContainer','transportContainer','preferredVolume','minimumVolume','transportTemperature','stability','specialInstructions','source'])assert(r[k],code+' '+k);
    assert.match(r.source,/https:\/\//);
    assert.equal(r.collectionCount,1);assert.equal(r.submissionCount,1);
@@ -35,17 +35,16 @@ test('Every order code is a unique active blood record with a source and support
   }
  }
 });
-test('Quest preserves intact whole blood, no-gel serum, and standard green-badge transport nomenclature',()=>{
- const rows=apply('quest'), get=code=>rows.find(r=>r.testCode===code);
- assert.equal(get('15584').transportContainer,'Lavender EDTA (original tube)');
- assert.equal(get('15584').spin,'No');
- for(const code of ['93893','38312']){
-  assert.equal(get(code).drawContainer,'Red Top');assert.match(get(code).specialInstructions,/no gel|NO GEL/i);
+test('Quest HDL and liver antibody routes use one green-badge transport type and preserve fasting notices',()=>{
+ const rows=apply('quest'),get=code=>rows.find(r=>r.testCode===code);
+ assert.equal(rows.length,3);
+ for(const r of rows){assert.equal(r.transportContainer,'Transport Tube');assert.equal(r.transportTemperature,'Refrigerated');assert.equal(r.drawContainer,'SST / Gold');}
+ for(const code of ['37838','37866']){
+  const r=get(code);assert.match(r.specialInstructions,/fast 10-12 hours/i);
+  assert.match(r.specialInstructions,/ship the same day/i);
+  assert.match(r.stability,/Room temperature unacceptable/);
  }
- for(const r of rows.filter(r=>r.testCode!=='15584')) assert.equal(r.transportContainer,'Transport Tube');
- assert.equal(get('93883').transportTemperature,'Frozen');
- assert.equal(get('37093').transportTemperature,'Refrigerated');
- assert.match(get('37093').specialInstructions,/fasting/i);
+ assert.match(get('16485').specialInstructions,/Centrifuge and aliquot/i);
 });
 test('Labcorp separates spun SST original tubes from plastic serum transfers and documents NY restrictions',()=>{
  const rows=apply('labcorp'),get=code=>rows.find(r=>r.testCode===code);
