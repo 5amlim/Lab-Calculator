@@ -54,6 +54,7 @@
     if (/amber/.test(value)) return 'tube-amber';
     if (/^frozen transport tube(?:\s*\(.*\))?$/.test(value))
       return labcorp ? 'tube-frozen-purple' : 'tube-transport tube-transport-green-top';
+    if (/^transport tube(?:\s*\(unspecified\))?$/.test(value)) return 'tube-transport tube-transport-green-top';
     if (/serum transport|plasma transport/.test(value)) return 'tube-transport tube-transport-green-top';
     if (/viral transport|transport media|swab|collection kit|transport tube|transport vial|screw[- ]?cap vial|fibronectin/.test(value)) return 'tube-transport';
     if (/sst|gold/.test(value)) return 'tube-sst';
@@ -71,7 +72,7 @@
   function transportFilterIcon(value) {
     const labcorp = document.body?.getAttribute('data-gallery-lab') === 'L';
     return ({
-      transport:'tube-transport', sst:'tube-sst', original:'',
+      transport:'tube-transport tube-transport-green-top', sst:'tube-sst', original:'',
       serum:'tube-transport tube-transport-green-top',
       plasma:'tube-transport tube-transport-green-top',
       'frozen-transport': labcorp ? 'tube-frozen-purple' : 'tube-transport tube-transport-green-top',
