@@ -182,6 +182,19 @@
   let refreshBatchHints = () => {};
 
   function init() {
+    window.LabMarketAvailability.mount();
+    document.addEventListener('labmarketchange', () => {
+      const before = selectedIds.length;
+      selectedIds = selectedIds.filter(id => {
+        const test = database.find(item => item.id === id);
+        return !test || window.LabMarketAvailability.status(test, 'labcorp').kind !== 'restricted';
+      });
+      if (before !== selectedIds.length) saveSelected();
+      reconcileStatWithArea();
+      renderAll();
+      if (before > selectedIds.length) showToast((before - selectedIds.length) + ' market-restricted test(s) removed from the cart.');
+    });
+    document.addEventListener('labmarketreviewchange', () => renderOrder());
     if (els.categoryFilter && window.LabClinicalCategories) {
       els.categoryFilter.innerHTML = '<option value="">All categories</option>' +
         window.LabClinicalCategories.options.map(({id,label}) =>
@@ -1416,7 +1429,7 @@
 
   function canAutoAddBatchRow(row) {
     const chosen = chosenBatchMatch(row);
-    if (!chosen || chosen.test.status !== 'active' || !isExactBatchMatch(row.query, chosen.test)) return false;
+    if (!chosen || chosen.test.status !== 'active' || !window.LabMarketAvailability.canAdd(chosen.test, 'labcorp') || !isExactBatchMatch(row.query, chosen.test)) return false;
     if (chosen !== row.matches[0]) return false;
     // An identical name shared by multiple distinct codes cannot be silently
     // resolved without the user specifying a code.
@@ -1575,7 +1588,7 @@
       </div>`;
     }
     const choice = chosenBatchMatch(row);
-    const blocked = choice.test.status === 'blocked';
+    const blocked = choice.test.status === 'blocked' || !window.LabMarketAvailability.canAdd(choice.test, 'labcorp');
     const pending = choice.test.status === 'pending';
     const autoSafe = canAutoAddBatchRow(row);
     const needsConfirmation = !blocked && !pending && !autoSafe;
@@ -1611,11 +1624,11 @@
                 aria-controls="batch-choice-stat-options-${row.index}-${matchIndex}" aria-expanded="false" aria-haspopup="true"
                 title="${selectedIds.includes(test.id) ? 'Already in cart' : test.status === 'blocked' ? 'Review collection' : test.status === 'pending' ? 'Verification required' : 'Choose Routine or STAT priority'}"
                 aria-label="${selectedIds.includes(test.id) ? 'Already in cart: ' : 'Choose how to add: '}${escapeAttr(displayCode(test) + ' ' + test.testName)}"
-                ${selectedIds.includes(test.id) || test.status !== 'active' ? 'disabled' : ''}>${selectedIds.includes(test.id) ? '✓' : '+'}</button>
+                ${selectedIds.includes(test.id) || test.status !== 'active' || !window.LabMarketAvailability.canAdd(test, 'labcorp') ? 'disabled' : ''}>${selectedIds.includes(test.id) ? '✓' : '+'}</button>
               <button type="button" class="batch-choice-details-button" data-action="toggle-batch-test-details"
                 aria-expanded="false" aria-controls="batch-choice-details-${row.index}-${matchIndex}" aria-label="Details for ${escapeAttr(displayCode(test) + ' ' + test.testName)}">Details</button>
             </div>
-            ${!selectedIds.includes(test.id) && test.status === 'active' ? `<div class="batch-choice-stat-options" id="batch-choice-stat-options-${row.index}-${matchIndex}" hidden role="group"
+            ${!selectedIds.includes(test.id) && test.status === 'active' && window.LabMarketAvailability.canAdd(test, 'labcorp') ? `<div class="batch-choice-stat-options" id="batch-choice-stat-options-${row.index}-${matchIndex}" hidden role="group"
               aria-label="Choose priority for ${escapeAttr(displayCode(test) + ' ' + test.testName)}">
               <button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" data-priority="routine" data-source="match">+ Add as Routine</button>
               ${isStatEligible(test) ? `<button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" data-priority="stat" data-source="match" data-stat-note="Confirm receiving-lab acceptance"><span>+ Add as <b>STAT</b></span></button>` : ''}
@@ -2182,6 +2195,7 @@
 
   function renderLibraryRow(test) {
     const selected = selectedIds.includes(test.id);
+    const marketBlocked = !window.LabMarketAvailability.canAdd(test, 'labcorp');
     const blocked = test.status === 'blocked';
     const pending = test.status === 'pending';
     const hasMultipleContainers = additionalDrawRequirements(test).length > 0;
@@ -2189,12 +2203,12 @@
     const primaryOnlyNote = hasMultipleContainers ? '<div class="library-container-primary-note">First path only</div>' : '';
     return `<tr class="${selected ? 'is-selected' : ''}">
       <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
-      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${manualLibraryTag(test)}${gestationalWarningBadge(test)}${statSelectedIds.includes(test.id) && isStatEligible(test) ? '<span class="library-stat-eligible selected" title="Manually marked STAT; verify receiving-lab acceptance and courier routing.">STAT selected</span>' : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
+      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${manualLibraryTag(test)}${gestationalWarningBadge(test)}${window.LabMarketAvailability.badge(test, 'labcorp')}${statSelectedIds.includes(test.id) && isStatEligible(test) ? '<span class="library-stat-eligible selected" title="Manually marked STAT; verify receiving-lab acceptance and courier routing.">STAT selected</span>' : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
       <td data-label="Container">${menuContainerBadges(test)}${hasMultipleContainers ? '' : '<div class="subtext specimen-line">' + requiredSpecimenBadges(test) + '</div>'}</td>
       <td data-label="Temperature"><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span>${primaryOnlyNote}</td>
       <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(menuVolumeText(primaryDisplay, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(menuVolumeText(primaryDisplay, 'minimum') || '—')}</div>${primaryOnlyNote}</td>
       <td class="row-actions" data-label="Actions">
-        ${blocked ? '<span class="badge temp-unknown">Review collection</span>' : pending ? '<span class="badge temp-unknown">Verification required</span>' : selected
+        ${blocked ? '<span class="badge temp-unknown">Review collection</span>' : pending ? '<span class="badge temp-unknown">Verification required</span>' : marketBlocked ? '<span class="badge temp-unknown">' + escapeHtml(window.LabMarketAvailability.status(test, 'labcorp').label) + '</span>' : selected
           ? `<button class="mini-button" disabled>✓ Added${statSelectedIds.includes(test.id) ? ' · STAT' : ''}</button>`
           : isStatEligible(test)
             ? `<button type="button" class="mini-button library-routine-action" data-action="add" data-id="${escapeAttr(test.id)}">Add as routine</button><button type="button" class="mini-button library-stat-action" data-action="add-stat" data-id="${escapeAttr(test.id)}" title="Confirm eligibility and add as STAT">Add as STAT</button>`
@@ -2456,7 +2470,7 @@
     // Only an explicitly verified per-region LabCorp code may be marked STAT.
     // Selecting a region alone is NOT eligibility. An empty list disables STAT.
     const area = STAT_AREAS[statArea];
-    return Boolean(test && test.status === 'active' && area &&
+    return Boolean(test && test.status === 'active' && window.LabMarketAvailability.statAreaCompatible(statArea) && window.LabMarketAvailability.canAdd(test, 'labcorp') && area &&
       statArea !== 'unselected' &&
       area.codes.some(code => String(code) === String(test.testCode || '').trim()));
   }
@@ -2776,6 +2790,7 @@
   function addSelected(id, rerender = true) {
     const test = database.find(item => item.id === id);
     if (!test || test.status !== 'active') return false;
+    if (!window.LabMarketAvailability.canAdd(test, 'labcorp')) { if (rerender) showToast(window.LabMarketAvailability.status(test, 'labcorp').reason); return false; }
     if (selectedIds.includes(id)) return false;
     selectedIds.push(id);
     if (DEFAULT_STAT_TEST_CODES.has(String(test.testCode)) && isStatEligible(test)) {
@@ -2939,12 +2954,14 @@
     renderSstTubeMode();
     renderStatArea();
     const tests = selectedTests();
+    window.LabMarketAvailability.review(tests, 'labcorp');
     renderUrineCultureMode();
     const collectionTests = expandedCollectionTests(tests);
     els.selectedCount.textContent = tests.length;
     $('mobileCount').textContent = `${tests.length} ${tests.length === 1 ? 'test' : 'tests'}`;
-    els.printButton.disabled = !tests.length;
-    els.exportSummaryButton.disabled = !tests.length;
+    const marketConfirmed = window.LabMarketAvailability.confirmed(tests, 'labcorp');
+    els.printButton.disabled = !marketConfirmed;
+    els.exportSummaryButton.disabled = !marketConfirmed;
     renderTestsOverview(tests);
     renderDrawPlan(collectionTests);
     renderOrderOfDraw(collectionTests);
@@ -3734,8 +3751,10 @@
     }
     if (existingIndex >= 0) database[existingIndex] = record;
     else database.unshift(record);
+    if (selectedIds.includes(id) && window.LabMarketAvailability.status(record, 'labcorp').kind === 'restricted') { selectedIds = selectedIds.filter(value => value !== id); statSelectedIds = statSelectedIds.filter(value => value !== id); saveStatSelectedIds(); saveSelected(); }
+    window.LabMarketAvailability.reset();
 
-    const shouldAdd = existingIndex < 0 && els.addToSummary.checked && record.status !== 'blocked';
+    const shouldAdd = existingIndex < 0 && els.addToSummary.checked && record.status !== 'blocked' && window.LabMarketAvailability.canAdd(record, 'labcorp');
     if (shouldAdd && !selectedIds.includes(record.id)) {
       selectedIds.push(record.id);
       if (DEFAULT_STAT_TEST_CODES.has(record.testCode) && isStatEligible(record)) {
@@ -6708,6 +6727,7 @@
   function printSummary() {
     const tests = selectedTests();
     if (!tests.length) return showToast('Add at least one test before printing.');
+    if (!window.LabMarketAvailability.confirmed(tests, 'labcorp')) return showToast(window.LabMarketAvailability.blockMessage(tests, 'labcorp'));
     const printDetailWithNotes = tests.some(test =>
       printDetailRoutes(test).some(printDetailHasNotes));
     // Pre-draw warnings already appear in Collection precautions.
@@ -6718,7 +6738,7 @@
     els.printSheet.innerHTML = `
       <div class="print-header">
         <div class="print-header-identity"><h1 class="print-title">LabCorp Collection Summary</h1><div class="print-subtitle">Send-out workflow</div></div>
-        <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<span class="print-selected-count">${tests.length} ${tests.length === 1 ? 'test' : 'tests'}</span><span class="print-lab-destination">RECEIVING LAB: LABCORP</span></div>
+        <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<span class="print-market-label">MARKET: ${escapeHtml(window.LabMarketAvailability.label())}</span><span class="print-selected-count">${tests.length} ${tests.length === 1 ? 'test' : 'tests'}</span><span class="print-lab-destination">RECEIVING LAB: LABCORP</span></div>
       </div>
       ${tests.some(isManuallyAddedTest) ? '<div class="print-manual-test-notice"><strong>Manual entry:</strong> Confirm the test code, specimen, collection tubes, and submission requirements in the official lab directory before collecting.</div>' : ''}
       ${printCollectionSubmissionPlan(tests)}
@@ -6884,8 +6904,9 @@
   function exportSummaryCsv() {
     const tests = selectedTests();
     if (!tests.length) return showToast('Add at least one test before exporting.');
-    const headers = ['Priority','Test Code','Test Name','Specimen Type','Draw Container','Additional Required Draws','Alternative Container','Transport Tube / Container','Preferred Volume','Minimum Volume','Transport Temperature','Raw Temperature','Stability','Spin','Special Labeling','Special Instructions'];
-    const rows = tests.map(test => [test.isStat ? 'STAT' : 'Routine',test.testCode,test.testName,[test.specimenType, ...additionalDrawRequirements(test).map(item => item.specimenType)].filter(Boolean).join(' + '),test.drawContainer,additionalDrawRequirements(test).filter(item => !item.transportOnly).map(item => `${item.container}${item.specimenType ? ` (${item.specimenType})` : ''}`).join(' + '),test.alternativeContainer,(['001750', '144057', '081162'].includes(String(test.testCode))
+    if (!window.LabMarketAvailability.confirmed(tests, 'labcorp')) return showToast(window.LabMarketAvailability.blockMessage(tests, 'labcorp'));
+    const headers = ['Collection Market','Priority','Test Code','Test Name','Specimen Type','Draw Container','Additional Required Draws','Alternative Container','Transport Tube / Container','Preferred Volume','Minimum Volume','Transport Temperature','Raw Temperature','Stability','Spin','Special Labeling','Special Instructions'];
+    const rows = tests.map(test => [window.LabMarketAvailability.label(),test.isStat ? 'STAT' : 'Routine',test.testCode,test.testName,[test.specimenType, ...additionalDrawRequirements(test).map(item => item.specimenType)].filter(Boolean).join(' + '),test.drawContainer,additionalDrawRequirements(test).filter(item => !item.transportOnly).map(item => `${item.container}${item.specimenType ? ` (${item.specimenType})` : ''}`).join(' + '),test.alternativeContainer,(['001750', '144057', '081162'].includes(String(test.testCode))
       ? splitSubmissionContainers(test).map(container => container.label).join(' + ')
       : [test.transportContainer, ...additionalDrawRequirements(test).map(item => item.transportContainer)].filter(Boolean).join(' + ')),combinedVolumeText(test, 'preferred'),combinedVolumeText(test, 'minimum'),test.transportTemperature,test.transportTemperatureRaw,test.stability,test.spin,test.specialLabeling,test.specialInstructions]);
     const csv = [headers, ...rows].map(row => row.map(csvCell).join(',')).join('\r\n');
