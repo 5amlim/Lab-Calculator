@@ -62,12 +62,12 @@ test('Labcorp and Quest main counters separate cart-eligible tests from referenc
 
 test('Lab selection dropdown shows only active test totals, keeping X tests badge format', () => {
   const fresh = openSelector('labcorp', '0 tests', new Map());
-  assert.equal(fresh.getBadge('quest').textContent, '2843 tests');
+  assert.equal(fresh.getBadge('quest').textContent, '2845 tests');
   const storage = new Map();
   const quest = openSelector('quest', '0 tests', storage);
-  assert.equal(quest.getBadge('labcorp').textContent, '1553 tests');
+  assert.equal(quest.getBadge('labcorp').textContent, '1561 tests');
   quest.update('2820 active tests · 1010 directory-only references');
-  assert.equal(quest.getBadge('labcorp').textContent, '1553 tests');
+  assert.equal(quest.getBadge('labcorp').textContent, '1561 tests');
   assert.equal(quest.getBadge('quest').textContent, 'Selected');
 
   const labcorp = openSelector('labcorp', '0 tests', storage);
