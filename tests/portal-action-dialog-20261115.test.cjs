@@ -74,6 +74,33 @@ test('Escape dismisses an action and queued dialogs open one at a time', async (
   assert.equal(dialog.open, false);
 });
 
+test('sequential test-match and STAT dialogs keep Cancel and Mark STAT clickable', async () => {
+  for (const [action, expected] of [['Cancel', false], ['Proceed', true]]) {
+    const { window, dialog, find } = bootDialog();
+    const first = window.PortalDialog.confirm('Confirm test code.', {
+      title: 'Confirm test match', confirmLabel: 'Add this test'
+    });
+    let second;
+    const sequence = first.then(accepted => {
+      assert.equal(accepted, true);
+      // The app immediately requests STAT confirmation after a match choice.
+      // The previous dialog's close event must never orphan this new dialog.
+      second = window.PortalDialog.confirm('Confirm STAT receiving lab.', {
+        title: 'Mark test as STAT?', confirmLabel: 'Mark STAT', tone: 'warning'
+      });
+    });
+    find('portalActionProceed').listeners.click();
+    await sequence;
+    await tick();
+    assert.equal(dialog.open, true, 'STAT confirmation is visible');
+    assert.equal(find('portalActionTitle').textContent, 'Mark test as STAT?');
+    find('portalAction' + action).listeners.click();
+    assert.equal(await second, expected, action + ' must resolve the STAT confirmation');
+    await tick();
+    assert.equal(dialog.open, false, action + ' must close the STAT popup');
+  }
+});
+
 test('portal alerts have a single acknowledgment action and render messages as text', async () => {
   const { window, dialog, find } = bootDialog();
   const message = '<img src=x onerror=alert(1)> This change was not saved.';
