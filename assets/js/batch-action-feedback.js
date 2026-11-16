@@ -35,15 +35,16 @@
   }
 
   function highlightUnresolved() {
-    // Only highlight pending matches when there are tests in the cart.
-    if (!selectedCount()) return;
+    // Draw attention to unadded entries regardless of whether the cart is empty.
     results.querySelectorAll('.batch-row.needs-confirmation, .batch-row.unmatched').forEach(row => {
-      // A previously added match does not still need to be confirmed.
+      // A test already in the cart is not waiting for confirmation.
       if (row.classList.contains('needs-confirmation') &&
           row.querySelector('.batch-main-add-toggle:disabled')) return;
+      // Missing, blocked or directory-only matches need different attention
+      // from active matches that only need the user's confirmation.
       const isIssue = row.classList.contains('unmatched') ||
         !row.querySelector('.batch-main-add-toggle');
-      highlight(row, isIssue ? 'issue' : 'confirm');
+      highlight(row, isIssue ? 'issue' : 'confirm', 3000);
     });
   }
 
