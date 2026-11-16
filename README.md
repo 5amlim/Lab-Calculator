@@ -56,6 +56,25 @@ Each added record includes the official directory source, collection/transport c
 
 **Important:** Quest's MASTER directory does not guarantee regional availability, and a verified national specimen route is not necessarily approved by the receiving service area. Confirm local acceptance, collection capability and current lab instructions before patient collection. This pass includes record-schema and duplicate/load-order checks, but not a full browser end-to-end test of every new draw plan.
 
+
+## Collection-market safety (Quest and LabCorp, 2026-11-15)
+
+Both calculators require staff to choose a **collection market**: Southern California, Northern California, New York, or Florida. The market selection is shared between the two calculators in the same browser; it is deliberately separate from the STAT receiving-laboratory selector. A STAT lab from another market cannot be used to mark a test STAT.
+
+**This is not a blanket approval list.** The national directory/catalog defines collection requirements, not local account acceptance. Unclassified tests are marked **Verify for [market]** and can be added to a planning cart, but print/PDF and CSV export remain disabled until the user confirms that *every selected code* is accepted by the specific receiving lab and account. Confirmation is per current cart and is reset after changing market, STAT site, or specimen/test details. Manually added tests cannot override an explicit code restriction. The printed/PDF output and CSV identify the chosen market.
+
+Source: `assets/js/market-availability.js`. Only add a `RULES.quest` or `RULES.labcorp` entry when the official laboratory service-area or patient-state restriction is documented; include the exact test code, denied markets, source URL, and verification date. **Do not infer routine availability from a national MASTER directory listing or STAT menu.** A code listed as valid for California patient testing still needs local receiving-site confirmation.
+
+Initial, specifically sourced restrictions:
+- Quest `90368`, `90369`, `90372`: California patient testing variants, blocked for NY and FL; see official Quest entries `335`, `39481`, and `90372`.
+- Quest `335`, `39481`: listed as non-California patient codes, blocked for SoCal and NorCal.
+- Quest `16167`: explicitly unavailable for California patient testing and NY uses a different code, `16966`, so blocked for SoCal, NorCal, and NY.
+- LabCorp `791280`: official directory states unavailable in New York and California, blocked for SoCal, NorCal, and NY.
+
+These rules describe **patient-state/code restrictions**, not proof that a locally selected laboratory will accept the alternative code. Rules lacking a validated local acceptance source must not turn tests green/approved. Use the official directory with the receiving lab's service area or account, then contact the receiving lab for unresolved cases.
+
+Regression: `node --test tests/market-availability.test.cjs`.
+
 ## Adding LabCorp tests
 
 LabCorp assay definitions are intentionally separate from Quest and Cedars. For each new LabCorp code, verify the test-specific collection and submission requirements before adding it. Include specimen type, draw and submit containers, minimum/preferred volume, transport temperature, stability, spin/processing, and test-specific handling.
