@@ -108,25 +108,25 @@
   }
 }
 
-/* Three distinct warning pulses for unadded batch results.
-   Amber means a match needs confirmation. Coral means no usable match or
-   collection details still need review. Cart/review fade effects are unchanged. */
-@keyframes calculator-unresolved-three-pulses {
-  0%, 33.333%, 66.666%, 100% {
+/* Repeated attention cues for unresolved entries: twelve complete pulses
+   across ten seconds, with amber for confirmation and coral for no usable match. */
+@keyframes calculator-unresolved-pulse {
+  0%, 100% {
     outline-color: transparent;
     box-shadow: 0 0 0 0 rgba(var(--calculator-glow-rgb), 0),
                 0 0 0 rgba(var(--calculator-glow-rgb), 0);
   }
-  16.666%, 50%, 83.333% {
-    outline-color: rgba(var(--calculator-glow-rgb), .96);
-    box-shadow: 0 0 0 4px rgba(var(--calculator-glow-rgb), .29),
-                0 0 22px rgba(var(--calculator-glow-rgb), .32);
+  50% {
+    outline-color: rgba(var(--calculator-glow-rgb), .92);
+    box-shadow: 0 0 0 4px rgba(var(--calculator-glow-rgb), .24),
+                0 0 20px rgba(var(--calculator-glow-rgb), .30);
   }
 }
 #batchResults .batch-row.calculator-action-glow--confirm,
 #batchResults .batch-row.calculator-action-glow--issue {
-  animation-name: calculator-unresolved-three-pulses;
+  animation-name: calculator-unresolved-pulse;
   animation-timing-function: ease-in-out;
+  animation-iteration-count: 12;
 }
 #batchResults .batch-row.calculator-action-glow--confirm {
   --calculator-glow-rgb: 224, 151, 39;
@@ -140,5 +140,47 @@
     animation: none;
     outline-color: rgba(var(--calculator-glow-rgb), .85);
     box-shadow: 0 0 0 3px rgba(var(--calculator-glow-rgb), .16);
+  }
+}
+
+/* Inset the result cards and give each entered search a quiet sequence number.
+   The counter follows the DOM order and updates automatically on re-review. */
+@media screen {
+  #batchResults .batch-grid {
+    counter-reset: calculator-match-entry;
+    padding-inline-start: 34px;
+  }
+  #batchResults .batch-grid > .batch-row {
+    counter-increment: calculator-match-entry;
+    position: relative;
+    min-width: 0;
+  }
+  #batchResults .batch-grid > .batch-row::before {
+    content: counter(calculator-match-entry, decimal-leading-zero);
+    position: absolute;
+    top: 50%;
+    inset-inline-start: -34px;
+    transform: translateY(-50%);
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border: 1px solid #dfe7eb;
+    border-radius: 9px;
+    background: #f4f7f8;
+    color: #6d8290;
+    font: 700 10px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    letter-spacing: -.025em;
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+  @media (max-width: 600px) {
+    #batchResults .batch-grid { padding-inline-start: 30px; }
+    #batchResults .batch-grid > .batch-row::before {
+      inset-inline-start: -30px;
+      width: 23px;
+      height: 23px;
+      font-size: 9px;
+    }
   }
 }
