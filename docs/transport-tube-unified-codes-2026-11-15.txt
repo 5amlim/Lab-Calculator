@@ -228,6 +228,7 @@ QUEST CODES (intermediate scan; consolidated after all catalog layers)
 6695
 6697
 6732
+6796
 7018
 7079
 7212
@@ -304,6 +305,7 @@ QUEST CODES (intermediate scan; consolidated after all catalog layers)
 10325
 10328
 10350
+10380
 10498
 10525
 10547
@@ -416,6 +418,7 @@ QUEST CODES (intermediate scan; consolidated after all catalog layers)
 15018
 15038
 15043
+15060
 15061
 15064
 15075
@@ -432,6 +435,7 @@ QUEST CODES (intermediate scan; consolidated after all catalog layers)
 15277
 15280
 15323
+15332
 15344
 15345
 15447
@@ -453,6 +457,7 @@ QUEST CODES (intermediate scan; consolidated after all catalog layers)
 15845
 15846
 15847
+15853
 15857
 15872
 15903
@@ -581,6 +586,7 @@ QUEST CODES (intermediate scan; consolidated after all catalog layers)
 18360
 18410
 18516
+18634
 18702
 18740
 18842
@@ -588,6 +594,7 @@ QUEST CODES (intermediate scan; consolidated after all catalog layers)
 18866
 18877
 18885
+18928
 18944
 18948
 18949
