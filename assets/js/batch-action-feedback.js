@@ -44,8 +44,8 @@
       // from active matches that only need the user's confirmation.
       const isIssue = row.classList.contains('unmatched') ||
         !row.querySelector('.batch-main-add-toggle');
-      // Twelve complete amber/coral glow pulses, then clean up after 10 seconds.
-      highlight(row, isIssue ? 'issue' : 'confirm', 10000, 10000 / 12);
+      // Five amber/coral glow pulses, then clean up after 10 seconds.
+      highlight(row, isIssue ? 'issue' : 'confirm', 10000, 10000 / 5);
     });
   }
 
