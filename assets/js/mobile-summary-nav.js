@@ -1,22 +1,25 @@
-/* Keep the mobile shortcut away from controls once the collection summary is visible. */
+/* Jump straight to Cart on mobile and keep the shortcut off Cart controls. */
 (function () {
   'use strict';
 
   function initMobileSummaryNav() {
-    const shortcut = document.querySelector('a.mobile-summary[href="#collectionSummary"]');
+    const shortcut = document.querySelector('a.mobile-summary[href="#testsOverviewSection"]');
+    const cart = document.getElementById('testsOverviewSection');
     const summary = document.getElementById('collectionSummary');
-    if (!shortcut || !summary) return;
+    if (!shortcut || !cart || !summary) return;
 
     let updateQueued = false;
     function updateVisibility() {
       updateQueued = false;
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-      const bounds = summary.getBoundingClientRect();
-      // Ignore the edges where only a sliver of the summary is in view.
-      const summaryInView = bounds.top < viewportHeight - 96 && bounds.bottom > 72;
-      shortcut.classList.toggle('is-in-summary', summaryInView);
-      shortcut.setAttribute('aria-hidden', String(summaryInView));
-      if (summaryInView && document.activeElement === shortcut) shortcut.blur();
+      const cartBounds = cart.getBoundingClientRect();
+      const summaryBounds = summary.getBoundingClientRect();
+      // Keep View cart available above Cart; hide it when Cart reaches the viewport
+      // and through the remainder of the summary so it cannot overlap any controls.
+      const cartReached = cartBounds.top < viewportHeight - 96 && summaryBounds.bottom > 72;
+      shortcut.classList.toggle('is-in-cart', cartReached);
+      shortcut.setAttribute('aria-hidden', String(cartReached));
+      if (cartReached && document.activeElement === shortcut) shortcut.blur();
     }
 
     function requestVisibilityUpdate() {
@@ -25,13 +28,11 @@
       window.requestAnimationFrame(updateVisibility);
     }
 
-    // Handle the tap on the shortcut itself instead of letting a touch reach
-    // underlying Cart controls while the viewport is scrolling.
     shortcut.addEventListener('click', function (event) {
       event.preventDefault();
       event.stopPropagation();
       const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      summary.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      cart.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
     });
 
     window.addEventListener('scroll', requestVisibilityUpdate, { passive: true });
