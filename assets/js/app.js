@@ -5490,7 +5490,7 @@
     if (isFrozenSerumPlasmaTransport(test, transport)) {
       return [{
         key: `frozen-processed|${normalizeSearch(requiresDistinctDrawTransport(test) ? test.id : (test.sourceTestId || test.id || test.testCode))}`,
-        label: 'Frozen Transport Tube',
+        label: 'Transport Tube',
         className: 'tube-transport tube-transport-green-top',
         count: explicitSubmissionCount(test),
         detail: specimenSourceDetail(test) + ' · dedicated frozen aliquot, ship frozen'
@@ -5523,8 +5523,8 @@
       const sourcePhrase = specimenSourceDetail(test);
       const isSwab = /swab/i.test(sourceSpecimen);
       const isSpecialtyMetalContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal/i.test(transport);
-      const label = /^frozen transport tube(?:\s*\(.*\))?$/i.test(transport)
-        ? 'Frozen Transport Tube'
+      const label = /^transport tube$/i.test(transport) || /^frozen transport tube(?:\s*\(.*\))?$/i.test(transport)
+        ? 'Transport Tube'
         : isSwab ? 'Swab Transport Tube'
         : (isSpecialtyMetalContainer ? `Acid-Washed / Metal-Free ${specimen} Transport Tube` : `${specimen} Transport Tube`);
       return [{
