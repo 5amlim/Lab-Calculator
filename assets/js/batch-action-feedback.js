@@ -17,13 +17,13 @@
     return Number.isFinite(value) ? value : 0;
   };
 
-  function highlight(element, tone, duration = DURATION) {
+  function highlight(element, tone, duration = DURATION, animationDuration = duration) {
     if (!element || duration <= 0) return;
     const prior = timers.get(element);
     if (prior) clearTimeout(prior);
     element.classList.remove('calculator-action-glow',
       ...TONES.map(value => 'calculator-action-glow--' + value));
-    element.style.animationDuration = `${duration}ms`;
+    element.style.animationDuration = `${animationDuration}ms`;
     // Re-run the animation when the same control is clicked again.
     void element.offsetWidth;
     element.classList.add('calculator-action-glow', 'calculator-action-glow--' + tone);
@@ -44,7 +44,8 @@
       // from active matches that only need the user's confirmation.
       const isIssue = row.classList.contains('unmatched') ||
         !row.querySelector('.batch-main-add-toggle');
-      highlight(row, isIssue ? 'issue' : 'confirm', 3000);
+      // Twelve complete amber/coral glow pulses, then clean up after 10 seconds.
+      highlight(row, isIssue ? 'issue' : 'confirm', 10000, 10000 / 12);
     });
   }
 
