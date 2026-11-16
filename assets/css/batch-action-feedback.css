@@ -78,8 +78,20 @@
   outline: none;
   outline-offset: 0;
 }
-#testsOverviewSection .tests-overview-row.calculator-action-glow--cart {
-  border-radius: 8px;
+/* Give the code, name, STAT control and delete button some breathing room
+   within the green ring, without widening the cart beyond its scroll area. */
+@media screen {
+  #testsOverviewSection .tests-overview-row {
+    padding-inline: 10px;
+  }
+  #testsOverviewSection .tests-overview-row.calculator-action-glow--cart {
+    border-radius: 11px;
+  }
+  @media (max-width: 520px) {
+    #testsOverviewSection .tests-overview-row {
+      padding-inline: 8px;
+    }
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   #testsOverviewSection .tests-overview-row.calculator-action-glow--cart,
