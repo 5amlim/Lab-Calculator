@@ -25,23 +25,6 @@
     "source": "Quest official test directory, reviewed 2026-11-15 • https://testdirectory.questdiagnostics.com/test/test-detail/1687/ld-csf?cc=MASTER"
   },
   {
-    "id": "quest-verified-20261115-batch7-17320",
-    "testCode": "17320",
-    "testName": "Anaplasma phagocytophilum DNA, Qualitative Real-Time PCR",
-    "specimenType": "Whole Blood",
-    "drawContainer": "Lavender EDTA",
-    "transportContainer": "Lavender EDTA",
-    "preferredVolume": "0.7 mL whole blood",
-    "minimumVolume": "0.3 mL",
-    "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated (cold packs)",
-    "stability": "Whole blood: room 48 hours; refrigerated 7 days",
-    "spin": "No",
-    "specialInstructions": "Collect EDTA whole blood in lavender tube, invert gently, leave unspun and submit the original tube refrigerated on cold packs. ACD yellow is an alternative, but the supported default is EDTA. Do not transfer or freeze whole blood. Reject heparin anticoagulant and hemolyzed specimens. Do not use the tick-in-ethanol alternative.",
-    "status": "active",
-    "source": "Quest official test directory, reviewed 2026-11-15 • https://testdirectory.questdiagnostics.com/test/test-detail/17320?cc=MASTER"
-  },
-  {
     "id": "quest-verified-20261115-batch7-39218",
     "testCode": "39218",
     "testName": "Borrelia Species DNA, Real-Time PCR, with Reflexes, Synovial Fluid/CSF",
@@ -60,38 +43,6 @@
     "source": "Quest official test directory, reviewed 2026-11-15 • https://testdirectory.questdiagnostics.com/test/test-detail/39218?cc=MASTER"
   },
   {
-    "id": "quest-verified-20261115-batch7-34194",
-    "testCode": "34194",
-    "testName": "Lyme Disease Antibody Index for CNS Infection",
-    "specimenType": "Serum",
-    "drawContainer": "SST / Gold",
-    "transportContainer": "Serum Transport Tube",
-    "preferredVolume": "2 mL serum and 2 mL CSF",
-    "minimumVolume": "1 mL serum and 1 mL CSF",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temperature",
-    "stability": "Room 7 days; refrigerated 14 days; frozen 30 days",
-    "spin": "Yes",
-    "specialLabeling": "Label serum and CSF separately with collection date and time",
-    "specialInstructions": "TWO PAIRED SPECIMENS REQUIRED within 24 hours: serum AND CSF. Collect SST, clot and centrifuge; transfer 2 mL serum into labeled Serum Transport Tube at room temperature. Separately collect 2 mL provider-collected CSF in sterile cup, submit original cup at room temperature. Label source/date/time on both. Never combine serum with CSF. Quest rejects pairs collected more than 24 hours apart; review the paired draw times before sendout.",
-    "additionalDrawRequirements": [
-      {
-        "container": "Sterile cup",
-        "specimenType": "CSF",
-        "count": 1,
-        "purpose": "Paired CSF required within 24 hours of serum collection",
-        "preferredVolume": "2 mL CSF",
-        "minimumVolume": "1 mL",
-        "transportContainer": "Sterile cup",
-        "transportTemperature": "Room Temperature",
-        "spin": "No",
-        "specialInstructions": "Submit original CSF sterile cup with CSF label, collection date and time. Serum and CSF must be collected within 24 hours."
-      }
-    ],
-    "status": "active",
-    "source": "Quest official test directory, reviewed 2026-11-15 • https://testdirectory.questdiagnostics.com/test/test-detail/34194/lyme-disease-antibody-index-for-cns-infection?cc=MASTER"
-  },
-  {
     "id": "quest-verified-20261115-batch7-93795",
     "testCode": "93795",
     "testName": "Borrelia miyamotoi DNA, Real-Time PCR, Miscellaneous",
@@ -108,6 +59,42 @@
     "specialInstructions": "PROVIDER-COLLECTED CSF. Quest accepts CSF or synovial fluid; calculator defaults to CSF collected in a sterile leakproof screw-cap cup. Submit original CSF cup refrigerated, labeled by precise specimen source, date and time. Do not pool CSF and synovial specimens. EDTA whole blood is a Quest alternate route but requires a separate specimen-specific order review.",
     "status": "active",
     "source": "Quest official test directory, reviewed 2026-11-15 • https://testdirectory.questdiagnostics.com/test/test-detail/93795?cc=MASTER"
+  },
+  {
+    "id": "quest-verified-20261115-batch7-17603",
+    "testCode": "17603",
+    "testName": "Lipase, JP Drainage",
+    "specimenType": "JP Drainage",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Sterile cup",
+    "preferredVolume": "2 mL JP drainage fluid",
+    "minimumVolume": "Verify minimum with receiving Quest lab",
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "stability": "Room 7 days; refrigerated 14 days; frozen 28 days",
+    "spin": "No",
+    "specialLabeling": "Label JP Drainage, collection date and time",
+    "specialInstructions": "PROVIDER-COLLECTED JP DRAINAGE. Collect into sterile leakproof plastic screw-cap cup without preservative. Submit in the original labeled cup. Freeze promptly and ship frozen on dry ice. Do not combine with other fluid sources, collection times, or patients. Confirm local Quest service-area acceptance and exact volume before collection.",
+    "source": "Quest official test directory, reviewed 2026-11-15 • https://testdirectory.questdiagnostics.com/test/test-detail/17603/lipase-jp-drainage?cc=MASTER",
+    "status": "active"
+  },
+  {
+    "id": "quest-verified-20261115-batch7-17604",
+    "testCode": "17604",
+    "testName": "Lipase, Pancreatic Fluid",
+    "specimenType": "Pancreatic Fluid",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Sterile cup",
+    "preferredVolume": "2 mL pancreatic fluid",
+    "minimumVolume": "Verify minimum with receiving Quest lab",
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "stability": "Room 48 hours; refrigerated 14 days; frozen 28 days",
+    "spin": "No",
+    "specialLabeling": "Label Pancreatic Fluid, collection date and time",
+    "specialInstructions": "PROVIDER-COLLECTED PANCREATIC FLUID. Collect into sterile leakproof plastic screw-cap cup without preservative. Submit in the original labeled cup. Freeze promptly and ship frozen on dry ice. Do not combine with other fluid sources, collection times, or patients. Confirm local Quest service-area acceptance and exact volume before collection.",
+    "source": "Quest official test directory, reviewed 2026-11-15 • https://testdirectory.questdiagnostics.com/test/test-detail/17604/lipase-pancreatic-fluid?cc=MASTER",
+    "status": "active"
   }
 ];
  const known=new Set(window.SEED_TESTS.map(t=>String(t.testCode||'').trim()));
