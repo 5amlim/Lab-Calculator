@@ -114,7 +114,7 @@ test('Labcorp 2-SST source, two-material profiles, and individual frozen purple 
 });
 test('selector fallback shows only cart-ready active test counts and refreshes on all pages',()=>{
  const selector=read('assets/js/lab-select.js');
- assert(selector.includes('quest:2825, cedars:39, labcorp:1510'));
+ assert(selector.includes('quest:2828, cedars:39, labcorp:1523'));
  for(const p of ['index.html','labcorp.html','cedars.html'])
-  assert(read(p).includes('assets/js/lab-select.js?v=9'));
+  assert(read(p).includes('assets/js/lab-select.js?v=10'));
 });
