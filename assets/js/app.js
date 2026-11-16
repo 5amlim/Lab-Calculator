@@ -900,7 +900,11 @@
     // similarly named SST tubes; never conceal a required aliquot step.
     const collectionNotes = String(test.specialInstructions || '').toLowerCase();
     const mandatoryTransfer = /\bmust\s+(?:immediately\s+|promptly\s+)?(?:transfer|pour\s+off)\b|\b(?:transfer|separation)\s+of\s+(?:the\s+)?serum\s+(?:is\s+)?(?:mandatory|required)\b|\b(?:transfer|separate)\s+(?:serum|plasma)\s+(?:to|into)\s+(?:a\s+)?(?:separate|dedicated|plastic)\s+(?:tube|container)\b/.test(collectionNotes);
-    const original = /\bno\s+transfer\b|\bsubmit\s+in\s+(?:the\s+)?original\s+(?:tube|container)\b|\b(?:original|primary)\s+(?:tube|container)\b/i.test(transport);
+    // Direct-to-lab swab kits remain one physical container even when the
+    // directory shortens the submission name (e.g. Aptima Multitest -> Aptima).
+    // Reuse the collection/print classification so the table never invents a transfer.
+    const directSwab = /\bswab\b/i.test(specimen) && isOriginalContainerSubmission(test);
+    const original = /\bno\s+transfer\b|\bsubmit\s+in\s+(?:the\s+)?original\s+(?:tube|container)\b|\b(?:original|primary)\s+(?:tube|container)\b/i.test(transport) || directSwab;
     const same = (isPlainUrineAliquotTransport(test, transport) && !isTimedUrineTest(test) &&
       cleanCollectionContainer(collectionLabel) === 'Sterile cup') ||
       cleanName(collectionLabel) === cleanName(transport) ||
