@@ -743,6 +743,12 @@
         transportContainer
       )
     );
+    // The yellow-label Aptima urine tube is filled from an initial urine cup.
+    // It is not a directly collected swab tube. Fix legacy records that listed
+    // the transport kit in both fields, without touching Aptima swab workflows.
+    if (/\burine\b/i.test(specimenType) && /aptima/i.test(drawContainer) && /aptima/i.test(transportContainer)) {
+      drawContainer = 'Sterile cup';
+    }
     // Surface the same unpreserved Sterile cup in search, gallery, collection,
     // submission and print views; leave 24-hour source jugs unchanged.
     if (isPlainUrineAliquotTransport({ ...record, specimenType, drawContainer }, transportContainer)) {
