@@ -5328,7 +5328,7 @@
     const transport = String(finalTransportContainer(test) || '').toLowerCase().trim();
     const notes = String(test.specialInstructions || '').toLowerCase();
     // Cytology/Pap receiving vials are separate devices, not swab transport kits.
-    if (/\b(?:thinprep|preservcyt|surepath|cytology|pap[- ]?vial|fixative)\b/i.test(transport)) return false;
+    if (/\b(?:thinprep|preservcyt|surepath|cytology|pap[- ]?vial|fixative|slides?|smears?)\b/i.test(transport)) return false;
     if (!draw || !transport || /^(?:verify|do not collect|n\/?a\b)/.test(draw) ||
         /^(?:verify|do not collect|n\/?a\b)/.test(transport)) return false;
 
