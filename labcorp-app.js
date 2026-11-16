@@ -670,6 +670,7 @@
       alternativeContainer: cleanCollectionContainer(String(record.alternativeContainer || '')),
       additionalDrawRequirements: normalizeAdditionalDrawRequirements(record.additionalDrawRequirements),
       collectionCount: Number(record.collectionCount) > 1 ? Math.floor(Number(record.collectionCount)) : 1,
+      usePreferredSerumYield: record.usePreferredSerumYield === true,
       submissionCount: Number(record.submissionCount) > 1 ? Math.floor(Number(record.submissionCount)) : 1,
       transportContainer,
       preferredVolume: String(record.preferredVolume || ''),
@@ -3819,7 +3820,9 @@
   // supply. Unlike generic one-test estimates, their source-derived volume
   // requirement is explicitly opted into capacity-based multi-tube counting.
   function needsPreferredSerumYieldSstCount(test) {
-    return /preferred serum yield requires multi-sst calculation/i.test(String(test.specialInstructions || ''));
+    return test.usePreferredSerumYield === true
+      || /preferred serum yield requires multi-sst calculation/i.test(String(test.specialInstructions || ''));
+
   }
 
   // Local SST planning policy: a recorded minimum of at least 4 mL
