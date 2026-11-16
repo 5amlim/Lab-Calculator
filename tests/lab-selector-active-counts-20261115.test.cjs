@@ -63,19 +63,19 @@ test('Labcorp and Quest main counters separate cart-eligible tests from referenc
 test('Lab selection dropdown shows only active test totals, keeping X tests badge format', () => {
   const storage = new Map();
   const quest = openSelector('quest', '0 tests', storage);
-  assert.equal(quest.getBadge('labcorp').textContent, '1494 tests');
-  quest.update('2810 active tests · 1010 directory-only references');
-  assert.equal(quest.getBadge('labcorp').textContent, '1494 tests');
+  assert.equal(quest.getBadge('labcorp').textContent, '1504 tests');
+  quest.update('2820 active tests · 1010 directory-only references');
+  assert.equal(quest.getBadge('labcorp').textContent, '1504 tests');
   assert.equal(quest.getBadge('quest').textContent, 'Selected');
 
   const labcorp = openSelector('labcorp', '0 tests', storage);
-  assert.equal(labcorp.getBadge('quest').textContent, '2810 tests');
+  assert.equal(labcorp.getBadge('quest').textContent, '2820 tests');
   labcorp.update('1458 active tests · 299 directory-only references');
-  assert.equal(labcorp.getBadge('quest').textContent, '2810 tests');
+  assert.equal(labcorp.getBadge('quest').textContent, '2820 tests');
   assert.equal(labcorp.getBadge('labcorp').textContent, 'Selected');
 
   const cedars = openSelector('cedars', '39 tests', storage);
-  assert.equal(cedars.getBadge('quest').textContent, '2810 tests');
+  assert.equal(cedars.getBadge('quest').textContent, '2820 tests');
   assert.equal(cedars.getBadge('labcorp').textContent, '1458 tests');
   assert.equal(cedars.getBadge('cedars').textContent, 'Selected');
   assert.equal(cedars.getBadge('labcorp').attributes['aria-label'], '1458 available tests');
@@ -83,7 +83,7 @@ test('Lab selection dropdown shows only active test totals, keeping X tests badg
 
 test('All receiving lab pages load the refreshed selector script', () => {
   for (const page of ['index.html', 'labcorp.html', 'cedars.html']) {
-    assert.match(read(page), /src="assets\/js\/lab-select\.js\?v=7"/);
+    assert.match(read(page), /src="assets\/js\/lab-select\.js\?v=8"/);
   }
   assert.match(read('labcorp.html'), /src="labcorp-app\.js\?v=109"/);
 });
