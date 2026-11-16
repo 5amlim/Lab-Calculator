@@ -646,7 +646,19 @@
           ? 'Wound swab'
           : drawContainer.replace(/^(?:aptima|synthetic)\s+/i, '');
       }
-      drawContainer = transportContainer;
+      // Preserve the named collection kit when the destination is merely
+      // abbreviated (e.g., Aptima instead of Aptima Multitest orange label).
+      // Anatomical-only entries such as "Throat Swab" still resolve to
+      // the specified collection kit.
+      const namedKit = /\b(?:aptima|eswab|e-swab|affirm|atts|cobas)\b/i.test(drawContainer);
+      if (namedKit && isDirectSwabKitSubmission({
+        ...record, specimenType, drawContainer, transportContainer
+      })) {
+        if (/^aptima(?:®)?$/i.test(transportContainer.trim()) && /\baptima\b/i.test(drawContainer))
+          transportContainer = drawContainer;
+      } else {
+        drawContainer = transportContainer;
+      }
     }
     // The yellow-label Aptima urine tube is filled from an initial urine cup.
     // It is not a directly collected swab tube. Fix legacy records that listed
