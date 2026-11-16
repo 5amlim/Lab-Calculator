@@ -32,3 +32,17 @@ body:not(.labcorp-page) .tube-cary-blair::before {
     -webkit-print-color-adjust:exact;print-color-adjust:exact;
   }
 }
+/* Separate Hologic collection kits: white Unisex, yellow Urine, green transfer. */
+.tube-aptima-unisex::before {
+  background: linear-gradient(to bottom, #fff 0 24%, #e6eaed 24% 64%, #bdc5cb 64% 100%);
+  border: 1px solid #909da4; border-radius: 3px 3px 5px 5px;
+}
+.tube-aptima-transfer::before {
+  background: linear-gradient(to bottom, #fff 0 24%, #a5cfb8 24% 64%, #e6f0eb 64% 100%);
+  border: 1px solid #76a88a; border-radius: 3px 3px 5px 5px;
+}
+@media print {
+  .tube-aptima-unisex::before,.tube-aptima-transfer::before {
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+}
