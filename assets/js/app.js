@@ -1160,7 +1160,7 @@
     // Ordinary plastic transport tubes and vials use one stock label and icon.
     // Preserve specialty media, timed/dedicated aliquots, and specimen/temperature
     // requirements elsewhere in each test's collection record.
-    if (/^(?:transport tube|serum transport tube|plasma transport tube|frozen transport tube(?:\\s*\\(plastic screw-cap\\))?|plastic screw-cap serum transport vial|polypropylene transport tube|plastic serum transport tube)$/i.test(container)) {
+    if (/^(?:transport tube|serum transport tube|plasma transport tube|frozen transport tube(?:\s*\(plastic screw-cap\))?|plastic screw-cap serum transport vial|polypropylene transport tube|plastic serum transport tube)$/i.test(container)) {
       return 'Transport Tube';
     }
     return container;
