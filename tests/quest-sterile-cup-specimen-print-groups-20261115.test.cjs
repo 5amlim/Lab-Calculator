@@ -111,6 +111,6 @@ test('Four watery stool assays still share one original cup and no transfer inst
 
 test('Quest HTML uses updated JavaScript and CSS versions',()=>{
  const html=read('index.html');
- assert.match(html,/assets\/js\/app\.js\?v=13\.16/);
+ assert.match(html,/assets\/js\/app\.js\?v=13\.17/);
  assert.match(html,/assets\/css\/styles\.css\?v=12\.57/);
 });
