@@ -27,6 +27,8 @@
     if (/cary[- ]?blair|para[- ]?pak\s+c\s*&\s*s/.test(value)) return 'tube-cary-blair';
     if (/\baffirm\b|\batts\b/.test(value)) return 'tube-affirm';
     if (/aptima/.test(value) && /\burine\b/.test(value)) return 'tube-aptima-urine';
+    if (/aptima/.test(value) && /\bunisex\b|white[- ]?label/.test(value)) return 'tube-aptima-unisex';
+    if (/aptima/.test(value) && /pap[- ]?vial|green[- ]?label|specimen transfer/.test(value)) return 'tube-aptima-transfer';
     if (/aptima/.test(value)) return 'tube-aptima';
     if (/total[- ]?fix/.test(value)) return 'tube-total-fix';
     if (/acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?(?:metal|element)/.test(value) && !/royal[- ]?blue/.test(value)) {
@@ -83,7 +85,9 @@
       'sterile-cup':'tube-urine-cup', 'urine-cup':'tube-24h-urine',
       'urine-ua':'tube-ua-swirl', 'urine-culture':'tube-urine-culture',
       affirm:'tube-affirm', amies:'tube-eswab', 'fetal-fibronectin':'tube-transport',
-      aptima:'tube-aptima', viral:'tube-utm', stool:'tube-total-fix', special:'tube-transport'
+      aptima:'tube-aptima', 'aptima-multitest':'tube-aptima',
+      'aptima-unisex':'tube-aptima-unisex', 'aptima-urine':'tube-aptima-urine',
+      'aptima-other':'tube-transport', viral:'tube-utm', stool:'tube-total-fix', special:'tube-transport'
     })[value] || '';
   }
   function fieldName(item) {
