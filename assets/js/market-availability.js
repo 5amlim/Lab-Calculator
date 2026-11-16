@@ -17,7 +17,19 @@
   //            verified: 'YYYY-MM-DD', note: 'Only at the named receiving site' }
   // Do NOT turn a national test listing or a regional STAT menu into a routine
   // collection approval. Missing records remain unverified for every market.
-  const RULES = Object.freeze({ quest: Object.freeze({}), labcorp: Object.freeze({}) });
+  const RULES = Object.freeze({
+    quest: Object.freeze({
+      // The official Quest listing expressly assigns this order code to CA patients.
+      '90372': { denied: ['ny', 'fl'], source: 'https://testdirectory.questdiagnostics.com/test/test-detail/90372/?cc=MASTER', verified: '2026-11-15', note: 'California patient testing code. For non-California patients use Quest 338; confirm local account acceptance.' },
+      // These Quest codes expressly require a CA replacement order code.
+      '335': { denied: ['socal','norcal'], source: 'https://testdirectory.questdiagnostics.com/test/test-detail/335/cholinesterase-plasma?cc=MASTER', verified: '2026-11-15', note: 'Non-California patient code; for California use Quest 90368.' },
+      '39481': { denied: ['socal','norcal'], source: 'https://testdirectory.questdiagnostics.com/test/test-detail/39481/cholinesterase-serum-plasma-rbc?cc=MASTER', verified: '2026-11-15', note: 'Non-California patient code; for California use Quest 90369.' },
+      '16167': { denied: ['socal','norcal','ny'], source: 'https://testdirectory.questdiagnostics.com/test/test-detail/16167/?cc=SKB', verified: '2026-11-15', note: 'Not offered for California patients; New York patients use Quest 16966.' }
+    }),
+    labcorp: Object.freeze({
+      '791280': { denied: ['socal','norcal','ny'], source: 'https://www.labcorp.com/tests/791280/lead-blood-filter-paper', verified: '2026-11-15', note: 'Labcorp states this filter-paper lead assay is unavailable in New York and California.' }
+    })
+  });
   let acknowledged = false;
   let cartSignature = '';
   let mounted = false;
@@ -59,7 +71,7 @@
     return false;
   }
   function signature(tests, lab = catalogLab()) {
-    return JSON.stringify([lab, market(), (tests || []).map(test => [String(test.id), String(test.testCode)]).sort((a,b) => a[0].localeCompare(b[0]))]);
+    return JSON.stringify([lab, market(), (tests || []).map(test => [String(test.id), String(test.testCode), String(test.testName), String(test.drawContainer), String(test.transportContainer), String(test.specialInstructions), JSON.stringify(test.additionalDrawRequirements || [])]).sort((a,b) => a[0].localeCompare(b[0]))]);
   }
   function reset() {
     acknowledged = false;
@@ -137,10 +149,6 @@
     check.addEventListener('change', () => {
       acknowledged = Boolean(check.checked && !check.disabled);
       document.dispatchEvent(new CustomEvent('labmarketreviewchange'));
-    });
-    document.addEventListener('visibilitychange', () => {
-      // Avoid carrying an unverified acknowledgement into a later work session.
-      if (document.hidden) { reset(); document.dispatchEvent(new CustomEvent('labmarketreviewchange')); }
     });
   }
   window.LabMarketAvailability = Object.freeze({
