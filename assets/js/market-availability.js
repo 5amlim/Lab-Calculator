@@ -20,6 +20,8 @@
   const RULES = Object.freeze({
     quest: Object.freeze({
       // The official Quest listing expressly assigns this order code to CA patients.
+      '90368': { denied: ['ny', 'fl'], source: 'https://testdirectory.questdiagnostics.com/test/test-detail/335/cholinesterase-plasma?cc=MASTER', verified: '2026-11-15', note: 'Quest specifies 90368 for California patient testing. Use Quest 335 for non-California patient testing.' },
+      '90369': { denied: ['ny', 'fl'], source: 'https://testdirectory.questdiagnostics.com/test/test-detail/39481/cholinesterase-serum-plasma-rbc?cc=MASTER', verified: '2026-11-15', note: 'Quest specifies 90369 for California patient testing. Use Quest 39481 for non-California patient testing.' },
       '90372': { denied: ['ny', 'fl'], source: 'https://testdirectory.questdiagnostics.com/test/test-detail/90372/?cc=MASTER', verified: '2026-11-15', note: 'California patient testing code. For non-California patients use Quest 338; confirm local account acceptance.' },
       // These Quest codes expressly require a CA replacement order code.
       '335': { denied: ['socal','norcal'], source: 'https://testdirectory.questdiagnostics.com/test/test-detail/335/cholinesterase-plasma?cc=MASTER', verified: '2026-11-15', note: 'Non-California patient code; for California use Quest 90368.' },
@@ -71,7 +73,8 @@
     return false;
   }
   function signature(tests, lab = catalogLab()) {
-    return JSON.stringify([lab, market(), (tests || []).map(test => [String(test.id), String(test.testCode), String(test.testName), String(test.drawContainer), String(test.transportContainer), String(test.specialInstructions), JSON.stringify(test.additionalDrawRequirements || [])]).sort((a,b) => a[0].localeCompare(b[0]))]);
+    const statSite = document.getElementById('statAreaSelect')?.value || '';
+    return JSON.stringify([lab, market(), statSite, (tests || []).map(test => [String(test.id), String(test.testCode), String(test.testName), String(test.drawContainer), String(test.transportContainer), String(test.specialInstructions), JSON.stringify(test.additionalDrawRequirements || [])]).sort((a,b) => a[0].localeCompare(b[0]))]);
   }
   function reset() {
     acknowledged = false;
@@ -149,6 +152,11 @@
     check.addEventListener('change', () => {
       acknowledged = Boolean(check.checked && !check.disabled);
       document.dispatchEvent(new CustomEvent('labmarketreviewchange'));
+    });
+    window.addEventListener('storage', event => {
+      if (event.key !== STORAGE_KEY) return;
+      reset();
+      document.dispatchEvent(new CustomEvent('labmarketchange', { detail: { market: market() } }));
     });
   }
   window.LabMarketAvailability = Object.freeze({
