@@ -57,23 +57,11 @@ Each added record includes the official directory source, collection/transport c
 **Important:** Quest's MASTER directory does not guarantee regional availability, and a verified national specimen route is not necessarily approved by the receiving service area. Confirm local acceptance, collection capability and current lab instructions before patient collection. This pass includes record-schema and duplicate/load-order checks, but not a full browser end-to-end test of every new draw plan.
 
 
-## Collection-market safety (Quest and LabCorp, 2026-11-15)
+## Explicit regional test flags (November 2026)
 
-Both calculators require staff to choose a **collection market**: Southern California, Northern California, New York, or Florida. The market selection is shared between the two calculators in the same browser; it is deliberately separate from the STAT receiving-laboratory selector. A STAT lab from another market cannot be used to mark a test STAT.
+Quest and LabCorp test search results, batch matches and cart entries show a compact amber badge **only** when the laboratory explicitly documents a patient-state or regional restriction for that exact test code. Known restrictions also appear on collection printouts. All ordinary tests keep their original display and all existing Add / STAT controls remain unchanged. There is no market selector, broad verification badge, or new approval step.
 
-**This is not a blanket approval list.** The national directory/catalog defines collection requirements, not local account acceptance. Unclassified tests are marked **Verify for [market]** and can be added to a planning cart, but print/PDF and CSV export remain disabled until the user confirms that *every selected code* is accepted by the specific receiving lab and account. Confirmation is per current cart and is reset after changing market, STAT site, or specimen/test details. Manually added tests cannot override an explicit code restriction. The printed/PDF output and CSV identify the chosen market.
-
-Source: `assets/js/market-availability.js`. Only add a `RULES.quest` or `RULES.labcorp` entry when the official laboratory service-area or patient-state restriction is documented; include the exact test code, denied markets, source URL, and verification date. **Do not infer routine availability from a national MASTER directory listing or STAT menu.** A code listed as valid for California patient testing still needs local receiving-site confirmation.
-
-Initial, specifically sourced restrictions:
-- Quest `90368`, `90369`, `90372`: California patient testing variants, blocked for NY and FL; see official Quest entries `335`, `39481`, and `90372`.
-- Quest `335`, `39481`: listed as non-California patient codes, blocked for SoCal and NorCal.
-- Quest `16167`: explicitly unavailable for California patient testing and NY uses a different code, `16966`, so blocked for SoCal, NorCal, and NY.
-- LabCorp `791280`: official directory states unavailable in New York and California, blocked for SoCal, NorCal, and NY.
-
-These rules describe **patient-state/code restrictions**, not proof that a locally selected laboratory will accept the alternative code. Rules lacking a validated local acceptance source must not turn tests green/approved. Use the official directory with the receiving lab's service area or account, then contact the receiving lab for unresolved cases.
-
-Regression: `node --test tests/market-availability.test.cjs`.
+Rules and official-directory source URLs: `assets/js/market-restrictions.js`. The initial set includes Quest California patient codes (`90368`, `90369`, `90372`), their non-California counterparts (`335`, `39481`), specific NY-only and NY-ineligible codes, and LabCorp blood lead filter-paper code `791280` (not available in CA or NY). These flags reflect **patient-state or test-code restrictions** and do not assert that other markets or receiving laboratories accept the test. Add further flags only when the exact code and limitation have a verified official source. Run `node --test tests/market-restrictions.test.cjs` for coverage.
 
 ## Adding LabCorp tests
 
