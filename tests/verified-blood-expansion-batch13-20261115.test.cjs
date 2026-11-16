@@ -44,7 +44,7 @@ test('The batch is loaded on both pages before their planner, and only contains 
     assert(html.includes(script+'?v=1'));
     assert(html.indexOf(script)<html.indexOf('<script src="'+app));
     const records=bundle(lab);
-    assert.deepEqual(records.map(t=>t.testCode),codes[lab]);
+    assert.deepEqual(Array.from(records,t=>t.testCode),codes[lab]);
     assert(records.every(t=>t.status==='active'&&t.source&&t.drawContainer&&t.transportContainer&&t.preferredVolume&&t.minimumVolume&&t.spin));
   }
 });
