@@ -1249,6 +1249,13 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
     font-size: 5.8px;
     font-weight: 650;
   }
+  /* Processing is a separate instruction, never part of a specimen label. */
+  .print-label-note.print-label-process { color: #235660; }
+  .print-label-note.print-label-process > span {
+    border-color: #a7c7cc;
+    background: #eef8f8 !important;
+    color: #235660 !important;
+  }
   .print-submit-item.original-tube-submit { border-color: #82979e; }
   .print-submit-item.original-tube-submit .print-submit-item-detail { color: #194f59; }
   .print-tube-badge + br + .print-tube-badge { margin-top: 3px; }
