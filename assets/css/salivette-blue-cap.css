@@ -1,0 +1,35 @@
+/* Salivette Cortisol: Sarstedt blue screw-cap over a clear/light-blue collection tube.
+ * Used by Quest and Labcorp, including older 2-7 timed-saliva catalog entries.
+ * This colors the actual CONTAINER icon, not the separate SALIVA specimen badge.
+ */
+.tube.tube-salivette::before {
+  width: 9px;
+  height: 17px;
+  left: 5px;
+  border: 1px solid #376ca2;
+  border-radius: 3px 3px 5px 5px;
+  background: linear-gradient(180deg,
+    #1757a8 0 36%,
+    #6595ca 36% 44%,
+    #e4effa 44% 77%,
+    #a7c5e0 77% 100%) !important;
+  box-shadow: inset -1px 0 0 rgba(24, 83, 140, .16);
+}
+@media print {
+  .print-sheet .tube.tube-salivette::before {
+    width: 7px;
+    height: 14px;
+    left: 4px;
+    background: linear-gradient(180deg,
+      #1757a8 0 36%,
+      #6595ca 36% 44%,
+      #e4effa 44% 77%,
+      #a7c5e0 77% 100%) !important;
+    border-color: #376ca2 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .print-sheet .print-bag-card .print-submit-item:has(> .print-submit-item-title > .tube.tube-salivette) {
+    --submit-container-accent: #346eb8;
+  }
+}
