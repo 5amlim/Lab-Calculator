@@ -154,7 +154,7 @@
     recordCount: $('recordCount'), searchInput: $('searchInput'), addBestButton: $('addBestButton'),
     previewButton: $('previewButton'), clearSearchButton: $('clearSearchButton'), batchResults: $('batchResults'),
     librarySuggestions: $('librarySuggestions'), batchSuggestions: $('batchSuggestions'),
-    libraryFilter: $('libraryFilter'), categoryFilter: $('categoryFilter'), specimenFilter: $('specimenFilter'), temperatureFilter: $('temperatureFilter'), transportContainerFilter: $('transportContainerFilter'), fastingFilter: $('fastingFilter'), pediatricFilter: $('pediatricFilter'), spinFilter: $('spinFilter'), catalogFilterButton: $('catalogFilterButton'), catalogFilterButtonText: $('catalogFilterButtonText'), catalogFilterPanel: $('catalogFilterPanel'), catalogFilterReset: $('catalogFilterReset'), catalogFilterDone: $('catalogFilterDone'), catalogFilterControl: $('catalogFilterControl'), clearBrowserTestsButton: $('clearBrowserTestsButton'), browserCustomCount: $('browserCustomCount'),
+    libraryFilter: $('libraryFilter'), categoryFilter: $('categoryFilter'), specimenFilter: $('specimenFilter'), temperatureFilter: $('temperatureFilter'), transportContainerFilter: $('transportContainerFilter'), containerNameFilter: $('containerNameFilter'), fastingFilter: $('fastingFilter'), pediatricFilter: $('pediatricFilter'), spinFilter: $('spinFilter'), catalogFilterButton: $('catalogFilterButton'), catalogFilterButtonText: $('catalogFilterButtonText'), catalogFilterPanel: $('catalogFilterPanel'), catalogFilterReset: $('catalogFilterReset'), catalogFilterDone: $('catalogFilterDone'), catalogFilterControl: $('catalogFilterControl'), clearBrowserTestsButton: $('clearBrowserTestsButton'), browserCustomCount: $('browserCustomCount'),
     libraryBody: $('libraryBody'), libraryStatus: $('libraryStatus'), loadMoreButton: $('loadMoreButton'), loadMoreInlineButton: $('loadMoreInlineButton'),
     blockedListButton: $('blockedListButton'), blockedListPanel: $('blockedListPanel'), blockedListBody: $('blockedListBody'),
     addTestButton: $('addTestButton'), addSelectedTestButton: $('addSelectedTestButton'), additionalContainers: $('additionalContainers'), addAdditionalContainerButton: $('addAdditionalContainerButton'), testsDetailsButton: $('testsDetailsButton'), testsDetailsPanel: $('testsDetailsPanel'),
@@ -262,6 +262,7 @@
       if (!event.target.closest('#batchAutocomplete')) closeSuggestions('batch');
     });
     [els.categoryFilter, els.specimenFilter, els.temperatureFilter, els.transportContainerFilter, els.fastingFilter, els.pediatricFilter, els.spinFilter].forEach(control => control.addEventListener('change', () => { libraryLimit = PAGE_STEP; renderLibrary(); }));
+    els.containerNameFilter.addEventListener('input', () => { libraryLimit = PAGE_STEP; renderLibrary(); });
     els.catalogFilterButton.addEventListener('click', () => { if (els.catalogFilterPanel.classList.contains('hidden')) setStatPickerOpen(false); toggleCatalogFilters(); });
     els.catalogFilterDone.addEventListener('click', () => toggleCatalogFilters(false));
     els.catalogFilterReset.addEventListener('click', resetCatalogFilters);
@@ -2045,6 +2046,7 @@
     els.specimenFilter.value = '';
     els.temperatureFilter.value = '';
     els.transportContainerFilter.value = '';
+    els.containerNameFilter.value = '';
     els.fastingFilter.value = '';
     els.pediatricFilter.checked = false;
     els.spinFilter.checked = false;
@@ -2054,7 +2056,7 @@
   }
 
   function libraryFilterCount() {
-    return [els.categoryFilter.value, els.specimenFilter.value, els.temperatureFilter.value, els.transportContainerFilter.value, els.fastingFilter.value,
+    return [els.categoryFilter.value, els.specimenFilter.value, els.temperatureFilter.value, els.transportContainerFilter.value, els.containerNameFilter.value.trim(), els.fastingFilter.value,
       els.pediatricFilter.checked, els.spinFilter.checked].filter(Boolean).length;
   }
 
@@ -2069,6 +2071,23 @@
     if (container && !(container === 'sterile-cup'
       ? usesSterileCup(test)
       : transportContainerFilterCategories(test).includes(container))) return false;
+    // The optional name search covers any exact transport-device wording in
+    // the catalog, including rare kits and secondary submission routes.
+    // It never matches a source-only sterile cup when a specimen is transferred.
+    const specificContainer = normalizeSearch(els.containerNameFilter.value);
+    if (specificContainer) {
+      const submittedName = route => {
+        const transport = normalizeSearch(route.transportContainer || '');
+        if (/\b(?:original tube|original container|primary tube|no transfer|do not open)\b/.test(transport))
+          return normalizeSearch(route.drawContainer || '');
+        return transport;
+      };
+      const routes = [test, ...additionalDrawRequirements(test).map(requirement => ({
+        drawContainer: requirement.container || test.drawContainer,
+        transportContainer: requirement.transportContainer
+      }))];
+      if (!routes.some(route => submittedName(route).includes(specificContainer))) return false;
+    }
     const fasting = els.fastingFilter.value;
     if (fasting && fastingRequirement(test)?.level !== fasting) return false;
     // Limit this category to explicitly named pediatric/neonatal tests;
