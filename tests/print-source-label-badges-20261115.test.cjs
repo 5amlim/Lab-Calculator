@@ -45,7 +45,7 @@ async function printHarness(lab) {
 }
 
 for(const lab of ['Quest','Labcorp']){
-  test(lab+': LABEL uses colored CSF and fluid source badges with date/time',async()=>{
+  test(lab+': single-source LABEL uses concise source and date/time without duplicate badges',async()=>{
     const {print}=await printHarness(lab);
     const cases=[
       [['17409','17420'],'CSF','csf'],
@@ -55,10 +55,10 @@ for(const lab of ['Quest','Labcorp']){
     ];
     for(const [codes,label,color] of cases) {
       const html=print(codes);
-      assert.match(html,new RegExp('class="print-collect-chip-specimen specimen-'+color+'">'+label+'</span>'));
-      assert.match(html,/and collection date and time/);
+      assert.match(html,/(?:Specimen source|Source\/site) · Collection date\/time/);
+      assert.doesNotMatch(html,new RegExp('class="print-collect-chip-specimen specimen-'+color+'">'+label+'</span>'));
       assert.equal((html.match(/class="print-label-note"/g)||[]).length,1,'only one label row per specimen source');
-      assert.equal((html.match(/class="print-collect-chip-specimen/g)||[]).length,1);
+      assert.equal((html.match(/class="print-collect-chip-specimen/g)||[]).length,0,'title badge already identifies the source');
       for(const code of codes)assert(html.includes(code),'missing source test '+code);
       assert.doesNotMatch(html,/label (?:precise |exact )?specimen source/i);
       assert.doesNotMatch(html,/[\uE000\uE001]/,'internal source token escaped to print');
@@ -71,7 +71,8 @@ for(const lab of ['Quest','Labcorp']){
     assert.equal((html.match(/class="print-label-note"/g)||[]).length,3);
     for(const specimen of ['Pleural Fluid','CSF','Pericardial Fluid'])
       assert(html.includes('>'+specimen+'</span>'));
-    assert.equal((html.match(/and collection date and time/g)||[]).length,3);
+    assert.equal((html.match(/Collection date\/time/g)||[]).length,3);
+    assert.equal((html.match(/class="print-collect-chip-specimen/g)||[]).length,3,'mixed groups still need per-source badges');
   });
 
   test(lab+': preserve specific instructions and do not reduce a swab site to a generic badge',async()=>{
@@ -87,7 +88,9 @@ for(const lab of ['Quest','Labcorp']){
     const custom=[specific,swab];
     const html=api.printLabelingNotes({tests:custom,originalTube:true,className:'tube-urine-cup',label:'Sterile cup'});
     assert.match(html,/Label vial HIV RNA specimen and collection time/);
-    assert.match(html,/Label precise specimen source and collection date\/time/);
+    assert.match(html,/Vaginal Swab/);
+    assert.match(html,/Collection date\/time/);
+    assert.doesNotMatch(html,/Label precise specimen source and collection date\/time/);
     assert.doesNotMatch(html,/>Swab<\/span> and collection date and time/);
   });
 }
