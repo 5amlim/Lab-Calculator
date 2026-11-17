@@ -1706,7 +1706,7 @@
     const choice = chosenBatchMatch(row);
     if (choice.test.status === 'reference') return `<div class="batch-row needs-confirmation" data-batch-index="${row.index}">
       <div class="batch-query-block"><span class="batch-kicker">You entered</span><div class="batch-query">${escapeHtml(row.query)}</div></div>
-      <div class="batch-match"><span class="badge temp-unknown">Directory only</span><strong>${escapeHtml(displayCode(choice.test))} · ${escapeHtml(choice.test.testName)}</strong>${window.LabRegionalRestrictions.badge(choice.test, 'quest')}<small>Quest code/name is indexed, but specimen and collection requirements are not verified. Cannot add to the draw plan.</small></div>
+      <div class="batch-match"><span class="badge temp-unknown">${choice.test.specialInstructions.startsWith('VERIFICATION REQUESTED.') ? 'Review requested' : 'Directory only'}</span><strong>${escapeHtml(displayCode(choice.test))} · ${escapeHtml(choice.test.testName)}</strong>${window.LabRegionalRestrictions.badge(choice.test, 'quest')}<small>Quest code/name is indexed, but specimen and collection requirements are not verified. Cannot add to the draw plan.</small></div>
       <a class="mini-button edit" href="${escapeAttr(directoryUrl(choice.test))}" target="_blank" rel="noreferrer">Verify with Quest directory ↗</a>
     </div>`;
     const blocked = choice.test.status === 'blocked';
@@ -2284,7 +2284,7 @@
   function renderLibraryRow(test) {
     if (test.status === 'reference') return `<tr class="quest-directory-reference-row">
       <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
-      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${window.LabRegionalRestrictions.badge(test, 'quest')} <span class="badge temp-unknown">Directory only</span></div><div class="subtext">Collection instructions not verified. Confirm in Quest directory before collection.</div></td>
+      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${window.LabRegionalRestrictions.badge(test, 'quest')} <span class="badge temp-unknown">${test.specialInstructions.startsWith('VERIFICATION REQUESTED.') ? 'Review requested' : 'Directory only'}</span></div><div class="subtext">Collection instructions not verified. Confirm in Quest directory before collection.</div></td>
       <td data-label="Container">Not verified</td>
       <td data-label="Temperature"><span class="badge temp-unknown">Not verified</span></td>
       <td data-label="Volume">Not verified</td>
