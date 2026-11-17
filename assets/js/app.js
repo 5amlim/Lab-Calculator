@@ -6125,7 +6125,14 @@
     if (!labels.size && !handling.size) return '';
     const render = (rows, kind, showCodes) => Array.from(rows.values()).map(({text: note, codes}) =>
       `<div class="print-label-note${kind === 'Process' ? ' print-label-process' : ''}"><span>${kind}</span><div>${escapeHtml(note)}${showCodes ? ` <small>${escapeHtml([...new Set(codes)].join(', '))}</small>` : ''}</div></div>`).join('');
-    return `<div class="print-label-notes">${render(labels, 'Label', labels.size > 1)}${render(handling, 'Process', handling.size > 1)}</div>`;
+    // A unique requirement that applies to only one of several tests still
+    // needs its code, even if it is the sole visible LABEL/PROCESS row.
+    const testCount = uniqueTests(item.tests || []).length;
+    const labelCoverage = new Set(Array.from(labels.values()).flatMap(row => row.codes)).size;
+    const processCoverage = new Set(Array.from(handling.values()).flatMap(row => row.codes)).size;
+    const showLabelCodes = labels.size > 1 || (testCount > 1 && labelCoverage < testCount);
+    const showProcessCodes = handling.size > 1 || (testCount > 1 && processCoverage < testCount);
+    return `<div class="print-label-notes">${render(labels, 'Label', showLabelCodes)}${render(handling, 'Process', showProcessCodes)}</div>`;
   }
 
   function isTransferSubmission(test) {
