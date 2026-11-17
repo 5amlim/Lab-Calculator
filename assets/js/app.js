@@ -5547,9 +5547,18 @@
 
     const drawClass = tubeClass(draw);
     const transportClass = tubeClass(transport);
-    const explicitOriginal = /no transfer|original tube|same tube|primary tube|do not open|unopened|submit (?:the )?(?:spun )?(?:original|collection|primary) tube|leave .* in (?:the )?original tube/.test(combined);
+    // The required transport-container field is authoritative. Mentions of
+    // original tubes for alternative or paired specimens in free-text notes
+    // cannot turn an explicitly transferred sample into an original-tube order.
+    const namedTransferDestination = /\b(?:transport|transfer)\s+(?:tubes?|vials?|containers?)\b|\b(?:aliquot|cryovial|transpak|pour[- ]?off|preservative\s+tube)\b/i.test(transport);
+    const samePhysicalContainer = normalizeSearch(cleanCollectionContainer(draw)) ===
+      normalizeSearch(cleanCollectionContainer(transport));
+    const transportSaysOriginal = /\b(?:no transfer|original tube|same tube|primary tube|do not open|unopened|submit\s+(?:the\s+)?(?:spun\s+)?(?:original|collection|primary)\s+tube)\b/i.test(transport);
+    if (namedTransferDestination && !samePhysicalContainer && !transportSaysOriginal) return false;
+    const explicitOriginal = transportSaysOriginal || (samePhysicalContainer &&
+      /\b(?:no transfer|original tube|same tube|primary tube|do not open|unopened)\b/i.test(String(test.specialInstructions || '')));
     const matchingTube = Boolean(drawClass && transportClass && drawClass === transportClass)
-      && !/transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/.test(combined);
+      && !/transport tube|aliquot|cryovial|screw[- ]?cap|pour[- ]?off/.test(transport.toLowerCase());
     // CSF, sputum, culture swabs, AFFIRM and InSure kits travel in their source device.
     const matchingSpecialOriginal = normalizeSearch(draw) === normalizeSearch(transport)
       && /csf|sputum|eswab|affirm|insure|culture swab/i.test(draw);
