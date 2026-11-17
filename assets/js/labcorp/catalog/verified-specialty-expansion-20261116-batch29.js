@@ -1,0 +1,481 @@
+/* Verified Labcorp specialty assay expansion, batch29, 2026-11-16.
+ * Red-top-only routes are not pooled with gel SST; frozen serum uses purple-cap
+ * Labcorp frozen transport, not Quest's regular Transport Tube.
+ * Preserve existing active and blocked entries. */
+(()=>{'use strict';if(!Array.isArray(window.SEED_TESTS))return;
+const additions=[
+  {
+    "id": "labcorp-verified-20261116-batch29-117985",
+    "status": "active",
+    "testCode": "117985",
+    "testName": "Phosphatidylserine/Prothrombin Antibody (PS/PT), IgG and IgM",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "spin": "Yes",
+    "stability": "Room 14 days; refrigerated 14 days; frozen 14 days",
+    "specialLabeling": "Label serum, collection date and time",
+    "specialInstructions": "Collect serum in SST / Gold (or SST / Tiger), allow to clot and centrifuge. Submit original spun SST at room temperature; serum must be separated from cells by centrifugation. Avoid gross hemolysis, lipemia and bacterial contamination. Verify local Labcorp acceptance.",
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-16 • https://www.labcorp.com/tests/117985/phosphatidylserine-prothrombin-antibody-ps-pt-igg-and-igm",
+    "searchAliases": [
+      "ps pt igg igm",
+      "aps antibody",
+      "phosphatidylserine prothrombin"
+    ],
+    "clinicalCategories": [
+      "coagulation",
+      "immunology"
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261116-batch29-501949",
+    "status": "active",
+    "testCode": "501949",
+    "testName": "Ferritin, Serum",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.2 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "spin": "Yes",
+    "stability": "Follow official Labcorp test-specific handling requirements",
+    "specialLabeling": "Label serum, collection date and time",
+    "specialInstructions": "Collect serum in SST / Gold (or SST / Tiger), clot and centrifuge. Ship original spun gel-barrier SST at ambient temperature and avoid extreme temperatures. Heparin plasma is an alternate route but is not configured for this test. Verify local Labcorp acceptance.",
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-16 • https://specialtytesting.labcorp.com/tests/501949/ferritin-serum",
+    "searchAliases": [
+      "ferritin esoterix",
+      "iron stores",
+      "ferritin serum"
+    ],
+    "clinicalCategories": [
+      "hematology",
+      "chemistry"
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261116-batch29-500638",
+    "status": "active",
+    "testCode": "500638",
+    "testName": "Thyroid Peroxidase Antibodies (Anti-TPO)",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "Frozen Transport Tube (Purple Cap)",
+    "preferredVolume": "0.5 mL serum",
+    "minimumVolume": "0.3 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "spin": "Yes",
+    "stability": "Follow official Labcorp test-specific handling requirements",
+    "specialLabeling": "Label serum, collection date and time",
+    "specialInstructions": "Collect in SST / Gold (or SST / Tiger), allow to clot, centrifuge, and separate serum from cells within ONE HOUR. TRANSFER separated serum to a labeled Labcorp-approved polypropylene Frozen Transport Tube (Purple Cap); freeze and ship frozen on dry ice. Submit a dedicated aliquot for each separate frozen test unless Labcorp specifically authorizes sharing; do not ship an original SST or unseparated whole blood. Verify service-area acceptance.",
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-16 • https://specialtytesting.labcorp.com/tests/500638/thyroid-peroxidase-antibodies-anti-tpo",
+    "searchAliases": [
+      "tpo ab esoterix",
+      "anti tpo",
+      "thyroid peroxidase ab"
+    ],
+    "clinicalCategories": [
+      "endocrinology",
+      "immunology"
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261116-batch29-500850",
+    "status": "active",
+    "testCode": "500850",
+    "testName": "Resin T3 Uptake, Serum",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "Frozen Transport Tube (Purple Cap)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.1 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "spin": "Yes",
+    "stability": "Follow official Labcorp test-specific handling requirements",
+    "specialLabeling": "Label serum, collection date and time",
+    "specialInstructions": "Collect in SST / Gold (or SST / Tiger), allow to clot, centrifuge, and separate serum from cells within ONE HOUR. TRANSFER separated serum to a labeled Labcorp-approved polypropylene Frozen Transport Tube (Purple Cap); freeze and ship frozen on dry ice. Submit a dedicated aliquot for each separate frozen test unless Labcorp specifically authorizes sharing; do not ship an original SST or unseparated whole blood. Verify service-area acceptance.",
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-16 • https://specialtytesting.labcorp.com/tests/500850/resin-t3-uptake-serum",
+    "searchAliases": [
+      "t3 uptake esoterix",
+      "resin triiodothyronine uptake"
+    ],
+    "clinicalCategories": [
+      "endocrinology"
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261116-batch29-500477",
+    "status": "active",
+    "testCode": "500477",
+    "testName": "Thyroid Stimulating Hormone (TSH), ICMA",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "Frozen Transport Tube (Purple Cap)",
+    "preferredVolume": "1.2 mL serum",
+    "minimumVolume": "1 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "spin": "Yes",
+    "stability": "Follow official Labcorp test-specific handling requirements",
+    "specialLabeling": "Label serum, collection date and time",
+    "specialInstructions": "Collect in SST / Gold (or SST / Tiger), allow to clot, centrifuge, and separate serum from cells within 45 MINUTES. TRANSFER separated serum to a labeled Labcorp-approved polypropylene Frozen Transport Tube (Purple Cap); freeze and ship frozen on dry ice. Submit a dedicated aliquot for each separate frozen test unless Labcorp specifically authorizes sharing; do not ship an original SST or unseparated whole blood. Verify service-area acceptance.",
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-16 • https://specialtytesting.labcorp.com/tests/500477/thyroid-stimulating-hormone-tsh-icma",
+    "searchAliases": [
+      "tsh icma",
+      "esoterix tsh"
+    ],
+    "clinicalCategories": [
+      "endocrinology"
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261116-batch29-500848",
+    "status": "active",
+    "testCode": "500848",
+    "testName": "Sex Hormone-binding Globulin (SHBG), Serum",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "Frozen Transport Tube (Purple Cap)",
+    "preferredVolume": "0.5 mL serum",
+    "minimumVolume": "0.3 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "spin": "Yes",
+    "stability": "Follow official Labcorp test-specific handling requirements",
+    "specialLabeling": "Label serum, collection date and time",
+    "specialInstructions": "Collect in SST / Gold (or SST / Tiger), allow to clot, centrifuge, and separate serum from cells within ONE HOUR. TRANSFER separated serum to a labeled Labcorp-approved polypropylene Frozen Transport Tube (Purple Cap); freeze and ship frozen on dry ice. Submit a dedicated aliquot for each separate frozen test unless Labcorp specifically authorizes sharing; do not ship an original SST or unseparated whole blood. Verify service-area acceptance. Serum ONLY; no plasma.",
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-16 • https://specialtytesting.labcorp.com/tests/500848/sex-hormone-binding-globulin-shbg-serum",
+    "searchAliases": [
+      "shbg",
+      "sex hormone binding globulin"
+    ],
+    "clinicalCategories": [
+      "endocrinology",
+      "reproductive"
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261116-batch29-500159",
+    "status": "active",
+    "testCode": "500159",
+    "testName": "Testosterone, Total, Serum, Mass Spectrometry",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "0.8 mL serum",
+    "minimumVolume": "0.4 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "stability": "Follow official Labcorp test-specific handling requirements",
+    "specialLabeling": "Label serum, collection date and time",
+    "specialInstructions": "Collect in SST / Gold (or SST / Tiger), allow to clot, centrifuge, and separate serum from cells within ONE HOUR. TRANSFER serum to a plain plastic Transport Tube and ship refrigerated with cold packs. The official directory also allows frozen shipment on dry ice; refrigerated is the configured collection route. Do not submit unseparated whole blood. Verify service-area acceptance.",
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-16 • https://specialtytesting.labcorp.com/tests/500159/testosterone-total-serum-mass-spectrometry",
+    "searchAliases": [
+      "testosterone total lc ms",
+      "testosterone mass spectrometry",
+      "testosterone esoterix"
+    ],
+    "clinicalCategories": [
+      "endocrinology",
+      "reproductive"
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261116-batch29-500600",
+    "status": "active",
+    "testCode": "500600",
+    "testName": "Vitamin D, 1,25-Dihydroxy",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "Frozen Transport Tube (Purple Cap)",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "0.8 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "spin": "Yes",
+    "stability": "Follow official Labcorp test-specific handling requirements",
+    "specialLabeling": "Label serum, collection date and time",
+    "specialInstructions": "Collect in SST / Gold (or SST / Tiger), allow to clot, centrifuge, and separate serum from cells within ONE HOUR. TRANSFER separated serum to a labeled Labcorp-approved polypropylene Frozen Transport Tube (Purple Cap); freeze and ship frozen on dry ice. Submit a dedicated aliquot for each separate frozen test unless Labcorp specifically authorizes sharing; do not ship an original SST or unseparated whole blood. Verify service-area acceptance. Serum route only; EDTA plasma is an alternative but is not configured here.",
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-16 • https://specialtytesting.labcorp.com/tests/500600/vitamin-d-1-25-dihydroxy",
+    "searchAliases": [
+      "calcitriol",
+      "1 25 vitamin d",
+      "vitamin d active"
+    ],
+    "clinicalCategories": [
+      "endocrinology",
+      "nutrition"
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261116-batch29-500510",
+    "status": "active",
+    "testCode": "500510",
+    "testName": "Vitamin D, 25-Hydroxy, Total, Mass Spectrometry",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "Frozen Transport Tube (Purple Cap)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "spin": "Yes",
+    "stability": "Follow official Labcorp test-specific handling requirements",
+    "specialLabeling": "Label serum, collection date and time",
+    "specialInstructions": "Collect in SST / Gold (or SST / Tiger), allow to clot, centrifuge, and separate serum from cells within ONE HOUR. TRANSFER separated serum to a labeled Labcorp-approved polypropylene Frozen Transport Tube (Purple Cap); freeze and ship frozen on dry ice. Submit a dedicated aliquot for each separate frozen test unless Labcorp specifically authorizes sharing; do not ship an original SST or unseparated whole blood. Verify service-area acceptance.",
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-16 • https://specialtytesting.labcorp.com/tests/500510/vitamin-d-25-hydroxy-total-mass-spectrometry",
+    "searchAliases": [
+      "25 oh d lc ms",
+      "25 hydroxy vitamin d esoterix",
+      "vitamin d mass spec"
+    ],
+    "clinicalCategories": [
+      "endocrinology",
+      "nutrition"
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261116-batch29-702891",
+    "status": "active",
+    "testCode": "702891",
+    "testName": "Amiodarone (Cordarone), Serum or Plasma",
+    "specimenType": "Serum",
+    "drawContainer": "Red Top",
+    "alternativeContainer": "",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "spin": "Yes",
+    "stability": "Room 8 days; refrigerated 8 days; frozen 21 days",
+    "specialLabeling": "Label serum, collection date and time",
+    "specialInstructions": "Collect in Red Top WITHOUT GEL. Allow to clot, centrifuge, and TRANSFER serum into a labeled plain plastic Transport Tube within TWO HOURS of venipuncture. Do NOT use gel-barrier SST tubes, which the directory lists as a rejection cause. Send at room temperature for normal transport under three days; refrigerate or freeze if longer storage is required. This entry configures only the serum route, not EDTA/heparin plasma. Verify Labcorp local acceptance.",
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-16 • https://www.labcorp.com/tests/702891/amiodarone-cordarone-serum-or-plasma",
+    "searchAliases": [
+      "cordarone level",
+      "amiodarone drug level",
+      "amiodarone serum"
+    ],
+    "clinicalCategories": [
+      "toxicology",
+      "cardiology"
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261116-batch29-500102",
+    "status": "active",
+    "testCode": "500102",
+    "testName": "Testosterone, Free, With Sex Hormone-binding Globulin",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "Frozen Transport Tube (Purple Cap)",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "spin": "Yes",
+    "stability": "Follow official Labcorp test-specific handling requirements",
+    "specialLabeling": "Label serum, collection date and time",
+    "specialInstructions": "Collect in SST / Gold (or SST / Tiger), allow to clot, centrifuge, and separate serum from cells within ONE HOUR. TRANSFER separated serum to a labeled Labcorp-approved polypropylene Frozen Transport Tube (Purple Cap); freeze and ship frozen on dry ice. Submit a dedicated aliquot for each separate frozen test unless Labcorp specifically authorizes sharing; do not ship an original SST or unseparated whole blood. Verify service-area acceptance. Includes total testosterone, free testosterone, and SHBG; serum ONLY.",
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-16 • https://specialtytesting.labcorp.com/tests/500102/testosterone-free-with-sex-hormone-binding-globulin",
+    "searchAliases": [
+      "free testosterone shbg",
+      "testosterone free shbg",
+      "free t esoterix"
+    ],
+    "clinicalCategories": [
+      "endocrinology",
+      "reproductive"
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261116-batch29-500650",
+    "status": "active",
+    "testCode": "500650",
+    "testName": "Testosterone, Bioavailable, With Sex Hormone-binding Globulin",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "Frozen Transport Tube (Purple Cap)",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "0.6 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "spin": "Yes",
+    "stability": "Follow official Labcorp test-specific handling requirements",
+    "specialLabeling": "Label serum, collection date and time",
+    "specialInstructions": "Collect in SST / Gold (or SST / Tiger), allow to clot, centrifuge, and separate serum from cells within ONE HOUR. TRANSFER separated serum to a labeled Labcorp-approved polypropylene Frozen Transport Tube (Purple Cap); freeze and ship frozen on dry ice. Submit a dedicated aliquot for each separate frozen test unless Labcorp specifically authorizes sharing; do not ship an original SST or unseparated whole blood. Verify service-area acceptance. Includes testosterone, bioavailable testosterone and SHBG.",
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-16 • https://specialtytesting.labcorp.com/tests/500650/testosterone-bioavailable-with-sex-hormone-binding-globulin",
+    "searchAliases": [
+      "bioavailable testosterone",
+      "bioavailable t shbg",
+      "free testosterone bioavailable"
+    ],
+    "clinicalCategories": [
+      "endocrinology",
+      "reproductive"
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261116-batch29-500713",
+    "status": "active",
+    "testCode": "500713",
+    "testName": "Thyroid Function, Adult Hyperthyroid/TSH Suppression Test Group",
+    "specimenType": "Serum",
+    "drawContainer": "Red Top",
+    "alternativeContainer": "",
+    "transportContainer": "Frozen Transport Tube (Purple Cap)",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "0.8 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "spin": "Yes",
+    "stability": "Follow official Labcorp test-specific handling requirements",
+    "specialLabeling": "Label serum, collection date and time",
+    "specialInstructions": "Collect in Red Top without gel, allow to clot, centrifuge, and separate serum from cells within ONE HOUR. TRANSFER to a labeled Labcorp-approved polypropylene Frozen Transport Tube (Purple Cap); freeze and ship frozen on dry ice. Do not pool red-top serum with SST serum or submit original unseparated blood. Keep each separately ordered frozen assay in its own aliquot unless Labcorp authorizes combining. Verify service-area acceptance. Panel includes TSH, T3, T4, T3 uptake and calculated free T4 index. RED TOP is the configured/required collection route.",
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-16 • https://specialtytesting.labcorp.com/tests/500713/thyroid-function-adult-hyperthyroid-tsh-suppression-test-group",
+    "searchAliases": [
+      "thyroid suppression group",
+      "hyperthyroid esoterix panel",
+      "adult thyroid panel tsh"
+    ],
+    "clinicalCategories": [
+      "endocrinology"
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261116-batch29-500712",
+    "status": "active",
+    "testCode": "500712",
+    "testName": "Thyroid Function, Adult Thyroid Test Group",
+    "specimenType": "Serum",
+    "drawContainer": "Red Top",
+    "alternativeContainer": "",
+    "transportContainer": "Frozen Transport Tube (Purple Cap)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.2 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "spin": "Yes",
+    "stability": "Follow official Labcorp test-specific handling requirements",
+    "specialLabeling": "Label serum, collection date and time",
+    "specialInstructions": "Collect in Red Top without gel, allow to clot, centrifuge, and separate serum from cells within ONE HOUR. TRANSFER to a labeled Labcorp-approved polypropylene Frozen Transport Tube (Purple Cap); freeze and ship frozen on dry ice. Do not pool red-top serum with SST serum or submit original unseparated blood. Keep each separately ordered frozen assay in its own aliquot unless Labcorp authorizes combining. Verify service-area acceptance. Includes T4, T3 uptake and free T4 index; RED TOP is the configured/required collection route.",
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-16 • https://specialtytesting.labcorp.com/tests/500712/thyroid-function-adult-thyroid-test-group",
+    "searchAliases": [
+      "adult thyroid test group",
+      "thyroid t4 t3 uptake",
+      "thyroid esoterix panel"
+    ],
+    "clinicalCategories": [
+      "endocrinology"
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261116-batch29-504115",
+    "status": "active",
+    "testCode": "504115",
+    "testName": "Vitamin D, 25-Hydroxy, Fractionated, Mass Spectrometry",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "Frozen Transport Tube (Purple Cap)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "spin": "Yes",
+    "stability": "Room or refrigerated 7 days; frozen 34 months",
+    "specialLabeling": "Label serum, collection date and time",
+    "specialInstructions": "Collect in SST / Gold (or SST / Tiger), allow to clot, centrifuge, and separate serum from cells within 45 MINUTES. TRANSFER separated serum to a labeled Labcorp-approved polypropylene Frozen Transport Tube (Purple Cap); freeze and ship frozen on dry ice. Submit a dedicated aliquot for each separate frozen test unless Labcorp specifically authorizes sharing; do not ship an original SST or unseparated whole blood. Verify service-area acceptance. Includes D2, D3 and total 25-hydroxy vitamin D; this entry configures the preferred serum route.",
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-16 • https://specialtytesting.labcorp.com/tests/504115/vitamin-d-25-hydroxy-fractionated-mass-spectrometry",
+    "searchAliases": [
+      "fractionated vitamin d",
+      "vitamin d2 d3",
+      "vitamin d fractionated"
+    ],
+    "clinicalCategories": [
+      "endocrinology",
+      "nutrition"
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261116-batch29-500726",
+    "status": "active",
+    "testCode": "500726",
+    "testName": "Testosterone, Total and Free",
+    "specimenType": "Serum",
+    "drawContainer": "Red Top",
+    "alternativeContainer": "",
+    "transportContainer": "Frozen Transport Tube (Purple Cap)",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "spin": "Yes",
+    "stability": "Follow official Labcorp test-specific handling requirements",
+    "specialLabeling": "Label serum, collection date and time",
+    "specialInstructions": "Collect in Red Top without gel, allow to clot, centrifuge, and separate serum from cells within ONE HOUR. TRANSFER to a labeled Labcorp-approved polypropylene Frozen Transport Tube (Purple Cap); freeze and ship frozen on dry ice. Do not pool red-top serum with SST serum or submit original unseparated blood. Keep each separately ordered frozen assay in its own aliquot unless Labcorp authorizes combining. Verify service-area acceptance. Includes serum total and free testosterone by equilibrium dialysis/mass spectrometry. RED TOP ONLY in this configured route.",
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-16 • https://specialtytesting.labcorp.com/tests/500726/testosterone-total-and-free",
+    "searchAliases": [
+      "testosterone total free esoterix",
+      "total and free testosterone"
+    ],
+    "clinicalCategories": [
+      "endocrinology",
+      "reproductive"
+    ]
+  }
+];
+for(const record of additions){const existing=window.SEED_TESTS.find(t=>String(t.testCode||'').trim()===record.testCode);if(!existing){window.SEED_TESTS.push(record);continue;}if(['pending','reference'].includes(existing.status))Object.assign(existing,record,{id:existing.id||record.id});}
+})();
