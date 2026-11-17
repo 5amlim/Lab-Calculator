@@ -17,7 +17,8 @@
     '16924': { label: 'Not for NY patients', detail: 'For New York patient testing, Quest specifies code 16925.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/16924/accutype-cp-clopidogrel-cyp2c19-genotype?cc=MASTER' },
     '16592': { label: 'Unavailable in NY', detail: 'Quest states that fetal RHD gene detection is not available for New York patient testing.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/16592?cc=MASTER' },
     '19769': { label: 'Unavailable in NY', detail: 'Quest states that HHV-7 DNA PCR is not available for New York patient testing.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/19769/herpes-virus-7-dna-qualitative-real-time-pcr?cc=MASTER' },
-    '16866': { label: 'Unavailable in NY', detail: 'Quest states that 24-hour urine selenium is not available for New York patient testing.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/16866/selenium-24-hour-urine?cc=MASTER' }
+    '16866': { label: 'Unavailable in NY', detail: 'Quest states that 24-hour urine selenium is not available for New York patient testing.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/16866/selenium-24-hour-urine?cc=MASTER' },
+    '15384': { label: 'Unavailable in NY', detail: 'Quest states that rheumatoid factor screen with reflex to titer on synovial fluid is unavailable for New York patient testing.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/15384/rheumatoid-factor-screen-with-reflex-to-titer-synovial-fluid?cc=MASTER' }
   });
   const LABCORP = Object.freeze({
     '791280': { label: 'Unavailable in CA / NY', detail: 'Labcorp states this filter-paper blood lead test is unavailable in California and New York.', url: 'https://www.labcorp.com/tests/791280/lead-blood-filter-paper' }
