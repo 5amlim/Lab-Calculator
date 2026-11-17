@@ -5875,7 +5875,8 @@
       // show the exact directive instead of prefixing it with generic "Serum".
       const explicitSerumSource = derived === 'Serum'
         && /\bserum\s+from\s+(?:spun\s+)?(?:gold|sst|tiger|red(?:-top)?)/i.test(explicit);
-      if (derived && !(is24Hour && /^urine$/i.test(derived.trim())) && !explicitSerumSource) parts.push(derived);
+      // The inline specimen badge inside a generic label instruction already identifies the source.
+      if (derived && !sourceLabel && !(is24Hour && /^urine$/i.test(derived.trim())) && !explicitSerumSource) parts.push(derived);
       // Amber transport tubes should always carry a visible specimen-type label,
       // including ordinary serum transfers where the standard SST source would
       // otherwise suppress a redundant derived label.
