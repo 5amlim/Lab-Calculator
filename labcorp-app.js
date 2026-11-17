@@ -1974,11 +1974,40 @@
     return transportContainerFilterCategories(test).includes('sterile-cup');
   }
 
+  function positionMobileCatalogFilters() {
+    const panel = els.catalogFilterPanel;
+    if (panel.classList.contains('hidden')) return;
+    if (!matchMedia('(max-width: 720px)').matches) {
+      panel.style.removeProperty('--catalog-filter-top');
+      return;
+    }
+    const viewHeight = window.visualViewport?.height || innerHeight;
+    const anchor = els.catalogFilterButton.getBoundingClientRect();
+    const spaceBelow = viewHeight - anchor.bottom - 12;
+    // Stay below the trigger when there is room, otherwise open a full-height sheet.
+    const top = spaceBelow >= Math.min(370, viewHeight * .55) ? anchor.bottom + 8 : 12;
+    panel.style.setProperty('--catalog-filter-top', Math.max(12, Math.round(top)) + 'px');
+  }
+
   function toggleCatalogFilters(force) {
     const open = typeof force === 'boolean' ? force : els.catalogFilterPanel.classList.contains('hidden');
+    if (!open) window.closePortalSelects?.();
     els.catalogFilterPanel.classList.toggle('hidden', !open);
     els.catalogFilterButton.setAttribute('aria-expanded', String(open));
+    const mobileOpen = open && matchMedia('(max-width: 720px)').matches;
+    document.documentElement.classList.toggle('catalog-filter-scroll-lock', mobileOpen);
+    document.body.classList.toggle('catalog-filter-scroll-lock', mobileOpen);
+    els.catalogFilterControl.closest('.filter-row')?.classList.toggle('catalog-filter-expanded', open);
+    if (open) positionMobileCatalogFilters();
+    else els.catalogFilterPanel.style.removeProperty('--catalog-filter-top');
   }
+  window.addEventListener('resize', () => {
+    if (els.catalogFilterPanel.classList.contains('hidden')) return;
+    const mobileOpen = matchMedia('(max-width: 720px)').matches;
+    document.documentElement.classList.toggle('catalog-filter-scroll-lock', mobileOpen);
+    document.body.classList.toggle('catalog-filter-scroll-lock', mobileOpen);
+    positionMobileCatalogFilters();
+  }, { passive: true });
 
   function resetCatalogFilters() {
     els.categoryFilter.value = '';
