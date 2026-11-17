@@ -494,6 +494,19 @@
     });
   }
 
+  // Hair and nail specimens are not collected by this clinic.
+  function blockHairOrNailSpecimen(test) {
+    if (!test || test.status === 'reference') return test;
+    const specimen = String(test.specimenType || '').trim().toLowerCase();
+    const required = /\b(?:hair|nails?|fingernails?|toenails?|nail clippings?)\b/.test(specimen);
+    const alternatives = /\b(?:skin|swab|serum|plasma|blood|urine|stool|tissue|saliva|sputum|csf|fluid)\b/.test(specimen);
+    if (!required || alternatives) return test;
+    const notice = 'DO NOT PERFORM ONSITE. Hair and nail specimens are not collected at our clinics.';
+    const instructions = String(test.specialInstructions || '');
+    return { ...test, status: 'blocked',
+      specialInstructions: instructions.includes(notice) ? instructions : notice + ' ' + instructions };
+  }
+
   function applyUserState(state) {
     const builtIns = seedDatabase.map(test => ({ ...test }));
     const byId = new Map(builtIns.map((test, index) => [test.id, index]));
@@ -563,7 +576,8 @@
     return [...customTests, ...builtIns]
       .filter(test => !RETIRED_TEST_CODES.has(test.testCode))
       .map(applyLocalSupplyPolicy)
-      .map(verifiedAffirmRecord);
+      .map(verifiedAffirmRecord)
+      .map(blockHairOrNailSpecimen);
   }
 
   function userStateFromDatabase() {
@@ -2908,15 +2922,18 @@
     renderLibrary();
   }
 
-  async function clearOrder() {
+  function clearOrder() {
     if (!selectedIds.length) return;
-    if (!(await window.PortalDialog.confirm(`${selectedIds.length} selected ${selectedIds.length === 1 ? 'test will' : 'tests will'} be removed from this summary.`, { title: 'Clear collection summary?', confirmLabel: 'Clear summary', tone: 'danger' }))) return;
+    // Native confirmation avoids a stuck queue in the custom dialog on mobile.
+    const count = selectedIds.length;
+    if (!window.confirm(`Remove ${count} selected ${count === 1 ? 'test' : 'tests'} from the cart?`)) return;
     selectedIds = [];
     statSelectedIds = [];
     saveStatSelectedIds();
     saveSelected();
     renderOrder();
     renderLibrary();
+    showToast('Cart cleared.');
   }
 
   function saveSelected() {
@@ -4919,7 +4936,31 @@
       delete card.details;
     });
     // Collection order: SST, remaining blood tubes, urine, stool, then swabs.
-    return collectionCards.sort((a, b) => collectionSortRank(a) - collectionSortRank(b));
+    // Merge only visually identical source cards. Add counts for distinct
+    // collections; do not silently pool separately collected specimens.
+    const visualCards = [];
+    const visualIndex = new Map();
+    collectionCards.forEach(item => {
+      const specimenGroup = collectionSpecimenGroupForItem(item);
+      if (specimenGroup === 'blood' || specimenGroup === 'other') {
+        visualCards.push(item);
+        return;
+      }
+      const key = `${collectionMergeSubtypeForItem(item)}|${item.className}|${normalizeSearch(item.label)}`;
+      if (!visualIndex.has(key)) {
+        const copy = { ...item, tests: uniqueTests(item.tests || []) };
+        visualIndex.set(key, copy);
+        visualCards.push(copy);
+        return;
+      }
+      const card = visualIndex.get(key);
+      card.count += item.count;
+      card.tests = uniqueTests([...card.tests, ...(item.tests || [])]);
+      card.urineSeparateCollection ||= Boolean(item.urineSeparateCollection);
+      card.stoolSeparateCollection ||= Boolean(item.stoolSeparateCollection);
+      card.detail = Array.from(new Set([card.detail, item.detail].filter(Boolean))).join(' · ');
+    });
+    return visualCards.sort((a, b) => collectionSortRank(a) - collectionSortRank(b));
   }
 
   function consolidateBloodCollectionDetails(details) {
@@ -5914,6 +5955,20 @@
         ? '' : badge.replace('print-bag-specimen-badge', 'print-collect-chip-specimen')
     };
   }
+  // Remove redundant specimen names but preserve specific label requirements.
+  function normalizePrintedLabelDetail(explicit, derived, test) {
+    const text = String(explicit || '').trim().replace(/\s+/g, ' ');
+    const match = text.match(/^label\s+(.+?)\s+(?:and|with)\s+collection\s+date\s*(?:\/\s*time|\s+and\s+time)(?:\s*;\s*(.*))?\.?$/i);
+    if (!match) return text;
+    const subject = match[1].trim();
+    const known = [derived, normalizeSpecimenType(test.specimenType), specificSpecimenSource(test)];
+    const duplicated = known.some(value => value && normalizedLabelComparison(value) === normalizedLabelComparison(subject));
+    const detail = String(match[2] || '').trim()
+      .replace(/^specify\s+left\s+or\s+right\s+(ear|eye)$/i, 'Specify left/right $1')
+      .replace(/\.$/, '');
+    return [duplicated ? '' : subject, 'Collection date/time', detail].filter(Boolean).join(' · ');
+  }
+
   function printLabelingNotes(item) {
     if (item.printVisualGroupParts) return item.printVisualGroupParts.map(printLabelingNotes).join('');
     const grouped = new Map();
@@ -5950,7 +6005,7 @@
       if (is24Hour) parts.push('24h urine · Total volume: ____ mL · Start: ____ · End: ____');
       const explicitIsRedundant24hUrine = is24Hour && /^urine$/i.test(explicit.trim());
       if (sourceLabel) parts.push(mixedSources && sourceLabel.badge ? `${sourceLabel.token} · ${sourceLabel.note}` : sourceLabel.note);
-      else if (!explicitIsRedundant24hUrine && explicitLabelAddsInformation(explicit, derived)) parts.push(explicit);
+      else if (!explicitIsRedundant24hUrine && explicitLabelAddsInformation(explicit, derived)) parts.push(normalizePrintedLabelDetail(explicit, derived, test));
       // Deduplicate equivalent labels from the same test before comparing across
       // tests. Preserve instructions that add a distinct labeling requirement.
       const uniqueParts = [];
@@ -5973,7 +6028,7 @@
     return `<div class="print-label-notes">${Array.from(grouped.values()).map(({ note, codes, sourceLabel }) => {
       const safeNote = escapeHtml(note);
       const message = sourceLabel ? safeNote.replace(escapeHtml(sourceLabel.token), sourceLabel.badge) : safeNote;
-      return `<div class="print-label-note"><span>Label</span><div>${message} <small>${escapeHtml([...new Set(codes)].join(', '))}</small></div></div>`;
+      return `<div class="print-label-note"><span>Label</span><div>${message} ${grouped.size > 1 ? `<small>${escapeHtml([...new Set(codes)].join(', '))}</small>` : ''}</div></div>`;
     }).join('')}</div>`;
   }
 
