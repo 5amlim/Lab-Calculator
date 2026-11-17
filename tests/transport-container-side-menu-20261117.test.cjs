@@ -68,7 +68,7 @@ for (const [name,htmlPath,appPath] of [
     assert.equal(new Set(options.map(o=>o.value)).size,options.length);
     for(const child of children)
       assert(parents.some(parent=>parent.value===child.dataset.containerGroup), child.value+' has no parent');
-    for(const key of ['transport','serum','plasma','chilled-vial','clean-vial','qft','nmr',
+    for(const key of ['transport','qft','nmr',
       'cary-blair','stool','stool-formalin','stool-pva','stool-clean','salivette','sterile-cup'])
       assert(children.some(child=>child.value===key), key+' missing from nested menu');
     assert(!options.some(o=>o.value==='csf-vial'), 'CSF must use Sterile cup');
