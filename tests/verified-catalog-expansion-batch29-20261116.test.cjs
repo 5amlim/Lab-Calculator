@@ -97,3 +97,19 @@ test('Labcorp frozen serum is in purple-cap frozen transport; red-only routes do
  assert.equal(m.get('500159').transportTemperature,'Refrigerated');
  for(const code of ['117985','501949'])assert.equal(m.get(code).transportContainer,'SST / Gold (spun)');
 });
+
+test('batch29 search categories and regional flags are available without broad new restrictions',()=>{
+ const window={};
+ vm.runInNewContext(read('assets/js/clinical-categories.js'),{window});
+ const all=[...load('Quest'),...load('Labcorp')];
+ const index=new Map(all.map(r=>[r.testCode,r]));
+ for(const [code,category] of [
+  ['1304','gi'],['13581','renal'],['35167','thyroid'],
+  ['117985','coagulation'],['501949','iron-anemia'],['500638','thyroid'],
+  ['500600','vitamins'],['702891','tdm']
+ ])assert(window.LabClinicalCategories.forTest(index.get(code)).includes(category),code+' missing '+category);
+ vm.runInNewContext(read('assets/js/market-restrictions.js'),{window});
+ const ny=window.LabRegionalRestrictions.entry(index.get('17321'),'Quest');
+ assert.equal(ny.label,'Unavailable in NY');
+ assert.equal(window.LabRegionalRestrictions.entry(index.get('1304'),'Quest'),null);
+});
