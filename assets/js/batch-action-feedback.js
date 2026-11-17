@@ -66,10 +66,26 @@
     const onCartChange = () => {
       const current = selectedIds();
       const now = Date.now();
-      for (const id of current) {
-        if (!previouslySelected.has(id)) recentAdditions.set(id, now + DURATION);
-      }
+      const addedNow = [...current].filter(id => !previouslySelected.has(id));
+      for (const id of addedNow) recentAdditions.set(id, now + DURATION);
       previouslySelected = current;
+
+      // After a genuine addition, reveal the newest test at the bottom of
+      // the cart's own scrollable list without moving the main page.
+      if (addedNow.length) {
+        const viewport = $('cartTestsViewport');
+        if (viewport) {
+          window.requestAnimationFrame(() => {
+            const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+            const target = Math.max(0, viewport.scrollHeight - viewport.clientHeight);
+            if (typeof viewport.scrollTo === 'function') {
+              viewport.scrollTo({ top: target, behavior: reduceMotion ? 'auto' : 'smooth' });
+            } else {
+              viewport.scrollTop = target;
+            }
+          });
+        }
+      }
       for (const [id, expires] of recentAdditions) {
         if (!current.has(id) || expires <= now) recentAdditions.delete(id);
       }
