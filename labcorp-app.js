@@ -5991,8 +5991,11 @@
       processing.push('Protect from light');
 
     const hasSpecialDetails = parts.length > 0;
-    const needsPrintedLabel = !item.originalTube || hasSpecialDetails ||
-      (explicit && /\b(?:meconium|vesicle\/lesion)\b/i.test(raw));
+    // An explicit "Label CSF / STOOL / URINE ..." instruction still gets a
+    // concise label on the original cup. A generic date/time-only reminder is
+    // not a test-specific label instruction and stays suppressed.
+    const onlyRoutineDateTime = /^(?:label|mark)\s+(?:specimen\s+)?(?:collection\s+)?date\s*(?:\/|and|&)\s*time\.?$/i.test(raw);
+    const needsPrintedLabel = !item.originalTube || hasSpecialDetails || (explicit && !onlyRoutineDateTime);
     const label = needsPrintedLabel ? [source, ...parts].filter(Boolean).join(' • ') : '';
     return { label, processing: Array.from(new Set(processing)) };
   }
