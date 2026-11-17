@@ -133,6 +133,6 @@ test('Side menus support hover, keyboard, touch and browser-current cache versio
  for(const [,html] of apps){
   const source=read(html);
   assert(source.includes('portal-selects.js?v=11.97'));
-  assert(source.includes('experience.css?v=12.10'));
+  assert(source.includes('experience.css?v=12.11'));
  }
 });
