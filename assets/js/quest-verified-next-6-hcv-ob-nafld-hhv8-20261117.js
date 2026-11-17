@@ -335,7 +335,7 @@ const additions=[
     "specimenType": "Whole Blood",
     "drawContainer": "Lavender EDTA",
     "transportContainer": "Lavender EDTA",
-    "preferredVolume": "1–2 mL whole blood in original Lavender EDTA",
+    "preferredVolume": "One correctly filled Lavender EDTA tube; Quest reference assay needs 1–2 mL whole blood",
     "minimumVolume": "Whole-blood minimum not listed for this route; confirm Quest account-specific requirement",
     "collectionCount": 1,
     "submissionCount": 1,
@@ -344,7 +344,7 @@ const additions=[
     "spin": "No",
     "stability": "Whole blood room 48 hours, refrigerated 7 days, frozen 30 days for other specimen types; frozen WHOLE BLOOD is rejected.",
     "specialLabeling": "Label WHOLE BLOOD · LAVENDER EDTA",
-    "specialInstructions": "Use ONE dedicated original unspun Lavender EDTA WHOLE BLOOD specimen, 1–2 mL, refrigerated with cold packs. Do NOT freeze whole blood or substitute heparin tubes. Other accepted specimen types may have different processing rules but are NOT modeled here. This route is based on a Quest-performed reference-laboratory manual matching code 15873. Quest performing locations and acceptance can vary; verify exact service-area instructions before collection.",
+    "specialInstructions": "Use ONE dedicated collection tube: a properly filled ORIGINAL Lavender EDTA tube (satisfy manufacturer fill and invert requirements), supplying 1–2 mL EDTA WHOLE BLOOD for this assay. Refrigerate with cold packs. Do NOT freeze whole blood or substitute heparin tubes. Other accepted specimen types may have different processing rules but are NOT modeled here. This route is based on a Quest-performed reference-laboratory manual matching code 15873. Quest performing locations and acceptance can vary; verify exact service-area instructions before collection.",
     "source": "https://www.rchsd.org/lab-test/herpes-virus-8-dna-qualitative-rt-pcr-15873/",
     "searchAliases": [
       "HHV8 PCR blood",
