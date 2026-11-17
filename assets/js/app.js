@@ -5573,7 +5573,15 @@
     const shareUrineCup = directUrineCup && isShareableUrineCupTest(test) &&
       !requiresSeparateTransportAliquot(test) && explicitSubmissionCount(test) === 1;
     const isAptima70049 = String(test.testCode || '').trim() === '70049';
-    const label = isAptima70049 ? 'Aptima' : (collectionTubeException(test)?.label || draw);
+    // If an original swab kit has a named Amies/ESwab transport device,
+    // show that specific media on the submitted kit rather than a vague swab label.
+    // This does not introduce a transfer or change the collection container.
+    const namedOriginalSwabKit = /\bswab\b/i.test(String(test.specimenType || ''))
+      && /\b(?:amies|eswab|e-swab|viral transport|universal transport|utm|vtm)\b/i.test(finalTransportContainer(test))
+      && !/\b(?:amies|eswab|e-swab|viral transport|universal transport|utm|vtm)\b/i.test(draw)
+      && isDirectSwabKitSubmission(test);
+    const label = isAptima70049 ? 'Aptima' : (namedOriginalSwabKit
+      ? finalTransportContainer(test) : (collectionTubeException(test)?.label || draw));
     const originalSterileCup = /^sterile cup$/i.test(draw) &&
       /^sterile cup$/i.test(finalTransportContainer(test));
     const processing = isAptima70049
@@ -5594,7 +5602,7 @@
         && !requiresSeparateUrineCollection(test)
         && !requiresSeparateTransportAliquot(test),
       label,
-      className: tubeClass(draw),
+      className: tubeClass(label),
       // Every original collection tube must travel as an original submission.
       // If two distinct whole-blood tubes are drawn, they cannot be compressed
       // into a single original tube in the bag plan (e.g. 38287).
@@ -5700,7 +5708,8 @@
       const sourcePhrase = specimenSourceDetail(test);
       return [{
         key: `amber|${normalizeSearch(sourcePhrase)}|${normalizeSearch(transport)}`,
-        label: `Amber ${specimen} Transport Tube — Protect From Light`,
+        label: isUrineTest(test) && /\b(?:no preservative|unpreserved|23598)\b/i.test(transport)
+          ? transport : `Amber ${specimen} Transport Tube — Protect From Light`,
         className: 'tube-amber',
         count: explicitSubmissionCount(test),
         detail: sourcePhrase
@@ -5711,10 +5720,15 @@
       const sourcePhrase = specimenSourceDetail(test);
       const isSwab = /swab/i.test(sourceSpecimen);
       const isSpecialtyMetalContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal/i.test(transport);
-      const label = /^transport tube$/i.test(transport) || /^frozen transport tube(?:\s*\(.*\))?$/i.test(transport)
-        ? 'Transport Tube'
-        : isSwab ? 'Swab Transport Tube'
-        : (isSpecialtyMetalContainer ? `Acid-Washed / Metal-Free ${specimen} Transport Tube` : `${specimen} Transport Tube`);
+      // Preserve the actual named transport medium for non-blood specimens.
+      // A Total-Fix or Cary-Blair vial is not a generic "Stool Transport Tube".
+      const namedNonBloodDevice = collectionSpecimenGroupForTest(test) !== 'blood' &&
+        !/^(?:(?:stool|urine|swab|csf|sputum|saliva|semen|body[- ]?fluid)\s+)?(?:frozen\s+)?(?:transport|transfer)\s+(?:tube|vial|container)$/i.test(transport);
+      const label = namedNonBloodDevice ? transport
+        : /^transport tube$/i.test(transport) || /^frozen transport tube(?:\s*\(.*\))?$/i.test(transport)
+          ? 'Transport Tube'
+          : isSwab ? 'Swab Transport Tube'
+          : (isSpecialtyMetalContainer ? `Acid-Washed / Metal-Free ${specimen} Transport Tube` : `${specimen} Transport Tube`);
       return [{
         key: `transport|${normalizeSearch(sourcePhrase)}|${submissionTransportGroupingKey(test, transport)}`,
         label,
