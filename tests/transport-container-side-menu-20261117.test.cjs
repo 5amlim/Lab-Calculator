@@ -79,7 +79,7 @@ for (const [name,htmlPath,appPath] of [
     assert(!options.some(o=>o.value==='csf-vial'), 'CSF must use Sterile cup');
     for(const obsolete of ['serum','plasma','chilled-vial','clean-vial'])
       assert(!options.some(o=>o.value===obsolete), obsolete+' should use Transport Tube');
-    assert(html.includes('portal-selects.js?v=11.96'));
+    assert(html.includes('portal-selects.js?v=11.97'));
   });
 
   test(name + ' standard transfer vials share Transport Tube without losing handling requirements', async () => {
