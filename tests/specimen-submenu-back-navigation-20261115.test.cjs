@@ -40,8 +40,8 @@ test('Swab types Back returns to main category instead of reopening on focus',()
 test('Click and ArrowLeft both go back, suppress automatic hover/focus, and can reopen deliberately',()=>{
  assert.match(source,/heading\.addEventListener\('click',[\s\S]*?returnToSpecimenCategories\(item, parentChoice\)/);
  assert.match(source,/if \(e\.key === 'ArrowLeft'\)[\s\S]*?returnToSpecimenCategories\(item, parentChoice\)/);
- assert.match(source,/choice\.addEventListener\('pointerenter',[\s\S]*?if \(item\.submenuReturnTarget === choice\) return/);
- assert.match(source,/choice\.addEventListener\('focus',[\s\S]*?if \(item\.submenuReturnTarget === choice\) return/);
+ assert.match(source,/choice\.addEventListener\('pointerenter',[\s\S]*?if \(!isMouseHover\(event\) \|\| item\.submenuReturnTarget === choice\) return/);
+ assert.match(source,/choice\.addEventListener\('focus',[\s\S]*?if \(!canHover\.matches \|\| item\.submenuReturnTarget === choice\) return/);
  assert.match(source,/choice\.addEventListener\('pointerleave',[\s\S]*?item\.submenuReturnTarget = null/);
  assert.match(source,/choice\.addEventListener\('blur',[\s\S]*?item\.submenuReturnTarget = null/);
  assert.match(source,/openSubmenu\(item,choice,option\.value,root,true\)/);
@@ -49,6 +49,6 @@ test('Click and ArrowLeft both go back, suppress automatic hover/focus, and can 
 test('Quest and LabCorp use the corrected shared picker cache version',()=>{
  for(const page of ['index.html','labcorp.html']){
   const html=fs.readFileSync(path.join(__dirname,'..',page),'utf8');
-  assert.match(html,/assets\/js\/portal-selects\.js\?v=11\.96/);
+  assert.match(html,/assets\/js\/portal-selects\.js\?v=11\.97/);
  }
 });
