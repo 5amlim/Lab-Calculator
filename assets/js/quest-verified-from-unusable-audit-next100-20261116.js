@@ -1,5 +1,7 @@
 /* Quest next 100 reference audit entries after 16252, through 18011.
- * Activate only 20 verified local pathways. Keep kit-dependent BK urine PCR
+ * Activate 12 code-specific supported pathways; eight provisional body-fluid/CSF
+ * routes stay reference-only pending direct code-specific handling verification.
+ * Keep kit-dependent BK urine PCR
  * 16581, donor/pathology/cytogenetics, unsupported IHC/slide/isolate/kit,
  * and ambiguous fluid specimens as references. Do not overwrite active/blocked.
  */
@@ -247,7 +249,7 @@ const additions=[
     "id": "quest-verified-audit-next100-20261116-17088",
     "testCode": "17088",
     "testName": "Treponema pallidum Antibody, IFA, CSF",
-    "status": "active",
+    "status": "reference",
     "specimenType": "CSF",
     "drawContainer": "Sterile cup",
     "alternativeContainer": "",
@@ -261,7 +263,7 @@ const additions=[
     "spin": "No",
     "stability": "Refrigerate for transport; verify exact holding period with Quest",
     "specialLabeling": "Label CSF, collection date/time and source",
-    "specialInstructions": "Qualified procedural clinician collects cerebrospinal fluid aseptically in clean sterile leakproof plastic screw-cap vial/cup. Submit ORIGINAL closed CSF container REFRIGERATED. No microscope slide or smear required of clinic; Quest performs immunofluorescent antibody assay. This is a CSF TREPONEMAL IFA (FTA-ABS), not CSF VDRL (14268), serum FTA-ABS (4112) or PCR (16595). Confirm exact temperature, stability and volume by service area if necessary. Verify the performing Quest account, patient service area, and any local supply restrictions before collection.",
+    "specialInstructions": "REFERENCE ONLY: Exact Quest code-specific transport container, temperature, minimum volume or processing pathway requires direct receiving-laboratory verification before collection. Not an approved collectable pathway. Qualified procedural clinician collects cerebrospinal fluid aseptically in clean sterile leakproof plastic screw-cap vial/cup. Submit ORIGINAL closed CSF container REFRIGERATED. No microscope slide or smear required of clinic; Quest performs immunofluorescent antibody assay. This is a CSF TREPONEMAL IFA (FTA-ABS), not CSF VDRL (14268), serum FTA-ABS (4112) or PCR (16595). Confirm exact temperature, stability and volume by service area if necessary. Verify the performing Quest account, patient service area, and any local supply restrictions before collection.",
     "searchAliases": [
       "CSF FTA ABS",
       "neurosyphilis treponemal antibody",
@@ -279,7 +281,7 @@ const additions=[
     "id": "quest-verified-audit-next100-20261116-17415",
     "testCode": "17415",
     "testName": "Amylase, Pleural Fluid",
-    "status": "active",
+    "status": "reference",
     "specimenType": "Pleural Fluid",
     "drawContainer": "Sterile cup",
     "alternativeContainer": "",
@@ -293,7 +295,7 @@ const additions=[
     "spin": "Yes",
     "stability": "Room 7 days; refrigerated 28 days; frozen 28 days",
     "specialLabeling": "Label PLEURAL FLUID, exact site and collection date/time",
-    "specialInstructions": "Qualified procedural clinician obtains Pleural Fluid directly in a separate sterile leakproof plastic Sterile cup without anticoagulant/preservative. LABEL PLEURAL FLUID with exact anatomical source, collection date and time and two patient identifiers. Centrifuge to remove cellular material and TRANSFER the clear supernatant into an additive-free screw-cap Transport Tube. Keep specimen distinct from other body-fluid sources, CSF and urine. Submit the aliquot FROZEN in its own temperature-appropriate specimen bag. FREEZE the transfer aliquot and ship frozen on dry ice, with one labeled frozen tube per assay. This pleural assay is a separate Quest code from peritoneal amylase 17414; verify site-specific pleural requirements before collection. Verify the performing Quest account, patient service area, and any local supply restrictions before collection.",
+    "specialInstructions": "REFERENCE ONLY: Exact Quest code-specific transport container, temperature, minimum volume or processing pathway requires direct receiving-laboratory verification before collection. Not an approved collectable pathway. Qualified procedural clinician obtains Pleural Fluid directly in a separate sterile leakproof plastic Sterile cup without anticoagulant/preservative. LABEL PLEURAL FLUID with exact anatomical source, collection date and time and two patient identifiers. Centrifuge to remove cellular material and TRANSFER the clear supernatant into an additive-free screw-cap Transport Tube. Keep specimen distinct from other body-fluid sources, CSF and urine. Submit the aliquot FROZEN in its own temperature-appropriate specimen bag. FREEZE the transfer aliquot and ship frozen on dry ice, with one labeled frozen tube per assay. This pleural assay is a separate Quest code from peritoneal amylase 17414; verify site-specific pleural requirements before collection. Verify the performing Quest account, patient service area, and any local supply restrictions before collection.",
     "searchAliases": [
       "pleural amylase",
       "thoracentesis fluid amylase",
@@ -340,7 +342,7 @@ const additions=[
     "id": "quest-verified-audit-next100-20261116-17425",
     "testCode": "17425",
     "testName": "Glucose, Pleural Fluid",
-    "status": "active",
+    "status": "reference",
     "specimenType": "Pleural Fluid",
     "drawContainer": "Sterile cup",
     "alternativeContainer": "",
@@ -354,7 +356,7 @@ const additions=[
     "spin": "Yes",
     "stability": "Use frozen pleural-fluid vial; confirm receiving Quest lab's exact holding period",
     "specialLabeling": "Label PLEURAL FLUID, exact site and collection date/time",
-    "specialInstructions": "Qualified procedural clinician obtains Pleural Fluid directly in a separate sterile leakproof plastic Sterile cup without anticoagulant/preservative. LABEL PLEURAL FLUID with exact anatomical source, collection date and time and two patient identifiers. Centrifuge to remove cellular material and TRANSFER the clear supernatant into an additive-free screw-cap Transport Tube. Keep specimen distinct from other body-fluid sources, CSF and urine. Submit the aliquot FROZEN in its own temperature-appropriate specimen bag. FREEZE the transfer aliquot and ship frozen on dry ice, with one labeled frozen tube per assay. Quest order 17425 is separate from peritoneal glucose code 17424. Confirm lab-specific freezing preference before collection. Verify the performing Quest account, patient service area, and any local supply restrictions before collection.",
+    "specialInstructions": "REFERENCE ONLY: Exact Quest code-specific transport container, temperature, minimum volume or processing pathway requires direct receiving-laboratory verification before collection. Not an approved collectable pathway. Qualified procedural clinician obtains Pleural Fluid directly in a separate sterile leakproof plastic Sterile cup without anticoagulant/preservative. LABEL PLEURAL FLUID with exact anatomical source, collection date and time and two patient identifiers. Centrifuge to remove cellular material and TRANSFER the clear supernatant into an additive-free screw-cap Transport Tube. Keep specimen distinct from other body-fluid sources, CSF and urine. Submit the aliquot FROZEN in its own temperature-appropriate specimen bag. FREEZE the transfer aliquot and ship frozen on dry ice, with one labeled frozen tube per assay. Quest order 17425 is separate from peritoneal glucose code 17424. Confirm lab-specific freezing preference before collection. Verify the performing Quest account, patient service area, and any local supply restrictions before collection.",
     "searchAliases": [
       "pleural glucose",
       "thoracentesis glucose",
@@ -401,7 +403,7 @@ const additions=[
     "id": "quest-verified-audit-next100-20261116-17429",
     "testCode": "17429",
     "testName": "Protein, Total, Pericardial Fluid",
-    "status": "active",
+    "status": "reference",
     "specimenType": "Pericardial Fluid",
     "drawContainer": "Sterile cup",
     "alternativeContainer": "",
@@ -415,7 +417,7 @@ const additions=[
     "spin": "Yes",
     "stability": "Room 7 days; refrigerated up to 28 days; frozen 60 days",
     "specialLabeling": "Label PERICARDIAL FLUID, exact site and collection date/time",
-    "specialInstructions": "Qualified procedural clinician obtains Pericardial Fluid directly in a separate sterile leakproof plastic Sterile cup without anticoagulant/preservative. LABEL PERICARDIAL FLUID with exact anatomical source, collection date and time and two patient identifiers. Centrifuge to remove cellular material and TRANSFER the clear supernatant into an additive-free screw-cap Transport Tube. Keep specimen distinct from other body-fluid sources, CSF and urine. Submit the aliquot ROOM TEMPERATURE in its own temperature-appropriate specimen bag.  PERICARDIAL not PERITONEAL. Document collection site and clinician collection source. Verify the performing Quest account, patient service area, and any local supply restrictions before collection.",
+    "specialInstructions": "REFERENCE ONLY: Exact Quest code-specific transport container, temperature, minimum volume or processing pathway requires direct receiving-laboratory verification before collection. Not an approved collectable pathway. Qualified procedural clinician obtains Pericardial Fluid directly in a separate sterile leakproof plastic Sterile cup without anticoagulant/preservative. LABEL PERICARDIAL FLUID with exact anatomical source, collection date and time and two patient identifiers. Centrifuge to remove cellular material and TRANSFER the clear supernatant into an additive-free screw-cap Transport Tube. Keep specimen distinct from other body-fluid sources, CSF and urine. Submit the aliquot ROOM TEMPERATURE in its own temperature-appropriate specimen bag.  PERICARDIAL not PERITONEAL. Document collection site and clinician collection source. Verify the performing Quest account, patient service area, and any local supply restrictions before collection.",
     "searchAliases": [
       "pericardial protein total",
       "pericardial effusion protein",
@@ -431,7 +433,7 @@ const additions=[
     "id": "quest-verified-audit-next100-20261116-17585",
     "testCode": "17585",
     "testName": "Cholesterol, Peritoneal Fluid",
-    "status": "active",
+    "status": "reference",
     "specimenType": "Peritoneal Fluid",
     "drawContainer": "Sterile cup",
     "alternativeContainer": "",
@@ -445,7 +447,7 @@ const additions=[
     "spin": "Yes",
     "stability": "Frozen 30 days; refrigerated 7 days; room 24 hours",
     "specialLabeling": "Label PERITONEAL FLUID, exact site and collection date/time",
-    "specialInstructions": "Qualified procedural clinician obtains Peritoneal Fluid directly in a separate sterile leakproof plastic Sterile cup without anticoagulant/preservative. LABEL PERITONEAL FLUID with exact anatomical source, collection date and time and two patient identifiers. Centrifuge to remove cellular material and TRANSFER the clear supernatant into an additive-free screw-cap Transport Tube. Keep specimen distinct from other body-fluid sources, CSF and urine. Submit the aliquot FROZEN in its own temperature-appropriate specimen bag. FREEZE the transfer aliquot and ship frozen on dry ice, with one labeled frozen tube per assay. Use dedicated FROZEN lipid aliquot, not the same tube as room-temperature fluid chemistry; this handling follows validated body-fluid lipid processing. Verify the performing Quest account, patient service area, and any local supply restrictions before collection.",
+    "specialInstructions": "REFERENCE ONLY: Exact Quest code-specific transport container, temperature, minimum volume or processing pathway requires direct receiving-laboratory verification before collection. Not an approved collectable pathway. Qualified procedural clinician obtains Peritoneal Fluid directly in a separate sterile leakproof plastic Sterile cup without anticoagulant/preservative. LABEL PERITONEAL FLUID with exact anatomical source, collection date and time and two patient identifiers. Centrifuge to remove cellular material and TRANSFER the clear supernatant into an additive-free screw-cap Transport Tube. Keep specimen distinct from other body-fluid sources, CSF and urine. Submit the aliquot FROZEN in its own temperature-appropriate specimen bag. FREEZE the transfer aliquot and ship frozen on dry ice, with one labeled frozen tube per assay. Use dedicated FROZEN lipid aliquot, not the same tube as room-temperature fluid chemistry; this handling follows validated body-fluid lipid processing. Verify the performing Quest account, patient service area, and any local supply restrictions before collection.",
     "searchAliases": [
       "ascites cholesterol",
       "peritoneal fluid cholesterol",
@@ -492,7 +494,7 @@ const additions=[
     "id": "quest-verified-audit-next100-20261116-17591",
     "testCode": "17591",
     "testName": "Triglycerides, Peritoneal Fluid",
-    "status": "active",
+    "status": "reference",
     "specimenType": "Peritoneal Fluid",
     "drawContainer": "Sterile cup",
     "alternativeContainer": "",
@@ -506,7 +508,7 @@ const additions=[
     "spin": "Yes",
     "stability": "Frozen 30 days; refrigerated 7 days; room 24 hours",
     "specialLabeling": "Label PERITONEAL FLUID, exact site and collection date/time",
-    "specialInstructions": "Qualified procedural clinician obtains Peritoneal Fluid directly in a separate sterile leakproof plastic Sterile cup without anticoagulant/preservative. LABEL PERITONEAL FLUID with exact anatomical source, collection date and time and two patient identifiers. Centrifuge to remove cellular material and TRANSFER the clear supernatant into an additive-free screw-cap Transport Tube. Keep specimen distinct from other body-fluid sources, CSF and urine. Submit the aliquot FROZEN in its own temperature-appropriate specimen bag. FREEZE the transfer aliquot and ship frozen on dry ice, with one labeled frozen tube per assay. Dedicated frozen fluid-lipid aliquot; verify Quest-specific processing with receiving location. Verify the performing Quest account, patient service area, and any local supply restrictions before collection.",
+    "specialInstructions": "REFERENCE ONLY: Exact Quest code-specific transport container, temperature, minimum volume or processing pathway requires direct receiving-laboratory verification before collection. Not an approved collectable pathway. Qualified procedural clinician obtains Peritoneal Fluid directly in a separate sterile leakproof plastic Sterile cup without anticoagulant/preservative. LABEL PERITONEAL FLUID with exact anatomical source, collection date and time and two patient identifiers. Centrifuge to remove cellular material and TRANSFER the clear supernatant into an additive-free screw-cap Transport Tube. Keep specimen distinct from other body-fluid sources, CSF and urine. Submit the aliquot FROZEN in its own temperature-appropriate specimen bag. FREEZE the transfer aliquot and ship frozen on dry ice, with one labeled frozen tube per assay. Dedicated frozen fluid-lipid aliquot; verify Quest-specific processing with receiving location. Verify the performing Quest account, patient service area, and any local supply restrictions before collection.",
     "searchAliases": [
       "ascitic triglycerides",
       "chylous ascites triglyceride",
@@ -522,7 +524,7 @@ const additions=[
     "id": "quest-verified-audit-next100-20261116-17642",
     "testCode": "17642",
     "testName": "CA 19-9, Pleural Fluid",
-    "status": "active",
+    "status": "reference",
     "specimenType": "Pleural Fluid",
     "drawContainer": "Sterile cup",
     "alternativeContainer": "",
@@ -536,7 +538,7 @@ const additions=[
     "spin": "Yes",
     "stability": "Room 7 days; refrigerated 14 days; frozen 90 days",
     "specialLabeling": "Label PLEURAL FLUID, exact site and collection date/time",
-    "specialInstructions": "Qualified procedural clinician obtains Pleural Fluid directly in a separate sterile leakproof plastic Sterile cup without anticoagulant/preservative. LABEL PLEURAL FLUID with exact anatomical source, collection date and time and two patient identifiers. Centrifuge to remove cellular material and TRANSFER the clear supernatant into an additive-free screw-cap Transport Tube. Keep specimen distinct from other body-fluid sources, CSF and urine. Submit the aliquot FROZEN in its own temperature-appropriate specimen bag. FREEZE the transfer aliquot and ship frozen on dry ice, with one labeled frozen tube per assay. Use dedicated frozen original-sample transfer; do not confuse with serum or pericardial CA19-9. Verify the performing Quest account, patient service area, and any local supply restrictions before collection.",
+    "specialInstructions": "REFERENCE ONLY: Exact Quest code-specific transport container, temperature, minimum volume or processing pathway requires direct receiving-laboratory verification before collection. Not an approved collectable pathway. Qualified procedural clinician obtains Pleural Fluid directly in a separate sterile leakproof plastic Sterile cup without anticoagulant/preservative. LABEL PLEURAL FLUID with exact anatomical source, collection date and time and two patient identifiers. Centrifuge to remove cellular material and TRANSFER the clear supernatant into an additive-free screw-cap Transport Tube. Keep specimen distinct from other body-fluid sources, CSF and urine. Submit the aliquot FROZEN in its own temperature-appropriate specimen bag. FREEZE the transfer aliquot and ship frozen on dry ice, with one labeled frozen tube per assay. Use dedicated frozen original-sample transfer; do not confuse with serum or pericardial CA19-9. Verify the performing Quest account, patient service area, and any local supply restrictions before collection.",
     "searchAliases": [
       "pleural CA19-9",
       "pleural tumor marker 19-9",
@@ -582,7 +584,7 @@ const additions=[
     "id": "quest-verified-audit-next100-20261116-17788",
     "testCode": "17788",
     "testName": "Coccidioides Antibody (IgG), Immunodiffusion, CSF",
-    "status": "active",
+    "status": "reference",
     "specimenType": "CSF",
     "drawContainer": "Sterile cup",
     "alternativeContainer": "",
@@ -596,7 +598,7 @@ const additions=[
     "spin": "No",
     "stability": "Room 7 days; refrigerated 14 days; frozen 30 days",
     "specialLabeling": "Label CSF, collection date/time and source",
-    "specialInstructions": "Qualified procedural clinician obtains sterile CSF, submit ORIGINAL leakproof plastic Sterile cup at ROOM TEMPERATURE. Label CSF and date/time; do not mix with serum or other body fluid, do not prepare slides. This is IgG IMMUNODIFFUSION, not complement fixation CSF code 5295. Allow enough specimen for all separately ordered CSF studies. Verify the performing Quest account, patient service area, and any local supply restrictions before collection.",
+    "specialInstructions": "REFERENCE ONLY: Exact Quest code-specific transport container, temperature, minimum volume or processing pathway requires direct receiving-laboratory verification before collection. Not an approved collectable pathway. Qualified procedural clinician obtains sterile CSF, submit ORIGINAL leakproof plastic Sterile cup at ROOM TEMPERATURE. Label CSF and date/time; do not mix with serum or other body fluid, do not prepare slides. This is IgG IMMUNODIFFUSION, not complement fixation CSF code 5295. Allow enough specimen for all separately ordered CSF studies. Verify the performing Quest account, patient service area, and any local supply restrictions before collection.",
     "searchAliases": [
       "cocci CSF immunodiffusion",
       "valley fever IgG CSF",
