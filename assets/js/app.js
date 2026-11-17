@@ -4454,7 +4454,7 @@
     const instructions = String(test.specialInstructions || '').toLowerCase();
 
     // Timed 12-hour collection is not a random or 24-hour urine collection.
-    if (/12\\s*[- ]?hour|12\\s*hr|12h\\b/.test(requirementText)) {
+    if (/12\s*[- ]?hour|12\s*hr|12h\b/.test(requirementText)) {
       return { key: '12-hour-urine', label: '12-hour urine' };
     }
     if (/24\s*[- ]?hour|24\s*hr|24h\b/.test(requirementText)) {
