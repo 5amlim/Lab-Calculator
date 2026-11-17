@@ -101,7 +101,7 @@
       microtainer:'tube-microtainer', qft:'tube-qft-nil', nmr:'tube-nmr-lipotube',
       '24h-urine':'tube-24h-urine', urisponge:'tube-urisponge',
       'cary-blair':'tube-cary-blair', 'stool-formalin':'tube-op-formalin',
-      'stool-pva':'tube-op-pva', 'stool-clean':'tube-stool-clean',
+      'stool-pva':'tube-op-pva', 'stool-clean':'tube-stool-clean', 'stool-other':'tube-stool-clean',
       'blood-red':'tube-red', 'blood-lavender':'tube-lavender', 'blood-pink':'tube-pink',
       'blood-green':'tube-green', 'blood-blue':'tube-blue', 'blood-gray':'tube-gray',
       'blood-yellow':'tube-yellow', 'blood-tan':'tube-tan',
