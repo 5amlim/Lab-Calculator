@@ -5445,7 +5445,7 @@
     const code = String(test.testCode || '').trim();
     // Frozen EDTA plasma for Factor H and frozen whole blood for Whipple PCR
     // must each remain a dedicated draw; do not merge with ordinary lavender.
-    if (/^(?:6328|6339|11262|11352|12346|13954)$/.test(code)) return true;
+    if (/^(?:6328|6339|11262|11352|12346|13954|15904|16103)$/.test(code)) return true;
     return Boolean(timedSpecimenLabel(test) ||
       test.sourceTestId ||
       (Array.isArray(test.additionalDrawRequirements) && test.additionalDrawRequirements.length));
