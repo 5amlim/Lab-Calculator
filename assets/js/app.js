@@ -1938,7 +1938,7 @@
       if (/\bserum\b/.test(submitted)) cats.push('serum');
       return withOriginal(cats);
     }
-    if (/cary blair|para pak orange|para pak c s/.test(submitted))
+    if (/cary ?blair|para pak orange|para pak c s/.test(submitted))
       return withOriginal(['cary-blair']);
     if (/total fix/.test(submitted)) return withOriginal(['stool']);
     const opVials = [];
@@ -1949,8 +1949,8 @@
       return withOriginal(['stool-clean']);
     if (/uri\s?sponge/.test(submitted)) return withOriginal(['urisponge', 'urine-culture']);
     if (/blood culture bottles?/.test(submitted)) return withOriginal(['blood-culture']);
-    if (/quanti feron|qft tb|tb gold plus tubes?/.test(submitted)) return withOriginal(['qft']);
-    if (/nmr lipo tube/.test(submitted)) return withOriginal(['nmr']);
+    if (/quantiferon|quanti feron|qft tb|tb gold plus tubes?/.test(submitted)) return withOriginal(['qft']);
+    if (/nmr lipotube|nmr lipo tube/.test(submitted)) return withOriginal(['nmr']);
     if (/microtainer/.test(submitted)) return withOriginal(['microtainer']);
     if (/protease inhibitor/.test(submitted)) return withOriginal(['protease']);
     if (/chilled.*(?:screw cap|plastic|vial)/.test(submitted)) return withOriginal(['chilled-vial']);
