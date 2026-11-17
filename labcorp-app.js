@@ -1830,6 +1830,10 @@
     // Do not infer media from narrative instructions or the specimen's source cup.
     const submitted = original ? draw : value;
     const withOriginal = categories => original ? [...categories, 'original'] : categories;
+    // Frozen polypropylene/Transpak aliquots retain the purple frozen class.
+    // This check must precede general serum, plasma and polypropylene matches.
+    if (isFrozenSerumPlasmaTransport(test, test.transportContainer))
+      return withOriginal(['frozen-transport']);
     // Preserve the actual tube/kit family even when the record says to ship
     // the unopened original device. Labels and processing requirements stay intact.
     if (/bac(?:t)? alert|bactec|blood culture bottl/.test(submitted))
