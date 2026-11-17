@@ -1866,7 +1866,10 @@
     if (/\bred top\b|\bred no additive\b/.test(submitted)) return withOriginal(['blood-red']);
     if (/\bsst\b|\bgold\b.*(?:spun|sst)|spun gold/.test(submitted))
       return withOriginal(['sst']);
-    if (/serum plasma transport/.test(submitted)) return withOriginal(['serum', 'plasma']);
+    // Standard empty serum/plasma, chilled, and clean screw-cap transport vials
+    // share the Transport Tube filter. Their exact test-specific handling,
+    // preservation, matrix, and temperatures remain unchanged in source data.
+    if (/serum plasma transport/.test(submitted)) return withOriginal(['transport', 'serum', 'plasma']);
     if (/polypropylene.*(?:transport|tube|vial)|plastic screw cap plasma vial/.test(submitted)) {
       const cats = ['transport'];
       if (/\bplasma\b/.test(submitted)) cats.push('plasma');
@@ -1888,12 +1891,12 @@
     if (/nmr lipotube|nmr lipo tube/.test(submitted)) return withOriginal(['nmr']);
     if (/microtainer/.test(submitted)) return withOriginal(['microtainer']);
     if (/protease inhibitor/.test(submitted)) return withOriginal(['protease']);
-    if (/chilled.*(?:screw cap|plastic|vial)/.test(submitted)) return withOriginal(['chilled-vial']);
+    if (/chilled.*(?:screw cap|plastic|vial)/.test(submitted)) return withOriginal(['transport', 'chilled-vial']);
     if (/24 hour urine (?:container|jug)/.test(submitted))
       return withOriginal(['24h-urine', 'urine-cup']);
     if (/screw cap(?:ped)? (?:plastic )?vial|clean screw cap|plain plastic vial/.test(submitted)) {
       const specimen = normalizeSearch(test.specimenType || '');
-      return withOriginal(/\bstool\b|\bfeces\b|\bfecal\b/.test(specimen) ? ['stool-clean', 'clean-vial'] : ['clean-vial']);
+      return withOriginal(/\bstool\b|\bfeces\b|\bfecal\b/.test(specimen) ? ['stool-clean', 'clean-vial'] : ['transport', 'clean-vial']);
     }
     if (/\baffirm\b|\batts\b/.test(value) || (original && /\baffirm\b|\batts\b/.test(draw)))
       return original ? ['affirm', 'original'] : ['affirm'];
@@ -1947,8 +1950,8 @@
     if (/stool container|stool can|stool vial|fecal container/.test(value)) return ['stool-other'];
     if (/sterile (?:urine )?cup/.test(value)) return ['sterile-cup'];
     if (/plastic urine container|24 hour urine/.test(value)) return ['urine-cup'];
-    if (/plasma transport/.test(value)) return ['plasma'];
-    if (/serum transport|serum .* transport vial/.test(value)) return ['serum'];
+    if (/plasma transport/.test(value)) return ['transport', 'plasma'];
+    if (/serum transport|serum .* transport vial/.test(value)) return ['transport', 'serum'];
     if (/^(?:(?:\d+|two)\s+)?(?:separate\s+)?transport tubes?$/.test(value)) return ['transport'];
     return ['special'];
   }
