@@ -118,7 +118,7 @@ const additions=[
     "spin": "No",
     "stability": "Refrigerated up to 30 days; frozen up to 30 days; avoid room-temperature shipping",
     "specialLabeling": "Label URINE • END OF SHIFT, collection date/time",
-    "specialInstructions": "Collect a SEPARATE END-OF-SHIFT random urine specimen in a clean, preservative-free leakproof Sterile cup. Submit the original labeled cup refrigerated with cold packs. No acid, transfer or additional processing is required for the unpreserved alternative. Do not pool with general random urine collected at another timepoint. Confirm the occupational timing, service area and local Quest receiving requirements. Confirm account-specific test code, region and transport acceptance with Quest before collection.",
+    "specialInstructions": "Collect a separate urine specimen at END OF SHIFT in a clean, preservative-free leakproof Sterile cup. Submit the original labeled cup refrigerated with cold packs. No acid, transfer or additional processing is required for the unpreserved alternative. Do not pool with general random urine collected at another timepoint. Confirm the occupational timing, service area and local Quest receiving requirements. Confirm account-specific test code, region and transport acceptance with Quest before collection.",
     "source": "Quest-associated reference directory, reviewed 2026-11-16 • https://www.casandra.ai/catalog/test/hippuric-acid-urine",
     "clinicalCategories": [
       "toxicology",
