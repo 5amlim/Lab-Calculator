@@ -5602,7 +5602,7 @@
         && !requiresSeparateUrineCollection(test)
         && !requiresSeparateTransportAliquot(test),
       label,
-      className: tubeClass(label),
+      className: tubeClass(namedOriginalSwabKit ? label : draw),
       // Every original collection tube must travel as an original submission.
       // If two distinct whole-blood tubes are drawn, they cannot be compressed
       // into a single original tube in the bag plan (e.g. 38287).
