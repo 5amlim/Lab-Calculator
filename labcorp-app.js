@@ -5874,15 +5874,26 @@
   // Remove redundant specimen names but preserve specific label requirements.
   function normalizePrintedLabelDetail(explicit, derived, test) {
     const text = String(explicit || '').trim().replace(/\s+/g, ' ');
-    const match = text.match(/^label\s+(.+?)\s+(?:and|with)\s+collection\s+date\s*(?:\/\s*time|\s+and\s+time)(?:\s*;\s*(.*))?\.?$/i);
+    // Strip the redundant category heading sometimes embedded in a label.
+    const directive = text.replace(/^site-specific culture swab\s*[-·:]\s*/i, '');
+    const match = directive.match(/^label\s+(.+?)\s+(with\s+exact\s+site\s+and|and\s+exact|and|with)\s+collection\s+date\s*(?:\/\s*time|\s+and\s+time)(?:\s*;\s*(.*))?\.?$/i);
     if (!match) return text;
     const subject = match[1].trim();
+    const modifier = match[2].toLowerCase();
+    // A list of possible urine sources must not appear as though every source
+    // applies to this patient's specimen. Ask for the actual collection source.
+    if (/^urine\s*[-:]\s*catheterized\s*\/\s*suprapubic\s*\/\s*cystoscopic\s*(?:source)?$/i.test(subject)) {
+      return 'Specify actual urine collection source · Collection date/time';
+    }
     const known = [derived, normalizeSpecimenType(test.specimenType), specificSpecimenSource(test)];
     const duplicated = known.some(value => value && normalizedLabelComparison(value) === normalizedLabelComparison(subject));
-    const detail = String(match[2] || '').trim()
+    const detail = String(match[3] || '').trim()
       .replace(/^specify\s+left\s+or\s+right\s+(ear|eye)$/i, 'Specify left/right $1')
       .replace(/\.$/, '');
-    return [duplicated ? '' : subject, 'Collection date/time', detail].filter(Boolean).join(' · ');
+    const qualifier = /^with\s+exact\s+site/.test(modifier) ? 'Exact site'
+      : /^and\s+exact$/.test(modifier) ? 'Exact collection date/time' : 'Collection date/time';
+    return [duplicated ? '' : subject, qualifier === 'Exact site' ? 'Exact site · Collection date/time' : qualifier, detail]
+      .filter(Boolean).join(' · ');
   }
 
   function printLabelingNotes(item) {
@@ -5902,6 +5913,12 @@
       // RBCs are already in the named original collection tube; a source-only
       // instruction adds nothing to that primary tube's label.
       if (item.originalTube && /^rbcs? from /i.test(explicit)) explicit = '';
+      const conciseExplicit = normalizePrintedLabelDetail(explicit, derived, test);
+      const explicitSubject = conciseExplicit.split(' · ')[0];
+      const preferExactSwab = /\bswab\b/i.test(explicitSubject)
+        && /\bswab\b/i.test(derived)
+        && normalizedLabelComparison(explicitSubject).length > normalizedLabelComparison(derived).length
+        && /collection date\/time/i.test(conciseExplicit);
       const parts = [];
       // For 24-hour urine transfers, "24h urine" already identifies the specimen.
       // Do not prepend a redundant generic "Urine" label.
@@ -5910,7 +5927,7 @@
       const explicitSerumSource = derived === 'Serum'
         && /\bserum\s+from\s+(?:spun\s+)?(?:gold|sst|tiger|red(?:-top)?)/i.test(explicit);
       // The inline specimen badge inside a generic label instruction already identifies the source.
-      if (derived && (!sourceLabel || (/\bswab\b/i.test(test.specimenType || '') && !/^swab$/i.test(derived))) && !(is24Hour && /^urine$/i.test(derived.trim())) && !explicitSerumSource) parts.push(derived);
+      if (derived && (!sourceLabel || (/\bswab\b/i.test(test.specimenType || '') && !/^swab$/i.test(derived))) && !(is24Hour && /^urine$/i.test(derived.trim())) && !explicitSerumSource && !preferExactSwab) parts.push(derived);
       // Amber transport tubes should always carry a visible specimen-type label,
       // including ordinary serum transfers where the standard SST source would
       // otherwise suppress a redundant derived label.
