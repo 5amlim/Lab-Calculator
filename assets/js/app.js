@@ -5305,6 +5305,10 @@
   }
   function isPlainUrineAliquotTransport(test, transport) {
     if (!isUrineTest(test)) return false;
+    // Frozen urine transport aliquots cannot be reinterpreted as original
+    // source cups. They must remain frozen plastic Transport Tubes in the bag.
+    if (/frozen/i.test(String(test.transportTemperature || '')) &&
+        /transport\s+tube|transfer\s+tube|aliquot/i.test(String(transport || ''))) return false;
     const raw = normalizeSearch(transport).replace(/\b(?:no preservatives?|without preservatives?|unpreserved|preservative[ -]?free)\b/g, '').replace(/\s+/g, ' ').trim();
     // A negative qualifier such as "no HCl" describes an unpreserved source,
     // not an acid-preserved specialty collection device.
@@ -5441,7 +5445,7 @@
     const code = String(test.testCode || '').trim();
     // Frozen EDTA plasma for Factor H and frozen whole blood for Whipple PCR
     // must each remain a dedicated draw; do not merge with ordinary lavender.
-    if (/^(?:6328|6339|11262|11352)$/.test(code)) return true;
+    if (/^(?:6328|6339|11262|11352|12346|13954)$/.test(code)) return true;
     return Boolean(timedSpecimenLabel(test) ||
       test.sourceTestId ||
       (Array.isArray(test.additionalDrawRequirements) && test.additionalDrawRequirements.length));
