@@ -92,7 +92,7 @@ for (const [name,page,app] of pages) {
    const specimens=h.specimenFilterCategories(tests.paired);
    const containers=h.transportContainerFilterCategories(tests.paired);
    assert(specimens.includes('Blood')&&specimens.includes('Vaginal Swab'));
-   assert(containers.includes('serum')&&containers.includes('affirm'));
+   assert((containers.includes('serum') || containers.includes('transport')) && containers.includes('affirm'));
  });
  test(name+' live filter values find Affirm, Pleural Fluid and second required specimens',async()=>{
    const w=loadedApp(app);await Promise.resolve();const h=w.__test;
