@@ -319,7 +319,7 @@ const additions=[
     "id": "quest-tc-20261117-92717",
     "testCode": "92717",
     "testName": "Immune Assessment B Cell Subsets, Blood",
-    "status": "reference",
+    "status": "active",
     "specimenType": "Whole Blood",
     "drawContainer": "Lavender EDTA",
     "alternativeContainer": "",
@@ -331,8 +331,8 @@ const additions=[
     "transportTemperature": "Room Temperature",
     "transportTemperatureRaw": "Room Temperature",
     "spin": "No",
-    "specialLabeling": "Label WHOLE BLOOD · EDTA · T/B/NK COMPONENT · DATE OF DRAW",
-    "specialInstructions": "SPECIAL MAYO REFERRAL LOGISTICS REQUIRED BEFORE COLLECTING. TWO DISTINCT ORIGINAL LAVENDER EDTA BLOOD SPECIMENS, NOT ALIQUOTS: (1) 4 mL (3 mL minimum) T/B/NK subsets, UNTRANSFERRED, ambient ROOM TEMP, received within 52 hours; (2) 10 mL EDTA whole blood (pediatric <=14y: 4 mL) for B-cell immune assessment, ORIGINAL EDTA collection tube, REFRIGERATED, received within 48 hours. LABEL each original tube for the correct component, INCLUDE DATE OF DRAW as Quest specifically requires, and ordering physician name/phone. Quest recommends arrival at Mayo within 24h, weekday receipt by 4PM Friday; weekend delivery may be cancelled. Contact lab before ordering to arrange special courier; Mayo testing requires specialized handling, recommend Mon-Thu before noon. Do not plan routine Quest evening pickup until logistics confirmed. DO NOT COLLECT if you lack a valid 10mL EDTA tube/confirmed split-temperature direct shipment.",
+    "specialLabeling": "Label WHOLE BLOOD · TBBS · DATE OF DRAW",
+    "specialInstructions": "SPECIAL MAYO REFERRAL HANDLING. CONFIRM LOGISTICS WITH QUEST BEFORE COLLECTION. Collect TWO physically SEPARATE ORIGINAL Lavender EDTA whole-blood tubes, without spinning or aliquoting. (1) TBBS (T, B and NK lymphocyte subsets): collect 4 mL, 3 mL minimum, label WHOLE BLOOD · TBBS and DATE OF DRAW, and submit original tube at ROOM TEMPERATURE (ambient stability less than 52 hours). (2) IABC (B-cell subsets): collect 10 mL for patients over age 14 (5 mL minimum per performing-lab reference), or 4 mL for patients age 14 and younger (3 mL minimum); use a separate appropriately sized ORIGINAL Lavender EDTA tube, label WHOLE BLOOD · IABC and DATE OF DRAW, submit REFRIGERATED (stability less than 48 hours). These are two separate patient specimens, NOT aliquots of one tube. The ordering clinician's name and telephone number are required. Quest requires special arrangements with the receiving laboratory, weekday Mayo arrival, by 4 p.m. on Friday; shipment arrival within 24 hours of collection is recommended. Avoid weekend arrival; Monday–Thursday before noon is recommended. DO NOT COLLECT until Quest confirms route, and suitable original 10 mL EDTA collection tube if adult. A routine courier pickup alone does not verify Mayo receipt.",
     "source": "https://testdirectory.questdiagnostics.com/test/test-detail/92717/immune-assessment-b-cell-subsets-blood?cc=MASTER&p=r",
     "searchAliases": [
       "B cell subsets blood",
@@ -352,15 +352,15 @@ const additions=[
         "count": 1,
         "submissionCount": 1,
         "specimenType": "Whole Blood",
-        "purpose": "Separate B-cell phenotyping original EDTA tube",
-        "preferredVolume": "10 mL EDTA whole blood (age <=14 years: 4 mL)",
-        "minimumVolume": "Verify age-specific requirement with Mayo",
+        "purpose": "Separate IABC / B-Cell Phenotyping original EDTA whole-blood specimen",
+        "preferredVolume": "10 mL EDTA whole blood (>14 years); 4 mL (≤14 years)",
+        "minimumVolume": "5 mL EDTA whole blood (>14 years); 3 mL (≤14 years)",
         "transportContainer": "Lavender EDTA",
         "transportTemperature": "Refrigerated",
         "transportTemperatureRaw": "Refrigerated",
         "spin": "No",
-        "specialLabeling": "Label WHOLE BLOOD · EDTA · B-CELL COMPONENT · DATE OF DRAW",
-        "specialInstructions": "SEPARATE second original Lavender EDTA tube with 10 mL blood for adult B cell component. Do not aliquot or share with ambient T/B/NK tube. Refrigerate with cold packs; direct Mayo weekday logistics and Friday 4 p.m. receipt restrictions apply."
+        "specialLabeling": "Label WHOLE BLOOD · IABC · DATE OF DRAW",
+        "specialInstructions": "Use a SECOND appropriately sized original Lavender EDTA tube, 10 mL preferred (5 mL minimum) if older than 14, 4 mL preferred (3 mL minimum) if age 14 or younger. Keep UNSPUN, original tube, label WHOLE BLOOD · IABC and date of draw, ship REFRIGERATED. Do not split, pool or substitute the separate ROOM TEMPERATURE TBBS tube. Confirm weekday Mayo delivery in advance."
       }
     ]
   },
@@ -400,6 +400,8 @@ for(const row of additions){
  const old=window.SEED_TESTS.find(x=>String(x.testCode||'').trim()===row.testCode);
  if(!old){window.SEED_TESTS.push(row);continue;}
  if(old.status==='blocked')continue;
+ // Verified Quest 92717 is cart-selectable, with separate source-specific EDTA tubes.
+ if(row.testCode==='92717'){Object.assign(old,row,{id:old.id||row.id});continue;}
  if(old.status==='reference'||old.status==='pending'){Object.assign(old,row,{id:old.id||row.id});continue;}
  if(old.status==='active'&&row.testCode==='10380'){
    old.specialLabeling='Label SERUM · SST source';
