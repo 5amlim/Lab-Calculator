@@ -126,7 +126,8 @@ const additions=[
         "specialLabeling": "Label Whole Blood and collection date/time",
         "specialInstructions": "Original Lavender EDTA whole blood, do not centrifuge or transfer. Refrigerate with cold packs; do not freeze. Keep physically distinct from the spun serum SST."
       }
-    ]
+    ],
+    "usePreferredSerumYield": true
   },
   {
     "id": "quest-verified-20261116-batch30-19681",
