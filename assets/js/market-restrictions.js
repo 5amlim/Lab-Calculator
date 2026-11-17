@@ -5,6 +5,12 @@
   'use strict';
 
   const QUEST = Object.freeze({
+    '3107': { label: 'Unavailable in NY', detail: 'Quest states that Metals/Metalloids Panel 1, Hair is not available for New York patient testing. Confirm receiving service-area acceptance elsewhere.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/3107/metalsmetalloids-hair-panel-1?cc=MASTER' },
+    '3256': { label: 'Unavailable in NY', detail: 'Quest states that Thallium, Nails is not available for New York patient testing. Confirm receiving service-area acceptance elsewhere.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/3256/thallium-nails?cc=MASTER' },
+    '3348': { label: 'Unavailable in NY', detail: 'Quest states that Zinc, Nails is not available for New York patient testing. Confirm receiving service-area acceptance elsewhere.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/3348/zinc-nails-?cc=MASTER' },
+    '3386': { label: 'Unavailable in NY', detail: 'Quest states that Selenium, Hair is not available for New York patient testing. Confirm receiving service-area acceptance elsewhere.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/3386/selenium-hair?cc=MASTER' },
+    '3411': { label: 'Unavailable in NY', detail: 'Quest states that Thallium, Hair is not available for New York patient testing. Confirm receiving service-area acceptance elsewhere.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/3411/thallium-hair?cc=MASTER' },
+    '3419': { label: 'Unavailable in NY', detail: 'Quest states that Lead, Nails is not available for New York patient testing. Confirm receiving service-area acceptance elsewhere.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/3419/lead-nails?cc=MASTER' },
     '17321': { label: 'Unavailable in NY', detail: 'Quest states that quantitative stool lactoferrin is not available for New York patient testing. Confirm service-area acceptance in other states.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/17321?cc=MASTER' },
     '90368': { label: 'CA patients only', detail: 'California patient code. For non-California patient testing, Quest specifies 335.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/335/cholinesterase-plasma?cc=MASTER' },
     '90369': { label: 'CA patients only', detail: 'California patient code. For non-California patient testing, Quest specifies 39481.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/39481/cholinesterase-serum-plasma-rbc?cc=MASTER' },
