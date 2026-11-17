@@ -7035,6 +7035,9 @@
 
   function tubeClass(container) {
     const value = String(container || '').toLowerCase();
+    // Only the generic additive-free Transport Tube uses the regular green badge.
+    // Preserve Labcorp purple frozen caps and specialty kit-specific badge rules.
+    if (/^transport tube$/.test(value)) return 'tube-transport tube-transport-green-top';
     // Named specialty tube must take priority over individual cap colors.
     if (/\bnmr\s*lipo\s*tube\b/.test(value)) return 'tube-nmr-lipotube';
     // Special LabCorp tube and vial badges reflect the actual kit cap/medium.
