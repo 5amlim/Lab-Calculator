@@ -536,6 +536,15 @@
             updated.specialInstructions = base.specialInstructions;
           }
           builtIns[index] = updated;
+        } else if (String(base.testCode || '') === '92717') {
+          // Older saved directory-only copies must not disable the verified cart-ready entry.
+          // Keep a user's intentional Do Not Perform status, but refresh the two physical
+          // EDTA draws, distinct ambient/refrigerated bag handling and specialty warning.
+          builtIns[index] = {
+            ...override, ...base,
+            id: base.id,
+            status: override.status === 'blocked' ? 'blocked' : 'active'
+          };
         } else if (['15447', '6421', '90567'].includes(base.testCode)) {
           // Preserve explicit local edits, but correct fields still matching
           // the obsolete bundled defaults for these verified Quest codes.
