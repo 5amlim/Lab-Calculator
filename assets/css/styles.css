@@ -272,6 +272,19 @@ tr:hover td { background: #fbfdfd; }
 .selected-card .test-name { font-size: 13px; }
 .selected-details { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
 .selected-note { margin-top: 7px; color: #5c6970; font-size: 11px; line-height: 1.45; }
+/* Keep extra specimen requirements legible but proportionate in expanded cart cards.
+   They previously inherited the larger parent font size. Print styles are separate. */
+#testsOverviewSection .selected-card > .selected-additional-requirement {
+  margin-top: 7px;
+  font-size: 12px;
+  line-height: 1.45;
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+#testsOverviewSection .selected-card > .selected-additional-requirement strong {
+  font-weight: 750;
+}
+
 .empty-state { color: var(--muted); font-size: 12px; padding: 12px; background: #f7f9fa; border-radius: 10px; }
 .alerts { margin-top: 14px; }
 .collection-alerts-disclosure {
