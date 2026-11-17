@@ -5020,22 +5020,29 @@
     tests.filter(test => isUrineTest(test) && !isTimedUrineTest(test)).forEach(test => {
       const urineType = urineCollectionType(test);
       const acidPreserved = /6\s*N\s*HCl|HCl[- ]preserv|acid[- ]preserv/i.test(`${test.drawContainer || ''} ${test.transportContainer || ''}`);
+      // Trace-metal urine must use a metal-free source cup. Never fold it into
+      // the generic sterile-cup collection group for ordinary spot urine.
+      const traceMetalSource = /metal[- ]?free|trace[- ]?metal|trace element|acid[- ]?washed/i.test(String(test.drawContainer || ''))
+        ? canonicalCollectionContainer(test) : null;
       const dedicated = requiresSeparateUrineCollection(test) || acidPreserved;
-      const key = dedicated ? `${urineType.key}|${acidPreserved ? 'acid-preserved' : 'separate'}|${test.sourceTestId || test.id}` : urineType.key;
-      if (!spotUrineGroups.has(key)) spotUrineGroups.set(key, { ...urineType, key, dedicated, tests: [] });
+      const baseKey = traceMetalSource ? `${urineType.key}|trace-metal|${normalizeSearch(traceMetalSource.label)}` : urineType.key;
+      const key = dedicated ? `${baseKey}|${acidPreserved ? 'acid-preserved' : 'separate'}|${test.sourceTestId || test.id}` : baseKey;
+      if (!spotUrineGroups.has(key)) spotUrineGroups.set(key, { ...urineType, key, dedicated, traceMetalSource, tests: [] });
       spotUrineGroups.get(key).tests.push(test);
     });
     spotUrineGroups.forEach(group => {
       const hclPreserved = group.tests.some(test => /6\s*N\s*HCl|HCl[- ]preserv|acid[- ]preserv/i.test(String(test.drawContainer || '')));
       items.push({
         key: `sterile-urine-cup|${group.key}`,
-        label: hclPreserved ? '6N HCl Preserved Urine Container' : 'Sterile cup',
-        className: hclPreserved ? 'tube-24h-urine' : 'tube-urine-cup',
+        label: hclPreserved ? '6N HCl Preserved Urine Container' : (group.traceMetalSource ? group.traceMetalSource.label : 'Sterile cup'),
+        className: hclPreserved ? 'tube-24h-urine' : (group.traceMetalSource ? group.traceMetalSource.className : 'tube-urine-cup'),
         urineSeparateCollection: group.dedicated,
         urineCollectionKey: group.key,
         count: group.dedicated ? Math.max(...group.tests.map(explicitCollectionCount)) : 1,
         tests: uniqueTests(group.tests),
-        detail: group.dedicated ? 'Separate urine collection required. Follow test-specific collection instructions.' : 'Collect in the sterile cup first, then fill any required preservative or transport tubes.'
+        detail: group.dedicated ? 'Separate urine collection required. Follow test-specific collection instructions.'
+          : group.traceMetalSource ? 'Collect directly into a trace metal-free plastic container, not an ordinary sterile cup. Follow assay-specific temperatures and volumes.'
+          : 'Collect in the sterile cup first, then fill any required preservative or transport tubes.'
       });
     });
 
