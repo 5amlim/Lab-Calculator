@@ -98,7 +98,7 @@
       serum:'tube-transport tube-transport-green-top', plasma:'tube-transport tube-transport-green-top',
       'chilled-vial':'tube-transport', 'clean-vial':'tube-transport',
       protease:'tube-transport', 'blood-culture':'tube-culture',
-      microtainer:'tube-microtainer', qft:'tube-qft-nil', nmr:'tube-nmr-lipotube',
+      microtainer:'tube-microtainer', qft:'tube-green', nmr:'tube-nmr-lipotube',
       '24h-urine':'tube-24h-urine', urisponge:'tube-urisponge',
       'cary-blair':'tube-cary-blair', 'stool-formalin':'tube-op-formalin',
       'stool-pva':'tube-op-pva', 'stool-clean':'tube-stool-clean', 'stool-other':'tube-stool-clean',
@@ -108,7 +108,7 @@
       'blood-royal-blue-edta':'tube-royal-edta',
       'blood-royal-blue-serum':'tube-royal-no-additive',
       'blood-royal-blue-heparin':'tube-royal-heparin',
-      salivette:'tube-transport', 'csf-vial':'tube-transport',
+      salivette:'tube-transport',
       'dry-swab':'tube-transport', 'cytology-vial':'tube-transport',
       'breath-bag':'', special:'tube-transport'
     })[value] || '';
@@ -221,9 +221,20 @@
     }
     return '';
   }
+  function nestedGroupForValue(item, value) {
+    if (fieldName(item) === 'transportContainerFilter') {
+      return [...item.select.options].find(option => option.value === value)?.dataset.containerGroup || '';
+    }
+    return specimenGroupForValue(item, value);
+  }
   function childOptionsFor(item, parent) {
-    // Only actual specimen categories open submenus. Empty placeholder values
-    // must remain normal choices so users can clear the selection.
+    // Transport container groups are declared on the underlying native options
+    // so the filter engine and the side menu use the exact same membership.
+    if (fieldName(item) === 'transportContainerFilter') {
+      return [...item.select.options].filter(option =>
+        !option.hidden && !option.disabled && option.dataset.containerGroup === parent);
+    }
+    // Preserve the existing Swab / Body Fluid submenu behavior.
     if (!Object.prototype.hasOwnProperty.call(specimenSideGroups, parent)) return [];
     return [...item.select.options].filter(option =>
       !option.hidden && !option.disabled &&
@@ -272,13 +283,14 @@
     const submenu = document.createElement('div');
     submenu.className = 'portal-select-menu portal-select-submenu';
     submenu.setAttribute('role','listbox');
-    submenu.setAttribute('aria-label', parent + ' specimen types');
+    submenu.setAttribute('aria-label', fieldName(item) === 'transportContainerFilter' ? 'Transport container choices' : parent + ' specimen types');
     submenu.dataset.group = parent;
     const heading = document.createElement('button');
     heading.type = 'button';
     heading.className = 'portal-select-submenu-heading';
-    heading.textContent = '← ' + parent + ' types';
-    heading.setAttribute('aria-label','Back to specimen categories');
+    const parentLabel = item.select.options.namedItem?.(parent)?.textContent || [...item.select.options].find(option => option.value === parent)?.textContent || parent;
+    heading.textContent = '← ' + (fieldName(item) === 'transportContainerFilter' ? parentLabel : parent + ' types');
+    heading.setAttribute('aria-label',fieldName(item) === 'transportContainerFilter' ? 'Back to container categories' : 'Back to specimen categories');
     heading.addEventListener('click', e => {
       e.preventDefault();
       e.stopPropagation();
@@ -295,6 +307,8 @@
       choice.disabled = option.disabled;
       choice.setAttribute('aria-selected',String(option.value === item.select.value));
       if (option.value === item.select.value) choice.classList.add('is-selected');
+      const icon = iconElement(iconFor(item, option.value));
+      if (icon) choice.append(icon);
       const label = document.createElement('span');
       label.className = 'portal-option-label';
       label.textContent = optionLabel(item,option);
@@ -384,7 +398,7 @@
     const root = item.select.closest('dialog') ||
       item.select.closest('#catalogFilterControl') || document.body;
     [...item.select.options].forEach((option, index) => {
-      if (option.hidden || specimenGroupForValue(item, option.value)) return;
+      if (option.hidden || nestedGroupForValue(item, option.value)) return;
       const choice = document.createElement('button');
       choice.type = 'button';
       choice.className = 'portal-select-option';
@@ -398,7 +412,7 @@
       optionText.textContent = optionLabel(item, option);
       choice.append(optionText);
       choice.disabled = option.disabled;
-      const children = isSpecimenPicker(item) ? childOptionsFor(item, option.value) : [];
+      const children = childOptionsFor(item, option.value);
       const chosen = option.value === item.select.value ||
         children.some(child => child.value === item.select.value);
       choice.setAttribute('aria-selected',String(chosen));
@@ -409,8 +423,8 @@
         choice.setAttribute('aria-expanded','false');
         const arrow = document.createElement('span');
         arrow.className = 'portal-select-submenu-chevron';
-        arrow.setAttribute('aria-label','Show ' + option.value + ' types');
-        arrow.setAttribute('title','Show ' + option.value + ' types');
+        arrow.setAttribute('aria-label','Show ' + optionLabel(item, option) + ' options');
+        arrow.setAttribute('title','Show ' + optionLabel(item, option) + ' options');
         arrow.addEventListener('click', e => {
           e.preventDefault();
           e.stopPropagation();
