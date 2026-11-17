@@ -1,0 +1,92 @@
+/* Quest individual type 1 diabetes autoantibodies, batch26, 2026-11-16.
+ * One SST to plastic serum Transport Tube route per assay. Existing active or blocked
+ * catalog entries stay authoritative. Confirm regional acceptance. */
+(()=>{'use strict';if(!Array.isArray(window.SEED_TESTS))return;
+const additions=[
+  {
+    "id": "quest-verified-20261116-batch26-34878",
+    "status": "active",
+    "testCode": "34878",
+    "testName": "Glutamic Acid Decarboxylase-65 Antibody",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "spin": "Yes",
+    "stability": "Room 7 days; refrigerated 14 days; frozen 60 days",
+    "specialLabeling": "Label collection date/time",
+    "specialInstructions": "Collect serum in a standard SST / Gold (or accepted tiger SST). Allow to clot, centrifuge to separate serum, then TRANSFER clear serum into plastic screw-cap Transport Tube. Ship at room temperature. Do not use unseparated whole blood; reject gross hemolysis/lipemia where listed.  Confirm service-area acceptance before collection.",
+    "source": "Quest official test-specific directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/34878/glutamic-acid-decarboxylase-65-antibody?cc=MASTER&p=r"
+  },
+  {
+    "id": "quest-verified-20261116-batch26-36178",
+    "status": "active",
+    "testCode": "36178",
+    "testName": "Insulin Autoantibody",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.2 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "spin": "Yes",
+    "stability": "Room 28 days; refrigerated 28 days; frozen 90 days",
+    "specialLabeling": "Label collection date/time",
+    "specialInstructions": "Collect serum in a standard SST / Gold (or accepted tiger SST). Allow to clot, centrifuge to separate serum, then TRANSFER clear serum into plastic screw-cap Transport Tube. Ship at room temperature. Do not use unseparated whole blood; reject gross hemolysis/lipemia where listed. Not offered by Quest Nichols Institute, San Juan Capistrano (IFD); confirm regional acceptance. Confirm service-area acceptance before collection.",
+    "source": "Quest official test-specific directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/36178/insulin-autoantibody?cc=MASTER"
+  },
+  {
+    "id": "quest-verified-20261116-batch26-37933",
+    "status": "active",
+    "testCode": "37933",
+    "testName": "IA-2 Antibody",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "spin": "Yes",
+    "stability": "Room 7 days; refrigerated 7 days; frozen 30 days",
+    "specialLabeling": "Label collection date/time",
+    "specialInstructions": "Collect serum in a standard SST / Gold (or accepted tiger SST). Allow to clot, centrifuge to separate serum, then TRANSFER clear serum into plastic screw-cap Transport Tube. Ship at room temperature. Do not use unseparated whole blood; reject gross hemolysis/lipemia where listed. Not offered by Quest Nichols Institute, San Juan Capistrano (IFD); confirm regional acceptance. Confirm service-area acceptance before collection.",
+    "source": "Quest official test-specific directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/37933?cc=MASTER"
+  },
+  {
+    "id": "quest-verified-20261116-batch26-93022",
+    "status": "active",
+    "testCode": "93022",
+    "testName": "Zinc Transporter 8 (ZnT8) Antibody",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "spin": "Yes",
+    "stability": "Room 7 days; refrigerated 7 days; frozen 28 days",
+    "specialLabeling": "Label collection date/time",
+    "specialInstructions": "Collect serum in a standard SST / Gold (or accepted tiger SST). Allow to clot, centrifuge to separate serum, then TRANSFER clear serum into plastic screw-cap Transport Tube. Ship at room temperature. Do not use unseparated whole blood; reject gross hemolysis/lipemia where listed. Not offered by Quest Nichols Institute, San Juan Capistrano (IFD); confirm regional acceptance. Confirm service-area acceptance before collection.",
+    "source": "Quest official test-specific directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/93022?cc=MASTER"
+  }
+];
+for(const record of additions){const prior=window.SEED_TESTS.find(t=>String(t.testCode||'').trim()===record.testCode);if(!prior){window.SEED_TESTS.push(record);continue;}if(['pending','reference'].includes(prior.status))Object.assign(prior,record,{id:prior.id||record.id});}
+})();
