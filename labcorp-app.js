@@ -5081,7 +5081,14 @@
     if (/green|heparin/i.test(draw)) return 'Green Heparin — verify additive';
     if (/\bred\b/i.test(draw)) return 'Red Top';
     if (/yellow|acd/i.test(draw)) return 'Yellow ACD';
-    if (/gray|grey|fluoride|oxalate/i.test(draw)) return 'Gray Fluoride/Oxalate';
+    // A gray fluoride tube does not automatically contain oxalate. Do not
+    // add an unlisted additive to the specimen label.
+    if (/gray|grey|fluoride|oxalate/i.test(draw)) {
+      if (/oxalate/i.test(draw)) return 'Gray Fluoride/Oxalate';
+      if (/sodium\s+fluoride/i.test(draw)) return 'Gray Sodium Fluoride';
+      if (/fluoride/i.test(draw)) return 'Gray Fluoride';
+      return 'Gray Top — verify additive';
+    }
     if (/aptima/i.test(draw)) return 'Aptima Multitest';
     return draw && !/^verify/i.test(draw) ? draw : '';
   }
