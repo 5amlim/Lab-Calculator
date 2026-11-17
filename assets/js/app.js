@@ -5269,7 +5269,7 @@
       const dedicatedBlood = specimenGroup === 'blood' &&
         (/\bcord\b/i.test(test.specimenType || '') ||
          /\bgestational\b/i.test(test.testName || ''));
-      const groupKey = `${specimenSubtype}|${info.key}${separateCup || separateStool || dedicatedBlood ? `|separate|${test.sourceTestId || test.id}` : ''}`;
+      const groupKey = `${specimenSubtype}|${info.key}${separateCup || separateStool || dedicatedBlood || info.className === 'tube-salivette' ? `|separate|${test.sourceTestId || test.id}` : ''}`;
       if (!grouped.has(groupKey)) grouped.set(groupKey, { ...info, key: groupKey, urineSeparateCollection: separateCup, stoolSeparateCollection: separateStool, urineCollectionKey: groupKey, count: 0, tests: [], detail: '' });
       const item = grouped.get(groupKey);
       if (urineCup && !separateCup) item.count = Math.max(item.count, explicitCollectionCount(test));
