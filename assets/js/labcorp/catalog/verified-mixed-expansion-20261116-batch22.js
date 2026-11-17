@@ -20,7 +20,7 @@ const additions=[
     "transportTemperatureRaw": "Refrigerated",
     "spin": "Yes",
     "stability": "Refrigerated; specific interval not listed on official directory page",
-    "specialLabeling": "Label serum specimen and collection date/time",
+    "specialLabeling": "",
     "specialInstructions": "Collect SERUM into SST / Gold; allow to clot, centrifuge and submit ORIGINAL fully spun SST with gel barrier. Refrigerate immediately and PROTECT FROM SUNLIGHT / UV light during storage and transport using opaque wrapping or a light-protected specimen bag. Do not expose to ambient sunlight. A red-top or EDTA plasma alternative requires an independently validated transfer pathway and is not configured here. Verify current receiving-lab acceptance and light protection requirements.",
     "source": "Labcorp official test directory, reviewed 2026-11-16 • https://www.labcorp.com/tests/140335/neopterin"
   },
