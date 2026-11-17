@@ -20,7 +20,7 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "spin": "No",
     "stability": "Room 7 days; refrigerated 14 days; frozen 30 days",
-    "specialLabeling": "Label CSF specimen source and collection date/time",
+    "specialLabeling": "Label specimen source and collection date/time",
     "specialInstructions": "Qualified procedural clinician obtains CSF into sterile leakproof plastic screw-cap Transport Tube. Submit the original container without routine centrifugation or transfer. Clearly label CSF, collection date/time and patient identifiers. Grossly hemolyzed or icteric CSF is rejected. Confirm Quest receiving service area before collection.",
     "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/91839/varicella-zoster-virus-antibody-igm-ifa-csf?cc=MASTER&p=r"
   },
@@ -41,7 +41,7 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "spin": "No",
     "stability": "Room 7 days; refrigerated 14 days; frozen 30 days",
-    "specialLabeling": "Label CSF specimen source and collection date/time",
+    "specialLabeling": "Label specimen source and collection date/time",
     "specialInstructions": "Qualified procedural clinician obtains CSF into a sterile plastic leakproof screw-cap Transport Tube. Submit original CSF specimen without routine spin or transfer. Label precise CSF source, collection date/time and identifiers. Includes VZV total and IgM CSF antibodies, do not order separate constituent tests unless separately indicated. Grossly hemolyzed, lipemic or icteric specimen unacceptable. Confirm local receiving Quest account.",
     "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/34972/?cc=MASTER"
   },
@@ -62,7 +62,7 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "spin": "No",
     "stability": "Transport room temperature; confirm current service-area stability",
-    "specialLabeling": "Label Urine specimen source and collection date/time",
+    "specialLabeling": "Label specimen source and collection date/time",
     "specialInstructions": "Collect 30 mL random urine WITHOUT ANY preservatives into a clean leakproof plastic Sterile cup and submit the ORIGINAL sealed cup. No centrifugation, spin or transfer needed. Label URINE, patient identifiers and collection date/time. Preserved urine rejected. Test not available in all Quest locations; verify receiving service area and payer requirements before collection.",
     "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/6635/drug-screen-comprehensive-urine?cc=MASTER&p=r"
   },
@@ -83,7 +83,7 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "spin": "No",
     "stability": "Room 7 days; refrigerated 14 days; frozen 30 days",
-    "specialLabeling": "Label CSF specimen source and collection date/time",
+    "specialLabeling": "Label specimen source and collection date/time",
     "specialInstructions": "Qualified procedural clinician collects CSF directly into sterile leakproof plastic Transport Tube. Submit original container, no routine centrifugation or transfer. Clearly label specimen CSF and collection date/time. Grossly hemolyzed, lipemic or icteric specimens may be rejected. Quest notes regional availability restrictions; confirm receiving account.",
     "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/15575/mycoplasma-pneumoniae-antibodies-igg-igm-ifa-csf?cc=MASTER&p=r"
   },
@@ -104,7 +104,7 @@ const additions=[
     "transportTemperatureRaw": "Refrigerated",
     "spin": "No",
     "stability": "Room 7 days; refrigerated 14 days; frozen 21 days",
-    "specialLabeling": "Label CSF specimen source and collection date/time",
+    "specialLabeling": "Label specimen source and collection date/time",
     "specialInstructions": "Qualified procedural clinician collects CSF into sterile plastic screw-cap Transport Tube. Submit original sealed CSF tube refrigerated with cold packs, without routine centrifugation or transfer. Label CSF collection date/time and source. Visible particulate matter is rejected. AQP4 and MOG antibody titers are automatic reflex tests according to results, not additional specimens or tubes. Confirm Quest receiving service area.",
     "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/38313/nmo-spectrum-evaluation-aqp4-with-reflex-to-mog-csf?cc=MASTER&p=r"
   }
