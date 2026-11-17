@@ -5,6 +5,7 @@
   'use strict';
 
   const QUEST = Object.freeze({
+    '17321': { label: 'Unavailable in NY', detail: 'Quest states that quantitative stool lactoferrin is not available for New York patient testing. Confirm service-area acceptance in other states.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/17321?cc=MASTER' },
     '90368': { label: 'CA patients only', detail: 'California patient code. For non-California patient testing, Quest specifies 335.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/335/cholinesterase-plasma?cc=MASTER' },
     '90369': { label: 'CA patients only', detail: 'California patient code. For non-California patient testing, Quest specifies 39481.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/39481/cholinesterase-serum-plasma-rbc?cc=MASTER' },
     '90372': { label: 'CA patients only', detail: 'California patient code. For non-California patient testing, Quest specifies 338.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/90372/?cc=MASTER' },
