@@ -1992,3 +1992,43 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     outline-offset: 2px;
   }
 }
+
+/* Specialty transport filter badges shared by Quest and Labcorp.
+   Labcorp's physical tube palettes are mirrored here for the portal
+   filter so Quest does not fall back to a generic gray badge. */
+@media screen {
+  .portal-select-icon.tube-cary-blair::before {
+    background: linear-gradient(to bottom, #ee6b20 0 25%, #fff3e2 25% 58%, #ce534d 58% 100%);
+    border-color: #a96b4e;
+  }
+  .portal-select-icon.tube-op-formalin::before {
+    background: linear-gradient(to bottom, #e18bae 0 26%, #fff7f9 26% 57%, #8e5d3e 57% 100%);
+    border-color: #b77290;
+  }
+  .portal-select-icon.tube-op-pva::before {
+    background: linear-gradient(to bottom, #858e99 0 26%, #f7f8f9 26% 57%, #8e5d3e 57% 100%);
+    border-color: #737d85;
+  }
+  .portal-select-icon.tube-total-fix::before {
+    background: linear-gradient(to bottom, #343b43 0 26%, #f4f5f4 26% 57%, #8e5d3e 57% 100%);
+    border-color: #47565f;
+  }
+  .portal-select-icon.tube-stool-clean::before {
+    background: linear-gradient(to bottom, #f6f5f2 0 26%, #fcfaf6 26% 57%, #8e5d3e 57% 100%);
+    border-color: #7b807a;
+  }
+  .portal-select-icon.tube-nmr-lipotube::before {
+    background: linear-gradient(to bottom, #20272d 0 32%, #f3d64b 32% 61%, #edf2f4 61% 100%);
+    border-color: #555e62;
+  }
+  .portal-select-icon.tube-op-formalin::before,
+  .portal-select-icon.tube-op-pva::before,
+  .portal-select-icon.tube-total-fix::before,
+  .portal-select-icon.tube-stool-clean::before,
+  .portal-select-icon.tube-nmr-lipotube::before,
+  .portal-select-icon.tube-cary-blair::before {
+    border-style: solid;
+    border-radius: 3px 3px 5px 5px;
+    background-clip: padding-box;
+  }
+}
