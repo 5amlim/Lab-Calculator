@@ -65,8 +65,8 @@ for (const [name,page,app] of pages) {
    for(const label of ['Vaginal Swab','Vaginal-Rectal Swab','CSF','Pleural Fluid',
      'Peritoneal Fluid','Pericardial Fluid','Synovial Fluid','Sputum','Platelet-poor plasma'])
      assert(specimen.includes('>'+label+'</option>'),label+' missing');
-   assert(selectMarkup(html,'transportContainerFilter').includes('<option value="affirm">'));
-   assert(selectMarkup(html,'transportContainerFilter').includes('<option value="amies">'));
+   assert(selectMarkup(html,'transportContainerFilter').includes('<option value="affirm"'));
+   assert(selectMarkup(html,'transportContainerFilter').includes('<option value="amies"'));
    assert(selectMarkup(html,'specimenFilter').includes('<option value="Vaginal Swab">'));
    assert(selectMarkup(html,'specimenFilter').includes('<option value="CSF">'));
    assert(selectMarkup(html,'specimenFilter').includes('<option value="Body Fluid">'));
