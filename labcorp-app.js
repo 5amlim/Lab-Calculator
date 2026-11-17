@@ -5112,7 +5112,7 @@
       const urineCup = specimenGroup === 'urine' && info.className === 'tube-urine-cup';
       const separateCup = urineCup && !isShareableUrineCupTest(test);
       const separateStool = specimenGroup === 'stool' && info.className === 'tube-urine-cup';
-      const groupKey = `${specimenSubtype}|${info.key}${separateCup || separateStool ? `|separate|${test.sourceTestId || test.id}` : ''}`;
+      const groupKey = `${specimenSubtype}|${info.key}${separateCup || separateStool || info.className === 'tube-salivette' ? `|separate|${test.sourceTestId || test.id}` : ''}`;
       if (!grouped.has(groupKey)) grouped.set(groupKey, { ...info, key: groupKey, urineSeparateCollection: separateCup, stoolSeparateCollection: separateStool, urineCollectionKey: groupKey, count: 0, tests: [], detail: '' });
       const item = grouped.get(groupKey);
       if (urineCup && !separateCup) item.count = Math.max(item.count, explicitCollectionCount(test));
