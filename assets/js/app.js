@@ -4453,6 +4453,10 @@
     const requirementText = `${test.testName || ''} ${test.specimenType || ''} ${test.drawContainer || ''} ${test.preferredVolume || ''} ${test.minimumVolume || ''}`.toLowerCase();
     const instructions = String(test.specialInstructions || '').toLowerCase();
 
+    // Timed 12-hour collection is not a random or 24-hour urine collection.
+    if (/12\\s*[- ]?hour|12\\s*hr|12h\\b/.test(requirementText)) {
+      return { key: '12-hour-urine', label: '12-hour urine' };
+    }
     if (/24\s*[- ]?hour|24\s*hr|24h\b/.test(requirementText)) {
       return { key: '24-hour-urine', label: '24-hour urine' };
     }
@@ -4519,7 +4523,7 @@
   function isTimedUrineTest(test) {
     if (!isUrineTest(test)) return false;
     // A first-catch specimen is not a timed urine collection jug.
-    return ['timed-urine', '24-hour-urine'].includes(urineCollectionType(test).key);
+    return ['timed-urine', '12-hour-urine', '24-hour-urine'].includes(urineCollectionType(test).key);
   }
 
   function uniqueTests(tests) {
@@ -5445,7 +5449,7 @@
     const code = String(test.testCode || '').trim();
     // Frozen EDTA plasma for Factor H and frozen whole blood for Whipple PCR
     // must each remain a dedicated draw; do not merge with ordinary lavender.
-    if (/^(?:6328|6339|11262|11352|12346|13954|15904|16103)$/.test(code)) return true;
+    if (/^(?:6328|6339|11262|11352|12346|13954|15904|16103|16326)$/.test(code)) return true;
     return Boolean(timedSpecimenLabel(test) ||
       test.sourceTestId ||
       (Array.isArray(test.additionalDrawRequirements) && test.additionalDrawRequirements.length));
