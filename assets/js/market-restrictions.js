@@ -5,6 +5,8 @@
   'use strict';
 
   const QUEST = Object.freeze({
+    '6060': { label: 'Not for NY patients', detail: 'Quest code 6060 is for non-New York patients. For New York use Quest code 13722, after verifying local acceptance.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/6060/bismuth-random-urine-with-creatinine?cc=MASTER&p=r' },
+    '6183': { label: 'Not for NY patients', detail: 'Quest code 6183 is for non-New York patients. For New York use Quest code 13723, after verifying local acceptance.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/6183/manganese-random-urine-with-creatinine?cc=MASTER&p=r' },
     '3107': { label: 'Unavailable in NY', detail: 'Quest states that Metals/Metalloids Panel 1, Hair is not available for New York patient testing. Confirm receiving service-area acceptance elsewhere.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/3107/metalsmetalloids-hair-panel-1?cc=MASTER' },
     '3256': { label: 'Unavailable in NY', detail: 'Quest states that Thallium, Nails is not available for New York patient testing. Confirm receiving service-area acceptance elsewhere.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/3256/thallium-nails?cc=MASTER' },
     '3348': { label: 'Unavailable in NY', detail: 'Quest states that Zinc, Nails is not available for New York patient testing. Confirm receiving service-area acceptance elsewhere.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/3348/zinc-nails-?cc=MASTER' },
