@@ -5065,7 +5065,7 @@
     // Source descriptions must match the actual container. Do not confuse
     // "preserved" with a red-top blood tube.
     if (/24\s*[- ]?hour\s+urine\s+(?:container|jug)|24h\s+urine\s+(?:container|jug)/i.test(draw)) return '24-Hour Urine Container';
-    if (/^(?:sterile\s+(?:urine\s+|specimen\s+)?cup|urine\s+collection\s+cup)$/i.test(draw)) return 'Sterile cup';
+    if (/^(?:sterile\s+(?:urine\s+|specimen\s+)?(?:cup|container)|urine\s+collection\s+cup)$/i.test(draw)) return 'Sterile cup';
 
     if (/microtainer/i.test(draw)) return 'Amber Microtainer SST';
     if (/light blue|sodium citrate|citrate/i.test(draw)) return 'Light Blue Citrate';
@@ -6039,7 +6039,8 @@
     const onlyRoutineDateTime = /^(?:label|mark)\s+(?:specimen\s+)?(?:collection\s+)?date\s*(?:\/|and|&)\s*time\.?$/i.test(raw);
     const needsPrintedLabel = !item.originalTube || hasSpecialDetails || (explicit && !onlyRoutineDateTime)
       || alwaysLabelSpecimen || genericSubmissionContainer || Boolean(drawSourceQualifier);
-    if (needsPrintedLabel && /^specimen$/i.test(source)) source = 'Specimen type/source: ____';
+    if (needsPrintedLabel && /^(?:specimen|other clinical specimen|unspecified specimen|multiple specimen types|various specimens)$/i.test(source))
+      source = 'Specimen type/source: ____';
 
     // The full source tube already contains EDTA, citrate or heparin.
     // Do not repeat those additives as separate label fragments.
