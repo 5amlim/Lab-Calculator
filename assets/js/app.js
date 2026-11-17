@@ -4459,6 +4459,11 @@
     if (/\btimed(?:\s+urine|\s+collection)?\b/.test(requirementText)) {
       return { key: 'timed-urine', label: 'Timed urine' };
     }
+    // Second-morning pediatric urine is not first-morning or random urine.
+    // Keep the collection card, badge, submission and print path distinct.
+    if (/second[- ]?morning|2nd[- ]?morning|second\s+void(?:ed)?/.test(requirementText)) {
+      return { key: 'second-morning-urine', label: 'Second-morning urine' };
+    }
     if (/first[- ]?morning|first\s+morning|first\s+voided\s+(?:morning\s+)?urine/.test(requirementText)) {
       return { key: 'first-morning-urine', label: 'First-morning urine' };
     }
