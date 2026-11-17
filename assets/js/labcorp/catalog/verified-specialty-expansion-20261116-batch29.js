@@ -29,10 +29,7 @@ const additions=[
       "aps antibody",
       "phosphatidylserine prothrombin"
     ],
-    "clinicalCategories": [
-      "coagulation",
-      "immunology"
-    ]
+    "clinicalCategories": ["coagulation", "immunology"]
   },
   {
     "id": "labcorp-verified-20261116-batch29-501949",
@@ -59,10 +56,7 @@ const additions=[
       "iron stores",
       "ferritin serum"
     ],
-    "clinicalCategories": [
-      "hematology",
-      "chemistry"
-    ]
+    "clinicalCategories": ["hematology", "renal"]
   },
   {
     "id": "labcorp-verified-20261116-batch29-500638",
@@ -89,10 +83,7 @@ const additions=[
       "anti tpo",
       "thyroid peroxidase ab"
     ],
-    "clinicalCategories": [
-      "endocrinology",
-      "immunology"
-    ]
+    "clinicalCategories": ["endocrinology", "immunology"]
   },
   {
     "id": "labcorp-verified-20261116-batch29-500850",
@@ -118,9 +109,7 @@ const additions=[
       "t3 uptake esoterix",
       "resin triiodothyronine uptake"
     ],
-    "clinicalCategories": [
-      "endocrinology"
-    ]
+    "clinicalCategories": ["endocrinology"]
   },
   {
     "id": "labcorp-verified-20261116-batch29-500477",
@@ -146,9 +135,7 @@ const additions=[
       "tsh icma",
       "esoterix tsh"
     ],
-    "clinicalCategories": [
-      "endocrinology"
-    ]
+    "clinicalCategories": ["endocrinology"]
   },
   {
     "id": "labcorp-verified-20261116-batch29-500848",
@@ -174,10 +161,7 @@ const additions=[
       "shbg",
       "sex hormone binding globulin"
     ],
-    "clinicalCategories": [
-      "endocrinology",
-      "reproductive"
-    ]
+    "clinicalCategories": ["endocrinology", "reproductive"]
   },
   {
     "id": "labcorp-verified-20261116-batch29-500159",
@@ -204,10 +188,7 @@ const additions=[
       "testosterone mass spectrometry",
       "testosterone esoterix"
     ],
-    "clinicalCategories": [
-      "endocrinology",
-      "reproductive"
-    ]
+    "clinicalCategories": ["endocrinology", "reproductive"]
   },
   {
     "id": "labcorp-verified-20261116-batch29-500600",
@@ -234,10 +215,7 @@ const additions=[
       "1 25 vitamin d",
       "vitamin d active"
     ],
-    "clinicalCategories": [
-      "endocrinology",
-      "nutrition"
-    ]
+    "clinicalCategories": ["endocrinology", "vitamins"]
   },
   {
     "id": "labcorp-verified-20261116-batch29-500510",
@@ -264,10 +242,7 @@ const additions=[
       "25 hydroxy vitamin d esoterix",
       "vitamin d mass spec"
     ],
-    "clinicalCategories": [
-      "endocrinology",
-      "nutrition"
-    ]
+    "clinicalCategories": ["endocrinology", "vitamins"]
   },
   {
     "id": "labcorp-verified-20261116-batch29-702891",
@@ -294,10 +269,7 @@ const additions=[
       "amiodarone drug level",
       "amiodarone serum"
     ],
-    "clinicalCategories": [
-      "toxicology",
-      "cardiology"
-    ]
+    "clinicalCategories": ["toxicology", "cardiac"]
   },
   {
     "id": "labcorp-verified-20261116-batch29-500102",
@@ -324,10 +296,7 @@ const additions=[
       "testosterone free shbg",
       "free t esoterix"
     ],
-    "clinicalCategories": [
-      "endocrinology",
-      "reproductive"
-    ]
+    "clinicalCategories": ["endocrinology", "reproductive"]
   },
   {
     "id": "labcorp-verified-20261116-batch29-500650",
@@ -354,10 +323,7 @@ const additions=[
       "bioavailable t shbg",
       "free testosterone bioavailable"
     ],
-    "clinicalCategories": [
-      "endocrinology",
-      "reproductive"
-    ]
+    "clinicalCategories": ["endocrinology", "reproductive"]
   },
   {
     "id": "labcorp-verified-20261116-batch29-500713",
@@ -384,9 +350,7 @@ const additions=[
       "hyperthyroid esoterix panel",
       "adult thyroid panel tsh"
     ],
-    "clinicalCategories": [
-      "endocrinology"
-    ]
+    "clinicalCategories": ["endocrinology"]
   },
   {
     "id": "labcorp-verified-20261116-batch29-500712",
@@ -413,9 +377,7 @@ const additions=[
       "thyroid t4 t3 uptake",
       "thyroid esoterix panel"
     ],
-    "clinicalCategories": [
-      "endocrinology"
-    ]
+    "clinicalCategories": ["endocrinology"]
   },
   {
     "id": "labcorp-verified-20261116-batch29-504115",
@@ -442,10 +404,7 @@ const additions=[
       "vitamin d2 d3",
       "vitamin d fractionated"
     ],
-    "clinicalCategories": [
-      "endocrinology",
-      "nutrition"
-    ]
+    "clinicalCategories": ["endocrinology", "vitamins"]
   },
   {
     "id": "labcorp-verified-20261116-batch29-500726",
@@ -471,10 +430,7 @@ const additions=[
       "testosterone total free esoterix",
       "total and free testosterone"
     ],
-    "clinicalCategories": [
-      "endocrinology",
-      "reproductive"
-    ]
+    "clinicalCategories": ["endocrinology", "reproductive"]
   }
 ];
 for(const record of additions){const existing=window.SEED_TESTS.find(t=>String(t.testCode||'').trim()===record.testCode);if(!existing){window.SEED_TESTS.push(record);continue;}if(['pending','reference'].includes(existing.status))Object.assign(existing,record,{id:existing.id||record.id});}
