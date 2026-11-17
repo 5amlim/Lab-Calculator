@@ -5450,6 +5450,14 @@
     // Frozen EDTA plasma for Factor H and frozen whole blood for Whipple PCR
     // must each remain a dedicated draw; do not merge with ordinary lavender.
     if (/^(?:6328|6339|11262|11352|12346|13954|15904|16103|16326)$/.test(code)) return true;
+    // Quest frozen transport packaging: each distinct frozen non-blood assay
+    // receives its own dedicated plastic screw-cap aliquot, never a shared vial.
+    // This includes frozen CSF, urine and body-fluid transfers, but leaves
+    // original untransferred specimen cups and different temperatures intact.
+    if (collectionSpecimenGroupForTest(test) !== 'blood'
+        && /frozen/i.test(String(test.transportTemperature || ''))
+        && /transport tube|transfer tube|transport vial|aliquot|cryovial|screw[- ]?cap/i.test(String(test.transportContainer || '')))
+      return true;
     return Boolean(timedSpecimenLabel(test) ||
       test.sourceTestId ||
       (Array.isArray(test.additionalDrawRequirements) && test.additionalDrawRequirements.length));
