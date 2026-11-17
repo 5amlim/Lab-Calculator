@@ -50,7 +50,7 @@ const additions=[
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
     "spin": "Yes",
-    "stability": "Frozen only; see official assay-specific frozen stability",
+    "stability": "Room temperature 2 hours; frozen 14 days; up to 3 freeze/thaw cycles (avoid thawing)",
     "specialLabeling": "Label plasma and collection date/time",
     "specialInstructions": "Collect a FULL 3.2% sodium-citrate Light Blue Sodium Citrate tube (fill to mark), invert gently at least SIX times, and use a discard tube with butterfly draws when needed to fill collection tubing. Double-centrifuge to platelet-poor plasma without disturbing the buffy coat, transfer to a separate Labcorp PP Transpak Frozen Transport Tube (Purple Cap), freeze immediately and maintain frozen in transit. Each ordered frozen assay needs its own labeled frozen aliquot, never pool separate assays. Avoid heparinized collection lines. Activity is measured first; antibody reflex is performed when activity meets Labcorp reflex threshold. Keep frozen through shipment. Avoid noncitrate plasma or leaving plasma on cells. Verify current Labcorp account and receiving service-area acceptance before collection.",
     "source": "Labcorp official test directory, reviewed 2026-11-16 • https://www.labcorp.com/tests/117921/adamts13-activity-reflex-profile",
