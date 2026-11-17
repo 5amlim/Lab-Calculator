@@ -251,6 +251,8 @@
     if (!item) return;
     if (item.submenuAnchor) item.submenuAnchor.setAttribute('aria-expanded','false');
     item.submenu?.remove();
+    // On touch screens the nested choices temporarily replace the main list.
+    item.menu?.style.removeProperty('visibility');
     item.submenu = null;
     item.submenuAnchor = null;
   }
@@ -264,6 +266,17 @@
   function positionSubmenu(item) {
     if (!item?.submenu || !item.menu || !item.submenuAnchor) return;
     const main = item.menu.getBoundingClientRect();
+    if (matchMedia('(max-width: 720px)').matches && item.select.closest('#catalogFilterControl')) {
+      // Mobile filters use one vertical menu at a time. No left/right flyouts.
+      const width = Math.min(main.width, innerWidth - 24);
+      item.submenu.style.width = width + 'px';
+      item.submenu.style.left = Math.max(12, Math.min(main.left, innerWidth - width - 12)) + 'px';
+      item.submenu.style.top = main.top + 'px';
+      item.submenu.style.maxHeight = item.menu.style.maxHeight;
+      item.menu.style.visibility = 'hidden';
+      return;
+    }
+    item.menu.style.removeProperty('visibility');
     const anchor = item.submenuAnchor.getBoundingClientRect();
     const width = Math.min(246, Math.max(180, innerWidth - 24));
     const height = Math.min(innerHeight - 20, Math.max(110, item.submenu.scrollHeight + 8));
