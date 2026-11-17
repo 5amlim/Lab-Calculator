@@ -206,3 +206,32 @@
     background-clip: padding-box;
   }
 }
+
+/* Exact-match review cards link directly to the official test directory.
+   Keep the link understated and separate from the Add/Added control. */
+#batchResults .batch-row.exact-match .batch-row-action {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 7px;
+}
+#batchResults .batch-exact-directory-link {
+  display: inline-flex;
+  align-self: flex-end;
+  align-items: center;
+  padding: 2px 3px;
+  color: #52636c;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+  text-decoration: none;
+}
+#batchResults .batch-exact-directory-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+#batchResults .batch-exact-directory-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 3px;
+}
