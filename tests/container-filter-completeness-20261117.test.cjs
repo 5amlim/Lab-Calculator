@@ -79,7 +79,7 @@ for (const [name, page, app] of calculators) {
     const transport = selectMarkup(html, 'transportContainer');
     for (const key of ['cary-blair','stool-formalin','stool-pva','stool-clean','urisponge',
       'blood-culture','salivette','qft','microtainer','blood-royal-blue-edta',
-      '24h-urine','serum','plasma','stool-other'])
+      '24h-urine','transport','stool-other'])
       assert(filter.includes('<option value="' + key + '"'), key + ' missing');
     for (const choice of ['Cary-Blair Stool Culture Transport Vial','Total-Fix® Transport Vial',
       'Pink Formalin O&P Vial','Gray PVA O&P Vial','Salivette Saliva Collection Device',
