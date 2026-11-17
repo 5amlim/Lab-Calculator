@@ -30,6 +30,8 @@ function loadedCalculator(appFile) {
     fixture('totalfix', 'Stool', 'Sterile cup', 'Total-Fix® Transport Vial'),
     fixture('op-pair', 'Stool', 'Sterile cup', 'Pink Formalin O&P Vial + Gray PVA O&P Vial'),
     fixture('clean-stool', 'Stool', 'Sterile cup', 'Sterile Screw-cap Stool Vial (Para-Pak white clean)'),
+    fixture('stool-other', 'Stool', 'Sterile cup', 'Stool Container'),
+    fixture('nmr', 'Serum', 'NMR LipoTube', 'NMR LipoTube (spun original tube)'),
     fixture('urisponge', 'Urine', 'Sterile cup', 'UriSponge Urine Culture Transport'),
     fixture('culture', 'Whole Blood', 'BacT/ALERT FA PLUS', 'BacT/ALERT FA PLUS (original bottle)'),
     fixture('qft', 'Whole Blood', 'QuantiFERON TB1 Tube', 'QuantiFERON TB1 Tube (original tube)'),
@@ -77,7 +79,7 @@ for (const [name, page, app] of calculators) {
     const transport = selectMarkup(html, 'transportContainer');
     for (const key of ['cary-blair','stool-formalin','stool-pva','stool-clean','urisponge',
       'blood-culture','salivette','qft','microtainer','blood-royal-blue-edta',
-      '24h-urine','serum','plasma'])
+      '24h-urine','serum','plasma','stool-other'])
       assert(filter.includes('<option value="' + key + '">'), key + ' missing');
     for (const choice of ['Cary-Blair Stool Culture Transport Vial','Total-Fix® Transport Vial',
       'Pink Formalin O&P Vial','Gray PVA O&P Vial','Salivette Saliva Collection Device',
@@ -86,6 +88,8 @@ for (const [name, page, app] of calculators) {
         assert.equal(markup.split('>' + choice + '</option>').length - 1, 1,
           name + ' ' + field + ' missing/duplicate: ' + choice);
     assert(html.includes('id="containerNameFilter"'), 'Missing fallback search');
+    assert(html.includes('</select></label>\n              <label class="catalog-specific-container-label">'),
+      'Exact-name search must not be nested inside the transport filter label');
     const ids = [...filter.matchAll(/<option value="([^"]*)"/g)].map(m => m[1]);
     assert.equal(new Set(ids).size, ids.length, 'Duplicated filter categories');
   });
@@ -104,6 +108,9 @@ for (const [name, page, app] of calculators) {
     assert(categories('op-pair').includes('stool-formalin'));
     assert(categories('op-pair').includes('stool-pva'));
     assert(categories('clean-stool').includes('stool-clean'));
+    assert(categories('stool-other').includes('stool-other'));
+    assert(!categories('stool-other').includes('stool'), 'Generic stool container falsely classified as Total-Fix');
+    assert(categories('nmr').includes('nmr'));
     assert(!categories('clean-stool').includes('stool-formalin'));
     assert(categories('urisponge').includes('urisponge'));
     assert(categories('urisponge').includes('urine-culture'));
