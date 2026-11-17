@@ -773,6 +773,8 @@
       id: String(record.id || `custom-${Date.now()}-${index}`),
       testCode: String(record.testCode ?? record[['que', 'stCode'].join('')] ?? '').trim(),
       testName: String(record.testName ?? '').trim(),
+      searchAliases: Array.isArray(record.searchAliases) ? record.searchAliases.map(value => String(value || '').trim()).filter(Boolean) : [],
+      clinicalCategories: Array.isArray(record.clinicalCategories) ? record.clinicalCategories.map(value => String(value || '').trim()).filter(Boolean) : [],
       addedByInitials: String(record.addedByInitials || '').trim().toUpperCase(),
       specimenType,
       drawContainer,
