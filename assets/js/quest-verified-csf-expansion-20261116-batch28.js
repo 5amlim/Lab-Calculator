@@ -20,8 +20,8 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "spin": "No",
     "stability": "Room 7 days; refrigerated 14 days; frozen 30 days",
-    "specialLabeling": "Label specimen source and collection date/time",
-    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Label CSF and collection date/time. Ship at room temperature. Includes yeast and mycelial phase antibodies; avoid grossly hemolyzed or icteric specimens. Verify current Quest account and service-area acceptance before collection.",
+    "specialLabeling": "Label collection date and time",
+    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Record collection date/time. Ship at room temperature. Includes yeast and mycelial phase antibodies; avoid grossly hemolyzed or icteric specimens. Verify current Quest account and service-area acceptance before collection.",
     "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/5297/histoplasma-antibody-complement-fixation-csf?cc=MASTER"
   },
   {
@@ -41,8 +41,8 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "spin": "No",
     "stability": "Room 7 days; refrigerated 14 days; frozen 30 days",
-    "specialLabeling": "Label specimen source and collection date/time",
-    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Label CSF and collection date/time. Ship at room temperature. Local Quest ordering and service area restrictions may apply. Verify current Quest account and service-area acceptance before collection.",
+    "specialLabeling": "Label collection date and time",
+    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Record collection date/time. Ship at room temperature. Local Quest ordering and service area restrictions may apply. Verify current Quest account and service-area acceptance before collection.",
     "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/18874/coccidioides-antibody-panel-complement-fixation-and-immunodiffusion-csf?cc=MASTER"
   },
   {
@@ -62,8 +62,8 @@ const additions=[
     "transportTemperatureRaw": "Refrigerated",
     "spin": "No",
     "stability": "Room 4 days; refrigerated 7 days; frozen 30 days",
-    "specialLabeling": "Label specimen source and collection date/time",
-    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Label CSF and collection date/time. Ship refrigerated with cold packs. Keep with cold packs. Do not submit grossly hemolyzed or icteric fluid. Verify current Quest account and service-area acceptance before collection.",
+    "specialLabeling": "Label collection date and time",
+    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Record collection date/time. Ship refrigerated with cold packs. Keep with cold packs. Do not submit grossly hemolyzed or icteric fluid. Verify current Quest account and service-area acceptance before collection.",
     "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/16013/west-nile-virus-antibody-igm-csf?cc=MASTER"
   },
   {
@@ -83,8 +83,8 @@ const additions=[
     "transportTemperatureRaw": "Refrigerated",
     "spin": "No",
     "stability": "Room 4 days; refrigerated 7 days; frozen 30 days",
-    "specialLabeling": "Label specimen source and collection date/time",
-    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Label CSF and collection date/time. Ship refrigerated with cold packs. Keep with cold packs. Both CSF IgG and IgM are included. Verify current Quest account and service-area acceptance before collection.",
+    "specialLabeling": "Label collection date and time",
+    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Record collection date/time. Ship refrigerated with cold packs. Keep with cold packs. Both CSF IgG and IgM are included. Verify current Quest account and service-area acceptance before collection.",
     "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/36597/west-nile-virus-antibodies-igg-igm-csf?cc=MASTER"
   },
   {
@@ -104,8 +104,8 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "spin": "No",
     "stability": "Room 7 days; refrigerated 14 days; frozen 30 days",
-    "specialLabeling": "Label specimen source and collection date/time",
-    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Label CSF and collection date/time. Ship at room temperature. CSF immunoblot is not the preferred diagnostic pathway for CNS Lyme disease; clinicians should consider CSF:serum antibody index as indicated. Verify current Quest account and service-area acceptance before collection.",
+    "specialLabeling": "Label collection date and time",
+    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Record collection date/time. Ship at room temperature. CSF immunoblot is not the preferred diagnostic pathway for CNS Lyme disease; clinicians should consider CSF:serum antibody index as indicated. Verify current Quest account and service-area acceptance before collection.",
     "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/70028/lyme-disease-antibodies-igg-igm-immunoblot-csf?cc=MASTER"
   },
   {
@@ -125,8 +125,8 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "spin": "No",
     "stability": "Room 7 days; refrigerated 14 days; frozen 30 days",
-    "specialLabeling": "Label specimen source and collection date/time",
-    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Label CSF and collection date/time. Ship at room temperature. Check Quest local service-area acceptance; the directory lists Nichols San Juan Capistrano as nonperforming. Verify current Quest account and service-area acceptance before collection.",
+    "specialLabeling": "Label collection date and time",
+    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Record collection date/time. Ship at room temperature. Check Quest local service-area acceptance; the directory lists Nichols San Juan Capistrano as nonperforming. Verify current Quest account and service-area acceptance before collection.",
     "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/8804/mycoplasma-pneumoniae-antibody-igg-ifa-csf?cc=MASTER"
   },
   {
@@ -146,8 +146,8 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "spin": "No",
     "stability": "Room 7 days; refrigerated 14 days; frozen 30 days",
-    "specialLabeling": "Label specimen source and collection date/time",
-    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Label CSF and collection date/time. Ship at room temperature. Required volume equals minimum volume; ensure sufficient CSF before ordering. Verify current Quest account and service-area acceptance before collection.",
+    "specialLabeling": "Label collection date and time",
+    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Record collection date/time. Ship at room temperature. Required volume equals minimum volume; ensure sufficient CSF before ordering. Verify current Quest account and service-area acceptance before collection.",
     "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/10485/toxoplasma-gondii-igg-igm-elisa-csf?cc=MASTER"
   },
   {
@@ -167,8 +167,8 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "spin": "No",
     "stability": "Room 7 days; refrigerated 14 days; frozen 30 days",
-    "specialLabeling": "Label specimen source and collection date/time",
-    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Label CSF and collection date/time. Ship at room temperature. Not available in all Quest service areas; verify account acceptance. Verify current Quest account and service-area acceptance before collection.",
+    "specialLabeling": "Label collection date and time",
+    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Record collection date/time. Ship at room temperature. Not available in all Quest service areas; verify account acceptance. Verify current Quest account and service-area acceptance before collection.",
     "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/91839/varicella-zoster-virus-antibody-igm-ifa-csf?cc=MASTER"
   },
   {
@@ -188,8 +188,8 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "spin": "No",
     "stability": "Room 7 days; refrigerated 14 days; frozen 30 days",
-    "specialLabeling": "Label specimen source and collection date/time",
-    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Label CSF and collection date/time. Ship at room temperature. CSF must be obtained using sterile technique. Regional Quest restrictions may apply. Verify current Quest account and service-area acceptance before collection.",
+    "specialLabeling": "Label collection date and time",
+    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Record collection date/time. Ship at room temperature. CSF must be obtained using sterile technique. Regional Quest restrictions may apply. Verify current Quest account and service-area acceptance before collection.",
     "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/14881/toxoplasma-gondii-antibody-igm-elisa-csf?cc=MASTER"
   },
   {
@@ -209,8 +209,8 @@ const additions=[
     "transportTemperatureRaw": "Refrigerated",
     "spin": "No",
     "stability": "Room 48 hours; refrigerated 14 days; frozen 21 days",
-    "specialLabeling": "Label specimen source and collection date/time",
-    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Label CSF and collection date/time. Ship refrigerated with cold packs. Includes a reflex antibody workup; keep refrigerated with cold packs and verify receiving-lab availability. Verify current Quest account and service-area acceptance before collection.",
+    "specialLabeling": "Label collection date and time",
+    "specialInstructions": "Qualified clinician collects CSF directly into an original sterile leakproof screw-cap Transport Tube. Submit the ORIGINAL specimen without centrifugation or transfer. Record collection date/time. Ship refrigerated with cold packs. Includes a reflex antibody workup; keep refrigerated with cold packs and verify receiving-lab availability. Verify current Quest account and service-area acceptance before collection.",
     "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/94536/paraneoplastic-antibody-evaluation-with-reflex-to-titer-and-lb-basic-csf?cc=MASTER"
   }
 ];
