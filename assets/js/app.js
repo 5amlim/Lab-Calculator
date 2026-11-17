@@ -1896,6 +1896,32 @@
     const value = normalizeSearch(test.transportContainer || '');
     const draw = normalizeSearch(test.drawContainer || '');
     const original = /\b(?:original tube|original container|primary tube|no transfer|do not open)\b/.test(value);
+    // Classify the actual submitted device (or the original collection kit).
+    // Do not infer media from narrative instructions or the specimen's source cup.
+    const submitted = original ? draw : value;
+    const withOriginal = categories => original ? [...categories, 'original'] : categories;
+    if (/cary blair|para pak orange|para pak c s/.test(submitted))
+      return withOriginal(['cary-blair']);
+    if (/total fix/.test(submitted)) return withOriginal(['stool']);
+    const opVials = [];
+    if (/\bformalin\b/.test(submitted)) opVials.push('stool-formalin');
+    if (/\bpva\b|polyvinyl alcohol/.test(submitted)) opVials.push('stool-pva');
+    if (opVials.length) return withOriginal(opVials);
+    if (/para pak white|(?:sterile |clean )?screw cap(?:ped)? stool|stool.*(?:clean|unpreserved) vial/.test(submitted))
+      return withOriginal(['stool-clean']);
+    if (/uri\s?sponge/.test(submitted)) return withOriginal(['urisponge', 'urine-culture']);
+    if (/blood culture bottles?/.test(submitted)) return withOriginal(['blood-culture']);
+    if (/quanti feron|qft tb|tb gold plus tubes?/.test(submitted)) return withOriginal(['qft']);
+    if (/nmr lipo tube/.test(submitted)) return withOriginal(['nmr']);
+    if (/microtainer/.test(submitted)) return withOriginal(['microtainer']);
+    if (/protease inhibitor/.test(submitted)) return withOriginal(['protease']);
+    if (/chilled.*(?:screw cap|plastic|vial)/.test(submitted)) return withOriginal(['chilled-vial']);
+    if (/24 hour urine (?:container|jug)/.test(submitted))
+      return withOriginal(['24h-urine', 'urine-cup']);
+    if (/screw cap(?:ped)? (?:plastic )?vial|clean screw cap|plain plastic vial/.test(submitted)) {
+      const specimen = normalizeSearch(test.specimenType || '');
+      return withOriginal(/\bstool\b|\bfeces\b|\bfecal\b/.test(specimen) ? ['stool-clean', 'clean-vial'] : ['clean-vial']);
+    }
     if (/\baffirm\b|\batts\b/.test(value) || (original && /\baffirm\b|\batts\b/.test(draw)))
       return original ? ['affirm', 'original'] : ['affirm'];
     if (/\beswab\b|\be swab\b|\bamies\b/.test(value) ||
