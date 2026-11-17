@@ -5,6 +5,7 @@
   'use strict';
 
   const QUEST = Object.freeze({
+    '14573': { label: 'Not for NY patients', detail: 'Quest explicitly states that Heavy Metals Comprehensive Panel, Urine (14573) is not available for New York patient testing.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/14573/heavy-metals-comprehensive-panel-urine?cc=MASTER&p=r' },
     '12598': { label: 'Not for NY patients', detail: 'Quest explicitly states encephalitis antibody panel, CSF (12598) is not available for New York patient testing.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/12598/encephalitis-antibody-panel-csf?cc=MASTER&p=r' },
     '12600': { label: 'Not for NY patients', detail: 'Quest explicitly states meningoencephalitis panel, CSF (12600) is not available for New York patient testing.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/12600/meningoencephalitis-encephalitis-panel-csf?cc=MASTER&p=r' },
     '6060': { label: 'Not for NY patients', detail: 'Quest code 6060 is for non-New York patients. For New York use Quest code 13722, after verifying local acceptance.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/6060/bismuth-random-urine-with-creatinine?cc=MASTER&p=r' },
