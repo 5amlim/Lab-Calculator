@@ -92,7 +92,8 @@ const additions=[
     "clinicalCategories": [
       "autoimmune",
       "immunology"
-    ]
+    ],
+    "usePreferredSerumYield": true
   },
   {
     "id": "labcorp-verified-20261116-batch29-corrected-520340",
@@ -152,7 +153,8 @@ const additions=[
     "clinicalCategories": [
       "autoimmune",
       "immunology"
-    ]
+    ],
+    "usePreferredSerumYield": true
   },
   {
     "id": "labcorp-verified-20261116-batch29-corrected-520293",
@@ -183,7 +185,8 @@ const additions=[
       "autoimmune",
       "immunology",
       "renal"
-    ]
+    ],
+    "usePreferredSerumYield": true
   },
   {
     "id": "labcorp-verified-20261116-batch29-corrected-520194",
@@ -214,7 +217,8 @@ const additions=[
       "renal",
       "autoimmune",
       "immunology"
-    ]
+    ],
+    "usePreferredSerumYield": true
   },
   {
     "id": "labcorp-verified-20261116-batch29-corrected-520555",
@@ -244,7 +248,8 @@ const additions=[
     "clinicalCategories": [
       "autoimmune",
       "immunology"
-    ]
+    ],
+    "usePreferredSerumYield": true
   },
   {
     "id": "labcorp-verified-20261116-batch29-corrected-520385",
@@ -304,7 +309,8 @@ const additions=[
     "clinicalCategories": [
       "autoimmune",
       "immunology"
-    ]
+    ],
+    "usePreferredSerumYield": true
   }
 ];
 for(const record of additions){const existing=window.SEED_TESTS.find(t=>String(t.testCode||'').trim()===record.testCode);if(!existing){window.SEED_TESTS.push(record);continue;}if(['pending','reference'].includes(existing.status))Object.assign(existing,record,{id:existing.id||record.id});}
