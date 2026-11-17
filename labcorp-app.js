@@ -1318,7 +1318,7 @@
     if (existing) return existing;
     const name = normalizeSearch(test.testName);
     const code = normalizeSearch(test.testCode);
-    const aliases = Array.from(new Set(curatedLabAliases(name).map(normalizeSearch).filter(Boolean)));
+    const aliases = Array.from(new Set([...curatedLabAliases(name), ...(Array.isArray(test.searchAliases) ? test.searchAliases : [])].map(normalizeSearch).filter(Boolean)));
     const aliasWords = Array.from(new Set(aliases.flatMap(value => value.split(' '))));
     const nameWords = name.split(' ').filter(Boolean);
     const info = normalizeSearch([
