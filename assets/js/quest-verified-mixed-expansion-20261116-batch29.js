@@ -22,7 +22,7 @@ const additions=[
     "stability": "Room 4 hours; refrigerated 24 hours; frozen 60 days",
     "specialLabeling": "Label stool, collection date and time",
     "specialInstructions": "Collect fresh unpreserved stool directly in a clean dry sterile leakproof screw-cap Sterile cup. Do not use swabs, fixative, Cary-Blair, or any clinic-prepared slides. Label collection date and time. Freeze immediately and maintain frozen shipment. Do not submit a diaper or specimen in a paint can. Confirm this Quest code is accepted for the ordering account and service area; the MASTER directory lists Nichols San Juan Capistrano as nonperforming.",
-    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/1304/ph-feces?cc=MASTER",
+    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/1304?cc=MASTER",
     "searchAliases": [
       "fecal ph",
       "stool ph",
@@ -51,7 +51,7 @@ const additions=[
     "stability": "Refrigerated 14 days; frozen 21 days",
     "specialLabeling": "Label stool, collection date and time",
     "specialInstructions": "Collect fresh unpreserved stool directly in a clean dry sterile leakproof screw-cap Sterile cup. Do not use swabs, fixative, Cary-Blair, or any clinic-prepared slides. Label collection date and time. Refrigerate and ship with cold packs. No preservative, formalin, or transport medium. Not available for New York patient testing; verify regional ordering restrictions. Confirm this Quest code is accepted for the ordering account and service area; the MASTER directory lists Nichols San Juan Capistrano as nonperforming.",
-    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/17321/lactoferrin-quantitative-stool?cc=MASTER",
+    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/17321?cc=MASTER",
     "searchAliases": [
       "fecal lactoferrin",
       "lactoferrin stool",
@@ -81,7 +81,7 @@ const additions=[
     "stability": "Room unacceptable; refrigerated 7 days; frozen 1 year",
     "specialLabeling": "Label stool, collection date and time",
     "specialInstructions": "Collect fresh unpreserved stool directly in a clean dry sterile leakproof screw-cap Sterile cup. Do not use swabs, fixative, Cary-Blair, or any clinic-prepared slides. Label collection date and time. Freeze raw stool and ship frozen in the original approved leakproof screw-cap container. Do not use transport media or preservatives. Confirm this Quest code is accepted for the ordering account and service area; the MASTER directory lists Nichols San Juan Capistrano as nonperforming.",
-    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/14693/pancreatic-elastase-1?cc=MASTER",
+    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/14693?cc=MASTER",
     "searchAliases": [
       "fecal elastase",
       "elastase stool",
@@ -110,7 +110,7 @@ const additions=[
     "stability": "Room 7 days; refrigerated 7 days; frozen 28 days",
     "specialLabeling": "Label serum, collection date and time",
     "specialInstructions": "Collect SST / Gold (or SST / Tiger where appropriate), allow clotting, centrifuge, and transfer separated serum to a labeled plain Transport Tube; do not transfer unspun blood. Ship room temperature. Includes creatinine and cystatin C with calculated eGFR; this is a SINGLE SERUM specimen, not a combined urine profile. Confirm this Quest code is accepted for the ordering account and service area; the MASTER directory lists Nichols San Juan Capistrano as nonperforming.",
-    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/13581/estimated-glomerular-filtration-rate-egfr-with-creatinine-and-cystatin-c?cc=MASTER",
+    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/13581?cc=MASTER",
     "searchAliases": [
       "cystatin creatinine egfr",
       "egfr cr cys",
@@ -140,7 +140,7 @@ const additions=[
     "stability": "Room 14 days; refrigerated 14 days; frozen 30 days",
     "specialLabeling": "Label serum, collection date and time",
     "specialInstructions": "Collect SST / Gold (or SST / Tiger where appropriate), allow clotting, centrifuge, and transfer separated serum to a labeled plain Transport Tube; do not transfer unspun blood. Ship room temperature. Includes Cystatin C and estimated GFR; no urine is required. Confirm this Quest code is accepted for the ordering account and service area; the MASTER directory lists Nichols San Juan Capistrano as nonperforming.",
-    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/94588/cystatin-c-with-glomerular-filtration-rate-estimated-egfr?cc=MASTER",
+    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/94588?cc=MASTER",
     "searchAliases": [
       "cystatin c",
       "cysc",
@@ -171,7 +171,7 @@ const additions=[
     "stability": "Room 4 hours; refrigerated 24 hours; frozen 60 days",
     "specialLabeling": "Label stool, collection date and time",
     "specialInstructions": "Collect fresh unpreserved stool directly in a clean dry sterile leakproof screw-cap Sterile cup. Do not use swabs, fixative, Cary-Blair, or any clinic-prepared slides. Label collection date and time. Freeze immediately; maintain frozen shipment. Avoid urine contamination and do not submit diaper material. Confirm this Quest code is accepted for the ordering account and service area; the MASTER directory lists Nichols San Juan Capistrano as nonperforming.",
-    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/5022/reducing-substances-stool?cc=MASTER",
+    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/5022?cc=MASTER",
     "searchAliases": [
       "fecal reducing substances",
       "stool sugar",
@@ -201,7 +201,7 @@ const additions=[
     "stability": "Room unacceptable; refrigerated 5 days; frozen 30 days",
     "specialLabeling": "Label stool, collection date and time",
     "specialInstructions": "Collect fresh unpreserved stool directly in a clean dry sterile leakproof screw-cap Sterile cup. Do not use swabs, fixative, Cary-Blair, or any clinic-prepared slides. Label collection date and time. Collect and freeze raw stool only; the receiving laboratory performs microscopic processing. Normal dietary fat intake is needed. Avoid castor oil, mineral oil, suppositories, barium and fat substitutes such as Olestra before collection. Ship frozen; do not submit swabs or transport medium. Verify Quest service-area acceptance.",
-    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/3967/fecal-fat-qualitative?cc=MASTER",
+    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/3967?cc=MASTER",
     "searchAliases": [
       "qualitative fecal fat",
       "stool fat",
@@ -230,7 +230,7 @@ const additions=[
     "stability": "Room 14 days; refrigerated 14 days; frozen 28 days",
     "specialLabeling": "Label serum, collection date and time",
     "specialInstructions": "Collect SST / Gold (or SST / Tiger where appropriate), allow clotting, centrifuge, and transfer separated serum to a labeled plain Transport Tube; do not transfer unspun blood. Ship at room temperature. Serum only; plasma, grossly hemolyzed and grossly lipemic samples are unacceptable. Verify Quest service-area acceptance.",
-    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/36576/t4-thyroxine-antibody?cc=MASTER",
+    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/36576?cc=MASTER",
     "searchAliases": [
       "thyroxine antibody",
       "anti t4",
@@ -260,7 +260,7 @@ const additions=[
     "stability": "Room 4 days; refrigerated 14 days; frozen 35 days",
     "specialLabeling": "Label serum, collection date and time",
     "specialInstructions": "Collect SST / Gold (or SST / Tiger where appropriate), allow clotting, centrifuge, and transfer separated serum to a labeled plain Transport Tube; do not transfer unspun blood. Fasting is preferred; obtain the patient's age on the requisition. Refrigerate and ship with cold packs. Do not substitute heparin or EDTA plasma. Confirm this Quest code is accepted for the ordering account and service area; the MASTER directory lists Nichols San Juan Capistrano as nonperforming.",
-    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/35167/t4-free-direct-dialysis?cc=MASTER",
+    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/35167?cc=MASTER",
     "searchAliases": [
       "free t4 dialysis",
       "ft4 equilibrium dialysis",
@@ -289,7 +289,7 @@ const additions=[
     "stability": "Room 4 days; refrigerated 7 days; frozen 28 days",
     "specialLabeling": "Label serum, collection date and time",
     "specialInstructions": "Collect SST / Gold (or SST / Tiger where appropriate), allow clotting, centrifuge, and transfer separated serum to a labeled plain Transport Tube; do not transfer unspun blood. Fasting is preferred and patient's age must appear on the requisition. Refrigerate and ship with cold packs. Do not submit EDTA/heparin plasma. Confirm this Quest code is accepted for the ordering account and service area; the MASTER directory lists Nichols San Juan Capistrano as nonperforming.",
-    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/36725/t4-free-direct-dialysis-and-t4-total?cc=MASTER",
+    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/36725?cc=MASTER",
     "searchAliases": [
       "t4 free total dialysis",
       "thyroxine free and total",
@@ -318,7 +318,7 @@ const additions=[
     "stability": "Room 7 days; refrigerated 7 days; frozen 28 days",
     "specialLabeling": "Label serum, collection date and time",
     "specialInstructions": "Collect SST / Gold (or SST / Tiger), allow to clot, centrifuge, and submit the original spun SST at room temperature. The reflex TSH is triggered only when total T4 meets laboratory reflex criteria. This code is not available in all service areas; confirm account eligibility before collecting.",
-    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/37675/t4-thyroxine-total-with-reflex-to-tsh?cc=MASTER",
+    "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/37675?cc=MASTER",
     "searchAliases": [
       "t4 reflex tsh",
       "thyroxine tsh reflex",
