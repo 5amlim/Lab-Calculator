@@ -313,5 +313,19 @@ const additions=[
     "usePreferredSerumYield": true
   }
 ];
-for(const record of additions){const existing=window.SEED_TESTS.find(t=>String(t.testCode||'').trim()===record.testCode);if(!existing){window.SEED_TESTS.push(record);continue;}if(['pending','reference'].includes(existing.status))Object.assign(existing,record,{id:existing.id||record.id});}
+for (const record of additions) {
+  const existing = window.SEED_TESTS.find(t => String(t.testCode || '').trim() === record.testCode);
+  if (!existing) { window.SEED_TESTS.push(record); continue; }
+  if (['pending', 'reference'].includes(existing.status)) {
+    Object.assign(existing, record, { id: existing.id || record.id });
+    continue;
+  }
+  // Earlier November 16 batches added several of these codes first. Reconcile
+  // only those same-day provisional records with this later verified entry.
+  // Never replace pre-existing active catalog records or clinic-blocked tests.
+  if (existing.status === 'active' &&
+      /^labcorp-verified-20261116-batch(?:17|18|26)-/.test(String(existing.id || ''))) {
+    Object.assign(existing, record, { id: existing.id });
+  }
+}
 })();
