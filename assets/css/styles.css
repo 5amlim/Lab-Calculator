@@ -133,6 +133,10 @@ tr:hover td { background: #fbfdfd; }
   color: #692720 !important;
 }
 .blocked-list-panel { margin-top: 10px; border: 1px solid #e2d2cf; border-radius: 12px; background: #fffafa; overflow: hidden; }
+/* Keep the expanded Do Not Perform panel visually separate from the test directory. */
+@media screen {
+  .blocked-list-panel:not(.hidden) + .table-wrap { margin-top: 20px; }
+}
 .blocked-list-heading { padding: 11px 13px; border-bottom: 1px solid #eadbd8; background: #fff6f4; }
 .blocked-list-heading > div { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; }
 .blocked-list-heading strong { color: #7d332d; font-size: 12px; }
