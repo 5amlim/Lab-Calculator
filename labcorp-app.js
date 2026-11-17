@@ -6616,6 +6616,26 @@
     </span>`;
   }
 
+  // Print-only display alias. Keep the original catalog wording for processing,
+  // aliquot planning, specialty-container requirements and preservation checks.
+  // This applies to standard serum/plasma transfer tubes, never stool/urine,
+  // microbiology kits, dedicated purple frozen tubes or trace-metal containers.
+  function printTransportTubeLabel(label, specimens = []) {
+    const raw = String(label || '').trim();
+    if (!raw) return raw;
+    const types = (Array.isArray(specimens) ? specimens : [specimens])
+      .filter(Boolean).map(test => normalizeSpecimenType(test.specimenType || '').toLowerCase());
+    if (types.some(type => !/^(?:serum|plasma|serum or plasma|platelet-poor plasma|platelet poor plasma)$/.test(type)))
+      return raw;
+    const standard = /^(?:transport tube|serum transport tube(?:\s*\/\s*vial)?|plasma transport tube(?:\s*\/\s*vial)?|plastic (?:serum|plasma) transport tube|plastic screw[- ]?cap serum transport vial|chilled (?:plastic )?screw[- ]?cap transport vial|chilled plastic screw[- ]?cap vial|clean screw[- ]?capp?ed? (?:plastic )?vial \(no preservative\)|clean screw[- ]?cap vial \(no preservative\))$/i;
+    return standard.test(raw) ? 'Transport Tube' : raw;
+  }
+  function printTransportTubeQualifier(label, specimens = []) {
+    if (printTransportTubeLabel(label, specimens) !== 'Transport Tube') return '';
+    const raw = String(label || '');
+    return /\bno preservative\b/i.test(raw) ? 'No preservative' : '';
+  }
+
   function printContainerBadges(test) {
     const value = String(test.transportContainer || '').trim();
     const lower = value.toLowerCase();
@@ -6637,7 +6657,7 @@
     const transportClass = explicitOriginalOption ? tubeClass(displayedTube) : transportTubeClass(test, value);
     const isSstTransport = transportClass === 'tube-sst';
     const displayClass = isSstTransport ? selectedSstVisualClass() : transportClass;
-    let displayValue = explicitOriginalOption ? `${displayedTube} (original tube)` : value || 'Verify';
+    let displayValue = explicitOriginalOption ? `${displayedTube} (original tube)` : printTransportTubeLabel(value || 'Verify', test);
 
     if (isSstTransport) {
       const keepSpun = /\bspun\b/i.test(value) || isSpunSstSubmission(test) || isOriginalContainerSubmission(test);
@@ -6650,7 +6670,7 @@
       sourceText = sourceText.replace(/Tiger SST\s*·\s*7\.5\s*mL/gi, 'Tiger SST');
     }
 
-    return `<span class="print-tube-badge tube ${displayClass}">${escapeHtml(displayValue)}</span>${sourceText ? `<div class="print-transport-source">${escapeHtml(sourceText)}${sourceBadge}</div>` : ''}`;
+    return `<span class="print-tube-badge tube ${displayClass}">${escapeHtml(displayValue)}</span>${printTransportTubeQualifier(value, test) ? '<div class="print-transport-source">No preservative</div>' : ''}${sourceText ? `<div class="print-transport-source">${escapeHtml(sourceText)}${sourceBadge}</div>` : ''}`;
   }
 
   function printNotesFooter() {
@@ -6969,8 +6989,9 @@
             <div class="print-bag-topbar"><span class="print-bag-topbar-label">LABCORP · Bag</span><span class="print-bag-priority ${bag.isStat ? 'priority-stat' : 'priority-routine'}">${bag.isStat ? 'STAT' : 'Routine'}</span><span class="print-bag-topbar-index" aria-label="Bag ${bagNumber} of ${bags.length}">${bagNumber}/${bags.length}</span></div>
             <div class="print-bag-card-header"><div><div class="print-bag-title">${printBagTemperatureBadge(bag)}<strong>${escapeHtml(bagName)}</strong></div><span>${bag.isStat ? 'STAT specimens only · keep separate from routine and other temperatures' : 'Routine only · keep separate from STAT and other temperatures'}</span></div><div class="print-bag-header-right"><div class="print-bag-container-total"><strong>${totalContainers}</strong><span>containers</span></div></div></div>
             <div class="print-submit-content">${contents.map((item, itemIndex) => `<div class="print-submit-item${item.originalTube ? ' original-tube-submit' : ''}">
-              <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}"><span class="print-submit-container-name">${escapeHtml(item.originalTube && item.key === 'sst-spun' ? (selectedSstIsTiger() ? 'Tiger SST (Spun)' : 'Gold SST (Spun)') : item.label)}</span></span>${printSstTigerBadge(item)}${printBagSpecimenBadge(item)}</div>
+              <div class="print-submit-item-title"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}"><span class="print-submit-container-name">${escapeHtml(item.originalTube && item.key === 'sst-spun' ? (selectedSstIsTiger() ? 'Tiger SST (Spun)' : 'Gold SST (Spun)') : printTransportTubeLabel(item.label, item.tests))}</span></span>${printSstTigerBadge(item)}${printBagSpecimenBadge(item)}</div>
               ${printSubmissionItemDetail(item)}
+              ${printTransportTubeQualifier(item.label, item.tests) ? '<div class="print-submit-item-detail">No preservative · Use an additive-free transport tube</div>' : ''}
               ${printLabelingNotes(item)}
               ${item.printAllocationNote ? `<div class="print-serum-allocation-note">${escapeHtml(item.printAllocationNote)}</div>` : ''}
               <div class="print-for-tests${uniqueTests(item.tests).length > 8 ? ' is-bag-dense' : ''}"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul${uniqueTests(item.tests).length > 8 ? ` style="--bag-test-rows:${Math.ceil(uniqueTests(item.tests).length / 2)}"` : ''}>${testReferences(item.tests, bag.isStat)}</ul></div>
