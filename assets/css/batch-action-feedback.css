@@ -210,21 +210,33 @@
 /* Exact-match review cards link directly to the official test directory.
    Keep the link understated and separate from the Add/Added control. */
 #batchResults .batch-row.exact-match .batch-row-action {
+  position: relative;
   flex-direction: column;
+  justify-content: center;
   align-items: stretch;
-  gap: 7px;
 }
 #batchResults .batch-exact-directory-link {
+  position: absolute;
+  top: calc(50% + 25px);
+  right: 0;
   display: inline-flex;
-  align-self: flex-end;
   align-items: center;
-  padding: 2px 3px;
+  padding: 1px 2px;
   color: #52636c;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.35;
   white-space: nowrap;
   text-decoration: none;
+}
+@media (max-width: 720px) {
+  #batchResults .batch-row.exact-match .batch-row-action {
+    gap: 4px;
+  }
+  #batchResults .batch-exact-directory-link {
+    position: static;
+    align-self: flex-end;
+  }
 }
 #batchResults .batch-exact-directory-link:hover {
   text-decoration: underline;
