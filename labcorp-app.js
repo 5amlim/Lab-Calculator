@@ -6022,10 +6022,9 @@
       if (/\b(?:blood)\b/.test(specimen)) return ['Blood', 'blood'];
       if (/\bswab\b/.test(specimen)) return ['Swab', 'swab'];
       if (/\b(?:csf|cerebrospinal)\b/.test(specimen)) return ['CSF', 'csf'];
-      if (/\b(?:pericardial|peritoneal|pleural|synovial)\b.*\bfluid\b/.test(specimen))
-        return [titleCaseSpecimen(test.specimenType), 'fluid'];
       if (/\bsputum\b/.test(specimen)) return ['Sputum', 'sputum'];
-      if (/\bsaliva\b/.test(specimen)) return ['Saliva', 'other'];
+      if (/\b(?:body|bodily|pericardial|peritoneal|pleural|synovial|pancreatic|amniotic|ascitic|joint|bursal|aqueous|vitreous)\b.*\bfluids?\b|\b(?:ascites|effusion|drainage|saliva|semen|bile)\b/.test(specimen))
+        return [titleCaseSpecimen(test.specimenType), 'fluid'];
       if (/\btissue\b/.test(specimen)) return ['Tissue', 'other'];
       return ['Verify Specimen', 'other'];
     });
