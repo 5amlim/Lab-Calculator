@@ -28,7 +28,9 @@ const additions=[
       "stool ph",
       "fecal acidity"
     ],
-    "clinicalCategories": ["gi"]
+    "clinicalCategories": [
+      "gi"
+    ]
   },
   {
     "id": "quest-verified-20261116-batch29-17321",
@@ -55,7 +57,10 @@ const additions=[
       "lactoferrin stool",
       "ibd scan"
     ],
-    "clinicalCategories": ["gi", "immunology"]
+    "clinicalCategories": [
+      "gi",
+      "immunology"
+    ]
   },
   {
     "id": "quest-verified-20261116-batch29-14693",
@@ -82,7 +87,9 @@ const additions=[
       "elastase stool",
       "exocrine pancreas"
     ],
-    "clinicalCategories": ["gi"]
+    "clinicalCategories": [
+      "gi"
+    ]
   },
   {
     "id": "quest-verified-20261116-batch29-13581",
@@ -109,7 +116,9 @@ const additions=[
       "egfr cr cys",
       "kidney filtration panel"
     ],
-    "clinicalCategories": ["renal"]
+    "clinicalCategories": [
+      "renal"
+    ]
   },
   {
     "id": "quest-verified-20261116-batch29-94588",
@@ -137,7 +146,9 @@ const additions=[
       "cysx",
       "egfr cystatin"
     ],
-    "clinicalCategories": ["renal"]
+    "clinicalCategories": [
+      "renal"
+    ]
   },
   {
     "id": "quest-verified-20261116-batch29-5022",
@@ -164,7 +175,9 @@ const additions=[
       "stool sugar",
       "benedict stool"
     ],
-    "clinicalCategories": ["gi"]
+    "clinicalCategories": [
+      "gi"
+    ]
   },
   {
     "id": "quest-verified-20261116-batch29-3967",
@@ -191,7 +204,9 @@ const additions=[
       "stool fat",
       "steatorrhea"
     ],
-    "clinicalCategories": ["gi"]
+    "clinicalCategories": [
+      "gi"
+    ]
   },
   {
     "id": "quest-verified-20261116-batch29-36576",
@@ -218,7 +233,10 @@ const additions=[
       "anti t4",
       "t4 ab"
     ],
-    "clinicalCategories": ["endocrinology", "immunology"]
+    "clinicalCategories": [
+      "endocrinology",
+      "immunology"
+    ]
   },
   {
     "id": "quest-verified-20261116-batch29-35167",
@@ -245,7 +263,10 @@ const additions=[
       "ft4 equilibrium dialysis",
       "thyroxine free dialysis"
     ],
-    "clinicalCategories": ["endocrinology"]
+    "clinicalCategories": [
+      "endocrinology",
+      "thyroid"
+    ]
   },
   {
     "id": "quest-verified-20261116-batch29-36725",
@@ -272,7 +293,9 @@ const additions=[
       "thyroxine free and total",
       "ft4 t4 dialysis"
     ],
-    "clinicalCategories": ["endocrinology"]
+    "clinicalCategories": [
+      "endocrinology"
+    ]
   },
   {
     "id": "quest-verified-20261116-batch29-37675",
@@ -299,7 +322,9 @@ const additions=[
       "thyroxine tsh reflex",
       "total t4 tsh"
     ],
-    "clinicalCategories": ["endocrinology"]
+    "clinicalCategories": [
+      "endocrinology"
+    ]
   }
 ];
 for(const record of additions){const existing=window.SEED_TESTS.find(t=>String(t.testCode||'').trim()===record.testCode);if(!existing){window.SEED_TESTS.push(record);continue;}if(['pending','reference'].includes(existing.status))Object.assign(existing,record,{id:existing.id||record.id});}
