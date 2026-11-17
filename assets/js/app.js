@@ -6013,73 +6013,110 @@
       .filter(Boolean).join(' · ');
   }
 
+
+  // Label text comes from the declared specimen and explicit labeling field,
+  // never from narrative processing, rejection criteria, or alternatives.
+  // Ordinary date/time and patient identifiers are standard label practice and
+  // are not repeated here unless the test requires a special distinction.
+  function conciseSpecimenLabel(test, item = {}) {
+    const raw = String(test.specialLabeling || '').trim().replace(/\s+/g, ' ');
+    const specimenType = normalizeSpecimenType(test.specimenType);
+    const specimen = specimenType.toLowerCase();
+    const lower = raw.toLowerCase();
+    const specificSource = specificSpecimenSource(test);
+    const parts = [];
+    const add = value => {
+      const text = String(value || '').trim();
+      if (text && !parts.some(existing => normalizedLabelComparison(existing) === normalizedLabelComparison(text))) parts.push(text);
+    };
+
+    let source = specificSource || titleCaseSpecimen(specimenType);
+    if (/^(?:site[- ]specific\s+)?culture\s+swab$/i.test(specimenType) || /^(?:swab,?\s*unspecified|site[- ]specific\s+culture\s+swab)$/i.test(specimenType)) source = 'Swab';
+    if (/\bmeconium\b/i.test(raw) && /\bstool\b/.test(specimen)) source = 'Meconium';
+    if (/\bvesicle\s*\/\s*lesion\s+swab\b/i.test(raw) && /\bswab\b/.test(specimen)) source = 'Vesicle/lesion swab';
+    if (/^other\s*\/\s*verify$/i.test(source)) source = 'Specimen';
+
+    const explicit = /^(?:label\b|mark\b|identify\b|write\b|specimen\s+collection\b)/i.test(raw);
+    if (explicit) {
+      // Only a declared label instruction can add label-specific details.
+      if (/\b(?:trace\s*metal[- ]?free|metal[- ]?free)\b/i.test(raw)) add('Trace metal-free');
+      if (/\bedta\s+plasma\b|\bplasma\s+from\s+(?:spun\s+)?(?:lavender|edta)\b/i.test(raw)) add('EDTA');
+      if (/\bplasma\s+from\s+gray\s+fluoride\s*\/\s*oxalate\b/i.test(raw)) add('Fluoride/oxalate');
+      if (/\bcitrate\s+plasma\b/i.test(raw)) add('Citrated');
+      if (/catheterized\s*\/\s*suprapubic\s*\/\s*cystoscopic/i.test(raw)) add('Actual collection method');
+      else if (/\b(?:exact|specific|precise)\b.{0,42}\b(?:anatomic(?:al)?\s+)?(?:source|site|joint|location)\b|\b(?:source|site)\b.{0,24}\b(?:exact|specific)\b|\bspecify\s+(?:exact\s+)?(?:site|source)/i.test(raw)) {
+        add(/\b(?:swab|eye|ear|lesion)\b/i.test(specimenType) ? 'Exact collection site' : 'Exact anatomical source/site');
+      }
+      if (/\b(?:left\s+or\s+right|left\/right|laterality)\b/i.test(raw)) add('Left/right');
+      if (/\btube\s*(?:number|sequence|#)\b/i.test(raw)) {
+        const tube = raw.match(/\btube\s*#\s*(\d+)\b/i);
+        add(tube ? 'Tube #' + tube[1] : 'Tube sequence');
+      }
+      if (/\blumbar\s+puncture\b/i.test(raw)) add('Lumbar puncture source');
+      if (/\btwo\s+patient\s+identifiers\b|\b2\s+patient\s+identifiers\b/i.test(raw)) add('Two patient identifiers');
+      if (/\bpatient\s+age\b|\bage\s+and\s+start/i.test(raw)) add('Patient age');
+      if (/\bverified\s+ph\b|\bph\s*[≤<]/i.test(raw)) add('Verified pH');
+      if (/\bend\s+of\s+shift\b/i.test(raw)) add('End of shift');
+      if (/\bend\s+of\s+workweek\b/i.test(raw)) add('End of workweek');
+      if (/\b(?:2[- ]hour\s+postprandial|post[- ]prandial)\b/i.test(raw)) add('Postprandial');
+      if (/\bmeal\s*\/\s*draw\s+time\b/i.test(raw)) add('Meal/draw times');
+      else if (/\bcollection\s+and\s+separation\s+time\b/i.test(raw)) add('Collection and separation times');
+      else if (/\b(?:exact\s+collection|exact\s+draw|exact\s+meal|exact\s+date|draw\s+time|exposure\s+time|time\s+of\s+draw)\b/i.test(raw)) add('Exact collection time');
+      if (/\b(?:24[- ]?hour|24\s*hr|24h)\b/i.test(raw) && /\burine\b/.test(specimen)) {
+        add('Total 24-hour volume');
+        add('Start/end times');
+      } else if (/(?:start\s*\/\s*end|start\s+and\s+end)\s+(?:date\s*\/\s*)?time/i.test(raw)) {
+        add('Start/end times');
+      }
+      // Fasting or a paired specimen is not an instruction to write that
+      // description on the current container. Its own required draw remains
+      // in the separate collection/submission route.
+    } else if (/^(?:fasting|baseline|pre[- ]dose|post[- ]dose|\d+\s*[- ]?hour)\b/i.test(raw)) {
+      add(raw.split(/\s*[-–:]\s*/)[0]);
+    }
+    if (is24HourUrineTest(test)) {
+      add('Total 24-hour volume');
+      add('Start/end times');
+    }
+
+    // A genuine handling instruction in a label field must not masquerade as
+    // text to write on the vial. Handling is displayed on a separate line.
+    const processing = [];
+    if (/\bfroz(?:en)?\s+immediately\s+after\s+separation\b|\bfreeze\s+immediately\s+after\s+separation\b/i.test(raw))
+      processing.push('Freeze immediately after separation');
+    else if (/\b(?:freeze|frozen)\b/i.test(raw)) processing.push('Keep frozen');
+    if (/\blight\s+protected\b|\bprotect\s+from\s+light\b/i.test(raw) && !/amber|protect from light/i.test(String(item.label || '')))
+      processing.push('Protect from light');
+
+    const hasSpecialDetails = parts.length > 0;
+    const needsPrintedLabel = !item.originalTube || hasSpecialDetails ||
+      (explicit && /\b(?:meconium|vesicle\/lesion)\b/i.test(raw));
+    const label = needsPrintedLabel ? [source, ...parts].filter(Boolean).join(' • ') : '';
+    return { label, processing: Array.from(new Set(processing)) };
+  }
+
   function printLabelingNotes(item) {
     if (item.printVisualGroupParts) return item.printVisualGroupParts.map(printLabelingNotes).join('');
-    const grouped = new Map();
-    const distinctSources = new Set(uniqueTests(item.tests).map(test => normalizeSpecimenType(test.specimenType).toLowerCase().trim()));
-    const mixedSources = distinctSources.size > 1;
-    uniqueTests(item.tests).forEach(test => {
-      const is24Hour = is24HourUrineTest(test);
-      const derived = derivedSpecimenSourceLabel(test, item);
-      let explicit = String(test.specialLabeling || '').trim();
-      const sourceLabel = printGenericSpecimenSourceLabel(test, explicit);
-      // A basic patient ID is already part of routine specimen identification.
-      // "Submit only for ..." is a processing restriction, not label wording;
-      // the HIV-specific restrictions remain in the test's handling field.
-      if (item.originalTube && /patient identifier; submit only for hiv testing/i.test(explicit)) explicit = '';
-      // RBCs are already in the named original collection tube; a source-only
-      // instruction adds nothing to that primary tube's label.
-      if (item.originalTube && /^rbcs? from /i.test(explicit)) explicit = '';
-      const conciseExplicit = normalizePrintedLabelDetail(explicit, derived, test);
-      const explicitSubject = conciseExplicit.split(' · ')[0];
-      const preferExactSwab = /\bswab\b/i.test(explicitSubject)
-        && /\bswab\b/i.test(derived)
-        && normalizedLabelComparison(explicitSubject).length > normalizedLabelComparison(derived).length
-        && /collection date\/time/i.test(conciseExplicit);
-      const parts = [];
-      // For 24-hour urine transfers, "24h urine" already identifies the specimen.
-      // Do not prepend a redundant generic "Urine" label.
-      // If the lab explicitly requires a specific serum source on the label,
-      // show the exact directive instead of prefixing it with generic "Serum".
-      const explicitSerumSource = derived === 'Serum'
-        && /\bserum\s+from\s+(?:spun\s+)?(?:gold|sst|tiger|red(?:-top)?)/i.test(explicit);
-      // The inline specimen badge inside a generic label instruction already identifies the source.
-      if (derived && (!sourceLabel || (/\bswab\b/i.test(test.specimenType || '') && !/^swab$/i.test(derived))) && !(is24Hour && /^urine$/i.test(derived.trim())) && !explicitSerumSource && !preferExactSwab) parts.push(derived);
-      // Amber transport tubes should always carry a visible specimen-type label,
-      // including ordinary serum transfers where the standard SST source would
-      // otherwise suppress a redundant derived label.
-      if (item.className === 'tube-amber' && !derived) {
-        const amberSpecimen = titleCaseSpecimen(normalizeSpecimenType(test.specimenType));
-        if (amberSpecimen) parts.push(amberSpecimen);
+    const labels = new Map();
+    const handling = new Map();
+    uniqueTests(item.tests || []).forEach(test => {
+      const result = conciseSpecimenLabel(test, item);
+      const code = displayCode(test);
+      if (result.label) {
+        const key = normalizedLabelComparison(result.label);
+        if (!labels.has(key)) labels.set(key, { text: result.label, codes: [] });
+        labels.get(key).codes.push(code);
       }
-      if (is24Hour) parts.push('24h urine · Total volume: ____ mL · Start: ____ · End: ____');
-      const explicitIsRedundant24hUrine = is24Hour && /^urine$/i.test(explicit.trim());
-      if (sourceLabel) parts.push(mixedSources && sourceLabel.badge ? `${sourceLabel.token} · ${sourceLabel.note}` : sourceLabel.note);
-      else if (!explicitIsRedundant24hUrine && explicitLabelAddsInformation(explicit, derived)) parts.push(normalizePrintedLabelDetail(explicit, derived, test));
-      // Deduplicate equivalent labels from the same test before comparing across
-      // tests. Preserve instructions that add a distinct labeling requirement.
-      const uniqueParts = [];
-      const seenParts = new Set();
-      parts.forEach(part => {
-        const key = normalizedLabelComparison(part);
-        if (key && !seenParts.has(key)) { seenParts.add(key); uniqueParts.push(part); }
+      result.processing.forEach(note => {
+        const key = normalizedLabelComparison(note);
+        if (!handling.has(key)) handling.set(key, { text: note, codes: [] });
+        handling.get(key).codes.push(code);
       });
-      const note = uniqueParts.join(' · ');
-      if (!note) return;
-      // Equal labels from different tests need only one LABEL line. Keep all
-      // contributing codes together, including tests with different naming.
-      const groupKey = note.toLowerCase()
-        .replace(/\b(?:sst\s*\/\s*gold|gold\s*\/\s*sst)\b/g, 'gold/sst')
-        .replace(/\s+/g, ' ').trim();
-      if (!grouped.has(groupKey)) grouped.set(groupKey, { note, codes: [], sourceLabel });
-      grouped.get(groupKey).codes.push(displayCode(test));
     });
-    if (!grouped.size) return '';
-    return `<div class="print-label-notes">${Array.from(grouped.values()).map(({ note, codes, sourceLabel }) => {
-      const safeNote = escapeHtml(note);
-      const message = sourceLabel ? safeNote.replace(escapeHtml(sourceLabel.token), sourceLabel.badge) : safeNote;
-      return `<div class="print-label-note"><span>Label</span><div>${message} ${grouped.size > 1 ? `<small>${escapeHtml([...new Set(codes)].join(', '))}</small>` : ''}</div></div>`;
-    }).join('')}</div>`;
+    if (!labels.size && !handling.size) return '';
+    const render = (rows, kind, showCodes) => Array.from(rows.values()).map(({text: note, codes}) =>
+      `<div class="print-label-note${kind === 'Process' ? ' print-label-process' : ''}"><span>${kind}</span><div>${escapeHtml(note)}${showCodes ? ` <small>${escapeHtml([...new Set(codes)].join(', '))}</small>` : ''}</div></div>`).join('');
+    return `<div class="print-label-notes">${render(labels, 'Label', labels.size > 1)}${render(handling, 'Process', handling.size > 1)}</div>`;
   }
 
   function isTransferSubmission(test) {
