@@ -9,6 +9,7 @@
   // Closing a native dialog dispatches its close event asynchronously.
   // Do not open the next queued confirmation until that event has fired.
   let closing = false;
+  let pumpScheduled = false;
 
   function ensureDialog() {
     if (dialog?.isConnected) return dialog;
@@ -47,31 +48,46 @@
       if (event.target === dialog) settle(false);
     });
     dialog.addEventListener('close', () => {
-      // A previous confirmation must not dismiss a newer one. The close event
-      // belongs to the dialog that just finished, not a pending queued action.
-      closing = false;
+      // WebKit can dispatch the previous close event after the next modal opens.
+      // Never dismiss a new request because of an older close event.
+      if (dialog?.open) return;
       if (active) {
         const dismissed = active;
         active = null;
         dismissed.resolve(false);
       }
-      pump();
+      closing = false;
+      schedulePump();
     });
     return dialog;
+  }
+
+  // A close event is not consistently dispatched before the next task on
+  // mobile Safari. The fallback task keeps queued portals moving either way.
+  function schedulePump() {
+    if (pumpScheduled) return;
+    pumpScheduled = true;
+    setTimeout(() => {
+      pumpScheduled = false;
+      if (closing && (!dialog || !dialog.open)) closing = false;
+      pump();
+    }, 0);
   }
 
   function settle(accepted) {
     if (!active) return;
     const item = active;
     active = null;
-    // Set the closing guard before resolving the promise, since an awaiting
-    // handler may immediately request a second confirmation (e.g. STAT).
-    if (dialog?.open) {
-      closing = true;
-      dialog.close();
+    closing = true;
+    try {
+      if (dialog?.open) dialog.close();
+    } catch (error) {
+      console.warn('Could not close action dialog; recovering the portal.', error);
+      dialog?.remove();
+      dialog = null;
     }
     item.resolve(Boolean(accepted));
-    if (!closing) Promise.resolve().then(pump);
+    schedulePump();
   }
 
   function pump() {
@@ -80,15 +96,23 @@
       document.addEventListener('DOMContentLoaded', pump, { once: true });
       return;
     }
-    const item = queue.shift();
     const node = ensureDialog();
-    if (typeof node.showModal !== 'function') {
-      item.resolve(false);
-      Promise.resolve().then(pump);
+    // This can happen if a third-party script opened the shared dialog.
+    // Close safely rather than calling showModal() on an already-open dialog.
+    if (node.open) {
+      closing = true;
+      try { node.close(); }
+      catch (error) {
+        console.warn('Could not reset action dialog; recreating the portal.', error);
+        node.remove();
+        dialog = null;
+      }
+      schedulePump();
       return;
     }
+    const item = queue.shift();
     active = item;
-    const opts = item.options;
+    const opts = item.options || {};
     const tone = ['danger', 'warning', 'info'].includes(opts.tone) ? opts.tone : 'info';
     node.dataset.tone = tone;
     node.querySelector('#portalActionKicker').textContent = opts.kicker ||
@@ -106,8 +130,18 @@
     cancel.hidden = item.kind === 'alert';
     cancel.textContent = opts.cancelLabel || 'Cancel';
     proceed.textContent = opts.confirmLabel || (item.kind === 'alert' ? 'Got it' : 'Continue');
-    node.showModal();
-    proceed.focus({ preventScroll: true });
+    try {
+      node.showModal();
+    } catch (error) {
+      // Failing closed is safer than running a destructive action without
+      // confirmation. A broken modal must never block later queued requests.
+      console.warn('Action dialog could not be opened.', error);
+      active = null;
+      item.resolve(false);
+      schedulePump();
+      return;
+    }
+    try { proceed.focus({ preventScroll: true }); } catch (error) { /* optional */ }
   }
 
   function request(kind, message, options = {}) {
