@@ -25,7 +25,7 @@ const additions=[
     "spin": "No",
     "stability": "Room 7 days; refrigerated 14 days; frozen 21 days",
     "specialLabeling": "Label CSF, collection date/time and exact spinal-fluid source; two patient identifiers",
-    "specialInstructions": "Qualified procedural clinician collects CSF directly into a clean sterile ADDITIVE-FREE plastic screw-cap Transport Tube. Submit ORIGINAL securely capped CSF tube REFRIGERATED (2–8°C) with cold packs. Do not centrifuge, freeze by default, add transport medium, prepare slide, or substitute serum. Visible particulate matter is rejected. A positive MOG antibody triggers a reflex CSF titer performed at Quest, no extra collection. This is the CSF, not serum MOG assay. Verify patient-region availability for this exact Quest code and the receiving Quest account before collection.",
+    "specialInstructions": "Qualified procedural clinician collects CSF directly into a clean sterile ADDITIVE-FREE plastic screw-cap Transport Tube. Submit ORIGINAL securely capped CSF tube REFRIGERATED (2–8°C) with cold packs. Do not centrifuge, freeze by default, add transport medium, prepare slide, or substitute serum. Visible particulate matter is rejected. A positive MOG antibody triggers a reflex CSF titer performed at Quest, no extra collection. This is the CSF, not serum MOG assay. Verify patient-region availability for this exact Quest code and the receiving Quest account before collection. No transfer; submit original tube unchanged in the same sterile screw-cap container.",
     "searchAliases": [
       "MOG CSF antibody",
       "MOGAD CSF reflex titer",
@@ -293,7 +293,7 @@ const additions=[
     "spin": "No",
     "stability": "Room 7 days; refrigerated 14 days; frozen 30 days",
     "specialLabeling": "Label CSF, collection date/time and exact spinal-fluid source; two patient identifiers",
-    "specialInstructions": "Qualified procedural clinician collects CSF directly into an additive-free STERILE plastic screw-cap Transport Tube and sends original closed tube ROOM TEMPERATURE. Label CSF, collection date/time, exact source and two identifiers. No serum or swab, no slide preparation. Avoid gross hemolysis, lipemia or icterus. Quest lab performs both IgG/IgM IFA testing. Not offered at Nichols Chantilly VA; verify patient service area and assigned performing lab. Verify patient-region availability for this exact Quest code and the receiving Quest account before collection.",
+    "specialInstructions": "Qualified procedural clinician collects CSF directly into an additive-free STERILE plastic screw-cap Transport Tube and sends original closed tube ROOM TEMPERATURE. Label CSF, collection date/time, exact source and two identifiers. No serum or swab, no slide preparation. Avoid gross hemolysis, lipemia or icterus. Quest lab performs both IgG/IgM IFA testing. Not offered at Nichols Chantilly VA; verify patient service area and assigned performing lab. Verify patient-region availability for this exact Quest code and the receiving Quest account before collection. No transfer; submit original tube unchanged in the same sterile screw-cap container.",
     "searchAliases": [
       "Measles CSF IgG IgM",
       "rubeola CSF antibodies",
