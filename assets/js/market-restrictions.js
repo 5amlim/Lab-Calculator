@@ -5,6 +5,7 @@
   'use strict';
 
   const QUEST = Object.freeze({
+    '16867': { label: 'Not for NY patients', detail: 'Quest selenium random urine with creatinine code 16867 is only for non-New York patients. NY uses code 8829 with refrigerated transport.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/16867/selenium-random-urine-with-creatinine?cc=MASTER&p=r' },
     '14573': { label: 'Not for NY patients', detail: 'Quest explicitly states that Heavy Metals Comprehensive Panel, Urine (14573) is not available for New York patient testing.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/14573/heavy-metals-comprehensive-panel-urine?cc=MASTER&p=r' },
     '12598': { label: 'Not for NY patients', detail: 'Quest explicitly states encephalitis antibody panel, CSF (12598) is not available for New York patient testing.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/12598/encephalitis-antibody-panel-csf?cc=MASTER&p=r' },
     '12600': { label: 'Not for NY patients', detail: 'Quest explicitly states meningoencephalitis panel, CSF (12600) is not available for New York patient testing.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/12600/meningoencephalitis-encephalitis-panel-csf?cc=MASTER&p=r' },
