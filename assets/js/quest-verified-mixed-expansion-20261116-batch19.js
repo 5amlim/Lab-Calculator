@@ -13,7 +13,7 @@ const additions=[
     "drawContainer": "Sterile cup",
     "alternativeContainer": "",
     "transportContainer": "Sterile cup",
-    "preferredVolume": "10 mL unpreserved random urine (split into two sterile cups)",
+    "preferredVolume": "20 mL total unpreserved random urine (10 mL in EACH of two separate sterile cups)",
     "minimumVolume": "2 mL in first cup AND 0.5 mL in second cup",
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "Frozen",
