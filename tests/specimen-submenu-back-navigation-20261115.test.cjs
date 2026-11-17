@@ -49,6 +49,6 @@ test('Click and ArrowLeft both go back, suppress automatic hover/focus, and can 
 test('Quest and LabCorp use the corrected shared picker cache version',()=>{
  for(const page of ['index.html','labcorp.html']){
   const html=fs.readFileSync(path.join(__dirname,'..',page),'utf8');
-  assert.match(html,/assets\/js\/portal-selects\.js\?v=11\.91/);
+  assert.match(html,/assets\/js\/portal-selects\.js\?v=11\.96/);
  }
 });
