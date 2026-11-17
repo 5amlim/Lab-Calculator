@@ -6135,11 +6135,12 @@
     // The name of a generic transfer tube, sterile cup or trace-metal-free
     // container does not indicate what specimen is actually inside.
     const submissionContainer = [item.label, test.transportContainer].filter(Boolean).join(' ');
-    const genericSubmissionContainer = /\b(?:transport|transfer)\s+(?:tube|vial|container)s?\b|\b(?:aliquot|cryovial|sterile\s+(?:urine\s+|specimen\s+)?cup|trace[- ]?metal[- ]?free|metal[- ]?free|acid[- ]?washed|trace[- ]?element)\b/i.test(submissionContainer);
+    const genericSubmissionContainer = /\b(?:transport|transfer)\s+(?:tube|vial|container)s?\b|\b(?:aliquot|cryovial|sterile\s+(?:urine\s+|specimen\s+)?(?:cup|container)|trace[- ]?metal[- ]?free|metal[- ]?free|acid[- ]?washed|trace[- ]?element)\b/i.test(submissionContainer);
     const onlyRoutineDateTime = /^(?:label|mark)\s+(?:specimen\s+)?(?:collection\s+)?date\s*(?:\/|and|&)\s*time\.?$/i.test(raw);
     const needsPrintedLabel = !item.originalTube || hasSpecialDetails || (explicit && !onlyRoutineDateTime)
       || alwaysLabelSpecimen || genericSubmissionContainer || Boolean(drawSourceQualifier);
-    if (needsPrintedLabel && /^specimen$/i.test(source)) source = 'Specimen type/source: ____';
+    if (needsPrintedLabel && /^(?:specimen|other clinical specimen|unspecified specimen|multiple specimen types|various specimens)$/i.test(source))
+      source = 'Specimen type/source: ____';
 
     // The full source tube already contains EDTA, citrate or heparin.
     // Do not repeat those additives as separate label fragments.
