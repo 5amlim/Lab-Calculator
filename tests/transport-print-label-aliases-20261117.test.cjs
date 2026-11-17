@@ -51,6 +51,6 @@ for (const [name,file,page] of apps) {
     ];
     for(const [v,specimenType] of specials)
       assert.equal(label(v,{specimenType}),v,'Specialty print label changed: '+v);
-    assert(read(page).includes('transport-tube-consolidation-v4'), 'App version missing');
+    assert(read(page).includes('transport-print-aliases-v5'), 'App version missing');
   });
 }
