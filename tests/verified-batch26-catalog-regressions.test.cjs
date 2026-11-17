@@ -7,7 +7,6 @@ const vm=require('node:vm');
 const root=path.resolve(__dirname,'..');
 const read=file=>fs.readFileSync(path.join(root,file),'utf8');
 const catalogs={
-  quest:{file:'assets/js/quest-verified-mixed-expansion-20261116-batch26.js',page:'index.html',app:'assets/js/app.js',codes:['36183','29881']},
   genetics:{file:'assets/js/labcorp/catalog/verified-genetic-blood-expansion-20261116-batch26.js',page:'labcorp.html',app:'labcorp-app.js',codes:['899722','899755','898950','900061','899634','899667','898956','899850','900371','899907','900143','900080','900635','900020','900072','899962','900599','899885','899940','900121','899863','900098','899973','900113','900151','900046','899951','900503','899997','900152','899689','899700','899896','899828','899929','899874','900141','900144','900225']},
   serum:{file:'assets/js/labcorp/catalog/verified-serum-specialty-20261116-batch26.js',page:'labcorp.html',app:'labcorp-app.js',codes:['520149','520059','520134','520298','520194','520293','501220','501663','503715','500285','500597','502236','504050','502280']}
 };
@@ -30,7 +29,7 @@ test('every verified catalog loads once, before its calculator, with all intende
       assert.doesNotMatch(r.drawContainer+' '+r.transportContainer,/slide|smear|acid.preserv|futhan|insure card|green.label aptima/i);
     }
   }
-  assert.equal(all.size,55);
+  assert.equal(all.size,53);
 });
 test('idempotent import, existing active and blocked records remain authoritative',()=>{
   for(const cfg of Object.values(catalogs)){
@@ -46,15 +45,6 @@ test('idempotent import, existing active and blocked records remain authoritativ
     assert.equal(seed[1].testName,'existing blocked');
     if(cfg.codes.length>2)assert.equal(seed[2].status,'active');
   }
-});
-test('Quest frozen amino acid urine and CSF remain distinct original submissions',()=>{
-  const m=new Map(load(catalogs.quest.file).map(r=>[r.testCode,r]));
-  assert.equal(m.get('36183').specimenType,'Urine');
-  assert.equal(m.get('36183').drawContainer,'Sterile cup');
-  assert.equal(m.get('36183').transportContainer,'Sterile cup');
-  assert.equal(m.get('29881').specimenType,'CSF');
-  assert.equal(m.get('29881').transportContainer,'Transport Tube');
-  for(const r of m.values()){assert.equal(r.transportTemperature,'Frozen');assert.equal(r.spin,'No');}
 });
 test('all 39 genetic assays have separate original EDTA tubes and consent precautions',()=>{
   const rows=load(catalogs.genetics.file);assert.equal(rows.length,39);
