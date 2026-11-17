@@ -6050,12 +6050,22 @@
       // Only a declared label instruction can add label-specific details.
       if (/\b(?:trace\s*metal[- ]?free|metal[- ]?free)\b/i.test(raw)) add('Trace metal-free');
       if (/\bedta\s+plasma\b|\bplasma\s+from\s+(?:spun\s+)?(?:lavender|edta)\b/i.test(raw)) add('EDTA');
+      if (/\bgreen\s+sodium\s+heparin\b/i.test(raw)) add('Sodium heparin');
+      if (/\broyal\s+blue\s+edta\s*\(purple\s+stripe\)/i.test(raw)) add('Royal blue EDTA (purple stripe)');
+      if (/\blower\s+respiratory\s+tract\b/i.test(raw)) add('Lower respiratory tract');
+      if (/\bmultiple\s+screw[- ]?cap\s+aliquots\b/i.test(raw)) add('Label each aliquot');
       if (/\bplasma\s+from\s+gray\s+fluoride\s*\/\s*oxalate\b/i.test(raw)) add('Fluoride/oxalate');
       if (/\bcitrate\s+plasma\b/i.test(raw)) add('Citrated');
       if (/catheterized\s*\/\s*suprapubic\s*\/\s*cystoscopic/i.test(raw)) add('Actual collection method');
       else if (/\b(?:exact|specific|precise)\b.{0,42}\b(?:anatomic(?:al)?\s+)?(?:source|site|joint|location)\b|\b(?:source|site)\b.{0,24}\b(?:exact|specific)\b|\bspecify\s+(?:exact\s+)?(?:site|source)/i.test(raw)) {
         add(/\b(?:swab|eye|ear|lesion)\b/i.test(specimenType) ? 'Exact collection site' : 'Exact anatomical source/site');
       }
+      // For CSF and fluid specimens, a source requested without "exact" is
+      // still a source-label requirement. Do not infer source from general notes.
+      if (/\b(?:csf|fluid|sputum)\b/i.test(specimen) &&
+          /(?:\b(?:anatomical|anatomic|specimen)\s+source\b|\bcollection\s+(?:date\/time\s+and\s+)?source\b|\bdate\/time\s+and\s+source\b)/i.test(raw) &&
+          !parts.some(value => /source\/site|lumbar|lower respiratory tract/i.test(value)))
+        add('Anatomical source/site');
       if (/\b(?:left\s+or\s+right|left\/right|laterality)\b/i.test(raw)) add('Left/right');
       if (/\btube\s*(?:number|sequence|#)\b/i.test(raw)) {
         const tube = raw.match(/\btube\s*#\s*(\d+)\b/i);
@@ -6070,9 +6080,13 @@
       if (/\b(?:2[- ]hour\s+postprandial|post[- ]prandial)\b/i.test(raw)) add('Postprandial');
       if (/\bmeal\s*\/\s*draw\s+time\b/i.test(raw)) add('Meal/draw times');
       else if (/\bcollection\s+and\s+separation\s+time\b/i.test(raw)) add('Collection and separation times');
-      else if (/\b(?:exact\s+collection|exact\s+draw|exact\s+meal|exact\s+date|draw\s+time|exposure\s+time|time\s+of\s+draw)\b/i.test(raw)) add('Exact collection time');
-      if (/\b(?:24[- ]?hour|24\s*hr|24h)\b/i.test(raw) && /\burine\b/.test(specimen)) {
-        add('Total 24-hour volume');
+      else if (/\b(?:exact\s+collection|exact\s+draw|exact\s+meal|exact\s+date|draw\s+time|exposure\s+time|time\s+of\s+draw)\b/i.test(raw) ||
+          /\bexact\s+collection\s+date\/time\b/i.test(raw))
+        add('Exact collection time');
+      const timedUrineHours = String(specimenType).match(/\b(12|24)\s*[- ]?\s*(?:hour|hr|h)\b/i)
+        || raw.match(/\b(12|24)\s*[- ]?\s*(?:hour|hr|h)\b/i);
+      if (/\burine\b/.test(specimen) && timedUrineHours) {
+        add('Total ' + timedUrineHours[1] + '-hour volume');
         add('Start/end times');
       } else if (/(?:start\s*\/\s*end|start\s+and\s+end)\s+(?:date\s*\/\s*)?time/i.test(raw)) {
         add('Start/end times');
