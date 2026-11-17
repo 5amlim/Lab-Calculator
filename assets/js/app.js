@@ -5025,7 +5025,10 @@
       const traceMetalSource = /metal[- ]?free|trace[- ]?metal|trace element|acid[- ]?washed/i.test(String(test.drawContainer || ''))
         ? canonicalCollectionContainer(test) : null;
       const dedicated = requiresSeparateUrineCollection(test) || acidPreserved;
-      const baseKey = traceMetalSource ? `${urineType.key}|trace-metal|${normalizeSearch(traceMetalSource.label)}` : urineType.key;
+      // A single ORIGINAL trace-metal cup cannot be shipped in two bags at
+      // different temperatures. Match the collection group to the submission bag.
+      const sourceTempKey = traceMetalSource ? normalizeSearch(String(test.transportTemperature || 'verify')) : '';
+      const baseKey = traceMetalSource ? `${urineType.key}|trace-metal|${normalizeSearch(traceMetalSource.label)}|${sourceTempKey}` : urineType.key;
       const key = dedicated ? `${baseKey}|${acidPreserved ? 'acid-preserved' : 'separate'}|${test.sourceTestId || test.id}` : baseKey;
       if (!spotUrineGroups.has(key)) spotUrineGroups.set(key, { ...urineType, key, dedicated, traceMetalSource, tests: [] });
       spotUrineGroups.get(key).tests.push(test);
@@ -5377,6 +5380,10 @@
   }
 
   function requiresDistinctDrawTransport(test) {
+    // Keep volatile-solvent occupational gray-top blood tubes intact and distinct.
+    // Each is an original, sealed time-specific or exposure-specific specimen.
+    const code = String(test.testCode || '').trim();
+    if (/^(?:6328|6339)$/.test(code)) return true;
     return Boolean(timedSpecimenLabel(test) ||
       test.sourceTestId ||
       (Array.isArray(test.additionalDrawRequirements) && test.additionalDrawRequirements.length));
@@ -5496,6 +5503,13 @@
         : `original|${normalizeSearch(label)}|${normalizeSearch(sourceSpecimen)}${requiresDistinctDrawTransport(test)
           ? '|required-draw-' + normalizeSearch(String(test.id || test.sourceTestId || displayCode(test))) : ''}`,
       shareableOriginalUrineCup: shareUrineCup,
+      // Same-temperature, original trace-metal-free urine collections may
+      // supply compatible orders from one sufficiently filled metal-free cup.
+      shareableOriginalTraceMetalUrine: isUrineTest(test)
+        && /metal[- ]?free|trace[- ]?metal|acid[- ]?washed/i.test(draw)
+        && normalizeSearch(draw) === normalizeSearch(finalTransportContainer(test))
+        && !requiresSeparateUrineCollection(test)
+        && !requiresSeparateTransportAliquot(test),
       label,
       className: tubeClass(draw),
       // Every original collection tube must travel as an original submission.
@@ -5696,7 +5710,12 @@
           && container.className === 'tube-urine-cup'
           && isShareableStoolSourceTest(test)
           && item.tests.every(isShareableStoolSourceTest);
-        if (container.shareableOriginalUrineCup || shareableOriginalStoolCup)
+        if (container.shareableOriginalUrineCup || shareableOriginalStoolCup ||
+            (container.shareableOriginalTraceMetalUrine &&
+             item.tests.every(existing => /^(?:urine|random urine)$/i.test(String(existing.specimenType || '').trim())
+               && /metal[- ]?free|trace[- ]?metal|acid[- ]?washed/i.test(String(existing.drawContainer || ''))
+               && normalizeSearch(String(existing.transportTemperature || '')) === normalizeSearch(String(test.transportTemperature || ''))
+               && !requiresSeparateUrineCollection(existing))))
           item.count = Math.max(item.count, container.count);
         else item.count += item.tests.length ? container.count : 0;
         if (!item.detail && container.detail) item.detail = container.detail;
