@@ -1,5 +1,5 @@
-/* Quest reference-only audit: next 100 after 90168 through 93305, reviewed 2026-11-17.
- * Activate only six source-verified, locally feasible collection routes. Other 94 remain
+/* Quest reference-only audit: next 100 after 90168 through 92203, reviewed 2026-11-17.
+ * Activate only eight source-verified, locally feasible collection routes. Other 92 remain
  * reference-only: slide/IHC/cytology/pathology, special kits, donor-only services,
  * unsuitable collection, or insufficient code-level verification. Never override
  * an already-active or blocked entry. */
@@ -180,6 +180,102 @@ const additions=[
       }
     ],
     "id": "quest-verified-audit-after90168-next100-20261117-91398",
+    "status": "active"
+  },
+  {
+    "testCode": "91669",
+    "testName": "Carbapenem Resistant Enterobacteriaceae (CRE) Culture Screen",
+    "specimenType": "Rectal Swab",
+    "drawContainer": "ESwab (Amies)",
+    "alternativeContainer": "",
+    "transportContainer": "ESwab (Amies)",
+    "preferredVolume": "1 rectal or perirectal swab in liquid Amies ESwab",
+    "minimumVolume": "1 swab",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "No",
+    "stability": "Room 24 hours; refrigerated 7 days; frozen unacceptable",
+    "specialLabeling": "Label RECTAL SWAB · exact rectal or perirectal site",
+    "specialInstructions": "Collect ONE RECTAL or PERIRECTAL swab using an approved Amies Liquid Elution ESwab (or Amies gel/Liquid Stuart if receiving lab confirms), ideally before starting antimicrobial therapy. Return swab to ORIGINAL sealed Amies transport tube, no transfer or slides, and submit REFRIGERATED with cold packs. Stool, non-rectal swabs, UTM, dry swabs and frozen transport are not accepted. Quest lists this code as NOT OFFERED at Nichols San Juan Capistrano; verify service area, laboratory account and stock before collecting.",
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/91669/carbapenem-resistant-enterobacteriaceae-culture-screen?cc=MASTER&p=r",
+    "searchAliases": [
+      "CRE screen",
+      "carbapenem resistant Enterobacteriaceae",
+      "rectal CRE culture",
+      "perirectal CPE carbapenemase resistant"
+    ],
+    "clinicalCategories": [
+      "infectious",
+      "microbiology"
+    ],
+    "id": "quest-verified-audit-after90168-next100-20261117-91669",
+    "status": "active"
+  },
+  {
+    "testCode": "91712",
+    "testName": "Diabetes, Newly Diagnosed and Monitoring Panel",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "SST / Tiger",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "1 mL serum",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "stability": "Serum room 24 h, refrigerated 72 h, frozen unacceptable; whole blood and urine room 7 days",
+    "specialLabeling": "Label SERUM · SST source",
+    "specialInstructions": "THREE DIFFERENT SPECIMEN SOURCES ARE REQUIRED. (1) 1 mL serum: Gold or Tiger SST, allow clot and CENTRIFUGE; keep original spun SST REFRIGERATED with cold packs. (2) 1 mL whole blood: separate original Lavender EDTA, leave UNSPUN at ROOM TEMPERATURE. (3) 10 mL RANDOM URINE (minimum 2 mL): original preservative-free Sterile cup at ROOM TEMPERATURE. Do not pool, combine or place all specimens in the same bag if temperatures differ; each must have source-specific labels. Quest rejects acid-preserved urine and frozen/unspun SST. Confirm service area; Quest notes unavailable at Nichols SJC. No fasting requirement when lipid measurement is part of the panel unless the ordering provider directs otherwise.",
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/91712/diabetes-newly-diagnosed-and-monitoring-panel?cc=MASTER&p=r",
+    "searchAliases": [
+      "diabetes newly diagnosed panel",
+      "diabetes monitoring urine albumin",
+      "A1c lipid kidney screening",
+      "diabetes glucose HbA1c urine microalbumin"
+    ],
+    "clinicalCategories": [
+      "diabetes",
+      "lipids",
+      "renal",
+      "urinary"
+    ],
+    "additionalDrawRequirements": [
+      {
+        "container": "Lavender EDTA",
+        "count": 1,
+        "submissionCount": 1,
+        "specimenType": "Whole Blood",
+        "purpose": "Required separate EDTA whole blood for HbA1c",
+        "preferredVolume": "1 mL EDTA whole blood",
+        "minimumVolume": "0.5 mL whole blood",
+        "transportContainer": "Lavender EDTA",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "specialLabeling": "Label WHOLE BLOOD · LAVENDER EDTA",
+        "specialInstructions": "Draw a separate Lavender EDTA tube, gently invert and submit the ORIGINAL UNSPUN tube at ROOM TEMPERATURE, no aliquot or centrifugation."
+      },
+      {
+        "container": "Sterile cup",
+        "count": 1,
+        "submissionCount": 1,
+        "specimenType": "Urine",
+        "purpose": "Separate preservative-free random urine specimen",
+        "preferredVolume": "10 mL random urine",
+        "minimumVolume": "2 mL random urine",
+        "transportContainer": "Sterile cup",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "specialLabeling": "Label RANDOM URINE · Sterile cup",
+        "specialInstructions": "Collect RANDOM URINE into the clean original Sterile cup with NO chemical or acid preservative; submit securely capped original urine cup at ROOM TEMPERATURE. Do not transfer to a non-sterile tube, relabel as blood, or mix with serum."
+      }
+    ],
+    "id": "quest-verified-audit-after90168-next100-20261117-91712",
     "status": "active"
   },
   {
