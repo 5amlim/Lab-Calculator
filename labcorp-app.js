@@ -5346,6 +5346,8 @@
   }
   function transportTubeClass(test, container) {
     const value = String(container || '').toLowerCase();
+    // Preserve the same specialty icon for original Salivette submission devices.
+    if (/\bsalivette\b/.test(value)) return 'tube-salivette';
     const specialty = tubeClass(container);
     if (isFrozenSerumPlasmaTransport(test, container)) return 'tube-frozen-purple';
     if (/^tube-(?:qft-|eswab|utm|frozen-purple|op-|stool-clean)/.test(specialty)) return specialty;
@@ -5435,6 +5437,8 @@
   }
 
   function requiresDistinctDrawTransport(test) {
+    // Salivette kits are independent timed collections; never merge samples across orders.
+    if (/\bsalivette\b/i.test(`${test.drawContainer || ''} ${test.transportContainer || ''}`)) return true;
     return Boolean(timedSpecimenLabel(test) ||
       test.sourceTestId ||
       (Array.isArray(test.additionalDrawRequirements) && test.additionalDrawRequirements.length));
@@ -6098,6 +6102,14 @@
       ? drawSourceForLabel : '';
 
     const explicit = /^(?:label\b|mark\b|identify\b|write\b|specimen\s+collection\b)/i.test(raw);
+    // Salivary cortisol is explicitly timed. State the identity, sequence and
+    // collection time on the printed label for every ORIGINAL Salivette device.
+    if (/\bsalivette\b/i.test(`${test.drawContainer || ''} ${test.transportContainer || ''}`)
+        && /\bcortisol\b/i.test(String(test.testName || ''))) {
+      const samples = Math.max(1, Math.floor(Number(test.submissionCount) || Number(test.collectionCount) || 1));
+      if (samples > 1) add(`Number devices 1–${samples} of ${samples}`);
+      add('Collection time');
+    }
     if (explicit) {
       // Only a declared label instruction can add label-specific details.
       if (/\b(?:trace\s*metal[- ]?free|metal[- ]?free)\b/i.test(raw)) add('Trace metal-free');
@@ -6843,6 +6855,8 @@
   }
 
   function printContainerPresentationKey(item) {
+    // Timed Salivette specimens must retain individual test quantities and labels.
+    if (/(?:^|\s)tube-salivette(?:\s|$)/.test(String(item?.className || '')) || /\bsalivette\b/i.test(String(item?.label || ''))) return '';
     if (!item || !(item.count > 0) || !item.className || !item.label
       || item.printAllocationNote || item.pooledSerumPlasmaTransport
       || !Array.isArray(item.tests) || !item.tests.length) return '';
@@ -7449,6 +7463,8 @@
 
   function tubeClass(container) {
     const value = String(container || '').toLowerCase();
+    // Sarstedt Salivette cortisol devices have a cobalt blue cap, not a gray tube.
+    if (/\bsalivette\b/.test(value)) return 'tube-salivette';
     // Only the generic additive-free Transport Tube uses the regular green badge.
     // Preserve Labcorp purple frozen caps and specialty kit-specific badge rules.
     if (/^transport tube$/.test(value)) return 'tube-transport tube-transport-green-top';
