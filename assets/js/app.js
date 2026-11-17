@@ -2922,18 +2922,28 @@
     renderLibrary();
   }
 
-  function clearOrder() {
-    if (!selectedIds.length) return;
-    // Native confirmation avoids a stuck queue in the custom dialog on mobile.
-    const count = selectedIds.length;
-    if (!window.confirm(`Remove ${count} selected ${count === 1 ? 'test' : 'tests'} from the cart?`)) return;
-    selectedIds = [];
-    statSelectedIds = [];
-    saveStatSelectedIds();
-    saveSelected();
-    renderOrder();
-    renderLibrary();
-    showToast('Cart cleared.');
+  // Prevent rapid taps from stacking duplicate Clear All confirmations.
+  let clearOrderPending = false;
+  async function clearOrder() {
+    if (!selectedIds.length || clearOrderPending) return;
+    clearOrderPending = true;
+    try {
+      const count = selectedIds.length;
+      const confirmed = await window.PortalDialog.confirm(
+        `Remove ${count} selected ${count === 1 ? 'test' : 'tests'} from the cart?`,
+        { title: 'Clear collection summary?', confirmLabel: 'Clear all', cancelLabel: 'Keep tests', tone: 'danger' }
+      );
+      if (!confirmed) return;
+      selectedIds = [];
+      statSelectedIds = [];
+      saveStatSelectedIds();
+      saveSelected();
+      renderOrder();
+      renderLibrary();
+      showToast('Cart cleared.');
+    } finally {
+      clearOrderPending = false;
+    }
   }
 
   function saveSelected() {
