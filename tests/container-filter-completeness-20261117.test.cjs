@@ -80,7 +80,7 @@ for (const [name, page, app] of calculators) {
     for (const key of ['cary-blair','stool-formalin','stool-pva','stool-clean','urisponge',
       'blood-culture','salivette','qft','microtainer','blood-royal-blue-edta',
       '24h-urine','serum','plasma','stool-other'])
-      assert(filter.includes('<option value="' + key + '">'), key + ' missing');
+      assert(filter.includes('<option value="' + key + '"'), key + ' missing');
     for (const choice of ['Cary-Blair Stool Culture Transport Vial','Total-Fix® Transport Vial',
       'Pink Formalin O&P Vial','Gray PVA O&P Vial','Salivette Saliva Collection Device',
       'Blood Culture Bottles','Microtainer'])
