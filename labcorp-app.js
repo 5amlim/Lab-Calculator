@@ -5585,7 +5585,8 @@
       const sourcePhrase = specimenSourceDetail(test);
       return [{
         key: `amber|${normalizeSearch(sourcePhrase)}|${normalizeSearch(transport)}`,
-        label: `Amber ${specimen} Transport Tube — Protect From Light`,
+        label: isUrineTest(test) && /\b(?:no preservative|unpreserved|23598)\b/i.test(transport)
+          ? transport : `Amber ${specimen} Transport Tube — Protect From Light`,
         className: 'tube-amber',
         count: explicitSubmissionCount(test),
         detail: sourcePhrase
@@ -5609,10 +5610,14 @@
       const sourcePhrase = specimenSourceDetail(test);
       const isSwab = /swab/i.test(sourceSpecimen);
       const isSpecialtyMetalContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal/i.test(transport);
-      const label = /^transport tube$/i.test(transport)
-        ? 'Transport Tube'
-        : isSwab
-          ? 'Swab Transport Tube'
+      // Preserve the actual named transport medium for non-blood specimens.
+      // A Total-Fix or Cary-Blair vial is not a generic "Stool Transport Tube".
+      const namedNonBloodDevice = collectionSpecimenGroupForTest(test) !== 'blood' &&
+        !/^(?:(?:stool|urine|swab|csf|sputum|saliva|semen|body[- ]?fluid)\s+)?(?:frozen\s+)?(?:transport|transfer)\s+(?:tube|vial|container)$/i.test(transport);
+      const label = namedNonBloodDevice ? transport
+        : /^transport tube$/i.test(transport) || /^frozen transport tube(?:\s*\(.*\))?$/i.test(transport)
+          ? 'Transport Tube'
+          : isSwab ? 'Swab Transport Tube'
           : (isSpecialtyMetalContainer ? `Acid-Washed / Metal-Free ${specimen} Transport Tube` : `${specimen} Transport Tube`);
       return [{
         key: `transport|${normalizeSearch(sourcePhrase)}|${submissionTransportGroupingKey(test, transport)}`,
