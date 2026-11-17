@@ -5063,34 +5063,36 @@
   function specificSpecimenSource(test) {
     const stated = String(test.specimenType || '').trim();
     const normalized = normalizeSpecimenType(stated);
-    const text = `${test.testName || ''} ${test.preferredVolume || ''} ${test.minimumVolume || ''} ${test.specialInstructions || ''}`.toLowerCase();
-    const swabSources = [
-      [/nasopharyngeal|\bnp swab\b/, 'Nasopharyngeal swab'],
-      [/anterior nasal|nares|nasal swab/, 'Nasal swab'],
-      [/throat|pharyn|tonsil/, 'Throat swab'],
-      [/vaginal/, 'Vaginal swab'],
-      [/endocervical/, 'Endocervical swab'],
-      [/cervical swab/, 'Cervical swab'],
-      [/urethral/, 'Urethral swab'],
-      [/rectal/, 'Rectal swab'],
-      [/lesion/, 'Lesion swab'],
-      [/wound/, 'Wound swab'],
-      [/buccal|cheek/, 'Buccal swab'],
-      [/oral swab|mouth swab/, 'Oral swab'],
-      [/conjunctival|eye swab/, 'Conjunctival swab']
-    ];
-
-    if (/swab/i.test(stated) || /swab/.test(text)) {
-      for (const [pattern, label] of swabSources) {
-        if (pattern.test(text)) return label;
-      }
-      if (stated && !/^swab$/i.test(stated)) return titleCaseSpecimen(stated);
-      return 'Swab — source must be clarified';
+    // Collection instructions can list several acceptable swabs. They must
+    // never turn a body-fluid, urine, or other non-swab specimen into a swab.
+    if (!/\bswab\b/i.test(stated) && !/\bswab\b/i.test(normalized)) {
+      return titleCaseSpecimen(normalized || stated || 'Specimen');
     }
-
-    return titleCaseSpecimen(normalized || stated || 'Specimen');
+    // The declared specimen type is authoritative when it names the site.
+    if (stated && !/^(?:swab|swab specimen|swab,? unspecified)$/i.test(stated)) {
+      return titleCaseSpecimen(stated);
+    }
+    // Generic "Swab" orders need an actual collection site. Infer one only
+    // if exactly one unambiguous site occurs in the TEST NAME, never from
+    // acceptable or excluded sites buried in the handling instructions.
+    const name = String(test.testName || '');
+    const sites = [
+      [/nasopharyngeal|\bnp swab\b/i, 'Nasopharyngeal swab'],
+      [/\bnasal\b|anterior nares/i, 'Nasal swab'],
+      [/\bthroat\b|oropharyngeal/i, 'Throat swab'],
+      [/\bvaginal\b/i, 'Vaginal swab'],
+      [/\bendocervical\b/i, 'Endocervical swab'],
+      [/\bcervical\b/i, 'Cervical swab'],
+      [/\burethral\b/i, 'Urethral swab'],
+      [/\brectal\b/i, 'Rectal swab'],
+      [/\blesion\b/i, 'Lesion swab'],
+      [/\bwound\b/i, 'Wound swab'],
+      [/\bbuccal\b|\bcheek\b/i, 'Buccal swab'],
+      [/\boral swab\b/i, 'Oral swab'],
+      [/\bconjunctival\b|\beye swab\b/i, 'Conjunctival swab']
+    ].filter(([pattern]) => pattern.test(name));
+    return sites.length === 1 ? sites[0][1] : 'Collection site: ____';
   }
-
   function specimenSourceDetail(test) {
     const specimen = titleCaseSpecimen(normalizeSpecimenType(test.specimenType));
     const sourceSpecimen = specificSpecimenSource(test);
@@ -5789,25 +5791,49 @@
   // Source-only labeling directions should name the actual specimen on the
   // printed label. Render the existing specimen color badge rather than the
   // vague phrase "specimen source". Do not reinterpret specialized directions.
+  // Generic "label source and date/time" wording is formatted once in the
+  // printout. The badge beside the container title already identifies the
+  // specimen type, so do not repeat that colored badge on every LABEL line.
+  // Specific collection sites, timepoints, tube sequences, and special labels
+  // remain explicit and must never be discarded.
   function printGenericSpecimenSourceLabel(test, explicit) {
     const wording = String(explicit || '').trim().replace(/\s+/g, ' ').replace(/[.]$/, '');
-    if (!/^(?:label|mark)\s+(?:(?:the|exact|precise|specific)\s+)?(?:specimen\s+)?source\s*(?:and|,)\s*(?:collection\s+)?date\s*(?:\/|and|&)\s*time$/i.test(wording)) return null;
+    const dateTime = '(?:collection\\s+)?date\\s*(?:\\/|and|&)\\s*time';
+    const general = new RegExp('^(?:label|mark)\\s+(?:(?:the|exact|precise|specific)\\s+)?(?:specimen\\s+)?source\\s*(?:and|,)\\s*' + dateTime + '$','i');
+    const namedSerum = new RegExp('^(?:label|mark)\\s+(?:serum|plasma|whole blood)\\s+specimen\\s+source\\s*(?:and|,)\\s*' + dateTime + '$','i');
+    const namedCsf = /^label\s+csf\s*,\s*collection\s+date\s+and\s+time$/i;
+    const fluidSource = /^label\s+precise\s+body[- ]fluid\s+source\s*,\s*collection\s+date\/time$/i;
+    const jointSite = /^label\s+exact\s+joint\/source\s*,\s*collection\s+date\s+and\s+time$/i;
+    const csfSequence = /^label\s+specimen\s+source\s+csf\s*,\s*tube\s+sequence\s*,\s*collection\s+date\s+and\s+time$/i;
+    const dateOnly = /^specimen\s+collection\s+date\s+and\s+time$/i;
     const specimen = normalizeSpecimenType(test.specimenType).toLowerCase().trim();
-    // Generic blood and swab badges cannot safely replace anatomical source
-    // details. Keep those original instructions unchanged.
-    if (!/(?:\bcsf\b|cerebrospinal|\b(?:pleural|pericardial|peritoneal|synovial)\s+fluid\b|\bsputum\b|\burine\b|\bstool\b|\bfeces\b)/i.test(specimen)) return null;
+    let note = '';
+    if (csfSequence.test(wording)) note = 'Specimen source · Tube sequence · Collection date/time';
+    else if (jointSite.test(wording)) note = 'Exact joint/site · Collection date/time';
+    else if (fluidSource.test(wording)) note = 'Exact anatomical source/site · Collection date/time';
+    else if (dateOnly.test(wording)) note = 'Collection date/time';
+    else if (general.test(wording) || namedSerum.test(wording) || namedCsf.test(wording)) {
+      if (/\bswab\b/.test(specimen)) note = 'Collection date/time';
+      else if (/^(?:body|bodily|other)\s+fluid$/.test(specimen)) note = 'Exact anatomical source/site · Collection date/time';
+      else if (/\b(?:pleural|pericardial|peritoneal|synovial|joint|ascitic|pancreatic|amniotic)\s+fluid\b/.test(specimen)) note = 'Source/site · Collection date/time';
+      else note = 'Specimen source · Collection date/time';
+    }
+    if (!note) return null;
+    // An inline badge remains useful only if one print item combines multiple
+    // specimen types. In a single-source item it duplicates the title badge.
     const badge = printBagSpecimenBadge({ tests: [test] });
-    if (/Verify Specimen|Mixed Specimens/.test(badge)) return null;
-    const token = `\uE000${specimen}\uE001`;
     return {
-      token,
-      note: `${token} and collection date and time`,
-      badge: badge.replace('print-bag-specimen-badge', 'print-collect-chip-specimen')
+      note,
+      token: `\uE000${specimen}\uE001`,
+      badge: /Verify Specimen|Mixed Specimens/.test(badge)
+        ? '' : badge.replace('print-bag-specimen-badge', 'print-collect-chip-specimen')
     };
   }
   function printLabelingNotes(item) {
     if (item.printVisualGroupParts) return item.printVisualGroupParts.map(printLabelingNotes).join('');
     const grouped = new Map();
+    const distinctSources = new Set(uniqueTests(item.tests).map(test => normalizeSpecimenType(test.specimenType).toLowerCase().trim()));
+    const mixedSources = distinctSources.size > 1;
     uniqueTests(item.tests).forEach(test => {
       const is24Hour = is24HourUrineTest(test);
       const derived = derivedSpecimenSourceLabel(test, item);
@@ -5828,7 +5854,7 @@
       const explicitSerumSource = derived === 'Serum'
         && /\bserum\s+from\s+(?:spun\s+)?(?:gold|sst|tiger|red(?:-top)?)/i.test(explicit);
       // The inline specimen badge inside a generic label instruction already identifies the source.
-      if (derived && !sourceLabel && !(is24Hour && /^urine$/i.test(derived.trim())) && !explicitSerumSource) parts.push(derived);
+      if (derived && (!sourceLabel || (/\bswab\b/i.test(test.specimenType || '') && !/^swab$/i.test(derived))) && !(is24Hour && /^urine$/i.test(derived.trim())) && !explicitSerumSource) parts.push(derived);
       // Amber transport tubes should always carry a visible specimen-type label,
       // including ordinary serum transfers where the standard SST source would
       // otherwise suppress a redundant derived label.
@@ -5838,7 +5864,7 @@
       }
       if (is24Hour) parts.push('24h urine · Total volume: ____ mL · Start: ____ · End: ____');
       const explicitIsRedundant24hUrine = is24Hour && /^urine$/i.test(explicit.trim());
-      if (sourceLabel) parts.push(sourceLabel.note);
+      if (sourceLabel) parts.push(mixedSources && sourceLabel.badge ? `${sourceLabel.token} · ${sourceLabel.note}` : sourceLabel.note);
       else if (!explicitIsRedundant24hUrine && explicitLabelAddsInformation(explicit, derived)) parts.push(explicit);
       // Deduplicate equivalent labels from the same test before comparing across
       // tests. Preserve instructions that add a distinct labeling requirement.
