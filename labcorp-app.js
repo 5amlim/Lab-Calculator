@@ -1706,7 +1706,7 @@
               ${test.preferredVolume ? `<div><b>Preferred volume:</b> ${escapeHtml(test.preferredVolume)}</div>` : ''}
               ${test.minimumVolume ? `<div><b>Minimum volume:</b> ${escapeHtml(test.minimumVolume)}</div>` : ''}
               ${test.stability ? `<div><b>Stability:</b> ${escapeHtml(test.stability)}</div>` : ''}
-              ${test.specialLabeling && conciseSpecimenLabel(test).label ? `<div><b>Label:</b> ${escapeHtml(conciseSpecimenLabel(test).label)}</div>` : ''}${conciseSpecimenLabel(test).processing.map(note => `<div><b>Processing:</b> ${escapeHtml(note)}</div>`).join('')}
+              ${conciseSpecimenLabel(test, { originalTube: isOriginalContainerSubmission(test) }).label ? `<div><b>Label:</b> ${escapeHtml(conciseSpecimenLabel(test, { originalTube: isOriginalContainerSubmission(test) }).label)}</div>` : ''}${conciseSpecimenLabel(test, { originalTube: isOriginalContainerSubmission(test) }).processing.map(note => `<div><b>Processing:</b> ${escapeHtml(note)}</div>`).join('')}
               ${test.specialInstructions ? `<div><b>Handling:</b> ${escapeHtml(test.specialInstructions)}</div>` : ''}
               <a href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noopener noreferrer">Verify in official directory ↗</a>
             </div>
@@ -5938,6 +5938,23 @@
     if (/\bvesicle\s*\/\s*lesion\s+swab\b/i.test(raw) && /\bswab\b/.test(specimen)) source = 'Vesicle/lesion swab';
     if (/^other\s*\/\s*verify$/i.test(source)) source = 'Specimen';
 
+    // Generic swabs still need an actual specimen source on the label.
+    // Never infer this from alternative or rejected swab sources.
+    if (/\bswab\b/i.test(specimenType) && /^collection site:\s*_+$/i.test(source)) {
+      source = 'Swab';
+      add('Collection site: ____');
+    }
+
+    // Plasma/serum from a specialized primary tube must name its additive
+    // and original source on the label, not just on the transfer instruction.
+    const drawSourceForLabel = shortDrawSource(test);
+    const oneBloodMaterial = /\b(?:plasma|serum)\b/i.test(specimenType) && !/\bor\b/i.test(specimenType);
+    const standardSerumSource = /^(?:sst\b|gold\b|tiger\b|red top\b|amber microtainer sst\b)/i.test(drawSourceForLabel);
+    const verifiedSpecialSource = /\b(?:edta|heparin|citrate|fluoride|oxalate|royal blue|acd|metal[- ]?free|trace[- ]?metal)\b/i.test(drawSourceForLabel) &&
+      !/\bverify\b/i.test(drawSourceForLabel);
+    const drawSourceQualifier = oneBloodMaterial && !standardSerumSource && verifiedSpecialSource
+      ? drawSourceForLabel : '';
+
     const explicit = /^(?:label\b|mark\b|identify\b|write\b|specimen\s+collection\b)/i.test(raw);
     if (explicit) {
       // Only a declared label instruction can add label-specific details.
@@ -6005,12 +6022,29 @@
       processing.push('Protect from light');
 
     const hasSpecialDetails = parts.length > 0;
-    // An explicit "Label CSF / STOOL / URINE ..." instruction still gets a
-    // concise label on the original cup. A generic date/time-only reminder is
-    // not a test-specific label instruction and stays suppressed.
+    // A submitted stool, urine or swab container always needs its specimen
+    // identity, including when the original collection container is submitted.
+    const alwaysLabelSpecimen = /\b(?:stool|feces|fecal|faeces|faecal|urine|swab)\b/i.test(specimenType);
+    // The name of a generic transfer tube, sterile cup or trace-metal-free
+    // container does not indicate what specimen is actually inside.
+    const submissionContainer = [item.label, test.transportContainer].filter(Boolean).join(' ');
+    const genericSubmissionContainer = /\b(?:transport|transfer)\s+(?:tube|vial|container)s?\b|\b(?:aliquot|cryovial|sterile\s+(?:urine\s+|specimen\s+)?cup|trace[- ]?metal[- ]?free|metal[- ]?free|acid[- ]?washed|trace[- ]?element)\b/i.test(submissionContainer);
     const onlyRoutineDateTime = /^(?:label|mark)\s+(?:specimen\s+)?(?:collection\s+)?date\s*(?:\/|and|&)\s*time\.?$/i.test(raw);
-    const needsPrintedLabel = !item.originalTube || hasSpecialDetails || (explicit && !onlyRoutineDateTime);
-    const label = needsPrintedLabel ? [source, ...parts].filter(Boolean).join(' • ') : '';
+    const needsPrintedLabel = !item.originalTube || hasSpecialDetails || (explicit && !onlyRoutineDateTime)
+      || alwaysLabelSpecimen || genericSubmissionContainer || Boolean(drawSourceQualifier);
+    if (needsPrintedLabel && /^specimen$/i.test(source)) source = 'Specimen type/source: ____';
+
+    // The full source tube already contains EDTA, citrate or heparin.
+    // Do not repeat those additives as separate label fragments.
+    const labelParts = [source, drawSourceQualifier];
+    parts.forEach(part => {
+      const normalizedPart = normalizedLabelComparison(part);
+      const normalizedTube = normalizedLabelComparison(drawSourceQualifier);
+      const repeatedAdditive = normalizedTube && (normalizedTube.includes(normalizedPart)
+        || (normalizedPart === 'citrated' && normalizedTube.includes('citrate')));
+      if (!repeatedAdditive) labelParts.push(part);
+    });
+    const label = needsPrintedLabel ? labelParts.filter(Boolean).join(' • ') : '';
     return { label, processing: Array.from(new Set(processing)) };
   }
 
@@ -6900,7 +6934,7 @@
     const altNote = alt && !altAlreadyInNotes
       ? `<div class="print-detail-alt-note"><strong>Alternative:</strong> ${escapeHtml(alt)}</div>` : '';
     const label = conciseSpecimenLabel(test, { originalTube: isOriginalContainerSubmission(test) });
-    const labelNote = String(test.specialLabeling || '').trim() && label.label
+    const labelNote = label.label
       ? `<div class="print-detail-label-note"><strong>Label:</strong> ${escapeHtml(label.label)}</div>` : '';
     const processing = label.processing
       .filter(value => !notes.toLowerCase().includes(value.toLowerCase()))
