@@ -1790,6 +1790,7 @@
            </div>` : ''}
         </div>
         ${needsConfirmation ? `<a class="mini-button edit batch-directory-button" href="${escapeAttr(directorySearchUrl(row.query))}" target="_blank" rel="noreferrer">Search directory ↗</a>` : ''}
+        ${autoSafe ? `<a class="batch-exact-directory-link" href="${escapeAttr(directoryUrl(choice.test))}" target="_blank" rel="noopener noreferrer" aria-label="Open official directory for ${escapeAttr(displayCode(choice.test) + ' ' + choice.test.testName)}">Official directory ↗</a>` : ''}
       </div>
     </div>`;
   }
