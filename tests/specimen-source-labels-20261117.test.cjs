@@ -57,6 +57,8 @@ for (const lab of ['Quest', 'Labcorp']) {
     const api = await calculator(lab);
     const cases = [
       ['stool', 'Stool', 'Sterile cup', 'Sterile cup', 'Stool'],
+      ['body-fluid', 'Body Fluid', 'Sterile cup', 'Sterile cup', 'Body Fluid • Anatomical source/site: ____'],
+      ['culture-swab', 'Culture Swab', 'UTM swab', 'UTM swab', 'Swab • Collection site: ____'],
       ['urine', 'Urine', 'Sterile cup', 'Sterile cup', 'Urine'],
       ['swab', 'Swab', 'UTM swab', 'UTM swab', 'Swab • Collection site: ____'],
       ['named-swab', 'Throat Swab', 'UTM swab', 'UTM swab', 'Throat Swab'],
