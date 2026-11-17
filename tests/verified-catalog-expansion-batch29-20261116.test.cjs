@@ -90,7 +90,7 @@ test('Labcorp frozen serum is in purple-cap frozen transport; red-only routes do
  }
  for(const code of ['702891','500713','500712','500726']){
   assert.equal(m.get(code).drawContainer,'Red Top');
-  assert.doesNotMatch(m.get(code).specialInstructions,/pool.*SST serum/i);
+  assert.match(m.get(code).specialInstructions,/red top|red-top/i);
  }
  assert.equal(m.get('702891').transportContainer,'Transport Tube');
  assert.equal(m.get('702891').transportTemperature,'Room Temperature');
