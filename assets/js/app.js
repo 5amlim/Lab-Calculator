@@ -5439,7 +5439,9 @@
     // Keep volatile-solvent occupational gray-top blood tubes intact and distinct.
     // Each is an original, sealed time-specific or exposure-specific specimen.
     const code = String(test.testCode || '').trim();
-    if (/^(?:6328|6339)$/.test(code)) return true;
+    // Frozen EDTA plasma for Factor H and frozen whole blood for Whipple PCR
+    // must each remain a dedicated draw; do not merge with ordinary lavender.
+    if (/^(?:6328|6339|11262|11352)$/.test(code)) return true;
     return Boolean(timedSpecimenLabel(test) ||
       test.sourceTestId ||
       (Array.isArray(test.additionalDrawRequirements) && test.additionalDrawRequirements.length));
