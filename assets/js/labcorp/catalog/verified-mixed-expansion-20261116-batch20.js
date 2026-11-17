@@ -231,7 +231,7 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "spin": "No",
     "stability": "Room/refrigerated/frozen 14 days",
-    "specialLabeling": "Label CSF, tube sequence, collection date and time",
+    "specialLabeling": "Label specimen source CSF, tube sequence, collection date and time",
     "specialInstructions": "Qualified procedural clinician collects CSF aseptically into a clean, sterile, leakproof Transport Tube. Prefer tube #1 from the standard CSF sequential set for chemistry/immunology. Submit the ORIGINAL specimen tube, no centrifugation or transfer. Label CSF, tube sequence, collection time/date and two patient identifiers. Transport to the laboratory as soon as possible at room temperature.",
     "source": "Labcorp official test directory, reviewed 2026-11-16 • https://www.labcorp.com/tests/012229/albumin-cerebrospinal-fluid"
   },
