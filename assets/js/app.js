@@ -1896,7 +1896,7 @@
   function transportCategoriesForPath(test) {
     const value = normalizeSearch(test.transportContainer || '');
     const draw = normalizeSearch(test.drawContainer || '');
-    const original = /\b(?:original tube|original container|primary tube|no transfer|do not open)\b/.test(value);
+    const original = /\b(?:original tubes?|original containers?|original specimens?|original bottles?|original devices?|original kits?|primary tubes?|no transfer|do not open|unopened original)\b/.test(value);
     // Classify the actual submitted device (or the original collection kit).
     // Do not infer media from narrative instructions or the specimen's source cup.
     const submitted = original ? draw : value;
@@ -1945,7 +1945,7 @@
     if (/\bformalin\b/.test(submitted)) opVials.push('stool-formalin');
     if (/\bpva\b|polyvinyl alcohol/.test(submitted)) opVials.push('stool-pva');
     if (opVials.length) return withOriginal(opVials);
-    if (/para pak white|(?:sterile |clean )?screw cap(?:ped)? stool|stool.*(?:clean|unpreserved) vial/.test(submitted))
+    if (/para pak white|(?:sterile |clean )?screw cap(?:ped)? (?:plastic )?stool|(?:sterile |clean )?stool.*(?:screw cap|clean|unpreserved) vial/.test(submitted))
       return withOriginal(['stool-clean']);
     if (/uri\s?sponge/.test(submitted)) return withOriginal(['urisponge', 'urine-culture']);
     if (/blood culture bottles?/.test(submitted)) return withOriginal(['blood-culture']);
@@ -2008,7 +2008,8 @@
     if (/^(lavender edta|edta lavender top tube|gray top|gray fluoride oxalate|yellow acd b)$/.test(value))
       return ['original'];
     if (/viral|vcm|utm|transport media/.test(value)) return ['viral'];
-    if (/total fix|stool container/.test(value)) return ['stool'];
+    if (/total fix/.test(value)) return ['stool'];
+    if (/stool container|stool can|stool vial|fecal container/.test(value)) return ['stool-other'];
     if (/sterile (?:urine )?cup/.test(value)) return ['sterile-cup'];
     if (/plastic urine container|24 hour urine/.test(value)) return ['urine-cup'];
     if (/plasma transport/.test(value)) return ['plasma'];
@@ -2078,7 +2079,7 @@
     if (specificContainer) {
       const submittedName = route => {
         const transport = normalizeSearch(route.transportContainer || '');
-        if (/\b(?:original tube|original container|primary tube|no transfer|do not open)\b/.test(transport))
+        if (/\b(?:original tubes?|original containers?|original specimens?|original bottles?|original devices?|original kits?|primary tubes?|no transfer|do not open|unopened original)\b/.test(transport))
           return normalizeSearch(route.drawContainer || '');
         return transport;
       };
