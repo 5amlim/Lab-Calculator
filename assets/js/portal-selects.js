@@ -7,6 +7,13 @@
   let additionalSequence = 0;
   let active = null;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  // A touch scroll dispatches pointerenter as the finger contacts a choice.
+  // Only desktop-style mouse hover may automatically open/close side menus.
+  // Touch users still have the chevron tap; keyboard users have ArrowRight.
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+  function isMouseHover(event) {
+    return canHover.matches && event.pointerType === 'mouse';
+  }
   // These are the same tube illustration classes used by the results and print cards.
   // Labels and underlying option values are never changed.
   function tubeIconClass(name) {
@@ -431,25 +438,29 @@
           openSubmenu(item,choice,option.value,root,true);
         });
         choice.append(arrow);
-        choice.addEventListener('pointerenter', () => {
-          if (item.submenuReturnTarget === choice) return;
+        choice.addEventListener('pointerenter', event => {
+          if (!isMouseHover(event) || item.submenuReturnTarget === choice) return;
           openSubmenu(item,choice,option.value,root);
         });
         choice.addEventListener('focus', () => {
-          if (item.submenuReturnTarget === choice) return;
+          if (!canHover.matches || item.submenuReturnTarget === choice) return;
           openSubmenu(item,choice,option.value,root);
         });
         // Only suppress the immediate re-entry after Back. A later hover,
         // keyboard revisit, chevron click, or ArrowRight may open it normally.
-        choice.addEventListener('pointerleave', () => {
-          if (item.submenuReturnTarget === choice) item.submenuReturnTarget = null;
+        choice.addEventListener('pointerleave', event => {
+          if (isMouseHover(event) && item.submenuReturnTarget === choice) item.submenuReturnTarget = null;
         });
         choice.addEventListener('blur', () => {
           if (item.submenuReturnTarget === choice) item.submenuReturnTarget = null;
         });
       } else {
-        choice.addEventListener('pointerenter', () => clearSubmenu(item));
-        choice.addEventListener('focus', () => clearSubmenu(item));
+        choice.addEventListener('pointerenter', event => {
+          if (isMouseHover(event)) clearSubmenu(item);
+        });
+        choice.addEventListener('focus', () => {
+          if (canHover.matches) clearSubmenu(item);
+        });
       }
       choice.addEventListener('click', e => {
         e.stopPropagation();
