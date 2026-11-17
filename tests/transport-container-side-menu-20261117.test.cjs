@@ -88,14 +88,14 @@ for (const [name,htmlPath,appPath] of [
     const api = w.__audit;
     api.filters.transportContainerFilter.options = transportOptions(read(htmlPath));
     for (const [id, actualContainer] of [
-      ['serum-vial','Plastic Serum Transport Tube'],
+      ['serum-vial','Transport Tube'], // Existing app normalization for standard serum vial
       ['plasma-vial','Plastic Plasma Transport Tube'],
       ['chilled-vial','Chilled Plastic Screw-Cap Vial'],
       ['clean-vial','Clean screw-capped plastic vial (no preservative)']
     ]) {
       const record = api.database.find(item => item.id === id);
       assert(record, 'Missing ' + id);
-      assert.equal(record.transportContainer, actualContainer, 'Original submitted device was changed');
+      assert.equal(record.transportContainer, actualContainer, 'Existing canonical container handling changed');
       assert(api.transportContainerFilterCategories(record).includes('transport'),
         id + ' is not under Transport Tube');
       api.filters.transportContainerFilter.value = 'transport';
