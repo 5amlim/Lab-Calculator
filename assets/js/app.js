@@ -781,6 +781,7 @@
       alternativeContainer: cleanCollectionContainer(String(record.alternativeContainer || '')),
       additionalDrawRequirements: normalizeAdditionalDrawRequirements(record.additionalDrawRequirements),
       collectionCount: Number(record.collectionCount) > 1 ? Math.floor(Number(record.collectionCount)) : 1,
+      usePreferredSerumYield: record.usePreferredSerumYield === true,
       submissionCount: Number(record.submissionCount) > 1 ? Math.floor(Number(record.submissionCount)) : 1,
       transportContainer,
       preferredVolume: String(record.preferredVolume || ''),
@@ -4017,6 +4018,12 @@
     return minimum !== null && minimum >= 4 - 1e-8;
   }
 
+  // Opt-in for directory-confirmed serum yield requirements that exceed one SST.
+  // Apply capacity planning even to paired specimens with additional EDTA draws.
+  function needsPreferredSerumYieldSstCount(test) {
+    return test.usePreferredSerumYield === true;
+  }
+
   function sstEstimateForTests(tests) {
     let sharedMl = 0;
     let dedicatedTubes = 0;
@@ -4034,9 +4041,11 @@
       // this two-tube rule. Keep these sources out of the shared serum pool.
       const twoSstMinimum = needsTwoSstForMinimum(test);
       if (requiresDedicatedSst(test) || twoSstMinimum) {
-        dedicatedTubes += Math.max(explicitCount, twoSstMinimum ? 2 : 1);
+        const preferredCount = needsPreferredSerumYieldSstCount(test) && plannedMl !== null
+          ? Math.ceil(plannedMl / SST_USABLE_ML_PER_TUBE - 1e-9) : 1;
+        dedicatedTubes += Math.max(explicitCount, twoSstMinimum ? 2 : 1, preferredCount);
       } else if (plannedMl !== null) {
-        sharedMl += Math.min(plannedMl, SST_USABLE_ML_PER_TUBE);
+        sharedMl += needsPreferredSerumYieldSstCount(test) ? plannedMl : Math.min(plannedMl, SST_USABLE_ML_PER_TUBE);
       } else {
         unmeasuredTubes += 1;
         unmeasuredTests.push(test.testName);
@@ -4072,13 +4081,13 @@
 
       const twoSstMinimum = needsTwoSstForMinimum(test);
       if (requiresDedicatedSst(test) || hasCollectionFillRule(test) || twoSstMinimum) {
-        // Respect explicit multi-tube requirements, with the same >=4 mL
-        // two-SST minimum policy used for Gold SST.
-        dedicatedTubes += Math.max(explicitCount, twoSstMinimum ? 2 : 1);
+        // Keep explicit tube rules, and honor preferred yield for opted-in assays.
+        const preferredCount = needsPreferredSerumYieldSstCount(test) && plannedMl !== null
+          ? Math.ceil(plannedMl / TIGER_SST_USABLE_ML_PER_TUBE - 1e-9) : 1;
+        dedicatedTubes += Math.max(explicitCount, twoSstMinimum ? 2 : 1, preferredCount);
       } else if (plannedMl !== null) {
-        // Preferred volume alone does not increase an individual tube count.
-        // The print volume caution asks staff to verify unusual yields.
-        sharedMl += Math.min(plannedMl, TIGER_SST_USABLE_ML_PER_TUBE);
+        // Most tests retain the legacy cap; verified high-volume assays use full yield.
+        sharedMl += needsPreferredSerumYieldSstCount(test) ? plannedMl : Math.min(plannedMl, TIGER_SST_USABLE_ML_PER_TUBE);
       } else {
         unmeasuredTubes += 1;
       }
