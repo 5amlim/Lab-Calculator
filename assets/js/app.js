@@ -783,7 +783,7 @@
       transportContainer = 'Amber Microtainer SST (spun)';
     }
 
-    return {
+    return blockHairOrNailSpecimen({
       id: String(record.id || `custom-${Date.now()}-${index}`),
       testCode: String(record.testCode ?? record[['que', 'stCode'].join('')] ?? '').trim(),
       testName: String(record.testName ?? '').trim(),
@@ -812,7 +812,7 @@
       status: record.status === 'blocked' ? 'blocked' : record.status === 'reference' ? 'reference' : 'active',
       source: String(record.source || 'Custom entry'),
       sourceRow: record.sourceRow || null
-    };
+    });
   }
 
   function additionalDrawRequirements(test) {
