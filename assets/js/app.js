@@ -7087,6 +7087,9 @@
 
   function tubeClass(container) {
     const value = String(container || '').toLowerCase();
+    // Plain, additive-free transport tubes share the standard green transport badge,
+    // including when submitted as the original tube (e.g. Quest CSF 38323).
+    if (/^transport tube$/.test(value)) return 'tube-transport tube-transport-green-top';
     if (/^frozen transport tube(?:\s*\(.*\))?$/.test(value)) return 'tube-transport tube-transport-green-top';
     if (/microtainer/.test(value)) return 'tube-microtainer';
     if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
