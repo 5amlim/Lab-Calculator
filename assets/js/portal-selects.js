@@ -29,6 +29,8 @@
     if (/\bpva\b/.test(value)) return 'tube-op-pva';
     if (/para[- ]?pak\s+white|screw[- ]?cap(?:ped)?\s+stool/.test(value)) return 'tube-stool-clean';
     if (/blood\s+culture\s+bottles?/.test(value)) return 'tube-culture';
+    if (/bac(?:t)?[\/ -]?alert|bactec/.test(value)) return 'tube-culture';
+    if (/salivette|screw[- ]?cap(?:ped)?\s+(?:csf|plastic)|dry\s+swab|polypropylene\s+transport/i.test(value)) return 'tube-transport';
     if (/\baffirm\b|\batts\b/.test(value)) return 'tube-affirm';
     if (/aptima/.test(value) && /\burine\b/.test(value)) return 'tube-aptima-urine';
     if (/aptima/.test(value) && /\bunisex\b|white[- ]?label/.test(value)) return 'tube-aptima-unisex';
@@ -99,7 +101,16 @@
       microtainer:'tube-microtainer', qft:'tube-qft-nil', nmr:'tube-nmr-lipotube',
       '24h-urine':'tube-24h-urine', urisponge:'tube-urisponge',
       'cary-blair':'tube-cary-blair', 'stool-formalin':'tube-op-formalin',
-      'stool-pva':'tube-op-pva', 'stool-clean':'tube-stool-clean', special:'tube-transport'
+      'stool-pva':'tube-op-pva', 'stool-clean':'tube-stool-clean',
+      'blood-red':'tube-red', 'blood-lavender':'tube-lavender', 'blood-pink':'tube-pink',
+      'blood-green':'tube-green', 'blood-blue':'tube-blue', 'blood-gray':'tube-gray',
+      'blood-yellow':'tube-yellow', 'blood-tan':'tube-tan',
+      'blood-royal-blue-edta':'tube-royal-edta',
+      'blood-royal-blue-serum':'tube-royal-no-additive',
+      'blood-royal-blue-heparin':'tube-royal-heparin',
+      salivette:'tube-transport', 'csf-vial':'tube-transport',
+      'dry-swab':'tube-transport', 'cytology-vial':'tube-transport',
+      'breath-bag':'', special:'tube-transport'
     })[value] || '';
   }
   function fieldName(item) {
