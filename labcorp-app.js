@@ -1829,6 +1829,43 @@
     // Do not infer media from narrative instructions or the specimen's source cup.
     const submitted = original ? draw : value;
     const withOriginal = categories => original ? [...categories, 'original'] : categories;
+    // Preserve the actual tube/kit family even when the record says to ship
+    // the unopened original device. Labels and processing requirements stay intact.
+    if (/bac(?:t)? alert|bactec|blood culture bottl/.test(submitted))
+      return withOriginal(['blood-culture']);
+    if (/salivette/.test(submitted)) return withOriginal(['salivette']);
+    if (/flocked.*dry swab|dry swab|swab sleeve/.test(submitted))
+      return withOriginal(['dry-swab']);
+    if (/thinprep|preservcyt|surepath/.test(submitted))
+      return withOriginal(['cytology-vial']);
+    if (/breath bag|breath collection bag/.test(submitted))
+      return withOriginal(['breath-bag']);
+    if (/sterile.*csf.*(?:tube|container|vial)|csf.*screw cap/.test(submitted))
+      return withOriginal(['csf-vial']);
+    if (/\broyal blue\b/.test(submitted)) {
+      if (/edta|purple stripe/.test(submitted)) return withOriginal(['blood-royal-blue-edta']);
+      if (/heparin/.test(submitted)) return withOriginal(['blood-royal-blue-heparin']);
+      return withOriginal(['blood-royal-blue-serum']);
+    }
+    if (/\bpink edta\b/.test(submitted)) return withOriginal(['blood-pink']);
+    if (/\blavender edta\b|edta lavender/.test(submitted)) return withOriginal(['blood-lavender']);
+    if (/\bgreen\b.*\bheparin\b|\bheparin\b.*\bgreen\b/.test(submitted)) return withOriginal(['blood-green']);
+    if (/\blight blue\b.*\bcitrate\b|\bsodium citrate\b.*\bblue\b/.test(submitted))
+      return withOriginal(['blood-blue']);
+    if (/\bgray\b.*(?:fluoride|oxalate)|\bgray top\b/.test(submitted) &&
+        !/urine|culture|pva/.test(submitted)) return withOriginal(['blood-gray']);
+    if (/yellow acd|acd yellow/.test(submitted)) return withOriginal(['blood-yellow']);
+    if (/\btan\b.*(?:edta|heparin)/.test(submitted)) return withOriginal(['blood-tan']);
+    if (/\bred top\b|\bred no additive\b/.test(submitted)) return withOriginal(['blood-red']);
+    if (/\bsst\b|\bgold\b.*(?:spun|sst)|spun gold/.test(submitted))
+      return withOriginal(['sst']);
+    if (/serum plasma transport/.test(submitted)) return withOriginal(['serum', 'plasma']);
+    if (/polypropylene.*(?:transport|tube|vial)|plastic screw cap plasma vial/.test(submitted)) {
+      const cats = ['transport'];
+      if (/\bplasma\b/.test(submitted)) cats.push('plasma');
+      if (/\bserum\b/.test(submitted)) cats.push('serum');
+      return withOriginal(cats);
+    }
     if (/cary blair|para pak orange|para pak c s/.test(submitted))
       return withOriginal(['cary-blair']);
     if (/total fix/.test(submitted)) return withOriginal(['stool']);
