@@ -1991,7 +1991,7 @@
 
   function toggleCatalogFilters(force) {
     const open = typeof force === 'boolean' ? force : els.catalogFilterPanel.classList.contains('hidden');
-    if (!open) window.closePortalSelects?.();
+    if (!open && !els.catalogFilterPanel.classList.contains('hidden')) window.closePortalSelects?.();
     els.catalogFilterPanel.classList.toggle('hidden', !open);
     els.catalogFilterButton.setAttribute('aria-expanded', String(open));
     const mobileOpen = open && matchMedia('(max-width: 720px)').matches;
