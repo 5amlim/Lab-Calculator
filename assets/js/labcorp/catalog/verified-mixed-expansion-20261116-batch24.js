@@ -1,0 +1,92 @@
+/* Labcorp verified synovial/body-fluid cultures, chemistry and whole-blood PCR: batch24 (2026-11-16).
+ * No clinic-prepared slides, special preservatives or unsupported kits. Original container
+ * workflow when accepted. Existing active/blocked rows remain authoritative. */
+(()=>{'use strict';if(!Array.isArray(window.SEED_TESTS))return;
+const additions=[
+  {
+    "id": "labcorp-verified-20261116-batch24-005231",
+    "status": "active",
+    "testCode": "005231",
+    "testName": "Cell Count, Synovial Fluid With Crystals",
+    "specimenType": "Synovial Fluid",
+    "drawContainer": "Lavender EDTA",
+    "alternativeContainer": "",
+    "transportContainer": "Lavender EDTA",
+    "preferredVolume": "1 mL synovial fluid",
+    "minimumVolume": "1 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "No",
+    "stability": "Room unstable; refrigerated up to 48 hours; frozen unacceptable",
+    "specialLabeling": "",
+    "specialInstructions": "Qualified procedural clinician collects SYNOVIAL FLUID directly into Lavender EDTA and gently mixes. Submit ORIGINAL EDTA tube refrigerated as soon as possible and within 48 hours, with no spin or transfer. Do not freeze or use a gel-barrier tube. Label exact joint/site and collection date/time. Labcorp performs microscopy; no clinic smear or slide needed.",
+    "source": "Labcorp official directory, reviewed 2026-11-16 • https://www.labcorp.com/tests/005231/cell-count-synovial-fluid-with-crystals"
+  },
+  {
+    "id": "labcorp-verified-20261116-batch24-019505",
+    "status": "active",
+    "testCode": "019505",
+    "testName": "Uric Acid, Body Fluid",
+    "specimenType": "Body Fluid",
+    "drawContainer": "Sterile cup",
+    "alternativeContainer": "",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "2 mL body fluid",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "spin": "No",
+    "stability": "Room 14 days; refrigerated 14 days; frozen 14 days",
+    "specialLabeling": "",
+    "specialInstructions": "A qualified clinician aspirates BODY FLUID into a sterile leakproof Sterile cup, then immediately TRANSFERS an aliquot into a sterile screw-cap Transport Tube. Do not spin. Ship room temperature. Identify exact fluid source/joint/site and collection date/time on the specimen and requisition. Keep specimens from different sources separate.",
+    "source": "Labcorp official directory, reviewed 2026-11-16 • https://www.labcorp.com/tests/019505/uric-acid-body-fluid"
+  },
+  {
+    "id": "labcorp-verified-20261116-batch24-180802",
+    "status": "active",
+    "testCode": "180802",
+    "testName": "Body Fluid Culture, Sterile, Routine",
+    "specimenType": "Body Fluid",
+    "drawContainer": "Sterile cup",
+    "alternativeContainer": "",
+    "transportContainer": "Sterile cup",
+    "preferredVolume": "At least 2 mL aspirated body fluid",
+    "minimumVolume": "2 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "spin": "No",
+    "stability": "Room temperature; official directory does not state a specific maximum interval",
+    "specialLabeling": "",
+    "specialInstructions": "A qualified clinician aseptically aspirates normally sterile BODY FLUID, avoiding contamination, directly into the ORIGINAL sterile leakproof Sterile cup. Submit promptly at room temperature, no spin or transfer. Label exact anatomic source/site, collection date/time and clinical history. Do not submit a syringe with attached needle, red-top blood tube, or dry swab. Anaerobic culture and Gram stain are separately ordered when requested; this entry is aerobic routine body-fluid culture only.",
+    "source": "Labcorp official directory, reviewed 2026-11-16 • https://www.labcorp.com/tests/180802/body-fluid-culture-sterile-routine"
+  },
+  {
+    "id": "labcorp-verified-20261116-batch24-138685",
+    "status": "active",
+    "testCode": "138685",
+    "testName": "Lyme Disease, Borrelia burgdorferi, Real-time PCR (Whole Blood Route)",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Lavender EDTA",
+    "alternativeContainer": "",
+    "transportContainer": "Lavender EDTA",
+    "preferredVolume": "0.5 mL EDTA whole blood",
+    "minimumVolume": "0.2 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "spin": "No",
+    "stability": "Whole blood: room 7 days; refrigerated 7 days; DO NOT freeze",
+    "specialLabeling": "",
+    "specialInstructions": "WHOLE BLOOD PATHWAY ONLY. Collect in Lavender EDTA whole-blood tube, invert gently, and submit ORIGINAL unspun EDTA tube at room temperature. No spin or transfer and do not freeze. Label collection date/time. Labcorp also validates ACD blood, CSF and synovial fluid, but those alternative pathways are NOT represented by this record. Confirm regional acceptance and that the assay matches the intended specimen source.",
+    "source": "Labcorp official directory, reviewed 2026-11-16 • https://www.labcorp.com/tests/138685/lyme-disease-borrelia-burgdorferi-real-time-pcr"
+  }
+];
+for(const record of additions){const prior=window.SEED_TESTS.find(t=>String(t.testCode||'').trim()===record.testCode);if(!prior){window.SEED_TESTS.push(record);continue;}if(['pending','reference'].includes(prior.status))Object.assign(prior,record,{id:prior.id||record.id});}
+})();
