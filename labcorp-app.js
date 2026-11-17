@@ -694,7 +694,7 @@
       && /\bserum\b/i.test(specimenType)
       && /sst|serum separator|gold|microtainer/i.test(drawContainer);
     if (microtainerRequired) drawContainer = 'Amber Microtainer SST';
-    return {
+    return blockHairOrNailSpecimen({
       id: String(record.id || `custom-${Date.now()}-${index}`),
       testCode: String(record.testCode ?? record[['que', 'stCode'].join('')] ?? '').trim(),
       testName: String(record.testName ?? '').trim(),
@@ -723,7 +723,7 @@
       status: ['blocked', 'pending'].includes(record.status) ? record.status : 'active',
       source: String(record.source || 'Custom entry'),
       sourceRow: record.sourceRow || null
-    };
+    });
   }
 
   function additionalDrawRequirements(test) {
