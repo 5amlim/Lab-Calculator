@@ -1383,7 +1383,7 @@
     const code = normalizeSearch(test.testCode);
     // Retain code-specific shorthand from the user's Quest workbook after official-name cleanup.
     const workbookAliases = window.QUEST_WORKBOOK_SEARCH_ALIASES?.[String(test.testCode || '').trim()] || [];
-    const aliases = Array.from(new Set([...curatedLabAliases(name), ...workbookAliases]
+    const aliases = Array.from(new Set([...curatedLabAliases(name), ...workbookAliases, ...(Array.isArray(test.searchAliases) ? test.searchAliases : [])]
       .map(normalizeSearch).filter(Boolean)));
     const aliasWords = Array.from(new Set(aliases.flatMap(value => value.split(' '))));
     const nameWords = name.split(' ').filter(Boolean);
