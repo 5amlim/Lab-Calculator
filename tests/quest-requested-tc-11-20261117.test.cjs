@@ -12,9 +12,9 @@ test('the 11 requested Quest codes are cataloged once, with normal and restricte
  const rows=seed();const by=new Map(rows.map(x=>[x.testCode,x]));
  assert.equal(rows.map(x=>x.testCode).join(','),codes.join(','));
  assert.equal(new Set(by.keys()).size,11);
- assert.equal(rows.filter(x=>x.status==='active').length,9);
- assert.equal(rows.filter(x=>x.status==='reference').length,2);
- assert.equal(by.get('92717').status,'reference');
+ assert.equal(rows.filter(x=>x.status==='active').length,10);
+ assert.equal(rows.filter(x=>x.status==='reference').length,1);
+ assert.equal(by.get('92717').status,'active');
  assert.equal(by.get('94569').status,'reference');
  for(const t of rows){
   assert.ok(t.source.includes('/'+t.testCode+'/'),t.testCode);
@@ -64,6 +64,31 @@ test('reflex and specialty tests keep accurate specimen/source handling',()=>{
  assert.equal(b.transportTemperature,'Room Temperature');
  assert.equal(b.additionalDrawRequirements[0].transportTemperature,'Refrigerated');
  assert.ok(b.additionalDrawRequirements[0].preferredVolume.includes('10 mL'));
+});
+test('Quest 92717 is cart-ready and overrides older reference-only catalog data without duplicates',()=>{
+ const rows=seed([{id:'legacy-92717',testCode:'92717',status:'reference',additionalDrawRequirements:[]}]);
+ const b=rows.find(x=>x.testCode==='92717');
+ assert.equal(rows.length,11);
+ assert.equal(b.id,'legacy-92717');
+ assert.equal(b.status,'active');
+ assert.equal(b.additionalDrawRequirements.length,1);
+ assert.equal(b.transportTemperature,'Room Temperature');
+ assert.equal(b.additionalDrawRequirements[0].transportTemperature,'Refrigerated');
+ assert.equal(b.additionalDrawRequirements[0].transportContainer,'Lavender EDTA');
+ assert.equal(b.specialLabeling,'Label WHOLE BLOOD · TBBS · DATE OF DRAW');
+ assert.equal(b.additionalDrawRequirements[0].specialLabeling,'Label WHOLE BLOOD · IABC · DATE OF DRAW');
+ assert.ok(b.specialInstructions.includes('CONFIRM LOGISTICS WITH QUEST BEFORE COLLECTION'));
+ assert.ok(b.additionalDrawRequirements[0].minimumVolume.includes('5 mL'));
+ const prevActive=seed([{id:'already-active',testCode:'92717',status:'active',additionalDrawRequirements:[]}]);
+ assert.equal(prevActive.find(x=>x.testCode==='92717').id,'already-active');
+ assert.equal(prevActive.find(x=>x.testCode==='92717').additionalDrawRequirements.length,1);
+ const blocked=seed([{id:'manually-blocked',testCode:'92717',status:'blocked'}]);
+ assert.equal(blocked.find(x=>x.testCode==='92717').status,'blocked');
+});
+test('old saved reference-only browser overrides are migrated to catalog active status',()=>{
+ const app=fs.readFileSync(path.join(root,'assets/js/app.js'),'utf8');
+ assert.ok(app.includes("String(base.testCode || '') === '92717'"));
+ assert.ok(app.includes("status: override.status === 'blocked' ? 'blocked' : 'active'"));
 });
 test('script import occurs before app initialization and after prior Quest corrections',()=>{
  const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
