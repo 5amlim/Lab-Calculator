@@ -1,8 +1,7 @@
 /* Requested Quest TC 11-code audit: 2026-11-17
- * All 11 codes guaranteed as catalog entries; nine normal workflows active when not already active/blocked.
- * Specialty serum dry-ice 94569 and two-temperature Mayo 92717 remain searchable reference-only
- * unless already approved active. Never override an explicitly blocked record.
- * Preserve previous active records but repair 10380 two-specimen display and 38470 label wording.
+ * Quest 92717 is always Do Not Perform and must not enter the cart.
+ * 94569 stays reference-only pending approved overnight dry-ice logistics.
+ * Preserve active records except critical 10380/38470 specimen corrections.
  */
 (()=>{'use strict';if(!Array.isArray(window.SEED_TESTS))return;
 const additions=[
@@ -319,7 +318,7 @@ const additions=[
     "id": "quest-tc-20261117-92717",
     "testCode": "92717",
     "testName": "Immune Assessment B Cell Subsets, Blood",
-    "status": "active",
+    "status": "blocked",
     "specimenType": "Whole Blood",
     "drawContainer": "Lavender EDTA",
     "alternativeContainer": "",
@@ -332,7 +331,7 @@ const additions=[
     "transportTemperatureRaw": "Room Temperature",
     "spin": "No",
     "specialLabeling": "Label WHOLE BLOOD · TBBS · DATE OF DRAW",
-    "specialInstructions": "SPECIAL MAYO REFERRAL HANDLING. CONFIRM LOGISTICS WITH QUEST BEFORE COLLECTION. Collect TWO physically SEPARATE ORIGINAL Lavender EDTA whole-blood tubes, without spinning or aliquoting. (1) TBBS (T, B and NK lymphocyte subsets): collect 4 mL, 3 mL minimum, label WHOLE BLOOD · TBBS and DATE OF DRAW, and submit original tube at ROOM TEMPERATURE (ambient stability less than 52 hours). (2) IABC (B-cell subsets): collect 10 mL for patients over age 14 (5 mL minimum per performing-lab reference), or 4 mL for patients age 14 and younger (3 mL minimum); use a separate appropriately sized ORIGINAL Lavender EDTA tube, label WHOLE BLOOD · IABC and DATE OF DRAW, submit REFRIGERATED (stability less than 48 hours). These are two separate patient specimens, NOT aliquots of one tube. The ordering clinician's name and telephone number are required. Quest requires special arrangements with the receiving laboratory, weekday Mayo arrival, by 4 p.m. on Friday; shipment arrival within 24 hours of collection is recommended. Avoid weekend arrival; Monday–Thursday before noon is recommended. DO NOT COLLECT until Quest confirms route, and suitable original 10 mL EDTA collection tube if adult. A routine courier pickup alone does not verify Mayo receipt.",
+    "specialInstructions": "DO NOT PERFORM ONSITE. Quest 92717 (Immune Assessment B Cell Subsets, Blood) is not approved for collection through the Sollis Lab Calculator. This is a specialty Mayo referral requiring two original EDTA specimens at different temperatures and prearranged rapid delivery. DO NOT COLLECT OR SEND. Contact the Lab Supervisor if requested.",
     "source": "https://testdirectory.questdiagnostics.com/test/test-detail/92717/immune-assessment-b-cell-subsets-blood?cc=MASTER&p=r",
     "searchAliases": [
       "B cell subsets blood",
@@ -399,9 +398,9 @@ const additions=[
 for(const row of additions){
  const old=window.SEED_TESTS.find(x=>String(x.testCode||'').trim()===row.testCode);
  if(!old){window.SEED_TESTS.push(row);continue;}
+ // 92717 is not supported onsite. Force blocked for any prior active/reference entry.
+ if(row.testCode==='92717'){Object.assign(old,row,{id:old.id||row.id,status:'blocked'});continue;}
  if(old.status==='blocked')continue;
- // Verified Quest 92717 is cart-selectable, with separate source-specific EDTA tubes.
- if(row.testCode==='92717'){Object.assign(old,row,{id:old.id||row.id});continue;}
  if(old.status==='reference'||old.status==='pending'){Object.assign(old,row,{id:old.id||row.id});continue;}
  if(old.status==='active'&&row.testCode==='10380'){
    old.specialLabeling='Label SERUM · SST source';
