@@ -1706,7 +1706,7 @@
               ${test.preferredVolume ? `<div><b>Preferred volume:</b> ${escapeHtml(test.preferredVolume)}</div>` : ''}
               ${test.minimumVolume ? `<div><b>Minimum volume:</b> ${escapeHtml(test.minimumVolume)}</div>` : ''}
               ${test.stability ? `<div><b>Stability:</b> ${escapeHtml(test.stability)}</div>` : ''}
-              ${test.specialLabeling ? `<div><b>Labeling:</b> ${escapeHtml(test.specialLabeling)}</div>` : ''}
+              ${test.specialLabeling && conciseSpecimenLabel(test).label ? `<div><b>Label:</b> ${escapeHtml(conciseSpecimenLabel(test).label)}</div>` : ''}${conciseSpecimenLabel(test).processing.map(note => `<div><b>Processing:</b> ${escapeHtml(note)}</div>`).join('')}
               ${test.specialInstructions ? `<div><b>Handling:</b> ${escapeHtml(test.specialInstructions)}</div>` : ''}
               <a href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noopener noreferrer">Verify in official directory ↗</a>
             </div>
@@ -6875,10 +6875,13 @@
       .includes(alt.toLowerCase().replace(/\s+/g, ' '));
     const altNote = alt && !altAlreadyInNotes
       ? `<div class="print-detail-alt-note"><strong>Alternative:</strong> ${escapeHtml(alt)}</div>` : '';
-    const label = String(test.specialLabeling || '').trim();
-    const labelNote = label && !notes.toLowerCase().includes(label.toLowerCase())
-      ? `<div class="print-detail-label-note"><strong>Label:</strong> ${escapeHtml(label)}</div>` : '';
-    return `<div class="print-detail-handling-text">${escapeHtml(notes)}</div>${altNote}${labelNote}`;
+    const label = conciseSpecimenLabel(test, { originalTube: isOriginalContainerSubmission(test) });
+    const labelNote = String(test.specialLabeling || '').trim() && label.label
+      ? `<div class="print-detail-label-note"><strong>Label:</strong> ${escapeHtml(label.label)}</div>` : '';
+    const processing = label.processing
+      .filter(value => !notes.toLowerCase().includes(value.toLowerCase()))
+      .map(value => `<div class="print-detail-label-note"><strong>Processing:</strong> ${escapeHtml(value)}</div>`).join('');
+    return `<div class="print-detail-handling-text">${escapeHtml(notes)}</div>${altNote}${labelNote}${processing}`;
   }
 
 
