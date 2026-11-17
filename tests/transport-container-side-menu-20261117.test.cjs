@@ -14,6 +14,11 @@ const fixtures = [
   { id: 'green', specimenType: 'Whole Blood', drawContainer: 'Green Lithium Heparin', transportContainer: 'Green Top (Heparin) (original tube)' },
   { id: 'nmr', specimenType: 'Whole Blood', drawContainer: 'NMR LipoTube', transportContainer: 'NMR LipoTube (spun original tube)' },
   { id: 'csf', specimenType: 'CSF', drawContainer: 'Sterile cup', transportContainer: 'Sterile Screw-cap CSF Tube' },
+  { id: 'serum-vial', specimenType: 'Serum', drawContainer: 'SST / Gold', transportContainer: 'Plastic Serum Transport Tube' },
+  { id: 'plasma-vial', specimenType: 'Plasma', drawContainer: 'Green Lithium Heparin', transportContainer: 'Plastic Plasma Transport Tube' },
+  { id: 'chilled-vial', specimenType: 'Serum', drawContainer: 'SST / Gold', transportContainer: 'Chilled Plastic Screw-Cap Vial', transportTemperature:'Refrigerated' },
+  { id: 'clean-vial', specimenType: 'Plasma', drawContainer: 'Gray Top', transportContainer: 'Clean screw-capped plastic vial (no preservative)' },
+  { id: 'stool-clean-vial', specimenType: 'Stool', drawContainer: 'Sterile cup', transportContainer: 'Sterile Screw-cap Stool Vial (Para-Pak white clean)' },
   { id: 'both', specimenType: 'Serum', drawContainer: 'SST / Gold', transportContainer: 'Serum Transport Tube',
     additionalDrawRequirements: [{specimenType:'Stool', container:'Sterile cup',
       transportContainer:'Cary-Blair Stool Culture Transport Vial'}] }
@@ -72,7 +77,39 @@ for (const [name,htmlPath,appPath] of [
       'cary-blair','stool','stool-formalin','stool-pva','stool-clean','salivette','sterile-cup'])
       assert(children.some(child=>child.value===key), key+' missing from nested menu');
     assert(!options.some(o=>o.value==='csf-vial'), 'CSF must use Sterile cup');
+    for(const obsolete of ['serum','plasma','chilled-vial','clean-vial'])
+      assert(!options.some(o=>o.value===obsolete), obsolete+' should use Transport Tube');
     assert(html.includes('portal-selects.js?v=11.96'));
+  });
+
+  test(name + ' standard transfer vials share Transport Tube without losing handling requirements', async () => {
+    const w = loadedApp(appPath);
+    await Promise.resolve(); await Promise.resolve();
+    const api = w.__audit;
+    api.filters.transportContainerFilter.options = transportOptions(read(htmlPath));
+    for (const [id, actualContainer] of [
+      ['serum-vial','Plastic Serum Transport Tube'],
+      ['plasma-vial','Plastic Plasma Transport Tube'],
+      ['chilled-vial','Chilled Plastic Screw-Cap Vial'],
+      ['clean-vial','Clean screw-capped plastic vial (no preservative)']
+    ]) {
+      const record = api.database.find(item => item.id === id);
+      assert(record, 'Missing ' + id);
+      assert.equal(record.transportContainer, actualContainer, 'Original submitted device was changed');
+      assert(api.transportContainerFilterCategories(record).includes('transport'),
+        id + ' is not under Transport Tube');
+      api.filters.transportContainerFilter.value = 'transport';
+      assert(api.matchesLibraryFilters(record), id + ' not found by Transport Tube filter');
+      api.filters.transportContainerFilter.value = 'group-transport-vials';
+      assert(api.matchesLibraryFilters(record), id + ' missing from parent category');
+    }
+    const chilled = api.database.find(item => item.id === 'chilled-vial');
+    assert.equal(chilled.transportTemperature,'Refrigerated',
+      'Chilled vial must retain refrigeration metadata');
+    const stool = api.database.find(item => item.id === 'stool-clean-vial');
+    assert(api.transportContainerFilterCategories(stool).includes('stool-clean'));
+    assert(!api.transportContainerFilterCategories(stool).includes('transport'),
+      'Dedicated stool vial must not become a generic transport tube');
   });
 
   test(name + ' broad group filters include children and additional specimens', async () => {
