@@ -5945,12 +5945,11 @@
     if (/\bvesicle\s*\/\s*lesion\s+swab\b/i.test(raw) && /\bswab\b/.test(specimen)) source = 'Vesicle/lesion swab';
     if (/^other\s*\/\s*verify$/i.test(source)) source = 'Specimen';
 
-    // Generic swabs still need an actual specimen source on the label.
-    // Never infer this from alternative or rejected swab sources.
-    if (/\bswab\b/i.test(specimenType) && /^collection site:\s*_+$/i.test(source)) {
+    // A generic swab needs an actual site; never infer it from a list of
+    // acceptable or rejected swabs in the test description.
+    if (/\bswab\b/i.test(specimenType) &&
+        (/^collection site:\s*_+$/i.test(source) || /^swab$/i.test(source)))
       source = 'Swab';
-      add('Collection site: ____');
-    }
 
     // Plasma/serum from a specialized primary tube must name its additive
     // and original source on the label, not just on the transfer instruction.
@@ -6027,6 +6026,15 @@
     else if (/\b(?:freeze|frozen)\b/i.test(raw)) processing.push('Keep frozen');
     if (/\blight\s+protected\b|\bprotect\s+from\s+light\b/i.test(raw) && !/amber|protect from light/i.test(String(item.label || '')))
       processing.push('Protect from light');
+
+    // Specimen identity and site are part of a useful submitted-container
+    // label. Keep explicit site instructions, and prompt only when absent.
+    if (/\bswab\b/i.test(specimenType) && /^swab$/i.test(source) &&
+        !parts.some(part => /\b(?:site|source)\b/i.test(part)))
+      add('Collection site: ____');
+    if (/^(?:(?:other|bodily)\s+)?body\s+fluid$|^bodily\s+fluid$/i.test(source) &&
+        !parts.some(part => /\b(?:site|source)\b/i.test(part)))
+      add('Anatomical source/site: ____');
 
     const hasSpecialDetails = parts.length > 0;
     // A submitted stool, urine or swab container always needs its specimen
