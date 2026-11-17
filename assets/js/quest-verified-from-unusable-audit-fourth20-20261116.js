@@ -1,5 +1,5 @@
 /* Verified Quest reference entries 61-80, 2026-11-16.
- * 12 supported clinic collection paths. Preserve original specimen type,
+ * 4 supported clinic collection paths; eight hair/nail records reference-only. Preserve original specimen type,
  * transport temperature, patient preparation, and required containers.
  * No slide preparation, unsupported stains, acid-preserved urine, or automatic
  * conversion of hair/nail/seminal material into a urine/stool collection.
@@ -73,7 +73,7 @@ const additions=[
   },
   {
     "id": "quest-verified-audit-61-80-20261116-3107",
-    "status": "active",
+    "status": "reference",
     "testCode": "3107",
     "testName": "Metals/Metalloids Panel 1, Hair",
     "specimenType": "Hair",
@@ -89,7 +89,7 @@ const additions=[
     "spin": "No",
     "stability": "Not established by Quest; prompt submission at room temperature",
     "specialLabeling": "Label HAIR • METALS/METALLOIDS PANEL 1 and collection date/time",
-    "specialInstructions": "Hair is a separate specimen type. Collect adequate source material into a clean acid-washed or trace metal-free PLASTIC container, not an ordinary Sterile cup, swab, tube with blood additives, or paper packet. Submit the ORIGINAL metal-free container without processing or specimen transfer. Keep distinct from other specimen types; EACH selected assay must have the full required 500 mg available. Do not pool identical 500 mg aliquots across multiple tests unless Quest specifically confirms shared submission. Confirm approved collection tooling and kit availability to avoid trace-metal contamination. Collect a pencil-thick segment near the scalp, bundle and cut at roots, and secure the root end with a twist tie as specified by Quest. Do not wash, chemically treat, or mix hair with nail clippings unless Quest provides source-specific instructions. Quest states this test is NOT available for New York patient testing. Confirm the receiving Quest laboratory/account accepts this exact code and source before collection.",
+    "specialInstructions": "NOT COLLECTED ONSITE. Hair and nail specimens are not supported by these clinics. Reference only. Hair is a separate specimen type. Collect adequate source material into a clean acid-washed or trace metal-free PLASTIC container, not an ordinary Sterile cup, swab, tube with blood additives, or paper packet. Submit the ORIGINAL metal-free container without processing or specimen transfer. Keep distinct from other specimen types; EACH selected assay must have the full required 500 mg available. Do not pool identical 500 mg aliquots across multiple tests unless Quest specifically confirms shared submission. Confirm approved collection tooling and kit availability to avoid trace-metal contamination. Collect a pencil-thick segment near the scalp, bundle and cut at roots, and secure the root end with a twist tie as specified by Quest. Do not wash, chemically treat, or mix hair with nail clippings unless Quest provides source-specific instructions. Quest states this test is NOT available for New York patient testing. Confirm the receiving Quest laboratory/account accepts this exact code and source before collection.",
     "searchAliases": [
       "metals/metalloids panel 1 hair",
       "hair metals/metalloids panel 1",
@@ -162,7 +162,7 @@ const additions=[
   },
   {
     "id": "quest-verified-audit-61-80-20261116-3256",
-    "status": "active",
+    "status": "reference",
     "testCode": "3256",
     "testName": "Thallium, Nails",
     "specimenType": "Nails",
@@ -178,7 +178,7 @@ const additions=[
     "spin": "No",
     "stability": "Not established by Quest; prompt submission at room temperature",
     "specialLabeling": "Label NAILS • THALLIUM and collection date/time",
-    "specialInstructions": "Nail clippings is a separate specimen type. Collect adequate source material into a clean acid-washed or trace metal-free PLASTIC container, not an ordinary Sterile cup, swab, tube with blood additives, or paper packet. Submit the ORIGINAL metal-free container without processing or specimen transfer. Keep distinct from other specimen types; EACH selected assay must have the full required 500 mg available. Do not pool identical 500 mg aliquots across multiple tests unless Quest specifically confirms shared submission. Confirm approved collection tooling and kit availability to avoid trace-metal contamination. Quest states this test is NOT available for New York patient testing. Confirm the receiving Quest laboratory/account accepts this exact code and source before collection.",
+    "specialInstructions": "NOT COLLECTED ONSITE. Hair and nail specimens are not supported by these clinics. Reference only. Nail clippings is a separate specimen type. Collect adequate source material into a clean acid-washed or trace metal-free PLASTIC container, not an ordinary Sterile cup, swab, tube with blood additives, or paper packet. Submit the ORIGINAL metal-free container without processing or specimen transfer. Keep distinct from other specimen types; EACH selected assay must have the full required 500 mg available. Do not pool identical 500 mg aliquots across multiple tests unless Quest specifically confirms shared submission. Confirm approved collection tooling and kit availability to avoid trace-metal contamination. Quest states this test is NOT available for New York patient testing. Confirm the receiving Quest laboratory/account accepts this exact code and source before collection.",
     "searchAliases": [
       "thallium nail",
       "thallium nails",
@@ -192,7 +192,7 @@ const additions=[
   },
   {
     "id": "quest-verified-audit-61-80-20261116-3348",
-    "status": "active",
+    "status": "reference",
     "testCode": "3348",
     "testName": "Zinc, Nails",
     "specimenType": "Nails",
@@ -208,7 +208,7 @@ const additions=[
     "spin": "No",
     "stability": "Not established by Quest; prompt submission at room temperature",
     "specialLabeling": "Label NAILS • ZINC and collection date/time",
-    "specialInstructions": "Nail clippings is a separate specimen type. Collect adequate source material into a clean acid-washed or trace metal-free PLASTIC container, not an ordinary Sterile cup, swab, tube with blood additives, or paper packet. Submit the ORIGINAL metal-free container without processing or specimen transfer. Keep distinct from other specimen types; EACH selected assay must have the full required 500 mg available. Do not pool identical 500 mg aliquots across multiple tests unless Quest specifically confirms shared submission. Confirm approved collection tooling and kit availability to avoid trace-metal contamination. Quest states this test is NOT available for New York patient testing. Confirm the receiving Quest laboratory/account accepts this exact code and source before collection.",
+    "specialInstructions": "NOT COLLECTED ONSITE. Hair and nail specimens are not supported by these clinics. Reference only. Nail clippings is a separate specimen type. Collect adequate source material into a clean acid-washed or trace metal-free PLASTIC container, not an ordinary Sterile cup, swab, tube with blood additives, or paper packet. Submit the ORIGINAL metal-free container without processing or specimen transfer. Keep distinct from other specimen types; EACH selected assay must have the full required 500 mg available. Do not pool identical 500 mg aliquots across multiple tests unless Quest specifically confirms shared submission. Confirm approved collection tooling and kit availability to avoid trace-metal contamination. Quest states this test is NOT available for New York patient testing. Confirm the receiving Quest laboratory/account accepts this exact code and source before collection.",
     "searchAliases": [
       "zinc nail",
       "zinc nails",
@@ -222,7 +222,7 @@ const additions=[
   },
   {
     "id": "quest-verified-audit-61-80-20261116-3386",
-    "status": "active",
+    "status": "reference",
     "testCode": "3386",
     "testName": "Selenium, Hair",
     "specimenType": "Hair",
@@ -238,7 +238,7 @@ const additions=[
     "spin": "No",
     "stability": "Not established by Quest; prompt submission at room temperature",
     "specialLabeling": "Label HAIR • SELENIUM and collection date/time",
-    "specialInstructions": "Hair is a separate specimen type. Collect adequate source material into a clean acid-washed or trace metal-free PLASTIC container, not an ordinary Sterile cup, swab, tube with blood additives, or paper packet. Submit the ORIGINAL metal-free container without processing or specimen transfer. Keep distinct from other specimen types; EACH selected assay must have the full required 500 mg available. Do not pool identical 500 mg aliquots across multiple tests unless Quest specifically confirms shared submission. Confirm approved collection tooling and kit availability to avoid trace-metal contamination. Collect a pencil-thick segment near the scalp, bundle and cut at roots, and secure the root end with a twist tie as specified by Quest. Do not wash, chemically treat, or mix hair with nail clippings unless Quest provides source-specific instructions. Quest states this test is NOT available for New York patient testing. Confirm the receiving Quest laboratory/account accepts this exact code and source before collection.",
+    "specialInstructions": "NOT COLLECTED ONSITE. Hair and nail specimens are not supported by these clinics. Reference only. Hair is a separate specimen type. Collect adequate source material into a clean acid-washed or trace metal-free PLASTIC container, not an ordinary Sterile cup, swab, tube with blood additives, or paper packet. Submit the ORIGINAL metal-free container without processing or specimen transfer. Keep distinct from other specimen types; EACH selected assay must have the full required 500 mg available. Do not pool identical 500 mg aliquots across multiple tests unless Quest specifically confirms shared submission. Confirm approved collection tooling and kit availability to avoid trace-metal contamination. Collect a pencil-thick segment near the scalp, bundle and cut at roots, and secure the root end with a twist tie as specified by Quest. Do not wash, chemically treat, or mix hair with nail clippings unless Quest provides source-specific instructions. Quest states this test is NOT available for New York patient testing. Confirm the receiving Quest laboratory/account accepts this exact code and source before collection.",
     "searchAliases": [
       "selenium hair",
       "hair selenium",
@@ -251,7 +251,7 @@ const additions=[
   },
   {
     "id": "quest-verified-audit-61-80-20261116-3411",
-    "status": "active",
+    "status": "reference",
     "testCode": "3411",
     "testName": "Thallium, Hair",
     "specimenType": "Hair",
@@ -267,7 +267,7 @@ const additions=[
     "spin": "No",
     "stability": "Not established by Quest; prompt submission at room temperature",
     "specialLabeling": "Label HAIR • THALLIUM and collection date/time",
-    "specialInstructions": "Hair is a separate specimen type. Collect adequate source material into a clean acid-washed or trace metal-free PLASTIC container, not an ordinary Sterile cup, swab, tube with blood additives, or paper packet. Submit the ORIGINAL metal-free container without processing or specimen transfer. Keep distinct from other specimen types; EACH selected assay must have the full required 500 mg available. Do not pool identical 500 mg aliquots across multiple tests unless Quest specifically confirms shared submission. Confirm approved collection tooling and kit availability to avoid trace-metal contamination. Collect a pencil-thick segment near the scalp, bundle and cut at roots, and secure the root end with a twist tie as specified by Quest. Do not wash, chemically treat, or mix hair with nail clippings unless Quest provides source-specific instructions. Quest states this test is NOT available for New York patient testing. Confirm the receiving Quest laboratory/account accepts this exact code and source before collection.",
+    "specialInstructions": "NOT COLLECTED ONSITE. Hair and nail specimens are not supported by these clinics. Reference only. Hair is a separate specimen type. Collect adequate source material into a clean acid-washed or trace metal-free PLASTIC container, not an ordinary Sterile cup, swab, tube with blood additives, or paper packet. Submit the ORIGINAL metal-free container without processing or specimen transfer. Keep distinct from other specimen types; EACH selected assay must have the full required 500 mg available. Do not pool identical 500 mg aliquots across multiple tests unless Quest specifically confirms shared submission. Confirm approved collection tooling and kit availability to avoid trace-metal contamination. Collect a pencil-thick segment near the scalp, bundle and cut at roots, and secure the root end with a twist tie as specified by Quest. Do not wash, chemically treat, or mix hair with nail clippings unless Quest provides source-specific instructions. Quest states this test is NOT available for New York patient testing. Confirm the receiving Quest laboratory/account accepts this exact code and source before collection.",
     "searchAliases": [
       "thallium hair",
       "hair thallium",
@@ -280,7 +280,7 @@ const additions=[
   },
   {
     "id": "quest-verified-audit-61-80-20261116-3419",
-    "status": "active",
+    "status": "reference",
     "testCode": "3419",
     "testName": "Lead, Nails",
     "specimenType": "Nails",
@@ -296,7 +296,7 @@ const additions=[
     "spin": "No",
     "stability": "Not established by Quest; prompt submission at room temperature",
     "specialLabeling": "Label NAILS • LEAD and collection date/time",
-    "specialInstructions": "Nail clippings is a separate specimen type. Collect adequate source material into a clean acid-washed or trace metal-free PLASTIC container, not an ordinary Sterile cup, swab, tube with blood additives, or paper packet. Submit the ORIGINAL metal-free container without processing or specimen transfer. Keep distinct from other specimen types; EACH selected assay must have the full required 500 mg available. Do not pool identical 500 mg aliquots across multiple tests unless Quest specifically confirms shared submission. Confirm approved collection tooling and kit availability to avoid trace-metal contamination. Quest states this test is NOT available for New York patient testing. Confirm the receiving Quest laboratory/account accepts this exact code and source before collection.",
+    "specialInstructions": "NOT COLLECTED ONSITE. Hair and nail specimens are not supported by these clinics. Reference only. Nail clippings is a separate specimen type. Collect adequate source material into a clean acid-washed or trace metal-free PLASTIC container, not an ordinary Sterile cup, swab, tube with blood additives, or paper packet. Submit the ORIGINAL metal-free container without processing or specimen transfer. Keep distinct from other specimen types; EACH selected assay must have the full required 500 mg available. Do not pool identical 500 mg aliquots across multiple tests unless Quest specifically confirms shared submission. Confirm approved collection tooling and kit availability to avoid trace-metal contamination. Quest states this test is NOT available for New York patient testing. Confirm the receiving Quest laboratory/account accepts this exact code and source before collection.",
     "searchAliases": [
       "lead nail",
       "lead nails",
@@ -310,7 +310,7 @@ const additions=[
   },
   {
     "id": "quest-verified-audit-61-80-20261116-3487",
-    "status": "active",
+    "status": "reference",
     "testCode": "3487",
     "testName": "Chromium, Nails",
     "specimenType": "Nails",
@@ -326,7 +326,7 @@ const additions=[
     "spin": "No",
     "stability": "Not established by Quest; prompt submission at room temperature",
     "specialLabeling": "Label NAILS • CHROMIUM and collection date/time",
-    "specialInstructions": "Nail clippings is a separate specimen type. Collect adequate source material into a clean acid-washed or trace metal-free PLASTIC container, not an ordinary Sterile cup, swab, tube with blood additives, or paper packet. Submit the ORIGINAL metal-free container without processing or specimen transfer. Keep distinct from other specimen types; EACH selected assay must have the full required 500 mg available. Do not pool identical 500 mg aliquots across multiple tests unless Quest specifically confirms shared submission. Confirm approved collection tooling and kit availability to avoid trace-metal contamination. Confirm the receiving Quest laboratory/account accepts this exact code and source before collection.",
+    "specialInstructions": "NOT COLLECTED ONSITE. Hair and nail specimens are not supported by these clinics. Reference only. Nail clippings is a separate specimen type. Collect adequate source material into a clean acid-washed or trace metal-free PLASTIC container, not an ordinary Sterile cup, swab, tube with blood additives, or paper packet. Submit the ORIGINAL metal-free container without processing or specimen transfer. Keep distinct from other specimen types; EACH selected assay must have the full required 500 mg available. Do not pool identical 500 mg aliquots across multiple tests unless Quest specifically confirms shared submission. Confirm approved collection tooling and kit availability to avoid trace-metal contamination. Confirm the receiving Quest laboratory/account accepts this exact code and source before collection.",
     "searchAliases": [
       "chromium nail",
       "chromium nails",
@@ -340,7 +340,7 @@ const additions=[
   },
   {
     "id": "quest-verified-audit-61-80-20261116-3499",
-    "status": "active",
+    "status": "reference",
     "testCode": "3499",
     "testName": "Nickel, Nails",
     "specimenType": "Nails",
@@ -356,7 +356,7 @@ const additions=[
     "spin": "No",
     "stability": "Not established by Quest; prompt submission at room temperature",
     "specialLabeling": "Label NAILS • NICKEL and collection date/time",
-    "specialInstructions": "Nail clippings is a separate specimen type. Collect adequate source material into a clean acid-washed or trace metal-free PLASTIC container, not an ordinary Sterile cup, swab, tube with blood additives, or paper packet. Submit the ORIGINAL metal-free container without processing or specimen transfer. Keep distinct from other specimen types; EACH selected assay must have the full required 500 mg available. Do not pool identical 500 mg aliquots across multiple tests unless Quest specifically confirms shared submission. Confirm approved collection tooling and kit availability to avoid trace-metal contamination. Confirm the receiving Quest laboratory/account accepts this exact code and source before collection.",
+    "specialInstructions": "NOT COLLECTED ONSITE. Hair and nail specimens are not supported by these clinics. Reference only. Nail clippings is a separate specimen type. Collect adequate source material into a clean acid-washed or trace metal-free PLASTIC container, not an ordinary Sterile cup, swab, tube with blood additives, or paper packet. Submit the ORIGINAL metal-free container without processing or specimen transfer. Keep distinct from other specimen types; EACH selected assay must have the full required 500 mg available. Do not pool identical 500 mg aliquots across multiple tests unless Quest specifically confirms shared submission. Confirm approved collection tooling and kit availability to avoid trace-metal contamination. Confirm the receiving Quest laboratory/account accepts this exact code and source before collection.",
     "searchAliases": [
       "nickel nail",
       "nickel nails",
