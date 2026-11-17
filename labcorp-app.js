@@ -1845,8 +1845,10 @@
       return withOriginal(['cytology-vial']);
     if (/breath bag|breath collection bag/.test(submitted))
       return withOriginal(['breath-bag']);
+    // A plain sterile CSF screw-cap vessel belongs under Sterile cup in filters.
+    // Keep the test's precise specimen label and transport instructions unchanged.
     if (/sterile.*csf.*(?:tube|container|vial)|csf.*screw cap/.test(submitted))
-      return withOriginal(['csf-vial']);
+      return withOriginal(['sterile-cup']);
     if (/\broyal blue\b/.test(submitted)) {
       if (/edta|purple stripe/.test(submitted)) return withOriginal(['blood-royal-blue-edta']);
       if (/heparin/.test(submitted)) return withOriginal(['blood-royal-blue-heparin']);
@@ -2002,9 +2004,19 @@
     const temperature = els.temperatureFilter.value;
     if (temperature && transportBagInfo(test).key !== temperature) return false;
     const container = els.transportContainerFilter.value;
-    if (container && !(container === 'sterile-cup'
-      ? usesSterileCup(test)
-      : transportContainerFilterCategories(test).includes(container))) return false;
+    if (container) {
+      const categories = transportContainerFilterCategories(test);
+      // Parent group membership comes directly from the native options used
+      // by the side menu. Selecting a parent matches any of its child types.
+      const children = container.startsWith('group-')
+        ? [...els.transportContainerFilter.options].filter(option =>
+            option.dataset?.containerGroup === container).map(option => option.value)
+        : null;
+      const matched = children
+        ? children.some(key => categories.includes(key))
+        : container === 'sterile-cup' ? usesSterileCup(test) : categories.includes(container);
+      if (!matched) return false;
+    }
     // The optional name search covers any exact transport-device wording in
     // the catalog, including rare kits and secondary submission routes.
     // It never matches a source-only sterile cup when a specimen is transferred.
