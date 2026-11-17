@@ -7150,6 +7150,8 @@
     if (/aptima/.test(value) && /pap[- ]?vial|green[- ]?label|specimen transfer/.test(value)) return 'tube-aptima-transfer';
     if (/aptima/.test(value)) return 'tube-aptima';
     if (/total[- ]?fix/.test(value)) return 'tube-total-fix';
+    // Use the existing orange Cary-Blair stool culture badge, not the generic vial badge.
+    if (/cary[- ]?blair/.test(value)) return 'tube-cary-blair';
     if (/(?:trace[ -]?metal[- ]?free|acid[- ]?washed).*container|container.*(?:trace[ -]?metal[- ]?free|acid[- ]?washed)/.test(value)) return 'tube-trace-metal-container';
     if (/24\s*[- ]?hour\s+urine\s+(?:container|jug)|24h\s+urine\s+(?:container|jug)/.test(value)) return 'tube-24h-urine';
     if (/sterile\s+(?:urine\s+)?cup|urine\s+collection\s+cup/.test(value)) return 'tube-urine-cup';
