@@ -2032,3 +2032,15 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     background-clip: padding-box;
   }
 }
+
+/* Mobile filter menus: finger movement must never leave a sticky hover state.
+   Keep selected, keyboard-focused and explicitly expanded options visible. */
+@media screen and (hover: none) {
+  #catalogFilterControl .portal-select-menu .portal-select-option:hover:not(.is-selected):not(:focus-visible) {
+    background: transparent;
+  }
+  #catalogFilterControl .portal-select-has-submenu:hover:not([aria-expanded="true"]) .portal-select-submenu-chevron {
+    background: transparent;
+    color: #466b74;
+  }
+}
