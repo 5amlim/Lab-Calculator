@@ -82,3 +82,15 @@ test('Labcorp frozen serum submissions stay purple cap with correct original dra
  assert.match(m.get('503660').specialInstructions,/45 MINUTES/);
  assert.match(m.get('500757').specialInstructions,/Transpak 49482/);
 });
+
+test('CSF and urine label badges are shown once with collection date/time',()=>{
+  for(const row of load('Quest')){
+    assert.equal(row.specialLabeling,'Label specimen source and collection date/time',row.testCode);
+    assert.doesNotMatch(row.specialLabeling,/Label (?:CSF|Urine) specimen/i);
+  }
+  for(const file of ['assets/js/app.js','labcorp-app.js']){
+    const source=read(file);
+    assert.match(source,/if \(derived && !sourceLabel &&/);
+    assert.match(source,/const sourceLabel = printGenericSpecimenSourceLabel\(test, explicit\);/);
+  }
+});
