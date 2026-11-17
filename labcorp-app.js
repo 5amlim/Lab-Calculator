@@ -4599,16 +4599,41 @@
     return 'other';
   }
 
+  // Specimen identity is independent of tube stock. Display the correct color
+  // even on original Transport Tubes, not only on Sterile cups.
+  function collectionSpecimenBadgesForItem(item) {
+    const badges = new Map();
+    uniqueTests(item.tests || []).forEach(test => {
+      const specimen = normalizeSpecimenType(test.specimenType);
+      const value = specimen.toLowerCase().trim();
+      const group = collectionSpecimenGroupForTest(test);
+      let badge = null;
+      if (group === 'urine') {
+        badge = { label: urineCollectionType(test).label || 'Urine', kind: 'urine' };
+      } else if (group === 'stool') {
+        badge = { label: 'Stool', kind: 'stool' };
+      } else if (/\bcsf\b|cerebrospinal/.test(value)) {
+        badge = { label: 'CSF', kind: 'csf' };
+      } else if (/\bsputum\b/.test(value)) {
+        badge = { label: 'Sputum', kind: 'sputum' };
+      } else if (group !== 'blood' &&
+        (/\b(?:fluid|fluids|effusion|ascites|ascitic|drainage|saliva|semen|bile|synovial|pleural|peritoneal|pericardial|amniotic|joint|bursal|aqueous|vitreous)\b/.test(value) ||
+         /\b(?:jp|joint)\s+aspirate\b/.test(value))) {
+        badge = { label: /^(?:body|bodily)\s+fluid$/i.test(specimen) ? 'Body Fluid' : titleCaseSpecimen(specimen), kind: 'fluid' };
+      }
+      if (badge) badges.set(badge.kind + '|' + badge.label.toLowerCase(), badge);
+    });
+    return Array.from(badges.values());
+  }
+
   function collectionSpecimenBadgeForItem(item) {
-    const tests = uniqueTests(item.tests || []);
-    const groups = new Set(tests.map(collectionSpecimenGroupForTest));
-    if (groups.size !== 1) return '';
-    const group = Array.from(groups)[0];
-    if (group === 'stool') return 'Stool';
-    if (group !== 'urine') return '';
-    const labels = Array.from(new Set(tests.map(test => urineCollectionType(test).label).filter(Boolean)));
-    if (labels.length === 1) return labels[0];
-    return 'Urine';
+    const badges = collectionSpecimenBadgesForItem(item);
+    return badges.length === 1 ? badges[0].label : '';
+  }
+
+  function collectionSpecimenBadgeKindForItem(item) {
+    const badges = collectionSpecimenBadgesForItem(item);
+    return badges.length === 1 ? badges[0].kind : 'other';
   }
 
   function collectionMergeSubtypeForItem(item) {
@@ -4629,8 +4654,8 @@
 
   function printCollectionGroups(items, wholeBloodGroups) {
     const cards = items.map(item => {
-      const specimenBadge = collectionSpecimenBadgeForItem(item);
-      const specimenGroup = collectionSpecimenGroupForItem(item);
+      const specimenBadges = collectionSpecimenBadgesForItem(item).map(({ label, kind }) =>
+        `<span class="print-collection-specimen-badge specimen-${kind}">${escapeHtml(label)}</span>`).join('');
       const tigerBadge = printSstTigerBadge(item);
       const microtainerBadge = item.className === 'tube-microtainer' ? '<span class="microtainer-flag">MICROTAINER</span>' : '';
       const printedTestCount = uniqueTests(item.tests).length;
@@ -4644,7 +4669,7 @@
       const minimumYieldTests = yieldReviewTests.filter(test => singleSstSpecimenVolumeLevel(test) === 'minimum' && !needsTwoSstForMinimum(test));
       const preferredYieldTests = yieldReviewTests.filter(test => singleSstSpecimenVolumeLevel(test) === 'preferred');
       return `<article class="print-collection-card${longSstList ? ' is-sst-long' : printedTestCount >= 12 ? ' is-long' : ''}" style="--print-column-rows:${columnRows}">
-        <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${microtainerBadge}${specimenBadge ? `<span class="print-collection-specimen-badge specimen-${specimenGroup}">${escapeHtml(specimenBadge)}</span>` : ''}${printCollectionWholeBloodDetail(item, wholeBloodGroups)}</div>
+        <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${microtainerBadge}${specimenBadges ? `<span class="print-collection-specimen-list">${specimenBadges}</span>` : ''}${printCollectionWholeBloodDetail(item, wholeBloodGroups)}</div>
         ${item.detail ? `<div class="print-container-detail">${escapeHtml(item.detail)}</div>` : ''}
         ${item.className === 'tube-microtainer' ? '<div class="print-microtainer-note">Microcollection tubes · protect from light; follow the test-specific Microtainer instructions.</div>' : ''}
         ${yieldReviewTests.length ? `<div class="print-sst-volume-warning">
@@ -4898,7 +4923,9 @@
       // A Sterile cup, for example, may be used for either urine or stool, but those
       // specimens should never be combined into the same collection card/count.
       const specimenGroup = collectionSpecimenGroupForTest(test);
-      const specimenSubtype = specimenGroup === 'urine' ? urineCollectionType(test).key : specimenGroup;
+      const specimenSubtype = specimenGroup === 'urine' ? urineCollectionType(test).key
+        : specimenGroup === 'other' ? (normalizeSearch(normalizeSpecimenType(test.specimenType)) || 'other')
+        : specimenGroup;
       const urineCup = specimenGroup === 'urine' && info.className === 'tube-urine-cup';
       const separateCup = urineCup && !isShareableUrineCupTest(test);
       const separateStool = specimenGroup === 'stool' && info.className === 'tube-urine-cup';
@@ -6573,10 +6600,8 @@
       <div class="print-logistics-totals">
         <div class="print-total-box collect-total"><span>TOTAL TO COLLECT</span><strong>${totalCollect}</strong><small>tubes / collection containers</small></div>
         <div class="print-collect-chips">${collectionItems.map(item => {
-          const specimenGroup = collectionSpecimenGroupForItem(item);
-          const specimenTag = item.className === 'tube-urine-cup' && (specimenGroup === 'urine' || specimenGroup === 'stool')
-            ? `<span class="print-collect-chip-specimen specimen-${specimenGroup}">${escapeHtml(specimenGroup === 'stool' ? 'Stool' : 'Urine')}</span>`
-            : '';
+          const specimenTag = collectionSpecimenBadgesForItem(item).map(({ label, kind }) =>
+            `<span class="print-collect-chip-specimen specimen-${kind}">${escapeHtml(label)}</span>`).join('');
           return `<span class="print-collect-chip tube ${item.displayClassName || item.className}"><b>${item.count}</b> ${escapeHtml(item.label)}${specimenTag}</span>`;
         }).join('')}</div>
         <div class="print-total-box submit-total"><span>TOTAL TO SUBMIT</span><strong>${bags.length}</strong><small>${bags.length === 1 ? 'transport bag' : 'transport bags'}</small></div>
