@@ -5348,3 +5348,55 @@ dialog::backdrop { background: rgba(18,36,43,.52); backdrop-filter: blur(3px); }
   border-color: #a7caa1 !important;
   color: #3d6640 !important;
 }
+
+/* Specimen source labels across Quest and Labcorp collection cards.
+   Badge identity follows the specimen, not the source tube or cup stock. */
+.print-collection-specimen-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  max-width: 100%;
+}
+.print-collection-specimen-list > .print-collection-specimen-badge {
+  margin-left: 0;
+}
+.print-collection-specimen-badge.specimen-urine,
+.print-collect-chip-specimen.specimen-urine {
+  background: #fff2b3 !important;
+  border-color: #e2bc32 !important;
+  color: #6b4a08 !important;
+}
+.print-collection-specimen-badge.specimen-stool,
+.print-collect-chip-specimen.specimen-stool {
+  background: #f5d3a1 !important;
+  border-color: #cc8b35 !important;
+  color: #7b420c !important;
+}
+.print-collection-specimen-badge.specimen-csf,
+.print-collect-chip-specimen.specimen-csf {
+  background: #eae4f8 !important;
+  border-color: #b8a9d6 !important;
+  color: #604a80 !important;
+}
+.print-collection-specimen-badge.specimen-fluid,
+.print-collect-chip-specimen.specimen-fluid {
+  background: #dff1f2 !important;
+  border-color: #92c3c5 !important;
+  color: #255a61 !important;
+}
+.print-collection-specimen-badge.specimen-sputum,
+.print-collect-chip-specimen.specimen-sputum {
+  background: #e3f0df !important;
+  border-color: #a7caa1 !important;
+  color: #3d6640 !important;
+}
+@media print {
+  .print-collection-specimen-list > .print-collection-specimen-badge,
+  .print-collect-chip-specimen {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
