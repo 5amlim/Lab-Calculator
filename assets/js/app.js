@@ -537,14 +537,8 @@
           }
           builtIns[index] = updated;
         } else if (String(base.testCode || '') === '92717') {
-          // Older saved directory-only copies must not disable the verified cart-ready entry.
-          // Keep a user's intentional Do Not Perform status, but refresh the two physical
-          // EDTA draws, distinct ambient/refrigerated bag handling and specialty warning.
-          builtIns[index] = {
-            ...override, ...base,
-            id: base.id,
-            status: override.status === 'blocked' ? 'blocked' : 'active'
-          };
+          // Clinic-wide Do Not Perform: old saved active/reference overrides cannot reactivate it.
+          builtIns[index] = { ...override, ...base, id: base.id, status: 'blocked' };
         } else if (['15447', '6421', '90567'].includes(base.testCode)) {
           // Preserve explicit local edits, but correct fields still matching
           // the obsolete bundled defaults for these verified Quest codes.
@@ -587,7 +581,12 @@
       .filter(test => !RETIRED_TEST_CODES.has(test.testCode))
       .map(applyLocalSupplyPolicy)
       .map(verifiedAffirmRecord)
-      .map(blockHairOrNailSpecimen);
+      .map(blockHairOrNailSpecimen)
+      // Prevent any legacy custom copy or user edit of 92717 from re-enabling collection.
+      .map(test => String(test.testCode || '').trim() === '92717'
+        ? { ...test, status: 'blocked',
+            specialInstructions: 'DO NOT PERFORM ONSITE. Quest 92717 is not approved for clinic collection. Contact the Lab Supervisor if requested.' }
+        : test);
   }
 
   function userStateFromDatabase() {
