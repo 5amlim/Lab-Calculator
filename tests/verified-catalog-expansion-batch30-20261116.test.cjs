@@ -87,8 +87,9 @@ test('Quest von Willebrand comprehensive requires four separate frozen PPP aliqu
  assert.equal(r.drawContainer,'Light Blue Citrate');
  assert.equal(r.transportContainer,'Transport Tube');
  assert.equal(r.specimenType,'Platelet-poor plasma');
- assert.equal(r.collectionCount,3);
+ assert.equal(r.collectionCount,4);
  assert.equal(r.submissionCount,4);
+ assert.match(r.specialInstructions,/FOUR full light-blue 3\.2% sodium citrate tubes/);
  assert.equal(r.transportTemperature,'Frozen');
  assert.match(r.specialInstructions,/SECOND time|second time/i);
 });
