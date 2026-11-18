@@ -26,8 +26,19 @@
       if (/\btb\s*1\b/.test(value)) return 'tube-qft-tb1';
       if (/\btb\s*2\b/.test(value)) return 'tube-qft-tb2';
       if (/\bmitogen\b/.test(value)) return 'tube-qft-mitogen';
+      return 'tube-green';
     }
-    if (/microtainer/.test(value)) return 'tube-microtainer';
+    if (/microtainer/.test(value)) {
+      if (/lavender|edta/.test(value) && !/gray|fluoride/.test(value)) return 'tube-microtainer tube-micro-lavender';
+      if (/gray|fluoride/.test(value)) return 'tube-microtainer tube-micro-gray';
+      if (/\bpst\b|mint green/.test(value)) return 'tube-microtainer tube-micro-mint';
+      if (/heparin|green/.test(value)) return 'tube-microtainer tube-micro-green';
+      if (/red top|no additive|clot activator/.test(value) && !/\bsst\b/.test(value)) return 'tube-microtainer tube-micro-red';
+      if (/amber/.test(value)) return 'tube-microtainer';
+      if (/gold|\bsst\b/.test(value)) return 'tube-microtainer tube-micro-gold';
+      return 'tube-microtainer tube-micro-verify';
+    }
+    if (/\bsalivette\b/.test(value)) return 'tube-salivette';
     if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
     if (/e[- ]?swab|\bamies\b/.test(value)) return 'tube-eswab';
     if (/\butm\b|\bvtm\b|viral transport|universal transport/.test(value)) return 'tube-utm';
@@ -37,7 +48,9 @@
     if (/para[- ]?pak\s+white|screw[- ]?cap(?:ped)?\s+stool/.test(value)) return 'tube-stool-clean';
     if (/blood\s+culture\s+bottles?/.test(value)) return 'tube-culture';
     if (/bac(?:t)?[\/ -]?alert|bactec/.test(value)) return 'tube-culture';
-    if (/salivette|screw[- ]?cap(?:ped)?\s+(?:csf|plastic)|dry\s+swab|polypropylene\s+transport/i.test(value)) return 'tube-transport';
+    if (/^(?:clean screw[- ]?capped plastic vial \(no preservative\)|polypropylene transport tube|chilled plastic screw[- ]?cap vial|plastic (?:serum|plasma) transport tube)$/.test(value)) return 'tube-transport tube-transport-green-top';
+    if (/screw[- ]?cap(?:ped)?\s+csf/.test(value)) return 'tube-urine-cup';
+    if (/dry\s+swab/.test(value)) return 'tube-transport';
     if (/\baffirm\b|\batts\b/.test(value)) return 'tube-affirm';
     if (/aptima/.test(value) && /\burine\b/.test(value)) return 'tube-aptima-urine';
     if (/aptima/.test(value) && /\bunisex\b|white[- ]?label/.test(value)) return 'tube-aptima-unisex';
@@ -103,7 +116,7 @@
       'aptima-unisex':'tube-aptima-unisex', 'aptima-urine':'tube-aptima-urine',
       'aptima-other':'tube-transport', viral:'tube-utm', stool:'tube-total-fix',
       serum:'tube-transport tube-transport-green-top', plasma:'tube-transport tube-transport-green-top',
-      'chilled-vial':'tube-transport', 'clean-vial':'tube-transport',
+      'chilled-vial':'tube-transport tube-transport-green-top', 'clean-vial':'tube-transport tube-transport-green-top',
       protease:'tube-transport', 'blood-culture':'tube-culture',
       microtainer:'tube-microtainer', qft:'tube-green', nmr:'tube-nmr-lipotube',
       '24h-urine':'tube-24h-urine', urisponge:'tube-urisponge',
@@ -115,7 +128,7 @@
       'blood-royal-blue-edta':'tube-royal-edta',
       'blood-royal-blue-serum':'tube-royal-no-additive',
       'blood-royal-blue-heparin':'tube-royal-heparin',
-      salivette:'tube-transport',
+      salivette:'tube-salivette',
       'dry-swab':'tube-transport', 'cytology-vial':'tube-transport',
       'breath-bag':'', special:'tube-transport'
     })[value] || '';
@@ -136,11 +149,12 @@
   // Keep one stored original-tube choice, with display wording specific to
   // the selected collection tube. Changing wording must not change saved values.
   function isSstSource(item) {
-    return /\bsst\b|\bgold\b|serum separator|red\s*\/\s*black/i.test(String(sourceContainerName(item) || ''));
+    const name = String(sourceContainerName(item) || '');
+    return !/microtainer|quantiferon/i.test(name) && /\bsst\b|\bgold\b|serum separator|red\s*\/\s*black/i.test(name);
   }
   function optionLabel(item, option) {
     if (fieldName(item) === 'transportContainer' && option.value === 'Submit in original tube') {
-      return isSstSource(item) ? 'Spun SST / Original tube' : 'Submit in original container';
+      return isSstSource(item) ? 'Submit in original container (spun SST)' : 'Submit in original container (no transfer)';
     }
     return option.textContent.trim();
   }
