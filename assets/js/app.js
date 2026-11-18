@@ -2052,7 +2052,7 @@
   function positionMobileCatalogFilters() {
     const panel = els.catalogFilterPanel;
     if (panel.classList.contains('hidden')) return;
-    if (!matchMedia('(max-width: 720px)').matches) {
+    if (!matchMedia('(max-width: 720px), (hover: none) and (pointer: coarse)').matches) {
       panel.style.removeProperty('--catalog-filter-top');
       return;
     }
@@ -2069,7 +2069,7 @@
     if (!open && !els.catalogFilterPanel.classList.contains('hidden')) window.closePortalSelects?.();
     els.catalogFilterPanel.classList.toggle('hidden', !open);
     els.catalogFilterButton.setAttribute('aria-expanded', String(open));
-    const mobileOpen = open && matchMedia('(max-width: 720px)').matches;
+    const mobileOpen = open && matchMedia('(max-width: 720px), (hover: none) and (pointer: coarse)').matches;
     document.documentElement.classList.toggle('catalog-filter-scroll-lock', mobileOpen);
     document.body.classList.toggle('catalog-filter-scroll-lock', mobileOpen);
     els.catalogFilterControl.closest('.filter-row')?.classList.toggle('catalog-filter-expanded', open);
@@ -2078,7 +2078,7 @@
   }
   window.addEventListener('resize', () => {
     if (els.catalogFilterPanel.classList.contains('hidden')) return;
-    const mobileOpen = matchMedia('(max-width: 720px)').matches;
+    const mobileOpen = matchMedia('(max-width: 720px), (hover: none) and (pointer: coarse)').matches;
     document.documentElement.classList.toggle('catalog-filter-scroll-lock', mobileOpen);
     document.body.classList.toggle('catalog-filter-scroll-lock', mobileOpen);
     positionMobileCatalogFilters();
@@ -7344,7 +7344,7 @@
     // Keep the same two-column card layout. On a phone, fit the print sheet
     // inside the page instead of forcing its 10-inch landscape width onto a
     // portrait page (which can clip the right-hand borders).
-    const mobilePrint = window.matchMedia('(max-width: 720px)').matches;
+    const mobilePrint = window.matchMedia('(max-width: 720px), (hover: none) and (pointer: coarse)').matches;
     document.documentElement.classList.toggle('mobile-print', mobilePrint);
     let mobilePageRule = document.getElementById('mobilePrintPageRule');
     if (mobilePrint && !mobilePageRule) {
