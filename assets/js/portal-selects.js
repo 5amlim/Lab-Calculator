@@ -192,17 +192,71 @@
     item.button.disabled = item.select.disabled;
     item.button.setAttribute('aria-label', `${accessibleLabel(item)}: ${item.text.textContent}`);
   }
+  // Add Missing Test uses one vertically scrolling menu with subtle section
+  // accents. The original <select> values and all collection rules stay intact.
+  const containerSections = [
+    {key:'blood', label:'Blood collection tubes'},
+    {key:'special-blood', label:'Specialty blood collection'},
+    {key:'aliquots', label:'Transport & aliquot tubes'},
+    {key:'urine', label:'Urine containers'},
+    {key:'swabs', label:'Swabs, culture & cytology'},
+    {key:'stool', label:'Stool containers'},
+    {key:'special', label:'Specialty & body fluids'},
+    {key:'other', label:'Other / verification'}
+  ];
+  function isFormContainerPicker(item) {
+    return ['drawContainer', 'transportContainer'].includes(fieldName(item))
+      && Boolean(item.select.closest('#testForm'));
+  }
+  function containerSection(item, option) {
+    const name = (option.value + ' ' + option.textContent).toLowerCase();
+    const draw = fieldName(item) === 'drawContainer';
+    if (/__other__|do not collect|verify official instructions|manually type/.test(name)) return 'other';
+    if (/submit in original/.test(name)) return 'aliquots';
+    if (/cary[- ]?blair|total[- ]?fix|formalin|\bpva\b|stool|para[- ]?pak/.test(name)) return 'stool';
+    if (/24[- ]?hour urine|urine|uri[- ]?sponge|sterile cup|trace[- ]?metal[- ]?free (?:plastic|collection) container|red\/yellow swirl|gray[- ]?top urine/.test(name))
+      return 'urine';
+    if (/swab|amies|affirm|aptima|fetal fibronectin|viral transport|universal transport|\butm\b|thinprep|preservcyt|flocked np/.test(name))
+      return 'swabs';
+    if (/blood culture|bact\/alert|quanti[- ]?feron|microtainer|nmr lipotube/.test(name))
+      return 'special-blood';
+    if (/salivette|saliva|\bcsf\b/.test(name)) return 'special';
+    if (/sst|gold|red top|lavender|pink edta|k2 edta|tan (?:top|sodium)|green (?:sodium|lithium|heparin)|light blue|citrate|royal blue|yellow acd|gray fluoride/.test(name))
+      return 'blood';
+    if (/transport|screw[- ]?cap|plastic vial|protease inhibitor|metal[- ]?free|acid[- ]?washed|amber|polypropylene|frozen|chilled/.test(name))
+      return 'aliquots';
+    return draw ? 'special' : 'aliquots';
+  }
+  function orderedPortalChoices(item) {
+    const options = [...item.select.options].filter(option =>
+      !option.hidden && !nestedGroupForValue(item, option.value));
+    if (!isFormContainerPicker(item)) return options.map(option => ({option}));
+    const groups = new Map(containerSections.map(section => [section.key, []]));
+    const first = [];
+    for (const option of options) {
+      if (!option.value) first.push({option});
+      else groups.get(containerSection(item,option)).push(option);
+    }
+    const rows = [...first];
+    for (const section of containerSections) {
+      const members = groups.get(section.key);
+      if (!members.length) continue;
+      rows.push({section, count:members.length});
+      members.forEach(option => rows.push({option}));
+    }
+    return rows;
+  }
   function position(item) {
     if (!active || active !== item) return;
     const box = item.button.getBoundingClientRect();
     if (box.bottom < 0 || box.top > innerHeight) { closeAll(); return; }
     const side = 12;
-    const width = Math.min(Math.max(box.width, 210), innerWidth - side * 2);
+    const width = Math.min(Math.max(box.width, isFormContainerPicker(item) ? 286 : 210), innerWidth - side * 2);
     const left = Math.max(side, Math.min(box.left, innerWidth - side - width));
     const downSpace = innerHeight - box.bottom - 16;
     const upSpace = box.top - 16;
     const goUp = downSpace < 180 && upSpace > downSpace;
-    const height = Math.min(300, Math.max(95, (goUp ? upSpace : downSpace) - 8));
+    const height = Math.min(isFormContainerPicker(item) ? 390 : 300, Math.max(95, (goUp ? upSpace : downSpace) - 8));
     item.menu.style.width = `${width}px`;
     item.menu.style.left = `${left}px`;
     item.menu.style.maxHeight = `${height}px`;
@@ -408,7 +462,7 @@
     if (item.button.disabled) return;
     if (item.select.id === 'transportContainer') syncFrozenTransportOption();
     const menu = document.createElement('div');
-    menu.className = 'portal-select-menu';
+    menu.className = 'portal-select-menu' + (isFormContainerPicker(item) ? ' portal-select-menu--container-grouped' : '');
     menu.id = 'portal-menu-' + item.select.id;
     menu.setAttribute('role','listbox');
     menu.setAttribute('aria-label',accessibleLabel(item));
@@ -417,8 +471,22 @@
     // the generic Swab / Body Fluid selection available.
     const root = item.select.closest('dialog') ||
       item.select.closest('#catalogFilterControl') || document.body;
-    [...item.select.options].forEach((option, index) => {
-      if (option.hidden || nestedGroupForValue(item, option.value)) return;
+    orderedPortalChoices(item).forEach((entry, index) => {
+      if (entry.section) {
+        const heading = document.createElement('div');
+        heading.className = 'portal-select-group-heading';
+        heading.dataset.accent = entry.section.key;
+        heading.setAttribute('role','presentation');
+        const title = document.createElement('span');
+        title.textContent = entry.section.label;
+        const count = document.createElement('small');
+        count.textContent = entry.count;
+        count.setAttribute('aria-hidden','true');
+        heading.append(title, count);
+        menu.append(heading);
+        return;
+      }
+      const option = entry.option;
       const choice = document.createElement('button');
       choice.type = 'button';
       choice.className = 'portal-select-option';
