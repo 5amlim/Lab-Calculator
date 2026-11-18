@@ -31,7 +31,7 @@
     if (/microtainer/.test(value)) {
       if (/lavender|edta/.test(value) && !/gray|fluoride/.test(value)) return 'tube-microtainer tube-micro-lavender';
       if (/gray|fluoride/.test(value)) return 'tube-microtainer tube-micro-gray';
-      if (/\bpst\b|mint green/.test(value)) return 'tube-microtainer tube-micro-mint';
+      if (/\bpst\b|mint green/.test(value)) return /amber/.test(value) ? 'tube-microtainer tube-micro-amber-pst' : 'tube-microtainer tube-micro-mint';
       if (/heparin|green/.test(value)) return 'tube-microtainer tube-micro-green';
       if (/red top|no additive|clot activator/.test(value) && !/\bsst\b/.test(value)) return 'tube-microtainer tube-micro-red';
       if (/amber/.test(value)) return 'tube-microtainer';
