@@ -84,7 +84,7 @@ const additions=[
         "transportTemperatureRaw": "Refrigerated",
         "spin": "No",
         "specialLabeling": "Label RANDOM URINE · ORIGINAL STERILE CUP",
-        "specialInstructions": "Collect a separate random urine specimen into a dedicated plastic leak-proof Sterile cup, at least 25 mL preferred or 10 mL minimum. Submit the ORIGINAL cup refrigerated, do not pool with other urine tests or add preservative. This is the required urine immunofixation specimen."
+        "specialInstructions": "Collect a separate urine specimen (random, unpreserved) into a dedicated plastic leak-proof Sterile cup, at least 25 mL preferred or 10 mL minimum. Submit the ORIGINAL cup refrigerated, do not pool with other urine tests or add preservative. This is the required urine immunofixation specimen."
       }
     ]
   },
