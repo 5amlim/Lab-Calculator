@@ -174,11 +174,131 @@
     addToSummaryRow: $('addToSummaryRow'), optionalDetails: $('optionalDetails'), openDirectoryFromDialogButton: $('openDirectoryFromDialogButton'), toast: $('toast')
   };
 
+  const LAB_SEARCH_ALIAS_RULES = [
+    { name: /^(?:cmp|comprehensive metabolic panel)(?:$|\s)/, terms: ['chem 14', 'chemistry 14', 'comprehensive metabolic panel', 'cmp'] },
+    { name: /^(?:bmp|basic metabolic panel)(?:$|\s)/, terms: ['chem 7', 'chemistry 7', 'basic metabolic panel', 'bmp'] },
+    { name: /^(?:cbc|complete blood count)(?:$|\s)/, terms: ['cbc', 'complete blood count', 'blood count', 'hemogram'] },
+    { name: /^cbc\b.*(?:diff|differential)/, terms: ['cbc diff', 'cbc with diff', 'cbc with differential', 'complete blood count with differential', 'cbc w diff', 'cbc d p'] },
+    { name: /^cbc\b.*(?:h h|indices)/, terms: ['cbc without diff', 'cbc no diff', 'cbc no differential'] },
+    { name: /^(?:hemoglobin a1c|a1c)(?:$|\s)/, terms: ['hba1c', 'hb a1c', 'hgb a1c', 'glycated hemoglobin', 'glycosylated hemoglobin', 'a1c'] },
+    { name: /^tsh$|^tsh(?: reflex| and free| with hama| pregnancy)/, terms: ['thyroid stimulating hormone', 'thyrotropin'] },
+    { name: /^tsh.*reflex.*(?:free|t4)/, terms: ['tsh reflex', 'tsh reflex t4', 'tsh reflex ft4', 'thyroid reflex'] },
+    { name: /^t4 free\b|^free t4\b/, terms: ['ft4', 'free t4', 'free thyroxine'] },
+    { name: /^t3 free\b|^free t3\b|^t3\s+free\b/, terms: ['ft3', 'free t3', 'free triiodothyronine'] },
+    { name: /^thyroid peroxidase antibody\b/, terms: ['tpo ab', 'anti tpo', 'thyroid peroxidase antibody'] },
+    { name: /^tsi\b/, terms: ['thyroid stimulating immunoglobulin', 't s i'] },
+    { name: /^lipid panel\b/, terms: ['lipid profile', 'cholesterol panel', 'lipids'] },
+    { name: /^triglycerides?\b/, terms: ['trigs', 'tg triglycerides', 'trig'] },
+    { name: /^hdl cholesterol\b/, terms: ['hdl c', 'good cholesterol'] },
+    { name: /^(?:direct ldl|ldl cholesterol)\b/, terms: ['ldl c', 'bad cholesterol'] },
+    { name: /^apolipoprotein b\b/, terms: ['apo b', 'apob'] },
+    { name: /^lipoprotein a\b/, terms: ['lp a', 'lpa', 'lipoprotein a'] },
+    { name: /^(?:crp|c reactive protein)$/, terms: ['c reactive protein', 'standard crp', 'crp'] },
+    { name: /^(?:hs crp|cardioiq hs crp|cardio iq hs crp)\b/, terms: ['hscrp', 'hs crp', 'high sensitivity crp', 'high sensitive c reactive protein', 'cardiac crp'] },
+    { name: /^(?:esr|erythrocyte sedimentation rate|sedimentation rate)\b/, terms: ['sed rate', 'sedimentation rate', 'erythrocyte sedimentation rate', 'esr'] },
+    { name: /^ana screen\b/, terms: ['antinuclear antibody', 'anti nuclear antibody', 'ana screening', 'ana screen'] },
+    { name: /^pt\s+inr\b/, terms: ['protime', 'prothrombin time', 'pt inr', 'prothrombin time inr'] },
+    { name: /^partial thromboplastin time activated\b/, terms: ['ptt', 'aptt', 'activated partial thromboplastin time', 'partial thromboplastin time'] },
+    { name: /^d dimer\b/, terms: ['d dimer', 'ddimer', 'dimer'] },
+    { name: /^creatine kinase.*total|^ck\s+total$/, terms: ['ck', 'cpk', 'creatine phosphokinase', 'total ck'] },
+    { name: /^troponin i high sensitivity\b/, terms: ['hs tni', 'hstni', 'high sensitivity troponin i', 'hs troponin i'] },
+    { name: /^troponin t high sensitivity\b/, terms: ['hs tnt', 'hstnt', 'high sensitivity troponin t', 'hs troponin t'] },
+    { name: /^pro bnp n terminal\b|^cardio iq nt probnp\b/, terms: ['nt probnp', 'ntprobnp', 'pro bnp', 'n terminal pro bnp'] },
+    { name: /^bnp$/, terms: ['b type natriuretic peptide', 'brain natriuretic peptide'] },
+    { name: /^psa total\b/, terms: ['total psa', 'prostate specific antigen', 'psa screening'] },
+    { name: /^hcg.*quantitative|^hcg total quantitative/, terms: ['quant hcg', 'beta hcg quantitative', 'bhcg quant', 'hcg quant'] },
+    { name: /^hcg.*qualitative|^hcg total qualitative/, terms: ['qual hcg', 'pregnancy blood test', 'beta hcg qualitative'] },
+    { name: /^hepatitis b surface antigen\b/, terms: ['hbsag', 'hep b surface ag', 'hbv surface antigen'] },
+    { name: /^hepatitis b surface antibody\b/, terms: ['hbsab', 'anti hbs', 'hep b surface antibody'] },
+    { name: /^hepatitis b core antibody total\b/, terms: ['hbcab total', 'anti hbc total', 'hbv core antibody'] },
+    { name: /^hepatitis c antibody\b/, terms: ['hcv ab', 'anti hcv', 'hep c antibody'] },
+    { name: /^hiv 1 2 antigen and antibodies fourth generation\b/, terms: ['hiv 4th gen', 'hiv 4th generation', 'hiv ag ab', 'hiv antigen antibody', 'fourth generation hiv'] },
+    { name: /^urinalysis\b/, terms: ['ua', 'urine analysis', 'urine test'] },
+    { name: /^urinalysis complete with reflex to culture\b/, terms: ['ua reflex culture', 'ua with reflex', 'ua cx reflex', 'urinalysis reflex culture'] },
+    { name: /^culture urine routine\b/, terms: ['ucx', 'urine cx', 'urine culture', 'culture urine', 'urine c s'] },
+    { name: /^albumin random urine with creatinine\b/, terms: ['uacr', 'uac ratio', 'urine acr', 'microalbumin creatinine ratio', 'urine microalbumin creatinine'] },
+    { name: /^albumin random urine without creatinine\b/, terms: ['urine microalbumin', 'microalbumin urine', 'urine albumin'] },
+    { name: /^quanti feron tb gold plus\b|^quantiferon tb gold plus\b/, terms: ['qft', 'qft gold', 'quant gold', 'quantiferon', 'quantiferon gold', 'tb gold', 'igra tb'] },
+    { name: /^chlamydia.*neisseria gonorrhoeae\b/, terms: ['ct ng', 'gc ct', 'gc chlamydia', 'chlamydia gonorrhea', 'gonorrhea chlamydia', 'gc chlamydia pcr'] },
+    { name: /^neisseria gonorrhoeae\b/, terms: ['gonorrhea', 'gonorrhoea', 'gc test'] },
+    { name: /^chlamydia trachomatis\b/, terms: ['chlamydia', 'ct test'] },
+    { name: /^vitamin b12\b|^b12$/, terms: ['vit b12', 'vitamin b 12', 'cobalamin', 'b 12'] },
+    { name: /^b12 folate panel\b/, terms: ['b12 folate', 'b12 and folate', 'folate b12'] },
+    { name: /^hemoglobin$/, terms: ['hgb', 'hb', 'hemoglobin level'] },
+    { name: /^hematocrit$/, terms: ['hct', 'hematocrit level'] },
+    { name: /^platelet count\b/, terms: ['plt', 'platelets', 'platelet count'] },
+    { name: /^fsh(?:$|\s)/, terms: ['follicle stimulating hormone', 'follicle stimulating hormone fsh'] },
+    { name: /^luteinizing hormone\b/, terms: ['lh', 'lutropin', 'luteinizing hormone'] },
+    { name: /^folate serum\b/, terms: ['folic acid', 'serum folate'] },
+    { name: /^(?:vitamin d 25 hydroxy|cardio iq vitamin d 25 hydroxy|questassured.*25 hydroxyvitamin d)\b/, terms: ['25 oh vit d', '25ohd', '25 hydroxy vitamin d', 'vit d 25', 'vitamin d 25', 'vitamin d', 'vit d'] },
+    { name: /^lft\b|^hepatic function panel\b/, terms: ['lft', 'liver function tests', 'liver panel', 'hepatic panel'] },
+    { name: /^iron total and total iron binding capacity\b/, terms: ['iron tibc', 'iron and tibc', 'iron binding capacity'] },
+    { name: /^anti streptolysin o antibody\b/, terms: ['aso', 'aso titer', 'antistreptolysin o'] },
+    { name: /^epstein barr virus antibody panel\b/, terms: ['ebv panel', 'epstein barr panel', 'mono antibodies'] },
+    { name: /^epstein barr virus early antigen d antibody\b/, terms: ['ebv ea d', 'ebv early antigen d', 'ea d igg'] },
+    { name: /^dihydrotestosterone$/, terms: ['dht'] }
+  ];
+
+  // Additional catalog-name variants shared by Quest and Labcorp.
+  // These are search hints only; they never substitute an order code.
+  const SMART_LAB_ALIAS_RULES = [
+    { name: /^(?:sed rate|sedimentation rate|erythrocyte sedimentation rate)\b/, terms: ['esr', 'sed rate', 'sedimentation rate', 'westergren'] },
+    { name: /^(?:metabolic panel\b.*\bbasic\b|basic metabolic panel\b|bmp\b)/, terms: ['bmp', 'basic metabolic panel', 'chem 7', 'chem 8'] },
+    { name: /^(?:metabolic panel\b.*\bcomprehensive\b|comprehensive metabolic panel\b|cmp\b)/, terms: ['cmp', 'comprehensive metabolic panel', 'chem 14'] },
+    { name: /^(?:complete blood count|cbc)\b.*\b(?:with|w)\b.*\b(?:diff|differential)\b/, terms: ['cbc diff', 'cbc with diff', 'cbc w diff', 'cbc differential'] },
+    { name: /^(?:complete blood count|cbc)\b.*\b(?:without|no)\b.*\b(?:diff|differential)\b/, terms: ['cbc no diff', 'cbc without diff', 'cbc w o diff'] },
+    { name: /^(?:hemoglobin a1c|hba1c|glycohemoglobin)\b/, terms: ['a1c', 'hba1c', 'hgb a1c', 'glycated hemoglobin'] },
+    { name: /^troponin i\b.*\b(?:high sensitivity|highly sensitive)\b/, terms: ['hs trop i', 'hs troponin i', 'hstni', 'tni hs'] },
+    { name: /^troponin t\b.*\b(?:high sensitivity|highly sensitive)\b/, terms: ['hs trop t', 'hs troponin t', 'hstnt', 'tnt hs'] },
+    { name: /^(?:nt pro bnp|pro bnp|n terminal pro bnp|b type natriuretic peptide n terminal)\b/, terms: ['nt probnp', 'nt pro bnp', 'pro bnp'] },
+    { name: /^(?:culture urine|urine culture)\b/, terms: ['ucx', 'urine cx', 'urine culture'] },
+    { name: /^urinalysis\b.*\breflex\b.*\bculture\b/, terms: ['ua reflex culture', 'ua reflex', 'ua with reflex culture'] },
+    { name: /^(?:25 hydroxy vitamin d|vitamin d 25 hydroxy|vitamin d 25 oh)\b/, terms: ['25ohd', '25 oh vit d', 'vit d 25', 'vitamin d 25'] },
+    { name: /^(?:quanti feron|quantiferon)\b/, terms: ['qft', 'quant gold', 'quantiferon gold', 'tb gold', 'igra'] },
+    { name: /^(?:iron and tibc|iron total and total iron binding capacity)\b/, terms: ['iron tibc', 'tibc', 'iron binding capacity'] },
+    { name: /^(?:c reactive protein|crp)\b(?!.*\bhigh sensitivity\b)/, terms: ['crp', 'c reactive protein'] },
+    { name: /^c reactive protein\b.*\b(?:high sensitivity|cardiac)\b|^hs crp\b/, terms: ['hscrp', 'hs crp', 'high sensitivity crp'] },
+    { name: /^thyroid stimulating hormone\b/, terms: ['tsh', 'thyrotropin'] },
+    { name: /^thyroid stimulating hormone\b.*\breflex\b/, terms: ['tsh reflex', 'thyroid reflex'] }
+  ];
+
+
   const seedDatabase = (window.SEED_TESTS || []).map(normalizeRecord);
   // Keep Affirm visible even if a bundled regional directory omitted the record.
   if (!seedDatabase.some(test => test.testCode === '14577')) {
     seedDatabase.push(normalizeRecord({ id: 'quest-14577', testCode: '14577' }));
   }
+
+  // Lab Central requests a read-only published catalog in a same-origin frame.
+  // Apply the calculator's actual clinic-wide policies, but never read or write
+  // localStorage or include staff-created/manual records and browser overrides.
+  if (window.parent !== window && new URLSearchParams(window.location.search).get('labcentral-index') === '1') {
+    const published = applyUserState({customTests: [], overrides: []});
+    const categories = window.LabClinicalCategories;
+    const labels = new Map((categories?.options || []).map(c => [c.id,c.label]));
+    const byCode = new Map();
+    for (const test of published) {
+      if (test.status !== 'active' || !test.testCode || !test.testName) continue;
+      const code = String(test.testCode).trim();
+      if (!/^\d{2,8}$/.test(code)) continue;
+      const aliases = Array.from(new Set([
+        ...curatedLabAliases(normalizeSearch(test.testName)),
+        ...(window.QUEST_WORKBOOK_SEARCH_ALIASES?.[code] || []),
+        ...(test.searchAliases || []),
+        ...(categories?.forTest(test) || []).flatMap(id => [id,labels.get(id)]).filter(Boolean)
+      ]));
+      const row = [code,test.testName,test.specimenType || '',aliases];
+      const previous = byCode.get(code);
+      if (previous) previous[3] = Array.from(new Set([...previous[3],test.testName,...aliases]));
+      else byCode.set(code,row);
+    }
+    window.parent.postMessage({
+      type:'labcentral:published-tests', lab:'quest', schema:1,
+      tests:Array.from(byCode.values())
+    },window.location.origin);
+    return;
+  }
+
   let pendingUserState = null;
   let database = loadDatabase();
   let selectedIds = loadSelectedIds();
@@ -1319,94 +1439,6 @@
   // NOT substitute order codes or automated test-selection instructions.
   // Sources: Quest Test Directory (including official alternate names), its
   // thyroid and hs-CRP guides, and published laboratory naming research.
-  const LAB_SEARCH_ALIAS_RULES = [
-    { name: /^(?:cmp|comprehensive metabolic panel)(?:$|\s)/, terms: ['chem 14', 'chemistry 14', 'comprehensive metabolic panel', 'cmp'] },
-    { name: /^(?:bmp|basic metabolic panel)(?:$|\s)/, terms: ['chem 7', 'chemistry 7', 'basic metabolic panel', 'bmp'] },
-    { name: /^(?:cbc|complete blood count)(?:$|\s)/, terms: ['cbc', 'complete blood count', 'blood count', 'hemogram'] },
-    { name: /^cbc\b.*(?:diff|differential)/, terms: ['cbc diff', 'cbc with diff', 'cbc with differential', 'complete blood count with differential', 'cbc w diff', 'cbc d p'] },
-    { name: /^cbc\b.*(?:h h|indices)/, terms: ['cbc without diff', 'cbc no diff', 'cbc no differential'] },
-    { name: /^(?:hemoglobin a1c|a1c)(?:$|\s)/, terms: ['hba1c', 'hb a1c', 'hgb a1c', 'glycated hemoglobin', 'glycosylated hemoglobin', 'a1c'] },
-    { name: /^tsh$|^tsh(?: reflex| and free| with hama| pregnancy)/, terms: ['thyroid stimulating hormone', 'thyrotropin'] },
-    { name: /^tsh.*reflex.*(?:free|t4)/, terms: ['tsh reflex', 'tsh reflex t4', 'tsh reflex ft4', 'thyroid reflex'] },
-    { name: /^t4 free\b|^free t4\b/, terms: ['ft4', 'free t4', 'free thyroxine'] },
-    { name: /^t3 free\b|^free t3\b|^t3\s+free\b/, terms: ['ft3', 'free t3', 'free triiodothyronine'] },
-    { name: /^thyroid peroxidase antibody\b/, terms: ['tpo ab', 'anti tpo', 'thyroid peroxidase antibody'] },
-    { name: /^tsi\b/, terms: ['thyroid stimulating immunoglobulin', 't s i'] },
-    { name: /^lipid panel\b/, terms: ['lipid profile', 'cholesterol panel', 'lipids'] },
-    { name: /^triglycerides?\b/, terms: ['trigs', 'tg triglycerides', 'trig'] },
-    { name: /^hdl cholesterol\b/, terms: ['hdl c', 'good cholesterol'] },
-    { name: /^(?:direct ldl|ldl cholesterol)\b/, terms: ['ldl c', 'bad cholesterol'] },
-    { name: /^apolipoprotein b\b/, terms: ['apo b', 'apob'] },
-    { name: /^lipoprotein a\b/, terms: ['lp a', 'lpa', 'lipoprotein a'] },
-    { name: /^(?:crp|c reactive protein)$/, terms: ['c reactive protein', 'standard crp', 'crp'] },
-    { name: /^(?:hs crp|cardioiq hs crp|cardio iq hs crp)\b/, terms: ['hscrp', 'hs crp', 'high sensitivity crp', 'high sensitive c reactive protein', 'cardiac crp'] },
-    { name: /^(?:esr|erythrocyte sedimentation rate|sedimentation rate)\b/, terms: ['sed rate', 'sedimentation rate', 'erythrocyte sedimentation rate', 'esr'] },
-    { name: /^ana screen\b/, terms: ['antinuclear antibody', 'anti nuclear antibody', 'ana screening', 'ana screen'] },
-    { name: /^pt\s+inr\b/, terms: ['protime', 'prothrombin time', 'pt inr', 'prothrombin time inr'] },
-    { name: /^partial thromboplastin time activated\b/, terms: ['ptt', 'aptt', 'activated partial thromboplastin time', 'partial thromboplastin time'] },
-    { name: /^d dimer\b/, terms: ['d dimer', 'ddimer', 'dimer'] },
-    { name: /^creatine kinase.*total|^ck\s+total$/, terms: ['ck', 'cpk', 'creatine phosphokinase', 'total ck'] },
-    { name: /^troponin i high sensitivity\b/, terms: ['hs tni', 'hstni', 'high sensitivity troponin i', 'hs troponin i'] },
-    { name: /^troponin t high sensitivity\b/, terms: ['hs tnt', 'hstnt', 'high sensitivity troponin t', 'hs troponin t'] },
-    { name: /^pro bnp n terminal\b|^cardio iq nt probnp\b/, terms: ['nt probnp', 'ntprobnp', 'pro bnp', 'n terminal pro bnp'] },
-    { name: /^bnp$/, terms: ['b type natriuretic peptide', 'brain natriuretic peptide'] },
-    { name: /^psa total\b/, terms: ['total psa', 'prostate specific antigen', 'psa screening'] },
-    { name: /^hcg.*quantitative|^hcg total quantitative/, terms: ['quant hcg', 'beta hcg quantitative', 'bhcg quant', 'hcg quant'] },
-    { name: /^hcg.*qualitative|^hcg total qualitative/, terms: ['qual hcg', 'pregnancy blood test', 'beta hcg qualitative'] },
-    { name: /^hepatitis b surface antigen\b/, terms: ['hbsag', 'hep b surface ag', 'hbv surface antigen'] },
-    { name: /^hepatitis b surface antibody\b/, terms: ['hbsab', 'anti hbs', 'hep b surface antibody'] },
-    { name: /^hepatitis b core antibody total\b/, terms: ['hbcab total', 'anti hbc total', 'hbv core antibody'] },
-    { name: /^hepatitis c antibody\b/, terms: ['hcv ab', 'anti hcv', 'hep c antibody'] },
-    { name: /^hiv 1 2 antigen and antibodies fourth generation\b/, terms: ['hiv 4th gen', 'hiv 4th generation', 'hiv ag ab', 'hiv antigen antibody', 'fourth generation hiv'] },
-    { name: /^urinalysis\b/, terms: ['ua', 'urine analysis', 'urine test'] },
-    { name: /^urinalysis complete with reflex to culture\b/, terms: ['ua reflex culture', 'ua with reflex', 'ua cx reflex', 'urinalysis reflex culture'] },
-    { name: /^culture urine routine\b/, terms: ['ucx', 'urine cx', 'urine culture', 'culture urine', 'urine c s'] },
-    { name: /^albumin random urine with creatinine\b/, terms: ['uacr', 'uac ratio', 'urine acr', 'microalbumin creatinine ratio', 'urine microalbumin creatinine'] },
-    { name: /^albumin random urine without creatinine\b/, terms: ['urine microalbumin', 'microalbumin urine', 'urine albumin'] },
-    { name: /^quanti feron tb gold plus\b|^quantiferon tb gold plus\b/, terms: ['qft', 'qft gold', 'quant gold', 'quantiferon', 'quantiferon gold', 'tb gold', 'igra tb'] },
-    { name: /^chlamydia.*neisseria gonorrhoeae\b/, terms: ['ct ng', 'gc ct', 'gc chlamydia', 'chlamydia gonorrhea', 'gonorrhea chlamydia', 'gc chlamydia pcr'] },
-    { name: /^neisseria gonorrhoeae\b/, terms: ['gonorrhea', 'gonorrhoea', 'gc test'] },
-    { name: /^chlamydia trachomatis\b/, terms: ['chlamydia', 'ct test'] },
-    { name: /^vitamin b12\b|^b12$/, terms: ['vit b12', 'vitamin b 12', 'cobalamin', 'b 12'] },
-    { name: /^b12 folate panel\b/, terms: ['b12 folate', 'b12 and folate', 'folate b12'] },
-    { name: /^hemoglobin$/, terms: ['hgb', 'hb', 'hemoglobin level'] },
-    { name: /^hematocrit$/, terms: ['hct', 'hematocrit level'] },
-    { name: /^platelet count\b/, terms: ['plt', 'platelets', 'platelet count'] },
-    { name: /^fsh(?:$|\s)/, terms: ['follicle stimulating hormone', 'follicle stimulating hormone fsh'] },
-    { name: /^luteinizing hormone\b/, terms: ['lh', 'lutropin', 'luteinizing hormone'] },
-    { name: /^folate serum\b/, terms: ['folic acid', 'serum folate'] },
-    { name: /^(?:vitamin d 25 hydroxy|cardio iq vitamin d 25 hydroxy|questassured.*25 hydroxyvitamin d)\b/, terms: ['25 oh vit d', '25ohd', '25 hydroxy vitamin d', 'vit d 25', 'vitamin d 25', 'vitamin d', 'vit d'] },
-    { name: /^lft\b|^hepatic function panel\b/, terms: ['lft', 'liver function tests', 'liver panel', 'hepatic panel'] },
-    { name: /^iron total and total iron binding capacity\b/, terms: ['iron tibc', 'iron and tibc', 'iron binding capacity'] },
-    { name: /^anti streptolysin o antibody\b/, terms: ['aso', 'aso titer', 'antistreptolysin o'] },
-    { name: /^epstein barr virus antibody panel\b/, terms: ['ebv panel', 'epstein barr panel', 'mono antibodies'] },
-    { name: /^epstein barr virus early antigen d antibody\b/, terms: ['ebv ea d', 'ebv early antigen d', 'ea d igg'] },
-    { name: /^dihydrotestosterone$/, terms: ['dht'] }
-  ];
-
-  // Additional catalog-name variants shared by Quest and Labcorp.
-  // These are search hints only; they never substitute an order code.
-  const SMART_LAB_ALIAS_RULES = [
-    { name: /^(?:sed rate|sedimentation rate|erythrocyte sedimentation rate)\b/, terms: ['esr', 'sed rate', 'sedimentation rate', 'westergren'] },
-    { name: /^(?:metabolic panel\b.*\bbasic\b|basic metabolic panel\b|bmp\b)/, terms: ['bmp', 'basic metabolic panel', 'chem 7', 'chem 8'] },
-    { name: /^(?:metabolic panel\b.*\bcomprehensive\b|comprehensive metabolic panel\b|cmp\b)/, terms: ['cmp', 'comprehensive metabolic panel', 'chem 14'] },
-    { name: /^(?:complete blood count|cbc)\b.*\b(?:with|w)\b.*\b(?:diff|differential)\b/, terms: ['cbc diff', 'cbc with diff', 'cbc w diff', 'cbc differential'] },
-    { name: /^(?:complete blood count|cbc)\b.*\b(?:without|no)\b.*\b(?:diff|differential)\b/, terms: ['cbc no diff', 'cbc without diff', 'cbc w o diff'] },
-    { name: /^(?:hemoglobin a1c|hba1c|glycohemoglobin)\b/, terms: ['a1c', 'hba1c', 'hgb a1c', 'glycated hemoglobin'] },
-    { name: /^troponin i\b.*\b(?:high sensitivity|highly sensitive)\b/, terms: ['hs trop i', 'hs troponin i', 'hstni', 'tni hs'] },
-    { name: /^troponin t\b.*\b(?:high sensitivity|highly sensitive)\b/, terms: ['hs trop t', 'hs troponin t', 'hstnt', 'tnt hs'] },
-    { name: /^(?:nt pro bnp|pro bnp|n terminal pro bnp|b type natriuretic peptide n terminal)\b/, terms: ['nt probnp', 'nt pro bnp', 'pro bnp'] },
-    { name: /^(?:culture urine|urine culture)\b/, terms: ['ucx', 'urine cx', 'urine culture'] },
-    { name: /^urinalysis\b.*\breflex\b.*\bculture\b/, terms: ['ua reflex culture', 'ua reflex', 'ua with reflex culture'] },
-    { name: /^(?:25 hydroxy vitamin d|vitamin d 25 hydroxy|vitamin d 25 oh)\b/, terms: ['25ohd', '25 oh vit d', 'vit d 25', 'vitamin d 25'] },
-    { name: /^(?:quanti feron|quantiferon)\b/, terms: ['qft', 'quant gold', 'quantiferon gold', 'tb gold', 'igra'] },
-    { name: /^(?:iron and tibc|iron total and total iron binding capacity)\b/, terms: ['iron tibc', 'tibc', 'iron binding capacity'] },
-    { name: /^(?:c reactive protein|crp)\b(?!.*\bhigh sensitivity\b)/, terms: ['crp', 'c reactive protein'] },
-    { name: /^c reactive protein\b.*\b(?:high sensitivity|cardiac)\b|^hs crp\b/, terms: ['hscrp', 'hs crp', 'high sensitivity crp'] },
-    { name: /^thyroid stimulating hormone\b/, terms: ['tsh', 'thyrotropin'] },
-    { name: /^thyroid stimulating hormone\b.*\breflex\b/, terms: ['tsh reflex', 'thyroid reflex'] }
-  ];
-
   function curatedLabAliases(normalizedName) {
     const aliases = [];
     [...LAB_SEARCH_ALIAS_RULES, ...SMART_LAB_ALIAS_RULES].forEach(({ name, terms }) => {
