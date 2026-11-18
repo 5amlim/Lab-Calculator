@@ -1,0 +1,40 @@
+name: Publish active test search indexes
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'assets/search/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: public-test-search-index
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Generate and validate current active catalog indexes
+        run: node scripts/generate-public-search-index.mjs
+      - name: Commit generated JSON only if changed
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/search/quest-tests.json assets/search/labcorp-tests.json
+          if git diff --cached --quiet; then
+            echo "Search indexes are current."
+            exit 0
+          fi
+          git commit -m "Refresh published active test search indexes"
+          git push origin HEAD:main
