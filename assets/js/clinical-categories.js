@@ -37,6 +37,29 @@
  ['transplant','Transplant & Immunosuppression','immunosuppression|transplant monitoring',/\b(?:transplant|tacrolimus|cyclosporine|sirolimus|everolimus|mycophenolic acid|hla antibody|donor specific antibody)\b/],
  ['specialty-other','Specialty & Other','specialized testing|other specialty|uncategorized',/(?!)/]
  ];
+
+ // Additional assay-title patterns cover recent specialty menus and abbreviations.
+ // Only test names determine these clinical groupings, never handling notes.
+ const supplemental=[
+  ['autoimmune', /\b(?:anti hmgcr|antiphospholipid|connective tissue disease|ctd|vasculitis|anti fodrin|autoimmune|autoantibody|anti ds dna|synovial joint fluid)\b/],
+  ['renal', /\b(?:glomerulonephritis|gnp|uremic syndrome|hemolytic uremic)\b/],
+  ['cardiac', /\b(?:heart disease|stroke risk|arrhythmia|cardiomyopathy|thromboxane|aspirinworks)\b/],
+  ['coagulation', /\b(?:bleeding|thrombosis|thrombotic|thrombocytopenia|antiphospholipid|adamts13|emicizumab|apixaban|rivaroxaban|fibrinolysis|thrombin|prothrombin|protime|reptilase|plasminogen|antiplasmin|prekallikrein|kininogen|euglobulin|clot lysis|contact factor|hexagonal phase|hpp|ddavp|desmopressin|aspirinworks|thromboxane|factor evaluation|platelet antibody|heparin dependent|serotonin release assay)\b/],
+  ['diabetes', /\b(?:metabolic syndrome|islet cells|antipancreatic islet)\b/],
+  ['endocrinology', /\b(?:deoxycortisol|hydroxypregnenolone|hydroxycorticosterone|corticosterone|deoxycorticosterone|androsterone|androstanediol|pregnenolone|hydroxyandrostenedione|ketotestosterone|hydroxytestosterone|adrenal|androgen|cortisone|dexamethasone|corticosteroid|estrogens|gonadotropin|hirsutism|menopausal|menopause|mineralocorticoid|adrenarche|testicular function|hydroxyprogesterone|congenital adrenal hyperplasia|cah|leptin|growth assessment|growth receptor|alpha reductase|desmolase|hydroxylase|igf binding|subunit free endocrine sciences)\b/],
+  ['genetics', /\b(?:invitae|geneseq|vistaseq|repeat expansion|single gene|genetic risk|genetic analysis|gene rearrangements|fish|fluorescence in situ hybridization|mendelian disorder|huntington disease|sma|spinocerebellar ataxia|spinal muscular atrophy|myotonic dystrophy)\b/],
+  ['hematology', /\b(?:leukemia|lymphoma|leukaemia|flow cytometry|phenotyping|cytopenia|myeloproliferative|myelodysplastic|multiple myeloma|cll|aml|mps|mpn|cml|b all)\b/],
+  ['oncology', /\b(?:oncology|leukemia|lymphoma|myeloma|myelodysplastic|myeloproliferative|neoplasms|tumor|tumour|cancer|fish profile|bcr abl|her 2|her2|5 hiaa|alk gene rearrangements)\b/],
+  ['gi', /\b(?:inflammatory bowel disease|ibd|pancreatic islet)\b/],
+  ['immunology', /\b(?:inborn errors of immunity|immune function|immune assessment|immunophenotyping)\b/],
+  ['reproductive', /\b(?:menorrhagia|testicular function|menopausal|menopause|hirsutism|estrogens)\b/],
+  ['tdm', /\b(?:amiodarone|cordarone|apixaban|rivaroxaban)\b/],
+  ['transplant', /\b(?:engraftment|chimerism)\b/],
+  ['pregnancy', /\b(?:maternit|integrated 2|maternal screening|pregnancy screen)\b/],
+  ['neurology', /\b(?:ataxia|neuromuscular|neuropathies|dystonia|epilepsy|neurodevelopment|retinal disorders|frontotemporal dementia|schwannomatosis|amyotrophic lateral sclerosis|charcot marie tooth|rett|angelman|paralysis|muscular dystrophy)\b/],
+  ['body-fluids', /\b(?:synovial joint fluid|joint fluid)\b/]
+ ];
+
  const normalize = x => String(x||'').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g,' ').trim();
  const definitions=data.map(([id,label,extra,pattern])=>({id,label,terms:[label,...extra.split('|'),id],pattern}));
  const aliases=new Map();
@@ -59,6 +82,9 @@
    // catalog title omits the word "urine".
    const specimen=normalize(test.specimenType);
    if(/(?:^| )urine(?:$| )/.test(specimen) && !ids.includes('urinary')) ids.push('urinary');
+   for(const [category,pattern] of supplemental) {
+     if(pattern.test(name) && !ids.includes(category)) ids.push(category);
+   }
    if(!ids.length) ids.push('specialty-other');
    cache.set(test,ids);return ids;
  }
