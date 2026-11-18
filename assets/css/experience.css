@@ -2097,6 +2097,61 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
   }
 }
 
+
+/* Foldable iPhone inner display and wide touchscreens must use the same
+   single-axis filter sheet as a narrow phone. Desktop mouse menus stay intact. */
+@media screen and (hover: none) and (pointer: coarse) {
+  html.catalog-filter-scroll-lock,
+  body.catalog-filter-scroll-lock {
+    overflow: hidden !important;
+    overscroll-behavior: none;
+    max-width: 100%;
+  }
+  .filter-row.catalog-filter-expanded { z-index: 150; }
+  #catalogFilterControl { min-width: 0; max-width: 100%; }
+  #catalogFilterPanel {
+    position: fixed !important;
+    top: var(--catalog-filter-top, 12px) !important;
+    left: 12px !important;
+    right: 12px !important;
+    bottom: auto !important;
+    width: calc(100dvw - 24px) !important;
+    max-width: 430px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    min-width: 0 !important;
+    max-height: calc(100dvh - var(--catalog-filter-top, 12px) - 12px) !important;
+    overflow-x: clip !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+    z-index: 151;
+  }
+  #catalogFilterPanel > *,
+  #catalogFilterPanel label,
+  #catalogFilterPanel .portal-select-wrap,
+  #catalogFilterPanel .portal-select-button,
+  #catalogFilterPanel input,
+  #catalogFilterPanel select {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+  }
+  #catalogFilterControl .portal-select-menu,
+  #catalogFilterControl .portal-select-submenu {
+    overflow-x: clip !important;
+    overflow-y: auto !important;
+    max-width: calc(100dvw - 24px) !important;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+  #catalogFilterControl .portal-select-option,
+  #catalogFilterControl .portal-option-label { min-width: 0; }
+}
+
 /* Add/Edit Test container choices: one scrollable list, grouped by colored accents.
    Applies to the primary container and dynamically added container cards. */
 @media screen {
