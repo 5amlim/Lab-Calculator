@@ -46,3 +46,14 @@ body:not(.labcorp-page) .tube-cary-blair::before {
     -webkit-print-color-adjust:exact;print-color-adjust:exact;
   }
 }
+
+/* Microcollection closures retain their individual additive colors.
+   Amber SST retains its existing brown reservoir; amber PST has a mint cap. */
+.tube.tube-microtainer.tube-micro-red::before {background:linear-gradient(#be4145 0 29%,#fff5f5 29% 68%,#e9cccc 68%) !important;border-color:#a94d50 !important;}
+.tube.tube-microtainer.tube-micro-gold::before {background:linear-gradient(#d6a12e 0 29%,#fff9e8 29% 68%,#ead596 68%) !important;border-color:#ab852f !important;}
+.tube.tube-microtainer.tube-micro-lavender::before {background:linear-gradient(#9a75c3 0 29%,#f8f3ff 29% 68%,#d8c9ed 68%) !important;border-color:#8966b0 !important;}
+.tube.tube-microtainer.tube-micro-green::before {background:linear-gradient(#378a54 0 29%,#f0f7f1 29% 68%,#d2e5d6 68%) !important;border-color:#47845b !important;}
+.tube.tube-microtainer.tube-micro-mint::before {background:linear-gradient(#8bc9aa 0 29%,#f1faf4 29% 68%,#cfe6d8 68%) !important;border-color:#6da68a !important;}
+.tube.tube-microtainer.tube-micro-gray::before {background:linear-gradient(#818c96 0 29%,#f2f4f5 29% 68%,#d1d8dd 68%) !important;border-color:#79858e !important;}
+.tube.tube-microtainer.tube-micro-verify::before {background:linear-gradient(#a3adb3 0 29%,#fff 29% 68%,#e0e6e9 68%) !important;border-color:#909ca3 !important;}
+.tube.tube-microtainer.tube-micro-amber-pst::before {background:linear-gradient(#8bc9aa 0 29%,#b98235 29% 100%) !important;border-color:#88774c !important;}
