@@ -321,7 +321,7 @@
   function positionSubmenu(item) {
     if (!item?.submenu || !item.menu || !item.submenuAnchor) return;
     const main = item.menu.getBoundingClientRect();
-    if (matchMedia('(max-width: 720px)').matches && item.select.closest('#catalogFilterControl')) {
+    if (item.select.closest('#catalogFilterControl') && (matchMedia('(max-width: 720px), (hover: none) and (pointer: coarse)').matches)) {
       // Mobile filters use one vertical menu at a time. No left/right flyouts.
       const width = Math.min(main.width, innerWidth - 24);
       item.submenu.style.width = width + 'px';
