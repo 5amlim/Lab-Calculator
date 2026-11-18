@@ -2096,3 +2096,63 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     -webkit-overflow-scrolling: touch;
   }
 }
+
+/* Add/Edit Test container choices: one scrollable list, grouped by colored accents.
+   Applies to the primary container and dynamically added container cards. */
+@media screen {
+  .portal-select-menu--container-grouped { padding: 7px; }
+  .portal-select-menu--container-grouped .portal-select-group-heading {
+    --section-accent: #7899a3;
+    --section-tint: #f1f6f7;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 9px 1px 4px;
+    padding: 7px 10px;
+    border-left: 3px solid var(--section-accent);
+    border-radius: 3px 7px 7px 3px;
+    background: var(--section-tint);
+    color: #304f5b;
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: .035em;
+    line-height: 1.35;
+    text-transform: uppercase;
+    user-select: none;
+  }
+  .portal-select-menu--container-grouped .portal-select-group-heading:first-child,
+  .portal-select-menu--container-grouped .portal-select-option:first-child + .portal-select-group-heading {
+    margin-top: 5px;
+  }
+  .portal-select-menu--container-grouped .portal-select-group-heading small {
+    font-size: 10px; font-weight: 750; color: #677c86;
+  }
+  .portal-select-menu--container-grouped .portal-select-group-heading[data-accent="blood"] {
+    --section-accent: #b56d71; --section-tint: #faf1f1;
+  }
+  .portal-select-menu--container-grouped .portal-select-group-heading[data-accent="special-blood"] {
+    --section-accent: #9c7cb8; --section-tint: #f6f2fa;
+  }
+  .portal-select-menu--container-grouped .portal-select-group-heading[data-accent="aliquots"] {
+    --section-accent: #5d9c9b; --section-tint: #eef7f6;
+  }
+  .portal-select-menu--container-grouped .portal-select-group-heading[data-accent="urine"] {
+    --section-accent: #c49d48; --section-tint: #fbf8eb;
+  }
+  .portal-select-menu--container-grouped .portal-select-group-heading[data-accent="swabs"] {
+    --section-accent: #6c8fc3; --section-tint: #f0f5fb;
+  }
+  .portal-select-menu--container-grouped .portal-select-group-heading[data-accent="stool"] {
+    --section-accent: #a28263; --section-tint: #f7f3ef;
+  }
+  .portal-select-menu--container-grouped .portal-select-group-heading[data-accent="special"] {
+    --section-accent: #8b8ea6; --section-tint: #f4f5f8;
+  }
+  .portal-select-menu--container-grouped .portal-select-group-heading[data-accent="other"] {
+    --section-accent: #95a0a8; --section-tint: #f3f5f6;
+  }
+  .portal-select-menu--container-grouped .portal-select-option {
+    min-height: 36px; padding: 8px 10px;
+  }
+}
