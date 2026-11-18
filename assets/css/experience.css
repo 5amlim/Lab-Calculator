@@ -2128,6 +2128,9 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
   .portal-select-menu--container-grouped .portal-select-group-heading small {
     font-size: 10px; font-weight: 750; color: #677c86;
   }
+  .portal-select-menu--container-grouped .portal-select-group-heading[data-accent="original"] {
+    --section-accent: #7899a3; --section-tint: #f1f6f7;
+  }
   .portal-select-menu--container-grouped .portal-select-group-heading[data-accent="blood"] {
     --section-accent: #b56d71; --section-tint: #faf1f1;
   }
