@@ -50,7 +50,7 @@
   ['genetics', /\b(?:invitae|geneseq|vistaseq|repeat expansion|single gene|genetic risk|genetic analysis|gene rearrangements|fish|fluorescence in situ hybridization|mendelian disorder|huntington disease|sma|spinocerebellar ataxia|spinal muscular atrophy|myotonic dystrophy)\b/],
   ['hematology', /\b(?:leukemia|lymphoma|leukaemia|flow cytometry|phenotyping|cytopenia|myeloproliferative|myelodysplastic|multiple myeloma|cll|aml|mps|mpn|cml|b all)\b/],
   ['oncology', /\b(?:oncology|leukemia|lymphoma|myeloma|myelodysplastic|myeloproliferative|neoplasms|tumor|tumour|cancer|fish profile|bcr abl|her 2|her2|5 hiaa|alk gene rearrangements)\b/],
-  ['gi', /\b(?:inflammatory bowel disease|ibd|pancreatic islet)\b/],
+  ['gi', /\b(?:inflammatory bowel disease|ibd)\b/],
   ['immunology', /\b(?:inborn errors of immunity|immune function|immune assessment|immunophenotyping)\b/],
   ['reproductive', /\b(?:menorrhagia|testicular function|menopausal|menopause|hirsutism|estrogens)\b/],
   ['tdm', /\b(?:amiodarone|cordarone|apixaban|rivaroxaban)\b/],
