@@ -783,7 +783,7 @@
     const microtainerRequired = /\bmicrotainer(?:s)?\b/i.test(`${drawContainer} ${record.specialInstructions || ''}`)
       && /\bserum\b/i.test(specimenType)
       && /sst|serum separator|gold|microtainer/i.test(drawContainer);
-    if (microtainerRequired) drawContainer = 'Amber Microtainer SST';
+    if (microtainerRequired && (!/microtainer/i.test(drawContainer) || /^microtainer$/i.test(drawContainer))) drawContainer = 'Amber Microtainer SST';
     // Quest neonatal bilirubin codes 6631, 20381 and 34162 accept two
     // spun amber Microtainer SSTs in their original tubes. The amber
     // transport vial is an alternative, not the required default route.
@@ -866,7 +866,7 @@
     const isSst = cls === 'tube-sst';
     const displayClass = isSst ? selectedSstVisualClass() : cls;
     const label = isSst ? selectedSstLabel() : container;
-    return `<span class="${className} tube ${displayClass}">${escapeHtml(label)}${cls === 'tube-microtainer' ? ' · MICROTAINER' : ''}</span>`;
+    return `<span class="${className} tube ${displayClass}">${escapeHtml(label)}${/^tube-microtainer\b/.test(cls) ? ' · MICROTAINER' : ''}</span>`;
   }
 
   function requiredDrawContainerBadges(test, className = 'badge') {
@@ -1222,8 +1222,25 @@
     return [primary, ...extras].filter(Boolean).join(' + ');
   }
 
-  function cleanCollectionContainer(value) {
+  function genericTransportName(value) {
     const text = String(value || '').trim();
+    return /^(?:transport tube|(?:plastic )?(?:serum|plasma) transport tube|polypropylene transport tube|clean screw[- ]?capped plastic vial \(no preservative\)|chilled plastic screw[- ]?cap vial|plastic screw[- ]?cap serum transport vial)$/i.test(text) ? 'Transport Tube' : text;
+  }
+  function microtainerIcon(value) {
+    if (/gray|fluoride/i.test(value)) return 'tube-microtainer tube-micro-gray';
+    if (/lavender|edta/i.test(value)) return 'tube-microtainer tube-micro-lavender';
+    if (/\bpst\b|mint green/i.test(value)) return /amber/i.test(value) ? 'tube-microtainer tube-micro-amber-pst' : 'tube-microtainer tube-micro-mint';
+    if (/heparin|green/i.test(value)) return 'tube-microtainer tube-micro-green';
+    if (/red top|no additive|clot activator/i.test(value) && !/\bsst\b/i.test(value)) return 'tube-microtainer tube-micro-red';
+    if (/amber/i.test(value)) return 'tube-microtainer';
+    if (/gold|\bsst\b/i.test(value)) return 'tube-microtainer tube-micro-gold';
+    return 'tube-microtainer tube-micro-verify';
+  }
+
+  function cleanCollectionContainer(value) {
+    const text = genericTransportName(value);
+    if (/^sterile screw[- ]?cap csf tube$/i.test(text)) return 'Sterile cup';
+    if (/^salivette saliva collection device(?: \(blue cap\))?$/i.test(text)) return 'Salivette';
     // Local standard: generic urine cups/containers are the existing Sterile cup.
     // Keep truly special devices (24-hour jugs, preservative tubes, trace-metal containers, Aptima, etc.) distinct.
     // The same empty leak-proof sterile cup is stocked for CSF, sputum, stool, and urine.
@@ -3712,7 +3729,7 @@
 
   function setAdditionalContainerChoice(card, name, value) {
     const select = additionalContainerField(card, name);
-    const text = String(value || '').trim();
+    const text = ['drawContainer','transportContainer'].includes(name) ? cleanCollectionContainer(value) : String(value || '').trim();
     if (Array.from(select.options).some(option => option.value === text)) {
       select.value = text;
     } else if (text && name === 'specimenType') {
@@ -4716,7 +4733,7 @@
       'tube-culture': 'Blood Culture Bottles',
       'tube-blue': 'Light Blue Citrate',
       'tube-sst': selectedSstLabel(),
-      'tube-microtainer': 'Amber Microtainer SST',
+      'tube-microtainer': draw,
       'tube-lavender': 'Lavender EDTA',
       'tube-pink': 'Pink EDTA',
       'tube-tan': /heparin/i.test(draw) ? 'Tan Sodium Heparin' : 'K2 EDTA Tan Top',
@@ -4968,7 +4985,7 @@
       const specimenBadges = collectionSpecimenBadgesForItem(item).map(({ label, kind }) =>
         `<span class="print-collection-specimen-badge specimen-${kind}">${escapeHtml(label)}</span>`).join('');
       const tigerBadge = printSstTigerBadge(item);
-      const microtainerBadge = item.className === 'tube-microtainer' ? '<span class="microtainer-flag">MICROTAINER</span>' : '';
+      const microtainerBadge = /^tube-microtainer\b/.test(item.className) ? '<span class="microtainer-flag">MICROTAINER</span>' : '';
       const printedTestCount = uniqueTests(item.tests).length;
       // Keep each SST collection card in one half-width column, even when
       // it holds many tests. Pair the list into two internal print columns.
@@ -4982,7 +4999,7 @@
       return `<article class="print-collection-card${longSstList ? ' is-sst-long' : printedTestCount >= 12 ? ' is-long' : ''}" style="--print-column-rows:${columnRows}">
         <div class="print-container-count"><strong>${item.count}</strong><span class="tube ${item.displayClassName || item.className}">${escapeHtml(item.label)}</span>${tigerBadge}${microtainerBadge}${specimenBadges ? `<span class="print-collection-specimen-list">${specimenBadges}</span>` : ''}${printCollectionWholeBloodDetail(item, wholeBloodGroups)}</div>
         ${item.detail ? `<div class="print-container-detail">${escapeHtml(item.detail)}</div>` : ''}
-        ${item.className === 'tube-microtainer' ? '<div class="print-microtainer-note">Microcollection tubes · protect from light; follow the test-specific Microtainer instructions.</div>' : ''}
+        ${/^tube-microtainer\b/.test(item.className) ? '<div class="print-microtainer-note">Microcollection tubes · follow the test-specific Microtainer instructions.</div>' : ''}
         ${yieldReviewTests.length ? `<div class="print-sst-volume-warning">
           <div class="print-sst-volume-summary">
             <strong>Volume check</strong>
@@ -5349,7 +5366,7 @@
       return 'Royal Blue — verify additive';
     }
 
-    if (/microtainer/i.test(draw)) return 'Amber Microtainer SST';
+    if (/microtainer/i.test(draw)) return draw;
     if (/light blue|sodium citrate|citrate/i.test(draw)) return 'Light Blue Citrate';
     if (/blue/i.test(draw) && /edta/i.test(draw)) return 'Blue Top EDTA';
     if (/blue/i.test(draw) && /serum|no additive/i.test(draw)) return 'Blue Top No Additive (serum)';
@@ -5483,7 +5500,8 @@
   }
 
   function transportTubeClass(test, container) {
-    const value = String(container || '').toLowerCase();
+    const value = genericTransportName(container).toLowerCase();
+    if (/microtainer/.test(value)) return microtainerIcon(value);
     // Preserve the same specialty icon for original Salivette submission devices.
     if (/\bsalivette\b/.test(value)) return 'tube-salivette';
     // Fluoride/oxalate plasma stays dedicated by timepoint, but the accepted
@@ -6073,7 +6091,7 @@
     // For routine SST-derived serum aliquots, including amber tubes, the
     // specimen-type label "Serum" is sufficient. Preserve genuinely special
     // no-additive/trace-metal source instructions and explicit requirements.
-    if (lowerSpecimen === 'serum' && (isSstDraw(test) || tubeClass(test.drawContainer) === 'tube-microtainer')
+    if (lowerSpecimen === 'serum' && (isSstDraw(test) || /^tube-microtainer\b/.test(tubeClass(test.drawContainer)))
       && (/^tube-transport(?:\s|$)/.test(item.className || '')
         || /\btube-amber\b/.test(item.className || ''))) return 'Serum';
 
@@ -6554,7 +6572,7 @@
     // type. Both Gold and Tiger SST share the same clear spun-SST instruction.
     if (item.originalTube) {
       const isSpunSst = item.key === 'sst-spun';
-      const isMicrotainerSst = item.className === 'tube-microtainer';
+      const isMicrotainerSst = /^tube-microtainer\b/.test(item.className);
       const spins = /\bspun\b|\bcentrifug/i.test(detail)
         || (isMicrotainerSst && uniqueTests(item.tests || []).every(test => /^yes$/i.test(String(test.spin || '').trim())));
       const exceptional = /fully saturate|do not pour|protect from light/i.test(detail) ? detail : '';
@@ -6563,7 +6581,7 @@
       const handling = isSpunSst
         ? 'Submit in original tube · Spin ✓'
         : `${originalSterileCup ? 'Submit in original container' : 'Submit in original tube'}${spins ? ' · Spin ✓' : ''}`;
-      const lightProtection = isMicrotainerSst ? ' · Protect from light' : '';
+      const lightProtection = isMicrotainerSst && /amber/i.test(item.label || '') ? ' · Protect from light' : '';
       const text = `${handling}${lightProtection}${exceptional ? ` · ${exceptional}` : ''}`;
       return `<div class="print-submit-item-detail">${escapeHtml(text)}</div>`;
     }
@@ -6671,7 +6689,7 @@
       if (!source.label || !source.className) return;
       // Microtainer draw volumes are test-specific microcollection volumes.
       // Do not apply the standard 2.5x whole-blood conversion to them.
-      if (source.className === 'tube-microtainer') return;
+      if (/^tube-microtainer\b/.test(source.className)) return;
       const key = `${source.className}|${normalizeSearch(source.label)}`;
       if (!groups.has(key)) {
         groups.set(key, {
@@ -7570,14 +7588,16 @@
   }
 
   function tubeClass(container) {
-    const value = String(container || '').toLowerCase();
+    const value = genericTransportName(container).toLowerCase();
     // Sarstedt Salivette cortisol devices have a cobalt blue cap, not a gray tube.
     if (/\bsalivette\b/.test(value)) return 'tube-salivette';
+    if (/quanti[- ]?feron/.test(value)) return 'tube-green';
+    if (/\bnmr\s*lipo\s*tube\b/.test(value)) return 'tube-nmr-lipotube';
     // Plain, additive-free transport tubes share the standard green transport badge,
     // including when submitted as the original tube (e.g. Quest CSF 38323).
     if (/^transport tube$/.test(value)) return 'tube-transport tube-transport-green-top';
     if (/^frozen transport tube(?:\s*\(.*\))?$/.test(value)) return 'tube-transport tube-transport-green-top';
-    if (/microtainer/.test(value)) return 'tube-microtainer';
+    if (/microtainer/.test(value)) return microtainerIcon(value);
     if (/uri[- ]?sponge/.test(value)) return 'tube-urisponge';
     if (/urinalysis\s+transport\s+tube/i.test(value) && /yellow[- ]top|blue\s+fill/i.test(value)) return 'tube-ua-yellow';
     if (/e[- ]?swab|\bliquid\s+amies\b|\bamies\s+liquid\b/.test(value)) return 'tube-eswab';
@@ -7638,7 +7658,7 @@
   }
 
   function setDrawContainerValue(value) {
-    const normalized = String(value || '').trim();
+    const normalized = cleanCollectionContainer(value);
     const hasOption = Array.from(els.drawContainer.options).some(option => option.value === normalized);
     if (hasOption) {
       els.drawContainer.value = normalized;
@@ -7656,7 +7676,7 @@
   function setTransportContainerValue(value) {
     // Backward compatibility: saved tests using the former duplicate original-
     // tube choice edit as the single original-tube option, not a custom tube.
-    const supplied = String(value || '').trim();
+    const supplied = cleanCollectionContainer(value);
     const normalized = /^(?:whole blood\s*\/\s*original tube|no transfer\s*\/\s*submit in original tube)$/i.test(supplied)
       ? 'Submit in original tube' : supplied;
     const match = Array.from(els.transportContainer.options).find(option =>
