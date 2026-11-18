@@ -195,6 +195,7 @@
   // Add Missing Test uses one vertically scrolling menu with subtle section
   // accents. The original <select> values and all collection rules stay intact.
   const containerSections = [
+    {key:'original', label:'Original container / no transfer'},
     {key:'blood', label:'Blood collection tubes'},
     {key:'special-blood', label:'Specialty blood collection'},
     {key:'aliquots', label:'Transport & aliquot tubes'},
@@ -212,7 +213,7 @@
     const name = (option.value + ' ' + option.textContent).toLowerCase();
     const draw = fieldName(item) === 'drawContainer';
     if (/__other__|do not collect|verify official instructions|manually type/.test(name)) return 'other';
-    if (/submit in original/.test(name)) return 'aliquots';
+    if (/submit in original/.test(name)) return 'original';
     if (/cary[- ]?blair|total[- ]?fix|formalin|\bpva\b|stool|para[- ]?pak/.test(name)) return 'stool';
     if (/24[- ]?hour urine|urine|uri[- ]?sponge|sterile cup|trace[- ]?metal[- ]?free (?:plastic|collection) container|red\/yellow swirl|gray[- ]?top urine/.test(name))
       return 'urine';
