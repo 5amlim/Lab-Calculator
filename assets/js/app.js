@@ -2435,6 +2435,18 @@
   }
 
   function renderLibraryRow(test) {
+    // A Quest catalog identity can be verified while its local handling route
+    // is still not cleared. Show the review state without enabling Add.
+    if (test.status === 'reference' &&
+        ['11216','11220','11222','11215'].includes(test.testCode)) return `<tr class="quest-directory-reference-row">
+      <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
+      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)} <span class="badge temp-unknown">Local review required</span></div>
+        <div class="subtext">Quest code confirmed. Approved specimen preservation, collection kit and local service-area route still need verification before collection.</div></td>
+      <td data-label="Container">Verify specialty urine kit</td>
+      <td data-label="Temperature"><span class="badge temp-unknown">Pending approval</span></td>
+      <td data-label="Volume">${escapeHtml(test.testCode === '11220' ? 'Quest service-area details needed' : (test.preferredVolume || 'Verify'))}</td>
+      <td class="row-actions" data-label="Actions"><a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noopener noreferrer">Review Quest requirements ↗</a></td>
+    </tr>`;
     if (test.status === 'reference') return `<tr class="quest-directory-reference-row">
       <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
       <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${window.LabRegionalRestrictions.badge(test, 'quest')} <span class="badge temp-unknown">${test.specialInstructions.startsWith('VERIFICATION REQUESTED.') ? 'Review requested' : 'Directory only'}</span></div><div class="subtext">Collection instructions not verified. Confirm in Quest directory before collection.</div></td>
