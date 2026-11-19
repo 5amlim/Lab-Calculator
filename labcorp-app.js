@@ -2452,6 +2452,62 @@
       </article>`).join('') : '<div class="empty-state">No tests currently require additional collection review.</div>';
   }
 
+
+  // Routine TAT pilot: official directory, checked 2026-11-19.
+  // Independent of specimen handling and collection calculations.
+  const ROUTINE_TAT_PILOT = Object.freeze({
+  "146712": [
+    "4–5 days",
+    5,
+    "Labcorp directory",
+    "",
+    "https://www.labcorp.com/tests/146712/leptin-serum-or-plasma"
+  ],
+  "322000": [
+    "Within 1 day",
+    1,
+    "Labcorp directory",
+    "",
+    "https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive"
+  ],
+  "005009": [
+    "Within 1 day",
+    1,
+    "Labcorp directory",
+    "",
+    "https://www.labcorp.com/tests/005009/complete-blood-count-cbc-with-differential-reflex-to-peripheral-smear-review"
+  ],
+  "004259": [
+    "Within 1 day",
+    1,
+    "Labcorp directory",
+    "",
+    "https://www.labcorp.com/tests/004259/thyroid-stimulating-hormone-tsh"
+  ]
+});
+  function pilotTat(test) {
+    if (test.status !== 'active' || isManuallyAddedTest(test)) return null;
+    return Object.prototype.hasOwnProperty.call(ROUTINE_TAT_PILOT, displayCode(test)) ? ROUTINE_TAT_PILOT[displayCode(test)] : null;
+  }
+  function pilotTatBadge(test, printing = false) {
+    const tat = pilotTat(test);
+    if (!tat) return '';
+    const [time, max, scope, schedule, url] = tat;
+    const stat = test.isStat || statSelectedIds.includes(test.id);
+    const label = stat ? 'STAT TAT not verified' : 'Routine TAT: ' + time + ' (' + scope + ')';
+    const note = 'Directory estimate checked 2026-11-19. ' + (schedule ? 'Setup: ' + schedule + '. ' : '') + 'Confirm local schedule, account and any reflex testing; not a guaranteed result date.';
+    if (printing) return '<span style="display:block;font-size:0.85em">' + escapeHtml(label) + '</span>';
+    return '<a class="badge temp-unknown" style="display:inline-block;white-space:normal;text-decoration:none;margin-top:3px" href="' + escapeAttr(url) + '" target="_blank" rel="noopener noreferrer" title="' + escapeAttr(note) + '">' + escapeHtml(label) + '</a>';
+  }
+  function pilotTatSummary(tests) {
+    const known = tests.filter(test => pilotTat(test) && !test.isStat);
+    if (!tests.some(test => pilotTat(test))) return '';
+    const unknown = tests.length - known.length;
+    const max = known.length ? Math.max(...known.map(test => pilotTat(test)[1])) : null;
+    const wording = max === null ? 'No verified routine estimate for selected priorities.' : 'Longest published routine upper estimate: ' + max + (max === 1 ? ' day' : ' days') + '.';
+    return '<div class="subtext" style="padding:8px 0;line-height:1.5"><strong>Result turnaround (directory estimates)</strong><br>' + escapeHtml(wording) + ' ' + known.length + ' of ' + tests.length + ' tests with estimates.' + (unknown ? ' ' + unknown + ' without an applicable estimate; full order completion cannot be estimated.' : '') + ' Labcorp estimates start at specimen pickup. Reflex testing and schedules may extend turnaround.</div>';
+  }
+
   function renderLibraryRow(test) {
     const selected = selectedIds.includes(test.id);
     const blocked = test.status === 'blocked';
@@ -2461,7 +2517,7 @@
     const primaryOnlyNote = hasMultipleContainers ? '<div class="library-container-primary-note">First path only</div>' : '';
     return `<tr class="${selected ? 'is-selected' : ''}">
       <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
-      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${window.LabRegionalRestrictions.badge(test, 'labcorp')}${manualLibraryTag(test)}${gestationalWarningBadge(test)}${statSelectedIds.includes(test.id) && isStatEligible(test) ? '<span class="library-stat-eligible selected" title="Manually marked STAT; verify receiving-lab acceptance and courier routing.">STAT selected</span>' : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
+      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${window.LabRegionalRestrictions.badge(test, 'labcorp')}${manualLibraryTag(test)}${gestationalWarningBadge(test)}${pilotTatBadge(test)}${statSelectedIds.includes(test.id) && isStatEligible(test) ? '<span class="library-stat-eligible selected" title="Manually marked STAT; verify receiving-lab acceptance and courier routing.">STAT selected</span>' : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
       <td data-label="Container">${menuContainerBadges(test)}${hasMultipleContainers ? '' : '<div class="subtext specimen-line">' + requiredSpecimenBadges(test) + '</div>'}</td>
       <td data-label="Temperature"><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span>${primaryOnlyNote}</td>
       <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(menuVolumeText(primaryDisplay, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(menuVolumeText(primaryDisplay, 'minimum') || '—')}</div>${primaryOnlyNote}</td>
@@ -3240,10 +3296,10 @@
       return;
     }
     els.selectedList.className = 'selected-list';
-    els.selectedList.innerHTML = tests.map(test => `
+    els.selectedList.innerHTML = pilotTatSummary(tests) + tests.map(test => `
       <article class="selected-card${test.isStat ? ' is-stat' : ''}">
         <div class="selected-card-top">
-          <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}${manualLibraryTag(test)}</div><div class="subtext specimen-line">${requiredSpecimenBadges(test)} <span>·</span> <span class="preferred-volume-inline">${escapeHtml(combinedVolumeText(test, 'preferred') || 'verify')}</span> <span>· Minimum ${escapeHtml(combinedVolumeText(test, 'minimum') || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}${gestationalWarningBadge(test, 'selected-gestational-warning')}</div>
+          <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}${manualLibraryTag(test)}${pilotTatBadge(test)}</div><div class="subtext specimen-line">${requiredSpecimenBadges(test)} <span>·</span> <span class="preferred-volume-inline">${escapeHtml(combinedVolumeText(test, 'preferred') || 'verify')}</span> <span>· Minimum ${escapeHtml(combinedVolumeText(test, 'minimum') || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}${gestationalWarningBadge(test, 'selected-gestational-warning')}</div>
           <div>${isStatEligible(test) ? `<button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Mark STAT'}</button>` : ''}<a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove selected-card-delete" data-action="remove" data-id="${escapeAttr(test.id)}" type="button" aria-label="Delete ${escapeAttr(test.testName)}">Delete</button></div>
         </div>
         <div class="selected-details">
@@ -3273,11 +3329,11 @@
     els.testsOverviewList.className = 'tests-overview-list';
     // Preserve Details mode when a cart entry is added, removed, or updated.
     els.testsOverviewList.classList.toggle('hidden', !els.testsDetailsPanel.classList.contains('hidden'));
-    els.testsOverviewList.innerHTML = tests.map(test => `
+    els.testsOverviewList.innerHTML = pilotTatSummary(tests) + tests.map(test => `
       <div class="tests-overview-row${test.isStat ? ' is-stat' : ''}${!isStatEligible(test) ? ' no-stat-action' : ''}">
         <div class="tests-overview-ident">
           <strong class="tests-overview-code">${escapeHtml(displayCode(test))}</strong>
-          <span class="tests-overview-name">${escapeHtml(test.testName)}</span>${window.LabRegionalRestrictions.badge(test, 'labcorp')}
+          <span class="tests-overview-name">${escapeHtml(test.testName)}</span>${window.LabRegionalRestrictions.badge(test, 'labcorp')}${pilotTatBadge(test)}
         </div>
         ${isStatEligible(test) ? `<button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Mark STAT'}</button>` : ''}
         <button class="mini-button remove remove-flex tests-overview-remove" type="button" data-action="remove" data-id="${escapeAttr(test.id)}" aria-label="Remove ${escapeAttr(test.testName)}"><span class="remove-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7.3 6.1 12 10.8l4.7-4.7 1.2 1.2-4.7 4.7 4.7 4.7-1.2 1.2-4.7-4.7-4.7 4.7-1.2-1.2 4.7-4.7-4.7-4.7 1.2-1.2Z"/></svg></span><span class="remove-text" aria-hidden="true">Delete</span></button>
@@ -7859,7 +7915,7 @@
     const multi = routes.length > 1;
     const hasTransportOnlyPath = additionalDrawRequirements(test).some(req => req.transportOnly);
     const noun = hasTransportOnlyPath ? 'collection paths' : 'required specimens';
-    const testIdentity = `<td class="print-detail-test-name print-detail-identity" rowspan="${routes.length}"><span class="print-detail-inline-code">${escapeHtml(displayCode(test))}</span><div class="print-test-name-stack${test.testName.length > 48 ? ' print-long-test-name' : ''}"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}${gestationalWarningBadge(test, 'print-gestational-warning')}${printManualTestNote(test)}</div>${multi ? `<div class="print-route-count">${routes.length} ${noun}</div>` : ''}</td>`;
+    const testIdentity = `<td class="print-detail-test-name print-detail-identity" rowspan="${routes.length}"><span class="print-detail-inline-code">${escapeHtml(displayCode(test))}</span><div class="print-test-name-stack${test.testName.length > 48 ? ' print-long-test-name' : ''}"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}${gestationalWarningBadge(test, 'print-gestational-warning')}${printManualTestNote(test)}${pilotTatBadge(test, true)}</div>${multi ? `<div class="print-route-count">${routes.length} ${noun}</div>` : ''}</td>`;
     return `<tbody class="print-detail-test-group${multi ? ' print-detail-multi-group' : ''}">` +
       routes.map((route, index) => {
         const routeIndex = multi ? `<span class="print-detail-route-number" aria-label="Collection path ${index + 1} of ${routes.length}">${hasTransportOnlyPath ? 'Path' : 'Specimen'} ${index + 1} of ${routes.length}</span>` : '';
@@ -7895,6 +7951,7 @@
         <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<span class="print-selected-count">${tests.length} ${tests.length === 1 ? 'test' : 'tests'}</span><span class="print-lab-destination">RECEIVING LAB: LABCORP</span></div>
       </div>
       ${window.LabRegionalRestrictions.printNotice(tests, 'labcorp')}
+      ${pilotTatSummary(tests)}
       ${tests.some(isManuallyAddedTest) ? '<div class="print-manual-test-notice"><strong>Manual entry:</strong> Confirm the test code, specimen, collection tubes, and submission requirements in the official lab directory before collecting.</div>' : ''}
       ${printCollectionSubmissionPlan(tests)}
       <section class="print-detail-table-section${tests.length <= 3 ? ' print-brief-order' : ''}">
