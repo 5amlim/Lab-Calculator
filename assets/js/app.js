@@ -2527,7 +2527,7 @@
     const stat = test.isStat || statSelectedIds.includes(test.id);
     const label = stat ? 'STAT TAT not verified' : 'Routine TAT: ' + time + ' (' + scope + ')';
     const note = 'Directory estimate checked 2026-11-19. ' + (schedule ? 'Setup: ' + schedule + '. ' : '') + 'Confirm local schedule, account and any reflex testing; not a guaranteed result date.';
-    if (printing) return '<span style="display:block;font-size:0.85em">' + escapeHtml(label) + '</span>';
+    if (printing) return '<div style="margin-top:3px">' + escapeHtml(label) + (stat ? '' : ' (estimate)') + '</div>';
     return '<a class="badge temp-unknown" style="display:inline-block;white-space:normal;text-decoration:none;margin-top:3px" href="' + escapeAttr(url) + '" target="_blank" rel="noopener noreferrer" title="' + escapeAttr(note) + '">' + escapeHtml(label) + '</a>';
   }
   function pilotTatSummary(tests) {
@@ -7474,7 +7474,7 @@
   function printDetailRows(test, showNotes = true) {
     const routes = printDetailRoutes(test);
     const multi = routes.length > 1;
-    const testIdentity = `<td class="print-detail-test-name print-detail-identity" rowspan="${routes.length}"><span class="print-detail-inline-code">${escapeHtml(displayCode(test))}</span><div class="print-test-name-stack${test.testName.length > 48 ? ' print-long-test-name' : ''}"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}${gestationalWarningBadge(test, 'print-gestational-warning')}${printManualTestNote(test)}${pilotTatBadge(test, true)}</div>${multi ? `<div class="print-route-count">${routes.length} required specimens</div>` : ''}</td>`;
+    const testIdentity = `<td class="print-detail-test-name print-detail-identity" rowspan="${routes.length}"><span class="print-detail-inline-code">${escapeHtml(displayCode(test))}</span><div class="print-test-name-stack${test.testName.length > 48 ? ' print-long-test-name' : ''}"><strong>${escapeHtml(test.testName)}</strong>${test.isStat ? '<span class="print-priority-tag">STAT</span>' : ''}${printFastingBadge(test, 'print-test-fasting-badge')}${gestationalWarningBadge(test, 'print-gestational-warning')}${printManualTestNote(test)}</div>${multi ? `<div class="print-route-count">${routes.length} required specimens</div>` : ''}</td>`;
     return `<tbody class="print-detail-test-group${multi ? ' print-detail-multi-group' : ''}">` +
       routes.map((route, index) => {
         const routeIndex = multi ? `<span class="print-detail-route-number" aria-label="Required specimen ${index + 1} of ${routes.length}">Specimen ${index + 1} of ${routes.length}</span>` : '';
@@ -7488,7 +7488,7 @@
           `<td class="print-detail-route-container">${routeIndex}${printDetailContainerPath(route)}${quantities}</td>` +
           `<td class="print-detail-temperature-stability"><span class="print-temp-badge ${temperatureClass(route.transportTemperature)}">${escapeHtml(route.transportTemperature)}</span><div class="print-detail-stability"><strong>Stability:</strong> <span class="print-stability-period">${escapeHtml(printStabilityForTemperature(route))}</span></div></td>` +
           `<td><span class="print-preferred-volume">${escapeHtml(printDetailVolumeText(route, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(printDetailVolumeText(route, 'minimum') || '—')}</span></td>` +
-          (showNotes ? `<td class="print-detail-route-notes">${printDetailHasNotes(route) ? printDetailHandling(route) : ''}</td>` : '') +
+          (showNotes ? `<td class="print-detail-route-notes">${printDetailHasNotes(route) ? printDetailHandling(route) : ''}${index === 0 ? pilotTatBadge(test, true) : ''}</td>` : '') +
           '</tr>';
       }).join('') + '</tbody>';
   }
@@ -7497,7 +7497,7 @@
     const tests = selectedTests();
     if (!tests.length) return showToast('Add at least one test before printing.');
     const printDetailWithNotes = tests.some(test =>
-      printDetailRoutes(test).some(printDetailHasNotes));
+      Boolean(pilotTat(test)) || printDetailRoutes(test).some(printDetailHasNotes));
     // Pre-draw warnings already appear in Collection precautions.
     const preparationTexts = new Set(tests.flatMap(test =>
       preCollectionPrecautions(test).map(req => `${displayCode(test)} ${test.testName}: ${req.note}`)
@@ -7509,7 +7509,6 @@
         <div class="print-meta">Generated ${escapeHtml(new Date().toLocaleString())}<span class="print-selected-count">${tests.length} ${tests.length === 1 ? 'test' : 'tests'}</span><span class="print-lab-destination">RECEIVING LAB: QUEST DIAGNOSTICS</span></div>
       </div>
       ${window.LabRegionalRestrictions.printNotice(tests, 'quest')}
-      ${pilotTatSummary(tests)}
       ${tests.some(isManuallyAddedTest) ? '<div class="print-manual-test-notice"><strong>Manual entry:</strong> Confirm the test code, specimen, collection tubes, and submission requirements in the official lab directory before collecting.</div>' : ''}
       ${printCollectionSubmissionPlan(tests)}
       <section class="print-detail-table-section${tests.length <= 3 ? ' print-brief-order' : ''}">
