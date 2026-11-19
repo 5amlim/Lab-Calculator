@@ -1473,6 +1473,343 @@ const additions=[
       "coagulation",
       "hematology"
     ]
+  },
+  {
+    "id": "labcorp-verified-20261118-batch39-000455",
+    "testCode": "000455",
+    "testName": "Thyroid Profile",
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "Red-top serum or lithium heparin plasma",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.7 mL serum",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature 14 days",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "specialInstructions": "Centrifuge SST; submit original spun tube. Review biotin supplementation; Labcorp recommends withholding high-dose biotin for 72 hours before collection, with clinician guidance.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "endocrinology",
+      "thyroid"
+    ],
+    "searchAliases": [
+      "thyroid panel",
+      "T4 T3 uptake FTI"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/000455/thyroid-profile"
+  },
+  {
+    "id": "labcorp-verified-20261118-batch39-160236",
+    "testCode": "160236",
+    "testName": "SARS-CoV-2 Antibody Profile, Nucleocapsid and Spike",
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "preferredVolume": "2.3 mL serum",
+    "minimumVolume": "1.4 mL serum",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature 14 days",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "specialInstructions": "Centrifuge SST and submit original spun tube. If plain red top is used, separate serum into a labeled plastic transport tube. Do not freeze the original SST. Not intended to diagnose acute infection.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "infectious"
+    ],
+    "searchAliases": [
+      "COVID antibody profile",
+      "COVID spike and nucleocapsid",
+      "SARS CoV 2 antibody"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/160236/sars-cov-2-antibody-profile-nucleocapsid-and-spike"
+  },
+  {
+    "id": "labcorp-verified-20261118-batch39-140302",
+    "testCode": "140302",
+    "testName": "Kidney Profile Plus Metabolic Panel (8), Basic",
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature 7 days",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "specialInstructions": "Separate serum from cells within 45 minutes. Submit spun SST and a separate random unpreserved urine specimen.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "renal",
+      "chemistry"
+    ],
+    "searchAliases": [
+      "kidney profile BMP",
+      "kidney albumin creatinine ratio"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/140302/kidney-profile-plus-metabolic-panel-8-basic",
+    "additionalDrawRequirements": [
+      {
+        "container": "Sterile Cup",
+        "specimenType": "Urine, Random",
+        "transportContainer": "Sterile Cup",
+        "preferredVolume": "10 mL urine",
+        "minimumVolume": "2 mL urine",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Random urine albumin/creatinine ratio",
+        "specialInstructions": "Collect random urine in a clean plastic sterile cup without preservative. Submit the original cup and label urine source.",
+        "specialLabeling": ""
+      }
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261118-batch39-140303",
+    "testCode": "140303",
+    "testName": "Kidney Profile Plus Metabolic Panel (14), Comprehensive",
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature 3 days",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "specialInstructions": "Separate serum from cells within 45 minutes. Submit spun SST and a separate random unpreserved urine specimen.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "renal",
+      "chemistry"
+    ],
+    "searchAliases": [
+      "kidney profile CMP",
+      "kidney albumin creatinine ratio"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/140303/kidney-profile-plus-metabolic-panel-14-comprehensive",
+    "additionalDrawRequirements": [
+      {
+        "container": "Sterile Cup",
+        "specimenType": "Urine, Random",
+        "transportContainer": "Sterile Cup",
+        "preferredVolume": "10 mL urine",
+        "minimumVolume": "2 mL urine",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Random urine albumin/creatinine ratio",
+        "specialInstructions": "Collect random urine in a clean plastic sterile cup without preservative. Submit the original cup and label urine source.",
+        "specialLabeling": ""
+      }
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261118-batch39-321052",
+    "testCode": "321052",
+    "testName": "Weight Management Baseline Profile With TSH",
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature: follow component stability, CMP 3 days",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "specialInstructions": "Collect SST and a separate 4 mL EDTA whole blood tube. Separate serum from cells within 45 minutes; submit spun SST. Follow individual component preparation, including CMP fasting.",
+    "fastingStatus": "required",
+    "fastingInstructions": "12-hour fast per Labcorp CMP component; confirm with ordering provider.",
+    "clinicalCategories": [
+      "endocrinology",
+      "chemistry",
+      "lipids"
+    ],
+    "searchAliases": [
+      "weight management",
+      "CMP lipid HbA1c TSH"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/321052/weight-management-baseline-profile-with-tsh",
+    "additionalDrawRequirements": [
+      {
+        "container": "Lavender EDTA",
+        "specimenType": "Whole Blood",
+        "transportContainer": "Lavender EDTA (original tube)",
+        "preferredVolume": "4 mL whole blood",
+        "minimumVolume": "",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "HbA1c",
+        "specialInstructions": "Collect 4 mL in a dedicated collection tube. Gently invert to mix and submit the original unspun EDTA tube; avoid clots and do not transfer whole blood. Deliver within 3 days for HbA1c.",
+        "specialLabeling": ""
+      }
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261118-batch39-318798",
+    "testCode": "318798",
+    "testName": "Weight Management Baseline Profile",
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature: follow component stability, CMP 3 days",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "specialInstructions": "Collect SST and a separate 4 mL EDTA whole blood tube. Separate serum from cells within 45 minutes; submit spun SST. Follow individual component preparation, including CMP fasting.",
+    "fastingStatus": "required",
+    "fastingInstructions": "12-hour fast per Labcorp CMP component; confirm with ordering provider.",
+    "clinicalCategories": [
+      "endocrinology",
+      "chemistry",
+      "lipids"
+    ],
+    "searchAliases": [
+      "weight management",
+      "CMP lipid HbA1c"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/318798/weight-management-baseline-profile",
+    "additionalDrawRequirements": [
+      {
+        "container": "Lavender EDTA",
+        "specimenType": "Whole Blood",
+        "transportContainer": "Lavender EDTA (original tube)",
+        "preferredVolume": "4 mL whole blood",
+        "minimumVolume": "",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "HbA1c",
+        "specialInstructions": "Collect 4 mL in a dedicated collection tube. Gently invert to mix and submit the original unspun EDTA tube; avoid clots and do not transfer whole blood. Deliver within 3 days for HbA1c.",
+        "specialLabeling": ""
+      }
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261118-batch39-258998",
+    "testCode": "258998",
+    "testName": "Weight Management Baseline Profile With Liver Evaluation",
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature: follow component stability, CMP 3 days",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "specialInstructions": "Collect SST and a separate 4 mL EDTA whole blood tube. Separate serum from cells within 45 minutes; submit spun SST. Follow individual component preparation, including CMP fasting.",
+    "fastingStatus": "required",
+    "fastingInstructions": "12-hour fast per Labcorp CMP component; confirm with ordering provider.",
+    "clinicalCategories": [
+      "endocrinology",
+      "chemistry",
+      "lipids"
+    ],
+    "searchAliases": [
+      "weight management",
+      "CMP lipid HbA1c platelet FIB-4"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/258998/weight-management-baseline-profile-with-liver-evaluation",
+    "additionalDrawRequirements": [
+      {
+        "container": "Lavender EDTA",
+        "specimenType": "Whole Blood",
+        "transportContainer": "Lavender EDTA (original tube)",
+        "preferredVolume": "4 mL whole blood",
+        "minimumVolume": "",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "HbA1c and platelet count",
+        "specialInstructions": "Collect 4 mL in a dedicated collection tube. Gently invert to mix and submit the original unspun EDTA tube; avoid clots and do not transfer whole blood. Deliver within 24 hours for platelet count.",
+        "specialLabeling": ""
+      }
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261118-batch39-344265",
+    "testCode": "344265",
+    "testName": "Non-HDL Cholesterol Profile",
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature 3 days",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "specialInstructions": "Separate serum from cells within 45 minutes. Submit original spun SST. If plain red top is used, transfer separated serum to plastic transport vial. Record age and sex on requisition; stable diet for 2–3 weeks recommended.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "lipids",
+      "cardiovascular"
+    ],
+    "searchAliases": [
+      "non HDL cholesterol",
+      "non-HDL",
+      "cholesterol profile"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/344265/non-hdl-cholesterol-profile"
   }
 ];
 for(const record of additions){const prior=window.SEED_TESTS.find(t=>String(t.testCode||'').trim()===record.testCode);if(!prior){window.SEED_TESTS.push(record);continue;}if(['pending','reference'].includes(prior.status))Object.assign(prior,record,{id:prior.id||record.id});}
