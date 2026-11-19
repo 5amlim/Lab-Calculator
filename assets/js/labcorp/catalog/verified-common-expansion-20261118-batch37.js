@@ -2867,6 +2867,221 @@ const additions=[
     "stability": "Room temperature or refrigerated 30 days; send within 72 hours; frozen unacceptable",
     "spin": "No",
     "specialInstructions": "Use pink-label Aptima Multitest vaginal collection kit. Rotate supplied swab at lower third of vaginal wall for 10–30 seconds, place into original transport device, break shaft at scoreline, cap securely. No further transfer. Do not freeze. Label as vaginal swab. Do not use urine transport, bacterial swab, or green-label Unisex kit in this configured route."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch43-123100",
+    "testCode": "123100",
+    "testName": "Protein Electrophoresis, Serum With Reflex to IFE, Serum",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "chemistry",
+      "immunology",
+      "hematology"
+    ],
+    "searchAliases": [
+      "SPEP reflex IFE",
+      "serum electrophoresis immunofixation"
+    ],
+    "source": "Labcorp individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/123100/protein-electrophoresis-serum-with-reflex-to-ife-serum",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "5 mL serum",
+    "minimumVolume": "2 mL serum",
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "stability": "Refrigerated 14 days; room temperature 3 days; frozen 14 days",
+    "spin": "Yes",
+    "usePreferredSerumYield": true,
+    "specialInstructions": "Collect sufficient serum for reflex testing. Allow to clot and centrifuge. Submit original spun SSTs refrigerated at 2–8°C. Red-top serum is an alternative if separated into a plastic transport tube. Do not submit plasma or hemolyzed samples."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch43-818542",
+    "testCode": "818542",
+    "testName": "HDL-P, Total, NMR",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "required",
+    "fastingInstructions": "Fast 8–12 hours before collection.",
+    "clinicalCategories": [
+      "lipids",
+      "cardiac"
+    ],
+    "searchAliases": [
+      "HDL particle number",
+      "NMR HDL P"
+    ],
+    "source": "Labcorp individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/818542/hdl-p-total",
+    "specimenType": "Serum",
+    "drawContainer": "NMR LipoTube (Black/Yellow)",
+    "transportContainer": "Submit in Original Tube",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "stability": "Refrigerated 14 days; frozen 14 days",
+    "spin": "Yes",
+    "specialInstructions": "Use dedicated NMR LipoTube, not ordinary SST. Allow to clot upright for 30 minutes; centrifuge at 1600–1800 × g for 10–15 minutes. Refrigerate original unopened spun tube and ship with frozen cool packs."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch43-504045",
+    "testCode": "504045",
+    "testName": "21-Deoxycortisol, LC/MS (Endocrine Sciences)",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "endocrinology"
+    ],
+    "searchAliases": [
+      "21 deoxycortisol",
+      "adrenal steroid LCMS"
+    ],
+    "source": "Labcorp individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/504045/21-deoxycortisol-lc-ms-endocrine-sciences",
+    "specimenType": "Serum",
+    "drawContainer": "Red Top",
+    "transportContainer": "Frozen Transport Tube (Purple Cap)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.3 mL serum",
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "stability": "Frozen 14 days",
+    "spin": "Yes",
+    "specialInstructions": "Allow to clot, centrifuge and separate serum within 2 hours into a dedicated plastic frozen transport vial. Freeze separated serum and maintain frozen during transport. Do not freeze the original collection tube. Reject grossly hemolyzed samples."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch43-900668",
+    "testCode": "900668",
+    "testName": "Invitae Atypical Hemolytic Uremic Syndrome and Thrombotic Microangiopathies Panel",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "genetics",
+      "renal",
+      "hematology"
+    ],
+    "searchAliases": [
+      "aHUS TMA genetic panel"
+    ],
+    "source": "Labcorp individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/900668/invitae-atypical-hemolytic-uremic-syndrome-and-thrombotic-microangiopathies-panel",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Lavender EDTA",
+    "transportContainer": "Lavender EDTA",
+    "preferredVolume": "4 mL whole blood",
+    "minimumVolume": "3 mL whole blood",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature or refrigerated at 4°C, 90 days; do not freeze",
+    "spin": "No",
+    "specialInstructions": "Collect in a dedicated collection tube; do not share with other tests. Mix gently and submit original EDTA tube without centrifugation or transfer. Do not freeze. Reject hemolyzed samples. Confirm pediatric blood-volume limits, provider consent attestation and eligibility; specimens from allogeneic transplant recipients are unsuitable."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch43-900040",
+    "testCode": "900040",
+    "testName": "Invitae Rett and Angelman Syndromes and Related Disorders Panel",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "genetics",
+      "neurology"
+    ],
+    "searchAliases": [
+      "Rett Angelman genetic panel"
+    ],
+    "source": "Labcorp individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/900040/invitae-rett-and-angelman-syndromes-and-related-disorders-panel",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Lavender EDTA",
+    "transportContainer": "Lavender EDTA",
+    "preferredVolume": "4 mL whole blood",
+    "minimumVolume": "3 mL whole blood",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature or refrigerated at 4°C, 90 days; do not freeze",
+    "spin": "No",
+    "specialInstructions": "Collect in a dedicated collection tube; do not share with other tests. Mix gently and submit original EDTA tube without centrifugation or transfer. Do not freeze. Reject hemolyzed samples. Confirm pediatric blood-volume limits, provider consent attestation and eligibility; specimens from allogeneic transplant recipients are unsuitable."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch43-906219",
+    "testCode": "906219",
+    "testName": "Invitae Mendelian Disorders with Psychiatric Symptoms Panel",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "genetics",
+      "neurology"
+    ],
+    "searchAliases": [
+      "Mendelian psychiatric genetic panel"
+    ],
+    "source": "Labcorp individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/906219/invitae-mendelian-disorders-with-psychiatric-symptoms-panel",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Lavender EDTA",
+    "transportContainer": "Lavender EDTA",
+    "preferredVolume": "4 mL whole blood",
+    "minimumVolume": "3 mL whole blood",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature or refrigerated at 4°C, 90 days; do not freeze",
+    "spin": "No",
+    "specialInstructions": "Collect in a dedicated collection tube; do not share with other tests. Mix gently and submit original EDTA tube without centrifugation or transfer. Do not freeze. Reject hemolyzed samples. Confirm pediatric blood-volume limits, provider consent attestation and eligibility; specimens from allogeneic transplant recipients are unsuitable."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch43-906186",
+    "testCode": "906186",
+    "testName": "Invitae Neurotransmitter Disorders Panel",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "genetics",
+      "neurology"
+    ],
+    "searchAliases": [
+      "neurotransmitter genetic panel"
+    ],
+    "source": "Labcorp individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/906186/invitae-neurotransmitter-disorders-panel",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Lavender EDTA",
+    "transportContainer": "Lavender EDTA",
+    "preferredVolume": "4 mL whole blood",
+    "minimumVolume": "3 mL whole blood",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature or refrigerated at 4°C, 90 days; do not freeze",
+    "spin": "No",
+    "specialInstructions": "Collect in a dedicated collection tube; do not share with other tests. Mix gently and submit original EDTA tube without centrifugation or transfer. Do not freeze. Reject hemolyzed samples. Confirm pediatric blood-volume limits, provider consent attestation and eligibility; specimens from allogeneic transplant recipients are unsuitable."
   }
 ];
 for(const record of additions){const prior=window.SEED_TESTS.find(t=>String(t.testCode||'').trim()===record.testCode);if(!prior){window.SEED_TESTS.push(record);continue;}if(['pending','reference'].includes(prior.status))Object.assign(prior,record,{id:prior.id||record.id});}
