@@ -2499,15 +2499,6 @@
     if (printing) return '<div style="margin-top:3px">' + escapeHtml(label) + (stat ? '' : ' (estimate)') + '</div>';
     return '<a class="badge temp-unknown" style="display:inline-block;white-space:normal;text-decoration:none;margin-top:3px" href="' + escapeAttr(url) + '" target="_blank" rel="noopener noreferrer" title="' + escapeAttr(note) + '">' + escapeHtml(label) + '</a>';
   }
-  function pilotTatSummary(tests) {
-    const known = tests.filter(test => pilotTat(test) && !test.isStat);
-    if (!tests.some(test => pilotTat(test))) return '';
-    const unknown = tests.length - known.length;
-    const max = known.length ? Math.max(...known.map(test => pilotTat(test)[1])) : null;
-    const wording = max === null ? 'No verified routine estimate for selected priorities.' : 'Longest published routine upper estimate: ' + max + (max === 1 ? ' day' : ' days') + '.';
-    return '<div class="subtext" style="padding:8px 0;line-height:1.5"><strong>Result turnaround (directory estimates)</strong><br>' + escapeHtml(wording) + ' ' + known.length + ' of ' + tests.length + ' tests with estimates.' + (unknown ? ' ' + unknown + ' without an applicable estimate; full order completion cannot be estimated.' : '') + ' Labcorp estimates start at specimen pickup. Reflex testing and schedules may extend turnaround.</div>';
-  }
-
   function renderLibraryRow(test) {
     const selected = selectedIds.includes(test.id);
     const blocked = test.status === 'blocked';
@@ -3296,10 +3287,10 @@
       return;
     }
     els.selectedList.className = 'selected-list';
-    els.selectedList.innerHTML = pilotTatSummary(tests) + tests.map(test => `
+    els.selectedList.innerHTML = tests.map(test => `
       <article class="selected-card${test.isStat ? ' is-stat' : ''}">
         <div class="selected-card-top">
-          <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}${manualLibraryTag(test)}${pilotTatBadge(test)}</div><div class="subtext specimen-line">${requiredSpecimenBadges(test)} <span>·</span> <span class="preferred-volume-inline">${escapeHtml(combinedVolumeText(test, 'preferred') || 'verify')}</span> <span>· Minimum ${escapeHtml(combinedVolumeText(test, 'minimum') || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}${gestationalWarningBadge(test, 'selected-gestational-warning')}</div>
+          <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}${manualLibraryTag(test)}</div><div class="subtext specimen-line">${requiredSpecimenBadges(test)} <span>·</span> <span class="preferred-volume-inline">${escapeHtml(combinedVolumeText(test, 'preferred') || 'verify')}</span> <span>· Minimum ${escapeHtml(combinedVolumeText(test, 'minimum') || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}${gestationalWarningBadge(test, 'selected-gestational-warning')}</div>
           <div>${isStatEligible(test) ? `<button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Mark STAT'}</button>` : ''}<a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove selected-card-delete" data-action="remove" data-id="${escapeAttr(test.id)}" type="button" aria-label="Delete ${escapeAttr(test.testName)}">Delete</button></div>
         </div>
         <div class="selected-details">
@@ -3329,11 +3320,11 @@
     els.testsOverviewList.className = 'tests-overview-list';
     // Preserve Details mode when a cart entry is added, removed, or updated.
     els.testsOverviewList.classList.toggle('hidden', !els.testsDetailsPanel.classList.contains('hidden'));
-    els.testsOverviewList.innerHTML = pilotTatSummary(tests) + tests.map(test => `
+    els.testsOverviewList.innerHTML = tests.map(test => `
       <div class="tests-overview-row${test.isStat ? ' is-stat' : ''}${!isStatEligible(test) ? ' no-stat-action' : ''}">
         <div class="tests-overview-ident">
           <strong class="tests-overview-code">${escapeHtml(displayCode(test))}</strong>
-          <span class="tests-overview-name">${escapeHtml(test.testName)}</span>${window.LabRegionalRestrictions.badge(test, 'labcorp')}${pilotTatBadge(test)}
+          <span class="tests-overview-name">${escapeHtml(test.testName)}</span>${window.LabRegionalRestrictions.badge(test, 'labcorp')}
         </div>
         ${isStatEligible(test) ? `<button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Mark STAT'}</button>` : ''}
         <button class="mini-button remove remove-flex tests-overview-remove" type="button" data-action="remove" data-id="${escapeAttr(test.id)}" aria-label="Remove ${escapeAttr(test.testName)}"><span class="remove-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7.3 6.1 12 10.8l4.7-4.7 1.2 1.2-4.7 4.7 4.7 4.7-1.2 1.2-4.7-4.7-4.7 4.7-1.2-1.2 4.7-4.7-4.7-4.7 1.2-1.2Z"/></svg></span><span class="remove-text" aria-hidden="true">Delete</span></button>
