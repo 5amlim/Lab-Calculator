@@ -1,0 +1,32 @@
+name: Labcorp catalog export
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/labcorp-catalog-export.yml'
+      - 'scripts/labcorp_catalog_export.py'
+permissions:
+  contents: read
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Export and compare Labcorp menu
+        run: python scripts/labcorp_catalog_export.py --output catalog-export
+      - name: Upload catalog lists
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: labcorp-catalog-export
+          path: catalog-export/
+          if-no-files-found: warn
+          retention-days: 30
