@@ -34,6 +34,7 @@
     '15384': { label: 'Unavailable in NY', detail: 'Quest states that rheumatoid factor screen with reflex to titer on synovial fluid is unavailable for New York patient testing.', url: 'https://testdirectory.questdiagnostics.com/test/test-detail/15384/rheumatoid-factor-screen-with-reflex-to-titer-synovial-fluid?cc=MASTER' }
   });
   const LABCORP = Object.freeze({
+    '139144': { label: 'Unavailable in NY', detail: 'Labcorp states that quantitative CMV urine PCR is not approved for use in New York state.', url: 'https://www.labcorp.com/tests/139144/cytomegalovirus-cmv-quantitative-urine-pcr' },
     '791280': { label: 'Unavailable in CA / NY', detail: 'Labcorp states this filter-paper blood lead test is unavailable in California and New York.', url: 'https://www.labcorp.com/tests/791280/lead-blood-filter-paper' }
   });
 
