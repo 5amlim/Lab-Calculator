@@ -366,6 +366,7 @@
     els.loadMoreButton.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
     els.blockedListButton?.addEventListener('click', () => { blockedListOpen = !blockedListOpen; renderBlockedList(); });
     els.loadMoreInlineButton?.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
+    $('tatRegionFilter')?.addEventListener('change', () => renderTurnaroundTime(selectedTests()));
     els.libraryBody.addEventListener('click', handleLibraryClick);
     els.libraryBody.addEventListener('pointerover', event => {
       if (event.pointerType !== 'mouse') return;
@@ -2583,6 +2584,16 @@
     });
   }
 
+
+  function regionalPanelTat(test, region) {
+    const tat = pilotTat(test);
+    if (!tat || test.isStat) return null;
+    // Only use existing published scopes; never infer a regional result from a different market.
+    if (region === 'directory') return tat;
+    
+    return null;
+  }
+
   function renderTurnaroundTime(tests) {
     const summary = $('turnaroundTimeSummary');
     const body = $('turnaroundTime');
@@ -2593,7 +2604,10 @@
       body.textContent = 'Add tests to see estimated turnaround times.';
       return;
     }
-    const entries = tests.map(test => ({ test, tat: test.isStat ? null : pilotTat(test) }));
+    const regionSelect = $('tatRegionFilter');
+    const region = regionSelect?.value || 'directory';
+    const regionLabel = regionSelect?.selectedOptions[0]?.textContent || 'Published directory';
+    const entries = tests.map(test => ({ test, tat: regionalPanelTat(test, region) }));
     const known = entries.filter(entry => entry.tat);
     const unavailable = entries.length - known.length;
     summary.textContent = known.length ? known.length + ' of ' + tests.length + ' estimated' : 'No estimates yet';
@@ -2601,7 +2615,7 @@
     const groups = new Map();
     entries.sort((a, b) => (a.tat ? a.tat[1] : Infinity) - (b.tat ? b.tat[1] : Infinity));
     entries.forEach(({ test, tat }) => {
-      const label = tat ? tat[0] : test.isStat ? 'STAT TAT not verified' : 'TAT not available';
+      const label = tat ? tat[0] : test.isStat ? 'STAT TAT not verified' : region === 'directory' ? 'TAT not available' : 'TAT not verified for ' + regionLabel;
       if (!groups.has(label)) groups.set(label, []);
       groups.get(label).push({ test, tat });
     });
@@ -2616,9 +2630,10 @@
     const max = known.length ? Math.max(...known.map(entry => entry.tat[1])) : null;
     const longest = max === null ? '' : '<div class="subtext"><strong>Longest listed routine estimate:</strong> up to ' + max + (max === 1 ? ' day' : ' days') + '</div>';
     const warning = unavailable ? ' ' + unavailable + (unavailable === 1 ? ' test has' : ' tests have') + ' no applicable estimate; full order completion cannot be estimated.' : '';
+    const regionNote = region === 'directory' ? 'General Labcorp directory estimates start at specimen pickup.' : 'No region-specific estimates have been verified for ' + regionLabel + '.';
     body.innerHTML = longest +
       '<div role="region" aria-label="Tests grouped by turnaround time" tabindex="0" style="max-height:320px;overflow-y:auto;display:grid;gap:8px">' + cards + '</div>' +
-      '<div class="order-of-draw-note">Published routine estimates start at specimen pickup. Schedules and reflex testing may extend turnaround. Not a guaranteed result date.' + escapeHtml(warning) + '</div>';
+      '<div class="order-of-draw-note">' + escapeHtml(regionNote) + ' Schedules and reflex testing may extend turnaround. Not a guaranteed result date.' + escapeHtml(warning) + '</div>';
   }
 
   function renderLibraryRow(test) {
