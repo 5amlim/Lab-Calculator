@@ -2489,15 +2489,37 @@
     if (test.status !== 'active' || isManuallyAddedTest(test)) return null;
     return Object.prototype.hasOwnProperty.call(ROUTINE_TAT_PILOT, displayCode(test)) ? ROUTINE_TAT_PILOT[displayCode(test)] : null;
   }
+
   function pilotTatBadge(test, printing = false) {
     const tat = pilotTat(test);
     if (!tat) return '';
-    const [time, max, scope, schedule, url] = tat;
+    const [time, max, scope] = tat;
     const stat = test.isStat || statSelectedIds.includes(test.id);
     const label = stat ? 'STAT TAT not verified' : 'Routine TAT: ' + time + ' (' + scope + ')';
-    const note = 'Directory estimate checked 2026-11-19. ' + (schedule ? 'Setup: ' + schedule + '. ' : '') + 'Confirm local schedule, account and any reflex testing; not a guaranteed result date.';
     if (printing) return '<div style="margin-top:3px">' + escapeHtml(label) + (stat ? '' : ' (estimate)') + '</div>';
-    return '<a class="badge temp-unknown" style="display:inline-block;white-space:normal;text-decoration:none;margin-top:3px" href="' + escapeAttr(url) + '" target="_blank" rel="noopener noreferrer" title="' + escapeAttr(note) + '">' + escapeHtml(label) + '</a>';
+    return '<div style="margin:4px 0 6px"><button type="button" class="mini-button" data-action="view-tat" data-id="' + escapeAttr(test.id) + '" aria-haspopup="dialog" style="margin:0;display:inline-flex;align-items:center;gap:5px;max-width:100%;white-space:normal;text-align:left;font-size:11px;padding:5px 8px;cursor:pointer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>View TAT &amp; Test Setup<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div>';
+  }
+
+  function showPilotTat(test) {
+    if (!test) return;
+    const tat = pilotTat(test);
+    if (!tat) return;
+    const [time, max, scope, schedule] = tat;
+    const lines = [
+      'Routine turnaround: ' + time,
+      'Test setup: ' + (schedule || 'Schedule not verified'),
+      'Timing starts at specimen pickup.',
+      ...(test.isStat || statSelectedIds.includes(test.id) ? ['STAT turnaround: Not verified'] : []),
+      '',
+      'Directory checked November 19, 2026. Schedules and reflex testing may extend turnaround. See the official directory for current details.'
+    ];
+    void window.PortalDialog.alert(lines.join('\n'), {
+      title: 'TAT & Test Setup',
+      subject: displayCode(test) + ' · ' + test.testName,
+      kicker: 'LAB DIRECTORY',
+      confirmLabel: 'Close',
+      tone: 'info'
+    });
   }
 
   function renderTurnaroundTime(tests) {
@@ -2576,6 +2598,10 @@
       return;
     }
     const id = button.dataset.id;
+    if (button.dataset.action === 'view-tat') {
+      showPilotTat(database.find(test => test.id === id));
+      return;
+    }
     if (button.dataset.action === 'add') {
       addSelected(id);
       button.textContent = 'Added';
