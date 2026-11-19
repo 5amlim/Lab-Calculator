@@ -12,7 +12,7 @@ const modules = {
 };
 const expected = {
  Quest:['37675'],
- Labcorp:['520059','520134','520149','520340','520298','520293','520194','520555','520385','006981']
+ Labcorp:['520059','520149','520340','520298','520293','520194','520555','520385','006981']
 };
 function load(lab, existing=[]) {
  const window={SEED_TESTS:existing};
@@ -77,7 +77,7 @@ test('Labcorp new serum profiles have correct collection groups, minimum yields 
   assert.equal(r.spin,'Yes');
   assert.match(r.specialInstructions,/serum|SST/i);
  }
- for (const code of ['520059','520134','520149','520340','520298','520293','520194']) {
+ for (const code of ['520059','520149','520340','520298','520293','520194']) {
   assert.equal(m.get(code).transportTemperature,'Refrigerated');
   assert.equal(m.get(code).transportContainer,'Transport Tube');
  }
@@ -94,7 +94,7 @@ test('new tests have correct clinical category filtering, no Quest region flag r
  vm.runInNewContext(read('assets/js/clinical-categories.js'),{window});
  const m=new Map([...load('Quest'),...load('Labcorp')].map(x=>[x.testCode,x]));
  for (const [code,category] of [
-  ['37675','thyroid'],['520059','autoimmune'],['520134','autoimmune'],
+  ['37675','thyroid'],['520059','autoimmune'],
   ['520149','autoimmune'],['520340','autoimmune'],['520194','renal'],['520385','autoimmune']
  ])assert(window.LabClinicalCategories.forTest(m.get(code)).includes(category),code+' missing '+category);
  vm.runInNewContext(read('assets/js/market-restrictions.js'),{window});

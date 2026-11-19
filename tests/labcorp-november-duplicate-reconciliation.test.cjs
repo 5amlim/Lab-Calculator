@@ -24,10 +24,10 @@ function run(names, existing = []) {
 const later = inOrder.slice(-2);
 const duplicateCodes = [
   '006981', '117150', '117340', '117359', '117713', '117739', '117921',
-  '520059', '520134', '520149', '520194', '520293', '520298'
+  '520059',  '520149', '520194', '520293', '520298'
 ];
 
-test('later verified November batches reconcile 13 duplicate codes once', () => {
+test('later verified November batches reconcile 12 duplicate codes once', () => {
   const rows = run(inOrder);
   for (const code of duplicateCodes) {
     const matches = rows.filter(row => row.testCode === code);
@@ -61,8 +61,19 @@ test('existing older active rows and clinic-blocked rows remain untouched', () =
 
 test('updated catalog scripts load before app with fresh cache keys', () => {
   const html = fs.readFileSync(path.join(root, 'labcorp.html'), 'utf8');
-  const a = html.indexOf('verified-specialty-expansion-20261116-batch29.js?v=20261117-audit2');
+  const a = html.indexOf('verified-specialty-expansion-20261116-batch29.js?v=20261119-fodrin-dedupe');
   const b = html.indexOf('verified-coagulation-expansion-20261116-batch30.js?v=20261117-audit2');
   const app = html.indexOf('labcorp-app.js');
   assert.ok(a >= 0 && b > a && app > b);
+});
+
+test('Labcorp 520134 has one retained active source and one published entry', () => {
+  const rows = run(['verified-expansion-20261115-batch4.js',
+    'official-mixed-expansion-20261115-batch14.js', ...inOrder]);
+  const matches = rows.filter(row => row.testCode === '520134');
+  assert.equal(matches.length, 1);
+  assert.equal(matches[0].status, 'active');
+  assert.equal(matches[0].transportTemperature, 'Refrigerated');
+  const index = JSON.parse(fs.readFileSync(path.join(root, 'assets/search/labcorp-tests.json'), 'utf8'));
+  assert.equal(index.tests.filter(row => row[0] === '520134').length, 1);
 });

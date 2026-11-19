@@ -13,7 +13,7 @@ const bundles = {
 const apps = { Quest: 'assets/js/app.js', Labcorp: 'labcorp-app.js' };
 const codes = {
   Quest: ['36586', '10189', '90353', '92688', '34484', '968'],
-  Labcorp: ['520134', '520194', '520293', '520298', '520340', '520385', '123010', '123016', '123255']
+  Labcorp: [ '520194', '520293', '520298', '520340', '520385', '123010', '123016', '123255']
 };
 function seed(lab, initial = []) {
   const window = { SEED_TESTS: initial };

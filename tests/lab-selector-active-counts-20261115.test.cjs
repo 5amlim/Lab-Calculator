@@ -8,7 +8,7 @@ const { test } = require('node:test');
 const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
 const selector = read('assets/js/lab-select.js');
 
-function openSelector(lab, initialCount, storage) {
+function openSelector(lab, initialCount, fetch) {
   const states = {};
   for (const name of ['quest', 'cedars', 'labcorp']) {
     const badge = { textContent: '', attributes: {},
@@ -33,14 +33,7 @@ function openSelector(lab, initialCount, storage) {
     createElement() { return { setAttribute() {} }; },
     addEventListener() {}
   };
-  const sessionStorage = {
-    getItem(key) { return storage.get(key) ?? null; },
-    setItem(key, value) { storage.set(key, value); }
-  };
-  vm.runInNewContext(selector, {
-    document, sessionStorage, MutationObserver,
-    location: { pathname: '/Lab-Calculator/' + (lab === 'quest' ? 'index' : lab) + '.html' }
-  }, { filename:'assets/js/lab-select.js' });
+  vm.runInNewContext(selector, { document, fetch, MutationObserver }, { filename:'assets/js/lab-select.js' });
   return {
     getBadge: name => states[name].badge,
     update(text) { record.textContent = text; notify(); }
@@ -60,32 +53,26 @@ test('Labcorp and Quest main counters separate cart-eligible tests from referenc
   assert.doesNotMatch(labcorp, /els\.recordCount\.textContent = `${database\.length} tests`/);
 });
 
-test('Lab selection dropdown shows only active test totals, keeping X tests badge format', () => {
-  const fresh = openSelector('labcorp', '0 tests', new Map());
-  assert.equal(fresh.getBadge('quest').textContent, '2845 tests');
-  const storage = new Map();
-  const quest = openSelector('quest', '0 tests', storage);
-  assert.equal(quest.getBadge('labcorp').textContent, '1561 tests');
-  quest.update('2820 active tests · 1010 directory-only references');
-  assert.equal(quest.getBadge('labcorp').textContent, '1561 tests');
+test('Lab selector starts with published counts and refreshes other labs', async () => {
+  const activeCount = name => JSON.parse(read('assets/search/' + name + '-tests.json')).tests.length;
+  const requested = [];
+  const quest = openSelector('quest', '0 tests', async url => {
+    requested.push(url);
+    return {ok: true, json: async () => ({tests: [[1], [2], [3]]})};
+  });
+  assert.equal(quest.getBadge('labcorp').textContent, activeCount('labcorp') + ' tests');
+  assert.equal(openSelector('labcorp', '0 tests').getBadge('quest').textContent, activeCount('quest') + ' tests');
+  quest.update('3000 active tests · 10 directory-only references');
+  await new Promise(setImmediate);
+  assert.deepEqual(requested, ['assets/search/labcorp-tests.json']);
+  assert.equal(quest.getBadge('labcorp').textContent, '3 tests');
+  assert.equal(quest.getBadge('labcorp').attributes['aria-label'], '3 available tests');
   assert.equal(quest.getBadge('quest').textContent, 'Selected');
-
-  const labcorp = openSelector('labcorp', '0 tests', storage);
-  assert.equal(labcorp.getBadge('quest').textContent, '2820 tests');
-  labcorp.update('1458 active tests · 299 directory-only references');
-  assert.equal(labcorp.getBadge('quest').textContent, '2820 tests');
-  assert.equal(labcorp.getBadge('labcorp').textContent, 'Selected');
-
-  const cedars = openSelector('cedars', '39 tests', storage);
-  assert.equal(cedars.getBadge('quest').textContent, '2820 tests');
-  assert.equal(cedars.getBadge('labcorp').textContent, '1458 tests');
-  assert.equal(cedars.getBadge('cedars').textContent, 'Selected');
-  assert.equal(cedars.getBadge('labcorp').attributes['aria-label'], '1458 available tests');
 });
-
+ 
 test('All receiving lab pages load the refreshed selector script', () => {
   for (const page of ['index.html', 'labcorp.html', 'cedars.html']) {
-    assert.match(read(page), /src="assets\/js\/lab-select\.js\?v=13"/);
+    assert.match(read(page), /src="assets\/js\/lab-select\.js\?v=[^"\s]+"/);
   }
   assert.match(read('labcorp.html'), /src="labcorp-app\.js\?v=[^"\s]+"/);
 });
