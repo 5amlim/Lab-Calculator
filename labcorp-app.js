@@ -4603,7 +4603,9 @@
     if (exception && exception.count) return Math.max(explicit, exception.count);
     // Lab-prescribed multiple distinct tubes/timepoints and calibrated fills
     // are authoritative, not candidates for a smaller collection count.
-    if (explicit > 1 || hasCollectionFillRule(test)) return explicit;
+    if (explicit > 1) return explicit;
+    // Midpoint excludes fill-rule records; keep the existing conservative
+    // volume-derived count when a calibrated tube has a numeric requirement.
     const volume = requiredSourceSpecimenMl(test);
     if (volume === null || volume <= 0) return explicit;
     return Math.max(explicit, Math.ceil(volume / usableSourceSpecimenMl(test, pooledCollectionMaterial(test)) - 1e-9));
