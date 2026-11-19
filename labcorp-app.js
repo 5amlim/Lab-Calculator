@@ -911,17 +911,16 @@
         }))
       : [
           {
-            label: frozenTransportLabel(test, finalTransportContainer(test)),
+            label: isGenericSerumPlasmaTransport(test, finalTransportContainer(test)) ? 'Transport Tube' : frozenTransportLabel(test, finalTransportContainer(test)),
             className: transportTubeClass(test, finalTransportContainer(test))
           },
           ...additionalDrawRequirements(test).map(requirement => {
-            const label = requirement.transportContainer || requirement.container;
+            const raw = requirement.transportContainer || requirement.container;
+            const route = { ...test, specimenType: requirement.specimenType || test.specimenType,
+              transportTemperature: requirement.transportTemperature || test.transportTemperature };
             return {
-              label,
-              className: transportTubeClass(
-                { ...test, specimenType: requirement.specimenType || test.specimenType },
-                label
-              )
+              label: isGenericSerumPlasmaTransport(route, raw) ? 'Transport Tube' : frozenTransportLabel(route, raw),
+              className: transportTubeClass(route, raw)
             };
           })
         ];
@@ -5806,13 +5805,24 @@
   // Generic empty plastic serum/plasma transport vials use the same green
   // badge. Keep frozen, special media, metal-free, platelet-poor and light-
   // protected containers separate; specimen identity and source still matter.
+  // Standard stock aliases may contain a quantity or a separation qualifier.
+  // Remove only those qualifiers for physical device classification, not from
+  // the original record or the dedicated aliquot/count rules.
+  function standardTransportStockName(transport) {
+    return normalizeSearch(transport)
+      .replace(/^\d+\s*(?:x\s*)?(?:separate\s+)?/, '')
+      .replace(/^(?:two|three|four|separate|individual|dedicated)\s+/, '')
+      .replace(/\s+(?:\d+|two|three|four)\s+(?:separate\s+)?(?:tubes?|vials?|aliquots?)$/, '')
+      .replace(/\b(?:no preservatives?|without preservatives?|unpreserved|preservative[ -]?free)\b/g, '')
+      .replace(/\s+/g, ' ').trim();
+  }
+
   function isGenericSerumPlasmaTransport(test, transport) {
     const material = normalizeSpecimenType(test.specimenType).toLowerCase().trim();
     if (!['serum', 'plasma', 'serum or plasma'].includes(material)) return false;
     if (String(test.transportTemperature || '').toLowerCase().trim() === 'frozen') return false;
     if (typeof isFrozenSerumPlasmaTransport === 'function' && isFrozenSerumPlasmaTransport(test, transport)) return false;
-    const raw = normalizeSearch(transport)
-      .replace(/\b(?:no preservatives?|without preservatives?|unpreserved|preservative[ -]?free)\b/g, '').replace(/\s+/g, ' ').trim();
+    const raw = standardTransportStockName(transport);
     // Generic plastic vials share green transport badges, never specialty media.
     if (/amber|light protect|metal free|acid washed|acid rinsed|trace metal|trace element|preserv|cryovial|glass|royal blue|nmr|citrate|heparin|edta|platelet poor|special|frozen|transpak|fluoride|oxalate|formalin|cary blair/.test(raw)) return false;
     const clean = raw.replace(/\b(?:additive free|no additive|sterile|plain|unpreserved|dedicated)\b/g, '').replace(/\s+/g, ' ').trim();
@@ -5884,7 +5894,7 @@
     const notes = routeSpecificPoolingNotes(test).toLowerCase();
     // "Dedicated plastic serum transport tube" is a physical stock alias,
     // never permission to pool it with another test's specimen.
-    if (/\bdedicated\b/.test(transport)) return true;
+    if (/\b(?:dedicated|separate|individual)\b/.test(transport)) return true;
     return /\b(?:dedicated|individual|separate|own|additional)\s+(?:(?:serum|plasma|specimen|sample)\s+)?(?:transport\s+)?(?:tube|vial|aliquot|cryovial|container)\b/.test(transport)
       || /\b(?:dedicated|individual|separate|own|additional)\s+(?:(?:serum|plasma|specimen|sample)\s+)?(?:transport\s+)?(?:tube|vial|aliquot|cryovial|container)\s+(?:required|needed)\b/.test(notes)
       || /\b(?:submit|provide|prepare|transfer|use|requires?)\s+(?:a[n]?\s+)?(?:dedicated|individual|separate|own|additional|second)\s+(?:(?:serum|plasma|specimen|sample)\s+)?(?:transport\s+)?(?:tube|vial|aliquot|cryovial|container)\b/.test(notes)
@@ -6237,7 +6247,7 @@
       }];
     }
 
-    if (/transport tube|transfer tube|transport vial|transfer vial|aliquot|cryovial|screw[- ]?cap|pour[- ]?off|plastic.*(?:vial|container)/i.test(transport)) {
+    if (isGenericSerumPlasmaTransport(test, transport) || /transport tube|transfer tube|transport vial|transfer vial|aliquot|cryovial|screw[- ]?cap|pour[- ]?off|plastic.*(?:vial|container)/i.test(transport)) {
       const sourcePhrase = specimenSourceDetail(test);
       const isSwab = /swab/i.test(sourceSpecimen);
       const isSpecialtyMetalContainer = /acid[- ]?washed|acid[- ]?rinsed|metal[- ]?free|trace[- ]?metal/i.test(transport);
@@ -6246,6 +6256,7 @@
       const namedNonBloodDevice = collectionSpecimenGroupForTest(test) !== 'blood' &&
         !/^(?:(?:stool|urine|swab|csf|sputum|saliva|semen|body[- ]?fluid)\s+)?(?:frozen\s+)?(?:transport|transfer)\s+(?:tube|vial|container)$/i.test(transport);
       const label = namedNonBloodDevice ? transport
+        : isGenericSerumPlasmaTransport(test, transport) ? 'Transport Tube'
         : /^transport tube$/i.test(transport) || /^frozen transport tube(?:\s*\(.*\))?$/i.test(transport)
           ? 'Transport Tube'
           : isSwab ? 'Swab Transport Tube'
@@ -7209,7 +7220,8 @@
     if (types.some(type => !/^(?:serum|plasma|serum or plasma|platelet-poor plasma|platelet poor plasma)$/.test(type)))
       return raw;
     const standard = /^(?:transport tube|serum transport tube(?:\s*\/\s*vial)?|plasma transport tube(?:\s*\/\s*vial)?|plastic (?:serum|plasma) transport tube|plastic screw[- ]?cap serum transport vial|chilled (?:plastic )?screw[- ]?cap transport vial|chilled plastic screw[- ]?cap vial|clean screw[- ]?capp?ed? (?:plastic )?vial \(no preservative\)|clean screw[- ]?cap vial \(no preservative\))$/i;
-    return standard.test(raw) ? 'Transport Tube' : raw;
+    const routes = (Array.isArray(specimens) ? specimens : [specimens]).filter(Boolean);
+    return standard.test(raw) || (routes.length > 0 && routes.every(test => isGenericSerumPlasmaTransport(test, raw))) ? 'Transport Tube' : raw;
   }
   function printTransportTubeQualifier(label, specimens = []) {
     if (printTransportTubeLabel(label, specimens) !== 'Transport Tube') return '';
@@ -7329,43 +7341,55 @@
 }
 
   function printSstSerumTransportGroupContents(contents) {
-  const compatible = contents.filter(isPrintableStandardSstSerumAliquot);
-  if (compatible.length < 2) return contents;
-  const groups = new Map();
-  compatible.forEach(item => {
-    const process = (String(item.key).match(/\|spin-([^|]+)/) || [, 'verify'])[1];
-    if (!groups.has(process)) groups.set(process, []);
-    groups.get(process).push(item);
-  });
-  const replacements = new Map();
-  groups.forEach(parts => {
-    if (parts.length < 2) return;
-    const first = parts[0], overrides = new Map();
-    parts.forEach(part => {
-      if (!part.sourceCountOverrides || typeof part.sourceCountOverrides.forEach !== 'function') return;
-      part.sourceCountOverrides.forEach((count, key) =>
-        overrides.set(key, (overrides.get(key) || 0) + count));
+    const compatible = contents.filter(isPrintableStandardSstSerumAliquot);
+    if (compatible.length < 2) return contents;
+    const groups = new Map();
+    compatible.forEach(item => {
+      const process = (String(item.key).match(/\|spin-([^|]+)/) || [, 'verify'])[1];
+      // This function is called per bag. Keep timed samples out of routine
+      // visual grouping; dedicated aliquots may share a card but not a vial.
+      if (item.tests.some(test => timedSpecimenLabel(test))) return;
+      if (!groups.has(process)) groups.set(process, []);
+      groups.get(process).push(item);
     });
-    const dedicated = parts.filter(part => String(part.key).includes('|dedicated-'));
-    const regularCount = parts.filter(part => !String(part.key).includes('|dedicated-'))
-      .reduce((sum, part) => sum + part.count, 0);
-    const dedicatedNotes = dedicated.map(part =>
-      String(part.count) + ' for ' + uniqueTests(part.tests).map(displayCode).join(', '));
-    replacements.set(first, {
-      ...first,
-      count: parts.reduce((sum, part) => sum + part.count, 0),
-      tests: uniqueTests(parts.flatMap(part => part.tests || [])),
-      sourceCountOverrides: overrides.size ? overrides : first.sourceCountOverrides,
-      printAllocationNote: dedicatedNotes.length
-        ? 'Keep separate: ' + dedicatedNotes.join(' · ')
-          + (regularCount ? ' · ' + regularCount + ' for other tests' : '')
-        : ''
+    const replacements = new Map();
+    groups.forEach(parts => {
+      if (parts.length < 2) return;
+      const first = parts[0], overrides = new Map();
+      parts.forEach(part => {
+        if (!(part.sourceCountOverrides instanceof Map)) return;
+        part.sourceCountOverrides.forEach((count, key) =>
+          overrides.set(key, (overrides.get(key) || 0) + count));
+      });
+      const allocations = new Map();
+      const ordinary = [];
+      parts.forEach(part => {
+        const separate = part.tests.some(test => requiresDistinctDrawTransport(test) || requiresSeparateTransportAliquot(test));
+        const codes = uniqueTests(part.tests).map(displayCode).join(', ');
+        if (separate) allocations.set(codes, (allocations.get(codes) || 0) + part.count);
+        else ordinary.push(part.count + ' for ' + codes);
+      });
+      const notes = [...allocations].map(([codes, count]) => count + ' for ' + codes);
+      const summary = [
+        notes.length ? 'Keep separate: ' + notes.join(' · ') : '',
+        ordinary.length ? 'Other transport allocations: ' + ordinary.join(' · ') : ''
+      ].filter(Boolean).join(' · ');
+      replacements.set(first, {
+        ...first,
+        label: 'Transport Tube',
+        className: 'tube-transport tube-transport-green-top',
+        count: parts.reduce((sum, part) => sum + part.count, 0),
+        tests: uniqueTests(parts.flatMap(part => part.tests || [])),
+        sourceCountOverrides: overrides.size ? overrides : first.sourceCountOverrides,
+        printVisualGroupParts: parts,
+        printAllocationNote: summary
+      });
+      parts.slice(1).forEach(part => replacements.set(part, null));
     });
-    parts.slice(1).forEach(part => replacements.set(part, null));
-  });
-  return contents.flatMap(item => replacements.has(item)
-    ? (replacements.get(item) ? [replacements.get(item)] : []) : [item]);
-}
+    return contents.flatMap(item => replacements.has(item)
+      ? (replacements.get(item) ? [replacements.get(item)] : []) : [item]);
+  }
+
 
 
   // Print-only grouping. A shared card is NOT permission to pool specimens.
