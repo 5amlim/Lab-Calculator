@@ -2530,6 +2530,45 @@
     if (printing) return '<div style="margin-top:3px">' + escapeHtml(label) + (stat ? '' : ' (estimate)') + '</div>';
     return '<a class="badge temp-unknown" style="display:inline-block;white-space:normal;text-decoration:none;margin-top:3px" href="' + escapeAttr(url) + '" target="_blank" rel="noopener noreferrer" title="' + escapeAttr(note) + '">' + escapeHtml(label) + '</a>';
   }
+
+  function renderTurnaroundTime(tests) {
+    const summary = $('turnaroundTimeSummary');
+    const body = $('turnaroundTime');
+    if (!summary || !body) return;
+    if (!tests.length) {
+      summary.textContent = 'No tests selected';
+      body.className = 'draw-plan empty-state';
+      body.textContent = 'Add tests to see estimated turnaround times.';
+      return;
+    }
+    const entries = tests.map(test => ({ test, tat: test.isStat ? null : pilotTat(test) }));
+    const known = entries.filter(entry => entry.tat);
+    const unavailable = entries.length - known.length;
+    summary.textContent = known.length ? known.length + ' of ' + tests.length + ' estimated' : 'No estimates yet';
+    body.className = 'draw-plan';
+    const groups = new Map();
+    entries.sort((a, b) => (a.tat ? a.tat[1] : Infinity) - (b.tat ? b.tat[1] : Infinity));
+    entries.forEach(({ test, tat }) => {
+      const label = tat ? tat[0] : test.isStat ? 'STAT TAT not verified' : 'TAT not available';
+      if (!groups.has(label)) groups.set(label, []);
+      groups.get(label).push({ test, tat });
+    });
+    const cards = Array.from(groups, ([label, rows]) =>
+      '<div class="draw-card"><strong>' + escapeHtml(label) + '</strong><span class="draw-test-count">' +
+      rows.length + (rows.length === 1 ? ' test' : ' tests') + '</span>' +
+      '<div style="grid-column:1 / -1;display:grid;gap:5px">' +
+      rows.map(({ test, tat }) => '<div class="subtext" style="overflow-wrap:anywhere">' +
+        escapeHtml(displayCode(test)) + ' · ' + escapeHtml(test.testName) +
+        (tat ? ' <a class="reference-link" href="' + escapeAttr(tat[4]) + '" target="_blank" rel="noopener noreferrer">Directory ↗</a>' : '') +
+        '</div>').join('') + '</div></div>').join('');
+    const max = known.length ? Math.max(...known.map(entry => entry.tat[1])) : null;
+    const longest = max === null ? '' : '<div class="subtext"><strong>Longest listed routine estimate:</strong> up to ' + max + (max === 1 ? ' day' : ' days') + '</div>';
+    const warning = unavailable ? ' ' + unavailable + (unavailable === 1 ? ' test has' : ' tests have') + ' no applicable estimate; full order completion cannot be estimated.' : '';
+    body.innerHTML = longest +
+      '<div role="region" aria-label="Tests grouped by turnaround time" tabindex="0" style="max-height:320px;overflow-y:auto;display:grid;gap:8px">' + cards + '</div>' +
+      '<div class="order-of-draw-note">Published routine estimates are from the California/Nevada directory; confirm other service areas. Schedules and reflex testing may extend turnaround. Not a guaranteed result date.' + escapeHtml(warning) + '</div>';
+  }
+
   function renderLibraryRow(test) {
     // A Quest catalog identity can be verified while its local handling route
     // is still not cleared. Show the review state without enabling Add.
@@ -3327,6 +3366,7 @@
     renderTestsOverview(tests);
     renderDrawPlan(collectionTests);
     renderOrderOfDraw(collectionTests);
+    renderTurnaroundTime(tests);
     renderAlerts(tests);
     if (!tests.length) {
       els.selectedList.className = 'selected-list empty-state';
