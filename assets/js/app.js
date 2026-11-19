@@ -394,6 +394,28 @@
     els.loadMoreInlineButton?.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
     els.libraryBody.addEventListener('click', handleLibraryClick);
     els.libraryBody.addEventListener('pointerover', event => {
+      if (event.pointerType !== 'mouse') return;
+      const button = event.target.closest('button[data-action="view-tat"]');
+      if (button) showTatPreview(button);
+    });
+    els.libraryBody.addEventListener('pointerout', event => {
+      const button = event.target.closest('button[data-action="view-tat"]');
+      if (button && !button.contains(event.relatedTarget)) hideTatPreview();
+    });
+    els.libraryBody.addEventListener('focusin', event => {
+      const button = event.target.closest('button[data-action="view-tat"]');
+      if (button && button.matches(':focus-visible')) showTatPreview(button);
+    });
+    els.libraryBody.addEventListener('focusout', event => {
+      if (event.target === tatPreviewButton) hideTatPreview();
+    });
+    document.addEventListener('scroll', hideTatPreview, true);
+    window.addEventListener('resize', hideTatPreview);
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') hideTatPreview();
+    });
+
+    els.libraryBody.addEventListener('pointerover', event => {
       if (event.pointerType === 'touch') return;
       const button = event.target.closest('button[data-container-more]');
       if (button) showContainerFlowTip(button);
@@ -2451,6 +2473,7 @@
   }
 
   function renderLibrary() {
+    hideTatPreview();
     hideContainerFlowTip();
     const filter = normalizeSearch(els.libraryFilter.value);
     const filtered = database
@@ -2529,6 +2552,44 @@
     const label = stat ? 'STAT TAT not verified' : 'Routine TAT: ' + time + ' (' + scope + ')';
     if (printing) return '<div style="margin-top:3px">' + escapeHtml(label) + (stat ? '' : ' (estimate)') + '</div>';
     return '<div style="margin:4px 0 6px"><button type="button" class="mini-button" data-action="view-tat" data-id="' + escapeAttr(test.id) + '" aria-haspopup="dialog" style="margin:0;display:inline-flex;align-items:center;gap:5px;max-width:100%;white-space:normal;text-align:left;font-size:11px;padding:5px 8px;cursor:pointer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>View TAT &amp; Test Setup<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div>';
+  }
+
+
+  let tatPreview = null;
+  let tatPreviewButton = null;
+  function hideTatPreview() {
+    tatPreviewButton?.removeAttribute('aria-describedby');
+    tatPreview?.remove();
+    tatPreview = null;
+    tatPreviewButton = null;
+  }
+  function showTatPreview(button) {
+    if (!button || tatPreviewButton === button || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    hideTatPreview();
+    const test = database.find(item => item.id === button.dataset.id);
+    const tat = test && pilotTat(test);
+    if (!tat) return;
+    const tip = document.createElement('div');
+    tip.id = 'tat-hover-preview';
+    tip.className = 'no-print';
+    tip.setAttribute('role', 'tooltip');
+    Object.assign(tip.style, {position:'fixed',zIndex:'10000',width:'min(320px, calc(100vw - 24px))',padding:'14px',border:'1px solid #d6e0e8',borderRadius:'12px',background:'#fff',color:'#172b40',boxShadow:'0 8px 28px rgba(20,40,60,.16)',fontSize:'12px',lineHeight:'1.5',pointerEvents:'none',boxSizing:'border-box'});
+    const row = (label, value) => '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:6px 0;border-top:1px solid #e7edf1"><span style="color:#526579">' + escapeHtml(label) + '</span><strong style="text-align:right">' + escapeHtml(value) + '</strong></div>';
+    tip.innerHTML = '<div style="font-weight:800;color:var(--brand-dark,#00666e);font-size:11px;letter-spacing:.04em">TAT &amp; TEST SETUP</div><div style="font-size:14px;font-weight:750;margin:5px 0 8px">' + escapeHtml(displayCode(test) + ' · ' + test.testName) + '</div>' +
+      row('Routine TAT', tat[0]) + row('Test setup', tat[3] || 'Not verified') +
+      (test.isStat || statSelectedIds.includes(test.id) ? row('STAT TAT','Not verified') : '') +
+      '<div style="font-size:11px;color:#526579;margin-top:8px">' + escapeHtml(tat[2] === 'CA/NV' ? 'California/Nevada directory; confirm other areas.' : 'Labcorp directory; timing starts at pickup.') + ' Estimates may vary with schedules and reflex testing.</div>';
+    document.body.appendChild(tip);
+    const rect = button.getBoundingClientRect();
+    const gap = 10;
+    const left = Math.max(gap, Math.min(rect.left, window.innerWidth - tip.offsetWidth - gap));
+    const above = rect.bottom + gap + tip.offsetHeight > window.innerHeight && rect.top >= tip.offsetHeight + gap;
+    const top = Math.max(gap, Math.min(above ? rect.top - tip.offsetHeight - gap : rect.bottom + gap, window.innerHeight - tip.offsetHeight - gap));
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+    tatPreview = tip;
+    tatPreviewButton = button;
+    button.setAttribute('aria-describedby', tip.id);
   }
 
   function showPilotTat(test) {
@@ -2649,6 +2710,7 @@
     }
     const id = button.dataset.id;
     if (button.dataset.action === 'view-tat') {
+      hideTatPreview();
       showPilotTat(database.find(test => test.id === id));
       return;
     }
