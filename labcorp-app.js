@@ -2499,7 +2499,7 @@
       return '<div style="margin-top:3px">' + escapeHtml(label) + '</div>';
     }
     if (!hasRoutineTat(test)) return '';
-    return '<div style="margin:4px 0 6px"><button type="button" class="mini-button" data-action="view-tat" data-id="' + escapeAttr(test.id) + '" aria-haspopup="dialog" style="margin:0;display:inline-flex;align-items:center;gap:5px;max-width:100%;white-space:normal;text-align:left;font-size:11px;padding:5px 8px;cursor:pointer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>View TAT &amp; Test Setup<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div>';
+    return '<button type="button" class="mini-button library-tat-clock" data-action="view-tat" data-id="' + escapeAttr(test.id) + '" aria-haspopup="dialog" aria-label="View TAT &amp; Test Setup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></button>';
   }
 
 
@@ -2665,7 +2665,7 @@
     const primaryOnlyNote = hasMultipleContainers ? '<div class="library-container-primary-note">First path only</div>' : '';
     return `<tr class="${selected ? 'is-selected' : ''}">
       <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
-      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${window.LabRegionalRestrictions.badge(test, 'labcorp')}${manualLibraryTag(test)}${gestationalWarningBadge(test)}${tatBadge(test)}${statSelectedIds.includes(test.id) && isStatEligible(test) ? '<span class="library-stat-eligible selected" title="Manually marked STAT; verify receiving-lab acceptance and courier routing.">STAT selected</span>' : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
+      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${window.LabRegionalRestrictions.badge(test, 'labcorp')}${manualLibraryTag(test)}${gestationalWarningBadge(test)}${statSelectedIds.includes(test.id) && isStatEligible(test) ? '<span class="library-stat-eligible selected" title="Manually marked STAT; verify receiving-lab acceptance and courier routing.">STAT selected</span>' : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
       <td data-label="Container">${menuContainerBadges(test)}${hasMultipleContainers ? '' : '<div class="subtext specimen-line">' + requiredSpecimenBadges(test) + '</div>'}</td>
       <td data-label="Temperature"><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span>${primaryOnlyNote}</td>
       <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(menuVolumeText(primaryDisplay, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(menuVolumeText(primaryDisplay, 'minimum') || '—')}</div>${primaryOnlyNote}</td>
@@ -2675,7 +2675,7 @@
           : isStatEligible(test)
             ? `<button type="button" class="mini-button library-routine-action" data-action="add" data-id="${escapeAttr(test.id)}">Add as routine</button><button type="button" class="mini-button library-stat-action" data-action="add-stat" data-id="${escapeAttr(test.id)}" title="Confirm eligibility and add as STAT">Add as STAT</button>`
             : `<button class="mini-button" data-action="add" data-id="${escapeAttr(test.id)}" aria-label="Add ${escapeAttr(test.testName)}">+ Add</button>`}
-        <button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a>
+        <button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><div class="library-directory-actions">${tatBadge(test)}<a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a></div>
       </td>
     </tr>`;
   }
