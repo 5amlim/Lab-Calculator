@@ -4373,11 +4373,23 @@
     return genericCount > 1 ? genericCount : 0;
   }
 
+  // A frozen-only restriction does not apply to the configured refrigerated
+  // route. Strip only the exact, reviewed conditional sentence for rule
+  // classification; keep original notes visible and preserve all other text.
+  function routeSpecificPoolingNotes(test) {
+    const notes = String(test.specialInstructions || '');
+    if (!/^refrigerated$/i.test(String(test.transportTemperature || '').trim()) ||
+        !/^serum$/i.test(String(test.specimenType || '').trim()) ||
+        !/^(?:plastic serum )?transport tube$/i.test(String(test.transportContainer || '').trim()) ||
+        !/^yes$/i.test(String(test.spin || '').trim())) return notes;
+    return notes.replace(/\bIf shipping frozen, submit a separate dedicated frozen aliquot for each assay; do not pool frozen specimens\./gi, '');
+  }
+
   function requiresDedicatedSst(test) {
     const reviewedPolicy = reviewedSstComponentPolicy(test);
     if (reviewedPolicy) return reviewedPolicy === 'separate-volume';
     if (requiresDistinctDrawTransport(test)) return true;
-    const text = `${test.drawContainer || ''} ${test.transportContainer || ''} ${test.specialInstructions || ''}`.toLowerCase();
+    const text = `${test.drawContainer || ''} ${test.transportContainer || ''} ${routeSpecificPoolingNotes(test)}`.toLowerCase();
     return /dedicated|own tube|separate (?:sst|gold|tube)|do not share|full tube|full sst|full gold|each tube|individual tube/.test(text)
       || explicitSstTubeCount(test) > 0;
   }
@@ -5864,7 +5876,7 @@
     // Collection-only separation is not the same as a dedicated transport tube.
     if (explicitSubmissionCount(test) > 1) return true;
     const transport = String(test.transportContainer || '').toLowerCase();
-    const notes = String(test.specialInstructions || '').toLowerCase();
+    const notes = routeSpecificPoolingNotes(test).toLowerCase();
     // "Dedicated plastic serum transport tube" is a physical stock alias,
     // never permission to pool it with another test's specimen.
     if (/\bdedicated\b/.test(transport)) return true;
