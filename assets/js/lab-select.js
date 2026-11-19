@@ -2,14 +2,8 @@
    Do not store lab choice; the main index page is always Quest. */
 (function () {
   'use strict';
-  // Fallback counts are the current cart-eligible catalog snapshots, not all directory records.
-  // Once a laboratory page loads, its live active count replaces this snapshot for this tab.
-  const counts = {quest:2845, cedars:39, labcorp:1561};
-  const cacheKey = 'lab-selector-counts-v12:' + (location.pathname.split('/').filter(Boolean)[0] || 'site');
-  try {
-    const cached = JSON.parse(sessionStorage.getItem(cacheKey) || '{}');
-    for (const name of Object.keys(counts)) if (Number.isInteger(cached[name]) && cached[name] > 0) counts[name] = cached[name];
-  } catch (_) {}
+  // Published counts are available immediately, even if index requests fail.
+  const counts = {quest:3172, cedars:39, labcorp:3873};
   const current = document.querySelector('.lab-select--quest') ? 'quest'
     : document.querySelector('.lab-select--labcorp') ? 'labcorp' : 'cedars';
   const recordCount = document.getElementById('recordCount');
@@ -17,7 +11,6 @@
     const match = /^\s*(\d+)\s+(?:active\s+)?tests?\b/i.exec(recordCount?.textContent || '');
     if (match && Number(match[1]) > 0) {
       counts[current] = Number(match[1]);
-      try { sessionStorage.setItem(cacheKey, JSON.stringify(counts)); } catch (_) {}
     }
     document.querySelectorAll('.lab-select-choice').forEach(function (choice) {
       const lab = ['quest','cedars','labcorp'].find(name => choice.classList.contains(name));
@@ -31,6 +24,19 @@
     });
   }
   syncLabBadges();
+  if (typeof fetch === 'function') {
+    for (const lab of ['quest', 'labcorp']) {
+      if (lab === current) continue;
+      fetch('assets/search/' + lab + '-tests.json', { cache: 'no-cache' })
+        .then(response => response.ok ? response.json() : null)
+        .then(index => {
+          if (!Array.isArray(index?.tests) || !index.tests.length) return;
+          counts[lab] = index.tests.length;
+          syncLabBadges();
+        })
+        .catch(() => {});
+    }
+  }
   if (recordCount && typeof MutationObserver !== 'undefined') {
     new MutationObserver(syncLabBadges).observe(recordCount, {childList:true,characterData:true,subtree:true});
   }

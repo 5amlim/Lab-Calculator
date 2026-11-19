@@ -35,36 +35,6 @@ const additions=[
     ]
   },
   {
-    "id": "labcorp-verified-20261116-batch29-corrected-520134",
-    "testCode": "520134",
-    "testName": "Anti-Fodrin Antibodies, IgG and IgA (RDL)",
-    "status": "active",
-    "specimenType": "Serum",
-    "drawContainer": "SST / Gold",
-    "alternativeContainer": "",
-    "transportContainer": "Transport Tube",
-    "preferredVolume": "2 mL serum",
-    "minimumVolume": "0.5 mL serum",
-    "collectionCount": 1,
-    "submissionCount": 1,
-    "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
-    "spin": "Yes",
-    "stability": "Room 7 days; refrigerated 14 days; frozen 60 days",
-    "specialLabeling": "Label serum, collection date and time",
-    "specialInstructions": "Serum only. Separate from cells within ONE HOUR and transfer to a labeled plastic Transport Tube; refrigerate and ship with cold packs. If frozen separately ordered tests are requested, Labcorp advises distinct frozen aliquots. Verify this code is accepted by the ordering Labcorp account and receiving service area.",
-    "source": "Labcorp official test-specific directory, reviewed 2026-11-16 • https://www.labcorp.com/tests/520134/anti-fodrin-antibodies-igg-iga-rdl",
-    "searchAliases": [
-      "anti fodrin",
-      "early sjogren",
-      "fodrin iga igg"
-    ],
-    "clinicalCategories": [
-      "autoimmune",
-      "immunology"
-    ]
-  },
-  {
     "id": "labcorp-verified-20261116-batch29-corrected-520149",
     "testCode": "520149",
     "testName": "ANCA Profile (RDL)",

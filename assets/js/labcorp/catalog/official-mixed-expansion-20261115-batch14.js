@@ -2,26 +2,6 @@
 (()=>{'use strict';if(!Array.isArray(window.SEED_TESTS))return;
 const additions=[
   {
-    "id": "labcorp-verified-nov16-2026-520134",
-    "testCode": "520134",
-    "testName": "Anti-Fodrin Antibodies, IgG & IgA (RDL)",
-    "status": "active",
-    "specimenType": "Serum",
-    "drawContainer": "SST / Gold",
-    "alternativeContainer": "Red Top",
-    "transportContainer": "Transport Tube",
-    "collectionCount": 1,
-    "submissionCount": 1,
-    "preferredVolume": "2 mL serum",
-    "minimumVolume": "0.5 mL",
-    "transportTemperature": "Refrigerated",
-    "transportTemperatureRaw": "Refrigerated",
-    "stability": "Room temperature 7d; refrigerated 14d; frozen 60d",
-    "spin": "Yes",
-    "specialInstructions": "Separate serum from cells within 1 hour, transfer to a plastic Transport Tube, and refrigerate. If freezing for another shipping workflow, dedicate a separate frozen aliquot to this order.",
-    "source": "Labcorp official test directory reviewed 2026-11-15: https://www.labcorp.com/tests/520134/anti-fodrin-antibodies-igg-iga-rdl"
-  },
-  {
     "id": "labcorp-verified-nov16-2026-520194",
     "testCode": "520194",
     "testName": "Glomerulonephritis (GNP) Profile (RDL)",

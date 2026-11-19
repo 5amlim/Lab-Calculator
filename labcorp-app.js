@@ -6700,9 +6700,24 @@
     } else if (/^(?:fasting|baseline|pre[- ]dose|post[- ]dose|\d+\s*[- ]?hour)\b/i.test(raw)) {
       add(raw.split(/\s*[-–:]\s*/)[0]);
     }
+    const timedLabel = /^(?:fasting|baseline|pre[- ]dose|post[- ]dose|\d+\s*[- ]?hour)\b/i.test(raw);
+    if (explicit || timedLabel) {
+      const dateAndTime = /\b(?:collection\s+)?dates?\s*(?:\/|and|&)\s*times?\b/i.test(raw);
+      const drawTime = /\b(?:collection|draw)\s+times?\b|\btime\s+of\s+(?:draw|collection)\b/i.test(raw);
+      if (dateAndTime && !parts.some(part => /date\/time/.test(part))) {
+        if (is24HourUrineTest(test) && /\b(?:start|begin)\b/i.test(raw) && /\b(?:end|finish)\b/i.test(raw)) {
+          add('Collection start/end dates and times');
+        } else {
+          add('Collection date/time');
+        }
+      } else if (drawTime && !parts.some(part => /\btime\b/i.test(part))) {
+        add('Collection time');
+      }
+      if (/\bpeak\b/i.test(raw) && /\btrough\b/i.test(raw)) add('Identify peak or trough');
+    }
     if (is24HourUrineTest(test)) {
       add('Total 24-hour volume');
-      add('Start/end times');
+      if (!parts.includes('Collection start/end dates and times')) add('Start/end times');
     }
 
     // A genuine handling instruction in a label field must not masquerade as
@@ -6751,12 +6766,15 @@
     return { label, processing: Array.from(new Set(processing)) };
   }
 
-  function printLabelingNotes(item) {
+  function printLabelingNotes(item, showAllocationCode = false) {
+    if (item.className === 'tube-ua-swirl' && item.printVisualGroupParts && item.printAllocationNote) {
+      return item.printVisualGroupParts.map(part => printLabelingNotes(part, true)).join('');
+    }
     // Timed samples must retain their individual labeling instructions.
     // Ordinary visual groups may consolidate identical labels and processing
     // text without combining physical submission containers.
     if (item.printVisualGroupParts && item.printVisualGroupParts.every(part => printTimedSpecimenGroupInfo(part))) {
-      return item.printVisualGroupParts.map(printLabelingNotes).join('');
+      return item.printVisualGroupParts.map(part => printLabelingNotes(part)).join('');
     }
     const labels = new Map();
     const handling = new Map();
@@ -6784,7 +6802,7 @@
     const testCount = uniqueTests(item.tests || []).length;
     const labelCoverage = new Set(Array.from(labels.values()).flatMap(row => row.codes)).size;
     const processCoverage = new Set(Array.from(handling.values()).flatMap(row => row.codes)).size;
-    const showLabelCodes = labels.size > 1 || (testCount > 1 && labelCoverage < testCount);
+    const showLabelCodes = showAllocationCode || labels.size > 1 || (testCount > 1 && labelCoverage < testCount);
     const showProcessCodes = handling.size > 1 || (testCount > 1 && processCoverage < testCount);
     return `<div class="print-label-notes">${render(labels, 'Label', showLabelCodes)}${render(handling, 'Process', showProcessCodes)}</div>`;
   }
