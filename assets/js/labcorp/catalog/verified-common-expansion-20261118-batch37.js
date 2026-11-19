@@ -1810,6 +1810,375 @@ const additions=[
       "cholesterol profile"
     ],
     "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/344265/non-hdl-cholesterol-profile"
+  },
+  {
+    "id": "labcorp-verified-20261118-batch40-082339",
+    "testCode": "082339",
+    "testName": "Syphilis: Treponemal Antibodies, Treponema pallidum Particle Agglutination (TPPA)",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "TPPA",
+      "TP-PA",
+      "treponema pallidum particle agglutination",
+      "syphilis confirmation"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/082339/syphilis-treponemal-antibodies-treponema-pallidum-particle-agglutination-tppa",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.5 mL serum",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature 14 days",
+    "spin": "Yes",
+    "specialInstructions": "Centrifuge and submit original SST. Serum only; avoid gross hemolysis, lipemia and microbial contamination. Do not heat-inactivate sample."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch40-082370",
+    "testCode": "082370",
+    "testName": "Syphilis: Treponemal Antibodies, Chemiluminescence Immunoassay",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "syphilis antibody",
+      "treponemal antibody",
+      "treponema CLIA"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/082370/syphilis-treponemal-antibodies-chemiluminescence-immunoassay",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.5 mL serum",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature 14 days",
+    "spin": "Yes",
+    "specialInstructions": "Centrifuge and submit original SST. Serum only; reject hemolysis, lipemia or gross bacterial contamination. If plain red top is used, submit separated serum."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch40-649749",
+    "testCode": "649749",
+    "testName": "Allergen Profile, Mini Profile",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "allergy"
+    ],
+    "searchAliases": [
+      "mini allergen profile",
+      "environmental allergy mini panel",
+      "respiratory allergy mini panel"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/649749/allergen-profile-mini-profile",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature; maximum duration not specified on order page",
+    "spin": "Yes",
+    "specialInstructions": "Centrifuge and submit original spun SST. Red-top serum is an alternative; if used, submit separated serum. Avoid gross hemolysis. No separate minimum published."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch40-008086",
+    "testCode": "008086",
+    "testName": "Urine Culture, Urology Extended Workup",
+    "status": "active",
+    "alternativeContainer": "If less than 4 mL, unpreserved sterile screw-cap cup refrigerated",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "Midstream urine",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "urinary",
+      "microbiology"
+    ],
+    "searchAliases": [
+      "urine culture extended",
+      "urology culture",
+      "extended urine culture"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/008086/urine-culture-urology-extended-workup",
+    "specimenType": "Urine",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Gray Top Urine Culture Tube",
+    "preferredVolume": "4 mL urine (minimum fill line)",
+    "minimumVolume": "4 mL for preserved tube",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Preserved room temperature; >48 hours transport delay unacceptable; unpreserved refrigerated 24 hours",
+    "spin": "No",
+    "specialInstructions": "Collect clean-catch midstream urine; transfer into gray-top culture preservative tube within 10 minutes. Fill to the 4 mL minimum line. Never underfill. Low-volume specimens must be sent refrigerated in original sterile screw-cap container (24-hour limit). Record catheter source if applicable; do not collect from Foley bag. This route is the preserved clean-catch collection."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch40-180120",
+    "testCode": "180120",
+    "testName": "Chlamydia/Gonococcus/Mycoplasma genitalium (With Reflex to Macrolide Resistance), NAA, Swab",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "Vaginal swab",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "CT NG Mgen swab reflex",
+      "chlamydia gonorrhea mycoplasma resistance swab",
+      "Mgen resistance"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/180120/chlamydia-gonococcus-mycoplasma-genitalium-with-reflex-to-macrolide-resistance-naa-swab",
+    "specimenType": "Vaginal Swab",
+    "drawContainer": "Aptima Multitest Swab Transport",
+    "transportContainer": "Aptima Multitest Swab Transport",
+    "preferredVolume": "1 vaginal swab",
+    "minimumVolume": "1 swab",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature or refrigerated 30 days in Aptima; send promptly (avoid transport delay >72 hours); do not freeze",
+    "spin": "No",
+    "specialInstructions": "Vaginal sample route only: use pink-label Aptima Multitest kit, collect from lower third of vaginal wall and rotate 10–30 seconds. Place the supplied swab in its own original transport device, snap at scoreline and cap; no further transfer. Do not use green-label Unisex kit, bacterial swab or urine transport for this configured route. Label anatomical site."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch40-139144",
+    "testCode": "139144",
+    "testName": "Cytomegalovirus (CMV), Quantitative, Urine, PCR",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "infectious",
+      "urinary"
+    ],
+    "searchAliases": [
+      "CMV urine PCR",
+      "CMV urine viral load",
+      "cytomegalovirus urine"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/139144/cytomegalovirus-cmv-quantitative-urine-pcr",
+    "specimenType": "Urine",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Sterile cup",
+    "preferredVolume": "2 mL urine",
+    "minimumVolume": "0.5 mL urine",
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "stability": "Refrigerated or frozen 7 days",
+    "spin": "No",
+    "specialInstructions": "Not approved for use in New York state. Collect directly into an unpreserved sterile cup; refrigerate and submit original container. Do not add urine preservative or centrifuge. Reject leaking, contaminated or out-of-stability specimen."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch40-138651",
+    "testCode": "138651",
+    "testName": "Herpes Simplex Virus (HSV) Types 1/2, DNA PCR",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "Label collection site",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "HSV PCR swab",
+      "HSV1 HSV2 PCR",
+      "herpes lesion swab"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/138651/herpes-simplex-virus-hsv-types-1-2-dna-pcr",
+    "specimenType": "Swab",
+    "drawContainer": "Universal Transport Medium (UTM) Swab",
+    "transportContainer": "Universal Transport Medium (UTM) Swab",
+    "preferredVolume": "1 swab",
+    "minimumVolume": "1 swab",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Swab in UTM 7 days at room temperature, refrigerated or frozen",
+    "spin": "No",
+    "specialInstructions": "Swab pathway configured; collect appropriate lesion/site swab in universal transport medium. Label anatomical site and send the original UTM device; no transfer or centrifugation. Whole-blood, serum and plasma are other directory routes for suspected disseminated infection, not configured here."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch40-700195",
+    "testCode": "700195",
+    "testName": "Cystine, Quantitative, Urine",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "Label total 24-hour volume and start/end times",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "renal",
+      "urinary"
+    ],
+    "searchAliases": [
+      "24 hour urine cystine",
+      "cystinuria",
+      "cystine kidney stones"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/700195/cystine-quantitative-urine",
+    "specimenType": "Urine, 24-hour",
+    "drawContainer": "24-Hour Urine Collection Container",
+    "transportContainer": "Plastic Urine Aliquot Container",
+    "preferredVolume": "5 mL urine aliquot",
+    "minimumVolume": "2.5 mL urine aliquot",
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "stability": "Freeze immediately after aliquoting; maintain frozen; maximum duration unspecified",
+    "spin": "No",
+    "specialInstructions": "Unpreserved 24-hour urine collection only; do not use an acid preservative. Discard first void at start, collect all urine including final void at 24 hours. Measure and record total volume; mix well. Transfer 5 mL to a freezer-safe screw-cap sterile plastic cup, immediately freeze and keep frozen during shipping. Record collection start/end dates and times, total volume and whether the patient takes penicillamine, tiopronin or captopril. Nonfrozen aliquots are rejected."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch40-144011",
+    "testCode": "144011",
+    "testName": "Sexually Transmitted Infections (STI) Profile",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "STI screening profile",
+      "STD panel",
+      "STI blood panel"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/144011/sexually-transmitted-infections-sti-profile",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "stability": "Dedicated unopened HIV SST refrigerated 7 days; HCV reflex PCR refrigerated 72 hours",
+    "spin": "Yes",
+    "specialInstructions": "Published aggregate 8 mL serum. Reserve 2 mL (1 mL HIV minimum alone) in a dedicated unopened gel-barrier tube for HIV Ag/Ab; clot, centrifuge and refrigerate. Never open or freeze that tube. Remaining 6 mL for hepatitis/syphilis; component allocation based on published panel and HIV volumes, confirm receiving-lab acceptance. Ask about high-dose biotin; follow Labcorp 72-hour recommendation with ordering clinician guidance.",
+    "additionalDrawRequirements": [
+      {
+        "container": "SST / Gold",
+        "specimenType": "Serum",
+        "transportContainer": "SST / Gold (spun)",
+        "preferredVolume": "6 mL serum",
+        "minimumVolume": "",
+        "transportTemperature": "Refrigerated",
+        "transportTemperatureRaw": "Refrigerated",
+        "spin": "Yes",
+        "count": 3,
+        "submissionCount": 3,
+        "purpose": "HBV, HCV and syphilis serology",
+        "specialInstructions": "Separate serum within 24 hours. Refrigerate original spun SSTs, send within the shorter HCV PCR stability window. Keep independent from dedicated HIV SST; collect enough for 6 mL usable serum. Do not freeze original SST.",
+        "specialLabeling": ""
+      }
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261118-batch40-144082",
+    "testCode": "144082",
+    "testName": "Sexually Transmitted Infections (STI) Profile, With CT/NG NAA",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "STI screening profile",
+      "STD panel",
+      "STI with CT NG"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/144082/sexually-transmitted-infections-sti-profile-with-ct-ng-naa",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "stability": "Dedicated unopened HIV SST refrigerated 7 days; HCV reflex PCR refrigerated 72 hours",
+    "spin": "Yes",
+    "specialInstructions": "Published aggregate 8 mL serum. Reserve 2 mL (1 mL HIV minimum alone) in a dedicated unopened gel-barrier tube for HIV Ag/Ab; clot, centrifuge and refrigerate. Never open or freeze that tube. Remaining 6 mL for hepatitis/syphilis; component allocation based on published panel and HIV volumes, confirm receiving-lab acceptance. Ask about high-dose biotin; follow Labcorp 72-hour recommendation with ordering clinician guidance.",
+    "additionalDrawRequirements": [
+      {
+        "container": "SST / Gold",
+        "specimenType": "Serum",
+        "transportContainer": "SST / Gold (spun)",
+        "preferredVolume": "6 mL serum",
+        "minimumVolume": "",
+        "transportTemperature": "Refrigerated",
+        "transportTemperatureRaw": "Refrigerated",
+        "spin": "Yes",
+        "count": 3,
+        "submissionCount": 3,
+        "purpose": "HBV, HCV and syphilis serology",
+        "specialInstructions": "Separate serum within 24 hours. Refrigerate original spun SSTs, send within the shorter HCV PCR stability window. Keep independent from dedicated HIV SST; collect enough for 6 mL usable serum. Do not freeze original SST.",
+        "specialLabeling": ""
+      },
+      {
+        "container": "Sterile cup",
+        "specimenType": "Urine",
+        "transportContainer": "Aptima Urine Transport Tube",
+        "preferredVolume": "20–30 mL first-catch urine (2 mL submitted)",
+        "minimumVolume": "2 mL in Aptima tube",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "CT/NG NAA",
+        "specialInstructions": "No urination for at least one hour. Collect 20–30 mL of initial stream without preservative; transfer about 2 mL into yellow-label Aptima urine tube to between its fill lines; keep at room temperature; send promptly, stable 30 days. This configured route is urine only.",
+        "specialLabeling": "First-catch urine"
+      }
+    ]
   }
 ];
 for(const record of additions){const prior=window.SEED_TESTS.find(t=>String(t.testCode||'').trim()===record.testCode);if(!prior){window.SEED_TESTS.push(record);continue;}if(['pending','reference'].includes(prior.status))Object.assign(prior,record,{id:prior.id||record.id});}
