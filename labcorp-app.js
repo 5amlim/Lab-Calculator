@@ -6183,10 +6183,10 @@
         { key: 'vitamin-profile-original-sst', label: 'SST / Gold (spun)',
           className: 'tube-sst', originalTube: true, count: 1,
           detail: 'Vitamin A / E · serum aliquot · keep at room temperature' },
-        { key: 'vitamin-profile-amber-' + code, label: 'Amber Serum Transport Tube (Beta-Carotene)',
+        { key: 'vitamin-profile-amber-' + code, label: 'Amber Transport Tube',
           className: 'tube-amber', count: 1, sourceAlreadyCounted: true,
           outputSpecimenType: 'Serum',
-          detail: 'Separate beta-carotene serum aliquot · protect from light · room temperature' }
+          detail: 'Separate beta-carotene aliquot; protect from light' }
       ];
     }
     // Plain urine aliquot transport tubes/containers can use the same sterile
@@ -6986,7 +6986,7 @@
       // A few device-specific handling instructions are more than a generic
       // source line and should remain visible, in addition to the transfer cue.
       const handling = [];
-      if (item.sourceAlreadyCounted) handling.push('Use collection SST already counted; retain enough serum for original submission');
+      if (item.sourceAlreadyCounted && !String(item.key || '').startsWith('vitamin-profile-amber-')) handling.push('Use collection SST already counted; retain enough serum for original submission');
       if (item.sharedSplitSource) handling.push('Same collection source for both outputs; verify sufficient yield of each material');
       if (item.sourceAlreadyCounted || item.sharedSplitSource ||
           /fully saturate|do not pour|\b\d+\s*seconds?\b|protect from light|freeze immediately|freeze separate aliquot|fill (?:to|line)|acid[- ]washed|preserv|separate aliquot|record total volume/i.test(detail)) {
