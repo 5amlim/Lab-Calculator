@@ -2214,3 +2214,33 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
     min-height: 36px; padding: 8px 10px;
   }
 }
+
+/* TAT region pickers: same portal menu in the cart and top-layer dialog. */
+.tat-region-portal.portal-select-wrap { flex: 0 1 230px; width: min(230px, 100%); min-width: 140px; }
+.tat-region-portal .portal-select-button,
+.portal-action-dialog .tat-region-portal .portal-select-button {
+  min-height: 38px; padding: 8px 11px; font-size: 12px; font-weight: 750;
+  color: var(--brand-dark, #096773); border: 1px solid #c6d7dd; border-radius: 9px;
+  background: #fff; box-shadow: none;
+}
+.tat-region-portal .portal-select-button:hover,
+.portal-action-dialog .tat-region-portal .portal-select-button:hover { background: #f3f9fa; }
+.tat-region-portal .portal-select-text { white-space: normal; overflow-wrap: anywhere; }
+.tat-region-menu.portal-select-menu { overflow-x: hidden; padding: 6px; }
+.tat-region-menu .portal-select-option,
+.portal-action-dialog .tat-region-menu .portal-select-option {
+  display: flex; justify-content: space-between; align-items: center;
+  min-height: 36px; padding: 9px 11px; border: 0; border-radius: 7px;
+  color: #293e4c; font: inherit; font-size: 12px; font-weight: 650;
+  text-align: left; line-height: 1.35; background: transparent; box-shadow: none;
+}
+.tat-region-menu .portal-select-option:hover,
+.tat-region-menu .portal-select-option:focus-visible,
+.portal-action-dialog .tat-region-menu .portal-select-option:hover,
+.portal-action-dialog .tat-region-menu .portal-select-option:focus-visible { background: #eff6f7; }
+.tat-region-menu .portal-select-option.is-selected,
+.portal-action-dialog .tat-region-menu .portal-select-option.is-selected { color: #096773; background: #e5f2f3; font-weight: 800; }
+.tat-region-menu .portal-select-option.is-selected::after { content: '✓'; flex-shrink: 0; margin-left: 8px; }
+@media (max-width: 380px) {
+  .tat-region-portal.portal-select-wrap { flex: 1 1 160px; min-width: 0; width: 100%; }
+}
