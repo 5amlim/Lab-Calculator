@@ -1,8 +1,8 @@
 /* v11.80: Animated, tube-badged in-page popovers for Add/Edit Test and Filter Tests.
    Native selects remain the source of truth for all existing app logic. */
 (() => {
-  const selectors = ['categoryFilter','specimenFilter','temperatureFilter','transportContainerFilter','fastingFilter','specimenType','drawContainer','transportContainer','transportTemperature','spin'];
-  const labels = {categoryFilter:'Clinical category',specimenFilter:'Specimen type',temperatureFilter:'Transport temperature',transportContainerFilter:'Transport container',fastingFilter:'Fasting',specimenType:'Specimen type',drawContainer:'Draw container',transportContainer:'Transport tube / container',transportTemperature:'Transport temperature',spin:'Spin requirement'};
+  const selectors = ['categoryFilter','specimenFilter','temperatureFilter','transportContainerFilter','fastingFilter','specimenType','drawContainer','transportContainer','transportTemperature','spin','tatRegionFilter'];
+  const labels = {categoryFilter:'Clinical category',specimenFilter:'Specimen type',temperatureFilter:'Transport temperature',transportContainerFilter:'Transport container',fastingFilter:'Fasting',specimenType:'Specimen type',drawContainer:'Draw container',transportContainer:'Transport tube / container',transportTemperature:'Transport temperature',spin:'Spin requirement',tatRegionFilter:'Region',tatPopupRegion:'Region'};
   const controls = [];
   let additionalSequence = 0;
   let active = null;
@@ -275,7 +275,8 @@
     item.menu.style.width = `${width}px`;
     item.menu.style.left = `${left}px`;
     item.menu.style.maxHeight = `${height}px`;
-    item.menu.style.top = goUp ? `${Math.max(8, box.top - height - 7)}px` : `${Math.min(innerHeight - 10, box.bottom + 7)}px`;
+    const menuHeight = item.menu.classList.contains('tat-region-menu') ? Math.min(height, item.menu.offsetHeight) : height;
+    item.menu.style.top = goUp ? `${Math.max(8, box.top - menuHeight - 7)}px` : `${Math.min(innerHeight - 10, box.bottom + 7)}px`;
     positionSubmenu(item);
   }
   // Subtypes stay in the original native select, so saved test values,
@@ -478,6 +479,7 @@
     if (item.select.id === 'transportContainer') syncFrozenTransportOption();
     const menu = document.createElement('div');
     menu.className = 'portal-select-menu' + (isFormContainerPicker(item) ? ' portal-select-menu--container-grouped' : '');
+    if (item.select.id === 'tatRegionFilter' || item.select.id === 'tatPopupRegion') menu.classList.add('tat-region-menu');
     menu.id = 'portal-menu-' + item.select.id;
     menu.setAttribute('role','listbox');
     menu.setAttribute('aria-label',accessibleLabel(item));
@@ -656,10 +658,9 @@
       }
     });
   }
-  function init() {
-    for (const id of selectors) {
-      const select = document.getElementById(id);
-      if (!select || select.dataset.portalReady) continue;
+  function enhanceNamedSelect(select) {
+      if (!select || select.dataset.portalReady) return;
+      const id = select.id;
       select.dataset.portalReady = 'true';
       // Required values are validated by saveTestFromForm, which provides a useful toast.
       if (select.closest('#testForm')) select.required = false;
@@ -697,7 +698,14 @@
         }
       });
       select.addEventListener('change',()=>sync(item));
-    }
+      if (id === 'tatRegionFilter' || id === 'tatPopupRegion') {
+        wrap.classList.add('tat-region-portal');
+        const label = Array.from(document.querySelectorAll('label[for]')).find(node => node.htmlFor === id);
+        if (label) label.htmlFor = button.id;
+      }
+  }
+  function init() {
+    for (const id of selectors) enhanceNamedSelect(document.getElementById(id));
     // The original-tube icon is always derived from the current draw selection.
     const draw = document.getElementById('drawContainer');
     const customDraw = document.getElementById('customDrawContainer');
@@ -711,6 +719,7 @@
       window.syncPortalSelects();
     };
     wireFrozenTransport();
+    window.enhanceNamedPortalSelect = select => { pruneAdditionalControls(); enhanceNamedSelect(select); };
     window.closePortalSelects = closeAll;
     window.focusPortalSelect = select => {
       const item = controls.find(item => item.select === select);
