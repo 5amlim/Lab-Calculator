@@ -4272,10 +4272,189 @@
     return '';
   }
 
+  // Reviewed catalog components whose collectionCount was derived from serum
+  // yield rather than a required number of independent collection tubes.
+  // Exact IDs, volumes, counts and notes protect manual edits and other tests.
+  // Only SOURCE serum allocation is shared; each frozen submission stays separate.
+  const REVIEWED_FROZEN_SST_SOURCE_ALLOCATIONS = Object.freeze({
+    "labcorp-verified-20261118-batch35-551710": [
+      "1.2 mL serum",
+      "0.6 mL serum",
+      1,
+      1,
+      "Serum pathway. Centrifuge within six hours, transfer serum to polypropylene screw-cap frozen transport tube, freeze and maintain frozen transit. Do not freeze original SST. Submit separate frozen aliquots for different orders; avoid heparin/SPS and hemolyzed specimens."
+    ],
+    "labcorp-verified-20261118-batch35-551750": [
+      "1.2 mL serum",
+      "0.6 mL serum",
+      1,
+      1,
+      "Serum pathway. Centrifuge within six hours, transfer serum to polypropylene screw-cap frozen transport tube, freeze and maintain frozen transit. Do not freeze original SST. Submit separate frozen aliquots for different orders; avoid heparin/SPS and hemolyzed specimens."
+    ],
+    "labcorp-verified-20261118-batch36-254892::additional-draw-0": [
+      "2 mL serum",
+      "2 mL serum",
+      1,
+      1,
+      "Centrifuge within 24 hours, transfer separated serum to a dedicated polypropylene screw-cap transport tube, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests."
+    ],
+    "labcorp-verified-20261118-batch36-254937::additional-draw-0": [
+      "2 mL serum",
+      "2 mL serum",
+      1,
+      1,
+      "Centrifuge within 24 hours, transfer separated serum to a dedicated polypropylene screw-cap transport tube, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests."
+    ],
+    "labcorp-verified-20261118-batch36-254905::additional-draw-0": [
+      "3 mL serum",
+      "3 mL serum",
+      2,
+      1,
+      "Centrifuge within 24 hours, transfer separated serum to a dedicated polypropylene screw-cap transport tube, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests."
+    ],
+    "labcorp-verified-20261118-batch36-254951::additional-draw-0": [
+      "3 mL serum",
+      "3 mL serum",
+      2,
+      1,
+      "Centrifuge within 24 hours, transfer separated serum to a dedicated polypropylene screw-cap transport tube, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests."
+    ],
+    "labcorp-verified-20261118-batch36-254868::additional-draw-0": [
+      "3 mL serum",
+      "2.75 mL serum",
+      2,
+      1,
+      "Centrifuge within 24 hours, transfer separated serum to a dedicated polypropylene screw-cap transport tube, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests."
+    ],
+    "labcorp-verified-20261118-batch36-254736::additional-draw-0": [
+      "3 mL serum",
+      "2.75 mL serum",
+      2,
+      1,
+      "Centrifuge within 24 hours, transfer separated serum to a dedicated polypropylene screw-cap transport tube, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests."
+    ],
+    "labcorp-verified-20261118-batch36-254880::additional-draw-0": [
+      "3.5 mL serum",
+      "3.5 mL serum",
+      2,
+      1,
+      "Centrifuge within 24 hours, transfer separated serum to a dedicated polypropylene screw-cap transport tube, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests."
+    ],
+    "labcorp-verified-20261118-batch36-254801::additional-draw-0": [
+      "3.5 mL serum",
+      "3.5 mL serum",
+      2,
+      1,
+      "Centrifuge within 24 hours, transfer separated serum to a dedicated polypropylene screw-cap transport tube, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests."
+    ],
+    "labcorp-verified-20261118-batch36-254855::additional-draw-0": [
+      "9 mL serum",
+      "6 mL serum",
+      4,
+      2,
+      "Centrifuge within 24 hours, transfer separated serum to 2 separate polypropylene screw-cap transport tubes of sufficient capacity, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests. Use Labcorp-approved vials of adequate capacity with expansion headspace and confirm aliquot distribution with the receiving lab."
+    ],
+    "labcorp-verified-20261118-batch36-254842::additional-draw-0": [
+      "10 mL serum",
+      "6 mL serum",
+      4,
+      2,
+      "Centrifuge within 24 hours, transfer separated serum to 2 separate polypropylene screw-cap transport tubes of sufficient capacity, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests. Use Labcorp-approved vials of adequate capacity with expansion headspace and confirm aliquot distribution with the receiving lab."
+    ],
+    "labcorp-verified-20261118-batch36-254972::additional-draw-0": [
+      "8 mL serum",
+      "6 mL serum",
+      4,
+      2,
+      "Centrifuge within 24 hours, transfer separated serum to 2 separate polypropylene screw-cap transport tubes of sufficient capacity, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests. Use Labcorp-approved vials of adequate capacity with expansion headspace and confirm aliquot distribution with the receiving lab."
+    ],
+    "labcorp-verified-20261118-batch36-254988::additional-draw-0": [
+      "9 mL serum",
+      "6 mL serum",
+      4,
+      2,
+      "Centrifuge within 24 hours, transfer separated serum to 2 separate polypropylene screw-cap transport tubes of sufficient capacity, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests. Use Labcorp-approved vials of adequate capacity with expansion headspace and confirm aliquot distribution with the receiving lab."
+    ],
+    "labcorp-verified-20261118-batch36-083971::additional-draw-0": [
+      "1 mL serum",
+      "0.65 mL serum",
+      1,
+      1,
+      "Centrifuge within 24 hours, transfer separated serum to a dedicated polypropylene screw-cap transport tube, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests."
+    ],
+    "labcorp-verified-20261118-batch36-144149::additional-draw-0": [
+      "2.5 mL serum",
+      "0.7 mL serum",
+      1,
+      1,
+      "Centrifuge within 24 hours and transfer 2.5 mL serum to a separate polypropylene screw-cap tube; freeze. Do not freeze the SST. Keep separate from other frozen tests."
+    ],
+    "labcorp-verified-20261118-batch37-144547::additional-draw-0": [
+      "2.5 mL serum",
+      "0.7 mL serum",
+      1,
+      1,
+      "Centrifuge within 24 hours. Separate serum into a dedicated polypropylene screw-cap frozen transport tube; use a lab-approved vial with adequate capacity and freezing headspace. Keep frozen; do not combine with other tests."
+    ],
+    "labcorp-verified-20261118-batch37-144052": [
+      "3 mL serum",
+      "1 mL serum",
+      2,
+      1,
+      "Centrifuge within 24 hours. Separate serum into a dedicated polypropylene screw-cap frozen transport tube; use a lab-approved vial with adequate capacity and freezing headspace. Keep frozen; do not combine with other tests. Serum route configured. Genotyping may fail with viral load below 2,500 IU/mL."
+    ],
+    "labcorp-verified-20261118-batch37-550688": [
+      "4 mL serum",
+      "2 mL serum",
+      2,
+      2,
+      "Centrifuge within 6 hours. Separate serum into a dedicated polypropylene screw-cap frozen transport tube; use a lab-approved vial with adequate capacity and freezing headspace. Keep frozen; do not combine with other tests. Divide total required serum into two appropriate frozen vials if needed for capacity; confirm acceptance and identify both as paired aliquots. Serum route configured. Genotyping may fail with viral load below 2,500 IU/mL."
+    ],
+    "labcorp-verified-20261118-batch37-550683": [
+      "5 mL serum",
+      "2 mL serum",
+      2,
+      2,
+      "Centrifuge within 6 hours. Separate serum into a dedicated polypropylene screw-cap frozen transport tube; use a lab-approved vial with adequate capacity and freezing headspace. Keep frozen; do not combine with other tests. Divide total required serum into two appropriate frozen vials if needed for capacity; confirm acceptance and identify both as paired aliquots. Serum route configured. Genotyping may fail with viral load below 2,500 IU/mL."
+    ]
+  });
+
+  function reviewedFrozenSstSourceMl(test) {
+    const reviewed = REVIEWED_FROZEN_SST_SOURCE_ALLOCATIONS[test.id];
+    if (!Array.isArray(reviewed) || !isSstDraw(test) ||
+        normalizeSpecimenType(test.specimenType).toLowerCase() !== 'serum' ||
+        !isFrozenSerumPlasmaTransport(test, test.transportContainer) ||
+        isOriginalContainerSubmission(test) || isSpunSstSubmission(test) ||
+        !/^yes$/i.test(String(test.spin || '').trim()) ||
+        String(test.specialLabeling || '').trim() || hasCollectionFillRule(test)) return null;
+    if (test.preferredVolume !== reviewed[0] || test.minimumVolume !== reviewed[1] ||
+        Number(test.collectionCount) !== reviewed[2] || Number(test.submissionCount) !== reviewed[3] ||
+        String(test.specialInstructions || '').trim() !== reviewed[4]) return null;
+    const ml = parseVolumeMl(test.preferredVolume);
+    return Number.isFinite(ml) && ml > 0 ? ml : null;
+  }
+
+  const REVIEWED_FROZEN_SST_SOURCE_KEY = 'reviewed-frozen-sst-source';
+  function sstTransferGroupEstimate(group, tiger) {
+    if (group.key !== REVIEWED_FROZEN_SST_SOURCE_KEY) {
+      return tiger ? tigerSstEstimateForTests(group.tests) : sstEstimateForTests(group.tests);
+    }
+    const capacity = tiger ? TIGER_SST_USABLE_ML_PER_TUBE : SST_USABLE_ML_PER_TUBE;
+    // Sum actual preferred serum mL before rounding once; no per-test cap,
+    // no substitution of minimum volume, no division by submission vial count.
+    const sharedMl = group.tests.reduce((sum, test) => sum + reviewedFrozenSstSourceMl(test), 0);
+    const minimumFloor = group.tests.filter(needsTwoSstForMinimum).length * 2;
+    const sharedTubes = Math.max(minimumFloor, Math.ceil(sharedMl / capacity - 1e-9));
+    return { sharedMl, sharedTubes, dedicatedTubes: 0, unmeasuredTubes: 0,
+      unmeasuredTests: [], totalTubes: sharedTubes };
+  }
+
   function sstTransferDestinationGroups(tests) {
     const groups = new Map();
     tests.filter(isSstDraw).forEach(test => {
-      transferDestinationKeysForTest(test).forEach(destinationKey => {
+      const keys = reviewedFrozenSstSourceMl(test) !== null
+        ? [REVIEWED_FROZEN_SST_SOURCE_KEY] : transferDestinationKeysForTest(test);
+      keys.forEach(destinationKey => {
         if (!groups.has(destinationKey)) groups.set(destinationKey, []);
         groups.get(destinationKey).push(test);
       });
@@ -4291,7 +4470,7 @@
     const originalEstimate = tigerSstEstimateForTests(originalSubmissionTests);
     const transferGroups = sstTransferDestinationGroups(transferSourceTests).map(group => ({
       ...group,
-      estimate: tigerSstEstimateForTests(group.tests)
+      estimate: sstTransferGroupEstimate(group, true)
     }));
     const transferSourceTubes = transferGroups.reduce((sum, group) => sum + group.estimate.totalTubes, 0);
 
@@ -4308,15 +4487,13 @@
     const originalSubmissionTests = sstTests.filter(test => isSpunSstSubmission(test) || isOriginalContainerSubmission(test));
     const transferSourceTests = sstTests.filter(test => !originalSubmissionTests.includes(test));
 
-    // Original-submit SSTs remain pooled separately. For transfers, each
-    // destination submission card gets its own SST source pool. That makes the
-    // workflow intentionally a little more generous on draw volume, but much
-    // easier to process and guarantees that every numbered From pill adds up to
-    // the source-for-transfer count shown in What to Collect.
+    // Original-submit SSTs remain separate. Unreviewed transfer tests retain
+    // existing destination-specific and explicit count rules. Reviewed compatible
+    // frozen components share a volume-based source allocation within each bag.
     const originalEstimate = sstEstimateForTests(originalSubmissionTests);
     const transferGroups = sstTransferDestinationGroups(transferSourceTests).map(group => ({
       ...group,
-      estimate: sstEstimateForTests(group.tests)
+      estimate: sstTransferGroupEstimate(group, false)
     }));
     const transferSourceTubes = transferGroups.reduce((sum, group) => sum + group.estimate.totalTubes, 0);
     const transferEstimate = { totalTubes: transferSourceTubes, groups: transferGroups };
@@ -5923,9 +6100,10 @@
     const summaries = [];
 
     const sstTransferTests = bag.tests.filter(test => isSstDraw(test) && !isOriginalContainerSubmission(test));
-    if (sstTransferTests.length && bag.sstEstimate.transferSourceTubes > 0) {
+    const sstEstimate = selectedSstEstimateForBag(bag);
+    if (sstTransferTests.length && sstEstimate.transferSourceTubes > 0) {
       const transportCount = transferContainerCountForTests(sstTransferTests);
-      const sourceCount = bag.sstEstimate.transferSourceTubes;
+      const sourceCount = sstEstimate.transferSourceTubes;
       if (transportCount > 0) {
         summaries.push(`${transportCount} ${transferSpecimenWord(sstTransferTests)} ${transportCount === 1 ? 'tube' : 'tubes'} from ${sourceCount} ${sourceCount === 1 ? 'SST' : 'SSTs'}`);
       }
@@ -6994,6 +7172,18 @@
           sourceOverrides.set(key, (sourceOverrides.get(key) || 0) + count);
         });
       });
+      // Reconcile the grouped source pill with the same bag-level source pool.
+      // Summing already rounded individual source counts would reintroduce the
+      // overcount, even though physical frozen transport quantities are unchanged.
+      const groupTests = parts.flatMap(part => part.tests || []);
+      const sharedFrozenSource = parts.every(part => part.className === 'tube-frozen-purple') &&
+        groupTests.filter(test => reviewedFrozenSstSourceMl(test) !== null).length > 1;
+      if (sharedFrozenSource) {
+        submissionSourceGroupsForItem({ ...first, tests: groupTests }).forEach(group => {
+          if (group.source.className !== 'tube-sst') return;
+          sourceOverrides.set(group.key, transferSourceTubeCountForItemTests(group.tests, group.source));
+        });
+      }
       const timedInfo = parts.map(printTimedSpecimenGroupInfo);
       const distinctTimepoints = timedInfo.every(Boolean) &&
         new Set(timedInfo.map(info => info.timepoint.toLowerCase())).size === parts.length;
@@ -7007,7 +7197,9 @@
           ? 'Keep separate, do not pool: ' + parts.map((part, index) =>
               timedInfo[index].timepoint + ' × ' + part.count
             ).join(' · ') + ' · Label each container with its collection time'
-          : compactPrintAllocationNote(parts)
+          : compactPrintAllocationNote(parts) + (sharedFrozenSource
+              ? ' · Shared source allocation: same collection only; verify serum yield, follow the shortest processing deadline and keep submitted aliquots separate.'
+              : '')
       });
       parts.slice(1).forEach(part => replacement.set(part, null));
     });
