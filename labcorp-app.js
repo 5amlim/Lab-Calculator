@@ -6636,6 +6636,10 @@
     const drawSourceQualifier = oneBloodMaterial && !standardSerumSource && verifiedSpecialSource
       ? drawSourceForLabel : '';
 
+    if (/^Label each timed specimen with actual collection date and time$/i.test(raw)) {
+      add('Collection date/time on each tube');
+    }
+
     const explicit = /^(?:label\b|mark\b|identify\b|write\b|specimen\s+collection\b)/i.test(raw);
     // Salivary cortisol is explicitly timed. State the identity, sequence and
     // collection time on the printed label for every ORIGINAL Salivette device.
