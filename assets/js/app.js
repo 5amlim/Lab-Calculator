@@ -1414,7 +1414,8 @@
 
   function specimenBadge(specimenType, extraClass = '') {
     const label = normalizeSpecimenType(specimenType);
-    return `<span class="specimen-badge ${specimenClass(label)} ${extraClass}">${escapeHtml(label)}</span>`;
+    const displayLabel = label.replace(/\bRBCs?\b/gi, 'Red Blood Cells');
+    return `<span class="specimen-badge ${specimenClass(label)} ${extraClass}">${escapeHtml(displayLabel)}</span>`;
   }
 
   function parseQueries(text) {
@@ -6576,7 +6577,7 @@
       if (/\burine\b/.test(specimen)) return ['Urine', 'urine'];
       if (/\b(?:platelet[- ]poor )?plasma\b/.test(specimen)) return [specimen.includes('platelet') ? 'Platelet-Poor Plasma' : 'Plasma', 'plasma'];
       if (/\bserum\b/.test(specimen)) return ['Serum', 'serum'];
-      if (/\brbcs?\b|red blood cells/.test(specimen)) return ['RBCs', 'rbc'];
+      if (/\brbcs?\b|red blood cells/.test(specimen)) return ['Red Blood Cells', 'rbc'];
       if (/\bwhole blood\b/.test(specimen)) return ['Whole Blood', 'blood'];
       if (/\bblood\b/.test(specimen)) return ['Blood', 'blood'];
       if (/\bswab\b/.test(specimen)) return ['Swab', 'swab'];
@@ -6647,7 +6648,7 @@
       if (/\burine\b/.test(specimen)) return ['Urine', 'urine'];
       if (/\b(?:platelet[- ]poor )?plasma\b/.test(specimen)) return [specimen.includes('platelet') ? 'Platelet-Poor Plasma' : 'Plasma', 'plasma'];
       if (/\bserum\b/.test(specimen)) return ['Serum', 'serum'];
-      if (/\brbcs?\b|red blood cells/.test(specimen)) return ['RBCs', 'rbc'];
+      if (/\brbcs?\b|red blood cells/.test(specimen)) return ['Red Blood Cells', 'rbc'];
       if (/\bwhole blood\b/.test(specimen)) return ['Whole Blood', 'blood'];
       if (/\b(?:blood)\b/.test(specimen)) return ['Blood', 'blood'];
       if (/\bswab\b/.test(specimen)) return ['Swab', 'swab'];
@@ -7303,7 +7304,7 @@
       const group = /\burine\b/i.test(label) ? 'specimen-urine'
         : /\bstool\b/i.test(label) ? 'specimen-stool'
         : /\bswab\b/i.test(label) ? 'specimen-swab' : '';
-      return `<span class="specimen-badge ${specimenClass(label)} ${group} print-specimen-badge">${escapeHtml(label)}</span>`;
+      return specimenBadge(label, `${group} print-specimen-badge`.trim());
     }).join(' ');
     // Transferring intact whole blood does not require centrifugation.
     // Keep the spin cue for serum, plasma and RBC preparations.
