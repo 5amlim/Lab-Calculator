@@ -4418,11 +4418,11 @@
     return minimum !== null && minimum >= 4 - 1e-8;
   }
 
-  // Midpoint is a collection planning target, not a change to directory
+  // One-third above minimum is a collection planning target, not a change to directory
   // requirements. Only like-for-like adult specimen volumes are averaged.
   // Multiple amounts, pediatric minima, alternate matrices and per-vial
   // instructions retain the existing conservative route and parsing.
-  function midpointSpecimenVolumeMl(test) {
+  function oneThirdSpecimenVolumeMl(test) {
     if (hasCollectionFillRule(test)) return null;
     const simple = value => {
       const match = String(value || '').trim().match(/^(\d+(?:\.\d+)?)\s*m\s*l(?:\s+(serum|plasma|whole blood|blood|platelet[- ]poor plasma|rbcs?|red blood cells))?$/i);
@@ -4433,11 +4433,11 @@
     };
     const p = simple(test.preferredVolume), m = simple(test.minimumVolume);
     if (!p || !m || p.matrix !== m.matrix || m.ml > p.ml) return null;
-    return (p.ml + m.ml) / 2;
+    return m.ml + (p.ml - m.ml) / 3;
   }
 
-  function midpointOrExistingVolume(test, preferred, minimum) {
-    return midpointSpecimenVolumeMl(test) ?? (preferred === null ? minimum : preferred);
+  function planningTargetOrExistingVolume(test, preferred, minimum) {
+    return oneThirdSpecimenVolumeMl(test) ?? (preferred === null ? minimum : preferred);
   }
 
   function sstEstimateForTests(tests) {
@@ -4449,7 +4449,7 @@
     tests.filter(isSstDraw).forEach(test => {
       const preferredMl = parseVolumeMl(test.preferredVolume);
       const minimumMl = parseVolumeMl(test.minimumVolume);
-      const plannedMl = midpointOrExistingVolume(test, preferredMl, minimumMl);
+      const plannedMl = planningTargetOrExistingVolume(test, preferredMl, minimumMl);
       const explicitCount = explicitSstTubeCount(test);
 
       // Minimum >=4 mL plans two SSTs for this test, unless an explicit
@@ -4458,11 +4458,11 @@
       const twoSstMinimum = needsTwoSstForMinimum(test);
       if (requiresDedicatedSst(test) || hasCollectionFillRule(test) || twoSstMinimum) {
         const volumeFloor = !hasCollectionFillRule(test) && plannedMl !== null &&
-          (midpointSpecimenVolumeMl(test) !== null || reviewedSstComponentPolicy(test))
+          (oneThirdSpecimenVolumeMl(test) !== null || reviewedSstComponentPolicy(test))
           ? Math.ceil(plannedMl / SST_USABLE_ML_PER_TUBE - 1e-9) : 1;
         dedicatedTubes += Math.max(explicitCount, twoSstMinimum ? 2 : 1, volumeFloor);
       } else if (plannedMl !== null) {
-        sharedMl += midpointSpecimenVolumeMl(test) !== null || needsPreferredSerumYieldSstCount(test) ? plannedMl : Math.min(plannedMl, SST_USABLE_ML_PER_TUBE);
+        sharedMl += oneThirdSpecimenVolumeMl(test) !== null || needsPreferredSerumYieldSstCount(test) ? plannedMl : Math.min(plannedMl, SST_USABLE_ML_PER_TUBE);
       } else {
         unmeasuredTubes += 1;
         unmeasuredTests.push(test.testName);
@@ -4487,13 +4487,13 @@
 
     tests.filter(isSstDraw).forEach(test => {
       // Pool using usable serum volumes, as with Gold SST, rather than the
-      // 7.5 mL whole-blood draw volume. Use midpoint for comparable volumes.
+      // 7.5 mL whole-blood draw volume. Use one-third above minimum for comparable volumes.
       // Retain Tiger's existing recognition of totals and per-tube volumes;
       // change only the unit to usable serum mL, without blood conversion.
       const serumConversion = { factor: 1 };
       const preferredMl = volumeForRequirement(test, 'preferred', serumConversion);
       const minimumMl = volumeForRequirement(test, 'minimum', serumConversion);
-      const plannedMl = midpointOrExistingVolume(test, preferredMl, minimumMl);
+      const plannedMl = planningTargetOrExistingVolume(test, preferredMl, minimumMl);
       const explicitCount = Math.max(explicitSstTubeCount(test), 1);
 
       const twoSstMinimum = needsTwoSstForMinimum(test);
@@ -4501,11 +4501,11 @@
         // Respect explicit multi-tube requirements, with the same >=4 mL
         // two-SST minimum policy used for Gold SST.
         const volumeFloor = !hasCollectionFillRule(test) && plannedMl !== null &&
-          (midpointSpecimenVolumeMl(test) !== null || reviewedSstComponentPolicy(test))
+          (oneThirdSpecimenVolumeMl(test) !== null || reviewedSstComponentPolicy(test))
           ? Math.ceil(plannedMl / TIGER_SST_USABLE_ML_PER_TUBE - 1e-9) : 1;
         dedicatedTubes += Math.max(explicitCount, twoSstMinimum ? 2 : 1, volumeFloor);
       } else if (plannedMl !== null) {
-        sharedMl += midpointSpecimenVolumeMl(test) !== null || needsPreferredSerumYieldSstCount(test) ? plannedMl : Math.min(plannedMl, TIGER_SST_USABLE_ML_PER_TUBE);
+        sharedMl += oneThirdSpecimenVolumeMl(test) !== null || needsPreferredSerumYieldSstCount(test) ? plannedMl : Math.min(plannedMl, TIGER_SST_USABLE_ML_PER_TUBE);
       } else {
         unmeasuredTubes += 1;
       }
@@ -4709,7 +4709,7 @@
     if (test.preferredVolume !== reviewed[0] || test.minimumVolume !== reviewed[1] ||
         Number(test.collectionCount) !== reviewed[2] || Number(test.submissionCount) !== reviewed[3] ||
         String(test.specialInstructions || '').trim() !== reviewed[4]) return null;
-    const ml = midpointSpecimenVolumeMl(test) ?? parseVolumeMl(test.preferredVolume);
+    const ml = oneThirdSpecimenVolumeMl(test) ?? parseVolumeMl(test.preferredVolume);
     return Number.isFinite(ml) && ml > 0 ? ml : null;
   }
 
@@ -4719,7 +4719,7 @@
       return tiger ? tigerSstEstimateForTests(group.tests) : sstEstimateForTests(group.tests);
     }
     const capacity = tiger ? TIGER_SST_USABLE_ML_PER_TUBE : SST_USABLE_ML_PER_TUBE;
-    // Sum midpoint serum targets before rounding once; no per-test cap and
+    // Sum one-third-above-minimum serum targets before rounding once; no per-test cap and
     // no division by the number of required frozen submission vials.
     const sharedMl = group.tests.reduce((sum, test) => sum + reviewedFrozenSstSourceMl(test), 0);
     const minimumFloor = group.tests.filter(needsTwoSstForMinimum).length * 2;
@@ -4836,7 +4836,7 @@
     if (/^\s*(?:one\s+|1\s+)?full\b[^;]{0,120}\b(?:tube|blue[- ]top|citrate)\b/i.test(description)) return null;
     const preferred = volumeForRequirement(test, 'preferred', {factor: 1});
     const minimum = volumeForRequirement(test, 'minimum', {factor: 1});
-    return midpointOrExistingVolume(test, preferred, minimum);
+    return planningTargetOrExistingVolume(test, preferred, minimum);
   }
 
   function usableSourceSpecimenMl(test, material) {
@@ -4859,7 +4859,7 @@
     // Lab-prescribed multiple distinct tubes/timepoints and calibrated fills
     // are authoritative, not candidates for a smaller collection count.
     if (explicit > 1) return explicit;
-    // Midpoint excludes fill-rule records; keep the existing conservative
+    // The one-third target excludes fill-rule records; keep the existing conservative
     // volume-derived count when a calibrated tube has a numeric requirement.
     const volume = requiredSourceSpecimenMl(test);
     if (volume === null || volume <= 0) return explicit;
@@ -7462,7 +7462,7 @@
               timedInfo[index].timepoint + ' × ' + part.count
             ).join(' · ') + ' · Label each container with its collection time'
           : compactPrintAllocationNote(parts) + (sharedFrozenSource
-              ? ' · Shared source allocation using midpoint volume targets: same collection only; verify serum yield, follow the shortest processing deadline and keep submitted aliquots separate.'
+              ? ' · Shared source allocation using one-third-above-minimum volume targets: same collection only; verify serum yield, follow the shortest processing deadline and keep submitted aliquots separate.'
               : '')
       });
       parts.slice(1).forEach(part => replacement.set(part, null));
