@@ -4247,28 +4247,67 @@
     return test.usePreferredSerumYield === true;
   }
 
+  // Apply only to compatible volume-based blood pools, never to mandatory
+  // independent draws, fill lines, timed specimens or special tube counts.
+  function questComparableVolumes(test) {
+    const parse = value => {
+      const match = String(value || '').trim().match(/^((?:\d+(?:\.\d+)?|\.\d+))\s*m\s*l(?:\s+(?:of\s+)?(serum|plasma|whole blood|blood|platelet[- ]poor plasma|rbcs?|red blood cells))?$/i);
+      if (!match) return null;
+      const matrix = normalizeSearch(match[2] || normalizeSpecimenType(test.specimenType));
+      const ml = Number(match[1]);
+      return Number.isFinite(ml) && ml > 0 ? { ml, matrix } : null;
+    };
+    const p = parse(test.preferredVolume), m = parse(test.minimumVolume);
+    return p && m && p.matrix === m.matrix && m.ml <= p.ml ? { preferred: p.ml, minimum: m.ml } : null;
+  }
+
+  function questVolumePolicyEligible(test) {
+    return collectionSpecimenGroupForTest(test) === 'blood'
+      && !hasCollectionFillRule(test) && !collectionTubeException(test)
+      && !requiresDistinctDrawTransport(test) && explicitCollectionCount(test) === 1
+      && !(isSstDraw(test) ? requiresDedicatedSst(test) || needsTwoSstForMinimum(test) : requiresDedicatedCollectionTube(test))
+      && !needsPreferredSerumYieldSstCount(test)
+      && !/\b(?:pediatric|neonate|infant|children|reflex volume|repeat testing|additional volume)\b/i.test(String(test.minimumVolume || ''))
+      && !/\b(?:minimum volume (?:is )?(?:not acceptable|insufficient)|preferred volume (?:is )?required|must (?:submit|provide|collect) (?:the )?preferred volume)\b/i.test(String(test.specialInstructions || ''));
+  }
+
+  function questLargeCompatiblePool(tests) {
+    return uniqueTests(tests.filter(questVolumePolicyEligible)).length >= 10;
+  }
+
+  function questPolicyVolume(test, preferred, minimum, capacity, largePool) {
+    const baseline = preferred === null ? minimum : preferred;
+    const v = questComparableVolumes(test);
+    if (!questVolumePolicyEligible(test) || !v) return baseline;
+    if (largePool) return v.minimum + (v.preferred - v.minimum) / 5;
+    return v.minimum <= capacity ? Math.min(v.preferred, capacity) : v.preferred;
+  }
+
   function sstEstimateForTests(tests) {
     let sharedMl = 0;
     let dedicatedTubes = 0;
     let unmeasuredTubes = 0;
     const unmeasuredTests = [];
 
-    tests.filter(isSstDraw).forEach(test => {
-      const preferredMl = parseVolumeMl(test.preferredVolume);
-      const fallbackMl = preferredMl === null ? parseVolumeMl(test.minimumVolume) : null;
-      const plannedMl = preferredMl === null ? fallbackMl : preferredMl;
+    const pool = tests.filter(isSstDraw);
+    const largePool = questLargeCompatiblePool(pool);
+    pool.forEach(test => {
+      const preferredMl = volumeForRequirement(test, 'preferred', { factor: 1 });
+      const minimumMl = volumeForRequirement(test, 'minimum', { factor: 1 });
+      const plannedMl = questPolicyVolume(test, preferredMl, minimumMl, SST_USABLE_ML_PER_TUBE, largePool);
       const explicitCount = explicitSstTubeCount(test);
 
       // Minimum >=4 mL plans two SSTs for this test, unless an explicit
       // instruction calls for more. Preferred volume alone does not trigger
       // this two-tube rule. Keep these sources out of the shared serum pool.
       const twoSstMinimum = needsTwoSstForMinimum(test);
-      if (requiresDedicatedSst(test) || twoSstMinimum) {
-        const preferredCount = needsPreferredSerumYieldSstCount(test) && plannedMl !== null
+      if (requiresDedicatedSst(test) || hasCollectionFillRule(test) || twoSstMinimum) {
+        const minimumCount = minimumMl !== null ? Math.ceil(minimumMl / SST_USABLE_ML_PER_TUBE - 1e-9) : 1;
+        const preferredCount = (needsPreferredSerumYieldSstCount(test) || minimumMl === null) && plannedMl !== null
           ? Math.ceil(plannedMl / SST_USABLE_ML_PER_TUBE - 1e-9) : 1;
-        dedicatedTubes += Math.max(explicitCount, twoSstMinimum ? 2 : 1, preferredCount);
+        dedicatedTubes += Math.max(explicitCount, twoSstMinimum ? 2 : 1, minimumCount, preferredCount);
       } else if (plannedMl !== null) {
-        sharedMl += needsPreferredSerumYieldSstCount(test) ? plannedMl : Math.min(plannedMl, SST_USABLE_ML_PER_TUBE);
+        sharedMl += Math.max(plannedMl, minimumMl ?? 0);
       } else {
         unmeasuredTubes += 1;
         unmeasuredTests.push(test.testName);
@@ -4291,26 +4330,24 @@
     let dedicatedTubes = 0;
     let unmeasuredTubes = 0;
 
-    tests.filter(isSstDraw).forEach(test => {
-      // Pool using usable serum volumes, as with Gold SST, rather than the
-      // 7.5 mL whole-blood draw volume. Preferred takes priority over minimum.
-      // Retain Tiger's existing recognition of totals and per-tube volumes;
-      // change only the unit to usable serum mL, without blood conversion.
+    const pool = tests.filter(isSstDraw);
+    const largePool = questLargeCompatiblePool(pool);
+    pool.forEach(test => {
       const serumConversion = { factor: 1 };
       const preferredMl = volumeForRequirement(test, 'preferred', serumConversion);
-      const fallbackMl = preferredMl === null ? volumeForRequirement(test, 'minimum', serumConversion) : null;
-      const plannedMl = preferredMl === null ? fallbackMl : preferredMl;
+      const minimumMl = volumeForRequirement(test, 'minimum', serumConversion);
+      const plannedMl = questPolicyVolume(test, preferredMl, minimumMl, TIGER_SST_USABLE_ML_PER_TUBE, largePool);
       const explicitCount = Math.max(explicitSstTubeCount(test), 1);
 
       const twoSstMinimum = needsTwoSstForMinimum(test);
       if (requiresDedicatedSst(test) || hasCollectionFillRule(test) || twoSstMinimum) {
         // Keep explicit tube rules, and honor preferred yield for opted-in assays.
-        const preferredCount = needsPreferredSerumYieldSstCount(test) && plannedMl !== null
+        const minimumCount = minimumMl !== null ? Math.ceil(minimumMl / TIGER_SST_USABLE_ML_PER_TUBE - 1e-9) : 1;
+        const preferredCount = (needsPreferredSerumYieldSstCount(test) || minimumMl === null) && plannedMl !== null
           ? Math.ceil(plannedMl / TIGER_SST_USABLE_ML_PER_TUBE - 1e-9) : 1;
-        dedicatedTubes += Math.max(explicitCount, twoSstMinimum ? 2 : 1, preferredCount);
+        dedicatedTubes += Math.max(explicitCount, twoSstMinimum ? 2 : 1, minimumCount, preferredCount);
       } else if (plannedMl !== null) {
-        // Most tests retain the legacy cap; verified high-volume assays use full yield.
-        sharedMl += needsPreferredSerumYieldSstCount(test) ? plannedMl : Math.min(plannedMl, TIGER_SST_USABLE_ML_PER_TUBE);
+        sharedMl += Math.max(plannedMl, minimumMl ?? 0);
       } else {
         unmeasuredTubes += 1;
       }
@@ -4490,7 +4527,7 @@
     '94148', '94877', '94878'
   ]);
 
-  function requiredSourceSpecimenMl(test) {
+  function requiredSourceSpecimenMl(test, largePool = false) {
     const description = String(test.preferredVolume || '');
     // "One full citrate tube: 1.8, 2.7, or 4.5 mL" names approved
     // draw-tube sizes; none of those amounts is plasma to transfer.
@@ -4501,6 +4538,9 @@
     const minimumText = String(test.minimumVolume || '').trim();
     const minimum = parseListedSpecimenVolumeMl(minimumText);
     const sourceCapacity = usableSourceSpecimenMl(test, pooledCollectionMaterial(test));
+    if (questVolumePolicyEligible(test) && questComparableVolumes(test)) {
+      return questPolicyVolume(test, preferred, minimum, sourceCapacity, largePool);
+    }
     if (MINIMUM_DRAW_VOLUME_REVERSION_CODES.has(String(test.testCode || '').trim())
         && preferred !== null && minimum !== null && minimum > 0 && minimum < preferred
         && /^\d+(?:\.\d+)?\s*m\s*l\b/i.test(minimumText)
@@ -4528,7 +4568,7 @@
     return pooledCollectionCapacity(material);
   }
 
-  function recommendedCollectionTubesForTest(test) {
+  function recommendedCollectionTubesForTest(test, largePool = false) {
     const explicit = explicitCollectionCount(test);
     // Source capacity estimates apply only to blood draw tubes.
     // Nonblood urine, stool, swab, CSF and sputum vessels use explicit counts.
@@ -4537,7 +4577,7 @@
     if (exception && exception.count) return Math.max(explicit, exception.count);
     // Lab-prescribed multiple distinct tubes/timepoints are authoritative.
     if (explicit > 1) return explicit;
-    const volume = requiredSourceSpecimenMl(test);
+    const volume = requiredSourceSpecimenMl(test, largePool);
     if (volume === null || volume <= 0) return explicit;
     return Math.max(explicit, Math.ceil(volume / usableSourceSpecimenMl(test, pooledCollectionMaterial(test)) - 1e-9));
   }
@@ -4563,10 +4603,11 @@
     let sharedTubeEquivalents = 0;
     let dedicatedTubes = 0;
     let unmeasuredTubes = 0;
+    const largePool = questLargeCompatiblePool(tests);
     tests.forEach(test => {
-      const volume = requiredSourceSpecimenMl(test);
-      const tubes = recommendedCollectionTubesForTest(test);
-      if (requiresDedicatedCollectionTube(test) || tubes > 1) {
+      const volume = requiredSourceSpecimenMl(test, largePool);
+      const tubes = recommendedCollectionTubesForTest(test, largePool);
+      if (requiresDedicatedCollectionTube(test) || hasCollectionFillRule(test) || tubes > 1) {
         dedicatedTubes += tubes;
       } else if (volume !== null) {
         sharedMl += volume;
@@ -6048,9 +6089,10 @@
     const summaries = [];
 
     const sstTransferTests = bag.tests.filter(test => isSstDraw(test) && !isOriginalContainerSubmission(test));
-    if (sstTransferTests.length && bag.sstEstimate.transferSourceTubes > 0) {
+    const selected = selectedSstEstimateForBag(bag);
+    if (sstTransferTests.length && selected.transferSourceTubes > 0) {
       const transportCount = transferContainerCountForTests(sstTransferTests);
-      const sourceCount = bag.sstEstimate.transferSourceTubes;
+      const sourceCount = selected.transferSourceTubes;
       if (transportCount > 0) {
         summaries.push(`${transportCount} ${transferSpecimenWord(sstTransferTests)} ${transportCount === 1 ? 'tube' : 'tubes'} from ${sourceCount} ${sourceCount === 1 ? 'SST' : 'SSTs'}`);
       }
