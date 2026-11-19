@@ -2526,6 +2526,12 @@
     return test?.status === 'active';
   }
 
+  function hasRoutineTat(test) {
+    if (!hasTatDetails(test) || isManuallyAddedTest(test)) return false;
+    const code = displayCode(test);
+    return Object.keys(TAT_SERVICE_AREA_LABELS).some(area => window.LabDirectoryTat?.[area]?.[code]?.[0]);
+  }
+
   function tatBadge(test, printing = false) {
     if (!hasTatDetails(test)) return '';
     if (printing) {
@@ -2535,6 +2541,7 @@
       const label = stat ? 'STAT TAT not verified' : 'Routine TAT: ' + tat[0] + ' (' + tat[2] + ', estimate)';
       return '<div style="margin-top:3px">' + escapeHtml(label) + '</div>';
     }
+    if (!hasRoutineTat(test)) return '';
     return '<div style="margin:4px 0 6px"><button type="button" class="mini-button" data-action="view-tat" data-id="' + escapeAttr(test.id) + '" aria-haspopup="dialog" style="margin:0;display:inline-flex;align-items:center;gap:5px;max-width:100%;white-space:normal;text-align:left;font-size:11px;padding:5px 8px;cursor:pointer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>View TAT &amp; Test Setup<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div>';
   }
 
@@ -2551,7 +2558,7 @@
     if (!button || tatPreviewButton === button || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     hideTatPreview();
     const test = database.find(item => item.id === button.dataset.id);
-    if (!hasTatDetails(test)) return;
+    if (!hasRoutineTat(test)) return;
     const regionSelect = $('tatRegionFilter');
     const region = regionSelect?.value || 'directory';
     const regionLabel = regionSelect?.selectedOptions[0]?.textContent || 'Published directory';
@@ -2608,7 +2615,7 @@
   }
 
   function showTatDetails(test) {
-    if (!hasTatDetails(test)) return;
+    if (!hasRoutineTat(test)) return;
     const cartFilter = $('tatRegionFilter');
     if (!cartFilter || document.getElementById('tatSetupDialog')) return;
     const dialog = document.createElement('dialog');
@@ -2666,7 +2673,7 @@
     const groups = new Map();
     entries.sort((a, b) => (a.tat?.[1] ?? Infinity) - (b.tat?.[1] ?? Infinity));
     entries.forEach(({ test, tat }) => {
-      const label = tat ? tat[0] : test.isStat ? 'STAT TAT not verified' : region === 'directory' ? 'TAT not available' : 'TAT not verified for ' + regionLabel;
+      const label = tat?.[0] || 'Unavailable';
       if (!groups.has(label)) groups.set(label, []);
       groups.get(label).push({ test, tat });
     });
@@ -2676,6 +2683,7 @@
       '<div style="grid-column:1 / -1;display:grid;gap:5px">' +
       rows.map(({ test, tat }) => '<div class="subtext" style="overflow-wrap:anywhere">' +
         escapeHtml(displayCode(test)) + ' · ' + escapeHtml(test.testName) +
+        (test.isStat ? ' · STAT' : '') +
         (tat ? ' <a class="reference-link" href="' + escapeAttr(tat[4]) + '" target="_blank" rel="noopener noreferrer">Directory ↗</a>' : '') +
         '</div>').join('') + '</div></div>').join('');
     const dayEstimates = known.map(entry => entry.tat[1]).filter(Number.isFinite);
