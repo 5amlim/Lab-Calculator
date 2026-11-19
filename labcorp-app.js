@@ -2609,10 +2609,11 @@
     });
     dialog.querySelector('button').addEventListener('click', () => dialog.close());
     dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
-    dialog.addEventListener('close', () => dialog.remove(), {once:true});
+    dialog.addEventListener('close', () => { window.closePortalSelects?.(); dialog.remove(); window.syncPortalSelects?.(); }, {once:true});
     refresh();
     document.body.appendChild(dialog);
-    try { dialog.showModal(); } catch (error) { dialog.remove(); }
+    window.enhanceNamedPortalSelect?.(select);
+    try { dialog.showModal(); } catch (error) { dialog.remove(); window.syncPortalSelects?.(); }
   }
 
   function renderTurnaroundTime(tests) {
