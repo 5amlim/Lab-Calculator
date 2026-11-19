@@ -24,6 +24,7 @@
   const CONSOLIDATED_TEST_IDS = { 'seed-103': 'seed-71', 'seed-157': 'seed-158' };
   const SELECTED_KEY = 'labCollectionCalculator.selected.v1';
   const SST_MODE_KEY = 'labCollectionCalculator.sstMode.v1';
+  const TAT_REGION_KEY = 'labCollectionCalculator.tatRegion.v1';
   const URINE_CULTURE_MODE_KEY = 'labCollectionCalculator.urineCultureTransport.v1';
   const STAT_SELECTED_KEY = 'labCollectionCalculator.statSelected.v1';
   const DEFAULT_STAT_MIGRATION_KEY = 'labCollectionCalculator.defaultStat.v11.12';
@@ -338,6 +339,7 @@
       refreshBatchHints = window.LabBatchInlineHints.mount(els.searchInput, query =>
         window.LabBatchInlineHints.resolveExact(query, database, normalizeSearch));
     }
+    restoreTatRegion();
     bindEvents();
     renderAll();
   }
@@ -392,7 +394,11 @@
     els.loadMoreButton.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
     els.blockedListButton?.addEventListener('click', () => { blockedListOpen = !blockedListOpen; renderBlockedList(); });
     els.loadMoreInlineButton?.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
-    $('tatRegionFilter')?.addEventListener('change', () => { hideTatPreview(); renderTurnaroundTime(selectedTests()); });
+    $('tatRegionFilter')?.addEventListener('change', () => {
+      try { localStorage.setItem(TAT_REGION_KEY, $('tatRegionFilter').value); } catch (_) {}
+      hideTatPreview();
+      renderTurnaroundTime(selectedTests());
+    });
     $('turnaroundTime')?.addEventListener('click', event => {
       const button = event.target.closest('button[data-cart-tat-id]');
       if (button) showTatDetails(selectedTests().find(test => test.id === button.dataset.cartTatId));
@@ -2616,6 +2622,16 @@
   function regionalPanelTat(test, region) {
     const tat = regionalDirectoryTat(test, region);
     return test.isStat || !tat?.[0] ? null : tat;
+  }
+
+  function restoreTatRegion() {
+    const select = $('tatRegionFilter');
+    if (!select) return;
+    try {
+      const saved = localStorage.getItem(TAT_REGION_KEY);
+      if (Array.from(select.options).some(option => option.value === saved)) select.value = saved;
+    } catch (_) { /* Preserve the default when browser storage is unavailable. */ }
+    window.syncPortalSelects?.();
   }
 
   function showTatDetails(test) {
