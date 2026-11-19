@@ -1,0 +1,922 @@
+/* Verified Labcorp panel additions. Existing active or blocked records are never overwritten. Uses existing multi-specimen calculation and labeling. Published aggregate PrEP volume allocation is documented in each record. */
+(()=>{'use strict';if(!Array.isArray(window.SEED_TESTS))return;
+const additions=[
+  {
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "id": "labcorp-verified-20261118-batch36-254892",
+    "testCode": "254892",
+    "testName": "PrEP, Male, Oral Monitor (No HIV RNA)",
+    "source": "Labcorp official order-code directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/254892/prep-male-oral-monitor-no-hiv-rna",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "stability": "Original SST refrigerated 7 days; separated serum frozen up to 6 weeks; Aptima urine 30 days at 2–30°C",
+    "specialInstructions": "Collect a dedicated unopened SST for HIV antigen/antibody. Centrifuge and submit that original SST refrigerated, not frozen. Labcorp specifies 4 mL total serum (3 mL minimum) across the dedicated SST and 1 separate serum pour-off tube. The collection plan reserves 2 mL (minimum 1 mL) for the original HIV Ag/Ab tube using the individual component instructions; the remaining serum is allocated to the required pour-off. The published panel volume is aggregate, not a per-vial specification. Confirm individual aliquot volumes and vial capacity with receiving Labcorp, especially large baseline orders. Submit urine in Aptima transport. Keep panel specimens separate from other orders. This code omits initial RNA but the directory still requires the pour-off for reflex testing; use only when specifically ordered. Ask about high-dose biotin; Labcorp recommends withholding it for 72 hours before collection with clinician guidance.",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "PrEP male oral monitor (no hiv rna)",
+      "HIV PrEP panel"
+    ],
+    "additionalDrawRequirements": [
+      {
+        "container": "SST / Gold",
+        "specimenType": "Serum",
+        "transportContainer": "Frozen Transport Tube (Purple Cap)",
+        "preferredVolume": "2 mL serum",
+        "minimumVolume": "2 mL serum",
+        "transportTemperature": "Frozen",
+        "transportTemperatureRaw": "Frozen",
+        "spin": "Yes",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Required separate serum pour-off",
+        "specialLabeling": "",
+        "specialInstructions": "Centrifuge within 24 hours, transfer separated serum to a dedicated polypropylene screw-cap transport tube, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests. "
+      },
+      {
+        "container": "Sterile cup",
+        "specimenType": "Urine",
+        "transportContainer": "Aptima Urine Transport Tube",
+        "preferredVolume": "20–30 mL first-catch urine (2 mL submitted)",
+        "minimumVolume": "15 mL first-catch urine (2 mL submitted)",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Chlamydia/Gonococcus NAA",
+        "specialLabeling": "First-catch urine",
+        "specialInstructions": "No urination for at least 1 hour beforehand. Collect initial urine stream in preservative-free cup. Transfer about 2 mL into yellow-label Aptima urine tube, between the two fill lines. Keep at 2–30°C; urine stable 30 days. Label specimen source."
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "id": "labcorp-verified-20261118-batch36-254937",
+    "testCode": "254937",
+    "testName": "PrEP, Male, Injectable Monitor (No HIV RNA)",
+    "source": "Labcorp official order-code directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/254937/prep-male-injectable-monitor-no-hiv-rna",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "stability": "Original SST refrigerated 7 days; separated serum frozen up to 6 weeks; Aptima urine 30 days at 2–30°C",
+    "specialInstructions": "Collect a dedicated unopened SST for HIV antigen/antibody. Centrifuge and submit that original SST refrigerated, not frozen. Labcorp specifies 4 mL total serum (3 mL minimum) across the dedicated SST and 1 separate serum pour-off tube. The collection plan reserves 2 mL (minimum 1 mL) for the original HIV Ag/Ab tube using the individual component instructions; the remaining serum is allocated to the required pour-off. The published panel volume is aggregate, not a per-vial specification. Confirm individual aliquot volumes and vial capacity with receiving Labcorp, especially large baseline orders. Submit urine in Aptima transport. Keep panel specimens separate from other orders. This code omits initial RNA but the directory still requires the pour-off for reflex testing; use only when specifically ordered. Ask about high-dose biotin; Labcorp recommends withholding it for 72 hours before collection with clinician guidance.",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "PrEP male injectable monitor (no hiv rna)",
+      "HIV PrEP panel"
+    ],
+    "additionalDrawRequirements": [
+      {
+        "container": "SST / Gold",
+        "specimenType": "Serum",
+        "transportContainer": "Frozen Transport Tube (Purple Cap)",
+        "preferredVolume": "2 mL serum",
+        "minimumVolume": "2 mL serum",
+        "transportTemperature": "Frozen",
+        "transportTemperatureRaw": "Frozen",
+        "spin": "Yes",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Required separate serum pour-off",
+        "specialLabeling": "",
+        "specialInstructions": "Centrifuge within 24 hours, transfer separated serum to a dedicated polypropylene screw-cap transport tube, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests. "
+      },
+      {
+        "container": "Sterile cup",
+        "specimenType": "Urine",
+        "transportContainer": "Aptima Urine Transport Tube",
+        "preferredVolume": "20–30 mL first-catch urine (2 mL submitted)",
+        "minimumVolume": "15 mL first-catch urine (2 mL submitted)",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Chlamydia/Gonococcus NAA",
+        "specialLabeling": "First-catch urine",
+        "specialInstructions": "No urination for at least 1 hour beforehand. Collect initial urine stream in preservative-free cup. Transfer about 2 mL into yellow-label Aptima urine tube, between the two fill lines. Keep at 2–30°C; urine stable 30 days. Label specimen source."
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "id": "labcorp-verified-20261118-batch36-254905",
+    "testCode": "254905",
+    "testName": "PrEP, Female, Oral Monitor (No HIV RNA)",
+    "source": "Labcorp official order-code directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/254905/prep-female-oral-monitor-no-hiv-rna",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "stability": "Original SST refrigerated 7 days; separated serum frozen up to 6 weeks; Aptima urine 30 days at 2–30°C",
+    "specialInstructions": "Collect a dedicated unopened SST for HIV antigen/antibody. Centrifuge and submit that original SST refrigerated, not frozen. Labcorp specifies 5 mL total serum (4 mL minimum) across the dedicated SST and 1 separate serum pour-off tube. The collection plan reserves 2 mL (minimum 1 mL) for the original HIV Ag/Ab tube using the individual component instructions; the remaining serum is allocated to the required pour-off. The published panel volume is aggregate, not a per-vial specification. Confirm individual aliquot volumes and vial capacity with receiving Labcorp, especially large baseline orders. Submit urine in Aptima transport. Keep panel specimens separate from other orders. This code omits initial RNA but the directory still requires the pour-off for reflex testing; use only when specifically ordered. Ask about high-dose biotin; Labcorp recommends withholding it for 72 hours before collection with clinician guidance.",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "PrEP female oral monitor (no hiv rna)",
+      "HIV PrEP panel"
+    ],
+    "additionalDrawRequirements": [
+      {
+        "container": "SST / Gold",
+        "specimenType": "Serum",
+        "transportContainer": "Frozen Transport Tube (Purple Cap)",
+        "preferredVolume": "3 mL serum",
+        "minimumVolume": "3 mL serum",
+        "transportTemperature": "Frozen",
+        "transportTemperatureRaw": "Frozen",
+        "spin": "Yes",
+        "count": 2,
+        "submissionCount": 1,
+        "purpose": "Required separate serum pour-off",
+        "specialLabeling": "",
+        "specialInstructions": "Centrifuge within 24 hours, transfer separated serum to a dedicated polypropylene screw-cap transport tube, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests. "
+      },
+      {
+        "container": "Sterile cup",
+        "specimenType": "Urine",
+        "transportContainer": "Aptima Urine Transport Tube",
+        "preferredVolume": "20–30 mL first-catch urine (2 mL submitted)",
+        "minimumVolume": "15 mL first-catch urine (2 mL submitted)",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Chlamydia/Gonococcus NAA",
+        "specialLabeling": "First-catch urine",
+        "specialInstructions": "No urination for at least 1 hour beforehand. Collect initial urine stream in preservative-free cup. Do not cleanse labial area. This calculator configures the urine option only; vaginal/endocervical swab is an alternative with the appropriate kit. Transfer about 2 mL into yellow-label Aptima urine tube, between the two fill lines. Keep at 2–30°C; urine stable 30 days. Label specimen source."
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "id": "labcorp-verified-20261118-batch36-254951",
+    "testCode": "254951",
+    "testName": "PrEP, Female, Injectable Monitor (No HIV RNA)",
+    "source": "Labcorp official order-code directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/254951/prep-female-injectable-monitor-no-hiv-rna",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "stability": "Original SST refrigerated 7 days; separated serum frozen up to 6 weeks; Aptima urine 30 days at 2–30°C",
+    "specialInstructions": "Collect a dedicated unopened SST for HIV antigen/antibody. Centrifuge and submit that original SST refrigerated, not frozen. Labcorp specifies 5 mL total serum (4 mL minimum) across the dedicated SST and 1 separate serum pour-off tube. The collection plan reserves 2 mL (minimum 1 mL) for the original HIV Ag/Ab tube using the individual component instructions; the remaining serum is allocated to the required pour-off. The published panel volume is aggregate, not a per-vial specification. Confirm individual aliquot volumes and vial capacity with receiving Labcorp, especially large baseline orders. Submit urine in Aptima transport. Keep panel specimens separate from other orders. This code omits initial RNA but the directory still requires the pour-off for reflex testing; use only when specifically ordered. Ask about high-dose biotin; Labcorp recommends withholding it for 72 hours before collection with clinician guidance.",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "PrEP female injectable monitor (no hiv rna)",
+      "HIV PrEP panel"
+    ],
+    "additionalDrawRequirements": [
+      {
+        "container": "SST / Gold",
+        "specimenType": "Serum",
+        "transportContainer": "Frozen Transport Tube (Purple Cap)",
+        "preferredVolume": "3 mL serum",
+        "minimumVolume": "3 mL serum",
+        "transportTemperature": "Frozen",
+        "transportTemperatureRaw": "Frozen",
+        "spin": "Yes",
+        "count": 2,
+        "submissionCount": 1,
+        "purpose": "Required separate serum pour-off",
+        "specialLabeling": "",
+        "specialInstructions": "Centrifuge within 24 hours, transfer separated serum to a dedicated polypropylene screw-cap transport tube, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests. "
+      },
+      {
+        "container": "Sterile cup",
+        "specimenType": "Urine",
+        "transportContainer": "Aptima Urine Transport Tube",
+        "preferredVolume": "20–30 mL first-catch urine (2 mL submitted)",
+        "minimumVolume": "15 mL first-catch urine (2 mL submitted)",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Chlamydia/Gonococcus NAA",
+        "specialLabeling": "First-catch urine",
+        "specialInstructions": "No urination for at least 1 hour beforehand. Collect initial urine stream in preservative-free cup. Do not cleanse labial area. This calculator configures the urine option only; vaginal/endocervical swab is an alternative with the appropriate kit. Transfer about 2 mL into yellow-label Aptima urine tube, between the two fill lines. Keep at 2–30°C; urine stable 30 days. Label specimen source."
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "id": "labcorp-verified-20261118-batch36-254868",
+    "testCode": "254868",
+    "testName": "PrEP, Male, Oral Monitor + HIV RNA",
+    "source": "Labcorp official order-code directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/254868/prep-male-oral-monitor-hiv-rna",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "stability": "Original SST refrigerated 7 days; separated serum frozen up to 6 weeks; Aptima urine 30 days at 2–30°C",
+    "specialInstructions": "Collect a dedicated unopened SST for HIV antigen/antibody. Centrifuge and submit that original SST refrigerated, not frozen. Labcorp specifies 5 mL total serum (3.75 mL minimum) across the dedicated SST and 1 separate serum pour-off tube. The collection plan reserves 2 mL (minimum 1 mL) for the original HIV Ag/Ab tube using the individual component instructions; the remaining serum is allocated to the required pour-off. The published panel volume is aggregate, not a per-vial specification. Confirm individual aliquot volumes and vial capacity with receiving Labcorp, especially large baseline orders. Submit urine in Aptima transport. Keep panel specimens separate from other orders. Ask about high-dose biotin; Labcorp recommends withholding it for 72 hours before collection with clinician guidance.",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "PrEP male oral monitor + hiv rna",
+      "HIV PrEP panel"
+    ],
+    "additionalDrawRequirements": [
+      {
+        "container": "SST / Gold",
+        "specimenType": "Serum",
+        "transportContainer": "Frozen Transport Tube (Purple Cap)",
+        "preferredVolume": "3 mL serum",
+        "minimumVolume": "2.75 mL serum",
+        "transportTemperature": "Frozen",
+        "transportTemperatureRaw": "Frozen",
+        "spin": "Yes",
+        "count": 2,
+        "submissionCount": 1,
+        "purpose": "Required separate serum pour-off",
+        "specialLabeling": "",
+        "specialInstructions": "Centrifuge within 24 hours, transfer separated serum to a dedicated polypropylene screw-cap transport tube, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests. "
+      },
+      {
+        "container": "Sterile cup",
+        "specimenType": "Urine",
+        "transportContainer": "Aptima Urine Transport Tube",
+        "preferredVolume": "20–30 mL first-catch urine (2 mL submitted)",
+        "minimumVolume": "15 mL first-catch urine (2 mL submitted)",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Chlamydia/Gonococcus NAA",
+        "specialLabeling": "First-catch urine",
+        "specialInstructions": "No urination for at least 1 hour beforehand. Collect initial urine stream in preservative-free cup. Transfer about 2 mL into yellow-label Aptima urine tube, between the two fill lines. Keep at 2–30°C; urine stable 30 days. Label specimen source."
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "id": "labcorp-verified-20261118-batch36-254736",
+    "testCode": "254736",
+    "testName": "PrEP, Male, Injectable Monitor + HIV RNA",
+    "source": "Labcorp official order-code directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/254736/prep-male-injectable-monitor-hiv-rna",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "stability": "Original SST refrigerated 7 days; separated serum frozen up to 6 weeks; Aptima urine 30 days at 2–30°C",
+    "specialInstructions": "Collect a dedicated unopened SST for HIV antigen/antibody. Centrifuge and submit that original SST refrigerated, not frozen. Labcorp specifies 5 mL total serum (3.75 mL minimum) across the dedicated SST and 1 separate serum pour-off tube. The collection plan reserves 2 mL (minimum 1 mL) for the original HIV Ag/Ab tube using the individual component instructions; the remaining serum is allocated to the required pour-off. The published panel volume is aggregate, not a per-vial specification. Confirm individual aliquot volumes and vial capacity with receiving Labcorp, especially large baseline orders. Submit urine in Aptima transport. Keep panel specimens separate from other orders. Ask about high-dose biotin; Labcorp recommends withholding it for 72 hours before collection with clinician guidance.",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "PrEP male injectable monitor + hiv rna",
+      "HIV PrEP panel"
+    ],
+    "additionalDrawRequirements": [
+      {
+        "container": "SST / Gold",
+        "specimenType": "Serum",
+        "transportContainer": "Frozen Transport Tube (Purple Cap)",
+        "preferredVolume": "3 mL serum",
+        "minimumVolume": "2.75 mL serum",
+        "transportTemperature": "Frozen",
+        "transportTemperatureRaw": "Frozen",
+        "spin": "Yes",
+        "count": 2,
+        "submissionCount": 1,
+        "purpose": "Required separate serum pour-off",
+        "specialLabeling": "",
+        "specialInstructions": "Centrifuge within 24 hours, transfer separated serum to a dedicated polypropylene screw-cap transport tube, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests. "
+      },
+      {
+        "container": "Sterile cup",
+        "specimenType": "Urine",
+        "transportContainer": "Aptima Urine Transport Tube",
+        "preferredVolume": "20–30 mL first-catch urine (2 mL submitted)",
+        "minimumVolume": "15 mL first-catch urine (2 mL submitted)",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Chlamydia/Gonococcus NAA",
+        "specialLabeling": "First-catch urine",
+        "specialInstructions": "No urination for at least 1 hour beforehand. Collect initial urine stream in preservative-free cup. Transfer about 2 mL into yellow-label Aptima urine tube, between the two fill lines. Keep at 2–30°C; urine stable 30 days. Label specimen source."
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "id": "labcorp-verified-20261118-batch36-254880",
+    "testCode": "254880",
+    "testName": "PrEP, Female, Oral Monitor + HIV RNA",
+    "source": "Labcorp official order-code directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/254880/prep-female-oral-monitor-hiv-rna",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "stability": "Original SST refrigerated 7 days; separated serum frozen up to 6 weeks; Aptima urine 30 days at 2–30°C",
+    "specialInstructions": "Collect a dedicated unopened SST for HIV antigen/antibody. Centrifuge and submit that original SST refrigerated, not frozen. Labcorp specifies 5.5 mL total serum (4.5 mL minimum) across the dedicated SST and 1 separate serum pour-off tube. The collection plan reserves 2 mL (minimum 1 mL) for the original HIV Ag/Ab tube using the individual component instructions; the remaining serum is allocated to the required pour-off. The published panel volume is aggregate, not a per-vial specification. Confirm individual aliquot volumes and vial capacity with receiving Labcorp, especially large baseline orders. Submit urine in Aptima transport. Keep panel specimens separate from other orders. Ask about high-dose biotin; Labcorp recommends withholding it for 72 hours before collection with clinician guidance.",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "PrEP female oral monitor + hiv rna",
+      "HIV PrEP panel"
+    ],
+    "additionalDrawRequirements": [
+      {
+        "container": "SST / Gold",
+        "specimenType": "Serum",
+        "transportContainer": "Frozen Transport Tube (Purple Cap)",
+        "preferredVolume": "3.5 mL serum",
+        "minimumVolume": "3.5 mL serum",
+        "transportTemperature": "Frozen",
+        "transportTemperatureRaw": "Frozen",
+        "spin": "Yes",
+        "count": 2,
+        "submissionCount": 1,
+        "purpose": "Required separate serum pour-off",
+        "specialLabeling": "",
+        "specialInstructions": "Centrifuge within 24 hours, transfer separated serum to a dedicated polypropylene screw-cap transport tube, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests. "
+      },
+      {
+        "container": "Sterile cup",
+        "specimenType": "Urine",
+        "transportContainer": "Aptima Urine Transport Tube",
+        "preferredVolume": "20–30 mL first-catch urine (2 mL submitted)",
+        "minimumVolume": "15 mL first-catch urine (2 mL submitted)",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Chlamydia/Gonococcus NAA",
+        "specialLabeling": "First-catch urine",
+        "specialInstructions": "No urination for at least 1 hour beforehand. Collect initial urine stream in preservative-free cup. Do not cleanse labial area. This calculator configures the urine option only; vaginal/endocervical swab is an alternative with the appropriate kit. Transfer about 2 mL into yellow-label Aptima urine tube, between the two fill lines. Keep at 2–30°C; urine stable 30 days. Label specimen source."
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "id": "labcorp-verified-20261118-batch36-254801",
+    "testCode": "254801",
+    "testName": "PrEP, Female, Injectable Monitor + HIV RNA",
+    "source": "Labcorp official order-code directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/254801/prep-female-injectable-monitor-hiv-rna",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "stability": "Original SST refrigerated 7 days; separated serum frozen up to 6 weeks; Aptima urine 30 days at 2–30°C",
+    "specialInstructions": "Collect a dedicated unopened SST for HIV antigen/antibody. Centrifuge and submit that original SST refrigerated, not frozen. Labcorp specifies 5.5 mL total serum (4.5 mL minimum) across the dedicated SST and 1 separate serum pour-off tube. The collection plan reserves 2 mL (minimum 1 mL) for the original HIV Ag/Ab tube using the individual component instructions; the remaining serum is allocated to the required pour-off. The published panel volume is aggregate, not a per-vial specification. Confirm individual aliquot volumes and vial capacity with receiving Labcorp, especially large baseline orders. Submit urine in Aptima transport. Keep panel specimens separate from other orders. Ask about high-dose biotin; Labcorp recommends withholding it for 72 hours before collection with clinician guidance.",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "PrEP female injectable monitor + hiv rna",
+      "HIV PrEP panel"
+    ],
+    "additionalDrawRequirements": [
+      {
+        "container": "SST / Gold",
+        "specimenType": "Serum",
+        "transportContainer": "Frozen Transport Tube (Purple Cap)",
+        "preferredVolume": "3.5 mL serum",
+        "minimumVolume": "3.5 mL serum",
+        "transportTemperature": "Frozen",
+        "transportTemperatureRaw": "Frozen",
+        "spin": "Yes",
+        "count": 2,
+        "submissionCount": 1,
+        "purpose": "Required separate serum pour-off",
+        "specialLabeling": "",
+        "specialInstructions": "Centrifuge within 24 hours, transfer separated serum to a dedicated polypropylene screw-cap transport tube, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests. "
+      },
+      {
+        "container": "Sterile cup",
+        "specimenType": "Urine",
+        "transportContainer": "Aptima Urine Transport Tube",
+        "preferredVolume": "20–30 mL first-catch urine (2 mL submitted)",
+        "minimumVolume": "15 mL first-catch urine (2 mL submitted)",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Chlamydia/Gonococcus NAA",
+        "specialLabeling": "First-catch urine",
+        "specialInstructions": "No urination for at least 1 hour beforehand. Collect initial urine stream in preservative-free cup. Do not cleanse labial area. This calculator configures the urine option only; vaginal/endocervical swab is an alternative with the appropriate kit. Transfer about 2 mL into yellow-label Aptima urine tube, between the two fill lines. Keep at 2–30°C; urine stable 30 days. Label specimen source."
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "id": "labcorp-verified-20261118-batch36-254855",
+    "testCode": "254855",
+    "testName": "PrEP, Female, Oral Baseline + HIV RNA",
+    "source": "Labcorp official order-code directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/254855/prep-female-oral-baseline-hiv-rna",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "stability": "Original SST refrigerated 6 days; separated serum frozen up to 6 weeks; Aptima urine 30 days at 2–30°C",
+    "specialInstructions": "Collect a dedicated unopened SST for HIV antigen/antibody. Centrifuge and submit that original SST refrigerated, not frozen. Labcorp specifies 11 mL total serum (7 mL minimum) across the dedicated SST and 2 separate serum pour-off tubes. The collection plan reserves 2 mL (minimum 1 mL) for the original HIV Ag/Ab tube using the individual component instructions; the remaining serum is allocated to the required pour-offs. The published panel volume is aggregate, not a per-vial specification. Confirm individual aliquot volumes and vial capacity with receiving Labcorp, especially large baseline orders. Submit urine in Aptima transport. Keep panel specimens separate from other orders. Ask about high-dose biotin; Labcorp recommends withholding it for 72 hours before collection with clinician guidance.",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "PrEP female oral baseline + hiv rna",
+      "HIV PrEP panel"
+    ],
+    "additionalDrawRequirements": [
+      {
+        "container": "SST / Gold",
+        "specimenType": "Serum",
+        "transportContainer": "Frozen Transport Tube (Purple Cap)",
+        "preferredVolume": "9 mL serum",
+        "minimumVolume": "6 mL serum",
+        "transportTemperature": "Frozen",
+        "transportTemperatureRaw": "Frozen",
+        "spin": "Yes",
+        "count": 4,
+        "submissionCount": 2,
+        "purpose": "Required separate serum pour-off",
+        "specialLabeling": "",
+        "specialInstructions": "Centrifuge within 24 hours, transfer separated serum to 2 separate polypropylene screw-cap transport tubes of sufficient capacity, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests. Use Labcorp-approved vials of adequate capacity with expansion headspace and confirm aliquot distribution with the receiving lab."
+      },
+      {
+        "container": "Sterile cup",
+        "specimenType": "Urine",
+        "transportContainer": "Aptima Urine Transport Tube",
+        "preferredVolume": "20–30 mL first-catch urine (2 mL submitted)",
+        "minimumVolume": "15 mL first-catch urine (2 mL submitted)",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Chlamydia/Gonococcus NAA",
+        "specialLabeling": "First-catch urine",
+        "specialInstructions": "No urination for at least 1 hour beforehand. Collect initial urine stream in preservative-free cup. Do not cleanse labial area. This calculator configures the urine option only; vaginal/endocervical swab is an alternative with the appropriate kit. Transfer about 2 mL into yellow-label Aptima urine tube, between the two fill lines. Keep at 2–30°C; urine stable 30 days. Label specimen source."
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "id": "labcorp-verified-20261118-batch36-254842",
+    "testCode": "254842",
+    "testName": "PrEP, Male, Oral Baseline + HIV RNA",
+    "source": "Labcorp official order-code directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/254842/prep-male-oral-baseline-hiv-rna",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "stability": "Original SST refrigerated 6 days; separated serum frozen up to 6 weeks; Aptima urine 30 days at 2–30°C",
+    "specialInstructions": "Collect a dedicated unopened SST for HIV antigen/antibody. Centrifuge and submit that original SST refrigerated, not frozen. Labcorp specifies 12 mL total serum (7 mL minimum) across the dedicated SST and 2 separate serum pour-off tubes. The collection plan reserves 2 mL (minimum 1 mL) for the original HIV Ag/Ab tube using the individual component instructions; the remaining serum is allocated to the required pour-offs. The published panel volume is aggregate, not a per-vial specification. Confirm individual aliquot volumes and vial capacity with receiving Labcorp, especially large baseline orders. Submit urine in Aptima transport. Keep panel specimens separate from other orders. Ask about high-dose biotin; Labcorp recommends withholding it for 72 hours before collection with clinician guidance.",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "PrEP male oral baseline + hiv rna",
+      "HIV PrEP panel"
+    ],
+    "additionalDrawRequirements": [
+      {
+        "container": "SST / Gold",
+        "specimenType": "Serum",
+        "transportContainer": "Frozen Transport Tube (Purple Cap)",
+        "preferredVolume": "10 mL serum",
+        "minimumVolume": "6 mL serum",
+        "transportTemperature": "Frozen",
+        "transportTemperatureRaw": "Frozen",
+        "spin": "Yes",
+        "count": 4,
+        "submissionCount": 2,
+        "purpose": "Required separate serum pour-off",
+        "specialLabeling": "",
+        "specialInstructions": "Centrifuge within 24 hours, transfer separated serum to 2 separate polypropylene screw-cap transport tubes of sufficient capacity, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests. Use Labcorp-approved vials of adequate capacity with expansion headspace and confirm aliquot distribution with the receiving lab."
+      },
+      {
+        "container": "Sterile cup",
+        "specimenType": "Urine",
+        "transportContainer": "Aptima Urine Transport Tube",
+        "preferredVolume": "20–30 mL first-catch urine (2 mL submitted)",
+        "minimumVolume": "15 mL first-catch urine (2 mL submitted)",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Chlamydia/Gonococcus NAA",
+        "specialLabeling": "First-catch urine",
+        "specialInstructions": "No urination for at least 1 hour beforehand. Collect initial urine stream in preservative-free cup. Transfer about 2 mL into yellow-label Aptima urine tube, between the two fill lines. Keep at 2–30°C; urine stable 30 days. Label specimen source."
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "id": "labcorp-verified-20261118-batch36-254972",
+    "testCode": "254972",
+    "testName": "PrEP, Male, Injectable Baseline + HIV RNA",
+    "source": "Labcorp official order-code directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/254972/prep-male-injectable-baseline-hiv-rna",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "stability": "Original SST refrigerated 6 days; separated serum frozen up to 6 weeks; Aptima urine 30 days at 2–30°C",
+    "specialInstructions": "Collect a dedicated unopened SST for HIV antigen/antibody. Centrifuge and submit that original SST refrigerated, not frozen. Labcorp specifies 10 mL total serum (7 mL minimum) across the dedicated SST and 2 separate serum pour-off tubes. The collection plan reserves 2 mL (minimum 1 mL) for the original HIV Ag/Ab tube using the individual component instructions; the remaining serum is allocated to the required pour-offs. The published panel volume is aggregate, not a per-vial specification. Confirm individual aliquot volumes and vial capacity with receiving Labcorp, especially large baseline orders. Submit urine in Aptima transport. Keep panel specimens separate from other orders. Ask about high-dose biotin; Labcorp recommends withholding it for 72 hours before collection with clinician guidance.",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "PrEP male injectable baseline + hiv rna",
+      "HIV PrEP panel"
+    ],
+    "additionalDrawRequirements": [
+      {
+        "container": "SST / Gold",
+        "specimenType": "Serum",
+        "transportContainer": "Frozen Transport Tube (Purple Cap)",
+        "preferredVolume": "8 mL serum",
+        "minimumVolume": "6 mL serum",
+        "transportTemperature": "Frozen",
+        "transportTemperatureRaw": "Frozen",
+        "spin": "Yes",
+        "count": 4,
+        "submissionCount": 2,
+        "purpose": "Required separate serum pour-off",
+        "specialLabeling": "",
+        "specialInstructions": "Centrifuge within 24 hours, transfer separated serum to 2 separate polypropylene screw-cap transport tubes of sufficient capacity, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests. Use Labcorp-approved vials of adequate capacity with expansion headspace and confirm aliquot distribution with the receiving lab."
+      },
+      {
+        "container": "Sterile cup",
+        "specimenType": "Urine",
+        "transportContainer": "Aptima Urine Transport Tube",
+        "preferredVolume": "20–30 mL first-catch urine (2 mL submitted)",
+        "minimumVolume": "15 mL first-catch urine (2 mL submitted)",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Chlamydia/Gonococcus NAA",
+        "specialLabeling": "First-catch urine",
+        "specialInstructions": "No urination for at least 1 hour beforehand. Collect initial urine stream in preservative-free cup. Transfer about 2 mL into yellow-label Aptima urine tube, between the two fill lines. Keep at 2–30°C; urine stable 30 days. Label specimen source."
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "id": "labcorp-verified-20261118-batch36-254988",
+    "testCode": "254988",
+    "testName": "PrEP, Female, Injectable Baseline + HIV RNA",
+    "source": "Labcorp official order-code directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/254988/prep-female-injectable-baseline-hiv-rna",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "stability": "Original SST refrigerated 6 days; separated serum frozen up to 6 weeks; Aptima urine 30 days at 2–30°C",
+    "specialInstructions": "Collect a dedicated unopened SST for HIV antigen/antibody. Centrifuge and submit that original SST refrigerated, not frozen. Labcorp specifies 11 mL total serum (7 mL minimum) across the dedicated SST and 2 separate serum pour-off tubes. The collection plan reserves 2 mL (minimum 1 mL) for the original HIV Ag/Ab tube using the individual component instructions; the remaining serum is allocated to the required pour-offs. The published panel volume is aggregate, not a per-vial specification. Confirm individual aliquot volumes and vial capacity with receiving Labcorp, especially large baseline orders. Submit urine in Aptima transport. Keep panel specimens separate from other orders. Ask about high-dose biotin; Labcorp recommends withholding it for 72 hours before collection with clinician guidance.",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "PrEP female injectable baseline + hiv rna",
+      "HIV PrEP panel"
+    ],
+    "additionalDrawRequirements": [
+      {
+        "container": "SST / Gold",
+        "specimenType": "Serum",
+        "transportContainer": "Frozen Transport Tube (Purple Cap)",
+        "preferredVolume": "9 mL serum",
+        "minimumVolume": "6 mL serum",
+        "transportTemperature": "Frozen",
+        "transportTemperatureRaw": "Frozen",
+        "spin": "Yes",
+        "count": 4,
+        "submissionCount": 2,
+        "purpose": "Required separate serum pour-off",
+        "specialLabeling": "",
+        "specialInstructions": "Centrifuge within 24 hours, transfer separated serum to 2 separate polypropylene screw-cap transport tubes of sufficient capacity, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests. Use Labcorp-approved vials of adequate capacity with expansion headspace and confirm aliquot distribution with the receiving lab."
+      },
+      {
+        "container": "Sterile cup",
+        "specimenType": "Urine",
+        "transportContainer": "Aptima Urine Transport Tube",
+        "preferredVolume": "20–30 mL first-catch urine (2 mL submitted)",
+        "minimumVolume": "15 mL first-catch urine (2 mL submitted)",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Chlamydia/Gonococcus NAA",
+        "specialLabeling": "First-catch urine",
+        "specialInstructions": "No urination for at least 1 hour beforehand. Collect initial urine stream in preservative-free cup. Do not cleanse labial area. This calculator configures the urine option only; vaginal/endocervical swab is an alternative with the appropriate kit. Transfer about 2 mL into yellow-label Aptima urine tube, between the two fill lines. Keep at 2–30°C; urine stable 30 days. Label specimen source."
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "id": "labcorp-verified-20261118-batch36-083971",
+    "testCode": "083971",
+    "testName": "PrEP Use Only: HIV Antigen/Antibody and HIV RNA, Qualitative",
+    "source": "Labcorp official order-code directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/083971/prep-use-only-hiv-antigen-antibody-and-hiv-rna-qualitative",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "stability": "Original SST refrigerated 7 days; separated RNA serum frozen 6 weeks or refrigerated 7 days",
+    "specialInstructions": "Dedicated unopened spun SST for HIV Ag/Ab plus separate frozen serum aliquot for RNA. Published panel total 2.5 mL (minimum 1.5 mL); plan 3 mL total (minimum 1.65 mL) conservatively from component instructions 083909 and 083973 to meet both component volumes. Do not freeze unopened SST. Ask about high-dose biotin; Labcorp recommends withholding it for 72 hours before collection with clinician guidance.",
+    "clinicalCategories": [
+      "infectious",
+      "sti"
+    ],
+    "searchAliases": [
+      "PrEP HIV Ag Ab RNA",
+      "HIV PrEP combination"
+    ],
+    "additionalDrawRequirements": [
+      {
+        "container": "SST / Gold",
+        "specimenType": "Serum",
+        "transportContainer": "Frozen Transport Tube (Purple Cap)",
+        "preferredVolume": "1 mL serum",
+        "minimumVolume": "0.65 mL serum",
+        "transportTemperature": "Frozen",
+        "transportTemperatureRaw": "Frozen",
+        "spin": "Yes",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "HIV RNA serum aliquot",
+        "specialLabeling": "",
+        "specialInstructions": "Centrifuge within 24 hours, transfer separated serum to a dedicated polypropylene screw-cap transport tube, then freeze. Do not freeze or open the dedicated HIV Ag/Ab SST. Maintain frozen transport; do not combine with other tests. "
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 3,
+    "submissionCount": 3,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "id": "labcorp-verified-20261118-batch36-144149",
+    "testCode": "144149",
+    "testName": "Hepatitis B Virus (HBV) Patient Management",
+    "source": "Labcorp official order-code directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/144149/hepatitis-b-virus-hbv-patient-management",
+    "preferredVolume": "7 mL serum",
+    "minimumVolume": "2.9 mL serum",
+    "stability": "Non-DNA serum refrigerated 7 days; HBV DNA frozen 12 weeks",
+    "specialInstructions": "Two sample types required. Collect sufficient serum for 7 mL non-DNA testing plus 2.5 mL dedicated HBV DNA aliquot (9.5 mL total). Submit original spun SSTs refrigerated; centrifuge DNA sample within 24 hours and transfer to a separate frozen polypropylene screw-cap vial. Ask about high-dose biotin; Labcorp recommends withholding it for 72 hours before collection with clinician guidance.",
+    "clinicalCategories": [
+      "infectious",
+      "hepatic"
+    ],
+    "searchAliases": [
+      "HBV management",
+      "chronic hepatitis B reflex"
+    ],
+    "additionalDrawRequirements": [
+      {
+        "container": "SST / Gold",
+        "specimenType": "Serum",
+        "transportContainer": "Frozen Transport Tube (Purple Cap)",
+        "preferredVolume": "2.5 mL serum",
+        "minimumVolume": "0.7 mL serum",
+        "transportTemperature": "Frozen",
+        "transportTemperatureRaw": "Frozen",
+        "spin": "Yes",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "HBV DNA",
+        "specialLabeling": "",
+        "specialInstructions": "Centrifuge within 24 hours and transfer 2.5 mL serum to a separate polypropylene screw-cap tube; freeze. Do not freeze the SST. Keep separate from other frozen tests."
+      }
+    ]
+  },
+  {
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "id": "labcorp-verified-20261118-batch36-144523",
+    "testCode": "144523",
+    "testName": "Hepatitis B Virus (HBV) Prenatal Screen With Reflex to HBV DNA",
+    "source": "Labcorp official order-code directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/144523/hepatitis-b-virus-hbv-prenatal-screen-with-reflex-to-hbv-dna",
+    "preferredVolume": "6 mL serum",
+    "minimumVolume": "2.2 mL serum",
+    "stability": "Refrigerated HBsAg 14 days; HBV DNA 6 days",
+    "usePreferredSerumYield": true,
+    "specialInstructions": "Centrifuge within 24 hours. Configured refrigerated original spun SST route is acceptable for both assays; submit promptly within the shorter DNA stability window. Ensure total serum yield 6 mL. Frozen DNA is preferred by Labcorp; if frozen shipment is needed, transfer serum to appropriate polypropylene screw-cap vial first and confirm handling with receiving lab. Never freeze original SST. Ask about high-dose biotin; Labcorp recommends withholding it for 72 hours before collection with clinician guidance.",
+    "clinicalCategories": [
+      "infectious",
+      "hepatic",
+      "pregnancy"
+    ],
+    "searchAliases": [
+      "HBV prenatal reflex DNA",
+      "HBsAg pregnancy reflex"
+    ]
+  },
+  {
+    "status": "active",
+    "specimenType": "Stool, random",
+    "drawContainer": "Sterile cup",
+    "alternativeContainer": "",
+    "transportContainer": "Sterile cup",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "No",
+    "specialLabeling": "Stool",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "id": "labcorp-verified-20261118-batch36-123027",
+    "testCode": "123027",
+    "testName": "Gluten, Fecal, Quantitative",
+    "source": "Labcorp official order-code directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/123027/gluten-fecal-quantitative",
+    "preferredVolume": "3 g stool",
+    "minimumVolume": "1 g stool",
+    "stability": "14 days refrigerated",
+    "specialInstructions": "Collect unpreserved random stool in clean leakproof screw-capped plastic container. Submit refrigerated in original container; no transfer, preservative or centrifugation. Avoid urine, toilet tissue and sanitary material contamination.",
+    "clinicalCategories": [
+      "gastrointestinal"
+    ],
+    "searchAliases": [
+      "fecal gluten",
+      "stool gluten",
+      "gliadin 33mer"
+    ]
+  }
+];
+for(const record of additions){const prior=window.SEED_TESTS.find(t=>String(t.testCode||'').trim()===record.testCode);if(!prior){window.SEED_TESTS.push(record);continue;}if(['pending','reference'].includes(prior.status))Object.assign(prior,record,{id:prior.id||record.id});}
+})();
