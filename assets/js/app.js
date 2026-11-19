@@ -393,6 +393,10 @@
     els.blockedListButton?.addEventListener('click', () => { blockedListOpen = !blockedListOpen; renderBlockedList(); });
     els.loadMoreInlineButton?.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
     $('tatRegionFilter')?.addEventListener('change', () => { hideTatPreview(); renderTurnaroundTime(selectedTests()); });
+    $('turnaroundTime')?.addEventListener('click', event => {
+      const button = event.target.closest('button[data-cart-tat-id]');
+      if (button) showTatDetails(selectedTests().find(test => test.id === button.dataset.cartTatId));
+    });
     els.libraryBody.addEventListener('click', handleLibraryClick);
     els.libraryBody.addEventListener('pointerover', event => {
       if (event.pointerType !== 'mouse') return;
@@ -2615,7 +2619,7 @@
   }
 
   function showTatDetails(test) {
-    if (!hasRoutineTat(test)) return;
+    if (!test) return;
     const cartFilter = $('tatRegionFilter');
     if (!cartFilter || document.getElementById('tatSetupDialog')) return;
     const dialog = document.createElement('dialog');
@@ -2677,23 +2681,43 @@
       if (!groups.has(label)) groups.set(label, []);
       groups.get(label).push({ test, tat });
     });
-    const cards = Array.from(groups, ([label, rows]) =>
-      '<div class="draw-card"><strong>' + escapeHtml(label) + '</strong><span class="draw-test-count">' +
-      rows.length + (rows.length === 1 ? ' test' : ' tests') + '</span>' +
-      '<div style="grid-column:1 / -1;display:grid;gap:5px">' +
-      rows.map(({ test, tat }) => '<div class="subtext" style="overflow-wrap:anywhere">' +
-        escapeHtml(displayCode(test)) + ' · ' + escapeHtml(test.testName) +
-        (test.isStat ? ' · STAT' : '') +
-        (tat ? ' <a class="reference-link" href="' + escapeAttr(tat[4]) + '" target="_blank" rel="noopener noreferrer">Directory ↗</a>' : '') +
-        '</div>').join('') + '</div></div>').join('');
+    const cards = Array.from(groups, ([label, rows]) => {
+      const estimate = rows[0].tat;
+      const upperDays = estimate?.[1];
+      let accent = 'unavailable';
+      if (estimate) {
+        if (!Number.isFinite(upperDays)) accent = 'published';
+        else if (upperDays <= 3) accent = 'short';
+        else if (upperDays <= 5) accent = 'medium';
+        else accent = 'long';
+      }
+      return `
+      <section class="tat-group" data-tat-accent="${accent}">
+        <div class="tat-group-heading">
+          <h3>${escapeHtml(label)}</h3>
+          <span>${rows.length} ${rows.length === 1 ? 'test' : 'tests'}</span>
+        </div>
+        <ul class="tat-test-list">
+          ${rows.map(({ test, tat }) => `
+            <li class="tat-test-row">
+              <span class="tat-test-code">${escapeHtml(displayCode(test))}</span>
+              <button type="button" class="tat-test-name" data-cart-tat-id="${escapeAttr(test.id)}" aria-haspopup="dialog">${escapeHtml(test.testName)}${test.isStat ? ' · STAT' : ''}</button>
+              <a class="tat-test-link" href="${escapeAttr(tat?.[4] || tatDirectoryUrl(test, region))}" aria-label="Open official directory for ${escapeAttr(test.testName)} (new tab)" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span></a>
+            </li>`).join('')}
+        </ul>
+      </section>`;
+    }).join('');
     const dayEstimates = known.map(entry => entry.tat[1]).filter(Number.isFinite);
     const max = dayEstimates.length && dayEstimates.length === known.length ? Math.max(...dayEstimates) : null;
-    const longest = max === null ? '' : '<div class="subtext"><strong>Longest listed routine estimate:</strong> up to ' + max + (max === 1 ? ' day' : ' days') + '</div>';
-    const warning = unavailable ? ' ' + unavailable + (unavailable === 1 ? ' test has' : ' tests have') + ' no applicable estimate; full order completion cannot be estimated.' : '';
+    const longest = max === null ? '' : `<div class="tat-estimate">
+      <span>Longest listed routine estimate</span>
+      <strong>Up to ${max} ${max === 1 ? 'day' : 'days'}</strong>
+    </div>`;
+    const warning = unavailable ? `<p class="tat-coverage-note">${unavailable} ${unavailable === 1 ? 'test has' : 'tests have'} no applicable estimate. Full order completion cannot be estimated.</p>` : '';
     const regionNote = known.length ? 'Quest ' + known[0].tat[2] + ' directory estimates. Confirm the local performing lab.' : 'No applicable estimates have been verified for ' + regionLabel + '.';
-    body.innerHTML = longest +
-      '<div role="region" aria-label="Tests grouped by turnaround time" tabindex="0" style="max-height:320px;overflow-y:auto;display:grid;gap:8px">' + cards + '</div>' +
-      '<div class="order-of-draw-note">' + escapeHtml(regionNote) + ' Schedules and reflex testing may extend turnaround. Not a guaranteed result date.' + escapeHtml(warning) + '</div>';
+    body.innerHTML = longest + warning +
+      '<div class="tat-groups">' + cards + '</div>' +
+      '<div class="order-of-draw-note">' + escapeHtml(regionNote) + ' Schedules and reflex testing may extend turnaround. Result dates can vary.</div>';
   }
 
   function renderLibraryRow(test) {
