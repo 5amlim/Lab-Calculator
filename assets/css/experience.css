@@ -2379,3 +2379,29 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
   .tat-test-name { min-height: 36px; }
   .tat-test-link { flex-basis: 36px; min-height: 36px; }
 }
+
+/* Keep the TAT control beside the directory link, not below the test name. */
+.library-table .row-actions .library-directory-actions {
+  display: flex; align-items: center; justify-content: flex-end; gap: 7px;
+  flex-wrap: wrap; min-width: 0;
+}
+.library-table .row-actions .library-directory-actions > a.mini-button {
+  display: inline-block; width: auto; margin: 0; white-space: nowrap;
+}
+.library-table .row-actions .mini-button.library-tat-clock {
+  display: inline-grid; place-items: center; flex: 0 0 28px; width: 28px;
+  min-width: 28px; min-height: 28px; height: 28px; margin: 0; padding: 0;
+  border-radius: 6px; background: #e8f3f4; color: var(--brand-dark);
+  cursor: pointer;
+}
+.library-table .row-actions .library-tat-clock:hover,
+.library-table .row-actions .library-tat-clock:focus-visible { background: #d5e9eb; }
+.library-tat-clock svg { display: block; width: 16px; height: 16px; }
+@media (max-width: 700px) {
+  .library-table .row-actions .library-directory-actions { margin-left: auto; }
+}
+@media (pointer: coarse) {
+  .library-table .row-actions .mini-button.library-tat-clock {
+    flex-basis: 36px; width: 36px; min-width: 36px; min-height: 36px; height: 36px;
+  }
+}
