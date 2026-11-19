@@ -4272,15 +4272,18 @@
   }
 
   function questLargeCompatiblePool(tests) {
-    return uniqueTests(tests.filter(questVolumePolicyEligible)).length >= 10;
+    return uniqueTests(tests.filter(questVolumePolicyEligible)).length > 10;
   }
 
   function questPolicyVolume(test, preferred, minimum, capacity, largePool) {
     const baseline = preferred === null ? minimum : preferred;
     const v = questComparableVolumes(test);
     if (!questVolumePolicyEligible(test) || !v) return baseline;
-    if (largePool) return v.minimum + (v.preferred - v.minimum) / 5;
-    return v.minimum <= capacity ? Math.min(v.preferred, capacity) : v.preferred;
+    // 1–10 compatible tests: midpoint. 11+: one-fifth above minimum.
+    const target = v.minimum + (v.preferred - v.minimum) / (largePool ? 5 : 2);
+    // Retain the ordinary one-tube preference only if the documented
+    // minimum fits and the test is eligible for volume-based planning.
+    return !largePool && v.minimum <= capacity ? Math.min(target, capacity) : target;
   }
 
   function sstEstimateForTests(tests) {
