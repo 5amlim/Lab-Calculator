@@ -293,6 +293,16 @@
           <span class="cart-collapse-action" aria-hidden="true"></span>
         </summary>
         <div class="cart-collapse-body">
+          <div class="cart-collapse-toolbar" style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+            <label for="tatRegionFilter" class="cart-collapse-subtitle">Region</label>
+            <select id="tatRegionFilter" aria-label="Filter turnaround time by region" style="width:auto;max-width:100%;min-width:140px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;font-size:12px;font-weight:700;color:var(--brand-dark);background:var(--surface,#fff)">
+              <option value="directory">California/Nevada directory</option>
+              <option value="socal">SoCal</option>
+              <option value="norcal">NorCal</option>
+              <option value="ny">New York</option>
+              <option value="fl">Florida</option>
+            </select>
+          </div>
           <div id="turnaroundTime" class="draw-plan empty-state">Add tests to see estimated turnaround times.</div>
         </div>
       </details>
@@ -618,7 +628,7 @@
   <script src="assets/js/quest-pediatric-reference-review-20261117.js?v=20261117-2"></script>
   <script src="assets/js/quest-verified-directory-20261118.js?v=1"></script>
   <script src="assets/js/quest-source-verified-next-20261119.js?v=1"></script>
-  <script src="assets/js/app.js?v=20261119-tat-hover"></script>
+  <script src="assets/js/app.js?v=20261119-tat-region"></script>
   <script src="assets/js/portal-selects.js?v=20261117-container-parity"></script>
   <script src="assets/js/lab-select.js?v=20261119-labcorp-sst"></script>
   <script src="assets/js/scroll-cues.js?v=1"></script>
