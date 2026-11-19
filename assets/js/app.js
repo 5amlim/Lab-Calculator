@@ -2522,36 +2522,19 @@
   }
 
 
-  // Routine TAT pilot: official directory, checked 2026-11-19.
-  // Independent of specimen handling and collection calculations.
-  const ROUTINE_TAT_PILOT = Object.freeze({
-  "4420": [
-    "1–3 days",
-    3,
-    "CA/NV",
-    "Tue–Sat",
-    "https://testdirectory.questdiagnostics.com/test/test-detail/4420/c-reactive-protein-crp?cc=MET&q=c-reactive+pro"
-  ],
-  "90367": [
-    "4–9 days",
-    9,
-    "CA/NV",
-    "Mon, Thu",
-    "https://testdirectory.questdiagnostics.com/test/test-detail/90367/leptin?cc=MET&p=r&q=Leptin"
-  ]
-});
-  function pilotTat(test) {
-    if (test.status !== 'active' || isManuallyAddedTest(test)) return null;
-    return Object.prototype.hasOwnProperty.call(ROUTINE_TAT_PILOT, displayCode(test)) ? ROUTINE_TAT_PILOT[displayCode(test)] : null;
+  function hasTatDetails(test) {
+    return test?.status === 'active';
   }
 
-  function pilotTatBadge(test, printing = false) {
-    const tat = pilotTat(test);
-    if (!tat) return '';
-    const [time, max, scope] = tat;
-    const stat = test.isStat || statSelectedIds.includes(test.id);
-    const label = stat ? 'STAT TAT not verified' : 'Routine TAT: ' + time + ' (' + scope + ')';
-    if (printing) return '<div style="margin-top:3px">' + escapeHtml(label) + (stat ? '' : ' (estimate)') + '</div>';
+  function tatBadge(test, printing = false) {
+    if (!hasTatDetails(test)) return '';
+    if (printing) {
+      const tat = regionalDirectoryTat(test, $('tatRegionFilter')?.value || 'directory');
+      const stat = test.isStat || statSelectedIds.includes(test.id);
+      if (!stat && !tat?.[0]) return '';
+      const label = stat ? 'STAT TAT not verified' : 'Routine TAT: ' + tat[0] + ' (' + tat[2] + ', estimate)';
+      return '<div style="margin-top:3px">' + escapeHtml(label) + '</div>';
+    }
     return '<div style="margin:4px 0 6px"><button type="button" class="mini-button" data-action="view-tat" data-id="' + escapeAttr(test.id) + '" aria-haspopup="dialog" style="margin:0;display:inline-flex;align-items:center;gap:5px;max-width:100%;white-space:normal;text-align:left;font-size:11px;padding:5px 8px;cursor:pointer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>View TAT &amp; Test Setup<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div>';
   }
 
@@ -2568,7 +2551,7 @@
     if (!button || tatPreviewButton === button || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     hideTatPreview();
     const test = database.find(item => item.id === button.dataset.id);
-    if (!test || !pilotTat(test)) return;
+    if (!hasTatDetails(test)) return;
     const regionSelect = $('tatRegionFilter');
     const region = regionSelect?.value || 'directory';
     const regionLabel = regionSelect?.selectedOptions[0]?.textContent || 'Published directory';
@@ -2580,9 +2563,9 @@
     Object.assign(tip.style, {position:'fixed',zIndex:'10000',width:'min(320px, calc(100vw - 24px))',padding:'14px',border:'1px solid #d6e0e8',borderRadius:'12px',background:'#fff',color:'#172b40',boxShadow:'0 8px 28px rgba(20,40,60,.16)',fontSize:'12px',lineHeight:'1.5',pointerEvents:'none',boxSizing:'border-box'});
     const row = (label, value) => '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:6px 0;border-top:1px solid #e7edf1"><span style="color:#526579">' + escapeHtml(label) + '</span><strong style="text-align:right">' + escapeHtml(value) + '</strong></div>';
     tip.innerHTML = '<div style="font-weight:800;color:var(--brand-dark,#00666e);font-size:11px;letter-spacing:.04em">TAT &amp; TEST SETUP</div><div style="font-size:14px;font-weight:750;margin:5px 0 8px">' + escapeHtml(displayCode(test) + ' · ' + test.testName) + '</div>' +
-      row('Region', regionLabel) + row('Routine TAT', tat ? tat[0] : 'Not verified') + row('Test setup', tat?.[3] || 'Not verified') +
+      row('Region', regionLabel) + row('Routine TAT', tat?.[0] || 'Not verified') + row('Test setup', tat?.[3] || 'Not verified') +
       (test.isStat || statSelectedIds.includes(test.id) ? row('STAT TAT','Not verified') : '') +
-      '<div style="font-size:11px;color:#526579;margin-top:8px">' + escapeHtml(tat ? (tat[2] === 'CA/NV' ? 'California/Nevada directory; confirm local performing lab.' : 'Labcorp directory; timing starts at pickup.') : 'No region-specific estimate verified.') + ' Estimates may vary with schedules and reflex testing.</div>';
+      '<div style="font-size:11px;color:#526579;margin-top:8px">' + escapeHtml(tat ? ('Quest ' + tat[2] + ' directory. Confirm the local performing lab.') : 'No region-specific estimate verified.') + ' Estimates may vary with schedules and reflex testing.</div>';
     document.body.appendChild(tip);
     const rect = button.getBoundingClientRect();
     const gap = 10;
@@ -2597,20 +2580,35 @@
   }
 
 
+  const TAT_SERVICE_AREAS = Object.freeze({
+    directory: 'MET', socal: 'MET', norcal: 'MET', ny: 'PHP', fl: 'TMP'
+  });
+
+  const TAT_SERVICE_AREA_LABELS = Object.freeze({ MET: 'CA/NV', PHP: 'East', TMP: 'Florida' });
+
+  function tatDirectoryUrl(test, region) {
+    const code = displayCode(test);
+    if (isManuallyAddedTest(test) || !/^\d+$/.test(code)) return directoryUrl(test);
+    const area = TAT_SERVICE_AREAS[region] || 'MET';
+    return 'https://testdirectory.questdiagnostics.com/test/test-detail/' + code + '/?cc=' + area + '&q=' + code;
+  }
+
   function regionalDirectoryTat(test, region) {
-    const tat = pilotTat(test);
-    if (!tat) return null;
-    if (region === 'directory') return tat;
-    if ((region === 'socal' || region === 'norcal') && tat[2] === 'CA/NV') return tat;
-    return null;
+    if (!hasTatDetails(test) || isManuallyAddedTest(test)) return null;
+    const area = TAT_SERVICE_AREAS[region];
+    const entry = window.LabDirectoryTat?.[area]?.[displayCode(test)];
+    if (!entry) return null;
+    const [time, upperDays, setup] = entry;
+    return [time, upperDays, TAT_SERVICE_AREA_LABELS[area], setup, tatDirectoryUrl(test, region)];
   }
 
   function regionalPanelTat(test, region) {
-    return test.isStat ? null : regionalDirectoryTat(test, region);
+    const tat = regionalDirectoryTat(test, region);
+    return test.isStat || !tat?.[0] ? null : tat;
   }
 
-  function showPilotTat(test) {
-    if (!test || !pilotTat(test)) return;
+  function showTatDetails(test) {
+    if (!hasTatDetails(test)) return;
     const cartFilter = $('tatRegionFilter');
     if (!cartFilter || document.getElementById('tatSetupDialog')) return;
     const dialog = document.createElement('dialog');
@@ -2627,11 +2625,11 @@
       const regionLabel = select.selectedOptions[0]?.textContent || 'Published directory';
       const tat = regionalDirectoryTat(test, region);
       const row = (label,value) => '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:9px 0;border-top:1px solid #e7edf1"><span>' + escapeHtml(label) + '</span><strong style="text-align:right;color:#30224f">' + escapeHtml(value) + '</strong></div>';
-      results.innerHTML = row('Routine TAT',tat ? tat[0] : 'Not verified') +
+      results.innerHTML = row('Routine TAT',tat?.[0] || 'Not verified') +
         row('Test setup',tat?.[3] || 'Not verified') +
         (test.isStat || statSelectedIds.includes(test.id) ? row('STAT TAT','Not verified') : '') +
-        '<div style="font-size:12px;margin-top:8px">' + escapeHtml(tat ? (tat[2] === 'CA/NV' ? 'California/Nevada directory estimate; confirm the local performing lab.' : 'General Labcorp directory; timing starts at pickup.') : 'No region-specific estimate has been verified for ' + regionLabel + '.') + ' Schedules and reflex testing may extend turnaround.</div>' +
-        (tat ? '<div style="margin-top:9px"><a class="reference-link" href="' + escapeAttr(tat[4]) + '" target="_blank" rel="noopener noreferrer">Official directory ↗</a></div>' : '');
+        '<div style="font-size:12px;margin-top:8px">' + escapeHtml(tat ? ('Quest ' + tat[2] + ' directory estimate. Confirm the local performing lab.') : 'No applicable estimate has been verified for ' + regionLabel + '.') + ' Schedules and reflex testing may extend turnaround.</div>' +
+        '<div style="margin-top:9px"><a class="reference-link" href="' + escapeAttr(tat?.[4] || tatDirectoryUrl(test, region)) + '" target="_blank" rel="noopener noreferrer">Official directory ↗</a></div>';
     }
     select.addEventListener('change', () => {
       cartFilter.value = select.value;
@@ -2666,7 +2664,7 @@
     summary.textContent = known.length ? known.length + ' of ' + tests.length + ' estimated' : 'No estimates yet';
     body.className = 'draw-plan';
     const groups = new Map();
-    entries.sort((a, b) => (a.tat ? a.tat[1] : Infinity) - (b.tat ? b.tat[1] : Infinity));
+    entries.sort((a, b) => (a.tat?.[1] ?? Infinity) - (b.tat?.[1] ?? Infinity));
     entries.forEach(({ test, tat }) => {
       const label = tat ? tat[0] : test.isStat ? 'STAT TAT not verified' : region === 'directory' ? 'TAT not available' : 'TAT not verified for ' + regionLabel;
       if (!groups.has(label)) groups.set(label, []);
@@ -2680,10 +2678,11 @@
         escapeHtml(displayCode(test)) + ' · ' + escapeHtml(test.testName) +
         (tat ? ' <a class="reference-link" href="' + escapeAttr(tat[4]) + '" target="_blank" rel="noopener noreferrer">Directory ↗</a>' : '') +
         '</div>').join('') + '</div></div>').join('');
-    const max = known.length ? Math.max(...known.map(entry => entry.tat[1])) : null;
+    const dayEstimates = known.map(entry => entry.tat[1]).filter(Number.isFinite);
+    const max = dayEstimates.length && dayEstimates.length === known.length ? Math.max(...dayEstimates) : null;
     const longest = max === null ? '' : '<div class="subtext"><strong>Longest listed routine estimate:</strong> up to ' + max + (max === 1 ? ' day' : ' days') + '</div>';
     const warning = unavailable ? ' ' + unavailable + (unavailable === 1 ? ' test has' : ' tests have') + ' no applicable estimate; full order completion cannot be estimated.' : '';
-    const regionNote = (region === 'directory' || region === 'socal' || region === 'norcal') ? 'California/Nevada directory estimates; confirm the local performing lab.' : 'No region-specific estimates have been verified for ' + regionLabel + '.';
+    const regionNote = known.length ? 'Quest ' + known[0].tat[2] + ' directory estimates. Confirm the local performing lab.' : 'No applicable estimates have been verified for ' + regionLabel + '.';
     body.innerHTML = longest +
       '<div role="region" aria-label="Tests grouped by turnaround time" tabindex="0" style="max-height:320px;overflow-y:auto;display:grid;gap:8px">' + cards + '</div>' +
       '<div class="order-of-draw-note">' + escapeHtml(regionNote) + ' Schedules and reflex testing may extend turnaround. Not a guaranteed result date.' + escapeHtml(warning) + '</div>';
@@ -2717,7 +2716,7 @@
     const primaryOnlyNote = hasMultipleContainers ? '<div class="library-container-primary-note">First path only</div>' : '';
     return `<tr class="${selected ? 'is-selected' : ''}">
       <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
-      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${window.LabRegionalRestrictions.badge(test, 'quest')}${manualLibraryTag(test)}${gestationalWarningBadge(test)}${pilotTatBadge(test)}${isStatEligible(test) ? `<span class="library-stat-eligible${statSelectedIds.includes(test.id) ? ' selected' : ''}" title="Eligible on the selected receiving laboratory's STAT menu. Confirm current acceptance before sending.">${statSelectedIds.includes(test.id) ? 'STAT selected' : 'STAT eligible'}</span>` : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
+      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${window.LabRegionalRestrictions.badge(test, 'quest')}${manualLibraryTag(test)}${gestationalWarningBadge(test)}${tatBadge(test)}${isStatEligible(test) ? `<span class="library-stat-eligible${statSelectedIds.includes(test.id) ? ' selected' : ''}" title="Eligible on the selected receiving laboratory's STAT menu. Confirm current acceptance before sending.">${statSelectedIds.includes(test.id) ? 'STAT selected' : 'STAT eligible'}</span>` : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
       <td data-label="Container">${menuContainerBadges(test)}${hasMultipleContainers ? '' : '<div class="subtext specimen-line">' + requiredSpecimenBadges(test) + '</div>'}</td>
       <td data-label="Temperature"><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span>${primaryOnlyNote}</td>
       <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(menuVolumeText(primaryDisplay, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(menuVolumeText(primaryDisplay, 'minimum') || '—')}</div>${primaryOnlyNote}</td>
@@ -2748,7 +2747,7 @@
     const id = button.dataset.id;
     if (button.dataset.action === 'view-tat') {
       hideTatPreview();
-      showPilotTat(database.find(test => test.id === id));
+      showTatDetails(database.find(test => test.id === id));
       return;
     }
     if (button.dataset.action === 'add') {
@@ -7644,7 +7643,7 @@
           `<td class="print-detail-route-container">${routeIndex}${printDetailContainerPath(route)}${quantities}</td>` +
           `<td class="print-detail-temperature-stability"><span class="print-temp-badge ${temperatureClass(route.transportTemperature)}">${escapeHtml(route.transportTemperature)}</span><div class="print-detail-stability"><strong>Stability:</strong> <span class="print-stability-period">${escapeHtml(printStabilityForTemperature(route))}</span></div></td>` +
           `<td><span class="print-preferred-volume">${escapeHtml(printDetailVolumeText(route, 'preferred') || 'Verify')}</span><br><span class="print-minimum-volume">Minimum: ${escapeHtml(printDetailVolumeText(route, 'minimum') || '—')}</span></td>` +
-          (showNotes ? `<td class="print-detail-route-notes">${printDetailHasNotes(route) ? printDetailHandling(route) : ''}${index === 0 ? pilotTatBadge(test, true) : ''}</td>` : '') +
+          (showNotes ? `<td class="print-detail-route-notes">${printDetailHasNotes(route) ? printDetailHandling(route) : ''}${index === 0 ? tatBadge(test, true) : ''}</td>` : '') +
           '</tr>';
       }).join('') + '</tbody>';
   }
@@ -7653,7 +7652,7 @@
     const tests = selectedTests();
     if (!tests.length) return showToast('Add at least one test before printing.');
     const printDetailWithNotes = tests.some(test =>
-      Boolean(pilotTat(test)) || printDetailRoutes(test).some(printDetailHasNotes));
+      Boolean(tatBadge(test, true)) || printDetailRoutes(test).some(printDetailHasNotes));
     // Pre-draw warnings already appear in Collection precautions.
     const preparationTexts = new Set(tests.flatMap(test =>
       preCollectionPrecautions(test).map(req => `${displayCode(test)} ${test.testName}: ${req.note}`)
