@@ -2179,6 +2179,132 @@ const additions=[
         "specialLabeling": "First-catch urine"
       }
     ]
+  },
+  {
+    "id": "labcorp-verified-20261118-batch41-028910",
+    "testCode": "028910",
+    "testName": "Viral Hepatitis Immunity Profile (HAV and HBV)",
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "Red-top serum",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "preferredVolume": "2.5 mL serum",
+    "minimumVolume": "1 mL serum",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature 14 days",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "specialInstructions": "Centrifuge and submit original spun SST. If red-top is used, transfer separated serum to screw-cap polypropylene transport tube. Do not freeze gel-barrier tube. Review high-dose biotin supplementation and Labcorp 72-hour withholding recommendation with ordering clinician.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "infectious",
+      "hepatitis"
+    ],
+    "searchAliases": [
+      "HAV HBV immunity",
+      "hepatitis A B immunity",
+      "hepatitis vaccine immunity"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/028910/viral-hepatitis-immunity-profile-hav-and-hbv"
+  },
+  {
+    "id": "labcorp-verified-20261118-batch41-096735",
+    "testCode": "096735",
+    "testName": "Epstein-Barr Virus (EBV) Antibodies to Viral Capsid Antigen (VCA), IgM",
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "Red-top serum",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "preferredVolume": "0.5 mL serum",
+    "minimumVolume": "0.2 mL serum",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature 14 days",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "specialInstructions": "Centrifuge and submit original spun SST. Avoid hemolysis, lipemia, gross icterus and contamination.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "infectious"
+    ],
+    "searchAliases": [
+      "EBV VCA IgM",
+      "EBV IgM",
+      "Epstein Barr viral capsid IgM"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/096735/epstein-barr-virus-ebv-antibodies-to-viral-capsid-antigen-vca-igm"
+  },
+  {
+    "id": "labcorp-verified-20261118-batch41-165105",
+    "testCode": "165105",
+    "testName": "Endomysial Antibody IgA With Reflex to Titer",
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.5 mL serum",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature 14 days",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "specialInstructions": "Centrifuge and submit original spun SST. Avoid hemolysis, lipemia and microbial contamination.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "gastrointestinal",
+      "autoimmune"
+    ],
+    "searchAliases": [
+      "endomysial IgA",
+      "EMA IgA reflex",
+      "celiac antibody"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/165105/endomysial-antibody-iga-with-reflex-to-titer"
+  },
+  {
+    "id": "labcorp-verified-20261118-batch41-006536",
+    "testCode": "006536",
+    "testName": "Mononucleosis Test, Qualitative With Reflex to Titer on Positives",
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "Red-top serum",
+    "transportContainer": "SST / Gold (spun)",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.5 mL serum",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature 14 days",
+    "spin": "Yes",
+    "specialLabeling": "",
+    "specialInstructions": "Centrifuge and submit original spun SST. Avoid hemolysis, lipemia and microbial contamination.",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "infectious"
+    ],
+    "searchAliases": [
+      "mono test reflex",
+      "monospot reflex",
+      "heterophile antibodies reflex"
+    ],
+    "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/006536/mononucleosis-test-qualitative-with-reflex-to-titer-on-positives"
   }
 ];
 for(const record of additions){const prior=window.SEED_TESTS.find(t=>String(t.testCode||'').trim()===record.testCode);if(!prior){window.SEED_TESTS.push(record);continue;}if(['pending','reference'].includes(prior.status))Object.assign(prior,record,{id:prior.id||record.id});}
