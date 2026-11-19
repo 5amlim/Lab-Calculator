@@ -699,6 +699,9 @@
       });
       select.addEventListener('change',()=>sync(item));
       if (id === 'tatRegionFilter' || id === 'tatPopupRegion') {
+        // Keep the select's value and events, but remove its native control
+        // from the rendered dialog so iOS cannot open its system picker.
+        select.style.setProperty('display', 'none', 'important');
         wrap.classList.add('tat-region-portal');
         const label = Array.from(document.querySelectorAll('label[for]')).find(node => node.htmlFor === id);
         if (label) label.htmlFor = button.id;
