@@ -704,6 +704,68 @@ const additions=[
       "C002 penicillin allergy"
     ],
     "stability": "Room/refrigerated 14 days; frozen 18 months"
+  },
+  {
+    "id": "labcorp-verified-20261118-batch34-123590",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "Fasting for 10–12 hours is preferred, not mandatory.",
+    "testCode": "123590",
+    "testName": "Metabolic Vulnerability Index (MVX) by NMR",
+    "specimenType": "Plasma",
+    "drawContainer": "Lavender EDTA",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "1 mL EDTA plasma",
+    "minimumVolume": "0.5 mL EDTA plasma",
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "specialInstructions": "Collect lavender-top EDTA without gel. Centrifuge and immediately separate plasma into plastic transport tube. Refrigerate 2–8°C and ship within 48 hours, maintaining refrigeration. Fasting for 10–12 hours preferred. Do not use standard gel-barrier tubes.",
+    "source": "Labcorp official test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/123590/metabolic-vulnerability-index-mvx-by-nmr",
+    "clinicalCategories": [
+      "chemistry",
+      "cardiac"
+    ],
+    "searchAliases": [
+      "MVX",
+      "metabolic vulnerability index"
+    ],
+    "stability": "Room 24 hours; refrigerated/frozen 14 days"
+  },
+  {
+    "id": "labcorp-verified-20261118-batch34-123601",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "Fasting for 10–12 hours is preferred, not mandatory.",
+    "testCode": "123601",
+    "testName": "Metabolic Vulnerability Index (MVX) Plus by NMR",
+    "specimenType": "Plasma",
+    "drawContainer": "Lavender EDTA",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "1 mL EDTA plasma",
+    "minimumVolume": "0.5 mL EDTA plasma",
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "Yes",
+    "specialInstructions": "Collect lavender-top EDTA without gel. Centrifuge and immediately separate plasma into plastic transport tube. Refrigerate 2–8°C and ship within 48 hours, maintaining refrigeration. Fasting for 10–12 hours preferred. Do not use standard gel-barrier tubes.",
+    "source": "Labcorp official test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/123601/metabolic-vulnerability-index-mvx-plus-by-nmr",
+    "clinicalCategories": [
+      "chemistry",
+      "cardiac"
+    ],
+    "searchAliases": [
+      "MVX Plus",
+      "metabolic vulnerability index"
+    ],
+    "stability": "Room 24 hours; refrigerated/frozen 14 days"
   }
 ];
 for(const record of additions){const prior=window.SEED_TESTS.find(t=>String(t.testCode||'').trim()===record.testCode);if(!prior){window.SEED_TESTS.push(record);continue;}if(['pending','reference'].includes(prior.status))Object.assign(prior,record,{id:prior.id||record.id});}
