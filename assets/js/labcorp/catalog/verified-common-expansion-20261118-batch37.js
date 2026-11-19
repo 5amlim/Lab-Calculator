@@ -2305,6 +2305,568 @@ const additions=[
       "heterophile antibodies reflex"
     ],
     "source": "Labcorp official test-specific directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/006536/mononucleosis-test-qualitative-with-reflex-to-titer-on-positives"
+  },
+  {
+    "id": "labcorp-verified-20261118-batch42-505994",
+    "testCode": "505994",
+    "testName": "Comprehensive Menopause Evaluation",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 3,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "endocrinology",
+      "reproductive",
+      "thyroid"
+    ],
+    "searchAliases": [
+      "menopause evaluation panel",
+      "menopausal hormone panel",
+      "FSH estradiol AMH prolactin progesterone TSH"
+    ],
+    "source": "Labcorp official individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/505994/comprehensive-menopause-evaluation",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "Frozen Transport Tube (Purple Cap)",
+    "preferredVolume": "6.9 mL serum",
+    "minimumVolume": "4.6 mL serum",
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "stability": "Frozen 21 days; refrigerated 7 days; room temperature 1 day",
+    "spin": "Yes",
+    "specialInstructions": "After clotting, centrifuge and separate serum into a dedicated frozen plastic transport vial within 2 hours. Freeze immediately. Maintain frozen. Total preferred serum 6.9 mL; minimum 4.6 mL. If capacity requires multiple frozen vials, confirm acceptance with Labcorp, identify as paired aliquots of the same draw and maintain adequate headspace. No SST may be frozen.",
+    "usePreferredSerumYield": true
+  },
+  {
+    "id": "labcorp-verified-20261118-batch42-504295",
+    "testCode": "504295",
+    "testName": "ReproSURE (Ovarian Reserve Profile)",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 2,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "reproductive",
+      "endocrinology"
+    ],
+    "searchAliases": [
+      "reprosure",
+      "ovarian reserve",
+      "AMH FSH estradiol"
+    ],
+    "source": "Labcorp official individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/504295/reprosure-ovarian-reserve-profile",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "5 mL serum",
+    "minimumVolume": "2.3 mL serum",
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "stability": "Refrigerated 7 days; room temperature 1 day",
+    "spin": "Yes",
+    "specialInstructions": "Collect on menstrual cycle day 3; day 2 or 4 may be acceptable according to the test directory. Allow 30–60 minutes for clotting, then separate within 2 hours. Refrigerate. Reject gross hemolysis, lipemia or icterus. Obtain the preferred volume across SSTs as needed.",
+    "usePreferredSerumYield": true
+  },
+  {
+    "id": "labcorp-verified-20261118-batch42-005148",
+    "testCode": "005148",
+    "testName": "Progesterone by Ionify LC-MS/MS",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "endocrinology",
+      "reproductive"
+    ],
+    "searchAliases": [
+      "progesterone mass spectrometry",
+      "ionify progesterone"
+    ],
+    "source": "Labcorp official individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/005148/progesterone-by-ionify-lc-ms-ms",
+    "specimenType": "Serum",
+    "drawContainer": "Red Top",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "1.5 mL serum",
+    "minimumVolume": "0.7 mL serum",
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "stability": "Refrigerated 14 days; room temperature 5 days; frozen 12 weeks",
+    "spin": "Yes",
+    "specialInstructions": "Use plain red-top serum, centrifuge after clotting and transfer separated serum to plastic transport tube. Refrigerate. Do not use a gel-barrier tube; unspun specimens are rejected."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch42-005134",
+    "testCode": "005134",
+    "testName": "17-OH Progesterone by Ionify LC-MS/MS",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "endocrinology",
+      "reproductive"
+    ],
+    "searchAliases": [
+      "17 OHP",
+      "17 hydroxyprogesterone",
+      "ionify 17 OH progesterone"
+    ],
+    "source": "Labcorp official individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/005134/17-oh-progesterone-by-ionify-lc-ms-ms",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1.5 mL serum",
+    "minimumVolume": "0.7 mL serum",
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "stability": "Refrigerated 14 days; room temperature 5 days; frozen 12 weeks",
+    "spin": "Yes",
+    "specialInstructions": "Centrifuge after complete clotting and refrigerate spun SST. If red-top is used, transfer separated serum to plastic transport tube. Unspun specimens are rejected."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch42-004774",
+    "testCode": "004774",
+    "testName": "Androstenedione by Ionify LC-MS/MS",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "endocrinology",
+      "reproductive"
+    ],
+    "searchAliases": [
+      "androstenedione mass spectrometry",
+      "ionify androstenedione"
+    ],
+    "source": "Labcorp official individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/004774/androstenedione-by-ionify-lc-ms-ms",
+    "specimenType": "Serum",
+    "drawContainer": "Red Top",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "1.5 mL serum",
+    "minimumVolume": "0.7 mL serum",
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "stability": "Refrigerated 14 days; room temperature 5 days; frozen 12 weeks",
+    "spin": "Yes",
+    "specialInstructions": "Use plain red-top serum; centrifuge after clotting and transfer to plastic transport tube. Refrigerate. Gel-barrier tubes and unspun specimens are rejected."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch42-004389",
+    "testCode": "004389",
+    "testName": "DHEA by Ionify LC-MS/MS",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "endocrinology",
+      "reproductive"
+    ],
+    "searchAliases": [
+      "DHEA unconjugated",
+      "ionify DHEA",
+      "dehydroepiandrosterone"
+    ],
+    "source": "Labcorp official individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/004389/dhea-by-ionify-lc-ms-ms",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1.5 mL serum",
+    "minimumVolume": "0.7 mL serum",
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "stability": "Refrigerated 7 days; room temperature unstable; frozen 12 weeks",
+    "spin": "Yes",
+    "specialInstructions": "Centrifuge SST after clotting and refrigerate promptly. Do not transport at room temperature. If refrigerated transport cannot be maintained, transfer separated serum before freezing and confirm the frozen route. Unspun specimens are rejected."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch42-062497",
+    "testCode": "062497",
+    "testName": "Allergen Profile, Perennial Allergen",
+    "status": "active",
+    "alternativeContainer": "Red Top serum",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "allergy"
+    ],
+    "searchAliases": [
+      "perennial environmental allergy panel"
+    ],
+    "source": "Labcorp official individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/062497/allergen-profile-perennial-allergen",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature; maximum interval not stated on order page",
+    "spin": "Yes",
+    "specialInstructions": "Centrifuge after clotting and submit original spun SST at room temperature. Red-top serum is accepted if separated into a transport tube. Gross hemolysis or improper labeling is unacceptable. No separate minimum is published."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch42-672486",
+    "testCode": "672486",
+    "testName": "Allergen Profile, Ragweed-related",
+    "status": "active",
+    "alternativeContainer": "Red Top serum",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "allergy"
+    ],
+    "searchAliases": [
+      "ragweed pollen food allergy"
+    ],
+    "source": "Labcorp official individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/672486/allergen-profile-ragweed-related",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature; maximum interval not stated on order page",
+    "spin": "Yes",
+    "specialInstructions": "Centrifuge after clotting and submit original spun SST at room temperature. Red-top serum is accepted if separated into a transport tube. Gross hemolysis or improper labeling is unacceptable. No separate minimum is published."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch42-672478",
+    "testCode": "672478",
+    "testName": "Allergen Profile, Mugwort Pollen-related",
+    "status": "active",
+    "alternativeContainer": "Red Top serum",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "allergy"
+    ],
+    "searchAliases": [
+      "mugwort pollen food allergy"
+    ],
+    "source": "Labcorp official individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/672478/allergen-profile-mugwort-pollen-related",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature; maximum interval not stated on order page",
+    "spin": "Yes",
+    "specialInstructions": "Centrifuge after clotting and submit original spun SST at room temperature. Red-top serum is accepted if separated into a transport tube. Gross hemolysis or improper labeling is unacceptable. No separate minimum is published."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch42-672483",
+    "testCode": "672483",
+    "testName": "Allergen Profile, Birch Pollen Related",
+    "status": "active",
+    "alternativeContainer": "Red Top serum",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "allergy"
+    ],
+    "searchAliases": [
+      "birch pollen food allergy"
+    ],
+    "source": "Labcorp official individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/672483/allergen-profile-birch-pollen-related",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature; maximum interval not stated on order page",
+    "spin": "Yes",
+    "specialInstructions": "Centrifuge after clotting and submit original spun SST at room temperature. Red-top serum is accepted if separated into a transport tube. Gross hemolysis or improper labeling is unacceptable. No separate minimum is published."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch42-062489",
+    "testCode": "062489",
+    "testName": "Allergen Profile, Seasonal Allergen, Spring–Tree",
+    "status": "active",
+    "alternativeContainer": "Red Top serum",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "allergy"
+    ],
+    "searchAliases": [
+      "spring tree pollen allergy panel"
+    ],
+    "source": "Labcorp official individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/062489/allergen-profile-seasonal-allergen-spring-tree",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature; maximum interval not stated on order page",
+    "spin": "Yes",
+    "specialInstructions": "Centrifuge after clotting and submit original spun SST at room temperature. Red-top serum is accepted if separated into a transport tube. Gross hemolysis or improper labeling is unacceptable. No separate minimum is published."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch42-245292",
+    "testCode": "245292",
+    "testName": "Cardiorenal-Glycemic Status",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "diabetes",
+      "renal",
+      "lipids"
+    ],
+    "searchAliases": [
+      "cardiorenal glycemic panel",
+      "diabetes kidney cholesterol panel"
+    ],
+    "source": "Labcorp official individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/245292/cardiorenal-glycemic-status",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Serum lipid component room temperature 3 days; use shortest component stability",
+    "spin": "Yes",
+    "specialInstructions": "Profile specifies 1 mL serum, 1 mL urine and 4 mL whole blood. Fasting not required. Separate serum from cells within 45 minutes and submit spun SST. Send promptly with both other required specimens.",
+    "additionalDrawRequirements": [
+      {
+        "container": "Lavender EDTA",
+        "specimenType": "Whole Blood",
+        "transportContainer": "Lavender EDTA (original tube)",
+        "preferredVolume": "4 mL whole blood",
+        "minimumVolume": "",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "HbA1c",
+        "specialInstructions": "Collect a dedicated collection tube; gently invert and submit original tube without spin or transfer. No clots; room temperature 3 days.",
+        "specialLabeling": ""
+      },
+      {
+        "container": "Sterile cup",
+        "specimenType": "Urine",
+        "transportContainer": "Sterile cup",
+        "preferredVolume": "1 mL urine (profile-specific volume)",
+        "minimumVolume": "",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Urine albumin/creatinine",
+        "specialInstructions": "Collect random unpreserved urine in a sterile cup and submit the original container. Room temperature 7 days for albumin/creatinine component; no visible blood. Profile specifies 1 mL; standalone ACR test has different volumes.",
+        "specialLabeling": ""
+      }
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261118-batch42-402175",
+    "testCode": "402175",
+    "testName": "FIB-4 With Reflex to Enhanced Liver Fibrosis (ELF)",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "hepatic",
+      "hematology"
+    ],
+    "searchAliases": [
+      "FIB4 reflex ELF",
+      "liver fibrosis",
+      "MASLD MASH NAFLD NASH"
+    ],
+    "source": "Labcorp official individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/402175/fib-4-with-reflex-to-enhanced-liver-fibrosis-elf",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "1 mL serum",
+    "minimumVolume": "0.75 mL serum",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Initial serum room temperature 1 day; whole blood room temperature 1 day",
+    "spin": "Yes",
+    "specialInstructions": "Separate serum within 45 minutes. Dedicated initial serum SST (1 mL preferred, 0.75 mL minimum) plus a separate refrigerated reflex serum SST and full EDTA tube are required for every order. Do not freeze.",
+    "additionalDrawRequirements": [
+      {
+        "container": "SST / Gold",
+        "specimenType": "Serum",
+        "transportContainer": "SST / Gold (spun)",
+        "preferredVolume": "1 mL serum",
+        "minimumVolume": "0.75 mL serum",
+        "transportTemperature": "Refrigerated",
+        "transportTemperatureRaw": "Refrigerated",
+        "spin": "Yes",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Possible ELF reflex",
+        "specialInstructions": "Collect a separate SST for potential reflex even when reflex may not be performed. Separate from cells within 45 minutes and refrigerate at 2–8 C, maximum 72 hours. Do not freeze.",
+        "specialLabeling": ""
+      },
+      {
+        "container": "Lavender EDTA",
+        "specimenType": "Whole Blood",
+        "transportContainer": "Lavender EDTA (original tube)",
+        "preferredVolume": "Full tube to capacity",
+        "minimumVolume": "Full tube to capacity",
+        "transportTemperature": "Room Temperature",
+        "transportTemperatureRaw": "Room Temperature",
+        "spin": "No",
+        "count": 1,
+        "submissionCount": 1,
+        "purpose": "Platelet count",
+        "specialInstructions": "Fill tube to capacity and immediately invert 8–10 times. Submit original unspun dedicated collection tube, avoid clots. Room temperature 1 day. Do not freeze or transfer.",
+        "specialLabeling": ""
+      }
+    ]
+  },
+  {
+    "id": "labcorp-verified-20261118-batch42-180066",
+    "testCode": "180066",
+    "testName": "Vaginitis Plus (VG+), Herpes Simplex Virus (HSV), NuSwab",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "infectious",
+      "sti",
+      "microbiology"
+    ],
+    "searchAliases": [
+      "NuSwab VG plus HSV",
+      "vaginal infection panel"
+    ],
+    "source": "Labcorp official individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/180066/vaginitis-plus-vg-herpes-simplex-virus-hsv-nuswab",
+    "specimenType": "Vaginal Swab",
+    "drawContainer": "Aptima Multitest Swab Transport",
+    "transportContainer": "Aptima Multitest Swab Transport",
+    "preferredVolume": "1 vaginal swab",
+    "minimumVolume": "1 vaginal swab",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "2–30 C; send within 72 hours; HSV maximum 7 days as applicable",
+    "spin": "No",
+    "specialInstructions": "Use pink-label Aptima Multitest vaginal collection kit. Rotate supplied swab at lower third of vaginal wall for 10–30 seconds, place into original transport device, break shaft at scoreline, cap securely. No further transfer. Do not freeze. Label as vaginal swab. Do not use urine transport, bacterial swab, or green-label Unisex kit in this configured route."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch42-180071",
+    "testCode": "180071",
+    "testName": "Vaginitis (VG), Herpes Simplex Virus (HSV), NuSwab",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "infectious",
+      "sti",
+      "microbiology"
+    ],
+    "searchAliases": [
+      "NuSwab VG HSV",
+      "vaginal infection panel"
+    ],
+    "source": "Labcorp official individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/180071/vaginitis-vg-herpes-simplex-virus-hsv-nuswab",
+    "specimenType": "Vaginal Swab",
+    "drawContainer": "Aptima Multitest Swab Transport",
+    "transportContainer": "Aptima Multitest Swab Transport",
+    "preferredVolume": "1 vaginal swab",
+    "minimumVolume": "1 vaginal swab",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "HSV maximum 7 days; send within 72 hours; 2–30 C; frozen unacceptable",
+    "spin": "No",
+    "specialInstructions": "Use pink-label Aptima Multitest vaginal collection kit. Rotate supplied swab at lower third of vaginal wall for 10–30 seconds, place into original transport device, break shaft at scoreline, cap securely. No further transfer. Do not freeze. Label as vaginal swab. Do not use urine transport, bacterial swab, or green-label Unisex kit in this configured route."
+  },
+  {
+    "id": "labcorp-verified-20261118-batch42-180068",
+    "testCode": "180068",
+    "testName": "Vaginitis Plus (VG+) With Candida (Six Species), NuSwab",
+    "status": "active",
+    "alternativeContainer": "",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "specialLabeling": "",
+    "fastingStatus": "",
+    "fastingInstructions": "",
+    "clinicalCategories": [
+      "infectious",
+      "sti",
+      "microbiology"
+    ],
+    "searchAliases": [
+      "NuSwab VG plus Candida 6 species",
+      "vaginal infection panel"
+    ],
+    "source": "Labcorp official individual test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/180068/vaginitis-plus-vg-with-candida-six-species-nuswab",
+    "specimenType": "Vaginal Swab",
+    "drawContainer": "Aptima Multitest Swab Transport",
+    "transportContainer": "Aptima Multitest Swab Transport",
+    "preferredVolume": "1 vaginal swab",
+    "minimumVolume": "1 vaginal swab",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "stability": "Room temperature or refrigerated 30 days; send within 72 hours; frozen unacceptable",
+    "spin": "No",
+    "specialInstructions": "Use pink-label Aptima Multitest vaginal collection kit. Rotate supplied swab at lower third of vaginal wall for 10–30 seconds, place into original transport device, break shaft at scoreline, cap securely. No further transfer. Do not freeze. Label as vaginal swab. Do not use urine transport, bacterial swab, or green-label Unisex kit in this configured route."
   }
 ];
 for(const record of additions){const prior=window.SEED_TESTS.find(t=>String(t.testCode||'').trim()===record.testCode);if(!prior){window.SEED_TESTS.push(record);continue;}if(['pending','reference'].includes(prior.status))Object.assign(prior,record,{id:prior.id||record.id});}
