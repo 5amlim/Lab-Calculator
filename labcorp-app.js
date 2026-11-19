@@ -6263,11 +6263,18 @@
   }
 
   function printLabelingNotes(item) {
-    if (item.printVisualGroupParts) return item.printVisualGroupParts.map(printLabelingNotes).join('');
+    // Timed samples must retain their individual labeling instructions.
+    // Ordinary visual groups may consolidate identical labels and processing
+    // text without combining physical submission containers.
+    if (item.printVisualGroupParts && item.printVisualGroupParts.every(part => printTimedSpecimenGroupInfo(part))) {
+      return item.printVisualGroupParts.map(printLabelingNotes).join('');
+    }
     const labels = new Map();
     const handling = new Map();
-    uniqueTests(item.tests || []).forEach(test => {
-      const result = conciseSpecimenLabel(test, item);
+    const contexts = (item.printVisualGroupParts || [item]).flatMap(part =>
+      uniqueTests(part.tests || []).map(test => ({ test, part })));
+    contexts.forEach(({ test, part }) => {
+      const result = conciseSpecimenLabel(test, part);
       const code = displayCode(test);
       if (result.label) {
         const key = normalizedLabelComparison(result.label);
@@ -6945,6 +6952,22 @@
       materials.values().next().value, source, handling].join('||');
   }
 
+  // Summarize matching per-order allocations without changing tube counts.
+  function compactPrintAllocationNote(parts) {
+    const groups = new Map();
+    parts.forEach(part => {
+      const count = Number(part.count);
+      if (!groups.has(count)) groups.set(count, []);
+      // Do not deduplicate across parts: each part is a physical allocation.
+      groups.get(count).push(...uniqueTests(part.tests || []).map(displayCode));
+    });
+    const frozen = parts.every(part => part.className === 'tube-frozen-purple');
+    return (frozen ? 'Separate frozen aliquots: ' : 'Separate containers: ')
+      + [...groups.entries()].sort((a, b) => a[0] - b[0]).map(([count, codes]) =>
+        count + ' each for ' + codes.join(', ')
+      ).join(' · ');
+  }
+
   function groupSubmissionContainersForPrint(contents) {
     const groups = new Map();
     contents.forEach(item => {
@@ -6977,9 +7000,7 @@
           ? 'Keep separate, do not pool: ' + parts.map((part, index) =>
               timedInfo[index].timepoint + ' × ' + part.count
             ).join(' · ') + ' · Label each container with its collection time'
-          : 'Separate containers: ' + parts.map(part =>
-              part.count + ' for ' + uniqueTests(part.tests).map(displayCode).join(', ')
-            ).join(' · ')
+          : compactPrintAllocationNote(parts)
       });
       parts.slice(1).forEach(part => replacement.set(part, null));
     });
