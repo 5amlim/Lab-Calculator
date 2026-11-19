@@ -3,7 +3,7 @@
 (function () {
   'use strict';
   // Published counts are available immediately, even if index requests fail.
-  const counts = {quest:3211, cedars:39, labcorp:4013};
+  const counts = {quest:3211, cedars:39, labcorp:4015};
   const current = document.querySelector('.lab-select--quest') ? 'quest'
     : document.querySelector('.lab-select--labcorp') ? 'labcorp' : 'cedars';
   const recordCount = document.getElementById('recordCount');

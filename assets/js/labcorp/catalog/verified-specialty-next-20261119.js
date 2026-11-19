@@ -3,6 +3,44 @@
   'use strict';
   const additions = [
   {
+    "id": "labcorp-verified-next-004580",
+    "testCode": "004580",
+    "testName": "Lipid Panel With Cholesterol:HDL Ratio, LDL:HDL Ratio, and CHD Risk",
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "SST / Gold (spun)",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "preferredVolume": "1.03 mL serum",
+    "minimumVolume": "",
+    "spin": "Yes",
+    "clinicalCategories": [
+      "lipids"
+    ],
+    "specialInstructions": "Centrifuge and submit in the original serum gel tube at room temperature.",
+    "source": "Labcorp collection screenshot supplied by user for this order code"
+  },
+  {
+    "id": "labcorp-verified-next-324741",
+    "testCode": "324741",
+    "testName": "Iron, Total Iron-Binding Capacity (TIBC), and Ferritin",
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "transportContainer": "SST / Gold (spun)",
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "preferredVolume": "1.04 mL serum",
+    "minimumVolume": "",
+    "spin": "Yes",
+    "clinicalCategories": [
+      "iron-anemia"
+    ],
+    "specialInstructions": "Centrifuge and submit in the original serum gel tube at room temperature.",
+    "source": "Labcorp collection screenshot supplied by user for this order code"
+  },
+  {
     "id": "labcorp-verified-next-000604",
     "testCode": "000604",
     "testName": "Cl+K+Na",
