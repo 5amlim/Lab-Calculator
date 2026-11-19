@@ -2701,8 +2701,8 @@
           ${rows.map(({ test, tat }) => `
             <li class="tat-test-row">
               <span class="tat-test-code">${escapeHtml(displayCode(test))}</span>
-              <button type="button" class="tat-test-name" data-cart-tat-id="${escapeAttr(test.id)}" aria-haspopup="dialog">${escapeHtml(test.testName)}${test.isStat ? ' · STAT' : ''}</button>
-              <a class="tat-test-link" href="${escapeAttr(tat?.[4] || tatDirectoryUrl(test, region))}" aria-label="Open official directory for ${escapeAttr(test.testName)} (new tab)" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span></a>
+              <button type="button" class="tat-test-name" title="View TAT &amp; Test Setup" data-cart-tat-id="${escapeAttr(test.id)}" aria-haspopup="dialog">${escapeHtml(test.testName)}${test.isStat ? ' · STAT' : ''}</button>
+              <a class="tat-test-link" title="View on Quest Test Directory (opens in a new tab)" href="${escapeAttr(tat?.[4] || tatDirectoryUrl(test, region))}" aria-label="Open official directory for ${escapeAttr(test.testName)} (new tab)" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span></a>
             </li>`).join('')}
         </ul>
       </section>`;
