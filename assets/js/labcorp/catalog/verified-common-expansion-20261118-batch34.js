@@ -244,8 +244,8 @@ const additions=[
     "transportTemperature": "Refrigerated",
     "transportTemperatureRaw": "Refrigerated",
     "spin": "Yes",
-    "specialInstructions": "Centrifuge and submit original spun SST refrigerated; do not freeze gel tube. Ask about high-dose biotin and verify with clinician. PrEP use only.",
-    "source": "Labcorp official test directory, reviewed 2026-11-18 • https://www.labcorp.com/tests/083909/prep-use-only-hiv-p24-antigen-antibody-with-reflex-to-confirmation",
+    "specialInstructions": "Collect a dedicated unopened original SST for this assay. Allow clotting and centrifuge, then send the intact gel-barrier tube refrigerated; do not open, transfer, freeze or share with other tests. PrEP use only. Ask about high-dose biotin; Labcorp advises withholding for 72 hours before collection, with clinician guidance.",
+    "source": "Labcorp official directory, specimen instructions rechecked 2026-11-18 • https://www.labcorp.com/tests/083909/prep-use-only-hiv-p24-antigen-antibody-with-reflex-to-confirmation",
     "clinicalCategories": [
       "infectious",
       "sti"
