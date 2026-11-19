@@ -5071,7 +5071,12 @@
       return { key: 'special-urine|' + normalizeSearch(draw),
         label: draw, className: specialtyClass };
     }
-    const cls = tubeClass(draw);
+    // Older timed urine catalog rows use '24-Hour Urine Collection' rather
+    // than 'Container' or 'Jug'. Keep the exact preservation qualifier and
+    // provide the correct source-device icon without inventing a new route.
+    const rawClass = tubeClass(draw);
+    const timedJugAlias = !rawClass && isTimedUrineTest(test) && /(?:24\s*[- ]?hour|24h\b|\btimed)\s+urine\s+(?:collection|container|jug)\b/i.test(draw);
+    const cls = timedJugAlias ? 'tube-24h-urine' : rawClass;
     const labels = {
       'tube-nmr-lipotube': 'NMR LipoTube (Black/Yellow)',
       'tube-culture': 'Blood Culture Bottles',
@@ -5101,7 +5106,7 @@
       'tube-ua-swirl': 'Red/Yellow Swirl UA Preservative Tube',
       'tube-urine-culture': 'Gray-Top Urine Culture Preservative Tube'
     };
-    const label = collectionTubeException(test)?.label || labels[cls] || draw;
+    const label = collectionTubeException(test)?.label || (timedJugAlias ? draw : labels[cls]) || draw;
     return { key: `${cls || 'other'}|${normalizeSearch(label)}`, label, className: cls };
   }
 
@@ -6586,7 +6591,7 @@
     // Plasma/serum from a specialized primary tube must name its additive
     // and original source on the label, not just on the transfer instruction.
     const drawSourceForLabel = shortDrawSource(test);
-    const oneBloodMaterial = /\b(?:plasma|serum)\b/i.test(specimenType) && !/\bor\b/i.test(specimenType);
+    const oneBloodMaterial = (/\b(?:plasma|serum)\b/i.test(specimenType) && !/\bor\b/i.test(specimenType)) || item.outputSpecimenType === 'RBCs';
     const standardSerumSource = /^(?:sst\b|gold\b|tiger\b|red top\b|amber microtainer sst\b)/i.test(drawSourceForLabel);
     const verifiedSpecialSource = /\b(?:edta|heparin|citrate|fluoride|oxalate|royal blue|acd|metal[- ]?free|trace[- ]?metal)\b/i.test(drawSourceForLabel) &&
       !/\bverify\b/i.test(drawSourceForLabel);
@@ -6861,7 +6866,9 @@
       const hasOverride = item.sourceCountOverrides instanceof Map && item.sourceCountOverrides.has(key);
       const sharedSource = item.sourceAlreadyCounted || item.sharedSplitSource;
       const sourceCount = sharedSource ? 0 : (hasOverride ? item.sourceCountOverrides.get(key) : transferSourceTubeCountForItemTests(tests, source));
-      const showSourceCount = source.className !== 'tube-urine-cup' && !sharedSource;
+      // The timed collection container can supply more than one aliquot.
+      // Never imply that each aliquot requires another collection jug.
+      const showSourceCount = !['tube-urine-cup', 'tube-24h-urine'].includes(source.className) && !sharedSource;
       const countBadge = showSourceCount && sourceCount > 0 ? `<span class="print-source-count">${sourceCount}</span>` : '';
       const displayClass = source.className === 'tube-sst' ? selectedSstVisualClass() : source.className;
       // Keep the number, icon, and entire "From ..." source inside the original pill.
