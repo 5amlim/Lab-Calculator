@@ -33533,7 +33533,7 @@ window.SEED_TESTS = [
     "stability": "Verify",
     "spin": "Verify",
     "specialInstructions": "Current Quest MASTER directory record was unavailable during the 2026-09-02 audit. Verify the active code and local service-area instructions before collection. Test code 34483 was not found in the current directory during this review. Do not rely on the prior red-top instruction. Verify the active test code and collection requirements before drawing.",
-    "status": "active",
+    "status": "reference",
     "source": "Quest MASTER directory unavailable 2026-09-02",
     "sourceRow": 133
   },

@@ -174,10 +174,10 @@
     "transportTemperatureRaw": "Room Temperature",
     "stability": "Room temperature; avoid prolonged delays beyond 72 hours; do not freeze",
     "spin": "No",
-    "specialInstructions": "Preferred: glassine envelope; sterile specimen container or ESwab accepted. Collect 10–12 epilated hairs or skin/nail scrapings from affected area and document site. Do not freeze. If available, use glassine envelope rather than sterile cup.",
+    "specialInstructions": "Directory reference only. Hair and nail collection are outside the supported workflow, and no separate skin-only route has been configured. Preferred: glassine envelope; sterile specimen container or ESwab accepted. Collect 10–12 epilated hairs or skin/nail scrapings from affected area and document site. Do not freeze. If available, use glassine envelope rather than sterile cup.",
     "fastingStatus": "",
     "fastingInstructions": "",
-    "status": "active",
+    "status": "pending",
     "source": "LabCorp official directory reviewed October 2026 • https://www.labcorp.com/tests/182337/dermatophyte-culture"
   },
   {

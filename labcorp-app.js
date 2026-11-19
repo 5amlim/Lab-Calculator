@@ -1519,10 +1519,19 @@
   function findCategoryMatches(query) {
     const category = window.LabClinicalCategories?.matchQuery(query);
     if (!category) return null;
+    // A complete assay name or shorthand can begin with a category alias
+    // (for example, Chemistry 14). Review those as assay matches.
+    if (category.rest) {
+      const normalizedQuery = normalizeSearch(query);
+      if (database.some(test => {
+        const { name, aliases } = librarySearchIndex(test);
+        return name === normalizedQuery || aliases.includes(normalizedQuery);
+      })) return null;
+    }
     const results = database
       .filter(test => test.status !== 'blocked' &&
         window.LabClinicalCategories.forTest(test).includes(category.id) &&
-        (!category.rest || rankLibraryTest(category.rest, test) > 0))
+        (!category.rest || rankLibraryTest(category.rest, test) >= 500))
       .sort((a, b) => a.testName.localeCompare(b.testName) ||
         String(a.testCode || '').localeCompare(String(b.testCode || '')));
     const label = window.LabClinicalCategories.options.find(item => item.id === category.id)?.label || query;
@@ -1843,6 +1852,10 @@
     if (/\b(?:csf|cerebrospinal)\b/.test(value)) return ['Body Fluid', 'CSF'];
     if (/\bsputum\b/.test(value)) return ['Sputum'];
     if (/\bsaliva\b/.test(value)) return ['Saliva'];
+    if (/^semen$/.test(value)) return ['Semen'];
+    if (/^breath$/.test(value)) return ['Breath'];
+    if (/^dry stone$/.test(value)) return ['Dry Stone'];
+    if (/^jp drainage$/.test(value)) return ['Body Fluid'];
     if (/\btissue\b/.test(value)) return ['Tissue'];
     if (/\bcervical\b.*\bcytology\b.*\bfluid\b/.test(value)) return ['Body Fluid', 'Cervical Cytology Fluid'];
     for (const [pattern, name] of [
@@ -6683,8 +6696,7 @@
       if (/\b(?:2[- ]hour\s+postprandial|post[- ]prandial)\b/i.test(raw)) add('Postprandial');
       if (/\bmeal\s*\/\s*draw\s+time\b/i.test(raw)) add('Meal/draw times');
       else if (/\bcollection\s+and\s+separation\s+time\b/i.test(raw)) add('Collection and separation times');
-      else if (/\b(?:exact\s+collection|exact\s+draw|exact\s+meal|exact\s+date|draw\s+time|exposure\s+time|time\s+of\s+draw)\b/i.test(raw) ||
-          /\bexact\s+collection\s+date\/time\b/i.test(raw))
+      else if (/\b(?:exact\s+(?:(?:collection|draw|meal)\s+)?(?:date|time)|draw\s+time|exposure\s+time|time\s+of\s+draw)\b/i.test(raw))
         add('Exact collection time');
       const timedUrineHours = String(specimenType).match(/\b(12|24)\s*[- ]?\s*(?:hour|hr|h)\b/i)
         || raw.match(/\b(12|24)\s*[- ]?\s*(?:hour|hr|h)\b/i);
@@ -6706,6 +6718,8 @@
       const drawTime = /\b(?:collection|draw)\s+times?\b|\btime\s+of\s+(?:draw|collection)\b/i.test(raw);
       if (dateAndTime && !parts.some(part => /date\/time/.test(part))) {
         if (is24HourUrineTest(test) && /\b(?:start|begin)\b/i.test(raw) && /\b(?:end|finish)\b/i.test(raw)) {
+          const abbreviated = parts.indexOf('Start/end times');
+          if (abbreviated !== -1) parts.splice(abbreviated, 1);
           add('Collection start/end dates and times');
         } else {
           add('Collection date/time');
