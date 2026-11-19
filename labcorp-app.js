@@ -4116,7 +4116,246 @@
     return first ? Number(first[1]) : null;
   }
 
+  // Collection-scope review: these exact catalog components use either an
+  // ordinary compatible source or a separate source with a volume-derived
+  // tube estimate. Parent panel instructions about other matrices must not
+  // turn serum into a dedicated or full EDTA draw. Exact signatures prevent
+  // applying the override to manual edits or unrelated catalog orders.
+  const REVIEWED_SST_COMPONENT_POLICIES = Object.freeze({
+    "labcorp-verified-20261118-batch34-311959": {
+      "policy": "shared",
+      "signature": [
+        "Serum",
+        "SST / Gold",
+        "SST / Gold (spun)",
+        "Room Temperature",
+        "Yes",
+        "2 mL serum",
+        "",
+        1,
+        1,
+        "",
+        "Collect serum for lipid panel and a separate 4 mL EDTA whole blood specimen for HbA1c. Centrifuge SST, submit at room temperature. Follow component requirements; no routine fasting unless ordered.",
+        "[{\"container\":\"Lavender EDTA\",\"specimenType\":\"Whole Blood\",\"preferredVolume\":\"4 mL whole blood\",\"minimumVolume\":\"\",\"purpose\":\"Hemoglobin A1c\",\"alternativeContainer\":\"\",\"submissionCount\":1,\"transportContainer\":\"Lavender EDTA\",\"transportTemperature\":\"Room Temperature\",\"transportTemperatureRaw\":\"Room Temperature\",\"stability\":\"\",\"spin\":\"No\",\"specialLabeling\":\"\",\"specialInstructions\":\"Fill EDTA tube to its intended volume, invert gently, and submit original whole blood tube. Do not spin or transfer.\",\"transportOnly\":false,\"count\":1}]"
+      ]
+    },
+    "labcorp-verified-20261118-batch34-402145": {
+      "policy": "shared",
+      "signature": [
+        "Serum",
+        "SST / Gold",
+        "SST / Gold (spun)",
+        "Room Temperature",
+        "Yes",
+        "4 mL serum",
+        "2.5 mL serum",
+        1,
+        1,
+        "",
+        "Separate serum from cells within 45 minutes. Also collect full EDTA tube for CBC and platelets. Submit promptly at room temperature, avoid hemolysis.",
+        "[{\"container\":\"Lavender EDTA\",\"specimenType\":\"Whole Blood\",\"preferredVolume\":\"Full EDTA tube\",\"minimumVolume\":\"0.5 mL whole blood\",\"purpose\":\"CBC with differential and platelets\",\"alternativeContainer\":\"\",\"submissionCount\":1,\"transportContainer\":\"Lavender EDTA\",\"transportTemperature\":\"Room Temperature\",\"transportTemperatureRaw\":\"Room Temperature\",\"stability\":\"\",\"spin\":\"No\",\"specialLabeling\":\"\",\"specialInstructions\":\"Fill EDTA tube to its intended volume, invert gently, and submit original whole blood tube. Do not spin or transfer.\",\"transportOnly\":false,\"count\":1}]"
+      ]
+    },
+    "labcorp-verified-20261118-batch34-385375": {
+      "policy": "shared",
+      "signature": [
+        "Serum",
+        "SST / Gold",
+        "SST / Gold (spun)",
+        "Room Temperature",
+        "Yes",
+        "0.5 mL serum",
+        "0.5 mL serum",
+        1,
+        1,
+        "",
+        "Separate serum within 45 minutes. Also collect EDTA whole blood for platelets. Submit both promptly; do not freeze whole blood.",
+        "[{\"container\":\"Lavender EDTA\",\"specimenType\":\"Whole Blood\",\"preferredVolume\":\"Full EDTA tube\",\"minimumVolume\":\"0.5 mL whole blood\",\"purpose\":\"Platelet count\",\"alternativeContainer\":\"\",\"submissionCount\":1,\"transportContainer\":\"Lavender EDTA\",\"transportTemperature\":\"Room Temperature\",\"transportTemperatureRaw\":\"Room Temperature\",\"stability\":\"\",\"spin\":\"No\",\"specialLabeling\":\"\",\"specialInstructions\":\"Fill EDTA tube to its intended volume, invert gently, and submit original whole blood tube. Do not spin or transfer.\",\"transportOnly\":false,\"count\":1}]"
+      ]
+    },
+    "labcorp-verified-20261118-batch34-121054": {
+      "policy": "shared",
+      "signature": [
+        "Serum",
+        "SST / Gold",
+        "SST / Gold (spun)",
+        "Room Temperature",
+        "Yes",
+        "1.5 mL serum",
+        "1 mL serum",
+        1,
+        1,
+        "",
+        "Centrifuge and submit spun SST. Collect separate random urine without preservative. Reject visibly bloody urine; urine pH 4–8.",
+        "[{\"container\":\"Sterile cup\",\"specimenType\":\"Urine\",\"preferredVolume\":\"10 mL random urine\",\"minimumVolume\":\"2 mL random urine\",\"purpose\":\"Urine component\",\"alternativeContainer\":\"\",\"submissionCount\":1,\"transportContainer\":\"Sterile cup\",\"transportTemperature\":\"Room Temperature\",\"transportTemperatureRaw\":\"Room Temperature\",\"stability\":\"\",\"spin\":\"No\",\"specialLabeling\":\"\",\"specialInstructions\":\"Collect random urine in clean sterile cup without additives; submit original cup, label urine.\",\"transportOnly\":false,\"count\":1}]"
+      ]
+    },
+    "labcorp-verified-20261118-batch34-165065": {
+      "policy": "shared",
+      "signature": [
+        "Serum",
+        "SST / Gold",
+        "SST / Gold (spun)",
+        "Room Temperature",
+        "Yes",
+        "6 mL serum",
+        "",
+        1,
+        1,
+        "",
+        "Separate serum within 2 hours. Collect full EDTA tube and urine specimen for urinalysis. Ask about high-dose biotin and follow Labcorp's 72-hour recommendation with clinician guidance.",
+        "[{\"container\":\"Lavender EDTA\",\"specimenType\":\"Whole Blood\",\"preferredVolume\":\"Full EDTA tube\",\"minimumVolume\":\"\",\"purpose\":\"CBC and whole blood components\",\"alternativeContainer\":\"\",\"submissionCount\":1,\"transportContainer\":\"Lavender EDTA\",\"transportTemperature\":\"Room Temperature\",\"transportTemperatureRaw\":\"Room Temperature\",\"stability\":\"\",\"spin\":\"No\",\"specialLabeling\":\"\",\"specialInstructions\":\"Fill EDTA tube to its intended volume, invert gently, and submit original whole blood tube. Do not spin or transfer.\",\"transportOnly\":false,\"count\":1},{\"container\":\"Sterile cup\",\"specimenType\":\"Urine\",\"preferredVolume\":\"3–9 mL urine\",\"minimumVolume\":\"\",\"purpose\":\"Urine component\",\"alternativeContainer\":\"\",\"submissionCount\":1,\"transportContainer\":\"Red/Yellow Swirl UA Preservative Tube\",\"transportTemperature\":\"Room Temperature\",\"transportTemperatureRaw\":\"Room Temperature\",\"stability\":\"\",\"spin\":\"No\",\"specialLabeling\":\"\",\"specialInstructions\":\"Collect voided urine; use clean catch if contamination is a concern. Transfer to UA preservative tube within the fill range and label urine.\",\"transportOnly\":false,\"count\":1}]"
+      ]
+    },
+    "labcorp-verified-20261118-batch36-144149": {
+      "policy": "separate-volume",
+      "signature": [
+        "Serum",
+        "SST / Gold",
+        "SST / Gold (spun)",
+        "Refrigerated",
+        "Yes",
+        "7 mL serum",
+        "2.9 mL serum",
+        3,
+        3,
+        "",
+        "Two sample types required. Collect sufficient serum for 7 mL non-DNA testing plus 2.5 mL dedicated HBV DNA aliquot (9.5 mL total). Submit original spun SSTs refrigerated; centrifuge DNA sample within 24 hours and transfer to a separate frozen polypropylene screw-cap vial. Ask about high-dose biotin; Labcorp recommends withholding it for 72 hours before collection with clinician guidance.",
+        "[{\"container\":\"SST / Gold\",\"specimenType\":\"Serum\",\"preferredVolume\":\"2.5 mL serum\",\"minimumVolume\":\"0.7 mL serum\",\"purpose\":\"HBV DNA\",\"alternativeContainer\":\"\",\"submissionCount\":1,\"transportContainer\":\"Frozen Transport Tube (Purple Cap)\",\"transportTemperature\":\"Frozen\",\"transportTemperatureRaw\":\"Frozen\",\"stability\":\"\",\"spin\":\"Yes\",\"specialLabeling\":\"\",\"specialInstructions\":\"Centrifuge within 24 hours and transfer 2.5 mL serum to a separate polypropylene screw-cap tube; freeze. Do not freeze the SST. Keep separate from other frozen tests.\",\"transportOnly\":false,\"count\":1}]"
+      ]
+    },
+    "labcorp-verified-20261118-batch37-144547": {
+      "policy": "separate-volume",
+      "signature": [
+        "Serum",
+        "SST / Gold",
+        "SST / Gold (spun)",
+        "Room Temperature",
+        "Yes",
+        "5 mL serum",
+        "2.2 mL serum",
+        2,
+        2,
+        "",
+        "Two separate serum specimens are required. Published aggregate volume 7.5 mL, minimum 2.9 mL; component-based allocation reserves 2.5 mL (minimum 0.7 mL) for HBV DNA; confirm aliquot allocation with Labcorp. Spin serology SSTs; keep separate from DNA. Ask about high-dose biotin; follow Labcorp's 72-hour withholding recommendation with clinician guidance.",
+        "[{\"container\":\"SST / Gold\",\"specimenType\":\"Serum\",\"preferredVolume\":\"2.5 mL serum\",\"minimumVolume\":\"0.7 mL serum\",\"purpose\":\"HBV DNA\",\"alternativeContainer\":\"\",\"submissionCount\":1,\"transportContainer\":\"Frozen Transport Tube (Purple Cap)\",\"transportTemperature\":\"Frozen\",\"transportTemperatureRaw\":\"Frozen\",\"stability\":\"\",\"spin\":\"Yes\",\"specialLabeling\":\"\",\"specialInstructions\":\"Centrifuge within 24 hours. Separate serum into a dedicated polypropylene screw-cap frozen transport tube; use a lab-approved vial with adequate capacity and freezing headspace. Keep frozen; do not combine with other tests.\",\"transportOnly\":false,\"count\":1}]"
+      ]
+    },
+    "labcorp-verified-20261118-batch37-257524::additional-draw-0": {
+      "policy": "separate-volume",
+      "signature": [
+        "Serum",
+        "SST / Gold",
+        "SST / Gold (spun)",
+        "Refrigerated",
+        "Yes",
+        "3 mL serum",
+        "2 mL serum",
+        2,
+        2,
+        "",
+        "Spin separate SSTs and refrigerate; do not share HIV specimen. Send promptly within HCV PCR stability. Confirm panel allocation if low yield.",
+        "[]"
+      ]
+    },
+    "labcorp-verified-20261118-batch37-266800": {
+      "policy": "shared",
+      "signature": [
+        "Serum",
+        "SST / Gold",
+        "SST / Gold (spun)",
+        "Refrigerated",
+        "Yes",
+        "3 mL serum",
+        "",
+        2,
+        2,
+        "",
+        "Collect three distinct specimen types: 3 mL serum, 1 mL EDTA plasma and 4 mL EDTA whole blood. Centrifuge serum SSTs, refrigerate; keep EDTA whole blood separate. Ask about high-dose biotin; follow Labcorp's 72-hour withholding recommendation with clinician guidance.",
+        "[{\"container\":\"Lavender EDTA\",\"specimenType\":\"Plasma\",\"preferredVolume\":\"1 mL plasma\",\"minimumVolume\":\"\",\"purpose\":\"pTau-181\",\"alternativeContainer\":\"\",\"submissionCount\":1,\"transportContainer\":\"Transport Tube\",\"transportTemperature\":\"Room Temperature\",\"transportTemperatureRaw\":\"Room Temperature\",\"stability\":\"\",\"spin\":\"Yes\",\"specialLabeling\":\"\",\"specialInstructions\":\"Mix EDTA blood, centrifuge and transfer separated plasma into plastic transport tube. Room temperature 2 days.\",\"transportOnly\":false,\"count\":1},{\"container\":\"Lavender EDTA\",\"specimenType\":\"Whole Blood\",\"preferredVolume\":\"4 mL whole blood\",\"minimumVolume\":\"\",\"purpose\":\"CBC\",\"alternativeContainer\":\"\",\"submissionCount\":1,\"transportContainer\":\"Lavender EDTA (original tube)\",\"transportTemperature\":\"Room Temperature\",\"transportTemperatureRaw\":\"Room Temperature\",\"stability\":\"\",\"spin\":\"No\",\"specialLabeling\":\"\",\"specialInstructions\":\"Mix immediately by gentle inversion 8–10 times. Submit whole blood in the original tube; do not spin or freeze. Send promptly within 24 hours.\",\"transportOnly\":false,\"count\":1}]"
+      ]
+    },
+    "labcorp-verified-20261118-batch37-607635": {
+      "policy": "shared",
+      "signature": [
+        "Serum",
+        "SST / Gold",
+        "Transport Tube",
+        "Room Temperature",
+        "Yes",
+        "2 mL serum",
+        "1 mL serum",
+        1,
+        1,
+        "",
+        "Centrifuge SST and transfer separated serum to plastic transport tube. Collect a separate EDTA whole blood tube for CBC.",
+        "[{\"container\":\"Lavender EDTA\",\"specimenType\":\"Whole Blood\",\"preferredVolume\":\"4 mL whole blood\",\"minimumVolume\":\"Fill adult tube to capacity\",\"purpose\":\"CBC\",\"alternativeContainer\":\"\",\"submissionCount\":1,\"transportContainer\":\"Lavender EDTA (original tube)\",\"transportTemperature\":\"Room Temperature\",\"transportTemperatureRaw\":\"Room Temperature\",\"stability\":\"\",\"spin\":\"No\",\"specialLabeling\":\"\",\"specialInstructions\":\"Mix immediately by gentle inversion 8–10 times. Submit whole blood in the original tube; do not spin or freeze. Send within 24 hours. A pediatric microtainer is a distinct collection option.\",\"transportOnly\":false,\"count\":1}]"
+      ]
+    },
+    "labcorp-verified-20261118-batch37-144053::additional-draw-0": {
+      "policy": "separate-volume",
+      "signature": [
+        "Serum",
+        "SST / Gold",
+        "SST / Gold (spun)",
+        "Refrigerated",
+        "Yes",
+        "7 mL serum",
+        "",
+        3,
+        3,
+        "",
+        "Spin and refrigerate separate SSTs. Do not open or share the dedicated HIV SST. Send promptly within HCV reflex PCR stability.",
+        "[]"
+      ]
+    },
+    "labcorp-verified-20261118-batch37-144059::additional-draw-0": {
+      "policy": "separate-volume",
+      "signature": [
+        "Serum",
+        "SST / Gold",
+        "SST / Gold (spun)",
+        "Refrigerated",
+        "Yes",
+        "8 mL serum",
+        "",
+        4,
+        4,
+        "",
+        "Spin and refrigerate separate SSTs. Do not open or share the dedicated HIV SST. Send promptly within HCV reflex PCR stability.",
+        "[]"
+      ]
+    },
+    "labcorp-verified-20261118-batch37-144099::additional-draw-0": {
+      "policy": "separate-volume",
+      "signature": [
+        "Serum",
+        "SST / Gold",
+        "SST / Gold (spun)",
+        "Refrigerated",
+        "Yes",
+        "8 mL serum",
+        "",
+        4,
+        4,
+        "",
+        "Spin and refrigerate separate SSTs. Do not open or share the dedicated HIV SST. Send promptly within HCV reflex PCR stability.",
+        "[]"
+      ]
+    }
+  });
+  function reviewedSstComponentPolicy(test) {
+    const entry = REVIEWED_SST_COMPONENT_POLICIES[test.id];
+    if (!entry || !isSstDraw(test)) return '';
+    const signature = [test.specimenType,test.drawContainer,test.transportContainer,
+      test.transportTemperature,test.spin,test.preferredVolume,test.minimumVolume,
+      test.collectionCount,test.submissionCount,test.specialLabeling,test.specialInstructions,
+      JSON.stringify(test.additionalDrawRequirements || [])];
+    return JSON.stringify(signature) === JSON.stringify(entry.signature) ? entry.policy : '';
+  }
+
   function explicitSstTubeCount(test) {
+    if (reviewedSstComponentPolicy(test)) return 0;
     // An entered draw count takes priority over counts inferred from free text.
     const enteredCount = Math.floor(Number(test.collectionCount) || 1);
     if (enteredCount > 1) return enteredCount;
@@ -4135,6 +4374,8 @@
   }
 
   function requiresDedicatedSst(test) {
+    const reviewedPolicy = reviewedSstComponentPolicy(test);
+    if (reviewedPolicy) return reviewedPolicy === 'separate-volume';
     if (requiresDistinctDrawTransport(test)) return true;
     const text = `${test.drawContainer || ''} ${test.transportContainer || ''} ${test.specialInstructions || ''}`.toLowerCase();
     return /dedicated|own tube|separate (?:sst|gold|tube)|do not share|full tube|full sst|full gold|each tube|individual tube/.test(text)
@@ -4151,7 +4392,7 @@
   // supply. Unlike generic one-test estimates, their source-derived volume
   // requirement is explicitly opted into capacity-based multi-tube counting.
   function needsPreferredSerumYieldSstCount(test) {
-    return test.usePreferredSerumYield === true
+    return Boolean(reviewedSstComponentPolicy(test)) || test.usePreferredSerumYield === true
       || /preferred serum yield requires multi-sst calculation/i.test(String(test.specialInstructions || ''));
 
   }
@@ -4204,7 +4445,8 @@
       // this two-tube rule. Keep these sources out of the shared serum pool.
       const twoSstMinimum = needsTwoSstForMinimum(test);
       if (requiresDedicatedSst(test) || hasCollectionFillRule(test) || twoSstMinimum) {
-        const volumeFloor = !hasCollectionFillRule(test) && midpointSpecimenVolumeMl(test) !== null
+        const volumeFloor = !hasCollectionFillRule(test) && plannedMl !== null &&
+          (midpointSpecimenVolumeMl(test) !== null || reviewedSstComponentPolicy(test))
           ? Math.ceil(plannedMl / SST_USABLE_ML_PER_TUBE - 1e-9) : 1;
         dedicatedTubes += Math.max(explicitCount, twoSstMinimum ? 2 : 1, volumeFloor);
       } else if (plannedMl !== null) {
@@ -4246,7 +4488,8 @@
       if (requiresDedicatedSst(test) || hasCollectionFillRule(test) || twoSstMinimum) {
         // Respect explicit multi-tube requirements, with the same >=4 mL
         // two-SST minimum policy used for Gold SST.
-        const volumeFloor = !hasCollectionFillRule(test) && midpointSpecimenVolumeMl(test) !== null
+        const volumeFloor = !hasCollectionFillRule(test) && plannedMl !== null &&
+          (midpointSpecimenVolumeMl(test) !== null || reviewedSstComponentPolicy(test))
           ? Math.ceil(plannedMl / TIGER_SST_USABLE_ML_PER_TUBE - 1e-9) : 1;
         dedicatedTubes += Math.max(explicitCount, twoSstMinimum ? 2 : 1, volumeFloor);
       } else if (plannedMl !== null) {
@@ -5669,6 +5912,7 @@
   }
 
   function requiresDistinctDrawTransport(test) {
+    if (reviewedSstComponentPolicy(test) === 'shared') return false;
     // Salivette kits are independent timed collections; never merge samples across orders.
     if (/\bsalivette\b/i.test(`${test.drawContainer || ''} ${test.transportContainer || ''}`)) return true;
     return Boolean(timedSpecimenLabel(test) ||
@@ -6752,6 +6996,9 @@
   }
 
   function hasCollectionFillRule(test) {
+    // Reviewed serum components have no calibrated fill requirement; a full
+    // EDTA tube mentioned by the parent profile belongs to its own component.
+    if (reviewedSstComponentPolicy(test)) return false;
     const text = `${test.drawContainer || ''} ${test.preferredVolume || ''} ${test.minimumVolume || ''} ${test.specialInstructions || ''}`;
     return /fill(?:ed)?\s+(?:the\s+)?(?:collection\s+)?tube\s+(?:completely|to)|fill(?:ed)?\s+to\s+(?:the\s+)?(?:marked\s+)?line|fill\s+line|marked\s+line|full\s+(?:unopened\s+)?(?:collection\s+)?(?:tube|sst|gold|lavender|red(?:-top)?|edta)|completely\s+fill/i.test(text);
   }
