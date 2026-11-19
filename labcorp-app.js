@@ -4417,12 +4417,14 @@
     return minimum !== null && minimum >= 4 - 1e-8;
   }
 
-  // One-fifth above minimum is a collection planning target, not a change to directory
-  // requirements. Only like-for-like adult specimen volumes are averaged.
+  // Collection planning targets depend on the number of compatible tests
+  // in the existing physical source pool: 1–9 use midpoint; 10+ use one-fifth.
+  // Directory requirements and special collection rules remain authoritative.
   // Multiple amounts, pediatric minima, alternate matrices and per-vial
   // instructions retain the existing conservative route and parsing.
-  function oneFifthSpecimenVolumeMl(test) {
+  function specimenPlanningVolumeMl(test, largePool = false) {
     if (hasCollectionFillRule(test)) return null;
+    if (/\b(?:minimum volume (?:is )?(?:not acceptable|insufficient)|preferred volume (?:is )?required|must (?:submit|provide|collect) (?:the )?preferred volume)\b/i.test(String(test.specialInstructions || ''))) return null;
     const simple = value => {
       const match = String(value || '').trim().match(/^(\d+(?:\.\d+)?)\s*m\s*l(?:\s+(serum|plasma|whole blood|blood|platelet[- ]poor plasma|rbcs?|red blood cells))?$/i);
       if (!match) return null;
@@ -4432,11 +4434,26 @@
     };
     const p = simple(test.preferredVolume), m = simple(test.minimumVolume);
     if (!p || !m || p.matrix !== m.matrix || m.ml > p.ml) return null;
-    return m.ml + (p.ml - m.ml) / 5;
+    return m.ml + (p.ml - m.ml) / (largePool ? 5 : 2);
   }
 
-  function planningTargetOrExistingVolume(test, preferred, minimum) {
-    return oneFifthSpecimenVolumeMl(test) ?? (preferred === null ? minimum : preferred);
+  function labcorpVolumePolicyEligible(test) {
+    return collectionSpecimenGroupForTest(test) === 'blood'
+      && !hasCollectionFillRule(test) && !collectionTubeException(test)
+      && !requiresDistinctDrawTransport(test) && explicitCollectionCount(test) === 1
+      && !(isSstDraw(test) ? requiresDedicatedSst(test) || needsTwoSstForMinimum(test) : requiresDedicatedCollectionTube(test))
+      && !needsPreferredSerumYieldSstCount(test);
+  }
+
+  function labcorpLargeCompatiblePool(tests) {
+    return uniqueTests(tests.filter(labcorpVolumePolicyEligible)).length >= 10;
+  }
+
+  function planningTargetOrExistingVolume(test, preferred, minimum, largePool = false) {
+    // Keep the existing planning target for dedicated, high-yield, and other
+    // protected routes; this change is only to ordinary compatible pools.
+    const target = specimenPlanningVolumeMl(test, labcorpVolumePolicyEligible(test) ? largePool : true);
+    return target ?? (preferred === null ? minimum : preferred);
   }
 
   function sstEstimateForTests(tests) {
@@ -4445,10 +4462,12 @@
     let unmeasuredTubes = 0;
     const unmeasuredTests = [];
 
-    tests.filter(isSstDraw).forEach(test => {
+    const pool = tests.filter(isSstDraw);
+    const largePool = labcorpLargeCompatiblePool(pool);
+    pool.forEach(test => {
       const preferredMl = parseVolumeMl(test.preferredVolume);
       const minimumMl = parseVolumeMl(test.minimumVolume);
-      const plannedMl = planningTargetOrExistingVolume(test, preferredMl, minimumMl);
+      const plannedMl = planningTargetOrExistingVolume(test, preferredMl, minimumMl, largePool);
       const explicitCount = explicitSstTubeCount(test);
 
       // Minimum >=4 mL plans two SSTs for this test, unless an explicit
@@ -4457,11 +4476,13 @@
       const twoSstMinimum = needsTwoSstForMinimum(test);
       if (requiresDedicatedSst(test) || hasCollectionFillRule(test) || twoSstMinimum) {
         const volumeFloor = !hasCollectionFillRule(test) && plannedMl !== null &&
-          (oneFifthSpecimenVolumeMl(test) !== null || reviewedSstComponentPolicy(test))
+          (specimenPlanningVolumeMl(test, largePool) !== null || reviewedSstComponentPolicy(test))
           ? Math.ceil(plannedMl / SST_USABLE_ML_PER_TUBE - 1e-9) : 1;
         dedicatedTubes += Math.max(explicitCount, twoSstMinimum ? 2 : 1, volumeFloor);
       } else if (plannedMl !== null) {
-        sharedMl += oneFifthSpecimenVolumeMl(test) !== null || needsPreferredSerumYieldSstCount(test) ? plannedMl : Math.min(plannedMl, SST_USABLE_ML_PER_TUBE);
+        const contribution = specimenPlanningVolumeMl(test, largePool) !== null || needsPreferredSerumYieldSstCount(test)
+          ? plannedMl : Math.min(plannedMl, SST_USABLE_ML_PER_TUBE);
+        sharedMl += Math.max(contribution, minimumMl ?? 0);
       } else {
         unmeasuredTubes += 1;
         unmeasuredTests.push(test.testName);
@@ -4484,15 +4505,17 @@
     let dedicatedTubes = 0;
     let unmeasuredTubes = 0;
 
-    tests.filter(isSstDraw).forEach(test => {
-      // Pool using usable serum volumes, as with Gold SST, rather than the
-      // 7.5 mL whole-blood draw volume. Use one-fifth above minimum for comparable volumes.
+    const pool = tests.filter(isSstDraw);
+    const largePool = labcorpLargeCompatiblePool(pool);
+    pool.forEach(test => {
+      // Pool usable serum, not the 7.5 mL whole-blood draw volume.
+      // Use the same pool-size policy as Gold SST.
       // Retain Tiger's existing recognition of totals and per-tube volumes;
       // change only the unit to usable serum mL, without blood conversion.
       const serumConversion = { factor: 1 };
       const preferredMl = volumeForRequirement(test, 'preferred', serumConversion);
       const minimumMl = volumeForRequirement(test, 'minimum', serumConversion);
-      const plannedMl = planningTargetOrExistingVolume(test, preferredMl, minimumMl);
+      const plannedMl = planningTargetOrExistingVolume(test, preferredMl, minimumMl, largePool);
       const explicitCount = Math.max(explicitSstTubeCount(test), 1);
 
       const twoSstMinimum = needsTwoSstForMinimum(test);
@@ -4500,11 +4523,13 @@
         // Respect explicit multi-tube requirements, with the same >=4 mL
         // two-SST minimum policy used for Gold SST.
         const volumeFloor = !hasCollectionFillRule(test) && plannedMl !== null &&
-          (oneFifthSpecimenVolumeMl(test) !== null || reviewedSstComponentPolicy(test))
+          (specimenPlanningVolumeMl(test, largePool) !== null || reviewedSstComponentPolicy(test))
           ? Math.ceil(plannedMl / TIGER_SST_USABLE_ML_PER_TUBE - 1e-9) : 1;
         dedicatedTubes += Math.max(explicitCount, twoSstMinimum ? 2 : 1, volumeFloor);
       } else if (plannedMl !== null) {
-        sharedMl += oneFifthSpecimenVolumeMl(test) !== null || needsPreferredSerumYieldSstCount(test) ? plannedMl : Math.min(plannedMl, TIGER_SST_USABLE_ML_PER_TUBE);
+        const contribution = specimenPlanningVolumeMl(test, largePool) !== null || needsPreferredSerumYieldSstCount(test)
+          ? plannedMl : Math.min(plannedMl, TIGER_SST_USABLE_ML_PER_TUBE);
+        sharedMl += Math.max(contribution, minimumMl ?? 0);
       } else {
         unmeasuredTubes += 1;
       }
@@ -4697,7 +4722,7 @@
     ]
   });
 
-  function reviewedFrozenSstSourceMl(test) {
+  function reviewedFrozenSstSourceMl(test, largePool = true) {
     const reviewed = REVIEWED_FROZEN_SST_SOURCE_ALLOCATIONS[test.id];
     if (!Array.isArray(reviewed) || !isSstDraw(test) ||
         normalizeSpecimenType(test.specimenType).toLowerCase() !== 'serum' ||
@@ -4708,7 +4733,7 @@
     if (test.preferredVolume !== reviewed[0] || test.minimumVolume !== reviewed[1] ||
         Number(test.collectionCount) !== reviewed[2] || Number(test.submissionCount) !== reviewed[3] ||
         String(test.specialInstructions || '').trim() !== reviewed[4]) return null;
-    const ml = oneFifthSpecimenVolumeMl(test) ?? parseVolumeMl(test.preferredVolume);
+    const ml = specimenPlanningVolumeMl(test, largePool) ?? parseVolumeMl(test.preferredVolume);
     return Number.isFinite(ml) && ml > 0 ? ml : null;
   }
 
@@ -4718,9 +4743,10 @@
       return tiger ? tigerSstEstimateForTests(group.tests) : sstEstimateForTests(group.tests);
     }
     const capacity = tiger ? TIGER_SST_USABLE_ML_PER_TUBE : SST_USABLE_ML_PER_TUBE;
-    // Sum one-fifth-above-minimum serum targets before rounding once; no per-test cap and
-    // no division by the number of required frozen submission vials.
-    const sharedMl = group.tests.reduce((sum, test) => sum + reviewedFrozenSstSourceMl(test), 0);
+    // Count reviewed compatible source orders, not required frozen vials.
+    // Sum the appropriate targets before rounding once; no per-test cap.
+    const largePool = uniqueTests(group.tests).length >= 10;
+    const sharedMl = group.tests.reduce((sum, test) => sum + reviewedFrozenSstSourceMl(test, largePool), 0);
     const minimumFloor = group.tests.filter(needsTwoSstForMinimum).length * 2;
     const sharedTubes = Math.max(minimumFloor, Math.ceil(sharedMl / capacity - 1e-9));
     return { sharedMl, sharedTubes, dedicatedTubes: 0, unmeasuredTubes: 0,
@@ -4829,13 +4855,13 @@
     return COLLECTION_TUBE_EXCEPTIONS[String(test.testCode || '').trim()] || null;
   }
 
-  function requiredSourceSpecimenMl(test) {
+  function requiredSourceSpecimenMl(test, largePool = false) {
     const description = String(test.preferredVolume || '');
     // Calibrated citrate tubes and alternative fill sizes are not aliquot volumes.
     if (/^\s*(?:one\s+|1\s+)?full\b[^;]{0,120}\b(?:tube|blue[- ]top|citrate)\b/i.test(description)) return null;
     const preferred = volumeForRequirement(test, 'preferred', {factor: 1});
     const minimum = volumeForRequirement(test, 'minimum', {factor: 1});
-    return planningTargetOrExistingVolume(test, preferred, minimum);
+    return planningTargetOrExistingVolume(test, preferred, minimum, largePool);
   }
 
   function usableSourceSpecimenMl(test, material) {
@@ -4851,7 +4877,7 @@
     return pooledCollectionCapacity(material);
   }
 
-  function recommendedCollectionTubesForTest(test) {
+  function recommendedCollectionTubesForTest(test, largePool = false) {
     const explicit = explicitCollectionCount(test);
     const exception = collectionTubeException(test);
     if (exception && exception.count) return Math.max(explicit, exception.count);
@@ -4860,7 +4886,7 @@
     if (explicit > 1) return explicit;
     // The one-fifth target excludes fill-rule records; keep the existing conservative
     // volume-derived count when a calibrated tube has a numeric requirement.
-    const volume = requiredSourceSpecimenMl(test);
+    const volume = requiredSourceSpecimenMl(test, largePool);
     if (volume === null || volume <= 0) return explicit;
     return Math.max(explicit, Math.ceil(volume / usableSourceSpecimenMl(test, pooledCollectionMaterial(test)) - 1e-9));
   }
@@ -4885,9 +4911,10 @@
     let sharedTubeEquivalents = 0;
     let dedicatedTubes = 0;
     let unmeasuredTubes = 0;
+    const largePool = labcorpLargeCompatiblePool(tests);
     tests.forEach(test => {
-      const volume = requiredSourceSpecimenMl(test);
-      const tubes = recommendedCollectionTubesForTest(test);
+      const volume = requiredSourceSpecimenMl(test, largePool);
+      const tubes = recommendedCollectionTubesForTest(test, largePool);
       if (requiresDedicatedCollectionTube(test) || hasCollectionFillRule(test) || tubes > 1) {
         dedicatedTubes += tubes;
       } else if (volume !== null) {
@@ -7527,7 +7554,7 @@
               timedInfo[index].timepoint + ' × ' + part.count
             ).join(' · ') + ' · Label each container with its collection time'
           : compactPrintAllocationNote(parts) + (sharedFrozenSource
-              ? ' · Shared source allocation using one-fifth-above-minimum volume targets: same collection only; verify serum yield, follow the shortest processing deadline and keep submitted aliquots separate.'
+              ? ' · Shared source allocation using pool-size volume targets: same collection only; verify serum yield, follow the shortest processing deadline and keep submitted aliquots separate.'
               : '')
       });
       parts.slice(1).forEach(part => replacement.set(part, null));
