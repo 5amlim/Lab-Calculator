@@ -6954,6 +6954,13 @@
 
   // Summarize matching per-order allocations without changing tube counts.
   function compactPrintAllocationNote(parts) {
+    // A physical allocation can cover multiple orders. In that case preserve
+    // the original per-allocation wording rather than imply one tube per code.
+    if (parts.some(part => uniqueTests(part.tests || []).length !== 1)) {
+      return 'Separate containers: ' + parts.map(part =>
+        part.count + ' for ' + uniqueTests(part.tests || []).map(displayCode).join(', ')
+      ).join(' · ');
+    }
     const groups = new Map();
     parts.forEach(part => {
       const count = Number(part.count);
