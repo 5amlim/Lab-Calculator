@@ -392,7 +392,7 @@
     els.loadMoreButton.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
     els.blockedListButton?.addEventListener('click', () => { blockedListOpen = !blockedListOpen; renderBlockedList(); });
     els.loadMoreInlineButton?.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
-    $('tatRegionFilter')?.addEventListener('change', () => renderTurnaroundTime(selectedTests()));
+    $('tatRegionFilter')?.addEventListener('change', () => { hideTatPreview(); renderTurnaroundTime(selectedTests()); });
     els.libraryBody.addEventListener('click', handleLibraryClick);
     els.libraryBody.addEventListener('pointerover', event => {
       if (event.pointerType !== 'mouse') return;
@@ -2568,8 +2568,11 @@
     if (!button || tatPreviewButton === button || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     hideTatPreview();
     const test = database.find(item => item.id === button.dataset.id);
-    const tat = test && pilotTat(test);
-    if (!tat) return;
+    if (!test || !pilotTat(test)) return;
+    const regionSelect = $('tatRegionFilter');
+    const region = regionSelect?.value || 'directory';
+    const regionLabel = regionSelect?.selectedOptions[0]?.textContent || 'Published directory';
+    const tat = regionalDirectoryTat(test, region);
     const tip = document.createElement('div');
     tip.id = 'tat-hover-preview';
     tip.className = 'no-print';
@@ -2577,9 +2580,9 @@
     Object.assign(tip.style, {position:'fixed',zIndex:'10000',width:'min(320px, calc(100vw - 24px))',padding:'14px',border:'1px solid #d6e0e8',borderRadius:'12px',background:'#fff',color:'#172b40',boxShadow:'0 8px 28px rgba(20,40,60,.16)',fontSize:'12px',lineHeight:'1.5',pointerEvents:'none',boxSizing:'border-box'});
     const row = (label, value) => '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:6px 0;border-top:1px solid #e7edf1"><span style="color:#526579">' + escapeHtml(label) + '</span><strong style="text-align:right">' + escapeHtml(value) + '</strong></div>';
     tip.innerHTML = '<div style="font-weight:800;color:var(--brand-dark,#00666e);font-size:11px;letter-spacing:.04em">TAT &amp; TEST SETUP</div><div style="font-size:14px;font-weight:750;margin:5px 0 8px">' + escapeHtml(displayCode(test) + ' · ' + test.testName) + '</div>' +
-      row('Routine TAT', tat[0]) + row('Test setup', tat[3] || 'Not verified') +
+      row('Region', regionLabel) + row('Routine TAT', tat ? tat[0] : 'Not verified') + row('Test setup', tat?.[3] || 'Not verified') +
       (test.isStat || statSelectedIds.includes(test.id) ? row('STAT TAT','Not verified') : '') +
-      '<div style="font-size:11px;color:#526579;margin-top:8px">' + escapeHtml(tat[2] === 'CA/NV' ? 'California/Nevada directory; confirm other areas.' : 'Labcorp directory; timing starts at pickup.') + ' Estimates may vary with schedules and reflex testing.</div>';
+      '<div style="font-size:11px;color:#526579;margin-top:8px">' + escapeHtml(tat ? (tat[2] === 'CA/NV' ? 'California/Nevada directory; confirm local performing lab.' : 'Labcorp directory; timing starts at pickup.') : 'No region-specific estimate verified.') + ' Estimates may vary with schedules and reflex testing.</div>';
     document.body.appendChild(tip);
     const rect = button.getBoundingClientRect();
     const gap = 10;
@@ -2593,36 +2596,54 @@
     button.setAttribute('aria-describedby', tip.id);
   }
 
-  function showPilotTat(test) {
-    if (!test) return;
-    const tat = pilotTat(test);
-    if (!tat) return;
-    const [time, max, scope, schedule] = tat;
-    const lines = [
-      'Routine turnaround: ' + time,
-      'Test setup: ' + (schedule || 'Schedule not verified'),
-      'Service area: California/Nevada; confirm local applicability.',
-      ...(test.isStat || statSelectedIds.includes(test.id) ? ['STAT turnaround: Not verified'] : []),
-      '',
-      'Directory checked November 19, 2026. Schedules and reflex testing may extend turnaround. See the official directory for current details.'
-    ];
-    void window.PortalDialog.alert(lines.join('\n'), {
-      title: 'TAT & Test Setup',
-      subject: displayCode(test) + ' · ' + test.testName,
-      kicker: 'LAB DIRECTORY',
-      confirmLabel: 'Close',
-      tone: 'info'
-    });
-  }
 
-
-  function regionalPanelTat(test, region) {
+  function regionalDirectoryTat(test, region) {
     const tat = pilotTat(test);
-    if (!tat || test.isStat) return null;
-    // Only use existing published scopes; never infer a regional result from a different market.
+    if (!tat) return null;
     if (region === 'directory') return tat;
     if ((region === 'socal' || region === 'norcal') && tat[2] === 'CA/NV') return tat;
     return null;
+  }
+
+  function regionalPanelTat(test, region) {
+    return test.isStat ? null : regionalDirectoryTat(test, region);
+  }
+
+  function showPilotTat(test) {
+    if (!test || !pilotTat(test)) return;
+    const cartFilter = $('tatRegionFilter');
+    if (!cartFilter || document.getElementById('tatSetupDialog')) return;
+    const dialog = document.createElement('dialog');
+    dialog.id = 'tatSetupDialog';
+    dialog.className = 'portal-action-dialog has-subject no-print';
+    dialog.setAttribute('aria-labelledby','tatSetupTitle');
+    dialog.innerHTML = '<div class="portal-action-content"><header class="portal-action-header"><span class="portal-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div class="portal-action-heading"><span class="portal-action-kicker">LAB DIRECTORY</span><h2 id="tatSetupTitle">TAT &amp; Test Setup</h2></div></header><div class="portal-action-subject">' + escapeHtml(displayCode(test) + ' · ' + test.testName) + '</div><div class="portal-action-message" style="white-space:normal"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:6px 0 14px"><label for="tatPopupRegion" style="font-weight:750">Region</label><select id="tatPopupRegion" style="width:auto;max-width:100%;min-width:140px;padding:7px 10px;border:1px solid #d9dfe8;border-radius:8px;background:#fff;color:var(--brand-dark,#00666e);font:inherit;font-weight:700"></select></div><div id="tatPopupResults" aria-live="polite"></div></div><footer class="portal-action-buttons"><button type="button" class="portal-action-proceed">Close</button></footer></div>';
+    const select = dialog.querySelector('#tatPopupRegion');
+    Array.from(cartFilter.options).forEach(item => select.add(new Option(item.text, item.value)));
+    select.value = cartFilter.value;
+    const results = dialog.querySelector('#tatPopupResults');
+    function refresh() {
+      const region = select.value;
+      const regionLabel = select.selectedOptions[0]?.textContent || 'Published directory';
+      const tat = regionalDirectoryTat(test, region);
+      const row = (label,value) => '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:9px 0;border-top:1px solid #e7edf1"><span>' + escapeHtml(label) + '</span><strong style="text-align:right;color:#30224f">' + escapeHtml(value) + '</strong></div>';
+      results.innerHTML = row('Routine TAT',tat ? tat[0] : 'Not verified') +
+        row('Test setup',tat?.[3] || 'Not verified') +
+        (test.isStat || statSelectedIds.includes(test.id) ? row('STAT TAT','Not verified') : '') +
+        '<div style="font-size:12px;margin-top:8px">' + escapeHtml(tat ? (tat[2] === 'CA/NV' ? 'California/Nevada directory estimate; confirm the local performing lab.' : 'General Labcorp directory; timing starts at pickup.') : 'No region-specific estimate has been verified for ' + regionLabel + '.') + ' Schedules and reflex testing may extend turnaround.</div>' +
+        (tat ? '<div style="margin-top:9px"><a class="reference-link" href="' + escapeAttr(tat[4]) + '" target="_blank" rel="noopener noreferrer">Official directory ↗</a></div>' : '');
+    }
+    select.addEventListener('change', () => {
+      cartFilter.value = select.value;
+      cartFilter.dispatchEvent(new Event('change', {bubbles:true}));
+      refresh();
+    });
+    dialog.querySelector('button').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', () => dialog.remove(), {once:true});
+    refresh();
+    document.body.appendChild(dialog);
+    try { dialog.showModal(); } catch (error) { dialog.remove(); }
   }
 
   function renderTurnaroundTime(tests) {
