@@ -6114,9 +6114,11 @@
     if (code === '081162') {
       return [
         { key: '081162-metal-free-plasma', label: 'Metal-Free Plasma Transport Tube',
-          className: 'tube-transport', count: 1, detail: 'Separated plasma in acid-washed metal-free tube · refrigerate' },
+          className: 'tube-transport', count: 1, outputSpecimenType: 'Plasma', sharedSplitSource: true,
+          detail: 'Separated plasma in acid-washed metal-free tube · refrigerate' },
         { key: '081162-metal-free-rbcs', label: 'Metal-Free Packed RBC Transport Tube',
-          className: 'tube-transport', count: 1, detail: 'Packed RBCs in a DIFFERENT acid-washed metal-free tube · refrigerate' }
+          className: 'tube-transport', count: 1, outputSpecimenType: 'RBCs', sharedSplitSource: true,
+          detail: 'Packed RBCs in a DIFFERENT acid-washed metal-free tube · refrigerate' }
       ];
     }
     // Orotic acid and urine creatinine are separate aliquots that travel in
@@ -6140,8 +6142,9 @@
           className: 'tube-sst', originalTube: true, count: 1,
           detail: 'Vitamin A / E · serum aliquot · keep at room temperature' },
         { key: 'vitamin-profile-amber-' + code, label: 'Amber Serum Transport Tube (Beta-Carotene)',
-          className: 'tube-amber', count: 1,
-          detail: 'Separate serum aliquot · protect from light · room temperature' }
+          className: 'tube-amber', count: 1, sourceAlreadyCounted: true,
+          outputSpecimenType: 'Serum',
+          detail: 'Separate beta-carotene serum aliquot · protect from light · room temperature' }
       ];
     }
     // Plain urine aliquot transport tubes/containers can use the same sterile
@@ -6713,7 +6716,7 @@
     const contexts = (item.printVisualGroupParts || [item]).flatMap(part =>
       uniqueTests(part.tests || []).map(test => ({ test, part })));
     contexts.forEach(({ test, part }) => {
-      const result = conciseSpecimenLabel(test, part);
+      const result = conciseSpecimenLabel(specimenForSubmissionItem(test, part), part);
       const code = displayCode(test);
       if (result.label) {
         const key = normalizedLabelComparison(result.label);
@@ -6777,11 +6780,24 @@
       .reduce((sum, item) => sum + Math.max(Number(item.count) || 0, 0), 0);
   }
 
+  // A single order can have an original-tube submission AND a transfer.
+  // Determine the source from the actual output card, not the primary route.
+  function isTransferForSubmissionItem(test, item) {
+    if (!item || item.originalTube) return false;
+    if (isTransferSubmission(test)) return true;
+    return splitSubmissionContainers(test).some(route => route.key === item.key && !route.originalTube);
+  }
+
+  // Display the actual output material without changing collection estimates.
+  function specimenForSubmissionItem(test, item) {
+    return item.outputSpecimenType ? { ...test, specimenType: item.outputSpecimenType } : test;
+  }
+
   function submissionSourceGroupsForItem(item) {
     const badges = new Map();
     if (!item || item.originalTube) return badges;
     uniqueTests(item.tests || []).forEach(test => {
-      if (!isTransferSubmission(test)) return;
+      if (!isTransferForSubmissionItem(test, item)) return;
       const source = canonicalCollectionContainer(test);
       if (!source.label || !source.className) return;
       const key = `${source.className}|${source.label}`;
@@ -6802,7 +6818,7 @@
     // to Collect intentionally draws the sum of those card-level counts.
     contents.forEach(item => {
       submissionSourceGroupsForItem(item).forEach(group => {
-        if (!isBloodTransferSourceGroup(group.tests)) return;
+        if (!isBloodTransferSourceGroup(group.tests) || item.sourceAlreadyCounted || item.sharedSplitSource) return;
         const sourceCount = transferSourceTubeCountForItemTests(group.tests, group.source);
         if (!item.sourceCountOverrides) item.sourceCountOverrides = new Map();
         item.sourceCountOverrides.set(group.key, Math.max(sourceCount, 1));
@@ -6824,6 +6840,10 @@
       if (/\bwhole blood\b/.test(specimen)) return ['Whole Blood', 'blood'];
       if (/\bblood\b/.test(specimen)) return ['Blood', 'blood'];
       if (/\bswab\b/.test(specimen)) return ['Swab', 'swab'];
+      if (/\b(?:csf|cerebrospinal)\b/.test(specimen)) return ['CSF', 'csf'];
+      if (/\bsputum\b/.test(specimen)) return ['Sputum', 'sputum'];
+      if (/\b(?:fluid|saliva|semen|bile)\b/.test(specimen)) return [titleCaseSpecimen(specimen), 'fluid'];
+      if (/\btissue\b/.test(specimen)) return ['Tissue', 'other'];
       return ['Specimen', 'other'];
     });
     const labels = new Map(categories.map(([label, color]) => [label, color]));
@@ -6839,19 +6859,21 @@
 
     return `<span class="print-source-badges">${Array.from(badges.values()).map(({ key, source, tests }) => {
       const hasOverride = item.sourceCountOverrides instanceof Map && item.sourceCountOverrides.has(key);
-      const sourceCount = hasOverride ? item.sourceCountOverrides.get(key) : transferSourceTubeCountForItemTests(tests, source);
-      const showSourceCount = source.className !== 'tube-urine-cup';
+      const sharedSource = item.sourceAlreadyCounted || item.sharedSplitSource;
+      const sourceCount = sharedSource ? 0 : (hasOverride ? item.sourceCountOverrides.get(key) : transferSourceTubeCountForItemTests(tests, source));
+      const showSourceCount = source.className !== 'tube-urine-cup' && !sharedSource;
       const countBadge = showSourceCount && sourceCount > 0 ? `<span class="print-source-count">${sourceCount}</span>` : '';
       const displayClass = source.className === 'tube-sst' ? selectedSstVisualClass() : source.className;
       // Keep the number, icon, and entire "From ..." source inside the original pill.
       // Only the separate "· Spin" processing cue belongs outside the pill.
-      const spun = uniqueTests(tests).length > 0 && uniqueTests(tests).every(test => {
+      const outputTests = uniqueTests(tests).map(test => specimenForSubmissionItem(test, item));
+      const spun = outputTests.length > 0 && outputTests.every(test => {
         const specimen = normalizeSpecimenType(test.specimenType).toLowerCase();
         return /^(?:serum|plasma|platelet[- ]poor plasma|rbcs?|red blood cells)$/.test(specimen)
           && /^yes$/i.test(String(test.spin || '').trim());
       });
       const sourceLabel = source.label;
-      const specimen = printTransferSpecimenType(tests);
+      const specimen = printTransferSpecimenType(outputTests);
       const specimenCue = `<span class="print-source-specimen source-${specimen.color}">${escapeHtml(specimen.label)}</span>`;
       // The upward arrow sits before the intact pill, while specimen identity,
       // From spun/source wording, tube icon and quantity all remain inside it.
@@ -6885,7 +6907,8 @@
   // Printed submission cards show the specimen identity separately from the
   // container. This is display-only: no pooling, label, or shipment changes.
   function printBagSpecimenBadge(item) {
-    const categories = (item.tests || []).map(test => {
+    const categories = (item.tests || []).map(originalTest => {
+      const test = specimenForSubmissionItem(originalTest, item);
       const specimen = normalizeSpecimenType(test.specimenType).toLowerCase().trim();
       if (/\b(?:stool|feces|fecal|faeces|faecal)\b/.test(specimen)) return ['Stool', 'stool'];
       if (/\burine\b/.test(specimen)) return ['Urine', 'urine'];
@@ -6917,7 +6940,18 @@
     if (badges) {
       // A few device-specific handling instructions are more than a generic
       // source line and should remain visible, in addition to the transfer cue.
-      const critical = /fully saturate|do not pour|\b\d+\s*seconds?\b/i.test(detail) ? detail : '';
+      const handling = [];
+      if (item.sourceAlreadyCounted) handling.push('Use collection SST already counted; retain enough serum for original submission');
+      if (item.sharedSplitSource) handling.push('Same collection source for both outputs; verify sufficient yield of each material');
+      if (item.sourceAlreadyCounted || item.sharedSplitSource ||
+          /fully saturate|do not pour|\b\d+\s*seconds?\b|protect from light|freeze immediately|freeze separate aliquot|fill (?:to|line)|acid[- ]washed|preserv|separate aliquot|record total volume/i.test(detail)) {
+        let retained = detail;
+        const prefix = (item.tests || []).map(specimenSourceDetail).find(source =>
+          source && retained.startsWith(source + ' · '));
+        if (prefix) retained = retained.slice(prefix.length + 3);
+        if (retained) handling.push(retained);
+      }
+      const critical = handling.join(' · ');
       return `<div class="print-submit-item-detail">${badges}${critical ? `<span class="print-source-extra">${escapeHtml(critical)}</span>` : ''}</div>`;
     }
     // Original-tube submission is a handling instruction, not a specimen label.
