@@ -517,6 +517,147 @@
         "specialLabeling": "Label SERUM and document collection date/time"
       }
     ]
+  },
+  {
+    "id": "quest-verified-panel-20400",
+    "testCode": "20400",
+    "testName": "Helicobacter pylori and Clarithromycin Resistance, PCR, Miscellaneous",
+    "status": "active",
+    "specimenType": "Stool",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Cary-Blair Stool Culture Transport Vial",
+    "preferredVolume": "5 mL liquid or soft stool",
+    "minimumVolume": "5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "spin": "No",
+    "stability": "Room temperature: 30 days Refrigerated: 30 days Frozen: Unacceptable",
+    "specialInstructions": "Stool workflow. Collect liquid or soft stool in a clean, dry cup without urine or water contamination. Transfer to Cary-Blair medium up to the fill line, mix, and submit the vial at room temperature. Do not freeze. For non-stool specimen types use the Quest specimen-specific instructions.",
+    "specialLabeling": "Label STOOL · CARY-BLAIR",
+    "clinicalCategories": [
+      "gastrointestinal",
+      "microbiology"
+    ],
+    "searchAliases": [
+      "h pylori clarithromycin resistance",
+      "h pylori stool pcr"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/20400/?cc=MASTER"
+  },
+  {
+    "id": "quest-verified-panel-30427",
+    "testCode": "30427",
+    "testName": "Drug Screen Panel 9, Meconium",
+    "status": "active",
+    "specimenType": "Stool",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Sterile cup",
+    "preferredVolume": "5 g meconium",
+    "minimumVolume": "1 g",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "No",
+    "stability": "Room temperature: 48 hours Refrigerated: 7 days Frozen: 30 days",
+    "specialInstructions": "Submit meconium in its original sterile leak-proof screw-cap cup without additives. Refrigerate and ship with cold packs. Do not pool with routine stool or transfer to stool preservative.",
+    "specialLabeling": "Label MECONIUM",
+    "clinicalCategories": [
+      "toxicology",
+      "pregnancy"
+    ],
+    "searchAliases": [
+      "meconium drug screen",
+      "meconium panel 9",
+      "neonatal drug screen"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/30427/?cc=MASTER"
+  },
+  {
+    "id": "quest-verified-panel-91976",
+    "testCode": "91976",
+    "testName": "Mitogen-induced Lymphocyte Proliferation Panel (PHA, Con A, PWM)",
+    "status": "active",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Green Sodium Heparin",
+    "transportContainer": "Green Sodium Heparin",
+    "preferredVolume": "10 mL whole blood",
+    "minimumVolume": "5 mL",
+    "collectionCount": 3,
+    "submissionCount": 3,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "spin": "No",
+    "stability": "Room temperature: 48 hours Refrigerated: Unacceptable Frozen: Unacceptable",
+    "specialInstructions": "Prior arrangement required. Confirm tube size, quantity and transport with Quest Referral Testing before collection. The calculator estimates 3 standard 4 mL tubes to meet the preferred total. Use sodium heparin and submit the original unspun tubes at room temperature. Do not refrigerate or freeze. Submit Monday through Thursday, excluding the day before a holiday. Specimen must arrive at the testing lab within 48 hours. Record draw date and time.",
+    "specialLabeling": "Label WHOLE BLOOD · SODIUM HEPARIN · draw date/time",
+    "clinicalCategories": [
+      "immunology",
+      "hematology"
+    ],
+    "searchAliases": [
+      "lymphocyte proliferation",
+      "lymphocyte stimulation"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/91976/?cc=MASTER"
+  },
+  {
+    "id": "quest-verified-panel-91977",
+    "testCode": "91977",
+    "testName": "Antigen-induced Lymphocyte Proliferation Panel (Candida, Tetanus, TB PPD)",
+    "status": "active",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Green Sodium Heparin",
+    "transportContainer": "Green Sodium Heparin",
+    "preferredVolume": "10 mL whole blood",
+    "minimumVolume": "5 mL",
+    "collectionCount": 3,
+    "submissionCount": 3,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "spin": "No",
+    "stability": "Room temperature: 48 hours Refrigerated: Unacceptable Frozen: Unacceptable",
+    "specialInstructions": "Prior arrangement required. Confirm tube size, quantity and transport with Quest Referral Testing before collection. The calculator estimates 3 standard 4 mL tubes to meet the preferred total. Use sodium heparin and submit the original unspun tubes at room temperature. Do not refrigerate or freeze. Submit Monday through Thursday, excluding the day before a holiday. Specimen must arrive at the testing lab within 48 hours. Record draw date and time.",
+    "specialLabeling": "Label WHOLE BLOOD · SODIUM HEPARIN · draw date/time",
+    "clinicalCategories": [
+      "immunology",
+      "hematology"
+    ],
+    "searchAliases": [
+      "lymphocyte proliferation",
+      "lymphocyte stimulation"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/91977/?cc=MASTER"
+  },
+  {
+    "id": "quest-verified-panel-91978",
+    "testCode": "91978",
+    "testName": "Mitogen- and Antigen-induced Lymphocyte Proliferation Panel",
+    "status": "active",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Green Sodium Heparin",
+    "transportContainer": "Green Sodium Heparin",
+    "preferredVolume": "20 mL whole blood",
+    "minimumVolume": "10 mL",
+    "collectionCount": 5,
+    "submissionCount": 5,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "spin": "No",
+    "stability": "Room temperature: 48 hours Refrigerated: Unacceptable Frozen: Unacceptable",
+    "specialInstructions": "Prior arrangement required. Confirm tube size, quantity and transport with Quest Referral Testing before collection. The calculator estimates 5 standard 4 mL tubes to meet the preferred total. Use sodium heparin and submit the original unspun tubes at room temperature. Do not refrigerate or freeze. Submit Monday through Thursday, excluding the day before a holiday. Specimen must arrive at the testing lab within 48 hours. Record draw date and time.",
+    "specialLabeling": "Label WHOLE BLOOD · SODIUM HEPARIN · draw date/time",
+    "clinicalCategories": [
+      "immunology",
+      "hematology"
+    ],
+    "searchAliases": [
+      "lymphocyte proliferation",
+      "lymphocyte stimulation"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/91978/?cc=MASTER"
   }
 ];
   const existing = new Map(window.SEED_TESTS.map(record => [String(record.testCode || '').trim(), record]));
