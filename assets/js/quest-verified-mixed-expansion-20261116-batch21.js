@@ -30,9 +30,9 @@ const additions=[
     "testCode": "34972",
     "testName": "Varicella-Zoster Virus (VZV) Antibodies (Total, IgM), ACIF/IFA, CSF",
     "specimenType": "CSF",
-    "drawContainer": "Transport Tube",
+    "drawContainer": "Sterile cup",
     "alternativeContainer": "",
-    "transportContainer": "Transport Tube",
+    "transportContainer": "Sterile cup",
     "preferredVolume": "1 mL CSF",
     "minimumVolume": "0.2 mL",
     "collectionCount": 1,
@@ -42,7 +42,7 @@ const additions=[
     "spin": "No",
     "stability": "Room 7 days; refrigerated 14 days; frozen 30 days",
     "specialLabeling": "Label specimen source and collection date/time",
-    "specialInstructions": "Qualified procedural clinician obtains CSF into a sterile plastic leakproof screw-cap Transport Tube. Submit original CSF specimen without routine spin or transfer. Label precise CSF source, collection date/time and identifiers. Includes VZV total and IgM CSF antibodies, do not order separate constituent tests unless separately indicated. Grossly hemolyzed, lipemic or icteric specimen unacceptable. Confirm local receiving Quest account.",
+    "specialInstructions": "Qualified procedural clinician obtains CSF into a sterile plastic leakproof screw-cap cup. Submit original CSF specimen without routine spin or transfer. Label precise CSF source, collection date/time and identifiers. Includes VZV total and IgM CSF antibodies, do not order separate constituent tests unless separately indicated. Grossly hemolyzed, lipemic or icteric specimen unacceptable. Confirm local receiving Quest account.",
     "source": "Quest official test directory, reviewed 2026-11-16 • https://testdirectory.questdiagnostics.com/test/test-detail/34972/?cc=MASTER"
   },
   {
