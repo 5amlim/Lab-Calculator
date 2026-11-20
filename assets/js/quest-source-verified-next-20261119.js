@@ -4,6 +4,36 @@
   if (!Array.isArray(window.SEED_TESTS)) return;
   const additions = [
   {
+    "id": "quest-directory-next-6775",
+    "testCode": "6775",
+    "testName": "Amylase and Lipase",
+    "status": "active",
+    "specimenType": "Serum",
+    "drawContainer": "SST / Gold",
+    "alternativeContainer": "",
+    "transportContainer": "SST / Gold (spun)",
+    "preferredVolume": "2 mL serum",
+    "minimumVolume": "1 mL serum",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room Temperature",
+    "spin": "Yes",
+    "specialLabeling": "Label SERUM · SST",
+    "specialInstructions": "Collect in Gold SST (or Tiger SST), allow clotting and centrifuge. Submit the original spun SST at room temperature; no transfer required. Grossly hemolyzed or grossly icteric specimens are rejected. Toxic acetaminophen exposure (NAPQI) may cause falsely low results. Quest lists this code as unavailable in some locations; verify receiving service-area availability before collection.",
+    "stability": "Room temperature: 7 days Refrigerated: 7 days Frozen: 30 days",
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/6775/?cc=MASTER",
+    "searchAliases": [
+      "amylase lipase",
+      "amylase and lipase panel",
+      "pancreatic enzymes"
+    ],
+    "clinicalCategories": [
+      "chemistry",
+      "gastrointestinal"
+    ]
+  },
+  {
     "id": "quest-directory-next-338",
     "testCode": "338",
     "testName": "Cholinesterase, RBC and Plasma",
