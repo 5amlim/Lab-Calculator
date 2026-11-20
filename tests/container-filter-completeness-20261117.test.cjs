@@ -25,7 +25,7 @@ function fixture(id, specimenType, drawContainer, transportContainer, transportT
 }
 
 function loadedCalculator(appFile) {
-  const window = { QUEST_MISSING_DIRECTORY_READY: Promise.resolve(0), SEED_TESTS: [
+  const window = { SEED_TESTS: [
     fixture('cary', 'Stool', 'Sterile cup', 'Cary-Blair Stool Culture Transport Vial'),
     fixture('totalfix', 'Stool', 'Sterile cup', 'Total-Fix® Transport Vial'),
     fixture('op-pair', 'Stool', 'Sterile cup', 'Pink Formalin O&P Vial + Gray PVA O&P Vial'),
@@ -45,6 +45,8 @@ function loadedCalculator(appFile) {
     fixture('frozen', 'Plasma', 'Green Lithium Heparin',
       'Dedicated Frozen Polypropylene Plasma Transport Tube', 'Frozen')
   ] };
+  window.parent = window;
+  window.addEventListener = () => {};
   const elements = new Map();
   const makeElement = () => ({
     value: '', checked: false, options: [], dataset: {},
@@ -82,8 +84,11 @@ for (const [name, page, app] of calculators) {
       '24h-urine','transport','stool-other'])
       assert(filter.includes('<option value="' + key + '"'), key + ' missing');
     for (const choice of ['Cary-Blair Stool Culture Transport Vial','Total-Fix® Transport Vial',
-      'Pink Formalin O&P Vial','Gray PVA O&P Vial','Salivette Saliva Collection Device',
-      'Blood Culture Bottles','Microtainer'])
+      'Pink Formalin O&P Vial','Gray PVA O&P Vial','Salivette Saliva Collection Device (blue cap)',
+      'Blood Culture Bottles','Microtainer Gold SST','Microtainer Lavender K2 EDTA',
+      'Microtainer Green Lithium Heparin','Microtainer Mint Green PST',
+      'Microtainer Gray Fluoride/EDTA','Microtainer Red Top (serum)',
+      'Amber Microtainer SST','Amber Microtainer PST'])
       for (const [field, markup] of [['draw',draw], ['transport',transport]])
         assert.equal(markup.split('>' + choice + '</option>').length - 1, 1,
           name + ' ' + field + ' missing/duplicate: ' + choice);

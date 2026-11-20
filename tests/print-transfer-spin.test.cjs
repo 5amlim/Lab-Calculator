@@ -14,13 +14,12 @@ for (const [lab, script] of [['Quest', 'assets/js/app.js'], ['LabCorp', 'labcorp
   const end = source.indexOf('function printStabilityForTemperature(test) {', begin);
   assert(begin >= 0 && end > begin, lab + ': missing print-detail formatter');
   const ctx = {
-    menuContainerBadges: test => '<span class="container-path is-' + (test.transfer ? 'transfer' : 'single') + '">' +
+    menuSingleContainerPath: test => '<span class="container-path is-' + (test.transfer ? 'transfer' : 'single') + '">' +
       '<span class="container-path-source"><span class="badge tube tube-sst">Gold / SST</span></span>' +
       (test.transfer ? '<span class="container-path-arrow" role="img" aria-label="Then transfer to">↓</span>' +
         '<span class="container-path-submit"><span class="badge tube tube-transport">Transport tube</span></span>' : '') + '</span>',
-    additionalDrawRequirements: test => test.additionalDrawRequirements || [],
     normalizeSpecimenType: value => String(value || ''),
-    specimenClass: () => 'specimen-serum',
+    specimenBadge: value => '<span>' + value + '</span>',
     escapeHtml: value => String(value),
   };
   const render = vm.runInNewContext(source.slice(begin, end) + '; printDetailContainerPath', ctx);
