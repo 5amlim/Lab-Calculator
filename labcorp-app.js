@@ -595,9 +595,17 @@
     const byKey = new Map(builtIns.map((test, i) => [databaseKey(test), i]));
     (state.overrides || []).map(normalizeRecord).forEach(override => {
       const index = byId.get(override.id) ?? byKey.get(databaseKey(override));
-      if (index !== undefined) builtIns[index] = override;
+      if (index === undefined) return;
+      const base = builtIns[index];
+      if (base.status === 'blocked') return;
+      builtIns[index] = override;
     });
-    const customTests = (state.customTests || []).map(normalizeRecord);
+    const blockedByCode = new Map(builtIns.filter(test => test.status === 'blocked' && test.testCode)
+      .map(test => [test.testCode, test]));
+    const customTests = (state.customTests || []).map(normalizeRecord).map(test => {
+      const blocked = blockedByCode.get(test.testCode);
+      return blocked ? { ...test, status: 'blocked', specialInstructions: blocked.specialInstructions } : test;
+    });
     return [...customTests, ...builtIns].map(verifiedAffirmRecord).map(blockHairOrNailSpecimen);
   }
 
@@ -3434,7 +3442,7 @@
   }
 
   function selectedTests() {
-    return selectedIds.map(id => database.find(test => test.id === id)).filter(Boolean)
+    return selectedIds.map(id => database.find(test => test.id === id)).filter(test => test?.status === 'active')
       .map(test => ({ ...withSelectedCultureTransport(test), isStat: isStatEligible(test) && statSelectedIds.includes(test.id) }));
   }
 
