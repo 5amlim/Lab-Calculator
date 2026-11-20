@@ -317,3 +317,28 @@ test('Labcorp CBC and ESR profile ships the two original EDTA tubes at distinct 
   assert.deepEqual(edta.flatMap(item => item.tests.map(test => test.transportTemperature)).sort(),
     ['Refrigerated', 'Room Temperature']);
 });
+
+test('Labcorp paired blood and urine glucose tolerance orders keep each specimen separate', async () => {
+  const api = await openCalc('labcorp-app.js',
+    ['assets/js/labcorp/catalog/directory-reconciliation-20261119.js']);
+  for (const [code, count] of [['203216', 4], ['203224', 5], ['203232', 6], ['203240', 7],
+    ['203257', 8], ['211193', 3], ['239830', 2]]) {
+    const result = plan(api, [api.database.find(record => record.testCode === code)]);
+    assert.equal(result.collectedCount, count * 2, code);
+    assert.equal(result.submittedCount, count * 2, code);
+    const cups = result.submitted.filter(item => item.label === 'Sterile cup');
+    assert.equal(cups.reduce((total, item) => total + item.count, 0), count, code);
+    assert(cups.every(item => item.originalTube), code);
+  }
+});
+
+test('Labcorp urinalysis reflex culture transfers one urine collection to both transport tubes', async () => {
+  const api = await openCalc('labcorp-app.js',
+    ['assets/js/labcorp/catalog/directory-reconciliation-20261119.js']);
+  const result = plan(api, [api.database.find(record => record.testCode === '377069')]);
+  assert.equal(result.collectedCount, 1);
+  assert.equal(result.submittedCount, 2);
+  assert(result.submitted.every(item => !item.originalTube));
+  assert.deepEqual(result.submitted.map(item => item.label).sort(),
+    ['Gray-Top Urine Culture Preservative Tube', 'Red/Yellow Swirl UA Preservative Tube']);
+});

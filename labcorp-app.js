@@ -5889,7 +5889,7 @@
     tests.filter(usesSpotUrineCup).forEach(test => {
       const urineType = urineCollectionType(test);
       const dedicated = requiresSeparateUrineCollection(test);
-      const key = dedicated ? `${urineType.key}|separate|${test.sourceTestId || test.id}` : urineType.key;
+      const key = dedicated ? `${urineType.key}|separate|${test.id}` : urineType.key;
       if (!spotUrineGroups.has(key)) spotUrineGroups.set(key, { ...urineType, key, dedicated, tests: [] });
       spotUrineGroups.get(key).tests.push(test);
     });
