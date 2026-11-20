@@ -349,7 +349,8 @@
   {
     "id": "labcorp-directory-20261119-067918",
     "testCode": "067918",
-    "testName": "3>",
+    "testName": "3> <Allergens without IgE",
+    "searchAliases": ["allergens without IgE"],
     "status": "active",
     "specimenType": "Serum",
     "drawContainer": "SST / Gold",

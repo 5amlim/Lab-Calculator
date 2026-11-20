@@ -65,10 +65,29 @@
   ['toxicology', /\b(?:acetaminophen|salicylate|cyanide|carboxyhemoglobin|ethylene glycol|alcohol (?:methyl|ethyl|isopropyl))\b/],
   ['genetics', /\b(?:dna analysis|notch3|cadasil)\b/],
   ['vitamins', /\b(?:hydroxyvitamin|homocyst e ine|coenzyme q10|carotene)\b/],
+  ['allergy', /\b(?:allergens|basofunction|regional allergy|allergen components|penicilloyl)\b/],
+  ['autoimmune', /\b(?:myomarker|seroneg radx\d*|radx\d+ profile|sjo gren|antihistone|antichromatin|antiparietal cell|intrinsic factor blocking|anti (?:histone|synthetase|mitochondrial|scl 70|rna polymerase iii|dense fine speckled|ro52|mcv|carbamylated protein|glomerular basement membrane)|(?:beta )?2 glycoprotein 1 antibodies)\b|^anti (?:u[23] rnp|mda 5|ku|mi 2|pm scl|pl (?:7|12)|ej|oj|srp|tif 1gamma|nxp 2|cn 1a|th to)\b/],
+  ['chemistry', /\b(?:amino acid (?:analysis|profile)|c reactive protein|crp|macroamylase|creatinine clearance|cmp\d*|bmp\d*|trimethylamine n oxide)\b/],
+  ['coagulation', /\b(?:ristocetin|protein [cs] (?:antigen|free|total)|(?:beta )?2 glycoprotein 1 antibodies)\b/],
+  ['endocrinology', /\b(?:glucagon|inhibin [ab]|amenorrhea|pregnenolone|21 hydroxylase|17 oh progesterone|oxo androgens|deoxycortisol|c telopeptide|osteocalcin)\b/],
+  ['genetics', /\b(?:qherit|lynch syndrome|lynch panel|cystic fibrosis carrier|hla (?:typing|genotyping)|accutype)\b/],
+  ['gi', /\b(?:celiac|coeliac|tissue transglutaminase|deamidated gliadin|endomysial antibodies)\b/],
+  ['heavy-metals', /^(?:silver|tin|tungsten|tellurium|bismuth|barium|vanadium|antimony|molybdenum|platinum|thorium|beryllium|zirconium|boron)\b/],
+  ['hematology', /\b(?:hemogram|erythropoietin|cbc(?:d|dp))\b/],
+  ['hepatic', /\b(?:5 nucleotidase|primary biliary cholangitis|macroamylase)\b/],
+  ['immunology', /\b(?:igd|interleukin|il (?:1|2|4|5|6|8|10|12|13|17|18|23|31|33)|hla|tetanus and diphtheria antibody)\b/],
+  ['infectious', /\b(?:hcv|hbv|hav|hev|fta abs|adenovirus|enterovirus|coxsackie|dengue|ehrlichia|aspergillus|herpesvirus|clostridium difficile|rabies vaccine)\b/],
+  ['oncology', /\b(?:chromogranin a|prostatic acid phosphatase)\b/],
+  ['parasitology', /\b(?:echinococcus|trichinella|taenia|fasciola)\b/],
+  ['pregnancy', /\b(?:human placental lactogen|maternal serum screen|fetomaternal|fetal hemoglobin screen)\b/],
+  ['renal', /\b(?:litholink|cmp\d*|bmp\d*|anti glomerular basement membrane)\b/],
+  ['sti', /\bfta abs\b/],
+  ['tdm', /\b(?:amikacin|nortriptyline|amitriptyline|imipramine|desipramine|doxepin|ethosuximide|topiramate|zonisamide|gabapentin|oxcarbazepine|clozapine|primidone|venlafaxine|lacosamide|pregabalin|felbamate|brivaracetam|clobazam|tiagabine|vigabatrin|methotrexate|lidocaine|quinidine|procainamide|disopyramide|mexiletine|flecainide|propafenone|carisoprodol|ustekinumab|vedolizumab|adalimumab|infliximab|antidepressant drug profile|antipsychotic drug profile)\b/],
+  ['toxicology', /\b(?:meconium|toxassure|tetrahydrocannabinol|benzodiazepines|amphetamines|opiates|acetylmorphine|organochlorine pesticides|tapentadol|morphine|tramadol|oxycodone|drug abuse)\b/],
   ['body-fluids', /\b(?:synovial joint fluid|joint fluid)\b/]
  ];
 
- const normalize = x => String(x||'').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g,' ').trim();
+ const normalize = x => String(x||'').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
  const definitions=data.map(([id,label,extra,pattern])=>({id,label,terms:[label,...extra.split('|'),id],pattern}));
  const aliases=new Map();
  for(const d of definitions) for(const term of d.terms){

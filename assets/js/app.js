@@ -243,6 +243,16 @@
   // Additional catalog-name variants shared by Quest and Labcorp.
   // These are search hints only; they never substitute an order code.
   const SMART_LAB_ALIAS_RULES = [
+    { name: /^(?:creatinine clearance|creatinine clearance test)\b/, terms: ['crcl', 'cr clearance', 'creat clearance'] },
+    { name: /^(?:5 hiaa|5 hydroxyindoleacetic acid)\b/, terms: ['5hiaa', '5 hiaa', '5 hydroxyindoleacetic acid'] },
+    { name: /^(?:angiotensin(?: 1)? converting enzyme|ace)\b/, terms: ['ace level', 'ace', 'angiotensin converting enzyme'] },
+    { name: /^(?:erythropoietin|epo)\b/, terms: ['epo', 'erythropoietin'] },
+    { name: /^(?:17 hydroxyprogesterone|17 oh progesterone|17 ohp)\b/, terms: ['17ohp', '17 ohp', '17 oh progesterone', '17 hydroxyprogesterone'] },
+    { name: /^(?:c telopeptide|ctx)\b/, terms: ['ctx', 'c telopeptide'] },
+    { name: /^(?:intrinsic factor blocking antibod(?:y|ies)|intrinsic factor antibod(?:y|ies))\b/, terms: ['ifab', 'intrinsic factor ab'] },
+    { name: /^(?:tissue transglutaminase|transglutaminase tissue)\b.*\biga\b/, terms: ['ttg iga', 'iga ttg', 'tissue transglutaminase iga'] },
+    { name: /^(?:tissue transglutaminase|transglutaminase tissue)\b.*\bigg\b/, terms: ['ttg igg', 'igg ttg', 'tissue transglutaminase igg'] },
+
     { name: /^(?:sed rate|sedimentation rate|erythrocyte sedimentation rate)\b/, terms: ['esr', 'sed rate', 'sedimentation rate', 'westergren'] },
     { name: /^(?:metabolic panel\b.*\bbasic\b|basic metabolic panel\b|bmp\b)/, terms: ['bmp', 'basic metabolic panel', 'chem 7', 'chem 8'] },
     { name: /^(?:metabolic panel\b.*\bcomprehensive\b|comprehensive metabolic panel\b|cmp\b)/, terms: ['cmp', 'comprehensive metabolic panel', 'chem 14'] },
@@ -1471,6 +1481,7 @@
     return String(value || '')
       .toLowerCase()
       .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
       .replace(/[®™]/g, '')
       .replace(/[^a-z0-9]+/g, ' ')
       .trim();
@@ -1542,6 +1553,7 @@
 
   function libraryWordMatch(token, words, allowTypo) {
     if (words.includes(token)) return 3;
+    if (/^\d+$/.test(token)) return 0;
     // Roman numerals (VII, VIII) must match whole tokens, never a prefix.
     // That avoids confusing Factor VII with Factor VIII or Troponin I with II.
     if (/^(?:i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii)$/.test(token)) return 0;
@@ -1561,22 +1573,26 @@
   function rankLibraryTest(query, test) {
     const q = normalizeSearch(query);
     if (!q) return 0;
+    const { code, name, aliases, nameWords, aliasWords, info } = librarySearchIndex(test);
+    if (code && q === code) return 2000;
+    if (/^\d+$/.test(q)) {
+      if (code.startsWith(q)) return 1650;
+      return q.length >= 3 && code.includes(q) ? 1200 : 0;
+    }
+    if (name === q) return 1500;
     const clinicalQuery = window.LabClinicalCategories?.matchQuery(q);
     if (clinicalQuery && !clinicalQuery.rest)
       return window.LabClinicalCategories.forTest(test).includes(clinicalQuery.id) ? 1000 : 0;
-    const { code, name, aliases, nameWords, aliasWords, info } = librarySearchIndex(test);
-    if (code && q === code) return 2000;
-    if (/^\d+$/.test(q)) return code.startsWith(q) ? 1650 : (q.length >= 3 && code.includes(q) ? 1200 : 0);
-    if (name === q) return 1500;
     // Curated full aliases precede prefix/substring matches so PTT finds aPTT
     // instead of incidentally preferring PTT-LA. Exact name/code still wins.
     if (aliases.includes(q)) return 1480 - Math.min(75, name.length / 2);
     const tokens = q.split(' ').filter(Boolean);
     const finalIsRoman = /^(?:i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii)$/.test(tokens[tokens.length - 1]);
-    if (name.startsWith(q) && (!finalIsRoman || name === q || name.startsWith(`${q} `))) {
+    const exactNumericWords = tokens.every(token => !/^\d+$/.test(token) || nameWords.includes(token));
+    if (exactNumericWords && name.startsWith(q) && (!finalIsRoman || name === q || name.startsWith(`${q} `))) {
       return 1450 - Math.min(120, name.length - q.length);
     }
-    if (name.includes(q) && (!finalIsRoman || name.includes(`${q} `) || name.endsWith(q))) {
+    if (exactNumericWords && name.includes(q) && (!finalIsRoman || name.includes(`${q} `) || name.endsWith(q))) {
       return 1360 - Math.min(100, name.length - q.length);
     }
     const nameMatches = tokens.map(token => libraryWordMatch(token, nameWords, true));
@@ -1609,19 +1625,18 @@
   function rankBatchTest(query, test) {
     const q = normalizeSearch(query);
     if (!q) return 0;
-    // Browsing a category cannot automatically select an unrelated order code.
+    const { code, name } = librarySearchIndex(test);
+    if (q === name && !/^\d+$/.test(q)) return 1500;
     const clinicalQuery = window.LabClinicalCategories?.matchQuery(q);
     if (clinicalQuery && !clinicalQuery.rest) return 0;
-    const code = normalizeSearch(test.testCode);
-    const name = normalizeSearch(test.testName);
     const leading = q.match(/^([a-z]*\d[a-z0-9]*) (.+)$/);
     if (leading && leading[1] === code) {
       const nameScore = rankLibraryTest(leading[2], test);
-      return 2000 + Math.max(0, nameScore / 50);
+      if (!/^\d{1,3}$/.test(code) || nameScore >= 500) return 2000 + nameScore / 50;
     }
-    // If the first token looks like a code, only the matching code may rank.
-    // Do not turn a mismatched numbered order into a different name-only result.
-    if (leading && /^\d+$/.test(leading[1])) return 0;
+    // Short numbers can be part of an assay name (25-hydroxy vitamin D).
+    // A full-length numeric order-code prefix must match the actual code.
+    if (leading && /^\d{4,}$/.test(leading[1])) return 0;
     const score = rankLibraryTest(q, test);
     // Specimen/handling-text-only matches are too weak for bulk ordering.
     return score >= 500 ? score : 0;
@@ -1641,13 +1656,13 @@
     if (!category) return null;
     // A complete assay name or shorthand can begin with a category alias
     // (for example, Chemistry 14). Review those as assay matches.
-    if (category.rest) {
-      const normalizedQuery = normalizeSearch(query);
-      if (database.some(test => {
-        const { name, aliases } = librarySearchIndex(test);
-        return name === normalizedQuery || aliases.includes(normalizedQuery);
-      })) return null;
-    }
+    const normalizedQuery = normalizeSearch(query);
+    const isAssayQuery = database.some(test => {
+      if (test.status === 'blocked') return false;
+      const { name, aliases } = librarySearchIndex(test);
+      return name === normalizedQuery || (category.rest && aliases.includes(normalizedQuery));
+    });
+    if (isAssayQuery) return null;
     const results = database
       .filter(test => test.status === 'active' &&
         window.LabClinicalCategories.forTest(test).includes(category.id) &&
@@ -1682,6 +1697,8 @@
       if (sameCodeTests.length > 1) return false;
     }
     if (q === normalizeSearch(chosen.test.testName)) {
+      const category = window.LabClinicalCategories?.matchQuery(q);
+      if (category && !category.rest) return false;
       const sameNames = database.filter(test => test.status === 'active' && normalizeSearch(test.testName) === q);
       if (new Set(sameNames.map(test => normalizeSearch(test.testCode))).size > 1) return false;
     }

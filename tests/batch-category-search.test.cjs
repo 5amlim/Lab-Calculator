@@ -16,16 +16,20 @@ for(const [lab,script,html] of [['Quest','assets/js/app.js','index.html'],['LabC
       {id:'1',testCode:'101',testName:'Chlamydia trachomatis NAA'},
       {id:'2',testCode:'102',testName:'HIV 1/2 Ag Ab'},
       {id:'3',testCode:'103',testName:'CBC with Differential'},
-      {id:'4',testCode:'104',testName:'Gonorrhea NAAT',status:'blocked'}
+      {id:'4',testCode:'104',testName:'Gonorrhea NAAT',status:'blocked'},
+      {id:'5',testCode:'105',testName:'Ferritin'}
     ];
     const rankLibraryTest=(q,t)=>t.testName.toLowerCase().includes(q.toLowerCase())?500:0;
-    const finder=vm.runInNewContext(source.slice(entry,end)+';findCategoryMatches',{window:{LabClinicalCategories:categories},database,rankLibraryTest});
+    const normalizeSearch=q=>q.toLowerCase().trim();
+    const librarySearchIndex=t=>({name:normalizeSearch(t.testName),aliases:[]});
+    const finder=vm.runInNewContext(source.slice(entry,end)+';findCategoryMatches',{window:{LabClinicalCategories:categories},database,rankLibraryTest,normalizeSearch,librarySearchIndex});
     const sti=finder('sti');
     assert(sti&&sti.results.length===2,'STI returns two unblocked tests');
     assert(sti.results.every(t=>categories.forTest(t).includes('sti')));
     assert.equal(finder('sti chlamydia').results.length,1);
     assert.equal(finder('hematology').results.length,1);
     assert.equal(finder('notacategory'),null);
+    assert.equal(finder('ferritin'),null,'An exact assay name takes precedence over the category shortcut');
     const rStart=source.indexOf('  function renderBatchCategoryRow(row) {');
     const rEnd=source.indexOf('  function specimenFilterCategory(',rStart);
     assert(rStart>=0&&rEnd>rStart);
