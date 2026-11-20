@@ -53,7 +53,7 @@ async function openCalc(app,layers,extra=[]) {
   assert.ok(src.includes('  init();'),app+': initialization boundary');
   const instrumented=src.replace('  init();',
     '  window.__timedAudit={database,expandedCollectionTests,buildTransportBagPlan,'+
-    'buildCollectionPlan,buildSubmissionContents,groupSubmissionContainersForPrint,'+
+    'buildCollectionPlan,buildSubmissionContents,groupSubmissionContainersForPrint,groupSwabCollectionCardsForPrint,'+
     'printLabelingNotes,applyBloodSourceCountAllocations};');
   new Function('window','document','localStorage','console','setTimeout','clearTimeout',
     instrumented)(window,document,storage,{warn(){},error(){}},()=>0,()=>{});
@@ -353,5 +353,37 @@ test('Labcorp cfDNA kit orders collect and submit one original Streck tube', asy
     assert.match(result.collected[0].label, /Streck cfDNA Tube/, code);
     assert.equal(result.submitted[0].originalTube, true, code);
     assert.equal(result.bags[0].label, 'Room-temperature bag', code);
+  }
+});
+
+test('Labcorp prints one Aptima card with the combined count and distinct swab sites', async () => {
+  const api = await openCalc('labcorp-app.js',
+    ['assets/js/labcorp/catalog/directory-reconciliation-20261119.js']);
+  const codes = ['180033', '180069', '180078', '180082', '180093', '180098', '374018',
+    '374457', '383800', '188706', '188730', '188714', '188748', '140092'];
+  const result = plan(api, codes.map(code => api.database.find(row => row.testCode === code)));
+  for (const cards of [api.groupSwabCollectionCardsForPrint(result.collected), result.displayed]) {
+    const aptima = cards.filter(item => /Aptima Multitest/i.test(item.label));
+    assert.equal(aptima.length, 1);
+    assert.equal(aptima[0].count, 13);
+    assert.equal(cards.filter(item => /ESwab/i.test(item.label)).length, 1);
+  }
+  const labels = api.printLabelingNotes(result.displayed.find(item => /Aptima Multitest/i.test(item.label)));
+  for (const site of ['vaginal', 'rectal', 'pharyngeal']) {
+    assert.match(labels, new RegExp(site, 'i'));
+  }
+});
+
+test('Labcorp enforces each timed saliva device count on one print card per protocol', async () => {
+  const api = await openCalc('labcorp-app.js',
+    ['assets/js/labcorp/catalog/directory-reconciliation-20261119.js']);
+  for (const [code, count] of [['502424', 12], ['504855', 8]]) {
+    const result = plan(api, [api.database.find(row => row.testCode === code)]);
+    assert.equal(result.submittedCount, count);
+    assert.equal(result.displayed.length, 1);
+    const [card] = result.displayed;
+    assert.equal(card.count, count);
+    assert.match(card.printAllocationNote, new RegExp('Timed specimen ' + count + ' × 1'));
+    assert.equal((api.printLabelingNotes(card).match(/class="print-label-note"/g) || []).length, 1);
   }
 });

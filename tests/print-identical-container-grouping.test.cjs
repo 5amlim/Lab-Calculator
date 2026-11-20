@@ -96,8 +96,8 @@ for (const suite of suites) test(suite.name + ' submission grouping', async () =
   for(const bag of statBags)assert.equal(count(group(api.buildSubmissionContents(bag))),
     count(api.buildSubmissionContents(bag)),suite.name+': per-bag totals remain stable');
 
-  // Synthetic counterexamples: different source sites and dedicated aliquots
-  // must never become a single display entry.
+  // Swab sites share a display card and retain separate physical allocations.
+  // Dedicated plasma aliquots retain separate cards.
   const mk=(code,name,specimen,container)=>api.normalizeRecord({
     id:'print-group-'+code,testCode:code,testName:name,specimenType:specimen,
     drawContainer:container,transportContainer:container,
@@ -107,8 +107,11 @@ for (const suite of suites) test(suite.name + ' submission grouping', async () =
   const throat=mk('99101','Throat swab','Swab','Aptima Multitest Transport Tube (orange label)');
   const vaginal=mk('99102','Vaginal swab','Swab','Aptima Multitest Transport Tube (orange label)');
   const twoSwabs=contents([throat,vaginal]);
-  assert.equal(group(twoSwabs).length,twoSwabs.length,
-    suite.name+': distinct collection sites are not interchangeable');
+  assert.equal(twoSwabs.length,2,suite.name+': both swabs have physical allocations');
+  const [swabCard]=group(twoSwabs);
+  assert.equal(group(twoSwabs).length,1,suite.name+': identical swab tubes print together');
+  assert.equal(swabCard.count,2);
+  assert.deepEqual(swabCard.printVisualGroupParts,twoSwabs);
   const material=mk('99103','Plasma assay','Plasma','Plastic Plasma Transport Tube');
   const dedicated=[
     {key:'transport|plasma|dedicated-99103',label:'Plasma Transport Tube',

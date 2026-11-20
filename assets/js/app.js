@@ -5377,7 +5377,34 @@
     return '';
   }
 
+  function groupSwabCollectionCardsForPrint(items) {
+    const groups = new Map();
+    const cards = [];
+    items.forEach(item => {
+      if (!item.tests.length || !item.tests.every(test => /\bswabs?\b/i.test(test.specimenType || ''))) {
+        cards.push(item);
+        return;
+      }
+      const key = [item.className, normalizeSearch(item.label), Boolean(item.isStat)].join('|');
+      let group = groups.get(key);
+      if (!group) {
+        group = { ...item, tests: [...item.tests], details: new Set() };
+        groups.set(key, group);
+        cards.push(group);
+      } else {
+        group.count += item.count;
+        group.tests = uniqueTests([...group.tests, ...item.tests]);
+      }
+      if (item.detail) group.details.add(item.detail);
+    });
+    groups.forEach(group => {
+      group.detail = [...group.details].join(' · ');
+    });
+    return cards;
+  }
+
   function printCollectionGroups(items, wholeBloodGroups) {
+    items = groupSwabCollectionCardsForPrint(items);
     const cards = items.map(item => {
       const specimenBadges = collectionSpecimenBadgesForItem(item).map(({ label, kind }) =>
         `<span class="print-collection-specimen-badge specimen-${kind}">${escapeHtml(label)}</span>`).join('');
@@ -7410,17 +7437,21 @@
   }
 
   function printContainerPresentationKey(item) {
-    // Timed Salivette specimens must retain individual test quantities and labels.
-    if (/(?:^|\s)tube-salivette(?:\s|$)/.test(String(item?.className || '')) || /\bsalivette\b/i.test(String(item?.label || ''))) return '';
     if (!item || !(item.count > 0) || !item.className || !item.label
       || item.printAllocationNote || item.pooledSerumPlasmaTransport
       || !Array.isArray(item.tests) || !item.tests.length) return '';
+    const timed = printTimedSpecimenGroupInfo(item);
+    if (timed) return timed.key;
+    // Untimed Salivettes may carry different site- or order-specific instructions.
+    if (/\bsalivette\b/i.test(item.label)) return '';
+    if (item.originalTube && item.tests.every(test =>
+      /\bswabs?\b/i.test(test.specimenType || '') && !requiresDistinctDrawTransport(test))) {
+      return ['original-swab', item.className, normalizeSearch(item.label)].join('||');
+    }
     const id = String(item.key || '');
     // Existing SST pooling and deliberately dedicated specimens are kept apart.
     if (/^(?:sst-spun|pooled-original\|frozen-transport\||vitamin-profile-|081162-|007010-|labcorp-op-)/.test(id)
       || /\|dedicated-|\|separate\|/.test(id)) return '';
-    const timed = printTimedSpecimenGroupInfo(item);
-    if (timed) return timed.key;
     const cls = String(item.className);
     const label = normalizeSearch(item.label);
     if (!label || /verify|unknown|unspecified/.test(label)) return '';
