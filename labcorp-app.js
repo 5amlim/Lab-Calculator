@@ -6561,7 +6561,9 @@
     if (isFrozenSerumPlasmaTransport(test, transport)) {
       const sourcePhrase = specimenSourceDetail(test);
       return [{
-        key: `frozen-transport|${normalizeSearch(sourcePhrase)}|frozen-transport-tube|${normalizeSearch(String(test.sourceTestId || test.id || test.testCode))}`,
+        key: `frozen-transport|${normalizeSearch(sourcePhrase)}|frozen-transport-tube|${normalizeSearch(String(
+          timedSpecimenLabel(test) ? test.id : (test.sourceTestId || test.id || test.testCode)
+        ))}`,
         label: frozenTransportLabel(test, transport),
         className: 'tube-frozen-purple',
         count: explicitSubmissionCount(test),

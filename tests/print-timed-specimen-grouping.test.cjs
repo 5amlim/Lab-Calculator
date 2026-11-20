@@ -148,6 +148,19 @@ test('Labcorp timed transfers and original tubes preserve physical counts and re
   assert.equal(ordinary.submittedCount,1,'Ordinary compatible serum pooling remains intact');
 });
 
+test('Labcorp frozen stimulation pairs use separate SST draws and purple-cap aliquots', async () => {
+  const api = await openCalc('labcorp-app.js',
+    ['assets/js/labcorp/catalog/directory-reconciliation-20261119.js']);
+  for (const code of ['500770', '500773']) {
+    const test = api.database.find(record => record.testCode === code);
+    assert.equal(test?.status, 'active', code);
+    checkSingleCard(api, test, 2, 'Labcorp frozen stimulation');
+    const result = plan(api, [test]);
+    assert.equal(new Set(result.submitted.map(item => item.key)).size, 2);
+    assert(result.submitted.every(item => item.className === 'tube-frozen-purple'));
+  }
+});
+
 test('Changing the temperature or protocol prevents false timed grouping',async()=>{
   const a=await openCalc('labcorp-app.js',[],[timedPlasma,{
     ...timedPlasma,id:'different-protocol',testCode:'99108'
