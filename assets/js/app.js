@@ -4749,6 +4749,15 @@
 
   // Explicit lab requirements override the standard volume estimate.
   const COLLECTION_TUBE_EXCEPTIONS = Object.freeze({
+    '11469': { count: 1, tubeMl: 5, label: 'Lavender EDTA (5 mL)', dedicated: true, wholeBloodOnly: true },
+    '11472': { count: 1, tubeMl: 5, label: 'Lavender EDTA (5 mL)', dedicated: true, wholeBloodOnly: true },
+    '11475': { count: 1, tubeMl: 5, label: 'Lavender EDTA (5 mL)', dedicated: true, wholeBloodOnly: true },
+    '19655': { count: 1, tubeMl: 5, label: 'Lavender EDTA (5 mL)', dedicated: true, wholeBloodOnly: true },
+    '19656': { count: 1, tubeMl: 5, label: 'Lavender EDTA (5 mL)', dedicated: true, wholeBloodOnly: true },
+    '17817': { count: 1, tubeMl: 5, label: 'Green Sodium Heparin (5 mL)', dedicated: true, wholeBloodOnly: true },
+    '17818': { count: 1, tubeMl: 5, label: 'Green Sodium Heparin (5 mL)', dedicated: true, wholeBloodOnly: true },
+    '17819': { count: 1, tubeMl: 5, label: 'Green Sodium Heparin (5 mL)', dedicated: true, wholeBloodOnly: true },
+    '17820': { count: 1, tubeMl: 5, label: 'Green Sodium Heparin (5 mL)', dedicated: true, wholeBloodOnly: true },
     '19081': { count: 1, tubeMl: 5, dedicated: true },
     '19790': { count: 4, dedicated: true },
     '15540': { count: 4, dedicated: true },
@@ -4761,7 +4770,9 @@
   });
 
   function collectionTubeException(test) {
-    return COLLECTION_TUBE_EXCEPTIONS[String(test.testCode || '').trim()] || null;
+    const exception = COLLECTION_TUBE_EXCEPTIONS[String(test.testCode || '').trim()];
+    if (exception?.wholeBloodOnly && normalizeSpecimenType(test.specimenType) !== 'Whole Blood') return null;
+    return exception || null;
   }
 
   // Only entries modified in the November 8 source-tube audit are eligible.
