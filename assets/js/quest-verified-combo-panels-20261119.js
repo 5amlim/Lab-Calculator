@@ -658,6 +658,117 @@
       "lymphocyte stimulation"
     ],
     "source": "https://testdirectory.questdiagnostics.com/test/test-detail/91978/?cc=MASTER"
+  },
+  {
+    "id": "quest-verified-stool-30523",
+    "testCode": "30523",
+    "testName": "Alpha-1-Antitrypsin, Feces, 24-Hour",
+    "status": "active",
+    "specimenType": "Stool",
+    "drawContainer": "24-Hour Stool Collection Container",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "10 g from 24-hour stool collection",
+    "minimumVolume": "2 g",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Frozen",
+    "transportTemperatureRaw": "Frozen",
+    "spin": "No",
+    "specialLabeling": "Label 24-HOUR STOOL",
+    "specialInstructions": "Collect all stool for 24 hours in a leak-proof plastic 24-hour collection container. Keep refrigerated throughout collection. Mix the completed collection and transfer a 10 g aliquot into a plastic transport container. Freeze and ship frozen. Keep separate from random stool. Avoid urine contamination.",
+    "stability": "Room temperature: Unacceptable Refrigerated: 8 days Frozen: 28 days",
+    "clinicalCategories": [
+      "gastrointestinal"
+    ],
+    "searchAliases": [
+      "24 hour stool AAT",
+      "fecal alpha 1 antitrypsin"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/30523/?cc=MASTER"
+  },
+  {
+    "id": "quest-verified-stool-34515",
+    "testCode": "34515",
+    "testName": "Marijuana, Confirmation, Meconium",
+    "status": "active",
+    "specimenType": "Stool",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "5 g fresh meconium",
+    "minimumVolume": "1 g",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "No",
+    "specialLabeling": "Label MECONIUM",
+    "specialInstructions": "Collect fresh meconium in a sterile leak-proof cup. Submit the specimen in a dedicated additive-free transport tube with cold packs. Do not pool with routine stool or add preservative.",
+    "stability": "Room temperature: 72 hours Refrigerated: 14 days Frozen: 30 days",
+    "clinicalCategories": [
+      "toxicology",
+      "pregnancy"
+    ],
+    "searchAliases": [
+      "marijuana meconium",
+      "meconium marijuana confirmation"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/34515/?cc=MASTER"
+  },
+  {
+    "id": "quest-verified-stool-34517",
+    "testCode": "34517",
+    "testName": "Amphetamines, Confirmation, Meconium",
+    "status": "active",
+    "specimenType": "Stool",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "5 g fresh meconium",
+    "minimumVolume": "1 g",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "No",
+    "specialLabeling": "Label MECONIUM",
+    "specialInstructions": "Collect fresh meconium in a sterile leak-proof cup. Submit the specimen in a dedicated additive-free transport tube with cold packs. Do not pool with routine stool or add preservative.",
+    "stability": "Room temperature: 72 hours Refrigerated: 14 days Frozen: 30 days",
+    "clinicalCategories": [
+      "toxicology",
+      "pregnancy"
+    ],
+    "searchAliases": [
+      "amphetamines meconium",
+      "meconium amphetamines confirmation"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/34517/?cc=MASTER"
+  },
+  {
+    "id": "quest-verified-stool-38155",
+    "testCode": "38155",
+    "testName": "Opiate, Confirmation, Meconium",
+    "status": "active",
+    "specimenType": "Stool",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "5 g fresh meconium",
+    "minimumVolume": "1 g",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated",
+    "spin": "No",
+    "specialLabeling": "Label MECONIUM",
+    "specialInstructions": "Collect fresh meconium in a sterile leak-proof cup. Submit the specimen in a dedicated additive-free transport tube with cold packs. Do not pool with routine stool or add preservative.",
+    "stability": "Room temperature: 72 hours Refrigerated: 14 days Frozen: 30 days",
+    "clinicalCategories": [
+      "toxicology",
+      "pregnancy"
+    ],
+    "searchAliases": [
+      "opiate meconium",
+      "meconium opiate confirmation"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/38155/?cc=MASTER"
   }
 ];
   const existing = new Map(window.SEED_TESTS.map(record => [String(record.testCode || '').trim(), record]));

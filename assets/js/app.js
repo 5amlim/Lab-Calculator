@@ -6722,7 +6722,19 @@
     if (item.className === 'tube-ua-swirl' && item.printVisualGroupParts && item.printAllocationNote) {
       return item.printVisualGroupParts.map(part => printLabelingNotes(part, true)).join('');
     }
-    if (item.printVisualGroupParts) return item.printVisualGroupParts.map(part => printLabelingNotes(part)).join('');
+    if (item.printVisualGroupParts) {
+      const rendered = item.printVisualGroupParts.map(part => printLabelingNotes(part));
+      const signatures = item.printVisualGroupParts.map(part =>
+        JSON.stringify(uniqueTests(part.tests || []).map(test => {
+          const { label, processing } = conciseSpecimenLabel(test, part);
+          return [normalizedLabelComparison(label), processing.map(normalizedLabelComparison)];
+        })));
+      if (signatures.every(signature => signature === signatures[0]) &&
+          item.printVisualGroupParts.every(part => uniqueTests(part.tests || []).length === 1)) {
+        return rendered[0];
+      }
+      return rendered.join('');
+    }
     const labels = new Map();
     const handling = new Map();
     uniqueTests(item.tests || []).forEach(test => {
