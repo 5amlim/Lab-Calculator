@@ -1493,6 +1493,13 @@
       && libraryEditDistanceWithin(token, word, maxEdits)) ? -1 : 0;
   }
 
+  function troponinSearchType(query) {
+    if (/\b(?:hstni|tni)\b/.test(query)) return 'i';
+    if (/\b(?:hstnt|tnt)\b/.test(query)) return 't';
+    const match = query.match(/\b(?:troponin|trop) ([it])\b|\b([it]) (?:troponin|trop)\b/);
+    return match?.[1] || match?.[2] || '';
+  }
+
   // Relevance order: exact code, code prefix, full name, name keywords (any
   // order), common abbreviations, then typo matches. Instructions rank last.
   function rankLibraryTest(query, test) {
@@ -1505,6 +1512,14 @@
       if (q.length >= 3 && code.replace(/^0+/, '') === q) return 1550;
       return q.length >= 3 && code.includes(q) ? 1200 : 0;
     }
+    const codeAndName = q.match(/^(\S+) (.+)$/);
+    if (codeAndName && codeAndName[1] === code && /\d/.test(code)) {
+      const nameScore = rankLibraryTest(codeAndName[2], test);
+      if (nameScore >= 500) return 2000 + nameScore / 50;
+    }
+    const requestedTroponin = troponinSearchType(q);
+    const catalogTroponin = requestedTroponin && troponinSearchType(name);
+    if (catalogTroponin && catalogTroponin !== requestedTroponin) return 0;
     if (name === q) return 1500;
     const clinicalQuery = window.LabClinicalCategories?.matchQuery(q);
     if (clinicalQuery && !clinicalQuery.rest)
@@ -2299,9 +2314,10 @@
             /\bquantitative\b/.test(name) && !/\bqualitative\b/.test(name)) score = 0;
           if (/\b(?:quantitative|quant)\b/.test(q) &&
             /\bqualitative\b/.test(name) && !/\bquantitative\b/.test(name)) score = 0;
-          if (/\b(?:troponin|trop) i\b/.test(q) && /\btroponin t\b/.test(name)) score = 0;
-          if (/\b(?:troponin|trop) t\b/.test(q) && /\btroponin i\b/.test(name)) score = 0;
         }
+        const requestedTroponin = troponinSearchType(q);
+        const catalogTroponin = requestedTroponin && troponinSearchType(name);
+        if (catalogTroponin && catalogTroponin !== requestedTroponin) score = 0;
         return { test, score };
       })
       .filter(item => item.score >= 500)
