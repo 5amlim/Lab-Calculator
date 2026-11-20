@@ -343,16 +343,16 @@ test('Labcorp urinalysis reflex culture transfers one urine collection to both t
     ['Gray-Top Urine Culture Preservative Tube', 'Red/Yellow Swirl UA Preservative Tube']);
 });
 
-test('Labcorp cfDNA kit orders collect and submit one original Streck tube', async () => {
+test('Labcorp blocks unavailable Streck cfDNA orders', async () => {
   const api = await openCalc('labcorp-app.js',
     ['assets/js/labcorp/catalog/directory-reconciliation-20261119.js']);
-  for (const code of ['451927', '452112', '833927']) {
-    const result = plan(api, [api.database.find(record => record.testCode === code)]);
-    assert.equal(result.collectedCount, 1, code);
-    assert.equal(result.submittedCount, 1, code);
-    assert.match(result.collected[0].label, /Streck cfDNA Tube/, code);
-    assert.equal(result.submitted[0].originalTube, true, code);
-    assert.equal(result.bags[0].label, 'Room-temperature bag', code);
+  const codes = ['451927', '451931', '451934', '451937', '451941', '451951', '452104',
+    '452106', '452112', '452114', '452122', '452136', '453311', '453322', '453333',
+    '453344', '833927'];
+  for (const code of codes) {
+    const order = api.database.find(record => record.testCode === code);
+    assert.equal(order.status, 'blocked', code);
+    assert.match(order.specialInstructions, /Streck.*unavailable/i, code);
   }
 });
 
@@ -386,4 +386,14 @@ test('Labcorp enforces each timed saliva device count on one print card per prot
     assert.match(card.printAllocationNote, new RegExp('Timed specimen ' + count + ' × 1'));
     assert.equal((api.printLabelingNotes(card).match(/class="print-label-note"/g) || []).length, 1);
   }
+});
+
+test('Labcorp prints the separate urine instruction once while retaining each collection cup', async () => {
+  const api = await openCalc('labcorp-app.js',
+    ['assets/js/labcorp/catalog/directory-reconciliation-20261119.js']);
+  const result = plan(api, ['203224', '203216', '080176'].map(code =>
+    api.database.find(row => row.testCode === code)));
+  const cup = result.collected.find(item => item.label === 'Sterile cup');
+  assert.equal(cup.count, 10);
+  assert.equal((cup.detail.match(/Separate urine collection required/g) || []).length, 1);
 });

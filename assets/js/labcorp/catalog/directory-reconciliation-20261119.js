@@ -40416,384 +40416,6 @@
     "submissionCount": 1
   },
   {
-    "id": "labcorp-compendium-review-451927",
-    "testCode": "451927",
-    "testName": "MaterniT21 PLUS Core (chr21,18,13,sex)",
-    "status": "active",
-    "specimenType": "Whole Blood",
-    "drawContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "transportContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "preferredVolume": "One 10 mL tube",
-    "minimumVolume": "8 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temperature. Do NOT refrigerate or freeze. Keep out of direct sunlight. Samples must be shipped to LabCorp in a Sequenom collection kit.",
-    "spin": "No",
-    "specialInstructions": "Confirm the Labcorp MaterniT collection and shipping kit is available. Use one black-and-tan 10 mL Streck tube from that kit. Keep the original tube unspun at room temperature in the kit, out of direct sunlight. Do not refrigerate or freeze.",
-    "specialLabeling": "Label WHOLE BLOOD",
-    "stability": "",
-    "clinicalCategories": [
-      "pregnancy"
-    ],
-    "source": "https://cdos.halfpenny.com/labcorp/TestDisplay/451927",
-    "searchAliases": [
-      "MaterniT NIPT",
-      "prenatal cell free DNA"
-    ],
-    "collectionCount": 1,
-    "submissionCount": 1
-  },
-  {
-    "id": "labcorp-compendium-review-451931",
-    "testCode": "451931",
-    "testName": "MaterniT21 PLUS Core + ESS",
-    "status": "active",
-    "specimenType": "Whole Blood",
-    "drawContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "transportContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "preferredVolume": "One 10 mL tube",
-    "minimumVolume": "8 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temperature. Do NOT refrigerate or freeze. Keep out of direct sunlight. Samples must be shipped to LabCorp in a Sequenom collection kit.",
-    "spin": "No",
-    "specialInstructions": "Confirm the Labcorp MaterniT collection and shipping kit is available. Use one black-and-tan 10 mL Streck tube from that kit. Keep the original tube unspun at room temperature in the kit, out of direct sunlight. Do not refrigerate or freeze.",
-    "specialLabeling": "Label WHOLE BLOOD",
-    "stability": "",
-    "clinicalCategories": [
-      "pregnancy"
-    ],
-    "source": "https://cdos.halfpenny.com/labcorp/TestDisplay/451931",
-    "searchAliases": [
-      "MaterniT NIPT",
-      "prenatal cell free DNA"
-    ],
-    "collectionCount": 1,
-    "submissionCount": 1
-  },
-  {
-    "id": "labcorp-compendium-review-451934",
-    "testCode": "451934",
-    "testName": "MaterniT21 PLUS Core + SCA",
-    "status": "active",
-    "specimenType": "Whole Blood",
-    "drawContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "transportContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "preferredVolume": "One 10 mL tube",
-    "minimumVolume": "8 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temperature. Do NOT refrigerate or freeze. Keep out of direct sunlight. Samples must be shipped to LabCorp in a Sequenom collection kit.",
-    "spin": "No",
-    "specialInstructions": "Confirm the Labcorp MaterniT collection and shipping kit is available. Use one black-and-tan 10 mL Streck tube from that kit. Keep the original tube unspun at room temperature in the kit, out of direct sunlight. Do not refrigerate or freeze.",
-    "specialLabeling": "Label WHOLE BLOOD",
-    "stability": "",
-    "clinicalCategories": [
-      "pregnancy"
-    ],
-    "source": "https://cdos.halfpenny.com/labcorp/TestDisplay/451934",
-    "searchAliases": [
-      "MaterniT NIPT",
-      "prenatal cell free DNA"
-    ],
-    "collectionCount": 1,
-    "submissionCount": 1
-  },
-  {
-    "id": "labcorp-compendium-review-451937",
-    "testCode": "451937",
-    "testName": "MaterniT21 PLUS Core + ESS + SCA",
-    "status": "active",
-    "specimenType": "Whole Blood",
-    "drawContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "transportContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "preferredVolume": "One 10 mL tube",
-    "minimumVolume": "8 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temperature. Do NOT refrigerate or freeze. Keep out of direct sunlight. Samples must be shipped to LabCorp in a Sequenom collection kit.",
-    "spin": "No",
-    "specialInstructions": "Confirm the Labcorp MaterniT collection and shipping kit is available. Use one black-and-tan 10 mL Streck tube from that kit. Keep the original tube unspun at room temperature in the kit, out of direct sunlight. Do not refrigerate or freeze.",
-    "specialLabeling": "Label WHOLE BLOOD",
-    "stability": "",
-    "clinicalCategories": [
-      "pregnancy"
-    ],
-    "source": "https://cdos.halfpenny.com/labcorp/TestDisplay/451937",
-    "searchAliases": [
-      "MaterniT NIPT",
-      "prenatal cell free DNA"
-    ],
-    "collectionCount": 1,
-    "submissionCount": 1
-  },
-  {
-    "id": "labcorp-compendium-review-451941",
-    "testCode": "451941",
-    "testName": "MaterniT Genome",
-    "status": "active",
-    "specimenType": "Whole Blood",
-    "drawContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "transportContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "preferredVolume": "One 10 mL tube",
-    "minimumVolume": "8 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temperature. Do NOT refrigerate or freeze. Keep out of direct sunlight. Samples must be shipped to LabCorp in a Sequenom collection kit.",
-    "spin": "No",
-    "specialInstructions": "Confirm the Labcorp MaterniT collection and shipping kit is available. Use one black-and-tan 10 mL Streck tube from that kit. Keep the original tube unspun at room temperature in the kit, out of direct sunlight. Do not refrigerate or freeze.",
-    "specialLabeling": "Label WHOLE BLOOD",
-    "stability": "",
-    "clinicalCategories": [
-      "pregnancy"
-    ],
-    "source": "https://cdos.halfpenny.com/labcorp/TestDisplay/451941",
-    "searchAliases": [
-      "MaterniT NIPT",
-      "prenatal cell free DNA"
-    ],
-    "collectionCount": 1,
-    "submissionCount": 1
-  },
-  {
-    "id": "labcorp-compendium-review-451951",
-    "testCode": "451951",
-    "testName": "MaterniT21 PLUS Core (chr21,18,13) NO Gender",
-    "status": "active",
-    "specimenType": "Whole Blood",
-    "drawContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "transportContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "preferredVolume": "One 10 mL tube",
-    "minimumVolume": "8 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temperature. Do NOT refrigerate or freeze. Keep out of direct sunlight. Samples must be shipped to LabCorp in a Sequenom collection kit.",
-    "spin": "No",
-    "specialInstructions": "Confirm the Labcorp MaterniT collection and shipping kit is available. Use one black-and-tan 10 mL Streck tube from that kit. Keep the original tube unspun at room temperature in the kit, out of direct sunlight. Do not refrigerate or freeze.",
-    "specialLabeling": "Label WHOLE BLOOD",
-    "stability": "",
-    "clinicalCategories": [
-      "pregnancy"
-    ],
-    "source": "https://cdos.halfpenny.com/labcorp/TestDisplay/451951",
-    "searchAliases": [
-      "MaterniT NIPT",
-      "prenatal cell free DNA"
-    ],
-    "collectionCount": 1,
-    "submissionCount": 1
-  },
-  {
-    "id": "labcorp-compendium-review-452106",
-    "testCode": "452106",
-    "testName": "MaterniT21 Genome No Gender",
-    "status": "active",
-    "specimenType": "Whole Blood",
-    "drawContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "transportContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "preferredVolume": "One 10 mL tube",
-    "minimumVolume": "5 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temperature. Do NOT refrigerate or freeze. Keep out of direct sunlight. Samples must be shipped to LabCorp in a Sequenom collection kit.",
-    "spin": "No",
-    "specialInstructions": "Confirm the Labcorp MaterniT collection and shipping kit is available. Use one black-and-tan 10 mL Streck tube from that kit. Keep the original tube unspun at room temperature in the kit, out of direct sunlight. Do not refrigerate or freeze.",
-    "specialLabeling": "Label WHOLE BLOOD",
-    "stability": "",
-    "clinicalCategories": [
-      "pregnancy"
-    ],
-    "source": "https://cdos.halfpenny.com/labcorp/TestDisplay/452106",
-    "searchAliases": [
-      "MaterniT NIPT",
-      "prenatal cell free DNA"
-    ],
-    "collectionCount": 1,
-    "submissionCount": 1
-  },
-  {
-    "id": "labcorp-compendium-review-452112",
-    "testCode": "452112",
-    "testName": "MaterniT21 PLUS Core + SCA, NO Gender",
-    "status": "active",
-    "specimenType": "Whole Blood",
-    "drawContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "transportContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "preferredVolume": "One 10 mL tube",
-    "minimumVolume": "5 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temperature. Do NOT refrigerate or freeze. Keep out of direct sunlight. Samples must be shipped to LabCorp in a Sequenom collection kit. Stability: Room temperature up to 7 days Refrigerated upt to 7 days Frozen: Do Not Freeze",
-    "spin": "No",
-    "specialInstructions": "Confirm the Labcorp MaterniT collection and shipping kit is available. Use one black-and-tan 10 mL Streck tube from that kit. Keep the original tube unspun at room temperature in the kit, out of direct sunlight. Do not refrigerate or freeze.",
-    "specialLabeling": "Label WHOLE BLOOD",
-    "stability": "",
-    "clinicalCategories": [
-      "pregnancy"
-    ],
-    "source": "https://cdos.halfpenny.com/labcorp/TestDisplay/452112",
-    "searchAliases": [
-      "MaterniT NIPT",
-      "prenatal cell free DNA"
-    ],
-    "collectionCount": 1,
-    "submissionCount": 1
-  },
-  {
-    "id": "labcorp-compendium-review-452122",
-    "testCode": "452122",
-    "testName": "MaterniT21 PLUS Core + ESS + SCA, NO Gender",
-    "status": "active",
-    "specimenType": "Whole Blood",
-    "drawContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "transportContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "preferredVolume": "One 10 mL tube",
-    "minimumVolume": "5 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temperature. Do NOT refrigerate or freeze. Keep out of direct sunlight. Samples must be shipped to LabCorp in a Sequenom collection kit. Stability: Room temperature up to 7 days Refrigerated up to 7 days Frozen: Do Not Freeze",
-    "spin": "No",
-    "specialInstructions": "Confirm the Labcorp MaterniT collection and shipping kit is available. Use one black-and-tan 10 mL Streck tube from that kit. Keep the original tube unspun at room temperature in the kit, out of direct sunlight. Do not refrigerate or freeze.",
-    "specialLabeling": "Label WHOLE BLOOD",
-    "stability": "",
-    "clinicalCategories": [
-      "pregnancy"
-    ],
-    "source": "https://cdos.halfpenny.com/labcorp/TestDisplay/452122",
-    "searchAliases": [
-      "MaterniT NIPT",
-      "prenatal cell free DNA"
-    ],
-    "collectionCount": 1,
-    "submissionCount": 1
-  },
-  {
-    "id": "labcorp-compendium-review-452136",
-    "testCode": "452136",
-    "testName": "MaterniT21 PLUS Core + ESS, NO Gender",
-    "status": "active",
-    "specimenType": "Whole Blood",
-    "drawContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "transportContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "preferredVolume": "One 10 mL tube",
-    "minimumVolume": "5 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temperature. Do NOT refrigerate or freeze. Keep out of direct sunlight. Samples must be shipped to LabCorp in a Sequenom collection kit.",
-    "spin": "No",
-    "specialInstructions": "Confirm the Labcorp MaterniT collection and shipping kit is available. Use one black-and-tan 10 mL Streck tube from that kit. Keep the original tube unspun at room temperature in the kit, out of direct sunlight. Do not refrigerate or freeze.",
-    "specialLabeling": "Label WHOLE BLOOD",
-    "stability": "",
-    "clinicalCategories": [
-      "pregnancy"
-    ],
-    "source": "https://cdos.halfpenny.com/labcorp/TestDisplay/452136",
-    "searchAliases": [
-      "MaterniT NIPT",
-      "prenatal cell free DNA"
-    ],
-    "collectionCount": 1,
-    "submissionCount": 1
-  },
-  {
-    "id": "labcorp-compendium-review-453311",
-    "testCode": "453311",
-    "testName": "MaterniT21 PLUS Core + ESS, NO Gender",
-    "status": "active",
-    "specimenType": "Whole Blood",
-    "drawContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "transportContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "preferredVolume": "One 10 mL tube",
-    "minimumVolume": "5 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temperature. Do NOT refrigerate OR freeze. Keep out of direct sunlight. Samples must be shipped to Labcorp in a Sequenom collection kit.",
-    "spin": "No",
-    "specialInstructions": "Confirm the Labcorp MaterniT collection and shipping kit is available. Use one black-and-tan 10 mL Streck tube from that kit. Keep the original tube unspun at room temperature in the kit, out of direct sunlight. Do not refrigerate or freeze.",
-    "specialLabeling": "Label WHOLE BLOOD",
-    "stability": "",
-    "clinicalCategories": [
-      "pregnancy"
-    ],
-    "source": "https://cdos.halfpenny.com/labcorp/TestDisplay/453311",
-    "searchAliases": [
-      "MaterniT NIPT",
-      "prenatal cell free DNA"
-    ],
-    "collectionCount": 1,
-    "submissionCount": 1
-  },
-  {
-    "id": "labcorp-compendium-review-453322",
-    "testCode": "453322",
-    "testName": "MaterniT21 PLUS Core + SCA + 22q",
-    "status": "active",
-    "specimenType": "Whole Blood",
-    "drawContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "transportContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "preferredVolume": "One 10 mL tube",
-    "minimumVolume": "8 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temperature. Do NOT refrigerate OR freeze. Keep out of direct sunlight. Samples must be shipped to Labcorp in a Sequenom collection kit.",
-    "spin": "No",
-    "specialInstructions": "Confirm the Labcorp MaterniT collection and shipping kit is available. Use one black-and-tan 10 mL Streck tube from that kit. Keep the original tube unspun at room temperature in the kit, out of direct sunlight. Do not refrigerate or freeze.",
-    "specialLabeling": "Label WHOLE BLOOD",
-    "stability": "",
-    "clinicalCategories": [
-      "pregnancy"
-    ],
-    "source": "https://cdos.halfpenny.com/labcorp/TestDisplay/453322",
-    "searchAliases": [
-      "MaterniT NIPT",
-      "prenatal cell free DNA"
-    ],
-    "collectionCount": 1,
-    "submissionCount": 1
-  },
-  {
-    "id": "labcorp-compendium-review-453333",
-    "testCode": "453333",
-    "testName": "MaterniT21 PLUS Core + SCA + 22q, No Gender",
-    "status": "active",
-    "specimenType": "Whole Blood",
-    "drawContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "transportContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "preferredVolume": "One 10 mL tube",
-    "minimumVolume": "5 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temperature. Do NOT refrigerate OR freeze. Keep out of direct sunlight. Samples must be shipped to Labcorp in a Sequenom collection kit. Stability: Room temperature up to 7 days Refrigerated up to 7 days Frozen: Do Not Freeze",
-    "spin": "No",
-    "specialInstructions": "Confirm the Labcorp MaterniT collection and shipping kit is available. Use one black-and-tan 10 mL Streck tube from that kit. Keep the original tube unspun at room temperature in the kit, out of direct sunlight. Do not refrigerate or freeze.",
-    "specialLabeling": "Label WHOLE BLOOD",
-    "stability": "",
-    "clinicalCategories": [
-      "pregnancy"
-    ],
-    "source": "https://cdos.halfpenny.com/labcorp/TestDisplay/453333",
-    "searchAliases": [
-      "MaterniT NIPT",
-      "prenatal cell free DNA"
-    ],
-    "collectionCount": 1,
-    "submissionCount": 1
-  },
-  {
-    "id": "labcorp-compendium-review-453344",
-    "testCode": "453344",
-    "testName": "MaterniT21 PLUS Core + ESS",
-    "status": "active",
-    "specimenType": "Whole Blood",
-    "drawContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "transportContainer": "Streck cfDNA Tube (MaterniT kit)",
-    "preferredVolume": "One 10 mL tube",
-    "minimumVolume": "8 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room temperature. Do NOT refrigerate or freeze. Keep out of direct sunlight. Samples must be shipped to LabCorp in a Sequenom collection kit.",
-    "spin": "No",
-    "specialInstructions": "Confirm the Labcorp MaterniT collection and shipping kit is available. Use one black-and-tan 10 mL Streck tube from that kit. Keep the original tube unspun at room temperature in the kit, out of direct sunlight. Do not refrigerate or freeze.",
-    "specialLabeling": "Label WHOLE BLOOD",
-    "stability": "",
-    "clinicalCategories": [
-      "pregnancy"
-    ],
-    "source": "https://cdos.halfpenny.com/labcorp/TestDisplay/453344",
-    "searchAliases": [
-      "MaterniT NIPT",
-      "prenatal cell free DNA"
-    ],
-    "collectionCount": 1,
-    "submissionCount": 1
-  },
-  {
     "id": "labcorp-compendium-review-005284",
     "testCode": "005284",
     "testName": "Retic+Retic Hgb",
@@ -41843,29 +41465,6 @@
     "submissionCount": 1
   },
   {
-    "id": "labcorp-compendium-review-833927",
-    "testCode": "833927",
-    "testName": "RhVISION(TM) Fetal RhD Type Sc",
-    "status": "active",
-    "specimenType": "Whole Blood",
-    "drawContainer": "Streck cfDNA Tube",
-    "transportContainer": "Streck cfDNA Tube",
-    "preferredVolume": "One 10 mL tube",
-    "minimumVolume": "5 mL",
-    "transportTemperature": "Room Temperature",
-    "transportTemperatureRaw": "Room Temperature",
-    "spin": "No",
-    "specialInstructions": "Use the specified Streck tube. Gently invert 8–10 times and submit the original tube unspun at room temperature.",
-    "specialLabeling": "Label WHOLE BLOOD",
-    "stability": "Room Temperature: 7 days Refrigerated: Not acceptable Frozen: Not acceptable",
-    "clinicalCategories": [
-      "pregnancy"
-    ],
-    "source": "https://cdos.halfpenny.com/labcorp/TestDisplay/833927",
-    "collectionCount": 1,
-    "submissionCount": 1
-  },
-  {
     "id": "labcorp-compendium-review-150500",
     "testCode": "150500",
     "testName": "Chronic Myelogenous Leukemia (CML) Profile: ChromosomeAnalysis and BCR-ABL FISH",
@@ -42295,8 +41894,20 @@
     ["250065", "Ct/GC NAA+Myco/Urea+Tv NAA", "Pap or liquid cytology workflow outside clinic scope."],
     ["286161", "Catecholamines, Fractionated, Urinary Free andVanillylmandelic Acid (VMA), 24-Hour Urine", "Requires acid-preserved urine outside the clinic workflow."],
     ["412320", "MET (SP44) IHC Non-Squamous NSCLC", "Listed workflow requires pathology tissue or prepared slides or smears."],
+    ["451927", "MaterniT21 PLUS Core (chr21,18,13,sex)", "Requires a Streck cfDNA collection tube, which is unavailable at our clinics."],
+    ["451931", "MaterniT21 PLUS Core + ESS", "Requires a Streck cfDNA collection tube, which is unavailable at our clinics."],
+    ["451934", "MaterniT21 PLUS Core + SCA", "Requires a Streck cfDNA collection tube, which is unavailable at our clinics."],
+    ["451937", "MaterniT21 PLUS Core + ESS + SCA", "Requires a Streck cfDNA collection tube, which is unavailable at our clinics."],
+    ["451941", "MaterniT Genome", "Requires a Streck cfDNA collection tube, which is unavailable at our clinics."],
+    ["451951", "MaterniT21 PLUS Core (chr21,18,13) NO Gender", "Requires a Streck cfDNA collection tube, which is unavailable at our clinics."],
     ["452072", "PD-L1, 22C3 pharmDx(TM) Immunohistochemistry Analysis(for KEYTRUDA(R))", "Listed workflow requires pathology tissue or prepared slides or smears."],
+    ["452104", "MaterniT21 Genome Add On", "Requires a Streck cfDNA collection tube, which is unavailable at our clinics."],
+    ["452106", "MaterniT21 Genome No Gender", "Requires a Streck cfDNA collection tube, which is unavailable at our clinics."],
     ["452108", "PD-L1 IHC, Keytruda(R)Cervical", "Listed workflow requires pathology tissue or prepared slides or smears."],
+    ["452112", "MaterniT21 PLUS Core + SCA, NO Gender", "Requires a Streck cfDNA collection tube, which is unavailable at our clinics."],
+    ["452114", "MaterniT21 Genome Add On Redraw", "Requires a Streck cfDNA collection tube, which is unavailable at our clinics."],
+    ["452122", "MaterniT21 PLUS Core + ESS + SCA, NO Gender", "Requires a Streck cfDNA collection tube, which is unavailable at our clinics."],
+    ["452136", "MaterniT21 PLUS Core + ESS, NO Gender", "Requires a Streck cfDNA collection tube, which is unavailable at our clinics."],
     ["452295", "TERT Promoter Mutation Assay", "Listed workflow requires pathology tissue or prepared slides or smears."],
     ["452357", "pan-TRK IHC", "Listed workflow requires pathology tissue or prepared slides or smears."],
     ["452359", "PD-L1 IHC, NSCLC Keytruda(R)", "Listed workflow requires pathology tissue or prepared slides or smears."],
@@ -42307,6 +41918,10 @@
     ["452571", "POLE Mutation NGS, Tumor", "Listed workflow requires pathology tissue or prepared slides or smears."],
     ["453005", "PD-L1 by IHC, SP263, TECENTRIQ(R)", "Listed workflow requires pathology tissue or prepared slides or smears."],
     ["453006", "FOLR1 Immunohistochemistry Analysis", "Listed workflow requires pathology tissue or prepared slides or smears."],
+    ["453311", "MaterniT21 PLUS Core + ESS, NO Gender", "Requires a Streck cfDNA collection tube, which is unavailable at our clinics."],
+    ["453322", "MaterniT21 PLUS Core + SCA + 22q", "Requires a Streck cfDNA collection tube, which is unavailable at our clinics."],
+    ["453333", "MaterniT21 PLUS Core + SCA + 22q, No Gender", "Requires a Streck cfDNA collection tube, which is unavailable at our clinics."],
+    ["453344", "MaterniT21 PLUS Core + ESS", "Requires a Streck cfDNA collection tube, which is unavailable at our clinics."],
     ["480226", "HER-2/neu Immunohistochemistry (IHC), Gastric Paraffin", "Listed workflow requires pathology tissue or prepared slides or smears."],
     ["480277", "Estrogen Receptor/Progesterone Receptor (ER/PR),Immunohistochemical, Paraffin Block", "Listed workflow requires pathology tissue or prepared slides or smears."],
     ["480327", "DNA Ploidy Analysis, Molar Pregnancy", "Listed workflow requires pathology tissue or prepared slides or smears."],
@@ -42403,6 +42018,7 @@
     ["831957", "Bacterial DNA Dect. By PCR", "Listed workflow requires pathology tissue or prepared slides or smears."],
     ["831959", "M Tuberculosis Complex DNA", "Listed workflow requires pathology tissue or prepared slides or smears."],
     ["831960", "Non TB Mycobacteria DNA Dect", "Listed workflow requires pathology tissue or prepared slides or smears."],
+    ["833927", "RhVISION(TM) Fetal RhD Type Sc", "Requires a Streck cfDNA collection tube, which is unavailable at our clinics."],
     ["835100", "Hair 5 w/Extended Opiates", "Hair or nail specimen outside the clinic collection workflow."],
     ["835105", "Hair 5 Drug + Ext. Opiates+EtG", "Hair or nail specimen outside the clinic collection workflow."],
     ["835305", "Hair EtG Drug Test", "Hair or nail specimen outside the clinic collection workflow."],
@@ -42902,8 +42518,6 @@
     ["412384", "CT HDV Antibody, IgG/IgM", "Hold until a clinic-compatible specimen, processing and shipping workflow is confirmed with Labcorp."],
     ["451780", "Gaucher Disease Enzyme Analysis (Glucocerebrosidase)", "Hold until a clinic-compatible specimen, processing and shipping workflow is confirmed with Labcorp."],
     ["451830", "Pompe Disease Enzyme Analysis", "Hold pending verification. The compendium record lacks a complete collection and submission workflow."],
-    ["452104", "MaterniT21 Genome Add On", "Hold pending confirmation of the specialty collection kit and approved shipping workflow."],
-    ["452114", "MaterniT21 Genome Add On Redraw", "Hold pending confirmation of the specialty collection kit and approved shipping workflow."],
     ["452421", "Acute Lymphoblastic Leukemia MRD for COG/Day 29", "Hold pending verification. The compendium record lacks a complete collection and submission workflow."],
     ["452499", "Fetal RHD cfDNA", "Hold pending verification. The compendium record lacks a complete collection and submission workflow."],
     ["480216", "Hereditary Hemorrhagic Telangiectasia (HHT), Prenatal", "Hold until a clinic-compatible specimen, processing and shipping workflow is confirmed with Labcorp."],

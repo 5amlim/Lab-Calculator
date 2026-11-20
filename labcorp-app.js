@@ -5810,7 +5810,7 @@
       card.tests = uniqueTests([...card.tests, ...(item.tests || [])]);
       card.urineSeparateCollection ||= Boolean(item.urineSeparateCollection);
       card.stoolSeparateCollection ||= Boolean(item.stoolSeparateCollection);
-      card.detail = Array.from(new Set([card.detail, item.detail].filter(Boolean))).join(' · ');
+      card.detail = Array.from(new Set([card.detail, item.detail].flatMap(detail => (detail || '').split(' · ')).filter(Boolean))).join(' · ');
     });
     return visualCards.sort((a, b) => collectionSortRank(a) - collectionSortRank(b));
   }
