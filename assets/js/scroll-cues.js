@@ -52,7 +52,35 @@
     changes.observe(viewport, { childList: true, subtree: true });
     scheduleUpdate();
   }
-  function start() { document.querySelectorAll(targets).forEach(setup); }
+  function limitBlockedList(viewport) {
+    const visibleRows = 5;
+    function updateHeight() {
+      const first = viewport.firstElementChild;
+      const last = viewport.children[visibleRows - 1];
+      const scrollable = viewport.children.length > visibleRows;
+      viewport.tabIndex = scrollable ? 0 : -1;
+      if (!scrollable) {
+        viewport.style.removeProperty('max-height');
+        return;
+      }
+      const height = last.getBoundingClientRect().bottom - first.getBoundingClientRect().top;
+      if (height > 0) viewport.style.maxHeight = Math.ceil(height) + 'px';
+    }
+    const resize = typeof ResizeObserver === 'function' ? new ResizeObserver(updateHeight) : null;
+    function watchRows() {
+      resize?.disconnect();
+      Array.from(viewport.children).slice(0, visibleRows).forEach(row => resize?.observe(row));
+      updateHeight();
+    }
+    new MutationObserver(watchRows).observe(viewport, { childList: true });
+    window.addEventListener('resize', updateHeight, { passive: true });
+    watchRows();
+  }
+
+  function start() {
+    document.querySelectorAll(targets).forEach(setup);
+    document.querySelectorAll('.blocked-list').forEach(limitBlockedList);
+  }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', start, { once: true });
   } else { start(); }

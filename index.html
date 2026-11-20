@@ -7,7 +7,7 @@
   <link rel="icon" href="assets/lab-favicon.svg?v=1" type="image/svg+xml">
   <title>Quest Lab Calculator | Specimen Collection and Processing</title>
   <meta name="description" content="Quest Lab Calculator: search tests, review specimen collection and processing requirements, and prepare organized send-out instructions.">
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261117-dnp-directory-spacing-v1">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261119-blocked-list-scroll">
   <link rel="stylesheet" href="assets/css/experience.css?v=20261119-tat-clock">
   <link rel="stylesheet" href="market-switch.css?v=10">
   <link rel="stylesheet" href="quest-theme.css?v=14">
@@ -171,7 +171,7 @@
           <div class="blocked-list-heading">
             <div><strong>Do Not Perform</strong><span>Some tests require dedicated supplies or handling. Verify the receiving laboratory instructions and availability before collecting.</span></div>
           </div>
-          <div class="blocked-list" id="blockedListBody"></div>
+          <div class="blocked-list" id="blockedListBody" role="region" aria-label="Blocked tests"></div>
         </section>
         <div class="table-wrap">
           <table class="library-table">
@@ -635,7 +635,7 @@
   <script src="assets/js/app.js?v=20261119-stool-labels"></script>
   <script src="assets/js/portal-selects.js?v=20261119-tat-region-picker"></script>
   <script src="assets/js/lab-select.js?v=20261119-labcorp-sst"></script>
-  <script src="assets/js/scroll-cues.js?v=1"></script>
+  <script src="assets/js/scroll-cues.js?v=2"></script>
   <script src="assets/js/mobile-summary-nav.js?v=20261115-7"></script>
   <script src="assets/js/manual-test-notice.js?v=20261115-4"></script>
 <dialog id="calculatorGalleryDialog" class="calc-gallery-dialog no-print" aria-labelledby="calculatorGalleryTitle">
