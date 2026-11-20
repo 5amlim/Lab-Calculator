@@ -1322,6 +1322,592 @@
     "submissionCount": 1,
     "source": "https://testdirectory.questdiagnostics.com/test/test-detail/17198/?cc=MASTER",
     "stability": "Room temperature: Unacceptable Refrigerated: 7 days Frozen: 30 days"
+  },
+  {
+    "id": "quest-reconciled-18000",
+    "testCode": "18000",
+    "testName": "Post-Transplant, Aspergillus DNA, Qualitative Real-Time PCR, Blood",
+    "status": "active",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Lavender EDTA",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "3 mL EDTA whole blood",
+    "minimumVolume": "1 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
+    "spin": "No",
+    "stability": "Room temperature: Unacceptable Refrigerated: 7 days Frozen: 30 days",
+    "specialInstructions": "Collect EDTA whole blood in a lavender-top tube and submit unspun in the directory-listed transport tube. Refrigerate with cold packs. Use the dedicated Quest Specialized Transplant Services shipper apart from routine orders and follow the account-specific Quanum instructions. Record collection date and time. Quest rejects heparin specimens. Confirm ordering eligibility with the receiving Quest service area before collecting.",
+    "clinicalCategories": [
+      "infectious",
+      "transplant"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/18000/?cc=MASTER",
+    "specialLabeling": "Label WHOLE BLOOD · EDTA",
+    "sourceLinks": [
+      {
+        "label": "Quest transplant shipper instructions",
+        "url": "https://www.questdiagnostics.com/content/dam/corporate/documents/hct-hla-transplant/Shipping-Instruction-Card.pdf"
+      }
+    ]
+  },
+  {
+    "id": "quest-reconciled-18022",
+    "testCode": "18022",
+    "testName": "Post-Transplant, Herpesvirus 6 DNA, Real-Time PCR, Blood",
+    "status": "active",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Lavender EDTA",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "1 mL EDTA whole blood",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
+    "spin": "No",
+    "stability": "Room temperature: 48 hours Refrigerated: 7 days Frozen: 30 days",
+    "specialInstructions": "Collect EDTA whole blood in a lavender-top tube and submit unspun in the directory-listed transport tube. Refrigerate with cold packs. Use the dedicated Quest Specialized Transplant Services shipper apart from routine orders and follow the account-specific Quanum instructions. Record collection date and time. Quest rejects heparin specimens. Confirm ordering eligibility with the receiving Quest service area before collecting.",
+    "clinicalCategories": [
+      "infectious",
+      "transplant"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/18022/?cc=MASTER",
+    "specialLabeling": "Label WHOLE BLOOD · EDTA",
+    "sourceLinks": [
+      {
+        "label": "Quest transplant shipper instructions",
+        "url": "https://www.questdiagnostics.com/content/dam/corporate/documents/hct-hla-transplant/Shipping-Instruction-Card.pdf"
+      }
+    ]
+  },
+  {
+    "id": "quest-reconciled-18078",
+    "testCode": "18078",
+    "testName": "Post-Transplant, Herpesvirus 7 DNA, Real-Time PCR, Blood",
+    "status": "active",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Lavender EDTA",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "1 mL EDTA whole blood",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
+    "spin": "No",
+    "stability": "Room temperature: 48 hours Refrigerated: 7 days Frozen: Unacceptable",
+    "specialInstructions": "Collect EDTA whole blood in a lavender-top tube and submit unspun in the directory-listed transport tube. Refrigerate with cold packs. Use the dedicated Quest Specialized Transplant Services shipper apart from routine orders and follow the account-specific Quanum instructions. Record collection date and time. Quest rejects heparin specimens. Do not freeze. Confirm ordering eligibility with the receiving Quest service area before collecting.",
+    "clinicalCategories": [
+      "infectious",
+      "transplant"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/18078/?cc=MASTER",
+    "specialLabeling": "Label WHOLE BLOOD · EDTA",
+    "sourceLinks": [
+      {
+        "label": "Quest transplant shipper instructions",
+        "url": "https://www.questdiagnostics.com/content/dam/corporate/documents/hct-hla-transplant/Shipping-Instruction-Card.pdf"
+      }
+    ]
+  },
+  {
+    "id": "quest-reconciled-18122",
+    "testCode": "18122",
+    "testName": "Post-Transplant, Adenovirus DNA, Real-Time PCR, Blood",
+    "status": "active",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Lavender EDTA",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "1 mL EDTA whole blood",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
+    "spin": "No",
+    "stability": "Room temperature: 48 hours Refrigerated: 7 days Frozen: Unacceptable",
+    "specialInstructions": "Collect EDTA whole blood in a lavender-top tube and submit unspun in the directory-listed transport tube. Refrigerate with cold packs. Use the dedicated Quest Specialized Transplant Services shipper apart from routine orders and follow the account-specific Quanum instructions. Record collection date and time. Quest rejects heparin specimens. Do not freeze. Confirm ordering eligibility with the receiving Quest service area before collecting.",
+    "clinicalCategories": [
+      "infectious",
+      "transplant"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/18122/?cc=MASTER",
+    "specialLabeling": "Label WHOLE BLOOD · EDTA",
+    "sourceLinks": [
+      {
+        "label": "Quest transplant shipper instructions",
+        "url": "https://www.questdiagnostics.com/content/dam/corporate/documents/hct-hla-transplant/Shipping-Instruction-Card.pdf"
+      }
+    ]
+  },
+  {
+    "id": "quest-reconciled-18132",
+    "testCode": "18132",
+    "testName": "Post-Transplant, Herpesvirus 8 DNA, Real-Time PCR, Blood",
+    "status": "active",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Lavender EDTA",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "1 mL EDTA whole blood",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
+    "spin": "No",
+    "stability": "Room temperature: 48 hours Refrigerated: 7 days Frozen: 30 days",
+    "specialInstructions": "Collect EDTA whole blood in a lavender-top tube and submit unspun in the directory-listed transport tube. Refrigerate with cold packs. Use the dedicated Quest Specialized Transplant Services shipper apart from routine orders and follow the account-specific Quanum instructions. Record collection date and time. Quest rejects heparin specimens. Confirm ordering eligibility with the receiving Quest service area before collecting.",
+    "clinicalCategories": [
+      "infectious",
+      "transplant"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/18132/?cc=MASTER",
+    "specialLabeling": "Label WHOLE BLOOD · EDTA",
+    "sourceLinks": [
+      {
+        "label": "Quest transplant shipper instructions",
+        "url": "https://www.questdiagnostics.com/content/dam/corporate/documents/hct-hla-transplant/Shipping-Instruction-Card.pdf"
+      }
+    ]
+  },
+  {
+    "id": "quest-reconciled-18146",
+    "testCode": "18146",
+    "testName": "Post-Transplant, Varicella-Zoster Virus DNA, Real-Time PCR, Blood",
+    "status": "active",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Lavender EDTA",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "1 mL EDTA whole blood",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
+    "spin": "No",
+    "stability": "Room temperature: 48 hours Refrigerated: 7 days Frozen: Unacceptable",
+    "specialInstructions": "Collect EDTA whole blood in a lavender-top tube and submit unspun in the directory-listed transport tube. Refrigerate with cold packs. Use the dedicated Quest Specialized Transplant Services shipper apart from routine orders and follow the account-specific Quanum instructions. Record collection date and time. Quest rejects heparin specimens. Do not freeze. Confirm ordering eligibility with the receiving Quest service area before collecting.",
+    "clinicalCategories": [
+      "infectious",
+      "transplant"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/18146/?cc=MASTER",
+    "specialLabeling": "Label WHOLE BLOOD · EDTA",
+    "sourceLinks": [
+      {
+        "label": "Quest transplant shipper instructions",
+        "url": "https://www.questdiagnostics.com/content/dam/corporate/documents/hct-hla-transplant/Shipping-Instruction-Card.pdf"
+      }
+    ]
+  },
+  {
+    "id": "quest-reconciled-19798",
+    "testCode": "19798",
+    "testName": "Herpesvirus 8 (HHV-8) DNA, Quantitative Real-Time PCR",
+    "status": "active",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Lavender EDTA",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "1 mL EDTA whole blood",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
+    "spin": "No",
+    "stability": "Serum or plasma Room temperature: 48 hours Refrigerated: 7 days Frozen: 30 days Whole blood Room temperature: 48 hours Refrigerated: 7 days Frozen: Unacceptable",
+    "specialInstructions": "Whole-blood workflow. Submit unspun EDTA whole blood in the directory-listed transport tube with cold packs. Do not freeze or use heparin. Confirm ordering eligibility with the receiving Quest service area before collecting.",
+    "clinicalCategories": [
+      "infectious"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/19798/?cc=MASTER",
+    "specialLabeling": "Label WHOLE BLOOD · EDTA"
+  },
+  {
+    "id": "quest-reconciled-18001",
+    "testCode": "18001",
+    "testName": "Post-Transplant, Aspergillus DNA, Qualitative Real-Time PCR, Respiratory",
+    "status": "active",
+    "specimenType": "Sputum",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Sterile cup",
+    "preferredVolume": "3 mL sputum",
+    "minimumVolume": "1 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
+    "spin": "No",
+    "stability": "Room temperature: Unacceptable Refrigerated: 7 days Frozen: 30 days",
+    "specialInstructions": "Submit sputum in its original sterile, leak-proof screw-cap cup. Refrigerate with cold packs. Label the exact specimen source. Use the dedicated Quest transplant shipper apart from routine orders. Follow account-specific Quanum instructions, including collection date and time. Confirm ordering eligibility with the receiving Quest service area before collecting.",
+    "clinicalCategories": [
+      "infectious",
+      "respiratory"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/18001/?cc=MASTER",
+    "specialLabeling": "Label SPUTUM",
+    "sourceLinks": [
+      {
+        "label": "Quest transplant shipper instructions",
+        "url": "https://www.questdiagnostics.com/content/dam/corporate/documents/hct-hla-transplant/Shipping-Instruction-Card.pdf"
+      }
+    ]
+  },
+  {
+    "id": "quest-reconciled-18005",
+    "testCode": "18005",
+    "testName": "Post-Transplant, Pneumocystis jirovecii , Real-Time PCR, Respiratory",
+    "status": "active",
+    "specimenType": "Bronchoalveolar Lavage",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Sterile cup",
+    "preferredVolume": "1 mL bronchoalveolar lavage",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
+    "spin": "No",
+    "stability": "Room temperature: 48 hours Refrigerated: 7 days Frozen: 30 days",
+    "specialInstructions": "Provider-collected specimen. Submit bronchoalveolar lavage in its original sterile, leak-proof screw-cap cup. Refrigerate with cold packs. Label the exact specimen source. Use the dedicated Quest transplant shipper apart from routine orders. Follow account-specific Quanum instructions, including collection date and time. Confirm ordering eligibility with the receiving Quest service area before collecting.",
+    "clinicalCategories": [
+      "infectious",
+      "respiratory"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/18005/?cc=MASTER",
+    "specialLabeling": "Label BRONCHOALVEOLAR LAVAGE",
+    "sourceLinks": [
+      {
+        "label": "Quest transplant shipper instructions",
+        "url": "https://www.questdiagnostics.com/content/dam/corporate/documents/hct-hla-transplant/Shipping-Instruction-Card.pdf"
+      }
+    ]
+  },
+  {
+    "id": "quest-reconciled-18124",
+    "testCode": "18124",
+    "testName": "Post-Transplant, Adenovirus DNA, Real-Time PCR, Respiratory",
+    "status": "active",
+    "specimenType": "Sputum",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Sterile cup",
+    "preferredVolume": "1 mL sputum",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
+    "spin": "No",
+    "stability": "Room temperature: 48 hours Refrigerated: 7 days Frozen: 30 days",
+    "specialInstructions": "Submit sputum in its original sterile, leak-proof screw-cap cup. Refrigerate with cold packs. Label the exact specimen source. Use the dedicated Quest transplant shipper apart from routine orders. Follow account-specific Quanum instructions, including collection date and time. Confirm ordering eligibility with the receiving Quest service area before collecting.",
+    "clinicalCategories": [
+      "infectious",
+      "respiratory"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/18124/?cc=MASTER",
+    "specialLabeling": "Label SPUTUM",
+    "sourceLinks": [
+      {
+        "label": "Quest transplant shipper instructions",
+        "url": "https://www.questdiagnostics.com/content/dam/corporate/documents/hct-hla-transplant/Shipping-Instruction-Card.pdf"
+      }
+    ]
+  },
+  {
+    "id": "quest-reconciled-18144",
+    "testCode": "18144",
+    "testName": "Post-Transplant, Cytomegalovirus DNA, Qualitative Real-Time PCR, Respiratory",
+    "status": "active",
+    "specimenType": "Bronchoalveolar Lavage",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Sterile cup",
+    "preferredVolume": "1 mL bronchoalveolar lavage",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
+    "spin": "No",
+    "stability": "Room temperature: 48 hours Refrigerated: 8 days Frozen: 30 days",
+    "specialInstructions": "Provider-collected specimen. Submit bronchoalveolar lavage in its original sterile, leak-proof screw-cap cup. Refrigerate with cold packs. Label the exact specimen source. Use the dedicated Quest transplant shipper apart from routine orders. Follow account-specific Quanum instructions, including collection date and time. Confirm ordering eligibility with the receiving Quest service area before collecting.",
+    "clinicalCategories": [
+      "infectious",
+      "respiratory"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/18144/?cc=MASTER",
+    "specialLabeling": "Label BRONCHOALVEOLAR LAVAGE",
+    "sourceLinks": [
+      {
+        "label": "Quest transplant shipper instructions",
+        "url": "https://www.questdiagnostics.com/content/dam/corporate/documents/hct-hla-transplant/Shipping-Instruction-Card.pdf"
+      }
+    ]
+  },
+  {
+    "id": "quest-reconciled-18834",
+    "testCode": "18834",
+    "testName": "Pneumocystis jirovecii , Quantitative, Real-Time PCR",
+    "status": "active",
+    "specimenType": "Bronchoalveolar Lavage",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Sterile cup",
+    "preferredVolume": "1 mL bronchoalveolar lavage",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold-packs)",
+    "spin": "No",
+    "stability": "Room temperature: 48 hours Refrigerated: 7 days Frozen: 30 days",
+    "specialInstructions": "Provider-collected specimen. Submit bronchoalveolar lavage in its original sterile, leak-proof screw-cap cup. Refrigerate with cold packs. Label the exact specimen source. Confirm ordering eligibility with the receiving Quest service area before collecting.",
+    "clinicalCategories": [
+      "infectious",
+      "respiratory"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/18834/?cc=MASTER",
+    "specialLabeling": "Label BRONCHOALVEOLAR LAVAGE"
+  },
+  {
+    "id": "quest-reconciled-22345",
+    "testCode": "22345",
+    "testName": "Glutathione, Total, Blood",
+    "status": "active",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Lavender EDTA",
+    "transportContainer": "Lavender EDTA",
+    "preferredVolume": "1 mL EDTA whole blood",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
+    "spin": "No",
+    "stability": "Room temperature: 72 hours Refrigerated: 9 days Frozen: 9 days",
+    "specialInstructions": "Gently invert 8–10 times after collection. Submit the original lavender EDTA tube unspun and refrigerated. Do not shake. Quest rejects gross hemolysis. Confirm ordering eligibility with the receiving Quest service area before collecting.",
+    "clinicalCategories": [
+      "chemistry"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/22345/?cc=MASTER",
+    "specialLabeling": "Label WHOLE BLOOD · EDTA"
+  },
+  {
+    "id": "quest-reconciled-39027",
+    "testCode": "39027",
+    "testName": "Lead, Capillary",
+    "status": "active",
+    "specimenType": "Capillary Whole Blood",
+    "drawContainer": "Microtainer Lavender K2 EDTA",
+    "transportContainer": "Microtainer Lavender K2 EDTA (original tube)",
+    "preferredVolume": "0.5 mL capillary whole blood",
+    "minimumVolume": "0.2 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room temperature",
+    "spin": "No",
+    "stability": "Room temperature: 5 days Refrigerated: 14 days Frozen: 60 days",
+    "specialInstructions": "Use lead-free collection supplies and an EDTA capillary tube. Use powder-free gloves and follow the clinic capillary lead contamination-prevention procedure. Submit the original tube unspun. Quest rejects clotted specimens. Confirm ordering eligibility with the receiving Quest service area before collecting.",
+    "clinicalCategories": [
+      "toxicology",
+      "heavy-metals"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/39027/?cc=MASTER",
+    "specialLabeling": "Label CAPILLARY WHOLE BLOOD · EDTA"
+  },
+  {
+    "id": "quest-reconciled-3356",
+    "testCode": "3356",
+    "testName": "Boron, Blood",
+    "status": "active",
+    "specimenType": "Whole Blood",
+    "drawContainer": "Royal Blue EDTA (purple stripe)",
+    "transportContainer": "Trace Metal-Free Plastic Container",
+    "preferredVolume": "2 mL EDTA whole blood",
+    "minimumVolume": "0.6 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room temperature",
+    "spin": "No",
+    "stability": "Room temperature: 30 days Refrigerated: 30 days Frozen: 30 days",
+    "specialInstructions": "Use a plastic trace-metal-free royal blue EDTA tube. Immediately transfer the unspun whole blood into an acid-washed plastic screw-cap transport vial. No glass or heparin. Quest rejects clotted specimens.",
+    "clinicalCategories": [
+      "toxicology",
+      "heavy-metals"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/3356/?cc=MASTER",
+    "specialLabeling": "Label WHOLE BLOOD · ROYAL BLUE EDTA"
+  },
+  {
+    "id": "quest-reconciled-3413",
+    "testCode": "3413",
+    "testName": "Titanium, Fluid",
+    "status": "active",
+    "specimenType": "Body Fluid",
+    "drawContainer": "Trace Metal-Free Plastic Container",
+    "transportContainer": "Trace Metal-Free Plastic Container",
+    "preferredVolume": "4 mL body fluid",
+    "minimumVolume": "1.8 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
+    "spin": "No",
+    "stability": "Room temperature: Undetermined Refrigerated: Undetermined Frozen: Undetermined",
+    "specialInstructions": "Submit provider-collected fluid in its original, certified trace-metal-free or acid-washed plastic screw-cap container. Label the exact source. Refrigerate with cold packs. Confirm ordering eligibility with the receiving Quest service area before collecting.",
+    "clinicalCategories": [
+      "toxicology",
+      "heavy-metals"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/3413/?cc=MASTER",
+    "specialLabeling": "Label body fluid source · TRACE METAL-FREE"
+  },
+  {
+    "id": "quest-reconciled-8824",
+    "testCode": "8824",
+    "testName": "Arsenic, Fluid",
+    "status": "active",
+    "specimenType": "Body Fluid",
+    "drawContainer": "Trace Metal-Free Plastic Container",
+    "transportContainer": "Trace Metal-Free Plastic Container",
+    "preferredVolume": "4 mL body fluid",
+    "minimumVolume": "1.6 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
+    "spin": "No",
+    "stability": "Room temperature: Undetermined Refrigerated: Undetermined Frozen: Undetermined",
+    "specialInstructions": "Submit provider-collected fluid in its original, certified trace-metal-free or acid-washed plastic screw-cap container. Label the exact source. Refrigerate with cold packs. Avoid seafood for 48 hours before collection.",
+    "clinicalCategories": [
+      "toxicology",
+      "heavy-metals"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/8824/?cc=MASTER",
+    "specialLabeling": "Label body fluid source · TRACE METAL-FREE"
+  },
+  {
+    "id": "quest-reconciled-4929",
+    "testCode": "4929",
+    "testName": "Acetylcholinesterase",
+    "status": "active",
+    "specimenType": "Amniotic Fluid",
+    "drawContainer": "Sterile Transport Tube",
+    "transportContainer": "Sterile Transport Tube (original tube)",
+    "preferredVolume": "1.5 mL amniotic fluid",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room temperature",
+    "spin": "No",
+    "stability": "Room temperature: 14 days Rrefrigerated: 4 months Frozen: 3 years",
+    "specialInstructions": "Submit provider-collected fluid in its original sterile transport tube at room temperature. Include gestational age, collection date, clinical indication, and AFP and MoM results if available. Confirm ordering eligibility with the receiving Quest service area before collecting.",
+    "clinicalCategories": [
+      "genetics",
+      "pregnancy"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/4929/?cc=MASTER",
+    "specialLabeling": "Label AMNIOTIC FLUID"
+  },
+  {
+    "id": "quest-reconciled-91826",
+    "testCode": "91826",
+    "testName": "HPV Genotypes 16, 18/45",
+    "status": "active",
+    "specimenType": "Vaginal Swab",
+    "drawContainer": "Aptima Unisex Swab",
+    "transportContainer": "Aptima Unisex Swab",
+    "preferredVolume": "1 vaginal swab",
+    "minimumVolume": "1 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room temperature",
+    "spin": "No",
+    "stability": "Room temperature: 60 days Refrigerated: 60 days Frozen: 2 years",
+    "specialInstructions": "Use the directory-listed vaginal swab alternative in the white-label Aptima Unisex Swab Specimen Collection Kit. Submit the original swab transport kit. Confirm local acceptance of the vaginal source.",
+    "clinicalCategories": [
+      "infectious",
+      "gynecology"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/91826/?cc=MASTER",
+    "specialLabeling": "Label VAGINAL SWAB"
+  },
+  {
+    "id": "quest-reconciled-17563",
+    "testCode": "17563",
+    "testName": "West Nile Virus RNA, Qualitative, Real-Time PCR, Miscellaneous",
+    "status": "active",
+    "specimenType": "CSF",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Transport Tube",
+    "preferredVolume": "1.2 mL CSF",
+    "minimumVolume": "0.4 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Refrigerated",
+    "transportTemperatureRaw": "Refrigerated (cold packs)",
+    "spin": "No",
+    "stability": "Room temperature: 48 hours Refrigerated: 7 days Frozen: 30 days",
+    "specialInstructions": "CSF workflow. Collect provider-obtained CSF in a sterile screw-cap vessel and submit unspun in a sterile transport tube with cold packs. Label the source.",
+    "clinicalCategories": [
+      "infectious",
+      "neurology"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/17563/?cc=MASTER",
+    "specialLabeling": "Label CSF"
+  },
+  {
+    "id": "quest-reconciled-17088",
+    "testCode": "17088",
+    "testName": "Treponema pallidum Antibody, IFA, CSF",
+    "status": "active",
+    "specimenType": "CSF",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Sterile cup",
+    "preferredVolume": "1 mL CSF",
+    "minimumVolume": "0.1 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room temperature",
+    "spin": "No",
+    "stability": "Room temperature: 7 days Refrigerated: 14 days Frozen: 30 days",
+    "specialInstructions": "Submit provider-collected CSF in its original sterile leak-proof screw-cap container. Label the specimen source. Quest lists gross hemolysis, lipemia, and icterus as rejection criteria.",
+    "clinicalCategories": [
+      "infectious",
+      "neurology"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/17088/?cc=MASTER",
+    "specialLabeling": "Label CSF"
+  },
+  {
+    "id": "quest-reconciled-34869",
+    "testCode": "34869",
+    "testName": "Cysticercus Antibody (IgG), Western Blot, CSF",
+    "status": "active",
+    "specimenType": "CSF",
+    "drawContainer": "Sterile cup",
+    "transportContainer": "Sterile cup",
+    "preferredVolume": "1 mL CSF",
+    "minimumVolume": "0.5 mL",
+    "collectionCount": 1,
+    "submissionCount": 1,
+    "transportTemperature": "Room Temperature",
+    "transportTemperatureRaw": "Room temperature",
+    "spin": "No",
+    "stability": "Room temperature: 7 days Refrigerated: 14 days Frozen: 30 days",
+    "specialInstructions": "Submit provider-collected CSF in its original sterile leak-proof screw-cap container. Label the specimen source. Quest lists gross hemolysis, lipemia, and icterus as rejection criteria.",
+    "clinicalCategories": [
+      "infectious",
+      "neurology"
+    ],
+    "source": "https://testdirectory.questdiagnostics.com/test/test-detail/34869/?cc=MASTER",
+    "specialLabeling": "Label CSF"
   }
 ];
   const directory = [
@@ -1348,10 +1934,8 @@
     ["3147", "Eosinophil Count, Sputum", "Requires pathology material or a prepared slide/smear workflow."],
     ["3256", "Thallium, Nails", "Hair or nail specimens are outside the clinic collection workflow."],
     ["3348", "Zinc, Nails", "Hair or nail specimens are outside the clinic collection workflow."],
-    ["3356", "Boron, Blood", "Hold pending verification of a clinic-compatible collection, processing and shipping workflow with the receiving Quest laboratory."],
     ["3386", "Selenium, Hair", "Hair or nail specimens are outside the clinic collection workflow."],
     ["3411", "Thallium, Hair", "Hair or nail specimens are outside the clinic collection workflow."],
-    ["3413", "Titanium, Fluid", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
     ["3419", "Lead, Nails", "Hair or nail specimens are outside the clinic collection workflow."],
     ["3487", "Chromium, Nails", "Hair or nail specimens are outside the clinic collection workflow."],
     ["3499", "Nickel, Nails", "Hair or nail specimens are outside the clinic collection workflow."],
@@ -1365,7 +1949,6 @@
     ["4471", "Bacterial Identification, Anaerobic", "Requires a previously cultured isolate rather than a primary clinic specimen."],
     ["4496", "Pinworm Examination", "Hold until the specified specialty collection device and an approved clinic shipping route are confirmed."],
     ["4606", "Culture, Fungus, Blood", "Hold until the specified specialty collection device and an approved clinic shipping route are confirmed."],
-    ["4929", "Acetylcholinesterase", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
     ["4944", "Beta-2-Microglobulin, Urine", "Hold until the specified specialty collection device and an approved clinic shipping route are confirmed."],
     ["6035", "Antimony, Blood", "Hold pending verification of a clinic-compatible collection, processing and shipping workflow with the receiving Quest laboratory."],
     ["6036", "Antimony, Hair", "Hair or nail specimens are outside the clinic collection workflow."],
@@ -1378,7 +1961,6 @@
     ["7675", "Lactose Tolerance Test, 5 Specimens (50g)", "Hold pending verification of a clinic-compatible collection, processing and shipping workflow with the receiving Quest laboratory."],
     ["7950", "Susceptibility, Mycobacterium tuberculosis", "Requires a previously cultured isolate rather than a primary clinic specimen."],
     ["8628", "Sarcoptes scabiei (Scabies) Examination", "Requires pathology material or a prepared slide/smear workflow."],
-    ["8824", "Arsenic, Fluid", "Hold pending verification of a clinic-compatible collection, processing and shipping workflow with the receiving Quest laboratory."],
     ["8825", "Arsenic, Hair", "Hair or nail specimens are outside the clinic collection workflow."],
     ["8826", "Arsenic, Nails", "Hair or nail specimens are outside the clinic collection workflow."],
     ["8828", "Iron, Liver Tissue", "Requires pathology material or a prepared slide/smear workflow."],
@@ -1503,7 +2085,6 @@
     ["16967", "MLH1, IHC without Interpretation", "Requires pathology tissue, a paraffin block or prepared slides outside the clinic workflow."],
     ["16971", "MSH2, IHC without Interpretation", "Requires pathology tissue, a paraffin block or prepared slides outside the clinic workflow."],
     ["16997", "PMS2, IHC with Interpretation", "Requires pathology material or a prepared slide/smear workflow."],
-    ["17088", "Treponema pallidum Antibody, IFA, CSF", "Hold pending verification of a clinic-compatible collection, processing and shipping workflow with the receiving Quest laboratory."],
     ["17092", "von Willebrand Factor Antigen, IHC with Interpretation", "Requires pathology material or a prepared slide/smear workflow."],
     ["17101", "Dopamine, Random Urine", "Hold for confirmation of a supported unpreserved route, or a validated special preparation where required."],
     ["17221", "Bacterial 16S rDNA Sequencing", "Hold because the listed workflow uses specialist tissue, culture or marrow handling. Confirm any clinic-compatible alternative with Quest."],
@@ -1518,21 +2099,10 @@
     ["17388", "Donor, Cytomegalovirus Antibody, Total", "Hold pending confirmation of the Quest donor-services workflow and its dedicated requisition, receiving site and shipping rules."],
     ["17389", "Donor, Syphilis IgG Antibody", "Hold pending confirmation of the Quest donor-services workflow and its dedicated requisition, receiving site and shipping rules."],
     ["17455", "Chromosome Analysis, DEB Assay for Fanconi Anemia, Prenatal", "Hold pending confirmation of the genetics referral workflow, paperwork and any companion specimens or orders."],
-    ["17563", "West Nile Virus RNA, Qualitative, Real-Time PCR, Miscellaneous", "Hold pending verification of a clinic-compatible collection, processing and shipping workflow with the receiving Quest laboratory."],
     ["17823", "Susceptibility, Yeast, Comprehensive Panel", "Requires a previously cultured isolate rather than a primary clinic specimen."],
     ["17843", "SC5b-9 Level, Plasma", "Hold pending confirmation of the required temperature-controlled processing and shipping capability."],
     ["17873", "Toxocara Antibody (IgG), Fluid", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
-    ["18000", "Post-Transplant, Aspergillus DNA, Qualitative Real-Time PCR, Blood", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
-    ["18001", "Post-Transplant, Aspergillus DNA, Qualitative Real-Time PCR, Respiratory", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
-    ["18005", "Post-Transplant, Pneumocystis jirovecii , Real-Time PCR, Respiratory", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
-    ["18022", "Post-Transplant, Herpesvirus 6 DNA, Real-Time PCR, Blood", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
-    ["18078", "Post-Transplant, Herpesvirus 7 DNA, Real-Time PCR, Blood", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
     ["18092", "Post-Transplant, Epstein-Barr Virus DNA, Qualitative Real-Time PCR, Tissue", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
-    ["18122", "Post-Transplant, Adenovirus DNA, Real-Time PCR, Blood", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
-    ["18124", "Post-Transplant, Adenovirus DNA, Real-Time PCR, Respiratory", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
-    ["18132", "Post-Transplant, Herpesvirus 8 DNA, Real-Time PCR, Blood", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
-    ["18144", "Post-Transplant, Cytomegalovirus DNA, Qualitative Real-Time PCR, Respiratory", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
-    ["18146", "Post-Transplant, Varicella-Zoster Virus DNA, Real-Time PCR, Blood", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
     ["18313", "ThinPrep® Automated Pap and HPV DNA (16, 18, Other High Risk) PCR, Cervical", "Pap, ThinPrep and SurePath liquid cytology workflows are outside clinic scope."],
     ["18314", "SurePath™ Pap and HPV DNA (16, 18, Other High Risk), PCR, Cervical", "Pap, ThinPrep and SurePath liquid cytology workflows are outside clinic scope."],
     ["18315", "SurePath™ Imaging Pap and HPV DNA (16, 18, Other High Risk), PCR, Cervical", "Pap, ThinPrep and SurePath liquid cytology workflows are outside clinic scope."],
@@ -1554,7 +2124,6 @@
     ["18817", "SurePath™ Imaging Pap reflex HPV mRNA E6/E7, C. trachomatis, N. gonorrhoeae", "Pap, ThinPrep and SurePath liquid cytology workflows are outside clinic scope."],
     ["18828", "SurePath™ Imaging Pap and HPV mRNA E6/E7, C. trachomatis, N. gonorrhoeae", "Pap, ThinPrep and SurePath liquid cytology workflows are outside clinic scope."],
     ["18829", "SurePath™ Imaging Pap and HPV mRNA E6/E7 reflex HPV 16,18/45", "Pap, ThinPrep and SurePath liquid cytology workflows are outside clinic scope."],
-    ["18834", "Pneumocystis jirovecii , Quantitative, Real-Time PCR", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
     ["18854", "Kappa/Lambda Light Chain, ISH without Interpretation", "Requires pathology material or a prepared slide/smear workflow."],
     ["18869", "Carbapenemase Detection, Phenotypic", "Requires a previously cultured isolate rather than a primary clinic specimen."],
     ["18899", "Cutaneous Direct Immunofluorescence", "Hold because the listed workflow uses specialist tissue, culture or marrow handling. Confirm any clinic-compatible alternative with Quest."],
@@ -1601,7 +2170,6 @@
     ["19773", "FISH, Synovial Sarcoma, SYT, 18q11.2 Rearrangement", "Requires pathology material or a prepared slide/smear workflow."],
     ["19775", "Mycobacterium Slow Grower MIC", "Requires a previously cultured isolate rather than a primary clinic specimen."],
     ["19796", "Mycobacterium avium Complex MIC Panel", "Requires a previously cultured isolate rather than a primary clinic specimen."],
-    ["19798", "Herpesvirus 8 (HHV-8) DNA, Quantitative Real-Time PCR", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
     ["19854", "Donor, HIV/HCV/HBV NAT Procleix® with Reflexes", "Hold pending confirmation of the Quest donor-services workflow and its dedicated requisition, receiving site and shipping rules."],
     ["19859", "FISH, HER-2/neu with Reflex to IHC", "Requires pathology material or a prepared slide/smear workflow."],
     ["20449", "ThinPrep® Automated Pap with Reflex to HPV mRNA (ASCUS or LSIL), Cervical", "Pap, ThinPrep and SurePath liquid cytology workflows are outside clinic scope."],
@@ -1612,7 +2180,6 @@
     ["20454", "Automated Pap, Cervical, with Age-Based Screen, HPV DNA with CT/NG", "Pap, ThinPrep and SurePath liquid cytology workflows are outside clinic scope."],
     ["20519", "Automated Pap, Cervical, with Age-Based Screen, HPV DNA, CT/NG, Trichomonas", "Pap, ThinPrep and SurePath liquid cytology workflows are outside clinic scope."],
     ["20563", "ThinPrep® Automated Pap Refl HPV DNA(if ASCUS,ASC-H,LSIL,HSIL,AGUS)Cervical", "Pap, ThinPrep and SurePath liquid cytology workflows are outside clinic scope."],
-    ["22345", "Glutathione, Total, Blood", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
     ["23086", "Acanthamoeba/Naegleria Culture", "Hold because the listed workflow uses specialist tissue, culture or marrow handling. Confirm any clinic-compatible alternative with Quest."],
     ["26382", "Sickle Cell Anemia, DNA Probe Analysis, Fetus", "Hold pending confirmation of the genetics referral workflow, paperwork and any companion specimens or orders."],
     ["29914", "Ki-67, IHC with Interpretation", "Requires pathology material or a prepared slide/smear workflow."],
@@ -1634,7 +2201,6 @@
     ["34451", "Toxoplasma gondii DNA, Qualitative Real-Time PCR", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
     ["34475", "Legionella Pneumophila Antigen, DFA", "Hold pending verification of a clinic-compatible collection, processing and shipping workflow with the receiving Quest laboratory."],
     ["34483", "Troponin T (legacy code, verify)", "Legacy code. A current Quest MASTER listing and collection workflow could not be verified."],
-    ["34869", "Cysticercus Antibody (IgG), Western Blot, CSF", "Hold pending verification of a clinic-compatible collection, processing and shipping workflow with the receiving Quest laboratory."],
     ["35444", "Metals Acute Poisoning Panel, Blood (CSA)", "Hold pending verification of a clinic-compatible collection, processing and shipping workflow with the receiving Quest laboratory."],
     ["36159", "Progesterone Receptor (PR), IHC with Interpretation", "Requires pathology material or a prepared slide/smear workflow."],
     ["36160", "Estrogen Receptor (ER), IHC with Interpretation", "Requires pathology material or a prepared slide/smear workflow."],
@@ -1673,7 +2239,6 @@
     ["38994", "Beta-2-Microglobulin, Random Urine with Creatinine", "Hold until the specified specialty collection device and an approved clinic shipping route are confirmed."],
     ["38995", "CD5, IHC with Interpretation", "Requires pathology material or a prepared slide/smear workflow."],
     ["38996", "Lambda Light Chain, IHC with Interpretation", "Requires pathology material or a prepared slide/smear workflow."],
-    ["39027", "Lead, Capillary", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
     ["39029", "Chromosomal Microarray, POC FFPE, ClariSure® Oligo-SNP", "Requires pathology material or a prepared slide/smear workflow."],
     ["39128", "Heavy Metals Panel, Capillary", "Hold pending confirmation of service-area eligibility and the clinic collection and shipping workflow."],
     ["39502", "Cytokeratin AE1/AE3, IHC with Interpretation", "Requires pathology material or a prepared slide/smear workflow."],
@@ -1772,7 +2337,6 @@
     ["91680", "CAH (21-Hydroxylase Deficiency) Common Mutations, Fetal Cells", "Hold pending confirmation of the genetics referral workflow, paperwork and any companion specimens or orders."],
     ["91709", "Beta-Globin Complete™, Fetus", "Hold pending confirmation of the genetics referral workflow, paperwork and any companion specimens or orders."],
     ["91711", "Alpha-Globin Common Mutation Analysis, Fetus", "Hold pending confirmation of the genetics referral workflow, paperwork and any companion specimens or orders."],
-    ["91826", "HPV Genotypes 16, 18/45", "Hold pending verification of a clinic-compatible collection, processing and shipping workflow with the receiving Quest laboratory."],
     ["91836", "Lung Cancer (NSCLC), ROS1 (6q22) Rearrangement, FISH", "Requires pathology material or a prepared slide/smear workflow."],
     ["91906", "ThinPrep® Automated Pap and HPV mRNA E6/E7, with CT/NG, Trichomonas", "Pap, ThinPrep and SurePath liquid cytology workflows are outside clinic scope."],
     ["91911", "ThinPrep® Automated Pap Reflex HPV mRNA E6/E7, with CT/NG, Trichomonas", "Pap, ThinPrep and SurePath liquid cytology workflows are outside clinic scope."],
