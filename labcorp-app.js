@@ -5134,7 +5134,14 @@
   // Explicit lab requirements override the standard volume estimate.
   const COLLECTION_TUBE_EXCEPTIONS = Object.freeze({
     '001917': { count: 2, dedicated: true },
-    '120089': { count: 3, dedicated: true }
+    '120089': { count: 3, dedicated: true },
+    '182913': { count: 1, dedicated: true, label: 'Green Lithium Heparin (6 mL minimum in one tube)' },
+    // BasoFunction orders require a single original large-volume sodium heparin tube.
+    ...Object.fromEntries(
+      '800039 826007 827149 827235 827243 827245 827301 827356 827363 827488 828165 828167 828223 828227 828232 828238 828253 828256 828257 828259 828263 828265 828267 829318'.split(' ').map(code =>
+        [code, { count: 1, dedicated: true, label: 'Green Sodium Heparin (10 mL tube)' }]
+      )
+    )
   });
 
   function collectionTubeException(test) {
@@ -5876,8 +5883,10 @@
         sharedStoolSource: true, detail });
     }
 
+    const usesSpotUrineCup = test => isUrineTest(test) && !isTimedUrineTest(test)
+      && canonicalCollectionContainer(test).className !== 'tube-trace-metal-container';
     const spotUrineGroups = new Map();
-    tests.filter(test => isUrineTest(test) && !isTimedUrineTest(test)).forEach(test => {
+    tests.filter(usesSpotUrineCup).forEach(test => {
       const urineType = urineCollectionType(test);
       const dedicated = requiresSeparateUrineCollection(test);
       const key = dedicated ? `${urineType.key}|separate|${test.sourceTestId || test.id}` : urineType.key;
@@ -5908,7 +5917,7 @@
       if (isSstDraw(test)) return;
       if (isLavenderDraw(test) || isRedTopDraw(test)) return;
       if (isAdditionalPoolableBloodDraw(test)) return;
-      if (isUrineTest(test) && !isTimedUrineTest(test)) return;
+      if (usesSpotUrineCup(test)) return;
       if (isShareableStoolSourceTest(test)) return;
       const info = canonicalCollectionContainer(test);
       // Keep physically identical containers separate when they hold different specimen types.

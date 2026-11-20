@@ -240,3 +240,56 @@ test('Labcorp timed original SSTs retain their allocation and AM/PM labels', asy
     }
   }
 });
+
+test('Labcorp single-tube orders retain their required fill and original tube', async () => {
+  const api = await openCalc('labcorp-app.js',
+    ['assets/js/labcorp/catalog/directory-reconciliation-20261119.js']);
+  for (const [code, size, bag] of [
+    ['182913', /6 mL minimum in one tube/, 'Refrigerated bag'],
+    ['800039', /10 mL tube/, 'Room-temperature bag'],
+    ['827243', /10 mL tube/, 'Room-temperature bag']
+  ]) {
+    const result = plan(api, [api.database.find(row => row.testCode === code)]);
+    assert.equal(result.collectedCount, 1, code);
+    assert.equal(result.submittedCount, 1, code);
+    assert.equal(result.bags[0].label, bag, code);
+    assert.match(result.collected[0].label, size, code);
+    assert.match(result.submitted[0].label, size, code);
+    assert.equal(result.submitted[0].originalTube, true, code);
+  }
+});
+
+test('Labcorp ACTH pairs keep two collection times on a single print card', async () => {
+  const api = await openCalc('labcorp-app.js',
+    ['assets/js/labcorp/catalog/directory-reconciliation-20261119.js']);
+  for (const code of ['070624', '140758', '140761', '501197', '503130']) {
+    const result = plan(api, [api.database.find(row => row.testCode === code)]);
+    assert.equal(result.expanded.length, 2, code);
+    assert.equal(result.submittedCount, 2, code);
+    assert.equal(result.displayed.length, 1, code);
+    assert.match(result.displayed[0].printAllocationNote, /Baseline × 1.*60 minutes × 1/i, code);
+    assert.match(api.printLabelingNotes(result.displayed[0]), /Serum/i, code);
+  }
+});
+
+test('Labcorp keeps trace-metal urine collection separate from routine urine', async () => {
+  const api = await openCalc('labcorp-app.js',
+    ['assets/js/labcorp/catalog/directory-reconciliation-20261119.js']);
+  const result = plan(api, ['081073', '738078'].map(code =>
+    api.database.find(record => record.testCode === code)));
+  const expected = ['Sterile cup', 'Trace Metal-Free Plastic Container'];
+  for (const items of [result.collected, result.submitted, result.displayed]) {
+    assert.deepEqual(items.map(item => item.label).sort(), expected);
+    assert(items.every(item => item.count === 1));
+  }
+});
+
+test('Labcorp HAE submits two room-temperature serum aliquots and one frozen aliquot', async () => {
+  const api = await openCalc('labcorp-app.js',
+    ['assets/js/labcorp/catalog/directory-reconciliation-20261119.js']);
+  const result = plan(api, [api.database.find(record => record.testCode === '123020')]);
+  assert.equal(result.submittedCount, 3);
+  assert.equal(result.submitted.find(item => item.label === 'Transport Tube').count, 2);
+  assert.equal(result.submitted.find(item => item.label === 'Frozen Transport Tube').count, 1);
+  assert.deepEqual(result.bags.map(bag => bag.label).sort(), ['Frozen bag', 'Room-temperature bag']);
+});
