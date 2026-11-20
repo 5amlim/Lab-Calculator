@@ -6616,7 +6616,7 @@
 
   function buildSubmissionContents(bag) {
     const items = new Map();
-    const spunSstTests = bag.tests.filter(isSpunSstSubmission);
+    const spunSstTests = bag.tests.filter(test => isSpunSstSubmission(test) && !timedSpecimenLabel(test));
     const spunEstimate = selectedSstEstimateForTests(spunSstTests);
     if (spunEstimate.totalTubes > 0) {
       items.set('sst-spun', {
@@ -6652,6 +6652,20 @@
 
     bag.tests.forEach(test => {
       if (isSpunSstSubmission(test)) {
+        if (timedSpecimenLabel(test)) {
+          const key = `timed-original-sst|${test.id}`;
+          items.set(key, {
+            key,
+            label: selectedSstIsTiger() ? 'Tiger SST (Spun)' : 'Gold SST (Spun)',
+            className: 'tube-sst',
+            displayClassName: selectedSstVisualClass(),
+            count: selectedSstEstimateForTests([test]).totalTubes,
+            detail: 'Serum · spun · submit in original tube',
+            originalTube: true,
+            tests: [test]
+          });
+          return;
+        }
         // The original SST is already counted in sst-spun above. The vitamin
         // combination profiles additionally need a dedicated amber aliquot.
         if (['001750', '144057'].includes(String(test.testCode || '').trim())) {
@@ -6997,7 +7011,9 @@
       add(raw.split(/\s*[-–:]\s*/)[0]);
     }
     const timedLabel = /^(?:fasting|baseline|pre[- ]dose|post[- ]dose|\d+\s*[- ]?hour)\b/i.test(raw);
-    if (explicit || timedLabel) {
+    const timedPeriod = raw.match(/^Timed specimen \d+\s*:\s*(AM|PM)\b/i);
+    if (timedPeriod) add(timedPeriod[1].toUpperCase());
+    if (explicit || timedLabel || timedPeriod) {
       const dateAndTime = /\b(?:collection\s+)?dates?\s*(?:\/|and|&)\s*times?\b/i.test(raw);
       const drawTime = /\b(?:collection|draw)\s+times?\b|\btime\s+of\s+(?:draw|collection)\b/i.test(raw);
       if (dateAndTime && !parts.some(part => /date\/time/.test(part))) {
@@ -7065,11 +7081,11 @@
   }
 
   function printLabelingNotes(item) {
-    // Print one shared instruction when every timed container uses the same
-    // label and handling. Otherwise keep the rows in timepoint order.
+    // The allocation note lists every timed tube. Print each distinct
+    // labeling and handling instruction once, in first-use order.
     if (item.printVisualGroupParts && item.printVisualGroupParts.every(part => printTimedSpecimenGroupInfo(part))) {
       const notes = item.printVisualGroupParts.map(part => printLabelingNotes(part));
-      return notes.every(note => note === notes[0]) ? (notes[0] || '') : notes.join('');
+      return [...new Set(notes)].join('');
     }
     const labels = new Map();
     const handling = new Map();
@@ -7759,7 +7775,8 @@
       sourceId,
       code: displayCode(test),
       key: ['timed-separate-aliquots',
-        /^Timed specimen \d+$/i.test(timepoint) ? printLabelingNotes(item) : sourceId,
+        !item.originalTube && /^Timed specimen \d+\s+-/i.test(test.specialLabeling || '')
+          ? printLabelingNotes(item) : sourceId,
         item.originalTube ? 'original' : 'transfer',
         normalizeSearch(String(item.label)), String(item.className),
         normalizeSearch(source.key), normalizeSearch(normalizeSpecimenType(test.specimenType)),

@@ -78,7 +78,7 @@ function plan(api,tests){
     collectedCount:count(collected),submittedCount:count(submitted),
     displayedCount:count(displayed)};
 }
-function checkSingleCard(api,t,expected,lab){
+function checkSingleCard(api,t,expected,lab,labelCount=expected){
   const p=plan(api,[t]);
   assert.equal(p.expanded.length,expected,lab+': expanded sources '+t.testCode);
   assert.equal(p.collectedCount,expected,lab+': collect '+t.testCode);
@@ -88,7 +88,7 @@ function checkSingleCard(api,t,expected,lab){
   if(expected>1){
     const labels=api.printLabelingNotes(p.displayed[0]);
     assert.equal((labels.match(/class="print-label-note"/g)||[]).length,
-      expected,lab+': every timed label preserved '+t.testCode);
+      labelCount,lab+': distinct timed labels preserved '+t.testCode);
     assert.match(p.displayed[0].printAllocationNote,/do not pool/i);
   }
 }
@@ -112,7 +112,7 @@ test('Quest ten verified gray-plasma protocols use one visual card without combi
       'assets/js/quest-gray-plasma-processing-20261114.js']);
   const proinsulin=specialty.database.find(t=>t.testCode==='15853');
   assert.ok(proinsulin,'Quest 15853 present');
-  checkSingleCard(specialty,proinsulin,5,'Quest five timed frozen serum specimens');
+  checkSingleCard(specialty,proinsulin,5,'Quest five timed frozen serum specimens',2);
   const frozenPlan=plan(specialty,[proinsulin]);
   assert.equal(frozenPlan.bags.length,1);
   assert.ok(frozenPlan.submitted.every(x=>x.className==='tube-transport tube-transport-green-top'));
@@ -220,4 +220,23 @@ test('Labcorp matching timed insulin orders share one label and sum tube counts'
   assert.equal([...card.sourceCountOverrides.values()].reduce((sum, count) => sum + count, 0), 18);
   assert.equal((api.printLabelingNotes(card).match(/class="print-label-note"/g) || []).length, 1);
   codes.forEach((code, index) => assert(card.printAllocationNote.includes(code + ' × ' + (index + 3))));
+});
+
+test('Labcorp timed original SSTs retain their allocation and AM/PM labels', async () => {
+  const api = await openCalc('labcorp-app.js', [
+    'assets/js/labcorp/catalog/verified-common-expansion-20261118-batch35.js',
+    'assets/js/labcorp/catalog/directory-reconciliation-20261119.js'
+  ]);
+  for (const [code, count] of [['104000', 2], ['313700', 2], ['090381', 6], ['090399', 7]]) {
+    const result = plan(api, [api.database.find(row => row.testCode === code)]);
+    assert.equal(result.collectedCount, count, code);
+    assert.equal(result.submittedCount, count, code);
+    assert.equal(result.displayed.length, 1, code);
+    assert.match(result.displayed[0].printAllocationNote, /label each container with its collection time/i);
+    if (code === '104000') {
+      const notes = api.printLabelingNotes(result.displayed[0]);
+      assert.match(notes, /\bAM\b.*Collection date\/time/);
+      assert.match(notes, /\bPM\b.*Collection date\/time/);
+    }
+  }
 });

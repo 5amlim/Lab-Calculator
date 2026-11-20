@@ -6772,11 +6772,11 @@
   }
 
   function printLabelingNotes(item) {
-    // Print one shared instruction when every timed container uses the same
-    // label and handling. Otherwise keep the rows in timepoint order.
+    // The allocation note lists every timed tube. Print each distinct
+    // labeling and handling instruction once, in first-use order.
     if (item.printVisualGroupParts && item.printVisualGroupParts.every(part => printTimedSpecimenGroupInfo(part))) {
       const notes = item.printVisualGroupParts.map(part => printLabelingNotes(part));
-      return notes.every(note => note === notes[0]) ? (notes[0] || '') : notes.join('');
+      return [...new Set(notes)].join('');
     }
     const labels = new Map();
     const handling = new Map();
