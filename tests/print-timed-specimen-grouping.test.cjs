@@ -293,3 +293,27 @@ test('Labcorp HAE submits two room-temperature serum aliquots and one frozen ali
   assert.equal(result.submitted.find(item => item.label === 'Frozen Transport Tube').count, 1);
   assert.deepEqual(result.bags.map(bag => bag.label).sort(), ['Frozen bag', 'Room-temperature bag']);
 });
+
+test('Labcorp combined profiles retain EDTA tube counts and UA transport fill', async () => {
+  const api = await openCalc('labcorp-app.js',
+    ['assets/js/labcorp/catalog/directory-reconciliation-20261119.js']);
+  const result = plan(api, [api.database.find(record => record.testCode === '206938')]);
+  const edta = result.submitted.find(item => item.label === 'Lavender EDTA');
+  assert.equal(edta.count, 2);
+  assert.equal(edta.originalTube, true);
+  const ua = result.submitted.find(item => /red\/yellow swirl/i.test(item.label));
+  assert.equal(ua.count, 1);
+  assert.equal(Boolean(ua.originalTube), false);
+  assert.match(ua.tests[0].preferredVolume, /3–9 mL in transport tube/);
+});
+
+test('Labcorp CBC and ESR profile ships the two original EDTA tubes at distinct temperatures', async () => {
+  const api = await openCalc('labcorp-app.js',
+    ['assets/js/labcorp/catalog/directory-reconciliation-20261119.js']);
+  const result = plan(api, [api.database.find(record => record.testCode === '304858')]);
+  const edta = result.submitted.filter(item => item.label === 'Lavender EDTA');
+  assert.equal(edta.length, 2);
+  assert(edta.every(item => item.originalTube && item.count === 1));
+  assert.deepEqual(edta.flatMap(item => item.tests.map(test => test.transportTemperature)).sort(),
+    ['Refrigerated', 'Room Temperature']);
+});
