@@ -382,6 +382,8 @@
     });
     els.libraryFilter.addEventListener('focus', () => renderSuggestions('library'));
     els.libraryFilter.addEventListener('keydown', event => handleSuggestionKeydown('library', event));
+    // Native search submission (including mobile keyboards) dismisses suggestions.
+    els.libraryFilter.addEventListener('search', () => closeSuggestions('library'));
     for (const kind of ['library', 'batch']) {
       const panel = kind === 'library' ? els.librarySuggestions : els.batchSuggestions;
       panel.addEventListener('click', event => {
@@ -2498,6 +2500,16 @@
   function handleSuggestionKeydown(kind, event) {
     const state = suggestionState[kind];
     const panel = kind === 'library' ? els.librarySuggestions : els.batchSuggestions;
+    if (event.isComposing || event.keyCode === 229) return false;
+    if (kind === 'library' && event.key === 'Enter' && !event.metaKey && !event.ctrlKey) {
+      event.preventDefault();
+      if (!panel.classList.contains('hidden') && state.items.length && state.active !== -1) {
+        chooseSuggestion(kind, state.active);
+      } else {
+        closeSuggestions(kind);
+      }
+      return true;
+    }
     if (panel.classList.contains('hidden') || !state.items.length) return false;
     if (kind === 'batch' && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) return false;
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
@@ -2510,11 +2522,6 @@
     if (event.key === 'Enter' && kind === 'batch' && !event.metaKey && !event.ctrlKey) {
       closeSuggestions('batch');
       return false; // Let textarea insert its native newline.
-    }
-    if (event.key === 'Enter' && kind === 'library' && state.active !== -1 && !event.metaKey && !event.ctrlKey) {
-      event.preventDefault();
-      chooseSuggestion(kind, state.active);
-      return true;
     }
     if (event.key === 'Escape') {
       event.preventDefault();
