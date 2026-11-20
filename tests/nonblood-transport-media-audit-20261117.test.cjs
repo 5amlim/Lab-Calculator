@@ -101,6 +101,12 @@ test('Labcorp keeps named media and multi-vial stool pathways', async () => {
   const op = assertPlan(api, '008623', 'Sterile cup',
     ['Pink Formalin O&P Vial', 'Gray PVA O&P Vial'], false);
   assert.equal(op.length, 2, 'Formalin and PVA must remain distinct');
+  const parasitePanel = assertPlan(api, '205281', 'Sterile cup',
+    ['Pink Formalin O&P Vial', 'Gray PVA O&P Vial'], false);
+  assert.deepEqual(Array.from(parasitePanel, vial => vial.count), [1, 1]);
+  const [respiratorySwab] = assertPlan(api, '140140', 'Universal Transport Medium (UTM) Swab',
+    ['Universal Transport Medium (UTM) Swab'], true);
+  assert.equal(respiratorySwab.count, 1, 'Medium volume does not set swab count');
 });
 
 test('Labcorp uses the original sterile cup for eligible unpreserved stool orders', async () => {

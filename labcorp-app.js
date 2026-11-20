@@ -4760,7 +4760,8 @@
       const twoSstMinimum = needsTwoSstForMinimum(test);
       if (requiresDedicatedSst(test) || hasCollectionFillRule(test) || twoSstMinimum) {
         const volumeFloor = !hasCollectionFillRule(test) && plannedMl !== null &&
-          (specimenPlanningVolumeMl(test, largePool) !== null || reviewedSstComponentPolicy(test))
+          (specimenPlanningVolumeMl(test, largePool) !== null || reviewedSstComponentPolicy(test) ||
+            (minimumMl === null && needsPreferredSerumYieldSstCount(test)))
           ? Math.ceil(plannedMl / SST_USABLE_ML_PER_TUBE - 1e-9) : 1;
         dedicatedTubes += Math.max(explicitCount, twoSstMinimum ? 2 : 1, volumeFloor);
       } else if (plannedMl !== null) {
@@ -4807,7 +4808,8 @@
         // Respect explicit multi-tube requirements, with the same >=4 mL
         // two-SST minimum policy used for Gold SST.
         const volumeFloor = !hasCollectionFillRule(test) && plannedMl !== null &&
-          (specimenPlanningVolumeMl(test, largePool) !== null || reviewedSstComponentPolicy(test))
+          (specimenPlanningVolumeMl(test, largePool) !== null || reviewedSstComponentPolicy(test) ||
+            (minimumMl === null && needsPreferredSerumYieldSstCount(test)))
           ? Math.ceil(plannedMl / TIGER_SST_USABLE_ML_PER_TUBE - 1e-9) : 1;
         dedicatedTubes += Math.max(explicitCount, twoSstMinimum ? 2 : 1, volumeFloor);
       } else if (plannedMl !== null) {
@@ -6413,7 +6415,8 @@
       // Every original collection tube must travel as an original submission.
       // If two distinct whole-blood tubes are drawn, they cannot be compressed
       // into a single original tube in the bag plan (e.g. 38287).
-      count: Math.max(explicitSubmissionCount(test), recommendedCollectionTubesForTest(test)),
+      count: Math.max(explicitSubmissionCount(test), collectionSpecimenGroupForTest(test) === 'blood'
+        ? recommendedCollectionTubesForTest(test) : explicitCollectionCount(test)),
       detail: isAptima70049 ? processing : `${sourceSpecimen} · ${nmrProcessing}`,
       originalTube: true
     };
@@ -6432,9 +6435,8 @@
   }
 
   function splitSubmissionContainers(test) {
-    // LabCorp O&P (008623) and Giardia + O&P (188110) require TWO DIFFERENT
-    // preservative vials, pink formalin and gray PVA. Never treat them as one.
-    if (['008623', '188110'].includes(String(test.testCode || '').trim())) {
+    // O&P order codes with both formalin and PVA require one vial of each.
+    if (['008623', '188110', '205281'].includes(String(test.testCode || '').trim())) {
       return [
         { key: 'labcorp-op-formalin', label: 'Pink Formalin O&P Vial',
           className: 'tube-op-formalin', count: 1, detail: 'Feces preserved in formalin to fill line; no Cary-Blair' },
@@ -6962,6 +6964,7 @@
           !parts.some(value => /source\/site|lumbar|lower respiratory tract/i.test(value)))
         add('Anatomical source/site');
       if (/\b(?:left\s+or\s+right|left\/right|laterality)\b/i.test(raw)) add('Left/right');
+      if (/\bacute\s+or\s+convalescent\b/i.test(raw)) add('Acute or convalescent');
       if (/\btube\s*(?:number|sequence|#)\b/i.test(raw)) {
         const tube = raw.match(/\btube\s*#\s*(\d+)\b/i);
         add(tube ? 'Tube #' + tube[1] : 'Tube sequence');

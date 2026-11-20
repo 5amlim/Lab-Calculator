@@ -78,3 +78,27 @@ test('Legacy Quest tests retain the volume estimate when no compatible pool appl
  assert.equal(fn.sstEstimateForTests([unflagged]).totalTubes,2);
  assert.equal(fn.tigerSstEstimateForTests([unflagged]).totalTubes,1);
 });
+
+test('Labcorp honors an opted-in serum volume without a published minimum on a multi-specimen panel', () => {
+ const api = openCalculator('labcorp-app.js', ['normalizeRecord', 'sstEstimateForTests', 'tigerSstEstimateForTests']);
+ const panel = api.normalizeRecord({
+   testCode: '999901',
+   testName: 'Serum and whole-blood panel',
+   specimenType: 'Serum',
+   drawContainer: 'SST / Gold',
+   transportContainer: 'SST / Gold (spun)',
+   transportTemperature: 'Room Temperature',
+   spin: 'Yes',
+   preferredVolume: '8 mL serum',
+   usePreferredSerumYield: true,
+   additionalDrawRequirements: [{
+     specimenType: 'Whole Blood',
+     container: 'Lavender EDTA',
+     count: 1,
+     preferredVolume: '4 mL whole blood',
+     spin: 'No'
+   }]
+ });
+ assert.equal(api.sstEstimateForTests([panel]).totalTubes, 4);
+ assert.equal(api.tigerSstEstimateForTests([panel]).totalTubes, 2);
+});
