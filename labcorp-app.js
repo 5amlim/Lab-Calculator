@@ -5173,6 +5173,7 @@
   function recommendedCollectionTubesForTest(test, largePool = false) {
     const explicit = explicitCollectionCount(test);
     const exception = collectionTubeException(test);
+    if (/^Streck cfDNA Tube\b/i.test(test.drawContainer || '')) return explicit;
     if (exception && exception.count) return Math.max(explicit, exception.count);
     // Lab-prescribed multiple distinct tubes/timepoints and calibrated fills
     // are authoritative, not candidates for a smaller collection count.

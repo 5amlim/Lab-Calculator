@@ -342,3 +342,16 @@ test('Labcorp urinalysis reflex culture transfers one urine collection to both t
   assert.deepEqual(result.submitted.map(item => item.label).sort(),
     ['Gray-Top Urine Culture Preservative Tube', 'Red/Yellow Swirl UA Preservative Tube']);
 });
+
+test('Labcorp cfDNA kit orders collect and submit one original Streck tube', async () => {
+  const api = await openCalc('labcorp-app.js',
+    ['assets/js/labcorp/catalog/directory-reconciliation-20261119.js']);
+  for (const code of ['451927', '452112', '833927']) {
+    const result = plan(api, [api.database.find(record => record.testCode === code)]);
+    assert.equal(result.collectedCount, 1, code);
+    assert.equal(result.submittedCount, 1, code);
+    assert.match(result.collected[0].label, /Streck cfDNA Tube/, code);
+    assert.equal(result.submitted[0].originalTube, true, code);
+    assert.equal(result.bags[0].label, 'Room-temperature bag', code);
+  }
+});
