@@ -91,10 +91,10 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
 .toast { font-size:14px; }
 .sr-only,.skip-link:not(:focus) { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 .skip-link:focus { position:fixed; top:8px; left:8px; background:white; padding:12px; z-index:100; }
-.mobile-summary { display:none; }
+.mobile-summary, .mobile-search-return { display:none; }
 @media(min-width:1101px) { .table-wrap { max-height:650px; scrollbar-width:thin; } }
 @media(max-width:1300px) { .app-shell { grid-template-columns:minmax(0,1fr) 355px; gap:18px; } .library-panel { padding:18px; } .library-heading { flex-wrap:wrap; } .library-table th:nth-child(3) { width:23%; } .library-table th:nth-child(2) { width:23%; } }
-@media(max-width:1100px) { .app-shell { grid-template-columns:1fr; } .order-panel { position:static; max-height:none; } .app-header { align-items:flex-start; } .mobile-summary { display:flex; align-items:center; gap:14px; position:fixed; bottom:16px; right:20px; padding:12px 18px; background:#142f46; color:white; border-radius:12px; z-index:5; box-shadow:0 5px 20px #142f4630; text-decoration:none; font-size:14px; } .mobile-summary span:first-child { color:#89e2d7; } .ownership-notice { padding-bottom:85px; } }
+@media(max-width:1100px) { .app-shell { grid-template-columns:1fr; } .order-panel { position:static; max-height:none; } .app-header { align-items:flex-start; } .mobile-summary, .mobile-search-return.is-in-cart { display:flex; align-items:center; gap:14px; position:fixed; bottom:16px; right:20px; padding:12px 18px; background:#142f46; color:white; border-radius:12px; z-index:5; box-shadow:0 5px 20px #142f4630; text-decoration:none; font-size:14px; } .mobile-summary span:first-child { color:#89e2d7; } .ownership-notice { padding-bottom:85px; } }
 @media(max-width:700px) { .app-header { padding:22px 18px; margin-bottom:18px; flex-direction:column; gap:16px; } .header-actions { justify-content:flex-start; max-width:none; } .app-shell { padding:0 12px 22px; } .library-panel,.order-panel { padding:18px 14px; } .filter-row { grid-template-columns:1fr; } .filter-row .check-label { justify-self:start; } .library-actions { justify-content:flex-start; } .library-table,.library-table tbody { display:block; width:100%; } .library-table thead { display:none; } .library-table tr { display:grid; grid-template-columns:1fr 1fr; padding:14px; gap:12px; border-bottom:1px solid var(--line); } .library-table td { display:block; padding:0; border:0; } .library-table td:first-child { box-shadow:none; font-size:13px; color:var(--brand-dark); grid-column:1/-1; } .library-table td:nth-child(2) { grid-column:1/-1; } .library-table .test-name { font-size:16px; } .library-table td:nth-child(3)::before,.library-table td:nth-child(4)::before,.library-table td:nth-child(5)::before { content:attr(data-label); display:block; color:var(--muted); font-size:12px; margin-bottom:5px; } .library-table .row-actions { grid-column:1/-1; display:flex; flex-wrap:wrap; gap:8px; align-items:center; } .row-actions .mini-button { width:auto; margin:0; min-height:38px; padding:8px 12px; } .row-actions a.mini-button { margin-left:auto; } .is-selected { background:#f5fbf9; } .batch-entry-heading { padding:18px; } .batch-entry-action { font-size:0; } .batch-entry-action span { font-size:20px; } .batch-entry-body { padding:0 18px 18px; } .batch-row { grid-template-columns:1fr; } .button { min-height:44px; } .tests-summary-header { flex-wrap:wrap; } .ownership-notice { padding-left:18px; padding-right:18px; } }
 @media(prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none!important; scroll-behavior:auto!important; } }
 }
@@ -1916,7 +1916,7 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
 
 /* Mobile Cart shortcut stays above the page, but never covers Cart actions. */
 @media screen and (max-width: 1100px) {
-  .mobile-summary {
+  .mobile-summary, .mobile-search-return.is-in-cart {
     z-index: 120;
     pointer-events: auto;
     touch-action: manipulation;
@@ -1947,29 +1947,9 @@ dialog::backdrop { background:#10293e80; backdrop-filter:blur(3px); }
   }
 }
 
-/* Context-aware reverse shortcut: show this instead of View cart on Cart. */
-@media screen {
-  .mobile-search-return { display: none; }
-}
+/* The reverse shortcut uses the same floating position as View cart. */
 @media screen and (max-width: 1100px) {
-  .mobile-search-return.is-in-cart {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: fit-content;
-    margin-block: 12px;
-    padding: 12px 18px;
-    border-radius: 12px;
-    background: #142f46;
-    box-shadow: 0 5px 20px #142f4630;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1.5;
-    text-decoration: none;
-    touch-action: manipulation;
-  }
+  .mobile-search-return.is-in-cart { font-weight: 600; }
   .mobile-search-return.is-in-cart > span { color: #89e2d7; font-size: 17px; line-height: 1; }
   .mobile-search-return.is-in-cart:focus-visible {
     outline: 3px solid #118a96;
