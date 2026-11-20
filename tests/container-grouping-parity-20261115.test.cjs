@@ -5,7 +5,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const read = p => fs.readFileSync(path.join(__dirname, '..', p), 'utf8');
 
 function openCalculator(appFile, seed = []) {
@@ -100,7 +100,12 @@ for (const [lab, appFile] of [['Quest','assets/js/app.js'],['Labcorp','labcorp-a
     for(const [draw,transport] of cases){
       const t=make(api,904,'Urine',draw,transport);
       assert.equal(api.isPlainUrineAliquotTransport(t,transport),false,transport);
-      assert.notEqual(api.canonicalCollectionContainer(t).label,'Sterile cup',draw);
+      if (draw.startsWith('Aptima')) {
+        assert.equal(api.canonicalCollectionContainer(t).label, 'Sterile cup', draw);
+        assert.match(t.transportContainer, /Aptima Urine/i);
+      } else {
+        assert.notEqual(api.canonicalCollectionContainer(t).label, 'Sterile cup', draw);
+      }
     }
   });
 

@@ -255,7 +255,7 @@
   // Lab Central requests a read-only published catalog in a same-origin frame.
   // Apply the calculator's actual clinic-wide policies, but never read or write
   // localStorage or include staff-created/manual records and browser overrides.
-  if (window.parent !== window && new URLSearchParams(window.location.search).get('labcentral-index') === '1') {
+  if (window.parent && window.parent !== window && new URLSearchParams(window.location?.search || '').get('labcentral-index') === '1') {
     const published = applyUserState({customTests: [], overrides: []});
     const categories = window.LabClinicalCategories;
     const labels = new Map((categories?.options || []).map(c => [c.id,c.label]));
@@ -1364,6 +1364,8 @@
       .replace(/\blabeled transport tube\b/gi, 'transport tube')
       .replace(/\s*\(original device\)\s*$/i, '')
       .replace(/\s{2,}/g, ' ');
+    // Keep the explicit additive restriction available to print and handle the vial.
+    if (/^clean screw[- ]?capped plastic vial \(no preservative\)$/i.test(cleaned)) return cleaned;
     const container = cleanCollectionContainer(cleaned);
     // Standard plastic serum/plasma transport aliases are the same stock
     // vessel in the catalog. Keep Labcorp frozen purple-cap transport separate
@@ -6443,9 +6445,9 @@
         { key: '081162-metal-free-plasma', label: 'Metal-Free Plasma Transport Tube',
           className: 'tube-transport', count: 1, outputSpecimenType: 'Plasma', sharedSplitSource: true,
           detail: 'Separated plasma in acid-washed metal-free tube · refrigerate' },
-        { key: '081162-metal-free-rbcs', label: 'Metal-Free Packed RBC Transport Tube',
+        { key: '081162-metal-free-rbcs', label: 'Metal-Free Packed Red Blood Cells Transport Tube',
           className: 'tube-transport', count: 1, outputSpecimenType: 'RBCs', sharedSplitSource: true,
-          detail: 'Packed RBCs in a DIFFERENT acid-washed metal-free tube · refrigerate' }
+          detail: 'Packed red blood cells in a DIFFERENT acid-washed metal-free tube · refrigerate' }
       ];
     }
     // Orotic acid and urine creatinine are separate aliquots that travel in
@@ -7555,8 +7557,10 @@
   }
   function printTransportTubeQualifier(label, specimens = []) {
     if (printTransportTubeLabel(label, specimens) !== 'Transport Tube') return '';
-    const raw = String(label || '');
-    return /\bno preservative\b/i.test(raw) ? 'No preservative' : '';
+    const tests = Array.isArray(specimens) ? specimens : [specimens];
+    const containers = [label, ...tests.map(test => test?.transportContainer)];
+    return containers.some(container => /\bno preservative\b/i.test(String(container || '')))
+      ? 'No preservative' : '';
   }
 
   function printContainerBadges(test) {

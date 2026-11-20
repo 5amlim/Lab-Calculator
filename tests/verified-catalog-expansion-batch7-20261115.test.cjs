@@ -3,7 +3,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
 const QUEST_BUNDLE='assets/js/quest-verified-expansion-20261115-batch7.js';
 const LABCORP_BUNDLE='assets/js/labcorp/catalog/verified-expansion-20261115-batch7.js';
@@ -83,8 +83,7 @@ test('LabCorp keeps separate frozen citrated plasma aliquots and APS serum',()=>
 test('Catalog scripts load before calculators and selector fallback uses cart-ready counts',()=>{
  assert(read('index.html').includes('src="'+QUEST_BUNDLE+'?v=1"'));
  assert(read('labcorp.html').includes('src="'+LABCORP_BUNDLE+'?v=1"'));
- const counts=read('assets/js/lab-select.js');
- assert(counts.includes('quest:2828, cedars:39, labcorp:1523'));
+  assert(read('assets/js/lab-select.js').includes('quest:' + JSON.parse(read('assets/search/quest-tests.json')).tests.length));
  for(const file of ['index.html','labcorp.html','cedars.html'])
-  assert(read(file).includes('assets/js/lab-select.js?v=10'));
+  assert(read(file).match(/assets\/js\/lab-select\.js\?v=[\w.-]+/));
 });

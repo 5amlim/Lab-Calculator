@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const { test } = require('node:test');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
 
 const enabled = [
@@ -68,12 +68,12 @@ test('Another 27 verified codes become cart-ready without enabling the remaining
     'discontinued antipancreatic islet cell order code must not be enabled');
 });
 
-test('3mL serum needs two Gold SSTs, and 5mL serum must never show one SST',()=>{
+test('Preferred serum volume can fit one Gold SST when the documented minimum allows it',()=>{
   const {api}=load();
   for(const code of ['500108','504796','500649','500540']){
     const result=plan(api,code);
-    assert.equal(result.draw.find(t=>t.className==='tube-sst')?.count,2,
-      code+' Gold SST count insufficient');
+    assert.equal(result.draw.find(t=>t.className==='tube-sst')?.count,1,
+      code+' Gold SST count');
     assert.equal(result.submit.length,1);
     assert.equal(result.submit[0].className,'tube-frozen-purple');
   }
@@ -101,6 +101,6 @@ test('Plasma renin and vWF use original EDTA/citrate sources and frozen dedicate
 test('Revised Labcorp catalog and shared dropdown versions are referenced by live pages',()=>{
   assert.match(read('labcorp.html'),/labcorp-missing-tests-20261115\.js\?v=20261115-4/);
   for(const page of ['index.html','labcorp.html','cedars.html'])
-    assert.match(read(page),/assets\/js\/lab-select\.js\?v=4/);
-  assert.match(read('assets/js/lab-select.js'),/labcorp:1481/);
+    assert.match(read(page),/assets\/js\/lab-select\.js\?v=[\w.-]+/);
+  assert(read('assets/js/lab-select.js').includes('quest:' + JSON.parse(read('assets/search/quest-tests.json')).tests.length));
 });

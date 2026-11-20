@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const read = relative => fs.readFileSync(path.join(__dirname, '..', relative), 'utf8');
 
 const context = vm.createContext({
@@ -42,7 +42,7 @@ for (const code of ['140285', '003129', '912334', '912847']) {
   assert.equal(submission[0].count, 1);
   assert.equal(submission[0].label, 'Sterile cup');
   assert.equal(submission[0].originalTube, true);
-  assert.match(submission[0].detail, /original sterile cup; no transfer/i);
+  assert.match(submission[0].detail, /original (?:unpreserved )?sterile cup; no transfer/i);
   const printed = api.printCollectionSubmissionPlan([test]);
   assert(printed.includes(test.testCode) && printed.includes('What to submit'));
   assert.match(printed, /Submit original sterile cup · No transfer/i);

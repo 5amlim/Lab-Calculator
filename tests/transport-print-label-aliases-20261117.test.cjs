@@ -6,19 +6,16 @@ const path = require('node:path');
 const read = pathFromRoot => fs.readFileSync(path.join(__dirname,'..',pathFromRoot),'utf8');
 
 const apps=[['Quest','assets/js/app.js','index.html'],['Labcorp','labcorp-app.js','labcorp.html']];
-function printLabelFunctions(src) {
-  const start=src.indexOf('  function printTransportTubeLabel(');
-  const end=src.indexOf('  function printContainerBadges(',start);
-  assert(start>0 && end>start,'Print-only display functions not found');
-  const source=src.slice(start,end);
-  const convert=new Function('normalizeSpecimenType',source+
-    'return {label:printTransportTubeLabel, qualifier:printTransportTubeQualifier};');
-  return convert(x=>String(x||''));
+const openCalculator = require('./helpers/calculator-vm.cjs');
+function printLabelFunctions(app) {
+  const { printTransportTubeLabel, printTransportTubeQualifier } =
+    openCalculator(app, ['printTransportTubeLabel', 'printTransportTubeQualifier']);
+  return { label: printTransportTubeLabel, qualifier: printTransportTubeQualifier };
 }
 for (const [name,file,page] of apps) {
   test(name+' printed ordinary transport tubes share one display name',()=>{
     const src=read(file);
-    const {label,qualifier}=printLabelFunctions(src);
+    const {label,qualifier}=printLabelFunctions(file);
     const ordinary=[
       ['Serum transport tube / vial','Serum'],
       ['Plasma transport tube / vial','Plasma'],
@@ -39,7 +36,7 @@ for (const [name,file,page] of apps) {
     assert(src.includes("No preservative · Use an additive-free transport tube"),'No-preservative warning missing');
   });
   test(name+' print labels preserve specialty media and non-blood devices',()=>{
-    const {label}=printLabelFunctions(read(file));
+    const {label}=printLabelFunctions(file);
     const specials=[
       ['Amber Plastic Plasma Transport Tube','Plasma'],
       ['Dedicated Frozen Purple PP Plasma Transpak (49482)','Plasma'],
@@ -51,6 +48,29 @@ for (const [name,file,page] of apps) {
     ];
     for(const [v,specimenType] of specials)
       assert.equal(label(v,{specimenType}),v,'Specialty print label changed: '+v);
-    assert(read(page).includes('transport-print-aliases-v5'), 'App version missing');
+    assert(read(page).match(/(?:labcorp-app|app)\.js\?v=[\w.-]+/), 'App version missing');
+  });
+}
+
+for (const [name, file] of apps) {
+  test(name + ' retains an explicit no-preservative instruction from catalog to print', () => {
+    const { normalizeRecord, printCollectionSubmissionPlan } =
+      openCalculator(file, ['normalizeRecord', 'printCollectionSubmissionPlan']);
+    const test = normalizeRecord({
+      id: 'unpreserved-transfer',
+      testCode: '999991',
+      testName: 'Unpreserved transfer fixture',
+      specimenType: 'Serum',
+      drawContainer: 'SST / Gold',
+      transportContainer: 'Clean screw-capped plastic vial (no preservative)',
+      transportTemperature: 'Refrigerated',
+      preferredVolume: '1 mL',
+      minimumVolume: '0.5 mL',
+      spin: 'Yes',
+      status: 'active'
+    });
+    const html = printCollectionSubmissionPlan([test]);
+    assert.match(html, /Transport Tube/);
+    assert.match(html, /No preservative · Use an additive-free transport tube/);
   });
 }

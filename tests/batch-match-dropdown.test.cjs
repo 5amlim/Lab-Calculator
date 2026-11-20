@@ -9,13 +9,13 @@ for(const [lab,file,page] of [['Quest','assets/js/app.js','index.html'],['LabCor
     assert.match(s,/class="batch-choice-dropdown"/);
     assert.match(s,/class="batch-choice-menu"/);
     assert.match(s,/data-action="choose-batch-test"/);
-    assert.match(s,/isStatEligible\(test\) \? '<span class="batch-choice-stat">STAT eligible/);
-    assert.match(s,/isStatEligible\(choice\.test\) \? '<span class="batch-choice-stat">STAT eligible/);
+    assert.match(s,/isStatEligible\(test\) \? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT<\/span> eligible/);
+    assert.match(s,/isStatEligible\(choice\.test\) \? '<span class="batch-choice-stat"><span class="batch-choice-stat-word">STAT<\/span> eligible/);
     assert.doesNotMatch(s,/<select id="batch-choice-/);
     assert.match(s,/row\.chosenId = chosenId;/);
     assert.match(s,/row\.outcome = batchRowOutcome\(row\)/);
-    assert.match(s,/if \(!canAutoAddBatchRow\(row\)\)/);
+    assert.match(s,/\? canAutoAddBatchRow\(row\)/);
     assert.match(s,/event\.key === 'Escape'/);
-    assert.match(html,/experience\.css\?v=11\.86/);
+    assert.match(html,/experience\.css\?v=[\w.-]+/);
   });
 }

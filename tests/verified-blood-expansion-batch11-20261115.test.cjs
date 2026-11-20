@@ -3,7 +3,7 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
-const vm=require('node:vm');
+const vm=require('./helpers/browser-vm.cjs');
 const read=file=>fs.readFileSync(path.join(__dirname,'..',file),'utf8');
 const Q='assets/js/quest-verified-blood-expansion-20261115-batch11.js';
 const L='assets/js/labcorp/catalog/verified-blood-expansion-20261115-batch11.js';

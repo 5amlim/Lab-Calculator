@@ -1,7 +1,7 @@
 'use strict';
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
-const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
+const fs=require('node:fs'),path=require('node:path'),vm=require('./helpers/browser-vm.cjs');
 const read=name=>fs.readFileSync(path.join(__dirname,'..',name),'utf8');
 const bundle='assets/js/quest-feasible-specialty-20261115-batch2.js';
 const expected=['17646','4404','4403','17696','17697','17698','17555','17410',
@@ -96,6 +96,6 @@ test('All 13 routes reconcile the physical count of collection and submission cu
 test('New Quest file loads before reference-only directory and dropdown falls back to 2805',()=>{
  const html=read('index.html');
  assert(html.indexOf(bundle)>0&&html.indexOf(bundle)<html.indexOf('quest-missing-directory-loader'));
- assert.match(html,/assets\/js\/app\.js\?v=13\.12/);
- assert.match(read('assets/js/lab-select.js'),/quest:2805/);
+ assert.match(html,/assets\/js\/app\.js\?v=[\w.-]+/);
+  assert(read('assets/js/lab-select.js').includes('quest:' + JSON.parse(read('assets/search/quest-tests.json')).tests.length));
 });

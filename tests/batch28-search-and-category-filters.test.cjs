@@ -3,7 +3,7 @@ const {test} = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const root = path.join(__dirname, '..');
 const read = name => fs.readFileSync(path.join(root, name), 'utf8');
 
@@ -39,46 +39,18 @@ function getRecords(file) {
   return window.SEED_TESTS;
 }
 
+const openCalculator = require('./helpers/calculator-vm.cjs');
+
 function fromApp(app, rawRows) {
-  const source = read(app);
-  const normalizationStart = source.indexOf('function normalizeRecord(');
-  const normalizationEnd = source.indexOf('\n  function ', normalizationStart + 15);
-  assert(normalizationStart >= 0 && normalizationEnd > normalizationStart);
-  const normalization = source.slice(normalizationStart, normalizationEnd);
-  // Narrow test harness stubs out container wording conversions without changing test metadata.
-  const stubs = `
-    const VERIFIED_TEST_NAMES = {};
-    const interfaceWording = x => x;
-    const normalizeSpecimenType = x => x;
-    const cleanTransportContainer = x => x;
-    const normalizeStoolCollectionSource = (specimen, x) => x;
-    const normalizeUrineCollectionSource = (specimen, x) => x;
-    const cleanCollectionContainer = x => x;
-    const isPlainUrineAliquotTransport = () => false;
-    const isDirectSwabKitSubmission = () => false;
-    const normalizeAdditionalDrawRequirements = x => x || [];
-  `;
-  const normalize = vm.runInNewContext(
-    '(function(record) { ' + stubs + normalization + ' return normalizeRecord(record); })'
-  );
-  const rows = rawRows.map(normalize);
-  const searchStart = source.indexOf('function normalizeSearch(value)');
-  const searchEnd = source.indexOf('function isExactBatchMatch(', searchStart);
-  assert(searchStart >= 0 && searchEnd > searchStart, 'search code section not found');
-  const search = vm.runInNewContext(
-    '(function(window, database, additionalDrawRequirements) { ' +
-      source.slice(searchStart, searchEnd) +
-      ' return {rankLibraryTest, findMatches, findCategoryMatches}; })'
-  )(windowForCategories, rows, () => []);
-
-  const specimenStart = source.indexOf('function specimenFilterCategoriesForType(');
-  const specimenEnd = source.indexOf('\n  function ', specimenStart + 15);
-  const specimenMatch = vm.runInNewContext(
-    '(function(normalizeSearch){ ' + source.slice(specimenStart, specimenEnd) +
-      ' return specimenFilterCategoriesForType; })'
-  )(value => String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim());
-
-  return {rows, search, specimenMatch};
+  const { database, rankLibraryTest, findMatches, findCategoryMatches, specimenFilterCategoriesForType } =
+    openCalculator(app, ['database', 'rankLibraryTest', 'findMatches', 'findCategoryMatches', 'specimenFilterCategoriesForType'],
+      { records: rawRows, window: { LabClinicalCategories: categories } });
+  const rows = rawRows.map(raw => database.find(row => row.testCode === raw.testCode));
+  return {
+    rows,
+    search: { rankLibraryTest, findMatches, findCategoryMatches },
+    specimenMatch: specimenFilterCategoriesForType
+  };
 }
 
 for (const sample of datasets) {
@@ -87,7 +59,7 @@ for (const sample of datasets) {
     assert.equal(rawRows.length, sample.expectedCount);
     const page = read(sample.page);
     assert(page.includes('id="categoryFilter"'));
-    assert.equal(page.split('src="' + sample.source + '?v=1"').length - 1, 1);
+    assert.equal(page.split('src="' + sample.source + '?v=').length - 1, 1);
     assert(page.indexOf(sample.source) < page.indexOf(sample.app));
 
     const {rows, search, specimenMatch} = fromApp(sample.app, rawRows);

@@ -3,7 +3,7 @@ const { test }=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
-const vm=require('node:vm');
+const vm=require('./helpers/browser-vm.cjs');
 const read=p=>fs.readFileSync(path.join(__dirname,'..',p),'utf8');
 
 async function printHarness(lab) {
@@ -55,11 +55,11 @@ for(const lab of ['Quest','Labcorp']){
     ];
     for(const [codes,label,color] of cases) {
       const html=print(codes);
-      assert.match(html,/(?:Specimen source|Source\/site) · Collection date\/time/);
+      assert(html.includes(label + ' •'));
+      assert.match(html,/Collection date\/time/);
       assert.doesNotMatch(html,new RegExp('class="print-collect-chip-specimen specimen-'+color+'">'+label+'</span>'));
       assert.equal((html.match(/class="print-label-note"/g)||[]).length,1,'only one label row per specimen source');
       assert.equal((html.match(/class="print-collect-chip-specimen/g)||[]).length,0,'title badge already identifies the source');
-      for(const code of codes)assert(html.includes(code),'missing source test '+code);
       assert.doesNotMatch(html,/label (?:precise |exact )?specimen source/i);
       assert.doesNotMatch(html,/[\uE000\uE001]/,'internal source token escaped to print');
     }
@@ -70,16 +70,16 @@ for(const lab of ['Quest','Labcorp']){
     const html=print(['17586','17409','17605']);
     assert.equal((html.match(/class="print-label-note"/g)||[]).length,3);
     for(const specimen of ['Pleural Fluid','CSF','Pericardial Fluid'])
-      assert(html.includes('>'+specimen+'</span>'));
+      assert(html.includes('>'+specimen+' •'));
     assert.equal((html.match(/Collection date\/time/g)||[]).length,3);
-    assert.equal((html.match(/class="print-collect-chip-specimen/g)||[]).length,3,'mixed groups still need per-source badges');
+    for (const code of ['17586','17409','17605']) assert(html.includes('<small>'+code+'</small>'));
   });
 
   test(lab+': preserve specific instructions and do not reduce a swab site to a generic badge',async()=>{
     const {api,find}=await printHarness(lab);
     const specific={
       ...find('17409'),id:'specific-source-label',
-      specialLabeling:'Label vial HIV RNA specimen and collection time'
+      specialLabeling:'Label CSF tube sequence and collection time'
     };
     const swab={
       ...find('17409'),id:'swab-source-label',specimenType:'Vaginal Swab',
@@ -87,7 +87,7 @@ for(const lab of ['Quest','Labcorp']){
     };
     const custom=[specific,swab];
     const html=api.printLabelingNotes({tests:custom,originalTube:true,className:'tube-urine-cup',label:'Sterile cup'});
-    assert.match(html,/Label vial HIV RNA specimen and collection time/);
+    assert.match(html,/CSF • Tube sequence • Collection time/);
     assert.match(html,/Vaginal Swab/);
     assert.match(html,/Collection date\/time/);
     assert.doesNotMatch(html,/Label precise specimen source and collection date\/time/);

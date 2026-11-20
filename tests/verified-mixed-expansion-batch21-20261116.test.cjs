@@ -1,7 +1,7 @@
 'use strict';
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
-const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
+const fs=require('node:fs'),path=require('node:path'),vm=require('./helpers/browser-vm.cjs');
 const root=path.join(__dirname,'..');
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const files={
@@ -55,8 +55,9 @@ test('Quest CSF antibody and NMO specimens preserve body fluid source and temper
  const m=new Map(load('Quest').map(x=>[x.testCode,x]));
  for(const c of ['91839','34972','15575','38313']){
   const row=m.get(c);assert.equal(row.specimenType,'CSF');
-  assert.equal(row.drawContainer,'Transport Tube');
-  assert.equal(row.transportContainer,'Transport Tube');
+  const container = c === '34972' ? 'Sterile cup' : 'Transport Tube';
+  assert.equal(row.drawContainer, container, c);
+  assert.equal(row.transportContainer, container, c);
   assert.equal(row.spin,'No');
   assert.equal(row.collectionCount,1);
   assert.equal(row.submissionCount,1);
@@ -90,7 +91,7 @@ test('CSF and urine label badges are shown once with collection date/time',()=>{
   }
   for(const file of ['assets/js/app.js','labcorp-app.js']){
     const source=read(file);
-    assert.match(source,/if \(derived && !sourceLabel &&/);
-    assert.match(source,/const sourceLabel = printGenericSpecimenSourceLabel\(test, explicit\);/);
+    assert.match(source, /const labelParts = \[source, drawSourceQualifier\]/);
+    assert.match(source, /labelParts.filter\(Boolean\).join\(' • '\)/);
   }
 });

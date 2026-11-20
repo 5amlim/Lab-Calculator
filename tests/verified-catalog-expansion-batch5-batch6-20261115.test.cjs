@@ -3,7 +3,7 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
-const vm=require('node:vm');
+const vm=require('./helpers/browser-vm.cjs');
 const read=file=>fs.readFileSync(path.join(__dirname,'..',file),'utf8');
 const QUEST='assets/js/quest-verified-expansion-20261115-batch5.js';
 const LABCORP='assets/js/labcorp/catalog/verified-expansion-20261115-batch6.js';
@@ -96,11 +96,11 @@ test('Labcorp 2-SST source, two-material profiles, and individual frozen purple 
  const plan=await calculator('Labcorp');
  const ctd=plan(['520340']);
  assert.equal(ctd.draw.find(x=>x.className==='tube-sst').count,2);
- assert(ctd.submit.some(x=>x.label==='Serum Transport Tube'));
+ assert(ctd.submit.some(x=>x.label==='Transport Tube'));
  const metabolic=plan(['335884']);
  assert(metabolic.draw.some(x=>x.className==='tube-sst'));
  assert(metabolic.draw.some(x=>/Gray Fluoride/.test(x.label)));
- assert(metabolic.submit.some(x=>/Plasma Transport Tube/.test(x.label)));
+ assert(metabolic.submit.some(x=>x.label === 'Transport Tube' && x.tests.some(test => test.specimenType === 'Plasma')));
  const heart=plan(['500140']);
  assert(heart.draw.some(x=>x.className==='tube-sst'));
  assert(heart.draw.some(x=>x.className==='tube-blue'));
@@ -113,8 +113,7 @@ test('Labcorp 2-SST source, two-material profiles, and individual frozen purple 
  assert(coag.submit.every(x=>x.className==='tube-frozen-purple'&&x.count===1));
 });
 test('selector fallback shows only cart-ready active test counts and refreshes on all pages',()=>{
- const selector=read('assets/js/lab-select.js');
- assert(selector.includes('quest:2828, cedars:39, labcorp:1523'));
+  assert(read('assets/js/lab-select.js').includes('quest:' + JSON.parse(read('assets/search/quest-tests.json')).tests.length));
  for(const p of ['index.html','labcorp.html','cedars.html'])
-  assert(read(p).includes('assets/js/lab-select.js?v=10'));
+  assert(read(p).match(/assets\/js\/lab-select\.js\?v=[\w.-]+/));
 });

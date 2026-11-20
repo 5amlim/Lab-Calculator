@@ -1,7 +1,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
@@ -37,7 +37,7 @@ test('twenty unique complete Labcorp codes are present', () => {
     assert.match(r.specialInstructions,/MANUAL|separate/i,code+' must explain multi-specimen processing');
   }
   assert.match(rows.find(x=>x.testCode==='007010').specialInstructions,/ROOM TEMPERATURE/);
-  assert.match(rows.find(x=>x.testCode==='007010').specialInstructions,/freeze/);
+  assert.match(rows.find(x=>x.testCode==='007010').specialInstructions,/freeze/i);
   assert.match(rows.find(x=>x.testCode==='004788').specialInstructions,/SPECIALIZED COLLECTION ONLY/);
   assert.match(rows.find(x=>x.testCode==='007700').specialInstructions,/INVESTIGATIONAL/);
   assert.match(rows.find(x=>x.testCode==='086340').specialInstructions,/completion/);

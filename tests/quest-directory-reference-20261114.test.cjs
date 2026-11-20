@@ -35,7 +35,7 @@ test('directory-only records preserve names but are excluded from collection pla
   assert.match(app, /record\.status === 'reference' \? 'reference'/);
   assert.match(app, /if \(!test \|\| test\.status !== 'active'\) return false;/);
   assert.match(app, /selectedIds\.map\(id => database\.find\(test => test\.id === id\)\)\.filter\(test => test && test\.status === 'active'\)/);
-  assert.match(app, /function renderLibraryRow\(test\) \{\s*if \(test\.status === 'reference'\)/);
+  assert.match(app, /function renderLibraryRow\(test\) \{[\s\S]{0,500}?if \(test\.status === 'reference'/);
   assert.match(app, /if \(choice\.test\.status === 'reference'\) return/);
   assert.match(app, /window\.QUEST_MISSING_DIRECTORY_READY/);
   const data = html.indexOf('quest-missing-directory-b64-20261114.js');

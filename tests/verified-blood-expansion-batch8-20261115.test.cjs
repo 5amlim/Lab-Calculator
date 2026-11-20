@@ -3,7 +3,7 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
-const vm=require('node:vm');
+const vm=require('./helpers/browser-vm.cjs');
 const read=file=>fs.readFileSync(path.join(__dirname,'..',file),'utf8');
 const Q='assets/js/quest-verified-blood-expansion-20261115-batch8.js';
 const L='assets/js/labcorp/catalog/verified-blood-expansion-20261115-batch8.js';
@@ -73,8 +73,8 @@ test('Quest multi-aliquot coagulation panels preserve separate frozen vials and 
  assert(mixed.draw.some(x=>x.className==='tube-red'));
  assert(mixed.draw.some(x=>x.className==='tube-lavender'));
  assert(mixed.submitted.some(x=>x.label==='Lavender EDTA'));
- assert(mixed.submitted.some(x=>x.label==='Frozen Transport Tube'&&x.className.includes('green-top')));
- assert(mixed.submitted.some(x=>x.label.includes('Plasma Transport Tube')&&x.count===4));
+ assert(mixed.submitted.some(x=>x.label==='Transport Tube'&&x.className.includes('green-top')));
+ assert(mixed.submitted.some(x=>x.count === 4 && x.tests.every(test => /plasma/i.test(test.specimenType))));
 });
 test('Labcorp DNA whole blood stays unspun, and all frozen coag vials remain separate',async()=>{
  const plan=await planner('Labcorp'),dna=plan(['511162']);
@@ -97,8 +97,7 @@ test('New scripts load before the app, selector fallback only counts cart-ready 
  assert(labcorp.includes('src="'+L+'?v=1"'));
  assert(quest.indexOf(Q)<quest.indexOf('assets/js/app.js?v='));
  assert(labcorp.indexOf(L)<labcorp.indexOf('labcorp-app.js?v='));
- const selector=read('assets/js/lab-select.js');
- assert(selector.includes('quest:2828, cedars:39, labcorp:1523'));
+  assert(read('assets/js/lab-select.js').includes('quest:' + JSON.parse(read('assets/search/quest-tests.json')).tests.length));
  for(const page of ['index.html','labcorp.html','cedars.html'])
-  assert(read(page).includes('assets/js/lab-select.js?v=10'));
+  assert(read(page).match(/assets\/js\/lab-select\.js\?v=[\w.-]+/));
 });

@@ -3,7 +3,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
 
 async function openCalculator(appFile, seedFiles = []) {
@@ -108,8 +108,8 @@ test('Add/Edit Test picker shows Quest green and Labcorp purple based on active 
     };
     vm.runInNewContext(portalSource.replace('  if (document.readyState === \'loading\')', injection),
       { window, document }, { filename: 'portal-selects.js' });
-    assert.equal(window.__testTubeIconClass('Frozen Transport Tube'), expected, lab);
+    assert(window.__testTubeIconClass('Frozen Transport Tube').split(/\s+/).includes(expected), lab);
   }
-  assert.match(read('index.html'), /Frozen Transport Tube \(plastic screw-cap\)/);
+  assert.doesNotMatch(read('index.html'), /Frozen Transport Tube \(purple cap\)/i);
   assert.match(read('labcorp.html'), /Frozen Transport Tube \(purple cap\)/);
 });

@@ -3,7 +3,7 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
-const vm=require('node:vm');
+const vm=require('./helpers/browser-vm.cjs');
 const read=file=>fs.readFileSync(path.join(__dirname,'..',file),'utf8');
 const bundles=[
   'assets/js/quest-verified-fluid-chemistry-20261115.js',
@@ -111,6 +111,6 @@ test('Four watery stool assays still share one original cup and no transfer inst
 
 test('Quest HTML uses updated JavaScript and CSS versions',()=>{
  const html=read('index.html');
- assert.match(html,/assets\/js\/app\.js\?v=13\.17/);
- assert.match(html,/assets\/css\/styles\.css\?v=12\.57/);
+ assert.match(html,/assets\/js\/app\.js\?v=[\w.-]+/);
+ assert.match(html,/assets\/css\/styles\.css\?v=[\w.-]+/);
 });

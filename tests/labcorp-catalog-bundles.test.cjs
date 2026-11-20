@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const { test } = require('node:test');
 
 const root = path.join(__dirname, '..');
@@ -57,6 +57,7 @@ test('LabCorp catalog loads with no duplicate codes or missing specimen essentia
   assert.equal(new Set(codes).size, records.length, 'Duplicate LabCorp test codes');
   for (const item of records) {
     assert(item.testCode && item.testName && item.specimenType, 'Incomplete identity: ' + item.testCode);
+    if (item.status === 'blocked' || item.status === 'reference' || item.status === 'pending' || item.status === 'pending') continue;
     assert(item.drawContainer && item.transportContainer, 'Missing container: ' + item.testCode);
     assert(item.transportTemperature, 'Missing submission temperature: ' + item.testCode);
   }

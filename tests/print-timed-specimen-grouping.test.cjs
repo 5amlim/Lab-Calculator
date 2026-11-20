@@ -38,7 +38,7 @@ const routineSerum=code=>({
 });
 
 async function openCalc(app,layers,extra=[]) {
-  const window={SEED_TESTS:[]};
+  const window={addEventListener() {},SEED_TESTS:[]};
   for(const layer of layers) new Function('window',read(layer))(window);
   window.SEED_TESTS.push(...extra);
   const document={
@@ -57,7 +57,7 @@ async function openCalc(app,layers,extra=[]) {
     'printLabelingNotes,applyBloodSourceCountAllocations};');
   new Function('window','document','localStorage','console','setTimeout','clearTimeout',
     instrumented)(window,document,storage,{warn(){},error(){}},()=>0,()=>{});
-  await Promise.resolve();
+  await new Promise(setImmediate);
   assert.ok(window.__timedAudit);
   return window.__timedAudit;
 }

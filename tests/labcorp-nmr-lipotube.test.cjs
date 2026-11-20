@@ -1,34 +1,16 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const { test } = require('node:test');
 
 const root = path.join(__dirname, '..');
-const app = fs.readFileSync(path.join(root, 'labcorp-app.js'), 'utf8');
 const css = fs.readFileSync(path.join(root, 'labcorp-theme.css'), 'utf8');
-function helper(start, next, context = {}) {
-  const i = app.indexOf('function ' + start + '(');
-  assert(i >= 0, 'Missing ' + start);
-  const j = app.indexOf('\n  function ' + next + '(', i);
-  assert(j > i, 'Missing boundary ' + next);
-  return vm.runInNewContext(app.slice(i, j) + '\n' + start, context);
-}
-const tubeClass = helper('tubeClass', 'parseSimpleMl');
-const shortDrawSource = helper('shortDrawSource', 'explicitSubmissionCount');
-const canonicalCollectionContainer = helper('canonicalCollectionContainer', 'numberWordValue', {
-  tubeClass,
-  selectedSstLabel: () => 'SST / Gold',
-  normalizeSearch: value => String(value).trim().toLowerCase(),
-  isUrineTest: () => false,
-  isTimedUrineTest: () => false
-});
-const printCollectionWholeBloodDetail = helper('printCollectionWholeBloodDetail', 'printContainerBadges', {
-  uniqueTests: tests => tests,
-  escapeHtml: String,
-  bloodVolumeGroupForCollectionItem: () => null
-});
-
+const openCalculator = require('./helpers/calculator-vm.cjs');
+const { tubeClass, shortDrawSource, canonicalCollectionContainer, printCollectionWholeBloodDetail } =
+  openCalculator('labcorp-app.js', [
+    'tubeClass', 'shortDrawSource', 'canonicalCollectionContainer', 'printCollectionWholeBloodDetail'
+  ]);
 test('NMR LipoTube cannot be mistaken for Yellow ACD', () => {
   assert.equal(tubeClass('NMR LipoTube (Black/Yellow)'), 'tube-nmr-lipotube');
   assert.equal(tubeClass('NMR LipoTube (spun original tube)'), 'tube-nmr-lipotube');

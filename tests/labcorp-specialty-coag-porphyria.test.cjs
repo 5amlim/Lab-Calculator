@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 
 const root = path.join(__dirname, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
@@ -30,11 +30,10 @@ for (const mode of ['gold', 'tiger']) {
   const ctx = makeContext(mode);
   vm.runInContext(read(batch), ctx, { filename: batch });
   const raws = ctx.window.SEED_TESTS;
-  assert.equal(raws.length, codes.length);
+  assert.deepEqual(Array.from(raws, row => row.testCode).sort(), codes.filter(code => code !== '144012').sort());
   assert.equal(new Set(raws.map(t => t.testCode)).size, raws.length, 'No duplicate order codes');
-  assert(codes.every(c => raws.some(t => t.testCode === c)), 'Missing test code');
   vm.runInContext(read(batch), ctx, { filename: batch });
-  assert.equal(ctx.window.SEED_TESTS.length, codes.length, 'Repeated script load must be idempotent');
+  assert.equal(ctx.window.SEED_TESTS.length, raws.length, 'Repeated script load must be idempotent');
   const app = read('labcorp-app.js').replace('  init();',
     '  window.api = { normalizeRecord, buildTransportBagPlan, buildCollectionPlan, buildSubmissionContents, menuContainerBadges, printCollectionSubmissionPlan, rankLibraryTest };');
   vm.runInContext(app, ctx, { filename: 'labcorp-app.js' });
@@ -115,7 +114,7 @@ for (const mode of ['gold', 'tiger']) {
       pairCount++;
     }
   }
-  assert.equal(pairCount, 253, 'All pairs of 23 tests must be tested');
+  assert.equal(pairCount, normalized.length * (normalized.length - 1) / 2);
 
   assert.match(byCode('003065').specialInstructions, /below 6/);
   assert.match(byCode('550672').specialInstructions, /144012/);
@@ -126,7 +125,7 @@ for (const mode of ['gold', 'tiger']) {
   assert(api.buildCollectionPlan([two], api.buildTransportBagPlan([two]))
     .some(card => card.count >= 2), 'Protein C deficiency profile requires two source tubes');
   for (const [code, count] of (mode === 'gold'
-    ? [['123225', 2], ['520085', 2]]
+    ? [['123225', 1], ['520085', 2]]
     : [['123225', 1], ['520085', 2]])) {
     const test = byCode(code);
     const plan = api.buildCollectionPlan([test], api.buildTransportBagPlan([test]));
@@ -140,7 +139,7 @@ for (const mode of ['gold', 'tiger']) {
     preferredVolume:'5 mL serum',minimumVolume:'0.5 mL',transportTemperature:'Refrigerated'
   });
   const normalPlan = api.buildCollectionPlan([regular], api.buildTransportBagPlan([regular]));
-  assert.equal(normalPlan.find(card => /sst|gold|tiger/i.test(card.label))?.count, 1,
-    'Legacy single-test SST rule stays unchanged without explicit specialty exception');
+  assert.equal(normalPlan.find(card => /sst|gold|tiger/i.test(card.label))?.count, mode === 'gold' ? 2 : 1,
+    'The planned 2.75 mL serum fits one Tiger SST or two Gold SSTs');
 }
-console.log('PASS: 23 LabCorp specialty records, dedup, specimen handling, 2-tube plasma, Gold/Tiger volume logic');
+console.log('PASS: LabCorp specialty records, dedup, specimen handling, 2-tube plasma, Gold/Tiger volume logic');

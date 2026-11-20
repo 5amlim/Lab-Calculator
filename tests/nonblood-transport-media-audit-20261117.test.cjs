@@ -3,7 +3,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
 
 async function make(lab) {
@@ -39,8 +39,8 @@ async function make(lab) {
   vm.runInNewContext(code.replace('  init();',
     '  window.__mediaAudit = {database,splitSubmissionContainers,buildTransportBagPlan,buildSubmissionContents,printCollectionSubmissionPlan};'),
     context, { filename: app, timeout: 30000 });
-  await Promise.resolve();
-  await Promise.resolve();
+  await new Promise(setImmediate);
+  await new Promise(setImmediate);
   assert(win.__mediaAudit, lab + ' missing audit hook');
   return win.__mediaAudit;
 }

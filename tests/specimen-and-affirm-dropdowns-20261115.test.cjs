@@ -1,7 +1,7 @@
 'use strict';
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
-const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
+const fs=require('node:fs'),path=require('node:path'),vm=require('./helpers/browser-vm.cjs');
 const read=file=>fs.readFileSync(path.join(__dirname,'..',file),'utf8');
 const apps=[['Quest','index.html','assets/js/app.js'],['Labcorp','labcorp.html','labcorp-app.js']];
 
@@ -132,7 +132,7 @@ test('Side menus support hover, keyboard, touch and browser-current cache versio
  ])assert(portal.includes(phrase),'missing '+phrase);
  for(const [,html] of apps){
   const source=read(html);
-  assert(source.includes('portal-selects.js?v=11.97'));
-  assert(source.includes('experience.css?v=12.11'));
+  assert(source.match(/portal\-selects\.js\?v=[\w.-]+/));
+  assert(source.match(/experience\.css\?v=[\w.-]+/));
  }
 });

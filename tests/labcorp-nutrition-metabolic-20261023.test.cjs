@@ -1,7 +1,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const path = require('node:path');
 
 const root = path.join(__dirname, '..');
@@ -18,7 +18,7 @@ test('LabCorp sourced expansion loads before app without duplicate codes', () =>
   vm.runInNewContext(read(file), context, { filename: file, timeout: 10000 });
   const records = context.window.SEED_TESTS;
   assert.equal(records.length, 18);
-  assert.equal(new Set(records.map(r => r.testCode)).size, 20);
+  assert.equal(new Set(records.map(r => r.testCode)).size, records.length);
   for (const test of records) {
     assert.match(test.testCode, /^\d{6}$/);
     assert(test.testName && test.specimenType && test.drawContainer);

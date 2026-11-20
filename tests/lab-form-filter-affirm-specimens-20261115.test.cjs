@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const {test} = require('node:test');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
 const AFFIRM = 'BD Affirm VPIII ATTS swab transport kit';
 const pages = [['Quest','index.html','assets/js/app.js'],['Labcorp','labcorp.html','labcorp-app.js']];
@@ -152,6 +152,6 @@ test('Quest and Labcorp filters retain generic swab and original sterile-cup pat
 test('Portal menu displays original container wording while preserving legacy saved values',()=>{
  const code=read('assets/js/portal-selects.js');
  assert.match(code,/option\.value === 'Submit in original tube'/);
- assert.match(code,/isSstSource\(item\) \? 'Spun SST \/ Original tube' : 'Submit in original container'/);
+ assert.match(code,/isSstSource\(item\) \? 'Submit in original container \(spun SST\)' : 'Submit in original container \(no transfer\)'/);
  assert.match(code,/tube-eswab/);
 });

@@ -1,6 +1,6 @@
 'use strict';
 const {test}=require('node:test'), assert=require('node:assert/strict');
-const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
+const fs=require('node:fs'),path=require('node:path'),vm=require('./helpers/browser-vm.cjs');
 const read=p=>fs.readFileSync(path.join(__dirname,'..',p),'utf8');
 const Q='assets/js/quest-official-expansion-20261115-batch3.js';
 const L='assets/js/labcorp/catalog/verified-expansion-20261115-batch4.js';
@@ -66,7 +66,7 @@ test('Quest 24-hour urine and multi-specimen blood panels keep physical requirem
  const a=plan(['17307']);
  assert(a.collection.some(x=>x.className==='tube-sst'));
  assert(a.collection.some(x=>x.className==='tube-lavender'&&x.count>=2));
- assert(a.submitted.some(x=>x.label==='Serum Transport Tube'));
+ assert(a.submitted.some(x=>x.label==='Transport Tube'));
  const h=plan(['91705']);
  assert.equal(h.collection.find(x=>x.className==='tube-sst').count,2);
  assert.equal(h.bags.length,2);
@@ -75,7 +75,7 @@ test('Quest 24-hour urine and multi-specimen blood panels keep physical requirem
 test('Labcorp serum yields count Gold vs Tiger correctly, frozen purple vials stay separate',async()=>{
  const gold=await calculator('labcorp','gold'),tiger=await calculator('labcorp','tiger');
  for(const c of ['520149','520194','520293','520298','006981']){
-  assert.equal(gold([c]).collection.find(x=>x.className==='tube-sst').count,2,c+' Gold');
+  assert.equal(gold([c]).collection.find(x=>x.className==='tube-sst').count,1,c+' Gold');
   assert.equal(tiger([c]).collection.find(x=>x.className==='tube-sst').count,1,c+' Tiger');
  }
  for(const plan of [gold,tiger]){

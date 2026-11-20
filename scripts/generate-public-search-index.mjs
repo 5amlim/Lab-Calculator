@@ -81,3 +81,12 @@ for(const index of indexes){
  writeFileSync(resolve(folder,index.lab+'-tests.json'),output);
  console.log(index.lab+': '+index.tests.length+' active test codes, '+Buffer.byteLength(output)+' bytes');
 }
+
+// Keep the offline lab picker aligned with the published active catalogs.
+const counts = Object.fromEntries(indexes.map(index => [index.lab, index.tests.length]));
+const selectorPath = 'assets/js/lab-select.js';
+const selector = read(selectorPath);
+const publishedCounts = /const counts = \{quest:\d+, cedars:(\d+), labcorp:\d+\};/;
+assert(publishedCounts.test(selector), 'Lab selector count declaration is missing');
+writeFileSync(resolve(root, selectorPath), selector.replace(publishedCounts,
+ (_, cedars) => `const counts = {quest:${counts.quest}, cedars:${cedars}, labcorp:${counts.labcorp}};`));

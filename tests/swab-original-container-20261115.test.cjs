@@ -4,7 +4,7 @@ const {test} = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 
 async function calculator(filename) {
   const source = fs.readFileSync(path.join(__dirname, '..', filename), 'utf8');
@@ -28,8 +28,8 @@ async function calculator(filename) {
   vm.runInNewContext(code, {window, document, localStorage,
     console: {error() {}, warn() {}}, setTimeout: () => 0, clearTimeout() {}},
   {filename});
-  await Promise.resolve();
-  await Promise.resolve();
+  await new Promise(setImmediate);
+  await new Promise(setImmediate);
   assert.ok(window.__SWAB_TEST__, filename + ' functions');
   return window.__SWAB_TEST__;
 }

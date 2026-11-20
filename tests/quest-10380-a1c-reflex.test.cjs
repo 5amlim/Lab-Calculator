@@ -1,14 +1,14 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 
 const root = path.join(__dirname, '..');
 const read = filename => fs.readFileSync(path.join(root, filename), 'utf8');
 const html = read('index.html');
 const script = read('assets/js/quest-10380-20261112.js');
 
-assert.match(html, /<script src="assets\\/js\\/quest-10380-20261112\\.js\\?v=1"><\\/script>/);
+assert.match(html, /<script src="assets\/js\/quest-10380-20261112\.js\?v=1"><\/script>/);
 assert(html.indexOf('quest-10380-20261112.js') < html.indexOf('assets/js/app.js'), 'Load Quest 10380 before app initialization');
 
 const context = vm.createContext({ window: { SEED_TESTS: [] } });
@@ -34,5 +34,5 @@ assert.match(extra.minimumVolume, /0.5 mL/);
 assert.match(test.specialInstructions, /TWO SEPARATE SPECIMENS REQUIRED/);
 assert.match(test.specialInstructions, /unspun SST/);
 assert.match(test.specialInstructions, /NOT offered.*San Juan Capistrano/i);
-assert.match(test.source, /test-detail\\/10380/);
+assert.match(test.source, /test-detail\/10380/);
 console.log('PASS: Quest 10380 inclusion, separate SST and lavender collection, volumes, processing, temperature and dedupe');

@@ -1,6 +1,6 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const path = require('node:path');
 const root = path.join(__dirname, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
@@ -12,12 +12,16 @@ for (const scriptPath of ['assets/js/app.js', 'labcorp-app.js']) {
   assert(begin > 0 && end > begin, scriptPath + ': expected print-only helper functions');
   const helperSource = source.slice(begin, end);
   const ctx = {
+    Map,
     uniqueTests: tests => [...new Map(tests.map(test => [test.id, test])).values()],
     isSstDraw: test => /sst|gold/i.test(test.drawContainer),
     normalizeSpecimenType: text => text,
     isOriginalContainerSubmission: () => false,
     splitSubmissionContainers: test => [{ key: test.destinationKey }],
-    displayCode: test => test.testCode || test.id
+    displayCode: test => test.testCode || test.id,
+    timedSpecimenLabel: () => '',
+    requiresDistinctDrawTransport: () => false,
+    requiresSeparateTransportAliquot: test => test.id === 'custom-manual'
   };
   vm.createContext(ctx);
   vm.runInContext(helperSource, ctx);
@@ -56,7 +60,7 @@ for (const scriptPath of ['assets/js/app.js', 'labcorp-app.js']) {
     scriptPath+': source SST badge combines the correct physical allocation');
   assert.match(grouped[0].printAllocationNote,/2 for custom-manual/,
     scriptPath+': manual tubes remain separately allocated in one compact note');
-  assert.match(grouped[0].printAllocationNote,/3 for other tests/,
+  assert.match(grouped[0].printAllocationNote,/3 for (?:other tests|routine-0, routine-1)/,
     scriptPath+': routine tubes remain separately allocated without nested boxes');
   assert.equal(grouped[0].printSubgroups,undefined,
     scriptPath+': nested subgroups are no longer rendered');
@@ -81,12 +85,12 @@ for (const scriptPath of ['assets/js/app.js', 'labcorp-app.js']) {
     scriptPath+': warning is rendered inline rather than as a standalone block');
   assert.match(source, /const totalContainers = contents\.reduce/,
     scriptPath+': physical container totals must be computed before grouping');
-  assert.match(source, /contents: printSstSerumTransportGroupContents\(contents\), totalContainers/,
+  assert.match(source, /contents: groupSubmissionContainersForPrint\(printSstSerumTransportGroupContents\(contents\)\), totalContainers/,
     scriptPath+': grouping must affect print presentation only');
 }
 const css=read('assets/css/styles.css');
 assert.match(css, /\.print-serum-allocation-note/);
 assert.match(css, /\.print-bag-manual-flag/);
-assert.match(read('index.html'), /app\.js\?v=12\.52/);
-assert.match(read('labcorp.html'), /labcorp-app\.js\?v=70/);
+assert.match(read('index.html'), /app\.js\?v=[\w.-]+/);
+assert.match(read('labcorp.html'), /labcorp-app\.js\?v=[\w.-]+/);
 console.log('PASS: SST serum transport visual grouping preserves physical counts, consolidated instructions and compact warnings');

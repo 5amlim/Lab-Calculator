@@ -1,4 +1,4 @@
-const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('./helpers/browser-vm.cjs');
 const root=path.join(__dirname,'..');const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 test('Quest workbook mapping preserves shorthand aliases and verified names by exact code',()=>{
  const window={SEED_TESTS:[
@@ -31,6 +31,6 @@ for(const [lab,script,html] of [['Quest','assets/js/app.js','index.html'],['LabC
   assert(css.includes('.batch-choice-stat .batch-choice-stat-word'));
   assert(css.includes('color: #a23d37;'));
   assert(css.includes('background: #e7f5ee'));
-  assert(read(html).includes('experience.css?v=11.89'));
+  assert(read(html).match(/experience\.css\?v=[\w.-]+/));
  });
 }

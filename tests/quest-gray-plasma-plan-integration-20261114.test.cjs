@@ -7,7 +7,7 @@ const root=path.resolve(__dirname,'..');
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const expected={8477:1,19833:1,484:1,1430:2,19834:2,16292:4,35181:2,23475:3,18927:3,6745:4};
 async function getCalculator(){
-  const window={SEED_TESTS:[]};
+  const window={addEventListener() {},SEED_TESTS:[]};
   new Function('window',read('assets/js/quest-gray-plasma-processing-20261114.js'))(window);
   const localStorage={getItem:()=>null,setItem(){},removeItem(){}};
   const document={
@@ -22,7 +22,7 @@ async function getCalculator(){
   new Function('window','document','localStorage','console','setTimeout','clearTimeout',instrumented)(
     window,document,localStorage,{warn(){},error(){throw Error('App startup error');}},()=>0,()=>{}
   );
-  await Promise.resolve();
+  await new Promise(setImmediate);
   assert.ok(window.__QUEST_PLAN_TEST__,'calculator initialized in isolated test environment');
   return window.__QUEST_PLAN_TEST__;
 }

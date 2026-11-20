@@ -26,12 +26,12 @@ jobs:
           node-version: '22'
       - name: Generate and validate current active catalog indexes
         run: node scripts/generate-public-search-index.mjs
-      - name: Commit generated JSON only if changed
+      - name: Commit generated assets only if changed
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/search/quest-tests.json assets/search/labcorp-tests.json
+          git add assets/search/quest-tests.json assets/search/labcorp-tests.json assets/js/lab-select.js
           if git diff --cached --quiet; then
             echo "Search indexes are current."
             exit 0

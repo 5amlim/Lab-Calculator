@@ -19,6 +19,6 @@ for(const file of ['assets/js/app.js','labcorp-app.js']) {
 const css=read('assets/css/styles.css');
 assert.match(css,/\.print-bag-pair-keep > \.print-bag-row > \.print-submit-heading/);
 assert.match(css,/grid-column: 1 \/ -1 !important/);
-assert.match(read('index.html'),/app\.js\?v=12\.53/);
-assert.match(read('labcorp.html'),/labcorp-app\.js\?v=71/);
+assert.match(read('index.html'),/app\.js\?v=[\w.-]+/);
+assert.match(read('labcorp.html'),/labcorp-app\.js\?v=[\w.-]+/);
 console.log('PASS: section heading stays with the first paired bag row across print layouts');

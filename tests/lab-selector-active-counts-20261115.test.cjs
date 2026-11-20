@@ -2,7 +2,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const { test } = require('node:test');
 
 const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
@@ -44,11 +44,11 @@ test('Labcorp and Quest main counters separate cart-eligible tests from referenc
   const labcorp = read('labcorp-app.js');
   const quest = read('assets/js/app.js');
   for (const source of [labcorp, quest]) {
-    const active = /database\.filter\(test => test\.status === 'active'\)\.length} active tests/;
+    const active = /const activeCount = database\.filter\(test => test\.status === 'active'\)\.length/;
     assert.match(source, active);
-    assert.match(source, /directory-only references/);
+    assert.match(source, /directory-only/);
   }
-  assert.equal((labcorp.match(/database\.filter\(test => test\.status === 'active'\)\.length} active tests/g) || []).length,2,
+  assert.equal((labcorp.match(/^    renderRecordCount\(\);/gm) || []).length,2,
     'Labcorp must update its count on initialization AND after manual changes');
   assert.doesNotMatch(labcorp, /els\.recordCount\.textContent = `${database\.length} tests`/);
 });

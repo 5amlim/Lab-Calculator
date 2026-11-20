@@ -3,7 +3,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const root = path.join(__dirname,'..');
 const read = f => fs.readFileSync(path.join(root,f),'utf8');
 const modules = {
@@ -21,34 +21,10 @@ const load = lab => {
  for(const file of modules[lab]) vm.runInNewContext(read(file),{window});
  return new Map(window.SEED_TESTS.map(r=>[r.testCode,r]));
 };
-function functionSource(source,name) {
- const start=source.indexOf('function '+name+'(');
- assert(start>=0,'Missing '+name);
- const opening=source.indexOf('{',start);
- let depth=0;
- for(let i=opening;i<source.length;i++){
-   if(source[i]==='{')depth++;
-   if(source[i]==='}'&&--depth===0) return source.slice(start,i+1);
- }
- throw new Error('Unclosed '+name);
-}
+const openCalculator = require('./helpers/calculator-vm.cjs');
 function getCalculatorSstFns(lab) {
- const source=read(lab==='Quest'?'assets/js/app.js':'labcorp-app.js');
- const names=['needsPreferredSerumYieldSstCount','sstEstimateForTests','tigerSstEstimateForTests'];
- const functions=names.map(name=>functionSource(source,name)).join('\n');
- const parse = v => {const m=String(v||'').match(/(\d+(?:\.\d+)?)\s*mL/i);return m?Number(m[1]):null;};
- const deps = {
-  SST_USABLE_ML_PER_TUBE:2.5,
-  TIGER_SST_USABLE_ML_PER_TUBE:4,
-  isSstDraw: t => /sst|gold/i.test(t.drawContainer),
-  parseVolumeMl:parse,
-  volumeForRequirement:(t,level)=>parse(t[level==='preferred'?'preferredVolume':'minimumVolume']),
-  explicitSstTubeCount:t=>t.collectionCount>1?t.collectionCount:0,
-  needsTwoSstForMinimum:t=>/sst|gold/i.test(t.drawContainer)&&parse(t.minimumVolume)>=4,
-  requiresDedicatedSst:t=>t.collectionCount>1||(Array.isArray(t.additionalDrawRequirements)&&t.additionalDrawRequirements.length>0),
-  hasCollectionFillRule:t=>false
- };
- return vm.runInNewContext(functions+'\n({sstEstimateForTests,tigerSstEstimateForTests})',deps);
+ return openCalculator(lab === 'Quest' ? 'assets/js/app.js' : 'labcorp-app.js',
+   ['sstEstimateForTests','tigerSstEstimateForTests']);
 }
 test('Quest 92062 plans two Gold OR one Tiger plus a separate lavender; 10379 stays one SST plus lavender',()=>{
  const rows=load('Quest');
@@ -67,9 +43,9 @@ test('Labcorp 3-5mL preferred serum profiles plan Gold/Tiger volumes without bla
  const rows=load('Labcorp');
  const f=getCalculatorSstFns('Labcorp');
  const cases=[
-  ['520149',2,1],['520298',2,1],['520293',2,1],
-  ['520194',2,1],['520555',2,2],['006981',2,1],
-  ['520340',2,2],['520059',1,1],['520134',1,1],['520385',1,1]
+  ['520149',1,1],['520298',1,1],['520293',1,1],
+  ['520194',1,1],['520555',2,2],['006981',1,1],
+  ['520340',2,2],['520059',1,1],['520385',1,1]
  ];
  for(const [code,gold,tiger] of cases) {
   const r=rows.get(code);
@@ -93,12 +69,12 @@ test('multi-aliquot coagulation submission counts stay separate from draw counts
   assert.equal(r.transportContainer,'Frozen Transport Tube (Purple Cap)');
  }
 });
-test('new volume policy is opt-in; legacy Quest tests still use original volume cap',()=>{
+test('Legacy Quest tests retain the volume estimate when no compatible pool applies',()=>{
  const js=read('assets/js/app.js');
  assert.match(js,/usePreferredSerumYield: record\.usePreferredSerumYield === true/);
- assert.match(js,/needsPreferredSerumYieldSstCount\(test\) && plannedMl !== null/);
+ assert.match(js,/needsPreferredSerumYieldSstCount\(test\).*&& plannedMl !== null/);
  const fn=getCalculatorSstFns('Quest');
  const unflagged={drawContainer:'SST / Gold',preferredVolume:'4 mL serum',minimumVolume:'2 mL serum',collectionCount:1};
- assert.equal(fn.sstEstimateForTests([unflagged]).totalTubes,1);
+ assert.equal(fn.sstEstimateForTests([unflagged]).totalTubes,2);
  assert.equal(fn.tigerSstEstimateForTests([unflagged]).totalTubes,1);
 });

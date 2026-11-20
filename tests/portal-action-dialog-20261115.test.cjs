@@ -3,7 +3,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
 
 function bootDialog() {
@@ -17,6 +17,7 @@ function bootDialog() {
     return controls.get(id);
   };
   const dialog = {
+    classList: { toggle() {} },
     open: false, isConnected: false, className: '', dataset: {}, attributes: {},
     listeners: {}, html: '',
     set innerHTML(value){ this.html = value; },
@@ -34,7 +35,7 @@ function bootDialog() {
     addEventListener(){}
   };
   const window = {};
-  vm.runInNewContext(read('assets/js/portal-action-dialog.js'), { window, document, console, Promise },
+  vm.runInNewContext(read('assets/js/portal-action-dialog.js'), { window, document, console, Promise, setTimeout: setImmediate },
     {filename:'portal-action-dialog.js'});
   return { window, document, dialog, controls, find };
 }

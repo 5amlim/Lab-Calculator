@@ -3,7 +3,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 
 const read = p => fs.readFileSync(path.join(__dirname, '..', p), 'utf8');
 const script = read('assets/js/portal-selects.js');
@@ -50,7 +50,7 @@ test('Both calculators load updated touch-safe dropdown and non-sticky hover CSS
   assert(css.includes('#catalogFilterControl .portal-select-menu .portal-select-option:hover:not(.is-selected):not(:focus-visible)'));
   for(const html of ['index.html','labcorp.html']){
     const source = read(html);
-    assert(source.includes('portal-selects.js?v=11.97'));
-    assert(source.includes('experience.css?v=12.11'));
+    assert(source.match(/portal\-selects\.js\?v=[\w.-]+/));
+    assert(source.match(/experience\.css\?v=[\w.-]+/));
   }
 });

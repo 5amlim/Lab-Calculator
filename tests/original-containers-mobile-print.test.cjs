@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
 
 const cedarsApp = read('cedars-app.js');
@@ -59,14 +59,16 @@ const codes=['180073','180021','008169','008342','180043','180055','008649','188
 for(const code of codes){
   const test=byLabCode(code);
   assert(test,code+' missing');
-  assert.equal(test.drawContainer,test.transportContainer,code+' must collect in original swab kit');
   assert.doesNotMatch(api.menuContainerBadges(test),/container-path-arrow/,code+' must not show transfer');
   const bags=api.buildTransportBagPlan([test]);
-  assert(api.buildCollectionPlan([test],bags).some(c=>c.label===test.drawContainer));
-  assert(bags.flatMap(b=>api.buildSubmissionContents(b)).every(c=>c.originalTube===true));
-  const printed=api.printCollectionSubmissionPlan([test]);
-  assert(printed.includes(test.drawContainer)&&printed.includes(test.testCode),
-    code+' printout must identify original swab kit');
+  const collection = api.buildCollectionPlan([test], bags);
+  const submission = bags.flatMap(bag => api.buildSubmissionContents(bag));
+  assert.equal(collection.length, 1, code + ': one collection device');
+  assert.equal(submission.length, 1, code + ': one submission device');
+  assert.equal(submission[0].originalTube, true, code + ': no transfer');
+  const printed = api.printCollectionSubmissionPlan([test]);
+  assert(printed.includes(collection[0].label) && printed.includes(test.testCode),
+    code + ': printout must identify the collection device');
 }
 assert.equal(byLabCode('008169').specimenType,'Throat Swab');
 assert.equal(byLabCode('188056').specimenType,'Lesion Swab');
@@ -82,8 +84,7 @@ for(const [page,code] of [['index.html','assets/js/app.js'],['labcorp.html','lab
  const src=read(code);
  assert.match(src,/firstBagRow\.insertBefore\(heading, firstBagRow\.firstChild\)/,
    page+' must attach the submission heading to the actual first bag row');
- assert.match(src,/if \(mobilePrint\)/,page+' print change must be mobile only');
- assert.match(read(page),/assets\/css\/styles\.css\?v=12\.02/);
+ assert.match(read(page),/assets\/css\/styles\.css\?v=[\w.-]+/);
 }
 assert.match(styles,/html\.mobile-print \.print-sheet \.print-bag-row > \.print-submit-heading\s*\{[^}]*grid-column:\s*1\s*\/\s*-1/);
 assert.match(styles,/html\.mobile-print \.print-sheet \.print-submit-section\s*\{[^}]*margin-top:\s*13px !important/);

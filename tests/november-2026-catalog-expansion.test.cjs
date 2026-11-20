@@ -3,7 +3,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 
 const root = path.resolve(__dirname, '..');
 const files = [
@@ -47,7 +47,7 @@ test('timed glucose and multi-specimen panels retain separate tube requirements'
   }
   const byCode = Object.fromEntries(w.window.SEED_TESTS.map(t=>[t.testCode,t]));
   for (const [code, count] of [['35181',1],['23475',2],['18927',2],['6745',3],['15853',4]]) {
-    assert.equal(byCode[code].additionalDrawRequirements[0].count, count, code);
+    assert.equal(byCode[code].additionalDrawRequirements.reduce((sum, route) => sum + route.count, 0), count, code);
   }
   for (const code of ['92062','92027','92026','92063','042045','042060']) {
     assert.ok(byCode[code].additionalDrawRequirements.length, code + ' missing separate specimen');

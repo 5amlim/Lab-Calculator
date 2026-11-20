@@ -2,7 +2,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 
 const root = path.resolve(__dirname, '..');
 const read = name => fs.readFileSync(path.join(root, name), 'utf8');
@@ -22,16 +22,15 @@ const load = file => {
 };
 
 test('each loaded LabCorp catalog code has a single canonical source record', () => {
-  const codes = new Map();
+  const context = vm.createContext({ window: { SEED_TESTS: [] } });
   for (const file of catalogPaths) {
-    for (const row of load(file)) {
-      const code = String(row.testCode || '').trim();
-      assert(code, 'Missing code in ' + file);
-      assert(!codes.has(code), code + ' repeated in ' + codes.get(code) + ' and ' + file);
-      codes.set(code, file);
-    }
+    vm.runInContext(read(file), context, { filename: file, timeout: 20000 });
   }
-  assert.equal(codes.size, 1319, 'Unexpected LabCorp catalog loss or duplication');
+  const records = context.window.SEED_TESTS;
+  const codes = records.map(row => String(row.testCode || '').trim());
+  assert(codes.every(Boolean), 'All catalog rows must have a code');
+  assert.equal(new Set(codes).size, records.length, 'Each code has one effective record');
+  assert(records.length >= JSON.parse(read('assets/search/labcorp-tests.json')).tests.length);
 });
 
 function openCalculator(records) {
@@ -85,8 +84,8 @@ test('multi-container assays produce distinct physical collection and submission
 
   const copper = plan('081162');
   assert(count(copper.collection, 'Royal Blue') >= 1, 'Needs a trace-metal-free source tube');
-  assert.equal(count(copper.bags[0].items, 'Plasma Transport Tube'), 1);
-  assert.equal(count(copper.bags[0].items, 'RBC Transport Tube'), 1);
+  assert.equal(copper.bags[0].items.filter(item => /plasma/i.test(item.label) || (item.label === 'Transport Tube' && item.tests.some(test => test.specimenType === 'Plasma'))).reduce((n, item) => n + item.count, 0), 1);
+  assert.equal(count(copper.bags[0].items, 'Metal-Free Packed Red Blood Cells Transport Tube'), 1);
   assert.equal(copper.bags[0].temperature, 'routine-refrigerated');
 
   const orotic = plan('007010');
@@ -101,6 +100,6 @@ test('multi-container assays produce distinct physical collection and submission
     assert.equal(count(vitamins.collection, 'Gold / SST'), 1,
       code + ': two aliquots do not automatically require two blood draws');
     assert.equal(count(vitamins.bags[0].items, 'Gold / SST'), 1);
-    assert.equal(count(vitamins.bags[0].items, 'Amber Serum'), 1);
+    assert.equal(count(vitamins.bags[0].items, 'Amber Transport Tube'), 1);
   }
 });

@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 
 const root = path.join(__dirname, '..');
 const read = filename => fs.readFileSync(path.join(root, filename), 'utf8');
@@ -11,7 +11,7 @@ const paths = [
 ];
 
 for (const [name, html, appFile] of paths) {
-  assert.match(read(html), /<option value="sterile-cup">Sterile cup \(submitted\)<\/option>/,
+  assert.match(read(html), /<option value="sterile-cup"[^>]*>Sterile cup \(submitted\)<\/option>/,
     name + ': sterile-cup filter must exist');
   const context = vm.createContext({
     window: { SEED_TESTS: [] },

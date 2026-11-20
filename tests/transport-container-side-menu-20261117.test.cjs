@@ -3,7 +3,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 
 const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
 const fixtures = [
@@ -79,18 +79,18 @@ for (const [name,htmlPath,appPath] of [
     assert(!options.some(o=>o.value==='csf-vial'), 'CSF must use Sterile cup');
     for(const obsolete of ['serum','plasma','chilled-vial','clean-vial'])
       assert(!options.some(o=>o.value===obsolete), obsolete+' should use Transport Tube');
-    assert(html.includes('portal-selects.js?v=11.97'));
+    assert(html.match(/portal\-selects\.js\?v=[\w.-]+/));
   });
 
   test(name + ' standard transfer vials share Transport Tube without losing handling requirements', async () => {
     const w = loadedApp(appPath);
-    await Promise.resolve(); await Promise.resolve();
+    await new Promise(setImmediate); await new Promise(setImmediate);
     const api = w.__audit;
     api.filters.transportContainerFilter.options = transportOptions(read(htmlPath));
     for (const [id, actualContainer] of [
       ['serum-vial','Transport Tube'], // Existing app normalization for standard serum vial
-      ['plasma-vial','Plastic Plasma Transport Tube'],
-      ['chilled-vial','Chilled Plastic Screw-Cap Vial'],
+      ['plasma-vial','Transport Tube'],
+      ['chilled-vial','Transport Tube'],
       ['clean-vial','Clean screw-capped plastic vial (no preservative)']
     ]) {
       const record = api.database.find(item => item.id === id);
@@ -106,6 +106,8 @@ for (const [name,htmlPath,appPath] of [
     const chilled = api.database.find(item => item.id === 'chilled-vial');
     assert.equal(chilled.transportTemperature,'Refrigerated',
       'Chilled vial must retain refrigeration metadata');
+    const clean = api.database.find(item => item.id === 'clean-vial');
+    assert.match(clean.transportContainer, /no preservative/i);
     const stool = api.database.find(item => item.id === 'stool-clean-vial');
     assert(api.transportContainerFilterCategories(stool).includes('stool-clean'));
     assert(!api.transportContainerFilterCategories(stool).includes('transport'),
@@ -114,7 +116,7 @@ for (const [name,htmlPath,appPath] of [
 
   test(name + ' broad group filters include children and additional specimens', async () => {
     const win = loadedApp(appPath);
-    await Promise.resolve(); await Promise.resolve();
+    await new Promise(setImmediate); await new Promise(setImmediate);
     const api=win.__audit, filters=api.filters;
     assert(api);
     filters.transportContainerFilter.options=transportOptions(read(htmlPath));

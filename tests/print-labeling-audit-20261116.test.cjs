@@ -1,7 +1,7 @@
 'use strict';
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
-const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
+const fs=require('node:fs'),path=require('node:path'),vm=require('./helpers/browser-vm.cjs');
 const read=p=>fs.readFileSync(path.join(__dirname,'..',p),'utf8');
 const files={
  Quest:[
@@ -31,7 +31,7 @@ async function harness(lab){
    window,document,localStorage:{getItem(){return null;},setItem(){},removeItem(){}},
    setTimeout(){return 0;},clearTimeout(){},console:{warn(){},error(){}}
  },{filename:app,timeout:30000});
- await Promise.resolve();await Promise.resolve();
+ await new Promise(setImmediate);await new Promise(setImmediate);
  const api=window.__labelAudit;
  assert(api,lab+' missing label audit hook');
  return {
@@ -50,12 +50,13 @@ async function harness(lab){
 test('Quest source badges occur once and vague body fluids never become wound swabs',async()=>{
  const {api,get,print}=await harness('Quest');
  for(const [code,text] of [
-   ['6740','Source/site · Collection date/time'],
-   ['94675','Exact anatomical source/site · Collection date/time'],
-   ['95185','Exact anatomical source/site · Collection date/time']
+   ['6740','Pericardial Fluid'],
+   ['94675','Body Fluid • Anatomical source/site'],
+   ['95185','Body Fluid • Anatomical source/site']
  ]){
    const html=print([code]);
-   assert(html.includes(text),code+' source not formatted');
+   assert(html.includes(text),code+' source not formatted: '+html);
+   assert.match(html,/Collection date\/time/);
    assert.doesNotMatch(html,/print-collect-chip-specimen/,'single source badge is in heading');
    assert.doesNotMatch(html,/Wound swab|Label specimen source/i);
  }
@@ -66,7 +67,7 @@ test('Quest named swab uses actual collection site, not a generic label phrase',
  const {api,get,print}=await harness('Quest');
  assert.equal(api.specificSpecimenSource(get('17656')),'Nasal Swab');
  const html=print(['17656']);
- assert.match(html,/Nasal Swab · Collection date\/time/);
+ assert.match(html,/Nasal Swab • Collection date\/time/);
  assert.doesNotMatch(html,/Label specimen source|print-collect-chip-specimen/);
  const generic={...get('17656'),specimenType:'Swab',testName:'Bacterial Culture',
    specialInstructions:'Acceptable sources include nasal, throat and wound swabs'};
@@ -76,18 +77,18 @@ test('When different fluid sources share a print item, each is still identified'
  const {print}=await harness('Quest');
  const html=print(['17411','17586']);
  assert.equal((html.match(/class="print-label-note"/g)||[]).length,2);
- assert.equal((html.match(/print-collect-chip-specimen/g)||[]).length,2);
- assert.match(html,/>Pleural Fluid<\/span>/);
- assert.match(html,/>Pericardial Fluid<\/span>/);
+ assert.doesNotMatch(html,/print-collect-chip-specimen/);
+ assert.match(html,/>Pleural Fluid •/);
+ assert.match(html,/>Pericardial Fluid •/);
 });
 test('Labcorp CSF sequence, specific joint, and ordinary specimen rules remain intact',async()=>{
  const {print}=await harness('Labcorp');
  const cases=[
-  ['012229','Specimen source · Tube sequence · Collection date/time'],
-  ['005355','Exact joint/site · Collection date/time'],
-  ['019588','Exact anatomical source/site · Collection date/time'],
-  ['620009','Specimen source · Collection date/time'],
-  ['182776','Specimen source · Collection date/time']
+  ['012229','CSF • Anatomical source/site • Tube sequence • Collection date/time'],
+  ['005355','Synovial Fluid • Exact anatomical source/site • Collection date/time'],
+  ['019588','Body Fluid • Exact anatomical source/site • Collection date/time'],
+  ['620009','CSF • Anatomical source/site • Collection date/time'],
+  ['182776','Urine • Collection date/time']
  ];
  for(const [code,label] of cases){
    const html=print([code]);
@@ -105,6 +106,6 @@ test('Custom timepoints and specialized labels are never flattened into generic 
     specialLabeling:'Label transport tubes PEAK and TROUGH with separate collection times'}
  ];
  const html=api.printLabelingNotes({tests:extra,originalTube:true,className:'tube-lavender'});
- assert.match(html,/Fasting - record actual draw time/);
- assert.match(html,/PEAK and TROUGH with separate collection times/);
+ assert.match(html,/Fasting • Collection time <small>999901<\/small>/);
+ assert.match(html,/Collection time • Identify peak or trough <small>999902<\/small>/);
 });

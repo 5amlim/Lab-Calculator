@@ -38,7 +38,7 @@ assert.match(mobile,
 // Both laboratories use the shared fix, and both set the mobile class before
 // opening the native print sheet. No changes to collection/planning logic.
 for (const [name, html, app] of [['Quest', quest, questApp], ['LabCorp', labcorp, labcorpApp]]) {
-  assert.match(html, /assets\/css\/styles\.css\?v=12\.02/, name + ' must load new print CSS');
+  assert.match(html, /assets\/css\/styles\.css\?v=[\w.-]+/, name + ' must load new print CSS');
   assert.match(app, /classList\.toggle\('mobile-print', mobilePrint\)/,
     name + ' must detect phone print mode');
 }

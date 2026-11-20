@@ -3,7 +3,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const read = name => fs.readFileSync(path.join(__dirname, '..', name), 'utf8');
 const Q = 'assets/js/quest-verified-blood-expansion-20261115-batch13.js';
 const L = 'assets/js/labcorp/catalog/verified-blood-expansion-20261115-batch13.js';
@@ -75,12 +75,12 @@ test('Quest HAMA is frozen standard green badge transport; HLA whole blood stays
   assert.match(p.rows.find(t=>t.testCode==='93932').specialInstructions,/do not spin/i);
   assert.match(p.rows.find(t=>t.testCode==='1468').specialInstructions,/NO GEL/);
 });
-test('Labcorp 8 compatible refrigerated serum orders pool in 4 standard transport tubes, not 8 dedicated frozen tubes',async()=>{
+test('Labcorp 8 compatible refrigerated serum orders pool in standard transport tubes using the current volume rules',async()=>{
   const p=(await planner('Labcorp'))(codes.Labcorp);
   assert.deepEqual(Array.from(p.bags,b=>b.label),['Refrigerated bag']);
   assert.equal(p.draw.length,1);
   assert.equal(p.draw[0].className,'tube-sst');
-  assert.equal(p.draw[0].count,4);
+  assert.equal(p.draw[0].count,3);
   assert.equal(p.submitted.reduce((sum,x)=>sum+x.count,0),4);
   assert(p.submitted.every(t=>t.label==='Transport Tube'&&t.className.includes('green-top')));
   assert(p.rows.every(t=>t.drawContainer==='SST / Gold'&&t.alternativeContainer==='Red Top'));

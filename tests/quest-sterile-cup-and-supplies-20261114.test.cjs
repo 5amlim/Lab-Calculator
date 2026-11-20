@@ -3,7 +3,7 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
-const vm=require('node:vm');
+const vm=require('./helpers/browser-vm.cjs');
 const read=filename=>fs.readFileSync(path.join(__dirname,'..',filename),'utf8');
 function records() {
   const window={SEED_TESTS:[]};
@@ -100,5 +100,5 @@ test('Paired Lyme test uses a separate original sterile CSF cup and an independe
  assert.equal(p.ex.find(x=>x.specimenType==='CSF').drawContainer,'Sterile cup');
  assert.ok(p.collection.some(x=>x.label==='Sterile cup' && x.count===1));
  assert.ok(p.submission.some(x=>x.label==='Sterile cup' && x.count===1));
- assert.ok(p.submission.some(x=>/serum/i.test(x.label) && x.count===1));
+ assert.ok(p.submission.some(x=>x.label === 'Transport Tube' && x.count === 1));
 });

@@ -1,15 +1,15 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const read = p => fs.readFileSync(path.join(__dirname,'..',p),'utf8');
 const app = read('labcorp-app.js');
 const source = read('labcorp-quest-sheet-matches-data.js');
 const html = read('labcorp.html');
 const theme = read('labcorp-theme.css');
 
-assert.match(html,/labcorp-app\.js\?v=27/,'Load the patched app, not cached STAT behavior');
-assert.match(html,/<option value="frozen-transport">Frozen transport tube \(purple cap\)<\/option>/);
+assert.match(html,/labcorp-app\.js\?v=[\w.-]+/,'Load the patched app, not cached STAT behavior');
+assert.match(html,/<option value="frozen-transport"[^>]*>[^<]*[Pp]urple[^<]*<\/option>/);
 
 assert.match(theme,/\.labcorp-page \.tube-frozen-purple::before[\s\S]{0,200}#8057b3/,
   'Frozen transport must have a distinct purple-cap badge');
@@ -32,6 +32,7 @@ function boot(area='socal',saveOldStat=false){
     },
     console
   });
+  vm.runInContext(read('assets/js/market-restrictions.js'), ctx);
   vm.runInContext(source,ctx,{filename:'labcorp-quest-sheet-matches-data.js'});
   vm.runInContext(app.replace('  init();',
     '  window.testApi={normalizeRecord,renderLibraryRow,isStatEligible,'+
@@ -99,5 +100,5 @@ assert.equal(frozenItems.reduce((n,item)=>n+item.count,0),3);
 const amber=create('990104','Urine','Amber Frozen Urine Transport Tube');
 assert.doesNotMatch(api.libraryTransportContainerBadges(amber),/tube-frozen-purple/);
 const pp=create('990105','Plasma','PP Transpak Frozen Purple Plasma Transport Tube');
-assert.match(api.libraryTransportContainerBadges(pp),/Frozen Transport Tube \(PP Transpak\)/);
+assert.match(api.libraryTransportContainerBadges(pp),/tube-frozen-purple">Frozen Transport Tube/);
 console.log('PASS: STAT requires verified regional code, saved STAT is cleared, B1 remains transferred, frozen serum/plasma are purple and separate.');

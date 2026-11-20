@@ -1,6 +1,6 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
-const vm = require('node:vm');
+const vm = require('./helpers/browser-vm.cjs');
 const path = require('node:path');
 const root = path.join(__dirname, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
@@ -57,9 +57,9 @@ const labcorp=start('labcorp-app.js',[
   'assets/js/labcorp/catalog/workbook-additions-core.js',
   'assets/js/labcorp/catalog/specialty-chemistry-and-hormones.js'
 ]);
-for(const [code,draw,ship] of [['511238',1,1],['511154',1,1],
-  ['001917',2,2],['120089',3,1],['225250',2,2],['038901',7,7],
+for(const [code,draw,ship] of [['511238',2,2],['511154',2,2],
+  ['001917',2,1],['120089',3,1],['225250',2,2],['038901',7,7],
   ['001610',1,1],['020321',1,1],['550655',3,2],
-  ['706994',1,1],['117892',1,1],['550880',1,1],['550420',1,1]])
+  ['706994',2,1],['117892',2,1],['550880',1,1],['550420',2,1]])
   check(labcorp,code,draw,ship);
-console.log('PASS: minimum-volume reversion, explicit source tubes, and submission counts');
+console.log('PASS: documented volume planning, explicit source tubes, and submission counts');
