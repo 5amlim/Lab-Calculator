@@ -205,3 +205,19 @@ test('Labcorp eight-specimen insulin print shows one common serum label', async 
   }
   assert.match(card.printAllocationNote, /label each container with its collection time/i);
 });
+
+test('Labcorp matching timed insulin orders share one label and sum tube counts', async () => {
+  const api = await openCalc('labcorp-app.js',
+    ['assets/js/labcorp/catalog/directory-reconciliation-20261119.js']);
+  const codes = ['053330', '053348', '053355', '053363'];
+  const result = plan(api, codes.map(code => api.database.find(record => record.testCode === code)));
+  assert.equal(result.collectedCount, 18);
+  assert.equal(result.submittedCount, 18);
+  assert.equal(new Set(result.submitted.map(item => item.key)).size, 18);
+  assert.equal(result.displayed.length, 1);
+  const [card] = result.displayed;
+  assert.equal(card.count, 18);
+  assert.equal([...card.sourceCountOverrides.values()].reduce((sum, count) => sum + count, 0), 18);
+  assert.equal((api.printLabelingNotes(card).match(/class="print-label-note"/g) || []).length, 1);
+  codes.forEach((code, index) => assert(card.printAllocationNote.includes(code + ' × ' + (index + 3))));
+});

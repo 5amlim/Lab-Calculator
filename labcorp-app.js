@@ -7756,7 +7756,11 @@
     if (!source || !source.key) return null;
     return {
       timepoint,
-      key: ['timed-separate-aliquots', sourceId, normalizeSearch(String(test.testCode)),
+      sourceId,
+      code: displayCode(test),
+      key: ['timed-separate-aliquots',
+        /^Timed specimen \d+$/i.test(timepoint) ? printLabelingNotes(item) : sourceId,
+        item.originalTube ? 'original' : 'transfer',
         normalizeSearch(String(item.label)), String(item.className),
         normalizeSearch(source.key), normalizeSearch(normalizeSpecimenType(test.specimenType)),
         normalizeSearch(String(test.transportContainer || '')),
@@ -7861,18 +7865,26 @@
         });
       }
       const timedInfo = parts.map(printTimedSpecimenGroupInfo);
-      const distinctTimepoints = timedInfo.every(Boolean) &&
-        new Set(timedInfo.map(info => info.timepoint.toLowerCase())).size === parts.length;
+      const timedOrders = new Map();
+      if (timedInfo.every(Boolean)) {
+        timedInfo.forEach((info, index) => {
+          if (!timedOrders.has(info.sourceId)) timedOrders.set(info.sourceId, { code: info.code, count: 0, parts: [] });
+          const order = timedOrders.get(info.sourceId);
+          order.count += parts[index].count;
+          order.parts.push(info.timepoint + ' × ' + parts[index].count);
+        });
+      }
+      const timedAllocation = [...timedOrders.values()].map(order => timedOrders.size > 1
+        ? order.code + ' × ' + order.count
+        : order.parts.join(' · ')).join(' · ');
       replacement.set(first, {
         ...first,
         count: parts.reduce((total, part) => total + part.count, 0),
         tests: uniqueTests(parts.flatMap(part => part.tests || [])),
         sourceCountOverrides: sourceOverrides.size ? sourceOverrides : first.sourceCountOverrides,
         printVisualGroupParts: parts,
-        printAllocationNote: distinctTimepoints
-          ? 'Keep separate, do not pool: ' + parts.map((part, index) =>
-              timedInfo[index].timepoint + ' × ' + part.count
-            ).join(' · ') + ' · Label each container with its collection time'
+        printAllocationNote: timedAllocation
+          ? 'Keep separate, do not pool: ' + timedAllocation + ' · Label each container with its collection time'
           : compactPrintAllocationNote(parts) + (sharedFrozenSource
               ? ' · Shared source allocation using pool-size volume targets: same collection only; verify serum yield, follow the shortest processing deadline and keep submitted aliquots separate.'
               : '')
