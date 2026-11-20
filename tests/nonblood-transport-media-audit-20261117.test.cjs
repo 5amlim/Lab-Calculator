@@ -24,7 +24,11 @@ async function make(lab) {
     'labcorp-urgent-pcp-data.js',
     'labcorp-microbiology-infectious-20261025.js',
     'labcorp-expanded-menu-data.js',
-    'assets/js/labcorp/catalog/specialty-chemistry-and-hormones.js'
+    'assets/js/labcorp/catalog/workbook-additions-core.js',
+    'assets/js/labcorp/catalog/verified-expansions-f-j.js',
+    'assets/js/labcorp/catalog/specialty-chemistry-and-hormones.js',
+    'labcorp-verified-additions-20261023.js',
+    'assets/js/labcorp/catalog/directory-reconciliation-20261119.js'
   ];
   const context = {
     window: win, document: doc,
@@ -37,7 +41,7 @@ async function make(lab) {
   const code = read(app);
   assert(code.includes('  init();'), app + ' init hook changed');
   vm.runInNewContext(code.replace('  init();',
-    '  window.__mediaAudit = {database,splitSubmissionContainers,buildTransportBagPlan,buildSubmissionContents,printCollectionSubmissionPlan};'),
+    '  window.__mediaAudit = {database,splitSubmissionContainers,buildTransportBagPlan,buildCollectionPlan,buildSubmissionContents,printCollectionSubmissionPlan};'),
     context, { filename: app, timeout: 30000 });
   await new Promise(setImmediate);
   await new Promise(setImmediate);
@@ -87,10 +91,8 @@ test('Labcorp keeps named media and multi-vial stool pathways', async () => {
   const api = await make('Labcorp');
   assertPlan(api, '180935', 'Sterile cup',
     ['Stool Culture Transport (Cary Blair / Para-Pak Orange)'], false);
-  assertPlan(api, '183988', 'Sterile cup',
+  assertPlan(api, '182240', 'Sterile cup',
     ['Sterile Screw-cap Stool Vial (Para-Pak white clean)'], false);
-  assertPlan(api, '123010', 'Sterile cup',
-    ['Clean screw-capped plastic vial (no preservative)'], false);
   assertPlan(api, '120980', 'Sterile cup',
     ['Amber Plastic Urine Transport Tube (23598), No Preservative'], false);
   assertPlan(api, '183194', 'Sterile cup', ['Aptima Urine Transport'], false);
@@ -99,6 +101,30 @@ test('Labcorp keeps named media and multi-vial stool pathways', async () => {
   const op = assertPlan(api, '008623', 'Sterile cup',
     ['Pink Formalin O&P Vial', 'Gray PVA O&P Vial'], false);
   assert.equal(op.length, 2, 'Formalin and PVA must remain distinct');
+});
+
+test('Labcorp uses the original sterile cup for eligible unpreserved stool orders', async () => {
+  const api = await make('Labcorp');
+  const refrigerated = ['001677', '049684', '180764', '183988', '183992', '187013'];
+  const frozen = ['120071', '123010', '123016', '123234', '123255', '828387'];
+  for (const [codes, temperature] of [[refrigerated, 'Refrigerated'], [frozen, 'Frozen']]) {
+    for (const code of codes) {
+      const [cup] = assertPlan(api, code, 'Sterile cup', ['Sterile cup'], true);
+      assert.equal(cup.count, 1, code);
+      assert.equal(record(api, code).transportTemperature, temperature, code);
+      assert.match(api.printCollectionSubmissionPlan([record(api, code)]), /Submit the original unpreserved sterile cup/);
+    }
+  }
+
+  const tests = ['123010', '123255', '183988', '008144'].map(code => record(api, code));
+  const bags = api.buildTransportBagPlan(tests);
+  const cups = bags.flatMap(bag => api.buildSubmissionContents(bag))
+    .filter(item => item.label === 'Sterile cup' && item.originalTube);
+  assert.deepEqual(Array.from(cups, item => item.count), [1, 1]);
+  assert(cups.some(item => item.tests.length === 2), 'Two compatible frozen orders share one submitted cup');
+  const plan = api.buildCollectionPlan(tests, bags).find(item => item.sharedStoolSource);
+  assert.equal(plan.count, 2, 'Different bag temperatures need different sterile cups');
+  assert.match(plan.detail, /each shipping temperature/);
 });
 
 test('Generic transport tube still uses standard label without inferring special media', async () => {

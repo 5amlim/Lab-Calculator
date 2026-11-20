@@ -105,7 +105,7 @@ test('Four watery stool assays still share one original cup and no transfer inst
  assert.equal(p.submitted.length,1);
  assert.equal(p.submitted[0].count,1);
  assert.equal(h.collectionSpecimenBadgeForItem(p.collection[0]),'Stool');
- assert.match(p.collection[0].detail,/submit the original container/i);
+ assert.match(p.collection[0].detail,/submit the original unpreserved sterile cup/i);
  assert.doesNotMatch(p.collection[0].detail,/transfer to each required transport/i);
 });
 

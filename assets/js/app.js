@@ -5625,16 +5625,18 @@
     // count, not permission to combine incompatible tests or submitted aliquots.
     const sharedStoolTests = uniqueTests(tests.filter(isShareableStoolSourceTest));
     if (sharedStoolTests.length) {
+      const originalCupTests = sharedStoolTests.filter(test =>
+        splitSubmissionContainers(test).every(container =>
+          container.originalTube && container.label === 'Sterile cup'));
+      const originalCupBags = bags.filter(bag => bag.tests.some(test => originalCupTests.includes(test))).length;
+      const detail = originalCupBags > 1
+        ? 'Keep separate labeled sterile cups for each shipping temperature. Follow the submission plan for any required media.'
+        : originalCupTests.length === sharedStoolTests.length
+          ? 'Submit the original unpreserved sterile cup. Check sufficient stool volume for all tests.'
+          : 'Collect stool in a sterile cup. Transfer only where the submission plan calls for a separate container or medium.';
       items.push({ key: 'stool-shared-source-cup', label: 'Sterile cup',
-        className: 'tube-urine-cup', count: 1, tests: sharedStoolTests,
-        sharedStoolSource: true,
-        detail: sharedStoolTests.every(test =>
-          /^sterile cup$/i.test(String(finalTransportContainer(test)).trim()) &&
-          isOriginalContainerSubmission(test))
-          ? 'Collect one adequately filled stool specimen in a Sterile cup; submit the original container. Check total volume for all tests.'
-          : sharedStoolTests.length > 1
-            ? 'Collect stool in one sterile cup, then transfer to each required transport or preservative container. Verify sufficient quantity and transfer timing.'
-            : 'Collect stool in a sterile cup; transfer to the required transport or preservative container as needed.' });
+        className: 'tube-urine-cup', count: Math.max(1, originalCupBags), tests: sharedStoolTests,
+        sharedStoolSource: true, detail });
     }
 
     const spotUrineGroups = new Map();

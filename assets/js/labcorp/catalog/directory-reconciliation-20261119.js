@@ -2147,7 +2147,7 @@
     "status": "active",
     "specimenType": "Stool",
     "drawContainer": "Sterile cup",
-    "transportContainer": "Unpreserved Stool Transport Vial",
+    "transportContainer": "Sterile cup",
     "preferredVolume": "5 gram Stool",
     "minimumVolume": "1 gram",
     "collectionCount": 1,
@@ -2155,7 +2155,7 @@
     "transportTemperature": "Frozen",
     "transportTemperatureRaw": "FREEZE - Critical frozen within 48 hours Stability: Room temperature unacceptable Refrigerate up to 48 hours Frozen up to 2 week",
     "spin": "No",
-    "specialInstructions": "Transfer unpreserved stool into the specified stool transport vial. Freeze within 48 hours of collection and ship frozen. No preservative.",
+    "specialInstructions": "Collect unpreserved stool in a clean screw-cap sterile cup and submit the original cup. Freeze within 48 hours of collection and ship frozen. No preservative.",
     "specialLabeling": "Label STOOL",
     "stability": "",
     "clinicalCategories": [
