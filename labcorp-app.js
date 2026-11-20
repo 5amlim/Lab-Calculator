@@ -6013,6 +6013,8 @@
     const normalized = normalizeSpecimenType(stated);
     // Collection instructions can list several acceptable swabs. They must
     // never turn a body-fluid, urine, or other non-swab specimen into a swab.
+    if (/\bmeconium\b/i.test(stated) ||
+        (/\bstool\b/i.test(normalized) && /\bmeconium\b/i.test(test.specialLabeling || ''))) return 'Meconium';
     if (!/\bswab\b/i.test(stated) && !/\bswab\b/i.test(normalized)) {
       return titleCaseSpecimen(normalized || stated || 'Specimen');
     }
@@ -6858,7 +6860,6 @@
 
     let source = specificSource || titleCaseSpecimen(specimenType);
     if (/^(?:site[- ]specific\s+)?culture\s+swab$/i.test(specimenType) || /^(?:swab,?\s*unspecified|site[- ]specific\s+culture\s+swab)$/i.test(specimenType)) source = 'Swab';
-    if (/\bmeconium\b/i.test(raw) && /\bstool\b/.test(specimen)) source = 'Meconium';
     if (/\bvesicle\s*\/\s*lesion\s+swab\b/i.test(raw) && /\bswab\b/.test(specimen)) source = 'Vesicle/lesion swab';
     if (/^other\s*\/\s*verify$/i.test(source)) source = 'Specimen';
 
@@ -7009,13 +7010,8 @@
     return { label, processing: Array.from(new Set(processing)) };
   }
 
-  function printLabelingNotes(item, showAllocationCode = false) {
-    if (item.className === 'tube-ua-swirl' && item.printVisualGroupParts && item.printAllocationNote) {
-      return item.printVisualGroupParts.map(part => printLabelingNotes(part, true)).join('');
-    }
-    // Timed samples must retain their individual labeling instructions.
-    // Ordinary visual groups may consolidate identical labels and processing
-    // text without combining physical submission containers.
+  function printLabelingNotes(item) {
+    // Keep timepoint labels together with their physical allocations.
     if (item.printVisualGroupParts && item.printVisualGroupParts.every(part => printTimedSpecimenGroupInfo(part))) {
       return item.printVisualGroupParts.map(part => printLabelingNotes(part)).join('');
     }
@@ -7045,7 +7041,7 @@
     const testCount = uniqueTests(item.tests || []).length;
     const labelCoverage = new Set(Array.from(labels.values()).flatMap(row => row.codes)).size;
     const processCoverage = new Set(Array.from(handling.values()).flatMap(row => row.codes)).size;
-    const showLabelCodes = showAllocationCode || labels.size > 1 || (testCount > 1 && labelCoverage < testCount);
+    const showLabelCodes = labels.size > 1 || (testCount > 1 && labelCoverage < testCount);
     const showProcessCodes = handling.size > 1 || (testCount > 1 && processCoverage < testCount);
     return `<div class="print-label-notes">${render(labels, 'Label', showLabelCodes)}${render(handling, 'Process', showProcessCodes)}</div>`;
   }
@@ -7220,6 +7216,7 @@
     const categories = (item.tests || []).map(originalTest => {
       const test = specimenForSubmissionItem(originalTest, item);
       const specimen = normalizeSpecimenType(test.specimenType).toLowerCase().trim();
+      if (specificSpecimenSource(test) === 'Meconium') return ['Meconium', 'stool'];
       if (/\b(?:stool|feces|fecal|faeces|faecal)\b/.test(specimen)) return ['Stool', 'stool'];
       if (/\burine\b/.test(specimen)) return ['Urine', 'urine'];
       if (/\b(?:platelet[- ]poor )?plasma\b/.test(specimen)) return [specimen.includes('platelet') ? 'Platelet-Poor Plasma' : 'Plasma', 'plasma'];
@@ -7927,6 +7924,7 @@
               ${printSubmissionItemDetail(item)}
               ${printTransportTubeQualifier(item.label, item.tests) ? '<div class="print-submit-item-detail">No preservative · Use an additive-free transport tube</div>' : ''}
               ${printLabelingNotes(item)}
+              ${item.tests.length > 1 && item.tests.every(test => specificSpecimenSource(test) === 'Meconium') ? '<div class="print-serum-allocation-note">Confirm specimen quantity and whether Labcorp can share one meconium cup across these orders before collecting separate cups.</div>' : ''}
               ${item.printAllocationNote ? `<div class="print-serum-allocation-note">${escapeHtml(item.printAllocationNote)}</div>` : ''}
               <div class="print-for-tests${uniqueTests(item.tests).length > 8 ? ' is-bag-dense' : ''}"><b>For ${item.tests.length} ${item.tests.length === 1 ? 'test' : 'tests'}:</b><ul${uniqueTests(item.tests).length > 8 ? ` style="--bag-test-rows:${Math.ceil(uniqueTests(item.tests).length / 2)}"` : ''}>${testReferences(item.tests, bag.isStat)}</ul></div>
               ${printBagItemProgress(item, itemIndex, contents)}

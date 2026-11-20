@@ -6727,27 +6727,17 @@
     return { label, processing: Array.from(new Set(processing)) };
   }
 
-  function printLabelingNotes(item, showAllocationCode = false) {
-    if (item.className === 'tube-ua-swirl' && item.printVisualGroupParts && item.printAllocationNote) {
-      return item.printVisualGroupParts.map(part => printLabelingNotes(part, true)).join('');
-    }
-    if (item.printVisualGroupParts) {
-      const rendered = item.printVisualGroupParts.map(part => printLabelingNotes(part));
-      const signatures = item.printVisualGroupParts.map(part =>
-        JSON.stringify(uniqueTests(part.tests || []).map(test => {
-          const { label, processing } = conciseSpecimenLabel(test, part);
-          return [normalizedLabelComparison(label), processing.map(normalizedLabelComparison)];
-        })));
-      if (signatures.every(signature => signature === signatures[0]) &&
-          item.printVisualGroupParts.every(part => uniqueTests(part.tests || []).length === 1)) {
-        return rendered[0];
-      }
-      return rendered.join('');
+  function printLabelingNotes(item) {
+    // Keep timepoint labels together with their physical allocations.
+    if (item.printVisualGroupParts && item.printVisualGroupParts.every(part => printTimedSpecimenGroupInfo(part))) {
+      return item.printVisualGroupParts.map(part => printLabelingNotes(part)).join('');
     }
     const labels = new Map();
     const handling = new Map();
-    uniqueTests(item.tests || []).forEach(test => {
-      const result = conciseSpecimenLabel(test, item);
+    const contexts = (item.printVisualGroupParts || [item]).flatMap(part =>
+      uniqueTests(part.tests || []).map(test => ({ test, part })));
+    contexts.forEach(({ test, part }) => {
+      const result = conciseSpecimenLabel(test, part);
       const code = displayCode(test);
       if (result.label) {
         const key = normalizedLabelComparison(result.label);
@@ -6768,7 +6758,7 @@
     const testCount = uniqueTests(item.tests || []).length;
     const labelCoverage = new Set(Array.from(labels.values()).flatMap(row => row.codes)).size;
     const processCoverage = new Set(Array.from(handling.values()).flatMap(row => row.codes)).size;
-    const showLabelCodes = showAllocationCode || labels.size > 1 || (testCount > 1 && labelCoverage < testCount);
+    const showLabelCodes = labels.size > 1 || (testCount > 1 && labelCoverage < testCount);
     const showProcessCodes = handling.size > 1 || (testCount > 1 && processCoverage < testCount);
     return `<div class="print-label-notes">${render(labels, 'Label', showLabelCodes)}${render(handling, 'Process', showProcessCodes)}</div>`;
   }

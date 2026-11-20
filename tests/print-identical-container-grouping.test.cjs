@@ -2,6 +2,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { test } = require('node:test');
 
 const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
 const suites = [
@@ -12,9 +13,10 @@ const suites = [
     single:'003772', reflex:'377036', culture:'008847'}
 ];
 
-for (const suite of suites) {
+for (const suite of suites) test(suite.name + ' submission grouping', async () => {
   const context = vm.createContext({
-    window:{SEED_TESTS:[]},
+    URLSearchParams,
+    window:{SEED_TESTS:[],addEventListener(){},location:{search:''}},
     document:{getElementById:()=>null,querySelectorAll:()=>[]},
     localStorage:{getItem:()=>null,setItem:()=>{},removeItem:()=>{}},
     console
@@ -24,9 +26,10 @@ for (const suite of suites) {
   const injected = src.replace('  init();',
     '  window.testApi={normalizeRecord,buildTransportBagPlan,buildSubmissionContents,'+
     'groupSubmissionContainersForPrint,printCollectionSubmissionPlan,'+
-    'printContainerPresentationKey,splitSubmissionContainers};');
+    'printContainerPresentationKey,splitSubmissionContainers,printLabelingNotes};');
   assert.notEqual(src,injected,'test injection required for '+suite.name);
   vm.runInContext(injected,context,{filename:suite.app});
+  await Promise.resolve();
   const api=context.window.testApi;
   const get=code=>{
     const found=context.window.SEED_TESTS.find(test=>String(test.testCode)===code);
@@ -44,18 +47,16 @@ for (const suite of suites) {
   assert.equal(ua[0].count,2,suite.name+': one tube per test, total two');
   assert.deepEqual(Array.from(ua[0].tests,test=>String(test.testCode)),
     [suite.single,suite.reflex],suite.name+': retain both test references');
-  assert.match(ua[0].printAllocationNote,/Separate containers:/);
-  assert(ua[0].printAllocationNote.includes('1 for '+suite.single));
-  assert(ua[0].printAllocationNote.includes('1 for '+suite.reflex));
-  assert.equal(count(grouped),count(original),suite.name+': never change physical bag count');
+  const allocation = suite.name === 'Quest'
+    ? 'Separate containers: 1 for '+suite.single+' · 1 for '+suite.reflex
+    : 'Separate containers: 1 each for '+suite.single+', '+suite.reflex;
+  assert.equal(ua[0].printAllocationNote,allocation);
+  assert.equal(count(grouped),count(original),suite.name+': preserve physical bag count');
 
   const printed=api.printCollectionSubmissionPlan(base);
-  assert(printed.includes('Separate containers: 1 for '+suite.single+
-    ' · 1 for '+suite.reflex),suite.name+': printed per-test tube allocation');
-  assert(printed.includes('<small>'+suite.single+'</small>'),
-    suite.name+': independently labeled standard UA tube');
-  assert(printed.includes('<small>'+suite.reflex+'</small>'),
-    suite.name+': independently labeled reflex UA tube');
+  assert(printed.includes(allocation),suite.name+': printed per-test tube allocation');
+  assert.equal((api.printLabelingNotes(ua[0]).match(/<span>Label<\/span>/g) || []).length,1,
+    suite.name+': the same urine label appears once for both allocations');
 
   const reflexOnly=contents([get(suite.reflex)]);
   assert.equal(reflexOnly.length,2,suite.name+': two different reflex containers retained');
@@ -117,5 +118,4 @@ for (const suite of suites) {
   ];
   assert.equal(group(dedicated).length,2,
     suite.name+': dedicated aliquots remain separately identified');
-}
-console.log('PASS: Quest/LabCorp print grouping preserves counts, codes, labels, sites, STAT and dedicated allocations');
+});
