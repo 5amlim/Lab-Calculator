@@ -1318,7 +1318,7 @@
 
   function cleanCollectionContainer(value) {
     const text = genericTransportName(value);
-    if (/^sterile screw[- ]?cap csf tube$/i.test(text)) return 'Sterile cup';
+    if (/^sterile (?:screw[- ]?cap )?csf (?:tube|vial|container)(?:\s*\(original (?:tube|container)\))?$/i.test(text)) return 'Sterile cup';
     if (/^salivette saliva collection device(?: \(blue cap\))?$/i.test(text)) return 'Salivette';
     // Standard unpreserved urine collection and submission cups are one
     // physical container, despite directory aliases such as "original specimen"
@@ -6346,6 +6346,7 @@
     const processing = isAptima70049
       ? `${sourceSpecimen} · Submit as Aptima`
       : directUrineCup ? 'Submit in original sterile cup; no transfer'
+      : /^sterile cup$/i.test(label) ? 'Submit in original container'
       : (String(test.spin || '').toLowerCase() === 'yes' ? 'Process as directed; submit in original tube' : 'Submit in original tube');
     const nmrProcessing = tubeClass(draw) === 'tube-nmr-lipotube'
       ? 'Clot upright 30 min, spin 1600–1800 ×g for 10–15 min, do not open; refrigerate 2–8°C and ship with frozen cool packs'
@@ -7280,7 +7281,7 @@
       const exceptional = /fully saturate|do not pour|protect from light/i.test(detail) ? detail : '';
       const handling = isSpunSst
         ? 'Submit in original tube · Spin ✓'
-        : `Submit in original tube${spins ? ' · Spin ✓' : ''}`;
+        : `${/^sterile cup$/i.test(item.label) ? 'Submit in original container' : 'Submit in original tube'}${spins ? ' · Spin ✓' : ''}`;
       const lightProtection = isMicrotainerSst && /amber/i.test(item.label || '') ? ' · Protect from light' : '';
       const text = `${handling}${lightProtection}${exceptional ? ` · ${exceptional}` : ''}`;
       return `<div class="print-submit-item-detail">${escapeHtml(text)}</div>`;

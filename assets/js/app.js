@@ -1401,7 +1401,7 @@
 
   function cleanCollectionContainer(value) {
     const text = genericTransportName(value);
-    if (/^sterile screw[- ]?cap csf tube$/i.test(text)) return 'Sterile cup';
+    if (/^sterile (?:screw[- ]?cap )?csf (?:tube|vial|container)(?:\s*\(original (?:tube|container)\))?$/i.test(text)) return 'Sterile cup';
     if (/^salivette saliva collection device(?: \(blue cap\))?$/i.test(text)) return 'Salivette';
     // Local standard: generic urine cups/containers are the existing Sterile cup.
     // Keep truly special devices (24-hour jugs, preservative tubes, trace-metal containers, Aptima, etc.) distinct.
