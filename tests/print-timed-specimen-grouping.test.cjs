@@ -183,3 +183,25 @@ test('Changing the temperature or protocol prevents false timed grouping',async(
   assert.equal(split.bags.length,2,'Frozen and ambient bags are separate');
   assert.equal(split.submittedCount,4);
 });
+
+test('Labcorp eight-specimen insulin print shows one common serum label', async () => {
+  const api = await openCalc('labcorp-app.js',
+    ['assets/js/labcorp/catalog/directory-reconciliation-20261119.js']);
+  const test = api.database.find(record => record.testCode === '201285');
+  assert.equal(test?.status, 'active');
+  const result = plan(api, [test]);
+  assert.equal(result.collectedCount, 8);
+  assert.equal(result.submittedCount, 8);
+  assert.equal(new Set(result.submitted.map(item => item.key)).size, 8);
+  assert.equal(result.displayed.length, 1);
+  const card = result.displayed[0];
+  assert.equal(card.count, 8);
+  const labels = api.printLabelingNotes(card);
+  assert.equal((labels.match(/class="print-label-note"/g) || []).length, 1);
+  assert.match(labels, />Serum</);
+  assert.match(card.printAllocationNote, /keep separate, do not pool/i);
+  for (let index = 1; index <= 8; index++) {
+    assert(card.printAllocationNote.includes('Timed specimen ' + index + ' × 1'));
+  }
+  assert.match(card.printAllocationNote, /label each container with its collection time/i);
+});

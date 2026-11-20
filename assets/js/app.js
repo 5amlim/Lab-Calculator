@@ -6772,9 +6772,11 @@
   }
 
   function printLabelingNotes(item) {
-    // Keep timepoint labels together with their physical allocations.
+    // Print one shared instruction when every timed container uses the same
+    // label and handling. Otherwise keep the rows in timepoint order.
     if (item.printVisualGroupParts && item.printVisualGroupParts.every(part => printTimedSpecimenGroupInfo(part))) {
-      return item.printVisualGroupParts.map(part => printLabelingNotes(part)).join('');
+      const notes = item.printVisualGroupParts.map(part => printLabelingNotes(part));
+      return notes.every(note => note === notes[0]) ? (notes[0] || '') : notes.join('');
     }
     const labels = new Map();
     const handling = new Map();
