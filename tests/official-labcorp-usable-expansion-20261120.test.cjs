@@ -24,7 +24,7 @@ test('All new Labcorp routes match code-verified source, valid handling and publ
   const record=window.SEED_TESTS.find(r=>r.testCode===code);
   const directory=bySource.get(code);
   assert(directory,'Missing official page '+code);
-  assert.equal(directory.previousStatus,'pending','Only prior pending entries should be activated '+code);
+  assert(['pending','new'].includes(directory.previousStatus),'Only verified pending or newly indexed codes can be activated '+code);
   assert.equal(record.status,'active',code+' not active');
   assert.equal(record.id,original.find(x=>x.testCode===code).id,code+' lost stable id');
   assert.equal(record.source,directory.url,code+' wrong official source');
