@@ -1,0 +1,18 @@
+name: Check official lab directory access
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/official-tat-source-probe.mjs'
+      - '.github/workflows/official-tat-source-probe.yml'
+permissions:
+  contents: read
+jobs:
+  source-access:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/official-tat-source-probe.mjs
