@@ -12,7 +12,7 @@ assert(start>=0&&mapDeclaration>start&&end>mapDeclaration,'Review code map must 
 const setup=source.slice(start,end);
 const evalCode=setup+'\n[...REVIEWED_DNP_20261121.entries()]';
 const codes=new Map(vm.runInNewContext(evalCode));
-assert.equal(codes.size,122,'Exactly 122 of 273 review candidates are blocked');
+assert.equal(codes.size,129,'122 previous + 7 newly excluded Labcorp codes');
 const functionStart=source.indexOf('  function applySpecimenExclusions(test) {',end);
 const functionEnd=source.indexOf('  function applyUserState(state) {',functionStart);
 const fn=source.slice(functionStart,functionEnd);
@@ -28,7 +28,7 @@ function parseCsv(s){let rows=[],row=[],field='',inside=false;for(let i=0;i<s.le
 const rows=parseCsv(csv).slice(1);
 const reviewed=rows.filter(r=>r[2]==='pending'||r[2]==='active');
 for(const [code,reason] of codes){const r=rows.find(r=>r[0]===code);assert(r,'Missing audit row for '+code);assert.equal(r[3],'Do Not Perform',code);assert.equal(r[4],reason,code)}
-assert.equal(rows.filter(r=>r[3]==='Directory-only').length,151);
-assert.equal(rows.filter(r=>r[3]==='Do Not Perform').length,188);
-assert.equal(rows.filter(r=>r[3]==='Added').length,14);
-console.log('Labcorp review: 122 newly blocked, 151 directory-only, 66 pre-existing exclusions preserved.');
+assert.equal(rows.filter(r=>r[3]==='Directory-only').length,135);
+assert.equal(rows.filter(r=>r[3]==='Do Not Perform').length,195);
+assert.equal(rows.filter(r=>r[3]==='Added').length,23);
+console.log('Labcorp review: 122 prior + 7 newly blocked, 135 directory-only, 9 newly added.');
