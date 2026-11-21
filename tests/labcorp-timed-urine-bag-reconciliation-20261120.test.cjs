@@ -54,7 +54,7 @@ test('24-hour source jugs count physical collections rather than every test or e
   assert.equal(shared.count, 1);
   assert.equal(collected.filter(item => item.tests.some(t=>t.testCode==='501533')).length,1,
     'Conflicting metanephrine preservative route is not silently pooled');
-  const html = api.printCollectionGroups(collected);
+  const html = api.printCollectionGroups(collected, []);
   assert(!/>\s*168\s*</.test(html),'Never show 168 urine collection jugs');
   assert.match(html, /listed aliquots total/i);
   assert.match(html, /original collection jug is not an additional shipping container/i);
