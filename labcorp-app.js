@@ -932,6 +932,7 @@
           spin: requirement.spin || test.spin,
           specialLabeling: requirement.specialLabeling || '',
           specialInstructions: requirementNote,
+          transportOnly: requirement.transportOnly,
           collectionCount: count,
           submissionCount: Math.max(Number(requirement.submissionCount) || 1, 1)
         });
@@ -5135,6 +5136,7 @@
   const COLLECTION_TUBE_EXCEPTIONS = Object.freeze({
     '001917': { count: 2, dedicated: true },
     '120089': { count: 3, dedicated: true },
+    '005595': { count: 1, dedicated: true, label: 'Green Heparin (5 mL draw)' },
     '182913': { count: 1, dedicated: true, label: 'Green Lithium Heparin (6 mL minimum in one tube)' },
     // BasoFunction orders require a single original large-volume sodium heparin tube.
     ...Object.fromEntries(
@@ -5947,6 +5949,7 @@
       if (isAdditionalPoolableBloodDraw(test)) return;
       if (usesSpotUrineCup(test)) return;
       if (isShareableStoolSourceTest(test)) return;
+      if (test.transportOnly && isTimedUrineTest(test)) return;
       const info = canonicalCollectionContainer(test);
       // Keep physically identical containers separate when they hold different specimen types.
       // A Sterile cup, for example, may be used for either urine or stool, but those

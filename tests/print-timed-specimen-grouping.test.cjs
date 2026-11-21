@@ -397,3 +397,14 @@ test('Labcorp prints the separate urine instruction once while retaining each co
   assert.equal(cup.count, 10);
   assert.equal((cup.detail.match(/Separate urine collection required/g) || []).length, 1);
 });
+
+test('Labcorp 204672 uses one 24-hour urine jug for two temperature-specific aliquots', async () => {
+  const api = await openCalc('labcorp-app.js',
+    ['assets/js/labcorp/catalog/directory-reconciliation-20261119.js']);
+  const result = plan(api, [api.database.find(record => record.testCode === '204672')]);
+  assert.equal(result.collectedCount, 1);
+  assert.match(result.collected[0].label, /24-Hour Urine Container/);
+  assert.equal(result.submittedCount, 2);
+  assert(result.submitted.every(item => !item.originalTube));
+  assert.deepEqual(result.bags.map(bag => bag.label).sort(), ['Frozen bag', 'Room-temperature bag']);
+});
