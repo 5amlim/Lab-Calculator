@@ -6066,8 +6066,16 @@
 
     grouped.forEach(item => {
       item.tests = uniqueTests(item.tests);
-      if (item.timedSharedSource && item.className === 'tube-24h-urine') {
+      if (item.className === 'tube-24h-urine'
+          && collectionSpecimenGroupForItem(item) === 'urine'
+          && item.tests.every(test => !isOriginalContainerSubmission(test))) {
         item.detail = describeTimedUrineSource(item);
+        // Do not assume the general Labcorp unpreserved route is accepted
+        // for the Esoterix-specific 501533 order: its direct instructions
+        // name an acid-preserved, frozen specimen.
+        if (item.tests.some(test => String(test.testCode || '').trim() === '501533')) {
+          item.detail += ' VERIFY BEFORE COLLECTION: Labcorp specialty 501533 lists 6N HCl preservative and frozen shipment; the available CDOS entry lists unpreserved/refrigerated. Do not pool with other 24-hour urine until the receiving lab confirms its accepted route.';
+        }
       }
       if (item.className === 'tube-nmr-lipotube') {
         item.detail = 'Clot upright 30 minutes, centrifuge 1600–1800 ×g for 10–15 minutes, do not open, refrigerate at 2–8°C, and ship with frozen cool packs.';
