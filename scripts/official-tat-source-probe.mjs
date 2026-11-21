@@ -1,5 +1,8 @@
 // Diagnostics only: check official test directories from GitHub Actions runner.
 const targets=[
+  'https://www.labcorp.com/robots.txt',
+  'https://www.labcorp.com/sitemap.xml',
+  'https://www.labcorp.com/sitemap_index.xml',
   'https://www.labcorp.com/tests/005595/hemoglobin-hb-free-plasma',
   'https://www.labcorp.com/tests/005595',
   'https://www.labcorp.com/tests/000018',
@@ -13,6 +16,6 @@ for(const url of targets){
   const html=await r.text();
   const title=html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim();
   const tat=html.match(/Result Turnaround Time[\s\S]{0,400}/i)?.[0]?.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ');
-  console.log(JSON.stringify({url,status:r.status,final:r.url,bytes:html.length,title,tat:tat?.slice(0,200),begin:html.slice(0,150)}));
+  console.log(JSON.stringify({url,status:r.status,final:r.url,bytes:html.length,title,tat:tat?.slice(0,200),begin:html.slice(0,150),sitemaps:html.split('\n').filter(x=>/sitemap/i.test(x)).slice(0,15).map(x=>x.slice(0,200)),locs:[...html.matchAll(/<loc>([^<]+)<\/loc>/gi)].slice(0,20).map(x=>x[1])}));
  }catch(e){console.log(JSON.stringify({url,error:String(e)}))}
 }
