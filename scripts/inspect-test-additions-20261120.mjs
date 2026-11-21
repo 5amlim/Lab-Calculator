@@ -43,3 +43,14 @@ for(const [code,url] of samples){
  console.log('HTML_EXAMPLE '+JSON.stringify({code,url,status:response.status,length:html.length,
   around: ['Specimen Requirements','Result Turnaround Time','Collection Instructions','Storage Instructions'].map(k=>{let pos=html.indexOf(k);return {k,pos,html:pos>=0?html.slice(Math.max(0,pos-300),pos+2500):''}})}));
 }
+
+
+for(const code of ['000315','000653','001305','003046','008037','009165','520057','182337','006668']){
+ const url='https://cdos.halfpenny.com/labcorp/TestDisplay/'+code;
+ try{
+  const resp=await fetch(url,{signal:AbortSignal.timeout(13000)});
+  const body=await resp.text();
+  const title=body.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.slice(0,180);
+  console.log('HALFPENNY_CANDIDATE '+JSON.stringify({code,url,status:resp.status,final:resp.url,length:body.length,title,snippet:body.slice(0,600).replace(/\s+/g,' ')}));
+ }catch(e){console.log('HALFPENNY_CANDIDATE '+JSON.stringify({code,error:String(e)}))}
+}
