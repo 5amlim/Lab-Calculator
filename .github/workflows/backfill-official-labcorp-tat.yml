@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 35
     env:
       START_INDEX: '0'
-      FETCH_LIMIT: '160'
+      FETCH_LIMIT: '3300'
       CONCURRENCY: '4'
     steps:
       - uses: actions/checkout@v4

@@ -18,12 +18,23 @@ const existing=existsSync(path(output))?read(output):'';
 const existingMatch=existing.match(/\/\* TAT_DATA_START \*\/([\s\S]*?)\/\* TAT_DATA_END \*\//);
 const additions=existingMatch?JSON.parse(existingMatch[1]):{};
 const hash=code=>{let h=2166136261;for(const c of code){h=Math.imul(h^c.charCodeAt(0),16777619);}return h>>>0};
+// Use Labcorp's own published test sitemap to avoid 404s and stale code mappings.
+const sitemapResponse=await fetch('https://www.labcorp.com/en.sitemap.tests-sitemap.xml',
+  {signal:AbortSignal.timeout(25000),headers:{'User-Agent':'Mozilla/5.0 (compatible; LabCalculatorTatVerification/1.0)'}});
+if(!sitemapResponse.ok)throw new Error('Official test sitemap unavailable: '+sitemapResponse.status);
+const sitemap=await sitemapResponse.text();
+const urlsByCode=new Map();
+for(const [,url,code] of sitemap.matchAll(/<loc>(https:\/\/www\.labcorp\.com\/tests\/(\d{3,8})\/[^<]*)<\/loc>/gi)){
+  if(!urlsByCode.has(code))urlsByCode.set(code,url.replace(/&amp;/g,'&'));
+}
+if(urlsByCode.size<2000)throw new Error('Unexpectedly small official Labcorp sitemap: '+urlsByCode.size);
 const candidates=codeRows.filter(([code])=>!prior[code] && /^\d{3,8}$/.test(code))
   .sort((a,b)=>hash(a[0])-hash(b[0])||a[0].localeCompare(b[0]));
 const offset=Math.max(0,Number.parseInt(process.env.START_INDEX||'0',10)||0);
 const max=Math.min(3300,Math.max(1,Number.parseInt(process.env.FETCH_LIMIT||'160',10)||160));
 const concurrency=Math.min(6,Math.max(1,Number.parseInt(process.env.CONCURRENCY||'4',10)||4));
-const targets=candidates.slice(offset,offset+max).filter(([code])=>!additions[code]);
+const targets=candidates.slice(offset,offset+max)
+  .filter(([code])=>!additions[code] && urlsByCode.has(code));
 
 function htmlPlain(value) {
  return value.replace(/<!--[\s\S]*?-->/g,' ').replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,' ')
@@ -57,7 +68,9 @@ function extract(html,code,url) {
  return {entry:[time,upperDays,'Labcorp directory','',''+url]};
 }
 
-const counters={totalCandidates:candidates.length,offset,requested:max,attempted:targets.length,
+const counters={totalCandidates:candidates.length,sitemapCodeCount:urlsByCode.size,
+ sitemapEligible:candidates.filter(([code])=>urlsByCode.has(code)).length,
+ offset,requested:max,attempted:targets.length,
  verified:0,notFound:0,missingTat:0,mismatched:0,httpErrors:0,networkErrors:0,blocked:0};
 let pointer=0,aborted=false;
 async function worker(){
@@ -66,7 +79,7 @@ async function worker(){
   const index=pointer++;
   if(index>=targets.length)return;
   const [code,name]=targets[index];
-  const url='https://www.labcorp.com/tests/'+encodeURIComponent(code);
+  const url=urlsByCode.get(code);
   try{
    const response=await fetch(url,{signal:AbortSignal.timeout(18000),
     headers:{'User-Agent':'Mozilla/5.0 (compatible; LabCalculatorTatVerification/1.0)',
