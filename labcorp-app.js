@@ -2180,13 +2180,21 @@
       els.pediatricFilter.checked, els.spinFilter.checked].filter(Boolean).length;
   }
 
+  function catalogTemperatureFilterKey(test) {
+    const bag = transportBagInfo(test);
+    // A dedicated Quest QuantiFERON refrigerated bag remains separate in the
+    // draw/transport plan, while the temperature filter reflects temperature.
+    if (bag.key === 'quantiferon-gold') return 'refrigerated';
+    return bag.key;
+  }
+
   function matchesLibraryFilters(test) {
     const category = els.categoryFilter.value;
     if (category && !window.LabClinicalCategories?.forTest(test).includes(category)) return false;
     const specimen = els.specimenFilter.value;
     if (specimen && !specimenFilterCategories(test).includes(specimen)) return false;
     const temperature = els.temperatureFilter.value;
-    if (temperature && transportBagInfo(test).key !== temperature) return false;
+    if (temperature && catalogTemperatureFilterKey(test) !== temperature) return false;
     const container = els.transportContainerFilter.value;
     if (container) {
       const categories = transportContainerFilterCategories(test);
