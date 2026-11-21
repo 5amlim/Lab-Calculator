@@ -73,7 +73,7 @@
     "preferredVolume": "2 mL urine",
     "minimumVolume": "",
     "spin": "No",
-    "specialInstructions": "Collect random urine directly in a clean sterile screw-cap cup without preservative. Submit original specimen refrigerated, no transfer or centrifugation. Verify an appropriate sample pH and routing if the receiving laboratory provides additional instructions.",
+    "specialInstructions": "Collect random urine in a sterile screw-cap cup without acid. For urine beta-2-microglobulin, verify pH 6–8: acidic urine (pH at or below 6) can degrade the analyte. If pH is outside range, do not submit until the receiving laboratory approves an adjustment procedure (Labcorp lists 1 mol/L sodium hydroxide). Maintain refrigerated. No transfer, spin, acid preservative, or unapproved chemistry adjustment.",
     "specialLabeling": "Label URINE",
     "clinicalCategories": [
       "urinary",

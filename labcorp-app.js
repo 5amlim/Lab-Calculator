@@ -25,6 +25,8 @@
     { reason: "Labcorp discontinued VistaSeq MLH1 test 483496 as an orderable code on September 14, 2026, without an exact replacement.", codes: "483496" },
     { reason: "Requires a 24-hour urine specimen in a 6N HCl-preserved collection bottle, which the clinic does not provide.", codes: "500473 500496 500520 501814" },
     { reason: "Requires 24-hour urine acidification to pH 4 with acetic acid; clinic does not perform acid-preserved urine collection.", codes: "500720" },
+    { reason: "Delta ALA in urine requires acetic-acid preservation, light protection and frozen transport; not part of clinic collection.", codes: "332425" },
+    { reason: "Combined delta-ALA/PBG/porphyrins urine requires acetic-acid-preserved ALA collection; excluded clinic supply.", codes: "374357" },
   ];
   const REVIEWED_DNP_20261121 = new Map(REVIEWED_DNP_GROUPS_20261121.flatMap(group =>
     group.codes.split(' ').map(code => [code, group.reason])));
