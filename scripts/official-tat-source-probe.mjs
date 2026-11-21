@@ -42,3 +42,19 @@ try {
   console.log('QUEST_BUNDLE '+JSON.stringify({url,status:r.status,bytes:js.length,snippets,hosts}));
  }
 }catch(e){console.log('QUEST_PROBE_ERROR '+String(e))}
+
+for(const name of ['app-config.js?v=1794539332','chunk-F6ZSKLEB.js']){
+ try{
+  const url='https://testdirectory.questdiagnostics.com/'+name;
+  const response=await fetch(url,{signal:AbortSignal.timeout(20000)});
+  const js=await response.text();
+  const snippets=[];
+  for(const key of ['apiUrl','apiBase','baseUrl','ons-api','turnaroundTime','turnAroundTime','turnaround','resultTime','api/v','getTest','test-details','testDetail','getTestBy','serviceAreaCode','https://']){
+   const idx=js.toLowerCase().indexOf(key.toLowerCase());
+   if(idx>=0)snippets.push({key,segment:js.slice(Math.max(0,idx-230),idx+360)});
+  }
+  const potentialUrls=[...new Set([...js.matchAll(/https?:\/\/[a-z0-9.-]+(?:\/[a-z0-9/_-]*)?/gi)].map(m=>m[0]))]
+    .filter(x=>!/fonts|google|w3|gstatic|facebook|googletag|analytics/i.test(x)).slice(0,25);
+  console.log('QUEST_ASSET '+JSON.stringify({url,status:response.status,bytes:js.length,snippets,potentialUrls,begin:js.slice(0,150)}));
+ }catch(e){console.log('QUEST_ASSET_FAIL '+name+' '+String(e))}
+}
