@@ -4968,7 +4968,7 @@
       // every From pill can carry a number and the pill totals reconcile exactly
       // to the source-for-transfer count in What to Collect.
       destinationKeys.forEach(destinationKey => {
-        const key = `${path}|${normalizeSearch(material)}|${destinationKey}`;
+        const key = `${path}|${collectionSpecimenGroupForTest(test)}|${normalizeSearch(material)}|${destinationKey}`;
         if (!groups.has(key)) groups.set(key, { key, path, material, destinationKey, tests: [] });
         groups.get(key).tests.push(test);
       });
@@ -5225,26 +5225,36 @@
   }
 
   function addPooledCollectionItem(items, tests, bags, options) {
-    const matchingTests = tests.filter(options.matchesTube);
-    const total = bags.reduce((sum, bag) => sum + bag[options.estimateKey].totalTubes, 0);
-    if (!total) return;
-
-    const detail = bags
-      .filter(bag => bag[options.estimateKey].totalTubes > 0)
-      .map(bag => {
-        const parts = pooledCollectionDetailParts(bag[options.estimateKey]);
-        return `${bag.label.replace(/ bag$/i, '')}: ${parts.join(' + ')}`;
-      })
-      .join(' · ');
-
-    items.push({
-      key: options.key,
-      label: options.label,
-      className: options.className,
-      count: total,
-      tests: uniqueTests(matchingTests),
-      detail
-    });
+    // Tube stock is not proof that the filled specimen is interchangeable.
+    // Use the already calculated quantities, but make separate physical
+    // collection cards for serum, whole blood, plasma and other matrices.
+    const byMaterial = new Map();
+    for (const bag of bags) {
+      for (const group of (bag[options.estimateKey]?.groups || [])) {
+        const count = group.estimate?.totalTubes || 0;
+        if (!count) continue;
+        const kind = collectionSpecimenGroupForTest(group.tests[0]);
+        const materialKey = `${kind}|${normalizeSearch(group.material)}`;
+        if (!byMaterial.has(materialKey)) byMaterial.set(materialKey, {
+          count: 0, tests: [], details: []
+        });
+        const item = byMaterial.get(materialKey);
+        item.count += count;
+        item.tests.push(...group.tests);
+        item.details.push(`${bag.label.replace(/ bag$/i, '')}: ${count} ${pooledCollectionGroupLabel(group)}`);
+      }
+    }
+    for (const [materialKey, record] of byMaterial) {
+      items.push({
+        key: byMaterial.size === 1 ? options.key : `${options.key}|${materialKey}`,
+        label: options.label,
+        className: options.className,
+        sourceMaterial: materialKey,
+        count: record.count,
+        tests: uniqueTests(record.tests),
+        detail: record.details.join(' · ')
+      });
+    }
   }
 
   function isAdditionalPoolableBloodDraw(test) {
@@ -5539,7 +5549,7 @@
         collectionCards.push(item);
         return;
       }
-      const key = `${item.className}|${normalizeSearch(item.label)}`;
+      const key = `${item.className}|${normalizeSearch(item.label)}|${item.sourceMaterial || ''}`;
       if (!groupedBlood.has(key)) {
         const card = { ...item, isStat: false, sharedStatRoutine: false,
           tests: uniqueTests(item.tests), details: item.detail ? [item.detail] : [] };
