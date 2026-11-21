@@ -61,3 +61,11 @@ for(const code of ['001305','006668','003046']){
  const found=['Specimen','Sample','Collection','Volume','Preferred','Minimum','Temperature','TAT','Turnaround','Test Name','Test Information','Specimen Requirements','Store','Handling'].map(term=>({term,pos:body.toLowerCase().indexOf(term.toLowerCase())})).filter(x=>x.pos>=0);
  console.log('HALFPENNY_STRUCTURE '+JSON.stringify({code,found,html:body.slice(5000,18500)}));
 }
+
+
+for(const code of ['000315','001305','006668','182337']){
+ const body=await (await fetch('https://cdos.halfpenny.com/labcorp/TestDisplay/'+code,{signal:AbortSignal.timeout(12000)})).text();
+ const values=[...body.matchAll(/<span\b[^>]*class="field-value-([^"]+)"[^>]*>([\s\S]*?)<\/span>/gi)].map(m=>[m[1],m[2].replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim()]);
+ const tatContext=(()=>{const idx=body.indexOf('TAT');return idx>=0?body.slice(Math.max(0,idx-600),idx+1100):''})();
+ console.log('HALFPENNY_KEYS '+JSON.stringify({code,values:values.filter(x=>!/^(?:Result Code|Result Name|LOINC|Reflex Order)/i.test(x[0])).slice(0,60),tatContext,head:body.slice(900,5200)}));
+}
