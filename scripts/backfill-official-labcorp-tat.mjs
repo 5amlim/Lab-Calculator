@@ -55,9 +55,10 @@ function extract(html,code,url) {
  const plain=htmlPlain(html.slice(start,start+1800))
   .replace(/^Result Turnaround Time\s*/i,'');
  // Never use the explanatory TAT definition itself as a measurement.
- const match=plain.match(/^(?:(?:Approximately|Approx\.?|About|Within|Up to)\s+)?\d+\s*(?:[-–]\s*\d+)?\s*(?:business\s+)?(?:days?|weeks?|hours?|months?)\b/i);
+ const match=plain.match(/^(?:(?:Approximately|Approx\.?|About|Within|Up to)\s*)?\d+\s*(?:[-–]\s*\d+)?\s*(?:business\s+)?(?:days?|weeks?|hours?|months?)\b/i);
  if(!match) return {reason:'no-numeric-tat',preview:plain.slice(0,100)};
- const time=match[0].trim().replace(/\s*-\s*/g,'–').replace(/\s*–\s*/g,'–');
+ const time=match[0].trim().replace(/^(Within|Up to|About|Approximately)(?=\d)/i,'$1 ')
+  .replace(/\s*-\s*/g,'–').replace(/\s*–\s*/g,'–');
  if(time.length>60)return {reason:'unusually-long-tat'};
  const nums=[...time.matchAll(/\d+/g)].map(m=>Number(m[0]));
  const upper=Math.max(...nums);
