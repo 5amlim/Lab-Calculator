@@ -5535,7 +5535,11 @@
     // mass, time, RCF/RPM, tube dimensions, identifiers, test codes, or K2 additive text.
     const drawPattern = new RegExp(`(?:^|\\s)${countPattern}\\s*(?:x|×)?\\s*(?:full\\s+|separate\\s+|standard\\s+){0,2}(?:[a-z][a-z /-]{0,24}\\s+)?(?:tubes?|bottles?|containers?)\\b`);
     const drawMatch = draw.match(drawPattern);
-    if (drawMatch && !/\\b(?:ml|g|gram|grams|mg|mm|cm|hours?|hrs?|minutes?|mins?|days?|rcf|rpm)\\b/.test(drawMatch[0])) {
+    // A number describing the COLLECTION DURATION is never a count of
+    // physical jugs. "24 Hour Urine Container" means one source jug.
+    if (isTimedUrineTest(test) &&
+        /^\s*(?:12|24)\s*[- ]?\s*(?:hours?|hrs?)\s+urine\s+(?:container|collection|jug)\b/.test(draw)) return 1;
+    if (drawMatch && !/\b(?:ml|g|gram|grams|mg|mm|cm|hours?|hrs?|minutes?|mins?|days?|rcf|rpm)\b/.test(drawMatch[0])) {
       return Math.max(numberWordValue(drawMatch[1]), 1);
     }
 
@@ -5545,7 +5549,7 @@
     // “1600 RCF”, “K2 EDTA”, and “two patient identifiers” from changing counts.
     const actionPattern = new RegExp(`\\b(?:draw|collect|use|requires?|obtain)\\s+(?:blood\\s+(?:in|into)\\s+)?${countPattern}\\s*(?:x|×)?\\s*(?:full\\s+|separate\\s+|standard\\s+){0,2}(?:[a-z][a-z /-]{0,24}\\s+)?(?:tubes?|bottles?|containers?)\\b`);
     const actionMatch = note.match(actionPattern);
-    if (actionMatch && !/\\b(?:ml|g|gram|grams|mg|mm|cm|hours?|hrs?|minutes?|mins?|days?|rcf|rpm|identifiers?)\\b/.test(actionMatch[0])) {
+    if (actionMatch && !/\b(?:ml|g|gram|grams|mg|mm|cm|hours?|hrs?|minutes?|mins?|days?|rcf|rpm|identifiers?)\b/.test(actionMatch[0])) {
       return Math.max(numberWordValue(actionMatch[1]), 1);
     }
 
@@ -6186,7 +6190,10 @@
     // Collection counts, time points, specimen volumes, and recommendations do not.
     const submitPattern = new RegExp(`\\bsubmit\\s+${countPattern}\\s*(?:x|×)?\\s*(?:separate\\s+)?(?:frozen\\s+)?(?:[a-z][a-z-]*\\s+){0,3}(?:aliquots?|transport tubes?|cryovials?|vials?|tubes?|containers?)\\b`);
     const submitMatch = note.match(submitPattern);
-    return submitMatch ? Math.max(numberWordValue(submitMatch[1]), 1) : 1;
+    // "submit 10 mL aliquot" describes volume in ONE cup, not 10 cups.
+    // Only allow numbers that count physically separate destination vessels.
+    return submitMatch && !/\b(?:ml|milliliters?|millilitres?|g|grams?|mg)\b/.test(submitMatch[0])
+      ? Math.max(numberWordValue(submitMatch[1]), 1) : 1;
   }
 
   function titleCaseSpecimen(value) {
