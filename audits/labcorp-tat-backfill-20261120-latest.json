@@ -1,15 +1,17 @@
 {
   "totalCandidates": 3214,
+  "sitemapCodeCount": 3303,
+  "sitemapEligible": 499,
   "offset": 0,
-  "requested": 160,
-  "attempted": 160,
-  "verified": 23,
-  "notFound": 137,
-  "missingTat": 0,
+  "requested": 3300,
+  "attempted": 476,
+  "verified": 449,
+  "notFound": 0,
+  "missingTat": 27,
   "mismatched": 0,
   "httpErrors": 0,
   "networkErrors": 0,
   "blocked": 0,
-  "entryCount": 23,
+  "entryCount": 472,
   "updatedOn": "2026-11-21"
 }
