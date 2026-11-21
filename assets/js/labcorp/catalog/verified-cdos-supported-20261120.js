@@ -368,7 +368,7 @@
     "testCode": "031757",
     "testName": "PTT+PT+Plt",
     "status": "active",
-    "specimenType": "Plasma",
+    "specimenType": "Whole Blood",
     "drawContainer": "Light Blue Sodium Citrate",
     "transportContainer": "Light Blue Sodium Citrate (original tube)",
     "transportTemperature": "Room Temperature",
