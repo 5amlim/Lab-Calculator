@@ -2009,12 +2009,14 @@
       return result;
     }
     if (/\b(?:csf|cerebrospinal)\b/.test(value)) return ['Body Fluid', 'CSF'];
-    if (/\bsputum\b/.test(value)) return ['Sputum'];
+    if (/\bsputum\b/.test(value)) return ['Sputum', 'Respiratory'];
+    // BAL and airway washings are respiratory specimens, not sputum.
+    if (/\b(?:bronchoalveolar lavage|bronchial washing|tracheal aspirate|nasopharyngeal washing)\b/.test(value)) return ['Respiratory'];
     if (/\bsaliva\b/.test(value)) return ['Saliva'];
     if (/^semen$/.test(value)) return ['Semen'];
     if (/^breath$/.test(value)) return ['Breath'];
-    if (/^dry stone$/.test(value)) return ['Dry Stone'];
-    if (/^jp drainage$/.test(value)) return ['Body Fluid'];
+    if (/^(?:dry stone|calculi|calculus)$/.test(value)) return ['Dry Stone'];
+    if (/^(?:jp drainage|bile)$/.test(value)) return ['Body Fluid'];
     if (/\btissue\b/.test(value)) return ['Tissue'];
     if (/\bcervical\b.*\bcytology\b.*\bfluid\b/.test(value)) return ['Body Fluid', 'Cervical Cytology Fluid'];
     for (const [pattern, name] of [
