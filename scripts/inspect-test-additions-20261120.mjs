@@ -54,3 +54,10 @@ for(const code of ['000315','000653','001305','003046','008037','009165','520057
   console.log('HALFPENNY_CANDIDATE '+JSON.stringify({code,url,status:resp.status,final:resp.url,length:body.length,title,snippet:body.slice(0,600).replace(/\s+/g,' ')}));
  }catch(e){console.log('HALFPENNY_CANDIDATE '+JSON.stringify({code,error:String(e)}))}
 }
+
+
+for(const code of ['001305','006668','003046']){
+ const body=await (await fetch('https://cdos.halfpenny.com/labcorp/TestDisplay/'+code,{signal:AbortSignal.timeout(12000)})).text();
+ const found=['Specimen','Sample','Collection','Volume','Preferred','Minimum','Temperature','TAT','Turnaround','Test Name','Test Information','Specimen Requirements','Store','Handling'].map(term=>({term,pos:body.toLowerCase().indexOf(term.toLowerCase())})).filter(x=>x.pos>=0);
+ console.log('HALFPENNY_STRUCTURE '+JSON.stringify({code,found,html:body.slice(5000,18500)}));
+}
