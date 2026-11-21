@@ -125,6 +125,66 @@ for(const [lab,page,app] of [
         flags.timeout.push([code,cat,String(e.message||e).slice(0,160)]);
       }
     }
+    // Cross-test carts: collection pooling, original submission and bag
+    // allocation must remain coherent when unlike matrices are ordered together.
+    const specimenPools=new Map();
+    for(const row of active){
+      const category=group(row);
+      if(!specimenPools.has(category))specimenPools.set(category,[]);
+      specimenPools.get(category).push(row);
+    }
+    const mixedFlags={sourceMatrixCollision:[],submissionMatrixCollision:[],
+      bagCountMismatch:[],invalidCount:[],exception:[]};
+    const categories=['blood','urine','stool','swab','csf','fluid','saliva','other'];
+    for(let batch=0;batch<180;batch++){
+      const rows=[];
+      categories.forEach((category,j)=>{
+        const pool=specimenPools.get(category)||[];
+        if(!pool.length)return;
+        const index=(batch*19+j*31)%pool.length;
+        rows.push(pool[index]);
+        if((batch+j)%3===0 && pool.length>1)rows.push(pool[(index+37)%pool.length]);
+      });
+      const selected=Array.from(new Map(rows.map(row=>[String(row.id||row.testCode),row])).values());
+      try {
+        const expanded=api.expandedCollectionTests(selected);
+        const bags=api.buildTransportBagPlan(expanded);
+        const collected=api.buildCollectionPlan(expanded,bags);
+        const contents=bags.map(bag=>api.buildSubmissionContents(bag));
+        const printed=bags.map((bag,i)=>api.groupSubmissionContainersForPrint(contents[i]));
+        if(contents.reduce((sum,items)=>sum+total(items),0)!==
+            printed.reduce((sum,items)=>sum+total(items),0))
+          mixedFlags.bagCountMismatch.push([batch,total(contents.flat()),total(printed.flat())]);
+        for(const [where,items] of [['source',collected],['submission',contents.flat()]]){
+          for(const item of items){
+            const distinct=Array.from(new Set((item.tests||[]).map(group)));
+            // Whole-blood/serum/plasma are compatible source matrices only
+            // when other documented rules permit. Different bodily material
+            // classes must NEVER collapse into a physical container.
+            const meaningful=distinct.filter(x=>x!=='other');
+            if(meaningful.length>1){
+              const issue=[batch,item.label,item.count,meaningful,(item.tests||[]).map(t=>t.testCode)];
+              if(where==='source')mixedFlags.sourceMatrixCollision.push(issue);
+              else mixedFlags.submissionMatrixCollision.push(issue);
+            }
+            if(!Number.isSafeInteger(Number(item.count))||Number(item.count)<1)
+              mixedFlags.invalidCount.push([batch,where,item.label,item.count]);
+          }
+        }
+      } catch(error){
+        mixedFlags.exception.push([batch,String(error.stack||error).slice(0,300)]);
+      }
+    }
+    console.log('MIXED_PHYSICAL_AUDIT '+JSON.stringify({
+      lab,cartCases:180,
+      findings:Object.fromEntries(Object.entries(mixedFlags).map(([k,v])=>[k,v.length])),
+      examples:Object.fromEntries(Object.entries(mixedFlags).map(([k,v])=>[k,v.slice(0,12)]))
+    }));
+    assert.equal(mixedFlags.bagCountMismatch.length,0,lab+' mixed bag total mismatch');
+    assert.equal(mixedFlags.sourceMatrixCollision.length,0,lab+' unlike specimens mixed in collection source');
+    assert.equal(mixedFlags.submissionMatrixCollision.length,0,lab+' unlike specimens mixed in shipped container');
+    assert.equal(mixedFlags.invalidCount.length,0,lab+' invalid mixed-cart container count');
+    assert.equal(mixedFlags.exception.length,0,lab+' mixed carts throw errors');
     const summary={lab,active:active.length,buckets,elapsedSeconds:Math.round((Date.now()-start)/1000),
       findings:Object.fromEntries(Object.entries(flags).map(([name,list])=>[name,list.length])),
       examples:Object.fromEntries(Object.entries(flags).map(([name,list])=>[name,list.slice(0,28)])),
