@@ -7,7 +7,7 @@ const vm=require('node:vm');
 const root=path.resolve(__dirname,'..');
 const source=readFileSync(path.join(root,'assets/js/labcorp/catalog/verified-final-remaining-20261121.js'),'utf8');
 const html=readFileSync(path.join(root,'labcorp.html'),'utf8');
-assert.match(html,/verified-final-remaining-20261121\\.js/);
+assert.match(html,/verified-final-remaining-20261121\.js/);
 const pendingCodes=["183511","183631","316511","365200","716167","723202","910627","910650","910808"];
 const db=pendingCodes.map(code=>({testCode:code,testName:code,status:'pending',id:'test-'+code}));
 const sandbox={SEED_TESTS:db,LabDirectoryTat:{directory:{}}};sandbox.window=sandbox;vm.runInNewContext(source,sandbox,{timeout:20000});
@@ -16,7 +16,7 @@ test('nine formerly pending records become complete, searchable, cart-ready entr
   for(const code of pendingCodes){
     const r=db.find(x=>x.testCode===code);assert(r,'missing '+code);assert.equal(r.status,'active',code);
     for(const field of ['specimenType','drawContainer','transportContainer','transportTemperature','preferredVolume','specialLabeling','source','clinicalCategories']) assert(r[field]&&r[field].length>0,code+' '+field);
-    assert.match(r.source,/^https:\\/\\//);assert.equal(r.collectionCount,1);assert.equal(r.submissionCount,1);
+    assert.match(r.source,/^https:\/\//);assert.equal(r.collectionCount,1);assert.equal(r.submissionCount,1);
     assert(!/streck|hair|nail|tumor|cytology|acid.preserved|6n hcl/i.test(r.drawContainer+' '+r.transportContainer+' '+r.specialInstructions),code);
   }
 });
