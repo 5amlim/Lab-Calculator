@@ -1,23 +1,27 @@
 name: Audit calculator discoverability and TAT
 on:
+  # Index generation runs in its own workflow. Audit the published result,
+  # not the intermediate source commit while its index is still stale.
+  workflow_run:
+    workflows: ['Publish active test search indexes']
+    types: [completed]
+    branches: [main]
   push:
     branches: [main]
     paths:
-      - 'assets/js/**'
       - 'assets/search/**'
-      - 'index.html'
-      - 'labcorp.html'
-      - 'labcorp-app.js'
-      - 'tests/**'
       - '.github/workflows/catalog-discoverability-audit.yml'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   catalog-audit:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
