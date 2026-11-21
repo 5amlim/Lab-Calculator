@@ -5136,6 +5136,7 @@
   const COLLECTION_TUBE_EXCEPTIONS = Object.freeze({
     '001917': { count: 2, dedicated: true },
     '120089': { count: 3, dedicated: true },
+    '007187': { count: 1, dedicated: true, label: 'Lavender EDTA (7 mL draw)' },
     '005595': { count: 1, dedicated: true, label: 'Green Heparin (5 mL draw)' },
     '182913': { count: 1, dedicated: true, label: 'Green Lithium Heparin (6 mL minimum in one tube)' },
     // BasoFunction orders require a single original large-volume sodium heparin tube.
