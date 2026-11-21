@@ -43,7 +43,7 @@ async function loadCalculator(page,app,lab) {
   const source=read(app),hook='  init();';
   assert(source.includes(hook),'Expected calculator init hook');
   vm.runInContext(source.replace(hook,
-    '  window.__audit={database,els,rankLibraryTest,specimenFilterCategories,transportContainerFilterCategories,transportBagInfo,matchesLibraryFilters,hasRoutineTat,tatBadge};'),context,{filename:app,timeout:30000});
+    '  window.__audit={database,els,rankLibraryTest,specimenFilterCategories,transportContainerFilterCategories,transportBagInfo,catalogTemperatureFilterKey,matchesLibraryFilters,hasRoutineTat,tatBadge};'),context,{filename:app,timeout:30000});
   await Promise.resolve(); await Promise.resolve();
   assert(sandbox.__audit, 'Calculator did not initialize audit hooks');
   return sandbox.__audit;
@@ -74,8 +74,13 @@ for(const [lab,page,app] of [
      const transport=audit.transportContainerFilterCategories(row);
      if(!transport.some(c=>transportOptions.has(c)))
        missing.transport.push([code,row.transportContainer,transport]);
-     const temp=audit.transportBagInfo(row).key;
+     const temp=audit.catalogTemperatureFilterKey(row);
      if(!tempOptions.has(temp))missing.temperature.push([code,row.transportTemperature,temp]);
+     else {
+       audit.els.temperatureFilter.value = temp;
+       if(!audit.matchesLibraryFilters(row))missing.temperature.push([code,row.transportTemperature,temp,'filter mismatch']);
+       audit.els.temperatureFilter.value = '';
+     }
      if(!sandboxCategory(row))missing.category.push(code);
      if(detail.length<5&&transport.includes('special'))detail.push(code);
    }
