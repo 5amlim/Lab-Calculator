@@ -1,0 +1,43 @@
+name: Verify and add missing Labcorp TAT
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/backfill-official-labcorp-tat.mjs'
+      - '.github/workflows/backfill-official-labcorp-tat.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: official-labcorp-tat-backfill
+  cancel-in-progress: false
+jobs:
+  verify-and-backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      START_INDEX: '0'
+      FETCH_LIMIT: '160'
+      CONCURRENCY: '4'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify official pages and extract published TAT
+        run: node scripts/backfill-official-labcorp-tat.mjs
+      - name: Commit only verified TAT additions
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/js/labcorp-directory-tat-backfill-20261120.js audits/labcorp-tat-backfill-20261120-latest.json
+          if git diff --cached --quiet; then
+            echo "No new verified TAT estimates."
+            exit 0
+          fi
+          git commit -m "Add code-verified official Labcorp directory TAT entries"
+          git pull --rebase origin main
+          git push origin HEAD:main
