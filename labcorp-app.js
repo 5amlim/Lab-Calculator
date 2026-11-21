@@ -5410,7 +5410,11 @@
     if (String(test.testCode || '').trim() === '501533') return '';
     const text = `${test.drawContainer || ''} ${test.specialInstructions || ''}`.toLowerCase();
     const unpreserved = /\b(?:unpreserved|preservative[- ]?free|no[- ]?acid(?:[- ]?preservative)?|no\s+preservative|without\s+(?:acid|preservative))\b/.test(text);
-    const acidPreserved = /\b(?:6\s*n\s*hcl|hydrochloric\s+acid|acid[- ]?preserved|acidified\s+urine)\b/.test(text);
+    // A prohibition such as "acid-preserved source containers are not used"
+    // is not evidence that acid is a required preservative.
+    const explicitlyRejectsAcid = /\b(?:acid[- ]?preserved|hydrochloric\s+acid|6\s*n\s*hcl)\b[^.;]{0,100}\b(?:not\s+(?:used|accepted|required|allowed)|rejected|prohibited)\b|\b(?:do not use|avoid|never use)\b[^.;]{0,100}\b(?:acid[- ]?preserved|hydrochloric\s+acid|hcl)\b/.test(text);
+    const acidPreserved = /\b(?:6\s*n\s*hcl|hydrochloric\s+acid|acid[- ]?preserved|acidified\s+urine)\b/.test(text)
+      && !explicitlyRejectsAcid;
     if (unpreserved === acidPreserved) return '';
     return [urineCollectionType(test).key, info.key,
       acidPreserved ? 'acid-preserved' : 'unpreserved'].join('|');
