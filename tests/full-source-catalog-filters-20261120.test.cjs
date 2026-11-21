@@ -111,6 +111,16 @@ for(const [lab,page,app] of [
          assert(audit.tatBadge(row).includes('data-action="view-tat"'),'Official source TAT clock hidden: '+code);
        }
      }
+     const complexCodes='117700 117853 164044 164049 140250 375002'.split(' ');
+     for(const code of complexCodes){
+       const row=rows.find(test=>test.testCode===code);
+       assert(row,'Complex specimen order missing from live cart: '+code);
+       assert.equal(audit.rankLibraryTest(code,row),2000,'Complex test not searchable: '+code);
+       if(code!=='375002'){
+         assert(audit.hasRoutineTat(row),'Complex order published TAT missing: '+code);
+         assert(audit.tatBadge(row).includes('data-action="view-tat"'),'Complex order TAT clock hidden: '+code);
+       }
+     }
      for (const code of reviewedCodes) {
        const row = rows.find(test => test.testCode === code);
        assert(row, 'Verified Labcorp addition unavailable in cart: ' + code);
