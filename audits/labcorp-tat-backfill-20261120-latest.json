@@ -1,0 +1,15 @@
+{
+  "totalCandidates": 3214,
+  "offset": 0,
+  "requested": 160,
+  "attempted": 160,
+  "verified": 23,
+  "notFound": 137,
+  "missingTat": 0,
+  "mismatched": 0,
+  "httpErrors": 0,
+  "networkErrors": 0,
+  "blocked": 0,
+  "entryCount": 23,
+  "updatedOn": "2026-11-21"
+}
