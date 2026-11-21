@@ -42,6 +42,8 @@ async function load(page,app,lab){
     'canonicalCollectionContainer,urineCollectionType,groupSubmissionContainersForPrint,'+
     'parseVolumeMl,parseSimpleMl};'),
     context,{filename:app,timeout:30000});
+  await Promise.resolve(); await Promise.resolve();
+  assert(sandbox.__fullMathAudit,lab+' full audit API was not initialized');
   return sandbox.__fullMathAudit;
 }
 const total=items=>items.reduce((sum,item)=>sum+(Number(item.count)||0),0);
@@ -65,7 +67,7 @@ for(const [lab,page,app] of [
     const active=api.database.filter(row=>row.status==='active');
     const buckets={};
     const flags={sourceCount:[],submissionCount:[],nonsensicalSource:[],nonsensicalSubmit:[],
-      printMismatch:[],unaccounted:[],zeroShipment:[],negativeOrNaN:[],timeout:[]};
+      printMismatch:[],unaccounted:[],sourceToBagRatio:[],zeroShipment:[],negativeOrNaN:[],timeout:[]};
     const examples={};
     const start=Date.now();
     for(const row of active){
@@ -99,6 +101,10 @@ for(const [lab,page,app] of [
         if(sourceTotal<1&&!row.transportOnly)
           flags.unaccounted.push([code,cat,'zero source',sourceTotal,submitTotal]);
         if(submitTotal<1)flags.zeroShipment.push([code,cat,'zero shipped',sourceTotal,submitTotal]);
+        if(sourceTotal>submitTotal*2&&sourceTotal>2)
+          flags.sourceToBagRatio.push([code,cat,sourceTotal,submitTotal,
+            row.drawContainer,row.transportContainer,row.preferredVolume,
+            String(row.specialInstructions||'').slice(0,180)]);
         const printed=physicalSubmission.map(item=>({label:item.label,count:item.count,original:item.originalTube}));
         // Group *per bag*, preserving priority and temperature separation.
         const grouped=bags.flatMap(bag=>api.groupSubmissionContainersForPrint(api.buildSubmissionContents(bag)));
