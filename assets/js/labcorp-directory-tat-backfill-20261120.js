@@ -3,6 +3,20 @@
 (() => {
   const additions = /* TAT_DATA_START */
 {
+  "101000": [
+    "Within 1 day",
+    1,
+    "Labcorp directory",
+    "",
+    "https://www.labcorp.com/tests/101000/gestational-glucose-tolerance-screening-and-diagnostic-test-two-hour-ada-recommendations"
+  ],
+  "101200": [
+    "Within 1 day",
+    1,
+    "Labcorp directory",
+    "",
+    "https://www.labcorp.com/tests/101200/glucose-tolerance-test-gtt-two-hour-oral-who-protocol"
+  ],
   "113753": [
     "6–8 days",
     8,
@@ -968,6 +982,13 @@
     "Labcorp directory",
     "",
     "https://www.labcorp.com/tests/211003/immunoglobulins-iga-igg-igm-cerebrospinal-fluid"
+  ],
+  "221010": [
+    "Within 1 day",
+    1,
+    "Labcorp directory",
+    "",
+    "https://www.labcorp.com/tests/221010/lipid-panel-with-total-cholesterol-hdl-ratio"
   ],
   "247200": [
     "7–10 days",

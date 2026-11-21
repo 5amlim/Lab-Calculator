@@ -4,14 +4,14 @@
   "sitemapEligible": 499,
   "offset": 0,
   "requested": 3300,
-  "attempted": 476,
-  "verified": 449,
+  "attempted": 27,
+  "verified": 3,
   "notFound": 0,
-  "missingTat": 27,
+  "missingTat": 24,
   "mismatched": 0,
   "httpErrors": 0,
   "networkErrors": 0,
   "blocked": 0,
-  "entryCount": 472,
+  "entryCount": 475,
   "updatedOn": "2026-11-21"
 }
