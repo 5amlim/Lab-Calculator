@@ -122,3 +122,22 @@ for (const suite of suites) test(suite.name + ' submission grouping', async () =
   assert.equal(group(dedicated).length,2,
     suite.name+': dedicated aliquots remain separately identified');
 });
+
+test('Labcorp prints the dedicated unopened SST separately from the other serum specimens', () => {
+  const openCalculator = require('./helpers/calculator-vm.cjs');
+  const window = { SEED_TESTS: [] };
+  vm.runInNewContext(read('assets/js/labcorp/catalog/verified-component-expansion-20261121.js'), { window });
+  const { database, expandedCollectionTests, buildTransportBagPlan, buildSubmissionContents,
+    printCollectionSubmissionPlan } = openCalculator('labcorp-app.js',
+    ['database', 'expandedCollectionTests', 'buildTransportBagPlan', 'buildSubmissionContents',
+      'printCollectionSubmissionPlan'], { records: window.SEED_TESTS });
+  const panel = database.find(order => order.testCode === '382583');
+  const [bag] = buildTransportBagPlan(expandedCollectionTests([panel]));
+  const sst = buildSubmissionContents(bag).filter(item => item.className === 'tube-sst');
+  assert.equal(sst.length, 2);
+  assert(sst.every(item => item.originalTube && item.count === 1));
+  assert(sst.some(item => item.tests[0].specialLabeling.includes('HIV SCREEN')));
+  const printed = printCollectionSubmissionPlan([panel]);
+  assert.match(printed, /HIV SCREEN/i);
+  assert.match(printed, /Keep tube unopened/i);
+});

@@ -6783,7 +6783,9 @@
 
   function buildSubmissionContents(bag) {
     const items = new Map();
-    const spunSstTests = bag.tests.filter(test => isSpunSstSubmission(test) && !timedSpecimenLabel(test));
+    const separateOriginalSst = test => timedSpecimenLabel(test)
+      || /\bunopened\b/i.test(finalTransportContainer(test));
+    const spunSstTests = bag.tests.filter(test => isSpunSstSubmission(test) && !separateOriginalSst(test));
     const spunEstimate = selectedSstEstimateForTests(spunSstTests);
     if (spunEstimate.totalTubes > 0) {
       items.set('sst-spun', {
@@ -6819,8 +6821,8 @@
 
     bag.tests.forEach(test => {
       if (isSpunSstSubmission(test)) {
-        if (timedSpecimenLabel(test)) {
-          const key = `timed-original-sst|${test.id}`;
+        if (separateOriginalSst(test)) {
+          const key = `separate-original-sst|${test.id}`;
           items.set(key, {
             key,
             label: selectedSstIsTiger() ? 'Tiger SST (Spun)' : 'Gold SST (Spun)',
@@ -7126,6 +7128,12 @@
       if (samples > 1) add(`Number devices 1–${samples} of ${samples}`);
       add('Collection time');
     }
+    const unopenedSst = item.originalTube && isSstDraw(test)
+      && /\bunopened\b/i.test(finalTransportContainer(test));
+    if (unopenedSst) {
+      const identifier = raw.match(/^label serum[;,]\s*(.+)$/i)?.[1];
+      if (identifier) add(identifier);
+    }
     if (explicit) {
       // Only a declared label instruction can add label-specific details.
       if (/\b(?:trace\s*metal[- ]?free|metal[- ]?free)\b/i.test(raw)) add('Trace metal-free');
@@ -7204,6 +7212,7 @@
     // A genuine handling instruction in a label field must not masquerade as
     // text to write on the vial. Handling is displayed on a separate line.
     const processing = [];
+    if (unopenedSst) processing.push('Keep tube unopened');
     if (/\bfroz(?:en)?\s+immediately\s+after\s+separation\b|\bfreeze\s+immediately\s+after\s+separation\b/i.test(raw))
       processing.push('Freeze immediately after separation');
     else if (/\b(?:freeze|frozen)\b/i.test(raw)) processing.push('Keep frozen');
