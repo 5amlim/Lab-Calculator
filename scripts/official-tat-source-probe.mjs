@@ -29,7 +29,7 @@ try {
  console.log('QUEST_SCRIPTS '+JSON.stringify(scripts.slice(-20)));
  const main=scripts.find(x=>/main[.-].*\.js(?:\?|$)/i.test(x))||scripts.find(x=>/main.*\.js/i.test(x));
  if(main){
-  const url=new URL(main,page).href;
+  const url=new URL('/'+main.replace(/^\//,''),page).href;
   const r=await fetch(url,{signal:AbortSignal.timeout(20000)});
   const js=await r.text();
   const snippets=[];
