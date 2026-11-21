@@ -5191,7 +5191,7 @@
     // E.g. "24 Hour Urine Container" means ONE original 24-hour jug.
     if (isTimedUrineTest(test) &&
         /^\s*(?:12|24)\s*[- ]?\s*(?:hours?|hrs?)\s+urine\s+(?:container|collection|jug)\b/.test(draw)) return 1;
-    if (drawMatch && !/\b(?:ml|g|gram|grams|mg|mm|cm|hours?|hrs?|minutes?|mins?|days?|rcf|rpm)\b/.test(drawMatch[0])) {
+    if (drawMatch && !/\b(?:ml|g|gram|grams|mg|mm|cm|hours?|hrs?|minutes?|mins?|days?|rcf|rpm)\b|\b\d+(?:\.\d+)?\s*n\s*(?:hcl|hydrochloric|acid)\b/.test(drawMatch[0])) {
       return Math.max(numberWordValue(drawMatch[1]), 1);
     }
 
@@ -5201,7 +5201,7 @@
     // “1600 RCF”, “K2 EDTA”, and “two patient identifiers” from changing counts.
     const actionPattern = new RegExp(`\\b(?:draw|collect|use|requires?|obtain)\\s+(?:blood\\s+(?:in|into)\\s+)?${countPattern}\\s*(?:x|×)?\\s*(?:full\\s+|separate\\s+|standard\\s+){0,2}(?:[a-z][a-z /-]{0,24}\\s+)?(?:tubes?|bottles?|containers?)\\b`);
     const actionMatch = note.match(actionPattern);
-    if (actionMatch && !/\b(?:ml|g|gram|grams|mg|mm|cm|hours?|hrs?|minutes?|mins?|days?|rcf|rpm|identifiers?)\b/.test(actionMatch[0])) {
+    if (actionMatch && !/\b(?:ml|g|gram|grams|mg|mm|cm|hours?|hrs?|minutes?|mins?|days?|rcf|rpm|identifiers?)\b|\b\d+(?:\.\d+)?\s*n\s*(?:hcl|hydrochloric|acid)\b/.test(actionMatch[0])) {
       return Math.max(numberWordValue(actionMatch[1]), 1);
     }
 
@@ -5838,14 +5838,18 @@
     // Counts explicitly embedded in the transport-container field are authoritative.
     const containerPattern = new RegExp(`(?:^|\\s)${countPattern}\\s*(?:x|×)?\\s*(?:separate\\s+)?(?:[a-z][a-z-]*\\s+){0,4}(?:transport tubes?|cryovials?|vials?|containers?)\\b`);
     const containerMatch = containerText.match(containerPattern);
-    if (containerMatch) return Math.max(numberWordValue(containerMatch[1]), 1);
+    // Concentration, collection duration and tube capacity never describe how
+    // many physical shipping vessels are required.
+    if (containerMatch && !/\b(?:ml|g|mg|hours?|hrs?|days?)\b|\b\d+(?:\.\d+)?\s*n\s*(?:hcl|hydrochloric|acid)\b/.test(containerMatch[0])) {
+      return Math.max(numberWordValue(containerMatch[1]), 1);
+    }
 
     // In narrative text only “submit ...” language controls submission counts.
     // Collection counts, time points, specimen volumes, and recommendations do not.
     const submitPattern = new RegExp(`\\bsubmit\\s+${countPattern}\\s*(?:x|×)?\\s*(?:separate\\s+)?(?:frozen\\s+)?(?:[a-z][a-z-]*\\s+){0,3}(?:aliquots?|transport tubes?|cryovials?|vials?|tubes?|containers?)\\b`);
     const submitMatch = note.match(submitPattern);
     // "Submit 10 mL aliquot" specifies liquid volume, not ten aliquot cups.
-    return submitMatch && !/\b(?:ml|milliliters?|millilitres?|g|grams?|mg)\b/.test(submitMatch[0])
+    return submitMatch && !/\b(?:ml|milliliters?|millilitres?|g|grams?|mg|hours?|hrs?|days?)\b|\b\d+(?:\.\d+)?\s*n\s*(?:hcl|hydrochloric|acid)\b/.test(submitMatch[0])
       ? Math.max(numberWordValue(submitMatch[1]), 1) : 1;
   }
 
