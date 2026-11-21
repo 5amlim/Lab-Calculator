@@ -95,6 +95,17 @@ for(const [lab,page,app] of [
      examples:Object.fromEntries(Object.entries(missing).map(([k,v])=>[k,v.slice(0,12)])),
      specialtyExamples:detail
    }));
+   // Verify every officially sourced addition is actually searchable, cart-ready and TAT-enabled
+   // after all source overlays, blocked-code rules, and catalog normalization have run.
+   if (lab === 'labcorp') {
+     const reviewedCodes = '001875 008201 071538 115101 120 140 180232 183444 183469 183531 190256 372 373 480566 481020 489200 489590 591 631596 738534 808417 504965 504980 008136 008482 188243 086884 140046 140111 085506 086868 180026 186015 186031'.split(' ');
+     for (const code of reviewedCodes) {
+       const row = rows.find(test => test.testCode === code);
+       assert(row, 'Verified Labcorp addition unavailable in cart: ' + code);
+       assert(audit.hasRoutineTat(row), 'Published Labcorp TAT not loaded: ' + code);
+       assert(audit.tatBadge(row).includes('data-action="view-tat"'), 'TAT clock not available: ' + code);
+     }
+   }
    assert.equal(missing.code.length,0,lab+' codes not searchable');
    assert.equal(missing.specimen.length,0,lab+' specimen filters incomplete');
    assert.equal(missing.transport.length,0,lab+' transport filters incomplete: '+JSON.stringify(missing.transport.slice(0,10)));
