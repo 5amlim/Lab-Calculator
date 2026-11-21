@@ -76,6 +76,10 @@ for(const [lab,page,app] of [
       const code=String(row.testCode||'');
       const source=api.explicitCollectionCount(row);
       const submit=api.explicitSubmissionCount(row);
+      if(lab==='labcorp' && code==='316203'){
+        assert.equal(source,1,'316203: 6N HCl is preservative concentration, not six source cups');
+        assert.equal(submit,1,'316203: one prescribed acid-preserved submission container');
+      }
       if(source>12)flags.sourceCount.push([code,cat,source,row.drawContainer,row.collectionCount]);
       if(submit>12)flags.submissionCount.push([code,cat,submit,row.transportContainer,row.submissionCount]);
       if(!Number.isFinite(source)||source<1||!Number.isFinite(submit)||submit<1)
