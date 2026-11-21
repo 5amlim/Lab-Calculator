@@ -35,10 +35,23 @@ for (const mode of ['gold', 'tiger']) {
   vm.runInContext(read(batch), ctx, { filename: batch });
   assert.equal(ctx.window.SEED_TESTS.length, raws.length, 'Repeated script load must be idempotent');
   const app = read('labcorp-app.js').replace('  init();',
-    '  window.api = { normalizeRecord, buildTransportBagPlan, buildCollectionPlan, buildSubmissionContents, menuContainerBadges, printCollectionSubmissionPlan, rankLibraryTest };');
+    '  window.api = { database, applyUserState, normalizeRecord, buildTransportBagPlan, buildCollectionPlan, buildSubmissionContents, menuContainerBadges, printCollectionSubmissionPlan, rankLibraryTest };');
   vm.runInContext(app, ctx, { filename: 'labcorp-app.js' });
   const api = ctx.window.api;
-  const normalized = raws.map(t => api.normalizeRecord(t));
+  const blockedCodes = new Set(['007364', '096354']);
+  const normalized = raws.map(t => api.normalizeRecord(t)).filter(test => !blockedCodes.has(test.testCode));
+  const savedCopies = raws.filter(test => blockedCodes.has(test.testCode)).map(test => ({
+    ...test, id: 'custom-' + test.testCode, status: 'active', drawContainer: 'Sterile cup'
+  }));
+  const restored = api.applyUserState({ customTests: savedCopies, overrides: [] });
+  for (const code of blockedCodes) {
+    const record = api.database.find(test => test.testCode === code);
+    assert.equal(record.status, 'blocked', code);
+    assert.match(record.specialInstructions, /requires acid-preserved urine/i);
+    const copies = restored.filter(test => test.testCode === code);
+    assert.equal(copies.length, 2, code);
+    assert(copies.every(test => test.status === 'blocked'), code);
+  }
   const byCode = code => normalized.find(t => t.testCode === code);
   for (const t of normalized) {
     assert.match(t.source, new RegExp('/tests/' + t.testCode + '/'));
@@ -52,7 +65,7 @@ for (const mode of ['gold', 'tiger']) {
   }
   // Regression: "preserved" in a 24-hour urine collection label must NEVER
   // be interpreted as a red-top blood tube in the submission source.
-  for (const code of ['003103', '096354']) {
+  for (const code of ['003103']) {
     const test = byCode(code);
     const bags = api.buildTransportBagPlan([test]);
     const submission = bags.flatMap(b => api.buildSubmissionContents(b));
@@ -74,7 +87,12 @@ for (const mode of ['gold', 'tiger']) {
   }
   // Two frozen urine tests can use one compatible collection cup, but
   // LabCorp requires a separate frozen aliquot for each ordered test.
-  const frozenPair = [byCode('003065'), byCode('007364')];
+  const pbgSpot = byCode('003065');
+  const separateFrozenAliquot = api.normalizeRecord({
+    ...pbgSpot, id: 'frozen-spot-urine-regression', testCode: '999998',
+    testName: 'Second compatible frozen spot urine assay'
+  });
+  const frozenPair = [pbgSpot, separateFrozenAliquot];
   const frozenBags = api.buildTransportBagPlan(frozenPair);
   const frozenCollections = api.buildCollectionPlan(frozenPair, frozenBags);
   const frozenSubmissions = frozenBags.flatMap(b => api.buildSubmissionContents(b));
@@ -83,17 +101,18 @@ for (const mode of ['gold', 'tiger']) {
   assert.equal(frozenSubmissions.reduce((count, x) => count + x.count, 0), 2,
     'Two frozen urine assays require separate transport aliquots');
 
-  const timedPorphyria = [byCode('003103'), byCode('096354')];
-  const timedBags = api.buildTransportBagPlan(timedPorphyria);
-  const timedCollection = api.buildCollectionPlan(timedPorphyria, timedBags);
-  const timedTransport = timedBags.flatMap(b => api.buildSubmissionContents(b));
-  assert.equal(timedCollection.filter(x => x.label === '24-Hour Urine Container')
-    .reduce((sum, card) => sum + card.count, 0), 1,
-    'PBG + ALA can share one acid-preserved 24-hour urine collection');
-  assert.match(timedCollection[0].detail, /30% acetic acid/i,
-    'Print source card must identify preservative');
-  assert.equal(timedTransport.reduce((sum, item) => sum + item.count, 0), 2,
-    'PBG + ALA require two separately frozen amber urine aliquots');
+  const timedPbg = byCode('003103');
+  const timedBags = api.buildTransportBagPlan([timedPbg]);
+  const timedCollection = api.buildCollectionPlan([timedPbg], timedBags);
+  const timedTransport = timedBags.flatMap(bag => api.buildSubmissionContents(bag));
+  assert.match(timedPbg.drawContainer, /no preservative/i);
+  assert.equal(timedCollection.length, 1);
+  assert.equal(timedCollection[0].count, 1);
+  assert.doesNotMatch(timedCollection[0].detail, /with 30% acetic acid/i);
+  assert.equal(timedBags[0].label, 'Frozen bag');
+  assert.equal(timedTransport.length, 1);
+  assert.equal(timedTransport[0].count, 1);
+  assert.match(timedTransport[0].label, /amber/i);
 
   // Exercise every possible two-test combination in the same workflow and
   // ensure neither test disappears from the bag plan or printed summary.

@@ -619,8 +619,10 @@
       || /\b(?:histopathology|histology specimen|histology gross|surgical pathology|surg path|anatomic pathology|paraffin embedded|pd l1 ihc|uveal melanoma prognostic|prostate multisite biopsy|tumou?r immuno)\b/.test(title)
       || /^(?:510995|511485|119900|130476|402202|489900|500900|510950|570220|830410|850450|850971|883117|883716|883749)$/.test(test.testCode);
     const unsupportedVessel = /^(?:008037|180820|185009|220687|399116|519081)$/.test(test.testCode) || /\bstreck\b|\b(?:prepared (?:slide|smear)|slide carrier|microscope slide)\b/.test(vessels);
+    const acidPreservedAla = /^(?:007364|096354)$/.test(test.testCode);
     const reason = cytology ? 'Cytology specimens are outside the clinic collection workflow.'
       : tumorOrPathology ? 'Tumor specimens and anatomic pathology are outside the clinic collection workflow.'
+      : acidPreservedAla ? 'Labcorp requires acid-preserved urine for this test, which is outside the clinic collection workflow.'
       : unsupportedVessel ? 'Requires a Streck tube or prepared slide or smear outside the clinic collection workflow.'
       : '';
     return reason ? { ...test, status: 'blocked', specialInstructions: reason } : test;
@@ -6134,18 +6136,6 @@
       }
       if (item.className === 'tube-nmr-lipotube') {
         item.detail = 'Clot upright 30 minutes, centrifuge 1600–1800 ×g for 10–15 minutes, do not open, refrigerate at 2–8°C, and ship with frozen cool packs.';
-      }
-      // LabCorp explicitly accepts the same 30% acetic-acid-preserved
-      // 24-hour urine collection for PBG (003103) and delta-ALA (096354).
-      // Count that physical jug once, but submit a separate frozen amber
-      // aliquot for EACH assay. Do not generalize this exception to other
-      // timed urine tests or incompatible preservative workflows.
-      const codes = new Set(item.tests.map(test => String(test.testCode || '').trim()));
-      if (item.className === 'tube-24h-urine'
-          && collectionSpecimenGroupForItem(item) === 'urine'
-          && codes.has('003103') && codes.has('096354')) {
-        item.count = Math.max(1, item.count - 1);
-        item.detail = 'One 24-hour urine collection with 30% acetic acid for PBG and delta-ALA. Refrigerate during collection; mix and submit separate frozen, light-protected aliquots.';
       }
       items.push(item);
     });

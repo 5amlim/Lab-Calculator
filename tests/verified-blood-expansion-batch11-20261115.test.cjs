@@ -61,11 +61,20 @@ test('Quest whole blood remains unspun in original lavender without a transfer c
 test('Quest EDTA count reserves separate whole-blood and plasma source tubes',async()=>{
  const plan=await planner('Quest'),p=plan(['18090','18089']);
  assert.equal(p.expanded.length,2);
- const lavender=p.draw.find(r=>r.className==='tube-lavender');
- assert.equal(lavender.count,3,'One intact whole-blood tube plus two plasma source tubes');
- assert.match(lavender.detail,/1 whole blood.*2 source for plasma/);
- assert(p.submitted.some(r=>r.className==='tube-lavender'));
- assert(p.submitted.some(r=>r.label==='Transport Tube'&&r.className.includes('green-top')));
+ const lavender=p.draw.filter(card=>card.className==='tube-lavender');
+ assert.equal(lavender.length,2,'Whole blood and plasma have separate collection cards');
+ for(const [code,count,detail] of [['18090',1,/1 whole blood/],['18089',2,/2 source for plasma/]]){
+  const card=lavender.find(item=>item.tests.some(test=>test.testCode===code));
+  assert.equal(card?.count,count,code);
+  assert.match(card.detail,detail);
+  assert.deepEqual(Array.from(card.tests,test=>test.testCode),[code]);
+ }
+ const wholeBlood=p.submitted.find(card=>card.className==='tube-lavender');
+ assert.equal(wholeBlood?.count,1);
+ assert.equal(wholeBlood.originalTube,true);
+ const plasma=p.submitted.find(card=>card.label==='Transport Tube'&&card.className.includes('green-top'));
+ assert.equal(plasma?.count,1);
+ assert(!plasma.originalTube);
  assert.equal(p.selected.find(r=>r.testCode==='18089').spin,'Yes');
 });
 test('Quest HBV alternative plasma route uses generic frozen green-badge transport, not Labcorp purple',async()=>{
