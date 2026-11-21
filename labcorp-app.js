@@ -11,6 +11,7 @@
   const CONSOLIDATED_TEST_IDS = {};
   const SELECTED_KEY = 'labcorpCollectionCalculator.selected.v1';
   const SST_MODE_KEY = 'labcorpCollectionCalculator.sstMode.v1';
+  const TAT_REGION_KEY = 'labcorpCollectionCalculator.tatRegion.v1';
   const URINE_CULTURE_MODE_KEY = 'labcorpCollectionCalculator.urineCultureTransport.v1';
   const STAT_SELECTED_KEY = 'labcorpCollectionCalculator.statSelected.v1';
   const DEFAULT_STAT_MIGRATION_KEY = 'labcorpCollectionCalculator.defaultStat.v11.12';
@@ -321,6 +322,7 @@
       refreshBatchHints = window.LabBatchInlineHints.mount(els.searchInput, query =>
         window.LabBatchInlineHints.resolveExact(query, database, normalizeSearch));
     }
+    restoreTatRegion();
     bindEvents();
     renderAll();
   }
@@ -378,7 +380,11 @@
     els.loadMoreButton.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
     els.blockedListButton?.addEventListener('click', () => { blockedListOpen = !blockedListOpen; renderBlockedList(); });
     els.loadMoreInlineButton?.addEventListener('click', () => { libraryLimit += PAGE_STEP; renderLibrary(); });
-    $('tatRegionFilter')?.addEventListener('change', () => { hideTatPreview(); renderTurnaroundTime(selectedTests()); });
+    $('tatRegionFilter')?.addEventListener('change', () => {
+    try { localStorage.setItem(TAT_REGION_KEY, $('tatRegionFilter').value); } catch (_) {}
+    hideTatPreview();
+    renderTurnaroundTime(selectedTests());
+  });
     $('turnaroundTime')?.addEventListener('click', event => {
       const button = event.target.closest('button[data-cart-tat-id]');
       if (button) showTatDetails(selectedTests().find(test => test.id === button.dataset.cartTatId));
@@ -1933,12 +1939,14 @@
       return result;
     }
     if (/\b(?:csf|cerebrospinal)\b/.test(value)) return ['Body Fluid', 'CSF'];
-    if (/\bsputum\b/.test(value)) return ['Sputum'];
+    if (/\bsputum\b/.test(value)) return ['Sputum', 'Respiratory'];
+    // BAL and airway washings are respiratory specimens, not sputum.
+    if (/\b(?:bronchoalveolar lavage|bronchial washing|tracheal aspirate|nasopharyngeal washing)\b/.test(value)) return ['Respiratory'];
     if (/\bsaliva\b/.test(value)) return ['Saliva'];
     if (/^semen$/.test(value)) return ['Semen'];
     if (/^breath$/.test(value)) return ['Breath'];
-    if (/^dry stone$/.test(value)) return ['Dry Stone'];
-    if (/^jp drainage$/.test(value)) return ['Body Fluid'];
+    if (/^(?:dry stone|calculi|calculus)$/.test(value)) return ['Dry Stone'];
+    if (/^(?:jp drainage|bile)$/.test(value)) return ['Body Fluid'];
     if (/\btissue\b/.test(value)) return ['Tissue'];
     if (/\bcervical\b.*\bcytology\b.*\bfluid\b/.test(value)) return ['Body Fluid', 'Cervical Cytology Fluid'];
     for (const [pattern, name] of [
@@ -2547,7 +2555,7 @@
   }
 
   function hasRoutineTat(test) {
-    return Boolean(regionalDirectoryTat(test, 'directory')?.[0]);
+    return Object.values(window.LabDirectoryTat || {}).some(region => region?.[displayCode(test)]?.[0]);
   }
 
   function tatBadge(test, printing = false) {
@@ -2590,7 +2598,7 @@
     tip.innerHTML = '<div style="font-weight:800;color:var(--brand-dark,#00666e);font-size:11px;letter-spacing:.04em">TAT &amp; TEST SETUP</div><div style="font-size:14px;font-weight:750;margin:5px 0 8px">' + escapeHtml(displayCode(test) + ' · ' + test.testName) + '</div>' +
       row('Region', regionLabel) + row('Routine TAT', tat?.[0] || 'Not verified') + row('Test setup', tat?.[3] || 'Not verified') +
       (test.isStat || statSelectedIds.includes(test.id) ? row('STAT TAT','Not verified') : '') +
-      '<div style="font-size:11px;color:#526579;margin-top:8px">' + escapeHtml(tat ? 'Labcorp directory. Timing starts at pickup.' : 'No region-specific estimate verified.') + ' Estimates may vary with schedules and reflex testing.</div>';
+      '<div style="font-size:11px;color:#526579;margin-top:8px">' + escapeHtml(tat ? (region === 'directory' ? 'General Labcorp directory estimate. TAT starts at specimen pickup.' : 'General Labcorp directory estimate, not verified for ' + regionLabel + '. TAT starts at specimen pickup.') : 'No published TAT estimate available.') + ' Estimates may vary with schedules and reflex testing.</div>';
     document.body.appendChild(tip);
     const rect = button.getBoundingClientRect();
     const gap = 10;
@@ -2607,7 +2615,22 @@
 
   function regionalDirectoryTat(test, region) {
     if (!hasTatDetails(test) || isManuallyAddedTest(test)) return null;
-    return window.LabDirectoryTat?.[region]?.[displayCode(test)] || null;
+    const code = displayCode(test);
+    const regional = window.LabDirectoryTat?.[region]?.[code];
+    if (regional?.[0]) return regional;
+    // Labcorp's published general estimate is still useful when a region
+    // lacks verified local TAT. The UI explicitly labels this fallback.
+    return window.LabDirectoryTat?.directory?.[code] || regional || null;
+  }
+
+  function restoreTatRegion() {
+    const select = $('tatRegionFilter');
+    if (!select) return;
+    try {
+      const saved = localStorage.getItem(TAT_REGION_KEY);
+      if (Array.from(select.options).some(option => option.value === saved)) select.value = saved;
+    } catch (_) { /* Keep the default if storage is unavailable. */ }
+    window.syncPortalSelects?.();
   }
 
   function regionalPanelTat(test, region) {
@@ -2636,7 +2659,7 @@
       results.innerHTML = row('Routine TAT',tat?.[0] || 'Not verified') +
         row('Test setup',tat?.[3] || 'Not verified') +
         (test.isStat || statSelectedIds.includes(test.id) ? row('STAT TAT','Not verified') : '') +
-        '<div style="font-size:12px;margin-top:8px">' + escapeHtml(tat ? 'General Labcorp directory. Timing starts at pickup.' : 'No applicable estimate has been verified for ' + regionLabel + '.') + ' Schedules and reflex testing may extend turnaround.</div>' +
+        '<div style="font-size:12px;margin-top:8px">' + escapeHtml(tat ? (region === 'directory' ? 'General Labcorp directory estimate. TAT starts at specimen pickup.' : 'General Labcorp directory estimate, not verified for ' + regionLabel + '. TAT starts at specimen pickup.') : 'No published TAT estimate available for ' + regionLabel + '.') + ' Schedules and reflex testing may extend turnaround.</div>' +
         '<div style="margin-top:9px"><a class="reference-link" href="' + escapeAttr(tat?.[4] || regionalDirectoryTat(test, 'directory')?.[4] || directoryUrl(test)) + '" target="_blank" rel="noopener noreferrer">Official directory ↗</a></div>';
     }
     select.addEventListener('change', () => {
@@ -2711,7 +2734,7 @@
       <strong>Up to ${max} ${max === 1 ? 'day' : 'days'}</strong>
     </div>`;
     const warning = unavailable ? `<p class="tat-coverage-note">${unavailable} ${unavailable === 1 ? 'test has' : 'tests have'} no applicable estimate. Full order completion cannot be estimated.</p>` : '';
-    const regionNote = region === 'directory' ? 'General Labcorp directory estimates start at specimen pickup.' : 'No region-specific estimates have been verified for ' + regionLabel + '.';
+    const regionNote = region === 'directory' ? 'General Labcorp directory estimates start at specimen pickup.' : 'Showing general Labcorp directory estimates for ' + regionLabel + '. Region-specific turnaround times have not been verified. Estimates start at specimen pickup.';
     body.innerHTML = longest + warning +
       '<div class="tat-groups">' + cards + '</div>' +
       '<div class="order-of-draw-note">' + escapeHtml(regionNote) + ' Schedules and reflex testing may extend turnaround. Result dates can vary.</div>';
