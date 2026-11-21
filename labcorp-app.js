@@ -5323,6 +5323,12 @@
     // Do not classify from general notes/reject criteria because phrases such as
     // “24-hour urine unacceptable,” “within 24 hours,” or “do not use first morning”
     // describe exclusions/timing, not the specimen the nurse should collect.
+    // Duration belongs to the specimen protocol, not the stock jug label.
+    // A 12-hour collection may use a jug sold as a "24 Hour Urine Container".
+    const protocolText = `${test.testName || ''} ${test.specimenType || ''}`.toLowerCase();
+    if (/\b12\s*[- ]?\s*(?:hours?|hrs?)\b|\b12h\b/.test(protocolText)) {
+      return { key: '12-hour-urine', label: '12-hour urine' };
+    }
     const requirementText = `${test.testName || ''} ${test.specimenType || ''} ${test.drawContainer || ''} ${test.preferredVolume || ''} ${test.minimumVolume || ''}`.toLowerCase();
     const instructions = String(test.specialInstructions || '').toLowerCase();
 
@@ -5387,7 +5393,53 @@
   function isTimedUrineTest(test) {
     if (!isUrineTest(test)) return false;
     // A first-catch specimen is not a timed urine collection jug.
-    return ['timed-urine', '24-hour-urine'].includes(urineCollectionType(test).key);
+    return ['12-hour-urine', 'timed-urine', '24-hour-urine'].includes(urineCollectionType(test).key);
+  }
+
+  // Count the original timed-urine source once when the same collection
+  // genuinely supplies multiple independent submitted aliquots. Shipping
+  // temperature does not create another 24-hour patient collection.
+  function shareableTimedUrineSourceKey(test, info) {
+    if (!isTimedUrineTest(test) || info.className !== 'tube-24h-urine'
+        || requiresSeparateUrineCollection(test)
+        || explicitCollectionCount(test) !== 1
+        || isOriginalContainerSubmission(test)) return '';
+    // Labcorp specialty 501533 has conflicting preservative/shipping guidance
+    // between the hospital CDOS record and direct Esoterix instructions.
+    // Never assume that its source can be shared until the route is resolved.
+    if (String(test.testCode || '').trim() === '501533') return '';
+    const text = `${test.drawContainer || ''} ${test.specialInstructions || ''}`.toLowerCase();
+    const unpreserved = /\b(?:unpreserved|preservative[- ]?free|no[- ]?acid(?:[- ]?preservative)?|no\s+preservative|without\s+(?:acid|preservative))\b/.test(text);
+    const acidPreserved = /\b(?:6\s*n\s*hcl|hydrochloric\s+acid|acid[- ]?preserved|acidified\s+urine)\b/.test(text);
+    if (unpreserved === acidPreserved) return '';
+    return [urineCollectionType(test).key, info.key,
+      acidPreserved ? 'acid-preserved' : 'unpreserved'].join('|');
+  }
+
+  function listedTimedUrineAliquotMl(test) {
+    const stated = String(test.preferredVolume || '');
+    const multiple = stated.match(/\b(?:two|2)\s+(\d+(?:\.\d+)?)\s*mL\s+aliquots?\b/i);
+    if (multiple) return 2 * Number(multiple[1]);
+    const single = stated.match(/\b(\d+(?:\.\d+)?)\s*mL\b/i);
+    return single ? Number(single[1]) : null;
+  }
+
+  function describeTimedUrineSource(item) {
+    const tests = uniqueTests(item.tests || []);
+    const aliquots = tests.map(listedTimedUrineAliquotMl);
+    const knownVolume = aliquots.every(value => value !== null);
+    const volume = knownVolume ? aliquots.reduce((sum, value) => sum + value, 0) : null;
+    const submissions = buildTransportBagPlan(tests)
+      .map(bag => ({
+        label: bag.label,
+        count: buildSubmissionContents(bag).filter(part => !part.originalTube)
+          .reduce((sum, part) => sum + part.count, 0)
+      }))
+      .filter(entry => entry.count > 0);
+    const count = submissions.reduce((sum, entry) => sum + entry.count, 0);
+    const bags = submissions.map(entry => `${entry.label}: ${entry.count}`).join(' · ');
+    const shared = tests.length > 1 ? 'One shared original urine collection' : 'Original urine collection';
+    return `${shared}; measure and mix the full timed volume. Transfer to ${count} separately labeled submission ${count === 1 ? 'container' : 'containers'}${volume !== null ? ` (listed aliquots total ${formatMl(volume)})` : ''}. ${bags}. The original collection jug is not an additional shipping container.`;
   }
 
   function uniqueTests(tests) {
@@ -5832,7 +5884,7 @@
         visualCards.push(item);
         return;
       }
-      const key = `${collectionMergeSubtypeForItem(item)}|${item.className}|${normalizeSearch(item.label)}`;
+      const key = `${collectionMergeSubtypeForItem(item)}|${item.className}|${normalizeSearch(item.label)}${specimenGroup === 'urine' && isTimedUrineTest((item.tests || [])[0]) ? '|' + item.key : ''}`;
       if (!visualIndex.has(key)) {
         const copy = { ...item, tests: uniqueTests(item.tests || []) };
         visualIndex.set(key, copy);
@@ -5993,16 +6045,22 @@
       const urineCup = specimenGroup === 'urine' && info.className === 'tube-urine-cup';
       const separateCup = urineCup && !isShareableUrineCupTest(test);
       const separateStool = specimenGroup === 'stool' && info.className === 'tube-urine-cup';
-      const groupKey = `${specimenSubtype}|${info.key}${separateCup || separateStool || info.className === 'tube-salivette' ? `|separate|${test.sourceTestId || test.id}` : ''}`;
-      if (!grouped.has(groupKey)) grouped.set(groupKey, { ...info, key: groupKey, urineSeparateCollection: separateCup, stoolSeparateCollection: separateStool, urineCollectionKey: groupKey, count: 0, tests: [], detail: '' });
+      const timedShareKey = shareableTimedUrineSourceKey(test, info);
+      const groupKey = timedShareKey
+        ? `shared-timed-urine|${timedShareKey}`
+        : `${specimenSubtype}|${info.key}${separateCup || separateStool || info.className === 'tube-salivette' || isTimedUrineTest(test) ? `|separate|${test.sourceTestId || test.id}` : ''}`;
+      if (!grouped.has(groupKey)) grouped.set(groupKey, { ...info, key: groupKey, urineSeparateCollection: separateCup, stoolSeparateCollection: separateStool, urineCollectionKey: groupKey, count: 0, tests: [], detail: '', timedSharedSource: Boolean(timedShareKey) });
       const item = grouped.get(groupKey);
-      if (urineCup && !separateCup) item.count = Math.max(item.count, explicitCollectionCount(test));
+      if (timedShareKey || (urineCup && !separateCup)) item.count = Math.max(item.count, explicitCollectionCount(test));
       else item.count += explicitCollectionCount(test);
       item.tests.push(test);
     });
 
     grouped.forEach(item => {
       item.tests = uniqueTests(item.tests);
+      if (item.timedSharedSource && item.className === 'tube-24h-urine') {
+        item.detail = describeTimedUrineSource(item);
+      }
       if (item.className === 'tube-nmr-lipotube') {
         item.detail = 'Clot upright 30 minutes, centrifuge 1600–1800 ×g for 10–15 minutes, do not open, refrigerate at 2–8°C, and ship with frozen cool packs.';
       }
@@ -6033,7 +6091,11 @@
       const specimenSubtype = collectionMergeSubtypeForItem(item);
       const normalizedLabel = String(item.label || '').trim().toLowerCase();
       const separateKey = (item.urineSeparateCollection || item.stoolSeparateCollection) ? `|${item.urineCollectionKey || item.key}` : '';
-      const sameContainerKey = `${specimenSubtype}|${item.className || ''}|${normalizedLabel}${separateKey}`;
+      // A single print card must never merge physically incompatible timed
+      // sources, even if the same commercially labeled jug is used for each.
+      const timedSeparation = specimenGroup === 'urine' && isTimedUrineTest((item.tests || [])[0])
+        ? `|${item.key}` : '';
+      const sameContainerKey = `${specimenSubtype}|${item.className || ''}|${normalizedLabel}${separateKey}${timedSeparation}`;
       const mergeableNonBlood = specimenGroup !== 'blood' && specimenGroup !== 'other';
 
       if (!mergeableNonBlood || !mergedIndex.has(sameContainerKey)) {
