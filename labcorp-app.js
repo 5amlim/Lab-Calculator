@@ -607,7 +607,33 @@
   }
 
 
+  // 2026-11-21: hard exclusions from the previously directory-only Labcorp 273.
+  // Unknown availability, unverified kits, and uncertain transport protocols remain directory-only.
+  const REVIEWED_DNP_GROUPS_20261121 = [
+    { reason: "Requires acid-preserved urine, which the clinic does not collect.", codes: "007351" },
+    { reason: "Requires a prepared blood film. The clinic does not prepare slides or smears.", codes: "150201" },
+    { reason: "Requires an already cultured organism or isolate. The clinic does not produce or submit isolate-only referrals.", codes: "008458 008474 008664 008680 088005 088013 088021 088161 096388 180175 182212 182220 182261 182329 182345 182436 182576 182808 182832 182840 182857 182915 182923 183158 183166 183255 183257 183260 183285 183402 183483 183491 183509 183517 183525 183809 183939 818380 818383 818386 818389 818395 824471 830408 830618 833843" },
+    { reason: "Administrative, billing, tracking or reporting code. No independent patient specimen order.", codes: "017422 183566 272104 345334 345345 345358 502273 700600 716506 737224 737440 737441 737442 737444 780304 780305 780306 780307 780308 780309 780310 780311 780312 780313 821243 910343 910374 910377 910385 910445 977717 977995 980102 990010 990011 990689 996662 998096 998257 998272 998310 998686 999524" },
+    { reason: "Environmental or equipment-monitoring specimen, outside the patient lab collection service.", codes: "180307 180315 181560 826555 830829 830832 830835 832180" },
+    { reason: "Requires cultured prenatal cells, tissue or specialized cell-culture media, which are outside the clinic specimen workflow.", codes: "501999 510100 824044 909531 909549 909556 909561 909564 909576 909581" },
+    { reason: "Semen analysis requires testing within 60 minutes; no approved rapid collection-to-testing workflow is established.", codes: "519013 519114 519481" },
+    { reason: "Patient-direct ColoSense kit request, not a clinic specimen collection or shipment.", codes: "832488" },
+    { reason: "Requires a cultured bacterial isolate; patient swabs are not an acceptable substitute.", codes: "183442" },
+    { reason: "Fax report code, not an independent specimen collection.", codes: "100874" },
+    { reason: "QAPAM quality-program reference, not an independent specimen collection.", codes: "199995" },
+    { reason: "Multiple-referral administrative routing code, not an independent specimen collection.", codes: "278734" },
+    { reason: "Washington State newborn-screen repeat; not an applicable order in the clinics' current markets.", codes: "821439" },
+    { reason: "Reproductive risk summary report, not an independent specimen collection.", codes: "898196" },
+    { reason: "Spirometry is a clinical procedure, not a Labcorp specimen sendout order.", codes: "009449" },
+    { reason: "Hearing test is a clinical procedure, not a Labcorp specimen sendout order.", codes: "009456" },
+    { reason: "Slit-lamp examination is a clinical examination, not a Labcorp specimen sendout order.", codes: "009464" },
+  ];
+  const REVIEWED_DNP_20261121 = new Map(REVIEWED_DNP_GROUPS_20261121.flatMap(group =>
+    group.codes.split(' ').map(code => [code, group.reason])));
+
   function applySpecimenExclusions(test) {
+    const reviewedReason = REVIEWED_DNP_20261121.get(String(test.testCode || '').trim());
+    if (reviewedReason) return { ...test, status: 'blocked', specialInstructions: reviewedReason };
     const title = normalizeSearch(test.testName);
     const routes = [test, ...additionalDrawRequirements(test)];
     const materials = routes.map(route => normalizeSearch(route.specimenType)).join(' ');
