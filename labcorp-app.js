@@ -8596,6 +8596,8 @@
     const source = String(test?.source || '');
     const match = source.match(/https:\/\/(?:www|womenshealth)\.labcorp\.com\/tests\/[0-9]+\/[a-z0-9-]+/i);
     if (match) return match[0];
+    const compendium = source.match(/https:\/\/cdos\.halfpenny\.com\/labcorp\/TestDisplay\/(\d{6})\b/i);
+    if (compendium?.[1] === String(test?.testCode || '').trim()) return compendium[0];
     return directorySearchUrl(test?.testCode || test?.testName || '');
   }
 
