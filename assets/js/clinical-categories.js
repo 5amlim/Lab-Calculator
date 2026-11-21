@@ -78,7 +78,7 @@
   ['immunology', /\b(?:igd|interleukin|il (?:1|2|4|5|6|8|10|12|13|17|18|23|31|33)|hla|tetanus and diphtheria antibody)\b/],
   ['infectious', /\b(?:hcv|hbv|hav|hev|fta abs|adenovirus|enterovirus|coxsackie|dengue|ehrlichia|aspergillus|herpesvirus|clostridium difficile|rabies vaccine)\b/],
   ['oncology', /\b(?:chromogranin a|prostatic acid phosphatase)\b/],
-  ['parasitology', /\b(?:echinococcus|trichinella|taenia|fasciola)\b/],
+  ['parasitology', /\b(?:echinococcus|trichinella|taenia|fasciola|pinworms?|enterobius|worm identification|arthropod identification|acanthamoeba)\b/],
   ['pregnancy', /\b(?:human placental lactogen|maternal serum screen|fetomaternal|fetal hemoglobin screen)\b/],
   ['renal', /\b(?:litholink|cmp\d*|bmp\d*|anti glomerular basement membrane)\b/],
   ['sti', /\bfta abs\b/],

@@ -516,7 +516,7 @@ window.CEDARS_TESTS = [
     "notes": "Guide lists SurePath vial supply #609283, Rovers brush #609282, brush/spatula #600566. Follow current collection instructions.",
     "slide": "8-10",
     "hold": true,
-    "blockReason": "Collection requirements pending review",
+    "blockReason": "Cytology specimens are outside the clinic collection workflow",
     "containerType": "SurePath"
   },
   {

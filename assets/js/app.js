@@ -682,8 +682,27 @@
       specialInstructions: instructions.includes(notice) ? instructions : notice + ' ' + instructions };
   }
 
+
+  function applySpecimenExclusions(test) {
+    const title = normalizeSearch(test.testName);
+    const routes = [test, ...additionalDrawRequirements(test)];
+    const materials = routes.map(route => normalizeSearch(route.specimenType)).join(' ');
+    const vessels = routes.flatMap(route => [route.drawContainer || route.container, route.transportContainer])
+      .map(normalizeSearch).join(' ');
+    const cytology = /\b(?:cytology|anal cyto|pap (?:ig|smear|test)|liquid based pap|evaluation of fna|consult referred slide)\b/.test(title)
+      || /\b(?:cytology|cytolyt|saccomanno)\b/.test(materials + ' ' + vessels);
+    const tumorOrPathology = /\b(?:solid tumou?r|tumou?r tissue|tumou?r biopsy|tumou?r block|neoplastic tissue)\b/.test(materials)
+      || /\b(?:histopathology|histology specimen|histology gross|surgical pathology|surg path|anatomic pathology|paraffin embedded|pd l1 ihc|uveal melanoma prognostic|prostate multisite biopsy|tumou?r immuno)\b/.test(title);
+    const unsupportedVessel = /\bstreck\b|\b(?:prepared (?:slide|smear)|slide carrier|microscope slide)\b/.test(vessels);
+    const reason = cytology ? 'Cytology specimens are outside the clinic collection workflow.'
+      : tumorOrPathology ? 'Tumor specimens and anatomic pathology are outside the clinic collection workflow.'
+      : unsupportedVessel ? 'Requires a Streck tube or prepared slide or smear outside the clinic collection workflow.'
+      : '';
+    return reason ? { ...test, status: 'blocked', specialInstructions: reason } : test;
+  }
+
   function applyUserState(state) {
-    const builtIns = seedDatabase.map(test => ({ ...test }));
+    const builtIns = seedDatabase.map(test => applySpecimenExclusions({ ...test }));
     const byId = new Map(builtIns.map((test, index) => [test.id, index]));
     const byKey = new Map(builtIns.map((test, index) => [databaseKey(test), index]));
 
@@ -691,6 +710,7 @@
       const index = byId.get(override.id) ?? byKey.get(databaseKey(override));
       if (index !== undefined) {
         const base = builtIns[index];
+        if (applySpecimenExclusions(base) !== base) return;
         if (base.testCode === '92701') {
           // Replace only the outdated values from earlier built-in releases.
           // Preserve staff-entered changes that differ from those legacy defaults.
@@ -749,13 +769,19 @@
       }
     });
 
-    const customTests = (state.customTests || []).map(normalizeRecord);
+    const excludedByCode = new Map(builtIns.filter(test => applySpecimenExclusions(test) !== test)
+      .map(test => [test.testCode, test]));
+    const customTests = (state.customTests || []).map(normalizeRecord).map(test => {
+      const excluded = excludedByCode.get(test.testCode);
+      return excluded ? { ...test, status: 'blocked', specialInstructions: excluded.specialInstructions } : test;
+    });
     // Retired Quest codes must not reappear through legacy user edits or saved custom tests.
     return [...customTests, ...builtIns]
       .filter(test => !RETIRED_TEST_CODES.has(test.testCode))
       .map(applyLocalSupplyPolicy)
       .map(verifiedAffirmRecord)
       .map(blockHairOrNailSpecimen)
+      .map(applySpecimenExclusions)
       // Prevent any legacy custom copy or user edit of 92717 from re-enabling collection.
       .map(test => String(test.testCode || '').trim() === '92717'
         ? { ...test, status: 'blocked',
@@ -930,7 +956,8 @@
       if (record[key] != null) record[key] = interfaceWording(record[key]);
     }
 
-    const specimenType = normalizeSpecimenType(record.specimenType);
+    const specimenType = /^stool$/i.test(record.specimenType) && /\bmeconium\b/i.test(record.specialLabeling)
+      ? 'Meconium' : normalizeSpecimenType(record.specimenType);
     let transportContainer = cleanTransportContainer(record.transportContainer);
     let drawContainer = normalizeStoolCollectionSource(
       specimenType,
@@ -1413,6 +1440,7 @@
 
   function cleanCollectionContainer(value) {
     const text = genericTransportName(value);
+    if (/^sterile screw[- ]?cap(?:ped)? specimen (?:tube|container)(?:\s*\(original (?:tube|container)\))?$/i.test(text)) return 'Sterile cup';
     if (/^sterile (?:screw[- ]?cap )?csf (?:tube|vial|container)(?:\s*\(original (?:tube|container)\))?$/i.test(text)) return 'Sterile cup';
     if (/^salivette saliva collection device(?: \(blue cap\))?$/i.test(text)) return 'Salivette';
     // Local standard: generic urine cups/containers are the existing Sterile cup.
@@ -1998,7 +2026,7 @@
     }
     if (/\b(?:urine|urinary)\b/.test(value)) return ['Urine'];
     if (/\b(?:stool|feces|fecal|faeces|faecal)\b/.test(value)) return ['Stool'];
-    if (/\bswab\b/.test(value)) {
+    if (/\bswabs?\b/.test(value)) {
       const result = ['Swab'];
       if (/\bvaginal\s+rectal\b/.test(value)) result.push('Vaginal-Rectal Swab', 'Vaginal Swab');
       else if (/\bcervicovaginal\b/.test(value)) result.push('Cervicovaginal Swab', 'Vaginal Swab');
@@ -2011,14 +2039,18 @@
     if (/\b(?:csf|cerebrospinal)\b/.test(value)) return ['Body Fluid', 'CSF'];
     if (/\bsputum\b/.test(value)) return ['Sputum', 'Respiratory'];
     // BAL and airway washings are respiratory specimens, not sputum.
-    if (/\b(?:bronchoalveolar lavage|bronchial washing|tracheal aspirate|nasopharyngeal washing)\b/.test(value)) return ['Respiratory'];
-    if (/\bsaliva\b/.test(value)) return ['Saliva'];
+    if (/\b(?:bronchoalveolar lavage|bronchial washings?|tracheal aspirate|nasopharyngeal washings?|lung exudate)\b/.test(value)) return ['Respiratory'];
+    if (/\b(?:saliva|oral fluid)\b/.test(value)) return ['Saliva'];
+    if (/\b(?:worms?|pinworms?|parasites?|arthropods?|ticks?)\b/.test(value)) return ['Parasite / Arthropod'];
+    if (/\bmeconium\b/.test(value)) return ['Meconium'];
+    if (/\b(?:skin scrapings?)\b/.test(value)) return ['Skin Scrapings'];
+    if (/\bbone marrow\b/.test(value)) return ['Bone Marrow'];
+    if (/\b(?:aspirate|aspiration|wash|washings|drainage|exudate)\b/.test(value)) return ['Body Fluid'];
     if (/^semen$/.test(value)) return ['Semen'];
     if (/^breath$/.test(value)) return ['Breath'];
     if (/^(?:dry stone|calculi|calculus)$/.test(value)) return ['Dry Stone'];
     if (/^(?:jp drainage|bile)$/.test(value)) return ['Body Fluid'];
     if (/\btissue\b/.test(value)) return ['Tissue'];
-    if (/\bcervical\b.*\bcytology\b.*\bfluid\b/.test(value)) return ['Body Fluid', 'Cervical Cytology Fluid'];
     for (const [pattern, name] of [
       [/\bpericardial\b/, 'Pericardial Fluid'],
       [/\bperitoneal\b|\bascit(?:es|ic)\b/, 'Peritoneal Fluid'],
@@ -3709,7 +3741,10 @@
       const containerLabel = `${containerCount} ${containerCount === 1 ? 'container' : 'containers'}`;
       const groupClass = tubeClass(group.container) === 'tube-sst' ? selectedSstVisualClass() : tubeClass(group.container);
       const groupLabel = tubeClass(group.container) === 'tube-sst' ? selectedSstLabel() : group.container;
-      return `<div class="draw-card${group.isStat ? ' is-stat' : ''}"><div class="draw-title-block"><strong class="tube ${groupClass}">${escapeHtml(groupLabel)}</strong>${group.sharedStatRoutine ? '<span class="priority-marker">Shared STAT + routine urine cup; transport separately</span>' : group.isStat ? `<span class="priority-marker">${group.urineCup ? 'STAT' : 'STAT · separate source tubes'}</span>` : ''}<span class="draw-test-count">${escapeHtml(testLabel)}</span></div><strong class="draw-container-badge">${escapeHtml(containerLabel)}</strong><div class="draw-meta specimen-line">${Array.from(group.specimenTypes).map(type => specimenBadge(type)).join(' ')}${volume ? `<span>${escapeHtml(volume)}</span>` : ''}</div></div>`;
+      const nonBloodBadges = collectionSpecimenBadgesForItem(group).map(({ label }) => specimenBadge(label));
+      const bloodBadges = [...group.specimenTypes].filter(type =>
+        collectionSpecimenGroupForTest({ specimenType: type }) === 'blood').map(type => specimenBadge(type));
+      return `<div class="draw-card${group.isStat ? ' is-stat' : ''}"><div class="draw-title-block"><strong class="tube ${groupClass}">${escapeHtml(groupLabel)}</strong>${group.sharedStatRoutine ? '<span class="priority-marker">Shared STAT + routine urine cup; transport separately</span>' : group.isStat ? `<span class="priority-marker">${group.urineCup ? 'STAT' : 'STAT · separate source tubes'}</span>` : ''}<span class="draw-test-count">${escapeHtml(testLabel)}</span></div><strong class="draw-container-badge">${escapeHtml(containerLabel)}</strong><div class="draw-meta specimen-line">${[...bloodBadges, ...nonBloodBadges].join(' ')}${volume ? `<span>${escapeHtml(volume)}</span>` : ''}</div></div>`;
     }).join('');
   }
 
@@ -4336,7 +4371,7 @@
     const existingIndex = database.findIndex(test => test.id === id);
     const additionalRequirements = collectAdditionalContainerRequirements();
     if (additionalRequirements === null) return;
-    const record = normalizeRecord({
+    const record = applySpecimenExclusions(normalizeRecord({
       id,
       testCode: els.testCode.value,
       testName: els.testName.value,
@@ -4359,7 +4394,12 @@
       status: els.blockedStatus.checked ? 'blocked' : 'active',
       source: existingIndex >= 0 ? database[existingIndex].source : 'Custom entry',
       sourceRow: existingIndex >= 0 ? database[existingIndex].sourceRow : null
-    });
+    }));
+    const published = seedDatabase.find(test => test.testCode === record.testCode);
+    if (published) {
+      const excluded = applySpecimenExclusions(published);
+      if (excluded !== published) Object.assign(record, { status: 'blocked', specialInstructions: excluded.specialInstructions });
+    }
     const requiredFields = [
       { element: els.testCode, value: els.testCode.value.trim(), message: 'Enter a test code before saving.' },
       { element: els.testName, value: els.testName.value.trim(), message: 'Enter a test name before saving.' },
@@ -5353,7 +5393,9 @@
       const value = specimen.toLowerCase().trim();
       const group = collectionSpecimenGroupForTest(test);
       let badge = null;
-      if (group === 'urine') {
+      if (/\bmeconium\b/.test(value)) {
+        badge = { label: 'Meconium', kind: 'other' };
+      } else if (group === 'urine') {
         badge = { label: urineCollectionType(test).label || 'Urine', kind: 'urine' };
       } else if (group === 'stool') {
         badge = { label: 'Stool', kind: 'stool' };
@@ -5365,6 +5407,13 @@
         (/\b(?:fluid|fluids|effusion|ascites|ascitic|drainage|saliva|semen|bile|synovial|pleural|peritoneal|pericardial|amniotic|joint|bursal|aqueous|vitreous)\b/.test(value) ||
          /\b(?:jp|joint)\s+aspirate\b/.test(value))) {
         badge = { label: /^(?:body|bodily)\s+fluid$/i.test(specimen) ? 'Body Fluid' : titleCaseSpecimen(specimen), kind: 'fluid' };
+      } else if (/\bswabs?\b/.test(value)) {
+        const source = specificSpecimenSource(test);
+        badge = { label: source.startsWith('Collection site:') ? 'Swab' : source, kind: 'other' };
+      } else if (/\b(?:worm|pinworm|parasite|arthropod|tick)\b/.test(value)) {
+        badge = { label: specimen, kind: 'other' };
+      } else if (group !== 'blood' && !/^(?:other(?:\s*\/\s*verify| clinical specimen)?|varies|specimen|unknown|not applicable)$/i.test(specimen)) {
+        badge = { label: titleCaseSpecimen(specimen), kind: 'other' };
       }
       if (badge) badges.set(badge.kind + '|' + badge.label.toLowerCase(), badge);
     });

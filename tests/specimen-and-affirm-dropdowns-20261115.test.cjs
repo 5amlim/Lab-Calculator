@@ -85,7 +85,8 @@ test('Specimen filter subchoices accurately match real samples and multiple requ
   const menu=inspectFlyout();
   const item={select:{id:'specimenFilter',dataset:{},options:opts.map(value=>({value,hidden:false,disabled:false}))}};
   assert.equal(menu.childOptionsFor(item,'Swab').length,6);
-  assert.equal(menu.childOptionsFor(item,'Body Fluid').length,6);
+  assert.equal(menu.childOptionsFor(item,'Body Fluid').length,5);
+  assert(!opts.includes('Cervical Cytology Fluid'));
   for(const label of ['Blood','Serum','Plasma','Whole Blood','RBCs','Urine','Stool','Swab','Body Fluid'])
    assert(opts.includes(label),lab+' '+label);
   const api=await inspectApp(app);

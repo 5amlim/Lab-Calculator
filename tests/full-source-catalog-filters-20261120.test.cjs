@@ -43,7 +43,7 @@ async function loadCalculator(page,app,lab) {
   const source=read(app),hook='  init();';
   assert(source.includes(hook),'Expected calculator init hook');
   vm.runInContext(source.replace(hook,
-    '  window.__audit={database,els,rankLibraryTest,specimenFilterCategories,transportContainerFilterCategories,transportBagInfo,catalogTemperatureFilterKey,matchesLibraryFilters,hasRoutineTat,tatBadge};'),context,{filename:app,timeout:30000});
+    '  window.__audit={database,els,rankLibraryTest,specimenFilterCategories,transportContainerFilterCategories,transportBagInfo,catalogTemperatureFilterKey,matchesLibraryFilters,hasRoutineTat,tatBadge,expandedCollectionTests,buildTransportBagPlan,buildCollectionPlan,buildSubmissionContents,printCollectionSubmissionPlan,collectionSpecimenBadgesForItem,applyUserState,clinicalCategories: window.LabClinicalCategories};'),context,{filename:app,timeout:30000});
   await Promise.resolve(); await Promise.resolve();
   assert(sandbox.__audit, 'Calculator did not initialize audit hooks');
   return sandbox.__audit;
@@ -85,9 +85,8 @@ for(const [lab,page,app] of [
      if(detail.length<5&&transport.includes('special'))detail.push(code);
    }
    function sandboxCategory(row) {
-     // The UI's clinical-category module was loaded in the same VM context.
-     const categories=audit.els.categoryFilter;
-     return Boolean(categories) && Boolean(row.testName);
+     const ids = audit.clinicalCategories.forTest(row);
+     return ids.length > 0 && ids.every(id => audit.clinicalCategories.options.some(category => category.id === id));
    }
    console.log(lab+' full source audit '+JSON.stringify({
      activeRows:rows.length,indexCodes:indexes.length,
@@ -129,8 +128,70 @@ for(const [lab,page,app] of [
      }
    }
    assert.equal(missing.code.length,0,lab+' codes not searchable');
+   assert.equal(missing.category.length,0,lab+' clinical categories incomplete');
    assert.equal(missing.specimen.length,0,lab+' specimen filters incomplete');
    assert.equal(missing.transport.length,0,lab+' transport filters incomplete: '+JSON.stringify(missing.transport.slice(0,10)));
    assert.equal(missing.temperature.length,0,lab+' temperature filters incomplete: '+JSON.stringify(missing.temperature.slice(0,10)));
  });
 }
+
+
+test('Labcorp applies exclusions to saved orders and prints specific non-blood specimen badges', async () => {
+  const audit = await loadCalculator('labcorp.html', 'labcorp-app.js', 'labcorp');
+  const record = code => audit.database.find(row => row.testCode === code);
+  for (const code of ['009068', '009035', '510995', '511485', '510950', '199380']) {
+    const blocked = record(code);
+    assert.equal(blocked.status, 'blocked', code);
+    const edited = { ...blocked, testName: 'Local saved copy', status: 'active', specimenType: 'Serum',
+      drawContainer: 'SST / Gold', transportContainer: 'SST / Gold' };
+    const restored = audit.applyUserState({
+      overrides: [edited], customTests: [{ ...edited, id: 'custom-' + code }]
+    });
+    assert(restored.filter(test => test.testCode === code).every(test => test.status === 'blocked'), code);
+  }
+  assert.equal(record('002253').status, 'active', 'AFP serum marker is collectable');
+  assert.equal(record('180787').status, 'active', 'non-tumor tissue culture is collectable');
+
+  for (const [code, badge, filter] of [
+    ['008219', 'Worm or Worm Segment', 'Parasite / Arthropod'],
+    ['008631', 'Perianal Pinworm Specimen', 'Parasite / Arthropod'],
+    ['188664', 'Arthropod', 'Parasite / Arthropod'],
+    ['738574', 'Meconium', 'Meconium'],
+    ['180910', 'Vaginal Swab', 'Swab'],
+    ['815949', 'Tracheal Aspirate', 'Respiratory'],
+    ['818779', 'Bronchoalveolar Lavage', 'Respiratory'],
+    ['819325', 'Bronchoalveolar Lavage', 'Respiratory']
+  ]) {
+    const row = record(code);
+    const plan = audit.buildCollectionPlan([row], audit.buildTransportBagPlan([row]));
+    assert(audit.specimenFilterCategories(row).includes(filter), code);
+    assert(plan.some(item => audit.collectionSpecimenBadgesForItem(item).some(value => value.label === badge)), code);
+    assert(audit.printCollectionSubmissionPlan([row]).includes('>' + badge + '</span>'), code);
+  }
+  for (const code of ['815949', '818779', '819325']) {
+    const row = record(code);
+    assert.equal(row.drawContainer, 'Sterile cup', code);
+    assert.equal(row.transportContainer, 'Sterile cup', code);
+    assert(audit.transportContainerFilterCategories(row).includes('sterile-cup'), code);
+    const [bag] = audit.buildTransportBagPlan([row]);
+    assert(audit.buildSubmissionContents(bag).some(item => item.label === 'Sterile cup' && item.originalTube), code);
+  }
+  const split = record('790540');
+  const routes = audit.expandedCollectionTests([split]);
+  const bags = audit.buildTransportBagPlan(routes);
+  const plan = audit.buildCollectionPlan(routes, bags);
+  assert.deepEqual(Array.from(plan, item => item.count), [2]);
+  assert.equal(audit.buildSubmissionContents(bags[0]).length, 2);
+  assert(audit.buildSubmissionContents(bags[0]).every(item => item.sharedSplitSource));
+});
+
+test('Quest kidney profile labels urine on its separate source cup', async () => {
+  const audit = await loadCalculator('index.html', 'assets/js/app.js', 'quest');
+  const row = audit.database.find(test => test.testCode === '18365');
+  assert(audit.specimenFilterCategories(row).includes('Urine'));
+  const routes = audit.expandedCollectionTests([row]);
+  const plan = audit.buildCollectionPlan(routes, audit.buildTransportBagPlan(routes));
+  assert.deepEqual(Array.from(plan, item => item.label), ['Gold / SST', 'Sterile cup']);
+  assert.equal(audit.collectionSpecimenBadgesForItem(plan[0]).length, 0);
+  assert.equal(audit.collectionSpecimenBadgesForItem(plan[1])[0].label, 'Random urine');
+});

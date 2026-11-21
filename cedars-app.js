@@ -771,7 +771,7 @@
     const testTag = (test) =>
       '<div class="cedars-print-test-ident">' +
       '<strong class="cedars-print-test-name">' + esc(test.name) + '</strong>' +
-      '<span class="cedars-print-test-type ' + specimenClass(test.category) + '">' + esc(test.category || 'Other') + '</span>' +
+      '<span class="cedars-print-test-type ' + specimenClass(test.category) + '">' + esc(test.sourceOptions?.length ? (test.category || 'Other') : (test.specimen || test.category || 'Other')) + '</span>' +
       ((test.code || test.secondaryCode) ? '<span class="cedars-print-test-code">' + esc([test.code, test.secondaryCode].filter(Boolean).join(' / ')) + '</span>' : '') +
       '</div>';
     const collectionCards = Array.from(collection.values()).map(({container,tests:group,category,subtitle,shared}) => {
