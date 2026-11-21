@@ -26,4 +26,4 @@ jobs:
         with:
           node-version: '22'
       - name: Check all active catalog search, filter, and TAT entries
-        run: node --test tests/catalog-discoverability-tat-20261120.test.cjs tests/full-source-catalog-filters-20261120.test.cjs tests/official-labcorp-usable-expansion-20261120.test.cjs tests/official-labcorp-suitable-extra-20261120.test.cjs tests/official-labcorp-standard-cdos-20261120.test.cjs tests/verified-complex-collection-20261120.test.cjs tests/labcorp-timed-urine-bag-reconciliation-20261120.test.cjs tests/full-catalog-container-math-audit-20261120.test.cjs
+        run: node --test tests/catalog-discoverability-tat-20261120.test.cjs tests/full-source-catalog-filters-20261120.test.cjs tests/official-labcorp-usable-expansion-20261120.test.cjs tests/official-labcorp-suitable-extra-20261120.test.cjs tests/official-labcorp-standard-cdos-20261120.test.cjs tests/verified-complex-collection-20261120.test.cjs tests/labcorp-timed-urine-bag-reconciliation-20261120.test.cjs tests/full-catalog-container-math-audit-20261120.test.cjs tests/specimen-quantity-parsing-20261120.test.cjs
