@@ -1,0 +1,3014 @@
+{
+  "source": "Labcorp test detail pages for unresolved catalog references (exact code checked)",
+  "retrieved": "2026-11-21",
+  "stats": {
+    "sourceCandidates": 524,
+    "checked": 500,
+    "verified": 0,
+    "noExactPage": 0,
+    "failed": 0,
+    "notFound": 500
+  },
+  "records": [
+    {
+      "code": "000315",
+      "name": "CK+Cl+Creat+K+Na+Pheoch",
+      "url": "https://www.labcorp.com/tests/000315",
+      "status": 404
+    },
+    {
+      "code": "000653",
+      "name": "CK+Cl+Creat+K+Na+Pheoch+Reni",
+      "url": "https://www.labcorp.com/tests/000653",
+      "status": 404
+    },
+    {
+      "code": "000661",
+      "name": "Cl+K+Na+T4+Cort+Pheoch+Reni",
+      "url": "https://www.labcorp.com/tests/000661",
+      "status": 404
+    },
+    {
+      "code": "001305",
+      "name": "CK Reflex",
+      "url": "https://www.labcorp.com/tests/001305",
+      "status": 404
+    },
+    {
+      "code": "002659",
+      "name": "BUN+Ca+Cl+K+Na+P+CreatCx",
+      "url": "https://www.labcorp.com/tests/002659",
+      "status": 404
+    },
+    {
+      "code": "003046",
+      "name": "UA+Hgb",
+      "url": "https://www.labcorp.com/tests/003046",
+      "status": 404
+    },
+    {
+      "code": "003324",
+      "name": "Calcium, 24Hr, Ur w/Creatinine",
+      "url": "https://www.labcorp.com/tests/003324",
+      "status": 404
+    },
+    {
+      "code": "004438",
+      "name": "Cortisol Free, Random Urine",
+      "url": "https://www.labcorp.com/tests/004438",
+      "status": 404
+    },
+    {
+      "code": "005512",
+      "name": "RBC, Fluid",
+      "url": "https://www.labcorp.com/tests/005512",
+      "status": 404
+    },
+    {
+      "code": "005736",
+      "name": "Nucleated Cells, Synovial Fld",
+      "url": "https://www.labcorp.com/tests/005736",
+      "status": 404
+    },
+    {
+      "code": "007351",
+      "name": "ALA Delta, Random Urine",
+      "url": "https://www.labcorp.com/tests/007351",
+      "status": 404
+    },
+    {
+      "code": "007804",
+      "name": "Mercury, Urine",
+      "url": "https://www.labcorp.com/tests/007804",
+      "status": 404
+    },
+    {
+      "code": "007914",
+      "name": "Anticonvulsant Profile",
+      "url": "https://www.labcorp.com/tests/007914",
+      "status": 404
+    },
+    {
+      "code": "008037",
+      "name": "GC Culture + Gram Stain",
+      "url": "https://www.labcorp.com/tests/008037",
+      "status": 404
+    },
+    {
+      "code": "009165",
+      "name": "Anal Cyto,LBP+ HPV,Rectal-Requ",
+      "url": "https://www.labcorp.com/tests/009165",
+      "status": 404
+    },
+    {
+      "code": "009449",
+      "name": "Spirometry",
+      "url": "https://www.labcorp.com/tests/009449",
+      "status": 404
+    },
+    {
+      "code": "009456",
+      "name": "Hearing Test",
+      "url": "https://www.labcorp.com/tests/009456",
+      "status": 404
+    },
+    {
+      "code": "009464",
+      "name": "Slit Lamp Examination",
+      "url": "https://www.labcorp.com/tests/009464",
+      "status": 404
+    },
+    {
+      "code": "009985",
+      "name": "Miscellaneous Testing",
+      "url": "https://www.labcorp.com/tests/009985",
+      "status": 404
+    },
+    {
+      "code": "013730",
+      "name": "Magnesium, U",
+      "url": "https://www.labcorp.com/tests/013730",
+      "status": 404
+    },
+    {
+      "code": "013731",
+      "name": "Magnesium, Random Urine",
+      "url": "https://www.labcorp.com/tests/013731",
+      "status": 404
+    },
+    {
+      "code": "016868",
+      "name": "Citric Acid, Random Urine",
+      "url": "https://www.labcorp.com/tests/016868",
+      "status": 404
+    },
+    {
+      "code": "017422",
+      "name": "Add On: hCG,uE3,Inhibin",
+      "url": "https://www.labcorp.com/tests/017422",
+      "status": 404
+    },
+    {
+      "code": "018713",
+      "name": "Primidone, Serum",
+      "url": "https://www.labcorp.com/tests/018713",
+      "status": 404
+    },
+    {
+      "code": "019318",
+      "name": "Lead, Random Urine",
+      "url": "https://www.labcorp.com/tests/019318",
+      "status": 404
+    },
+    {
+      "code": "023804",
+      "name": "Lactate and Pyruvate",
+      "url": "https://www.labcorp.com/tests/023804",
+      "status": 404
+    },
+    {
+      "code": "030056",
+      "name": "BUN+Creat+CBC/D/Plt+UA+Pb",
+      "url": "https://www.labcorp.com/tests/030056",
+      "status": 404
+    },
+    {
+      "code": "031757",
+      "name": "PTT+PT+Plt",
+      "url": "https://www.labcorp.com/tests/031757",
+      "status": 404
+    },
+    {
+      "code": "035527",
+      "name": "Aerobic Culture + Gram Stain",
+      "url": "https://www.labcorp.com/tests/035527",
+      "status": 404
+    },
+    {
+      "code": "038448",
+      "name": "Ab Scr+Coombs",
+      "url": "https://www.labcorp.com/tests/038448",
+      "status": 404
+    },
+    {
+      "code": "038596",
+      "name": "CreatU+Ca U",
+      "url": "https://www.labcorp.com/tests/038596",
+      "status": 404
+    },
+    {
+      "code": "052005",
+      "name": "POC/Skin Chrom 5 Cell Cnt",
+      "url": "https://www.labcorp.com/tests/052005",
+      "status": 404
+    },
+    {
+      "code": "052985",
+      "name": "HBcAb+HBsAb",
+      "url": "https://www.labcorp.com/tests/052985",
+      "status": 404
+    },
+    {
+      "code": "058099",
+      "name": "Calcium+Calcium, Ionized",
+      "url": "https://www.labcorp.com/tests/058099",
+      "status": 404
+    },
+    {
+      "code": "070111",
+      "name": "Zinc Random Urine",
+      "url": "https://www.labcorp.com/tests/070111",
+      "status": 404
+    },
+    {
+      "code": "072717",
+      "name": "Cadmium, Random Urine",
+      "url": "https://www.labcorp.com/tests/072717",
+      "status": 404
+    },
+    {
+      "code": "080972",
+      "name": "Mercury, Tissue",
+      "url": "https://www.labcorp.com/tests/080972",
+      "status": 404
+    },
+    {
+      "code": "087238",
+      "name": "Iron, 24 Hour Urine",
+      "url": "https://www.labcorp.com/tests/087238",
+      "status": 404
+    },
+    {
+      "code": "087817",
+      "name": "Tungsten",
+      "url": "https://www.labcorp.com/tests/087817",
+      "status": 404
+    },
+    {
+      "code": "088757",
+      "name": "Hemoquant, Feces Fecal Hgb",
+      "url": "https://www.labcorp.com/tests/088757",
+      "status": 404
+    },
+    {
+      "code": "098657",
+      "name": "LP+Chol/HDL+LDL/HDL",
+      "url": "https://www.labcorp.com/tests/098657",
+      "status": 404
+    },
+    {
+      "code": "100874",
+      "name": "Fax Report",
+      "url": "https://www.labcorp.com/tests/100874",
+      "status": 404
+    },
+    {
+      "code": "102087",
+      "name": "Glucose Hemocue Waived",
+      "url": "https://www.labcorp.com/tests/102087",
+      "status": 404
+    },
+    {
+      "code": "103226",
+      "name": "Glucose (Fingerstick)",
+      "url": "https://www.labcorp.com/tests/103226",
+      "status": 404
+    },
+    {
+      "code": "107110",
+      "name": "KT/V Effective",
+      "url": "https://www.labcorp.com/tests/107110",
+      "status": 404
+    },
+    {
+      "code": "107128",
+      "name": "Urea Reduction Ratio (URR)",
+      "url": "https://www.labcorp.com/tests/107128",
+      "status": 404
+    },
+    {
+      "code": "112185",
+      "name": "Arterial Blood Gas",
+      "url": "https://www.labcorp.com/tests/112185",
+      "status": 404
+    },
+    {
+      "code": "113110",
+      "name": "Ketones",
+      "url": "https://www.labcorp.com/tests/113110",
+      "status": 404
+    },
+    {
+      "code": "115512",
+      "name": "CoaguChek XS/INR Waived",
+      "url": "https://www.labcorp.com/tests/115512",
+      "status": 404
+    },
+    {
+      "code": "115601",
+      "name": "P2Y12 Platelet Inhibition",
+      "url": "https://www.labcorp.com/tests/115601",
+      "status": 404
+    },
+    {
+      "code": "115920",
+      "name": "Bayer DCA Hb A1c Waived",
+      "url": "https://www.labcorp.com/tests/115920",
+      "status": 404
+    },
+    {
+      "code": "117024",
+      "name": "Thrombotic Risk Profile, Aquired",
+      "url": "https://www.labcorp.com/tests/117024",
+      "status": 404
+    },
+    {
+      "code": "117105",
+      "name": "Thrombotic Risk Profile, Acquired (Comprehensive-1)",
+      "url": "https://www.labcorp.com/tests/117105",
+      "status": 404
+    },
+    {
+      "code": "117810",
+      "name": "Activated Protein C Rfx FVDNA",
+      "url": "https://www.labcorp.com/tests/117810",
+      "status": 404
+    },
+    {
+      "code": "119900",
+      "name": "Breast/Prognostic Marker Analy",
+      "url": "https://www.labcorp.com/tests/119900",
+      "status": 404
+    },
+    {
+      "code": "120519",
+      "name": "Cortisone, Urine",
+      "url": "https://www.labcorp.com/tests/120519",
+      "status": 404
+    },
+    {
+      "code": "120543",
+      "name": "Lactic/Pyruvic Ratio",
+      "url": "https://www.labcorp.com/tests/120543",
+      "status": 404
+    },
+    {
+      "code": "120956",
+      "name": "Cryoglobulin, Ql, Serum",
+      "url": "https://www.labcorp.com/tests/120956",
+      "status": 404
+    },
+    {
+      "code": "121175",
+      "name": "Troponin I-STAT",
+      "url": "https://www.labcorp.com/tests/121175",
+      "status": 404
+    },
+    {
+      "code": "121185",
+      "name": "Troponin I High Sensitivity",
+      "url": "https://www.labcorp.com/tests/121185",
+      "status": 404
+    },
+    {
+      "code": "121194",
+      "name": "Citrate/Creatinine Ratio",
+      "url": "https://www.labcorp.com/tests/121194",
+      "status": 404
+    },
+    {
+      "code": "121202",
+      "name": "CreatU+Citric U",
+      "url": "https://www.labcorp.com/tests/121202",
+      "status": 404
+    },
+    {
+      "code": "121229",
+      "name": "Free Kappa Lt Chains,Ur",
+      "url": "https://www.labcorp.com/tests/121229",
+      "status": 404
+    },
+    {
+      "code": "121230",
+      "name": "Free Lambda Lt Chains,Ur",
+      "url": "https://www.labcorp.com/tests/121230",
+      "status": 404
+    },
+    {
+      "code": "127910",
+      "name": "Fecal Weight (Total)",
+      "url": "https://www.labcorp.com/tests/127910",
+      "status": 404
+    },
+    {
+      "code": "130021",
+      "name": "Protein, Urine 12-Hr",
+      "url": "https://www.labcorp.com/tests/130021",
+      "status": 404
+    },
+    {
+      "code": "130476",
+      "name": "Direct Immunofluorescence (Fibrinogen, IgA, IgG, IgM, C3)(Michel's Media)",
+      "url": "https://www.labcorp.com/tests/130476",
+      "status": 404
+    },
+    {
+      "code": "131888",
+      "name": "Specific Gravity, Urine",
+      "url": "https://www.labcorp.com/tests/131888",
+      "status": 404
+    },
+    {
+      "code": "133440",
+      "name": "Copper, Random Urine",
+      "url": "https://www.labcorp.com/tests/133440",
+      "status": 404
+    },
+    {
+      "code": "139883",
+      "name": "FDA Guidance Female No Reflex",
+      "url": "https://www.labcorp.com/tests/139883",
+      "status": 404
+    },
+    {
+      "code": "139884",
+      "name": "FDA Guidance Female With Rflx",
+      "url": "https://www.labcorp.com/tests/139884",
+      "status": 404
+    },
+    {
+      "code": "139885",
+      "name": "FDA Guidance Male No Reflex",
+      "url": "https://www.labcorp.com/tests/139885",
+      "status": 404
+    },
+    {
+      "code": "139886",
+      "name": "FDA Guidance Male With Reflex",
+      "url": "https://www.labcorp.com/tests/139886",
+      "status": 404
+    },
+    {
+      "code": "140250",
+      "name": "GM1 IgG/M Autoantibodies",
+      "url": "https://www.labcorp.com/tests/140250",
+      "status": 404
+    },
+    {
+      "code": "140519",
+      "name": "BKV Quant PCR, Plasma",
+      "url": "https://www.labcorp.com/tests/140519",
+      "status": 404
+    },
+    {
+      "code": "140551",
+      "name": "BKV Quant PCR, Urine",
+      "url": "https://www.labcorp.com/tests/140551",
+      "status": 404
+    },
+    {
+      "code": "140768",
+      "name": "Dehydroepiandrosterone (DHEA), ACTH Stimulation",
+      "url": "https://www.labcorp.com/tests/140768",
+      "status": 404
+    },
+    {
+      "code": "146068",
+      "name": "E1+E2Sens+E3Free",
+      "url": "https://www.labcorp.com/tests/146068",
+      "status": 404
+    },
+    {
+      "code": "146563",
+      "name": "TSH+T4F+T3Free",
+      "url": "https://www.labcorp.com/tests/146563",
+      "status": 404
+    },
+    {
+      "code": "160721",
+      "name": "Antipancreatic Islet Cells",
+      "url": "https://www.labcorp.com/tests/160721",
+      "status": 404
+    },
+    {
+      "code": "165054",
+      "name": "HIV 1/2 Ag/Ab by Abbott",
+      "url": "https://www.labcorp.com/tests/165054",
+      "status": 404
+    },
+    {
+      "code": "165100",
+      "name": "PrtCAg+PrtSAg",
+      "url": "https://www.labcorp.com/tests/165100",
+      "status": 404
+    },
+    {
+      "code": "165350",
+      "name": "HIV 1/2 by OraQuick Advance",
+      "url": "https://www.labcorp.com/tests/165350",
+      "status": 404
+    },
+    {
+      "code": "170397",
+      "name": "Arsenic, Random Urine",
+      "url": "https://www.labcorp.com/tests/170397",
+      "status": 404
+    },
+    {
+      "code": "180018",
+      "name": "KOH Prep",
+      "url": "https://www.labcorp.com/tests/180018",
+      "status": 404
+    },
+    {
+      "code": "180047",
+      "name": "Ct/GC/Tv NAA+Mycoplasmas Urine",
+      "url": "https://www.labcorp.com/tests/180047",
+      "status": 404
+    },
+    {
+      "code": "180175",
+      "name": "Extend-Spect.Beta-Lacta.Detct.",
+      "url": "https://www.labcorp.com/tests/180175",
+      "status": 404
+    },
+    {
+      "code": "180820",
+      "name": "Gram S+Lower Resp Cult(Non-Sp)",
+      "url": "https://www.labcorp.com/tests/180820",
+      "status": 404
+    },
+    {
+      "code": "180851",
+      "name": "O+P Exam, Formalin Only",
+      "url": "https://www.labcorp.com/tests/180851",
+      "status": 404
+    },
+    {
+      "code": "180910",
+      "name": "Wet Prep",
+      "url": "https://www.labcorp.com/tests/180910",
+      "status": 404
+    },
+    {
+      "code": "180950",
+      "name": "Trichomonas Culture",
+      "url": "https://www.labcorp.com/tests/180950",
+      "status": 404
+    },
+    {
+      "code": "182808",
+      "name": "Susceptibility Testing, Gram Positive Rods",
+      "url": "https://www.labcorp.com/tests/182808",
+      "status": 404
+    },
+    {
+      "code": "182980",
+      "name": "Urine Kit Culture",
+      "url": "https://www.labcorp.com/tests/182980",
+      "status": 404
+    },
+    {
+      "code": "183033",
+      "name": "Veritor Flu A/B Waived",
+      "url": "https://www.labcorp.com/tests/183033",
+      "status": 404
+    },
+    {
+      "code": "183210",
+      "name": "Chlamydia Culture + NAA",
+      "url": "https://www.labcorp.com/tests/183210",
+      "status": 404
+    },
+    {
+      "code": "183442",
+      "name": "Modified Hodge Test",
+      "url": "https://www.labcorp.com/tests/183442",
+      "status": 404
+    },
+    {
+      "code": "183511",
+      "name": "AFB Smear+Culture+AST-Mtb ONLY",
+      "url": "https://www.labcorp.com/tests/183511",
+      "status": 404
+    },
+    {
+      "code": "183566",
+      "name": "State Laboratory Report",
+      "url": "https://www.labcorp.com/tests/183566",
+      "status": 404
+    },
+    {
+      "code": "183631",
+      "name": "Acid Fast Culture W/Rfx",
+      "url": "https://www.labcorp.com/tests/183631",
+      "status": 404
+    },
+    {
+      "code": "183809",
+      "name": "Strep Gp B Susceptibility",
+      "url": "https://www.labcorp.com/tests/183809",
+      "status": 404
+    },
+    {
+      "code": "183939",
+      "name": "Susceptibility, CF Ps aerug",
+      "url": "https://www.labcorp.com/tests/183939",
+      "status": 404
+    },
+    {
+      "code": "186197",
+      "name": "Influenza A+B Ag, EIA W/Reflex",
+      "url": "https://www.labcorp.com/tests/186197",
+      "status": 404
+    },
+    {
+      "code": "188045",
+      "name": "C difficile Toxigenic Culture",
+      "url": "https://www.labcorp.com/tests/188045",
+      "status": 404
+    },
+    {
+      "code": "188284",
+      "name": "Gram Stain/Body Fluid Culture",
+      "url": "https://www.labcorp.com/tests/188284",
+      "status": 404
+    },
+    {
+      "code": "188433",
+      "name": "Stool + Yersinia Culture",
+      "url": "https://www.labcorp.com/tests/188433",
+      "status": 404
+    },
+    {
+      "code": "188755",
+      "name": "ID and Susceptibility, Urine",
+      "url": "https://www.labcorp.com/tests/188755",
+      "status": 404
+    },
+    {
+      "code": "192062",
+      "name": "Consult Referred Slide-Gyn",
+      "url": "https://www.labcorp.com/tests/192062",
+      "status": 404
+    },
+    {
+      "code": "192070",
+      "name": "Consult Referred Slide-Non Gyn",
+      "url": "https://www.labcorp.com/tests/192070",
+      "status": 404
+    },
+    {
+      "code": "192088",
+      "name": "Consult Referred Slide-FNA",
+      "url": "https://www.labcorp.com/tests/192088",
+      "status": 404
+    },
+    {
+      "code": "199380",
+      "name": "IGP,rfx Aptima HPV ASCUS,LSIL",
+      "url": "https://www.labcorp.com/tests/199380",
+      "status": 404
+    },
+    {
+      "code": "199781",
+      "name": "Pap IG, Ct-Ng TV",
+      "url": "https://www.labcorp.com/tests/199781",
+      "status": 404
+    },
+    {
+      "code": "199995",
+      "name": "QAPAM",
+      "url": "https://www.labcorp.com/tests/199995",
+      "status": 404
+    },
+    {
+      "code": "201752",
+      "name": "Arylsulfatase A, Urine",
+      "url": "https://www.labcorp.com/tests/201752",
+      "status": 404
+    },
+    {
+      "code": "204484",
+      "name": "CreatU+Albumin Random Urine",
+      "url": "https://www.labcorp.com/tests/204484",
+      "status": 404
+    },
+    {
+      "code": "205045",
+      "name": "CBC/D/Plt+RPR+Rh+ABO+Rub Ab...",
+      "url": "https://www.labcorp.com/tests/205045",
+      "status": 404
+    },
+    {
+      "code": "209502",
+      "name": "Prog+hCG Qt",
+      "url": "https://www.labcorp.com/tests/209502",
+      "status": 404
+    },
+    {
+      "code": "209603",
+      "name": "BMP7+Anion Gap",
+      "url": "https://www.labcorp.com/tests/209603",
+      "status": 404
+    },
+    {
+      "code": "209641",
+      "name": "CreatU+Prot U",
+      "url": "https://www.labcorp.com/tests/209641",
+      "status": 404
+    },
+    {
+      "code": "211187",
+      "name": "Fe+Transferrin",
+      "url": "https://www.labcorp.com/tests/211187",
+      "status": 404
+    },
+    {
+      "code": "211524",
+      "name": "Diabetes (Fruct/Insulin-4)",
+      "url": "https://www.labcorp.com/tests/211524",
+      "status": 404
+    },
+    {
+      "code": "211728",
+      "name": "HFP7+1AC",
+      "url": "https://www.labcorp.com/tests/211728",
+      "status": 404
+    },
+    {
+      "code": "212183",
+      "name": "CreatU+Cort U",
+      "url": "https://www.labcorp.com/tests/212183",
+      "status": 404
+    },
+    {
+      "code": "214336",
+      "name": "Ca+PTH Intact+Ca Ionized",
+      "url": "https://www.labcorp.com/tests/214336",
+      "status": 404
+    },
+    {
+      "code": "214540",
+      "name": "T4F+T3F",
+      "url": "https://www.labcorp.com/tests/214540",
+      "status": 404
+    },
+    {
+      "code": "216834",
+      "name": "Pyruvic Acid, CSF",
+      "url": "https://www.labcorp.com/tests/216834",
+      "status": 404
+    },
+    {
+      "code": "219117",
+      "name": "TSH+ThyAbs",
+      "url": "https://www.labcorp.com/tests/219117",
+      "status": 404
+    },
+    {
+      "code": "220687",
+      "name": "Genital Culture+Gram Stain",
+      "url": "https://www.labcorp.com/tests/220687",
+      "status": 404
+    },
+    {
+      "code": "227243",
+      "name": "CreatCx+Prt24H",
+      "url": "https://www.labcorp.com/tests/227243",
+      "status": 404
+    },
+    {
+      "code": "228411",
+      "name": "TestT+DHEA S+TestF+Andros+SGBG",
+      "url": "https://www.labcorp.com/tests/228411",
+      "status": 404
+    },
+    {
+      "code": "229400",
+      "name": "LP+LDLDir",
+      "url": "https://www.labcorp.com/tests/229400",
+      "status": 404
+    },
+    {
+      "code": "229401",
+      "name": "TSH+T3+T4F",
+      "url": "https://www.labcorp.com/tests/229401",
+      "status": 404
+    },
+    {
+      "code": "230292",
+      "name": "Glu+Prot",
+      "url": "https://www.labcorp.com/tests/230292",
+      "status": 404
+    },
+    {
+      "code": "230999",
+      "name": "Fetal Screen",
+      "url": "https://www.labcorp.com/tests/230999",
+      "status": 404
+    },
+    {
+      "code": "231299",
+      "name": "AT3 Funct+Card(IgA/G/M)+FVD...",
+      "url": "https://www.labcorp.com/tests/231299",
+      "status": 404
+    },
+    {
+      "code": "231307",
+      "name": "Beta 2(IgA/G/M)+Card(IgA/G/...",
+      "url": "https://www.labcorp.com/tests/231307",
+      "status": 404
+    },
+    {
+      "code": "231550",
+      "name": "Protoporphyrins,Fraction.RBC",
+      "url": "https://www.labcorp.com/tests/231550",
+      "status": 404
+    },
+    {
+      "code": "231888",
+      "name": "ANA+ENA+C3+C4+dsDNA+CompT+C...",
+      "url": "https://www.labcorp.com/tests/231888",
+      "status": 404
+    },
+    {
+      "code": "235011",
+      "name": "Lipid Panel with LDL/HDL Ratio",
+      "url": "https://www.labcorp.com/tests/235011",
+      "status": 404
+    },
+    {
+      "code": "235012",
+      "name": "Lipid Panel and Chol/HDL Ratio",
+      "url": "https://www.labcorp.com/tests/235012",
+      "status": 404
+    },
+    {
+      "code": "236310",
+      "name": "IFE U+Kappa/Lambda Qn U+Prot U",
+      "url": "https://www.labcorp.com/tests/236310",
+      "status": 404
+    },
+    {
+      "code": "236821",
+      "name": "IFE S+IFE U+IgA/G/M",
+      "url": "https://www.labcorp.com/tests/236821",
+      "status": 404
+    },
+    {
+      "code": "236942",
+      "name": "LP+Glu+CRP C+Homocy",
+      "url": "https://www.labcorp.com/tests/236942",
+      "status": 404
+    },
+    {
+      "code": "236944",
+      "name": "CreatU+PBG UU",
+      "url": "https://www.labcorp.com/tests/236944",
+      "status": 404
+    },
+    {
+      "code": "236949",
+      "name": "TestT+17OHP+Andros+DHEA",
+      "url": "https://www.labcorp.com/tests/236949",
+      "status": 404
+    },
+    {
+      "code": "236956",
+      "name": "B19(IgG/M)+B19PCR",
+      "url": "https://www.labcorp.com/tests/236956",
+      "status": 404
+    },
+    {
+      "code": "236958",
+      "name": "Cryofi+Cryogl",
+      "url": "https://www.labcorp.com/tests/236958",
+      "status": 404
+    },
+    {
+      "code": "236962",
+      "name": "PTT+PT+D Dimer+Fibrin+Plt+T...",
+      "url": "https://www.labcorp.com/tests/236962",
+      "status": 404
+    },
+    {
+      "code": "237305",
+      "name": "CBC/D/Plt+RPR+Rh+ABO+Ab Scr...",
+      "url": "https://www.labcorp.com/tests/237305",
+      "status": 404
+    },
+    {
+      "code": "238307",
+      "name": "Babesia+HGE+HME+Lyme by PCR",
+      "url": "https://www.labcorp.com/tests/238307",
+      "status": 404
+    },
+    {
+      "code": "240354",
+      "name": "HAVAb+HAVIgM+HBcAb+HBcIgM+H...",
+      "url": "https://www.labcorp.com/tests/240354",
+      "status": 404
+    },
+    {
+      "code": "241610",
+      "name": "CMP14+3AC+CBC/D/Plt+TSH+TIB...",
+      "url": "https://www.labcorp.com/tests/241610",
+      "status": 404
+    },
+    {
+      "code": "241712",
+      "name": "Beta 2(IgA/G/M)+Card(IgG/M)...",
+      "url": "https://www.labcorp.com/tests/241712",
+      "status": 404
+    },
+    {
+      "code": "241902",
+      "name": "Beta 2(IgG/M)+Card(IgG/M)+d...",
+      "url": "https://www.labcorp.com/tests/241902",
+      "status": 404
+    },
+    {
+      "code": "242170",
+      "name": "Vitamin B1, Bariatric",
+      "url": "https://www.labcorp.com/tests/242170",
+      "status": 404
+    },
+    {
+      "code": "242823",
+      "name": "ESR Wes+ANA+CRP C+Homocy (combination profile)",
+      "url": "https://www.labcorp.com/tests/242823",
+      "status": 404
+    },
+    {
+      "code": "243678",
+      "name": "CMP14+LP+CBC/D/Plt+Mg RBC+T... (combination profile)",
+      "url": "https://www.labcorp.com/tests/243678",
+      "status": 404
+    },
+    {
+      "code": "243768",
+      "name": "BUN+Creat+CBC/D/Plt+UA+Pb+ZPP",
+      "url": "https://www.labcorp.com/tests/243768",
+      "status": 404
+    },
+    {
+      "code": "248699",
+      "name": "RPR+Rh+ABO+RubIgG+Ab Scr+CB...",
+      "url": "https://www.labcorp.com/tests/248699",
+      "status": 404
+    },
+    {
+      "code": "251249",
+      "name": "PTT+PT+Fibrin+Plt+TT",
+      "url": "https://www.labcorp.com/tests/251249",
+      "status": 404
+    },
+    {
+      "code": "254757",
+      "name": "CBC/D/Plt+RPR+Rh+ABO+RubIgG...",
+      "url": "https://www.labcorp.com/tests/254757",
+      "status": 404
+    },
+    {
+      "code": "255031",
+      "name": "PrEP MN Oral+HIV RNA (M), RPR+",
+      "url": "https://www.labcorp.com/tests/255031",
+      "status": 404
+    },
+    {
+      "code": "255033",
+      "name": "PrEP,BL Oral+HIV RNA (M), RPR+",
+      "url": "https://www.labcorp.com/tests/255033",
+      "status": 404
+    },
+    {
+      "code": "257451",
+      "name": "ALT+AST+TBili",
+      "url": "https://www.labcorp.com/tests/257451",
+      "status": 404
+    },
+    {
+      "code": "259375",
+      "name": "ApoliB+Lp(a)+LipoProf+Lipid...",
+      "url": "https://www.labcorp.com/tests/259375",
+      "status": 404
+    },
+    {
+      "code": "259387",
+      "name": "ApoliB+CRP C+Lp(a)+LPPLA2+L...",
+      "url": "https://www.labcorp.com/tests/259387",
+      "status": 404
+    },
+    {
+      "code": "260183",
+      "name": "Female Healthy Aging",
+      "url": "https://www.labcorp.com/tests/260183",
+      "status": 404
+    },
+    {
+      "code": "260184",
+      "name": "Female Adv Lipid and Inflamm",
+      "url": "https://www.labcorp.com/tests/260184",
+      "status": 404
+    },
+    {
+      "code": "260185",
+      "name": "Male Healthy Aging",
+      "url": "https://www.labcorp.com/tests/260185",
+      "status": 404
+    },
+    {
+      "code": "260222",
+      "name": "Male Adv Lipid and Inflamm",
+      "url": "https://www.labcorp.com/tests/260222",
+      "status": 404
+    },
+    {
+      "code": "260267",
+      "name": "Advanced Lipid",
+      "url": "https://www.labcorp.com/tests/260267",
+      "status": 404
+    },
+    {
+      "code": "267245",
+      "name": "Creat U+PE U",
+      "url": "https://www.labcorp.com/tests/267245",
+      "status": 404
+    },
+    {
+      "code": "270461",
+      "name": "Finger/Heel Stick",
+      "url": "https://www.labcorp.com/tests/270461",
+      "status": 404
+    },
+    {
+      "code": "271351",
+      "name": "Cholecystokinin (CCK) Plasma",
+      "url": "https://www.labcorp.com/tests/271351",
+      "status": 404
+    },
+    {
+      "code": "272104",
+      "name": "Spec Rec'd, No Req.",
+      "url": "https://www.labcorp.com/tests/272104",
+      "status": 404
+    },
+    {
+      "code": "273805",
+      "name": "Progesterone (2 Specimens)",
+      "url": "https://www.labcorp.com/tests/273805",
+      "status": 404
+    },
+    {
+      "code": "278734",
+      "name": "Multiple Referral",
+      "url": "https://www.labcorp.com/tests/278734",
+      "status": 404
+    },
+    {
+      "code": "282173",
+      "name": "CreatU+PBG24U",
+      "url": "https://www.labcorp.com/tests/282173",
+      "status": 404
+    },
+    {
+      "code": "284332",
+      "name": "BKV qPCR (Urine)",
+      "url": "https://www.labcorp.com/tests/284332",
+      "status": 404
+    },
+    {
+      "code": "284462",
+      "name": "Adeno qPCR",
+      "url": "https://www.labcorp.com/tests/284462",
+      "status": 404
+    },
+    {
+      "code": "293118",
+      "name": "LP+1AC",
+      "url": "https://www.labcorp.com/tests/293118",
+      "status": 404
+    },
+    {
+      "code": "297788",
+      "name": "BMP7+CBC/D/Plt+PTT+PT",
+      "url": "https://www.labcorp.com/tests/297788",
+      "status": 404
+    },
+    {
+      "code": "301987",
+      "name": "HBsAg+HCVAb",
+      "url": "https://www.labcorp.com/tests/301987",
+      "status": 404
+    },
+    {
+      "code": "302107",
+      "name": "Cholinesterase+Dibucaine",
+      "url": "https://www.labcorp.com/tests/302107",
+      "status": 404
+    },
+    {
+      "code": "303424",
+      "name": "Ca+Creat+P+PTH Intact+Ca Ion",
+      "url": "https://www.labcorp.com/tests/303424",
+      "status": 404
+    },
+    {
+      "code": "304131",
+      "name": "TSH+T4+T3F",
+      "url": "https://www.labcorp.com/tests/304131",
+      "status": 404
+    },
+    {
+      "code": "304553",
+      "name": "CMP12+LP+1AC+CBC/D/Plt+TIBC",
+      "url": "https://www.labcorp.com/tests/304553",
+      "status": 404
+    },
+    {
+      "code": "306139",
+      "name": "C4+C1 Est+C1 Fun",
+      "url": "https://www.labcorp.com/tests/306139",
+      "status": 404
+    },
+    {
+      "code": "306172",
+      "name": "Fe+ANA+TIBC+Fer+AlA+Cerulo+...",
+      "url": "https://www.labcorp.com/tests/306172",
+      "status": 404
+    },
+    {
+      "code": "306226",
+      "name": "T3+T4F+T3U+TSH",
+      "url": "https://www.labcorp.com/tests/306226",
+      "status": 404
+    },
+    {
+      "code": "308512",
+      "name": "Comp. Metabolic Panel (14)",
+      "url": "https://www.labcorp.com/tests/308512",
+      "status": 404
+    },
+    {
+      "code": "311782",
+      "name": "Ca+PTH Intact",
+      "url": "https://www.labcorp.com/tests/311782",
+      "status": 404
+    },
+    {
+      "code": "312114",
+      "name": "Insulin, 2 Hour",
+      "url": "https://www.labcorp.com/tests/312114",
+      "status": 404
+    },
+    {
+      "code": "314368",
+      "name": "T4, Free",
+      "url": "https://www.labcorp.com/tests/314368",
+      "status": 404
+    },
+    {
+      "code": "316511",
+      "name": "CreatU+Beta2U",
+      "url": "https://www.labcorp.com/tests/316511",
+      "status": 404
+    },
+    {
+      "code": "318585",
+      "name": "CMP14+6AC",
+      "url": "https://www.labcorp.com/tests/318585",
+      "status": 404
+    },
+    {
+      "code": "318749",
+      "name": "HFP7+LP+1AC",
+      "url": "https://www.labcorp.com/tests/318749",
+      "status": 404
+    },
+    {
+      "code": "320154",
+      "name": "Cryofi+Cryogl",
+      "url": "https://www.labcorp.com/tests/320154",
+      "status": 404
+    },
+    {
+      "code": "321025",
+      "name": "IFE S+IFE U",
+      "url": "https://www.labcorp.com/tests/321025",
+      "status": 404
+    },
+    {
+      "code": "321202",
+      "name": "TestF+TestFW",
+      "url": "https://www.labcorp.com/tests/321202",
+      "status": 404
+    },
+    {
+      "code": "321771",
+      "name": "CreatU+Porphy(U)",
+      "url": "https://www.labcorp.com/tests/321771",
+      "status": 404
+    },
+    {
+      "code": "322454",
+      "name": "TSH reflex to T4",
+      "url": "https://www.labcorp.com/tests/322454",
+      "status": 404
+    },
+    {
+      "code": "322545",
+      "name": "CMP12+5AC",
+      "url": "https://www.labcorp.com/tests/322545",
+      "status": 404
+    },
+    {
+      "code": "322700",
+      "name": "TSH+TestT+DHEA-S+Cort+E2+E1...",
+      "url": "https://www.labcorp.com/tests/322700",
+      "status": 404
+    },
+    {
+      "code": "323182",
+      "name": "Kleihauer Betke Fetal Stain",
+      "url": "https://www.labcorp.com/tests/323182",
+      "status": 404
+    },
+    {
+      "code": "323966",
+      "name": "LP+Chol/HDL Ratio",
+      "url": "https://www.labcorp.com/tests/323966",
+      "status": 404
+    },
+    {
+      "code": "324419",
+      "name": "LP+Ch/HDL Ratio",
+      "url": "https://www.labcorp.com/tests/324419",
+      "status": 404
+    },
+    {
+      "code": "324505",
+      "name": "LP+LDLDir",
+      "url": "https://www.labcorp.com/tests/324505",
+      "status": 404
+    },
+    {
+      "code": "324732",
+      "name": "PC Fun+PrtCAg+PrtSAg",
+      "url": "https://www.labcorp.com/tests/324732",
+      "status": 404
+    },
+    {
+      "code": "327548",
+      "name": "HBcAb+HBsAb+HBsAg+HCVAb",
+      "url": "https://www.labcorp.com/tests/327548",
+      "status": 404
+    },
+    {
+      "code": "327673",
+      "name": "Cortisone U+Cortisol U",
+      "url": "https://www.labcorp.com/tests/327673",
+      "status": 404
+    },
+    {
+      "code": "328244",
+      "name": "TestT+TestF+SHBG",
+      "url": "https://www.labcorp.com/tests/328244",
+      "status": 404
+    },
+    {
+      "code": "329562",
+      "name": "TestT+TestF+SHBG+TestFW",
+      "url": "https://www.labcorp.com/tests/329562",
+      "status": 404
+    },
+    {
+      "code": "329656",
+      "name": "HVA24h+VMA24U",
+      "url": "https://www.labcorp.com/tests/329656",
+      "status": 404
+    },
+    {
+      "code": "329859",
+      "name": "TestT+SHBG+TestFW",
+      "url": "https://www.labcorp.com/tests/329859",
+      "status": 404
+    },
+    {
+      "code": "330070",
+      "name": "RP10+LP+7AC",
+      "url": "https://www.labcorp.com/tests/330070",
+      "status": 404
+    },
+    {
+      "code": "330173",
+      "name": "Beta-2(IgG/A/M)+Card(IgG/A/...",
+      "url": "https://www.labcorp.com/tests/330173",
+      "status": 404
+    },
+    {
+      "code": "330819",
+      "name": "IGFBP3+IGF-1",
+      "url": "https://www.labcorp.com/tests/330819",
+      "status": 404
+    },
+    {
+      "code": "332425",
+      "name": "Creat U+ALA Delta U",
+      "url": "https://www.labcorp.com/tests/332425",
+      "status": 404
+    },
+    {
+      "code": "333417",
+      "name": "TP+TSH+T3+T4F+T3Free+T3Reve...",
+      "url": "https://www.labcorp.com/tests/333417",
+      "status": 404
+    },
+    {
+      "code": "334757",
+      "name": "TSH w/Reflex",
+      "url": "https://www.labcorp.com/tests/334757",
+      "status": 404
+    },
+    {
+      "code": "334943",
+      "name": "CMP14+eGFR",
+      "url": "https://www.labcorp.com/tests/334943",
+      "status": 404
+    },
+    {
+      "code": "335362",
+      "name": "BMP8+eGFR",
+      "url": "https://www.labcorp.com/tests/335362",
+      "status": 404
+    },
+    {
+      "code": "336050",
+      "name": "Protein C Functional W/Rflx",
+      "url": "https://www.labcorp.com/tests/336050",
+      "status": 404
+    },
+    {
+      "code": "337834",
+      "name": "CreatU+PE UU",
+      "url": "https://www.labcorp.com/tests/337834",
+      "status": 404
+    },
+    {
+      "code": "337877",
+      "name": "Lipid Panel",
+      "url": "https://www.labcorp.com/tests/337877",
+      "status": 404
+    },
+    {
+      "code": "339135",
+      "name": "T3 Reverse+T3 Free",
+      "url": "https://www.labcorp.com/tests/339135",
+      "status": 404
+    },
+    {
+      "code": "340337",
+      "name": "CreatU+HVA24H",
+      "url": "https://www.labcorp.com/tests/340337",
+      "status": 404
+    },
+    {
+      "code": "342708",
+      "name": "CreatU+PBG24U+Porphy(U)",
+      "url": "https://www.labcorp.com/tests/342708",
+      "status": 404
+    },
+    {
+      "code": "343002",
+      "name": "LP+LDL Direct",
+      "url": "https://www.labcorp.com/tests/343002",
+      "status": 404
+    },
+    {
+      "code": "343818",
+      "name": "PE U+IFE U+Kappa/Lambda Qn U",
+      "url": "https://www.labcorp.com/tests/343818",
+      "status": 404
+    },
+    {
+      "code": "345334",
+      "name": "EDI Miscellaneous Testing",
+      "url": "https://www.labcorp.com/tests/345334",
+      "status": 404
+    },
+    {
+      "code": "345345",
+      "name": "EDI Miscellaneous Testing",
+      "url": "https://www.labcorp.com/tests/345345",
+      "status": 404
+    },
+    {
+      "code": "345358",
+      "name": "EDI Miscellaneous Testing",
+      "url": "https://www.labcorp.com/tests/345358",
+      "status": 404
+    },
+    {
+      "code": "345445",
+      "name": "CMP14+LP+4AC",
+      "url": "https://www.labcorp.com/tests/345445",
+      "status": 404
+    },
+    {
+      "code": "347822",
+      "name": "Beta2(IgA/G/M)+Card(IgA/G/M...",
+      "url": "https://www.labcorp.com/tests/347822",
+      "status": 404
+    },
+    {
+      "code": "348237",
+      "name": "Creat+Uric U",
+      "url": "https://www.labcorp.com/tests/348237",
+      "status": 404
+    },
+    {
+      "code": "348867",
+      "name": "TSH reflex to T4",
+      "url": "https://www.labcorp.com/tests/348867",
+      "status": 404
+    },
+    {
+      "code": "349669",
+      "name": "Epinephrine, Plasma",
+      "url": "https://www.labcorp.com/tests/349669",
+      "status": 404
+    },
+    {
+      "code": "349827",
+      "name": "CBC/D/Plt+RPR+Rh+ABO+Rub Ab...",
+      "url": "https://www.labcorp.com/tests/349827",
+      "status": 404
+    },
+    {
+      "code": "360744",
+      "name": "HVA U+VMA U",
+      "url": "https://www.labcorp.com/tests/360744",
+      "status": 404
+    },
+    {
+      "code": "361413",
+      "name": "Vitamin B12 w reflex <400",
+      "url": "https://www.labcorp.com/tests/361413",
+      "status": 404
+    },
+    {
+      "code": "361661",
+      "name": "Creatinine U+Citric Acid U",
+      "url": "https://www.labcorp.com/tests/361661",
+      "status": 404
+    },
+    {
+      "code": "361725",
+      "name": "E2+Estrogen+E1",
+      "url": "https://www.labcorp.com/tests/361725",
+      "status": 404
+    },
+    {
+      "code": "361891",
+      "name": "CRP C+Homocy+V D25",
+      "url": "https://www.labcorp.com/tests/361891",
+      "status": 404
+    },
+    {
+      "code": "363487",
+      "name": "CBC/D/Plt+Rh+ABO+Rub Ab+Ab ...",
+      "url": "https://www.labcorp.com/tests/363487",
+      "status": 404
+    },
+    {
+      "code": "364169",
+      "name": "RP+LP+CreatU+PTH Intact+CBC...",
+      "url": "https://www.labcorp.com/tests/364169",
+      "status": 404
+    },
+    {
+      "code": "364181",
+      "name": "RP10+LP+PTH Intact+CBC/Plt+...",
+      "url": "https://www.labcorp.com/tests/364181",
+      "status": 404
+    },
+    {
+      "code": "364583",
+      "name": "PT+PTT LA",
+      "url": "https://www.labcorp.com/tests/364583",
+      "status": 404
+    },
+    {
+      "code": "364668",
+      "name": "ANA+ENA+C3+C4+RF Qn+DNA/DS+...",
+      "url": "https://www.labcorp.com/tests/364668",
+      "status": 404
+    },
+    {
+      "code": "364869",
+      "name": "CreatU+Phos U",
+      "url": "https://www.labcorp.com/tests/364869",
+      "status": 404
+    },
+    {
+      "code": "365350",
+      "name": "PTT LA",
+      "url": "https://www.labcorp.com/tests/365350",
+      "status": 404
+    },
+    {
+      "code": "366778",
+      "name": "TSH+T3Free",
+      "url": "https://www.labcorp.com/tests/366778",
+      "status": 404
+    },
+    {
+      "code": "367228",
+      "name": "LP+Ch/HDL Ratio w/Rfx to LDLD",
+      "url": "https://www.labcorp.com/tests/367228",
+      "status": 404
+    },
+    {
+      "code": "367330",
+      "name": "CMP14+LP+CBC/D/Plt+UA+Hb A1...",
+      "url": "https://www.labcorp.com/tests/367330",
+      "status": 404
+    },
+    {
+      "code": "369761",
+      "name": "LP+Chol/HDL+LDL/HDL",
+      "url": "https://www.labcorp.com/tests/369761",
+      "status": 404
+    },
+    {
+      "code": "369954",
+      "name": "HCV Antibody",
+      "url": "https://www.labcorp.com/tests/369954",
+      "status": 404
+    },
+    {
+      "code": "370144",
+      "name": "CMP14+LP+TP+TSH+5AC+CBC/D/P...",
+      "url": "https://www.labcorp.com/tests/370144",
+      "status": 404
+    },
+    {
+      "code": "370272",
+      "name": "CMP14+LP+CBC/D/Plt+TSH+UA/M...",
+      "url": "https://www.labcorp.com/tests/370272",
+      "status": 404
+    },
+    {
+      "code": "370504",
+      "name": "PBG24U+Porphyrins, Qn, 24Hr Ur",
+      "url": "https://www.labcorp.com/tests/370504",
+      "status": 404
+    },
+    {
+      "code": "370921",
+      "name": "CreatU+Iodine",
+      "url": "https://www.labcorp.com/tests/370921",
+      "status": 404
+    },
+    {
+      "code": "372252",
+      "name": "CK+CK MB+Trop T",
+      "url": "https://www.labcorp.com/tests/372252",
+      "status": 404
+    },
+    {
+      "code": "374357",
+      "name": "ALA U+PBG UU+Porphy U",
+      "url": "https://www.labcorp.com/tests/374357",
+      "status": 404
+    },
+    {
+      "code": "374462",
+      "name": "AST+BUN+Creat+Uric A",
+      "url": "https://www.labcorp.com/tests/374462",
+      "status": 404
+    },
+    {
+      "code": "375002",
+      "name": "CreatU+Ca U+Phos U+Na U+BUN...",
+      "url": "https://www.labcorp.com/tests/375002",
+      "status": 404
+    },
+    {
+      "code": "375101",
+      "name": "Vitamin B12 w reflex <350",
+      "url": "https://www.labcorp.com/tests/375101",
+      "status": 404
+    },
+    {
+      "code": "375591",
+      "name": "CMP14",
+      "url": "https://www.labcorp.com/tests/375591",
+      "status": 404
+    },
+    {
+      "code": "376565",
+      "name": "CreatU+IFE U+Kappa/Lambda Q...",
+      "url": "https://www.labcorp.com/tests/376565",
+      "status": 404
+    },
+    {
+      "code": "377000",
+      "name": "Micros with Reflex to Culture",
+      "url": "https://www.labcorp.com/tests/377000",
+      "status": 404
+    },
+    {
+      "code": "377995",
+      "name": "HBcAb+HBcIgM+HBsAb+HBsAg",
+      "url": "https://www.labcorp.com/tests/377995",
+      "status": 404
+    },
+    {
+      "code": "379196",
+      "name": "Vitamin B12 w reflex MMA",
+      "url": "https://www.labcorp.com/tests/379196",
+      "status": 404
+    },
+    {
+      "code": "379394",
+      "name": "TestT+TestF+SHBG",
+      "url": "https://www.labcorp.com/tests/379394",
+      "status": 404
+    },
+    {
+      "code": "379720",
+      "name": "B12+Homocy+Methyl",
+      "url": "https://www.labcorp.com/tests/379720",
+      "status": 404
+    },
+    {
+      "code": "381231",
+      "name": "CreatU+Cyst U",
+      "url": "https://www.labcorp.com/tests/381231",
+      "status": 404
+    },
+    {
+      "code": "381630",
+      "name": "Crypto+Cyclos+Giardia",
+      "url": "https://www.labcorp.com/tests/381630",
+      "status": 404
+    },
+    {
+      "code": "382583",
+      "name": "CBC/D/Plt+RPR+Rh+ABO+Rub Ab...",
+      "url": "https://www.labcorp.com/tests/382583",
+      "status": 404
+    },
+    {
+      "code": "383957",
+      "name": "CBC/D/Plt+RPR+Rh+ABO+Rub Ab...",
+      "url": "https://www.labcorp.com/tests/383957",
+      "status": 404
+    },
+    {
+      "code": "384939",
+      "name": "CBC/D/Plt+Rh+ABO+Rub Ab+Ab ...",
+      "url": "https://www.labcorp.com/tests/384939",
+      "status": 404
+    },
+    {
+      "code": "385845",
+      "name": "Thrombosis, Venous Risk Profile, Congenital",
+      "url": "https://www.labcorp.com/tests/385845",
+      "status": 404
+    },
+    {
+      "code": "385897",
+      "name": "NuSwab VG Plus+Mycopl+Genita",
+      "url": "https://www.labcorp.com/tests/385897",
+      "status": 404
+    },
+    {
+      "code": "388944",
+      "name": "RPR+Rh+ABO+Rub Ab+Ab Scr+CB...",
+      "url": "https://www.labcorp.com/tests/388944",
+      "status": 404
+    },
+    {
+      "code": "389151",
+      "name": "Immune Deficiency Profile VII",
+      "url": "https://www.labcorp.com/tests/389151",
+      "status": 404
+    },
+    {
+      "code": "390390",
+      "name": "CBC/D/Plt-Clinical Trials",
+      "url": "https://www.labcorp.com/tests/390390",
+      "status": 404
+    },
+    {
+      "code": "390394",
+      "name": "TSH-Clinical Trials",
+      "url": "https://www.labcorp.com/tests/390394",
+      "status": 404
+    },
+    {
+      "code": "390395",
+      "name": "Creatinine, Serum",
+      "url": "https://www.labcorp.com/tests/390395",
+      "status": 404
+    },
+    {
+      "code": "392259",
+      "name": "Glucose/Insulin (4 Spec)",
+      "url": "https://www.labcorp.com/tests/392259",
+      "status": 404
+    },
+    {
+      "code": "396255",
+      "name": "RPR+Rh+ABO+Rub Ab+Ab Scr+CB...",
+      "url": "https://www.labcorp.com/tests/396255",
+      "status": 404
+    },
+    {
+      "code": "399116",
+      "name": "Gram S+U Cult",
+      "url": "https://www.labcorp.com/tests/399116",
+      "status": 404
+    },
+    {
+      "code": "399299",
+      "name": "PT+APCR+AT3 Ag+AT3 Funct+D ...",
+      "url": "https://www.labcorp.com/tests/399299",
+      "status": 404
+    },
+    {
+      "code": "402202",
+      "name": "CT Pathologist Conf. Dx-Breast",
+      "url": "https://www.labcorp.com/tests/402202",
+      "status": 404
+    },
+    {
+      "code": "452421",
+      "name": "Acute Lymphoblastic Leukemia MRD for COG/Day 29",
+      "url": "https://www.labcorp.com/tests/452421",
+      "status": 404
+    },
+    {
+      "code": "483496",
+      "name": "VistaSeq® MLH1 Comprehensive Analysis",
+      "url": "https://www.labcorp.com/tests/483496",
+      "status": 404
+    },
+    {
+      "code": "485466",
+      "name": "Prostate Cancer Monitor I",
+      "url": "https://www.labcorp.com/tests/485466",
+      "status": 404
+    },
+    {
+      "code": "500473",
+      "name": "Catecholamines, Total, Urine (Includes Creatinine)",
+      "url": "https://www.labcorp.com/tests/500473",
+      "status": 404
+    },
+    {
+      "code": "500496",
+      "name": "Vanillylmandelic Acid (VMA) (Includes Creatinine)",
+      "url": "https://www.labcorp.com/tests/500496",
+      "status": 404
+    },
+    {
+      "code": "500520",
+      "name": "Catecholamines, Fractionated, Urine (Includes Creatinine)",
+      "url": "https://www.labcorp.com/tests/500520",
+      "status": 404
+    },
+    {
+      "code": "500720",
+      "name": "Hydroxyindoleacetic Acid, 5- (5-HIAA), Urine (Includes Creatinine)",
+      "url": "https://www.labcorp.com/tests/500720",
+      "status": 404
+    },
+    {
+      "code": "500900",
+      "name": "Histology Specimen",
+      "url": "https://www.labcorp.com/tests/500900",
+      "status": 404
+    },
+    {
+      "code": "501533",
+      "name": "Metanephrines, Fract. Urine",
+      "url": "https://www.labcorp.com/tests/501533",
+      "status": 404
+    },
+    {
+      "code": "501814",
+      "name": "Homovanillic Acid (HVA), Urine (Includes Creatinine)",
+      "url": "https://www.labcorp.com/tests/501814",
+      "status": 404
+    },
+    {
+      "code": "501984",
+      "name": "Culture, Neoplastic Blood/Bone",
+      "url": "https://www.labcorp.com/tests/501984",
+      "status": 404
+    },
+    {
+      "code": "501999",
+      "name": "Cytogenetic Set up Tissue/Skin",
+      "url": "https://www.labcorp.com/tests/501999",
+      "status": 404
+    },
+    {
+      "code": "502273",
+      "name": "Negative PNH Billing",
+      "url": "https://www.labcorp.com/tests/502273",
+      "status": 404
+    },
+    {
+      "code": "502503",
+      "name": "Cort X6+HGH X9",
+      "url": "https://www.labcorp.com/tests/502503",
+      "status": 404
+    },
+    {
+      "code": "503155",
+      "name": "C-Telo+V D25",
+      "url": "https://www.labcorp.com/tests/503155",
+      "status": 404
+    },
+    {
+      "code": "504400",
+      "name": "Antiphospholipid Syndrome (APS), Comprehensive",
+      "url": "https://www.labcorp.com/tests/504400",
+      "status": 404
+    },
+    {
+      "code": "504904",
+      "name": "Left Adrenal Vein Aldosterone Unstimulated",
+      "url": "https://www.labcorp.com/tests/504904",
+      "status": 404
+    },
+    {
+      "code": "504905",
+      "name": "Infrarenal IVC Aldosterone Unstimulated",
+      "url": "https://www.labcorp.com/tests/504905",
+      "status": 404
+    },
+    {
+      "code": "504906",
+      "name": "504906 Suprarenal IVC Aldosterone Unstimulated",
+      "url": "https://www.labcorp.com/tests/504906",
+      "status": 404
+    },
+    {
+      "code": "504907",
+      "name": "Right Adrenal Vein Aldosterone Unstimulated",
+      "url": "https://www.labcorp.com/tests/504907",
+      "status": 404
+    },
+    {
+      "code": "504908",
+      "name": "Left Adrenal Vein Aldosterone Post-Stimulation",
+      "url": "https://www.labcorp.com/tests/504908",
+      "status": 404
+    },
+    {
+      "code": "504909",
+      "name": "Infrarenal IVC Aldosterone Post-Stimulation",
+      "url": "https://www.labcorp.com/tests/504909",
+      "status": 404
+    },
+    {
+      "code": "504910",
+      "name": "Suprarenal IVC Aldosterone Post-Stimulation",
+      "url": "https://www.labcorp.com/tests/504910",
+      "status": 404
+    },
+    {
+      "code": "504911",
+      "name": "Right Adrenal Vein Aldosterone Post-Stimulation",
+      "url": "https://www.labcorp.com/tests/504911",
+      "status": 404
+    },
+    {
+      "code": "504912",
+      "name": "Left Adrenal Vein Cortisol Unstimulated",
+      "url": "https://www.labcorp.com/tests/504912",
+      "status": 404
+    },
+    {
+      "code": "504913",
+      "name": "Infrarenal IVC Cortisol Unstimulated",
+      "url": "https://www.labcorp.com/tests/504913",
+      "status": 404
+    },
+    {
+      "code": "504914",
+      "name": "Suprarenal IVC Cortisol Unstimulated",
+      "url": "https://www.labcorp.com/tests/504914",
+      "status": 404
+    },
+    {
+      "code": "504915",
+      "name": "Right Adrenal Vein Cortisol Unstimulated",
+      "url": "https://www.labcorp.com/tests/504915",
+      "status": 404
+    },
+    {
+      "code": "504916",
+      "name": "Left Adrenal Vein Cortisol Post-Stimulation",
+      "url": "https://www.labcorp.com/tests/504916",
+      "status": 404
+    },
+    {
+      "code": "504917",
+      "name": "Infrarenal IVC Cortisol Post-Stimulation",
+      "url": "https://www.labcorp.com/tests/504917",
+      "status": 404
+    },
+    {
+      "code": "504918",
+      "name": "Suprarenal IVC Cortisol Post-Stimulation",
+      "url": "https://www.labcorp.com/tests/504918",
+      "status": 404
+    },
+    {
+      "code": "504919",
+      "name": "Right Adrenal Vein Cortisol Post-Stimulation",
+      "url": "https://www.labcorp.com/tests/504919",
+      "status": 404
+    },
+    {
+      "code": "505272",
+      "name": "CBC/D/Plt+CD4/CD8+RNA,RT-PCR,G",
+      "url": "https://www.labcorp.com/tests/505272",
+      "status": 404
+    },
+    {
+      "code": "510166",
+      "name": "Reveal (SM) Adjunct Microarray",
+      "url": "https://www.labcorp.com/tests/510166",
+      "status": 404
+    },
+    {
+      "code": "510390",
+      "name": "Fluorescence in situ Hybridization (FISH), CGH Follow-Up",
+      "url": "https://www.labcorp.com/tests/510390",
+      "status": 404
+    },
+    {
+      "code": "511020",
+      "name": "CVS Chrom Analysis 5 Cell Cnt",
+      "url": "https://www.labcorp.com/tests/511020",
+      "status": 404
+    },
+    {
+      "code": "511444",
+      "name": "MPN with Eosinophilia FISH Profile",
+      "url": "https://www.labcorp.com/tests/511444",
+      "status": 404
+    },
+    {
+      "code": "512085",
+      "name": "Microarray-Products of Conception (POC) Reveal(R)",
+      "url": "https://www.labcorp.com/tests/512085",
+      "status": 404
+    },
+    {
+      "code": "519081",
+      "name": "Sperm Morphology Panel",
+      "url": "https://www.labcorp.com/tests/519081",
+      "status": 404
+    },
+    {
+      "code": "519180",
+      "name": "Postvasectomy Sperm Count",
+      "url": "https://www.labcorp.com/tests/519180",
+      "status": 404
+    },
+    {
+      "code": "519481",
+      "name": "Semen Analysis, Basic",
+      "url": "https://www.labcorp.com/tests/519481",
+      "status": 404
+    },
+    {
+      "code": "520057",
+      "name": "Anti-HMGCR Ab (RDL)",
+      "url": "https://www.labcorp.com/tests/520057",
+      "status": 404
+    },
+    {
+      "code": "550410",
+      "name": "RNA, Real Time PCR (Non-Graph)",
+      "url": "https://www.labcorp.com/tests/550410",
+      "status": 404
+    },
+    {
+      "code": "599999",
+      "name": "Anatomic Pathology Report",
+      "url": "https://www.labcorp.com/tests/599999",
+      "status": 404
+    },
+    {
+      "code": "630428",
+      "name": "Fibrinogen Genetic Analysis",
+      "url": "https://www.labcorp.com/tests/630428",
+      "status": 404
+    },
+    {
+      "code": "700600",
+      "name": "ToxAssure Report",
+      "url": "https://www.labcorp.com/tests/700600",
+      "status": 404
+    },
+    {
+      "code": "700609",
+      "name": "700609 7+Alc-Scr",
+      "url": "https://www.labcorp.com/tests/700609",
+      "status": 404
+    },
+    {
+      "code": "701687",
+      "name": "Drug Analysis, Comprehensive (AMP,BZO,COC,THC,OPI,6-AM,OXY,MD,FENT,BUP,TAP,MEP,PPX,TRAM,PCP,AC,MR,ZOLP,DUL,COT), byMass Spectrometry, oral fluid.",
+      "url": "https://www.labcorp.com/tests/701687",
+      "status": 404
+    },
+    {
+      "code": "701768",
+      "name": "PENTOBARBITAL IA, SERUM/PLASMA",
+      "url": "https://www.labcorp.com/tests/701768",
+      "status": 404
+    },
+    {
+      "code": "701785",
+      "name": "Meconium Tramadol Confirmation",
+      "url": "https://www.labcorp.com/tests/701785",
+      "status": 404
+    },
+    {
+      "code": "702638",
+      "name": "Drug Analysis, Comprehensive (AMP,BZO,OPI,OXY,FENT,BUP,TRAM,by Mass Spectrometry, oral fluid.",
+      "url": "https://www.labcorp.com/tests/702638",
+      "status": 404
+    },
+    {
+      "code": "702655",
+      "name": "Naltrexone and Mtb, MS, UR",
+      "url": "https://www.labcorp.com/tests/702655",
+      "status": 404
+    },
+    {
+      "code": "706705",
+      "name": "Amiodarone (Cordarone), Serum",
+      "url": "https://www.labcorp.com/tests/706705",
+      "status": 404
+    },
+    {
+      "code": "707194",
+      "name": "Drug Abuse, HHS-Unbund",
+      "url": "https://www.labcorp.com/tests/707194",
+      "status": 404
+    },
+    {
+      "code": "707195",
+      "name": "Drug Abuse, HHS-Unbund",
+      "url": "https://www.labcorp.com/tests/707195",
+      "status": 404
+    },
+    {
+      "code": "707392",
+      "name": "Drug Abuse Profile (DOT), Urine (9 Drugs) (MSConfirmation Included at an additional Charge)",
+      "url": "https://www.labcorp.com/tests/707392",
+      "status": 404
+    },
+    {
+      "code": "707492",
+      "name": "Drug Abuse, DOT-Unbund",
+      "url": "https://www.labcorp.com/tests/707492",
+      "status": 404
+    },
+    {
+      "code": "708125",
+      "name": "Drug Abuse, HHS-Bund",
+      "url": "https://www.labcorp.com/tests/708125",
+      "status": 404
+    },
+    {
+      "code": "708126",
+      "name": "Drug Abuse, HHS-Bund",
+      "url": "https://www.labcorp.com/tests/708126",
+      "status": 404
+    },
+    {
+      "code": "708392",
+      "name": "Drug Abuse, DOT-Bund",
+      "url": "https://www.labcorp.com/tests/708392",
+      "status": 404
+    },
+    {
+      "code": "708492",
+      "name": "Drug Abuse, DOT-Bund",
+      "url": "https://www.labcorp.com/tests/708492",
+      "status": 404
+    },
+    {
+      "code": "716167",
+      "name": "Ethanol, Urine",
+      "url": "https://www.labcorp.com/tests/716167",
+      "status": 404
+    },
+    {
+      "code": "716506",
+      "name": ".",
+      "url": "https://www.labcorp.com/tests/716506",
+      "status": 404
+    },
+    {
+      "code": "723202",
+      "name": "BENZENE,OCC EXP,EMERG EXAM, UR",
+      "url": "https://www.labcorp.com/tests/723202",
+      "status": 404
+    },
+    {
+      "code": "737224",
+      "name": "Physical-Prod. Spec.,etc.",
+      "url": "https://www.labcorp.com/tests/737224",
+      "status": 404
+    },
+    {
+      "code": "737368",
+      "name": "737368 5+MDMA+Alc-Unb",
+      "url": "https://www.labcorp.com/tests/737368",
+      "status": 404
+    },
+    {
+      "code": "737440",
+      "name": "Physical-Installer",
+      "url": "https://www.labcorp.com/tests/737440",
+      "status": 404
+    },
+    {
+      "code": "737441",
+      "name": "Physical-General/Repair Operat",
+      "url": "https://www.labcorp.com/tests/737441",
+      "status": 404
+    },
+    {
+      "code": "737442",
+      "name": "Physical-Installer W/O EKG",
+      "url": "https://www.labcorp.com/tests/737442",
+      "status": 404
+    },
+    {
+      "code": "737444",
+      "name": "Physical-Executive",
+      "url": "https://www.labcorp.com/tests/737444",
+      "status": 404
+    },
+    {
+      "code": "737465",
+      "name": "737465 5+MDMA+Alc-Unb",
+      "url": "https://www.labcorp.com/tests/737465",
+      "status": 404
+    },
+    {
+      "code": "737467",
+      "name": "737467 7+MDMA-Unb",
+      "url": "https://www.labcorp.com/tests/737467",
+      "status": 404
+    },
+    {
+      "code": "737498",
+      "name": "Opiates and Oxycodone MS, UR",
+      "url": "https://www.labcorp.com/tests/737498",
+      "status": 404
+    },
+    {
+      "code": "737522",
+      "name": "737522 9+MDMA-Unb",
+      "url": "https://www.labcorp.com/tests/737522",
+      "status": 404
+    },
+    {
+      "code": "738576",
+      "name": "Meconium Barbiturate Conf",
+      "url": "https://www.labcorp.com/tests/738576",
+      "status": 404
+    },
+    {
+      "code": "739291",
+      "name": "Barbiturates Confirm, OF",
+      "url": "https://www.labcorp.com/tests/739291",
+      "status": 404
+    },
+    {
+      "code": "739294",
+      "name": "Opiates Confirm, OF",
+      "url": "https://www.labcorp.com/tests/739294",
+      "status": 404
+    },
+    {
+      "code": "739296",
+      "name": "Methadone Confirm, OF",
+      "url": "https://www.labcorp.com/tests/739296",
+      "status": 404
+    },
+    {
+      "code": "761490",
+      "name": "10+Oxycodone-Scr, Oral Fluid",
+      "url": "https://www.labcorp.com/tests/761490",
+      "status": 404
+    },
+    {
+      "code": "764651",
+      "name": "764651 U9-Unbund+Alc+SV3",
+      "url": "https://www.labcorp.com/tests/764651",
+      "status": 404
+    },
+    {
+      "code": "770005",
+      "name": "Substance Abuse Monitoring and Rehabilitation Profile I,Oral Fluid (Screen With Confirmation) (LabCorp MedWatch(R))",
+      "url": "https://www.labcorp.com/tests/770005",
+      "status": 404
+    },
+    {
+      "code": "770031",
+      "name": "Drug Oral Fluid 11 Class Profile (LabCorp MedWatch(R))",
+      "url": "https://www.labcorp.com/tests/770031",
+      "status": 404
+    },
+    {
+      "code": "770140",
+      "name": "Buprenorphine, Oral Fluid",
+      "url": "https://www.labcorp.com/tests/770140",
+      "status": 404
+    },
+    {
+      "code": "770154",
+      "name": "Marijuana (THC) Confirm, OF",
+      "url": "https://www.labcorp.com/tests/770154",
+      "status": 404
+    },
+    {
+      "code": "770162",
+      "name": "Ethanol (GCHS FID), Oral Fluid",
+      "url": "https://www.labcorp.com/tests/770162",
+      "status": 404
+    },
+    {
+      "code": "770169",
+      "name": "Tramadol Conf, Oral Fluid",
+      "url": "https://www.labcorp.com/tests/770169",
+      "status": 404
+    },
+    {
+      "code": "770176",
+      "name": "Fentanyl Conf, Oral Fluid",
+      "url": "https://www.labcorp.com/tests/770176",
+      "status": 404
+    },
+    {
+      "code": "770421",
+      "name": "Substance Abuse Monitoring and Rehabilitation Profile II,Oral Fluid (Screen Only) (LabCorp MedWatch(R))",
+      "url": "https://www.labcorp.com/tests/770421",
+      "status": 404
+    },
+    {
+      "code": "770434",
+      "name": "Oxycod/Oxymor Conf, Oral Fluid",
+      "url": "https://www.labcorp.com/tests/770434",
+      "status": 404
+    },
+    {
+      "code": "770510",
+      "name": "Benzodiazepine Conf, Oral Fl",
+      "url": "https://www.labcorp.com/tests/770510",
+      "status": 404
+    },
+    {
+      "code": "780304",
+      "name": "Test (1)",
+      "url": "https://www.labcorp.com/tests/780304",
+      "status": 404
+    },
+    {
+      "code": "780305",
+      "name": "Test (2)",
+      "url": "https://www.labcorp.com/tests/780305",
+      "status": 404
+    },
+    {
+      "code": "780306",
+      "name": "Test (3)",
+      "url": "https://www.labcorp.com/tests/780306",
+      "status": 404
+    },
+    {
+      "code": "780307",
+      "name": "Test (4)",
+      "url": "https://www.labcorp.com/tests/780307",
+      "status": 404
+    },
+    {
+      "code": "780308",
+      "name": "Test (5)",
+      "url": "https://www.labcorp.com/tests/780308",
+      "status": 404
+    },
+    {
+      "code": "780309",
+      "name": "Test (6)",
+      "url": "https://www.labcorp.com/tests/780309",
+      "status": 404
+    },
+    {
+      "code": "780310",
+      "name": "Test (7)",
+      "url": "https://www.labcorp.com/tests/780310",
+      "status": 404
+    },
+    {
+      "code": "780311",
+      "name": "Test (8)",
+      "url": "https://www.labcorp.com/tests/780311",
+      "status": 404
+    },
+    {
+      "code": "780312",
+      "name": "Test (9)",
+      "url": "https://www.labcorp.com/tests/780312",
+      "status": 404
+    },
+    {
+      "code": "780313",
+      "name": "Test (10)",
+      "url": "https://www.labcorp.com/tests/780313",
+      "status": 404
+    },
+    {
+      "code": "780400",
+      "name": "Oral Fluid Drug Analysis",
+      "url": "https://www.labcorp.com/tests/780400",
+      "status": 404
+    },
+    {
+      "code": "788901",
+      "name": "Specific Gravity",
+      "url": "https://www.labcorp.com/tests/788901",
+      "status": 404
+    },
+    {
+      "code": "798230",
+      "name": "Diphenhydramine Retest, MS, UR",
+      "url": "https://www.labcorp.com/tests/798230",
+      "status": 404
+    },
+    {
+      "code": "804389",
+      "name": "Acanthamoeba+Naegleria Culture",
+      "url": "https://www.labcorp.com/tests/804389",
+      "status": 404
+    },
+    {
+      "code": "804391",
+      "name": "Amoeba Calcofluor Stain",
+      "url": "https://www.labcorp.com/tests/804391",
+      "status": 404
+    },
+    {
+      "code": "806813",
+      "name": "17-Ketosteroids, Urine",
+      "url": "https://www.labcorp.com/tests/806813",
+      "status": 404
+    },
+    {
+      "code": "809175",
+      "name": "Opiate Confirmation, Meconium",
+      "url": "https://www.labcorp.com/tests/809175",
+      "status": 404
+    },
+    {
+      "code": "809638",
+      "name": "Methadone Confirmation, Meconium",
+      "url": "https://www.labcorp.com/tests/809638",
+      "status": 404
+    },
+    {
+      "code": "810200",
+      "name": "Cathartic Laxative Stool",
+      "url": "https://www.labcorp.com/tests/810200",
+      "status": 404
+    },
+    {
+      "code": "811103",
+      "name": "Porphyrin Evaluation, RBC",
+      "url": "https://www.labcorp.com/tests/811103",
+      "status": 404
+    },
+    {
+      "code": "811121",
+      "name": "PBG Deaminase, RBC",
+      "url": "https://www.labcorp.com/tests/811121",
+      "status": 404
+    },
+    {
+      "code": "811137",
+      "name": "ALA Dehydratase, RBC",
+      "url": "https://www.labcorp.com/tests/811137",
+      "status": 404
+    },
+    {
+      "code": "815472",
+      "name": "CMV DNA, Qual RT PCR",
+      "url": "https://www.labcorp.com/tests/815472",
+      "status": 404
+    },
+    {
+      "code": "815949",
+      "name": "Adenovirus qPCR (Trach Asp.)",
+      "url": "https://www.labcorp.com/tests/815949",
+      "status": 404
+    },
+    {
+      "code": "817210",
+      "name": "Evaluation of FNA 10th pass",
+      "url": "https://www.labcorp.com/tests/817210",
+      "status": 404
+    },
+    {
+      "code": "817211",
+      "name": "Evaluation of FNA 11th pass",
+      "url": "https://www.labcorp.com/tests/817211",
+      "status": 404
+    },
+    {
+      "code": "817212",
+      "name": "Evaluation of FNA 12th pass",
+      "url": "https://www.labcorp.com/tests/817212",
+      "status": 404
+    },
+    {
+      "code": "818326",
+      "name": "A1A Clearance Stool/Ser",
+      "url": "https://www.labcorp.com/tests/818326",
+      "status": 404
+    },
+    {
+      "code": "818380",
+      "name": "Mold Susceptibility, 5-Fluorocystosine",
+      "url": "https://www.labcorp.com/tests/818380",
+      "status": 404
+    },
+    {
+      "code": "818383",
+      "name": "Mold Susceptibility, Amphotericin B",
+      "url": "https://www.labcorp.com/tests/818383",
+      "status": 404
+    },
+    {
+      "code": "818386",
+      "name": "Mold Susceptibility, Fluconazole",
+      "url": "https://www.labcorp.com/tests/818386",
+      "status": 404
+    },
+    {
+      "code": "818389",
+      "name": "Mold Susceptibility, Itraconazole",
+      "url": "https://www.labcorp.com/tests/818389",
+      "status": 404
+    },
+    {
+      "code": "818395",
+      "name": "Mold Susceptibility, Voriconazole",
+      "url": "https://www.labcorp.com/tests/818395",
+      "status": 404
+    },
+    {
+      "code": "818682",
+      "name": "Neonatal Alloim.Thromb.-Mater.",
+      "url": "https://www.labcorp.com/tests/818682",
+      "status": 404
+    },
+    {
+      "code": "818694",
+      "name": "Neutrophil Ab and HLA Screen",
+      "url": "https://www.labcorp.com/tests/818694",
+      "status": 404
+    },
+    {
+      "code": "818779",
+      "name": "HSV 1 and 2 qPCR (BAL)",
+      "url": "https://www.labcorp.com/tests/818779",
+      "status": 404
+    },
+    {
+      "code": "819052",
+      "name": "Secretin",
+      "url": "https://www.labcorp.com/tests/819052",
+      "status": 404
+    },
+    {
+      "code": "819210",
+      "name": "Ghrelin Total, Plasma",
+      "url": "https://www.labcorp.com/tests/819210",
+      "status": 404
+    },
+    {
+      "code": "819217",
+      "name": "Octreotide (Serum/Plasma)",
+      "url": "https://www.labcorp.com/tests/819217",
+      "status": 404
+    },
+    {
+      "code": "819227",
+      "name": "Pancreastatin",
+      "url": "https://www.labcorp.com/tests/819227",
+      "status": 404
+    },
+    {
+      "code": "819325",
+      "name": "HHV6 qPCR (BAL)",
+      "url": "https://www.labcorp.com/tests/819325",
+      "status": 404
+    },
+    {
+      "code": "819333",
+      "name": "CMV qPCR (bone marrow)",
+      "url": "https://www.labcorp.com/tests/819333",
+      "status": 404
+    },
+    {
+      "code": "819433",
+      "name": "Neurotensin",
+      "url": "https://www.labcorp.com/tests/819433",
+      "status": 404
+    },
+    {
+      "code": "821243",
+      "name": "Sequenom Tracking",
+      "url": "https://www.labcorp.com/tests/821243",
+      "status": 404
+    },
+    {
+      "code": "821294",
+      "name": "Salmonella Antibodies, EIA",
+      "url": "https://www.labcorp.com/tests/821294",
+      "status": 404
+    },
+    {
+      "code": "821439",
+      "name": "WA State Newborn Screen Repeat",
+      "url": "https://www.labcorp.com/tests/821439",
+      "status": 404
+    },
+    {
+      "code": "822972",
+      "name": "Anticoagulant Poisoning Panel (Qualitative), Serum/Plasma",
+      "url": "https://www.labcorp.com/tests/822972",
+      "status": 404
+    },
+    {
+      "code": "823304",
+      "name": "Disaccharidases",
+      "url": "https://www.labcorp.com/tests/823304",
+      "status": 404
+    },
+    {
+      "code": "824009",
+      "name": "M tuberculosis Complex PCR",
+      "url": "https://www.labcorp.com/tests/824009",
+      "status": 404
+    },
+    {
+      "code": "824044",
+      "name": "COL1A1 + COL1A2 gDNA Prenatal",
+      "url": "https://www.labcorp.com/tests/824044",
+      "status": 404
+    },
+    {
+      "code": "824153",
+      "name": "MOG FACS, S",
+      "url": "https://www.labcorp.com/tests/824153",
+      "status": 404
+    },
+    {
+      "code": "824471",
+      "name": "Sus.Anti.Aero.Bact.Cust.MIC(1)",
+      "url": "https://www.labcorp.com/tests/824471",
+      "status": 404
+    },
+    {
+      "code": "824546",
+      "name": "Bromine-Total, Serum/Plasma",
+      "url": "https://www.labcorp.com/tests/824546",
+      "status": 404
+    },
+    {
+      "code": "824808",
+      "name": "Heparin Ab IgG",
+      "url": "https://www.labcorp.com/tests/824808",
+      "status": 404
+    },
+    {
+      "code": "825561",
+      "name": "MCC Studies",
+      "url": "https://www.labcorp.com/tests/825561",
+      "status": 404
+    },
+    {
+      "code": "826555",
+      "name": "Endotoxin - LAL Quant (Water)",
+      "url": "https://www.labcorp.com/tests/826555",
+      "status": 404
+    },
+    {
+      "code": "828795",
+      "name": "Microsporidia Stain",
+      "url": "https://www.labcorp.com/tests/828795",
+      "status": 404
+    },
+    {
+      "code": "828858",
+      "name": "Partial Acid Stain",
+      "url": "https://www.labcorp.com/tests/828858",
+      "status": 404
+    },
+    {
+      "code": "830408",
+      "name": "Coccidioides Immitis Id",
+      "url": "https://www.labcorp.com/tests/830408",
+      "status": 404
+    },
+    {
+      "code": "830410",
+      "name": "88304 Surg Path-10th Site",
+      "url": "https://www.labcorp.com/tests/830410",
+      "status": 404
+    },
+    {
+      "code": "830618",
+      "name": "Nystatin (NYS)",
+      "url": "https://www.labcorp.com/tests/830618",
+      "status": 404
+    },
+    {
+      "code": "830746",
+      "name": "B Cell Subset Analysis",
+      "url": "https://www.labcorp.com/tests/830746",
+      "status": 404
+    },
+    {
+      "code": "830808",
+      "name": "Oxalate, Plasma",
+      "url": "https://www.labcorp.com/tests/830808",
+      "status": 404
+    },
+    {
+      "code": "830829",
+      "name": "Heterotrophic Plate Ct. (HPC)",
+      "url": "https://www.labcorp.com/tests/830829",
+      "status": 404
+    },
+    {
+      "code": "830832",
+      "name": "Duodenoscope Sample (DUO)",
+      "url": "https://www.labcorp.com/tests/830832",
+      "status": 404
+    },
+    {
+      "code": "830835",
+      "name": "Culturable Surface Swab (BACT)",
+      "url": "https://www.labcorp.com/tests/830835",
+      "status": 404
+    },
+    {
+      "code": "830896",
+      "name": "Adenosine Deaminase,Peritoneal",
+      "url": "https://www.labcorp.com/tests/830896",
+      "status": 404
+    },
+    {
+      "code": "830944",
+      "name": "Beryllium Lymphocyte Prolif.WB",
+      "url": "https://www.labcorp.com/tests/830944",
+      "status": 404
+    },
+    {
+      "code": "830986",
+      "name": "Cysticercosis Ab, IgG by ELISA",
+      "url": "https://www.labcorp.com/tests/830986",
+      "status": 404
+    },
+    {
+      "code": "831140",
+      "name": "3-Methylglutaconic Plasma/CSF",
+      "url": "https://www.labcorp.com/tests/831140",
+      "status": 404
+    },
+    {
+      "code": "831572",
+      "name": "Smi. Lem. Opi. Syn. - Pre. Dia",
+      "url": "https://www.labcorp.com/tests/831572",
+      "status": 404
+    },
+    {
+      "code": "831752",
+      "name": "Lupin IgE",
+      "url": "https://www.labcorp.com/tests/831752",
+      "status": 404
+    },
+    {
+      "code": "832180",
+      "name": "Fungal Surface Swab (FUNG)",
+      "url": "https://www.labcorp.com/tests/832180",
+      "status": 404
+    },
+    {
+      "code": "832488",
+      "name": "ColoSense Kit Request",
+      "url": "https://www.labcorp.com/tests/832488",
+      "status": 404
+    },
+    {
+      "code": "832658",
+      "name": "Disaccharidase Deter. w/Interp",
+      "url": "https://www.labcorp.com/tests/832658",
+      "status": 404
+    },
+    {
+      "code": "833843",
+      "name": "Bacterial Strain Typing by NGS",
+      "url": "https://www.labcorp.com/tests/833843",
+      "status": 404
+    },
+    {
+      "code": "833915",
+      "name": "SC5b-9 Complement, P",
+      "url": "https://www.labcorp.com/tests/833915",
+      "status": 404
+    },
+    {
+      "code": "834040",
+      "name": "CJD Evaluation, CSF",
+      "url": "https://www.labcorp.com/tests/834040",
+      "status": 404
+    },
+    {
+      "code": "834288",
+      "name": "Brain Health Study",
+      "url": "https://www.labcorp.com/tests/834288",
+      "status": 404
+    },
+    {
+      "code": "834742",
+      "name": "Brisk Study",
+      "url": "https://www.labcorp.com/tests/834742",
+      "status": 404
+    },
+    {
+      "code": "835240",
+      "name": "Anabolic Steroids Screen, U",
+      "url": "https://www.labcorp.com/tests/835240",
+      "status": 404
+    },
+    {
+      "code": "835467",
+      "name": "PTH, FNAB, Needle Wash",
+      "url": "https://www.labcorp.com/tests/835467",
+      "status": 404
+    },
+    {
+      "code": "835499",
+      "name": "Creatine Disorders Panel, P",
+      "url": "https://www.labcorp.com/tests/835499",
+      "status": 404
+    },
+    {
+      "code": "840029",
+      "name": "Iron, Liver",
+      "url": "https://www.labcorp.com/tests/840029",
+      "status": 404
+    },
+    {
+      "code": "844219",
+      "name": "2N-VWD (VWF-FVIII) Panel",
+      "url": "https://www.labcorp.com/tests/844219",
+      "status": 404
+    },
+    {
+      "code": "845135",
+      "name": "Donath Landsteiner Test",
+      "url": "https://www.labcorp.com/tests/845135",
+      "status": 404
+    },
+    {
+      "code": "847447",
+      "name": "Neurokinin A (Substance K), P",
+      "url": "https://www.labcorp.com/tests/847447",
+      "status": 404
+    },
+    {
+      "code": "847472",
+      "name": "Neuropeptide Y",
+      "url": "https://www.labcorp.com/tests/847472",
+      "status": 404
+    },
+    {
+      "code": "850971",
+      "name": "B/M Smr,Int, 1st Site",
+      "url": "https://www.labcorp.com/tests/850971",
+      "status": 404
+    },
+    {
+      "code": "878678",
+      "name": "Rickettsia Conorii Ab Panel",
+      "url": "https://www.labcorp.com/tests/878678",
+      "status": 404
+    },
+    {
+      "code": "881722",
+      "name": "Evaluation of FNA 2nd pass",
+      "url": "https://www.labcorp.com/tests/881722",
+      "status": 404
+    },
+    {
+      "code": "881723",
+      "name": "Evaluation of FNA 3rd pass",
+      "url": "https://www.labcorp.com/tests/881723",
+      "status": 404
+    },
+    {
+      "code": "881724",
+      "name": "Evaluation of FNA 4th pass",
+      "url": "https://www.labcorp.com/tests/881724",
+      "status": 404
+    },
+    {
+      "code": "881725",
+      "name": "Evaluation of FNA 5th pass",
+      "url": "https://www.labcorp.com/tests/881725",
+      "status": 404
+    },
+    {
+      "code": "881726",
+      "name": "Evaluation of FNA 6th pass",
+      "url": "https://www.labcorp.com/tests/881726",
+      "status": 404
+    },
+    {
+      "code": "881727",
+      "name": "Evaluation of FNA 7th pass",
+      "url": "https://www.labcorp.com/tests/881727",
+      "status": 404
+    },
+    {
+      "code": "881728",
+      "name": "Evaluation of FNA 8th pass",
+      "url": "https://www.labcorp.com/tests/881728",
+      "status": 404
+    },
+    {
+      "code": "881729",
+      "name": "Evaluation of FNA 9th pass",
+      "url": "https://www.labcorp.com/tests/881729",
+      "status": 404
+    },
+    {
+      "code": "883076",
+      "name": "88307 Surgical Pathology",
+      "url": "https://www.labcorp.com/tests/883076",
+      "status": 404
+    },
+    {
+      "code": "883077",
+      "name": "88307 Surgical Pathology",
+      "url": "https://www.labcorp.com/tests/883077",
+      "status": 404
+    },
+    {
+      "code": "883078",
+      "name": "88307 Surgical Pathology",
+      "url": "https://www.labcorp.com/tests/883078",
+      "status": 404
+    },
+    {
+      "code": "883079",
+      "name": "88307 Surgical Pathology",
+      "url": "https://www.labcorp.com/tests/883079",
+      "status": 404
+    },
+    {
+      "code": "883117",
+      "name": "Decalcification; 7th",
+      "url": "https://www.labcorp.com/tests/883117",
+      "status": 404
+    },
+    {
+      "code": "883611",
+      "name": "Morp Ana,Tumor Immuno,Comp 1st",
+      "url": "https://www.labcorp.com/tests/883611",
+      "status": 404
+    },
+    {
+      "code": "883612",
+      "name": "Morp Ana,Tumor Immuno,Comp 2nd",
+      "url": "https://www.labcorp.com/tests/883612",
+      "status": 404
+    },
+    {
+      "code": "883613",
+      "name": "Morp Ana,Tumor Immuno,Comp 3rd",
+      "url": "https://www.labcorp.com/tests/883613",
+      "status": 404
+    },
+    {
+      "code": "883614",
+      "name": "Morp Ana,Tumor Immuno,Comp 4th",
+      "url": "https://www.labcorp.com/tests/883614",
+      "status": 404
+    },
+    {
+      "code": "883615",
+      "name": "Morp Ana,Tumor Immuno,Comp 5th",
+      "url": "https://www.labcorp.com/tests/883615",
+      "status": 404
+    },
+    {
+      "code": "883716",
+      "name": "Consult/Surgery,Froz 16th prim",
+      "url": "https://www.labcorp.com/tests/883716",
+      "status": 404
+    },
+    {
+      "code": "883749",
+      "name": "Consult/Surgery,Frz,38th-Ad-Sp",
+      "url": "https://www.labcorp.com/tests/883749",
+      "status": 404
+    },
+    {
+      "code": "909200",
+      "name": "Peptide (PYY)",
+      "url": "https://www.labcorp.com/tests/909200",
+      "status": 404
+    },
+    {
+      "code": "909206",
+      "name": "Thyrotropin Releas. Hormone",
+      "url": "https://www.labcorp.com/tests/909206",
+      "status": 404
+    },
+    {
+      "code": "909231",
+      "name": "Vasoactive Intest. Polypeptide",
+      "url": "https://www.labcorp.com/tests/909231",
+      "status": 404
+    },
+    {
+      "code": "909531",
+      "name": "Fetal Rh D DNA Analysis",
+      "url": "https://www.labcorp.com/tests/909531",
+      "status": 404
+    },
+    {
+      "code": "909549",
+      "name": "Fetal Kell DNA Analysis",
+      "url": "https://www.labcorp.com/tests/909549",
+      "status": 404
+    },
+    {
+      "code": "909556",
+      "name": "Fetal Rh C/c DNA",
+      "url": "https://www.labcorp.com/tests/909556",
+      "status": 404
+    },
+    {
+      "code": "909561",
+      "name": "Fetal S/s DNA Analysis",
+      "url": "https://www.labcorp.com/tests/909561",
+      "status": 404
+    },
+    {
+      "code": "909564",
+      "name": "Fetal Rh E/e DNA Analysis",
+      "url": "https://www.labcorp.com/tests/909564",
+      "status": 404
+    },
+    {
+      "code": "909576",
+      "name": "Fetal Kidd DNA Analysis",
+      "url": "https://www.labcorp.com/tests/909576",
+      "status": 404
+    },
+    {
+      "code": "909581",
+      "name": "Fetal Duffy DNA Analysis",
+      "url": "https://www.labcorp.com/tests/909581",
+      "status": 404
+    },
+    {
+      "code": "910374",
+      "name": "Low Bone Density Program",
+      "url": "https://www.labcorp.com/tests/910374",
+      "status": 404
+    }
+  ]
+}
