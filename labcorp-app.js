@@ -21,7 +21,10 @@
     { reason: "Spirometry is a clinical procedure, not a Labcorp specimen sendout order.", codes: "009449" },
     { reason: "Hearing test is a clinical procedure, not a Labcorp specimen sendout order.", codes: "009456" },
     { reason: "Slit-lamp examination is a clinical examination, not a Labcorp specimen sendout order.", codes: "009464" },
-    { reason: "Labcorp confirmed acid-preserved urine or discontinued code; not supported by the clinic's current sendout workflow.", codes: "120519 483496 500473 500496 500520 500720 501814" },
+    { reason: "Requires a boric acid or HCl-preserved 24-hour urine collection; neither is supported by the current clinic urine supplies.", codes: "120519" },
+    { reason: "Labcorp discontinued VistaSeq MLH1 test 483496 as an orderable code on September 14, 2026, without an exact replacement.", codes: "483496" },
+    { reason: "Requires a 24-hour urine specimen in a 6N HCl-preserved collection bottle, which the clinic does not provide.", codes: "500473 500496 500520 501814" },
+    { reason: "Requires 24-hour urine acidification to pH 4 with acetic acid; clinic does not perform acid-preserved urine collection.", codes: "500720" },
   ];
   const REVIEWED_DNP_20261121 = new Map(REVIEWED_DNP_GROUPS_20261121.flatMap(group =>
     group.codes.split(' ').map(code => [code, group.reason])));
