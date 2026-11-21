@@ -16,7 +16,7 @@ const additions=[
     "preferredVolume": "5–10 mL body fluid",
     "minimumVolume": "1 mL",
     "spin": "No",
-    "specialLabeling": "Label BODY FLUID",
+    "specialLabeling": "",
     "specialInstructions": "Label specimen BODY FLUID and exact source. Submit provider-collected fluid in its original sterile screw-cap cup at room temperature. This collection path does not use nail, hair, slide, or swab specimens.",
     "source": "https://www.labcorp.com/tests/008136/fungus-stain"
   },
@@ -33,7 +33,7 @@ const additions=[
     "preferredVolume": "5–10 mL body fluid",
     "minimumVolume": "1 mL",
     "spin": "No",
-    "specialLabeling": "Label BODY FLUID",
+    "specialLabeling": "",
     "specialInstructions": "Label specimen BODY FLUID and exact source. Submit provider-collected fluid in the original sterile screw-cap cup at room temperature. Refrigeration requirements differ for nonsterile respiratory samples; those routes are not configured.",
     "source": "https://www.labcorp.com/tests/008482/fungus-mycology-culture"
   },
@@ -50,7 +50,7 @@ const additions=[
     "preferredVolume": "5–10 mL body fluid",
     "minimumVolume": "1 mL",
     "spin": "No",
-    "specialLabeling": "Label BODY FLUID",
+    "specialLabeling": "",
     "specialInstructions": "Label specimen BODY FLUID and exact source. Submit provider-collected fluid in the original sterile screw-cap cup at room temperature. This route does not cover respiratory specimens, hair, nails, or separate swab sets.",
     "source": "https://www.labcorp.com/tests/188243/fungus-culture-with-stain"
   },
@@ -118,7 +118,7 @@ const additions=[
     "preferredVolume": "1 mL lung exudate",
     "minimumVolume": "",
     "spin": "No",
-    "specialLabeling": "Label LUNG EXUDATE",
+    "specialLabeling": "",
     "specialInstructions": "Provider-collected lung exudate only. Label LUNG EXUDATE, submit in sterile leakproof screw-cap cup at 2–8°C and ensure arrival within 24 hours of collection. Do not use swabs, prepared slides or environmental water.",
     "source": "https://www.labcorp.com/tests/085506/legionella-pneumophila-dfa"
   },
@@ -135,7 +135,7 @@ const additions=[
     "preferredVolume": "1 mL lung exudate",
     "minimumVolume": "",
     "spin": "No",
-    "specialLabeling": "Label LUNG EXUDATE",
+    "specialLabeling": "",
     "specialInstructions": "Provider-collected lung exudate only. Label LUNG EXUDATE, submit in sterile leakproof screw-cap cup at 2–8°C and ensure arrival within 24 hours of collection. Do not use swabs or environmental water.",
     "source": "https://www.labcorp.com/tests/086868/legionella-species-culture"
   },
@@ -152,7 +152,7 @@ const additions=[
     "preferredVolume": "1 vaginal swab in Affirm ATTS",
     "minimumVolume": "",
     "spin": "No",
-    "specialLabeling": "Label VAGINAL SWAB",
+    "specialLabeling": "",
     "specialInstructions": "Use only the Affirm VPIII Ambient Temperature Transport System (ATTS) kit. Collect from the posterior vaginal fornix using its supplied swab; activate the reagent ampule and follow the ATTS processing steps. Submit in the original transport tube within 72 hours at room temperature. Do not substitute a generic Aptima or VTM swab.",
     "source": "https://www.labcorp.com/tests/180026/vaginitis-vaginosis-dna-probe"
   },
@@ -186,7 +186,7 @@ const additions=[
     "preferredVolume": "1 lesion swab",
     "minimumVolume": "",
     "spin": "No",
-    "specialLabeling": "Label LESION SWAB",
+    "specialLabeling": "",
     "specialInstructions": "Do not prepare vesicle site with alcohol or iodophors. Collect from the bases of freshly unroofed lesions with a sterile synthetic swab, place immediately in cold viral transport medium, and send promptly. Submit the original VTM device. Label LESION / VESICULAR SOURCE; do not prepare slides.",
     "source": "https://www.labcorp.com/tests/186031/virus-culture-rapid-varicella-zoster-virus-vzv"
   }
