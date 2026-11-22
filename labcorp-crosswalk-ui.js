@@ -268,9 +268,12 @@
           (a.row[1].length-b.row[1].length)||
           String(a.row[0]).localeCompare(String(b.row[0])))
         .slice(0,8);
-      if(!matches.length||(matches.length===1&&(
-          String(matches[0].row[0])===entry.query||
-          normalize(matches[0].row[1])===query))){
+      // Like the main search, a unique exact code or full test name
+      // is already resolved; do not keep unrelated partial results open.
+      const exactCode=/^\d+$/.test(query)&&
+        matches.filter(item=>String(item.row[0])===entry.query).length===1;
+      const exactName=(questByName.get(query)||[]).length===1;
+      if(!matches.length||exactCode||exactName){
         hideSuggestions();return;
       }
       suggestionMatches=matches.map(item=>item.row);
@@ -449,12 +452,12 @@
       const seenQuest=new Set(),seenLabcorp=new Set(),converted=[],unmatched=[],unknown=[];
       let duplicates=0,matched=0;
       for(const code of inputCodes){
-        if(seenQuest.has(code)){duplicates++;continue;}
-        seenQuest.add(code);
-        // Exact Quest names work; approximate names require deliberate selection
-        // from the dropdown. No inferred Quest-to-LabCorp equivalence is added.
+        // Exact Quest names work; approximate names require deliberate selection.
         const byName=questByName.get(normalize(code))||[];
         const row=questByCode.get(code)||(byName.length===1?byName[0]:null);
+        const uniqueCode=row?String(row[0]):code;
+        if(seenQuest.has(uniqueCode)){duplicates++;continue;}
+        seenQuest.add(uniqueCode);
         if(!row){unknown.push(code);continue;}
         const match=String(row[3]||'').trim();
         if(!match){unmatched.push(code);continue;}
