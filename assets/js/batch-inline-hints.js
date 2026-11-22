@@ -49,7 +49,7 @@
     }
 
     function syncScroll() {
-      layer.style.transform = 'translateY(' + (-textarea.scrollTop) + 'px)';
+      layer.style.transform = 'translate(' + (-textarea.scrollLeft) + 'px, ' + (-textarea.scrollTop) + 'px)';
     }
 
     function refresh() {
@@ -79,6 +79,9 @@
       overlay.style.letterSpacing = style.letterSpacing;
 
       measurer.style.width = innerWidth + 'px';
+      // The converter uses one source code per visual row. Match the native
+      // textarea's no-wrap behavior when measuring ghost label positions.
+      measurer.style.whiteSpace = textarea.wrap === 'off' ? 'pre' : 'pre-wrap';
       measurer.style.fontFamily = style.fontFamily;
       measurer.style.fontSize = style.fontSize;
       measurer.style.fontWeight = style.fontWeight;
