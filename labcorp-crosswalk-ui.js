@@ -902,6 +902,27 @@
       else if(generatedMatchRows.has(index))refreshOutputHints.shakeCodeLine?.(index);
       else refreshOutputHints.shakeLine?.(index);
     }
+    function insertAlignedRowAfterMatch(outputRow){
+      const match=generatedMatchRows.get(outputRow);
+      if(!isQuestPage||!match)return false;
+      // Add a real blank row immediately after this pair, not at the bottom.
+      // The LabCorp source drives conversion, so both fields must shift before
+      // refreshing the generated Quest results and their decorative labels.
+      const sourceLines=converterInput.value.split('\n');
+      const outputLines=converterOutput.value.split('\n');
+      sourceLines.splice(match.sourceLine+1,0,'');
+      outputLines.splice(outputRow+1,0,'');
+      converterInput.value=sourceLines.join('\n');
+      converterOutput.value=outputLines.join('\n');
+      hideOutputSuggestions();
+      updateConverter();
+      const refreshed=converterOutput.value.split('\n');
+      const nextRow=Math.min(outputRow+1,refreshed.length-1);
+      const caret=refreshed.slice(0,nextRow).reduce((pos,line)=>pos+line.length+1,0);
+      converterOutput.focus({preventScroll:true});
+      converterOutput.setSelectionRange(caret,caret);
+      return true;
+    }
     function installLockedGhostRows(textarea){
       const rowAt=(value,position)=>{
         let line=0;
@@ -976,8 +997,10 @@
           if(textarea===converterOutput&&isLockedRow(textarea,locked)&&
              (kind==='insertLineBreak'||kind==='insertParagraph')&&
              textarea.selectionStart===textarea.selectionEnd){
-            // Enter is navigation, not an edit to the protected Quest code.
-            moveToFreeRow(locked);
+            // A matched Quest code is read-only, but Enter creates a new,
+            // aligned editable row directly underneath it in both panes.
+            if(generatedMatchRows.has(locked))insertAlignedRowAfterMatch(locked);
+            else moveToFreeRow(locked);
             return true;
           }
           if(textarea===converterInput&&isLockedRow(textarea,locked)){
@@ -1351,8 +1374,11 @@
       if(lastContentIndex<0){
         converterOutput.value='';
       }else{
-        const visibleLines=outputLines.slice(0,lastContentIndex+2);
-        while(visibleLines.length<lastContentIndex+2)visibleLines.push('');
+        // Preserve explicit blank LabCorp rows, including an Enter-created
+        // row directly below a match, so neither pane loses its alignment.
+        const visibleCount=Math.max(lastContentIndex+2,aligned.length);
+        const visibleLines=outputLines.slice(0,visibleCount);
+        while(visibleLines.length<visibleCount)visibleLines.push('');
         converterOutput.value=visibleLines.join('\n');
       }
       // A textarea's placeholder would otherwise overlap a single unmatched
