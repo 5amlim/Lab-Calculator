@@ -142,7 +142,7 @@
           var caretLine = (caretPrefix.match(/\n/g)||[]).length;
           if (caretLine === index) tone = null;
         }
-        if (tone === 'unavailable' && visualRows === 1) {
+        if (tone === 'unavailable' && visualRows === 1 && options.colorUnavailable !== false) {
           var colored = document.createElement('span');
           colored.className='batch-inline-ghost-status-text batch-inline-ghost-status-unavailable';
           colored.dataset.lineIndex=String(index);
