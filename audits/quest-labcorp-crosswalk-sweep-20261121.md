@@ -2,13 +2,13 @@
 
 ## Scope and results
 
-- 2,692 unique Quest-coded entries reviewed against 6,015 Labcorp search index records.
-- 15 workbook-only entries without Quest codes (one duplicate Pregnenolone row removed).
+- 2,692 Quest-directory source rows reviewed (2,691 with Quest codes; 1 uncoded 24-hour urine reference) against 6,015 Labcorp search index records.
+- 15 additional workbook-only entries without Quest codes (one duplicate Pregnenolone row removed); 16 uncoded references in total.
 - 2,707 total comparison rows, 593 carrying possible Labcorp codes (584 Quest-coded and 9 workbook-only).
 - 138 new candidates from exact normalized name/token-set and compatible specimen.
 - 220 new allergen-specific IgE candidates with identical allergen and serum specimen; IgG, IgM and ambiguous allergen matches excluded.
 - 46 new manually selected similar-analyte candidates with compatible specimen and no obvious panel/component conflict.
-- 2108 Quest-coded rows remain unmapped. No code was invented or assigned purely from superficial similarity.
+- 2,107 Quest-coded rows remain unmapped, plus 1 uncoded source reference. No code was invented or assigned purely from superficial similarity.
 
 **Caution:** A possible code match is not evidence that two tests are interchangeable. Confirm assay, target, panel/reflex components, matrix, collection supplies, transport, laboratory availability and ordering requirements in the current Labcorp test directory before use. No Quest-specific collection rules were imported into the Labcorp calculator or used for pooling.
 

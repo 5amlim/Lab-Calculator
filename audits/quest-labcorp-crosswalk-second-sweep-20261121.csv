@@ -2679,7 +2679,7 @@
 "95856","Candida Immune Complex","Serum","No","823475","Candida Immune Complex","Serum","POSSIBLE MATCH - not verified equivalent","Name and specimen match; candidate only"
 "97111","HLA Antibody Identification, Class II","Serum","No","168060","HLA Class II Antibody Identification","Serum","POSSIBLE MATCH - not verified equivalent","Name and specimen match; candidate only"
 "97112","HLA DRB1,3,4,5,DQB1, Low Resolution","Whole Blood","No","","","","UNMAPPED - review required",""
-"XXX","24-Hour Urine Collections - Verify Test Requirements","Urine","No","","","","UNMAPPED - review required",""
+"XXX","24-Hour Urine Collections - Verify Test Requirements","Urine","No","","","","UNCODED DIRECTORY REFERENCE - do not treat XXX as a Quest test code",""
 "250","Amikacin, Peak and Trough","Serum","No","","","","UNMAPPED - review required",""
 "444","Gentamicin, Peak and Trough","Serum","No","","","","UNMAPPED - review required",""
 "890","Tobramycin, Peak and Trough","Serum","No","","","","UNMAPPED - review required",""

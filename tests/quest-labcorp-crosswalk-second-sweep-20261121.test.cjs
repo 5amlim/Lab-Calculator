@@ -12,10 +12,10 @@ const rows=Array.from(ctx.window.QUEST_TO_LABCORP_INDEX);
 const byCode=new Map(rows.map(r=>[r[0],r]));
 const codes=new Set(index.map(x=>String(x[0])));
 const eq=(code,labCode)=>assert.equal(byCode.get(code)?.[3],labCode);
-test('unique and complete Quest-coded crosswalk and deduplicated workbook rows',()=>{
- assert.equal(rows.filter(x=>x[0]!=='XXX').length,2692);
- assert.equal(new Set(rows.filter(x=>x[0]!=='XXX').map(x=>x[0])).size,2692);
- assert.equal(rows.filter(x=>x[0]==='XXX').length,15);
+test('complete source crosswalk, one uncoded directory reference and deduplicated workbook rows',()=>{
+ assert.equal(rows.filter(x=>x[0]!=='XXX').length,2691);
+ assert.equal(new Set(rows.filter(x=>x[0]!=='XXX').map(x=>x[0])).size,2691);
+ assert.equal(rows.filter(x=>x[0]==='XXX').length,16);
 });
 test('all suggested Labcorp codes exist in search directory',()=>{
  for(const r of rows)if(r[3])assert.ok(codes.has(String(r[3])),r[0]+':'+r[3]);

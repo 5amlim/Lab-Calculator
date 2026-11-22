@@ -2,12 +2,12 @@
 
 ## Scope and totals
 
-- Compared all 2,692 unique Quest codes with the 6,015-record Labcorp search index.
-- 15 workbook-only rows remain; one duplicate was already removed in the preceding sweep.
+- Compared all 2,692 Quest-directory source rows (2,691 Quest codes and one uncoded 24-hour urine reference) with the 6,015-record Labcorp search index.
+- 15 additional workbook-only rows remain; with the uncoded Quest-directory source reference there are 16 entries lacking Quest codes.
 - Previous crosswalk: 593 possible matches across 2,707 total rows.
 - Second pass adds 237 individually selected analyte/specimen candidate pairs and 34 single-analyte IgG/IgG4 serum candidates, **271 new matches**.
 - Updated crosswalk: 855 Quest-coded entries plus 9 workbook-only entries with possible Labcorp matches, **864 total**.
-- 1837 Quest-coded entries remain unmapped after this pass.
+- 1,836 Quest-coded entries remain unmapped, plus 1 uncoded directory source row.
 - Refined Quest 8181 (A1c with calculated mean plasma glucose) from Labcorp 001453 (HbA1c only) to Labcorp 102525 (HbA1c with eAG).
 
 ## Evidence and exclusions

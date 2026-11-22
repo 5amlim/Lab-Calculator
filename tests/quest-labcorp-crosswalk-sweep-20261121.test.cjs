@@ -7,10 +7,11 @@ const ctx = {window:{}};
 vm.runInNewContext(fs.readFileSync('labcorp-crosswalk-data.js','utf8'),ctx);
 const rows=Array.from(ctx.window.QUEST_TO_LABCORP_INDEX);
 const byCode=new Map(rows.map(r=>[r[0],r]));
-test('crosswalk sweep preserves unique Quest-coded records',()=>{
+test('crosswalk sweep preserves unique source records and recognizes uncoded Quest placeholder',()=>{
  assert.equal(rows.length,2692);
  assert.equal(byCode.size,2692);
- assert.ok(rows.every(r=>r[0]!=='XXX'));
+ assert.equal(rows.filter(r=>r[0]==='XXX').length,1);
+ assert.equal(rows.filter(r=>r[0]!=='XXX').length,2691);
 });
 test('new candidates remain informational and never import collection rules',()=>{
  assert.ok(rows.filter(r=>r[3]).length>=400);
