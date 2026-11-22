@@ -107,7 +107,12 @@
     heads[2].textContent=lab?'Possible Quest cross-reference':'Possible LabCorp cross-reference';
     heads[3].textContent='Next step';
     filter.querySelector('option[value="legacy"]').hidden=lab;
-    if(lab&&filter.value==='legacy')filter.value='all';
+    if(lab&&filter.value==='legacy'){
+      filter.value='all';
+      // The portal button mirrors the native select even when the direction
+      // switch resets an option that is no longer relevant.
+      window.syncPortalSelects?.();
+    }
     const matched=getRows();
     const pending=lab&&!reverse;
     table.innerHTML=pending?'<tr><td colspan="4" class="crosswalk-empty">'+(loadError?'LabCorp index could not be loaded. Please refresh.':'Loading the complete LabCorp active directory…')+'</td></tr>':
