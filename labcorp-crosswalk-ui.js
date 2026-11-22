@@ -363,11 +363,16 @@
       updateConverter();
       refreshConverterHints();
     }
+    const inputPlaceholder=converterInput.placeholder;
+    const manualSourceHints=new Map();
     const refreshConverterHints=window.LabBatchInlineHints?.mount(converterInput,query=>{
       const row=questByCode.get(String(query).trim());
       if(row)return String(row[1]||'').trim()||null;
       const nameMatches=questByName.get(normalize(query))||[];
       return nameMatches.length===1?String(nameMatches[0][0]):null;
+    },{
+      emptyLineHint:index=>manualSourceHints.get(index)||null,
+      minLineCount:()=>manualSourceHints.size?Math.max(...manualSourceHints.keys())+1:0
     })||(()=>{});
     converterInput.addEventListener('focus',renderSuggestions);
     converterInput.addEventListener('click',renderSuggestions);
@@ -596,6 +601,23 @@
           return /^\d+(?:\s+\d+)+$/.test(trimmed)?trimmed.split(/\s+/):[trimmed];
         }).filter(Boolean))];
     }
+    // Mirror directly entered Quest codes as decorative labels in the LabCorp
+    // box on the corresponding row. Never insert those labels into source data.
+    function refreshManualSourceHints(){
+      manualSourceHints.clear();
+      const inputLines=converterInput.value.split('\n');
+      const convertedCodes=new Set(cartCandidateCodes);
+      converterOutput.value.split('\n').forEach((line,index)=>{
+        const code=line.trim();
+        if(code&&!convertedCodes.has(code)&&!inputLines[index]?.trim()){
+          manualSourceHints.set(index,'Manually added');
+        }
+      });
+      // Do not let the multiline example placeholder overlap a manual entry.
+      converterInput.placeholder=manualSourceHints.size&&!converterInput.value.trim()
+        ?'':inputPlaceholder;
+      refreshConverterHints();
+    }
     function inspectCart(codes){
       const detail={action:'inspect',codes,result:null};
       document.dispatchEvent(new CustomEvent((isQuestPage?'quest':'labcorp')+':crosswalk-cart',{detail}));
@@ -665,6 +687,7 @@
       actionFeedback='';
       renderCart();
       refreshOutputHints();
+      refreshManualSourceHints();
       renderOutputSuggestions();
     });
     cartAdd.addEventListener('click',()=>{
@@ -760,6 +783,7 @@
       // source row before painting the ghost text layer.
       syncConverterScroll(converterInput,converterOutput);
       refreshOutputHints();
+      refreshManualSourceHints();
       if(!inputCodes.length){
         matchFeedback=[{text:'Enter '+fromLab+' test codes to see possible matches.',tone:'note',icon:'i'}];
       }else{
