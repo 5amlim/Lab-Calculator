@@ -433,13 +433,13 @@ test('crosswalk loads seven results per Show more action without sideways mobile
   const ui=fs.readFileSync('labcorp-crosswalk-ui.js','utf8');
   const responsive=css.slice(css.indexOf('/* Narrow-screen crosswalk: seven rows per batch, stacked without sideways scrolling. */'));
   assert.ok(responsive.startsWith('/* Narrow-screen crosswalk:'),'Responsive mobile layout must be present');
-  assert.match(responsive,/@media screen and \\(max-width: 900px\\)/);
-  assert.match(responsive,/#convertTestsView\\.test-mode-converter \\.crosswalk-table-wrap\\s*\\{[^}]*overflow-x: clip;[^}]*overflow-y: visible;/);
-  assert.match(responsive,/#convertTestsView\\.test-mode-converter \\.crosswalk-table\\s*\\{[^}]*min-width: 0;/);
-  assert.match(responsive,/#convertTestsView\\.test-mode-converter \\.crosswalk-table tbody tr\\s*\\{[^}]*display: grid;/);
+  assert.match(responsive,/@media screen and \(max-width: 900px\)/);
+  assert.match(responsive,/#convertTestsView\.test-mode-converter \.crosswalk-table-wrap\s*\{[^}]*overflow-x: clip;[^}]*overflow-y: visible;/);
+  assert.match(responsive,/#convertTestsView\.test-mode-converter \.crosswalk-table\s*\{[^}]*min-width: 0;/);
+  assert.match(responsive,/#convertTestsView\.test-mode-converter \.crosswalk-table tbody tr\s*\{[^}]*display: grid;/);
   assert.match(ui,/const PAGE_SIZE=7;/);
-  assert.match(ui,/matched\\.slice\\(0,visible\\)/);
-  assert.match(ui,/more\\.addEventListener\\('click',\\(\\)=>\\{visible\\+=PAGE_SIZE;render\\(\\);\\}\\)/);
+  assert.match(ui,/matched\.slice\(0,visible\)/);
+  assert.match(ui,/more\.addEventListener\('click',\(\)=>\{visible\+=PAGE_SIZE;render\(\);\}\)/);
   assert.ok(!ui.includes("tableWrap?.addEventListener('scroll'"));
   for(const page of ['index.html','labcorp.html']){
     const html=fs.readFileSync(page,'utf8');
@@ -462,9 +462,9 @@ test('crosswalk loads seven results per Show more action without sideways mobile
   };
   vm.runInNewContext(
     'const PAGE_SIZE=7;let visible=PAGE_SIZE;'+ui.slice(begin,end)+
-    '\\nrender();const first=[table.innerHTML,status.textContent,more.hidden,more.textContent];'+
-    '\\nvisible+=PAGE_SIZE;render();const second=[table.innerHTML,status.textContent,more.hidden,more.textContent];'+
-    '\\nvisible+=PAGE_SIZE;render();result=[first,second,[table.innerHTML,status.textContent,more.hidden,more.textContent]];',
+    '\nrender();const first=[table.innerHTML,status.textContent,more.hidden,more.textContent];'+
+    '\nvisible+=PAGE_SIZE;render();const second=[table.innerHTML,status.textContent,more.hidden,more.textContent];'+
+    '\nvisible+=PAGE_SIZE;render();result=[first,second,[table.innerHTML,status.textContent,more.hidden,more.textContent]];',
     context
   );
   const [first,second,third]=context.result;
