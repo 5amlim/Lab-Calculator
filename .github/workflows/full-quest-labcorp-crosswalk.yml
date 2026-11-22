@@ -10,6 +10,8 @@ on:
       - 'labcorp-crosswalk-ui.js'
       - 'labcorp.html'
       - 'tests/full-quest-labcorp-crosswalk-20261121.test.cjs'
+      - 'tests/quest-labcorp-crosswalk-sweep-20261121.test.cjs'
+      - 'tests/quest-labcorp-crosswalk-second-sweep-20261121.test.cjs'
       - '.github/workflows/full-quest-labcorp-crosswalk.yml'
   workflow_dispatch:
 permissions:
