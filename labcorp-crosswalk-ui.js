@@ -604,67 +604,90 @@
         if(!tappingOutputSuggestion&&!outputSuggestionPanel.contains(document.activeElement))hideOutputSuggestions();
       });
     }
-    // Ghost rows are visual references, not editable textarea values.
-    // Protect only those rows, including keyboard, paste, cut, and deletes
-    // that would merge the protected row with another line.
-    function installLockedGhostRows(textarea, lockedHints, refreshHints){
-      const lineForPosition=(value,position)=>{
-        let row=0;
+    // Both sides of a manual or unmatched row are protected; matched rows
+    // remain editable. Ghost labels and the corresponding code shake together.
+    const noMatchRow=index=>{
+      const hint=emptyOutputHints.get(index);
+      return typeof hint==='string'&&hint.startsWith('No match for ');
+    };
+    const isLockedRow=index=>manualSourceHints.has(index)||noMatchRow(index);
+    function shakeLockedRow(index){
+      refreshConverterHints.shakeLine?.(index);
+      refreshOutputHints.shakeLine?.(index);
+      refreshConverterHints.shakeCodeLine?.(index);
+      refreshOutputHints.shakeCodeLine?.(index);
+    }
+    function installLockedGhostRows(textarea){
+      const rowAt=(value,position)=>{
+        let line=0;
         for(let i=0;i<Math.min(position,value.length);i++){
-          if(value.charCodeAt(i)===10)row++;
+          if(value.charCodeAt(i)===10)line++;
         }
-        return row;
+        return line;
       };
-      const blockedRow=(kind)=>{
+      const isBlank=line=>!(textarea.value.split('\n')[line]||'').trim();
+      // New entries stay editable until Enter, paste completion, or leaving
+      // the line, so the first digit does not immediately lock the rest.
+      let draftRow=null;
+      function blockedRow(kind){
         const value=textarea.value;
         const from=Math.max(0,textarea.selectionStart??value.length);
         const to=Math.max(from,textarea.selectionEnd??from);
-        const first=lineForPosition(value,from);
-        const last=lineForPosition(value,to);
-        for(let row=first;row<=last;row++){
-          if(lockedHints.has(row))return row;
+        const first=rowAt(value,from),last=rowAt(value,to);
+        for(let line=first;line<=last;line++){
+          if(isLockedRow(line)&&!(draftRow===line&&from===to&&first===line)){
+            return line;
+          }
         }
         if(from!==to)return null;
-        if(kind==='deleteContentBackward'&&from>0&&value[from-1]==='\n'&&
-            lockedHints.has(first-1))return first-1;
-        if(kind==='deleteContentForward'&&value[from]==='\n'&&
-            lockedHints.has(first+1))return first+1;
+        if(kind==='deleteContentBackward'&&from>0&&value[from-1]==='\n'&&isLockedRow(first-1))return first-1;
+        if(kind==='deleteContentForward'&&value[from]==='\n'&&isLockedRow(first+1))return first+1;
         return null;
-      };
-      const blockEdit=(event,kind)=>{
-        const row=blockedRow(kind);
-        if(row===null)return false;
-        event.preventDefault();
-        refreshHints.shakeLine?.(row);
-        return true;
-      };
+      }
+      function blockEdit(event,kind){
+        const locked=blockedRow(kind);
+        if(locked!==null){
+          event.preventDefault();
+          shakeLockedRow(locked);
+          return true;
+        }
+        if(kind.startsWith('insert')&&textarea.selectionStart===textarea.selectionEnd&&draftRow===null){
+          const line=rowAt(textarea.value,textarea.selectionStart??textarea.value.length);
+          if(isBlank(line))draftRow=line;
+        }
+        return false;
+      }
       textarea.addEventListener('beforeinput',event=>{
-        if(!event.cancelable)return;
-        if(/^(?:insert|delete)/.test(event.inputType||'')){
+        if(event.cancelable&&/^(?:insert|delete)/.test(event.inputType||'')){
           blockEdit(event,event.inputType);
         }
       });
       textarea.addEventListener('keydown',event=>{
         if(event.defaultPrevented||event.isComposing)return;
-        const editing=event.key==='Backspace'||event.key==='Delete'||
-          event.key==='Enter'||(event.key.length===1&&!event.ctrlKey&&!event.metaKey&&!event.altKey);
-        if(!editing)return;
-        const kind=event.key==='Backspace'?'deleteContentBackward':
-          event.key==='Delete'?'deleteContentForward':'insertText';
-        blockEdit(event,kind);
+        const editableKey=event.key==='Backspace'||event.key==='Delete'||event.key==='Enter'||
+          (event.key.length===1&&!event.ctrlKey&&!event.metaKey&&!event.altKey);
+        if(!editableKey)return;
+        blockEdit(event,event.key==='Backspace'?'deleteContentBackward':
+          event.key==='Delete'?'deleteContentForward':
+          event.key==='Enter'?'insertLineBreak':'insertText');
+      });
+      textarea.addEventListener('input',event=>{
+        if(['insertLineBreak','insertParagraph','insertFromPaste','insertFromDrop'].includes(event.inputType))draftRow=null;
+      });
+      textarea.addEventListener('blur',()=>{draftRow=null;});
+      textarea.addEventListener('keyup',event=>{
+        if(draftRow!==null&&/^(Arrow|Home|End|Page)/.test(event.key)&&
+            rowAt(textarea.value,textarea.selectionStart??textarea.value.length)!==draftRow)draftRow=null;
       });
       textarea.addEventListener('click',()=>{
-        const row=blockedRow('insertText');
-        if(row!==null)refreshHints.shakeLine?.(row);
+        const line=rowAt(textarea.value,textarea.selectionStart??textarea.value.length);
+        if(draftRow!==null&&line!==draftRow)draftRow=null;
+        const locked=blockedRow('insertText');
+        if(locked!==null)shakeLockedRow(locked);
       });
     }
-    installLockedGhostRows(converterInput,manualSourceHints,refreshConverterHints);
-    installLockedGhostRows(converterOutput,{
-      has(index){
-        const hint=emptyOutputHints.get(index);
-        return typeof hint==='string' && hint.startsWith('No match for ');
-      }
-    },refreshOutputHints);
+    installLockedGhostRows(converterInput);
+    installLockedGhostRows(converterOutput);
     const cartAdd=document.getElementById('crosswalkAddToCart');
     const cartAddText=document.getElementById('crosswalkAddToCartText');
     let cartCandidateCodes=[],manualOutputCodes=new Set(),matchFeedback=[],actionFeedback='';
