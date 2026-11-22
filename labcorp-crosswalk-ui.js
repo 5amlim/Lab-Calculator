@@ -642,6 +642,19 @@
           manualSourceHints.set(index,{tone:'manual',text:'Manually added'});
         }
       });
+      // Real blank source lines must exist behind every mirrored label.
+      // Otherwise clicking a virtual ghost row places the caret on the wrong
+      // line, and editing there can accidentally associate unrelated tests.
+      // Insert only newlines; labels and matched codes remain read-only hints.
+      if(manualSourceHints.size){
+        const lastHintRow=Math.max(...manualSourceHints.keys());
+        const existingRows=converterInput.value.split('\n').length;
+        const missingRows=lastHintRow+1-existingRows;
+        if(missingRows>0){
+          const end=converterInput.value.length;
+          converterInput.setRangeText('\n'.repeat(missingRows),end,end,'preserve');
+        }
+      }
       // Do not let placeholder examples cover source-side reference rows.
       converterInput.placeholder=manualSourceHints.size&&!converterInput.value.trim()
         ?'':inputPlaceholder;
