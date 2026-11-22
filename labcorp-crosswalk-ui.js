@@ -693,6 +693,7 @@
     const cartAdd=document.getElementById('crosswalkAddToCart');
     const cartAddText=document.getElementById('crosswalkAddToCartText');
     let cartCandidateCodes=[],manualOutputCodes=new Set(),matchFeedback=[],actionFeedback='';
+    let sourceIssueNotes=[];
     let generatedOutputRows=[];
     // Mirrored source labels and missing-match messages are display-only.
     // Never promote them into the editable textarea on focus or click.
@@ -782,24 +783,17 @@
       converterCopy.setAttribute('aria-label',displayed.length?
         'Copy '+displayed.length+' '+toLab+' '+(displayed.length===1?'code':'codes'):'No '+toLab+' codes to copy');
 
-      // Compact, accessible color-coded segments. Keep the existing font size
-      // and the distinction between candidate matches and verified equivalents.
+      // A short summary belongs below both code boxes. The Add to cart
+      // button already reports ready items, and unique/output counts repeat
+      // information visible in the editor.
       const parts=displayed.length
         ? matchFeedback.filter(part=>!part.text.startsWith('Enter '+fromLab+' test codes'))
         : [...matchFeedback];
-      if(cartCandidateCodes.length&&displayed.length!==cartCandidateCodes.length){
-        parts.push({text:displayed.length+' '+toLab+' '+(displayed.length===1?'code':'codes')+' in output',tone:'codes',icon:'▤'});
-      }
       if(manual.length){
-        parts.push({text:manual.length+' '+toLab+' '+(manual.length===1?'code':'codes')+' entered manually',tone:'codes',icon:'✎'});
+        parts.push({text:manual.length+' entered manually',tone:'codes',icon:'✎'});
       }
-      if(ready.length)parts.push({text:ready.length+' ready to add',tone:'ready',icon:'+'});
-      if(already.length)parts.push({text:already.length+' already in cart',tone:'added',icon:'✓'});
-      if(unavailable.length){
-        parts.push({text:'Not in active '+toLab+' catalog: '+unavailable.map(item=>item.code).join(', '),tone:'warning',icon:'!'});
-      }
-      if(!displayed.length&&cartCandidateCodes.length){
-        parts.push({text:'No codes selected',tone:'note',icon:'i'});
+      if(already.length){
+        parts.push({text:already.length+' already in cart',tone:'added',icon:'✓'});
       }
       if(actionFeedback)parts.push({text:actionFeedback,tone:'note',icon:'•'});
       converterFeedback.classList.add('crosswalk-status-line');
@@ -808,6 +802,22 @@
           '<span class="crosswalk-status-icon" aria-hidden="true">'+escape(part.icon)+'</span>'+
           '<span>'+escape(part.text)+'</span>'+
         '</span>').join('');
+
+      // Only actionable problems belong in the warning area, outside the
+      // output card. References that have no clinical crosswalk are
+      // represented by their own "No match" row and the match-rate summary.
+      const warnings=[];
+      if(unavailable.length){
+        warnings.push(unavailable.length+' '+toLab+' '+
+          (unavailable.length===1?'code cannot':'codes cannot')+
+          ' be added: '+unavailable.map(item=>item.code).join(', ')+
+          '. Only active '+toLab+' tests can be added to the cart.');
+      }
+      if(sourceIssueNotes.length){
+        warnings.push(...sourceIssueNotes);
+      }
+      converterWarning.hidden=!warnings.length;
+      converterWarning.textContent=warnings.join(' · ');
       return {codes:ready.map(item=>item.code)};
     }
     converterOutput.addEventListener('input',()=>{
@@ -943,10 +953,8 @@
         matchFeedback=[{text:'Enter '+fromLab+' test codes to see possible matches.',tone:'note',icon:'i'}];
       }else{
         matchFeedback=[
-          {text:matched+' of '+seenQuest.size+' '+fromLab+' codes have candidate matches',
-            tone:matched===seenQuest.size?'matched':'partial',icon:'↔'},
-          {text:converted.length+' unique '+toLab+' '+(converted.length===1?'code':'codes'),
-            tone:'codes',icon:'▤'}
+          {text:matched+' of '+seenQuest.size+' '+fromLab+' '+(seenQuest.size===1?'test':'tests')+' matched',
+            tone:matched===seenQuest.size?'matched':'partial',icon:'↔'}
         ];
         if(duplicates){
           matchFeedback.push({text:duplicates+' duplicate '+(duplicates===1?'entry':'entries')+' omitted',
@@ -956,8 +964,9 @@
       const notes=[];
       if(unmatched.length)notes.push('No '+toLab+' candidate identified: '+unmatched.join(', '));
       if(unknown.length)notes.push('Not found in the active '+fromLab+' index: '+unknown.join(', '));
-      converterWarning.hidden=notes.length===0;
-      converterWarning.textContent=notes.join(' · ');
+      // No destination candidate is already visible beside the input row.
+      // Preserve only index errors not otherwise represented there.
+      sourceIssueNotes=[];
       cartCandidateCodes=converted;
       renderCart();
     }
