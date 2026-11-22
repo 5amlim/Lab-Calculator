@@ -428,55 +428,67 @@ test('2026-11-22 second and third crosswalk passes retain accepted candidate det
   assert.ok(ctx.window.QUEST_TO_LABCORP_METADATA.labcorpMatched>=1047);
 });
 
-test('crosswalk loads seven results per Show more action without sideways mobile scrolling',()=>{
+test('crosswalk displays three rows and loads ten only on Show more click',()=>{
   const css=fs.readFileSync('labcorp-crosswalk.css','utf8');
   const ui=fs.readFileSync('labcorp-crosswalk-ui.js','utf8');
-  const responsive=css.slice(css.indexOf('/* Narrow-screen crosswalk: seven rows per batch, stacked without sideways scrolling. */'));
-  assert.ok(responsive.startsWith('/* Narrow-screen crosswalk:'),'Responsive mobile layout must be present');
+  const responsive=css.slice(css.indexOf('/* Narrow-screen crosswalk: three visible rows, vertically scrollable without sideways scrolling. */'));
+  assert.ok(responsive.startsWith('/* Narrow-screen crosswalk:'),'Responsive layout exists');
   assert.match(responsive,/@media screen and \(max-width: 900px\)/);
-  assert.match(responsive,/#convertTestsView\.test-mode-converter \.crosswalk-table-wrap\s*\{[^}]*overflow-x: clip;[^}]*overflow-y: visible;/);
+  assert.match(responsive,/#convertTestsView\.test-mode-converter \.crosswalk-table-wrap\s*\{[^}]*overflow-x: hidden;[^}]*overflow-y: auto;/);
   assert.match(responsive,/#convertTestsView\.test-mode-converter \.crosswalk-table\s*\{[^}]*min-width: 0;/);
   assert.match(responsive,/#convertTestsView\.test-mode-converter \.crosswalk-table tbody tr\s*\{[^}]*display: grid;/);
-  assert.match(ui,/const PAGE_SIZE=7;/);
-  assert.match(ui,/matched\.slice\(0,visible\)/);
-  assert.match(ui,/more\.addEventListener\('click',\(\)=>\{visible\+=PAGE_SIZE;render\(\);\}\)/);
-  assert.ok(!ui.includes("tableWrap?.addEventListener('scroll'"));
+  assert.match(ui,/const PAGE_SIZE=10;/);
+  assert.match(ui,/const VIEWPORT_ROWS=3;/);
+  assert.match(ui,/Array\.from\(table\.rows\)\.slice\(0,VIEWPORT_ROWS\)/);
+  assert.match(ui,/more\.addEventListener\('click',\(\)=>\{/);
+  assert.match(ui,/visible\+=PAGE_SIZE;/);
+  assert.ok(!ui.includes("tableWrap?.addEventListener('scroll'"),'Scroll must not load the next batch');
   for(const page of ['index.html','labcorp.html']){
     const html=fs.readFileSync(page,'utf8');
     assert.match(html,/class="crosswalk-table-wrap" role="region" aria-label="Crosswalk results"/);
     assert.match(html,/id="labcorpCrosswalkMore"[^>]*aria-controls="labcorpCrosswalkBody"/);
   }
-  // Verify the exact number of rendered DOM rows after successive clicks.
-  const begin=ui.indexOf('  function render(){');
+  // Display count changes by exactly ten; vertical scroll doesn't alter it.
+  const begin=ui.indexOf('  function sizeCrosswalkViewport(){');
   const end=ui.indexOf('  // Bulk test converter;',begin);
   assert.ok(begin>=0&&end>begin);
-  const entries=Array.from({length:20},(_,i)=>[String(i+1),'Test '+(i+1),'Serum','','',0,'','active']);
+  const entries=Array.from({length:24},(_,i)=>[String(i+1),'Test '+(i+1),'Serum','','',0,'','active']);
   const context={
-    isQuestPage:true,rows:entries,meta:{questActiveCount:20,labcorpMatched:0},reverse:null,loadError:false,
+    isQuestPage:true,rows:entries,meta:{questActiveCount:24,labcorpMatched:0},reverse:null,loadError:false,
     direction:{value:'quest'},filter:{value:'all',querySelector(){return {hidden:false};}},
     heads:[{},{},{},{}],summary:{textContent:''},status:{textContent:''},more:{hidden:true,textContent:''},
-    table:{innerHTML:''},getRows(){return entries;},sourceType(){return 'active';},
+    table:{innerHTML:''},tableWrap:null,getRows(){return entries;},sourceType(){return 'active';},
     renderQuest(row){return '<tr data-id="'+row[0]+'"></tr>';},
-    renderLabcorp(row){return '<tr data-id="'+row[0]+'"></tr>';},
-    window:{}
+    renderLabcorp(row){return '<tr data-id="'+row[0]+'"></tr>';},window:{}
   };
   vm.runInNewContext(
-    'const PAGE_SIZE=7;let visible=PAGE_SIZE;'+ui.slice(begin,end)+
+    'const PAGE_SIZE=10;const VIEWPORT_ROWS=3;let visible=PAGE_SIZE;'+ui.slice(begin,end)+
     '\nrender();const first=[table.innerHTML,status.textContent,more.hidden,more.textContent];'+
     '\nvisible+=PAGE_SIZE;render();const second=[table.innerHTML,status.textContent,more.hidden,more.textContent];'+
     '\nvisible+=PAGE_SIZE;render();result=[first,second,[table.innerHTML,status.textContent,more.hidden,more.textContent]];',
     context
   );
   const [first,second,third]=context.result;
-  assert.equal((first[0].match(/<tr /g)||[]).length,7);
-  assert.match(first[1],/Showing 7 of 20 Quest tests/);
+  assert.equal((first[0].match(/<tr /g)||[]).length,10);
+  assert.match(first[1],/Loaded 10 of 24 Quest tests · 3 visible at a time/);
   assert.equal(first[2],false);
-  assert.match(first[3],/Show 7 more tests/);
-  assert.equal((second[0].match(/<tr /g)||[]).length,14);
-  assert.match(second[1],/Showing 14 of 20 Quest tests/);
-  assert.equal(second[2],false);
-  assert.match(second[3],/Show 6 more tests/);
-  assert.equal((third[0].match(/<tr /g)||[]).length,20);
-  assert.match(third[1],/Showing 20 of 20 Quest tests/);
+  assert.match(first[3],/Show 10 more tests/);
+  assert.equal((second[0].match(/<tr /g)||[]).length,20);
+  assert.match(second[1],/Loaded 20 of 24 Quest tests/);
+  assert.match(second[3],/Show 4 more tests/);
+  assert.equal((third[0].match(/<tr /g)||[]).length,24);
   assert.equal(third[2],true);
+
+  // A narrow screen must size the viewport to the first three complete row heights.
+  const rowHeights=[70,100,125,250];
+  const container={style:{},getClientRects(){return [{}]}};
+  const heightContext={
+    tableWrap:container,table:{
+      rows:rowHeights.map(height=>({getBoundingClientRect(){return {height}}})),
+      closest(){return {tHead:{getBoundingClientRect(){return {height:0}}}}}
+    }
+  };
+  vm.runInNewContext('const VIEWPORT_ROWS=3;'+ui.slice(begin,ui.indexOf('  function render(){',begin))+
+    '\nsizeCrosswalkViewport();',heightContext);
+  assert.equal(container.style.maxHeight,'297px');
 });
