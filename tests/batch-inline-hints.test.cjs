@@ -117,7 +117,7 @@ test('unmatched and approximate Add Tests lines keep the first-line search butto
     const start = code.indexOf('          lineTone: query => {', hintStart);
     const end = code.indexOf('\n          }\n        });', start);
     assert.ok(hintStart >= 0 && start >= hintStart && end > start, app + ' must configure lineTone');
-    const tone = code.slice(start, end + '          }'.length);
+    const tone = code.slice(start, end + '\n          }'.length);
     const settings = code.slice(hintStart, end);
     assert.match(settings, /colorUnavailable:\s*false/);
     assert.ok(!tone.includes('findMatches('), app + ' cannot suppress lookup for fuzzy suggestions');
