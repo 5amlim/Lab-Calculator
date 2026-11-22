@@ -1172,6 +1172,33 @@
   }
 }
 
+/* Keep the ↔ marker visible at the end of every generated Quest match,
+   including when its descriptive name is truncated to fit the textarea. */
+@media screen {
+  #crosswalkOutputAutocomplete .batch-inline-ghost-label.crosswalk-matched-result {
+    display:inline-flex;
+    align-items:baseline;
+    max-width:100%;
+    text-overflow:clip;
+  }
+  #crosswalkOutputAutocomplete .crosswalk-matched-name {
+    min-width:0;
+    flex:0 1 auto;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+  }
+  #crosswalkOutputAutocomplete .crosswalk-matched-arrow {
+    flex:0 0 auto;
+    margin-left:.38em;
+    color:#2b8190;
+    font-size:.88em;
+    font-style:normal;
+    font-weight:650;
+    line-height:1;
+  }
+}
+
 /* Action beside the arrow on an unmatched Quest result. */
 @media screen {
   /* The clickable magnifier replaces ↔ before actionable no-match text. */
