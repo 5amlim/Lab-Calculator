@@ -1174,14 +1174,14 @@
 
 /* Action beside the arrow on an unmatched Quest result. */
 @media screen {
-  /* The ↔ remains before the message; the button sits after the final quote. */
+  /* The clickable magnifier replaces ↔ before actionable no-match text. */
   #crosswalkOutputAutocomplete .batch-inline-ghost-no-match.crosswalk-no-match-actionable {
     box-sizing: border-box;
-    padding-left: 0;
+    padding-left: 33px;
   }
   #crosswalkOutputAutocomplete .batch-inline-ghost-no-match.crosswalk-no-match-actionable::before {
-    position: static;
-    margin-right: .45em;
+    display: none;
+    content: none;
   }
   #crosswalkOutputAutocomplete .crosswalk-no-match-actions {
     position:absolute;
@@ -1430,4 +1430,40 @@
   }
   .batch-match-drawer-host[hidden] {display:none!important;}
   body.batch-match-drawer-visible {overflow:hidden;}
+}
+
+/* The two search panels share one prominent official-directory action. */
+@media screen {
+  .crosswalk-match-directory-action {
+    flex: 0 0 auto;
+    display: flex;
+    padding: 0 24px 14px;
+  }
+  .crosswalk-match-directory-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    box-sizing: border-box;
+    padding: 8px 14px;
+    border: 1px solid #bbd4e3;
+    border-radius: 9px;
+    background: #eaf4fa;
+    color: #246185;
+    font-size: 12px;
+    font-weight: 750;
+    line-height: 1.3;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .crosswalk-match-directory-button:hover,
+  .crosswalk-match-directory-button:focus-visible {
+    background: #dceef8;
+    border-color: #86b6d0;
+    color: #174e6e;
+  }
+  @media (max-width: 560px) {
+    .crosswalk-match-directory-action { padding: 0 16px 12px; }
+    .crosswalk-match-directory-button { width: 100%; }
+  }
 }
