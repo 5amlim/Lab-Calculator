@@ -501,8 +501,7 @@
           String(a.row[0]).localeCompare(String(b.row[0])))
         .slice(0,8);
       // A complete, unique code is already represented by its ghost test name.
-      if(!matches.length||matches.some(item=>String(item.row[0])===entry.query)||
-          matches.some(item=>normalize(item.row[1])===query&&item.score===2800)){
+      if(!matches.length||matches.some(item=>String(item.row[0])===entry.query)){
         hideOutputSuggestions();return;
       }
       outputSuggestionEntry=entry;
