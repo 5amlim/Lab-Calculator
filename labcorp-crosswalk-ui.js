@@ -36,11 +36,11 @@
     const matched = matchingRows();
     const subset = matched.slice(0,visible);
     const result = subset.map(row => {
-      const [questCode,questName,questSpecimen,labcorpCode,labcorpName,blocked] = row;
+      const [questCode,questName,questSpecimen,labcorpCode,labcorpName,blocked,matchBasis] = row;
       const usable = Boolean(labcorpCode && active.has(String(labcorpCode)));
       const suggestion = labcorpCode
-        ? '<strong>' + escape(labcorpName) + '</strong><small>LabCorp candidate code ' + escape(labcorpCode) + ' · Verify assay and specimen requirements</small>'
-        : '<span class="crosswalk-pending">LabCorp match not confirmed</span>';
+        ? '<strong>' + escape(labcorpName) + '</strong><small>LabCorp candidate code ' + escape(labcorpCode) + ' · ' + escape(matchBasis || 'Possible match') + ' · Verify assay and specimen requirements</small>'
+        : '<span class="crosswalk-pending">LabCorp match not confirmed</span>' + (matchBasis ? '<small>' + escape(matchBasis) + '</small>' : '');
       const action = usable
         ? '<button type="button" class="crosswalk-open" data-labcorp-code="' + escape(labcorpCode) + '">View LabCorp test (verify equivalence)</button>'
         : '<a href="' + escape(directoryUrl(questName,labcorpCode)) + '" target="_blank" rel="noopener noreferrer">Search LabCorp ↗</a>';
@@ -51,9 +51,13 @@
     }).join('');
     table.innerHTML = result || '<tr><td colspan="4" class="crosswalk-empty">No matches in this comparison. Try a different name or code.</td></tr>';
     count.textContent = 'Showing ' + Math.min(visible,matched.length).toLocaleString() + ' of ' +
-      matched.length.toLocaleString() + ' Quest tests' + (filter.value === 'suggested' ? ' with possible LabCorp matches' : '');
-    summary.textContent = rows.length.toLocaleString() + ' Quest entries · ' +
-      rows.filter(row => Boolean(row[3])).length.toLocaleString() + ' possible LabCorp code matches';
+      matched.length.toLocaleString() + ' comparison entries' + (filter.value === 'suggested' ? ' with possible LabCorp matches' : '');
+    const questTotal = rows.filter(row => row[0] !== 'XXX').length;
+    const workbookTotal = rows.length - questTotal;
+    summary.textContent = rows.length.toLocaleString() + ' comparison entries (' +
+      questTotal.toLocaleString() + ' Quest codes + ' + workbookTotal.toLocaleString() +
+      ' workbook-only) · ' + rows.filter(row => Boolean(row[3])).length.toLocaleString() +
+      ' possible LabCorp code matches';
     more.hidden = matched.length <= visible;
   }
   search.addEventListener('input', () => { visible=24; render(); });
@@ -72,9 +76,9 @@
   exportCsv.addEventListener('click',() => {
     const columns = ['Quest test code (reference only)','Quest test name','Quest specimen (reference only)',
       'Possible LabCorp code (not verified as equivalent)','Possible LabCorp name',
-      'Match status','LabCorp directory lookup URL'];
+      'Match status','Match basis / review note','LabCorp directory lookup URL'];
     const fields = [columns, ...rows.map(row => [row[0],row[1],row[2],row[3],row[4],
-      row[3] ? 'Possible match - verify before use' : 'Unmapped - verification required',directoryUrl(row[1],row[3])])];
+      row[3] ? 'Possible match - verify before use' : 'Unmapped - verification required',row[6] || '',directoryUrl(row[1],row[3])])];
     const quote = cell => '"' + String(cell == null ? '' : cell).replace(/"/g,'""') + '"';
     const output = '\uFEFF' + fields.map(r => r.map(quote).join(',')).join('\r\n');
     const blob = new Blob([output],{type:'text/csv;charset=utf-8'});
