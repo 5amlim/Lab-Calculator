@@ -394,10 +394,10 @@
       questNames.get(String(code).trim())||null)||(()=>{});
     const cartAdd=document.getElementById('crosswalkAddToCart');
     const cartAddText=document.getElementById('crosswalkAddToCartText');
-    let cartCandidateCodes=[],matchFeedback=[],actionFeedback='';
+    let cartCandidateCodes=[],manualOutputCodes=new Set(),matchFeedback=[],actionFeedback='';
 
-    // The right-hand textarea is the only selection area: remove lines to exclude
-    // codes from both Copy and Add. New codes must come from the current crosswalk.
+    // The right-hand textarea accepts converted candidates and direct catalog codes.
+    // Only entries found in the active destination-lab catalog can be added.
     function outputCodes(){
       return [...new Set(converterOutput.value.split(/[\n,;\t]+/)
         .flatMap(value=>{
@@ -413,18 +413,18 @@
     function renderCart(){
       const displayed=outputCodes();
       const candidates=new Set(cartCandidateCodes);
-      const foreign=displayed.filter(code=>!candidates.has(code));
-      const valid=displayed.filter(code=>candidates.has(code));
-      const items=inspectCart(valid);
+      const manual=displayed.filter(code=>!candidates.has(code));
+      // The cart's active catalog is authoritative. Directly entered codes do
+      // not need a crosswalk match, but cannot add reference-only/unknown tests.
+      const items=inspectCart(displayed);
       const ready=items.filter(item=>item.status==='available');
       const already=items.filter(item=>item.status==='added');
       const unavailable=items.filter(item=>item.status==='unavailable');
-      const blocked=foreign.length>0;
       // Reflect the current cart, not just the last click. If any test is
       // removed from the cart, the blue Add button becomes available again.
-      const allInCart=!blocked&&displayed.length>0&&already.length===displayed.length;
+      const allInCart=displayed.length>0&&already.length===displayed.length;
       cartAdd.classList.toggle('is-added',allInCart);
-      cartAdd.disabled=allInCart||!ready.length||blocked;
+      cartAdd.disabled=allInCart||!ready.length;
       cartAddText.textContent=allInCart
         ?(already.length===1?'In cart':'All '+already.length+' in cart')
         :(ready.length?'Add '+ready.length+' to cart':'Add to cart');
@@ -432,8 +432,8 @@
         already.length+' '+toLab+' '+(already.length===1?'test is':'tests are')+' already in cart':
         (ready.length?'Add '+ready.length+' '+toLab+' '+(ready.length===1?'test':'tests')+' to cart':'No '+toLab+' tests ready to add'));
       cartAdd.title=allInCart?'All selected '+toLab+' tests are in your cart':
-        blocked?'Remove unmapped codes before adding':
-        ready.length?'Add '+ready.length+' '+toLab+' '+(ready.length===1?'test':'tests')+' to your cart':'No new tests to add';
+        ready.length?'Add '+ready.length+' active '+toLab+' '+(ready.length===1?'test':'tests')+' to your cart':
+        unavailable.length?'No valid active '+toLab+' codes ready to add':'No new tests to add';
       converterCopy.disabled=!displayed.length;
       converterCopy.setAttribute('aria-label',displayed.length?
         'Copy '+displayed.length+' '+toLab+' '+(displayed.length===1?'code':'codes'):'No '+toLab+' codes to copy');
@@ -444,14 +444,15 @@
       if(cartCandidateCodes.length&&displayed.length!==cartCandidateCodes.length){
         parts.push({text:displayed.length+' '+toLab+' '+(displayed.length===1?'code':'codes')+' in output',tone:'codes',icon:'▤'});
       }
-      if(blocked){
-        parts.push({text:'Remove unmapped '+(foreign.length===1?'code':'codes')+': '+foreign.join(', '),tone:'warning',icon:'!'});
-      }else if(ready.length){
-        parts.push({text:ready.length+' ready to add',tone:'ready',icon:'+'});
+      if(manual.length){
+        parts.push({text:manual.length+' '+toLab+' '+(manual.length===1?'code':'codes')+' entered manually',tone:'codes',icon:'✎'});
       }
+      if(ready.length)parts.push({text:ready.length+' ready to add',tone:'ready',icon:'+'});
       if(already.length)parts.push({text:already.length+' already in cart',tone:'added',icon:'✓'});
-      if(unavailable.length)parts.push({text:unavailable.length+' unavailable in catalog',tone:'warning',icon:'!'});
-      if(!blocked&&!displayed.length&&cartCandidateCodes.length){
+      if(unavailable.length){
+        parts.push({text:'Not in active '+toLab+' catalog: '+unavailable.map(item=>item.code).join(', '),tone:'warning',icon:'!'});
+      }
+      if(!displayed.length&&cartCandidateCodes.length){
         parts.push({text:'No codes selected',tone:'note',icon:'i'});
       }
       if(actionFeedback)parts.push({text:actionFeedback,tone:'note',icon:'•'});
@@ -461,16 +462,20 @@
           '<span class="crosswalk-status-icon" aria-hidden="true">'+escape(part.icon)+'</span>'+
           '<span>'+escape(part.text)+'</span>'+
         '</span>').join('');
-      return {codes:ready.map(item=>item.code),blocked};
+      return {codes:ready.map(item=>item.code)};
     }
     converterOutput.addEventListener('input',()=>{
+      // Preserve manual codes when the LabCorp input list changes, but respect
+      // any manual deletions made in this editable output box.
+      const candidates=new Set(cartCandidateCodes);
+      manualOutputCodes=new Set(outputCodes().filter(code=>!candidates.has(code)));
       actionFeedback='';
       renderCart();
     });
     cartAdd.addEventListener('click',()=>{
       actionFeedback='';
       const selection=renderCart();
-      if(selection.blocked||!selection.codes.length)return;
+      if(!selection.codes.length)return;
       const detail={action:'add',codes:selection.codes,result:null};
       document.dispatchEvent(new CustomEvent((isQuestPage?'quest':'labcorp')+':crosswalk-cart',{detail}));
       if(!detail.result){
@@ -511,7 +516,9 @@
           if(!seenLabcorp.has(match)){seenLabcorp.add(match);converted.push(match);}
         }
       }
-      converterOutput.value=converted.join('\n');
+      // Keep manually entered codes (including entries not in the crosswalk)
+      // when source tests are edited. Dedupe if a manual code later matches.
+      converterOutput.value=[...new Set([...converted,...manualOutputCodes])].join('\n');
       refreshOutputHints();
       if(!inputCodes.length){
         matchFeedback=[{text:'Enter '+fromLab+' test codes to see possible matches.',tone:'note',icon:'i'}];
