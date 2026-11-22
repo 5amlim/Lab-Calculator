@@ -390,8 +390,12 @@
     // code, just like the source input. The textarea remains codes-only for Copy.
     const questNames=new Map(rows.filter(row=>sourceType(row)==='active')
       .map(row=>[String(row[0]||'').trim(),String(row[1]||'').trim()]));
+    let emptyOutputHints=new Map();
+    const outputPlaceholder=converterOutput.placeholder;
     const refreshOutputHints=window.LabBatchInlineHints?.mount(converterOutput,code=>
-      questNames.get(String(code).trim())||null)||(()=>{});
+      questNames.get(String(code).trim())||null,{
+        emptyLineHint:index=>emptyOutputHints.get(index)||null
+      })||(()=>{});
     const cartAdd=document.getElementById('crosswalkAddToCart');
     const cartAddText=document.getElementById('crosswalkAddToCartText');
     let cartCandidateCodes=[],manualOutputCodes=new Set(),matchFeedback=[],actionFeedback='';
@@ -501,26 +505,61 @@
           return /^\d+(?:\s+\d+)+$/.test(trimmed)?trimmed.split(/\s+/):[trimmed];
         }).filter(Boolean);
       const seenQuest=new Set(),seenLabcorp=new Set(),converted=[],unmatched=[],unknown=[];
+      // Each nonempty source entry gets exactly one destination row. Missing
+      // matches occupy a blank editable line with a decorative ghost message.
+      // Extra candidates (where a source has several) follow the aligned rows.
+      const aligned=[],extras=[],ghosts=new Map();
+      const blankWithHint=text=>{
+        ghosts.set(aligned.length,text);
+        aligned.push('');
+      };
       let duplicates=0,matched=0;
       for(const code of inputCodes){
-        // Exact Quest names work; approximate names require deliberate selection.
         const byName=questByName.get(normalize(code))||[];
         const row=questByCode.get(code)||(byName.length===1?byName[0]:null);
         const uniqueCode=row?String(row[0]):code;
-        if(seenQuest.has(uniqueCode)){duplicates++;continue;}
+        if(seenQuest.has(uniqueCode)){
+          duplicates++;
+          blankWithHint('Already listed: '+code);
+          continue;
+        }
         seenQuest.add(uniqueCode);
-        if(!row){unknown.push(code);continue;}
+        if(!row){
+          unknown.push(code);
+          blankWithHint('No match for '+code);
+          continue;
+        }
         const candidates=(isQuestPage?(row[9]||[]):[row[3]])
           .map(candidate=>String(candidate||'').trim()).filter(Boolean);
-        if(!candidates.length){unmatched.push(code);continue;}
+        if(!candidates.length){
+          unmatched.push(code);
+          blankWithHint('No match for '+code);
+          continue;
+        }
         matched++;
-        for(const match of candidates){
-          if(!seenLabcorp.has(match)){seenLabcorp.add(match);converted.push(match);}
+        const fresh=candidates.filter(match=>!seenLabcorp.has(match));
+        // Keep all codes for Copy and Add, even if several LabCorp tests share
+        // the same destination code or one test has multiple candidates.
+        for(const match of fresh){
+          seenLabcorp.add(match);
+          converted.push(match);
+        }
+        if(fresh.length){
+          aligned.push(fresh[0]);
+          extras.push(...fresh.slice(1));
+        }else{
+          blankWithHint('Already listed: '+code);
         }
       }
-      // Keep manually entered codes (including entries not in the crosswalk)
-      // when source tests are edited. Dedupe if a manual code later matches.
-      converterOutput.value=[...new Set([...converted,...manualOutputCodes])].join('\n');
+      const outputLines=[...aligned,...extras];
+      for(const manualCode of manualOutputCodes){
+        if(!seenLabcorp.has(manualCode)) outputLines.push(manualCode);
+      }
+      emptyOutputHints=ghosts;
+      converterOutput.value=outputLines.join('\n');
+      // A textarea's placeholder would otherwise overlap a single unmatched
+      // entry's ghost hint when there are no real codes in the output.
+      converterOutput.placeholder=ghosts.has(0)&&!converterOutput.value?'':outputPlaceholder;
       refreshOutputHints();
       if(!inputCodes.length){
         matchFeedback=[{text:'Enter '+fromLab+' test codes to see possible matches.',tone:'note',icon:'i'}];
