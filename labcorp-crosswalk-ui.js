@@ -925,29 +925,31 @@
       converterOutput.setSelectionRange(caret,caret);
       return true;
     }
-    function removeAlignedBlankRow(outputRow){
-      if(!isQuestPage||outputRow<=0)return false;
+    function removeAlignedBlankRow(row,focusTarget=converterOutput){
+      if(!isQuestPage||row<=0)return false;
       const sourceLines=converterInput.value.split('\n');
       const outputLines=converterOutput.value.split('\n');
-      // Only remove a real empty pair, never a no-match placeholder, a
-      // generated match, or a row holding a manually entered Quest code.
-      if(outputRow>=sourceLines.length||outputRow>=outputLines.length||
-         sourceLines[outputRow].trim()||outputLines[outputRow].trim()||
-         emptyOutputHints.has(outputRow)||generatedMatchRows.has(outputRow))return false;
-      sourceLines.splice(outputRow,1);
-      outputLines.splice(outputRow,1);
+      // A blank line is removable only if BOTH sides are empty. Preserve
+      // generated matches, no-match hints, and manually entered Quest codes.
+      if(row>=sourceLines.length||row>=outputLines.length||
+         sourceLines[row].trim()||outputLines[row].trim()||
+         emptyOutputHints.has(row)||generatedMatchRows.has(row)||
+         manualSourceHints.has(row))return false;
+      sourceLines.splice(row,1);
+      outputLines.splice(row,1);
       converterInput.value=sourceLines.join('\n');
       converterOutput.value=outputLines.join('\n');
       hideOutputSuggestions();
       updateConverter();
-      // The matched row remains read-only. Backspace only removes the line
-      // boundary and returns the caret to the previous Quest row.
-      const lines=converterOutput.value.split('\n');
-      const previous=Math.min(outputRow-1,lines.length-1);
+      const lines=focusTarget.value.split('\n');
+      let previous=Math.min(row-1,lines.length-1);
+      // A manual Quest entry may create a read-only provenance label on
+      // the LabCorp side. Do not leave the caret inside that protected row.
+      while(previous>0&&isLockedRow(focusTarget,previous))previous--;
       const caret=lines.slice(0,previous).reduce((n,line)=>n+line.length+1,0)+
         lines[previous].length;
-      converterOutput.focus({preventScroll:true});
-      converterOutput.setSelectionRange(caret,caret);
+      focusTarget.focus({preventScroll:true});
+      focusTarget.setSelectionRange(caret,caret);
       return true;
     }
     function installLockedGhostRows(textarea){
@@ -996,6 +998,29 @@
         return null;
       }
       function blockEdit(event,kind,data){
+        // Backspace from a blank LabCorp row removes the aligned blank row
+        // in Quest as well. It must not erase a manual Quest entry or
+        // merge an existing LabCorp test into another row.
+        if(kind==='deleteContentBackward'&&textarea===converterInput&&
+           textarea.selectionStart===textarea.selectionEnd){
+          const value=textarea.value;
+          const caret=textarea.selectionStart??value.length;
+          const currentRow=rowAt(value,caret);
+          const lineStart=value.lastIndexOf('\n',caret-1)+1;
+          if(caret===lineStart&&currentRow>0&&isBlank(currentRow)&&
+             !isLockedRow(textarea,currentRow)){
+            if(removeAlignedBlankRow(currentRow,converterInput)){
+              event.preventDefault();
+              return true;
+            }
+            // Rows paired with a manual Quest code are display-only here.
+            // When the empty row cannot be removed, keep both fields aligned.
+            if(converterOutput.value.split('\n')[currentRow]?.trim()){
+              event.preventDefault();
+              return true;
+            }
+          }
+        }
         // Backspace from an empty Quest line removes the corresponding
         // empty LabCorp line, including one inserted with Enter after a match.
         if(kind==='deleteContentBackward'&&textarea===converterOutput&&
