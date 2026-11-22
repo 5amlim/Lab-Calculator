@@ -127,6 +127,7 @@
           if (space >= 32) {
             var label = document.createElement('span');
             label.className = 'batch-inline-ghost-label';
+            label.dataset.lineIndex = String(index);
             label.textContent = (query ? '\u2022 ' : '') + hintText;
             if (!query) label.classList.add('batch-inline-ghost-empty');
             if (hint && typeof hint === 'object') {
@@ -156,6 +157,27 @@
       });
       syncScroll();
     }
+
+    // Shake only the protected decorative label. Never edit its ghost text.
+    refresh.shakeLine = function (lineIndex) {
+      var label = Array.from(layer.querySelectorAll('.batch-inline-ghost-label'))
+        .find(function (node) { return node.dataset.lineIndex === String(lineIndex); });
+      if (!label || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+      if (typeof label.animate === 'function') {
+        label.animate([
+          { transform: 'translateX(0)' },
+          { transform: 'translateX(-4px)' },
+          { transform: 'translateX(4px)' },
+          { transform: 'translateX(-3px)' },
+          { transform: 'translateX(3px)' },
+          { transform: 'translateX(0)' }
+        ], { duration: 260, easing: 'ease-in-out' });
+      } else {
+        label.classList.remove('crosswalk-locked-shake');
+        void label.offsetWidth;
+        label.classList.add('crosswalk-locked-shake');
+      }
+    };
 
     textarea.addEventListener('input', refresh);
     textarea.addEventListener('scroll', syncScroll, { passive: true });
