@@ -127,3 +127,19 @@
     .crosswalk-cart-add {flex:1}
   }
 }
+
+
+/* Match the main test-search autocomplete, tailored to the converter blue theme. */
+@media screen {
+  .labcorp-crosswalk[open] {overflow:visible}
+  .crosswalk-converter-field {position:relative}
+  .crosswalk-converter-field:focus-within {z-index:8}
+  .crosswalk-autocomplete {position:relative}
+  .crosswalk-autocomplete > textarea {width:100%}
+  .crosswalk-autocomplete .calc-suggestions {top:calc(100% + 6px);border-color:#bad5e8;box-shadow:0 16px 38px rgba(17,55,82,.20);background:#fff}
+  .crosswalk-autocomplete .calc-suggestion-option:hover,
+  .crosswalk-autocomplete .calc-suggestion-option.is-active,
+  .crosswalk-autocomplete .calc-suggestion-option:focus-visible {background:#ebf5fc;border-color:#c2ddec}
+  .crosswalk-autocomplete .calc-suggestion-arrow {color:#376e96}
+  .crosswalk-autocomplete .batch-inline-ghost-label {color:#8fa2b1}
+}
