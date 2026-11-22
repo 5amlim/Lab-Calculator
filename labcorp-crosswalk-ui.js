@@ -610,18 +610,25 @@
         if(!tappingOutputSuggestion&&!outputSuggestionPanel.contains(document.activeElement))hideOutputSuggestions();
       });
     }
-    // Both sides of a manual or unmatched row are protected; matched rows
-    // remain editable. Ghost labels and the corresponding code shake together.
+    // A source-lab code is editable even when it currently has no match.
+    // Only its destination-side "No match for..." ghost is read-only.
+    // Keep the existing paired lock for separately manually added rows.
     const noMatchRow=index=>{
       const hint=emptyOutputHints.get(index);
       return typeof hint==='string'&&hint.startsWith('No match for ');
     };
-    const isLockedRow=index=>manualSourceHints.has(index)||noMatchRow(index);
+    const isLockedRow=(textarea,index)=>manualSourceHints.has(index)||
+      (textarea===converterOutput&&noMatchRow(index));
     function shakeLockedRow(index){
-      refreshConverterHints.shakeLine?.(index);
-      refreshOutputHints.shakeLine?.(index);
-      refreshConverterHints.shakeCodeLine?.(index);
-      refreshOutputHints.shakeCodeLine?.(index);
+      if(manualSourceHints.has(index)){
+        refreshConverterHints.shakeLine?.(index);
+        refreshOutputHints.shakeLine?.(index);
+        refreshConverterHints.shakeCodeLine?.(index);
+        refreshOutputHints.shakeCodeLine?.(index);
+      }else if(noMatchRow(index)){
+        // The original source code stays editable and must not shake.
+        refreshOutputHints.shakeLine?.(index);
+      }
     }
     function installLockedGhostRows(textarea){
       const rowAt=(value,position)=>{
@@ -641,13 +648,13 @@
         const to=Math.max(from,textarea.selectionEnd??from);
         const first=rowAt(value,from),last=rowAt(value,to);
         for(let line=first;line<=last;line++){
-          if(isLockedRow(line)&&!(draftRow===line&&from===to&&first===line)){
+          if(isLockedRow(textarea,line)&&!(draftRow===line&&from===to&&first===line)){
             return line;
           }
         }
         if(from!==to)return null;
-        if(kind==='deleteContentBackward'&&from>0&&value[from-1]==='\n'&&isLockedRow(first-1))return first-1;
-        if(kind==='deleteContentForward'&&value[from]==='\n'&&isLockedRow(first+1))return first+1;
+        if(kind==='deleteContentBackward'&&from>0&&value[from-1]==='\n'&&isLockedRow(textarea,first-1))return first-1;
+        if(kind==='deleteContentForward'&&value[from]==='\n'&&isLockedRow(textarea,first+1))return first+1;
         return null;
       }
       function blockEdit(event,kind){
