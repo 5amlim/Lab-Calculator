@@ -990,12 +990,20 @@
           unmatchedSourceRows.add(index);
         }
       }
-      // Keep a blank line after the last mapped/manual code so staff can type
-      // another destination code immediately. Blank rows still preserve their
-      // source-row alignment, while Copy/Add use only nonempty outputCodes().
-      // Even if every candidate is missing, leave one unprotected blank row.
-      converterOutput.value=outputLines.join('\n')+
-        (outputLines.some(Boolean)||ghosts.size?'\n':'');
+      // Leave exactly one usable blank line after the last code or ghost.
+      // Do not append a second blank line when the source already ends in
+      // a newline. Preserve intermediate blank rows for row alignment.
+      const lastCodeIndex=outputLines.reduce((last,line,index)=>
+        line.trim()?index:last,-1);
+      const lastGhostIndex=ghosts.size?Math.max(...ghosts.keys()):-1;
+      const lastContentIndex=Math.max(lastCodeIndex,lastGhostIndex);
+      if(lastContentIndex<0){
+        converterOutput.value='';
+      }else{
+        const visibleLines=outputLines.slice(0,lastContentIndex+2);
+        while(visibleLines.length<lastContentIndex+2)visibleLines.push('');
+        converterOutput.value=visibleLines.join('\n');
+      }
       // A textarea's placeholder would otherwise overlap a single unmatched
       // entry's ghost hint when there are no real codes in the output.
       converterOutput.placeholder=ghosts.has(0)&&!converterOutput.value?'':outputPlaceholder;
