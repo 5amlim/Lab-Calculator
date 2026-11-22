@@ -341,6 +341,7 @@
   };
   let toastTimer;
   let refreshBatchHints = () => {};
+  let batchMatchFinder = null;
 
   function init() {
     if (els.categoryFilter && window.LabClinicalCategories) {
@@ -349,11 +350,40 @@
           `<option value="${id}">${label.replace(/&/g, '&amp;')}</option>`).join('');
     }
     if (window.LabBatchInlineHints) {
+      // Keep this search inside the active catalog. A manual selection only
+      // replaces its original input line; Add/Review remain separate actions.
+      batchMatchFinder = window.LabBatchMatchFinder?.mount({
+        textarea: els.searchInput,
+        lab: 'LabCorp',
+        directoryUrl: directorySearchUrl,
+        search: query => findMatches(query, 40)
+          .filter(({test}) => test.status === 'active')
+          .map(({test}) => ({
+            code: String(test.testCode || '').trim(),
+            name: String(test.testName || ''),
+            specimen: String(test.specimenType || '')
+          })).filter(test => test.code),
+        onSelect: (index, original, code) => {
+          const text = els.searchInput.value;
+          const lines = text.split('\n');
+          if (lines[index]?.trim() !== original) return false;
+          const selected = database.some(test => test.status === 'active' &&
+            String(test.testCode || '').trim() === code);
+          if (!selected) return false;
+          const start = lines.slice(0,index).reduce((pos,line)=>pos+line.length+1,0);
+          els.searchInput.setRangeText(code,start,start+lines[index].length,'end');
+          els.searchInput.dispatchEvent(new Event('input',{bubbles:true}));
+          closeSuggestions('batch');
+          refreshBatchHints();
+          return true;
+        }
+      });
       refreshBatchHints = window.LabBatchInlineHints.mount(els.searchInput, query =>
         window.LabBatchInlineHints.resolveExact(query, database, normalizeSearch), {
           // A non-addable exact code is distinct from an unverified candidate.
           // Preserve normal text color for active codes, categories, shorthands,
           // and tests whose possible matches still require review.
+          onStatusRows: lines => batchMatchFinder?.sync(lines),
           lineTone: query => {
             const value = String(query || '').trim();
             if (!value) return null;
