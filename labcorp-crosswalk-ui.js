@@ -389,10 +389,10 @@
     // The right-hand textarea is the only selection area: remove lines to exclude
     // codes from both Copy and Add. New codes must come from the current crosswalk.
     function outputCodes(){
-      return [...new Set(converterOutput.value.split(/[\\n,;\\t]+/)
+      return [...new Set(converterOutput.value.split(/[\n,;\t]+/)
         .flatMap(value=>{
           const trimmed=value.trim();
-          return /^\\d+(?:\\s+\\d+)+$/.test(trimmed)?trimmed.split(/\\s+/):[trimmed];
+          return /^\d+(?:\s+\d+)+$/.test(trimmed)?trimmed.split(/\s+/):[trimmed];
         }).filter(Boolean))];
     }
     function inspectCart(codes){
@@ -478,7 +478,7 @@
           if(!seenLabcorp.has(match)){seenLabcorp.add(match);converted.push(match);}
         }
       }
-      converterOutput.value=converted.join('\\n');
+      converterOutput.value=converted.join('\n');
       if(!inputCodes.length){
         matchFeedback='Enter '+fromLab+' test codes to see possible matches.';
       }else{
@@ -496,7 +496,7 @@
     }
     converterInput.addEventListener('input',()=>{updateConverter();renderSuggestions();});
     converterCopy.addEventListener('click',async()=>{
-      const textToCopy=outputCodes().join('\\n');
+      const textToCopy=outputCodes().join('\n');
       if(!textToCopy)return;
       try{
         if(!navigator.clipboard?.writeText)throw Error('Clipboard API unavailable');
