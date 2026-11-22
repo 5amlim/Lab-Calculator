@@ -172,4 +172,10 @@
     color: #8798a7;
     font-weight: 400;
   }
+  /* Same placeholder color and opacity as the Convert Tests textareas. */
+  #findTestsView #searchInput::placeholder {
+    color: #9aaebc;
+    font-weight: 450;
+    opacity: 1;
+  }
 }
