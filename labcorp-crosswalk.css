@@ -143,3 +143,40 @@
   .crosswalk-autocomplete .calc-suggestion-arrow {color:#376e96}
   .crosswalk-autocomplete .batch-inline-ghost-label {color:#8fa2b1}
 }
+
+/* Compact converter result statuses. Color and symbols, no font-size increase. */
+@media screen {
+  #crosswalkConverterFeedback.crosswalk-status-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 13px;
+    row-gap: 4px;
+  }
+  .crosswalk-status-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    max-width: 100%;
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: 650;
+    overflow-wrap: anywhere;
+  }
+  .crosswalk-status-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    min-width: 10px;
+    font-size: inherit;
+    font-weight: 850;
+  }
+  .crosswalk-status-item--matched { color: #08747b; }
+  .crosswalk-status-item--partial { color: #97601e; }
+  .crosswalk-status-item--codes { color: #315f85; }
+  .crosswalk-status-item--ready { color: #217246; }
+  .crosswalk-status-item--added { color: #77603c; }
+  .crosswalk-status-item--warning { color: #9e4c2d; }
+  .crosswalk-status-item--note { color: #58758b; }
+}
