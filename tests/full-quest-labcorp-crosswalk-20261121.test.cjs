@@ -62,9 +62,9 @@ const converterBegin=converterUI.indexOf('    function updateConverter(){');
 const converterEnd=converterUI.indexOf("    converterInput.addEventListener('input'",converterBegin);
 assert.ok(converterBegin>=0&&converterEnd>converterBegin,'Converter entry point is present');
 const converterFunction=converterUI.slice(converterBegin,converterEnd);
-function convertFixture(input,manual=[],chosen=[]){
+function convertFixture(input,manual=[],chosen=[],questPage=true){
   const ctx={
-    isQuestPage:true,fromLab:'LabCorp',toLab:'Quest',
+    isQuestPage:questPage,fromLab:questPage?'LabCorp':'Quest',toLab:questPage?'Quest':'LabCorp',
     normalize:s=>String(s).toLowerCase().trim(),
     questByCode:new Map([
       ['809523',['809523','Lithium, Urine','','','',0,'','active',[],[]]],
@@ -151,6 +151,39 @@ test('automated and manually chosen matches remain separately tracked from edita
   assert.deepEqual(Array.from(selected.cartCandidateCodes),['201']);
 });
 
+test('Quest-to-LabCorp output keeps matched and unmatched rows aligned',()=>{
+  const state=convertFixture('005215\n809523',[],[],false);
+  assert.equal(state.converterOutput.value,'809\n\n');
+  assert.equal(state.generatedMatchRows.get(0).code,'809');
+  assert.equal(state.emptyOutputHints.get(1),'No match for "809523 · Lithium, Urine"');
+});
+test('Quest-to-LabCorp manually chosen matches are separate from typed entries',()=>{
+  const state=convertFixture('809523',[],[['809523',{code:'005215'}]],false);
+  assert.equal(state.converterOutput.value,'005215\n');
+  assert.equal(state.generatedMatchRows.get(0).code,'005215');
+  assert.deepEqual(Array.from(state.cartCandidateCodes),['005215']);
+});
+test('LabCorp page has identical autocomplete, match protection and source removal hooks',()=>{
+  const labPage=fs.readFileSync('labcorp.html','utf8');
+  const questPage=fs.readFileSync('index.html','utf8');
+  for(const page of [labPage,questPage]){
+    assert.match(page,/id="crosswalkOutputAutocomplete"/);
+    assert.match(page,/id="crosswalkOutputSuggestions"/);
+    assert.match(page,/id="crosswalkLabcorpOutput"[^>]*role="combobox"/);
+    assert.match(page,/id="crosswalkLabcorpOutput"[^>]*aria-controls="crosswalkOutputSuggestions"/);
+  }
+  const ui=fs.readFileSync('labcorp-crosswalk-ui.js','utf8');
+  assert.match(ui,/const destinationCatalog=isQuestPage/);
+  assert.match(ui,/const outputSuggestionItems=destinationCatalog\.map/);
+  assert.match(ui,/isMatchedRow:\(index,code\)=>\s*generatedMatchRows\.get/);
+  assert.match(ui,/onNoMatchAction:index=>openDestinationMatchDrawer\(index\)/);
+  assert.match(ui,/const sourceActionLayer=sourceContainer\?document\.createElement/);
+  assert.match(ui,/const drawer=outputContainer\?document\.createElement/);
+  assert.match(ui,/if\(!match\)return false;/);
+  assert.match(ui,/if\(row<=0\)return false;/);
+  assert.doesNotMatch(ui,/if\(!isQuestPage\)initConverter\(\)/);
+  assert.match(ui,/reverse=buildReverse\(index\);[\s\S]{0,180}try\{\s*initConverter\(\)/);
+});
 test('converter panes mirror row scrolling in both directions without feedback loops',()=>{
   const source=converterUI;
   const start=source.indexOf('    const mirroredScroll=new WeakMap();');
