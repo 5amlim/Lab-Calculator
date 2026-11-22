@@ -1317,7 +1317,6 @@
       // source row before painting the ghost text layer.
       syncConverterScroll(converterInput,converterOutput);
       refreshOutputHints();
-      renderNoMatchActions();
       refreshManualSourceHints();
       if(!inputCodes.length){
         matchFeedback=[{text:'Enter '+fromLab+' test codes to see possible matches.',tone:'note',icon:'i'}];
