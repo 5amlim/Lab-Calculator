@@ -537,7 +537,7 @@
           continue;
         }
         matched++;
-        const fresh=candidates.filter(match=>!seenLabcorp.has(match));
+        const fresh=[...new Set(candidates)].filter(match=>!seenLabcorp.has(match));
         // Keep all codes for Copy and Add, even if several LabCorp tests share
         // the same destination code or one test has multiple candidates.
         for(const match of fresh){
@@ -591,9 +591,22 @@
         if(!navigator.clipboard?.writeText)throw Error('Clipboard API unavailable');
         await navigator.clipboard.writeText(textToCopy);
       }catch(error){
-        converterOutput.focus();
-        converterOutput.select();
-        if(!document.execCommand('copy')){
+        // Copy the clean list, never the blank alignment rows or ghost labels.
+        const scratch=document.createElement('textarea');
+        scratch.value=textToCopy;
+        scratch.readOnly=true;
+        scratch.style.position='fixed';
+        scratch.style.opacity='0';
+        document.body.appendChild(scratch);
+        let copied=false;
+        try{
+          scratch.focus();
+          scratch.select();
+          copied=Boolean(document.execCommand?.('copy'));
+        }finally{
+          scratch.remove();
+        }
+        if(!copied){
           actionFeedback='Copy unavailable; select and copy the codes manually';
           renderCart();
           return;
