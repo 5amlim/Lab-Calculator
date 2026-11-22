@@ -968,3 +968,17 @@
 @media (prefers-reduced-motion: reduce) {
   .test-mode-converter .batch-inline-ghost-label.crosswalk-locked-shake {animation:none;}
 }
+
+/* Shake the corresponding code itself rather than the whole textarea. */
+@media screen {
+  .test-mode-converter .batch-inline-ghost-code-mask {
+    position:absolute;display:block;z-index:3;white-space:pre;
+    overflow:visible;pointer-events:none;user-select:none;
+  }
+  .test-mode-converter .batch-inline-ghost-code-mask > span {
+    display:inline-block;line-height:inherit;
+  }
+  .test-mode-converter .batch-inline-ghost-code-mask .crosswalk-locked-shake {
+    animation:crosswalk-locked-row-shake .26s ease-in-out;
+  }
+}
