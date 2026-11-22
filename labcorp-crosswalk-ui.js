@@ -1573,6 +1573,15 @@
     }
   },{passive:true});
   window.addEventListener('resize',()=>requestAnimationFrame(sizeCrosswalkViewport));
+  // The converter starts hidden behind Find Tests on some pages.
+  // Measure its five-row viewport when the tab becomes visible.
+  const converterView=tableWrap?.closest('#convertTestsView');
+  if(converterView&&typeof ResizeObserver!=='undefined'){
+    const tableResizeObserver=new ResizeObserver(()=>{
+      if(tableWrap.getClientRects().length)requestAnimationFrame(sizeCrosswalkViewport);
+    });
+    tableResizeObserver.observe(converterView);
+  }
   exportCsv.addEventListener('click',download);
   table.addEventListener('click',event=>{
     const btn=event.target.closest('button[data-labcorp-code]');
