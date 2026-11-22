@@ -381,6 +381,12 @@
         if(!tappingSuggestion&&!suggestionPanel.contains(document.activeElement))hideSuggestions();
       });
     }
+    // Show the Quest test name as decorative ghost text beside each converted
+    // code, just like the source input. The textarea remains codes-only for Copy.
+    const questNames=new Map(rows.filter(row=>sourceType(row)==='active')
+      .map(row=>[String(row[0]||'').trim(),String(row[1]||'').trim()]));
+    const refreshOutputHints=window.LabBatchInlineHints?.mount(converterOutput,code=>
+      questNames.get(String(code).trim())||null)||(()=>{});
     const cartAdd=document.getElementById('crosswalkAddToCart');
     const cartAddText=document.getElementById('crosswalkAddToCartText');
     let cartCandidateCodes=[],matchFeedback='',actionFeedback='';
@@ -482,6 +488,7 @@
         }
       }
       converterOutput.value=converted.join('\n');
+      refreshOutputHints();
       if(!inputCodes.length){
         matchFeedback='Enter '+fromLab+' test codes to see possible matches.';
       }else{
