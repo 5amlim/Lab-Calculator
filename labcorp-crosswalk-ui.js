@@ -617,7 +617,8 @@
       return typeof hint==='string'&&hint.startsWith('No match for ');
     };
     const isLockedRow=(textarea,index)=>textarea===converterInput
-      ? manualSourceHints.has(index)
+      ? manualSourceHints.get(index)?.tone==='manual' &&
+        !(textarea.value.split('\n')[index]||'').trim()
       : noMatchRow(index);
     function shakeLockedRow(textarea,index){
       if(textarea===converterInput)refreshConverterHints.shakeLine?.(index);
@@ -668,7 +669,7 @@
         const locked=blockedRow(kind);
         if(locked!==null){
           event.preventDefault();
-          if(textarea===converterInput&&manualSourceHints.has(locked)){
+          if(textarea===converterInput&&isLockedRow(textarea,locked)){
             if(kind==='insertLineBreak'||kind==='insertParagraph'){
               // Enter moves to a usable blank line; no shake.
               moveToFreeRow(locked);
@@ -722,13 +723,18 @@
       textarea.addEventListener('click',()=>{
         const line=rowAt(textarea.value,textarea.selectionStart??textarea.value.length);
         if(draftRow!==null&&line!==draftRow)draftRow=null;
-        // Clicking a manual label silently starts on the next blank source row.
-        if(textarea===converterInput&&manualSourceHints.has(line))moveToFreeRow(line);
+        // An existing typed source code (such as 005215) is never redirected.
+        // Only the visually empty "Manually added" line shakes on click,
+        // then places the caret on the next available editable source row.
+        if(textarea===converterInput&&isLockedRow(textarea,line)){
+          shakeLockedRow(textarea,line);
+          moveToFreeRow(line);
+        }
       });
       textarea.addEventListener('paste',()=>{
         if(textarea!==converterInput)return;
         const line=rowAt(textarea.value,textarea.selectionStart??textarea.value.length);
-        if(manualSourceHints.has(line)){
+        if(isLockedRow(textarea,line)){
           shakeLockedRow(textarea,line);
           // Move before native paste, preserving pasted multiple lines.
           moveToFreeRow(line);
