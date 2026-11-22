@@ -536,9 +536,6 @@
     border-radius: 11px;
     background: #fff;
     overflow-x: auto;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
   }
   .test-mode-converter .crosswalk-table thead th {
     position: sticky;
@@ -546,7 +543,9 @@
     z-index: 1;
   }
   .test-mode-converter .crosswalk-bottom {
-    display: none;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
   }
   .test-mode-converter .crosswalk-table {
     width: 100%;
@@ -735,7 +734,9 @@
     text-underline-offset: 3px;
   }
   .test-mode-converter .crosswalk-bottom {
-    display: none;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
   }
   @media (max-width: 1080px) {
     .test-mode-converter .crosswalk-tools {
@@ -1566,18 +1567,15 @@
   }
 }
 
-/* Narrow-screen crosswalk: five vertically scrollable rows, no horizontal pan. */
+/* Narrow-screen crosswalk: seven rows per batch, stacked without sideways scrolling. */
 @media screen and (max-width: 900px) {
   #convertTestsView.test-mode-converter .crosswalk-table-wrap {
     box-sizing: border-box;
     width: 100%;
     max-width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;
-    scroll-snap-type: y proximity;
+    overflow-x: clip;
+    overflow-y: visible;
+    touch-action: auto;
   }
   #convertTestsView.test-mode-converter .crosswalk-table {
     display: block;
@@ -1605,7 +1603,6 @@
     align-items: start;
     padding: 12px;
     border-bottom: 1px solid #dce7ee;
-    scroll-snap-align: start;
   }
   #convertTestsView.test-mode-converter .crosswalk-table tbody tr:last-child {
     border-bottom: 0;
