@@ -122,9 +122,9 @@
     const questActive=rows.filter(r=>sourceType(r)==='active');
     const activeMatches=questActive.filter(r=>Boolean(r[3])).length;
     const labMatches=reverse?reverse.filter(r=>r.status==='suggested').length:null;
-    summary.textContent=(meta.questActiveCount||questActive.length).toLocaleString()+' Quest active · '+
-      (meta.labcorpActiveCount||6015).toLocaleString()+' LabCorp active · '+
-      activeMatches.toLocaleString()+' Quest candidate codes';
+    summary.textContent=(meta.questActiveCount||questActive.length).toLocaleString()+' Quest tests · '+
+      (labMatches===null?(meta.labcorpMatched||0):labMatches).toLocaleString()+
+      ' LabCorp → Quest candidate matches';
     status.textContent=pending?(loadError?'LabCorp directory unavailable':'Loading LabCorp index…'):
       'Showing '+Math.min(visible,matched.length).toLocaleString()+' of '+matched.length.toLocaleString()+
       (lab?' LabCorp':' Quest')+' comparison entries'+(labMatches!==null?' · '+labMatches.toLocaleString()+' LabCorp codes have candidate links':'')+
