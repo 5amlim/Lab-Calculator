@@ -948,9 +948,9 @@
     padding-left:40px;
   }
   #convertTestsView .crosswalk-tools .crosswalk-search-control input::placeholder {
-    color:#274963;
+    color:#9aaebc;
     opacity:1;
-    font-weight:500;
+    font-weight:450;
   }
 }
 
