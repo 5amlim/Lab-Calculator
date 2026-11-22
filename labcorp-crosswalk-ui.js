@@ -381,81 +381,76 @@
         if(!tappingSuggestion&&!suggestionPanel.contains(document.activeElement))hideSuggestions();
       });
     }
-    const cartList=document.getElementById('crosswalkCartList');
-    const cartCount=document.getElementById('crosswalkCartCount');
     const cartStatus=document.getElementById('crosswalkCartStatus');
     const cartAdd=document.getElementById('crosswalkAddToCart');
     const cartAddText=document.getElementById('crosswalkAddToCartText');
-    const cartSelectAll=document.getElementById('crosswalkSelectAll');
-    let cartCandidateCodes=[],cartItems=[],cartSelected=new Set();
+    let cartCandidateCodes=[],matchFeedback='';
 
+    // The right-hand textarea is the only selection area: remove lines to exclude
+    // codes from both Copy and Add. New codes must come from the current crosswalk.
+    function outputCodes(){
+      return [...new Set(converterOutput.value.split(/[\\n,;\\t]+/)
+        .flatMap(value=>{
+          const trimmed=value.trim();
+          return /^\\d+(?:\\s+\\d+)+$/.test(trimmed)?trimmed.split(/\\s+/):[trimmed];
+        }).filter(Boolean))];
+    }
     function inspectCart(codes){
       const detail={action:'inspect',codes,result:null};
       document.dispatchEvent(new CustomEvent((isQuestPage?'quest':'labcorp')+':crosswalk-cart',{detail}));
       return Array.isArray(detail.result)?detail.result:codes.map(code=>({code,name:'',status:'unavailable'}));
     }
-    function updateCartActions(){
-      const available=cartItems.filter(item=>item.status==='available');
-      const chosen=available.filter(item=>cartSelected.has(item.code));
-      cartCount.textContent=chosen.length+' selected';
-      cartAdd.disabled=chosen.length===0;
-      cartAddText.textContent=chosen.length?'Add '+chosen.length+' to cart':'Add to cart';
-      cartSelectAll.disabled=!available.length||chosen.length===available.length;
-    }
-    function renderCart(resetSelection=false){
-      if(resetSelection)cartSelected.clear();
-      cartItems=inspectCart(cartCandidateCodes);
-      const available=cartItems.filter(item=>item.status==='available');
-      if(resetSelection)available.forEach(item=>cartSelected.add(item.code));
-      const availableCodes=new Set(available.map(item=>item.code));
-      for(const code of cartSelected)if(!availableCodes.has(code))cartSelected.delete(code);
-      if(!cartItems.length){
-        cartList.innerHTML='<p class="crosswalk-cart-empty">Enter '+fromLab+' codes above to see tests you can add.</p>';
-        cartStatus.textContent='Only active '+toLab+' tests can be added to the cart.';
+    function renderCart(){
+      const displayed=outputCodes();
+      const candidates=new Set(cartCandidateCodes);
+      const foreign=displayed.filter(code=>!candidates.has(code));
+      const valid=displayed.filter(code=>candidates.has(code));
+      const items=inspectCart(valid);
+      const ready=items.filter(item=>item.status==='available');
+      const already=items.filter(item=>item.status==='added');
+      const unavailable=items.filter(item=>item.status==='unavailable');
+      const blocked=foreign.length>0;
+      cartAdd.disabled=!ready.length||blocked;
+      cartAddText.textContent=ready.length?'Add '+ready.length+' to cart':'Add to cart';
+      converterCopy.disabled=!displayed.length;
+      converterCopy.setAttribute('aria-label',displayed.length?
+        'Copy '+displayed.length+' '+toLab+' '+(displayed.length===1?'code':'codes'):'No '+toLab+' codes to copy');
+      converterFeedback.textContent=matchFeedback+
+        (cartCandidateCodes.length&&displayed.length!==cartCandidateCodes.length?
+          ' · '+displayed.length+' '+toLab+' '+(displayed.length===1?'code':'codes')+' in output':'');
+      if(blocked){
+        cartStatus.textContent='Not in the current conversion: '+foreign.join(', ')+
+          '. Remove these lines to enable Add to cart.';
+      }else if(!cartCandidateCodes.length){
+        cartStatus.textContent='Only mapped, active '+toLab+' tests can be added to the cart.';
+      }else if(!displayed.length){
+        cartStatus.textContent='Output is empty. Edit the '+fromLab+' entries to restore matches.';
       }else{
-        cartList.innerHTML=cartItems.map(item=>{
-          const allowed=item.status==='available',selected=allowed&&cartSelected.has(item.code);
-          const label=item.status==='added'?'Already in cart':allowed?'Ready to add':'Not available in active catalog';
-          return '<label class="crosswalk-cart-item'+(allowed?'':' is-unavailable')+'">'+
-            '<input type="checkbox" data-cart-code="'+escape(item.code)+'" '+(selected?'checked ':'')+(allowed?'':'disabled ')+' aria-label="Select '+toLab+' '+escape(item.code)+'">'+
-            '<span class="crosswalk-cart-test"><strong>'+escape(item.code)+'</strong>'+
-            '<small>'+escape(item.name||toLab+' candidate')+'</small></span>'+
-            '<span class="crosswalk-cart-item-status'+(item.status==='added'?' is-added':'')+'">'+escape(label)+'</span></label>';
-        }).join('');
-        const already=cartItems.filter(item=>item.status==='added').length;
-        const unavailable=cartItems.filter(item=>item.status==='unavailable').length;
-        cartStatus.textContent=available.length+' available'+(already?' · '+already+' already in cart':'')+
-          (unavailable?' · '+unavailable+' not active or unavailable':'')+'. Verify candidate equivalence before ordering.';
+        const counts=[ready.length+' ready to add'];
+        if(already.length)counts.push(already.length+' already in cart');
+        if(unavailable.length)counts.push(unavailable.length+' not active in this calculator');
+        counts.push('Remove unwanted lines to exclude them');
+        cartStatus.textContent=counts.join(' · ')+'.';
       }
-      updateCartActions();
+      return {codes:ready.map(item=>item.code),blocked};
     }
-    cartList.addEventListener('change',event=>{
-      const input=event.target.closest('input[data-cart-code]');
-      if(!input)return;
-      if(input.checked)cartSelected.add(input.dataset.cartCode);
-      else cartSelected.delete(input.dataset.cartCode);
-      updateCartActions();
-    });
-    cartSelectAll.addEventListener('click',()=>{
-      cartItems.filter(item=>item.status==='available').forEach(item=>cartSelected.add(item.code));
-      renderCart();
-    });
+    converterOutput.addEventListener('input',renderCart);
     cartAdd.addEventListener('click',()=>{
-      const codes=cartItems.filter(item=>item.status==='available'&&cartSelected.has(item.code)).map(item=>item.code);
-      if(!codes.length)return;
-      const detail={action:'add',codes,result:null};
+      const selection=renderCart();
+      if(selection.blocked||!selection.codes.length)return;
+      const detail={action:'add',codes:selection.codes,result:null};
       document.dispatchEvent(new CustomEvent((isQuestPage?'quest':'labcorp')+':crosswalk-cart',{detail}));
-      const result=detail.result;
       renderCart();
-      if(!result){
+      if(!detail.result){
         cartStatus.textContent='Could not reach the calculator cart. No changes were made.';
         return;
       }
-      cartStatus.textContent=result.added.length+' '+(result.added.length===1?'test':'tests')+' added to cart'+
-        (result.already.length?' · '+result.already.length+' already added':'')+
-        (result.unavailable.length?' · '+result.unavailable.length+' unavailable':'')+'.';
+      const {added=[],already=[],unavailable=[]}=detail.result;
+      cartStatus.textContent=added.length+' '+(added.length===1?'test':'tests')+' added to cart'+
+        (already.length?' · '+already.length+' already added':'')+
+        (unavailable.length?' · '+unavailable.length+' unavailable':'')+'.';
     });
-    document.addEventListener((isQuestPage?'quest':'labcorp')+':cart-updated',()=>renderCart());
+    document.addEventListener((isQuestPage?'quest':'labcorp')+':cart-updated',renderCart);
 
     function updateConverter(){
       // Names are allowed as a full line. Retain compatibility with pasted
@@ -483,13 +478,11 @@
           if(!seenLabcorp.has(match)){seenLabcorp.add(match);converted.push(match);}
         }
       }
-      converterOutput.value=converted.join('\n');
-      converterCopy.disabled=converted.length===0;
-      converterCopy.setAttribute('aria-label',converted.length?'Copy '+converted.length+' '+toLab+' candidate codes':'No '+toLab+' codes to copy');
+      converterOutput.value=converted.join('\\n');
       if(!inputCodes.length){
-        converterFeedback.textContent='Enter '+fromLab+' test codes to see possible matches.';
+        matchFeedback='Enter '+fromLab+' test codes to see possible matches.';
       }else{
-        converterFeedback.textContent=matched+' of '+seenQuest.size+' '+fromLab+' codes have candidate matches · '+
+        matchFeedback=matched+' of '+seenQuest.size+' '+fromLab+' codes have candidate matches · '+
           converted.length+' unique '+toLab+' '+(converted.length===1?'code':'codes')+
           (duplicates?' · '+duplicates+' duplicate '+(duplicates===1?'entry':'entries')+' omitted':'');
       }
@@ -499,14 +492,15 @@
       converterWarning.hidden=notes.length===0;
       converterWarning.textContent=notes.join(' · ');
       cartCandidateCodes=converted;
-      renderCart(true);
+      renderCart();
     }
     converterInput.addEventListener('input',()=>{updateConverter();renderSuggestions();});
     converterCopy.addEventListener('click',async()=>{
-      if(!converterOutput.value)return;
+      const textToCopy=outputCodes().join('\\n');
+      if(!textToCopy)return;
       try{
         if(!navigator.clipboard?.writeText)throw Error('Clipboard API unavailable');
-        await navigator.clipboard.writeText(converterOutput.value);
+        await navigator.clipboard.writeText(textToCopy);
       }catch(error){
         converterOutput.focus();
         converterOutput.select();
@@ -515,7 +509,8 @@
           return;
         }
       }
-      converterFeedback.textContent='Copied '+converterOutput.value.split('\n').length+' '+toLab+' candidate '+(converterOutput.value.includes('\n')?'codes':'code')+'. Verify each test before ordering.';
+      const count=outputCodes().length;
+      converterFeedback.textContent='Copied '+count+' '+toLab+' candidate '+(count===1?'code':'codes')+'. Verify each test before ordering.';
     });
     updateConverter();
   }
