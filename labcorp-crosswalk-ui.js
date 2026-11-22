@@ -80,8 +80,8 @@
     const basisNote=basis?'<details class="crosswalk-row-note"><summary>Review notes</summary><p>'+escape(basis)+'</p></details>':'';
     let candidate='<span class="crosswalk-state crosswalk-state--none">No match identified</span>';
     if(lc){
-      candidate='<span class="crosswalk-state crosswalk-state--possible">Possible match</span>'+
-        '<strong class="crosswalk-match-name">'+escape(lc)+' · '+escape(ln)+'</strong>'+
+      candidate='<strong class="crosswalk-match-name">'+escape(lc)+' · '+escape(ln)+'</strong>'+
+        '<span class="crosswalk-state crosswalk-state--possible">Possible match</span>'+
         '<small class="crosswalk-match-caption">Verify analyte, method and specimen</small>';
     }else if(Array.isArray(r[8])&&r[8].length){
       candidate='<span class="crosswalk-state crosswalk-state--review">Review related tests</span>'+
@@ -106,11 +106,11 @@
     const reviews=r.matches.filter(x=>x.status==='review');
     let content='<span class="crosswalk-state crosswalk-state--none">No match identified</span>';
     if(matches.length){
-      content='<span class="crosswalk-state crosswalk-state--possible">Possible match</span>'+
-        matches.slice(0,5).map(x=>
+      content=matches.slice(0,5).map(x=>
           '<strong class="crosswalk-match-name">'+escape(x.code)+' · '+escape(x.name)+'</strong>'+
           (x.source==='active'?'':'<small class="crosswalk-legacy">Legacy or uncoded reference, verify validity</small>')
         ).join('')+
+        '<span class="crosswalk-state crosswalk-state--possible">Possible match</span>'+
         '<small class="crosswalk-match-caption">Verify clinical equivalence</small>'+
         (matches.length>5?'<small>+'+(matches.length-5)+' additional Quest references in CSV</small>':'');
     }else if(reviews.length){
