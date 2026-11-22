@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="market-switch.css?v=10">
   <link rel="stylesheet" href="labcorp-theme.css?v=12">
 <link rel="stylesheet" href="assets/css/search-suggestions.css?v=20261115-2">
-  <link rel="stylesheet" href="labcorp-crosswalk.css?v=3">
+  <link rel="stylesheet" href="labcorp-crosswalk.css?v=4">
   <link rel="stylesheet" href="print-button-theme.css?v=8">
   <link rel="stylesheet" href="assets/css/scroll-cues.css?v=4">
 <link rel="stylesheet" href="assets/css/container-gallery.css?v=20261031-1">
@@ -225,6 +225,28 @@
                 <span class="crosswalk-converter-helper" id="crosswalkConverterFeedback" role="status" aria-live="polite">Enter Quest test codes to see possible matches.</span>
               </div>
             </div>
+            <section class="crosswalk-cart-section" aria-labelledby="crosswalkCartTitle">
+              <div class="crosswalk-cart-header">
+                <div>
+                  <h3 id="crosswalkCartTitle">Add to cart</h3>
+                  <p>Choose converted LabCorp tests to include in your collection summary.</p>
+                </div>
+                <span class="crosswalk-cart-count" id="crosswalkCartCount">0 selected</span>
+              </div>
+              <div id="crosswalkCartList" class="crosswalk-cart-list" role="group" aria-label="LabCorp tests available to add">
+                <p class="crosswalk-cart-empty">Enter Quest codes above to see tests you can add.</p>
+              </div>
+              <div class="crosswalk-cart-actions">
+                <button type="button" id="crosswalkSelectAll" class="crosswalk-cart-select" disabled>Select all available</button>
+                <span class="crosswalk-cart-action-spacer"></span>
+                <a class="crosswalk-cart-view" href="#collectionSummary">View cart</a>
+                <button type="button" id="crosswalkAddToCart" class="crosswalk-cart-add" disabled>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                  <span id="crosswalkAddToCartText">Add to cart</span>
+                </button>
+              </div>
+              <p class="crosswalk-cart-status" id="crosswalkCartStatus" role="status" aria-live="polite">Only active LabCorp tests can be added to the cart.</p>
+            </section>
             <div id="crosswalkConverterWarning" class="crosswalk-converter-warning" role="status" aria-live="polite" hidden></div>
             <p class="crosswalk-converter-disclaimer">Candidate matches are not verified clinical equivalents. Confirm analyte, method, specimen, volume, and transport requirements in the official LabCorp directory before ordering.</p>
 
@@ -704,7 +726,7 @@
   <script src="assets/js/labcorp/catalog/verified-final-remaining-20261121.js?v=1"></script>
   <script src="assets/js/labcorp/catalog/verified-tail-135-20261121.js?v=1"></script>
   <script src="labcorp-app.js?v=20261121-ala-collection-policy"></script>
-  <script src="labcorp-crosswalk-ui.js?v=5"></script>
+  <script src="labcorp-crosswalk-ui.js?v=6"></script>
   <script src="assets/js/portal-selects.js?v=20261119-tat-region-picker"></script>
   <script src="assets/js/lab-select.js?v=20261121-ala-collection-policy"></script>
   <script src="assets/js/scroll-cues.js?v=2"></script>
