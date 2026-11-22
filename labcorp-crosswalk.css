@@ -1177,7 +1177,7 @@
   /* The clickable magnifier replaces ↔ before actionable no-match text. */
   #crosswalkOutputAutocomplete .batch-inline-ghost-no-match.crosswalk-no-match-actionable {
     box-sizing: border-box;
-    padding-left: 33px;
+    padding-left: 29px;
   }
   #crosswalkOutputAutocomplete .batch-inline-ghost-no-match.crosswalk-no-match-actionable::before {
     display: none;
@@ -1195,18 +1195,18 @@
     display:flex;
     justify-content:center;
     align-items:center;
-    width:24px;
-    height:24px;
-    padding:3px;
+    width:20px;
+    height:20px;
+    padding:2px;
     border:1px solid #c7dce8;
-    border-radius:7px;
+    border-radius:6px;
     background:#eff7fc;
     color:#2a688c;
     pointer-events:auto;
     cursor:pointer;
     box-sizing:border-box;
   }
-  #crosswalkOutputAutocomplete .crosswalk-no-match-search svg {width:16px;height:16px;}
+  #crosswalkOutputAutocomplete .crosswalk-no-match-search svg {width:14px;height:14px;}
   #crosswalkOutputAutocomplete .crosswalk-no-match-search:hover,
   #crosswalkOutputAutocomplete .crosswalk-no-match-search:focus-visible {
     background:#dceef8;
