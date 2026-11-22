@@ -1,6 +1,7 @@
 /* Full-index bidirectional crosswalk; reference-only. No specimen rules are imported. */
 (() => {
   'use strict';
+  const isQuestPage = document.body.dataset.galleryLab === 'Q';
   const table=document.getElementById('labcorpCrosswalkBody');
   if(!table||!Array.isArray(window.QUEST_TO_LABCORP_INDEX))return;
   const rows=window.QUEST_TO_LABCORP_INDEX.slice().sort((a,b)=>a[1].localeCompare(b[1])||a[0].localeCompare(b[0]));
@@ -13,7 +14,7 @@
   const more=document.getElementById('labcorpCrosswalkMore');
   const exportCsv=document.getElementById('labcorpCrosswalkExport');
   const heads=['crosswalkHeadCode','crosswalkHeadTest','crosswalkHeadMatch','crosswalkHeadAction'].map(id=>document.getElementById(id));
-  const active=new Map((window.SEED_TESTS||[]).map(t=>[String(t.testCode),t]));
+  const active=new Map((isQuestPage?[]:(window.SEED_TESTS||[])).map(t=>[String(t.testCode),t]));
   const escape=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const normalize=s=>String(s??'').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
   const labUrl=(name,code)=>'https://www.labcorp.com/test-menu/search?query='+encodeURIComponent(code||name);
@@ -125,15 +126,24 @@
       ' · Similar names are not clinically verified equivalents';
   }
 
-  // Bulk Quest -> LabCorp converter. Only explicit active-index candidates are copied.
+  // Bulk test converter; output uses candidate codes only, never inferred collection rules.
+  function initConverter(){
   const converterInput=document.getElementById('crosswalkQuestInput');
   const converterOutput=document.getElementById('crosswalkLabcorpOutput');
   const converterCopy=document.getElementById('crosswalkCopyCodes');
   const converterFeedback=document.getElementById('crosswalkConverterFeedback');
   const converterWarning=document.getElementById('crosswalkConverterWarning');
   if(converterInput&&converterOutput&&converterCopy&&converterFeedback&&converterWarning){
+    const fromLab=isQuestPage?'LabCorp':'Quest';
+    const toLab=isQuestPage?'Quest':'LabCorp';
+    // A LabCorp entry may map to multiple candidate Quest test codes.
+    const sourceRows=isQuestPage?(reverse||[]).map(item=>{
+      const candidates=item.matches.filter(match=>match.status==='suggested'&&match.source==='active');
+      const first=candidates[0];
+      return [item.code,item.name,item.specimen,first?.code||'',first?.name||'',0,'','active',[],candidates.map(m=>m.code)];
+    }):rows;
     const questByCode=new Map(),questByName=new Map();
-    for(const row of rows){
+    for(const row of sourceRows){
       if(sourceType(row)!=='active')continue;
       const code=String(row[0]).trim();
       if(!questByCode.has(code)||(!questByCode.get(code)[3]&&row[3]))questByCode.set(code,row);
@@ -145,7 +155,7 @@
       matches.push(row);
       questByName.set(key,matches);
     }
-    // Typeahead operates on Quest codes/names, never LabCorp code lookups.
+    // Typeahead operates only on source-lab codes and names.
     // Keep the same listbox and exact-match ghost hint design as the main search.
     const suggestionPanel=document.getElementById('crosswalkQuestSuggestions');
     const suggestionItems=Array.from(questByCode.values());
@@ -279,18 +289,18 @@
       suggestionMatches=matches.map(item=>item.row);
       suggestionEntry=entry;
       suggestionActive=-1;
-      suggestionPanel.innerHTML='<div class="calc-suggestion-heading">Matching Quest tests for this line</div>'+
+      suggestionPanel.innerHTML='<div class="calc-suggestion-heading">Matching '+fromLab+' tests for this line</div>'+
         matches.map(({row},i)=>{
           const code=escape(row[0]),name=escape(row[1]);
           const specimen=String(row[2]||'').trim(),match=String(row[3]||'').trim();
-          const hint=[specimen,match?'LabCorp candidate: '+match:'No LabCorp code mapped'].filter(Boolean).join(' · ');
+          const hint=[specimen,match?toLab+' candidate: '+match:'No '+toLab+' code mapped'].filter(Boolean).join(' · ');
           return '<button type="button" class="calc-suggestion-option" role="option" id="crosswalk-quest-option-'+i+
             '" aria-selected="false" tabindex="-1" data-index="'+i+'">'+
             '<span class="calc-suggestion-code">'+code+'</span>'+
             '<span class="calc-suggestion-copy"><strong>'+name+'</strong><small>'+escape(hint)+'</small></span>'+
             '<span class="calc-suggestion-arrow" aria-hidden="true">›</span></button>';
         }).join('')+
-        '<div class="calc-suggestion-footer">Choose a Quest test to fill its code · ↑ ↓ navigate · Enter select · Esc close</div>';
+        '<div class="calc-suggestion-footer">Choose a '+fromLab+' test to fill its code · ↑ ↓ navigate · Enter select · Esc close</div>';
       suggestionPanel.classList.remove('hidden');
       converterInput.setAttribute('aria-expanded','true');
       converterInput.removeAttribute('aria-activedescendant');
@@ -381,7 +391,7 @@
 
     function inspectCart(codes){
       const detail={action:'inspect',codes,result:null};
-      document.dispatchEvent(new CustomEvent('labcorp:crosswalk-cart',{detail}));
+      document.dispatchEvent(new CustomEvent((isQuestPage?'quest':'labcorp')+':crosswalk-cart',{detail}));
       return Array.isArray(detail.result)?detail.result:codes.map(code=>({code,name:'',status:'unavailable'}));
     }
     function updateCartActions(){
@@ -400,16 +410,16 @@
       const availableCodes=new Set(available.map(item=>item.code));
       for(const code of cartSelected)if(!availableCodes.has(code))cartSelected.delete(code);
       if(!cartItems.length){
-        cartList.innerHTML='<p class="crosswalk-cart-empty">Enter Quest codes above to see tests you can add.</p>';
-        cartStatus.textContent='Only active LabCorp tests can be added to the cart.';
+        cartList.innerHTML='<p class="crosswalk-cart-empty">Enter '+fromLab+' codes above to see tests you can add.</p>';
+        cartStatus.textContent='Only active '+toLab+' tests can be added to the cart.';
       }else{
         cartList.innerHTML=cartItems.map(item=>{
           const allowed=item.status==='available',selected=allowed&&cartSelected.has(item.code);
           const label=item.status==='added'?'Already in cart':allowed?'Ready to add':'Not available in active catalog';
           return '<label class="crosswalk-cart-item'+(allowed?'':' is-unavailable')+'">'+
-            '<input type="checkbox" data-cart-code="'+escape(item.code)+'" '+(selected?'checked ':'')+(allowed?'':'disabled ')+' aria-label="Select LabCorp '+escape(item.code)+'">'+
+            '<input type="checkbox" data-cart-code="'+escape(item.code)+'" '+(selected?'checked ':'')+(allowed?'':'disabled ')+' aria-label="Select '+toLab+' '+escape(item.code)+'">'+
             '<span class="crosswalk-cart-test"><strong>'+escape(item.code)+'</strong>'+
-            '<small>'+escape(item.name||'LabCorp candidate')+'</small></span>'+
+            '<small>'+escape(item.name||toLab+' candidate')+'</small></span>'+
             '<span class="crosswalk-cart-item-status'+(item.status==='added'?' is-added':'')+'">'+escape(label)+'</span></label>';
         }).join('');
         const already=cartItems.filter(item=>item.status==='added').length;
@@ -434,7 +444,7 @@
       const codes=cartItems.filter(item=>item.status==='available'&&cartSelected.has(item.code)).map(item=>item.code);
       if(!codes.length)return;
       const detail={action:'add',codes,result:null};
-      document.dispatchEvent(new CustomEvent('labcorp:crosswalk-cart',{detail}));
+      document.dispatchEvent(new CustomEvent((isQuestPage?'quest':'labcorp')+':crosswalk-cart',{detail}));
       const result=detail.result;
       renderCart();
       if(!result){
@@ -445,7 +455,7 @@
         (result.already.length?' · '+result.already.length+' already added':'')+
         (result.unavailable.length?' · '+result.unavailable.length+' unavailable':'')+'.';
     });
-    document.addEventListener('labcorp:cart-updated',()=>renderCart());
+    document.addEventListener((isQuestPage?'quest':'labcorp')+':cart-updated',()=>renderCart());
 
     function updateConverter(){
       // Names are allowed as a full line. Retain compatibility with pasted
@@ -465,24 +475,27 @@
         if(seenQuest.has(uniqueCode)){duplicates++;continue;}
         seenQuest.add(uniqueCode);
         if(!row){unknown.push(code);continue;}
-        const match=String(row[3]||'').trim();
-        if(!match){unmatched.push(code);continue;}
+        const candidates=(isQuestPage?(row[9]||[]):[row[3]])
+          .map(candidate=>String(candidate||'').trim()).filter(Boolean);
+        if(!candidates.length){unmatched.push(code);continue;}
         matched++;
-        if(!seenLabcorp.has(match)){seenLabcorp.add(match);converted.push(match);}
+        for(const match of candidates){
+          if(!seenLabcorp.has(match)){seenLabcorp.add(match);converted.push(match);}
+        }
       }
       converterOutput.value=converted.join('\n');
       converterCopy.disabled=converted.length===0;
-      converterCopy.setAttribute('aria-label',converted.length?'Copy '+converted.length+' LabCorp candidate codes':'No LabCorp codes to copy');
+      converterCopy.setAttribute('aria-label',converted.length?'Copy '+converted.length+' '+toLab+' candidate codes':'No '+toLab+' codes to copy');
       if(!inputCodes.length){
-        converterFeedback.textContent='Enter Quest test codes to see possible matches.';
+        converterFeedback.textContent='Enter '+fromLab+' test codes to see possible matches.';
       }else{
-        converterFeedback.textContent=matched+' of '+seenQuest.size+' Quest codes have candidate matches · '+
-          converted.length+' unique LabCorp '+(converted.length===1?'code':'codes')+
+        converterFeedback.textContent=matched+' of '+seenQuest.size+' '+fromLab+' codes have candidate matches · '+
+          converted.length+' unique '+toLab+' '+(converted.length===1?'code':'codes')+
           (duplicates?' · '+duplicates+' duplicate '+(duplicates===1?'entry':'entries')+' omitted':'');
       }
       const notes=[];
-      if(unmatched.length)notes.push('No LabCorp candidate identified: '+unmatched.join(', '));
-      if(unknown.length)notes.push('Not found in the active Quest index: '+unknown.join(', '));
+      if(unmatched.length)notes.push('No '+toLab+' candidate identified: '+unmatched.join(', '));
+      if(unknown.length)notes.push('Not found in the active '+fromLab+' index: '+unknown.join(', '));
       converterWarning.hidden=notes.length===0;
       converterWarning.textContent=notes.join(' · ');
       cartCandidateCodes=converted;
@@ -498,14 +511,16 @@
         converterOutput.focus();
         converterOutput.select();
         if(!document.execCommand('copy')){
-          converterFeedback.textContent='Copy unavailable. Select the LabCorp codes and copy manually.';
+          converterFeedback.textContent='Copy unavailable. Select the '+toLab+' codes and copy manually.';
           return;
         }
       }
-      converterFeedback.textContent='Copied '+converterOutput.value.split('\n').length+' LabCorp candidate '+(converterOutput.value.includes('\n')?'codes':'code')+'. Verify each test before ordering.';
+      converterFeedback.textContent='Copied '+converterOutput.value.split('\n').length+' '+toLab+' candidate '+(converterOutput.value.includes('\n')?'codes':'code')+'. Verify each test before ordering.';
     });
     updateConverter();
   }
+  }
+  if(!isQuestPage)initConverter();
 
   function download(){
     if(direction.value==='labcorp'&&!reverse){return;}
@@ -545,6 +560,6 @@
   render();
   fetch('assets/search/labcorp-tests.json?v=20261121-full-crosswalk',{cache:'no-store'})
     .then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();})
-    .then(index=>{reverse=buildReverse(index);loadError=false;render();})
-    .catch(()=>{loadError=true;render();});
+    .then(index=>{reverse=buildReverse(index);loadError=false;render();if(isQuestPage)initConverter();})
+    .catch(()=>{loadError=true;render();if(isQuestPage){const feedback=document.getElementById('crosswalkConverterFeedback');if(feedback)feedback.textContent='LabCorp reference index unavailable. Refresh to retry.';}});
 })();
