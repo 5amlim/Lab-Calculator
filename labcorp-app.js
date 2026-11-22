@@ -383,28 +383,24 @@
           // A non-addable exact code is distinct from an unverified candidate.
           // Preserve normal text color for active codes, categories, shorthands,
           // and tests whose possible matches still require review.
+          colorUnavailable: false,
           onStatusRows: lines => batchMatchFinder?.sync(lines),
           lineTone: query => {
             const value = String(query || '').trim();
             if (!value) return null;
-            if (/^\d+$/.test(value)) {
-              return database.some(test => test.status === 'active' &&
-                String(test.testCode || '').trim() === value) ? null : 'unavailable';
-            }
-            const q = normalizeSearch(value);
             if (findCategoryMatches(value)) return null;
-            // Short terms such as "v" and "nn" should not look addable
-            // just because a test name has a vaguely matching word/prefix.
-            // Preserve exact short clinical aliases, names, and codes.
-            if (q.length < 3) {
-              return database.some(test => {
-                if (test.status !== 'active') return false;
-                const index = librarySearchIndex(test);
-                return index.code === q || index.name === q || index.aliases.includes(q);
-              }) ? null : 'unavailable';
-            }
-            return findMatches(value, 5).some(({test, score}) =>
-              test.status === 'active' && score >= 550) ? null : 'unavailable';
+            // A fuzzy suggestion is not a confirmed test match. Keep the
+            // directory magnifier on every row without an exact active code,
+            // test name, or recognized shorthand, including the first line.
+            const q = normalizeSearch(value);
+            const direct = database.some(test => {
+              if (test.status !== 'active') return false;
+              const index = librarySearchIndex(test);
+              return index.code === q || index.name === q ||
+                index.aliases.includes(q) ||
+                (Boolean(index.code) && q === index.code + ' ' + index.name);
+            });
+            return direct ? null : 'unavailable';
           }
         });
     }
