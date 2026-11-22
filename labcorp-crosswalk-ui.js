@@ -132,11 +132,235 @@
   const converterFeedback=document.getElementById('crosswalkConverterFeedback');
   const converterWarning=document.getElementById('crosswalkConverterWarning');
   if(converterInput&&converterOutput&&converterCopy&&converterFeedback&&converterWarning){
-    const questByCode=new Map();
+    const questByCode=new Map(),questByName=new Map();
     for(const row of rows){
       if(sourceType(row)!=='active')continue;
       const code=String(row[0]).trim();
       if(!questByCode.has(code)||(!questByCode.get(code)[3]&&row[3]))questByCode.set(code,row);
+    }
+    for(const row of questByCode.values()){
+      const key=normalize(row[1]);
+      if(!key)continue;
+      const matches=questByName.get(key)||[];
+      matches.push(row);
+      questByName.set(key,matches);
+    }
+    // Typeahead operates on Quest codes/names, never LabCorp code lookups.
+    // Keep the same listbox and exact-match ghost hint design as the main search.
+    const suggestionPanel=document.getElementById('crosswalkQuestSuggestions');
+    const suggestionItems=Array.from(questByCode.values());
+    let suggestionMatches=[],suggestionActive=-1,suggestionEntry=null;
+    const aliases=[
+      [/^complete blood count\b|\bcbc\b/i,['cbc','blood count']],
+      [/^comprehensive metabolic panel\b/i,['cmp','chem 14']],
+      [/^basic metabolic panel\b/i,['bmp','chem 7']],
+      [/^thyroid stimulating hormone\b|\btsh\b/i,['tsh','thyrotropin']],
+      [/\b(?:hemoglobin a1c|hba1c|glycated hemoglobin)\b/i,['a1c','hba1c']],
+      [/^erythrocyte sedimentation rate\b|^sedimentation rate\b/i,['esr','sed rate']],
+      [/^c reactive protein\b/i,['crp']],
+      [/^urinalysis\b/i,['ua','urine analysis']],
+      [/^lipid panel\b|^lipid profile\b/i,['lipid','cholesterol panel']],
+      [/\bhuman chorionic gonadotropin\b|\bhcg\b/i,['hcg','pregnancy']],
+      [/^prothrombin time\b/i,['pt','inr']],
+      [/^activated partial thromboplastin time\b|^partial thromboplastin time\b/i,['aptt','ptt']]
+    ];
+    const aliasCache=new Map();
+    function searchAliases(row){
+      const code=String(row[0]);
+      if(aliasCache.has(code))return aliasCache.get(code);
+      const name=String(row[1]||'');
+      const list=aliases.filter(([pattern])=>pattern.test(name)).flatMap(([,words])=>words).map(normalize);
+      aliasCache.set(code,list);
+      return list;
+    }
+    function editDistanceAtMost(a,b,maxEdits){
+      if(Math.abs(a.length-b.length)>maxEdits)return false;
+      let prev=Array.from({length:b.length+1},(_,j)=>j);
+      for(let i=1;i<=a.length;i++){
+        const next=[i];let min=i;
+        for(let j=1;j<=b.length;j++){
+          next[j]=Math.min(prev[j]+1,next[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));
+          if(next[j]<min)min=next[j];
+        }
+        if(min>maxEdits)return false;
+        prev=next;
+      }
+      return prev[b.length]<=maxEdits;
+    }
+    function scoreSuggestion(row,query){
+      const code=String(row[0]),name=normalize(row[1]),terms=query.split(' ').filter(Boolean);
+      if(code===query)return 3000;
+      if(/^\d+$/.test(query)){
+        if(code.startsWith(query))return 2500-(code.length-query.length);
+        if(query.length>=3&&code.replace(/^0+/,'')===query)return 2450;
+        return query.length>=3&&code.includes(query)?1900:0;
+      }
+      if(name===query)return 2800;
+      if(name.startsWith(query))return 2400-Math.min(100,name.length-query.length);
+      if(name.includes(query))return 2100-Math.min(100,name.length-query.length);
+      const a=searchAliases(row);
+      if(a.includes(query))return 2300;
+      if(a.some(x=>x.startsWith(query)))return 1850;
+      const words=name.split(' ');
+      if(terms.every(term=>words.some(word=>word===term||word.startsWith(term))))return 1750+terms.length*10;
+      if(terms.every(term=>words.some(word=>word.includes(term))))return 1450+terms.length*10;
+      if(query.length>=4&&query.length<=25&&terms.length<=2){
+        const edits=query.length>=7?2:1;
+        if(words.some(word=>editDistanceAtMost(query,word,edits))||
+           a.some(term=>editDistanceAtMost(query,term,edits)))return 850;
+      }
+      return 0;
+    }
+    // The caret determines which entry gets replaced, even with other lines already present.
+    function activeConverterEntry(){
+      const value=converterInput.value,pos=converterInput.selectionStart??value.length;
+      const lineStart=value.lastIndexOf('\n',Math.max(0,pos-1))+1;
+      const lineEndIndex=value.indexOf('\n',pos);
+      const lineEnd=lineEndIndex<0?value.length:lineEndIndex;
+      const upto=value.slice(lineStart,pos);
+      const lastSeparator=Math.max(upto.lastIndexOf(','),upto.lastIndexOf(';'),upto.lastIndexOf('\t'));
+      let start=lineStart+lastSeparator+1;
+      // Space-separated numeric codes remain individually addressable.
+      const section=value.slice(start,lineEnd);
+      if(/^\s*\d+(?:\s+\d+)+\s*$/.test(section)){
+        const prefix=value.slice(start,pos),numeric=prefix.match(/(?:^|\s)(\d*)$/);
+        if(numeric)start=pos-numeric[1].length;
+      }
+      let end=lineEnd;
+      for(const sep of [',',';','\t']){
+        const i=value.indexOf(sep,pos);
+        if(i>=0&&i<end)end=i;
+      }
+      if(start>end)start=end;
+      return {start,end,query:value.slice(start,end).trim()};
+    }
+    function hideSuggestions(){
+      suggestionPanel?.classList.add('hidden');
+      if(suggestionPanel)suggestionPanel.innerHTML='';
+      suggestionMatches=[];
+      suggestionActive=-1;
+      suggestionEntry=null;
+      converterInput.setAttribute('aria-expanded','false');
+      converterInput.removeAttribute('aria-activedescendant');
+    }
+    function activateSuggestion(index){
+      if(!suggestionMatches.length||!suggestionPanel)return;
+      suggestionActive=(index+suggestionMatches.length)%suggestionMatches.length;
+      const buttons=suggestionPanel.querySelectorAll('.calc-suggestion-option');
+      buttons.forEach((button,i)=>{
+        const active=i===suggestionActive;
+        button.classList.toggle('is-active',active);
+        button.setAttribute('aria-selected',String(active));
+      });
+      const active=buttons[suggestionActive];
+      if(active){
+        converterInput.setAttribute('aria-activedescendant',active.id);
+        active.scrollIntoView({block:'nearest'});
+      }
+    }
+    function renderSuggestions(){
+      if(!suggestionPanel)return;
+      const entry=activeConverterEntry(),query=normalize(entry.query);
+      if(!query){hideSuggestions();return;}
+      const matches=suggestionItems.map(row=>({row,score:scoreSuggestion(row,query)}))
+        .filter(item=>item.score>0)
+        .sort((a,b)=>b.score-a.score||
+          (a.row[1].length-b.row[1].length)||
+          String(a.row[0]).localeCompare(String(b.row[0])))
+        .slice(0,8);
+      if(!matches.length||(matches.length===1&&(
+          String(matches[0].row[0])===entry.query||
+          normalize(matches[0].row[1])===query))){
+        hideSuggestions();return;
+      }
+      suggestionMatches=matches.map(item=>item.row);
+      suggestionEntry=entry;
+      suggestionActive=-1;
+      suggestionPanel.innerHTML='<div class="calc-suggestion-heading">Matching Quest tests for this line</div>'+
+        matches.map(({row},i)=>{
+          const code=escape(row[0]),name=escape(row[1]);
+          const specimen=String(row[2]||'').trim(),match=String(row[3]||'').trim();
+          const hint=[specimen,match?'LabCorp candidate: '+match:'No LabCorp code mapped'].filter(Boolean).join(' · ');
+          return '<button type="button" class="calc-suggestion-option" role="option" id="crosswalk-quest-option-'+i+
+            '" aria-selected="false" tabindex="-1" data-index="'+i+'">'+
+            '<span class="calc-suggestion-code">'+code+'</span>'+
+            '<span class="calc-suggestion-copy"><strong>'+name+'</strong><small>'+escape(hint)+'</small></span>'+
+            '<span class="calc-suggestion-arrow" aria-hidden="true">›</span></button>';
+        }).join('')+
+        '<div class="calc-suggestion-footer">Choose a Quest test to fill its code · ↑ ↓ navigate · Enter select · Esc close</div>';
+      suggestionPanel.classList.remove('hidden');
+      converterInput.setAttribute('aria-expanded','true');
+      converterInput.removeAttribute('aria-activedescendant');
+    }
+    function chooseSuggestion(index){
+      const row=suggestionMatches[index];
+      if(!row||!suggestionEntry)return;
+      const {start,end}=suggestionEntry,code=String(row[0]);
+      const oldFollowing=converterInput.value.slice(end);
+      converterInput.setRangeText(code,start,end,'end');
+      const after=start+code.length;
+      // A native next line is reused, not duplicated; entries below remain unchanged.
+      if(oldFollowing.startsWith('\n')){
+        converterInput.setSelectionRange(after+1,after+1);
+      }else if(!oldFollowing||/^[,;\t]/.test(oldFollowing)){
+        if(!oldFollowing){
+          converterInput.setRangeText('\n',after,after,'end');
+        }else{
+          converterInput.setSelectionRange(after,after);
+        }
+      }
+      hideSuggestions();
+      converterInput.focus({preventScroll:true});
+      updateConverter();
+      refreshConverterHints();
+    }
+    const refreshConverterHints=window.LabBatchInlineHints?.mount(converterInput,query=>{
+      const row=questByCode.get(String(query).trim());
+      if(row)return String(row[1]||'').trim()||null;
+      const nameMatches=questByName.get(normalize(query))||[];
+      return nameMatches.length===1?String(nameMatches[0][0]):null;
+    })||(()=>{});
+    converterInput.addEventListener('focus',renderSuggestions);
+    converterInput.addEventListener('click',renderSuggestions);
+    converterInput.addEventListener('keyup',event=>{
+      if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key))renderSuggestions();
+    });
+    converterInput.addEventListener('keydown',event=>{
+      if(event.isComposing||event.keyCode===229)return;
+      if(event.key==='Escape'){hideSuggestions();return;}
+      if(event.key==='Tab'){hideSuggestions();return;}
+      if(event.key==='ArrowDown'||event.key==='ArrowUp'){
+        if(suggestionMatches.length){
+          event.preventDefault();
+          activateSuggestion(suggestionActive<0?(event.key==='ArrowDown'?0:suggestionMatches.length-1):
+            suggestionActive+(event.key==='ArrowDown'?1:-1));
+        }
+        return;
+      }
+      if(event.key==='Enter'){
+        if(suggestionMatches.length&&suggestionActive>=0&&!event.metaKey&&!event.ctrlKey){
+          event.preventDefault();
+          chooseSuggestion(suggestionActive);
+        }else{
+          hideSuggestions();
+        }
+      }
+    });
+    if(suggestionPanel){
+      suggestionPanel.addEventListener('mousedown',event=>{
+        if(event.target.closest('button[data-index]'))event.preventDefault();
+      });
+      suggestionPanel.addEventListener('click',event=>{
+        const button=event.target.closest('button[data-index]');
+        if(button)chooseSuggestion(Number(button.dataset.index));
+      });
+      document.addEventListener('pointerdown',event=>{
+        if(!event.target.closest('#crosswalkQuestAutocomplete'))hideSuggestions();
+      });
+      converterInput.addEventListener('blur',()=>{
+        // Click selection is handled by the button; keyboard blur always dismisses.
+        if(!suggestionPanel.contains(document.activeElement))hideSuggestions();
+      });
     }
     const cartList=document.getElementById('crosswalkCartList');
     const cartCount=document.getElementById('crosswalkCartCount');
@@ -215,13 +439,22 @@
     document.addEventListener('labcorp:cart-updated',()=>renderCart());
 
     function updateConverter(){
-      const inputCodes=converterInput.value.trim().split(/[\s,;]+/).filter(Boolean);
+      // Names are allowed as a full line. Retain compatibility with pasted
+      // whitespace-separated numeric codes without splitting multiword test names.
+      const inputCodes=converterInput.value.split(/[\n,;\t]+/)
+        .flatMap(value=>{
+          const trimmed=value.trim();
+          return /^\d+(?:\s+\d+)+$/.test(trimmed)?trimmed.split(/\s+/):[trimmed];
+        }).filter(Boolean);
       const seenQuest=new Set(),seenLabcorp=new Set(),converted=[],unmatched=[],unknown=[];
       let duplicates=0,matched=0;
       for(const code of inputCodes){
         if(seenQuest.has(code)){duplicates++;continue;}
         seenQuest.add(code);
-        const row=questByCode.get(code);
+        // Exact Quest names work; approximate names require deliberate selection
+        // from the dropdown. No inferred Quest-to-LabCorp equivalence is added.
+        const byName=questByName.get(normalize(code))||[];
+        const row=questByCode.get(code)||(byName.length===1?byName[0]:null);
         if(!row){unknown.push(code);continue;}
         const match=String(row[3]||'').trim();
         if(!match){unmatched.push(code);continue;}
@@ -246,7 +479,7 @@
       cartCandidateCodes=converted;
       renderCart(true);
     }
-    converterInput.addEventListener('input',updateConverter);
+    converterInput.addEventListener('input',()=>{updateConverter();renderSuggestions();});
     converterCopy.addEventListener('click',async()=>{
       if(!converterOutput.value)return;
       try{
