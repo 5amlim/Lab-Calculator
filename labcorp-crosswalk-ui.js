@@ -1337,6 +1337,9 @@
       }
       cartCandidateCodes=converted;
       renderCart();
+      // renderCart refreshes ghost labels; place X buttons only after that
+      // refresh so long names make room for their buttons.
+      renderNoMatchActions();
     }
     converterInput.addEventListener('input',()=>{
       actionFeedback='';
