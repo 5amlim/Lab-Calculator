@@ -109,3 +109,46 @@ test('manual code and multiple candidate codes survive line-aligned conversion',
   assert.equal(state.emptyOutputHints.get(0),'No match for 809523');
   assert.deepEqual(Array.from(state.cartCandidateCodes),['201','223','809']);
 });
+
+
+/* November 21 additional cross-references: candidate codes remain suggestions,
+   while near-matches with variant panels/methods stay review-only. */
+const expandedCandidates={
+  '637':'070194','28882':'001321','15043':'006643','29812':'001875',
+  '29816':'146010','37579':'819195','37580':'819198','38482':'602756',
+  '34964':'828387','19895':'833376','5022':'830811','5042':'121186',
+  '11014':'001248','10214':'724195','10217':'081034','10240':'007245',
+  '10242':'085340','10254':'085324','10186':'138230','14163':'139490',
+  '14013':'188026','14577':'180026','7903':'209601','16283':'832599',
+  '38928':'007441','298':'004648','3138':'790650','1744':'348237',
+  '19583':'006505','37438':'140120','11294':'512143','18718':'817203',
+  '14679':'512116','24629':'001495','2744':'806168','34918':'605526',
+  '59200':'828257','59202':'828263','59203':'828265','17560':'827149'
+};
+test('additional candidate mappings use active LabCorp codes and compatible specimen types',()=>{
+  const labByCode=new Map(indexedLab.map(l=>[l[0],l]));
+  assert.equal(Object.keys(expandedCandidates).length,40);
+  for(const [questCode,labCode] of Object.entries(expandedCandidates)){
+    const r=byQuest.get(questCode),l=labByCode.get(labCode);
+    assert.ok(r,'Quest active code '+questCode);
+    assert.ok(l,'LabCorp active code '+labCode);
+    assert.equal(r[3],labCode,'Mapped code for Quest '+questCode);
+    assert.equal(r[2].toLowerCase(),l[2].toLowerCase(),'Specimen type for Quest '+questCode);
+    assert.ok(!r[8],'Mapped row must not also be review-only');
+  }
+});
+test('review-only alternatives are visible but never automatically converted',()=>{
+  for(const [questCode,labCode] of [
+    ['38631','899048'],['38621','899035'],['92473','481020'],
+    ['16869','481630'],['14852','337877'],['91278','737740'],
+    ['250','007204'],['250','007205'],['16846','002006'],
+    ['19546','503640'],['2371','602880']
+  ]){
+    const row=byQuest.get(questCode);
+    assert.ok(row,'Quest '+questCode);
+    assert.equal(row[3],'','Review-only Quest '+questCode);
+    assert.ok(row[8]?.some(l=>l[0]===labCode),questCode+' review contains '+labCode);
+  }
+  assert.equal(byQuest.get('2569')[3],'','IgE must not become IgG');
+  assert.equal(byQuest.get('10120')[3],'','Protected non-equivalent stays unmapped');
+});
