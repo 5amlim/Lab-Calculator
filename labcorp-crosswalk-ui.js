@@ -592,11 +592,11 @@
           '.batch-inline-ghost-no-match[data-line-index="'+index+'"]');
         if(!label)continue;
         const rect=label.getBoundingClientRect();
-        const top=rect.top-containerRect.top+(rect.height-24)/2;
+        const top=rect.top-containerRect.top+(rect.height-20)/2;
         const left=rect.left-containerRect.left+3;
-        if(top<-24||top>outputContainer.clientHeight-3)continue;
+        if(top<-20||top>outputContainer.clientHeight-3)continue;
         // The text may ellipsize, but its leading search icon stays visible.
-        if(left<0||left+24>outputContainer.clientWidth-2)continue;
+        if(left<0||left+20>outputContainer.clientWidth-2)continue;
         const b=document.createElement('button');
         b.type='button';
         b.className='crosswalk-no-match-search';
