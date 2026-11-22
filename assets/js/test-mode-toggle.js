@@ -7,6 +7,7 @@
   const convertPanel = document.getElementById('convertTestsView');
   const description = document.getElementById('testModeDescription');
   const actions = document.querySelector('.library-heading .library-actions');
+  const converterHeaderActions = document.getElementById('converterHeaderActions');
   const converterDetails = document.getElementById('labcorpCrosswalk');
   if (!find || !convert || !findPanel || !convertPanel) return;
 
@@ -23,6 +24,7 @@
     findPanel.hidden = !isFind;
     convertPanel.hidden = isFind;
     if (actions) actions.hidden = !isFind;
+    if (converterHeaderActions) converterHeaderActions.hidden = isFind;
     if (description) description.textContent = isFind
       ? 'Search by test code or name.'
       : 'Find possible ' + destination + ' equivalents for ' + source + ' tests.';
