@@ -975,7 +975,7 @@
             text:first.code+' · '+first.name+suffix
           });
         }else{
-          manualSourceHints.set(index,{tone:'manual',text:'Manually added'});
+          manualSourceHints.set(index,{tone:'manual',text:'Manually added test'});
         }
       });
       // Real blank source lines must exist behind every mirrored label.
