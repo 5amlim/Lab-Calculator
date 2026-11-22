@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="market-switch.css?v=10">
   <link rel="stylesheet" href="quest-theme.css?v=14">
 <link rel="stylesheet" href="assets/css/search-suggestions.css?v=20261121-status-color">
-  <link rel="stylesheet" href="labcorp-crosswalk.css?v=31">
+  <link rel="stylesheet" href="labcorp-crosswalk.css?v=32">
   <link rel="stylesheet" href="assets/css/test-mode-toggle.css?v=20261121-6">
   <link rel="stylesheet" href="print-button-theme.css?v=8">
   <link rel="stylesheet" href="assets/css/scroll-cues.css?v=4">
@@ -381,6 +381,7 @@
                 <p class="crosswalk-converter-disclaimer">Candidate matches are not verified clinical equivalents. Confirm analyte, method, specimen, volume, and transport requirements in the official Quest directory before ordering.</p>
               </header>
               <div class="crosswalk-directory-body">
+                <div class="crosswalk-browser-inner-card">
                 <p class="crosswalk-explainer"><span class="crosswalk-explainer-icon" aria-hidden="true">i</span><span><strong>Reference matches are not verified clinical equivalents.</strong> Confirm test details before ordering.</span></p>
                 <div class="crosswalk-tools">
                   <label>Compare from<select id="labcorpCrosswalkDirection" aria-label="Comparison catalog"><option value="quest" selected>Quest to LabCorp</option><option value="labcorp">LabCorp to Quest</option></select></label>
@@ -407,6 +408,7 @@
                   </table>
                 </div>
                 <div class="crosswalk-bottom"><button type="button" id="labcorpCrosswalkMore" class="button secondary" hidden>Show more results</button></div>
+                </div><!-- /crosswalk-browser-inner-card -->
               </div>
             </section>
           </div>
