@@ -1,0 +1,21 @@
+name: Quest-Labcorp crosswalk candidate audit
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'labcorp-crosswalk-data.js'
+      - 'labcorp-quest-workbook-crosswalk-overrides.js'
+      - 'tests/quest-labcorp-crosswalk-second-sweep-20261121.test.cjs'
+      - '.github/workflows/quest-labcorp-crosswalk-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  crosswalk-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/quest-labcorp-crosswalk-second-sweep-20261121.test.cjs tests/quest-labcorp-crosswalk-sweep-20261121.test.cjs
