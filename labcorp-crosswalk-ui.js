@@ -444,6 +444,8 @@
       .map(row=>[String(row[0]||'').trim(),String(row[1]||'').trim()]));
     let emptyOutputHints=new Map();
     let unavailableOutputCodes=new Set();
+    // Selected reference pairs remain provisional and session-local.
+    const chosenMatches=new Map();
     // The two panes represent the same source rows. Mirror vertical scrolling
     // in either direction so long lists remain aligned while reviewing matches.
     // Programmatic scroll events are ignored to avoid loops when one pane has
@@ -467,8 +469,169 @@
     const refreshOutputHints=window.LabBatchInlineHints?.mount(converterOutput,code=>
       questNames.get(String(code).trim())||null,{
         emptyLineHint:index=>emptyOutputHints.get(index)||null,
-        lineTone:code=>unavailableOutputCodes.has(String(code).trim())?'unavailable':null
+        lineTone:code=>unavailableOutputCodes.has(String(code).trim())?'unavailable':null,
+        onNoMatchAction:isQuestPage?index=>openQuestMatchDrawer(index):null
       })||(()=>{});
+
+    // In-page indexed Quest directory finder. The official directory remains
+    // the source for verifying analyte, specimen, method, volume, and handling.
+    const indexedQuestTests=isQuestPage?rows.filter(row=>
+      sourceType(row)==='active'&&String(row[0]||'').trim()&&String(row[1]||'').trim()
+    ).map(row=>({code:String(row[0]).trim(),name:String(row[1]).trim(),
+      specimen:String(row[2]||'').trim(),normalized:normalize(row[1])})):[];
+    const outputContainer=document.getElementById('crosswalkOutputAutocomplete');
+    const actionLayer=isQuestPage&&outputContainer?document.createElement('div'):null;
+    if(actionLayer){
+      actionLayer.className='crosswalk-no-match-actions';
+      outputContainer.appendChild(actionLayer);
+    }
+    const drawer=isQuestPage?document.createElement('div'):null;
+    let drawerSearch=null,drawerResults=null,drawerStatus=null,drawerSource=null,focusBeforeDrawer=null;
+    if(drawer){
+      drawer.className='crosswalk-match-drawer-host';
+      drawer.hidden=true;
+      drawer.innerHTML=
+        '<div class="crosswalk-match-drawer-scrim" data-close="true"></div>'+
+        '<aside class="crosswalk-match-drawer" role="dialog" aria-modal="true" aria-labelledby="crosswalkMatchDrawerTitle">'+
+        '<header class="crosswalk-match-drawer-header">'+
+        '<div><span class="crosswalk-match-drawer-eyebrow">INDEXED QUEST TESTS</span>'+
+        '<h3 id="crosswalkMatchDrawerTitle">Find a Quest match</h3></div>'+
+        '<button type="button" class="crosswalk-match-drawer-close" data-close="true" aria-label="Close Quest match search">✕</button></header>'+
+        '<p id="crosswalkMatchDrawerSource" class="crosswalk-match-drawer-source"></p>'+
+        '<label class="crosswalk-match-drawer-search-label" for="crosswalkMatchDrawerSearch">Search Quest directory</label>'+
+        '<div class="crosswalk-match-drawer-search-box">'+
+        '<span aria-hidden="true">⌕</span><input id="crosswalkMatchDrawerSearch" type="search" autocomplete="off" placeholder="Test name or Quest code"></div>'+
+        '<p class="crosswalk-match-drawer-status" role="status" aria-live="polite"></p>'+
+        '<div class="crosswalk-match-drawer-results" role="list"></div>'+
+        '<footer class="crosswalk-match-drawer-footer">'+
+        '<p><strong>Manual selection only.</strong> Candidate tests are not verified clinical equivalents. Confirm specimen, method, volume, and transport before ordering.</p>'+
+        '<a href="https://testdirectory.questdiagnostics.com/" rel="noopener noreferrer" target="_blank">Check official Quest directory ↗</a>'+
+        '</footer></aside>';
+      document.body.appendChild(drawer);
+      drawerSearch=drawer.querySelector('#crosswalkMatchDrawerSearch');
+      drawerResults=drawer.querySelector('.crosswalk-match-drawer-results');
+      drawerStatus=drawer.querySelector('.crosswalk-match-drawer-status');
+    }
+    function sourceForRow(index){
+      const raw=converterInput.value.split('\n')[index]?.trim()||'';
+      const names=questByName.get(normalize(raw))||[];
+      const record=questByCode.get(raw)||(names.length===1?names[0]:null);
+      return {row:index,raw,code:record?String(record[0]):raw,
+        name:record?String(record[1]||raw):raw};
+    }
+    function searchQuestDirectory(){
+      if(!drawer||!drawerSource)return;
+      const q=normalize(drawerSearch.value),terms=q.split(' ').filter(Boolean);
+      const scored=q?indexedQuestTests.map(test=>{
+        const name=test.normalized,code=test.code;
+        let score=0;
+        if(code===q)score=5000;
+        else if(/^\d+$/.test(q)&&code.startsWith(q))score=4400;
+        else if(name===q)score=4200;
+        else if(name.startsWith(q))score=3700;
+        else if(name.includes(q))score=3400;
+        else if(terms.every(t=>name.split(' ').some(word=>word===t||word.startsWith(t))))score=2900;
+        else if(terms.every(t=>name.includes(t)))score=2400;
+        else if(terms.some(t=>t.length>=3&&name.includes(t)))score=900+
+          100*terms.filter(t=>t.length>=3&&name.includes(t)).length;
+        return {test,score};
+      }).filter(item=>item.score>0).sort((a,b)=>b.score-a.score||
+        a.test.name.localeCompare(b.test.name)||a.test.code.localeCompare(b.test.code)):[];
+      drawerStatus.textContent=!q?'Enter a Quest test name or code':
+        scored.length?'Showing '+Math.min(scored.length,25)+' of '+scored.length+' Quest directory references':
+        'No indexed Quest tests found. Try a shorter term or a Quest code.';
+      drawerResults.innerHTML=scored.slice(0,25).map(({test})=>
+        '<div class="crosswalk-match-drawer-result" role="listitem">'+
+        '<div class="crosswalk-match-drawer-result-details"><strong>'+escape(test.code)+'</strong>'+
+        '<span>'+escape(test.name)+'</span>'+
+        (test.specimen?'<small>Specimen · '+escape(test.specimen)+'</small>':'')+'</div>'+
+        '<button type="button" data-quest-code="'+escape(test.code)+'">Select</button></div>'
+      ).join('');
+    }
+    function closeQuestMatchDrawer(){
+      if(!drawer||drawer.hidden)return;
+      drawer.hidden=true;
+      document.body.classList.remove('crosswalk-drawer-visible');
+      drawerSource=null;
+      if(focusBeforeDrawer?.isConnected)focusBeforeDrawer.focus({preventScroll:true});
+      else converterOutput.focus({preventScroll:true});
+    }
+    function openQuestMatchDrawer(index){
+      if(!drawer||!emptyOutputHints.get(index)?.startsWith('No match for '))return;
+      const source=sourceForRow(index);
+      if(!source.code)return;
+      drawerSource=source;
+      focusBeforeDrawer=actionLayer?.querySelector('button[data-row="'+index+'"]')||converterOutput;
+      drawer.querySelector('#crosswalkMatchDrawerSource').textContent='LabCorp '+source.code+
+        (source.name&&source.name!==source.code?' · '+source.name:'');
+      drawerSearch.value=source.name||source.code;
+      searchQuestDirectory();
+      drawer.hidden=false;
+      document.body.classList.add('crosswalk-drawer-visible');
+      drawerSearch.focus({preventScroll:true});
+      drawerSearch.select();
+    }
+    function renderNoMatchActions(){
+      if(!actionLayer)return;
+      actionLayer.replaceChildren();
+      const style=window.getComputedStyle(converterOutput);
+      const lineHeight=parseFloat(style.lineHeight)||((parseFloat(style.fontSize)||15)*1.55);
+      const y=converterOutput.offsetTop+(parseFloat(style.borderTopWidth)||0)+
+        (parseFloat(style.paddingTop)||0)-converterOutput.scrollTop;
+      const x=converterOutput.offsetLeft+(parseFloat(style.borderLeftWidth)||0)+
+        (parseFloat(style.paddingLeft)||0)+19;
+      for(const [index,hint] of emptyOutputHints){
+        if(typeof hint!=='string'||!hint.startsWith('No match for '))continue;
+        const top=y+index*lineHeight;
+        if(top<-22||top>converterOutput.offsetHeight-5)continue;
+        const b=document.createElement('button');
+        b.type='button';
+        b.className='crosswalk-no-match-search';
+        b.dataset.row=String(index);
+        b.style.top=top+'px';
+        b.style.left=x+'px';
+        b.title='Find a Quest test for this LabCorp entry';
+        b.setAttribute('aria-label','Search Quest directory for LabCorp test on line '+(index+1));
+        b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">'+
+          '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>';
+        b.addEventListener('pointerdown',event=>event.preventDefault());
+        b.addEventListener('click',event=>{
+          event.preventDefault();event.stopPropagation();openQuestMatchDrawer(index);
+        });
+        actionLayer.appendChild(b);
+      }
+    }
+    if(drawer){
+      drawerSearch.addEventListener('input',searchQuestDirectory);
+      drawer.addEventListener('click',event=>{
+        if(event.target.closest('[data-close]')){closeQuestMatchDrawer();return;}
+        const button=event.target.closest('button[data-quest-code]');
+        if(!button||!drawerSource)return;
+        const current=converterInput.value.split('\n')[drawerSource.row]?.trim()||'';
+        if(current!==drawerSource.raw){
+          drawerStatus.textContent='Source line changed. Close and reopen the search.';
+          return;
+        }
+        chosenMatches.set(drawerSource.code,{code:button.dataset.questCode});
+        manualOutputCodes.delete(button.dataset.questCode);
+        closeQuestMatchDrawer();
+        updateConverter();
+      });
+      drawer.addEventListener('keydown',event=>{
+        if(event.key==='Escape'){event.preventDefault();closeQuestMatchDrawer();return;}
+        if(event.key!=='Tab')return;
+        const elements=[...drawer.querySelectorAll('button,input,a[href]')].filter(el=>
+          !el.disabled&&el.getClientRects().length>0);
+        if(!elements.length)return;
+        if(event.shiftKey&&document.activeElement===elements[0]){
+          event.preventDefault();elements[elements.length-1].focus();
+        }else if(!event.shiftKey&&document.activeElement===elements[elements.length-1]){
+          event.preventDefault();elements[0].focus();
+        }
+      });
+    }
+    converterOutput.addEventListener('scroll',renderNoMatchActions,{passive:true});
+
     // Allow direct Quest-code or test-name lookup in the editable destination
     // pane. Suggestions affect only the caret's line, never converted rows.
     const outputSuggestionPanel=document.getElementById('crosswalkOutputSuggestions');
@@ -912,7 +1075,7 @@
         ghosts.set(aligned.length,text);
         aligned.push('');
       };
-      let duplicates=0,matched=0;
+      let duplicates=0,matched=0,manualSelections=0;
       for(const code of inputRows){
         if(!code){aligned.push('');continue;}
         const byName=questByName.get(normalize(code))||[];
@@ -924,6 +1087,16 @@
           continue;
         }
         seenQuest.add(uniqueCode);
+        const selected=chosenMatches.get(uniqueCode);
+        if(selected){
+          if(!seenLabcorp.has(selected.code)){
+            seenLabcorp.add(selected.code);
+            converted.push(selected.code);
+            aligned.push(selected.code);
+            manualSelections++;
+          }else blankWithHint('Already listed: '+selected.code);
+          continue;
+        }
         if(!row){
           unknown.push(code);
           blankWithHint('No match for "'+code+'"');
@@ -1001,6 +1174,7 @@
       // source row before painting the ghost text layer.
       syncConverterScroll(converterInput,converterOutput);
       refreshOutputHints();
+      renderNoMatchActions();
       refreshManualSourceHints();
       if(!inputCodes.length){
         matchFeedback=[{text:'Enter '+fromLab+' test codes to see possible matches.',tone:'note',icon:'i'}];
@@ -1009,6 +1183,10 @@
           {text:matched+' of '+seenQuest.size+' '+fromLab+' '+(seenQuest.size===1?'test':'tests')+' with possible matches',
             tone:matched===seenQuest.size?'matched':'partial',icon:'↔'}
         ];
+        if(manualSelections){
+          matchFeedback.push({text:manualSelections+' selected manually · verify equivalence',
+            tone:'note',icon:'⌕'});
+        }
         if(duplicates){
           matchFeedback.push({text:duplicates+' duplicate '+(duplicates===1?'entry':'entries')+' omitted',
             tone:'note',icon:'i'});
