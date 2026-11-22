@@ -162,6 +162,8 @@
             if (!query && typeof hintText === 'string' &&
                 hintText.startsWith('No match for ')) {
               label.classList.add('batch-inline-ghost-no-match');
+              if(typeof options.onNoMatchAction === 'function')
+                label.classList.add('crosswalk-no-match-actionable');
             }
             if (hint && typeof hint === 'object') {
               if (hint.tone === 'manual') label.classList.add('batch-inline-ghost-manual');
