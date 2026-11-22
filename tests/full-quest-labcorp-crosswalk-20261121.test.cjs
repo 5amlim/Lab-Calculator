@@ -257,3 +257,45 @@ test('badge counts active LabCorp links after workbook is applied',()=>{
     ui.indexOf('reverse=buildReverse(index)'));
   assert.ok(ui.includes('new Set(questActive.filter(r=>r[3]).map(r=>String(r[3]))).size'));
 });
+
+
+/* Sort comparison entries by match status, without hiding unmatched rows. */
+const comparisonUI=fs.readFileSync('labcorp-crosswalk-ui.js','utf8');
+const startStatus=comparisonUI.indexOf('  function sourceType(row){');
+const endStatus=comparisonUI.indexOf('  function buildReverse(index){',startStatus);
+const startRows=comparisonUI.indexOf('  function getRows(){');
+const endRows=comparisonUI.indexOf('  function renderQuest(r){',startRows);
+assert.ok(startStatus>=0&&endStatus>startStatus&&startRows>=0&&endRows>startRows);
+const comparisonFunctions=comparisonUI.slice(startStatus,endStatus)+'\n'+comparisonUI.slice(startRows,endRows);
+function comparisonFixture(directionValue,filterValue='all',searchValue=''){
+  const q=[
+    ['101','A unmatched','Urine','','',0,'','active'],
+    ['102','B review','Serum','','',0,'','active',[['201','Related lab',85]]],
+    ['103','C candidate','Serum','201','Matching lab',0,'','active'],
+    ['104','D candidate','Urine','202','Second lab',0,'','active']
+  ];
+  const rev=[
+    {code:'301',name:'A unmatched',specimen:'Urine',matches:[],status:'pending'},
+    {code:'302',name:'B review',specimen:'Serum',matches:[{code:'102',name:'B review',status:'review'}],status:'review'},
+    {code:'303',name:'C candidate',specimen:'Serum',matches:[{code:'103',name:'C candidate',status:'suggested'}],status:'suggested'},
+    {code:'304',name:'D candidate',specimen:'Urine',matches:[{code:'104',name:'D candidate',status:'suggested'}],status:'suggested'}
+  ];
+  const ctx={
+    rows:q,reverse:rev,filter:{value:filterValue},direction:{value:directionValue},
+    search:{value:searchValue},
+    normalize:s=>String(s??'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim()
+  };
+  return Array.from(vm.runInNewContext(comparisonFunctions+'\ngetRows()',ctx));
+}
+test('LabCorp comparison lists candidates first, then reviews, then no matches',()=>{
+  assert.deepEqual(comparisonFixture('labcorp').map(r=>r.code),['303','304','302','301']);
+  assert.deepEqual(comparisonFixture('labcorp','pending').map(r=>r.code),['301']);
+  assert.deepEqual(comparisonFixture('labcorp','suggested').map(r=>r.code),['303','304']);
+  assert.deepEqual(comparisonFixture('labcorp','all','A unmatched').map(r=>r.code),['301']);
+});
+test('Quest comparison uses the same match-first ordering and keeps all filters',()=>{
+  assert.deepEqual(comparisonFixture('quest').map(r=>r[0]),['103','104','102','101']);
+  assert.deepEqual(comparisonFixture('quest','review').map(r=>r[0]),['102']);
+  assert.deepEqual(comparisonFixture('quest','all','A unmatched').map(r=>r[0]),['101']);
+});
+
