@@ -440,7 +440,9 @@
 
       // Compact, accessible color-coded segments. Keep the existing font size
       // and the distinction between candidate matches and verified equivalents.
-      const parts=[...matchFeedback];
+      const parts=displayed.length
+        ? matchFeedback.filter(part=>!part.text.startsWith('Enter '+fromLab+' test codes'))
+        : [...matchFeedback];
       if(cartCandidateCodes.length&&displayed.length!==cartCandidateCodes.length){
         parts.push({text:displayed.length+' '+toLab+' '+(displayed.length===1?'code':'codes')+' in output',tone:'codes',icon:'▤'});
       }
