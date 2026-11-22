@@ -923,6 +923,31 @@
       converterOutput.setSelectionRange(caret,caret);
       return true;
     }
+    function removeAlignedBlankRow(outputRow){
+      if(!isQuestPage||outputRow<=0)return false;
+      const sourceLines=converterInput.value.split('\n');
+      const outputLines=converterOutput.value.split('\n');
+      // Only remove a real empty pair, never a no-match placeholder, a
+      // generated match, or a row holding a manually entered Quest code.
+      if(outputRow>=sourceLines.length||outputRow>=outputLines.length||
+         sourceLines[outputRow].trim()||outputLines[outputRow].trim()||
+         emptyOutputHints.has(outputRow)||generatedMatchRows.has(outputRow))return false;
+      sourceLines.splice(outputRow,1);
+      outputLines.splice(outputRow,1);
+      converterInput.value=sourceLines.join('\n');
+      converterOutput.value=outputLines.join('\n');
+      hideOutputSuggestions();
+      updateConverter();
+      // The matched row remains read-only. Backspace only removes the line
+      // boundary and returns the caret to the previous Quest row.
+      const lines=converterOutput.value.split('\n');
+      const previous=Math.min(outputRow-1,lines.length-1);
+      const caret=lines.slice(0,previous).reduce((n,line)=>n+line.length+1,0)+
+        lines[previous].length;
+      converterOutput.focus({preventScroll:true});
+      converterOutput.setSelectionRange(caret,caret);
+      return true;
+    }
     function installLockedGhostRows(textarea){
       const rowAt=(value,position)=>{
         let line=0;
@@ -969,26 +994,32 @@
         return null;
       }
       function blockEdit(event,kind,data){
-        // Backspace at the start of an empty Quest row should move back,
-        // even when the preceding rows only show protected "No match" hints.
-        // Keep those rows in place so source and destination stay aligned.
+        // Backspace from an empty Quest line removes the corresponding
+        // empty LabCorp line, including one inserted with Enter after a match.
         if(kind==='deleteContentBackward'&&textarea===converterOutput&&
            textarea.selectionStart===textarea.selectionEnd){
           const value=textarea.value;
           const caret=textarea.selectionStart??value.length;
           const currentRow=rowAt(value,caret);
           const lineStart=value.lastIndexOf('\n',caret-1)+1;
-          if(caret===lineStart&&currentRow>0&&isBlank(currentRow)&&
-             (isLockedRow(textarea,currentRow)||isLockedRow(textarea,currentRow-1))){
-            event.preventDefault();
-            const lines=value.split('\n');
-            let previousRow=currentRow-1;
-            while(previousRow>=0&&isLockedRow(textarea,previousRow))previousRow--;
-            const previousCaret=previousRow<0?0:
-              lines.slice(0,previousRow).reduce((sum,line)=>sum+line.length+1,0)+
-              lines[previousRow].length;
-            textarea.setSelectionRange(previousCaret,previousCaret);
-            return true;
+          if(caret===lineStart&&currentRow>0&&isBlank(currentRow)){
+            if(removeAlignedBlankRow(currentRow)){
+              event.preventDefault();
+              return true;
+            }
+            // No-match rows are display-only and may not be merged into
+            // editable rows. Move the caret without changing source rows.
+            if(isLockedRow(textarea,currentRow)||isLockedRow(textarea,currentRow-1)){
+              event.preventDefault();
+              const lines=value.split('\n');
+              let previousRow=currentRow-1;
+              while(previousRow>=0&&isLockedRow(textarea,previousRow))previousRow--;
+              const previousCaret=previousRow<0?0:
+                lines.slice(0,previousRow).reduce((sum,line)=>sum+line.length+1,0)+
+                lines[previousRow].length;
+              textarea.setSelectionRange(previousCaret,previousCaret);
+              return true;
+            }
           }
         }
         const locked=blockedRow(kind);
