@@ -444,6 +444,11 @@
       .map(row=>[String(row[0]||'').trim(),String(row[1]||'').trim()]));
     let emptyOutputHints=new Map();
     let unavailableOutputCodes=new Set();
+    // Generated matches have a protected output row and an explicit remove action.
+    // Dismissals are scoped to a source/destination pair so other rows survive.
+    let generatedMatchRows=new Map();
+    const removedMatchPairs=new Set();
+    const matchPairKey=(source,code)=>String(source)+'\u0000'+String(code);
     // Selected reference pairs remain provisional and session-local.
     const chosenMatches=new Map();
     // The two panes represent the same source rows. Mirror vertical scrolling
@@ -613,6 +618,65 @@
         });
         actionLayer.appendChild(b);
       }
+
+      // The tiny remove button sits after each generated code's ghost name.
+      // It is separate from the textarea so copied values stay codes-only.
+      const codeLines=converterOutput.value.split('\n');
+      const fieldStyle=window.getComputedStyle(converterOutput);
+      const lineHeight=parseFloat(fieldStyle.lineHeight)||parseFloat(fieldStyle.fontSize)*1.55;
+      const measure=document.createElement('canvas').getContext('2d');
+      measure.font=[fieldStyle.fontStyle,fieldStyle.fontWeight,fieldStyle.fontSize,fieldStyle.fontFamily].join(' ');
+      for(const [index,match] of generatedMatchRows){
+        if(codeLines[index]?.trim()!==match.code)continue;
+        const label=outputContainer.querySelector(
+          '.batch-inline-ghost-label[data-line-index="'+index+'"]');
+        let top,left;
+        const maxLeft=converterOutput.offsetLeft+converterOutput.clientWidth-26;
+        if(label){
+          const labelRect=label.getBoundingClientRect();
+          const startingX=labelRect.left-containerRect.left;
+          // Make room for the X without overlapping an ellipsized test name.
+          label.style.maxWidth=Math.max(0,maxLeft-startingX-6)+'px';
+          const adjusted=label.getBoundingClientRect();
+          top=adjusted.top-containerRect.top+(adjusted.height-18)/2;
+          left=Math.min(maxLeft,adjusted.right-containerRect.left+6);
+        }else{
+          const codeWidth=measure.measureText(match.code).width;
+          top=converterOutput.offsetTop+parseFloat(fieldStyle.borderTopWidth||0)+
+            parseFloat(fieldStyle.paddingTop||0)+index*lineHeight-converterOutput.scrollTop+
+            (lineHeight-18)/2;
+          left=Math.min(maxLeft,converterOutput.offsetLeft+
+            parseFloat(fieldStyle.borderLeftWidth||0)+parseFloat(fieldStyle.paddingLeft||0)+
+            codeWidth+9-converterOutput.scrollLeft);
+        }
+        if(top<-18||top>outputContainer.clientHeight-3||left<0)continue;
+        const button=document.createElement('button');
+        button.type='button';
+        button.className='crosswalk-match-remove';
+        button.dataset.row=String(index);
+        button.dataset.code=match.code;
+        button.style.top=top+'px';
+        button.style.left=left+'px';
+        button.textContent='×';
+        button.title='Remove Quest match '+match.code;
+        button.setAttribute('aria-label','Remove matched Quest code '+match.code);
+        button.addEventListener('pointerdown',event=>event.preventDefault());
+        button.addEventListener('click',event=>{
+          event.preventDefault();
+          event.stopPropagation();
+          const current=generatedMatchRows.get(index);
+          if(!current||current.code!==match.code)return;
+          removedMatchPairs.add(matchPairKey(current.source,current.code));
+          updateConverter();
+          // Leave the source code and its position in the conversion intact.
+          const lines=converterOutput.value.split('\n');
+          const destination=Math.min(index,lines.length-1);
+          const caret=lines.slice(0,destination).reduce((n,line)=>n+line.length+1,0);
+          converterOutput.focus({preventScroll:true});
+          converterOutput.setSelectionRange(caret,caret);
+        });
+        actionLayer.appendChild(button);
+      }
     }
     if(drawer){
       drawerSearch.addEventListener('input',searchQuestDirectory);
@@ -625,8 +689,10 @@
           drawerStatus.textContent='Source line changed. Close and reopen the search.';
           return;
         }
-        chosenMatches.set(drawerSource.code,{code:button.dataset.questCode});
-        manualOutputCodes.delete(button.dataset.questCode);
+        const chosenCode=button.dataset.questCode;
+        removedMatchPairs.delete(matchPairKey(drawerSource.code,chosenCode));
+        chosenMatches.set(drawerSource.code,{code:chosenCode});
+        manualOutputCodes.delete(chosenCode);
         updateConverter();
         // The search action disappears when this line is resolved, so return
         // focus to the output field rather than a detached search button.
@@ -696,6 +762,11 @@
     function renderOutputSuggestions(){
       if(!outputSuggestionPanel)return;
       const entry=activeOutputEntry(),query=normalize(entry.query);
+      const row=converterOutput.value.slice(0,entry.start).split('\n').length-1;
+      if(isQuestPage&&generatedMatchRows.has(row)){
+        hideOutputSuggestions();
+        return;
+      }
       if(!query){hideOutputSuggestions();return;}
       const matches=outputSuggestionItems.map(row=>({row,score:scoreSuggestion(row,query)}))
         .filter(item=>item.score>0)
@@ -725,6 +796,8 @@
     function chooseOutputSuggestion(index){
       const row=outputSuggestionMatches[index];
       if(!row||!outputSuggestionEntry)return;
+      if(isQuestPage&&generatedMatchRows.has(
+          converterOutput.value.slice(0,outputSuggestionEntry.start).split('\n').length-1))return;
       const {start,end}=outputSuggestionEntry,code=String(row[0]);
       const following=converterOutput.value.slice(end);
       converterOutput.setRangeText(code,start,end,'end');
@@ -785,8 +858,8 @@
         if(!tappingOutputSuggestion&&!outputSuggestionPanel.contains(document.activeElement))hideOutputSuggestions();
       });
     }
-    // Manual destination codes and source codes are actual editable entries.
-    // Only the decorative "Manually added" and "No match" lines are locked.
+    // Manual destination codes and source codes remain editable.
+    // Generated matches and decorative no-match rows are protected.
     const noMatchRow=index=>{
       const hint=emptyOutputHints.get(index);
       return typeof hint==='string'&&hint.startsWith('No match for ');
@@ -794,9 +867,10 @@
     const isLockedRow=(textarea,index)=>textarea===converterInput
       ? manualSourceHints.get(index)?.tone==='manual' &&
         !(textarea.value.split('\n')[index]||'').trim()
-      : noMatchRow(index);
+      : noMatchRow(index)||(isQuestPage&&generatedMatchRows.has(index));
     function shakeLockedRow(textarea,index){
       if(textarea===converterInput)refreshConverterHints.shakeLine?.(index);
+      else if(generatedMatchRows.has(index))refreshOutputHints.shakeCodeLine?.(index);
       else refreshOutputHints.shakeLine?.(index);
     }
     function installLockedGhostRows(textarea){
@@ -831,7 +905,8 @@
         const to=Math.max(from,textarea.selectionEnd??from);
         const first=rowAt(value,from),last=rowAt(value,to);
         for(let line=first;line<=last;line++){
-          if(isLockedRow(textarea,line)&&!(draftRow===line&&from===to&&first===line)){
+          if(isLockedRow(textarea,line)&&
+             !(textarea===converterInput&&draftRow===line&&from===to&&first===line)){
             return line;
           }
         }
@@ -1085,6 +1160,7 @@
       actionFeedback='';
       renderCart();
       refreshOutputHints();
+      renderNoMatchActions();
       refreshManualSourceHints();
       renderOutputSuggestions();
     });
@@ -1120,13 +1196,15 @@
       // matches occupy a blank editable line with a decorative ghost message.
       // Extra candidates (where a source has several) follow the aligned rows.
       const aligned=[],extras=[],ghosts=new Map();
+      const alignedMatches=[],extraMatches=[];
       const blankWithHint=text=>{
         ghosts.set(aligned.length,text);
         aligned.push('');
+        alignedMatches.push(null);
       };
       let duplicates=0,matched=0,manualSelections=0;
       for(const code of inputRows){
-        if(!code){aligned.push('');continue;}
+        if(!code){aligned.push('');alignedMatches.push(null);continue;}
         const byName=questByName.get(normalize(code))||[];
         const row=questByCode.get(code)||(byName.length===1?byName[0]:null);
         const uniqueCode=row?String(row[0]):code;
@@ -1138,10 +1216,14 @@
         seenQuest.add(uniqueCode);
         const selected=chosenMatches.get(uniqueCode);
         if(selected){
-          if(!seenLabcorp.has(selected.code)){
+          if(removedMatchPairs.has(matchPairKey(uniqueCode,selected.code))){
+            aligned.push('');
+            alignedMatches.push(null);
+          }else if(!seenLabcorp.has(selected.code)){
             seenLabcorp.add(selected.code);
             converted.push(selected.code);
             aligned.push(selected.code);
+            alignedMatches.push({source:uniqueCode,code:selected.code});
             manualSelections++;
           }else blankWithHint('Already listed: '+selected.code);
           continue;
@@ -1162,8 +1244,16 @@
           blankWithHint('No match for "'+sourceCode+(sourceName?' · '+sourceName:'')+'"');
           continue;
         }
+        const allowed=[...new Set(candidates)].filter(match=>
+          !removedMatchPairs.has(matchPairKey(uniqueCode,match)));
+        if(!allowed.length){
+          // Deleted matches leave a blank editable slot, not a false no-match claim.
+          aligned.push('');
+          alignedMatches.push(null);
+          continue;
+        }
         matched++;
-        const fresh=[...new Set(candidates)].filter(match=>!seenLabcorp.has(match));
+        const fresh=allowed.filter(match=>!seenLabcorp.has(match));
         // Keep all codes for Copy and Add, even if several LabCorp tests share
         // the same destination code or one test has multiple candidates.
         for(const match of fresh){
@@ -1172,13 +1262,17 @@
         }
         if(fresh.length){
           aligned.push(fresh[0]);
+          alignedMatches.push({source:uniqueCode,code:fresh[0]});
           extras.push(...fresh.slice(1));
+          extraMatches.push(...fresh.slice(1).map(match=>({source:uniqueCode,code:match})));
         }else{
           blankWithHint('Already listed: '+code);
         }
       }
       const outputLines=[...aligned,...extras];
       generatedOutputRows=outputLines.slice();
+      generatedMatchRows=new Map([...alignedMatches,...extraMatches]
+        .flatMap((match,index)=>match?[[index,match]]:[]));
       // Keep manually entered destination codes in their existing blank rows.
       // This also preserves alignment when a mirrored reference is edited
       // below another manual destination with no available crosswalk.
