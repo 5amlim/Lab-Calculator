@@ -124,6 +124,69 @@
       (lab?' LabCorp':' Quest')+' comparison entries'+(labMatches!==null?' · '+labMatches.toLocaleString()+' LabCorp codes have candidate links':'')+
       ' · Similar names are not clinically verified equivalents';
   }
+
+  // Bulk Quest -> LabCorp converter. Only explicit active-index candidates are copied.
+  const converterInput=document.getElementById('crosswalkQuestInput');
+  const converterOutput=document.getElementById('crosswalkLabcorpOutput');
+  const converterCopy=document.getElementById('crosswalkCopyCodes');
+  const converterFeedback=document.getElementById('crosswalkConverterFeedback');
+  const converterWarning=document.getElementById('crosswalkConverterWarning');
+  if(converterInput&&converterOutput&&converterCopy&&converterFeedback&&converterWarning){
+    const questByCode=new Map();
+    for(const row of rows){
+      if(sourceType(row)!=='active')continue;
+      const code=String(row[0]).trim();
+      if(!questByCode.has(code)||(!questByCode.get(code)[3]&&row[3]))questByCode.set(code,row);
+    }
+    function updateConverter(){
+      const inputCodes=converterInput.value.trim().split(/[\s,;]+/).filter(Boolean);
+      const seenQuest=new Set(),seenLabcorp=new Set(),converted=[],unmatched=[],unknown=[];
+      let duplicates=0,matched=0;
+      for(const code of inputCodes){
+        if(seenQuest.has(code)){duplicates++;continue;}
+        seenQuest.add(code);
+        const row=questByCode.get(code);
+        if(!row){unknown.push(code);continue;}
+        const match=String(row[3]||'').trim();
+        if(!match){unmatched.push(code);continue;}
+        matched++;
+        if(!seenLabcorp.has(match)){seenLabcorp.add(match);converted.push(match);}
+      }
+      converterOutput.value=converted.join('\n');
+      converterCopy.disabled=converted.length===0;
+      converterCopy.setAttribute('aria-label',converted.length?'Copy '+converted.length+' LabCorp candidate codes':'No LabCorp codes to copy');
+      if(!inputCodes.length){
+        converterFeedback.textContent='Enter Quest test codes to see possible matches.';
+      }else{
+        converterFeedback.textContent=matched+' of '+seenQuest.size+' Quest codes have candidate matches · '+
+          converted.length+' unique LabCorp '+(converted.length===1?'code':'codes')+
+          (duplicates?' · '+duplicates+' duplicate '+(duplicates===1?'entry':'entries')+' omitted':'');
+      }
+      const notes=[];
+      if(unmatched.length)notes.push('No LabCorp candidate identified: '+unmatched.join(', '));
+      if(unknown.length)notes.push('Not found in the active Quest index: '+unknown.join(', '));
+      converterWarning.hidden=notes.length===0;
+      converterWarning.textContent=notes.join(' · ');
+    }
+    converterInput.addEventListener('input',updateConverter);
+    converterCopy.addEventListener('click',async()=>{
+      if(!converterOutput.value)return;
+      try{
+        if(!navigator.clipboard?.writeText)throw Error('Clipboard API unavailable');
+        await navigator.clipboard.writeText(converterOutput.value);
+      }catch(error){
+        converterOutput.focus();
+        converterOutput.select();
+        if(!document.execCommand('copy')){
+          converterFeedback.textContent='Copy unavailable. Select the LabCorp codes and copy manually.';
+          return;
+        }
+      }
+      converterFeedback.textContent='Copied '+converterOutput.value.split('\n').length+' LabCorp candidate '+(converterOutput.value.includes('\n')?'codes':'code')+'. Verify each test before ordering.';
+    });
+    updateConverter();
+  }
+
   function download(){
     if(direction.value==='labcorp'&&!reverse){return;}
     const lab=direction.value==='labcorp',lines=[];
