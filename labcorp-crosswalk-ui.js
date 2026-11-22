@@ -4,6 +4,7 @@
   const isQuestPage = document.body.dataset.galleryLab === 'Q';
   const table=document.getElementById('labcorpCrosswalkBody');
   if(!table||!Array.isArray(window.QUEST_TO_LABCORP_INDEX))return;
+  const tableWrap=table.closest('.crosswalk-table-wrap');
   const rows=window.QUEST_TO_LABCORP_INDEX.slice().sort((a,b)=>a[1].localeCompare(b[1])||a[0].localeCompare(b[0]));
   const meta=window.QUEST_TO_LABCORP_METADATA||{};
   const search=document.getElementById('labcorpCrosswalkSearch');
@@ -19,7 +20,8 @@
   const normalize=s=>String(s??'').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
   const labUrl=(name,code)=>'https://www.labcorp.com/test-menu/search?query='+encodeURIComponent(code||name);
   const questUrl='https://testdirectory.questdiagnostics.com/';
-  const PAGE_SIZE=7;
+  const PAGE_SIZE=10;
+  const VIEWPORT_ROWS=3;
   let visible=PAGE_SIZE,reverse=null,loadError=false;
   function sourceType(row){return row[7]||(row[0]==='XXX'?'uncoded':'active');}
   function statusQuest(row){
@@ -129,6 +131,18 @@
       '<a class="crosswalk-directory-link crosswalk-directory-link--muted" href="'+questUrl+'" target="_blank" rel="noopener noreferrer">Quest directory <span aria-hidden="true">↗</span></a>'+
       '</div></td></tr>';
   }
+  // Measure the first three complete test rows to keep a compact scrollable
+  // viewport even when candidate names and directory links wrap differently.
+  function sizeCrosswalkViewport(){
+    if(!tableWrap||!tableWrap.getClientRects().length)return;
+    const displayedRows=Array.from(table.rows).slice(0,VIEWPORT_ROWS);
+    if(!displayedRows.length)return;
+    const header=table.closest('table')?.tHead;
+    const height=(header?.getBoundingClientRect().height||0)+
+      displayedRows.reduce((sum,row)=>sum+row.getBoundingClientRect().height,0);
+    const maxHeight=Math.ceil(height+2)+'px';
+    if(height>0&&tableWrap.style.maxHeight!==maxHeight)tableWrap.style.maxHeight=maxHeight;
+  }
   function render(){
     const lab=direction.value==='labcorp';
     heads[0].textContent=lab?'LabCorp code':'Quest code';
@@ -149,6 +163,7 @@
       '<tr><td colspan="4" class="crosswalk-empty">No entries found for this search and filter.</td></tr>';
     more.hidden=pending||matched.length<=visible;
     if(!more.hidden)more.textContent='Show '+Math.min(PAGE_SIZE,matched.length-visible)+' more tests';
+    if(tableWrap)requestAnimationFrame(sizeCrosswalkViewport);
     const questActive=rows.filter(r=>sourceType(r)==='active');
     const activeMatches=questActive.filter(r=>Boolean(r[3])).length;
     // Count distinct LabCorp codes linked to active Quest tests only.
@@ -171,8 +186,8 @@
         questEquivalents.toLocaleString()+' Quest equivalents';
     }
     status.textContent=pending?(loadError?'LabCorp directory unavailable':'Loading LabCorp index…'):
-      'Showing '+Math.min(visible,matched.length).toLocaleString()+' of '+matched.length.toLocaleString()+
-      (lab?' LabCorp':' Quest')+' tests';
+      'Loaded '+Math.min(visible,matched.length).toLocaleString()+' of '+matched.length.toLocaleString()+
+      (lab?' LabCorp':' Quest')+' tests · 3 visible at a time';
   }
 
   // Bulk test converter; output uses candidate codes only, never inferred collection rules.
@@ -1540,9 +1555,25 @@
     setTimeout(()=>URL.revokeObjectURL(url),1000);
   }
   for(const input of [search,filter,direction])input.addEventListener(
-    input===search?'input':'change',()=>{visible=PAGE_SIZE;render();}
+    input===search?'input':'change',()=>{
+      visible=PAGE_SIZE;
+      render();
+      if(tableWrap){tableWrap.scrollTop=0;tableWrap.scrollLeft=0;}
+    }
   );
-  more.addEventListener('click',()=>{visible+=PAGE_SIZE;render();});
+  // Scrolling only navigates preloaded results. Click is required to load ten more.
+  more.addEventListener('click',()=>{
+    const previousScroll=tableWrap?.scrollTop||0;
+    visible+=PAGE_SIZE;
+    render();
+    if(tableWrap)tableWrap.scrollTop=previousScroll;
+  });
+  window.addEventListener('resize',()=>requestAnimationFrame(sizeCrosswalkViewport));
+  const converterView=tableWrap?.closest('#convertTestsView');
+  if(converterView&&typeof ResizeObserver!=='undefined'){
+    const resizeObserver=new ResizeObserver(()=>requestAnimationFrame(sizeCrosswalkViewport));
+    resizeObserver.observe(converterView);
+  }
   exportCsv.addEventListener('click',download);
   table.addEventListener('click',event=>{
     const btn=event.target.closest('button[data-labcorp-code]');
