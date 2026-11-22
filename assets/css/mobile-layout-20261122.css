@@ -1,0 +1,213 @@
+/* Compact phone layout for Quest and LabCorp calculators.
+   Scoped to screen sizes only; desktop and print layouts remain unchanged. */
+@media screen and (max-width: 700px) {
+  /* Keep the colored header full-bleed and remove the large unused top area. */
+  .app-header {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 12px;
+    padding: 15px 14px 13px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 11px;
+  }
+  .app-header .header-title { width: 100%; min-width: 0; }
+  .app-header h1 { margin: 0 0 3px; font-size: 21px; line-height: 1.2; }
+  .app-header p { margin: 0; font-size: 11.5px; line-height: 1.4; }
+  .app-header .header-actions:has(.lab-select) {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    margin: 0;
+  }
+  .app-header .privacy-pill {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    justify-self: start;
+    padding: 5px 8px;
+    font-size: 10.5px;
+    line-height: 1.25;
+  }
+  .app-header .lab-select {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
+    width: min(100%, 164px);
+    min-width: 0;
+  }
+  .app-header .lab-select > summary { min-height: 46px; padding: 7px 10px; }
+  .app-header .lab-select-current { font-size: 16px; }
+  .app-header .calculator-gallery-trigger {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+    box-sizing: border-box;
+    max-width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    padding: 7px 9px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  /* Give the working area the whole screen width without horizontal clipping. */
+  .app-shell {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 10px 24px;
+  }
+  .workspace, .library-panel, .library-heading,
+  .test-mode-heading, .test-mode-converter {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .library-panel { padding: 14px 11px; }
+  .library-heading { gap: 8px; }
+  .test-mode-heading { width: 100%; }
+  .test-mode-heading .eyebrow { margin-bottom: 8px; font-size: 10.5px; }
+  .test-mode-heading #testModeDescription {
+    margin-top: 8px;
+    font-size: 11.5px;
+    line-height: 1.45;
+  }
+  .test-mode-switch {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    max-width: 100%;
+    gap: 3px;
+    padding: 3px;
+  }
+  .test-mode-option {
+    min-width: 0;
+    min-height: 41px;
+    padding: 7px 6px;
+    gap: 6px;
+    font-size: 12px;
+  }
+  .test-mode-option svg { width: 15px; height: 15px; flex-basis: 15px; }
+  .converter-header-actions {
+    box-sizing: border-box;
+    margin: 0;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .converter-header-actions .record-count {
+    max-width: 100%;
+    padding: 5px 9px;
+    font-size: 10.5px;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+
+  /* One editor per row, with usable text size and less wasted vertical space.
+     Equal heights preserve row alignment and synchronized scrolling. */
+  .test-mode-converter .crosswalk-interior { padding: 0; }
+  .test-mode-converter .crosswalk-converter {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+    gap: 6px;
+    width: 100%;
+    min-width: 0;
+  }
+  .test-mode-converter .crosswalk-converter-field {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    padding: 10px;
+    gap: 6px;
+    border-radius: 11px;
+  }
+  .test-mode-converter .crosswalk-converter-label {
+    min-height: 29px;
+    gap: 6px;
+    align-items: center;
+  }
+  .test-mode-converter .crosswalk-converter-label label {
+    font-size: 12px;
+    line-height: 1.3;
+  }
+  .test-mode-converter .crosswalk-converter-tag { font-size: 9px; }
+  .test-mode-converter .crosswalk-autocomplete {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .test-mode-converter .crosswalk-converter-field textarea {
+    box-sizing: border-box;
+    width: 100%;
+    height: 132px;
+    min-height: 132px;
+    max-height: 55dvh;
+    padding: 9px 10px;
+    font-size: 16px;
+    line-height: 1.45;
+    resize: vertical;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .test-mode-converter .crosswalk-converter-arrow {
+    width: 26px;
+    height: 26px;
+    margin: 0 auto;
+    font-size: 17px;
+    transform: rotate(90deg);
+  }
+  .test-mode-converter .crosswalk-converter-helper,
+  .test-mode-converter .crosswalk-converter-field--output .crosswalk-manual-hint {
+    min-height: 0;
+    font-size: 10.5px;
+    line-height: 1.4;
+  }
+  .test-mode-converter .crosswalk-output-actions {
+    max-width: 100%;
+    gap: 5px;
+    justify-content: flex-end;
+    margin-left: auto;
+  }
+  .test-mode-converter .crosswalk-output-actions .crosswalk-copy,
+  .test-mode-converter .crosswalk-output-actions .crosswalk-inline-add {
+    min-height: 34px;
+    padding: 6px 8px;
+    font-size: 10.5px;
+  }
+  .test-mode-converter .crosswalk-converter-summary {
+    min-height: 0;
+    margin: 9px 0 0;
+    padding: 9px 0 0;
+  }
+  .test-mode-converter .crosswalk-directory-details { margin-top: 12px; }
+  .test-mode-converter .crosswalk-directory-details .crosswalk-browser-inner-card {
+    min-width: 0;
+    padding: 11px 9px;
+  }
+  .mobile-summary, .mobile-search-return.is-in-cart {
+    right: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 360px) {
+  .app-header .calculator-gallery-trigger { padding: 7px; font-size: 10.5px; }
+  .app-header .lab-select { width: min(100%, 140px); }
+  .test-mode-option { font-size: 11px; gap: 4px; padding: 7px 4px; }
+  .test-mode-converter .crosswalk-output-actions .crosswalk-copy,
+  .test-mode-converter .crosswalk-output-actions .crosswalk-inline-add {
+    padding: 5px 6px;
+    font-size: 10px;
+  }
+}
