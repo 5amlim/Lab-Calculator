@@ -556,7 +556,11 @@
           .map(candidate=>String(candidate||'').trim()).filter(Boolean);
         if(!candidates.length){
           unmatched.push(code);
-          blankWithHint('No match for '+code);
+          // The resolved source entry supplies the canonical code and test
+          // name. Ghost labels stay outside the editable/copyable code value.
+          const sourceCode=String(row[0]||code).trim();
+          const sourceName=String(row[1]||'').trim();
+          blankWithHint('No match for '+sourceCode+(sourceName?' · '+sourceName:''));
           continue;
         }
         matched++;
