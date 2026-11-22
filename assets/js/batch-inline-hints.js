@@ -179,6 +179,49 @@
       }
     };
 
+    // Animate the real code on its specific textarea line. Mask the native
+    // text temporarily and shake an identical overlay, keeping other rows still.
+    refresh.shakeCodeLine = function(lineIndex){
+      var value = textarea.value.split('\n')[lineIndex] || '';
+      if(!value.trim() || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)return;
+      var style=window.getComputedStyle(textarea);
+      var height=numeric(style.lineHeight)||numeric(style.fontSize)*1.5;
+      var top=numeric(style.borderTopWidth)+numeric(style.paddingTop)+lineIndex*height;
+      var left=numeric(style.borderLeftWidth)+numeric(style.paddingLeft);
+      var previous=Array.from(layer.querySelectorAll('.batch-inline-ghost-code-mask'))
+        .find(function(node){return node.dataset.lineIndex===String(lineIndex);});
+      if(previous)previous.remove();
+      var mask=document.createElement('span');
+      mask.className='batch-inline-ghost-code-mask';
+      mask.dataset.lineIndex=String(lineIndex);
+      mask.style.top=top+'px';
+      mask.style.left=(left-5)+'px';
+      mask.style.padding='0 5px';
+      mask.style.background=style.backgroundColor||'#fff';
+      mask.style.color=style.color;
+      mask.style.fontFamily=style.fontFamily;
+      mask.style.fontSize=style.fontSize;
+      mask.style.fontWeight=style.fontWeight;
+      mask.style.fontStyle=style.fontStyle;
+      mask.style.letterSpacing=style.letterSpacing;
+      mask.style.lineHeight=style.lineHeight;
+      var copy=document.createElement('span');
+      copy.textContent=value;
+      mask.appendChild(copy);
+      layer.appendChild(mask);
+      if(typeof copy.animate==='function'){
+        var animation=copy.animate([
+          {transform:'translateX(0)'},{transform:'translateX(-4px)'},
+          {transform:'translateX(4px)'},{transform:'translateX(-3px)'},
+          {transform:'translateX(3px)'},{transform:'translateX(0)'}
+        ],{duration:260,easing:'ease-in-out'});
+        animation.finished.then(function(){mask.remove();},function(){mask.remove();});
+      }else{
+        copy.classList.add('crosswalk-locked-shake');
+        copy.addEventListener('animationend',function(){mask.remove();},{once:true});
+      }
+    };
+
     textarea.addEventListener('input', refresh);
     textarea.addEventListener('scroll', syncScroll, { passive: true });
     window.addEventListener('resize', refresh, { passive: true });
