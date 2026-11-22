@@ -446,6 +446,144 @@
       questNames.get(String(code).trim())||null,{
         emptyLineHint:index=>emptyOutputHints.get(index)||null
       })||(()=>{});
+    // Allow direct Quest-code or test-name lookup in the editable destination
+    // pane. Suggestions affect only the caret's line, never converted rows.
+    const outputSuggestionPanel=document.getElementById('crosswalkOutputSuggestions');
+    const outputSuggestionItems=Array.from(questNames,([code,name])=>[code,name,'','']);
+    let outputSuggestionMatches=[],outputSuggestionActive=-1,outputSuggestionEntry=null;
+    function activeOutputEntry(){
+      const value=converterOutput.value,pos=converterOutput.selectionStart??value.length;
+      const startOfLine=value.lastIndexOf('\n',Math.max(0,pos-1))+1;
+      const endOfLine=value.indexOf('\n',pos);
+      const lineEnd=endOfLine<0?value.length:endOfLine;
+      const beforeCaret=value.slice(startOfLine,pos);
+      const separator=Math.max(beforeCaret.lastIndexOf(','),beforeCaret.lastIndexOf(';'),beforeCaret.lastIndexOf('\t'));
+      const start=startOfLine+separator+1;
+      let end=lineEnd;
+      for(const delimiter of [',',';','\t']){
+        const i=value.indexOf(delimiter,pos);
+        if(i>=0&&i<end)end=i;
+      }
+      return {start,end,query:value.slice(start,end).trim()};
+    }
+    function hideOutputSuggestions(){
+      if(!outputSuggestionPanel)return;
+      outputSuggestionPanel.classList.add('hidden');
+      outputSuggestionPanel.innerHTML='';
+      outputSuggestionMatches=[];
+      outputSuggestionActive=-1;
+      outputSuggestionEntry=null;
+      converterOutput.setAttribute('aria-expanded','false');
+      converterOutput.removeAttribute('aria-activedescendant');
+    }
+    function activateOutputSuggestion(index){
+      if(!outputSuggestionMatches.length||!outputSuggestionPanel)return;
+      outputSuggestionActive=(index+outputSuggestionMatches.length)%outputSuggestionMatches.length;
+      const options=outputSuggestionPanel.querySelectorAll('.calc-suggestion-option');
+      options.forEach((option,i)=>{
+        const selected=i===outputSuggestionActive;
+        option.classList.toggle('is-active',selected);
+        option.setAttribute('aria-selected',String(selected));
+      });
+      const active=options[outputSuggestionActive];
+      if(active){
+        converterOutput.setAttribute('aria-activedescendant',active.id);
+        active.scrollIntoView({block:'nearest'});
+      }
+    }
+    function renderOutputSuggestions(){
+      if(!outputSuggestionPanel)return;
+      const entry=activeOutputEntry(),query=normalize(entry.query);
+      if(!query){hideOutputSuggestions();return;}
+      const matches=outputSuggestionItems.map(row=>({row,score:scoreSuggestion(row,query)}))
+        .filter(item=>item.score>0)
+        .sort((a,b)=>b.score-a.score||a.row[1].length-b.row[1].length||
+          String(a.row[0]).localeCompare(String(b.row[0])))
+        .slice(0,8);
+      // A complete, unique code is already represented by its ghost test name.
+      if(!matches.length||matches.some(item=>String(item.row[0])===entry.query)||
+          matches.some(item=>normalize(item.row[1])===query&&item.score===2800)){
+        hideOutputSuggestions();return;
+      }
+      outputSuggestionEntry=entry;
+      outputSuggestionMatches=matches.map(item=>item.row);
+      outputSuggestionActive=-1;
+      outputSuggestionPanel.innerHTML='<div class="calc-suggestion-heading">Matching Quest tests for this line</div>'+
+        matches.map(({row},i)=>
+          '<button type="button" class="calc-suggestion-option" role="option" id="crosswalk-output-option-'+i+
+          '" aria-selected="false" tabindex="-1" data-index="'+i+'">'+
+          '<span class="calc-suggestion-code">'+escape(row[0])+'</span>'+
+          '<span class="calc-suggestion-copy"><strong>'+escape(row[1])+'</strong></span>'+
+          '<span class="calc-suggestion-arrow" aria-hidden="true">›</span></button>'
+        ).join('')+
+        '<div class="calc-suggestion-footer">Choose a Quest test to fill its code · ↑ ↓ navigate · Enter select · Esc close</div>';
+      outputSuggestionPanel.classList.remove('hidden');
+      converterOutput.setAttribute('aria-expanded','true');
+      converterOutput.removeAttribute('aria-activedescendant');
+    }
+    function chooseOutputSuggestion(index){
+      const row=outputSuggestionMatches[index];
+      if(!row||!outputSuggestionEntry)return;
+      const {start,end}=outputSuggestionEntry,code=String(row[0]);
+      const following=converterOutput.value.slice(end);
+      converterOutput.setRangeText(code,start,end,'end');
+      const after=start+code.length;
+      if(following.startsWith('\n')){
+        converterOutput.setSelectionRange(after+1,after+1);
+      }else if(!following){
+        converterOutput.setRangeText('\n',after,after,'end');
+      }
+      hideOutputSuggestions();
+      converterOutput.focus({preventScroll:true});
+      converterOutput.dispatchEvent(new Event('input',{bubbles:true}));
+    }
+    if(outputSuggestionPanel){
+      converterOutput.addEventListener('focus',renderOutputSuggestions);
+      converterOutput.addEventListener('click',renderOutputSuggestions);
+      converterOutput.addEventListener('keyup',event=>{
+        if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key))renderOutputSuggestions();
+      });
+      converterOutput.addEventListener('keydown',event=>{
+        if(event.isComposing||event.keyCode===229)return;
+        if(event.key==='Escape'||event.key==='Tab'){hideOutputSuggestions();return;}
+        if(event.key==='ArrowDown'||event.key==='ArrowUp'){
+          if(outputSuggestionMatches.length){
+            event.preventDefault();
+            activateOutputSuggestion(outputSuggestionActive<0?
+              (event.key==='ArrowDown'?0:outputSuggestionMatches.length-1):
+              outputSuggestionActive+(event.key==='ArrowDown'?1:-1));
+          }
+          return;
+        }
+        if(event.key==='Enter'){
+          if(outputSuggestionMatches.length&&outputSuggestionActive>=0&&!event.metaKey&&!event.ctrlKey){
+            event.preventDefault();
+            chooseOutputSuggestion(outputSuggestionActive);
+          }else{
+            hideOutputSuggestions();
+          }
+        }
+      });
+      let tappingOutputSuggestion=false;
+      outputSuggestionPanel.addEventListener('pointerdown',event=>{
+        tappingOutputSuggestion=Boolean(event.target.closest('button[data-index]'));
+      });
+      outputSuggestionPanel.addEventListener('pointercancel',()=>{tappingOutputSuggestion=false;});
+      outputSuggestionPanel.addEventListener('mousedown',event=>{
+        if(event.target.closest('button[data-index]'))event.preventDefault();
+      });
+      outputSuggestionPanel.addEventListener('click',event=>{
+        const button=event.target.closest('button[data-index]');
+        tappingOutputSuggestion=false;
+        if(button)chooseOutputSuggestion(Number(button.dataset.index));
+      });
+      document.addEventListener('pointerdown',event=>{
+        if(!event.target.closest('#crosswalkOutputAutocomplete'))hideOutputSuggestions();
+      });
+      converterOutput.addEventListener('blur',()=>{
+        if(!tappingOutputSuggestion&&!outputSuggestionPanel.contains(document.activeElement))hideOutputSuggestions();
+      });
+    }
     const cartAdd=document.getElementById('crosswalkAddToCart');
     const cartAddText=document.getElementById('crosswalkAddToCartText');
     let cartCandidateCodes=[],manualOutputCodes=new Set(),matchFeedback=[],actionFeedback='';
@@ -527,6 +665,8 @@
       manualOutputCodes=new Set(outputCodes().filter(code=>!candidates.has(code)));
       actionFeedback='';
       renderCart();
+      refreshOutputHints();
+      renderOutputSuggestions();
     });
     cartAdd.addEventListener('click',()=>{
       actionFeedback='';
