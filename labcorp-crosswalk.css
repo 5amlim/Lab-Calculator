@@ -922,3 +922,29 @@
     font-weight:650;
   }
 }
+
+/* Search control: align magnifier visually to the input, not its text baseline. */
+@media screen {
+  #convertTestsView .crosswalk-search-control svg {
+    position:absolute;
+    top:50%;
+    left:13px;
+    transform:translateY(-50%);
+    display:block;
+    width:16px !important;
+    height:16px !important;
+    min-width:16px;
+    max-width:16px;
+    max-height:16px;
+    color:#52758d;
+    pointer-events:none;
+  }
+  #convertTestsView .crosswalk-tools .crosswalk-search-control input {
+    padding-left:40px;
+  }
+  #convertTestsView .crosswalk-tools .crosswalk-search-control input::placeholder {
+    color:#274963;
+    opacity:1;
+    font-weight:500;
+  }
+}
