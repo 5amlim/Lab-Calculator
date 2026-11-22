@@ -444,10 +444,9 @@
       .map(row=>[String(row[0]||'').trim(),String(row[1]||'').trim()]));
     let emptyOutputHints=new Map();
     let unavailableOutputCodes=new Set();
-    // Converted Quest results are read-only. Their editable LabCorp source
-    // entries carry the small remove buttons, never the Quest results.
+    // Converted Quest results are read-only. Every nonempty editable LabCorp
+    // entry has its own remove action, regardless of match status.
     let generatedMatchRows=new Map();
-    let matchedSourceRows=new Map();
     // Selected reference pairs remain provisional and session-local.
     const chosenMatches=new Map();
     // The two panes represent the same source rows. Mirror vertical scrolling
@@ -625,7 +624,7 @@
       }
 
     }
-    function renderMatchedSourceActions(){
+    function renderSourceEntryActions(){
       if(!sourceActionLayer)return;
       sourceActionLayer.replaceChildren();
       const fieldRect=sourceContainer.getBoundingClientRect();
@@ -640,9 +639,9 @@
       const borderLeft=parseFloat(style.borderLeftWidth)||0;
       const borderTop=parseFloat(style.borderTopWidth)||0;
       const maxLeft=converterInput.offsetLeft+converterInput.clientWidth-25;
-      for(const [sourceLine,match] of matchedSourceRows){
-        const current=textLines[sourceLine]?.trim();
-        if(!current||current!==match.raw)continue;
+      for(const [sourceLine,raw] of textLines.entries()){
+        const current=raw.trim();
+        if(!current)continue;
         const label=sourceContainer.querySelector(
           '.batch-inline-ghost-label[data-line-index="'+sourceLine+'"]');
         let top,left;
@@ -669,27 +668,30 @@
         button.style.top=top+'px';
         button.style.left=left+'px';
         button.textContent='×';
-        button.title='Remove LabCorp entry '+current+' and its Quest match';
-        button.setAttribute('aria-label','Remove LabCorp entry '+current+' and its Quest match');
+        button.title='Remove LabCorp entry '+current;
+        button.setAttribute('aria-label','Remove LabCorp entry '+current+' on line '+(sourceLine+1));
         button.addEventListener('pointerdown',event=>event.preventDefault());
         button.addEventListener('click',event=>{
           event.preventDefault();
           event.stopPropagation();
-          const latest=matchedSourceRows.get(sourceLine);
           const lines=converterInput.value.split('\n');
-          if(!latest||latest.raw!==lines[sourceLine]?.trim())return;
+          if(lines[sourceLine]?.trim()!==current)return;
+          const names=questByName.get(normalize(current))||[];
+          const record=questByCode.get(current)||(names.length===1?names[0]:null);
+          const sourceKey=record?String(record[0]):current;
           lines.splice(sourceLine,1);
           if(!lines.length)lines.push('');
           converterInput.value=lines.join('\n');
-          // A custom directory match belongs to its source entry.
+          // Keep a manual directory selection only while a matching source
+          // entry remains, including when removing one of two duplicates.
           const stillExists=lines.some(line=>{
             const query=line.trim();
             if(!query)return false;
-            const names=questByName.get(normalize(query))||[];
-            const row=questByCode.get(query)||(names.length===1?names[0]:null);
-            return (row?String(row[0]):query)===latest.source;
+            const candidates=questByName.get(normalize(query))||[];
+            const row=questByCode.get(query)||(candidates.length===1?candidates[0]:null);
+            return (row?String(row[0]):query)===sourceKey;
           });
-          if(!stillExists)chosenMatches.delete(latest.source);
+          if(!stillExists)chosenMatches.delete(sourceKey);
           hideSuggestions();
           actionFeedback='';
           updateConverter();
@@ -738,7 +740,7 @@
     converterInput.addEventListener('scroll',renderMatchedSourceActions,{passive:true});
     window.addEventListener('resize',()=>{
       renderNoMatchActions();
-      renderMatchedSourceActions();
+      renderSourceEntryActions();
     });
 
     // Allow direct Quest-code or test-name lookup in the editable destination
@@ -1316,11 +1318,6 @@
       generatedOutputRows=outputLines.slice();
       generatedMatchRows=new Map([...alignedMatches,...extraMatches]
         .flatMap((match,index)=>match?[[index,match]]:[]));
-      matchedSourceRows=new Map();
-      for(const match of generatedMatchRows.values()){
-        if(!matchedSourceRows.has(match.sourceLine))
-          matchedSourceRows.set(match.sourceLine,match);
-      }
       // Keep manually entered destination codes in their existing blank rows.
       // This also preserves alignment when a mirrored reference is edited
       // below another manual destination with no available crosswalk.
@@ -1386,7 +1383,7 @@
       renderCart();
       // Repaint actions after both ghost layers have been updated.
       renderNoMatchActions();
-      renderMatchedSourceActions();
+      renderSourceEntryActions();
     }
     converterInput.addEventListener('input',()=>{
       actionFeedback='';
