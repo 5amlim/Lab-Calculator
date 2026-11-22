@@ -178,4 +178,10 @@
     font-weight: 450;
     opacity: 1;
   }
+  /* Match the Test Directory search placeholder to Find/Convert Tests. */
+  #libraryFilter::placeholder {
+    color: #9aaebc;
+    font-weight: 450;
+    opacity: 1;
+  }
 }
