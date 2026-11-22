@@ -365,9 +365,6 @@
     }
     const inputPlaceholder=converterInput.placeholder;
     const manualSourceHints=new Map();
-    // Only source lines with a genuine "No match" result use unavailable
-    // coloring. Matched and duplicate rows retain the normal text color.
-    const unmatchedSourceRows=new Set();
     // Candidate crosswalks for codes typed directly in the destination pane.
     // Only show references to active source tests. This is not an assertion
     // of clinical equivalence, and review-only suggestions are excluded.
@@ -391,8 +388,7 @@
       return nameMatches.length===1?String(nameMatches[0][0]):null;
     },{
       emptyLineHint:index=>manualSourceHints.get(index)||null,
-      minLineCount:()=>manualSourceHints.size?Math.max(...manualSourceHints.keys())+1:0,
-      lineTone:(_query,index)=>unmatchedSourceRows.has(index)?'unavailable':null
+      minLineCount:()=>manualSourceHints.size?Math.max(...manualSourceHints.keys())+1:0
     })||(()=>{});
     converterInput.addEventListener('focus',renderSuggestions);
     converterInput.addEventListener('click',renderSuggestions);
@@ -941,7 +937,7 @@
           // name. Ghost labels stay outside the editable/copyable code value.
           const sourceCode=String(row[0]||code).trim();
           const sourceName=String(row[1]||'').trim();
-          blankWithHint('No match for "'+sourceCode+'"'+(sourceName?' · '+sourceName:''));
+          blankWithHint('No match for "'+sourceCode+(sourceName?' · '+sourceName:'')+'"');
           continue;
         }
         matched++;
@@ -984,12 +980,6 @@
         }
       }
       emptyOutputHints=ghosts;
-      unmatchedSourceRows.clear();
-      for(const [index,hint] of ghosts){
-        if(typeof hint==='string'&&hint.startsWith('No match for ')){
-          unmatchedSourceRows.add(index);
-        }
-      }
       // Leave exactly one usable blank line after the last code or ghost.
       // Do not append a second blank line when the source already ends in
       // a newline. Preserve intermediate blank rows for row alignment.
