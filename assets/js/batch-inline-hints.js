@@ -114,6 +114,33 @@
         var visualRows = Math.max(1, Math.round(renderedHeight / lineHeight));
 
         var query = line.trim();
+        // Paint only unavailable text in a noninteractive mask. Native
+        // textarea text remains editable, selectable and copyable.
+        var tone = query && typeof options.lineTone === 'function'
+          ? options.lineTone(query, index) : null;
+        if (tone && document.activeElement === textarea &&
+            textarea.selectionStart != null) {
+          var caretPrefix = textarea.value.slice(0,textarea.selectionStart);
+          var caretLine = (caretPrefix.match(/\n/g)||[]).length;
+          if (caretLine === index) tone = null;
+        }
+        if (tone === 'unavailable' && visualRows === 1) {
+          var colored = document.createElement('span');
+          colored.className='batch-inline-ghost-status-text batch-inline-ghost-status-unavailable';
+          colored.dataset.lineIndex=String(index);
+          colored.textContent=line;
+          colored.style.left=(borderLeft+paddingLeft-2)+'px';
+          colored.style.top=(borderTop+paddingTop+row*lineHeight)+'px';
+          colored.style.maxWidth=(innerWidth+2)+'px';
+          colored.style.backgroundColor=style.backgroundColor||'#fff';
+          colored.style.fontFamily=style.fontFamily;
+          colored.style.fontSize=style.fontSize;
+          colored.style.fontWeight=style.fontWeight;
+          colored.style.fontStyle=style.fontStyle;
+          colored.style.letterSpacing=style.letterSpacing;
+          colored.style.lineHeight=style.lineHeight;
+          layer.appendChild(colored);
+        }
         // An optional empty-line hint supports converter rows with no candidate.
         // It is visual-only, never inserted into copied or submitted test codes.
         var hint = query ? resolveExactHint(query) :
@@ -223,6 +250,12 @@
     };
 
     textarea.addEventListener('input', refresh);
+    textarea.addEventListener('click', refresh);
+    textarea.addEventListener('keyup', function(event){
+      if (/^(Arrow|Home|End|Page)/.test(event.key)) refresh();
+    });
+    textarea.addEventListener('focus', refresh);
+    textarea.addEventListener('blur', refresh);
     textarea.addEventListener('scroll', syncScroll, { passive: true });
     window.addEventListener('resize', refresh, { passive: true });
     if (window.ResizeObserver) new window.ResizeObserver(refresh).observe(textarea);
