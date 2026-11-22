@@ -81,7 +81,7 @@ function convertFixture(input,manual=[]){
     emptyOutputHints:new Map(),
     manualOutputCodes:new Set(manual),
     cartCandidateCodes:[],matchFeedback:[],actionFeedback:'',
-    refreshOutputHints(){},renderCart(){}
+    refreshOutputHints(){},renderCart(){},syncConverterScroll(){}
   };
   vm.runInNewContext(converterFunction+'\nupdateConverter();',ctx);
   return ctx;
@@ -129,6 +129,46 @@ test('manual code and multiple candidate codes survive line-aligned conversion',
 });
 
 
+test('converter panes mirror row scrolling in both directions without feedback loops',()=>{
+  const source=converterUI;
+  const start=source.indexOf('    const mirroredScroll=new WeakMap();');
+  const end=source.indexOf('    const outputPlaceholder=converterOutput.placeholder;',start);
+  assert.ok(start>=0&&end>start,'Linked converter scroll helper exists');
+  const callbacks={};
+  const pane=key=>({
+    scrollTop:0,
+    scrollHeight:920,
+    clientHeight:300,
+    addEventListener(event,handler){callbacks[key+':'+event]=handler;}
+  });
+  const left=pane('left'),right=pane('right');
+  const ctx={converterInput:left,converterOutput:right};
+  vm.runInNewContext(source.slice(start,end),ctx);
+  left.scrollTop=140;
+  callbacks['left:scroll']();
+  assert.equal(right.scrollTop,140,'Scrolling source follows in destination');
+  callbacks['right:scroll']();
+  assert.equal(left.scrollTop,140,'Mirrored event does not bounce back');
+  right.scrollTop=240;
+  callbacks['right:scroll']();
+  assert.equal(left.scrollTop,240,'Scrolling destination follows in source');
+  callbacks['left:scroll']();
+  assert.equal(right.scrollTop,240,'Mirrored event is ignored');
+  left.scrollTop=310;
+  callbacks['left:scroll']();
+  assert.equal(right.scrollTop,310,'Further scrolling still works');
+});
+test('both converter code editors have one visual row per source line',()=>{
+  for(const page of ['index.html','labcorp.html']){
+    const html=fs.readFileSync(page,'utf8');
+    for(const id of ['crosswalkQuestInput','crosswalkLabcorpOutput']){
+      assert.match(html,new RegExp('<textarea[^>]*id="'+id+'"[^>]*wrap="off"'),
+        'No wrapping in '+page+' '+id);
+    }
+  }
+  const helper=fs.readFileSync('assets/js/batch-inline-hints.js','utf8');
+  assert.ok(helper.includes("textarea.wrap === 'off' ? 'pre' : 'pre-wrap'"));
+});
 /* November 21 additional cross-references: candidate codes remain suggestions,
    while near-matches with variant panels/methods stay review-only. */
 const expandedCandidates={
