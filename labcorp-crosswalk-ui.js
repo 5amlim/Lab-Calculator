@@ -693,7 +693,6 @@
     const cartAdd=document.getElementById('crosswalkAddToCart');
     const cartAddText=document.getElementById('crosswalkAddToCartText');
     let cartCandidateCodes=[],manualOutputCodes=new Set(),matchFeedback=[],actionFeedback='';
-    let sourceIssueNotes=[];
     let generatedOutputRows=[];
     // Mirrored source labels and missing-match messages are display-only.
     // Never promote them into the editable textarea on focus or click.
@@ -812,9 +811,6 @@
           (unavailable.length===1?'code cannot':'codes cannot')+
           ' be added: '+unavailable.map(item=>item.code).join(', ')+
           '. Only active '+toLab+' tests can be added to the cart.');
-      }
-      if(sourceIssueNotes.length){
-        warnings.push(...sourceIssueNotes);
       }
       converterWarning.hidden=!warnings.length;
       converterWarning.textContent=warnings.join(' · ');
@@ -953,7 +949,7 @@
         matchFeedback=[{text:'Enter '+fromLab+' test codes to see possible matches.',tone:'note',icon:'i'}];
       }else{
         matchFeedback=[
-          {text:matched+' of '+seenQuest.size+' '+fromLab+' '+(seenQuest.size===1?'test':'tests')+' matched',
+          {text:matched+' of '+seenQuest.size+' '+fromLab+' '+(seenQuest.size===1?'test':'tests')+' with possible matches',
             tone:matched===seenQuest.size?'matched':'partial',icon:'↔'}
         ];
         if(duplicates){
@@ -961,12 +957,6 @@
             tone:'note',icon:'i'});
         }
       }
-      const notes=[];
-      if(unmatched.length)notes.push('No '+toLab+' candidate identified: '+unmatched.join(', '));
-      if(unknown.length)notes.push('Not found in the active '+fromLab+' index: '+unknown.join(', '));
-      // No destination candidate is already visible beside the input row.
-      // Preserve only index errors not otherwise represented there.
-      sourceIssueNotes=[];
       cartCandidateCodes=converted;
       renderCart();
     }
