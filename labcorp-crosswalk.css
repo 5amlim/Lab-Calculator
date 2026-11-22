@@ -1152,3 +1152,22 @@
     }
   }
 }
+
+/* Small bidirectional indicator for display-only converter statuses. */
+@media screen {
+  .test-mode-converter .crosswalk-converter-field
+    .batch-inline-ghost-label.batch-inline-ghost-manual::before,
+  .test-mode-converter .crosswalk-converter-field
+    .batch-inline-ghost-label.batch-inline-ghost-no-match::before {
+    content: "↔";
+    display: inline-block;
+    margin-right: 0.45em;
+    font-family: inherit;
+    font-size: 0.9em;
+    font-style: normal;
+    font-weight: 650;
+    line-height: 1;
+    vertical-align: 0.035em;
+    opacity: 0.83;
+  }
+}
