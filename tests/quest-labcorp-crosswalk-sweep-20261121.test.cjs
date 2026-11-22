@@ -8,10 +8,12 @@ vm.runInNewContext(fs.readFileSync('labcorp-crosswalk-data.js','utf8'),ctx);
 const rows=Array.from(ctx.window.QUEST_TO_LABCORP_INDEX);
 const byCode=new Map(rows.map(r=>[r[0],r]));
 test('crosswalk sweep preserves unique source records and recognizes uncoded Quest placeholder',()=>{
- assert.equal(rows.length,2692);
- assert.equal(byCode.size,2692);
+ const indexed=JSON.parse(fs.readFileSync('assets/search/quest-tests.json','utf8')).tests;
+ assert.equal(rows.filter(r=>r[7]==='active').length,indexed.length);
+ assert.equal(new Set(rows.filter(r=>r[7]==='active').map(r=>r[0])).size,indexed.length);
+ assert.equal(rows.filter(r=>r[7]==='legacy').length,8);
  assert.equal(rows.filter(r=>r[0]==='XXX').length,1);
- assert.equal(rows.filter(r=>r[0]!=='XXX').length,2691);
+ assert.equal(byCode.size,rows.length);
 });
 test('new candidates remain informational and never import collection rules',()=>{
  assert.ok(rows.filter(r=>r[3]).length>=400);

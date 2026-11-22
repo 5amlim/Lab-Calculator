@@ -13,8 +13,10 @@ const byCode=new Map(rows.map(r=>[r[0],r]));
 const codes=new Set(index.map(x=>String(x[0])));
 const eq=(code,labCode)=>assert.equal(byCode.get(code)?.[3],labCode);
 test('complete source crosswalk, one uncoded directory reference and deduplicated workbook rows',()=>{
- assert.equal(rows.filter(x=>x[0]!=='XXX').length,2691);
- assert.equal(new Set(rows.filter(x=>x[0]!=='XXX').map(x=>x[0])).size,2691);
+ const indexed=JSON.parse(fs.readFileSync('assets/search/quest-tests.json','utf8')).tests;
+ assert.equal(rows.filter(x=>x[7]==='active').length,indexed.length);
+ assert.equal(new Set(rows.filter(x=>x[7]==='active').map(x=>x[0])).size,indexed.length);
+ assert.equal(rows.filter(x=>x[7]==='legacy').length,8);
  assert.equal(rows.filter(x=>x[0]==='XXX').length,16);
 });
 test('all suggested Labcorp codes exist in search directory',()=>{
@@ -29,7 +31,7 @@ test('second sweep codes preserve targeted analyte classes and avoid false match
 });
 test('candidate-only data does not include imported orderable container rules',()=>{
  assert.ok(rows.filter(r=>r[3]).length>=700);
- assert.ok(rows.every(r=>r.length<=7));
+ assert.ok(rows.every(r=>r.length<=9));
  assert.ok(rows.every(r=>typeof r[5]==='number'));
  assert.ok(!/drawContainer|transportContainer|preferredVolume|SEED_TESTS\.push/.test(data));
 });
