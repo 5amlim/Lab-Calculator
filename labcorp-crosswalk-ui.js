@@ -1138,7 +1138,7 @@
         if(generatedOutputRows[index]===code)return;
         // Direct Quest entries always retain their manual origin, even if a
         // LabCorp cross-reference exists in the directory.
-        manualSourceHints.set(index,{tone:'manual',text:'Manually added test'});
+        manualSourceHints.set(index,{tone:'manual',text:'Manually entered'});
       });
       // Real blank source lines must exist behind every mirrored label.
       // Otherwise clicking a virtual ghost row places the caret on the wrong
