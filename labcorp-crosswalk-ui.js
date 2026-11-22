@@ -153,10 +153,21 @@
     // The reverse table also contains legacy/uncoded references, which do
     // not belong in the active-match count.
     const activeLabMatches=new Set(questActive.filter(r=>r[3]).map(r=>String(r[3]))).size;
-    const labMatches=reverse?activeLabMatches:null;
     const badgeMatches=reverse===null?(meta.labcorpMatched??activeLabMatches):activeLabMatches;
-    summary.textContent=(meta.questActiveCount||questActive.length).toLocaleString()+' Quest tests · '+
-      Number(badgeMatches).toLocaleString()+' LabCorp equivalents';
+    if(isQuestPage){
+      summary.textContent=(meta.questActiveCount||questActive.length).toLocaleString()+' Quest tests · '+
+        Number(badgeMatches).toLocaleString()+' LabCorp equivalents';
+    }else{
+      // Reverse badge: count indexed LabCorp tests and distinct active Quest
+      // references linked to those LabCorp tests. Review-only or legacy rows
+      // are informational and must not inflate the equivalent count.
+      const questEquivalents=reverse
+        ?new Set(reverse.flatMap(r=>r.matches.filter(m=>m.status==='suggested'&&m.source==='active').map(m=>String(m.code)))).size
+        :Number(meta.questMatchedActive??activeMatches);
+      const labcorpCount=reverse?.length??Number(meta.labcorpActiveCount||0);
+      summary.textContent=labcorpCount.toLocaleString()+' LabCorp tests · '+
+        questEquivalents.toLocaleString()+' Quest equivalents';
+    }
     status.textContent=pending?(loadError?'LabCorp directory unavailable':'Loading LabCorp index…'):
       'Showing '+Math.min(visible,matched.length).toLocaleString()+' of '+matched.length.toLocaleString()+
       (lab?' LabCorp':' Quest')+' tests';
