@@ -536,6 +536,9 @@
     border-radius: 11px;
     background: #fff;
     overflow-x: auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
   .test-mode-converter .crosswalk-table thead th {
     position: sticky;
@@ -1567,15 +1570,17 @@
   }
 }
 
-/* Narrow-screen crosswalk: seven rows per batch, stacked without sideways scrolling. */
+/* Narrow-screen crosswalk: three visible rows, vertically scrollable without sideways scrolling. */
 @media screen and (max-width: 900px) {
   #convertTestsView.test-mode-converter .crosswalk-table-wrap {
     box-sizing: border-box;
     width: 100%;
     max-width: 100%;
-    overflow-x: clip;
-    overflow-y: visible;
-    touch-action: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
   }
   #convertTestsView.test-mode-converter .crosswalk-table {
     display: block;
