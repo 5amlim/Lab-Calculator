@@ -366,3 +366,31 @@ test('uncertain 2026-11-22 near matches remain informational, not automatically 
     assert.equal(byQuest.get(code)?.[3],'','High-risk method/Ig class mismatch '+code);
   }
 });
+
+
+test('2026-11-22 second and third crosswalk passes retain accepted candidate details',()=>{
+  const additions={
+    '10601':'815472','10559':'211425','10560':'211482','17557':'827243',
+    '19590':'827356','59155':'827245','18217':'504594','18220':'504567',
+    '36311':'503870','14966':'329562','93881':'085970','34042':'163253',
+    '39413':'910637','91981':'805283','16985':'123211','39309':'830769',
+    '20341':'164285','526':'164319','39209':'138685','34388':'303758',
+    '91029':'070115','17563':'140217','14628':'123010'
+  };
+  const labMap=new Map(indexedLab.map(r=>[r[0],r]));
+  for(const [qcode,lcode] of Object.entries(additions)){
+    const q=byQuest.get(qcode),lab=labMap.get(lcode);
+    assert.ok(q&&lab,'Both indexed entries must exist: '+qcode+' / '+lcode);
+    assert.equal(q[3],lcode,'Exact mapped candidate for Quest '+qcode);
+    assert.equal(q[4],lab[1],'LabCorp candidate description for Quest '+qcode);
+    assert.equal(q[2],lab[2],'Specimen compatibility for Quest '+qcode);
+    assert.ok(!q[8]?.length,'Accepted candidate cannot be review-only');
+  }
+  for(const [qcode,lcode] of [['257','520137'],['16029','480510']]){
+    const q=byQuest.get(qcode);
+    assert.equal(q[3],'','Method-specific review row must remain unmapped '+qcode);
+    assert.ok(q[8]?.some(ref=>ref[0]===lcode),'Review candidate must be retained '+qcode);
+  }
+  assert.ok(ctx.window.QUEST_TO_LABCORP_METADATA.questMatchedActive>=1085);
+  assert.ok(ctx.window.QUEST_TO_LABCORP_METADATA.labcorpMatched>=1047);
+});
