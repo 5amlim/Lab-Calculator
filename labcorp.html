@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="market-switch.css?v=10">
   <link rel="stylesheet" href="labcorp-theme.css?v=12">
 <link rel="stylesheet" href="assets/css/search-suggestions.css?v=20261115-2">
-  <link rel="stylesheet" href="labcorp-crosswalk.css?v=2">
+  <link rel="stylesheet" href="labcorp-crosswalk.css?v=3">
   <link rel="stylesheet" href="print-button-theme.css?v=8">
   <link rel="stylesheet" href="assets/css/scroll-cues.css?v=4">
 <link rel="stylesheet" href="assets/css/container-gallery.css?v=20261031-1">
@@ -191,30 +191,72 @@
         <p class="library-help">Can’t find a test? <a href="https://www.labcorp.com/test-menu/search" target="_blank" rel="noreferrer">Check the official directory ↗</a> or contact Sam to have it added.</p>
         </section>
         <details class="labcorp-crosswalk" id="labcorpCrosswalk">
-          <summary><span class="crosswalk-icon" aria-hidden="true">⇄</span>Compare Quest tests to LabCorp <span id="labcorpCrosswalkCount">3,313 active Quest · 6,015 Labcorp</span></summary>
+          <summary>
+            <span class="crosswalk-icon" aria-hidden="true">⇄</span>
+            <span class="crosswalk-heading">
+              <strong>Test Converter</strong>
+              <small>Convert Quest test codes to possible LabCorp codes, one line at a time.</small>
+            </span>
+          </summary>
           <div class="crosswalk-interior">
-            <p class="crosswalk-explainer"><strong>Full active-index comparison: 3,313 Quest tests and 6,015 LabCorp tests.</strong> Quest codes and collection requirements are not interchangeable with LabCorp's. Possible code matches require confirmation of method, specimen, volume and transport instructions before use in the LabCorp calculator.</p>
-            <div class="crosswalk-tools">
-              <label>Compare from<select id="labcorpCrosswalkDirection" aria-label="Comparison catalog"><option value="quest">Quest to LabCorp</option><option value="labcorp">LabCorp to Quest</option></select></label>
-              <label>Find a test name or either lab code
-                <input id="labcorpCrosswalkSearch" type="search" autocomplete="off" placeholder="Test name, Quest code, or LabCorp code">
-              </label>
-              <label>Match status
-                <select id="labcorpCrosswalkFilter" aria-label="Quest to LabCorp comparison status">
-                  <option value="all">All indexed tests</option>
-                  <option value="suggested">Possible LabCorp matches</option>
-                  <option value="review">Related tests to review</option>\n                  <option value="pending">No match identified</option>\n                  <option value="legacy">Legacy/uncoded Quest only</option>
-                </select>
-              </label>
-              <button type="button" id="labcorpCrosswalkExport">Download comparison CSV</button>
+            <div class="crosswalk-intro">
+              <p>Paste your Quest test codes and copy the corresponding LabCorp candidate codes.</p>
+              <span class="crosswalk-index" id="labcorpCrosswalkCount">Quest and LabCorp active-index comparison</span>
             </div>
-            <div class="crosswalk-table-wrap">
-              <table class="crosswalk-table">
-                <thead><tr><th id="crosswalkHeadCode">Quest code</th><th id="crosswalkHeadTest">Quest test</th><th id="crosswalkHeadMatch">Possible LabCorp match</th><th id="crosswalkHeadAction">Next step</th></tr></thead>
-                <tbody id="labcorpCrosswalkBody"></tbody>
-              </table>
+            <div class="crosswalk-converter" role="group" aria-label="Quest to LabCorp test code converter">
+              <div class="crosswalk-converter-field">
+                <div class="crosswalk-converter-label">
+                  <label for="crosswalkQuestInput">Quest codes</label>
+                  <span class="crosswalk-converter-tag">INPUT</span>
+                </div>
+                <textarea id="crosswalkQuestInput" rows="7" spellcheck="false" autocomplete="off" placeholder="Enter Quest codes, one per line&#10;201&#10;223&#10;287" aria-describedby="crosswalkQuestHint"></textarea>
+                <span class="crosswalk-converter-helper" id="crosswalkQuestHint">Paste multiple codes, one per line. Commas or spaces work too.</span>
+              </div>
+              <span class="crosswalk-converter-arrow" aria-hidden="true">→</span>
+              <div class="crosswalk-converter-field crosswalk-converter-field--output">
+                <div class="crosswalk-converter-label">
+                  <label for="crosswalkLabcorpOutput">LabCorp codes</label>
+                  <button type="button" class="crosswalk-copy" id="crosswalkCopyCodes" disabled aria-label="Copy LabCorp codes" title="Copy LabCorp candidate codes">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+                    Copy
+                  </button>
+                </div>
+                <textarea id="crosswalkLabcorpOutput" rows="7" readonly spellcheck="false" placeholder="Matching LabCorp codes will appear here&#10;One code per line" aria-label="LabCorp candidate codes, one per line"></textarea>
+                <span class="crosswalk-converter-helper" id="crosswalkConverterFeedback" role="status" aria-live="polite">Enter Quest test codes to see possible matches.</span>
+              </div>
             </div>
-            <div class="crosswalk-bottom"><span id="labcorpCrosswalkStatus" role="status">Loading comparison…</span><button type="button" id="labcorpCrosswalkMore" class="button secondary" hidden>Show more matches</button></div>
+            <div id="crosswalkConverterWarning" class="crosswalk-converter-warning" role="status" aria-live="polite" hidden></div>
+            <p class="crosswalk-converter-disclaimer">Candidate matches are not verified clinical equivalents. Confirm analyte, method, specimen, volume, and transport requirements in the official LabCorp directory before ordering.</p>
+
+            <details class="crosswalk-directory-details">
+              <summary>Browse full Quest and LabCorp comparison</summary>
+              <div class="crosswalk-directory-body">
+                <p class="crosswalk-explainer"><strong>Full active-index comparison.</strong> Search candidate matches in either direction. Related directory entries are not confirmed replacements.</p>
+                <div class="crosswalk-tools">
+                  <label>Compare from<select id="labcorpCrosswalkDirection" aria-label="Comparison catalog"><option value="quest">Quest to LabCorp</option><option value="labcorp">LabCorp to Quest</option></select></label>
+                  <label>Find a test name or either lab code
+                    <input id="labcorpCrosswalkSearch" type="search" autocomplete="off" placeholder="Test name, Quest code, or LabCorp code">
+                  </label>
+                  <label>Match status
+                    <select id="labcorpCrosswalkFilter" aria-label="Quest to LabCorp comparison status">
+                      <option value="all">All indexed tests</option>
+                      <option value="suggested">Possible matches</option>
+                      <option value="review">Related tests to review</option>
+                      <option value="pending">No match identified</option>
+                      <option value="legacy">Legacy/uncoded Quest only</option>
+                    </select>
+                  </label>
+                  <button type="button" id="labcorpCrosswalkExport">Download comparison CSV</button>
+                </div>
+                <div class="crosswalk-table-wrap">
+                  <table class="crosswalk-table">
+                    <thead><tr><th id="crosswalkHeadCode">Quest code</th><th id="crosswalkHeadTest">Quest test</th><th id="crosswalkHeadMatch">Possible LabCorp match</th><th id="crosswalkHeadAction">Next step</th></tr></thead>
+                    <tbody id="labcorpCrosswalkBody"></tbody>
+                  </table>
+                </div>
+                <div class="crosswalk-bottom"><span id="labcorpCrosswalkStatus" role="status">Loading comparison…</span><button type="button" id="labcorpCrosswalkMore" class="button secondary" hidden>Show more matches</button></div>
+              </div>
+            </details>
           </div>
         </details>
 
@@ -662,7 +704,7 @@
   <script src="assets/js/labcorp/catalog/verified-final-remaining-20261121.js?v=1"></script>
   <script src="assets/js/labcorp/catalog/verified-tail-135-20261121.js?v=1"></script>
   <script src="labcorp-app.js?v=20261121-ala-collection-policy"></script>
-  <script src="labcorp-crosswalk-ui.js?v=4"></script>
+  <script src="labcorp-crosswalk-ui.js?v=5"></script>
   <script src="assets/js/portal-selects.js?v=20261119-tat-region-picker"></script>
   <script src="assets/js/lab-select.js?v=20261121-ala-collection-policy"></script>
   <script src="assets/js/scroll-cues.js?v=2"></script>
