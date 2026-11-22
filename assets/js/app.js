@@ -3444,7 +3444,7 @@
 
   // The Quest converter uses the existing active catalog and cart state.
   // A possible cross-reference never creates a test record or collection rule.
-  document.addEventListener('quest:crosswalk-cart', event => {
+  document.addEventListener?.('quest:crosswalk-cart', event => {
     const detail = event.detail;
     if (!detail || !Array.isArray(detail.codes)) return;
     const codes = [...new Set(detail.codes.map(code => String(code).trim()).filter(Boolean))];
@@ -3660,7 +3660,7 @@
     renderSstTubeMode();
     renderStatArea();
     const tests = selectedTests();
-    document.dispatchEvent(new Event('quest:cart-updated'));
+    document.dispatchEvent?.(new Event('quest:cart-updated'));
     renderUrineCultureMode();
     const collectionTests = expandedCollectionTests(tests);
     els.selectedCount.textContent = tests.length;
