@@ -486,7 +486,7 @@
       outputContainer.appendChild(actionLayer);
     }
     const drawer=isQuestPage?document.createElement('div'):null;
-    let drawerSearch=null,drawerResults=null,drawerStatus=null,drawerSource=null,focusBeforeDrawer=null;
+    let drawerSearch=null,drawerResults=null,drawerStatus=null,drawerDirectoryLink=null,drawerSource=null,focusBeforeDrawer=null;
     if(drawer){
       drawer.className='crosswalk-match-drawer-host';
       drawer.hidden=true;
@@ -502,15 +502,23 @@
         '<div class="crosswalk-match-drawer-search-box">'+
         '<span aria-hidden="true">⌕</span><input id="crosswalkMatchDrawerSearch" type="search" autocomplete="off" placeholder="Test name or Quest code"></div>'+
         '<p class="crosswalk-match-drawer-status" role="status" aria-live="polite"></p>'+
+        '<div class="crosswalk-match-directory-action"><a id="crosswalkMatchDirectoryLink" class="crosswalk-match-directory-button" href="https://testdirectory.questdiagnostics.com/" target="_blank" rel="noopener noreferrer">Search Quest directory ↗</a></div>'+
         '<div class="crosswalk-match-drawer-results" role="list"></div>'+
         '<footer class="crosswalk-match-drawer-footer">'+
         '<p><strong>Manual selection only.</strong> Candidate tests are not verified clinical equivalents. Confirm specimen, method, volume, and transport before ordering.</p>'+
-        '<a href="https://testdirectory.questdiagnostics.com/" rel="noopener noreferrer" target="_blank">Check official Quest directory ↗</a>'+
         '</footer></aside>';
       document.body.appendChild(drawer);
       drawerSearch=drawer.querySelector('#crosswalkMatchDrawerSearch');
       drawerResults=drawer.querySelector('.crosswalk-match-drawer-results');
       drawerStatus=drawer.querySelector('.crosswalk-match-drawer-status');
+      drawerDirectoryLink=drawer.querySelector('#crosswalkMatchDirectoryLink');
+    }
+    function updateQuestDirectoryLink(){
+      if(!drawerDirectoryLink)return;
+      const query=(drawerSearch?.value||drawerSource?.name||drawerSource?.code||'').trim();
+      drawerDirectoryLink.href='https://testdirectory.questdiagnostics.com/test/results?q='+
+        encodeURIComponent(query);
+      drawerDirectoryLink.setAttribute('aria-label','Search official Quest directory for '+(query||'tests'));
     }
     function sourceForRow(index){
       const raw=converterInput.value.split('\n')[index]?.trim()||'';
@@ -521,6 +529,7 @@
     }
     function searchQuestDirectory(){
       if(!drawer||!drawerSource)return;
+      updateQuestDirectoryLink();
       const q=normalize(drawerSearch.value),terms=q.split(' ').filter(Boolean);
       const scored=q?indexedQuestTests.map(test=>{
         const name=test.normalized,code=test.code;
@@ -574,10 +583,8 @@
     function renderNoMatchActions(){
       if(!actionLayer)return;
       actionLayer.replaceChildren();
-      // The search action belongs AFTER the closing quote, never between
-      // the ↔ indicator and the no-match message. Use the real ghost-label
-      // rectangle instead of a fixed offset, so test-name lengths and font
-      // scaling cannot change the order of the three elements.
+      // The magnifier replaces ↔ before the no-match message. Use the
+      // label's actual rectangle to stay aligned with scrolling and zoom.
       const containerRect=outputContainer.getBoundingClientRect();
       for(const [index,hint] of emptyOutputHints){
         if(typeof hint!=='string'||!hint.startsWith('No match for '))continue;
@@ -586,11 +593,10 @@
         if(!label)continue;
         const rect=label.getBoundingClientRect();
         const top=rect.top-containerRect.top+(rect.height-24)/2;
-        const left=rect.right-containerRect.left+7;
+        const left=rect.left-containerRect.left+3;
         if(top<-24||top>outputContainer.clientHeight-3)continue;
-        // Do not cover the end of a long label. The renderer reserves 34px
-        // for this icon and ellipsizes long text when necessary.
-        if(left+24>outputContainer.clientWidth-2)continue;
+        // The text may ellipsize, but its leading search icon stays visible.
+        if(left<0||left+24>outputContainer.clientWidth-2)continue;
         const b=document.createElement('button');
         b.type='button';
         b.className='crosswalk-no-match-search';
