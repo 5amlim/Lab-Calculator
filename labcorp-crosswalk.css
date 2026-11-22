@@ -778,3 +778,58 @@
     }
   }
 }
+
+/* Always-visible crosswalk browser, styled to match Browse Tests. */
+@media screen {
+  .test-mode-converter .crosswalk-directory-details.catalog-browser-section {
+    min-width: 0;
+    margin: 26px -12px 0;
+    padding: 20px 11px 16px;
+    border: 1px solid #d6e3e8;
+    border-radius: 17px;
+    background: linear-gradient(180deg, #f5f9fa 0, #fff 215px);
+    box-shadow: 0 4px 18px rgba(28, 61, 77, .055);
+  }
+  .test-mode-converter .crosswalk-directory-details .catalog-browser-heading {
+    margin: 0 1px 18px;
+    padding: 0 2px 15px;
+    border-bottom: 1px solid #dfe9ec;
+  }
+  .test-mode-converter .crosswalk-directory-details .catalog-browser-kicker {
+    color: #087e83;
+  }
+  .test-mode-converter .crosswalk-directory-details .catalog-browser-heading h3 {
+    margin: 0;
+    color: #203849;
+    font-size: 20px;
+    font-weight: 750;
+    letter-spacing: -.025em;
+  }
+  .test-mode-converter .crosswalk-directory-details .catalog-browser-heading p {
+    margin: 5px 0 0;
+    color: #607786;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .test-mode-converter .crosswalk-directory-details .crosswalk-directory-body {
+    padding: 0 0 2px;
+  }
+  .test-mode-converter .crosswalk-table .crosswalk-match-cell .crosswalk-match-name:first-child {
+    margin-top: 0;
+  }
+  .test-mode-converter .crosswalk-table .crosswalk-match-cell .crosswalk-state--possible {
+    display: inline-flex;
+    width: max-content;
+    margin-top: 8px;
+  }
+  @media (max-width: 700px) {
+    .test-mode-converter .crosswalk-directory-details.catalog-browser-section {
+      margin-inline: -8px;
+      padding-inline: 7px;
+      padding-top: 18px;
+    }
+    .test-mode-converter .crosswalk-directory-details .catalog-browser-heading h3 {
+      font-size: 18px;
+    }
+  }
+}
