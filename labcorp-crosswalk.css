@@ -833,3 +833,12 @@
     }
   }
 }
+
+/* Manual Quest entries show a subtle, row-aligned provenance hint on the left. */
+@media screen {
+  .test-mode-converter #crosswalkQuestAutocomplete .batch-inline-ghost-empty {
+    color: #6c8799;
+    font-style: normal;
+    font-weight: 500;
+  }
+}
