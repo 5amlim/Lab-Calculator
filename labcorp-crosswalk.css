@@ -953,3 +953,18 @@
     font-weight:500;
   }
 }
+
+/* Ghost labels shake on blocked edits; the editable code fields stay still. */
+@media screen {
+  @keyframes crosswalk-locked-row-shake {
+    0%,100% { transform:translateX(0); }
+    20%,60% { transform:translateX(-4px); }
+    40%,80% { transform:translateX(4px); }
+  }
+  .test-mode-converter .batch-inline-ghost-label.crosswalk-locked-shake {
+    animation:crosswalk-locked-row-shake .26s ease-in-out;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .test-mode-converter .batch-inline-ghost-label.crosswalk-locked-shake {animation:none;}
+}
