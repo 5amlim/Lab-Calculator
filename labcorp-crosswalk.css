@@ -180,3 +180,25 @@
   .crosswalk-status-item--warning { color: #9e4c2d; }
   .crosswalk-status-item--note { color: #58758b; }
 }
+
+
+/* The completed converter action stays legible, rather than fading like a
+   disabled button. Its state follows the live cart, not a one-time animation. */
+@media screen {
+  .crosswalk-output-actions .crosswalk-inline-add.is-added,
+  .crosswalk-output-actions .crosswalk-inline-add.is-added:disabled {
+    background: #e6f5eb;
+    border-color: #a7d8b8;
+    color: #246542;
+    opacity: 1;
+    cursor: default;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.6);
+  }
+  .crosswalk-output-actions .crosswalk-inline-add.is-added .crosswalk-icon-plus,
+  .crosswalk-output-actions .crosswalk-inline-add:not(.is-added) .crosswalk-icon-check {
+    display: none;
+  }
+  .crosswalk-output-actions .crosswalk-inline-add.is-added .crosswalk-icon-check {
+    display: inline-block;
+  }
+}
