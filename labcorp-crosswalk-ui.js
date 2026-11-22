@@ -737,7 +737,7 @@
       });
     }
     converterOutput.addEventListener('scroll',renderNoMatchActions,{passive:true});
-    converterInput.addEventListener('scroll',renderMatchedSourceActions,{passive:true});
+    converterInput.addEventListener('scroll',renderSourceEntryActions,{passive:true});
     window.addEventListener('resize',()=>{
       renderNoMatchActions();
       renderSourceEntryActions();
@@ -1472,7 +1472,23 @@
       reverse=buildReverse(index);
       loadError=false;
       render();
-      if(isQuestPage)initConverter();
+      if(isQuestPage){
+        try{
+          initConverter();
+        }catch(error){
+          console.error('LabCorp-to-Quest converter initialization failed:',error);
+          const feedback=document.getElementById('crosswalkConverterFeedback');
+          if(feedback)feedback.textContent='Test converter could not start. Please refresh.';
+        }
+      }
     })
-    .catch(()=>{loadError=true;render();if(isQuestPage){const feedback=document.getElementById('crosswalkConverterFeedback');if(feedback)feedback.textContent='LabCorp reference index unavailable. Refresh to retry.';}});
+    .catch(error=>{
+      console.error('LabCorp reference index load failed:',error);
+      loadError=true;
+      render();
+      if(isQuestPage){
+        const feedback=document.getElementById('crosswalkConverterFeedback');
+        if(feedback)feedback.textContent='LabCorp reference index unavailable. Refresh to retry.';
+      }
+    });
 })();
