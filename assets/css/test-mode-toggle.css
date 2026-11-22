@@ -156,3 +156,20 @@
     }
   }
 }
+
+/* Keep Find Tests entry and its inline exact-match ghost names consistent with
+   Convert Tests. This changes typography only, not input/search behavior. */
+@media screen {
+  #findTestsView #searchInput {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.55;
+    letter-spacing: normal;
+    color: #173e5c;
+  }
+  #findTestsView .batch-inline-ghost-label {
+    color: #8798a7;
+    font-weight: 400;
+  }
+}
