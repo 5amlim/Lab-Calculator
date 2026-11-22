@@ -473,6 +473,8 @@
       questNames.get(String(code).trim())||null,{
         emptyLineHint:index=>emptyOutputHints.get(index)||null,
         lineTone:code=>unavailableOutputCodes.has(String(code).trim())?'unavailable':null,
+        isMatchedRow:(index,code)=>isQuestPage&&
+          generatedMatchRows.get(index)?.code===String(code).trim(),
         onNoMatchAction:isQuestPage?index=>openQuestMatchDrawer(index):null
       })||(()=>{});
 
