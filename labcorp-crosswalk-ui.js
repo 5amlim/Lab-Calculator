@@ -478,10 +478,13 @@
         if(!tappingSuggestion&&!suggestionPanel.contains(document.activeElement))hideSuggestions();
       });
     }
-    // Show the Quest test name as decorative ghost text beside each converted
-    // code, just like the source input. The textarea remains codes-only for Copy.
-    const questNames=new Map(rows.filter(row=>sourceType(row)==='active')
-      .map(row=>[String(row[0]||'').trim(),String(row[1]||'').trim()]));
+    // Both destinations use the same complete indexed test catalog for ghost
+    // names and autocomplete. Never infer clinical equivalence from names.
+    const destinationCatalog=isQuestPage
+      ?rows.filter(row=>sourceType(row)==='active')
+        .map(row=>[String(row[0]||'').trim(),String(row[1]||'').trim(),String(row[2]||'').trim()])
+      :(reverse||[]).map(row=>[row.code,row.name,row.specimen]);
+    const destinationNames=new Map(destinationCatalog.map(row=>[row[0],row[1]]));
     let emptyOutputHints=new Map();
     let unavailableOutputCodes=new Set();
     // Converted Quest results are read-only. Every nonempty editable LabCorp
@@ -510,24 +513,23 @@
     converterOutput.addEventListener('scroll',()=>syncConverterScroll(converterOutput,converterInput),{passive:true});
     const outputPlaceholder=converterOutput.placeholder;
     const refreshOutputHints=window.LabBatchInlineHints?.mount(converterOutput,code=>
-      questNames.get(String(code).trim())||null,{
+      destinationNames.get(String(code).trim())||null,{
         emptyLineHint:index=>emptyOutputHints.get(index)||null,
         lineTone:code=>unavailableOutputCodes.has(String(code).trim())?'unavailable':null,
-        isMatchedRow:(index,code)=>isQuestPage&&
+        isMatchedRow:(index,code)=>
           generatedMatchRows.get(index)?.code===String(code).trim(),
-        onNoMatchAction:isQuestPage?index=>openQuestMatchDrawer(index):null
+        onNoMatchAction:index=>openDestinationMatchDrawer(index)
       })||(()=>{});
 
-    // In-page indexed Quest directory finder. The official directory remains
-    // the source for verifying analyte, specimen, method, volume, and handling.
-    const indexedQuestTests=isQuestPage?rows.filter(row=>
-      sourceType(row)==='active'&&String(row[0]||'').trim()&&String(row[1]||'').trim()
-    ).map(row=>({code:String(row[0]).trim(),name:String(row[1]).trim(),
-      specimen:String(row[2]||'').trim(),normalized:normalize(row[1])})):[];
+    // Both labs use the destination's full index for the no-match finder.
+    // Selection is provisional until verified against the official directory.
+    const indexedDestinationTests=destinationCatalog.filter(row=>row[0]&&row[1])
+      .map(row=>({code:String(row[0]).trim(),name:String(row[1]).trim(),
+        specimen:String(row[2]||'').trim(),normalized:normalize(row[1])}));
     const outputContainer=document.getElementById('crosswalkOutputAutocomplete');
     const sourceContainer=document.getElementById('crosswalkQuestAutocomplete');
-    const actionLayer=isQuestPage&&outputContainer?document.createElement('div'):null;
-    const sourceActionLayer=isQuestPage&&sourceContainer?document.createElement('div'):null;
+    const actionLayer=outputContainer?document.createElement('div'):null;
+    const sourceActionLayer=sourceContainer?document.createElement('div'):null;
     if(sourceActionLayer){
       sourceActionLayer.className='crosswalk-source-match-actions';
       sourceContainer.appendChild(sourceActionLayer);
@@ -536,7 +538,7 @@
       actionLayer.className='crosswalk-no-match-actions';
       outputContainer.appendChild(actionLayer);
     }
-    const drawer=isQuestPage?document.createElement('div'):null;
+    const drawer=outputContainer?document.createElement('div'):null;
     let drawerSearch=null,drawerResults=null,drawerStatus=null,drawerDirectoryLink=null,drawerSource=null,focusBeforeDrawer=null;
     if(drawer){
       drawer.className='crosswalk-match-drawer-host';
@@ -545,14 +547,14 @@
         '<div class="crosswalk-match-drawer-scrim" data-close="true"></div>'+
         '<aside class="crosswalk-match-drawer" role="dialog" aria-modal="true" aria-labelledby="crosswalkMatchDrawerTitle">'+
         '<header class="crosswalk-match-drawer-header">'+
-        '<div><span class="crosswalk-match-drawer-eyebrow">INDEXED QUEST TESTS</span>'+
-        '<h3 id="crosswalkMatchDrawerTitle">Find a Quest match</h3></div>'+
-        '<button type="button" class="crosswalk-match-drawer-close" data-close="true" aria-label="Close Quest match search">✕</button></header>'+
+        '<div><span class="crosswalk-match-drawer-eyebrow">INDEXED '+toLab.toUpperCase()+' TESTS</span>'+
+        '<h3 id="crosswalkMatchDrawerTitle">Find a '+toLab+' match</h3></div>'+
+        '<button type="button" class="crosswalk-match-drawer-close" data-close="true" aria-label="Close '+toLab+' match search">✕</button></header>'+
         '<p id="crosswalkMatchDrawerSource" class="crosswalk-match-drawer-source"></p>'+
-        '<label class="crosswalk-match-drawer-search-label" for="crosswalkMatchDrawerSearch">Search Quest directory</label>'+
+        '<label class="crosswalk-match-drawer-search-label" for="crosswalkMatchDrawerSearch">Search '+toLab+' directory</label>'+
         '<div class="crosswalk-match-drawer-search-box">'+
-        '<span aria-hidden="true">⌕</span><input id="crosswalkMatchDrawerSearch" type="search" autocomplete="off" placeholder="Test name or Quest code"></div>'+
-        '<div class="crosswalk-match-directory-action"><a id="crosswalkMatchDirectoryLink" class="crosswalk-match-directory-button" href="https://testdirectory.questdiagnostics.com/" target="_blank" rel="noopener noreferrer">Search Quest directory ↗</a></div>'+
+        '<span aria-hidden="true">⌕</span><input id="crosswalkMatchDrawerSearch" type="search" autocomplete="off" placeholder="Test name or '+toLab+' code"></div>'+
+        '<div class="crosswalk-match-directory-action"><a id="crosswalkMatchDirectoryLink" class="crosswalk-match-directory-button" href="'+(isQuestPage?questUrl:labUrl('',''))+'" target="_blank" rel="noopener noreferrer">Search '+toLab+' directory ↗</a></div>'+
         '<p class="crosswalk-match-drawer-status" role="status" aria-live="polite"></p>'+
         '<div class="crosswalk-match-drawer-results" role="list"></div>'+
         '<footer class="crosswalk-match-drawer-footer">'+
@@ -564,12 +566,13 @@
       drawerStatus=drawer.querySelector('.crosswalk-match-drawer-status');
       drawerDirectoryLink=drawer.querySelector('#crosswalkMatchDirectoryLink');
     }
-    function updateQuestDirectoryLink(){
+    function updateDestinationDirectoryLink(){
       if(!drawerDirectoryLink)return;
       const query=(drawerSearch?.value||drawerSource?.name||drawerSource?.code||'').trim();
-      drawerDirectoryLink.href='https://testdirectory.questdiagnostics.com/test/results?q='+
-        encodeURIComponent(query);
-      drawerDirectoryLink.setAttribute('aria-label','Search official Quest directory for '+(query||'tests'));
+      drawerDirectoryLink.href=isQuestPage
+        ?'https://testdirectory.questdiagnostics.com/test/results?q='+encodeURIComponent(query)
+        :labUrl(query,query);
+      drawerDirectoryLink.setAttribute('aria-label','Search official '+toLab+' directory for '+(query||'tests'));
     }
     function sourceForRow(index){
       const raw=converterInput.value.split('\n')[index]?.trim()||'';
@@ -578,11 +581,11 @@
       return {row:index,raw,code:record?String(record[0]):raw,
         name:record?String(record[1]||raw):raw};
     }
-    function searchQuestDirectory(){
+    function searchDestinationDirectory(){
       if(!drawer||!drawerSource)return;
-      updateQuestDirectoryLink();
+      updateDestinationDirectoryLink();
       const q=normalize(drawerSearch.value),terms=q.split(' ').filter(Boolean);
-      const scored=q?indexedQuestTests.map(test=>{
+      const scored=q?indexedDestinationTests.map(test=>{
         const name=test.normalized,code=test.code;
         let score=0;
         if(code===q)score=5000;
@@ -597,18 +600,18 @@
         return {test,score};
       }).filter(item=>item.score>0).sort((a,b)=>b.score-a.score||
         a.test.name.localeCompare(b.test.name)||a.test.code.localeCompare(b.test.code)):[];
-      drawerStatus.textContent=!q?'Enter a Quest test name or code':
-        scored.length?'Showing '+Math.min(scored.length,25)+' of '+scored.length+' Quest directory references':
-        'No indexed Quest tests found. Try a shorter term or a Quest code.';
+      drawerStatus.textContent=!q?'Enter a '+toLab+' test name or code':
+        scored.length?'Showing '+Math.min(scored.length,25)+' of '+scored.length+' '+toLab+' directory references':
+        'No indexed '+toLab+' tests found. Try a shorter term or a '+toLab+' code.';
       drawerResults.innerHTML=scored.slice(0,25).map(({test})=>
         '<div class="crosswalk-match-drawer-result" role="listitem">'+
         '<div class="crosswalk-match-drawer-result-details"><strong>'+escape(test.code)+'</strong>'+
         '<span>'+escape(test.name)+'</span>'+
         (test.specimen?'<small>Specimen · '+escape(test.specimen)+'</small>':'')+'</div>'+
-        '<button type="button" data-quest-code="'+escape(test.code)+'">Select</button></div>'
+        '<button type="button" data-destination-code="'+escape(test.code)+'">Select</button></div>'
       ).join('');
     }
-    function closeQuestMatchDrawer(){
+    function closeDestinationMatchDrawer(){
       if(!drawer||drawer.hidden)return;
       drawer.hidden=true;
       document.body.classList.remove('crosswalk-drawer-visible');
@@ -616,16 +619,16 @@
       if(focusBeforeDrawer?.isConnected)focusBeforeDrawer.focus({preventScroll:true});
       else converterOutput.focus({preventScroll:true});
     }
-    function openQuestMatchDrawer(index){
+    function openDestinationMatchDrawer(index){
       if(!drawer||!emptyOutputHints.get(index)?.startsWith('No match for '))return;
       const source=sourceForRow(index);
       if(!source.code)return;
       drawerSource=source;
       focusBeforeDrawer=actionLayer?.querySelector('button[data-row="'+index+'"]')||converterOutput;
-      drawer.querySelector('#crosswalkMatchDrawerSource').textContent='LabCorp '+source.code+
+      drawer.querySelector('#crosswalkMatchDrawerSource').textContent=fromLab+' '+source.code+
         (source.name&&source.name!==source.code?' · '+source.name:'');
       drawerSearch.value=source.name||source.code;
-      searchQuestDirectory();
+      searchDestinationDirectory();
       drawer.hidden=false;
       document.body.classList.add('crosswalk-drawer-visible');
       drawerSearch.focus({preventScroll:true});
@@ -654,13 +657,13 @@
         b.dataset.row=String(index);
         b.style.top=top+'px';
         b.style.left=left+'px';
-        b.title='Find a Quest test for this LabCorp entry';
-        b.setAttribute('aria-label','Search Quest directory for LabCorp test on line '+(index+1));
+        b.title='Find a '+toLab+' test for this '+fromLab+' entry';
+        b.setAttribute('aria-label','Search '+toLab+' directory for '+fromLab+' test on line '+(index+1));
         b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">'+
           '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>';
         b.addEventListener('pointerdown',event=>event.preventDefault());
         b.addEventListener('click',event=>{
-          event.preventDefault();event.stopPropagation();openQuestMatchDrawer(index);
+          event.preventDefault();event.stopPropagation();openDestinationMatchDrawer(index);
         });
         actionLayer.appendChild(b);
       }
@@ -710,8 +713,8 @@
         button.style.top=top+'px';
         button.style.left=left+'px';
         button.textContent='×';
-        button.title='Remove LabCorp entry '+current;
-        button.setAttribute('aria-label','Remove LabCorp entry '+current+' on line '+(sourceLine+1));
+        button.title='Remove '+fromLab+' entry '+current;
+        button.setAttribute('aria-label','Remove '+fromLab+' entry '+current+' on line '+(sourceLine+1));
         button.addEventListener('pointerdown',event=>event.preventDefault());
         button.addEventListener('click',event=>{
           event.preventDefault();
@@ -747,26 +750,26 @@
       }
     }
     if(drawer){
-      drawerSearch.addEventListener('input',searchQuestDirectory);
+      drawerSearch.addEventListener('input',searchDestinationDirectory);
       drawer.addEventListener('click',event=>{
-        if(event.target.closest('[data-close]')){closeQuestMatchDrawer();return;}
-        const button=event.target.closest('button[data-quest-code]');
+        if(event.target.closest('[data-close]')){closeDestinationMatchDrawer();return;}
+        const button=event.target.closest('button[data-destination-code]');
         if(!button||!drawerSource)return;
         const current=converterInput.value.split('\n')[drawerSource.row]?.trim()||'';
         if(current!==drawerSource.raw){
           drawerStatus.textContent='Source line changed. Close and reopen the search.';
           return;
         }
-        const chosenCode=button.dataset.questCode;
+        const chosenCode=button.dataset.destinationCode;
         chosenMatches.set(drawerSource.code,{code:chosenCode});
         manualOutputCodes.delete(chosenCode);
         updateConverter();
         // The search action disappears when this line is resolved, so return
         // focus to the output field rather than a detached search button.
-        closeQuestMatchDrawer();
+        closeDestinationMatchDrawer();
       });
       drawer.addEventListener('keydown',event=>{
-        if(event.key==='Escape'){event.preventDefault();closeQuestMatchDrawer();return;}
+        if(event.key==='Escape'){event.preventDefault();closeDestinationMatchDrawer();return;}
         if(event.key!=='Tab')return;
         const elements=[...drawer.querySelectorAll('button,input,a[href]')].filter(el=>
           !el.disabled&&el.getClientRects().length>0);
@@ -788,7 +791,7 @@
     // Allow direct Quest-code or test-name lookup in the editable destination
     // pane. Suggestions affect only the caret's line, never converted rows.
     const outputSuggestionPanel=document.getElementById('crosswalkOutputSuggestions');
-    const outputSuggestionItems=Array.from(questNames,([code,name])=>[code,name,'','']);
+    const outputSuggestionItems=destinationCatalog.map(([code,name,specimen])=>[code,name,specimen,'']);
     let outputSuggestionMatches=[],outputSuggestionActive=-1,outputSuggestionEntry=null;
     function activeOutputEntry(){
       const value=converterOutput.value,pos=converterOutput.selectionStart??value.length;
@@ -834,7 +837,7 @@
       if(!outputSuggestionPanel)return;
       const entry=activeOutputEntry(),query=normalize(entry.query);
       const row=converterOutput.value.slice(0,entry.start).split('\n').length-1;
-      if(isQuestPage&&generatedMatchRows.has(row)){
+      if(generatedMatchRows.has(row)){
         hideOutputSuggestions();
         return;
       }
@@ -851,7 +854,7 @@
       outputSuggestionEntry=entry;
       outputSuggestionMatches=matches.map(item=>item.row);
       outputSuggestionActive=-1;
-      outputSuggestionPanel.innerHTML='<div class="calc-suggestion-heading">Matching Quest tests for this line</div>'+
+      outputSuggestionPanel.innerHTML='<div class="calc-suggestion-heading">Matching '+toLab+' tests for this line</div>'+
         matches.map(({row},i)=>
           '<button type="button" class="calc-suggestion-option" role="option" id="crosswalk-output-option-'+i+
           '" aria-selected="false" tabindex="-1" data-index="'+i+'">'+
@@ -859,7 +862,7 @@
           '<span class="calc-suggestion-copy"><strong>'+escape(row[1])+'</strong></span>'+
           '<span class="calc-suggestion-arrow" aria-hidden="true">›</span></button>'
         ).join('')+
-        '<div class="calc-suggestion-footer">Choose a Quest test to fill its code · ↑ ↓ navigate · Enter select · Esc close</div>';
+        '<div class="calc-suggestion-footer">Choose a '+toLab+' test to fill its code · ↑ ↓ navigate · Enter select · Esc close</div>';
       outputSuggestionPanel.classList.remove('hidden');
       converterOutput.setAttribute('aria-expanded','true');
       converterOutput.removeAttribute('aria-activedescendant');
@@ -867,7 +870,7 @@
     function chooseOutputSuggestion(index){
       const row=outputSuggestionMatches[index];
       if(!row||!outputSuggestionEntry)return;
-      if(isQuestPage&&generatedMatchRows.has(
+      if(generatedMatchRows.has(
           converterOutput.value.slice(0,outputSuggestionEntry.start).split('\n').length-1))return;
       const {start,end}=outputSuggestionEntry,code=String(row[0]);
       const following=converterOutput.value.slice(end);
@@ -938,7 +941,7 @@
     const isLockedRow=(textarea,index)=>textarea===converterInput
       ? manualSourceHints.get(index)?.tone==='manual' &&
         !(textarea.value.split('\n')[index]||'').trim()
-      : noMatchRow(index)||(isQuestPage&&generatedMatchRows.has(index));
+      : noMatchRow(index)||generatedMatchRows.has(index);
     function shakeLockedRow(textarea,index){
       if(textarea===converterInput)refreshConverterHints.shakeLine?.(index);
       else if(generatedMatchRows.has(index))refreshOutputHints.shakeCodeLine?.(index);
@@ -946,7 +949,7 @@
     }
     function insertAlignedRowAfterMatch(outputRow){
       const match=generatedMatchRows.get(outputRow);
-      if(!isQuestPage||!match)return false;
+      if(!match)return false;
       // Add a real blank row immediately after this pair, not at the bottom.
       // The LabCorp source drives conversion, so both fields must shift before
       // refreshing the generated Quest results and their decorative labels.
@@ -966,7 +969,7 @@
       return true;
     }
     function removeAlignedBlankRow(row,focusTarget=converterOutput){
-      if(!isQuestPage||row<=0)return false;
+      if(row<=0)return false;
       const sourceLines=converterInput.value.split('\n');
       const outputLines=converterOutput.value.split('\n');
       // A blank line is removable only if BOTH sides are empty. Preserve
@@ -1541,8 +1544,6 @@
     updateConverter();
   }
   }
-  if(!isQuestPage)initConverter();
-
   function download(){
     if(direction.value==='labcorp'&&!reverse){return;}
     const lab=direction.value==='labcorp',lines=[];
@@ -1603,14 +1604,12 @@
       reverse=buildReverse(index);
       loadError=false;
       render();
-      if(isQuestPage){
-        try{
-          initConverter();
-        }catch(error){
-          console.error('LabCorp-to-Quest converter initialization failed:',error);
-          const feedback=document.getElementById('crosswalkConverterFeedback');
-          if(feedback)feedback.textContent='Test converter could not start. Please refresh.';
-        }
+      try{
+        initConverter();
+      }catch(error){
+        console.error((isQuestPage?'LabCorp-to-Quest':'Quest-to-LabCorp')+' converter initialization failed:',error);
+        const feedback=document.getElementById('crosswalkConverterFeedback');
+        if(feedback)feedback.textContent='Test converter could not start. Please refresh.';
       }
     })
     .catch(error=>{
