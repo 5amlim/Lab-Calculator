@@ -906,12 +906,12 @@
     font-weight:500;
   }
   .test-mode-converter #crosswalkQuestAutocomplete .batch-inline-ghost-reference-code {
-    color:#214764;
-    font-weight:750;
+    color:#173e5c;
+    font-weight:500;
   }
   .test-mode-converter #crosswalkQuestAutocomplete .batch-inline-ghost-reference-name {
-    color:#8296a7;
-    font-weight:450;
+    color:#8798a7;
+    font-weight:400;
   }
   .test-mode-converter #crosswalkQuestAutocomplete .batch-inline-ghost-manual {
     color:#a06b19;
