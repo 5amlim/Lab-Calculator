@@ -914,12 +914,17 @@
     font-weight:450;
   }
   .test-mode-converter #crosswalkQuestAutocomplete .batch-inline-ghost-manual {
-    color:#99690f;
-    background:#fff2cc;
-    border-radius:5px;
-    padding:0 6px;
+    color:#a06b19;
+    background:transparent;
+    border:0;
+    border-radius:0;
+    padding:0;
+    font-family:inherit;
+    font-size:inherit;
     font-style:normal;
-    font-weight:650;
+    font-weight:500;
+    line-height:inherit;
+    letter-spacing:inherit;
   }
 }
 
