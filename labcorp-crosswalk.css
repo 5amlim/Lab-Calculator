@@ -1213,6 +1213,33 @@
     border-color:#80b1cc;
     outline-offset:2px;
   }
+  #crosswalkOutputAutocomplete .crosswalk-match-remove {
+    position:absolute;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:18px;
+    height:18px;
+    box-sizing:border-box;
+    padding:0;
+    border:1px solid #d3e0e8;
+    border-radius:5px;
+    background:#f5f9fb;
+    color:#6f8596;
+    font-family:inherit;
+    font-size:17px;
+    font-weight:500;
+    line-height:1;
+    pointer-events:auto;
+    cursor:pointer;
+  }
+  #crosswalkOutputAutocomplete .crosswalk-match-remove:hover,
+  #crosswalkOutputAutocomplete .crosswalk-match-remove:focus-visible {
+    border-color:#d8aa9e;
+    background:#fff1ed;
+    color:#a94838;
+    outline-offset:2px;
+  }
   .crosswalk-match-drawer-host[hidden] {display:none!important;}
   .crosswalk-match-drawer-host {
     position:fixed;
