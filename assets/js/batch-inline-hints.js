@@ -128,12 +128,12 @@
           // changing the entered text or the textarea's line wrapping.
           var textWidth = ctx.measureText(line).width + letterSpacing * line.length +
             wordSpacing * (line.match(/ /g) || []).length;
-          var atRight = Math.min(innerWidth - 27, Math.max(0, textWidth + 10));
+          var atRight = Math.min(innerWidth - 23, Math.max(0, textWidth + 10));
           statusRows.push({
             index: index, query: query, tone: tone,
             left: textarea.offsetLeft + borderLeft + paddingLeft + atRight,
             top: textarea.offsetTop + borderTop + paddingTop +
-              (row + visualRows - 1) * lineHeight + (lineHeight - 24) / 2
+              (row + visualRows - 1) * lineHeight + (lineHeight - 20) / 2
           });
         }
         if (tone && document.activeElement === textarea &&
