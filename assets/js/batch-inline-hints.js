@@ -97,6 +97,14 @@
       if ((!textarea.value && !options.emptyLineHint) || innerWidth < 45) { syncScroll(); return; }
       var row = 0;
       var lines = textarea.value.split('\n');
+      // Support decorative row labels beyond the last source entry (e.g. a
+      // manually added Quest code on the matching right-hand output row).
+      // These virtual lines never modify the textarea's actual value.
+      var minRows = typeof options.minLineCount === 'function'
+        ? Number(options.minLineCount()) : Number(options.minLineCount || 0);
+      if (Number.isFinite(minRows)) {
+        for (var i = lines.length; i < Math.min(2000, minRows); i++) lines.push('');
+      }
       lines.forEach(function (line, index) {
         var measuredLine = document.createElement('div');
         measuredLine.className = 'batch-inline-ghost-measured-line';
