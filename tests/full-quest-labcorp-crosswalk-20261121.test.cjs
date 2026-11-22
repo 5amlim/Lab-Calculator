@@ -68,6 +68,7 @@ function convertFixture(input,manual=[]){
     normalize:s=>String(s).toLowerCase().trim(),
     questByCode:new Map([
       ['809523',['809523','Lithium, Urine','','','',0,'','active',[],[]]],
+      ['801340',['801340','Sinemet','','','',0,'','active',[],[]]],
       ['005215',['005215','Erythrocyte Sedimentation Rate','','809','Sed Rate',0,'','active',[],['809']]],
       ['123456',['123456','Example multi-candidate','','201','',0,'','active',[],['201','223']]],
       ['000111',['000111','Shared destination','','809','',0,'','active',[],['809']]]
@@ -88,13 +89,24 @@ function convertFixture(input,manual=[]){
 test('unmatched LabCorp row keeps its visual position ahead of a matched Quest code',()=>{
   const state=convertFixture('809523\n005215');
   assert.equal(state.converterOutput.value,'\n809\n');
-  assert.equal(state.emptyOutputHints.get(0),'No match for 809523');
+  assert.equal(state.emptyOutputHints.get(0),'No match for 809523 · Lithium, Urine');
   assert.deepEqual(Array.from(state.cartCandidateCodes),['809']);
+});
+test('a known unmatched LabCorp test shows its code and name on the aligned ghost row',()=>{
+  const state=convertFixture('005215\n801340');
+  assert.equal(state.converterOutput.value,'809\n\n');
+  assert.equal(state.emptyOutputHints.get(1),'No match for 801340 · Sinemet');
+  assert.equal(state.converterOutput.value.split(/\n/).filter(Boolean).join('\n'),'809');
+  assert.deepEqual(Array.from(state.cartCandidateCodes),['809']);
+});
+test('unknown input still displays a code-only no-match hint',()=>{
+  const state=convertFixture('999999');
+  assert.equal(state.emptyOutputHints.get(0),'No match for 999999');
 });
 test('unmatched last row is ghosted without entering copied code values',()=>{
   const state=convertFixture('005215\n809523');
   assert.equal(state.converterOutput.value,'809\n\n');
-  assert.equal(state.emptyOutputHints.get(1),'No match for 809523');
+  assert.equal(state.emptyOutputHints.get(1),'No match for 809523 · Lithium, Urine');
   assert.equal(state.converterOutput.value.split(/\n/).filter(Boolean).join('\n'),'809');
 });
 test('a matching output ends with an editable blank row without affecting code counts',()=>{
@@ -107,12 +119,12 @@ test('single unmatched entry hides overlapping placeholder and keeps destination
   const state=convertFixture('809523');
   assert.equal(state.converterOutput.value,'');
   assert.equal(state.converterOutput.placeholder,'');
-  assert.equal(state.emptyOutputHints.get(0),'No match for 809523');
+  assert.equal(state.emptyOutputHints.get(0),'No match for 809523 · Lithium, Urine');
 });
 test('manual code and multiple candidate codes survive line-aligned conversion',()=>{
   const state=convertFixture('809523\n123456\n005215',['908']);
   assert.equal(state.converterOutput.value,'\n201\n809\n223\n908\n');
-  assert.equal(state.emptyOutputHints.get(0),'No match for 809523');
+  assert.equal(state.emptyOutputHints.get(0),'No match for 809523 · Lithium, Urine');
   assert.deepEqual(Array.from(state.cartCandidateCodes),['201','223','809']);
 });
 
