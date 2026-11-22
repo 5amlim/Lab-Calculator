@@ -139,3 +139,21 @@
 
 }
 
+
+/* Unaddable entries are shown as colored text without changing entered codes. */
+@media screen {
+  .batch-inline-ghost-status-text {
+    position:absolute;
+    z-index:2;
+    box-sizing:border-box;
+    display:block;
+    padding:0 2px;
+    white-space:pre;
+    overflow:hidden;
+    text-overflow:clip;
+    pointer-events:none;
+    user-select:none;
+    -webkit-user-select:none;
+  }
+  .batch-inline-ghost-status-unavailable { color:#b34b36; }
+}
