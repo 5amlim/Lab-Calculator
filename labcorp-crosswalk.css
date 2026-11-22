@@ -43,3 +43,49 @@
  .crosswalk-code-list a {display:inline;font-weight:750}
  .crosswalk-subtitle {font-size:10.5px;color:#5d7689;margin-top:5px}
 }
+
+
+/* Bulk test converter: retains the original crosswalk's blue visual language. */
+@media screen {
+  .labcorp-crosswalk > summary {display:flex;align-items:center;gap:13px;flex-wrap:nowrap;padding:18px 20px}
+  .labcorp-crosswalk > summary .crosswalk-icon {width:39px;height:39px;flex:0 0 39px;font-size:21px;border-radius:12px}
+  .crosswalk-heading {min-width:0;display:flex;flex:1;flex-direction:column;gap:4px}
+  .crosswalk-heading strong {font-size:18px;line-height:1.2;color:#183e5a;font-weight:850;letter-spacing:-.025em}
+  .crosswalk-heading small {font-size:12px;line-height:1.45;font-weight:500;color:#537185}
+  .crosswalk-intro {display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;margin:0 0 14px}
+  .crosswalk-intro p {margin:0;font-size:12px;color:#526c7e;line-height:1.55}
+  .crosswalk-index {display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#eaf4fa;color:#315c7b;font-size:11px;font-weight:750}
+  .crosswalk-converter {display:grid;grid-template-columns:minmax(0,1fr) 34px minmax(0,1fr);align-items:stretch;gap:12px}
+  .crosswalk-converter-field {min-width:0;padding:14px;border:1px solid #cddfea;border-radius:13px;background:#f8fbfe;display:flex;flex-direction:column;gap:8px}
+  .crosswalk-converter-field--output {background:#f0f7fc;border-color:#bdd5e5}
+  .crosswalk-converter-label {display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;min-height:31px}
+  .crosswalk-converter-label label {display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:850;color:#204967}
+  .crosswalk-converter-tag {display:inline-flex;padding:4px 7px;border:1px solid #d5e5ef;border-radius:6px;font-size:9px;font-weight:850;letter-spacing:.09em;color:#597c94;background:#fff}
+  .crosswalk-converter-field textarea {box-sizing:border-box;display:block;resize:vertical;min-height:158px;width:100%;border:1px solid #c5d9e7;border-radius:9px;background:#fff;padding:12px 13px;font:600 13px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.015em;color:#173e5c;outline:none}
+  .crosswalk-converter-field textarea::placeholder {color:#9aaebc;font-weight:450;opacity:1}
+  .crosswalk-converter-field textarea:focus {border-color:#4f8dbb;box-shadow:0 0 0 3px #b8d7eb88}
+  .crosswalk-converter-field textarea[readonly] {background:#fff}
+  .crosswalk-converter-helper {font-size:10.5px;line-height:1.45;color:#638095;min-height:18px}
+  .crosswalk-converter-arrow {align-self:center;display:flex;align-items:center;justify-content:center;width:34px;height:34px;background:#dbeaf4;border:1px solid #c4dbe9;border-radius:50%;font-size:21px;font-weight:800;color:#316384}
+  .crosswalk-copy {display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:6px 9px;border:1px solid #bad3e5;border-radius:8px;background:#fff;color:#235c83;font-size:11px;font-weight:800;cursor:pointer;min-height:31px}
+  .crosswalk-copy svg {width:14px;height:14px}
+  .crosswalk-copy:hover:not(:disabled) {background:#e6f2fb;border-color:#80adcc}
+  .crosswalk-copy:disabled {opacity:.45;cursor:not-allowed}
+  .crosswalk-converter-warning {margin-top:11px;background:#fff8ed;border:1px solid #edddbd;border-radius:9px;padding:10px 12px;color:#7d5e31;font-size:11px;line-height:1.55;overflow-wrap:anywhere}
+  .crosswalk-converter-warning[hidden] {display:none}
+  .crosswalk-converter-disclaimer {margin:11px 0 0;color:#597387;font-size:11px;line-height:1.55}
+  .crosswalk-directory-details {margin-top:17px;border-top:1px solid #dce8ef;padding-top:13px}
+  .crosswalk-directory-details > summary {cursor:pointer;font-size:12px;font-weight:800;color:#265b80;padding:7px 3px}
+  .crosswalk-directory-details > summary:hover {color:#173e5c}
+  .crosswalk-directory-body {padding-top:11px}
+  .crosswalk-directory-body .crosswalk-explainer {margin-bottom:12px}
+  @media(max-width:700px){
+    .labcorp-crosswalk > summary {padding:15px 13px;gap:10px}
+    .crosswalk-heading strong {font-size:16px}
+    .crosswalk-heading small {font-size:11px}
+    .crosswalk-converter {grid-template-columns:minmax(0,1fr);gap:8px}
+    .crosswalk-converter-arrow {transform:rotate(90deg);margin:auto;width:30px;height:30px}
+    .crosswalk-converter-field {padding:12px}
+    .crosswalk-converter-field textarea {min-height:125px}
+  }
+}
