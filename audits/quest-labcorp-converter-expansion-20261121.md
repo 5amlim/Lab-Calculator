@@ -3,9 +3,9 @@
 This report compares the **existing published Quest 3,313-test and LabCorp 6,015-test active search indexes**. It does not assert clinically verified or interchangeable orders.
 
 - Previously available candidate mappings (including runtime workbook overrides): **927**.
-- New Quest-to-LabCorp indexed candidate mappings: **46** (0 algorithmic exact analyte-token/specimen matches, the remainder individually selected by name/specimen).
-- Updated candidate mappings: **973 / 3,313 active Quest codes**.
-- Unmapped Quest codes: **2340**.
+- New Quest-to-LabCorp indexed candidate mappings: **73** (0 algorithmic exact analyte-token/specimen matches, the remainder individually selected by name/specimen).
+- Updated candidate mappings: **1,000 / 3,313 active Quest codes**.
+- Unmapped Quest codes: **2313**.
 - Additional review-only references: **26**; these DO NOT output converter codes.
 
 ## Newly added candidate pairs
@@ -81,3 +81,42 @@ This report compares the **existing published Quest 3,313-test and LabCorp 6,015
 - Existing collecting rules, filters, temperatures, specimen pooling, and Do Not Perform lists were not changed.
 
 Source indexes: `assets/search/quest-tests.json`, `assets/search/labcorp-tests.json`. Baseline source: `audits/quest-all-3313-crosswalk-20261121.csv`.
+
+## Second expansion: individual allergens and additional tests
+
+- Further candidate pairs: **27**.
+- New crosswalk total after both expansions: **1000** candidate Quest codes.
+- Allergen-specific IgE tests were paired only with the same named allergen and the same serum specimen type. Species, component panels and methodology still require confirmation.
+- LabCorp 215996 explicitly includes synovial fluid cell count and differential, unlike a crystals-only assay.
+
+| Quest | Quest test | LabCorp | LabCorp test | Specimen |
+|---|---|---|---|---|
+| 2401 | Common Ragweed (Short) IgE | 602463 | Ragweed, Short (Specific IgE) | Serum |
+| 2622 | Octopus (f59) IgE | 832805 | Octopus (Octopus vulgaris) IgE | Serum |
+| 2817 | Hazelnut (f17) IgE | 602483 | Hazelnut (Filbert) (Specific IgE) | Serum |
+| 3018 | Lobster, Spiny (f304) IgE | 806073 | Lobster Spiny/Langust IgE | Serum |
+| 3252 | Persimmon (Kaki Fruit) (f301) IgE | 805877 | Persimmon (Diospyros kaki) IgE | Serum |
+| 4562 | Cell Count and Differential, Synovial Fluid | 215996 | Cell Count, Synovial Fluid Without Crystals | Synovial Fluid |
+| 7469 | Growth Hormone, 9 Specimens | 038866 | Growth Hormone, Serum (9 Spec) | Serum |
+| 7470 | Growth Hormone, 10 Specimens | 038867 | Growth Hormone,Serum (10 Spec) | Serum |
+| 8927 | Latex (k82) IgE | 602669 | Latex (Specific IgE) | Serum |
+| 10251 | Micronutrient, Lead, Blood (Venous) | 717012 | Lead, Venous Whole Blood | Whole Blood |
+| 10481 | Rape Seed (rf316) IgE | 806170 | Canola/Rape Seed IgE | Serum |
+| 10490 | Cytochrome P450 2D6 Genotype | 512150 | Cytochrome P450 2D6 Genotyping | Whole Blood |
+| 11121 | Fig (Ficus carica) (f328) IgE | 603935 | Fig (Specific IgE) | Serum |
+| 14767 | Phthalic Anhydride (k79) IgE | 602667 | Phthalic Anhydride (Specific IgE) | Serum |
+| 15342 | Mint (Mentha piperita) (f332) IgE | 604518 | Mint (Specific IgE) | Serum |
+| 17041 | Allergen Specific IgE Rhubarb | 816815 | Rhubarb (Rheum rhaponticum) IgE* | Serum |
+| 19715 | Allergen Specific IgE Turmeric (C. longa) | 827280 | Turmeric IgE | Serum |
+| 37917 | Isocyanate HDI (k77) IgE | 602665 | Isocyanate HDI (Specific IgE) | Serum |
+| 37918 | Isocyanate MDI (k76) IgE | 602663 | Isocyanate MDI (Specific IgE) | Serum |
+| 37919 | Isocyanate TDI (k75) IgE | 602662 | Isocyanate TDI (Specific IgE) | Serum |
+| 38243 | Sole (rf337) IgE | 602754 | Sole (Specific IgE) | Serum |
+| 38268 | Bass Black (Sea Bass) (Centropristis striata) IgE | 823508 | Bass Black IgE | Serum |
+| 38475 | Macadamia Nut (rf345) IgE | 602568 | Macadamia Nut (Specific IgE) | Serum |
+| 38766 | Abalone (f346) IgE | 806023 | Abalone (Haliotis spp) IgE | Serum |
+| 39374 | Drug Monitoring, Cocaine Metabolite, with Confirmation, Urine | 737750 | Cocaine metabolite, Screen with Confirmation, Urine | Urine |
+| 91697 | Elm Cedar IgE (ulmus crassifolia) | 604519 | Elm, Cedar (Specific IgE) | Serum |
+| 94465 | Cashew Nut (f202) IgE with Reflex to Component | 604159 | Allergen Profile, Cashew Nut IgE With Component Reflex | Serum |
+
+Additional LabCorp directory verification: https://www.labcorp.com/tests/215996/cell-count-synovial-fluid-without-crystals ; https://www.labcorp.com/test-menu/resources/individual-allergen-list ; https://www.labcorp.com/tests/602669/latex
