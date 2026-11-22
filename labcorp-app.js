@@ -350,7 +350,22 @@
     }
     if (window.LabBatchInlineHints) {
       refreshBatchHints = window.LabBatchInlineHints.mount(els.searchInput, query =>
-        window.LabBatchInlineHints.resolveExact(query, database, normalizeSearch));
+        window.LabBatchInlineHints.resolveExact(query, database, normalizeSearch), {
+          // A non-addable exact code is distinct from an unverified candidate.
+          // Preserve normal text color for active codes, categories, shorthands,
+          // and tests whose possible matches still require review.
+          lineTone: query => {
+            const value = String(query || '').trim();
+            if (!value) return null;
+            if (/^\d+$/.test(value)) {
+              return database.some(test => test.status === 'active' &&
+                String(test.testCode || '').trim() === value) ? null : 'unavailable';
+            }
+            if (normalizeSearch(value).length < 3 || findCategoryMatches(value)) return null;
+            return findMatches(value, 5).some(({test, score}) =>
+              test.status === 'active' && score >= 550) ? null : 'unavailable';
+          }
+        });
     }
     restoreTatRegion();
     bindEvents();
