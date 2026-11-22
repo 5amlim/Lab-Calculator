@@ -982,3 +982,61 @@
     animation:crosswalk-locked-row-shake .26s ease-in-out;
   }
 }
+
+
+/* Converter review: one shared, compact summary below both code editors. */
+@media screen {
+  .test-mode-converter .crosswalk-converter-summary {
+    margin: 12px 0 0;
+    padding: 12px 2px 0;
+    border-top: 1px solid #dae6ed;
+    min-height: 24px;
+  }
+  .test-mode-converter #crosswalkConverterFeedback.crosswalk-status-line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px 20px;
+    margin: 0;
+    color: #58758b;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .test-mode-converter #crosswalkConverterFeedback .crosswalk-status-item {
+    display: inline-flex;
+    gap: 6px;
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: 600;
+  }
+  .test-mode-converter #crosswalkConverterFeedback .crosswalk-status-item--partial {
+    color: #98621e;
+  }
+  .test-mode-converter #crosswalkConverterFeedback .crosswalk-status-item--matched {
+    color: #16717b;
+  }
+  .test-mode-converter #crosswalkConverterFeedback .crosswalk-status-item--codes {
+    color: #4c6c85;
+  }
+  .test-mode-converter #crosswalkConverterFeedback .crosswalk-status-item--added {
+    color: #35744d;
+  }
+  .test-mode-converter .crosswalk-converter-warning {
+    margin: 7px 0 0;
+    padding: 0 2px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #9d4b34;
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 550;
+  }
+  @media (max-width: 600px) {
+    .test-mode-converter #crosswalkConverterFeedback.crosswalk-status-line {
+      gap: 6px 12px;
+      font-size: 11.5px;
+    }
+  }
+}
