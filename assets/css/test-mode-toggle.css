@@ -70,3 +70,57 @@
 @media print {
   .test-mode-switch, .test-mode-converter { display: none !important; }
 }
+
+/* The converted-code box is both the copy list and the add-to-cart selection. */
+@media screen {
+  .test-mode-converter .crosswalk-output-actions {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-left: auto;
+  }
+  .test-mode-converter .crosswalk-output-actions .crosswalk-copy,
+  .test-mode-converter .crosswalk-output-actions .crosswalk-inline-add {
+    min-height: 34px;
+    box-sizing: border-box;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 6px 11px;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+  .test-mode-converter .crosswalk-output-actions .crosswalk-inline-add svg {
+    width: 15px;
+    height: 15px;
+  }
+  .test-mode-converter .crosswalk-converter-field--output textarea {
+    background: #fff;
+  }
+  .test-mode-converter .crosswalk-converter-field--output .crosswalk-cart-status {
+    margin: 0;
+    padding: 0;
+    color: #58758b;
+    font-size: 10.5px;
+    line-height: 1.45;
+  }
+  .test-mode-converter .crosswalk-converter-field--output .crosswalk-converter-helper {
+    min-height: 0;
+  }
+  @media (max-width: 560px) {
+    .test-mode-converter .crosswalk-converter-label {
+      align-items: center;
+      gap: 8px;
+    }
+    .test-mode-converter .crosswalk-output-actions {
+      gap: 5px;
+    }
+    .test-mode-converter .crosswalk-output-actions .crosswalk-copy,
+    .test-mode-converter .crosswalk-output-actions .crosswalk-inline-add {
+      min-height: 32px;
+      padding: 5px 9px;
+      font-size: 10.5px;
+    }
+  }
+}
