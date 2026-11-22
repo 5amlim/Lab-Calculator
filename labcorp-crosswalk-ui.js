@@ -68,37 +68,57 @@
   function renderQuest(r){
     const [qc,qn,qs,lc,ln,blocked,basis]=r;
     const type=sourceType(r);
-    const marker=type==='legacy'?'Legacy, outside active Quest index':type==='uncoded'?'No Quest code supplied':'Active Quest index';
-    let candidate='<span class="crosswalk-pending">No LabCorp code established</span>';
-    if(lc)candidate='<strong>'+escape(ln)+'</strong><small>LabCorp candidate '+escape(lc)+' · Verify analyte, method and specimen</small>';
-    else if(Array.isArray(r[8])&&r[8].length)
-      candidate='<span class="crosswalk-review">Related directory entries, not matched:</span><small>'+
-        r[8].map(x=>escape(x[0])+' '+escape(x[1])).join(' · ')+'</small>';
-    const action=lc&&active.has(String(lc))
-      ?'<button type="button" class="crosswalk-open" data-labcorp-code="'+escape(lc)+'">View LabCorp test</button>'
-      :'<a href="'+escape(labUrl(qn,lc))+'" target="_blank" rel="noopener noreferrer">Search LabCorp directory</a>';
-    return '<tr><td><strong>'+escape(qc)+'</strong><small class="'+(type==='legacy'?'crosswalk-legacy':'')+'">'+escape(marker)+'</small></td>'+
-      '<td><strong>'+escape(qn)+'</strong><small>Quest specimen: '+escape(qs||'Unknown')+
-      (blocked?' · Original do-not-perform reference':'')+'</small></td>'+
-      '<td>'+candidate+(basis?'<small>'+escape(basis)+'</small>':'')+'</td><td>'+action+'</td></tr>';
+    const marker=type==='legacy'?'Legacy Quest reference':type==='uncoded'?'No Quest code supplied':'';
+    const basisNote=basis?'<details class="crosswalk-row-note"><summary>Review notes</summary><p>'+escape(basis)+'</p></details>':'';
+    let candidate='<span class="crosswalk-state crosswalk-state--none">No match identified</span>';
+    if(lc){
+      candidate='<span class="crosswalk-state crosswalk-state--possible">Possible match</span>'+
+        '<strong class="crosswalk-match-name">'+escape(lc)+' · '+escape(ln)+'</strong>'+
+        '<small class="crosswalk-match-caption">Verify analyte, method and specimen</small>';
+    }else if(Array.isArray(r[8])&&r[8].length){
+      candidate='<span class="crosswalk-state crosswalk-state--review">Review related tests</span>'+
+        '<div class="crosswalk-related-list">'+r[8].slice(0,4).map(x=>
+          '<span>'+escape(x[0])+' · '+escape(x[1])+'</span>').join('')+
+          (r[8].length>4?'<small>+'+(r[8].length-4)+' additional references in CSV</small>':'')+'</div>';
+    }
+    const labAction=lc&&active.has(String(lc))
+      ?'<button type="button" class="crosswalk-open" data-labcorp-code="'+escape(lc)+'">View LabCorp test <span aria-hidden="true">↗</span></button>'
+      :'<a class="crosswalk-directory-link" href="'+escape(labUrl(qn,lc))+'" target="_blank" rel="noopener noreferrer">LabCorp lookup <span aria-hidden="true">↗</span></a>';
+    const action='<div class="crosswalk-row-links">'+labAction+
+      '<a class="crosswalk-directory-link crosswalk-directory-link--muted" href="'+questUrl+'" target="_blank" rel="noopener noreferrer">Quest directory <span aria-hidden="true">↗</span></a></div>';
+    return '<tr><td><strong class="crosswalk-test-code">'+escape(qc)+'</strong>'+
+      (marker?'<small class="crosswalk-legacy">'+escape(marker)+'</small>':'')+'</td>'+
+      '<td><strong class="crosswalk-test-name">'+escape(qn)+'</strong>'+
+      '<small class="crosswalk-specimen">Specimen · '+escape(qs||'Unknown')+'</small>'+
+      (blocked?'<small class="crosswalk-protected">Original do-not-perform reference</small>':'')+'</td>'+
+      '<td class="crosswalk-match-cell">'+candidate+basisNote+'</td><td>'+action+'</td></tr>';
   }
   function renderLabcorp(r){
-    const matches=r.matches.filter(x=>x.status==='suggested'),reviews=r.matches.filter(x=>x.status==='review');
-    let content='<span class="crosswalk-pending">No Quest cross-reference identified</span>';
+    const matches=r.matches.filter(x=>x.status==='suggested');
+    const reviews=r.matches.filter(x=>x.status==='review');
+    let content='<span class="crosswalk-state crosswalk-state--none">No match identified</span>';
     if(matches.length){
-      content=matches.slice(0,5).map(x=>'<strong>'+escape(x.code)+' · '+escape(x.name)+'</strong><small>'+
-        escape(x.source==='active'?'Possible Quest match, verify equivalence':'Legacy or uncoded reference, verify validity')+'</small>').join('');
-      if(matches.length>5)content+='<small>+'+(matches.length-5)+' additional Quest references in CSV</small>';
+      content='<span class="crosswalk-state crosswalk-state--possible">Possible match</span>'+
+        matches.slice(0,5).map(x=>
+          '<strong class="crosswalk-match-name">'+escape(x.code)+' · '+escape(x.name)+'</strong>'+
+          (x.source==='active'?'':'<small class="crosswalk-legacy">Legacy or uncoded reference, verify validity</small>')
+        ).join('')+
+        '<small class="crosswalk-match-caption">Verify clinical equivalence</small>'+
+        (matches.length>5?'<small>+'+(matches.length-5)+' additional Quest references in CSV</small>':'');
     }else if(reviews.length){
-      content='<span class="crosswalk-review">Related Quest names, not mapped:</span><small>'+
-        reviews.slice(0,4).map(x=>escape(x.code)+' '+escape(x.name)).join(' · ')+
-        (reviews.length>4?' · +'+(reviews.length-4)+' more':'')+'</small>';
+      content='<span class="crosswalk-state crosswalk-state--review">Review related tests</span>'+
+        '<div class="crosswalk-related-list">'+reviews.slice(0,4).map(x=>
+          '<span>'+escape(x.code)+' · '+escape(x.name)+'</span>').join('')+
+          (reviews.length>4?'<small>+'+(reviews.length-4)+' additional references in CSV</small>':'')+'</div>';
     }
-    return '<tr><td><strong>'+escape(r.code)+'</strong><small>Active LabCorp index</small></td>'+
-      '<td><strong>'+escape(r.name)+'</strong><small>LabCorp specimen: '+escape(r.specimen)+'</small></td>'+
-      '<td class="crosswalk-code-list">'+content+'</td>'+
-      '<td><a href="'+escape(labUrl(r.name,r.code))+'" target="_blank" rel="noopener noreferrer">Official LabCorp lookup</a>'+
-      '<small>Quest: <a href="'+questUrl+'" target="_blank" rel="noopener noreferrer">Test Directory</a></small></td></tr>';
+    return '<tr><td><strong class="crosswalk-test-code">'+escape(r.code)+'</strong></td>'+
+      '<td><strong class="crosswalk-test-name">'+escape(r.name)+'</strong>'+
+      '<small class="crosswalk-specimen">Specimen · '+escape(r.specimen||'Unknown')+'</small></td>'+
+      '<td class="crosswalk-match-cell">'+content+'</td>'+
+      '<td><div class="crosswalk-row-links">'+
+      '<a class="crosswalk-directory-link" href="'+escape(labUrl(r.name,r.code))+'" target="_blank" rel="noopener noreferrer">LabCorp lookup <span aria-hidden="true">↗</span></a>'+
+      '<a class="crosswalk-directory-link crosswalk-directory-link--muted" href="'+questUrl+'" target="_blank" rel="noopener noreferrer">Quest directory <span aria-hidden="true">↗</span></a>'+
+      '</div></td></tr>';
   }
   function render(){
     const lab=direction.value==='labcorp';
@@ -131,8 +151,7 @@
       Number(badgeMatches).toLocaleString()+' LabCorp → Quest candidate matches';
     status.textContent=pending?(loadError?'LabCorp directory unavailable':'Loading LabCorp index…'):
       'Showing '+Math.min(visible,matched.length).toLocaleString()+' of '+matched.length.toLocaleString()+
-      (lab?' LabCorp':' Quest')+' comparison entries'+(labMatches!==null?' · '+labMatches.toLocaleString()+' LabCorp codes have candidate links':'')+
-      ' · Similar names are not clinically verified equivalents';
+      (lab?' LabCorp':' Quest')+' tests';
   }
 
   // Bulk test converter; output uses candidate codes only, never inferred collection rules.
