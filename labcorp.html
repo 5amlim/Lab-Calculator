@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="labcorp-theme.css?v=12">
 <link rel="stylesheet" href="assets/css/search-suggestions.css?v=20261115-2">
   <link rel="stylesheet" href="labcorp-crosswalk.css?v=5">
-  <link rel="stylesheet" href="assets/css/test-mode-toggle.css?v=20261121-2">
+  <link rel="stylesheet" href="assets/css/test-mode-toggle.css?v=20261121-3">
   <link rel="stylesheet" href="print-button-theme.css?v=8">
   <link rel="stylesheet" href="assets/css/scroll-cues.css?v=4">
 <link rel="stylesheet" href="assets/css/container-gallery.css?v=20261031-1">
@@ -84,6 +84,7 @@
             <div class="record-count" id="recordCount">0 tests</div>
             <button class="button secondary" id="addTestButton">+ Add a missing test</button>
           </div>
+          <div class="converter-header-actions" id="converterHeaderActions" hidden><span class="record-count" id="labcorpCrosswalkCount">Quest and LabCorp active-index comparison</span></div>
         </div>
       <div class="test-mode-view" id="findTestsView" role="tabpanel" aria-labelledby="findTestsTab">
        <section class="panel search-panel" id="batchEntry" aria-labelledby="batchEntryTitle">
@@ -207,10 +208,6 @@
             </span>
           </summary>
           <div class="crosswalk-interior">
-            <div class="crosswalk-intro">
-              <p>Paste your Quest test codes and copy the corresponding LabCorp candidate codes.</p>
-              <span class="crosswalk-index" id="labcorpCrosswalkCount">Quest and LabCorp active-index comparison</span>
-            </div>
             <div class="crosswalk-converter" role="group" aria-label="Quest to LabCorp test code converter">
               <div class="crosswalk-converter-field">
                 <div class="crosswalk-converter-label">
@@ -238,9 +235,8 @@
                     </button>
                   </div>
                 </div>
-                <textarea id="crosswalkLabcorpOutput" rows="7" spellcheck="false" autocomplete="off" placeholder="Matching LabCorp codes will appear here&#10;One code per line" aria-label="LabCorp candidate codes, one per line; delete unwanted lines before copying or adding" aria-describedby="crosswalkConverterFeedback crosswalkCartStatus"></textarea>
+                <textarea id="crosswalkLabcorpOutput" rows="7" spellcheck="false" autocomplete="off" placeholder="Matching LabCorp codes will appear here&#10;One code per line" aria-label="LabCorp candidate codes, one per line; delete unwanted lines before copying or adding" aria-describedby="crosswalkConverterFeedback"></textarea>
                 <span class="crosswalk-converter-helper" id="crosswalkConverterFeedback" role="status" aria-live="polite">Enter Quest test codes to see possible matches.</span>
-                <p class="crosswalk-cart-status" id="crosswalkCartStatus" role="status" aria-live="polite">Delete unwanted lines before copying or adding to cart.</p>
               </div>
             </div>
             <div id="crosswalkConverterWarning" class="crosswalk-converter-warning" role="status" aria-live="polite" hidden></div>
@@ -723,8 +719,8 @@
   <script src="assets/js/labcorp/catalog/verified-final-remaining-20261121.js?v=1"></script>
   <script src="assets/js/labcorp/catalog/verified-tail-135-20261121.js?v=1"></script>
   <script src="labcorp-app.js?v=20261121-ala-collection-policy"></script>
-  <script src="labcorp-crosswalk-ui.js?v=9"></script>
-  <script src="assets/js/test-mode-toggle.js?v=20261121-1"></script>
+  <script src="labcorp-crosswalk-ui.js?v=10"></script>
+  <script src="assets/js/test-mode-toggle.js?v=20261121-3"></script>
   <script src="assets/js/portal-selects.js?v=20261119-tat-region-picker"></script>
   <script src="assets/js/lab-select.js?v=20261121-ala-collection-policy"></script>
   <script src="assets/js/scroll-cues.js?v=2"></script>
