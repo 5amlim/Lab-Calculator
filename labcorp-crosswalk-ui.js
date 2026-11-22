@@ -608,6 +608,10 @@
     const cartAddText=document.getElementById('crosswalkAddToCartText');
     let cartCandidateCodes=[],manualOutputCodes=new Set(),matchFeedback=[],actionFeedback='';
     let generatedOutputRows=[];
+    // Destination entries with a shown LabCorp reference are initially only
+    // ghost labels. Promote them to editable input lines when the user focuses
+    // the left pane, without altering the right pane until an actual edit.
+    const promotedReferences=new Map();
 
     // The right-hand textarea accepts converted candidates and direct catalog codes.
     // Only entries found in the active destination-lab catalog can be added.
@@ -644,6 +648,52 @@
       converterInput.placeholder=manualSourceHints.size&&!converterInput.value.trim()
         ?'':inputPlaceholder;
       refreshConverterHints();
+    }
+    function materializeSourceReferences(){
+      if(!manualSourceHints.size)return;
+      const sourceLines=converterInput.value.split('\n');
+      const destinationLines=converterOutput.value.split('\n');
+      let changed=false;
+      for(const [index,hint] of manualSourceHints){
+        if(hint?.tone!=='reference'||!hint.code||sourceLines[index]?.trim())continue;
+        while(sourceLines.length<=index)sourceLines.push('');
+        sourceLines[index]=hint.code;
+        promotedReferences.set(index,{sourceCode:hint.code,destinationCode:destinationLines[index]?.trim()||''});
+        changed=true;
+      }
+      if(!changed)return;
+      converterInput.value=sourceLines.join('\n');
+      refreshManualSourceHints();
+    }
+    // Pointerdown runs before the browser positions the caret. Once the ghost
+    // rows become real text, clicking any part of a suggested line can edit it.
+    converterInput.addEventListener('pointerdown',materializeSourceReferences);
+    converterInput.addEventListener('focus',materializeSourceReferences);
+    function syncPromotedSourcesFromOutput(){
+      if(!promotedReferences.size)return;
+      const sourceLines=converterInput.value.split('\n');
+      const destinationLines=converterOutput.value.split('\n');
+      let changed=false;
+      for(const [index,entry] of promotedReferences){
+        const code=destinationLines[index]?.trim()||'';
+        if(code===entry.destinationCode)continue;
+        if(sourceLines[index]?.trim()!==entry.sourceCode){
+          promotedReferences.delete(index);
+          continue;
+        }
+        const candidate=manualSourceReferences.get(code)?.[0];
+        sourceLines[index]=candidate?.code||'';
+        if(candidate){
+          promotedReferences.set(index,{sourceCode:candidate.code,destinationCode:code});
+        }else{
+          promotedReferences.delete(index);
+        }
+        changed=true;
+      }
+      if(changed){
+        converterInput.value=sourceLines.join('\n').replace(/\n+$/,'');
+        refreshConverterHints();
+      }
     }
     function inspectCart(codes){
       const detail={action:'inspect',codes,result:null};
@@ -711,6 +761,7 @@
       // any manual deletions made in this editable output box.
       const candidates=new Set(cartCandidateCodes);
       manualOutputCodes=new Set(outputCodes().filter(code=>!candidates.has(code)));
+      syncPromotedSourcesFromOutput();
       actionFeedback='';
       renderCart();
       refreshOutputHints();
@@ -738,11 +789,12 @@
     function updateConverter(){
       // Names are allowed as a full line. Retain compatibility with pasted
       // whitespace-separated numeric codes without splitting multiword test names.
-      const inputCodes=converterInput.value.split(/[\n,;\t]+/)
-        .flatMap(value=>{
+      const inputRows=converterInput.value.split('\n').flatMap(line=>
+        line.split(/[,;\t]+/).flatMap(value=>{
           const trimmed=value.trim();
           return /^\d+(?:\s+\d+)+$/.test(trimmed)?trimmed.split(/\s+/):[trimmed];
-        }).filter(Boolean);
+        }));
+      const inputCodes=inputRows.filter(Boolean);
       const seenQuest=new Set(),seenLabcorp=new Set(),converted=[],unmatched=[],unknown=[];
       // Each nonempty source entry gets exactly one destination row. Missing
       // matches occupy a blank editable line with a decorative ghost message.
@@ -753,7 +805,8 @@
         aligned.push('');
       };
       let duplicates=0,matched=0;
-      for(const code of inputCodes){
+      for(const code of inputRows){
+        if(!code){aligned.push('');continue;}
         const byName=questByName.get(normalize(code))||[];
         const row=questByCode.get(code)||(byName.length===1?byName[0]:null);
         const uniqueCode=row?String(row[0]):code;
@@ -796,8 +849,24 @@
       }
       const outputLines=[...aligned,...extras];
       generatedOutputRows=outputLines.slice();
+      // Keep manually entered destination codes in their existing blank rows.
+      // This also preserves alignment when a mirrored reference is edited
+      // below another manual destination with no available crosswalk.
+      const previousOutputLines=converterOutput.value.split('\n');
+      for(let index=0;index<previousOutputLines.length;index++){
+        const manualCode=previousOutputLines[index].trim();
+        if(!manualCode||!manualOutputCodes.has(manualCode)||seenLabcorp.has(manualCode))continue;
+        if(index<outputLines.length&&!outputLines[index]){
+          outputLines[index]=manualCode;
+          seenLabcorp.add(manualCode);
+          ghosts.delete(index);
+        }
+      }
       for(const manualCode of manualOutputCodes){
-        if(!seenLabcorp.has(manualCode)) outputLines.push(manualCode);
+        if(!seenLabcorp.has(manualCode)){
+          outputLines.push(manualCode);
+          seenLabcorp.add(manualCode);
+        }
       }
       emptyOutputHints=ghosts;
       // Keep a blank line after the last mapped/manual code so staff can type
@@ -834,7 +903,18 @@
       cartCandidateCodes=converted;
       renderCart();
     }
-    converterInput.addEventListener('input',()=>{actionFeedback='';updateConverter();renderSuggestions();});
+    converterInput.addEventListener('input',()=>{
+      // Once a user edits the promoted LabCorp rows, the new source values
+      // drive conversion. Formerly manual Quest codes are no longer appended
+      // as stale extras.
+      for(const entry of promotedReferences.values()){
+        if(entry.destinationCode)manualOutputCodes.delete(entry.destinationCode);
+      }
+      promotedReferences.clear();
+      actionFeedback='';
+      updateConverter();
+      renderSuggestions();
+    });
     converterCopy.addEventListener('click',async()=>{
       const textToCopy=outputCodes().join('\n');
       if(!textToCopy)return;
