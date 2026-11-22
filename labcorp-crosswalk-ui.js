@@ -574,22 +574,29 @@
     function renderNoMatchActions(){
       if(!actionLayer)return;
       actionLayer.replaceChildren();
-      const style=window.getComputedStyle(converterOutput);
-      const lineHeight=parseFloat(style.lineHeight)||((parseFloat(style.fontSize)||15)*1.55);
-      const y=converterOutput.offsetTop+(parseFloat(style.borderTopWidth)||0)+
-        (parseFloat(style.paddingTop)||0)-converterOutput.scrollTop;
-      const x=converterOutput.offsetLeft+(parseFloat(style.borderLeftWidth)||0)+
-        (parseFloat(style.paddingLeft)||0)+19;
+      // The search action belongs AFTER the closing quote, never between
+      // the ↔ indicator and the no-match message. Use the real ghost-label
+      // rectangle instead of a fixed offset, so test-name lengths and font
+      // scaling cannot change the order of the three elements.
+      const containerRect=outputContainer.getBoundingClientRect();
       for(const [index,hint] of emptyOutputHints){
         if(typeof hint!=='string'||!hint.startsWith('No match for '))continue;
-        const top=y+index*lineHeight;
-        if(top<-22||top>converterOutput.offsetHeight-5)continue;
+        const label=outputContainer.querySelector(
+          '.batch-inline-ghost-no-match[data-line-index="'+index+'"]');
+        if(!label)continue;
+        const rect=label.getBoundingClientRect();
+        const top=rect.top-containerRect.top+(rect.height-24)/2;
+        const left=rect.right-containerRect.left+7;
+        if(top<-24||top>outputContainer.clientHeight-3)continue;
+        // Do not cover the end of a long label. The renderer reserves 34px
+        // for this icon and ellipsizes long text when necessary.
+        if(left+24>outputContainer.clientWidth-2)continue;
         const b=document.createElement('button');
         b.type='button';
         b.className='crosswalk-no-match-search';
         b.dataset.row=String(index);
         b.style.top=top+'px';
-        b.style.left=x+'px';
+        b.style.left=left+'px';
         b.title='Find a Quest test for this LabCorp entry';
         b.setAttribute('aria-label','Search Quest directory for LabCorp test on line '+(index+1));
         b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">'+
@@ -633,6 +640,7 @@
       });
     }
     converterOutput.addEventListener('scroll',renderNoMatchActions,{passive:true});
+    window.addEventListener('resize',renderNoMatchActions);
 
     // Allow direct Quest-code or test-name lookup in the editable destination
     // pane. Suggestions affect only the caret's line, never converted rows.
