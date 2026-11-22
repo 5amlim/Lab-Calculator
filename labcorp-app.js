@@ -361,7 +361,18 @@
               return database.some(test => test.status === 'active' &&
                 String(test.testCode || '').trim() === value) ? null : 'unavailable';
             }
-            if (normalizeSearch(value).length < 3 || findCategoryMatches(value)) return null;
+            const q = normalizeSearch(value);
+            if (findCategoryMatches(value)) return null;
+            // Short terms such as "v" and "nn" should not look addable
+            // just because a test name has a vaguely matching word/prefix.
+            // Preserve exact short clinical aliases, names, and codes.
+            if (q.length < 3) {
+              return database.some(test => {
+                if (test.status !== 'active') return false;
+                const index = librarySearchIndex(test);
+                return index.code === q || index.name === q || index.aliases.includes(q);
+              }) ? null : 'unavailable';
+            }
             return findMatches(value, 5).some(({test, score}) =>
               test.status === 'active' && score >= 550) ? null : 'unavailable';
           }
