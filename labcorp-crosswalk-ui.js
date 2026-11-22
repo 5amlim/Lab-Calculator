@@ -415,8 +415,20 @@
       const already=items.filter(item=>item.status==='added');
       const unavailable=items.filter(item=>item.status==='unavailable');
       const blocked=foreign.length>0;
-      cartAdd.disabled=!ready.length||blocked;
-      cartAddText.textContent=ready.length?'Add '+ready.length+' to cart':'Add to cart';
+      // Reflect the current cart, not just the last click. If any test is
+      // removed from the cart, the blue Add button becomes available again.
+      const allInCart=!blocked&&displayed.length>0&&already.length===displayed.length;
+      cartAdd.classList.toggle('is-added',allInCart);
+      cartAdd.disabled=allInCart||!ready.length||blocked;
+      cartAddText.textContent=allInCart
+        ?(already.length===1?'In cart':'All '+already.length+' in cart')
+        :(ready.length?'Add '+ready.length+' to cart':'Add to cart');
+      cartAdd.setAttribute('aria-label',allInCart?
+        already.length+' '+toLab+' '+(already.length===1?'test is':'tests are')+' already in cart':
+        (ready.length?'Add '+ready.length+' '+toLab+' '+(ready.length===1?'test':'tests')+' to cart':'No '+toLab+' tests ready to add'));
+      cartAdd.title=allInCart?'All selected '+toLab+' tests are in your cart':
+        blocked?'Remove unmapped codes before adding':
+        ready.length?'Add '+ready.length+' '+toLab+' '+(ready.length===1?'test':'tests')+' to your cart':'No new tests to add';
       converterCopy.disabled=!displayed.length;
       converterCopy.setAttribute('aria-label',displayed.length?
         'Copy '+displayed.length+' '+toLab+' '+(displayed.length===1?'code':'codes'):'No '+toLab+' codes to copy');
