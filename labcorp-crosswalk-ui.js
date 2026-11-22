@@ -556,7 +556,10 @@
         if(!seenLabcorp.has(manualCode)) outputLines.push(manualCode);
       }
       emptyOutputHints=ghosts;
-      converterOutput.value=outputLines.join('\n');
+      // Keep a blank line after the last mapped/manual code so staff can type
+      // another destination code immediately. Blank rows still preserve their
+      // source-row alignment, while Copy/Add use only nonempty outputCodes().
+      converterOutput.value=outputLines.join('\n')+(outputLines.some(Boolean)?'\n':'');
       // A textarea's placeholder would otherwise overlap a single unmatched
       // entry's ghost hint when there are no real codes in the output.
       converterOutput.placeholder=ghosts.has(0)&&!converterOutput.value?'':outputPlaceholder;
