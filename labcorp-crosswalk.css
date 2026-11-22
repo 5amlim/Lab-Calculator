@@ -317,3 +317,463 @@
     font-style: italic;
   }
 }
+
+
+/* Crosswalk explorer refresh: clearer filters, reference states, and compact links. */
+@media screen {
+  .test-mode-converter .crosswalk-directory-details {
+    margin-top: 22px;
+    padding-top: 15px;
+    border-top: 1px solid #dce7ed;
+  }
+  .test-mode-converter .crosswalk-directory-details > summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    box-sizing: border-box;
+    padding: 12px 15px;
+    border: 1px solid #d4e2eb;
+    border-radius: 10px;
+    background: #f6f9fb;
+    color: #204966;
+    font-size: 13px;
+    font-weight: 750;
+    line-height: 1.35;
+    list-style: none;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .test-mode-converter .crosswalk-directory-details > summary::-webkit-details-marker {
+    display: none;
+  }
+  .test-mode-converter .crosswalk-directory-details > summary::before {
+    content: '';
+    width: 16px;
+    height: 14px;
+    flex: 0 0 16px;
+    box-sizing: border-box;
+    border: 1.7px solid #437897;
+    border-radius: 3px;
+    background: repeating-linear-gradient(to bottom, transparent 0 3px, #437897 3px 4px, transparent 4px 6px);
+    background-clip: content-box;
+    padding: 2px 3px;
+  }
+  .test-mode-converter .crosswalk-directory-details > summary::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+    margin-left: auto;
+    border-right: 2px solid #416d88;
+    border-bottom: 2px solid #416d88;
+    transform: rotate(45deg);
+    transition: transform .15s ease;
+  }
+  .test-mode-converter .crosswalk-directory-details[open] > summary::after {
+    transform: rotate(225deg);
+  }
+  .test-mode-converter .crosswalk-directory-details > summary:hover {
+    background: #edf5fa;
+    border-color: #b8d3e3;
+  }
+  .test-mode-converter .crosswalk-directory-details > summary:focus {
+    outline: none;
+  }
+  .test-mode-converter .crosswalk-directory-details > summary:focus-visible {
+    outline: 2px solid #087e83;
+    outline-offset: 3px;
+  }
+  .test-mode-converter .crosswalk-directory-body {
+    padding: 15px 0 2px;
+  }
+  .test-mode-converter .crosswalk-explainer {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 0 0 18px;
+    padding: 11px 13px;
+    background: #f6f9fb;
+    border: 1px solid #e0eaf0;
+    border-radius: 9px;
+    color: #567185;
+    font-size: 12px;
+    font-weight: 450;
+    line-height: 1.5;
+  }
+  .test-mode-converter .crosswalk-explainer strong {
+    font-weight: 650;
+    color: #345870;
+  }
+  .crosswalk-explainer-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 17px;
+    width: 17px;
+    height: 17px;
+    margin-top: 1px;
+    border: 1px solid #bbd2e2;
+    background: #ebf4f9;
+    border-radius: 50%;
+    color: #477594;
+    font-size: 11px;
+    font-weight: 800;
+  }
+  .test-mode-converter .crosswalk-tools {
+    display: grid;
+    grid-template-columns: minmax(165px, 1fr) minmax(260px, 1.45fr) minmax(180px, 1fr) auto;
+    gap: 12px;
+    align-items: end;
+    margin: 0 0 17px;
+  }
+  .test-mode-converter .crosswalk-tools label {
+    display: grid;
+    align-content: start;
+    gap: 6px;
+    min-width: 0;
+    margin: 0;
+    color: #375a72;
+    font-size: 11.5px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .test-mode-converter .crosswalk-tools .portal-select-button,
+  .test-mode-converter .crosswalk-tools input {
+    box-sizing: border-box;
+    height: 44px;
+    min-height: 44px;
+    border-radius: 9px;
+    border: 1px solid #c6d7e3;
+    background: #fff;
+    font-family: inherit;
+    font-size: 12.5px;
+    color: #23435c;
+    font-weight: 650;
+  }
+  .test-mode-converter .crosswalk-tools .portal-select-button {
+    padding: 10px 12px;
+  }
+  .test-mode-converter .crosswalk-tools .portal-select-button:hover {
+    border-color: #7aacc9;
+    background: #f8fbfd;
+  }
+  .crosswalk-search-control {
+    display: block;
+    position: relative;
+    min-width: 0;
+  }
+  .crosswalk-search-control svg {
+    position: absolute;
+    z-index: 1;
+    width: 16px;
+    height: 16px;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c8aa0;
+    pointer-events: none;
+  }
+  .test-mode-converter .crosswalk-tools .crosswalk-search-control input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding: 10px 13px 10px 38px;
+    font-weight: 500;
+    text-overflow: ellipsis;
+  }
+  .test-mode-converter .crosswalk-tools input:focus {
+    border-color: #4f95bf;
+    box-shadow: 0 0 0 3px rgba(58, 134, 180, .14);
+  }
+  .test-mode-converter #labcorpCrosswalkExport {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 44px;
+    min-height: 44px;
+    padding: 10px 14px;
+    border: 1px solid #c0d4e3;
+    border-radius: 9px;
+    background: #f3f8fb;
+    color: #276184;
+    font-size: 12px;
+    font-weight: 750;
+    white-space: nowrap;
+    box-shadow: none;
+  }
+  .test-mode-converter #labcorpCrosswalkExport:hover {
+    background: #e6f3fa;
+    border-color: #7eabc7;
+  }
+  #labcorpCrosswalkExport svg {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+  }
+  .crosswalk-results-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin: 0 0 9px;
+    color: #42627a;
+    font-size: 11.5px;
+    line-height: 1.4;
+  }
+  .crosswalk-results-heading #labcorpCrosswalkStatus {
+    font-weight: 750;
+    color: #254f6b;
+  }
+  .crosswalk-results-note {
+    font-size: 11px;
+    font-weight: 500;
+    color: #71889a;
+  }
+  .test-mode-converter .crosswalk-table-wrap {
+    border: 1px solid #d6e3ed;
+    border-radius: 11px;
+    background: #fff;
+    overflow-x: auto;
+  }
+  .test-mode-converter .crosswalk-table {
+    width: 100%;
+    min-width: 790px;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: inherit;
+    font-size: 12px;
+  }
+  .test-mode-converter .crosswalk-table th {
+    padding: 13px 15px;
+    color: #46677b;
+    background: #f1f6f9;
+    border-bottom: 1px solid #dce7ee;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: .055em;
+    text-transform: uppercase;
+    white-space: normal;
+    line-height: 1.35;
+  }
+  .test-mode-converter .crosswalk-table td {
+    box-sizing: border-box;
+    padding: 14px 15px;
+    border-bottom: 1px solid #e7edf2;
+    vertical-align: top;
+    color: #294b63;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+  .test-mode-converter .crosswalk-table tr:last-child td { border-bottom: 0; }
+  .test-mode-converter .crosswalk-table tbody tr:nth-child(even) { background: #fbfdff; }
+  .test-mode-converter .crosswalk-table tbody tr:hover { background: #f3f9fd; }
+  .test-mode-converter .crosswalk-table th:nth-child(1),
+  .test-mode-converter .crosswalk-table td:nth-child(1) { width: 12%; }
+  .test-mode-converter .crosswalk-table th:nth-child(2),
+  .test-mode-converter .crosswalk-table td:nth-child(2) { width: 31%; }
+  .test-mode-converter .crosswalk-table th:nth-child(3),
+  .test-mode-converter .crosswalk-table td:nth-child(3) { width: 37%; }
+  .test-mode-converter .crosswalk-table th:nth-child(4),
+  .test-mode-converter .crosswalk-table td:nth-child(4) { width: 20%; }
+  .test-mode-converter .crosswalk-test-code {
+    display: inline-block;
+    padding: 3px 6px;
+    border-radius: 6px;
+    background: #ecf3f8;
+    color: #1d506f;
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: .01em;
+    line-height: 1.35;
+  }
+  .test-mode-converter .crosswalk-test-name {
+    display: block;
+    color: #1e405a;
+    font-size: 12.5px;
+    font-weight: 750;
+    line-height: 1.4;
+  }
+  .test-mode-converter .crosswalk-table .crosswalk-specimen,
+  .test-mode-converter .crosswalk-table .crosswalk-match-caption {
+    display: block;
+    margin-top: 6px;
+    color: #7790a1;
+    font-size: 11px;
+    font-weight: 450;
+  }
+  .test-mode-converter .crosswalk-table .crosswalk-protected {
+    color: #9b593d;
+    font-weight: 700;
+  }
+  .test-mode-converter .crosswalk-table .crosswalk-state {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 10.5px;
+    font-weight: 750;
+    line-height: 1.25;
+  }
+  .crosswalk-state--possible {
+    color: #1d695d;
+    background: #e7f5f0;
+  }
+  .crosswalk-state--possible::before {
+    content: '✓';
+    font-size: 11px;
+    font-weight: 800;
+  }
+  .crosswalk-state--review {
+    color: #94621e;
+    background: #fff3dd;
+  }
+  .crosswalk-state--review::before {
+    content: '!';
+    font-size: 11px;
+    font-weight: 800;
+  }
+  .crosswalk-state--none {
+    color: #657a89;
+    background: #eff3f6;
+  }
+  .crosswalk-state--none::before {
+    content: '—';
+    font-weight: 800;
+  }
+  .test-mode-converter .crosswalk-table .crosswalk-match-name {
+    display: block;
+    margin-top: 6px;
+    color: #214d6a;
+    font-size: 12px;
+    font-weight: 750;
+    line-height: 1.45;
+  }
+  .crosswalk-related-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+    color: #526e80;
+    font-size: 11.5px;
+    line-height: 1.45;
+  }
+  .crosswalk-row-note {
+    margin-top: 7px;
+    color: #5b778b;
+    font-size: 11px;
+  }
+  .crosswalk-row-note summary {
+    width: fit-content;
+    cursor: pointer;
+    font-weight: 700;
+    color: #3f718e;
+  }
+  .crosswalk-row-note p {
+    margin: 5px 0 0;
+    line-height: 1.5;
+  }
+  .crosswalk-row-links {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .test-mode-converter .crosswalk-table td .crosswalk-directory-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11.5px;
+    font-weight: 750;
+    line-height: 1.45;
+    text-decoration: none;
+    color: #1b648d;
+  }
+  .test-mode-converter .crosswalk-table td .crosswalk-directory-link--muted {
+    color: #617e92;
+    font-weight: 600;
+  }
+  .test-mode-converter .crosswalk-table td .crosswalk-directory-link:hover {
+    color: #0d507c;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .test-mode-converter .crosswalk-table td .crosswalk-open {
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #1b648d;
+    font-size: 11.5px;
+    font-weight: 750;
+    line-height: 1.45;
+    text-align: left;
+    cursor: pointer;
+  }
+  .test-mode-converter .crosswalk-table td .crosswalk-open:hover {
+    color: #0d507c;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .test-mode-converter .crosswalk-bottom {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+    padding-top: 0;
+  }
+  @media (max-width: 1080px) {
+    .test-mode-converter .crosswalk-tools {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+    .test-mode-converter .crosswalk-search-field {
+      grid-column: 1 / -1;
+      grid-row: 1;
+    }
+    .test-mode-converter .crosswalk-tools > label:first-child {
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .test-mode-converter .crosswalk-tools > label:nth-of-type(3) {
+      grid-column: 2;
+      grid-row: 2;
+    }
+    .test-mode-converter #labcorpCrosswalkExport {
+      grid-column: 1 / -1;
+      grid-row: 3;
+      justify-self: start;
+    }
+  }
+  @media (max-width: 600px) {
+    .test-mode-converter .crosswalk-directory-details > summary {
+      font-size: 12.5px;
+      padding: 12px;
+    }
+    .test-mode-converter .crosswalk-tools {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 11px;
+    }
+    .test-mode-converter .crosswalk-tools > label,
+    .test-mode-converter .crosswalk-search-field,
+    .test-mode-converter #labcorpCrosswalkExport {
+      grid-column: 1;
+      grid-row: auto;
+    }
+    .test-mode-converter #labcorpCrosswalkExport {
+      width: 100%;
+    }
+    .crosswalk-results-note {
+      display: none;
+    }
+    .test-mode-converter .crosswalk-table {
+      min-width: 690px;
+    }
+  }
+}
