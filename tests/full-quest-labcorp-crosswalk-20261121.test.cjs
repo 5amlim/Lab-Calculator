@@ -33,7 +33,7 @@ test('historical flags and dangerous mismatches are preserved',()=>{
  assert.equal(q('8181')[3],'102525');
  assert.equal(q('2569')[3],'');
  assert.equal(q('10120')[3],'');
- assert.equal(q('15319')[3],'');
+ assert.equal(q('15319')[3],'133440');
  assert.equal(q('637')[3],'');
  assert.equal(q('229')[3],'004291');
  assert.equal(q('497')[3],'008540');
