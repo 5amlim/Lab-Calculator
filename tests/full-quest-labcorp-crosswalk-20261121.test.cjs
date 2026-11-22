@@ -120,10 +120,13 @@ test('a matching output ends with an editable blank row without affecting code c
   assert.equal(state.converterOutput.value.split(/\n/).filter(Boolean).length,1);
   assert.equal(state.converterOutput.value.split(/\n/).filter(Boolean).join('\n'),'809');
 });
-test('single unmatched entry hides overlapping placeholder and keeps destination empty',()=>{
+test('single unmatched entry keeps an editable blank destination without adding a code',()=>{
   const state=convertFixture('809523');
-  assert.equal(state.converterOutput.value,'');
-  assert.equal(state.converterOutput.placeholder,'');
+  // A newline is intentional: it provides a blank editable Quest row while
+  // ensuring the textarea's placeholder cannot cover the no-match ghost.
+  assert.equal(state.converterOutput.value,'\n');
+  assert.equal(state.converterOutput.value.split(/\n/).filter(Boolean).length,0);
+  assert.deepEqual(Array.from(state.cartCandidateCodes),[]);
   assert.equal(state.emptyOutputHints.get(0),'No match for "809523 · Lithium, Urine"');
 });
 test('manual code and multiple candidate codes survive line-aligned conversion',()=>{
