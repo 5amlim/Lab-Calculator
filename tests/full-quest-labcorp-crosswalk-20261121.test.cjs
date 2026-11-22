@@ -324,3 +324,45 @@ test('Quest comparison uses the same match-first ordering and keeps all filters'
   assert.deepEqual(comparisonFixture('quest','all','A unmatched').map(r=>r[0]),['101']);
 });
 
+
+
+/* 2026-11-22 candidate-only extension: known analyte/specimen pairs are indexed
+   in both directions, but are never treated as verified clinical substitutes. */
+test('2026-11-22 additional candidate equivalents preserve exact indexed codes',()=>{
+  const added={
+    '29493':'140293','5819':'143404','29256':'002303','26336':'323334',
+    '17970':'505809','34298':'836455','16786':'183009','36735':'096933',
+    '4485':'008169','663':'123377','4487':'182410','8575':'007163',
+    '8576':'007154','91739':'143000','30762':'603194','93932':'167351',
+    '12341':'167129','15334':'150031','7961':'302107','17667':'377036',
+    '931':'070140','16290':'550430'
+  };
+  const labByCode=new Map(indexedLab.map(r=>[r[0],r]));
+  for(const [quest,labcorp] of Object.entries(added)){
+    const q=byQuest.get(quest),l=labByCode.get(labcorp);
+    assert.ok(q,'Quest candidate missing: '+quest);
+    assert.ok(l,'LabCorp candidate missing: '+labcorp);
+    assert.equal(q[3],labcorp,'Unexpected LabCorp candidate for Quest '+quest);
+    assert.equal(q[2],l[2],'Specimen discrepancy for Quest '+quest);
+    assert.equal(q[4],l[1],'Indexed LabCorp name discrepancy for Quest '+quest);
+    assert.ok(!q[8]?.length,'Accepted candidate cannot also be review-only: '+quest);
+  }
+  const meta=ctx.window.QUEST_TO_LABCORP_METADATA;
+  assert.ok(meta.questMatchedActive>=1062,'Quest equivalent count not refreshed');
+  assert.ok(meta.labcorpMatched>=1024,'LabCorp equivalent count not refreshed');
+});
+test('uncertain 2026-11-22 near matches remain informational, not automatically converted',()=>{
+  const held={'767':'700068','40066':'833600','15332':'878678',
+    '16167':'017170','16165':'017100','94106':'830764','14268':'006445',
+    '18516':'823263','35819':'827695','35820':'827695','3058':'717012',
+    '91863':'898000','36952':'505310','94877':'899634'};
+  for(const [quest,labcorp] of Object.entries(held)){
+    const q=byQuest.get(quest);
+    assert.ok(q,'Review-only Quest entry missing '+quest);
+    assert.equal(q[3],'','Review-only row was promoted '+quest);
+    assert.ok(q[8]?.some(r=>r[0]===labcorp),'Review candidate missing for '+quest);
+  }
+  for(const code of ['2569','11351','8474','92739']){
+    assert.equal(byQuest.get(code)?.[3],'','High-risk method/Ig class mismatch '+code);
+  }
+});
