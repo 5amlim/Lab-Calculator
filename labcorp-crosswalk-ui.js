@@ -389,7 +389,7 @@
       questNames.get(String(code).trim())||null)||(()=>{});
     const cartAdd=document.getElementById('crosswalkAddToCart');
     const cartAddText=document.getElementById('crosswalkAddToCartText');
-    let cartCandidateCodes=[],matchFeedback='',actionFeedback='';
+    let cartCandidateCodes=[],matchFeedback=[],actionFeedback='';
 
     // The right-hand textarea is the only selection area: remove lines to exclude
     // codes from both Copy and Add. New codes must come from the current crosswalk.
@@ -421,22 +421,29 @@
       converterCopy.setAttribute('aria-label',displayed.length?
         'Copy '+displayed.length+' '+toLab+' '+(displayed.length===1?'code':'codes'):'No '+toLab+' codes to copy');
 
-      // One concise status line under the converted codes. On narrow screens
-      // this single element may wrap naturally, rather than stacking two rows.
-      const parts=[matchFeedback];
+      // Compact, accessible color-coded segments. Keep the existing font size
+      // and the distinction between candidate matches and verified equivalents.
+      const parts=[...matchFeedback];
       if(cartCandidateCodes.length&&displayed.length!==cartCandidateCodes.length){
-        parts.push(displayed.length+' '+toLab+' '+(displayed.length===1?'code':'codes')+' in output');
+        parts.push({text:displayed.length+' '+toLab+' '+(displayed.length===1?'code':'codes')+' in output',tone:'codes',icon:'▤'});
       }
       if(blocked){
-        parts.push('Remove unmapped '+(foreign.length===1?'code':'codes')+': '+foreign.join(', '));
+        parts.push({text:'Remove unmapped '+(foreign.length===1?'code':'codes')+': '+foreign.join(', '),tone:'warning',icon:'!'});
       }else if(ready.length){
-        parts.push(ready.length+' ready to add');
+        parts.push({text:ready.length+' ready to add',tone:'ready',icon:'+'});
       }
-      if(already.length)parts.push(already.length+' already in cart');
-      if(unavailable.length)parts.push(unavailable.length+' unavailable in catalog');
-      if(!blocked&&!displayed.length&&cartCandidateCodes.length)parts.push('No codes selected');
-      if(actionFeedback)parts.push(actionFeedback);
-      converterFeedback.textContent=parts.filter(Boolean).join(' · ');
+      if(already.length)parts.push({text:already.length+' already in cart',tone:'added',icon:'✓'});
+      if(unavailable.length)parts.push({text:unavailable.length+' unavailable in catalog',tone:'warning',icon:'!'});
+      if(!blocked&&!displayed.length&&cartCandidateCodes.length){
+        parts.push({text:'No codes selected',tone:'note',icon:'i'});
+      }
+      if(actionFeedback)parts.push({text:actionFeedback,tone:'note',icon:'•'});
+      converterFeedback.classList.add('crosswalk-status-line');
+      converterFeedback.innerHTML=parts.map(part=>
+        '<span class="crosswalk-status-item crosswalk-status-item--'+part.tone+'">'+
+          '<span class="crosswalk-status-icon" aria-hidden="true">'+escape(part.icon)+'</span>'+
+          '<span>'+escape(part.text)+'</span>'+
+        '</span>').join('');
       return {codes:ready.map(item=>item.code),blocked};
     }
     converterOutput.addEventListener('input',()=>{
@@ -490,11 +497,18 @@
       converterOutput.value=converted.join('\n');
       refreshOutputHints();
       if(!inputCodes.length){
-        matchFeedback='Enter '+fromLab+' test codes to see possible matches.';
+        matchFeedback=[{text:'Enter '+fromLab+' test codes to see possible matches.',tone:'note',icon:'i'}];
       }else{
-        matchFeedback=matched+' of '+seenQuest.size+' '+fromLab+' codes have candidate matches · '+
-          converted.length+' unique '+toLab+' '+(converted.length===1?'code':'codes')+
-          (duplicates?' · '+duplicates+' duplicate '+(duplicates===1?'entry':'entries')+' omitted':'');
+        matchFeedback=[
+          {text:matched+' of '+seenQuest.size+' '+fromLab+' codes have candidate matches',
+            tone:matched===seenQuest.size?'matched':'partial',icon:'↔'},
+          {text:converted.length+' unique '+toLab+' '+(converted.length===1?'code':'codes'),
+            tone:'codes',icon:'▤'}
+        ];
+        if(duplicates){
+          matchFeedback.push({text:duplicates+' duplicate '+(duplicates===1?'entry':'entries')+' omitted',
+            tone:'note',icon:'i'});
+        }
       }
       const notes=[];
       if(unmatched.length)notes.push('No '+toLab+' candidate identified: '+unmatched.join(', '));
