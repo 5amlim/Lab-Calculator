@@ -94,8 +94,13 @@
 
       layer.replaceChildren();
       measurer.replaceChildren();
-      if ((!textarea.value && !options.emptyLineHint) || innerWidth < 45) { syncScroll(); return; }
+      if ((!textarea.value && !options.emptyLineHint) || innerWidth < 45) {
+        if (typeof options.onStatusRows === 'function') options.onStatusRows([]);
+        syncScroll();
+        return;
+      }
       var row = 0;
+      var statusRows = [];
       var lines = textarea.value.split('\n');
       // Support decorative row labels beyond the last source entry (e.g. a
       // manually added Quest code on the matching right-hand output row).
@@ -118,6 +123,19 @@
         // textarea text remains editable, selectable and copyable.
         var tone = query && typeof options.lineTone === 'function'
           ? options.lineTone(query, index) : null;
+        if (tone === 'unavailable' && typeof options.onStatusRows === 'function') {
+          // Place the lookup icon after the last visible character, without
+          // changing the entered text or the textarea's line wrapping.
+          var textWidth = ctx.measureText(line).width + letterSpacing * line.length +
+            wordSpacing * (line.match(/ /g) || []).length;
+          var atRight = Math.min(innerWidth - 27, Math.max(0, textWidth + 10));
+          statusRows.push({
+            index: index, query: query, tone: tone,
+            left: textarea.offsetLeft + borderLeft + paddingLeft + atRight,
+            top: textarea.offsetTop + borderTop + paddingTop +
+              (row + visualRows - 1) * lineHeight + (lineHeight - 24) / 2
+          });
+        }
         if (tone && document.activeElement === textarea &&
             textarea.selectionStart != null) {
           var caretPrefix = textarea.value.slice(0,textarea.selectionStart);
@@ -194,6 +212,7 @@
         }
         row += visualRows;
       });
+      if (typeof options.onStatusRows === 'function') options.onStatusRows(statusRows);
       syncScroll();
     }
 
