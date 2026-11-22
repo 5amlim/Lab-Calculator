@@ -1566,8 +1566,8 @@
   }
 }
 
-/* Mobile crosswalk: five vertically scrollable rows, no horizontal pan. */
-@media screen and (max-width: 700px) {
+/* Narrow-screen crosswalk: five vertically scrollable rows, no horizontal pan. */
+@media screen and (max-width: 900px) {
   #convertTestsView.test-mode-converter .crosswalk-table-wrap {
     box-sizing: border-box;
     width: 100%;
