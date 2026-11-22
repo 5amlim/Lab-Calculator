@@ -414,6 +414,25 @@
     const questNames=new Map(rows.filter(row=>sourceType(row)==='active')
       .map(row=>[String(row[0]||'').trim(),String(row[1]||'').trim()]));
     let emptyOutputHints=new Map();
+    // The two panes represent the same source rows. Mirror vertical scrolling
+    // in either direction so long lists remain aligned while reviewing matches.
+    // Programmatic scroll events are ignored to avoid loops when one pane has
+    // extra manual entries or additional candidate rows.
+    const mirroredScroll=new WeakMap();
+    function syncConverterScroll(source,target){
+      const ignored=mirroredScroll.get(source);
+      if(ignored!==undefined){
+        mirroredScroll.delete(source);
+        if(Math.abs(source.scrollTop-ignored)<1)return;
+      }
+      const maxScroll=Math.max(0,target.scrollHeight-target.clientHeight);
+      const next=Math.min(Math.max(0,source.scrollTop),maxScroll);
+      if(Math.abs(target.scrollTop-next)<1)return;
+      mirroredScroll.set(target,next);
+      target.scrollTop=next;
+    }
+    converterInput.addEventListener('scroll',()=>syncConverterScroll(converterInput,converterOutput),{passive:true});
+    converterOutput.addEventListener('scroll',()=>syncConverterScroll(converterOutput,converterInput),{passive:true});
     const outputPlaceholder=converterOutput.placeholder;
     const refreshOutputHints=window.LabBatchInlineHints?.mount(converterOutput,code=>
       questNames.get(String(code).trim())||null,{
@@ -590,6 +609,9 @@
       // A textarea's placeholder would otherwise overlap a single unmatched
       // entry's ghost hint when there are no real codes in the output.
       converterOutput.placeholder=ghosts.has(0)&&!converterOutput.value?'':outputPlaceholder;
+      // Setting textarea.value can reset its scroll position. Restore the
+      // source row before painting the ghost text layer.
+      syncConverterScroll(converterInput,converterOutput);
       refreshOutputHints();
       if(!inputCodes.length){
         matchFeedback=[{text:'Enter '+fromLab+' test codes to see possible matches.',tone:'note',icon:'i'}];
