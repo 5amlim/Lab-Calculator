@@ -610,25 +610,18 @@
         if(!tappingOutputSuggestion&&!outputSuggestionPanel.contains(document.activeElement))hideOutputSuggestions();
       });
     }
-    // A source-lab code is editable even when it currently has no match.
-    // Only its destination-side "No match for..." ghost is read-only.
-    // Keep the existing paired lock for separately manually added rows.
+    // Manual destination codes and source codes are actual editable entries.
+    // Only the decorative "Manually added" and "No match" lines are locked.
     const noMatchRow=index=>{
       const hint=emptyOutputHints.get(index);
       return typeof hint==='string'&&hint.startsWith('No match for ');
     };
-    const isLockedRow=(textarea,index)=>manualSourceHints.has(index)||
-      (textarea===converterOutput&&noMatchRow(index));
-    function shakeLockedRow(index){
-      if(manualSourceHints.has(index)){
-        refreshConverterHints.shakeLine?.(index);
-        refreshOutputHints.shakeLine?.(index);
-        refreshConverterHints.shakeCodeLine?.(index);
-        refreshOutputHints.shakeCodeLine?.(index);
-      }else if(noMatchRow(index)){
-        // The original source code stays editable and must not shake.
-        refreshOutputHints.shakeLine?.(index);
-      }
+    const isLockedRow=(textarea,index)=>textarea===converterInput
+      ? manualSourceHints.has(index)
+      : noMatchRow(index);
+    function shakeLockedRow(textarea,index){
+      if(textarea===converterInput)refreshConverterHints.shakeLine?.(index);
+      else refreshOutputHints.shakeLine?.(index);
     }
     function installLockedGhostRows(textarea){
       const rowAt=(value,position)=>{
@@ -639,6 +632,20 @@
         return line;
       };
       const isBlank=line=>!(textarea.value.split('\n')[line]||'').trim();
+      function moveToFreeRow(row){
+        // Skip decorative labels without shifting the paired destination code.
+        let parts=textarea.value.split('\n'),next=row+1;
+        while(next<parts.length&&!isBlank(next))next++;
+        if(next>=parts.length){
+          const last=textarea.value.length;
+          textarea.setRangeText('\n',last,last,'end');
+          parts=textarea.value.split('\n');
+        }
+        const caret=parts.slice(0,next).reduce((n,part)=>n+part.length+1,0);
+        textarea.setSelectionRange(caret,caret);
+        return caret;
+      }
+
       // New entries stay editable until Enter, paste completion, or leaving
       // the line, so the first digit does not immediately lock the rest.
       let draftRow=null;
@@ -657,11 +664,30 @@
         if(kind==='deleteContentForward'&&value[from]==='\n'&&isLockedRow(textarea,first+1))return first+1;
         return null;
       }
-      function blockEdit(event,kind){
+      function blockEdit(event,kind,data){
         const locked=blockedRow(kind);
         if(locked!==null){
           event.preventDefault();
-          shakeLockedRow(locked);
+          if(textarea===converterInput&&manualSourceHints.has(locked)){
+            if(kind==='insertLineBreak'||kind==='insertParagraph'){
+              // Enter moves to a usable blank line; no shake.
+              moveToFreeRow(locked);
+              return true;
+            }
+            if(kind.startsWith('insert')){
+              shakeLockedRow(textarea,locked);
+              const caret=moveToFreeRow(locked);
+              if(typeof data==='string'&&data){
+                textarea.setRangeText(data,caret,caret,'end');
+                textarea.dispatchEvent(new Event('input',{bubbles:true}));
+              }
+              return true;
+            }
+            // Never allow backspace/delete to merge a decorative line.
+            return true;
+          }
+          if(kind!=='insertLineBreak'&&kind!=='insertParagraph')
+            shakeLockedRow(textarea,locked);
           return true;
         }
         if(kind.startsWith('insert')&&textarea.selectionStart===textarea.selectionEnd&&draftRow===null){
@@ -672,17 +698,18 @@
       }
       textarea.addEventListener('beforeinput',event=>{
         if(event.cancelable&&/^(?:insert|delete)/.test(event.inputType||'')){
-          blockEdit(event,event.inputType);
+          blockEdit(event,event.inputType,event.data);
         }
       });
       textarea.addEventListener('keydown',event=>{
         if(event.defaultPrevented||event.isComposing)return;
-        const editableKey=event.key==='Backspace'||event.key==='Delete'||event.key==='Enter'||
-          (event.key.length===1&&!event.ctrlKey&&!event.metaKey&&!event.altKey);
-        if(!editableKey)return;
-        blockEdit(event,event.key==='Backspace'?'deleteContentBackward':
-          event.key==='Delete'?'deleteContentForward':
-          event.key==='Enter'?'insertLineBreak':'insertText');
+        if(event.key==='Enter'){
+          if(blockedRow('insertLineBreak')!==null)blockEdit(event,'insertLineBreak');
+          return;
+        }
+        if(event.key==='Backspace'||event.key==='Delete')
+          blockEdit(event,event.key==='Backspace'?'deleteContentBackward':'deleteContentForward');
+        // All typed characters are handled in beforeinput to retain the key.
       });
       textarea.addEventListener('input',event=>{
         if(['insertLineBreak','insertParagraph','insertFromPaste','insertFromDrop'].includes(event.inputType))draftRow=null;
@@ -695,8 +722,17 @@
       textarea.addEventListener('click',()=>{
         const line=rowAt(textarea.value,textarea.selectionStart??textarea.value.length);
         if(draftRow!==null&&line!==draftRow)draftRow=null;
-        const locked=blockedRow('insertText');
-        if(locked!==null)shakeLockedRow(locked);
+        // Clicking a manual label silently starts on the next blank source row.
+        if(textarea===converterInput&&manualSourceHints.has(line))moveToFreeRow(line);
+      });
+      textarea.addEventListener('paste',()=>{
+        if(textarea!==converterInput)return;
+        const line=rowAt(textarea.value,textarea.selectionStart??textarea.value.length);
+        if(manualSourceHints.has(line)){
+          shakeLockedRow(textarea,line);
+          // Move before native paste, preserving pasted multiple lines.
+          moveToFreeRow(line);
+        }
       });
     }
     installLockedGhostRows(converterInput);
