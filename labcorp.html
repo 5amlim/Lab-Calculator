@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="market-switch.css?v=10">
   <link rel="stylesheet" href="labcorp-theme.css?v=12">
 <link rel="stylesheet" href="assets/css/search-suggestions.css?v=20261115-2">
-  <link rel="stylesheet" href="labcorp-crosswalk.css?v=12">
+  <link rel="stylesheet" href="labcorp-crosswalk.css?v=13">
   <link rel="stylesheet" href="assets/css/test-mode-toggle.css?v=20261121-6">
   <link rel="stylesheet" href="print-button-theme.css?v=8">
   <link rel="stylesheet" href="assets/css/scroll-cues.css?v=4">
@@ -359,8 +359,12 @@
             <div id="crosswalkConverterWarning" class="crosswalk-converter-warning" role="status" aria-live="polite" hidden></div>
             <p class="crosswalk-converter-disclaimer">Candidate matches are not verified clinical equivalents. Confirm analyte, method, specimen, volume, and transport requirements in the official LabCorp directory before ordering.</p>
 
-            <details class="crosswalk-directory-details">
-              <summary>Browse full Quest and LabCorp comparison</summary>
+            <section class="catalog-browser-section crosswalk-directory-details" aria-labelledby="crosswalkDirectoryTitle">
+              <header class="catalog-browser-heading">
+                <span class="catalog-browser-kicker">Test directory</span>
+                <h3 id="crosswalkDirectoryTitle">Browse Quest and LabCorp comparison</h3>
+                <p>Search both lab directories to review possible code matches.</p>
+              </header>
               <div class="crosswalk-directory-body">
                 <p class="crosswalk-explainer"><span class="crosswalk-explainer-icon" aria-hidden="true">i</span><span>Search both lab directories to find possible code matches. <strong>Matches are references, not verified clinical equivalents.</strong></span></p>
                 <div class="crosswalk-tools">
@@ -388,7 +392,7 @@
                 </div>
                 <div class="crosswalk-bottom"><button type="button" id="labcorpCrosswalkMore" class="button secondary" hidden>Show more results</button></div>
               </div>
-            </details>
+            </section>
           </div>
         </details>
         </div><!-- /convertTestsView -->
