@@ -255,11 +255,11 @@
             <details class="crosswalk-directory-details">
               <summary>Browse full Quest and LabCorp comparison</summary>
               <div class="crosswalk-directory-body">
-                <p class="crosswalk-explainer"><strong>Full active-index comparison.</strong> Search candidate matches in either direction. Related directory entries are not confirmed replacements.</p>
+                <p class="crosswalk-explainer"><span class="crosswalk-explainer-icon" aria-hidden="true">i</span><span>Search both lab directories to find possible code matches. <strong>Matches are references, not verified clinical equivalents.</strong></span></p>
                 <div class="crosswalk-tools">
                   <label>Compare from<select id="labcorpCrosswalkDirection" aria-label="Comparison catalog"><option value="quest">Quest to LabCorp</option><option value="labcorp" selected>LabCorp to Quest</option></select></label>
-                  <label>Find a test name or either lab code
-                    <input id="labcorpCrosswalkSearch" type="search" autocomplete="off" placeholder="Test name, Quest code, or LabCorp code">
+                  <label class="crosswalk-search-field">Search tests
+                    <span class="crosswalk-search-control"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><input id="labcorpCrosswalkSearch" type="search" autocomplete="off" placeholder="Test name, Quest or LabCorp code"></span>
                   </label>
                   <label>Match status
                     <select id="labcorpCrosswalkFilter" aria-label="Quest to LabCorp comparison status">
@@ -270,15 +270,16 @@
                       <option value="legacy">Legacy/uncoded Quest only</option>
                     </select>
                   </label>
-                  <button type="button" id="labcorpCrosswalkExport">Download comparison CSV</button>
+                  <button type="button" id="labcorpCrosswalkExport" title="Download the complete comparison as CSV"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4"/><path d="M4 17v3h16v-3"/></svg><span>Export CSV</span></button>
                 </div>
+                <div class="crosswalk-results-heading"><span id="labcorpCrosswalkStatus" role="status" aria-live="polite">Loading comparison…</span><span class="crosswalk-results-note">Review matches before ordering</span></div>
                 <div class="crosswalk-table-wrap">
                   <table class="crosswalk-table">
                     <thead><tr><th id="crosswalkHeadCode">Quest code</th><th id="crosswalkHeadTest">Quest test</th><th id="crosswalkHeadMatch">Possible LabCorp match</th><th id="crosswalkHeadAction">Next step</th></tr></thead>
                     <tbody id="labcorpCrosswalkBody"></tbody>
                   </table>
                 </div>
-                <div class="crosswalk-bottom"><span id="labcorpCrosswalkStatus" role="status">Loading comparison…</span><button type="button" id="labcorpCrosswalkMore" class="button secondary" hidden>Show more matches</button></div>
+                <div class="crosswalk-bottom"><button type="button" id="labcorpCrosswalkMore" class="button secondary" hidden>Show more results</button></div>
               </div>
             </details>
           </div>
