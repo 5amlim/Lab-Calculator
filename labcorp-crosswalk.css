@@ -536,6 +536,17 @@
     border-radius: 11px;
     background: #fff;
     overflow-x: auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .test-mode-converter .crosswalk-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  .test-mode-converter .crosswalk-bottom {
+    display: none;
   }
   .test-mode-converter .crosswalk-table {
     width: 100%;
