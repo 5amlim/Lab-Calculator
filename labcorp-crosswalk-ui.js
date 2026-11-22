@@ -614,8 +614,10 @@
         }
         chosenMatches.set(drawerSource.code,{code:button.dataset.questCode});
         manualOutputCodes.delete(button.dataset.questCode);
-        closeQuestMatchDrawer();
         updateConverter();
+        // The search action disappears when this line is resolved, so return
+        // focus to the output field rather than a detached search button.
+        closeQuestMatchDrawer();
       });
       drawer.addEventListener('keydown',event=>{
         if(event.key==='Escape'){event.preventDefault();closeQuestMatchDrawer();return;}
@@ -1029,6 +1031,17 @@
       return {codes:ready.map(item=>item.code)};
     }
     converterOutput.addEventListener('input',()=>{
+      // Editing a manually selected Quest code unlinks that temporary choice.
+      // Do not silently restore it the next time source lines are converted.
+      converterInput.value.split('\n').forEach((source,index)=>{
+        if(!source.trim())return;
+        const names=questByName.get(normalize(source))||[];
+        const row=questByCode.get(source.trim())||(names.length===1?names[0]:null);
+        const key=row?String(row[0]):source.trim();
+        const chosen=chosenMatches.get(key);
+        if(chosen&&converterOutput.value.split('\n')[index]?.trim()!==chosen.code)
+          chosenMatches.delete(key);
+      });
       // Preserve manual codes when the LabCorp input list changes, but respect
       // any manual deletions made in this editable output box.
       const candidates=new Set(cartCandidateCodes);
