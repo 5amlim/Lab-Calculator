@@ -28,6 +28,121 @@
   <link rel="stylesheet" href="assets/css/batch-action-feedback.css?v=20261117-directory-link-center">
   <link rel="stylesheet" href="assets/css/test-directory-section.css?v=20261116-2">
   <link rel="stylesheet" href="assets/css/salivette-blue-cap.css?v=20261117-v1">
+
+  <!-- Keep comparison controls usable even if the external stylesheet is cached. -->
+  <style id="crosswalk-comparison-layout-guard">
+    #convertTestsView .crosswalk-directory-details > summary {
+      display:flex;align-items:center;gap:9px;min-height:43px;padding:10px 13px;
+      border:1px solid #d5e3ec;border-radius:9px;background:#f6fafc;
+      color:#204a66;font-size:12.5px;font-weight:750;cursor:pointer
+    }
+    #convertTestsView .crosswalk-directory-body {padding-top:13px}
+    #convertTestsView .crosswalk-directory-body .crosswalk-explainer {
+      display:flex;align-items:flex-start;gap:9px;margin:0 0 15px;
+      padding:10px 12px;border:1px solid #e0eaf0;border-radius:8px;
+      background:#f6fafc;color:#587184;line-height:1.45;font-size:12px
+    }
+    #convertTestsView .crosswalk-explainer-icon {
+      display:inline-flex;flex:0 0 17px;align-items:center;justify-content:center;
+      width:17px;height:17px;margin-top:1px;border-radius:50%;
+      border:1px solid #bdd4e2;color:#3b718e;font-size:11px;font-weight:800
+    }
+    #convertTestsView .crosswalk-tools {
+      display:grid;grid-template-columns:minmax(155px,1fr) minmax(210px,1.5fr) minmax(160px,1fr) auto;
+      align-items:end;gap:12px;margin:0 0 15px
+    }
+    #convertTestsView .crosswalk-tools label {
+      display:grid;gap:6px;min-width:0;margin:0;font-size:11px;
+      font-weight:750;color:#385a72;line-height:1.35
+    }
+    #convertTestsView .crosswalk-tools .portal-select-wrap {width:100%;min-width:0}
+    #convertTestsView .crosswalk-tools .portal-select-button,
+    #convertTestsView .crosswalk-tools input {
+      width:100%;height:43px;min-height:43px;box-sizing:border-box;
+      border:1px solid #c7d8e4;border-radius:9px;background:white;
+      color:#274963;font-size:12.5px;font-weight:650
+    }
+    #convertTestsView .crosswalk-search-control {
+      display:block;position:relative;min-width:0;width:100%;height:43px
+    }
+    #convertTestsView .crosswalk-search-control svg {
+      position:absolute;z-index:1;left:12px;top:13px;
+      width:17px !important;height:17px !important;
+      min-width:17px;max-width:17px;max-height:17px;
+      pointer-events:none;color:#6b89a0
+    }
+    #convertTestsView .crosswalk-search-control input {
+      display:block;max-width:100%;padding:8px 12px 8px 38px;
+      font-weight:500;text-overflow:ellipsis
+    }
+    #convertTestsView #labcorpCrosswalkExport {
+      display:inline-flex;align-items:center;justify-content:center;gap:7px;
+      box-sizing:border-box;width:auto;min-width:0;height:43px;min-height:43px;
+      padding:8px 13px;border:1px solid #c0d4e3;border-radius:9px;
+      background:#edf5fa;color:#255d81;white-space:nowrap;font-size:12px;
+      font-weight:750;cursor:pointer
+    }
+    #convertTestsView #labcorpCrosswalkExport svg {
+      display:block;flex:0 0 16px;width:16px !important;height:16px !important;
+      min-width:16px;max-width:16px;max-height:16px
+    }
+    #convertTestsView .crosswalk-results-heading {
+      display:flex;align-items:center;justify-content:space-between;
+      flex-wrap:wrap;gap:7px 16px;margin:0 0 10px;font-size:11.5px;
+      line-height:1.4;color:#5b788d
+    }
+    #convertTestsView #labcorpCrosswalkStatus {font-weight:750;color:#2c5671}
+    #convertTestsView .crosswalk-results-note {font-weight:500;color:#728a9b}
+    #convertTestsView .crosswalk-table-wrap {border-radius:10px;overflow-x:auto}
+    #convertTestsView .crosswalk-table {min-width:750px;table-layout:fixed;font-size:12px}
+    #convertTestsView .crosswalk-table th {white-space:normal;padding:12px 13px}
+    #convertTestsView .crosswalk-table td {padding:13px;overflow-wrap:anywhere}
+    #convertTestsView .crosswalk-test-code {
+      display:inline-block;padding:3px 6px;border-radius:5px;background:#eef4f8;
+      font-family:ui-monospace,SFMono-Regular,Consolas,monospace
+    }
+    #convertTestsView .crosswalk-table .crosswalk-test-name {
+      display:block;font-size:12px;font-weight:750
+    }
+    #convertTestsView .crosswalk-table .crosswalk-specimen {
+      display:block;margin-top:5px;color:#758d9e;font-size:10.5px
+    }
+    #convertTestsView .crosswalk-table .crosswalk-state {
+      display:inline-flex;align-items:center;padding:4px 7px;border-radius:6px;
+      font-size:10.5px;font-weight:750;line-height:1.25
+    }
+    #convertTestsView .crosswalk-state--possible {background:#e7f3fa;color:#246488}
+    #convertTestsView .crosswalk-state--review {background:#fff2de;color:#92611e}
+    #convertTestsView .crosswalk-state--none {background:#eff3f6;color:#617889}
+    #convertTestsView .crosswalk-table .crosswalk-match-name {display:block;margin-top:6px}
+    #convertTestsView .crosswalk-row-links {
+      display:flex;flex-direction:column;align-items:flex-start;gap:7px
+    }
+    #convertTestsView .crosswalk-table td .crosswalk-directory-link,
+    #convertTestsView .crosswalk-table td .crosswalk-open {
+      display:inline-flex;align-items:center;gap:4px;font-size:11.5px;
+      line-height:1.5;white-space:normal
+    }
+    #convertTestsView .crosswalk-table td .crosswalk-open {
+      min-height:0;padding:0;background:transparent;border:0;border-radius:0
+    }
+    #convertTestsView .crosswalk-table td .crosswalk-directory-link--muted {
+      color:#637f91;font-weight:600
+    }
+    @media(max-width:1050px) {
+      #convertTestsView .crosswalk-tools {grid-template-columns:repeat(2,minmax(0,1fr))}
+      #convertTestsView .crosswalk-search-field {grid-column:1/-1;grid-row:1}
+      #convertTestsView .crosswalk-tools > label:first-child {grid-column:1;grid-row:2}
+      #convertTestsView .crosswalk-tools > label:nth-of-type(3) {grid-column:2;grid-row:2}
+      #convertTestsView #labcorpCrosswalkExport {grid-column:1/-1;grid-row:3;justify-self:start}
+    }
+    @media(max-width:620px) {
+      #convertTestsView .crosswalk-tools {display:flex;flex-direction:column;align-items:stretch}
+      #convertTestsView .crosswalk-tools > label {width:100%}
+      #convertTestsView #labcorpCrosswalkExport {width:100%}
+      #convertTestsView .crosswalk-results-note {display:none}
+    }
+  </style>
 </head>
 <body data-gallery-lab="Q">
   <a class="skip-link" href="#libraryFilter">Skip to test search</a>
@@ -259,7 +374,7 @@
                 <div class="crosswalk-tools">
                   <label>Compare from<select id="labcorpCrosswalkDirection" aria-label="Comparison catalog"><option value="quest">Quest to LabCorp</option><option value="labcorp" selected>LabCorp to Quest</option></select></label>
                   <label class="crosswalk-search-field">Search tests
-                    <span class="crosswalk-search-control"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><input id="labcorpCrosswalkSearch" type="search" autocomplete="off" placeholder="Test name, Quest or LabCorp code"></span>
+                    <div class="crosswalk-search-control"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><input id="labcorpCrosswalkSearch" type="search" autocomplete="off" placeholder="Test name, Quest or LabCorp code"></div>
                   </label>
                   <label>Match status
                     <select id="labcorpCrosswalkFilter" aria-label="Quest to LabCorp comparison status">
@@ -270,7 +385,7 @@
                       <option value="legacy">Legacy/uncoded Quest only</option>
                     </select>
                   </label>
-                  <button type="button" id="labcorpCrosswalkExport" title="Download the complete comparison as CSV"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4"/><path d="M4 17v3h16v-3"/></svg><span>Export CSV</span></button>
+                  <button type="button" id="labcorpCrosswalkExport" title="Download the complete comparison as CSV"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4"/><path d="M4 17v3h16v-3"/></svg><span>Export CSV</span></button>
                 </div>
                 <div class="crosswalk-results-heading"><span id="labcorpCrosswalkStatus" role="status" aria-live="polite">Loading comparison…</span><span class="crosswalk-results-note">Review matches before ordering</span></div>
                 <div class="crosswalk-table-wrap">
