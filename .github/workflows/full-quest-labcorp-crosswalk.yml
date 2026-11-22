@@ -1,0 +1,28 @@
+name: Full Quest and LabCorp crosswalk coverage
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/search/quest-tests.json'
+      - 'assets/search/labcorp-tests.json'
+      - 'labcorp-crosswalk-data.js'
+      - 'labcorp-quest-workbook-crosswalk-overrides.js'
+      - 'labcorp-crosswalk-ui.js'
+      - 'labcorp.html'
+      - 'tests/full-quest-labcorp-crosswalk-20261121.test.cjs'
+      - '.github/workflows/full-quest-labcorp-crosswalk.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  full-crosswalk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check syntax and all indexed rows
+        run: |
+          node --check labcorp-crosswalk-ui.js
+          node --test tests/full-quest-labcorp-crosswalk-20261121.test.cjs tests/quest-labcorp-crosswalk-second-sweep-20261121.test.cjs tests/quest-labcorp-crosswalk-sweep-20261121.test.cjs

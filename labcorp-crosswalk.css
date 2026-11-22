@@ -35,3 +35,11 @@
     .labcorp-crosswalk > summary {padding:13px 12px; font-size:13px;}
   }
 }
+
+@media screen {
+ .crosswalk-review {color:#845e32;font-weight:750;font-size:11px}
+ .crosswalk-legacy {color:#745b65;font-weight:750}
+ .crosswalk-code-list {max-width:340px;line-height:1.45}
+ .crosswalk-code-list a {display:inline;font-weight:750}
+ .crosswalk-subtitle {font-size:10.5px;color:#5d7689;margin-top:5px}
+}

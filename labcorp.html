@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="market-switch.css?v=10">
   <link rel="stylesheet" href="labcorp-theme.css?v=12">
 <link rel="stylesheet" href="assets/css/search-suggestions.css?v=20261115-2">
-  <link rel="stylesheet" href="labcorp-crosswalk.css?v=1">
+  <link rel="stylesheet" href="labcorp-crosswalk.css?v=2">
   <link rel="stylesheet" href="print-button-theme.css?v=8">
   <link rel="stylesheet" href="assets/css/scroll-cues.css?v=4">
 <link rel="stylesheet" href="assets/css/container-gallery.css?v=20261031-1">
@@ -191,25 +191,26 @@
         <p class="library-help">Can’t find a test? <a href="https://www.labcorp.com/test-menu/search" target="_blank" rel="noreferrer">Check the official directory ↗</a> or contact Sam to have it added.</p>
         </section>
         <details class="labcorp-crosswalk" id="labcorpCrosswalk">
-          <summary><span class="crosswalk-icon" aria-hidden="true">⇄</span>Compare Quest tests to LabCorp <span id="labcorpCrosswalkCount">2,692 Quest entries</span></summary>
+          <summary><span class="crosswalk-icon" aria-hidden="true">⇄</span>Compare Quest tests to LabCorp <span id="labcorpCrosswalkCount">3,313 active Quest · 6,015 Labcorp</span></summary>
           <div class="crosswalk-interior">
-            <p class="crosswalk-explainer"><strong>All Quest tests are included here for name/code comparison, not LabCorp specimen planning.</strong> Quest codes and collection requirements are not interchangeable with LabCorp's. Possible code matches require confirmation of method, specimen, volume and transport instructions before use in the LabCorp calculator.</p>
+            <p class="crosswalk-explainer"><strong>Full active-index comparison: 3,313 Quest tests and 6,015 LabCorp tests.</strong> Quest codes and collection requirements are not interchangeable with LabCorp's. Possible code matches require confirmation of method, specimen, volume and transport instructions before use in the LabCorp calculator.</p>
             <div class="crosswalk-tools">
-              <label>Find a Quest test or possible LabCorp code
+              <label>Compare from<select id="labcorpCrosswalkDirection" aria-label="Comparison catalog"><option value="quest">Quest to LabCorp</option><option value="labcorp">LabCorp to Quest</option></select></label>
+              <label>Find a test name or either lab code
                 <input id="labcorpCrosswalkSearch" type="search" autocomplete="off" placeholder="Test name, Quest code, or LabCorp code">
               </label>
               <label>Match status
                 <select id="labcorpCrosswalkFilter" aria-label="Quest to LabCorp comparison status">
-                  <option value="all">All Quest tests</option>
+                  <option value="all">All indexed tests</option>
                   <option value="suggested">Possible LabCorp matches</option>
-                  <option value="pending">Mapping not verified</option>
+                  <option value="review">Related tests to review</option>\n                  <option value="pending">No match identified</option>\n                  <option value="legacy">Legacy/uncoded Quest only</option>
                 </select>
               </label>
               <button type="button" id="labcorpCrosswalkExport">Download comparison CSV</button>
             </div>
             <div class="crosswalk-table-wrap">
               <table class="crosswalk-table">
-                <thead><tr><th>Quest code</th><th>Quest test</th><th>Possible LabCorp equivalent</th><th>Next step</th></tr></thead>
+                <thead><tr><th id="crosswalkHeadCode">Quest code</th><th id="crosswalkHeadTest">Quest test</th><th id="crosswalkHeadMatch">Possible LabCorp match</th><th id="crosswalkHeadAction">Next step</th></tr></thead>
                 <tbody id="labcorpCrosswalkBody"></tbody>
               </table>
             </div>
@@ -584,7 +585,7 @@
   <script src="assets/js/labcorp/catalog/additional-medications-20261023.js?v=1"></script>
   <script src="assets/js/labcorp/catalog/nutrition-metabolic-neuroendocrine-20261023.js?v=2"></script>
   <script src="assets/js/labcorp/catalog/renal-gi-metabolic-specialty-20261023.js?v=2"></script>
-  <script src="labcorp-crosswalk-data.js?v=11"></script>
+  <script src="labcorp-crosswalk-data.js?v=12"></script>
   <script src="labcorp-quest-workbook-crosswalk-overrides.js?v=2"></script>
   <script src="assets/js/clinical-categories.js?v=20261121-specimen-audit"></script>
   <script src="labcorp-microbiology-infectious-20261025.js?v=1"></script>
@@ -661,7 +662,7 @@
   <script src="assets/js/labcorp/catalog/verified-final-remaining-20261121.js?v=1"></script>
   <script src="assets/js/labcorp/catalog/verified-tail-135-20261121.js?v=1"></script>
   <script src="labcorp-app.js?v=20261121-ala-collection-policy"></script>
-  <script src="labcorp-crosswalk-ui.js?v=3"></script>
+  <script src="labcorp-crosswalk-ui.js?v=4"></script>
   <script src="assets/js/portal-selects.js?v=20261119-tat-region-picker"></script>
   <script src="assets/js/lab-select.js?v=20261121-ala-collection-policy"></script>
   <script src="assets/js/scroll-cues.js?v=2"></script>
