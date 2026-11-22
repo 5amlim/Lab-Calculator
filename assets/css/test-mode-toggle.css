@@ -1,0 +1,72 @@
+/* Compact tool switch inside the calculator's Select Tests panel. */
+@media screen {
+  .test-mode-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    max-width: 100%;
+    padding: 4px;
+    border: 1px solid #cfdae3;
+    border-radius: 12px;
+    background: #edf3f7;
+  }
+  .test-mode-option {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 37px;
+    padding: 7px 14px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    background: transparent;
+    color: #50677a;
+    cursor: pointer;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 750;
+    line-height: 1.25;
+    white-space: nowrap;
+    transition: background .16s ease, color .16s ease, box-shadow .16s ease;
+  }
+  .test-mode-option svg { width: 16px; height: 16px; flex: 0 0 16px; }
+  .test-mode-option:hover:not(.is-active) { color: #174f60; background: #e1edf2; }
+  .test-mode-option.is-active {
+    color: #087e86;
+    background: #fff;
+    border-color: #d2dfe4;
+    box-shadow: 0 1px 4px rgba(14, 45, 65, .11);
+  }
+  .test-mode-option:focus-visible { outline: 2px solid #078c95; outline-offset: 2px; }
+  .test-mode-heading { min-width: 0; }
+  .test-mode-heading .eyebrow { margin-bottom: 13px; }
+  .test-mode-heading #testModeDescription { margin-top: 11px; }
+  .test-mode-view[hidden],
+  .test-mode-converter[hidden],
+  .library-actions[hidden] { display: none !important; }
+  .test-mode-converter { min-width: 0; }
+  .test-mode-converter .labcorp-crosswalk {
+    display: block;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    overflow: visible;
+  }
+  .test-mode-converter .labcorp-crosswalk > summary { display: none !important; }
+  .test-mode-converter .crosswalk-interior { padding: 0; }
+  .test-mode-converter .crosswalk-intro { margin-bottom: 13px; }
+  .test-mode-converter .crosswalk-converter-field textarea { min-height: 154px; }
+  .test-mode-converter .crosswalk-cart-section { margin-top: 15px; }
+  .test-mode-converter .crosswalk-directory-details { margin-top: 16px; }
+  @media (max-width: 560px) {
+    .test-mode-heading { width: 100%; }
+    .test-mode-switch { width: 100%; box-sizing: border-box; }
+    .test-mode-option { flex: 1 1 50%; padding: 8px 8px; font-size: 12px; }
+    .test-mode-converter .crosswalk-converter-field textarea { min-height: 130px; }
+  }
+}
+@media print {
+  .test-mode-switch, .test-mode-converter { display: none !important; }
+}
