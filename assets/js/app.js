@@ -3442,6 +3442,44 @@
     showToast(`${test.testName} added and marked STAT.`);
   }
 
+  // The Quest converter uses the existing active catalog and cart state.
+  // A possible cross-reference never creates a test record or collection rule.
+  document.addEventListener('quest:crosswalk-cart', event => {
+    const detail = event.detail;
+    if (!detail || !Array.isArray(detail.codes)) return;
+    const codes = [...new Set(detail.codes.map(code => String(code).trim()).filter(Boolean))];
+    const findActive = code => database.find(test =>
+      String(test.testCode || '').trim() === code && test.status === 'active');
+    const inspect = code => {
+      const test = findActive(code);
+      const other = test || database.find(item => String(item.testCode || '').trim() === code);
+      return {
+        code, name: test?.testName || other?.testName || '',
+        status: !test ? 'unavailable' : selectedIds.includes(test.id) ? 'added' : 'available'
+      };
+    };
+    if (detail.action === 'inspect') {
+      detail.result = codes.map(inspect);
+      return;
+    }
+    if (detail.action !== 'add') return;
+    const added = [], already = [], unavailable = [];
+    for (const code of codes) {
+      const test = findActive(code);
+      if (!test) { unavailable.push(code); continue; }
+      if (selectedIds.includes(test.id)) { already.push(code); continue; }
+      if (addSelected(test.id, false)) added.push(code);
+      else unavailable.push(code);
+    }
+    detail.result = { added, already, unavailable };
+    if (added.length) {
+      saveSelected();
+      renderOrder();
+      renderLibrary();
+      showToast(added.length + ' ' + (added.length === 1 ? 'test' : 'tests') + ' added to cart.');
+    }
+  });
+
   function addSelected(id, rerender = true) {
     const test = database.find(item => item.id === id);
     if (!test || test.status !== 'active') return false;
@@ -3622,6 +3660,7 @@
     renderSstTubeMode();
     renderStatArea();
     const tests = selectedTests();
+    document.dispatchEvent(new Event('quest:cart-updated'));
     renderUrineCultureMode();
     const collectionTests = expandedCollectionTests(tests);
     els.selectedCount.textContent = tests.length;
