@@ -169,6 +169,23 @@ test('both converter code editors have one visual row per source line',()=>{
   const helper=fs.readFileSync('assets/js/batch-inline-hints.js','utf8');
   assert.ok(helper.includes("textarea.wrap === 'off' ? 'pre' : 'pre-wrap'"));
 });
+test('comparison controls remain compact if an older stylesheet is cached',()=>{
+  for(const page of ['index.html','labcorp.html']){
+    const html=fs.readFileSync(page,'utf8');
+    assert.match(html,/<style id="crosswalk-comparison-layout-guard">/,page+' has a local layout fallback');
+    assert.match(html,/<div class="crosswalk-search-control"><svg width="17" height="17"/,
+      page+' uses a compact search icon');
+    assert.match(html,/<button type="button" id="labcorpCrosswalkExport"[^>]*><svg width="16" height="16"/,
+      page+' uses a compact export icon');
+    assert.ok(html.includes('max-width:1050px'),page+' has responsive comparison filters');
+    assert.ok(html.includes('#convertTestsView .crosswalk-row-links'),
+      page+' keeps external links on separate lines');
+    assert.equal((html.match(/id="labcorpCrosswalkStatus"/g)||[]).length,1);
+    assert.equal((html.match(/id="labcorpCrosswalkSearch"/g)||[]).length,1);
+    assert.equal((html.match(/id="labcorpCrosswalkExport"/g)||[]).length,1);
+  }
+});
+
 /* November 21 additional cross-references: candidate codes remain suggestions,
    while near-matches with variant panels/methods stay review-only. */
 const expandedCandidates={
