@@ -623,11 +623,11 @@
     line-height: 1.25;
   }
   .crosswalk-state--possible {
-    color: #1d695d;
-    background: #e7f5f0;
+    color: #235f82;
+    background: #e6f2fa;
   }
   .crosswalk-state--possible::before {
-    content: '✓';
+    content: '↔';
     font-size: 11px;
     font-weight: 800;
   }
@@ -760,7 +760,8 @@
       grid-template-columns: minmax(0, 1fr);
       gap: 11px;
     }
-    .test-mode-converter .crosswalk-tools > label,
+    .test-mode-converter .crosswalk-tools > label:first-child,
+    .test-mode-converter .crosswalk-tools > label:nth-of-type(3),
     .test-mode-converter .crosswalk-search-field,
     .test-mode-converter #labcorpCrosswalkExport {
       grid-column: 1;
