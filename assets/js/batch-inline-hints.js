@@ -110,7 +110,7 @@
         if (hint && visualRows === 1) {
           var prefixWidth = ctx.measureText(line).width + letterSpacing * line.length +
             wordSpacing * (line.match(/ /g) || []).length;
-          var gap = fontSize * 0.38;
+          var gap = query ? fontSize * 0.38 : 0;
           var space = innerWidth - prefixWidth - gap;
           if (space >= 32) {
             var label = document.createElement('span');
