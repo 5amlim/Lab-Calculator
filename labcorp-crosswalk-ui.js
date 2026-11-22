@@ -841,6 +841,28 @@
         return null;
       }
       function blockEdit(event,kind,data){
+        // Backspace at the start of an empty Quest row should move back,
+        // even when the preceding rows only show protected "No match" hints.
+        // Keep those rows in place so source and destination stay aligned.
+        if(kind==='deleteContentBackward'&&textarea===converterOutput&&
+           textarea.selectionStart===textarea.selectionEnd){
+          const value=textarea.value;
+          const caret=textarea.selectionStart??value.length;
+          const currentRow=rowAt(value,caret);
+          const lineStart=value.lastIndexOf('\n',caret-1)+1;
+          if(caret===lineStart&&currentRow>0&&isBlank(currentRow)&&
+             (isLockedRow(textarea,currentRow)||isLockedRow(textarea,currentRow-1))){
+            event.preventDefault();
+            const lines=value.split('\n');
+            let previousRow=currentRow-1;
+            while(previousRow>=0&&isLockedRow(textarea,previousRow))previousRow--;
+            const previousCaret=previousRow<0?0:
+              lines.slice(0,previousRow).reduce((sum,line)=>sum+line.length+1,0)+
+              lines[previousRow].length;
+            textarea.setSelectionRange(previousCaret,previousCaret);
+            return true;
+          }
+        }
         const locked=blockedRow(kind);
         if(locked!==null){
           event.preventDefault();
