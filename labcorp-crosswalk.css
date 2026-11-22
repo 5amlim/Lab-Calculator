@@ -1405,12 +1405,12 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    width:24px;
-    height:24px;
+    width:20px;
+    height:20px;
     box-sizing:border-box;
-    padding:3px;
+    padding:2px;
     border:1px solid #c3d8e6;
-    border-radius:7px;
+    border-radius:6px;
     background:#edf6fb;
     color:#2b6b90;
     pointer-events:auto;
@@ -1424,8 +1424,8 @@
     border-color:#80abc8;
   }
   #batchAutocomplete .batch-no-match-search svg {
-    width:16px;
-    height:16px;
+    width:14px;
+    height:14px;
     pointer-events:none;
   }
   .batch-match-drawer-host[hidden] {display:none!important;}
