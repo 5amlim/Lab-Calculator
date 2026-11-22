@@ -243,7 +243,25 @@ const extras=[
 ];
 const rows=window.QUEST_TO_LABCORP_INDEX;
 if(!Array.isArray(rows))return;
-const active=new Map((window.SEED_TESTS||[]).map(t=>[String(t.testCode),t]));
-for(const row of rows){const code=lookup[String(row[0])];if(code&&active.has(code)){row[3]=code;row[4]=active.get(code).testName;}}
-for(const [name,code] of extras){const test=active.get(code);rows.push(['XXX',name,'Not specified',test?code:'',test?test.testName:'',0]);}
+const catalogMap=records=>new Map((records||[]).map(test=>{
+  const code=Array.isArray(test)?test[0]:test.testCode;
+  const name=Array.isArray(test)?test[1]:test.testName;
+  return [String(code),{testName:String(name||'')}];
+}));
+const applyWorkbookMatches=records=>{
+  // On the Quest page, SEED_TESTS belongs to Quest, not LabCorp. Reapply
+  // against the complete LabCorp index once the converter fetch finishes.
+  const active=catalogMap(records);
+  for(const row of rows){
+    const code=lookup[String(row[0])];
+    if(code&&active.has(code)){row[3]=code;row[4]=active.get(code).testName;}
+  }
+  return active;
+};
+window.applyQuestLabcorpWorkbookMatches=applyWorkbookMatches;
+const active=applyWorkbookMatches(window.SEED_TESTS||[]);
+for(const [name,code] of extras){
+  const test=active.get(code);
+  rows.push(['XXX',name,'Not specified',test?code:'',test?test.testName:'',0]);
+}
 })();
