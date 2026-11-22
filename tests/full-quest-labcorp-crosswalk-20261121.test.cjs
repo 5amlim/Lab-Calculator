@@ -87,14 +87,20 @@ function convertFixture(input,manual=[]){
 }
 test('unmatched LabCorp row keeps its visual position ahead of a matched Quest code',()=>{
   const state=convertFixture('809523\n005215');
-  assert.equal(state.converterOutput.value,'\n809');
+  assert.equal(state.converterOutput.value,'\n809\n');
   assert.equal(state.emptyOutputHints.get(0),'No match for 809523');
   assert.deepEqual(Array.from(state.cartCandidateCodes),['809']);
 });
 test('unmatched last row is ghosted without entering copied code values',()=>{
   const state=convertFixture('005215\n809523');
-  assert.equal(state.converterOutput.value,'809\n');
+  assert.equal(state.converterOutput.value,'809\n\n');
   assert.equal(state.emptyOutputHints.get(1),'No match for 809523');
+  assert.equal(state.converterOutput.value.split(/\n/).filter(Boolean).join('\n'),'809');
+});
+test('a matching output ends with an editable blank row without affecting code counts',()=>{
+  const state=convertFixture('005215');
+  assert.equal(state.converterOutput.value,'809\n');
+  assert.equal(state.converterOutput.value.split(/\n/).filter(Boolean).length,1);
   assert.equal(state.converterOutput.value.split(/\n/).filter(Boolean).join('\n'),'809');
 });
 test('single unmatched entry hides overlapping placeholder and keeps destination empty',()=>{
@@ -105,7 +111,7 @@ test('single unmatched entry hides overlapping placeholder and keeps destination
 });
 test('manual code and multiple candidate codes survive line-aligned conversion',()=>{
   const state=convertFixture('809523\n123456\n005215',['908']);
-  assert.equal(state.converterOutput.value,'\n201\n809\n223\n908');
+  assert.equal(state.converterOutput.value,'\n201\n809\n223\n908\n');
   assert.equal(state.emptyOutputHints.get(0),'No match for 809523');
   assert.deepEqual(Array.from(state.cartCandidateCodes),['201','223','809']);
 });
