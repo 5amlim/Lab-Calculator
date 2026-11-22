@@ -440,7 +440,7 @@ test('crosswalk loads seven results per Show more action without sideways mobile
   assert.match(ui,/const PAGE_SIZE=7;/);
   assert.match(ui,/matched\\.slice\\(0,visible\\)/);
   assert.match(ui,/more\\.addEventListener\\('click',\\(\\)=>\\{visible\\+=PAGE_SIZE;render\\(\\);\\}\\)/);
-  assert.doesNotMatch(ui,/tableWrap\\?\\.addEventListener\\('scroll'/);
+  assert.ok(!ui.includes("tableWrap?.addEventListener('scroll'"));
   for(const page of ['index.html','labcorp.html']){
     const html=fs.readFileSync(page,'utf8');
     assert.match(html,/class="crosswalk-table-wrap" role="region" aria-label="Crosswalk results"/);
