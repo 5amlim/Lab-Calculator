@@ -3408,7 +3408,7 @@
 
   // The test converter talks to the same in-memory catalog and cart as search.
   // Candidate codes alone never create a test record or change collection rules.
-  document.addEventListener('labcorp:crosswalk-cart', event => {
+  document.addEventListener?.('labcorp:crosswalk-cart', event => {
     const detail = event.detail;
     if (!detail || !Array.isArray(detail.codes)) return;
     const codes = [...new Set(detail.codes.map(code => String(code).trim()).filter(Boolean))];
@@ -3622,7 +3622,7 @@
     renderSstTubeMode();
     renderStatArea();
     const tests = selectedTests();
-    document.dispatchEvent(new Event('labcorp:cart-updated'));
+    document.dispatchEvent?.(new Event('labcorp:cart-updated'));
     renderUrineCultureMode();
     const collectionTests = expandedCollectionTests(tests);
     els.selectedCount.textContent = tests.length;
