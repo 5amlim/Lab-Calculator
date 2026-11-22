@@ -501,8 +501,8 @@
         '<label class="crosswalk-match-drawer-search-label" for="crosswalkMatchDrawerSearch">Search Quest directory</label>'+
         '<div class="crosswalk-match-drawer-search-box">'+
         '<span aria-hidden="true">⌕</span><input id="crosswalkMatchDrawerSearch" type="search" autocomplete="off" placeholder="Test name or Quest code"></div>'+
-        '<p class="crosswalk-match-drawer-status" role="status" aria-live="polite"></p>'+
         '<div class="crosswalk-match-directory-action"><a id="crosswalkMatchDirectoryLink" class="crosswalk-match-directory-button" href="https://testdirectory.questdiagnostics.com/" target="_blank" rel="noopener noreferrer">Search Quest directory ↗</a></div>'+
+        '<p class="crosswalk-match-drawer-status" role="status" aria-live="polite"></p>'+
         '<div class="crosswalk-match-drawer-results" role="list"></div>'+
         '<footer class="crosswalk-match-drawer-footer">'+
         '<p><strong>Manual selection only.</strong> Candidate tests are not verified clinical equivalents. Confirm specimen, method, volume, and transport before ordering.</p>'+
