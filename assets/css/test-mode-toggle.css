@@ -162,13 +162,19 @@
 @media screen {
   #findTestsView #searchInput {
     font-family: inherit;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
     line-height: 1.55;
     letter-spacing: normal;
     color: #173e5c;
   }
+  /* Decorative names match the typed code's 16px font and line height.
+     Only the lighter weight and muted color distinguish the hint. */
   #findTestsView .batch-inline-ghost-label {
+    font-family: inherit;
+    font-size: 16px;
+    line-height: inherit;
+    letter-spacing: inherit;
     color: #8798a7;
     font-weight: 400;
   }
