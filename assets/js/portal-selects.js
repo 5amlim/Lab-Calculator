@@ -1,8 +1,8 @@
 /* v11.80: Animated, tube-badged in-page popovers for Add/Edit Test and Filter Tests.
    Native selects remain the source of truth for all existing app logic. */
 (() => {
-  const selectors = ['categoryFilter','specimenFilter','temperatureFilter','transportContainerFilter','fastingFilter','specimenType','drawContainer','transportContainer','transportTemperature','spin','tatRegionFilter'];
-  const labels = {categoryFilter:'Clinical category',specimenFilter:'Specimen type',temperatureFilter:'Transport temperature',transportContainerFilter:'Transport container',fastingFilter:'Fasting',specimenType:'Specimen type',drawContainer:'Draw container',transportContainer:'Transport tube / container',transportTemperature:'Transport temperature',spin:'Spin requirement',tatRegionFilter:'Region',tatPopupRegion:'Region'};
+  const selectors = ['categoryFilter','specimenFilter','temperatureFilter','transportContainerFilter','fastingFilter','specimenType','drawContainer','transportContainer','transportTemperature','spin','tatRegionFilter','labcorpCrosswalkDirection','labcorpCrosswalkFilter'];
+  const labels = {categoryFilter:'Clinical category',specimenFilter:'Specimen type',temperatureFilter:'Transport temperature',transportContainerFilter:'Transport container',fastingFilter:'Fasting',specimenType:'Specimen type',drawContainer:'Draw container',transportContainer:'Transport tube / container',transportTemperature:'Transport temperature',spin:'Spin requirement',tatRegionFilter:'Region',tatPopupRegion:'Region',labcorpCrosswalkDirection:'Compare from',labcorpCrosswalkFilter:'Match status'};
   const controls = [];
   let additionalSequence = 0;
   let active = null;
@@ -480,6 +480,8 @@
     const menu = document.createElement('div');
     menu.className = 'portal-select-menu' + (isFormContainerPicker(item) ? ' portal-select-menu--container-grouped' : '');
     if (item.select.id === 'tatRegionFilter' || item.select.id === 'tatPopupRegion') menu.classList.add('tat-region-menu');
+    if (item.select.id === 'labcorpCrosswalkDirection' || item.select.id === 'labcorpCrosswalkFilter')
+      menu.classList.add('crosswalk-comparison-menu');
     menu.id = 'portal-menu-' + item.select.id;
     menu.setAttribute('role','listbox');
     menu.setAttribute('aria-label',accessibleLabel(item));
