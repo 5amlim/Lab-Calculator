@@ -36,8 +36,8 @@
         '<label class="crosswalk-match-drawer-search-label" for="batchMatchFinderQuery">Search ' + escapeHtml(lab) + ' directory</label>' +
         '<div class="crosswalk-match-drawer-search-box">' +
           '<span aria-hidden="true">⌕</span><input id="batchMatchFinderQuery" type="search" autocomplete="off" placeholder="Test name or code"></div>' +
-        '<p class="crosswalk-match-drawer-status" role="status" aria-live="polite"></p>' +
         '<div class="crosswalk-match-directory-action"><a id="batchMatchFinderDirectoryLink" class="crosswalk-match-directory-button" target="_blank" rel="noopener noreferrer">Search ' + escapeHtml(lab) + ' directory ↗</a></div>' +
+        '<p class="crosswalk-match-drawer-status" role="status" aria-live="polite"></p>' +
         '<div class="crosswalk-match-drawer-results" role="list"></div>' +
         '<footer class="crosswalk-match-drawer-footer">' +
           '<p><strong>Review before adding.</strong> A manually selected test is not automatically a clinical equivalent. Confirm analyte, method, specimen, volume, and transport requirements.</p>' +
