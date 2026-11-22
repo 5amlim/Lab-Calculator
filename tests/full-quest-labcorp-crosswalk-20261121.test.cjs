@@ -53,5 +53,5 @@ test('bidirectional interface has both catalog views and CSV exports',()=>{
  const html=fs.readFileSync('labcorp.html','utf8');
  for(const fragment of ['labcorpCrosswalkDirection','buildReverse','labcorp-to-quest-all-6015.csv','quest-to-labcorp-all-3313.csv'])
    assert.ok(ui.includes(fragment)||html.includes(fragment),fragment);
- assert.ok(html.includes('labcorp-crosswalk-data.js?v=12'));
+ assert.ok(html.includes('labcorp-crosswalk-data.js?v=13'));
 });
