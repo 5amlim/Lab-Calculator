@@ -441,7 +441,7 @@ test('narrow crosswalk shows five vertically scrollable, fully visible rows with
   assert.match(ui,/const VIEWPORT_ROWS=5;/);
   assert.match(ui,/Array\.from\(table\.rows\)\.slice\(0,VIEWPORT_ROWS\)/);
   assert.match(ui,/tableWrap\.style\.maxHeight=Math\.ceil\(height\+2\)\+'px'/);
-  assert.match(ui,/tableWrap\.addEventListener\('scroll'/);
+  assert.match(ui,/tableWrap\?\.addEventListener\('scroll'/);
   for(const page of ['index.html','labcorp.html']){
     const html=fs.readFileSync(page,'utf8');
     assert.match(html,/class="crosswalk-table-wrap" role="region" aria-label="Scrollable crosswalk results"/);
