@@ -492,3 +492,40 @@ test('crosswalk displays three rows and loads ten only on Show more click',()=>{
     '\nsizeCrosswalkViewport();',heightContext);
   assert.equal(container.style.maxHeight,'297px');
 });
+
+
+test('Add Tests magnifier remains available for fuzzy first-row entries in both calculators',()=>{
+  for(const [app,page] of [['assets/js/app.js','index.html'],['labcorp-app.js','labcorp.html']]){
+    const source=fs.readFileSync(app,'utf8'),html=fs.readFileSync(page,'utf8');
+    const anchor=source.indexOf('refreshBatchHints = window.LabBatchInlineHints.mount');
+    const start=source.indexOf('          lineTone: query => {',anchor);
+    const end=source.indexOf('\n          }\n        });',start);
+    assert.ok(anchor>=0&&start>anchor&&end>start,app+' must configure inline line tone');
+    const tone=source.slice(start,end+'          }'.length);
+    assert.match(source.slice(anchor,start),/colorUnavailable:\s*false/);
+    assert.ok(!tone.includes('findMatches('),app+' must not hide finder for fuzzy suggestions');
+    const catalog=[
+      {testCode:'123',testName:'Assay',status:'active',aliases:[]},
+      {testCode:'005215',testName:'Sed Rate',status:'active',aliases:['esr']},
+      {testCode:'999999',testName:'Blocked',status:'blocked',aliases:[]}
+    ];
+    const normalizeSearch=x=>String(x||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,' ');
+    const context={
+      database:catalog,
+      normalizeSearch,
+      findCategoryMatches:q=>q==='hematology'?{label:'Hematology'}:null,
+      librarySearchIndex:test=>({
+        code:normalizeSearch(test.testCode),name:normalizeSearch(test.testName),aliases:test.aliases
+      })
+    };
+    vm.runInNewContext('const opts={'+tone+'};result=['+
+      "opts.lineTone('Assad'),opts.lineTone('Stunt'),opts.lineTone('Guinbbf'),"+
+      "opts.lineTone('Assay'),opts.lineTone('005215'),opts.lineTone('esr'),"+
+      "opts.lineTone('999999'),opts.lineTone('hematology')];",context);
+    assert.deepEqual(Array.from(context.result),
+      ['unavailable','unavailable','unavailable',null,null,null,'unavailable',null],app);
+    assert.match(html,/<textarea id="searchInput"[^>]*spellcheck="false"/);
+    assert.match(html,/<textarea id="searchInput"[^>]*autocorrect="off"/);
+    assert.match(html,/<textarea id="searchInput"[^>]*autocapitalize="off"/);
+  }
+});
