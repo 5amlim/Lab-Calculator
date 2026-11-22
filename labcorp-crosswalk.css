@@ -1174,15 +1174,14 @@
 
 /* Action beside the arrow on an unmatched Quest result. */
 @media screen {
+  /* The ↔ remains before the message; the button sits after the final quote. */
   #crosswalkOutputAutocomplete .batch-inline-ghost-no-match.crosswalk-no-match-actionable {
     box-sizing: border-box;
-    padding-left: 46px;
+    padding-left: 0;
   }
   #crosswalkOutputAutocomplete .batch-inline-ghost-no-match.crosswalk-no-match-actionable::before {
-    position: absolute;
-    left: 0;
-    top: .22em;
-    margin: 0;
+    position: static;
+    margin-right: .45em;
   }
   #crosswalkOutputAutocomplete .crosswalk-no-match-actions {
     position:absolute;
