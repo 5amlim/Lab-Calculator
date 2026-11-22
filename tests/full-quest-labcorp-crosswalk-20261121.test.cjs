@@ -529,3 +529,17 @@ test('Add Tests magnifier remains available for fuzzy first-row entries in both 
     assert.match(html,/<textarea id="searchInput"[^>]*autocapitalize="off"/);
   }
 });
+
+test('both conversion textareas disable spellcheck, autocorrect and automatic capitalization',()=>{
+  for(const page of ['index.html','labcorp.html']){
+    const html=fs.readFileSync(page,'utf8');
+    for(const id of ['crosswalkQuestInput','crosswalkLabcorpOutput']){
+      const tag=html.match(new RegExp('<textarea[^>]*id="'+id+'"[^>]*>'))?.[0];
+      assert.ok(tag,page+' has '+id);
+      assert.match(tag,/spellcheck="false"/,page+' '+id+' spellcheck');
+      assert.match(tag,/autocorrect="off"/,page+' '+id+' autocorrect');
+      assert.match(tag,/autocapitalize="off"/,page+' '+id+' capitalization');
+      assert.match(tag,/autocomplete="off"/,page+' '+id+' autocomplete');
+    }
+  }
+});
