@@ -501,7 +501,7 @@ test('Add Tests magnifier remains available for fuzzy first-row entries in both 
     const start=source.indexOf('          lineTone: query => {',anchor);
     const end=source.indexOf('\n          }\n        });',start);
     assert.ok(anchor>=0&&start>anchor&&end>start,app+' must configure inline line tone');
-    const tone=source.slice(start,end+'          }'.length);
+    const tone=source.slice(start,end+'\n          }'.length);
     assert.match(source.slice(anchor,start),/colorUnavailable:\s*false/);
     assert.ok(!tone.includes('findMatches('),app+' must not hide finder for fuzzy suggestions');
     const catalog=[
