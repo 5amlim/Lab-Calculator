@@ -897,3 +897,28 @@
     .test-mode-converter .crosswalk-search-field {grid-column:1;grid-row:auto}
   }
 }
+
+/* Manual Quest additions: blue crosswalk references, amber manual-only rows. */
+@media screen {
+  .test-mode-converter #crosswalkQuestAutocomplete .batch-inline-ghost-reference {
+    color:#254f6b;
+    font-style:normal;
+    font-weight:500;
+  }
+  .test-mode-converter #crosswalkQuestAutocomplete .batch-inline-ghost-reference-code {
+    color:#214764;
+    font-weight:750;
+  }
+  .test-mode-converter #crosswalkQuestAutocomplete .batch-inline-ghost-reference-name {
+    color:#8296a7;
+    font-weight:450;
+  }
+  .test-mode-converter #crosswalkQuestAutocomplete .batch-inline-ghost-manual {
+    color:#99690f;
+    background:#fff2cc;
+    border-radius:5px;
+    padding:0 6px;
+    font-style:normal;
+    font-weight:650;
+  }
+}
