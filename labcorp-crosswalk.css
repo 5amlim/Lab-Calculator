@@ -1437,6 +1437,7 @@
   .crosswalk-match-directory-action {
     flex: 0 0 auto;
     display: flex;
+    justify-content: flex-end;
     padding: 0 24px 14px;
   }
   .crosswalk-match-directory-button {
@@ -1464,6 +1465,5 @@
   }
   @media (max-width: 560px) {
     .crosswalk-match-directory-action { padding: 0 16px 12px; }
-    .crosswalk-match-directory-button { width: 100%; }
   }
 }
