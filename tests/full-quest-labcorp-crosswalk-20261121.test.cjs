@@ -427,3 +427,23 @@ test('2026-11-22 second and third crosswalk passes retain accepted candidate det
   assert.ok(ctx.window.QUEST_TO_LABCORP_METADATA.questMatchedActive>=1085);
   assert.ok(ctx.window.QUEST_TO_LABCORP_METADATA.labcorpMatched>=1047);
 });
+
+test('narrow crosswalk shows five vertically scrollable, fully visible rows without horizontal overflow',()=>{
+  const css=fs.readFileSync('labcorp-crosswalk.css','utf8');
+  const ui=fs.readFileSync('labcorp-crosswalk-ui.js','utf8');
+  const responsive=css.slice(css.indexOf('/* Narrow-screen crosswalk: five vertically scrollable rows, no horizontal pan. */'));
+  assert.ok(responsive.startsWith('/* Narrow-screen crosswalk:'),'Responsive block must be present');
+  assert.match(responsive,/@media screen and \(max-width: 900px\)/);
+  assert.match(responsive,/#convertTestsView\.test-mode-converter \.crosswalk-table-wrap\s*\{[^}]*overflow-x: hidden;[^}]*overflow-y: auto;/);
+  assert.match(responsive,/#convertTestsView\.test-mode-converter \.crosswalk-table\s*\{[^}]*min-width: 0;/);
+  assert.match(responsive,/#convertTestsView\.test-mode-converter \.crosswalk-table tbody tr\s*\{[^}]*display: grid;/);
+  assert.match(responsive,/#convertTestsView\.test-mode-converter \.crosswalk-table thead\s*\{\s*display: none;/);
+  assert.match(ui,/const VIEWPORT_ROWS=5;/);
+  assert.match(ui,/Array\.from\(table\.rows\)\.slice\(0,VIEWPORT_ROWS\)/);
+  assert.match(ui,/tableWrap\.style\.maxHeight=Math\.ceil\(height\+2\)\+'px'/);
+  assert.match(ui,/tableWrap\.addEventListener\('scroll'/);
+  for(const page of ['index.html','labcorp.html']){
+    const html=fs.readFileSync(page,'utf8');
+    assert.match(html,/class="crosswalk-table-wrap" role="region" aria-label="Scrollable crosswalk results"/);
+  }
+});
