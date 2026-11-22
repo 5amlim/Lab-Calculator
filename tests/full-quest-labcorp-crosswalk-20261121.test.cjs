@@ -159,3 +159,32 @@ test('review-only alternatives are visible but never automatically converted',()
   assert.equal(byQuest.get('2569')[3],'','IgE must not become IgG');
   assert.equal(byQuest.get('10120')[3],'','Protected non-equivalent stays unmapped');
 });
+
+
+test('workbook mappings load from LabCorp index even without LabCorp SEED_TESTS',()=>{
+  // Reproduce the Quest page: its seed database belongs to Quest, so the
+  // workbook lookup must run again after the LabCorp search index arrives.
+  // The original rows contain an already-applied workbook mapping in this
+  // test suite, so build an isolated baseline from the raw crosswalk file.
+  const bare={window:{SEED_TESTS:[]}};
+  vm.runInNewContext(source,bare);
+  vm.runInNewContext(fs.readFileSync('labcorp-quest-workbook-crosswalk-overrides.js','utf8'),bare);
+  const before=bare.window.QUEST_TO_LABCORP_INDEX.filter(r=>r[7]==='active');
+  const beforeCount=new Set(before.filter(r=>r[3]).map(r=>r[3])).size;
+  assert.equal(beforeCount,875,'Baseline unique LabCorp links before workbook loading');
+  assert.equal(typeof bare.window.applyQuestLabcorpWorkbookMatches,'function');
+  bare.window.applyQuestLabcorpWorkbookMatches(indexedLab);
+  const activeAfter=bare.window.QUEST_TO_LABCORP_INDEX.filter(r=>r[7]==='active');
+  const linked=activeAfter.filter(r=>r[3]);
+  assert.equal(linked.length,1040);
+  assert.equal(new Set(linked.map(r=>r[3])).size,1004);
+  assert.equal(activeAfter.find(r=>r[0]==='637')[3],'','Protected mercury exception');
+});
+
+test('badge counts active LabCorp links after workbook is applied',()=>{
+  const ui=fs.readFileSync('labcorp-crosswalk-ui.js','utf8');
+  assert.ok(ui.includes('window.applyQuestLabcorpWorkbookMatches?.(index.tests)'));
+  assert.ok(ui.indexOf('window.applyQuestLabcorpWorkbookMatches?.(index.tests)') <
+    ui.indexOf('reverse=buildReverse(index)'));
+  assert.ok(ui.includes('new Set(questActive.filter(r=>r[3]).map(r=>String(r[3]))).size'));
+});
