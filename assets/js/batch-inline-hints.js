@@ -157,6 +157,12 @@
             label.dataset.lineIndex = String(index);
             label.textContent = (query ? '\u2022 ' : '') + hintText;
             if (!query) label.classList.add('batch-inline-ghost-empty');
+            // Direction indicator is decorative only. Keep underlying hint
+            // values unchanged so locks, copying, and matching still work.
+            if (!query && typeof hintText === 'string' &&
+                hintText.startsWith('No match for ')) {
+              label.classList.add('batch-inline-ghost-no-match');
+            }
             if (hint && typeof hint === 'object') {
               if (hint.tone === 'manual') label.classList.add('batch-inline-ghost-manual');
               if (hint.tone === 'reference') {
