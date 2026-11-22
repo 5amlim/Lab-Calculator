@@ -3406,6 +3406,43 @@
     showToast(`${test.testName} added and marked STAT.`);
   }
 
+  // The test converter talks to the same in-memory catalog and cart as search.
+  // Candidate codes alone never create a test record or change collection rules.
+  document.addEventListener('labcorp:crosswalk-cart', event => {
+    const detail = event.detail;
+    if (!detail || !Array.isArray(detail.codes)) return;
+    const codes = [...new Set(detail.codes.map(code => String(code).trim()).filter(Boolean))];
+    const inspect = code => {
+      const test = database.find(item => String(item.testCode || '').trim() === code && item.status === 'active');
+      const other = test || database.find(item => String(item.testCode || '').trim() === code);
+      return {
+        code,
+        name: test?.testName || other?.testName || '',
+        status: !test ? 'unavailable' : selectedIds.includes(test.id) ? 'added' : 'available'
+      };
+    };
+    if (detail.action === 'inspect') {
+      detail.result = codes.map(inspect);
+      return;
+    }
+    if (detail.action !== 'add') return;
+    const added = [], already = [], unavailable = [];
+    for (const code of codes) {
+      const test = database.find(item => String(item.testCode || '').trim() === code && item.status === 'active');
+      if (!test) { unavailable.push(code); continue; }
+      if (selectedIds.includes(test.id)) { already.push(code); continue; }
+      if (addSelected(test.id, false)) added.push(code);
+      else unavailable.push(code);
+    }
+    detail.result = { added, already, unavailable };
+    if (added.length) {
+      saveSelected();
+      renderOrder();
+      renderLibrary();
+      showToast(added.length + ' ' + (added.length === 1 ? 'test' : 'tests') + ' added to cart.');
+    }
+  });
+
   function addSelected(id, rerender = true) {
     const test = database.find(item => item.id === id);
     if (!test || test.status !== 'active') return false;
@@ -3585,6 +3622,7 @@
     renderSstTubeMode();
     renderStatArea();
     const tests = selectedTests();
+    document.dispatchEvent(new Event('labcorp:cart-updated'));
     renderUrineCultureMode();
     const collectionTests = expandedCollectionTests(tests);
     els.selectedCount.textContent = tests.length;
