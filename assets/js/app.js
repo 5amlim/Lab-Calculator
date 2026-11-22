@@ -380,6 +380,9 @@
           // A non-addable exact code is distinct from an unverified candidate.
           // Preserve normal text color for active codes, categories, shorthands,
           // and tests whose possible matches still require review.
+          // Keep all Add Tests input text the same color. Status still drives
+          // directory lookup buttons for unmatched lines.
+          colorUnavailable: false,
           onStatusRows: lines => batchMatchFinder?.sync(lines),
           lineTone: query => {
             const value = String(query || '').trim();
