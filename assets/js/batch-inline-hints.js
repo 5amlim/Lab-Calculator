@@ -21,7 +21,8 @@
       ? String(nameMatches[0].testCode || '').trim() || null : null;
   }
 
-  function mount(textarea, resolveExactHint) {
+  function mount(textarea, resolveExactHint, options) {
+    options = options || {};
     if (!textarea || !textarea.parentElement || typeof resolveExactHint !== 'function') return function () {};
 
     // Only the textarea owns the text and caret. The overlay contains labels
@@ -90,10 +91,10 @@
 
       layer.replaceChildren();
       measurer.replaceChildren();
-      if (!textarea.value || innerWidth < 45) { syncScroll(); return; }
+      if ((!textarea.value && !options.emptyLineHint) || innerWidth < 45) { syncScroll(); return; }
       var row = 0;
       var lines = textarea.value.split('\n');
-      lines.forEach(function (line) {
+      lines.forEach(function (line, index) {
         var measuredLine = document.createElement('div');
         measuredLine.className = 'batch-inline-ghost-measured-line';
         measuredLine.textContent = line || '\u200b';
@@ -102,7 +103,10 @@
         var visualRows = Math.max(1, Math.round(renderedHeight / lineHeight));
 
         var query = line.trim();
-        var hint = query && resolveExactHint(query);
+        // An optional empty-line hint supports converter rows with no candidate.
+        // It is visual-only, never inserted into copied or submitted test codes.
+        var hint = query ? resolveExactHint(query) :
+          (typeof options.emptyLineHint === 'function' ? options.emptyLineHint(index) : null);
         if (hint && visualRows === 1) {
           var prefixWidth = ctx.measureText(line).width + letterSpacing * line.length +
             wordSpacing * (line.match(/ /g) || []).length;
@@ -111,7 +115,8 @@
           if (space >= 32) {
             var label = document.createElement('span');
             label.className = 'batch-inline-ghost-label';
-            label.textContent = '\u2022 ' + hint;
+            label.textContent = (query ? '\u2022 ' : '') + hint;
+            if (!query) label.classList.add('batch-inline-ghost-empty');
             label.style.left = (borderLeft + paddingLeft + prefixWidth + gap) + 'px';
             label.style.top = (borderTop + paddingTop + row * lineHeight) + 'px';
             label.style.maxWidth = space + 'px';
