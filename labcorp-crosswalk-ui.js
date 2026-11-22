@@ -444,11 +444,10 @@
       .map(row=>[String(row[0]||'').trim(),String(row[1]||'').trim()]));
     let emptyOutputHints=new Map();
     let unavailableOutputCodes=new Set();
-    // Generated matches have a protected output row and an explicit remove action.
-    // Dismissals are scoped to a source/destination pair so other rows survive.
+    // Converted Quest results are read-only. Their editable LabCorp source
+    // entries carry the small remove buttons, never the Quest results.
     let generatedMatchRows=new Map();
-    const removedMatchPairs=new Set();
-    const matchPairKey=(source,code)=>String(source)+'\u0000'+String(code);
+    let matchedSourceRows=new Map();
     // Selected reference pairs remain provisional and session-local.
     const chosenMatches=new Map();
     // The two panes represent the same source rows. Mirror vertical scrolling
@@ -485,7 +484,13 @@
     ).map(row=>({code:String(row[0]).trim(),name:String(row[1]).trim(),
       specimen:String(row[2]||'').trim(),normalized:normalize(row[1])})):[];
     const outputContainer=document.getElementById('crosswalkOutputAutocomplete');
+    const sourceContainer=document.getElementById('crosswalkQuestAutocomplete');
     const actionLayer=isQuestPage&&outputContainer?document.createElement('div'):null;
+    const sourceActionLayer=isQuestPage&&sourceContainer?document.createElement('div'):null;
+    if(sourceActionLayer){
+      sourceActionLayer.className='crosswalk-source-match-actions';
+      sourceContainer.appendChild(sourceActionLayer);
+    }
     if(actionLayer){
       actionLayer.className='crosswalk-no-match-actions';
       outputContainer.appendChild(actionLayer);
@@ -619,63 +624,82 @@
         actionLayer.appendChild(b);
       }
 
-      // The tiny remove button sits after each generated code's ghost name.
-      // It is separate from the textarea so copied values stay codes-only.
-      const codeLines=converterOutput.value.split('\n');
-      const fieldStyle=window.getComputedStyle(converterOutput);
-      const lineHeight=parseFloat(fieldStyle.lineHeight)||parseFloat(fieldStyle.fontSize)*1.55;
-      const measure=document.createElement('canvas').getContext('2d');
-      measure.font=[fieldStyle.fontStyle,fieldStyle.fontWeight,fieldStyle.fontSize,fieldStyle.fontFamily].join(' ');
-      for(const [index,match] of generatedMatchRows){
-        if(codeLines[index]?.trim()!==match.code)continue;
-        const label=outputContainer.querySelector(
-          '.batch-inline-ghost-label[data-line-index="'+index+'"]');
+    }
+    function renderMatchedSourceActions(){
+      if(!sourceActionLayer)return;
+      sourceActionLayer.replaceChildren();
+      const fieldRect=sourceContainer.getBoundingClientRect();
+      const textLines=converterInput.value.split('\n');
+      const style=window.getComputedStyle(converterInput);
+      const lineHeight=parseFloat(style.lineHeight)||parseFloat(style.fontSize)*1.55;
+      const canvas=document.createElement('canvas');
+      const measure=canvas.getContext('2d');
+      measure.font=[style.fontStyle,style.fontWeight,style.fontSize,style.fontFamily].join(' ');
+      const paddingLeft=parseFloat(style.paddingLeft)||0;
+      const paddingTop=parseFloat(style.paddingTop)||0;
+      const borderLeft=parseFloat(style.borderLeftWidth)||0;
+      const borderTop=parseFloat(style.borderTopWidth)||0;
+      const maxLeft=converterInput.offsetLeft+converterInput.clientWidth-25;
+      for(const [sourceLine,match] of matchedSourceRows){
+        const current=textLines[sourceLine]?.trim();
+        if(!current||current!==match.raw)continue;
+        const label=sourceContainer.querySelector(
+          '.batch-inline-ghost-label[data-line-index="'+sourceLine+'"]');
         let top,left;
-        const maxLeft=converterOutput.offsetLeft+converterOutput.clientWidth-26;
         if(label){
-          const labelRect=label.getBoundingClientRect();
-          const startingX=labelRect.left-containerRect.left;
-          // Make room for the X without overlapping an ellipsized test name.
-          label.style.maxWidth=Math.max(0,maxLeft-startingX-6)+'px';
-          const adjusted=label.getBoundingClientRect();
-          top=adjusted.top-containerRect.top+(adjusted.height-18)/2;
-          left=Math.min(maxLeft,adjusted.right-containerRect.left+6);
+          const initial=label.getBoundingClientRect();
+          const start=initial.left-fieldRect.left;
+          // Reserve space when a long source test name is ellipsized.
+          label.style.maxWidth=Math.max(0,maxLeft-start-6)+'px';
+          const rect=label.getBoundingClientRect();
+          top=rect.top-fieldRect.top+(rect.height-18)/2;
+          left=Math.min(maxLeft,rect.right-fieldRect.left+6);
         }else{
-          const codeWidth=measure.measureText(match.code).width;
-          top=converterOutput.offsetTop+parseFloat(fieldStyle.borderTopWidth||0)+
-            parseFloat(fieldStyle.paddingTop||0)+index*lineHeight-converterOutput.scrollTop+
-            (lineHeight-18)/2;
-          left=Math.min(maxLeft,converterOutput.offsetLeft+
-            parseFloat(fieldStyle.borderLeftWidth||0)+parseFloat(fieldStyle.paddingLeft||0)+
-            codeWidth+9-converterOutput.scrollLeft);
+          const codeWidth=measure.measureText(textLines[sourceLine]).width;
+          top=converterInput.offsetTop+borderTop+paddingTop+
+            sourceLine*lineHeight-converterInput.scrollTop+(lineHeight-18)/2;
+          left=Math.min(maxLeft,converterInput.offsetLeft+borderLeft+
+            paddingLeft+codeWidth+9-converterInput.scrollLeft);
         }
-        if(top<-18||top>outputContainer.clientHeight-3||left<0)continue;
+        if(top<-18||top>sourceContainer.clientHeight-3||left<0)continue;
         const button=document.createElement('button');
         button.type='button';
-        button.className='crosswalk-match-remove';
-        button.dataset.row=String(index);
-        button.dataset.code=match.code;
+        button.className='crosswalk-source-match-remove';
+        button.dataset.sourceLine=String(sourceLine);
         button.style.top=top+'px';
         button.style.left=left+'px';
         button.textContent='×';
-        button.title='Remove Quest match '+match.code;
-        button.setAttribute('aria-label','Remove matched Quest code '+match.code);
+        button.title='Remove LabCorp entry '+current+' and its Quest match';
+        button.setAttribute('aria-label','Remove LabCorp entry '+current+' and its Quest match');
         button.addEventListener('pointerdown',event=>event.preventDefault());
         button.addEventListener('click',event=>{
           event.preventDefault();
           event.stopPropagation();
-          const current=generatedMatchRows.get(index);
-          if(!current||current.code!==match.code)return;
-          removedMatchPairs.add(matchPairKey(current.source,current.code));
+          const latest=matchedSourceRows.get(sourceLine);
+          const lines=converterInput.value.split('\n');
+          if(!latest||latest.raw!==lines[sourceLine]?.trim())return;
+          lines.splice(sourceLine,1);
+          if(!lines.length)lines.push('');
+          converterInput.value=lines.join('\n');
+          // A custom directory match belongs to its source entry.
+          const stillExists=lines.some(line=>{
+            const query=line.trim();
+            if(!query)return false;
+            const names=questByName.get(normalize(query))||[];
+            const row=questByCode.get(query)||(names.length===1?names[0]:null);
+            return (row?String(row[0]):query)===latest.source;
+          });
+          if(!stillExists)chosenMatches.delete(latest.source);
+          hideSuggestions();
+          actionFeedback='';
           updateConverter();
-          // Leave the source code and its position in the conversion intact.
-          const lines=converterOutput.value.split('\n');
-          const destination=Math.min(index,lines.length-1);
-          const caret=lines.slice(0,destination).reduce((n,line)=>n+line.length+1,0);
-          converterOutput.focus({preventScroll:true});
-          converterOutput.setSelectionRange(caret,caret);
+          const nextLine=Math.min(sourceLine,lines.length-1);
+          const caret=lines.slice(0,nextLine).reduce((n,line)=>n+line.length+1,0);
+          converterInput.focus({preventScroll:true});
+          converterInput.setSelectionRange(caret,caret);
+          renderSuggestions();
         });
-        actionLayer.appendChild(button);
+        sourceActionLayer.appendChild(button);
       }
     }
     if(drawer){
@@ -690,7 +714,6 @@
           return;
         }
         const chosenCode=button.dataset.questCode;
-        removedMatchPairs.delete(matchPairKey(drawerSource.code,chosenCode));
         chosenMatches.set(drawerSource.code,{code:chosenCode});
         manualOutputCodes.delete(chosenCode);
         updateConverter();
@@ -712,7 +735,11 @@
       });
     }
     converterOutput.addEventListener('scroll',renderNoMatchActions,{passive:true});
-    window.addEventListener('resize',renderNoMatchActions);
+    converterInput.addEventListener('scroll',renderMatchedSourceActions,{passive:true});
+    window.addEventListener('resize',()=>{
+      renderNoMatchActions();
+      renderMatchedSourceActions();
+    });
 
     // Allow direct Quest-code or test-name lookup in the editable destination
     // pane. Suggestions affect only the caret's line, never converted rows.
@@ -885,7 +912,10 @@
       function moveToFreeRow(row){
         // Skip decorative labels without shifting the paired destination code.
         let parts=textarea.value.split('\n'),next=row+1;
-        while(next<parts.length&&!isBlank(next))next++;
+        const sourceLines=converterInput.value.split('\n');
+        while(next<parts.length&&
+          (!isBlank(next)||isLockedRow(textarea,next)||
+            (textarea===converterOutput&&Boolean(sourceLines[next]?.trim()))))next++;
         if(next>=parts.length){
           const last=textarea.value.length;
           textarea.setRangeText('\n',last,last,'end');
@@ -941,6 +971,13 @@
         const locked=blockedRow(kind);
         if(locked!==null){
           event.preventDefault();
+          if(textarea===converterOutput&&isLockedRow(textarea,locked)&&
+             (kind==='insertLineBreak'||kind==='insertParagraph')&&
+             textarea.selectionStart===textarea.selectionEnd){
+            // Enter is navigation, not an edit to the protected Quest code.
+            moveToFreeRow(locked);
+            return true;
+          }
           if(textarea===converterInput&&isLockedRow(textarea,locked)){
             if(kind==='insertLineBreak'||kind==='insertParagraph'){
               // Enter moves to a usable blank line; no shake.
@@ -1192,9 +1229,15 @@
         }));
       const inputCodes=inputRows.filter(Boolean);
       const seenQuest=new Set(),seenLabcorp=new Set(),converted=[],unmatched=[],unknown=[];
-      // Each nonempty source entry gets exactly one destination row. Missing
-      // matches occupy a blank editable line with a decorative ghost message.
+      // Track the source textarea line for each candidate. The input remains
+      // editable and its X removes only that source line and generated results.
       // Extra candidates (where a source has several) follow the aligned rows.
+      const inputSourceLines=converterInput.value.split('\n').flatMap((line,sourceLine)=>
+        line.split(/[,;\t]+/).flatMap(value=>{
+          const trimmed=value.trim();
+          return /^\d+(?:\s+\d+)+$/.test(trimmed)
+            ?trimmed.split(/\s+/).map(()=>sourceLine):[sourceLine];
+        }));
       const aligned=[],extras=[],ghosts=new Map();
       const alignedMatches=[],extraMatches=[];
       const blankWithHint=text=>{
@@ -1203,7 +1246,9 @@
         alignedMatches.push(null);
       };
       let duplicates=0,matched=0,manualSelections=0;
-      for(const code of inputRows){
+      for(let inputIndex=0;inputIndex<inputRows.length;inputIndex++){
+        const code=inputRows[inputIndex];
+        const sourceLine=inputSourceLines[inputIndex];
         if(!code){aligned.push('');alignedMatches.push(null);continue;}
         const byName=questByName.get(normalize(code))||[];
         const row=questByCode.get(code)||(byName.length===1?byName[0]:null);
@@ -1216,14 +1261,14 @@
         seenQuest.add(uniqueCode);
         const selected=chosenMatches.get(uniqueCode);
         if(selected){
-          if(removedMatchPairs.has(matchPairKey(uniqueCode,selected.code))){
-            aligned.push('');
-            alignedMatches.push(null);
-          }else if(!seenLabcorp.has(selected.code)){
+          if(!seenLabcorp.has(selected.code)){
             seenLabcorp.add(selected.code);
             converted.push(selected.code);
             aligned.push(selected.code);
-            alignedMatches.push({source:uniqueCode,code:selected.code});
+            alignedMatches.push({
+              source:uniqueCode,code:selected.code,
+              sourceLine,raw:converterInput.value.split('\n')[sourceLine]?.trim()
+            });
             manualSelections++;
           }else blankWithHint('Already listed: '+selected.code);
           continue;
@@ -1244,16 +1289,8 @@
           blankWithHint('No match for "'+sourceCode+(sourceName?' · '+sourceName:'')+'"');
           continue;
         }
-        const allowed=[...new Set(candidates)].filter(match=>
-          !removedMatchPairs.has(matchPairKey(uniqueCode,match)));
-        if(!allowed.length){
-          // Deleted matches leave a blank editable slot, not a false no-match claim.
-          aligned.push('');
-          alignedMatches.push(null);
-          continue;
-        }
         matched++;
-        const fresh=allowed.filter(match=>!seenLabcorp.has(match));
+        const fresh=[...new Set(candidates)].filter(match=>!seenLabcorp.has(match));
         // Keep all codes for Copy and Add, even if several LabCorp tests share
         // the same destination code or one test has multiple candidates.
         for(const match of fresh){
@@ -1262,9 +1299,15 @@
         }
         if(fresh.length){
           aligned.push(fresh[0]);
-          alignedMatches.push({source:uniqueCode,code:fresh[0]});
+          alignedMatches.push({
+            source:uniqueCode,code:fresh[0],
+            sourceLine,raw:converterInput.value.split('\n')[sourceLine]?.trim()
+          });
           extras.push(...fresh.slice(1));
-          extraMatches.push(...fresh.slice(1).map(match=>({source:uniqueCode,code:match})));
+          extraMatches.push(...fresh.slice(1).map(match=>({
+            source:uniqueCode,code:match,
+            sourceLine,raw:converterInput.value.split('\n')[sourceLine]?.trim()
+          })));
         }else{
           blankWithHint('Already listed: '+code);
         }
@@ -1273,6 +1316,11 @@
       generatedOutputRows=outputLines.slice();
       generatedMatchRows=new Map([...alignedMatches,...extraMatches]
         .flatMap((match,index)=>match?[[index,match]]:[]));
+      matchedSourceRows=new Map();
+      for(const match of generatedMatchRows.values()){
+        if(!matchedSourceRows.has(match.sourceLine))
+          matchedSourceRows.set(match.sourceLine,match);
+      }
       // Keep manually entered destination codes in their existing blank rows.
       // This also preserves alignment when a mirrored reference is edited
       // below another manual destination with no available crosswalk.
@@ -1336,9 +1384,9 @@
       }
       cartCandidateCodes=converted;
       renderCart();
-      // renderCart refreshes ghost labels; place X buttons only after that
-      // refresh so long names make room for their buttons.
+      // Repaint actions after both ghost layers have been updated.
       renderNoMatchActions();
+      renderMatchedSourceActions();
     }
     converterInput.addEventListener('input',()=>{
       actionFeedback='';
