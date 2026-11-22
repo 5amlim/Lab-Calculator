@@ -156,7 +156,7 @@
     const labMatches=reverse?activeLabMatches:null;
     const badgeMatches=reverse===null?(meta.labcorpMatched??activeLabMatches):activeLabMatches;
     summary.textContent=(meta.questActiveCount||questActive.length).toLocaleString()+' Quest tests · '+
-      Number(badgeMatches).toLocaleString()+' LabCorp → Quest candidate matches';
+      Number(badgeMatches).toLocaleString()+' LabCorp equivalents';
     status.textContent=pending?(loadError?'LabCorp directory unavailable':'Loading LabCorp index…'):
       'Showing '+Math.min(visible,matched.length).toLocaleString()+' of '+matched.length.toLocaleString()+
       (lab?' LabCorp':' Quest')+' tests';
