@@ -182,9 +182,9 @@
               label.classList.add('batch-inline-ghost-no-match');
               if(typeof options.onNoMatchAction === 'function'){
                 label.classList.add('crosswalk-no-match-actionable');
-                // Reserve the space after the closing quote for the clickable
-                // search icon, while preserving the full text for accessibility.
-                label.style.maxWidth = Math.max(0,space-34)+'px';
+                // The clickable magnifier now precedes the read-only no-match
+                // message instead of appearing after its closing quote.
+                label.style.maxWidth = space+'px';
               }
             }
             if (hint && typeof hint === 'object') {
