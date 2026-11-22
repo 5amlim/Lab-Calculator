@@ -122,9 +122,13 @@
     const questActive=rows.filter(r=>sourceType(r)==='active');
     const activeMatches=questActive.filter(r=>Boolean(r[3])).length;
     const labMatches=reverse?reverse.filter(r=>r.status==='suggested').length:null;
+    // Count distinct LabCorp codes linked to active Quest tests only.
+    // The reverse table also contains legacy/uncoded references, which do
+    // not belong in the active-match count shown in this badge.
+    const activeLabMatches=new Set(questActive.filter(r=>r[3]).map(r=>String(r[3]))).size;
+    const badgeMatches=reverse===null?(meta.labcorpMatched??activeLabMatches):activeLabMatches;
     summary.textContent=(meta.questActiveCount||questActive.length).toLocaleString()+' Quest tests · '+
-      (labMatches===null?(meta.labcorpMatched||0):labMatches).toLocaleString()+
-      ' LabCorp → Quest candidate matches';
+      Number(badgeMatches).toLocaleString()+' LabCorp → Quest candidate matches';
     status.textContent=pending?(loadError?'LabCorp directory unavailable':'Loading LabCorp index…'):
       'Showing '+Math.min(visible,matched.length).toLocaleString()+' of '+matched.length.toLocaleString()+
       (lab?' LabCorp':' Quest')+' comparison entries'+(labMatches!==null?' · '+labMatches.toLocaleString()+' LabCorp codes have candidate links':'')+
@@ -662,6 +666,14 @@
   render();
   fetch('assets/search/labcorp-tests.json?v=20261121-full-crosswalk',{cache:'no-store'})
     .then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();})
-    .then(index=>{reverse=buildReverse(index);loadError=false;render();if(isQuestPage)initConverter();})
+    .then(index=>{
+      // Reapply workbook pairs using the full LabCorp active index. SEED_TESTS
+      // may belong to Quest (or be incomplete) when the override script loads.
+      window.applyQuestLabcorpWorkbookMatches?.(index.tests);
+      reverse=buildReverse(index);
+      loadError=false;
+      render();
+      if(isQuestPage)initConverter();
+    })
     .catch(()=>{loadError=true;render();if(isQuestPage){const feedback=document.getElementById('crosswalkConverterFeedback');if(feedback)feedback.textContent='LabCorp reference index unavailable. Refresh to retry.';}});
 })();
