@@ -61,7 +61,7 @@
         if (!row?.query || row.tone !== 'unavailable') continue;
         const top = row.top - textarea.scrollTop;
         if (top < -25 || top > textarea.clientHeight - 2) continue;
-        const left = Math.min(row.left, Math.max(0, textarea.clientWidth - 28));
+        const left = Math.min(row.left, Math.max(0, textarea.clientWidth - 24));
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'batch-no-match-search';
