@@ -138,6 +138,82 @@
       const code=String(row[0]).trim();
       if(!questByCode.has(code)||(!questByCode.get(code)[3]&&row[3]))questByCode.set(code,row);
     }
+    const cartList=document.getElementById('crosswalkCartList');
+    const cartCount=document.getElementById('crosswalkCartCount');
+    const cartStatus=document.getElementById('crosswalkCartStatus');
+    const cartAdd=document.getElementById('crosswalkAddToCart');
+    const cartAddText=document.getElementById('crosswalkAddToCartText');
+    const cartSelectAll=document.getElementById('crosswalkSelectAll');
+    let cartCandidateCodes=[],cartItems=[],cartSelected=new Set();
+
+    function inspectCart(codes){
+      const detail={action:'inspect',codes,result:null};
+      document.dispatchEvent(new CustomEvent('labcorp:crosswalk-cart',{detail}));
+      return Array.isArray(detail.result)?detail.result:codes.map(code=>({code,name:'',status:'unavailable'}));
+    }
+    function updateCartActions(){
+      const available=cartItems.filter(item=>item.status==='available');
+      const chosen=available.filter(item=>cartSelected.has(item.code));
+      cartCount.textContent=chosen.length+' selected';
+      cartAdd.disabled=chosen.length===0;
+      cartAddText.textContent=chosen.length?'Add '+chosen.length+' to cart':'Add to cart';
+      cartSelectAll.disabled=!available.length||chosen.length===available.length;
+    }
+    function renderCart(resetSelection=false){
+      if(resetSelection)cartSelected.clear();
+      cartItems=inspectCart(cartCandidateCodes);
+      const available=cartItems.filter(item=>item.status==='available');
+      if(resetSelection)available.forEach(item=>cartSelected.add(item.code));
+      const availableCodes=new Set(available.map(item=>item.code));
+      for(const code of cartSelected)if(!availableCodes.has(code))cartSelected.delete(code);
+      if(!cartItems.length){
+        cartList.innerHTML='<p class="crosswalk-cart-empty">Enter Quest codes above to see tests you can add.</p>';
+        cartStatus.textContent='Only active LabCorp tests can be added to the cart.';
+      }else{
+        cartList.innerHTML=cartItems.map(item=>{
+          const allowed=item.status==='available',selected=allowed&&cartSelected.has(item.code);
+          const label=item.status==='added'?'Already in cart':allowed?'Ready to add':'Not available in active catalog';
+          return '<label class="crosswalk-cart-item'+(allowed?'':' is-unavailable')+'">'+
+            '<input type="checkbox" data-cart-code="'+escape(item.code)+'" '+(selected?'checked ':'')+(allowed?'':'disabled ')+' aria-label="Select LabCorp '+escape(item.code)+'">'+
+            '<span class="crosswalk-cart-test"><strong>'+escape(item.code)+'</strong>'+
+            '<small>'+escape(item.name||'LabCorp candidate')+'</small></span>'+
+            '<span class="crosswalk-cart-item-status'+(item.status==='added'?' is-added':'')+'">'+escape(label)+'</span></label>';
+        }).join('');
+        const already=cartItems.filter(item=>item.status==='added').length;
+        const unavailable=cartItems.filter(item=>item.status==='unavailable').length;
+        cartStatus.textContent=available.length+' available'+(already?' · '+already+' already in cart':'')+
+          (unavailable?' · '+unavailable+' not active or unavailable':'')+'. Verify candidate equivalence before ordering.';
+      }
+      updateCartActions();
+    }
+    cartList.addEventListener('change',event=>{
+      const input=event.target.closest('input[data-cart-code]');
+      if(!input)return;
+      if(input.checked)cartSelected.add(input.dataset.cartCode);
+      else cartSelected.delete(input.dataset.cartCode);
+      updateCartActions();
+    });
+    cartSelectAll.addEventListener('click',()=>{
+      cartItems.filter(item=>item.status==='available').forEach(item=>cartSelected.add(item.code));
+      renderCart();
+    });
+    cartAdd.addEventListener('click',()=>{
+      const codes=cartItems.filter(item=>item.status==='available'&&cartSelected.has(item.code)).map(item=>item.code);
+      if(!codes.length)return;
+      const detail={action:'add',codes,result:null};
+      document.dispatchEvent(new CustomEvent('labcorp:crosswalk-cart',{detail}));
+      const result=detail.result;
+      renderCart();
+      if(!result){
+        cartStatus.textContent='Could not reach the calculator cart. No changes were made.';
+        return;
+      }
+      cartStatus.textContent=result.added.length+' '+(result.added.length===1?'test':'tests')+' added to cart'+
+        (result.already.length?' · '+result.already.length+' already added':'')+
+        (result.unavailable.length?' · '+result.unavailable.length+' unavailable':'')+'.';
+    });
+    document.addEventListener('labcorp:cart-updated',()=>renderCart());
+
     function updateConverter(){
       const inputCodes=converterInput.value.trim().split(/[\s,;]+/).filter(Boolean);
       const seenQuest=new Set(),seenLabcorp=new Set(),converted=[],unmatched=[],unknown=[];
@@ -167,6 +243,8 @@
       if(unknown.length)notes.push('Not found in the active Quest index: '+unknown.join(', '));
       converterWarning.hidden=notes.length===0;
       converterWarning.textContent=notes.join(' · ');
+      cartCandidateCodes=converted;
+      renderCart(true);
     }
     converterInput.addEventListener('input',updateConverter);
     converterCopy.addEventListener('click',async()=>{
