@@ -63,6 +63,14 @@
         :[r.code,r.name,r.specimen,...r.matches.flatMap(m=>[m.code,m.name])];
       const content=normalize(parts.join(' '));
       return terms.every(t=>content.includes(t));
+    }).sort((a,b)=>{
+      // Prioritize actual candidate cross-references, then related review-only
+      // entries, and finally rows with no match. The existing alphabetical
+      // order is preserved within each status group (stable Array.sort).
+      const priority={suggested:0,review:1,pending:2};
+      const aStatus=isQuest?statusQuest(a):a.status;
+      const bStatus=isQuest?statusQuest(b):b.status;
+      return (priority[aStatus]??3)-(priority[bStatus]??3);
     });
   }
   function renderQuest(r){
