@@ -118,7 +118,8 @@
         // It is visual-only, never inserted into copied or submitted test codes.
         var hint = query ? resolveExactHint(query) :
           (typeof options.emptyLineHint === 'function' ? options.emptyLineHint(index) : null);
-        if (hint && visualRows === 1) {
+        var hintText = hint && typeof hint === 'object' ? String(hint.text || '') : hint;
+        if (hintText && visualRows === 1) {
           var prefixWidth = ctx.measureText(line).width + letterSpacing * line.length +
             wordSpacing * (line.match(/ /g) || []).length;
           var gap = query ? fontSize * 0.38 : 0;
@@ -126,8 +127,25 @@
           if (space >= 32) {
             var label = document.createElement('span');
             label.className = 'batch-inline-ghost-label';
-            label.textContent = (query ? '\u2022 ' : '') + hint;
+            label.textContent = (query ? '\u2022 ' : '') + hintText;
             if (!query) label.classList.add('batch-inline-ghost-empty');
+            if (hint && typeof hint === 'object') {
+              if (hint.tone === 'manual') label.classList.add('batch-inline-ghost-manual');
+              if (hint.tone === 'reference') {
+                label.classList.add('batch-inline-ghost-reference');
+                if (hint.code) {
+                  label.textContent = '';
+                  var codeSpan = document.createElement('strong');
+                  codeSpan.className = 'batch-inline-ghost-reference-code';
+                  codeSpan.textContent = String(hint.code);
+                  var nameSpan = document.createElement('span');
+                  nameSpan.className = 'batch-inline-ghost-reference-name';
+                  nameSpan.textContent = ' · ' + String(hint.name || '');
+                  label.appendChild(codeSpan);
+                  label.appendChild(nameSpan);
+                }
+              }
+            }
             label.style.left = (borderLeft + paddingLeft + prefixWidth + gap) + 'px';
             label.style.top = (borderTop + paddingTop + row * lineHeight) + 'px';
             label.style.maxWidth = space + 'px';
