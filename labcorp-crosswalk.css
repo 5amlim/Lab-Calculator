@@ -295,3 +295,25 @@
     line-height: 1.45;
   }
 }
+
+
+/* Converter entries use the same readable text scale as Find Tests. Missing
+   matches are row-aligned ghost text, never part of the editable code value. */
+@media screen {
+  .test-mode-converter .crosswalk-converter-field textarea {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.55;
+    letter-spacing: normal;
+  }
+  .test-mode-converter .crosswalk-converter-field .batch-inline-ghost-label {
+    color: #8798a7;
+    font-weight: 400;
+  }
+  .test-mode-converter .crosswalk-converter-field .batch-inline-ghost-empty {
+    color: #967854;
+    font-weight: 500;
+    font-style: italic;
+  }
+}
