@@ -443,6 +443,7 @@
     const questNames=new Map(rows.filter(row=>sourceType(row)==='active')
       .map(row=>[String(row[0]||'').trim(),String(row[1]||'').trim()]));
     let emptyOutputHints=new Map();
+    let unavailableOutputCodes=new Set();
     // The two panes represent the same source rows. Mirror vertical scrolling
     // in either direction so long lists remain aligned while reviewing matches.
     // Programmatic scroll events are ignored to avoid loops when one pane has
@@ -465,7 +466,8 @@
     const outputPlaceholder=converterOutput.placeholder;
     const refreshOutputHints=window.LabBatchInlineHints?.mount(converterOutput,code=>
       questNames.get(String(code).trim())||null,{
-        emptyLineHint:index=>emptyOutputHints.get(index)||null
+        emptyLineHint:index=>emptyOutputHints.get(index)||null,
+        lineTone:code=>unavailableOutputCodes.has(String(code).trim())?'unavailable':null
       })||(()=>{});
     // Allow direct Quest-code or test-name lookup in the editable destination
     // pane. Suggestions affect only the caret's line, never converted rows.
@@ -760,6 +762,8 @@
       const ready=items.filter(item=>item.status==='available');
       const already=items.filter(item=>item.status==='added');
       const unavailable=items.filter(item=>item.status==='unavailable');
+      unavailableOutputCodes=new Set(unavailable.map(item=>String(item.code).trim()));
+      refreshOutputHints();
       // Reflect the current cart, not just the last click. If any test is
       // removed from the cart, the blue Add button becomes available again.
       const allInCart=displayed.length>0&&already.length===displayed.length;
@@ -867,7 +871,7 @@
         seenQuest.add(uniqueCode);
         if(!row){
           unknown.push(code);
-          blankWithHint('No match for '+code);
+          blankWithHint('No match for "'+code+'"');
           continue;
         }
         const candidates=(isQuestPage?(row[9]||[]):[row[3]])
@@ -878,7 +882,7 @@
           // name. Ghost labels stay outside the editable/copyable code value.
           const sourceCode=String(row[0]||code).trim();
           const sourceName=String(row[1]||'').trim();
-          blankWithHint('No match for '+sourceCode+(sourceName?' · '+sourceName:''));
+          blankWithHint('No match for "'+sourceCode+'"'+(sourceName?' · '+sourceName:''));
           continue;
         }
         matched++;
