@@ -604,6 +604,67 @@
         if(!tappingOutputSuggestion&&!outputSuggestionPanel.contains(document.activeElement))hideOutputSuggestions();
       });
     }
+    // Ghost rows are visual references, not editable textarea values.
+    // Protect only those rows, including keyboard, paste, cut, and deletes
+    // that would merge the protected row with another line.
+    function installLockedGhostRows(textarea, lockedHints, refreshHints){
+      const lineForPosition=(value,position)=>{
+        let row=0;
+        for(let i=0;i<Math.min(position,value.length);i++){
+          if(value.charCodeAt(i)===10)row++;
+        }
+        return row;
+      };
+      const blockedRow=(kind)=>{
+        const value=textarea.value;
+        const from=Math.max(0,textarea.selectionStart??value.length);
+        const to=Math.max(from,textarea.selectionEnd??from);
+        const first=lineForPosition(value,from);
+        const last=lineForPosition(value,to);
+        for(let row=first;row<=last;row++){
+          if(lockedHints.has(row))return row;
+        }
+        if(from!==to)return null;
+        if(kind==='deleteContentBackward'&&from>0&&value[from-1]==='\n'&&
+            lockedHints.has(first-1))return first-1;
+        if(kind==='deleteContentForward'&&value[from]==='\n'&&
+            lockedHints.has(first+1))return first+1;
+        return null;
+      };
+      const blockEdit=(event,kind)=>{
+        const row=blockedRow(kind);
+        if(row===null)return false;
+        event.preventDefault();
+        refreshHints.shakeLine?.(row);
+        return true;
+      };
+      textarea.addEventListener('beforeinput',event=>{
+        if(!event.cancelable)return;
+        if(/^(?:insert|delete)/.test(event.inputType||'')){
+          blockEdit(event,event.inputType);
+        }
+      });
+      textarea.addEventListener('keydown',event=>{
+        if(event.defaultPrevented||event.isComposing)return;
+        const editing=event.key==='Backspace'||event.key==='Delete'||
+          event.key==='Enter'||(event.key.length===1&&!event.ctrlKey&&!event.metaKey&&!event.altKey);
+        if(!editing)return;
+        const kind=event.key==='Backspace'?'deleteContentBackward':
+          event.key==='Delete'?'deleteContentForward':'insertText';
+        blockEdit(event,kind);
+      });
+      textarea.addEventListener('click',()=>{
+        const row=blockedRow('insertText');
+        if(row!==null)refreshHints.shakeLine?.(row);
+      });
+    }
+    installLockedGhostRows(converterInput,manualSourceHints,refreshConverterHints);
+    installLockedGhostRows(converterOutput,{
+      has(index){
+        const hint=emptyOutputHints.get(index);
+        return typeof hint==='string' && hint.startsWith('No match for ');
+      }
+    },refreshOutputHints);
     const cartAdd=document.getElementById('crosswalkAddToCart');
     const cartAddText=document.getElementById('crosswalkAddToCartText');
     let cartCandidateCodes=[],manualOutputCodes=new Set(),matchFeedback=[],actionFeedback='';
@@ -649,7 +710,8 @@
       if(manualSourceHints.size){
         const lastHintRow=Math.max(...manualSourceHints.keys());
         const existingRows=converterInput.value.split('\n').length;
-        const missingRows=lastHintRow+1-existingRows;
+        // Keep one free row after the final locked hint for new tests.
+        const missingRows=lastHintRow+2-existingRows;
         if(missingRows>0){
           const end=converterInput.value.length;
           converterInput.setRangeText('\n'.repeat(missingRows),end,end,'preserve');
@@ -839,7 +901,9 @@
       // Keep a blank line after the last mapped/manual code so staff can type
       // another destination code immediately. Blank rows still preserve their
       // source-row alignment, while Copy/Add use only nonempty outputCodes().
-      converterOutput.value=outputLines.join('\n')+(outputLines.some(Boolean)?'\n':'');
+      // Even if every candidate is missing, leave one unprotected blank row.
+      converterOutput.value=outputLines.join('\n')+
+        (outputLines.some(Boolean)||ghosts.size?'\n':'');
       // A textarea's placeholder would otherwise overlap a single unmatched
       // entry's ghost hint when there are no real codes in the output.
       converterOutput.placeholder=ghosts.has(0)&&!converterOutput.value?'':outputPlaceholder;
