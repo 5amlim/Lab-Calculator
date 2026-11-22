@@ -204,6 +204,23 @@
                 }
               }
             }
+            // Mark only generated crosswalk matches. The indicator remains
+            // outside the textarea's real value, with a fixed-width suffix
+            // so it stays visible even when long test names are truncated.
+            if (query && typeof options.isMatchedRow === 'function' &&
+                options.isMatchedRow(index, query)) {
+              var nameText = label.textContent;
+              label.textContent = '';
+              label.classList.add('crosswalk-matched-result');
+              var matchedName = document.createElement('span');
+              matchedName.className = 'crosswalk-matched-name';
+              matchedName.textContent = nameText;
+              var matchedArrow = document.createElement('span');
+              matchedArrow.className = 'crosswalk-matched-arrow';
+              matchedArrow.textContent = '\u2194';
+              label.appendChild(matchedName);
+              label.appendChild(matchedArrow);
+            }
             label.style.left = (borderLeft + paddingLeft + prefixWidth + gap) + 'px';
             label.style.top = (borderTop + paddingTop + row * lineHeight) + 'px';
             label.style.maxWidth = space + 'px';
