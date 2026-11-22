@@ -350,19 +350,25 @@
       }
     });
     if(suggestionPanel){
+      let tappingSuggestion=false;
+      suggestionPanel.addEventListener('pointerdown',event=>{
+        // On touch devices, the textarea may blur before the option's click.
+        tappingSuggestion=Boolean(event.target.closest('button[data-index]'));
+      });
+      suggestionPanel.addEventListener('pointercancel',()=>{tappingSuggestion=false;});
       suggestionPanel.addEventListener('mousedown',event=>{
         if(event.target.closest('button[data-index]'))event.preventDefault();
       });
       suggestionPanel.addEventListener('click',event=>{
         const button=event.target.closest('button[data-index]');
+        tappingSuggestion=false;
         if(button)chooseSuggestion(Number(button.dataset.index));
       });
       document.addEventListener('pointerdown',event=>{
         if(!event.target.closest('#crosswalkQuestAutocomplete'))hideSuggestions();
       });
       converterInput.addEventListener('blur',()=>{
-        // Click selection is handled by the button; keyboard blur always dismisses.
-        if(!suggestionPanel.contains(document.activeElement))hideSuggestions();
+        if(!tappingSuggestion&&!suggestionPanel.contains(document.activeElement))hideSuggestions();
       });
     }
     const cartList=document.getElementById('crosswalkCartList');
