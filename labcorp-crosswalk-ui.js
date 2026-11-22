@@ -121,11 +121,11 @@
     more.hidden=pending||matched.length<=visible;
     const questActive=rows.filter(r=>sourceType(r)==='active');
     const activeMatches=questActive.filter(r=>Boolean(r[3])).length;
-    const labMatches=reverse?reverse.filter(r=>r.status==='suggested').length:null;
     // Count distinct LabCorp codes linked to active Quest tests only.
     // The reverse table also contains legacy/uncoded references, which do
-    // not belong in the active-match count shown in this badge.
+    // not belong in the active-match count.
     const activeLabMatches=new Set(questActive.filter(r=>r[3]).map(r=>String(r[3]))).size;
+    const labMatches=reverse?activeLabMatches:null;
     const badgeMatches=reverse===null?(meta.labcorpMatched??activeLabMatches):activeLabMatches;
     summary.textContent=(meta.questActiveCount||questActive.length).toLocaleString()+' Quest tests · '+
       Number(badgeMatches).toLocaleString()+' LabCorp → Quest candidate matches';
