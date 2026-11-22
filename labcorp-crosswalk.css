@@ -283,3 +283,15 @@
     font-weight: 850;
   }
 }
+
+
+/* Make manual destination-code entry discoverable without changing summary sizing. */
+@media screen {
+  .crosswalk-converter-field--output .crosswalk-manual-hint {
+    display: block;
+    color: #5e7a8f;
+    font-size: 10.5px;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+}
