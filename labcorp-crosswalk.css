@@ -1467,3 +1467,32 @@
     .crosswalk-match-directory-action { padding: 0 16px 12px; }
   }
 }
+
+/* Nested comparison workspace inside the outer Browse matches card. */
+@media screen {
+  .test-mode-converter .crosswalk-directory-details .crosswalk-browser-inner-card {
+    min-width: 0;
+    padding: 17px 17px 15px;
+    border: 1px solid #d9e6ee;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 2px 9px rgba(33, 72, 94, .035);
+  }
+  .test-mode-converter .crosswalk-browser-inner-card .crosswalk-explainer {
+    margin-bottom: 15px;
+  }
+  .test-mode-converter .crosswalk-browser-inner-card .crosswalk-results-heading {
+    margin-top: 4px;
+    padding-top: 15px;
+    border-top: 1px solid #e4edf2;
+  }
+  .test-mode-converter .crosswalk-browser-inner-card .crosswalk-table-wrap {
+    border-radius: 11px;
+  }
+  @media (max-width: 700px) {
+    .test-mode-converter .crosswalk-directory-details .crosswalk-browser-inner-card {
+      padding: 12px 10px;
+      border-radius: 11px;
+    }
+  }
+}
