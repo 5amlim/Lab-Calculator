@@ -331,7 +331,7 @@
             <div class="crosswalk-converter" role="group" aria-label="Quest to LabCorp test code converter">
               <div class="crosswalk-converter-field">
                 <div class="crosswalk-converter-label">
-                  <label for="crosswalkQuestInput">Quest codes or names</label>
+                  <label for="crosswalkQuestInput">Quest entry</label>
                   <span class="crosswalk-converter-tag">INPUT</span>
                 </div>
                 <div class="calc-autocomplete-field crosswalk-autocomplete" id="crosswalkQuestAutocomplete">
@@ -343,7 +343,7 @@
               <span class="crosswalk-converter-arrow" aria-hidden="true">→</span>
               <div class="crosswalk-converter-field crosswalk-converter-field--output">
                 <div class="crosswalk-converter-label">
-                  <label for="crosswalkLabcorpOutput">LabCorp codes</label>
+                  <label for="crosswalkLabcorpOutput">LabCorp entry</label>
                   <div class="crosswalk-output-actions" role="group" aria-label="Converted codes actions">
                     <button type="button" class="crosswalk-copy" id="crosswalkCopyCodes" disabled aria-label="Copy LabCorp codes" title="Copy LabCorp candidate codes">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
@@ -356,7 +356,10 @@
                     </button>
                   </div>
                 </div>
-                <textarea id="crosswalkLabcorpOutput" rows="7" wrap="off" spellcheck="false" autocomplete="off" placeholder="Matching LabCorp codes will appear here&#10;One code per line" aria-label="LabCorp codes, one per line; type or paste active LabCorp codes manually, or remove converted codes before copying or adding" aria-describedby="crosswalkConverterFeedback crosswalkManualHint"></textarea>
+                <div class="calc-autocomplete-field crosswalk-autocomplete" id="crosswalkOutputAutocomplete">
+                  <textarea id="crosswalkLabcorpOutput" rows="7" wrap="off" spellcheck="false" autocomplete="off" placeholder="Matching LabCorp codes will appear here&#10;One code per line" aria-label="LabCorp codes, one per line; generated matches are read-only, press Enter to create a blank row; type or paste active LabCorp codes manually" role="combobox" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" aria-controls="crosswalkOutputSuggestions" aria-describedby="crosswalkConverterFeedback crosswalkManualHint"></textarea>
+                  <div id="crosswalkOutputSuggestions" class="calc-suggestions hidden" role="listbox" aria-label="Matching LabCorp tests for this line"></div>
+                </div>
                 <span class="crosswalk-manual-hint" id="crosswalkManualHint">You can also type or paste active LabCorp codes directly here, one per line.</span>
               </div>
             </div>
@@ -799,7 +802,7 @@
   <script src="assets/js/labcorp/catalog/official-mixed-expansion-20261115-batch14.js?v=20261119-fodrin-dedupe"></script>
 <script src="assets/js/labcorp/catalog/verified-mixed-expansion-20261115-batch15.js?v=1"></script>
 <script src="assets/js/gestational-test-warnings.js?v=20261114-1"></script>
-  <script src="assets/js/batch-inline-hints.js?v=20261121-prefix-magnifier"></script>
+  <script src="assets/js/batch-inline-hints.js?v=20261122-converter-parity"></script>
 <script src="assets/js/portal-action-dialog.js?v=20261117-portal-stack"></script>
 <script src="assets/js/regional-catalog-20261115.js?v=20261115-1"></script>
 <script src="assets/js/market-restrictions.js?v=20261118-2"></script>
