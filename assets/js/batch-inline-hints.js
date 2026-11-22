@@ -164,7 +164,9 @@
         var hint = query ? resolveExactHint(query) :
           (typeof options.emptyLineHint === 'function' ? options.emptyLineHint(index) : null);
         var hintText = hint && typeof hint === 'object' ? String(hint.text || '') : hint;
-        if (hintText && visualRows === 1) {
+        var matchedResult = !!(query && typeof options.isMatchedRow === 'function' &&
+          options.isMatchedRow(index, query));
+        if ((hintText || matchedResult) && visualRows === 1) {
           var prefixWidth = ctx.measureText(line).width + letterSpacing * line.length +
             wordSpacing * (line.match(/ /g) || []).length;
           var gap = query ? fontSize * 0.38 : 0;
@@ -173,7 +175,7 @@
             var label = document.createElement('span');
             label.className = 'batch-inline-ghost-label';
             label.dataset.lineIndex = String(index);
-            label.textContent = (query ? '\u2022 ' : '') + hintText;
+            label.textContent = hintText ? (query ? '\u2022 ' : '') + hintText : '';
             if (!query) label.classList.add('batch-inline-ghost-empty');
             // Direction indicator is decorative only. Keep underlying hint
             // values unchanged so locks, copying, and matching still work.
@@ -207,8 +209,7 @@
             // Mark only generated crosswalk matches. The indicator remains
             // outside the textarea's real value, with a fixed-width suffix
             // so it stays visible even when long test names are truncated.
-            if (query && typeof options.isMatchedRow === 'function' &&
-                options.isMatchedRow(index, query)) {
+            if (matchedResult) {
               var nameText = label.textContent;
               label.textContent = '';
               label.classList.add('crosswalk-matched-result');
