@@ -4,7 +4,6 @@
   const isQuestPage = document.body.dataset.galleryLab === 'Q';
   const table=document.getElementById('labcorpCrosswalkBody');
   if(!table||!Array.isArray(window.QUEST_TO_LABCORP_INDEX))return;
-  const tableWrap=table.closest('.crosswalk-table-wrap');
   const rows=window.QUEST_TO_LABCORP_INDEX.slice().sort((a,b)=>a[1].localeCompare(b[1])||a[0].localeCompare(b[0]));
   const meta=window.QUEST_TO_LABCORP_METADATA||{};
   const search=document.getElementById('labcorpCrosswalkSearch');
@@ -20,9 +19,8 @@
   const normalize=s=>String(s??'').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
   const labUrl=(name,code)=>'https://www.labcorp.com/test-menu/search?query='+encodeURIComponent(code||name);
   const questUrl='https://testdirectory.questdiagnostics.com/';
-  const VIEWPORT_ROWS=5;
-  const LOAD_BATCH=50;
-  let reverse=null,loadError=false,displayed=0,filteredRows=[],filteredIsLab=false;
+  const PAGE_SIZE=7;
+  let visible=PAGE_SIZE,reverse=null,loadError=false;
   function sourceType(row){return row[7]||(row[0]==='XXX'?'uncoded':'active');}
   function statusQuest(row){
     if(row[3])return 'suggested';
@@ -131,24 +129,6 @@
       '<a class="crosswalk-directory-link crosswalk-directory-link--muted" href="'+questUrl+'" target="_blank" rel="noopener noreferrer">Quest directory <span aria-hidden="true">↗</span></a>'+
       '</div></td></tr>';
   }
-  // Keep exactly the first five rows in view, regardless of variable row heights.
-  // Additional rows remain in an independently scrolling table.
-  function sizeCrosswalkViewport(){
-    if(!tableWrap)return;
-    tableWrap.style.maxHeight='';
-    if(!filteredRows.length)return;
-    const tableHead=table.closest('table')?.tHead;
-    const firstRows=Array.from(table.rows).slice(0,VIEWPORT_ROWS);
-    const height=(tableHead?.getBoundingClientRect().height||0)+
-      firstRows.reduce((total,row)=>total+row.getBoundingClientRect().height,0);
-    if(height>0)tableWrap.style.maxHeight=Math.ceil(height+2)+'px';
-  }
-  function appendCrosswalkRows(){
-    const next=filteredRows.slice(displayed,displayed+LOAD_BATCH);
-    if(!next.length)return;
-    table.insertAdjacentHTML('beforeend',next.map(filteredIsLab?renderLabcorp:renderQuest).join(''));
-    displayed+=next.length;
-  }
   function render(){
     const lab=direction.value==='labcorp';
     heads[0].textContent=lab?'LabCorp code':'Quest code';
@@ -164,18 +144,11 @@
     }
     const matched=getRows();
     const pending=lab&&!reverse;
-    filteredRows=pending?[]:matched;
-    filteredIsLab=lab;
-    displayed=0;
     table.innerHTML=pending?'<tr><td colspan="4" class="crosswalk-empty">'+(loadError?'LabCorp index could not be loaded. Please refresh.':'Loading the complete LabCorp active directory…')+'</td></tr>':
-      matched.length?'':'<tr><td colspan="4" class="crosswalk-empty">No entries found for this search and filter.</td></tr>';
-    if(!pending&&matched.length)appendCrosswalkRows();
-    more.hidden=true;
-    if(tableWrap){
-      tableWrap.scrollTop=0;
-      tableWrap.scrollLeft=0;
-      requestAnimationFrame(sizeCrosswalkViewport);
-    }
+      matched.slice(0,visible).map(lab?renderLabcorp:renderQuest).join('')||
+      '<tr><td colspan="4" class="crosswalk-empty">No entries found for this search and filter.</td></tr>';
+    more.hidden=pending||matched.length<=visible;
+    if(!more.hidden)more.textContent='Show '+Math.min(PAGE_SIZE,matched.length-visible)+' more tests';
     const questActive=rows.filter(r=>sourceType(r)==='active');
     const activeMatches=questActive.filter(r=>Boolean(r[3])).length;
     // Count distinct LabCorp codes linked to active Quest tests only.
@@ -198,7 +171,7 @@
         questEquivalents.toLocaleString()+' Quest equivalents';
     }
     status.textContent=pending?(loadError?'LabCorp directory unavailable':'Loading LabCorp index…'):
-      'Showing '+Math.min(VIEWPORT_ROWS,matched.length).toLocaleString()+' of '+matched.length.toLocaleString()+
+      'Showing '+Math.min(visible,matched.length).toLocaleString()+' of '+matched.length.toLocaleString()+
       (lab?' LabCorp':' Quest')+' tests';
   }
 
@@ -1566,23 +1539,10 @@
     document.body.appendChild(a);a.click();a.remove();
     setTimeout(()=>URL.revokeObjectURL(url),1000);
   }
-  for(const input of [search,filter,direction])input.addEventListener(input===search?'input':'change',render);
-  tableWrap?.addEventListener('scroll',()=>{
-    if(displayed<filteredRows.length&&
-       tableWrap.scrollTop+tableWrap.clientHeight>=tableWrap.scrollHeight-350){
-      appendCrosswalkRows();
-    }
-  },{passive:true});
-  window.addEventListener('resize',()=>requestAnimationFrame(sizeCrosswalkViewport));
-  // The converter starts hidden behind Find Tests on some pages.
-  // Measure its five-row viewport when the tab becomes visible.
-  const converterView=tableWrap?.closest('#convertTestsView');
-  if(converterView&&typeof ResizeObserver!=='undefined'){
-    const tableResizeObserver=new ResizeObserver(()=>{
-      if(tableWrap.getClientRects().length)requestAnimationFrame(sizeCrosswalkViewport);
-    });
-    tableResizeObserver.observe(converterView);
-  }
+  for(const input of [search,filter,direction])input.addEventListener(
+    input===search?'input':'change',()=>{visible=PAGE_SIZE;render();}
+  );
+  more.addEventListener('click',()=>{visible+=PAGE_SIZE;render();});
   exportCsv.addEventListener('click',download);
   table.addEventListener('click',event=>{
     const btn=event.target.closest('button[data-labcorp-code]');
