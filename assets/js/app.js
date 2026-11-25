@@ -721,7 +721,8 @@
     const tumorOrPathology = /\b(?:solid tumou?r|tumou?r tissue|tumou?r biopsy|tumou?r block|neoplastic tissue)\b/.test(materials)
       || /\b(?:histopathology|histology specimen|histology gross|surgical pathology|surg path|anatomic pathology|paraffin embedded|pd l1 ihc|uveal melanoma prognostic|prostate multisite biopsy|tumou?r immuno)\b/.test(title);
     const unsupportedVessel = /\bstreck\b|\b(?:prepared (?:slide|smear)|slide carrier|microscope slide)\b/.test(vessels);
-    const reason = cytology ? 'Cytology specimens are outside the clinic collection workflow.'
+    const verifiedUrineCytology = String(test.testCode || '').trim() === '10676' && normalizeSearch(test.specimenType) === 'urine' && normalizeSearch(test.drawContainer) === 'sterile cup' && normalizeSearch(test.transportContainer) === 'sterile cup' && routes.length === 1 && normalizeSearch(test.transportTemperature) === 'refrigerated';
+    const reason = cytology && !verifiedUrineCytology ? 'Cytology specimens are outside the clinic collection workflow.'
       : tumorOrPathology ? 'Tumor specimens and anatomic pathology are outside the clinic collection workflow.'
       : unsupportedVessel ? 'Requires a Streck tube or prepared slide or smear outside the clinic collection workflow.'
       : '';
@@ -757,7 +758,7 @@
             updated.specialInstructions = base.specialInstructions;
           }
           builtIns[index] = updated;
-        } else if (String(base.testCode || '') === '10676' && base.status === 'active' && /DO NOT PERFORM ONSITE|Hold pending verification|DIRECTORY REFERENCE ONLY/i.test(override.specialInstructions || '')) {
+        } else if (String(base.testCode || '') === '10676' && base.status === 'active' && /DO NOT PERFORM ONSITE|Hold pending verification|DIRECTORY REFERENCE ONLY|Cytology specimens are outside the clinic collection workflow/i.test(override.specialInstructions || '')) {
           // Retire obsolete directory-only overrides for the verified urine-only route.
           builtIns[index] = { ...base };
         } else if (String(base.testCode || '') === '92717') {
