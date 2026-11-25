@@ -784,6 +784,9 @@
             updated.specialInstructions = base.specialInstructions;
           }
           builtIns[index] = updated;
+        } else if (String(base.testCode || '') === '10676' && base.status === 'active' && /DO NOT PERFORM ONSITE|Hold pending verification|DIRECTORY REFERENCE ONLY/i.test(override.specialInstructions || '')) {
+          // Retire obsolete directory-only overrides for the verified urine-only route.
+          builtIns[index] = { ...base };
         } else if (String(base.testCode || '') === '92717') {
           // Clinic-wide Do Not Perform: old saved active/reference overrides cannot reactivate it.
           builtIns[index] = { ...override, ...base, id: base.id, status: 'blocked' };
