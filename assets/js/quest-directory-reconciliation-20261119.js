@@ -1978,7 +1978,6 @@
     ["10235", "Micronutrients, Mineral/Element Panel", "Hold pending verification of a clinic-compatible collection, processing and shipping workflow with the receiving Quest laboratory."],
     ["10456", "Oxalic Acid, Adult, Urine with Creatinine", "Hold for confirmation of a supported unpreserved route, or a validated special preparation where required."],
     ["10526", "Mycobacterium , Culture, Blood", "Hold until the specified specialty collection device and an approved clinic shipping route are confirmed."],
-    ["10676", "Cytology, Non-Gynecological, Fluid, Washings, Brushings or FNA", "Hold pending verification of a clinic-compatible collection, processing and shipping workflow with the receiving Quest laboratory."],
     ["10696", "Mail to Home Kit, Specialized Transplant Services, Post-Transplant", "This is a kit, administrative, or reanalysis code without a clinic specimen collection workflow."],
     ["10697", "Mail to Home Kit, Specialized Transplant Services, Donor", "This is a kit, administrative, or reanalysis code without a clinic specimen collection workflow."],
     ["10868", "CD43, IHC with Interpretation", "Requires pathology material or a prepared slide/smear workflow."],
