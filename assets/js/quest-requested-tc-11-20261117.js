@@ -6,6 +6,35 @@
 (()=>{'use strict';if(!Array.isArray(window.SEED_TESTS))return;
 const additions=[
   {
+  "id": "quest-tc-20261125-10676",
+  "testCode": "10676",
+  "testName": "Cytology, Non-Gynecological, Fluid, Washings, Brushings or FNA",
+  "status": "active",
+  "specimenType": "Urine",
+  "drawContainer": "Sterile cup",
+  "alternativeContainer": "",
+  "transportContainer": "Sterile cup",
+  "preferredVolume": "Confirm urine volume with receiving Quest laboratory",
+  "minimumVolume": "Not specified for urine",
+  "collectionCount": 1,
+  "submissionCount": 1,
+  "transportTemperature": "Refrigerated",
+  "transportTemperatureRaw": "Unfixed urine: refrigerated; do not freeze",
+  "spin": "No",
+  "stability": "Keep refrigerated and send promptly; confirm local stability and volume with Quest.",
+  "specialLabeling": "Label URINE · CYTOLOGY · VOIDED or CATHETERIZED",
+  "specialInstructions": "SUPPORTED ROUTE: fresh, unfixed office-collected urine only. Collect a separate specimen in a sterile, leakproof screw-cap cup without additives; submit the original cup refrigerated with cold packs. Do not spin, freeze, pool with routine urine tests, use a UA/culture preservative tube, or submit 24-hour urine. Quest prefers fixed samples but explicitly accepts unfixed urine. Identify collection method and source on the cytology requisition and include pertinent clinical information. Quest recommends at least 1 mL for cytology processing generally; urine-specific volume and stability are not specified. Confirm receiving Quest service-area acceptance, volume and stability before collection. Other specimen sources (including washings, brushings, FNA, and anal Pap), slides, and fixative-based collection are not represented by this clinic workflow; contact the receiving cytology lab for instructions instead.",
+  "source": "https://testdirectory.questdiagnostics.com/test/test-detail/10676/cytology-non-gynecological-fluid-washings-brushings-or-fna?cc=MASTER • https://www.questdiagnostics.com/healthcare-professionals/test-directory/specimen-handling/anatomic-pathology/cytology",
+  "searchAliases": [
+    "urine cytology",
+    "non gynecological cytology",
+    "non gyn cytology"
+  ],
+  "clinicalCategories": [
+    "urinary"
+  ]
+},
+  {
     "id": "quest-tc-20261117-15434",
     "testCode": "15434",
     "testName": "Lipid Panel (REFL)",
@@ -400,6 +429,8 @@ for(const row of additions){
  if(!old){window.SEED_TESTS.push(row);continue;}
  // 92717 is not supported onsite. Force blocked for any prior active/reference entry.
  if(row.testCode==='92717'){Object.assign(old,row,{id:old.id||row.id,status:'blocked'});continue;}
+ // 10676: promote only the explicitly supported fresh urine cytology route.
+ if(row.testCode==='10676'&&['blocked','reference','pending'].includes(old.status)){Object.assign(old,row,{id:old.id||row.id});continue;}
  if(old.status==='blocked')continue;
  if(old.status==='reference'||old.status==='pending'){Object.assign(old,row,{id:old.id||row.id});continue;}
  if(old.status==='active'&&row.testCode==='10380'){
