@@ -515,5 +515,121 @@
       "tests/master-database-audit.test.cjs"
     ],
     "approvalStatus": "Vendor discontinuation reviewed. Intent of any replacement order requires provider confirmation."
+  },
+  {
+    "id": "labcorp-november-2026-deletions",
+    "category": "vendor discontinuation",
+    "description": "Keep Labcorp deleted codes unavailable for collection and conversion.",
+    "laboratory": [
+      "labcorp"
+    ],
+    "testCodes": [
+      "004705",
+      "500152",
+      "004100",
+      "140768",
+      "231819",
+      "231821",
+      "231822",
+      "231823",
+      "231824",
+      "231825",
+      "231826",
+      "144691",
+      "146315",
+      "146316",
+      "146317",
+      "146318",
+      "146319",
+      "146321",
+      "500161",
+      "500108",
+      "140244",
+      "500124",
+      "070085",
+      "070037",
+      "070078",
+      "070083",
+      "070090",
+      "070120",
+      "070132",
+      "070145",
+      "252773",
+      "252777",
+      "252780",
+      "252784",
+      "252794",
+      "500167"
+    ],
+    "expectedBehavior": "Deleted codes cannot be reactivated through saved data. No automatic substitution.",
+    "reason": "November 2026 vendor notices delete the orders.",
+    "evidence": [
+      "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf"
+    ],
+    "implementation": [
+      "labcorp-app.js",
+      "labcorp-quest-workbook-crosswalk-overrides.js"
+    ],
+    "regressionTests": [
+      "tests/master-database-audit.test.cjs"
+    ]
+  },
+  {
+    "id": "labcorp-november-2026-notice-fields",
+    "category": "source updates",
+    "description": "Refresh only the field specified by the Labcorp November 2026 bulletin.",
+    "laboratory": [
+      "labcorp"
+    ],
+    "testCodes": [
+      "340897",
+      "382965",
+      "164947",
+      "161836",
+      "161950",
+      "161810",
+      "161802",
+      "161828",
+      "520117",
+      "163059",
+      "163061",
+      "163067",
+      "007245",
+      "163900",
+      "163915",
+      "163882",
+      "163002",
+      "163908",
+      "085340",
+      "164010",
+      "165126",
+      "164002",
+      "165142",
+      "161646",
+      "161687",
+      "042580",
+      "706200",
+      "102525",
+      "717016",
+      "717009",
+      "007625",
+      "700433",
+      "085324",
+      "140822",
+      "167015",
+      "120220"
+    ],
+    "expectedBehavior": "Preserve shipping routes when only stability changes.",
+    "reason": "Stability at a temperature and required shipment at that temperature differ.",
+    "evidence": [
+      "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf"
+    ],
+    "implementation": [
+      "assets/js/labcorp/catalog/november-2026-notice-updates.js",
+      "labcorp-app.js"
+    ],
+    "regressionTests": [
+      "tests/master-database-audit.test.cjs"
+    ]
   }
 ]
