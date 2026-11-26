@@ -125,6 +125,49 @@
     });
   }
 
+
+  // A short, non-blocking animation; preserve existing transforms and focus.
+  const activeMotion = new WeakMap();
+  function microMotion(element, frames, duration = 170) {
+    if (!element || !element.getClientRects().length ||
+        window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ||
+        typeof element.animate !== 'function') return;
+    activeMotion.get(element)?.cancel();
+    activeMotion.set(element, element.animate(frames, { duration, easing: 'ease-out' }));
+  }
+  const reveal = element => microMotion(element, [
+    { opacity: .55, translate: '0 3px' }, { opacity: 1, translate: '0 0' }
+  ]);
+  const pulse = element => microMotion(element, [
+    { scale: '1' }, { scale: '1.06', offset: .45 }, { scale: '1' }
+  ], 200);
+
+  // Animate intentional mode changes, not rerenders during typing.
+  for (const id of ['findTestsView', 'convertTestsView']) {
+    const panel = $(id);
+    if (!panel) continue;
+    new MutationObserver(records => {
+      if (!panel.hidden && records.some(record => record.oldValue !== null)) reveal(panel);
+    }).observe(panel, { attributes: true, attributeOldValue: true, attributeFilter: ['hidden'] });
+  }
+  // Only animate the body of a disclosure when opened; never delay closing.
+  document.addEventListener('toggle', event => {
+    const details = event.target;
+    if (!details.matches?.('details[open]')) return;
+    const content = details.querySelector(':scope > .cart-collapse-body, :scope > .collection-alerts-list');
+    if (content) reveal(content);
+  }, true);
+
+  // New optional container cards are the only animated children of this form.
+  const additionalContainers = $('additionalContainers');
+  if (additionalContainers) {
+    new MutationObserver(records => {
+      for (const record of records) for (const node of record.addedNodes) {
+        if (node.nodeType === 1 && node.matches('.additional-container-card')) reveal(node);
+      }
+    }).observe(additionalContainers, { childList: true });
+  }
+
   function watchNewCartItems() {
     const overview = $('testsOverviewList');
     const details = $('selectedList');
@@ -136,7 +179,11 @@
       Array.from(overview.querySelectorAll('.tests-overview-remove[data-id]'),
         button => button.dataset.id).filter(Boolean)
     );
+    const priorities = () => new Map([...overview.querySelectorAll('.tests-overview-row')]
+      .map(row => [row.querySelector('.tests-overview-remove[data-id]')?.dataset.id,
+        row.classList.contains('is-stat')]));
     let previouslySelected = selectedIds();
+    let previousPriorities = priorities();
     const recentAdditions = new Map();
 
     const onCartChange = () => {
@@ -144,6 +191,20 @@
       const now = Date.now();
       const addedNow = [...current].filter(id => !previouslySelected.has(id));
       for (const id of addedNow) recentAdditions.set(id, now + DURATION);
+      const removedNow = [...previouslySelected].filter(id => !current.has(id));
+      const nextPriorities = priorities();
+      if (removedNow.length) {
+        pulse($('selectedCount'));
+        pulse($('mobileCount'));
+        pulse($('testsOverviewTitle'));
+      }
+      for (const row of overview.querySelectorAll('.tests-overview-row')) {
+        const id = row.querySelector('.tests-overview-remove[data-id]')?.dataset.id;
+        if (previousPriorities.has(id) && previousPriorities.get(id) !== nextPriorities.get(id)) {
+          pulse(row.querySelector('.stat-toggle'));
+        }
+      }
+      previousPriorities = nextPriorities;
       previouslySelected = current;
 
       // After a genuine addition, reveal the newest test at the bottom of
