@@ -1,0 +1,89 @@
+{
+  "labs": {
+    "quest": {
+      "total": 3829,
+      "rawLoaded": 3829,
+      "indexed": 3314,
+      "statuses": {
+        "active": 3315,
+        "blocked": 514
+      },
+      "verification": {
+        "Not yet reviewed": 3829
+      }
+    },
+    "labcorp": {
+      "total": 6601,
+      "rawLoaded": 6601,
+      "indexed": 6015,
+      "statuses": {
+        "active": 6015,
+        "blocked": 455,
+        "pending": 131
+      },
+      "verification": {
+        "Not yet reviewed": 6601
+      }
+    }
+  },
+  "crosswalk": {
+    "candidatePairs": 1456,
+    "questCodesWithCandidate": 1456,
+    "labcorpCodesWithCandidate": 1396,
+    "relationshipRows": 2257,
+    "activeReviewPairs": 799,
+    "unmatchedQuestRows": 1228,
+    "representedQuestCodes": 3314
+  },
+  "changes": {},
+  "findings": [
+    {
+      "severity": "warning",
+      "issue": "temperature-needs-review",
+      "lab": "quest",
+      "key": "34329|seed-130|0",
+      "detail": "Not specified"
+    },
+    {
+      "severity": "warning",
+      "issue": "temperature-needs-review",
+      "lab": "quest",
+      "key": "34499|seed-134|0",
+      "detail": "Not specified"
+    },
+    {
+      "severity": "warning",
+      "issue": "temperature-needs-review",
+      "lab": "quest",
+      "key": "39749|seed-153|0",
+      "detail": "Not specified"
+    },
+    {
+      "severity": "warning",
+      "issue": "temperature-needs-review",
+      "lab": "quest",
+      "key": "6447|seed-72|0",
+      "detail": "Not specified"
+    },
+    {
+      "severity": "warning",
+      "issue": "temperature-needs-review",
+      "lab": "quest",
+      "key": "XXX|seed-245|0",
+      "detail": "Not specified"
+    },
+    {
+      "severity": "warning",
+      "issue": "temperature-needs-review",
+      "lab": "labcorp",
+      "key": "164798|labcorp-164798|0",
+      "detail": "Not specified"
+    }
+  ],
+  "revision": "b81f79958661971bad3a6799d6a0465a7525156e",
+  "tests": {
+    "passed": 447,
+    "failed": 5,
+    "skipped": 0
+  }
+}
