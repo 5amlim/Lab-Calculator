@@ -280,7 +280,7 @@ test('additional candidate mappings use active LabCorp codes and compatible spec
 });
 test('review-only alternatives are visible but never automatically converted',()=>{
   for(const [questCode,labCode] of [
-    ['38631','899048'],['38621','899035'],['92473','481020'],
+    ['38631','899048'],['38621','899035'],['92473','489477'],
     ['16869','481630'],['14852','337877'],['91278','737740'],
     ['250','007204'],['250','007205'],['16846','002006'],
     ['19546','503640'],['2371','602880'],['19110','334943']
