@@ -1,0 +1,22 @@
+{
+  "accessDate": "2026-11-26",
+  "publicSitemap": "https://www.labcorp.com/en.sitemap.tests-sitemap.xml",
+  "cdosCatalog": "https://cdos.halfpenny.com/labcorp/Home/PrintCatalog",
+  "publicCodes": 3303,
+  "cdosCodes": 6510,
+  "runtimeRecords": 6601,
+  "unionCodes": 6555,
+  "publicMissing": 23,
+  "cdosMissing": 0,
+  "runtimeAbsentFromBoth": 69,
+  "dispositionInPublic": {
+    "active": 3018,
+    "blocked": 245,
+    "pending": 17
+  },
+  "dispositionInCdos": {
+    "active": 5942,
+    "pending": 124,
+    "blocked": 444
+  }
+}
