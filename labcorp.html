@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="assets/css/portal-action-dialog.css?v=20261115-2">
   <link rel="stylesheet" href="assets/css/gestational-test-warnings.css?v=20261114-1">
   <link rel="stylesheet" href="assets/css/market-restrictions.css?v=20261115-1">
-  <link rel="stylesheet" href="assets/css/batch-action-feedback.css?v=20261125-visible-motion">
+  <link rel="stylesheet" href="assets/css/batch-action-feedback.css?v=20261125-summary-badge">
   <link rel="stylesheet" href="assets/css/test-directory-section.css?v=20261116-2">
   <link rel="stylesheet" href="assets/css/salivette-blue-cap.css?v=20261117-v1">
 
@@ -413,10 +413,11 @@
 
     <aside class="panel order-panel" id="collectionSummary" tabindex="-1">
       <div class="order-top">
-        <div>
+        <div class="collection-summary-heading">
           <div class="eyebrow">2. CHECK SUMMARY</div>
-          <h2>Collection summary <span id="selectedCount">0</span></h2>
+          <h2>Collection summary</h2>
         </div>
+        <span id="selectedCount" aria-live="polite" aria-atomic="true">0</span>
       </div>
 
       <section class="sst-mode-control" aria-labelledby="sstModeLabel">
