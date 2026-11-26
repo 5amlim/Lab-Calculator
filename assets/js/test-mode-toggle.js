@@ -42,4 +42,48 @@
     show(target, true);
   }));
   show('find');
+
+  // One moving selection surface per segmented control. Read the actual
+  // selected state instead of changing the calculator's clinical settings.
+  for (const group of document.querySelectorAll('.test-mode-switch, .sst-mode-toggle')) {
+    const buttons = Array.from(group.querySelectorAll(':scope > button'));
+    if (buttons.length !== 2) continue;
+    let lastGeometry = '';
+    let frame = 0;
+    function syncIndicator() {
+      const selected = buttons.find(button => button.getAttribute('aria-selected') === 'true' ||
+        button.getAttribute('aria-pressed') === 'true');
+      if (!selected || !selected.offsetWidth || !selected.offsetHeight) return;
+      const geometry = [selected.offsetLeft, selected.offsetTop, selected.offsetWidth, selected.offsetHeight];
+      const key = geometry.join(',');
+      if (key !== lastGeometry) {
+        ['x', 'y', 'w', 'h'].forEach((name, index) =>
+          group.style.setProperty('--calc-toggle-' + name, geometry[index] + 'px'));
+        lastGeometry = key;
+      }
+      if (!group.classList.contains('calc-sliding-toggle')) {
+        group.classList.add('calc-sliding-toggle');
+        requestAnimationFrame(() => group.classList.add('calc-sliding-toggle-ready'));
+      }
+    }
+    function schedule() {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        syncIndicator();
+      });
+    }
+    group.classList.add('calc-toggle-positioned');
+    const observer = new MutationObserver(schedule);
+    buttons.forEach(button => observer.observe(button, {
+      attributes: true, attributeFilter: ['aria-selected', 'aria-pressed']
+    }));
+    if (typeof ResizeObserver === 'function') {
+      const resize = new ResizeObserver(schedule);
+      resize.observe(group);
+      buttons.forEach(button => resize.observe(button));
+    }
+    window.addEventListener('resize', schedule, { passive: true });
+    syncIndicator();
+  }
 })();
