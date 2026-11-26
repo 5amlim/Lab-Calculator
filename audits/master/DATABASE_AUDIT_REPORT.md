@@ -12,12 +12,12 @@ Audit date November 26, 2026. Baseline commit `b81f79958661971bad3a6799d6a0465a7
 | Blocked runtime records | 514 | 515 | 455 | 485 |
 | Pending runtime records | 0 | 0 | 131 | 129 |
 | Fully clinically verified in this audit | 0 | 0 | 0 | 0 |
-| Partially verified in this audit | 0 | 10 | 0 | 42 |
+| Partially verified in this audit | 0 | 15 | 0 | 42 |
 | Clinical conflict recorded | 0 | 1 | 0 | 1 |
 | Current source inaccessible | 0 | 3 | 0 | 0 |
 | Specific official field unavailable | 0 | 0 | 0 | 1 |
-| Official review unstarted in this audit | 3,829 | 3,814 | 6,601 | 6,527 |
-| Runtime records corrected | 0 | 4 | 0 | 68 |
+| Official review unstarted in this audit | 3,829 | 3,809 | 6,601 | 6,527 |
+| Runtime records corrected | 0 | 7 | 0 | 68 |
 | Runtime records added or removed | 0 | 0 | 0 | 0 |
 | Published result-level LOINC mappings captured in this audit | 0 | 1 | 0 | 9 |
 | Published order-level LOINC mappings captured in this audit | 0 | 0 | 0 | 1 |
@@ -25,7 +25,7 @@ Audit date November 26, 2026. Baseline commit `b81f79958661971bad3a6799d6a0465a7
 
 Quest's additional active row is the existing uncoded `XXX` 24-hour urine reference. It stays outside the numeric published search index. Labcorp's 129 pending rows are directory references held from normal collection. Runtime active status, published indexing and local regional acceptance answer different questions. These counts exclude staff-created data, browser overrides, and patient data.
 
-All 10,430 runtime records have a reproducible inventory and audit status. The field evidence ledger now covers 15 Quest and 74 Labcorp runtime records. Automated page capture is tracked separately. An inventory status does not establish clinical accuracy. A complete national and service-area denominator remains open. The public Labcorp listing comparison and all 23 exact-code exceptions are documented separately.
+All 10,430 runtime records have a reproducible inventory and audit status. The field evidence ledger now covers 20 Quest and 74 Labcorp runtime records. Automated page capture is tracked separately. An inventory status does not establish clinical accuracy. A complete national and service-area denominator remains open. The public Labcorp listing comparison and all 23 exact-code exceptions are documented separately.
 
 ## Labcorp public listing reconciliation
 
@@ -41,13 +41,13 @@ The [manual review queue](MANUAL_REVIEW_REQUIRED.csv) preserves the reason for a
 - The May bulletin accounts for two further calculator holds and one obsolete conversion link. The other five May deletions were absent from the runtime catalog.
 - The January through October archive, excluding the previously reviewed May edition, yielded [259 deleted-order rows covering 258 codes](LABCORP_ARCHIVE_DELETIONS.csv). Eight cart-ready codes were blocked and a ninth, already blocked, gained explicit vendor evidence. The conversion tool removed one candidate pair and two manual-review pairs. One vendor-proposed alternative was added for manual review.
 - Exact-code bulletin changes update stability, Apolipoprotein B volumes and the functional C1 esterase inhibitor rejection criteria. These changes preserve each test's existing shipment rules.
-
 - Labcorp 501533 is blocked before cart selection and public indexing. The exact specialty test page specifies a different preservative and temperature than the historical CDOS route. Receiving-lab confirmation is required before the code can return to the cart.
 - Quest 10676 retains the established urine-only exception and now displays one clear volume-confirmation instruction. The exact public detail page could not be retrieved. The published Quest cytology manual corroborates the specimen type, and local acceptance, volume and stability remain open.
 - Quest 8477 and 1430 retain the directory-listed plasma-vial alternative. The current directory does not establish transfer into a fresh fluoride/oxalate tube for 8477. Quest 8280's preserved UA tube is an alternative to the unpreserved aliquot. Quest 229's sterile cup acceptance remains an explicit receiving-lab confirmation point covered by the existing clinician-facing note.
 - Quest 18634 now plans one red-top, three SSTs and one original lavender EDTA tube. The four refrigerated serum vials are separate from the room-temperature whole blood. Combined serum volume is shown in the handling instructions and no longer treated as the volume of one source route.
 - Quest 18216 retains nine plain red-top source tubes. The displayed three-vial plan is a calculator estimate based on vial capacity. The vendor does not prescribe a fixed transport count.
 - Quest 39749 is discontinued. The calculator retains a historical listing but excludes it from collection and automatic conversion. Quest names 39820 as an alternative. Its target changes from nucleocapsid IgG to total spike antibody.
+- Quest’s November notice corrects BNP plasma stability and the minimum quantity on the supported Aptima swab routes for 91475 and 91477. Male first-catch urine for 91477 is documented separately. Quest 14867 and 14435 already align with the reviewed handling requirements. The Quest November 30 entries for 213, 90137 and 38480 are queued for effective-date review. Ten Quest codes deleted in the reviewed notices were absent from the runtime catalog.
 - Labcorp 164090 now includes published stability and rejection information.
 - Five active runtime routes have an unspecified temperature. One is the uncoded Quest reference, three Quest exact-code sources remain unavailable, and Labcorp 164798's exact source omits shipment temperature.
 - Labcorp 005215's official TAT starts at pickup and is already labeled accordingly in the calculator. No regional substitution was made.
