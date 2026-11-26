@@ -36,12 +36,12 @@
       const labCode=String(r[3]||'');
       if(labCode){
         if(!byCode.has(labCode))byCode.set(labCode,[]);
-        byCode.get(labCode).push({code:r[0],name:r[1],source:sourceType(r),status:'suggested'});
+        byCode.get(labCode).push({code:r[0],name:r[1],source:sourceType(r),status:'suggested',basis:r[6]});
       } else if(Array.isArray(r[8])){
         for(const review of r[8]){
           const code=String(review[0]);
           if(!byCode.has(code))byCode.set(code,[]);
-          byCode.get(code).push({code:r[0],name:r[1],source:sourceType(r),status:'review'});
+          byCode.get(code).push({code:r[0],name:r[1],source:sourceType(r),status:'review',basis:r[6]});
         }
       }
     }
@@ -104,6 +104,11 @@
       (blocked?'<small class="crosswalk-protected">Original do-not-perform reference</small>':'')+'</td>'+
       '<td class="crosswalk-match-cell">'+candidate+basisNote+'</td><td>'+action+'</td></tr>';
   }
+  function reverseReviewNote(match){
+    if(!match.basis)return '';
+    return '<details class="crosswalk-row-note"><summary>Review notes · '+escape(match.code)+
+      '</summary><p>'+escape(match.basis)+'</p></details>';
+  }
   function renderLabcorp(r){
     const matches=r.matches.filter(x=>x.status==='suggested');
     const reviews=r.matches.filter(x=>x.status==='review');
@@ -111,15 +116,16 @@
     if(matches.length){
       content=matches.slice(0,5).map(x=>
           '<strong class="crosswalk-match-name">'+escape(x.code)+' · '+escape(x.name)+'</strong>'+
-          (x.source==='active'?'':'<small class="crosswalk-legacy">Legacy or uncoded reference, verify validity</small>')
+          (x.source==='active'?'':'<small class="crosswalk-legacy">Legacy or uncoded reference, verify validity</small>')+reverseReviewNote(x)
         ).join('')+
         '<span class="crosswalk-state crosswalk-state--possible">Possible match</span>'+
         '<small class="crosswalk-match-caption">Verify clinical equivalence</small>'+
         (matches.length>5?'<small>+'+(matches.length-5)+' additional Quest references in CSV</small>':'');
-    }else if(reviews.length){
-      content='<span class="crosswalk-state crosswalk-state--review">Review related tests</span>'+
+    }
+    if(reviews.length){
+      content=(matches.length?content:'')+'<span class="crosswalk-state crosswalk-state--review">Review related tests</span>'+
         '<div class="crosswalk-related-list">'+reviews.slice(0,4).map(x=>
-          '<span>'+escape(x.code)+' · '+escape(x.name)+'</span>').join('')+
+          '<span>'+escape(x.code)+' · '+escape(x.name)+'</span>'+reverseReviewNote(x)).join('')+
           (reviews.length>4?'<small>+'+(reviews.length-4)+' additional references in CSV</small>':'')+'</div>';
     }
     return '<tr><td><strong class="crosswalk-test-code">'+escape(r.code)+'</strong></td>'+
