@@ -15,4 +15,6 @@
 
 - Reconcile the remaining 111 previously unlisted Labcorp orders for 165 exact-capture field matches. Unmatched fields remain open. Quest 8477 uses the clinic's exact Transport Tube stock label, retaining dedicated gray-top plasma handling; update integration assertions for the explicit naming instruction.
 
-The clinical evidence ledger now covers 442 catalog records. The clinical audit remains open for complete exact-code evidence, CA/NV/NY/FL receiving-lab acceptance, and term- and assay-level verification of crosswalk relationships. See the audit report and flag register for the exact remaining work.
+- Quest public exact-page intake: three seed-route partial comparisons and twelve documented source-access failures; no clinical changes. Prior GitHub integrity workflow passed all 467 tests.
+
+The clinical evidence ledger now covers 457 catalog records. The clinical audit remains open for complete exact-code evidence, CA/NV/NY/FL receiving-lab acceptance, and term- and assay-level verification of crosswalk relationships. See the audit report and flag register for the exact remaining work.

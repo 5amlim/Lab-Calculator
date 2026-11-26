@@ -23,7 +23,7 @@ quest,10140,quest-10140-20260915,active,Not yet reviewed
 quest,10153,quest-10153-expansion-20261027,active,Not yet reviewed
 quest,10156,quest-official-10156-20261115,active,Not yet reviewed
 quest,10162,quest-10162-20260915,active,Not yet reviewed
-quest,10165,seed-94,active,Not yet reviewed
+quest,10165,seed-94,active,Partially verified
 quest,10170,quest-10170-20260915,active,Not yet reviewed
 quest,10177,quest-10177-20260915,active,Not yet reviewed
 quest,10178,quest-10178-20260915,active,Not yet reviewed
@@ -1360,10 +1360,10 @@ quest,2317,quest-2317-20260915,active,Not yet reviewed
 quest,232,quest-combo-232,active,Not yet reviewed
 quest,23244,seed-121,active,Not yet reviewed
 quest,2339,quest-2339-20260915,active,Not yet reviewed
-quest,234,seed-4,active,Not yet reviewed
+quest,234,seed-4,active,Partially verified
 quest,23475,quest-23475-verified-20261114,active,Not yet reviewed
 quest,235,quest-235-20260915,active,Not yet reviewed
-quest,236,quest-236-20260915,active,Not yet reviewed
+quest,236,quest-236-20260915,active,Partially verified
 quest,237,seed-204,active,Not yet reviewed
 quest,2370,quest-2370-20260915,active,Not yet reviewed
 quest,2371,seed-2371-quest-expansion-20260914,active,Not yet reviewed
@@ -1657,7 +1657,7 @@ quest,30290,quest-verified-metal-neuro-batch14-20261117-30290,active,Not yet rev
 quest,30292,quest-30292-20260915,active,Not yet reviewed
 quest,30294,quest-30294-20260915,active,Not yet reviewed
 quest,30298,quest-master-review-30298,blocked,Not yet reviewed
-quest,303,seed-11,active,Not yet reviewed
+quest,303,seed-11,active,Source inaccessible
 quest,30316,quest-master-review-30316,blocked,Not yet reviewed
 quest,30321,quest-30321-20260915,active,Not yet reviewed
 quest,30323,quest-directory-verified-30323,active,Not yet reviewed
@@ -2640,7 +2640,7 @@ quest,4616,quest-verified-unusable-audit-sixth20-20261116-4616,active,Not yet re
 quest,462,quest-462-20260915,active,Not yet reviewed
 quest,4637,quest-verified-unusable-audit-sixth20-20261116-4637,active,Not yet reviewed
 quest,4639,quest-4639-20260915,active,Not yet reviewed
-quest,466,seed-20,active,Not yet reviewed
+quest,466,seed-20,active,Source inaccessible
 quest,4661,quest-4661-20260915,active,Not yet reviewed
 quest,4662,quest-4662-20260915,active,Not yet reviewed
 quest,4663,quest-4663-20260915,active,Not yet reviewed
@@ -2655,7 +2655,7 @@ quest,4689,quest-4689-20260915,active,Not yet reviewed
 quest,469,quest-469-20260915,active,Not yet reviewed
 quest,4696,quest-4696-20260915,active,Not yet reviewed
 quest,4698,seed-60,active,Not yet reviewed
-quest,470,seed-22,active,Not yet reviewed
+quest,470,seed-22,active,Source inaccessible
 quest,4719,quest-4719-20260915,active,Not yet reviewed
 quest,4728,quest-4728-20260915,active,Not yet reviewed
 quest,4732,quest-4732-20260915,active,Not yet reviewed
@@ -2663,8 +2663,8 @@ quest,4741,quest-4741-20260915,active,Not yet reviewed
 quest,478,quest-478-20260915,active,Not yet reviewed
 quest,480,quest-official-480-20261114,active,Not yet reviewed
 quest,481,quest-481-20260915,active,Not yet reviewed
-quest,482,seed-23,active,Not yet reviewed
-quest,483,quest-483-20260915,active,Not yet reviewed
+quest,482,seed-23,active,Source inaccessible
+quest,483,quest-483-20260915,active,Source inaccessible
 quest,484,quest-484-20260915,active,Not yet reviewed
 quest,4847,seed-61,active,Not yet reviewed
 quest,4848,quest-4848-20260915,active,Not yet reviewed
@@ -2687,7 +2687,7 @@ quest,498,seed-25,active,Not yet reviewed
 quest,499,quest-499-20260915,active,Not yet reviewed
 quest,4990,quest-4990-20260915,active,Not yet reviewed
 quest,500,seed-247,active,Not yet reviewed
-quest,501,quest-501-20260915,active,Not yet reviewed
+quest,501,quest-501-20260915,active,Source inaccessible
 quest,5014,quest-5014-20260915,blocked,Not yet reviewed
 quest,5019,quest-5019-20260915,active,Not yet reviewed
 quest,502,quest-502-20260915,active,Not yet reviewed
@@ -2697,7 +2697,7 @@ quest,5042,quest-5042-20260915,active,Not yet reviewed
 quest,5059,seed-215,active,Not yet reviewed
 quest,508,quest-508-20260915,active,Not yet reviewed
 quest,5081,seed-63,active,Not yet reviewed
-quest,509,quest-509-20260915,active,Not yet reviewed
+quest,509,quest-509-20260915,active,Source inaccessible
 quest,510,quest-510-20260915,active,Not yet reviewed
 quest,511,quest-511-20260915,active,Not yet reviewed
 quest,512,quest-512-20260915,active,Not yet reviewed
@@ -2806,7 +2806,7 @@ quest,6085,quest-6085-20260915,active,Not yet reviewed
 quest,6086,quest-master-review-6086,blocked,Not yet reviewed
 quest,613,quest-613-20260915,active,Not yet reviewed
 quest,6145,quest-directory-verified-6145,active,Not yet reviewed
-quest,615,seed-32,active,Not yet reviewed
+quest,615,seed-32,active,Source inaccessible
 quest,6179,quest-master-review-6179,blocked,Not yet reviewed
 quest,618,quest-618-20260915,active,Not yet reviewed
 quest,6183,quest-verified-unusable-audit-seventh20-20261116-6183,active,Not yet reviewed
@@ -2931,7 +2931,7 @@ quest,7037,quest-master-review-7037,blocked,Not yet reviewed
 quest,7048,quest-7048-20260915,active,Not yet reviewed
 quest,706,quest-master-706-verified-20261115,active,Not yet reviewed
 quest,7064,quest-7064-20260915,active,Not yet reviewed
-quest,7065,seed-77,active,Not yet reviewed
+quest,7065,seed-77,active,Source inaccessible
 quest,7079,quest-7079-20260915,active,Not yet reviewed
 quest,708,quest-708-20260915,active,Not yet reviewed
 quest,7083,seed-207,active,Not yet reviewed
@@ -3071,7 +3071,7 @@ quest,8347,quest-8347-20260915,active,Not yet reviewed
 quest,8352,quest-8352-20260915,active,Not yet reviewed
 quest,8355,quest-verified-audit-eighth20-20261116-8355,active,Not yet reviewed
 quest,8357,quest-verified-audit-eighth20-20261116-8357,active,Not yet reviewed
-quest,836,quest-836-20260915,active,Not yet reviewed
+quest,836,quest-836-20260915,active,Source inaccessible
 quest,8360,quest-8360-20260915,active,Not yet reviewed
 quest,8369,quest-8369-20260915,active,Not yet reviewed
 quest,838,quest-verified-unusable-audit-41-60-20261116-838,active,Not yet reviewed
@@ -3122,7 +3122,7 @@ quest,8631,quest-verified-audit-ninth20-20261116-8631,active,Not yet reviewed
 quest,8636,seed-89,active,Not yet reviewed
 quest,8658,quest-8658-20260915,active,Not yet reviewed
 quest,8659,seed-90,active,Official information unavailable
-quest,866,seed-46,active,Not yet reviewed
+quest,866,seed-46,active,Source inaccessible
 quest,867,seed-47,active,Not yet reviewed
 quest,8683,quest-8683-20260915,active,Not yet reviewed
 quest,870,quest-870-20260915,active,Not yet reviewed
@@ -3248,7 +3248,7 @@ quest,90477,quest-master-review-90477,blocked,Not yet reviewed
 quest,90479,quest-master-review-90479,blocked,Not yet reviewed
 quest,90482,quest-90482-20260915,active,Not yet reviewed
 quest,90489,quest-90489-20260915,active,Not yet reviewed
-quest,905,seed-50,active,Not yet reviewed
+quest,905,seed-50,active,Source inaccessible
 quest,90509,quest-90509-20260915,active,Not yet reviewed
 quest,90510,quest-90510-20260915,active,Not yet reviewed
 quest,90511,quest-90511-20260915,active,Not yet reviewed

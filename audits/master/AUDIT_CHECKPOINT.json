@@ -11,11 +11,11 @@
     "labcorp": 0
   },
   "reviewedOrAttempted": {
-    "quest": 46,
+    "quest": 61,
     "labcorp": 396
   },
   "notYetReviewed": {
-    "quest": 3783,
+    "quest": 3768,
     "labcorp": 6205
   },
   "recordStatusSource": "FIELD_EVIDENCE.json. Every catalog row without a key has status Not yet reviewed.",
@@ -461,7 +461,22 @@
     "labcorp:010447",
     "labcorp:010505",
     "labcorp:010991",
-    "labcorp:011254"
+    "labcorp:011254",
+    "quest:234",
+    "quest:236",
+    "quest:10165",
+    "quest:470",
+    "quest:482",
+    "quest:483",
+    "quest:615",
+    "quest:303",
+    "quest:466",
+    "quest:509",
+    "quest:501",
+    "quest:836",
+    "quest:905",
+    "quest:866",
+    "quest:7065"
   ],
   "inventoryCommand": "node scripts/audit-calculator-database.mjs --out ../calculator-current-report --check",
   "continueFrom": "Enumerate TEST_INVENTORY.csv where verification is Not yet reviewed, keeping laboratory and exact test code as strings. Use the appropriate service-area evidence and review every applicable route before marking a record fully verified.",
@@ -593,5 +608,12 @@
     "controlledHeadlessPagesBefore": 22,
     "controlledHeadlessPagesAfter": 22,
     "documentedPreparationChange": "Quest 17306 now shows that fasting is preferred and optional."
+  },
+  "questPublicIntake": {
+    "date": "2026-11-26",
+    "attempted": 15,
+    "seedRoutePartialComparisons": 3,
+    "browserInterstitial": 12,
+    "remaining": "Retry alternate canonical or receiving-service-area URL; no clinical claim for blocked captures."
   }
 }

@@ -27,3 +27,7 @@ The collection review regressions check exact-code search, custom and saved data
 The latest browser run checked three corrected Labcorp codes at 390 px and 1280 px. All three appeared in one refrigerated bag, and 001637 showed fasting as required. The Quest baseline kept its collection groups and all bag totals, with the expected optional fasting update for 17306.
 
 Quest 16983 browser checks at 390 px and 1280 px verified a five-source-tube plan, one frozen bag containing two 5 mL pour-off tubes, and the New York restriction in print. The 78-test Quest baseline still matched the 46 collection containers and all bag totals.
+
+### November 26 follow-up
+
+GitHub Actions run [45898373589](https://github.com/5amlim/Lab-Calculator/actions/runs/45898373589) passed the catalog integrity step and all 467 tests (0 failed, 0 skipped), including the exact 8477 stock-label integration check. This result applies to commit `dd2b2e28fa0340e81a46073b1f6bbb19d9be6748`; later commits require fresh verification.

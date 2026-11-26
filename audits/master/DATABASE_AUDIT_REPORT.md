@@ -13,18 +13,18 @@ Audit date November 26, 2026. Baseline commit `b81f79958661971bad3a6799d6a0465a7
 | Blocked runtime records | 514 | 514 | 455 | 457 |
 | Pending runtime records | 0 | 0 | 131 | 129 |
 | Fully clinically verified in this audit | 0 | 0 | 0 | 0 |
-| Partially verified in this audit | 0 | 35 | 0 | 363 |
+| Partially verified in this audit | 0 | 38 | 0 | 363 |
 | Clinical conflict recorded | 0 | 4 | 0 | 1 |
-| Current source inaccessible | 0 | 4 | 0 | 0 |
+| Current source inaccessible | 0 | 16 | 0 | 0 |
 | Specific official field unavailable | 0 | 2 | 0 | 2 |
-| Official review unstarted in this audit | 3,829 | 3,783 | 6,601 | 6,205 |
+| Official review unstarted in this audit | 3,829 | 3,768 | 6,601 | 6,205 |
 | Runtime records added or removed | 0 | 0 | 0 | 0 |
 
 The active catalogs retain every baseline code and record ID. A collection review flag keeps a test visible in search and addable to the cart. The cart, printout and CSV show the reason. The specimen plan excludes those routes from automatic collection counts, submission bags and STAT. The converter does not propose those flagged orders as candidates. The [flag register](COLLECTION_REVIEW_FLAGS.csv) has all 35 codes, reasons and sources. Two previously pending Labcorp codes now appear in the exclusions register under vendor deletion notices.
 
 Quest also contains an uncoded active `XXX` 24-hour urine reference outside the numeric search index. Its shipment temperature remains an open audit warning. The counts exclude browser overrides, staff-created tests and patient data.
 
-All 10,430 runtime records have a reproducible inventory. The field evidence ledger covers 46 Quest and 396 Labcorp records. Separate Labcorp intake attempted 385 public pages and captured 381 exact order pages. Clinical verification, national catalog completeness and service-area acceptance remain open.
+All 10,430 runtime records have a reproducible inventory. The field evidence ledger covers 61 Quest and 396 Labcorp records. Separate Labcorp intake attempted 385 public pages and captured 381 exact order pages. Clinical verification, national catalog completeness and service-area acceptance remain open.
 
 ## Labcorp public listing reconciliation
 
@@ -116,3 +116,7 @@ The available public sources establish individual test fields and show why local
 
 
 Continue the unexplored exact-code Quest and Labcorp records from the record inventory. The [collection-to-submission review queue](COLLECTION_SUBMISSION_COUNT_REVIEW.csv) captures 16 Quest and 27 Labcorp records flagged for high draw-to-vial ratios. The queue retains the verified Labcorp 120089 finding for traceability. The remaining entries are review triggers. Compare the receiving laboratory’s documented aliquot counts and the actual transport vial capacity before changing a plan. Resolve held specimen routes and calculate manual review priority for active tests with missing temperature, suspected discrepancies in declared versus calculated aliquot counts, and mixed or dedicated draws. Reconcile official catalog omissions, current discontinuations, regional acceptance, and special instructions in free text. Obtain authorized vendor extracts for order and result LOINC, verify candidate and unpaired orders from both sides, and record clinically significant panel and method differences. Review the index, cart, bag and print UI in supported browsers before deployment. A structural pass or passing test suite does not close these tasks.
+
+### Quest exact-page intake and regression checkpoint
+
+Compared public exact pages for 234, 236 and 10165 with the committed seed route. The listed fields agree; additional stability detail, runtime overlays and service-area requirements remain open. Twelve other exact MASTER URLs returned a browser interstitial and remain unverified. No clinical data or stock conventions were changed in this pass. GitHub Actions run 45898373589 completed successfully: 467 tests passed, zero failed, including the 8477 label and mixed physical-plan checks. New evidence-only commit requires its own CI run.

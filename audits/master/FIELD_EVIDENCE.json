@@ -7530,5 +7530,167 @@
         "sourceSha256": "3b46a9c750e59f506da76d6db17268d16330d30777dacb95fceda4861b8b21d2"
       }
     }
+  },
+  "quest:234": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/234/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Compared committed seed route. Directory also gives 7 days ambient and refrigerated, 28 days frozen; stored summary is 7 days. Additional stability detail and interference guidance remain to be reconciled at runtime; local acceptance remains open.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Serum preferred."
+      },
+      "preferredVolume": {
+        "evidence": "1 mL."
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL."
+      },
+      "transportContainer": {
+        "evidence": "SST; existing spun-SST stock label retained."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient."
+      }
+    }
+  },
+  "quest:236": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/236/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Compared committed seed route. Existing seed also documents peak/trough timing and rejection of SST or heparin plasma. Runtime overlay and service-area review remain open.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Serum."
+      },
+      "drawContainer": {
+        "evidence": "Plain red top, no gel."
+      },
+      "preferredVolume": {
+        "evidence": "1 mL."
+      },
+      "minimumVolume": {
+        "evidence": "0.2 mL."
+      },
+      "transportContainer": {
+        "evidence": "Transport Tube."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient."
+      },
+      "stability": {
+        "evidence": "7 days at ambient, refrigerated or frozen."
+      }
+    }
+  },
+  "quest:10165": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/10165/basic-metabolic-panel?cc=MASTER&p=r",
+    "date": "2026-11-26",
+    "note": "Compared committed seed route; 72-hour stored summary matches ambient stability. Directory additionally gives 72 hours refrigerated and 28 days frozen. Runtime and regional review remain open.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Serum."
+      },
+      "preferredVolume": {
+        "evidence": "1 mL."
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL."
+      },
+      "transportContainer": {
+        "evidence": "SST; spun SST accepted."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient."
+      },
+      "fastingStatus": {
+        "evidence": "Preferred rather than mandatory."
+      }
+    }
+  },
+  "quest:470": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/470/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Exact public MASTER URL returned browser upgrade interstitial, not collection requirements. No clinical fields verified; retry a service-area or canonical detail URL. Existing active route unchanged.",
+    "fields": {}
+  },
+  "quest:482": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/482/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Exact public MASTER URL returned browser upgrade interstitial, not collection requirements. No clinical fields verified; retry a service-area or canonical detail URL. Existing active route unchanged.",
+    "fields": {}
+  },
+  "quest:483": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/483/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Exact public MASTER URL returned browser upgrade interstitial, not collection requirements. No clinical fields verified; retry a service-area or canonical detail URL. Existing active route unchanged.",
+    "fields": {}
+  },
+  "quest:615": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/615/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Exact public MASTER URL returned browser upgrade interstitial, not collection requirements. No clinical fields verified; retry a service-area or canonical detail URL. Existing active route unchanged.",
+    "fields": {}
+  },
+  "quest:303": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/303/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Exact public MASTER URL returned browser upgrade interstitial, not collection requirements. No clinical fields verified; retry a service-area or canonical detail URL. Existing active route unchanged.",
+    "fields": {}
+  },
+  "quest:466": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/466/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Exact public MASTER URL returned browser upgrade interstitial, not collection requirements. No clinical fields verified; retry a service-area or canonical detail URL. Existing active route unchanged.",
+    "fields": {}
+  },
+  "quest:509": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/509/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Exact public MASTER URL returned browser upgrade interstitial, not collection requirements. No clinical fields verified; retry a service-area or canonical detail URL. Existing active route unchanged.",
+    "fields": {}
+  },
+  "quest:501": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/501/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Exact public MASTER URL returned browser upgrade interstitial, not collection requirements. No clinical fields verified; retry a service-area or canonical detail URL. Existing active route unchanged.",
+    "fields": {}
+  },
+  "quest:836": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/836/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Exact public MASTER URL returned browser upgrade interstitial, not collection requirements. No clinical fields verified; retry a service-area or canonical detail URL. Existing active route unchanged.",
+    "fields": {}
+  },
+  "quest:905": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/905/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Exact public MASTER URL returned browser upgrade interstitial, not collection requirements. No clinical fields verified; retry a service-area or canonical detail URL. Existing active route unchanged.",
+    "fields": {}
+  },
+  "quest:866": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/866/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Exact public MASTER URL returned browser upgrade interstitial, not collection requirements. No clinical fields verified; retry a service-area or canonical detail URL. Existing active route unchanged.",
+    "fields": {}
+  },
+  "quest:7065": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/7065/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Exact public MASTER URL returned browser upgrade interstitial, not collection requirements. No clinical fields verified; retry a service-area or canonical detail URL. Existing active route unchanged.",
+    "fields": {}
   }
 }
