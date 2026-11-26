@@ -3,16 +3,17 @@
     "quest": {
       "total": 3829,
       "rawLoaded": 3829,
-      "indexed": 3314,
+      "indexed": 3313,
       "statuses": {
-        "active": 3315,
-        "blocked": 514
+        "active": 3314,
+        "blocked": 515
       },
       "verification": {
         "Clinical conflict": 1,
-        "Not yet reviewed": 3817,
-        "Partially verified": 7,
-        "Source inaccessible": 4
+        "Discontinued": 1,
+        "Not yet reviewed": 3814,
+        "Partially verified": 10,
+        "Source inaccessible": 3
       }
     },
     "labcorp": {
@@ -26,36 +27,42 @@
       },
       "verification": {
         "Clinical conflict": 1,
-        "Not yet reviewed": 6595,
+        "Not yet reviewed": 6592,
         "Official information unavailable": 1,
-        "Partially verified": 4
+        "Partially verified": 7
       }
     }
   },
   "crosswalk": {
-    "candidatePairs": 1456,
-    "questCodesWithCandidate": 1456,
-    "labcorpCodesWithCandidate": 1396,
-    "relationshipRows": 2258,
+    "candidatePairs": 1455,
+    "questCodesWithCandidate": 1455,
+    "labcorpCodesWithCandidate": 1395,
+    "relationshipRows": 2257,
     "activeReviewPairs": 800,
     "unmatchedQuestRows": 1227,
-    "representedQuestCodes": 3314
+    "representedQuestCodes": 3313
   },
   "changes": {
     "quest": {
       "added": [],
       "removed": [],
       "modified": [
-        "10676|quest-tc-20261125-10676"
+        "10676|quest-tc-20261125-10676",
+        "18216|quest-verified-unusable-audit-next100b-20261116-18216",
+        "18634|quest-18634-verified-20261027",
+        "39749|seed-153"
       ],
       "verificationChanged": [
         "10676|quest-tc-20261125-10676",
         "1430|quest-official-1430-20261114",
         "16802|seed-109",
+        "18216|quest-verified-unusable-audit-next100b-20261116-18216",
+        "18634|quest-18634-verified-20261027",
         "229|quest-official-229-20261114",
         "34329|seed-130",
         "34499|seed-134",
         "39749|seed-153",
+        "39820|quest-39820-20260915",
         "467|seed-21",
         "6447|seed-72",
         "8280|quest-official-8280-20261114",
@@ -67,12 +74,16 @@
       "added": [],
       "removed": [],
       "modified": [
+        "164090|labcorp-directory-next-164090",
         "501533|labcorp-501533"
       ],
       "verificationChanged": [
+        "004291|labcorp-004291",
         "005215|labcorp-005215",
         "028142|labcorp-028142",
         "102525|labcorp-102525",
+        "123075|labcorp-compendium-review-123075",
+        "164090|labcorp-directory-next-164090",
         "164798|labcorp-164798",
         "310|labcorp-verified-20261120-next-310",
         "501533|labcorp-501533"
@@ -82,9 +93,14 @@
       "added": [
         "active|937|028142|"
       ],
-      "removed": [],
+      "removed": [
+        "active|39749|164068|"
+      ],
       "modified": [
-        "active|16802|102525|"
+        "active|16802|102525|",
+        "active|39820|164090|",
+        "active|229|004291|",
+        "active|18216|123075|"
       ]
     },
     "rules": {
@@ -104,7 +120,8 @@
         "regional-tat",
         "search-code-and-aliases",
         "print-separate-physical-routes",
-        "crosswalk-review-only"
+        "crosswalk-review-only",
+        "quest-39749-discontinued"
       ],
       "removed": [],
       "modified": []
@@ -123,13 +140,6 @@
       "issue": "temperature-needs-review",
       "lab": "quest",
       "key": "34499|seed-134|0",
-      "detail": "Not specified"
-    },
-    {
-      "severity": "warning",
-      "issue": "temperature-needs-review",
-      "lab": "quest",
-      "key": "39749|seed-153|0",
       "detail": "Not specified"
     },
     {
@@ -155,7 +165,7 @@
     }
   ],
   "tests": {
-    "passed": 457,
+    "passed": 459,
     "failed": 0,
     "skipped": 0
   },
@@ -163,10 +173,10 @@
   "newTestsAdded": 0,
   "verifiedResultLoincMappings": {
     "quest": 1,
-    "labcorp": 2
+    "labcorp": 9
   },
   "verifiedOrderLoincMappings": {
     "quest": 0,
-    "labcorp": 0
+    "labcorp": 1
   }
 }
