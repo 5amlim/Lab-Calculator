@@ -42,5 +42,17 @@
     "date": "2026-11-25",
     "evidence": "Both orders measure total spike antibody semi-quantitatively. Acceptable matrices and shipment/storage differ.",
     "approvalStatus": "Confirm the requested results and receiving-laboratory requirements."
+  },
+  "92473|489477": {
+    "classification": "Candidate alternative with meaningful differences",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/92473?cc=MASTER",
+    "labcorpUrl": "https://www.labcorp.com/tests/489477/jak2v617f-digital",
+    "additionalSources": [
+      "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW9%20-%20Diagnostics%20Update%20September%202026.pdf"
+    ],
+    "date": "2026-11-26",
+    "previousSourcePair": "92473|489200 and 92473|481020",
+    "evidence": "Labcorp replaced two retired order options with digital PCR reporting percent mutant alleles. Confirm assay, specimen and reporting against the requested Quest order.",
+    "approvalStatus": "Manual review only. Never send as an automatic match."
   }
 }
