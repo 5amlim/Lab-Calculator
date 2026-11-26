@@ -94,7 +94,7 @@ labcorp,collect,Royal Blue EDTA (Metal-Free),4,Runtime inventoried; per-route of
 labcorp,collect,Royal Blue EDTA (purple stripe),40,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Royal Blue Top (EDTA),1,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Royal Blue Top (No Additive),1,Runtime inventoried; per-route official verification tracked separately
-labcorp,collect,SST / Gold,3073,Runtime inventoried; per-route official verification tracked separately
+labcorp,collect,SST / Gold,3072,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,SST / Tiger,3,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Salivette,21,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Salivette Kit (123724),6,Runtime inventoried; per-route official verification tracked separately
@@ -275,7 +275,7 @@ labcorp,submit,Royal Blue EDTA,8,Runtime inventoried; per-route official verific
 labcorp,submit,Royal Blue EDTA (original tube),3,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Royal Blue EDTA (purple stripe),20,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,SST / Gold (spun original tube),1,Runtime inventoried; per-route official verification tracked separately
-labcorp,submit,SST / Gold (spun),2336,Runtime inventoried; per-route official verification tracked separately
+labcorp,submit,SST / Gold (spun),2335,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,"SST / Gold (spun), room temperature; separate serum transport tube refrigerated",1,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,"SST / Gold (spun, original tube)",1,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,"SST / Gold (spun, original unopened tube)",1,Runtime inventoried; per-route official verification tracked separately
