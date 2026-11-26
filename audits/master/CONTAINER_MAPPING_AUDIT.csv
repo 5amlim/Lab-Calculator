@@ -364,7 +364,7 @@ quest,collect,Red Top,331,Runtime inventoried; per-route official verification t
 quest,collect,Royal Blue EDTA,1,Runtime inventoried; per-route official verification tracked separately
 quest,collect,Royal Blue EDTA (purple stripe),45,Runtime inventoried; per-route official verification tracked separately
 quest,collect,Royal Blue No Additive (red stripe),28,Runtime inventoried; per-route official verification tracked separately
-quest,collect,SST / Gold,1475,Runtime inventoried; per-route official verification tracked separately
+quest,collect,SST / Gold,1474,Runtime inventoried; per-route official verification tracked separately
 quest,collect,Salivette,4,Runtime inventoried; per-route official verification tracked separately
 quest,collect,Sterile Transport Tube,2,Runtime inventoried; per-route official verification tracked separately
 quest,collect,Sterile cup,432,Runtime inventoried; per-route official verification tracked separately
@@ -442,7 +442,7 @@ quest,submit,ThinPrep vial (swab transferred immediately),1,Runtime inventoried;
 quest,submit,Total-Fix® Transport Vial,8,Runtime inventoried; per-route official verification tracked separately
 quest,submit,Trace Metal-Free Plastic Container,55,Runtime inventoried; per-route official verification tracked separately
 quest,submit,Trace-element and metal-free RBC transport tube,5,Runtime inventoried; per-route official verification tracked separately
-quest,submit,Transport Tube,1416,Runtime inventoried; per-route official verification tracked separately
+quest,submit,Transport Tube,1415,Runtime inventoried; per-route official verification tracked separately
 quest,submit,Transport Tube (original tube),9,Runtime inventoried; per-route official verification tracked separately
 quest,submit,UA Transport Tube (Red/Yellow Swirl),1,Runtime inventoried; per-route official verification tracked separately
 quest,submit,"Urinalysis Transport Tube (Yellow-Top, Blue Fill Line)",4,Runtime inventoried; per-route official verification tracked separately
