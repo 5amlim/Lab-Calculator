@@ -19,28 +19,28 @@
     "labcorp": {
       "total": 6601,
       "rawLoaded": 6601,
-      "indexed": 5995,
+      "indexed": 5987,
       "statuses": {
-        "active": 5995,
-        "blocked": 477,
+        "active": 5987,
+        "blocked": 485,
         "pending": 129
       },
       "verification": {
         "Clinical conflict": 1,
-        "Discontinued": 21,
-        "Not yet reviewed": 6536,
+        "Discontinued": 30,
+        "Not yet reviewed": 6527,
         "Official information unavailable": 1,
         "Partially verified": 42
       }
     }
   },
   "crosswalk": {
-    "candidatePairs": 1449,
-    "questCodesWithCandidate": 1449,
-    "labcorpCodesWithCandidate": 1389,
-    "relationshipRows": 2251,
-    "activeReviewPairs": 800,
-    "unmatchedQuestRows": 1233,
+    "candidatePairs": 1448,
+    "questCodesWithCandidate": 1448,
+    "labcorpCodesWithCandidate": 1388,
+    "relationshipRows": 2249,
+    "activeReviewPairs": 799,
+    "unmatchedQuestRows": 1234,
     "representedQuestCodes": 3313
   },
   "changes": {
@@ -92,6 +92,7 @@
         "085340|labcorp-085340",
         "102525|labcorp-102525",
         "120220|labcorp-120220",
+        "123027|labcorp-verified-20261118-batch36-123027",
         "140244|labcorp-140244",
         "140768|labcorp-140768",
         "140822|labcorp-140822",
@@ -120,16 +121,24 @@
         "164947|labcorp-164947",
         "165126|labcorp-165126",
         "165142|labcorp-165142",
+        "165750|labcorp-directory-20261118-165750",
         "167015|labcorp-167015",
         "340897|labcorp-340897",
         "382965|labcorp-382965",
+        "481020|labcorp-verified-20261120-481020",
+        "483496|labcorp-483496",
+        "489200|labcorp-verified-20261120-489200",
         "500108|labcorp-500108",
         "500124|labcorp-compendium-review-500124",
         "500152|labcorp-500152",
         "500161|labcorp-500161",
         "500167|labcorp-500167",
+        "500309|labcorp-directory-next-500309",
         "501533|labcorp-501533",
         "520117|labcorp-520117",
+        "602666|labcorp-602666",
+        "620009|labcorp-verified-20261116-batch22-620009",
+        "620046|labcorp-620046",
         "700433|labcorp-directory-next-700433",
         "706200|labcorp-compendium-review-706200",
         "717009|labcorp-717009",
@@ -156,6 +165,7 @@
         "085340|labcorp-085340",
         "102525|labcorp-102525",
         "120220|labcorp-120220",
+        "123027|labcorp-verified-20261118-batch36-123027",
         "123075|labcorp-compendium-review-123075",
         "140244|labcorp-140244",
         "140768|labcorp-140768",
@@ -186,17 +196,25 @@
         "164947|labcorp-164947",
         "165126|labcorp-165126",
         "165142|labcorp-165142",
+        "165750|labcorp-directory-20261118-165750",
         "167015|labcorp-167015",
         "310|labcorp-verified-20261120-next-310",
         "340897|labcorp-340897",
         "382965|labcorp-382965",
+        "481020|labcorp-verified-20261120-481020",
+        "483496|labcorp-483496",
+        "489200|labcorp-verified-20261120-489200",
         "500108|labcorp-500108",
         "500124|labcorp-compendium-review-500124",
         "500152|labcorp-500152",
         "500161|labcorp-500161",
         "500167|labcorp-500167",
+        "500309|labcorp-directory-next-500309",
         "501533|labcorp-501533",
         "520117|labcorp-520117",
+        "602666|labcorp-602666",
+        "620009|labcorp-verified-20261116-batch22-620009",
+        "620046|labcorp-620046",
         "700433|labcorp-directory-next-700433",
         "706200|labcorp-compendium-review-706200",
         "717009|labcorp-717009",
@@ -205,16 +223,20 @@
     },
     "relations": {
       "added": [
-        "active|937|028142|"
+        "active|937|028142|",
+        "active|92473|489477|"
       ],
       "removed": [
+        "active|11368|500309|",
         "active|17180|070085|",
         "active|17182|004705|",
         "active|17183|500167|",
         "active|19894|004100|",
         "active|30289|140244|",
         "active|34309|164000|",
-        "active|39749|164068|"
+        "active|39749|164068|",
+        "active|92473|481020|",
+        "active|92473|489200|"
       ],
       "modified": [
         "active|16802|102525|",
@@ -314,13 +336,13 @@
     "cdosMissing": 0,
     "runtimeAbsentFromBoth": 69,
     "dispositionInPublic": {
-      "active": 3017,
-      "blocked": 246,
+      "active": 3014,
+      "blocked": 249,
       "pending": 17
     },
     "dispositionInCdos": {
-      "active": 5941,
-      "blocked": 445,
+      "blocked": 447,
+      "active": 5939,
       "pending": 124
     }
   }
