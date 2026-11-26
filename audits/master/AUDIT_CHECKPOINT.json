@@ -131,10 +131,12 @@
     }
   },
   "exactPageIntake": {
-    "publicPagesAttempted": 73,
-    "cdosPagesAttempted": 62,
+    "publicPagesAttempted": 117,
+    "cdosPagesAttempted": 108,
     "interpretation": "Capture and code identity are intake milestones. Field-level adjudication remains in FIELD_EVIDENCE.json.",
     "checkpoint": "LABCORP_EXACT_PAGE_CHECKPOINT.csv",
-    "resume": "Use scripts/audit-labcorp-public-sources.py with a dated sitemap, CDOS export, runtime inventory and retained JSONL working checkpoint."
+    "resume": "Use scripts/audit-labcorp-public-sources.py with a dated sitemap, CDOS export, runtime inventory and retained JSONL working checkpoint.",
+    "pendingWithExactPage": 110,
+    "pendingRecords": 130
   }
 }
