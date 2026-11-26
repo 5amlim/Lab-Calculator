@@ -1,0 +1,4 @@
+lab,orderCode,resultCode,loinc,kind,scope,orderLoinc,source,accessDate,status
+quest,467,55066600,2283-0,result,East,,https://testdirectory.questdiagnostics.com/test/test-detail/467/folate-rbc?cc=PHP&p=r&q=467,2026-11-25,Quest published result; LOINC term active at https://loinc.org/2283-0
+labcorp,164798,164773,13947-7,result,Public directory,,https://www.labcorp.com/tests/164798/coccidioides-immitis-antibodies-igg-and-igm-eia,2026-11-25,Labcorp published result; order LOINC blank
+labcorp,164798,164781,13948-5,result,Public directory,,https://www.labcorp.com/tests/164798/coccidioides-immitis-antibodies-igg-and-igm-eia,2026-11-25,Labcorp published result; order LOINC blank
