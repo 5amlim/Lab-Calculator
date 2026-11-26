@@ -3,6 +3,47 @@
 
   // 2026-11-21: hard exclusions from the previously directory-only Labcorp 273.
   // Unknown availability, unverified kits, and uncertain transport protocols remain directory-only.
+  // Labcorp Diagnostics Update, November 2026, Deleted Tests.
+  const NOVEMBER_2026_LABCORP_DELETIONS = Object.freeze({
+    "004705": "004774",
+    "500152": "004774",
+    "004100": "004389",
+    "140768": "004389",
+    "231819": "",
+    "231821": "",
+    "231822": "",
+    "231823": "",
+    "231824": "",
+    "231825": "",
+    "231826": "",
+    "144691": "",
+    "146315": "",
+    "146316": "",
+    "146317": "",
+    "146318": "",
+    "146319": "",
+    "146321": "",
+    "500161": "005165",
+    "500108": "004575",
+    "140244": "004575",
+    "500124": "160117",
+    "070085": "005134",
+    "070037": "",
+    "070078": "",
+    "070083": "",
+    "070090": "",
+    "070120": "",
+    "070132": "",
+    "070145": "",
+    "252773": "899337",
+    "252777": "899337",
+    "252780": "899337",
+    "252784": "899337",
+    "252794": "899337",
+    "500167": "005148"
+  });
+  const NOVEMBER_2026_LABCORP_NOTICE = 'https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf';
+
   const REVIEWED_DNP_GROUPS_20261121 = [
     { reason: "Requires acid-preserved urine, which the clinic does not collect.", codes: "007351" },
     { reason: "Requires a prepared blood film. The clinic does not prepare slides or smears.", codes: "150201" },
@@ -663,6 +704,14 @@
 
 
   function applySpecimenExclusions(test) {
+    const code = String(test.testCode || '').trim();
+    if (Object.hasOwn(NOVEMBER_2026_LABCORP_DELETIONS, code)) {
+      const alternate = NOVEMBER_2026_LABCORP_DELETIONS[code];
+      return { ...test, status: 'blocked', source: NOVEMBER_2026_LABCORP_NOTICE,
+        specialInstructions: 'Labcorp listed this order as deleted in its November 2026 notice. Do not collect for this code. '
+          + (alternate ? 'Labcorp lists ' + alternate + ' as an alternative. Confirm the requested test and collection requirements before changing the order.'
+            : 'Contact Labcorp to confirm testing options.') };
+    }
     // The exact specialty order conflicts with the CDOS route in the catalog.
     // Apply the hold by code so historical browser overrides cannot bypass it.
     if (String(test.testCode || '').trim() === '501533') {
@@ -709,7 +758,14 @@
       const blocked = blockedByCode.get(test.testCode);
       return blocked ? { ...test, status: 'blocked', specialInstructions: blocked.specialInstructions } : test;
     });
-    return [...customTests, ...builtIns].map(verifiedAffirmRecord).map(blockHairOrNailSpecimen).map(applySpecimenExclusions);
+    return [...customTests, ...builtIns]
+      .map(verifiedAffirmRecord)
+      .map(blockHairOrNailSpecimen)
+      .map(applySpecimenExclusions)
+      .map(test => {
+        const update = window.LabcorpNovember2026Updates?.get(test.testCode);
+        return update && test.status === 'active' ? { ...test, ...update } : test;
+      });
   }
 
   function verifiedAffirmRecord(test) {
