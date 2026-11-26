@@ -1,0 +1,211 @@
+# Additional alias and scope crosswalk review
+
+Catalog-only comparisons, not verified clinical equivalence. 46 candidate relationships and 152 newly referenced Quest rows for manual review. Prior mappings and explicit exclusions retained. No collection or cart policy changed. Candidate pairs still require official directory confirmation before ordering.
+
+Before: {"questMatchedActive":1359,"labcorpMatched":1304,"questReviewedOnly":457,"labcorpReviewedOnly":420}
+
+After: {"questMatchedActive":1405,"labcorpMatched":1347,"questReviewedOnly":605,"labcorpReviewedOnly":553}
+
+## Candidate additions
+
+- 396 / 004036: hCG, Qualitative, Urine / Pregnancy Test, Urine
+- 902 / 700198: Tyrosine / Tyrosine, Qn, P
+- 959 / 700192: Tryptophan / Tryptophan, Qn, P
+- 1304 / 010991: pH, Feces / pH, Stool
+- 7286 / 001214: Bilirubin, Fractionated / Bilirubin, Total and Direct (Including Indirect)
+- 7008 / 028142: Hemogram / Complete Blood Count (CBC) Without Differential
+- 92019 / 851543: Levofloxacin Level / Levofloxacin, HPLC
+- 90854 / 007930: Clorazepate (Tranxene®) / Clorazepate, Serum or Plasma
+- 18148 / 139835: Post-Transplant, Varicella-Zoster Virus DNA, Real-Time PCR, CSF / Varicella-Zoster Virus DNA PCR, Cerebrospinal Fluid
+- 18070 / 138644: Post-Transplant, Parvovirus B19 DNA, Real-Time PCR, Blood / Parvovirus B19, DNA PCR
+- 40085 / 550430: HIV-1 RNA, Quantitative, Real-Time PCR / Human Immunodeficiency Virus 1 (HIV-1), Quantitative,Real-time PCR (Nongraphical)
+- 92018 / 081732: Ethambutol Level / Ethambutol, GC/MS
+- 92184 / 081712: Pyrazinamide Level / Pyrazinamide, GC/MS
+- 17321 / 123016: Lactoferrin, Quantitative, Stool / Lactoferrin, Fecal, Quantitative
+- 38481 / 138990: Chlamydophila pneumoniae Antibody (IgM) / Chlamydia pneumoniae IgM
+- 30422 / 905034: Glycosaminoglycans, Urine / Glycosaminoglycans,Ur,(GAGS)
+- 14617 / 511834: FISH, APL, PML/RARA, Translocation 15, 17 / PML/RARA FISH Panel
+- 90665 / 511444: FISH, Myeloproliferative Neoplasms (MPN) (Eosinophilia) / MPN With Eosinophilia FISH Profile, Peripheral Blood
+- 39035 / 512280: FISH, Ph-Like ALL Panel / ALL FISH Profile (Philadelphia-like)
+- 91669 / 183865: Carbapenem Resistant Enterobacteriaceae (CRE) Culture Screen / Carbapenem-resistant Enterobacteriaceae Rectal ScreenCulture
+- 90113 / 605243: Cedar Mountain (Juniperus sabinoides) IgG / T006-IgG Cedar, Mountain
+- 90114 / 605250: Mulberry White (Morus alba) IgG / T070-IgG White Mulberry
+- 91206 / 605242: Stachybotrys chartarum/atra (RGm24) IgG / M024-IgG Stachybotrys atra
+- 92860 / 605042: Allergen Specific IgG Bean Navy/White / F015-IgG White Bean
+- 310 / 001578: Carbon Dioxide / Carbon Dioxide, Total (CO2/Bicarbonate)
+- 232 / 510305: Alpha-Fetoprotein, Amniotic Fluid and Reflex to AchE and Fetal Hgb / Alpha-Fetoprotein (AFP), AChE, Amniotic Fluid With Reflexto Fetal Hemoglobin (Hb F)
+- 94609 / 660670: Hypersensitivity Pneumonitis Evaluation / Allergen Profile, Hypersensitivity Pneumonitis IgG Precipitin Profile
+- 18702 / 505781: Autoimmune Nodopathy (CIDP-like) Evaluation / Chronic Inflammatory DemyelinatingPolyradiculoneuropathy/Autoimmune Nodopathy (CIDP) Profile
+- 4696 / 071571: Nickel, Serum/Plasma / Nickel, Plasma
+- 5386 / 087833: Vanadium, Serum/Plasma / Vanadium
+- 6270 / 810358: Platinum, Serum/Plasma / Platinum
+- 94612 / 279071: Copper-Free, Serum/Plasma / Copper, Free
+- 90376 / 833879: Aspergillus Antigen, EIA, BAL / Aspergillus Ag, BAL
+- 36494 / 631443: von Willebrand Disease Gene Sequencing / von Willebrand Disease Genetic Analysis
+- 34478 / 503380: PTH-Related Protein (PTH-rP) / Parathyroid Hormone-related Peptide (PTH-rP), Endocrine Sciences
+- 38470 / 183480: Gastrointestinal Pathogen Panel, Real-Time PCR / Gastrointestinal Profile, Stool PCR (GI Pathogen Panel)
+- 39441 / 183558: Giardia and Cryptosporidium Antigen Panel / Giardia and Cryptosporidium, Direct Detection EIA
+- 1718 / 821258: Recombx® Amphiphysin Autoantibody Test (Autoimmune Rapidly Progressive Dementia) / Amphiphysin Antibody, IgG
+- 4674 / 821258: Recombx® Amphiphysin Autoantibody Test / Amphiphysin Antibody, IgG
+- 37735 / 831004: Acylglycines, Quantitative Panel, Urine / Acylglycines,Quant,Random,Ur.
+- 29881 / 700180: Amino Acid Analysis, LC/MS, CSF / Amino Acid Profile, Quantitative, Cerebrospinal Fluid
+- 3353 / 790400: Benzene, Blood / Benzene, Occupational Exposure, Blood
+- 6328 / 790580: Toluene, Blood / Toluene, Occupational Exposure, Whole Blood
+- 93277 / 790890: PCB Panel, Congeners, Serum/Plasma / Polychlorinated Biphenyls (PCB) Congeners Screen andConfirmation
+- 91665 / 819372: STRATIFY JCV® DxSelect™ Antibody (with Index) with Reflex to Inhibition / Stratify JCV(TM) Ab w/Index
+- 70132 / 402362: Biotinidase / Enzyme Biotinidase Deficiency
+
+## Manual review only
+
+- 259: 520103, 006650
+- 262: 006486
+- 263: 520131, 006643
+- 309: 819076
+- 1606: 832162, 844283
+- 1737: 013508
+- 6448: 003384
+- 7048: 003384, 003038
+- 7210: 005009
+- 5168: 117245
+- 30338: 868158, 823992
+- 94577: 183444, 183469
+- 94531: 505713
+- 93883: 505499
+- 10255: 042580, 706200
+- 7655: 042580, 706200
+- 14978: 660670
+- 17811: 806267
+- 10018: 183145, 381630
+- 36455: 402300
+- 36954: 505776
+- 16440: 505805
+- 37699: 164284
+- 90859: 827550, 139172
+- 90858: 827550, 835630
+- 70188: 818967
+- 90897: 899373
+- 16613: 806515, 906096
+- 16526: 906171
+- 14605: 511210
+- 90893: 906141, 906162
+- 5367: 011254
+- 335: 007211
+- 3102: 070194
+- 749: 002246, 002055
+- 36169: 500649, 500430
+- 37077: 004051
+- 943: 164285
+- 90072: 164947
+- 19881: 164947
+- 398: 005256
+- 6422: 602646, 602647
+- 17572: 605616, 602491
+- 35932: 001925
+- 6071: 702906
+- 26513: 007419
+- 6215: 809367
+- 7577: 001081, 001073
+- 7105: 006395
+- 37848: 221010
+- 16503: 164830, 162045
+- 91985: 831723
+- 90271: 084715
+- 90433: 500767, 500913
+- 18964: 808443
+- 6775: 001404, 001396
+- 8563: 003772
+- 16313: 481684
+- 15433: 000620
+- 11004: 123866
+- 34485: 140673
+- 93746: 606656
+- 18216: 123075
+- 17706: 123020
+- 38359: 165592
+- 38940: 225920, 001487
+- 8389: 706838
+- 14571: 140761
+- 14930: 140761
+- 59669: 117150
+- 13230: 160121
+- 14520: 013656
+- 338: 833706
+- 37124: 706580
+- 13995: 084715
+- 29479: 139317
+- 36564: 160499
+- 36668: 006270, 038448
+- 37671: 164075
+- 4469: 183111, 008904
+- 13808: 005009
+- 15384: 520164
+- 36443: 071563
+- 15981: 334971, 165134
+- 37294: 164541
+- 90926: 550250, 550625
+- 4475: 180141
+- 10263: 123018
+- 16866: 833870
+- 18970: 828681, 828683
+- 23475: 090343
+- 36433: 720847
+- 37966: 071597
+- 91615: 510305
+- 16694: 551745
+- 90131: 830721
+- 90139: 505805
+- 93871: 550887
+- 94764: 163162
+- 10156: 123016
+- 11328: 791714
+- 14684: 183444, 183469
+- 795: 038448
+- 3417: 602538
+- 18175: 835630
+- 19878: 164065
+- 37439: 830721
+- 38964: 830721
+- 39461: 830721
+- 34144: 830721
+- 94528: 912851
+- 16326: 481684
+- 7018: 216010
+- 16131: 017700, 017100
+- 16133: 017750, 017170
+- 18736: 607950
+- 36336: 334971
+- 6024: 071555
+- 8593: 163600
+- 11051: 385730
+- 12728: 813044
+- 19112: 322777
+- 90398: 500176, 500166
+- 688: 188227
+- 17307: 001982
+- 18066: 236956
+- 14266: 012005
+- 19114: 334943
+- 34166: 160178
+- 37653: 738792
+- 37654: 738796
+- 39521: 001982
+- 30523: 123010
+- 59925: 334943
+- 16500: 081610
+- 16864: 510340
+- 21105: 312920
+- 34305: 511834
+- 37125: 096180
+- 38684: 007010
+- 90123: 505805
+- 90124: 830732, 830780
+- 94032: 912849
+- 94810: 829670
+- 10553: 008169, 180800
+- 4556: 188656
+- 16973: 017100, 017200
+- 908: 827550
+- 2560: 602725
+- 14874: 150075
+- 16322: 010249
+- 17669: 164065
