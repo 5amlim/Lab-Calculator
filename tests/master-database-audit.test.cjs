@@ -67,3 +67,49 @@ test('published catalogs execute the HTML overlays and apply clinical holds', as
   assert.equal(partial.status, 'review');
   assert.match(partial.basis, /Partial panel match only/);
 });
+
+test('Quest 18634 separates the four serum aliquots from one original EDTA shipment', async () => {
+  const {labs, loadCalculator} = await import('../scripts/load-calculator-catalog.mjs');
+  const {records} = await loadCalculator(root, labs[0], {captureRecords: true});
+  const row = records.find(record => record.testCode === '18634');
+  const api = openCalculator(labs[0].app, [
+    'expandedCollectionTests', 'buildTransportBagPlan', 'buildCollectionPlan',
+    'buildSubmissionContents', 'groupSubmissionContainersForPrint', 'applyUserState'
+  ], {records: [row]});
+
+  const legacy = {...row, preferredVolume: '9.7 mL serum', searchAliases: ['Site alias'],
+    additionalDrawRequirements: [], specialInstructions: 'Obsolete instructions'};
+  const [updated] = api.applyUserState({overrides: [legacy]});
+  assert.equal(updated.preferredVolume, row.preferredVolume);
+  assert.equal(updated.searchAliases[0], 'Site alias');
+  const expanded = api.expandedCollectionTests([updated]);
+  const bags = api.buildTransportBagPlan(expanded);
+  const collection = api.buildCollectionPlan(expanded, bags);
+  const total = items => items.reduce((count, item) => count + item.count, 0);
+  assert.equal(total(collection), 5);
+  assert.deepEqual(Array.from(collection, item => item.count).sort(), [1, 1, 3]);
+  for (const bag of bags) {
+    const items = api.buildSubmissionContents(bag);
+    const refrigerated = bag.tests.every(test => test.transportTemperature === 'Refrigerated');
+    assert.equal(total(items), refrigerated ? 4 : 1);
+    assert(items.every(item => Boolean(item.originalTube) !== refrigerated));
+    assert.equal(total(api.groupSubmissionContainersForPrint(items)), total(items));
+  }
+  assert.equal(bags.length, 2);
+});
+
+test('Quest 39749 cannot return to the cart or converter through saved data', async () => {
+  const {labs, loadCalculator} = await import('../scripts/load-calculator-catalog.mjs');
+  const {records, index, globals} = await loadCalculator(root, labs[0], {captureRecords: true});
+  const row = records.find(record => record.testCode === '39749');
+  assert.equal(row.status, 'blocked');
+  assert.match(row.specialInstructions, /39820.*spike.*nucleocapsid/);
+  assert(!index.tests.some(test => test[0] === '39749'));
+  const crosswalk = globals.QUEST_TO_LABCORP_INDEX.find(row => row[0] === '39749');
+  assert.equal(crosswalk[3], '');
+  assert.equal(crosswalk[7], 'discontinued');
+  const api = openCalculator(labs[0].app, ['applyUserState'], {records: [row]});
+  const active = {...row, status: 'active', specialInstructions: ''};
+  const loaded = api.applyUserState({overrides: [active], customTests: [{...active, id: 'custom-39749'}]});
+  assert.equal(loaded.filter(record => record.testCode === '39749' && record.status === 'blocked').length, 2);
+});
