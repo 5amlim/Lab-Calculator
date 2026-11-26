@@ -247,3 +247,42 @@
   outline-offset: 3px;
   border-radius: 3px;
 }
+
+
+/* Lightweight interaction motion: no layout changes, no delayed actions. */
+@keyframes calc-motion-reveal {
+  from { opacity: 0; translate: 0 4px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes calc-motion-menu {
+  from { opacity: 0; translate: 0 -3px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes calc-motion-dialog {
+  from { opacity: 0; scale: .985; }
+  to { opacity: 1; scale: 1; }
+}
+@keyframes calc-motion-backdrop {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  :is(button:not(:disabled):not([aria-disabled="true"]), .mobile-summary, summary):active {
+    scale: .98;
+  }
+  :is(.mini-button, .icon-button, .test-mode-option, .portal-select-button,
+      .calc-suggestion-option, .crosswalk-cart-add):not(:disabled) {
+    transition: scale 110ms ease-out, background-color 140ms ease-out,
+                border-color 140ms ease-out, box-shadow 140ms ease-out;
+  }
+  :is(.calc-suggestions, .batch-choice-menu, .batch-choice-stat-options,
+      .portal-select-menu, #statAreaOptions):not(.hidden):not([hidden]):not([aria-hidden="true"]) {
+    animation: calc-motion-menu 130ms ease-out;
+  }
+  :is(#catalogFilterPanel, #statMenuPanel, #blockedListPanel, #testsDetailsPanel,
+      .batch-choice-test-details, #customDrawContainerRow, #customTransportContainerRow):not(.hidden):not([hidden]) {
+    animation: calc-motion-reveal 170ms ease-out;
+  }
+  dialog[open] { animation: calc-motion-dialog 160ms ease-out; }
+  dialog[open]::backdrop { animation: calc-motion-backdrop 150ms ease-out; }
+}
