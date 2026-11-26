@@ -641,5 +641,19 @@
       "702879",
       "284459"
     ]
+  },
+  "customRulePreservation": {
+    "date": "2026-11-26",
+    "scope": "Custom rules only; no catalog or runtime changes",
+    "registered": 31,
+    "priorRegistered": 23,
+    "added": 8,
+    "existingImplementationAndTestPathsPresent": true,
+    "regression": "New targeted checks require CI",
+    "open": [
+      "Quest 1430 established physical route retained; existing specialty vial wording differs from 8477 exact stock label; no instruction to change 1430 to the exact 8477 label.",
+      "Other historical overrides not yet individually inventoried.",
+      "Compare the identical saved 78-test baseline against final output."
+    ]
   }
 }

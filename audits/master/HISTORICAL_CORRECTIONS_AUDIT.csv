@@ -11,3 +11,6 @@ Shared,Other historical overrides,Additional history pending,Git history and cat
 Quest,18634,Follow-up to October source bundle,https://testdirectory.questdiagnostics.com/test/test-detail/18634/cognitive-assessment-panel-with-reflex-to-t4-free?cc=MASTER,Corrected explicit aliquot counts and maintained separate EDTA
 Quest,18216,Follow-up to November review bundle,https://testdirectory.questdiagnostics.com/test/test-detail/18216/multiple-sclerosis-ms-differential-evaluation-with-reflexes?cc=MASTER&p=r,Nine source tubes verified. Three-vial calculator estimate clarified
 Quest,39749,"Vendor discontinuation effective June 15, 2026",https://intellitestmanager.questdiagnostics.com/home/output/300102,Held from collection and automated conversion
+Quest,8477,User-confirmed November 26 stock label,tests/quest-gray-plasma-plan-integration-20261114.test.cjs,Exact Transport Tube label with dedicated plasma route retained
+Quest,16983,User-confirmed two-vial default,tests/master-database-audit.test.cjs,Five source draws and two 5 mL frozen pour-off tubes retained
+Shared,Custom rule registry,November 26 custom-only review,tests/custom-rule-preservation.test.cjs,Expanded rule coverage and current flag reconciliation

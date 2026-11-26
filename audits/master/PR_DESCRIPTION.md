@@ -20,3 +20,5 @@
 - Review four high-volume serum toxicology orders against exact public pages; three partial matches and one receiving-account temperature conflict (700841). 700841 remains active with the existing collection-review warning and quantity suppression; no assumed vial capacity or blanket shipping change.
 
 The clinical evidence ledger now covers 461 catalog records. The clinical audit remains open for complete exact-code evidence, CA/NV/NY/FL receiving-lab acceptance, and term- and assay-level verification of crosswalk relationships. See the audit report and flag register for the exact remaining work.
+
+- Custom-rule-only checkpoint: expand the protected registry to 31 rules, reconcile active review codes, and add targeted assertions for alternative draws, specimen badges and microtainers. No runtime or catalog change; new CI pending.

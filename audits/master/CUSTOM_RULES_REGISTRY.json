@@ -143,7 +143,8 @@
     ],
     "regressionTests": [
       "tests/print-transfer-spin.test.cjs",
-      "tests/swab-original-container-20261115.test.cjs"
+      "tests/swab-original-container-20261115.test.cjs",
+      "tests/custom-rule-preservation.test.cjs"
     ],
     "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
   },
@@ -216,7 +217,8 @@
     ],
     "regressionTests": [
       "tests/quest-sterile-cup-specimen-print-groups-20261115.test.cjs",
-      "tests/container-filter-completeness-20261117.test.cjs"
+      "tests/container-filter-completeness-20261117.test.cjs",
+      "tests/custom-rule-preservation.test.cjs"
     ],
     "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
   },
@@ -232,7 +234,7 @@
     ],
     "container": [
       "Gray fluoride/oxalate",
-      "Plasma transport vial"
+      "Additive-free plasma transport vial (physical route; 8477 stock label Transport Tube)"
     ],
     "testCodes": [
       "8477",
@@ -251,7 +253,8 @@
     ],
     "regressionTests": [
       "tests/quest-gray-plasma-20261114.test.cjs",
-      "tests/container-grouping-parity-20261115.test.cjs"
+      "tests/container-grouping-parity-20261115.test.cjs",
+      "tests/quest-gray-plasma-plan-integration-20261114.test.cjs"
     ],
     "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
   },
@@ -407,7 +410,7 @@
   {
     "id": "search-code-and-aliases",
     "category": "search",
-    "description": "Match exact string codes first, preserve leading zeros and curated aliases, and keep review and excluded records out of the active public index.",
+    "description": "Match exact string codes first, preserve leading zeros and curated aliases, retain active collection-review entries with a flag, and exclude nonactive records from the active public index.",
     "laboratory": [
       "quest",
       "labcorp"
@@ -415,7 +418,7 @@
     "specimen": [],
     "container": [],
     "testCodes": [],
-    "expectedBehavior": "Match exact string codes first, preserve leading zeros and curated aliases, and keep review and excluded records out of the active public index.",
+    "expectedBehavior": "Match exact string codes first, preserve leading zeros and curated aliases, retain active collection-review entries with a flag, and exclude nonactive records from the active public index.",
     "reason": "Published searchable records must agree with clean production policy.",
     "evidence": [
       "README.md",
@@ -705,11 +708,6 @@
     ],
     "description": "Preserve active catalog entries with vendor and operational review flags.",
     "testCodes": [
-      "34329",
-      "34499",
-      "39749",
-      "6447",
-      "93876",
       "004100",
       "004705",
       "070037",
@@ -727,6 +725,9 @@
       "164000",
       "164798",
       "165750",
+      "34329",
+      "34499",
+      "39749",
       "481020",
       "489200",
       "500108",
@@ -739,7 +740,10 @@
       "502690",
       "602666",
       "620009",
-      "620046"
+      "620046",
+      "6447",
+      "700841",
+      "93876"
     ],
     "expectedBehavior": "Preserve search and cart access, show the reason on screen and in print/CSV, and suppress generated quantities, STAT selection and candidate conversion.",
     "reason": "Preserve the active catalog while unresolved or discontinued orders require explicit review.",
@@ -750,7 +754,8 @@
       "labcorp-crosswalk-ui.js"
     ],
     "regressionTests": [
-      "tests/master-database-audit.test.cjs"
+      "tests/master-database-audit.test.cjs",
+      "tests/custom-rule-preservation.test.cjs"
     ],
     "approvalStatus": "User requested active tests be retained with flags."
   },
@@ -781,8 +786,254 @@
       "assets/js/app.js"
     ],
     "regressionTests": [
-      "tests/quest-gray-plasma-20261114.test.cjs"
+      "tests/quest-gray-plasma-20261114.test.cjs",
+      "tests/quest-gray-plasma-plan-integration-20261114.test.cjs"
     ],
     "approvalStatus": "User-confirmed stock label; receiving-lab acceptance remains open."
+  },
+  {
+    "id": "quest-16983-two-pour-off-tubes",
+    "category": "manual override",
+    "description": "Default to two 5 mL frozen pour-off tubes for 16983, five dedicated lavender EDTA source draws, one frozen shipment bag, and preserve the NY restriction and alternate 16984 notice.",
+    "laboratory": [
+      "quest"
+    ],
+    "specimen": [
+      "Plasma"
+    ],
+    "container": [
+      "Lavender EDTA",
+      "Transport Tube (5 mL pour-off)"
+    ],
+    "testCodes": [
+      "16983"
+    ],
+    "expectedBehavior": "Default to two 5 mL frozen pour-off tubes for 16983, five dedicated lavender EDTA source draws, one frozen shipment bag, and preserve the NY restriction and alternate 16984 notice.",
+    "reason": "User accepted two 5 mL tubes on November 26; do not silently revert the default to a single vial.",
+    "evidence": [
+      "Original calculator custom-rule preservation requirements, November 2026"
+    ],
+    "implementation": [
+      "assets/js/app.js",
+      "assets/js/market-restrictions.js",
+      "assets/js/data.js"
+    ],
+    "regressionTests": [
+      "tests/master-database-audit.test.cjs",
+      "tests/source-tube-volume-regression.test.cjs"
+    ],
+    "approvalStatus": "User-confirmed default; receiving-lab acceptance remains separate."
+  },
+  {
+    "id": "alternatives-not-additional-draws",
+    "category": "collection",
+    "description": "An alternative permitted collection or transport container is not an extra required specimen. Expand only explicit additional draw requirements; preserve their specimen, source, transport and count.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [],
+    "container": [],
+    "testCodes": [],
+    "expectedBehavior": "An alternative permitted collection or transport container is not an extra required specimen. Expand only explicit additional draw requirements; preserve their specimen, source, transport and count.",
+    "reason": "Prevent extra draws and incorrect grouping.",
+    "evidence": [
+      "Original calculator custom-rule preservation requirements, November 2026"
+    ],
+    "implementation": [
+      "assets/js/app.js",
+      "labcorp-app.js"
+    ],
+    "regressionTests": [
+      "tests/custom-rule-preservation.test.cjs",
+      "tests/specimen-quantity-parsing-20261120.test.cjs"
+    ],
+    "approvalStatus": "Previously established calculator policy; receiving-laboratory acceptance is separate."
+  },
+  {
+    "id": "specific-source-and-specimen-badges",
+    "category": "container naming",
+    "description": "Retain source-specific additive and specimen identity on transfer badges; use Red Blood Cells instead of RBCs in the visible specimen badge; show actual worm, pinworm, parasite, arthropod or tick specimen in What to Collect.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [
+      "Red blood cells",
+      "Plasma",
+      "Parasite / Arthropod"
+    ],
+    "container": [],
+    "testCodes": [],
+    "expectedBehavior": "Retain source-specific additive and specimen identity on transfer badges; use Red Blood Cells instead of RBCs in the visible specimen badge; show actual worm, pinworm, parasite, arthropod or tick specimen in What to Collect.",
+    "reason": "Preserve explicit clinical source cues without inventing a new physical device.",
+    "evidence": [
+      "Original calculator custom-rule preservation requirements, November 2026"
+    ],
+    "implementation": [
+      "assets/js/app.js",
+      "labcorp-app.js"
+    ],
+    "regressionTests": [
+      "tests/custom-rule-preservation.test.cjs",
+      "tests/specimen-source-labels-20261117.test.cjs",
+      "tests/print-source-label-badges-20261115.test.cjs"
+    ],
+    "approvalStatus": "Previously established calculator policy; receiving-laboratory acceptance is separate."
+  },
+  {
+    "id": "urine-and-stool-stock-aliases",
+    "category": "container naming",
+    "description": "Use the existing Sterile cup stock label for clinically compatible unpreserved urine or stool and sterile screw-cap specimen containers; preserve timed jugs, specialty preservative tubes, trace-metal containers and separate specimen identities.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [
+      "Urine",
+      "Stool",
+      "CSF"
+    ],
+    "container": [
+      "Sterile cup"
+    ],
+    "testCodes": [],
+    "expectedBehavior": "Use the existing Sterile cup stock label for clinically compatible unpreserved urine or stool and sterile screw-cap specimen containers; preserve timed jugs, specialty preservative tubes, trace-metal containers and separate specimen identities.",
+    "reason": "Container stock equivalence does not mean specimen equivalence.",
+    "evidence": [
+      "Original calculator custom-rule preservation requirements, November 2026"
+    ],
+    "implementation": [
+      "assets/js/app.js",
+      "labcorp-app.js"
+    ],
+    "regressionTests": [
+      "tests/container-grouping-parity-20261115.test.cjs",
+      "tests/quest-sterile-cup-specimen-print-groups-20261115.test.cjs",
+      "tests/container-filter-completeness-20261117.test.cjs"
+    ],
+    "approvalStatus": "Previously established calculator policy; receiving-laboratory acceptance is separate."
+  },
+  {
+    "id": "original-container-and-swab",
+    "category": "processing",
+    "description": "Preserve submit-in-original-container routes and original swab devices; do not create a transfer simply because a collection and submission alias differ.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [
+      "Swab"
+    ],
+    "container": [],
+    "testCodes": [],
+    "expectedBehavior": "Preserve submit-in-original-container routes and original swab devices; do not create a transfer simply because a collection and submission alias differ.",
+    "reason": "Avoid unnecessary transfer and redundant containers.",
+    "evidence": [
+      "Original calculator custom-rule preservation requirements, November 2026"
+    ],
+    "implementation": [
+      "assets/js/app.js",
+      "labcorp-app.js"
+    ],
+    "regressionTests": [
+      "tests/swab-original-container-20261115.test.cjs",
+      "tests/original-containers-mobile-print.test.cjs"
+    ],
+    "approvalStatus": "Previously established calculator policy; receiving-laboratory acceptance is separate."
+  },
+  {
+    "id": "transport-label-aliases",
+    "category": "container naming",
+    "description": "Use the established ordinary Transport Tube display alias for compatible standard serum/plasma tubes; keep distinct specialty labels and badge colors, source additive, specimen type and shipping temperature as separate information.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [
+      "Serum",
+      "Plasma"
+    ],
+    "container": [
+      "Transport Tube"
+    ],
+    "testCodes": [],
+    "expectedBehavior": "Use the established ordinary Transport Tube display alias for compatible standard serum/plasma tubes; keep distinct specialty labels and badge colors, source additive, specimen type and shipping temperature as separate information.",
+    "reason": "Do not globally rename containers or collapse specialty devices.",
+    "evidence": [
+      "Original calculator custom-rule preservation requirements, November 2026"
+    ],
+    "implementation": [
+      "assets/js/app.js",
+      "labcorp-app.js"
+    ],
+    "regressionTests": [
+      "tests/transport-print-label-aliases-20261117.test.cjs",
+      "tests/container-grouping-parity-20261115.test.cjs"
+    ],
+    "approvalStatus": "Previously established calculator policy; receiving-laboratory acceptance is separate."
+  },
+  {
+    "id": "compatible-pool-isolation",
+    "category": "pooling",
+    "description": "Pool only compatible physical routes and specimen matrices; preserve separate source-additive, transfer destination, dedicated, temperature and STAT routing where applicable. Do not add a blanket two-tube minimum to Labcorp large pools.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [
+      "Serum",
+      "Plasma",
+      "Whole Blood"
+    ],
+    "container": [],
+    "testCodes": [],
+    "expectedBehavior": "Pool only compatible physical routes and specimen matrices; preserve separate source-additive, transfer destination, dedicated, temperature and STAT routing where applicable. Do not add a blanket two-tube minimum to Labcorp large pools.",
+    "reason": "Maintain local volume rules and separate incompatible materials.",
+    "evidence": [
+      "Original calculator custom-rule preservation requirements, November 2026"
+    ],
+    "implementation": [
+      "assets/js/app.js",
+      "labcorp-app.js"
+    ],
+    "regressionTests": [
+      "tests/full-catalog-container-math-audit-20261120.test.cjs",
+      "tests/master-database-audit.test.cjs",
+      "tests/print-identical-container-grouping.test.cjs"
+    ],
+    "approvalStatus": "Previously established calculator policy; receiving-laboratory acceptance is separate."
+  },
+  {
+    "id": "microtainer-neonatal-original",
+    "category": "manual override",
+    "description": "Preserve the actual amber Microtainer SST type for Quest neonatal bilirubin 6631, 20381 and 34162, original spun tube submission, required count and light protection; do not count a microtainer as a regular Gold or Tiger SST.",
+    "laboratory": [
+      "quest"
+    ],
+    "specimen": [
+      "Serum"
+    ],
+    "container": [
+      "Amber Microtainer SST"
+    ],
+    "testCodes": [
+      "6631",
+      "20381",
+      "34162"
+    ],
+    "expectedBehavior": "Preserve the actual amber Microtainer SST type for Quest neonatal bilirubin 6631, 20381 and 34162, original spun tube submission, required count and light protection; do not count a microtainer as a regular Gold or Tiger SST.",
+    "reason": "Protect existing named microcollection route and stock identity.",
+    "evidence": [
+      "Original calculator custom-rule preservation requirements, November 2026"
+    ],
+    "implementation": [
+      "assets/js/app.js"
+    ],
+    "regressionTests": [
+      "tests/custom-rule-preservation.test.cjs",
+      "tests/container-filter-completeness-20261117.test.cjs"
+    ],
+    "approvalStatus": "Previously established calculator policy; receiving-laboratory acceptance is separate."
   }
 ]

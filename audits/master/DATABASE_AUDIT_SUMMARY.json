@@ -662,7 +662,15 @@
         "labcorp-may-2026-deletions",
         "unverified-shipment-holds",
         "active-test-collection-review",
-        "quest-8477-transport-stock-label"
+        "quest-8477-transport-stock-label",
+        "quest-16983-two-pour-off-tubes",
+        "alternatives-not-additional-draws",
+        "specific-source-and-specimen-badges",
+        "urine-and-stool-stock-aliases",
+        "original-container-and-swab",
+        "transport-label-aliases",
+        "compatible-pool-isolation",
+        "microtainer-neonatal-original"
       ],
       "removed": [],
       "modified": []
