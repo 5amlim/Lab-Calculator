@@ -1007,6 +1007,15 @@
 
   function normalizeRecord(record, index = 0) {
     record = { ...record };
+    if (String(record.testCode || '').trim() === '16983') {
+      const previous = 'Send plasma in a single 10 mL pour-off tube. If a 10 mL pour-off tube is not available, two (2) 5 mL pour-off tubes can be used.';
+      if (String(record.specialInstructions || '').includes(previous)) {
+        // Update the bundled and saved one-vial default to the clinic's two-vial route.
+        record.specialInstructions = record.specialInstructions.replace(previous,
+          'Use two 5 mL pour-off tubes. Quest also lists a single 10 mL pour-off tube as an option.');
+        if (!(Number(record.submissionCount) > 1)) record.submissionCount = 2;
+      }
+    }
     const canonicalName = VERIFIED_TEST_NAMES[String(record.testCode || '').trim()];
     // Migrate older browser overrides that still have (STAT) baked into the name.
     // Keep existing user-created names intact unless they are one of the known

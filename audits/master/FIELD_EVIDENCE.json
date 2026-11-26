@@ -2244,7 +2244,7 @@
     "status": "Partially verified",
     "url": "https://testdirectory.questdiagnostics.com/test/test-detail/16983/?cc=MASTER",
     "date": "2026-11-26",
-    "note": "Vendor count and capacity confirmed. Print one 10 mL pour-off vial for the default route. Quest accepts two 5 mL pour-off vials when a single 10 mL vial is unavailable.",
+    "note": "The clinic uses two 5 mL pour-off tubes for the default frozen shipment. Quest also permits one 10 mL pour-off tube.",
     "fields": {
       "preferredVolume": {
         "evidence": "10 mL frozen EDTA plasma; minimum 5 mL."
@@ -2253,10 +2253,15 @@
         "evidence": "Five standard EDTA source tubes, or two 10 mL EDTA source tubes."
       },
       "submissionCount": {
-        "evidence": "One 10 mL or two 5 mL pour-off tubes. The calculator supports the existing default count of one."
+        "evidence": "Quest explicitly permits two 5 mL pour-off tubes. The clinic selected that route.",
+        "reviewedValueSha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
       },
       "regionalAvailability": {
         "evidence": "Quest specifies 16984 for New York patient testing. Confirm that exact order and its separate route."
+      },
+      "specialInstructions": {
+        "evidence": "The Quest entry supports both transport vessel configurations. The clinic instruction lists the selected two-vial route first.",
+        "reviewedValueSha256": "66a7558dba2183be138d2e8dd154ca3f90515a4369208cef111ee80a61b8e85b"
       }
     }
   },

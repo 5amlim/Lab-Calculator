@@ -36,7 +36,7 @@ The [manual review queue](MANUAL_REVIEW_REQUIRED.csv) preserves the reason for a
 
 ## Changes and clinical review
 
-- Quest 16983's frozen bag shows the 10 mL pour-off vial. The vendor permits two 5 mL vials as an alternative. The existing five-standard-source-tube plan is preserved. The catalog and printout flag the New York restriction. Vendor-referenced code 16984 is in the missing-order queue pending its exact receiving-account instructions.
+- Quest 16983 defaults to two 5 mL pour-off tubes in one frozen bag. The vendor also lists a single 10 mL option. The existing five-standard-source-tube plan is preserved. The catalog and printout flag the New York restriction. Vendor-referenced code 16984 is in the missing-order queue pending its exact receiving-account instructions.
 - The high-volume review added findings to 18 entries in the [43-order draw-to-submission queue](COLLECTION_SUBMISSION_COUNT_REVIEW.csv). Several vendor pages specify the source draw count while allowing more than one submission vial. Vial count should follow the receiving lab and usable capacity of stocked vials. This pass does not assume a universal size.
 - The Labcorp public field comparison now sends storage directions that differ by specimen to manual review. For 008482, the exact page confirms the ambient route for the specimen selected by the calculator.
 

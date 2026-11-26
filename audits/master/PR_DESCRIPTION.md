@@ -9,6 +9,6 @@
 
 - Compare 715 routine volume and storage fields across 298 Labcorp orders. Correct three shipments to refrigerated. Display the required fasting for Labcorp 001637 and optional Quest 17306 preference. Confirm matching result-component LOINCs on the existing comprehensive metabolic panel candidate.
 
-- Add the exact Quest 16983 pour-off vial size and the vendor’s New York patient restriction. Record evidence for 18 high-volume orders and preserve the existing draw and submission counts.
+- Plan two 5 mL pour-off tubes for Quest 16983 and show the vendor’s New York patient restriction. Record evidence for 18 high-volume orders.
 
 The clinical evidence ledger now covers 160 catalog records. The clinical audit remains open for complete exact-code evidence, CA/NV/NY/FL receiving-lab acceptance, and term- and assay-level verification of crosswalk relationships. See the audit report and flag register for the exact remaining work.

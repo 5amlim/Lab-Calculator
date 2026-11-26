@@ -242,24 +242,28 @@ test('reviewed orders use the published shipping and fasting instructions', asyn
 });
 
 
-test('Quest 16983 displays the vendor pour-off capacity and NY order restriction', async () => {
+test('Quest 16983 defaults to two frozen 5 mL pour-off tubes without changing the source draw', async () => {
   const {labs, loadCalculator} = await import('../scripts/load-calculator-catalog.mjs');
   const {records, globals} = await loadCalculator(root, labs[0], {captureRecords: true});
   const row = records.find(test => test.testCode === '16983');
   assert.equal(row.status, 'active');
+  assert.equal(row.submissionCount, 2);
+  assert.match(row.specialInstructions, /Use two 5 mL pour-off tubes/);
   assert.match(globals.LabRegionalRestrictions.badge(row, 'quest'), /Not for NY patients/);
   assert.match(globals.LabRegionalRestrictions.printNotice([row], 'quest'), /16984/);
   const api = openCalculator(labs[0].app, [
-    'buildTransportBagPlan', 'buildSubmissionContents', 'buildCollectionPlan'
-  ]);
-  const bags = api.buildTransportBagPlan([row]);
+    'applyUserState', 'buildTransportBagPlan', 'buildSubmissionContents', 'buildCollectionPlan'
+  ], {records: [row]});
+  const legacy = globals.SEED_TESTS.find(test => test.testCode === '16983');
+  const [restored] = api.applyUserState({overrides: [{...legacy, submissionCount: 1, searchAliases: ['Local alias']}]})
+    .filter(test => test.testCode === '16983');
+  assert.equal(restored.submissionCount, 2);
+  assert.equal(restored.searchAliases[0], 'Local alias');
+  const bags = api.buildTransportBagPlan([restored]);
+  assert.equal(bags.length, 1);
+  assert.equal(bags[0].tests[0].transportTemperature, 'Frozen');
   const [shipment] = api.buildSubmissionContents(bags[0]);
-  assert.equal(shipment.count, 1);
-  assert.equal(shipment.label, 'Transport Tube (10 mL pour-off)');
-  assert.match(row.specialInstructions, /two \(2\) 5 mL pour-off tubes/);
-  assert.equal(api.buildCollectionPlan([row], bags).reduce((count, item) => count + item.count, 0), 5);
-  const two = {...row, submissionCount: 2};
-  const [paired] = api.buildSubmissionContents(api.buildTransportBagPlan([two])[0]);
-  assert.equal(paired.count, 2);
-  assert.equal(paired.label, 'Transport Tube (5 mL pour-off)');
+  assert.equal(shipment.count, 2);
+  assert.equal(shipment.label, 'Transport Tube (5 mL pour-off)');
+  assert.equal(api.buildCollectionPlan([restored], bags).reduce((count, item) => count + item.count, 0), 5);
 });
