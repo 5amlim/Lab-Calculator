@@ -97,7 +97,7 @@
         position: 'fixed', left: x + 'px', top: y + 'px',
         zIndex: '10000', pointerEvents: 'none', whiteSpace: 'nowrap',
         maxWidth: 'min(240px, 75vw)', overflow: 'hidden', textOverflow: 'ellipsis',
-        padding: '6px 11px', borderRadius: '999px', fontSize: '12px',
+        padding: '8px 14px', borderRadius: '999px', fontSize: '14px',
         fontWeight: '650', lineHeight: '1.3', color: '#146448',
         background: '#e9f8f0', border: '1px solid #9dd9bc',
         boxShadow: '0 3px 12px rgba(22, 101, 71, .16)',
@@ -109,19 +109,19 @@
         'translate(calc(-50% + ' + a + 'px), calc(-50% + ' + b + 'px)) scale(' + scale + ')';
       const flight = bubble.animate([
         { transform: move(0, 0, .8), opacity: 0, offset: 0 },
-        { transform: move(dx * .12, -24, 1.08), opacity: 1, offset: .22 },
-        { transform: move(dx * .65, dy * .65 - 40, .87), opacity: 1, offset: .66 },
+        { transform: move(dx * .12, -32, 1.12), opacity: 1, offset: .22 },
+        { transform: move(dx * .65, dy * .65 - 40, .95), opacity: 1, offset: .66 },
         { transform: move(dx, dy, .22), opacity: 0, offset: 1 }
-      ], { duration: 650, delay: index * 90, easing: 'cubic-bezier(.25,.65,.35,1)', fill: 'both' });
+      ], { duration: 900, delay: index * 110, easing: 'cubic-bezier(.25,.65,.35,1)', fill: 'both' });
       flight.onfinish = () => {
         bubble.remove();
         if (index === labels.length - 1 && visible(target.getBoundingClientRect())) {
-          target.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.045)' },
-            { transform: 'scale(1)' }], { duration: 220, easing: 'ease-out' });
+          target.animate([{ scale: '1' }, { scale: '1.065' },
+            { scale: '1' }], { duration: 280, easing: 'ease-out' });
         }
       };
       flight.oncancel = () => bubble.remove();
-      setTimeout(() => bubble.remove(), 1200 + index * 90);
+      setTimeout(() => bubble.remove(), 1600 + index * 110);
     });
   }
 
@@ -136,11 +136,24 @@
     activeMotion.set(element, element.animate(frames, { duration, easing: 'ease-out' }));
   }
   const reveal = element => microMotion(element, [
-    { opacity: .55, translate: '0 3px' }, { opacity: 1, translate: '0 0' }
-  ]);
+    { opacity: .25, translate: '0 7px' }, { opacity: 1, translate: '0 0' }
+  ], 280);
+  // A visible release cue for controls that remain on screen after the click.
+  // Do not animate typing, disabled buttons or controls that were removed.
+  document.addEventListener('click', event => {
+    const button = event.target.closest?.('button:not(:disabled):not([aria-disabled="true"]), summary, .mobile-summary');
+    if (!button) return;
+    requestAnimationFrame(() => {
+      if (!button.isConnected || !visible(button.getBoundingClientRect())) return;
+      microMotion(button, [
+        { scale: '1' }, { scale: '.96', offset: .28 },
+        { scale: '1.025', offset: .7 }, { scale: '1' }
+      ], 260);
+    });
+  }, true);
   const pulse = element => microMotion(element, [
-    { scale: '1', opacity: 1 }, { scale: '1.06', opacity: .78, offset: .45 }, { scale: '1', opacity: 1 }
-  ], 200);
+    { scale: '1', opacity: 1 }, { scale: '1.10', opacity: .60, offset: .45 }, { scale: '1', opacity: 1 }
+  ], 280);
 
   // Show a quick entrance on newly revealed catalog rows after Show more.
   // Never animate the full table on every search/filter keystroke.
