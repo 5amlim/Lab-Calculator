@@ -1,0 +1,51 @@
+{
+  "baselineRevision": "b81f79958661971bad3a6799d6a0465a7525156e",
+  "date": "2026-11-25",
+  "checkpoint": "Production catalog inventory complete; official clinical verification begun",
+  "catalogRecordsAccountedFor": {
+    "quest": 3829,
+    "labcorp": 6601
+  },
+  "fullyVerified": {
+    "quest": 0,
+    "labcorp": 0
+  },
+  "reviewedOrAttempted": {
+    "quest": 12,
+    "labcorp": 6
+  },
+  "notYetReviewed": {
+    "quest": 3817,
+    "labcorp": 6595
+  },
+  "recordStatusSource": "FIELD_EVIDENCE.json. Every catalog row without a key has status Not yet reviewed.",
+  "evidenceKeys": [
+    "quest:8477",
+    "quest:1430",
+    "quest:8280",
+    "quest:229",
+    "quest:10676",
+    "quest:467",
+    "quest:16802",
+    "quest:937",
+    "labcorp:005215",
+    "labcorp:501533",
+    "labcorp:164798",
+    "labcorp:102525",
+    "labcorp:028142",
+    "labcorp:310",
+    "quest:34329",
+    "quest:34499",
+    "quest:39749",
+    "quest:6447"
+  ],
+  "inventoryCommand": "node scripts/audit-calculator-database.mjs --out ../calculator-current-report --check",
+  "continueFrom": "Enumerate TEST_INVENTORY.csv where verification is Not yet reviewed, keeping laboratory and exact test code as strings. Use the appropriate service-area evidence and review every applicable route before marking a record fully verified.",
+  "pending": [
+    "Exact-code directory verification and official completeness survey for both laboratories",
+    "Container and route clinical review, dedicated overrides, operational exclusions and historical fixes",
+    "Published order/result LOINC compendia and full bidirectional crosswalk verification and expansion",
+    "CA, NV, NY, and FL service-area data, regional TAT and STAT verification",
+    "Production browser and print walkthroughs, all-record reconciliation and laboratory review"
+  ]
+}
