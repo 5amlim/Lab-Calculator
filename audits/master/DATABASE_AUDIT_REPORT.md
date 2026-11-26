@@ -33,6 +33,8 @@ Labcorp CDOS lists 6,510 exact codes. All are present in the runtime catalog. Th
 
 [Source comparison](LABCORP_SOURCE_LISTING_RECONCILIATION.csv) · [23 public sitemap entries](MISSING_TESTS.csv) · [Exact page intake checkpoint](LABCORP_EXACT_PAGE_CHECKPOINT.csv)
 
+The [manual review queue](MANUAL_REVIEW_REQUIRED.csv) preserves the reason for all 130 pending records. The [exclusions register](EXCLUDED_TESTS.csv) records the runtime reason for every blocked Quest and Labcorp record. An exact vendor page in the intake queue establishes the code identity and captured fields. Collection remains on hold for pending records until their route is reviewed.
+
 ## Changes and clinical review
 
 - The November Labcorp bulletin names 36 deleted codes. All 19 existing runtime records are blocked, including 18 previously active and one previously pending. Five obsolete converter links were removed. Vendor alternatives remain visible as references for order-scope review.
