@@ -255,12 +255,19 @@
     "status": "Partially verified",
     "url": "https://www.labcorp.com/tests/102525/hemoglobin-hb-a1c-with-eag",
     "date": "2026-11-25",
-    "note": "Both directory orders list HbA1c with eAG. Methods are described separately.",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
     "fields": {
       "panelComponents": {
         "evidence": "HbA1c by immunoassay plus eAG."
+      },
+      "stability": {
+        "evidence": "Room temperature 3 days, refrigerated 7 days, frozen 6 months, freeze/thaw capacity 1.",
+        "reviewedValueSha256": "659b1d03a4700e7d10038558d6de790bfaaebfd8616c51b86350936054836176"
       }
-    }
+    },
+    "additionalSources": [
+      "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf"
+    ]
   },
   "labcorp:028142": {
     "status": "Partially verified",
@@ -493,5 +500,712 @@
         "evidence": "Result 164091 maps to 94769-7 and result 164092 maps to 94661-6."
       }
     }
+  },
+  "labcorp:004705": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true,
+    "replacementIdentified": "004774"
+  },
+  "labcorp:500152": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true,
+    "replacementIdentified": "004774"
+  },
+  "labcorp:004100": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true,
+    "replacementIdentified": "004389"
+  },
+  "labcorp:140768": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true,
+    "replacementIdentified": "004389"
+  },
+  "labcorp:144691": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true
+  },
+  "labcorp:146316": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true
+  },
+  "labcorp:500161": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true,
+    "replacementIdentified": "005165"
+  },
+  "labcorp:500108": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true,
+    "replacementIdentified": "004575"
+  },
+  "labcorp:140244": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true,
+    "replacementIdentified": "004575"
+  },
+  "labcorp:500124": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true,
+    "replacementIdentified": "160117"
+  },
+  "labcorp:070085": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true,
+    "replacementIdentified": "005134"
+  },
+  "labcorp:070037": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true
+  },
+  "labcorp:070078": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true
+  },
+  "labcorp:070083": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true
+  },
+  "labcorp:070090": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true
+  },
+  "labcorp:070120": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true
+  },
+  "labcorp:070132": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true
+  },
+  "labcorp:070145": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true
+  },
+  "labcorp:500167": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked by exact vendor code."
+      }
+    },
+    "hold": true,
+    "replacementIdentified": "005148"
+  },
+  "labcorp:340897": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 6.",
+        "reviewedValueSha256": "997a6e24053dbf43bcf37ca91965b81a0a1ad509313485616cc067a0bd253695"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:382965": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 6.",
+        "reviewedValueSha256": "997a6e24053dbf43bcf37ca91965b81a0a1ad509313485616cc067a0bd253695"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:164947": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 6.",
+        "reviewedValueSha256": "997a6e24053dbf43bcf37ca91965b81a0a1ad509313485616cc067a0bd253695"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:161836": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:161950": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:161810": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:161802": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:161828": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:520117": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 30 days, frozen 30 days, freeze/thaw capacity 1.",
+        "reviewedValueSha256": "02b8b5f42569ee2629e1e8746285160bab5149a637d5a084c863aff89b14cb6c"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:163059": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:163061": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:163067": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:007245": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 28 days, refrigerated 28 days, frozen 28 days, freeze/thaw capacity 4.",
+        "reviewedValueSha256": "958b0900f368708484dd7540b6dc5aaf5e4b7ec5f6422bc7608308e16a5a74fb"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:163900": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:163915": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:163882": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:163002": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:163908": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:085340": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 28 days, refrigerated 28 days, frozen 28 days, freeze/thaw capacity 4.",
+        "reviewedValueSha256": "958b0900f368708484dd7540b6dc5aaf5e4b7ec5f6422bc7608308e16a5a74fb"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:164010": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:165126": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:164002": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:165142": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:161646": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:161687": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
+        "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:042580": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 28 days, refrigerated 28 days, frozen 28 days, freeze/thaw capacity 4.",
+        "reviewedValueSha256": "958b0900f368708484dd7540b6dc5aaf5e4b7ec5f6422bc7608308e16a5a74fb"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:706200": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 28 days, refrigerated 28 days, frozen 28 days, freeze/thaw capacity 4.",
+        "reviewedValueSha256": "958b0900f368708484dd7540b6dc5aaf5e4b7ec5f6422bc7608308e16a5a74fb"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:717016": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 28 days, refrigerated 28 days, frozen 28 days, freeze/thaw capacity 4.",
+        "reviewedValueSha256": "958b0900f368708484dd7540b6dc5aaf5e4b7ec5f6422bc7608308e16a5a74fb"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:717009": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 28 days, refrigerated 28 days, frozen 28 days, freeze/thaw capacity 4.",
+        "reviewedValueSha256": "958b0900f368708484dd7540b6dc5aaf5e4b7ec5f6422bc7608308e16a5a74fb"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:007625": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 28 days, refrigerated 28 days, frozen 28 days, freeze/thaw capacity 4.",
+        "reviewedValueSha256": "958b0900f368708484dd7540b6dc5aaf5e4b7ec5f6422bc7608308e16a5a74fb"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:700433": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 28 days, refrigerated 28 days, frozen 28 days, freeze/thaw capacity 4.",
+        "reviewedValueSha256": "958b0900f368708484dd7540b6dc5aaf5e4b7ec5f6422bc7608308e16a5a74fb"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:085324": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Room temperature 28 days, refrigerated 28 days, frozen 28 days, freeze/thaw capacity 4.",
+        "reviewedValueSha256": "958b0900f368708484dd7540b6dc5aaf5e4b7ec5f6422bc7608308e16a5a74fb"
+      }
+    },
+    "additionalSources": []
+  },
+  "labcorp:140822": {
+    "status": "Partially verified",
+    "url": "https://specialtytesting.labcorp.com/tests/140822/insulin-like-growth-factor-binding-protein-1-igfbp-1-endocrine-sciences",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "stability": {
+        "evidence": "Reject room-temperature storage and shipment, refrigerated stability 48 hours, frozen stability 14 days, and six freeze/thaw cycles.",
+        "reviewedValueSha256": "56f9610478fa71fcb20250e857befca84c1cfd5f67e8ec2185559e09c0738078"
+      }
+    },
+    "additionalSources": [
+      "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf"
+    ]
+  },
+  "labcorp:167015": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/167015/apolipoprotein-b",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "1 mL.",
+        "reviewedValueSha256": "e799b82139d13b03de38ba330c19cd02045877373258ada1a8fccf16a3194539"
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL.",
+        "reviewedValueSha256": "fbf0bc963d3d09cf655f5b1a65eac59000025b0d19dcbde9e4f5955f7e563ec3"
+      },
+      "specialInstructions": {
+        "evidence": "Published minimum does not permit repeat testing. Keep existing serum transport route.",
+        "reviewedValueSha256": "ffdf682502617b9b27f1e00fc405743c5a5b5033b590b190075a253756a62125"
+      }
+    },
+    "additionalSources": [
+      "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf"
+    ]
+  },
+  "labcorp:120220": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/120220/complement-c1-esterase-inhibitor-functional",
+    "date": "2026-11-25",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "fields": {
+      "specialInstructions": {
+        "evidence": "Labcorp lists non-EDTA plasma, thawed or nonfrozen submissions, and gross hemolysis among rejection criteria.",
+        "reviewedValueSha256": "798911615f02e87cd803d0d8e011f3fe5c48570ad221d47d31685e93a7729ec7"
+      }
+    },
+    "additionalSources": [
+      "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf"
+    ]
   }
 }
