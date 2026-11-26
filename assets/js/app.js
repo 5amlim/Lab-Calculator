@@ -844,6 +844,9 @@
       .map(verifiedAffirmRecord)
       .map(blockHairOrNailSpecimen)
       .map(applySpecimenExclusions)
+      .map(test => test.testCode === '17306' && test.status === 'active' && !test.fastingStatus
+        ? { ...test, fastingStatus: 'preferred', fastingInstructions: 'Quest lists fasting as preferred, but optional.' }
+        : test)
       // Prevent any legacy custom copy or user edit of 92717 from re-enabling collection.
       .map(test => String(test.testCode || '').trim() === '92717'
         ? { ...test, status: 'blocked',

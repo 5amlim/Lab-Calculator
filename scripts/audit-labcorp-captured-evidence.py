@@ -2,7 +2,8 @@
 """Build review reports from saved Labcorp exact-code page captures."""
 
 import argparse
-from collections import defaultdict, Counter
+from collections import Counter, defaultdict
+from decimal import Decimal
 import csv
 import json
 from pathlib import Path
@@ -92,11 +93,74 @@ def build_reports(captures, pending, inventory, output):
     }
 
 
+def simple_volume(value, *, vendor):
+    suffix = r"(?:\s*\(\s*Note\b[^()]*\))?" if vendor else r"(?:\s+(?:serum|plasma|whole blood))?"
+    match = re.fullmatch(r"\s*(\d+(?:\.\d+)?)\s*mL" + suffix + r"\s*",
+                         value, re.IGNORECASE)
+    return Decimal(match[1]) if match else None
+
+
+def direct_storage_temperature(instructions):
+    # Only compare an explicit instruction with one temperature. Conditional
+    # handling, stability tables and split samples need field-level review.
+    primary = re.match(r"^(?:maintain specimen at )?"
+                       r"(room temperature|refrigerate|freeze)\b", instructions, re.IGNORECASE)
+    if not primary or re.search(r"\b(?:or|if|depending|stable|except|unacceptable)\b",
+                                instructions, re.IGNORECASE):
+        return None
+    return {"room temperature": "Room Temperature", "refrigerate": "Refrigerated",
+            "freeze": "Frozen"}[primary[1].lower()]
+
+
+def compare_routine_routes(captures, routes, output):
+    routes_by_code = defaultdict(list)
+    for route in routes:
+        if route["lab"] == "labcorp" and route["disposition"] == "active":
+            routes_by_code[route["code"]].append(route)
+    latest = {page["code"]: page for page in captures if page["source"] == "public"}
+    outcomes = Counter()
+    findings = []
+    reviewed = set()
+    for code, page in sorted(latest.items()):
+        if page["status"] != "exact page captured" or code not in routes_by_code:
+            continue
+        if not exact_public_page(page):
+            continue
+        records = routes_by_code[code]
+        if len(records) != 1:
+            outcomes["multiple_routes_for_review"] += 1
+            continue
+        route = records[0]
+        source = page["fields"]
+        measurements = [
+            ("preferredVolume", simple_volume(route["preferredVolume"], vendor=False),
+             simple_volume(source.get("volume", ""), vendor=True)),
+            ("minimumVolume", simple_volume(route["minimumVolume"], vendor=False),
+             simple_volume(source.get("minimumVolume", ""), vendor=True)),
+            ("transportTemperature", route["temperature"] or None,
+             direct_storage_temperature(source.get("storageInstructions", ""))),
+        ]
+        for field, stored, published in measurements:
+            if stored is None or published is None:
+                outcomes["not_comparable"] += 1
+                continue
+            reviewed.add(code)
+            status = "Match" if stored == published else "Review difference"
+            outcomes["matches" if status == "Match" else "differences"] += 1
+            findings.append([code, field, stored, published, status, page["url"],
+                             page["accessDate"], page["sha256"]])
+    write_csv(output / "LABCORP_ROUTINE_FIELD_COMPARISON.csv",
+              ["code", "field", "calculatorValue", "publishedValue", "outcome", "source",
+               "accessDate", "sourceSha256"], findings)
+    return {"ordersWithComparableFields": len(reviewed), **dict(outcomes)}
+
+
 def main():
     cli = argparse.ArgumentParser(description=__doc__)
     cli.add_argument("--captures", type=Path, nargs="+", required=True)
     cli.add_argument("--pending", type=Path, required=True)
     cli.add_argument("--inventory", type=Path, required=True)
+    cli.add_argument("--routes", type=Path, help="Runtime SPECIMEN_CONTAINER_ROUTES.csv for routine field comparison")
     cli.add_argument("--out", type=Path, required=True)
     args = cli.parse_args()
     captures = []
@@ -109,7 +173,11 @@ def main():
     with args.pending.open(encoding="utf-8") as file:
         pending = list(csv.DictReader(file))
     args.out.mkdir(parents=True, exist_ok=True)
-    print(json.dumps(build_reports(captures, pending, inventory, args.out), indent=2))
+    summary = build_reports(captures, pending, inventory, args.out)
+    if args.routes:
+        with args.routes.open(encoding="utf-8") as file:
+            summary["routineFieldComparison"] = compare_routine_routes(captures, csv.DictReader(file), args.out)
+    print(json.dumps(summary, indent=2))
 
 
 if __name__ == "__main__":

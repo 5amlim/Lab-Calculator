@@ -792,6 +792,36 @@
     return reason ? { ...test, status: 'blocked', specialInstructions: reason } : test;
   }
 
+  function refreshReviewedLabcorpShipping(base, override) {
+    const previous = {
+      '007989': {
+        temperatureRaw: 'Room temperature for shipment under 3 days; refrigerate for longer storage'
+      },
+      '001487': {
+        stability: 'Room temperature 3 days; refrigerated or frozen 14 days.',
+        instructions: 'Serum only. Avoid hemolysis; if red top, separate serum from cells.'
+      },
+      '001637': {
+        stability: '7 days room temperature',
+        instructions: 'Serum or lithium heparin plasma. For serum, separate from cells after clotting. Green-top lithium heparin plasma must be centrifuged, transferred into labeled plastic transport and identified as lithium heparin plasma.'
+      }
+    }[base.testCode];
+    if (!previous || base.testCode !== override.testCode) return override;
+    const updated = { ...override };
+    // Replace the old bundled room-temperature default on saved records.
+    if (override.transportTemperature === 'Room Temperature' && override.transportTemperatureRaw === (previous.temperatureRaw || 'Room Temperature')) {
+      updated.transportTemperature = base.transportTemperature;
+      updated.transportTemperatureRaw = base.transportTemperatureRaw;
+      if (override.stability === previous.stability) updated.stability = base.stability;
+      if (override.specialInstructions === previous.instructions) updated.specialInstructions = base.specialInstructions;
+    }
+    if (base.fastingStatus === 'required' && override.fastingStatus !== 'required') {
+      updated.fastingStatus = base.fastingStatus;
+      updated.fastingInstructions = base.fastingInstructions;
+    }
+    return updated;
+  }
+
   function applyUserState(state) {
     // Separate LabCorp records and local edits; no Quest code migrations.
     const builtIns = seedDatabase.map(test => applySpecimenExclusions({ ...test }));
@@ -802,7 +832,7 @@
       if (index === undefined) return;
       const base = builtIns[index];
       if (base.status === 'blocked') return;
-      builtIns[index] = override;
+      builtIns[index] = refreshReviewedLabcorpShipping(base, override);
     });
     const blockedByCode = new Map(builtIns.filter(test => test.status === 'blocked' && test.testCode)
       .map(test => [test.testCode, test]));

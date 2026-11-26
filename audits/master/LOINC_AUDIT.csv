@@ -10,3 +10,40 @@ labcorp,123075,012230,1746-7,result,Public directory,,https://www.labcorp.com/te
 labcorp,123075,001081,1751-7,result,Public directory,,https://www.labcorp.com/tests/123075/multiple-sclerosis-ms-profile,2026-11-25,Labcorp published result mapping; order LOINC blank
 labcorp,123075,001776,2465-3,result,Public directory,,https://www.labcorp.com/tests/123075/multiple-sclerosis-ms-profile,2026-11-25,Labcorp published result mapping; order LOINC blank
 labcorp,123075,160311,2470-3,result,Public directory,,https://www.labcorp.com/tests/123075/multiple-sclerosis-ms-profile,2026-11-25,Labcorp published result mapping; order LOINC blank
+quest,10231,25000000,2345-7,result,Tampa,,https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP,2026-11-26,Published result mapping; not an order assignment.
+quest,10231,25000100,3094-0,result,Tampa,,https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP,2026-11-26,Published result mapping; not an order assignment.
+quest,10231,25000200,2160-0,result,Tampa,,https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP,2026-11-26,Published result mapping; not an order assignment.
+quest,10231,25000300,3097-3,result,Tampa,,https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP,2026-11-26,Published result mapping; not an order assignment.
+quest,10231,25000400,2951-2,result,Tampa,,https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP,2026-11-26,Published result mapping; not an order assignment.
+quest,10231,25000500,2823-3,result,Tampa,,https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP,2026-11-26,Published result mapping; not an order assignment.
+quest,10231,25000600,2075-0,result,Tampa,,https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP,2026-11-26,Published result mapping; not an order assignment.
+quest,10231,25000700,2028-9,result,Tampa,,https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP,2026-11-26,Published result mapping; not an order assignment.
+quest,10231,25001000,17861-6,result,Tampa,,https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP,2026-11-26,Published result mapping; not an order assignment.
+quest,10231,25001300,2885-2,result,Tampa,,https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP,2026-11-26,Published result mapping; not an order assignment.
+quest,10231,25001400,1751-7,result,Tampa,,https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP,2026-11-26,Published result mapping; not an order assignment.
+quest,10231,25001500,10834-0,result,Tampa,,https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP,2026-11-26,Published result mapping; not an order assignment.
+quest,10231,25001600,1759-0,result,Tampa,,https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP,2026-11-26,Published result mapping; not an order assignment.
+quest,10231,25001700,1975-2,result,Tampa,,https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP,2026-11-26,Published result mapping; not an order assignment.
+quest,10231,25002000,6768-6,result,Tampa,,https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP,2026-11-26,Published result mapping; not an order assignment.
+quest,10231,25002300,1920-8,result,Tampa,,https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP,2026-11-26,Published result mapping; not an order assignment.
+quest,10231,25002400,1742-6,result,Tampa,,https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP,2026-11-26,Published result mapping; not an order assignment.
+quest,10231,86031867,98979-8,result,Tampa,,https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP,2026-11-26,Published result mapping; not an order assignment.
+labcorp,322000,,24323-8,order,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published order mapping.
+labcorp,322000,001032,2345-7,result,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published result mapping.
+labcorp,322000,001040,3094-0,result,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published result mapping.
+labcorp,322000,001370,2160-0,result,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published result mapping.
+labcorp,322000,011577,3097-3,result,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published result mapping.
+labcorp,322000,001198,2951-2,result,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published result mapping.
+labcorp,322000,001180,2823-3,result,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published result mapping.
+labcorp,322000,001206,2075-0,result,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published result mapping.
+labcorp,322000,001578,2028-9,result,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published result mapping.
+labcorp,322000,001016,17861-6,result,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published result mapping.
+labcorp,322000,001073,2885-2,result,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published result mapping.
+labcorp,322000,001081,1751-7,result,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published result mapping.
+labcorp,322000,012039,10834-0,result,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published result mapping.
+labcorp,322000,012047,1759-0,result,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published result mapping.
+labcorp,322000,001099,1975-2,result,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published result mapping.
+labcorp,322000,001107,6768-6,result,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published result mapping.
+labcorp,322000,001123,1920-8,result,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published result mapping.
+labcorp,322000,001545,1742-6,result,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published result mapping.
+labcorp,322000,100779,98979-8,result,Public directory,24323-8,https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W,2026-11-26,Published result mapping.

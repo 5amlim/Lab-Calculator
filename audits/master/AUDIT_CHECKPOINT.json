@@ -1,7 +1,7 @@
 {
   "baselineRevision": "b81f79958661971bad3a6799d6a0465a7525156e",
   "date": "2026-11-26",
-  "checkpoint": "Full runtime inventory, active-test preservation, source listing reconciliation and targeted clinical review",
+  "checkpoint": "Public-directory clinical comparison, active-test preservation, and full runtime inventory",
   "catalogRecordsAccountedFor": {
     "quest": 3829,
     "labcorp": 6601
@@ -11,12 +11,12 @@
     "labcorp": 0
   },
   "reviewedOrAttempted": {
-    "quest": 21,
-    "labcorp": 81
+    "quest": 37,
+    "labcorp": 104
   },
   "notYetReviewed": {
-    "quest": 3808,
-    "labcorp": 6520
+    "quest": 3792,
+    "labcorp": 6497
   },
   "recordStatusSource": "FIELD_EVIDENCE.json. Every catalog row without a key has status Not yet reviewed.",
   "evidenceKeys": [
@@ -121,7 +121,46 @@
     "quest:93876",
     "labcorp:502690",
     "labcorp:120089",
-    "labcorp:501218"
+    "labcorp:501218",
+    "quest:7600",
+    "quest:6399",
+    "quest:10231",
+    "quest:899",
+    "quest:457",
+    "quest:17306",
+    "quest:927",
+    "quest:496",
+    "quest:395",
+    "quest:249",
+    "quest:4420",
+    "quest:809",
+    "quest:91431",
+    "quest:16796",
+    "quest:39441",
+    "quest:8659",
+    "labcorp:000455",
+    "labcorp:000620",
+    "labcorp:000810",
+    "labcorp:001081",
+    "labcorp:001107",
+    "labcorp:001214",
+    "labcorp:001438",
+    "labcorp:001677",
+    "labcorp:001805",
+    "labcorp:001859",
+    "labcorp:004800",
+    "labcorp:005249",
+    "labcorp:001487",
+    "labcorp:001637",
+    "labcorp:322000",
+    "labcorp:790500",
+    "labcorp:842104",
+    "labcorp:808315",
+    "labcorp:716795",
+    "labcorp:071712",
+    "labcorp:284191",
+    "labcorp:702790",
+    "labcorp:007989"
   ],
   "inventoryCommand": "node scripts/audit-calculator-database.mjs --out ../calculator-current-report --check",
   "continueFrom": "Enumerate TEST_INVENTORY.csv where verification is Not yet reviewed, keeping laboratory and exact test code as strings. Use the appropriate service-area evidence and review every applicable route before marking a record fully verified.",
@@ -155,7 +194,7 @@
     }
   },
   "exactPageIntake": {
-    "publicPagesAttempted": 250,
+    "publicPagesAttempted": 340,
     "cdosPagesAttempted": 188,
     "interpretation": "Capture and code identity are intake milestones. Field-level adjudication remains in FIELD_EVIDENCE.json.",
     "checkpoint": "LABCORP_EXACT_PAGE_CHECKPOINT.csv",
@@ -212,11 +251,17 @@
       "Exact page unavailable. Request receiving-lab documentation.": 5
     },
     "publishedLoincAssignments": {
-      "order": 187,
-      "result": 423
+      "order": 269,
+      "result": 541
     },
-    "publicCodesWithPublishedAssignments": 219,
-    "formatIssues": 0
+    "publicCodesWithPublishedAssignments": 309,
+    "formatIssues": 0,
+    "routineFieldComparison": {
+      "ordersWithComparableFields": 264,
+      "matches": 643,
+      "not_comparable": 221,
+      "multiple_routes_for_review": 8
+    }
   },
   "activeTestPreservation": {
     "baselineActiveRecordsLost": 0,
@@ -237,6 +282,7 @@
     },
     "savedBaselinePages": 21,
     "controlledHeadlessPagesBefore": 22,
-    "controlledHeadlessPagesAfter": 22
+    "controlledHeadlessPagesAfter": 22,
+    "documentedPreparationChange": "Quest 17306 now shows that fasting is preferred and optional."
   }
 }

@@ -1553,5 +1553,691 @@
         "evidence": "One plastic transport tube described; maximum capacity not provided."
       }
     }
+  },
+  "quest:7600": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/7600/lipid-panel-standard?cc=WDL",
+    "date": "2026-11-26",
+    "note": "The WDL service-area route matches these fields in the calculator. Confirm receiving account for other service areas.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Preferred serum route. The source also describes heparin plasma alternatives."
+      },
+      "preferredVolume": {
+        "evidence": "1 mL serum."
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL."
+      },
+      "transportContainer": {
+        "evidence": "SST."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient."
+      },
+      "stability": {
+        "evidence": "48 hours for the ambient serum route."
+      }
+    }
+  },
+  "quest:6399": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/6399?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Local receiving-account acceptance remains open.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Full lavender EDTA tube for the preferred venous route."
+      },
+      "minimumVolume": {
+        "evidence": "1 mL for venous whole blood; 0.5 mL is a separate microcollection minimum."
+      },
+      "transportContainer": {
+        "evidence": "Original lavender EDTA tube."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient."
+      },
+      "stability": {
+        "evidence": "48 hours at ambient temperature."
+      }
+    }
+  },
+  "quest:10231": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP",
+    "date": "2026-11-26",
+    "note": "Local receiving-account acceptance remains open.",
+    "fields": {
+      "transportContainer": {
+        "evidence": "SST."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient; freeze is not accepted for the TMP instructions."
+      },
+      "stability": {
+        "evidence": "72 hours ambient and refrigerated."
+      },
+      "resultLoinc": {
+        "evidence": "18 result assignments published for the Tampa service area."
+      }
+    }
+  },
+  "quest:899": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/899/tsh?cc=WDL&q=TSH",
+    "date": "2026-11-26",
+    "note": "Matches these fields for the WDL service area. Local receiving-account acceptance remains open.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "1 mL serum."
+      },
+      "minimumVolume": {
+        "evidence": "0.7 mL."
+      },
+      "transportContainer": {
+        "evidence": "SST."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient."
+      },
+      "stability": {
+        "evidence": "7 days at ambient temperature."
+      }
+    }
+  },
+  "quest:457": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/457/ferritin",
+    "date": "2026-11-26",
+    "note": "Local receiving-account acceptance remains open.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "1 mL serum."
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL."
+      },
+      "transportContainer": {
+        "evidence": "SST."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient."
+      },
+      "stability": {
+        "evidence": "7 days at ambient temperature."
+      }
+    }
+  },
+  "quest:17306": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/17306/",
+    "date": "2026-11-26",
+    "note": "Local receiving-account acceptance remains open.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "0.8 mL serum."
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL."
+      },
+      "transportContainer": {
+        "evidence": "Transport tube."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient."
+      },
+      "stability": {
+        "evidence": "7 days at ambient temperature."
+      },
+      "fastingStatus": {
+        "evidence": "The exact public entry prefers fasting and expressly allows nonfasting collection.",
+        "reviewedValueSha256": "fc60a63f65dfc8031f83a45313603455b03180b6cb018db95ac6dad9245cd91a"
+      },
+      "fastingInstructions": {
+        "evidence": "Display as preferred. No required fasting label or duration.",
+        "reviewedValueSha256": "03d77e5292f68d2612d2612d4f2e671746f022faf4f99dca03bd7b5c602d8fa8"
+      }
+    }
+  },
+  "quest:927": {
+    "status": "Clinical conflict",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/927/vitamin-b12-cobalamin?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Retain the current clinic route pending the receiving account's exact volume and transport confirmation.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "One accessible exact-code view lists 2 mL, versus 1 mL in the current calculator."
+      },
+      "minimumVolume": {
+        "evidence": "One view lists 1 mL, versus 0.5 mL in the current calculator."
+      },
+      "stability": {
+        "evidence": "Exact-code views show different ambient intervals and guidance for delayed transport."
+      }
+    }
+  },
+  "quest:496": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/496/",
+    "date": "2026-11-26",
+    "note": "Local receiving-account acceptance remains open.",
+    "fields": {
+      "specimenType": {
+        "evidence": "EDTA whole blood."
+      },
+      "preferredVolume": {
+        "evidence": "1 mL."
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL."
+      },
+      "transportContainer": {
+        "evidence": "Original lavender EDTA tube."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient."
+      },
+      "stability": {
+        "evidence": "7 days at ambient temperature."
+      }
+    }
+  },
+  "quest:395": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/395/culture-urine-routine?cc=DAL&p=r&q=%2A",
+    "date": "2026-11-26",
+    "note": "The DAL public page corroborates the two supported clinic media. The receiving account determines applicability and timing.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Random clean-catch midstream urine."
+      },
+      "preferredVolume": {
+        "evidence": "4 mL for the gray-top route."
+      },
+      "minimumVolume": {
+        "evidence": "Gray-top minimum fill line. Saturated UriSponge is a distinct alternative."
+      },
+      "transportContainer": {
+        "evidence": "Gray-top urine transport or UriSponge."
+      }
+    }
+  },
+  "quest:249": {
+    "status": "Clinical conflict",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/249/?cc=MET",
+    "date": "2026-11-26",
+    "note": "The MET service-area volume differs. Confirm which preparation and volumes cover the clinic's receiving account before generalizing.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "The MET page calls for 2 mL compared with 1 mL in the current calculator."
+      },
+      "minimumVolume": {
+        "evidence": "The MET page calls for 1 mL compared with 0.5 mL in the current calculator."
+      },
+      "transportContainer": {
+        "evidence": "Transport tube."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient."
+      },
+      "stability": {
+        "evidence": "4 days ambient."
+      }
+    }
+  },
+  "quest:4420": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/4420/c-reactive-protein-crp?cc=MET&q=c-reactive+pro",
+    "date": "2026-11-26",
+    "note": "These fields match in the MET view. Exact local shipping and acceptance remain open.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "1 mL serum."
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL."
+      },
+      "transportContainer": {
+        "evidence": "SST."
+      }
+    }
+  },
+  "quest:809": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/809/sed-rate-by-modified-westergren",
+    "date": "2026-11-26",
+    "note": "Local receiving-account acceptance remains open.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Full lavender EDTA tube."
+      },
+      "minimumVolume": {
+        "evidence": "2 mL."
+      },
+      "transportContainer": {
+        "evidence": "Original lavender EDTA tube."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient."
+      },
+      "stability": {
+        "evidence": "24 hours at ambient temperature."
+      }
+    }
+  },
+  "quest:91431": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/91431/hiv-12-antigen-and-antibodies-fourth-generation-with-reflexes?cc=MASTER&p=r",
+    "date": "2026-11-26",
+    "note": "The clinical directory fields confirm the core route. The dedicated tube policy remains in place and regional acceptance is unverified.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "2 mL."
+      },
+      "transportContainer": {
+        "evidence": "SST."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient."
+      },
+      "stability": {
+        "evidence": "72 hours at ambient temperature."
+      }
+    }
+  },
+  "quest:16796": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/16796/calprotectin-stool?cc=MASTER&p=r",
+    "date": "2026-11-26",
+    "note": "The exact page leaves some container fields to the service-area selection.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "0.3 g."
+      },
+      "transportTemperature": {
+        "evidence": "Frozen."
+      }
+    }
+  },
+  "quest:39441": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/39441/giardia-and-cryptosporidium-antigen-panel?cc=MASTER&p=r",
+    "date": "2026-11-26",
+    "note": "Local receiving-account acceptance remains open.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "10 g or 10 mL stool in Total-Fix."
+      },
+      "minimumVolume": {
+        "evidence": "5 g or 5 mL."
+      },
+      "transportContainer": {
+        "evidence": "Total-Fix for the reviewed path."
+      }
+    }
+  },
+  "quest:8659": {
+    "status": "Official information unavailable",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/8659/d-dimer-quantitative?cc=MASTER&p=r",
+    "date": "2026-11-26",
+    "note": "Confirm whether the clinic's performing laboratory accepts the original whole-blood citrate route and its timing limit.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "The exact page leaves the route-specific transport field to the service-area selection."
+      }
+    }
+  },
+  "labcorp:000455": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/000455/thyroid-profile",
+    "date": "2026-11-26",
+    "note": "Routine quantities and the selected temperature were compared. Receiving account and remaining fields are open.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "1 mL serum preferred; 0.7 mL minimum."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient."
+      }
+    }
+  },
+  "labcorp:000620": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/000620/thyroid-profile-with-tsh",
+    "date": "2026-11-26",
+    "note": "Routine quantities and the selected temperature were compared. Receiving account and remaining fields are open.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "2 mL serum preferred; 0.7 mL minimum."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient."
+      }
+    }
+  },
+  "labcorp:000810": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/000810/vitamin-b12-and-folates",
+    "date": "2026-11-26",
+    "note": "Routine quantities and the selected temperature were compared. Receiving account and remaining fields are open.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "1.5 mL serum; 0.6 mL minimum."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient or refrigerated."
+      }
+    }
+  },
+  "labcorp:001081": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001081/albumin",
+    "date": "2026-11-26",
+    "note": "Routine quantities and the selected temperature were compared. Receiving account and remaining fields are open.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "1 mL serum preferred; 0.7 mL minimum."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient."
+      }
+    }
+  },
+  "labcorp:001107": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001107/alkaline-phosphatase-whe",
+    "date": "2026-11-26",
+    "note": "Routine quantities and the selected temperature were compared. Receiving account and remaining fields are open.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "1 mL serum preferred; 0.7 mL minimum."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient."
+      }
+    }
+  },
+  "labcorp:001214": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001214/bilirubin-total-and-direct",
+    "date": "2026-11-26",
+    "note": "Routine quantities and the selected temperature were compared. Receiving account and remaining fields are open.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "3 mL serum preferred; 1 mL minimum."
+      },
+      "transportTemperature": {
+        "evidence": "Refrigerated."
+      }
+    }
+  },
+  "labcorp:001438": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001438/immunofixation-ife-and-protein-electrophoresis-cerebrospinal-fluid",
+    "date": "2026-11-26",
+    "note": "Routine quantities and the selected temperature were compared. Receiving account and remaining fields are open.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "5 mL CSF; 2 mL minimum."
+      },
+      "transportTemperature": {
+        "evidence": "Refrigerated."
+      }
+    }
+  },
+  "labcorp:001677": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001677/fecal-fat-qualitative",
+    "date": "2026-11-26",
+    "note": "Routine quantities and the selected temperature were compared. Receiving account and remaining fields are open.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "About 3 g random fresh stool; 0.5 g minimum."
+      },
+      "transportTemperature": {
+        "evidence": "Refrigerated."
+      }
+    }
+  },
+  "labcorp:001805": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001805/vitamin-c",
+    "date": "2026-11-26",
+    "note": "Exact published route matches the current clinic route; confirm local transport logistics.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Lithium-heparin plasma."
+      },
+      "transportContainer": {
+        "evidence": "Light-protected amber plastic tube for the preferred route."
+      },
+      "transportTemperature": {
+        "evidence": "Immediate freezing and light protection."
+      },
+      "preferredVolume": {
+        "evidence": "1 mL; 0.5 mL minimum."
+      }
+    }
+  },
+  "labcorp:001859": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001859/creatine-kinase-ck-and-lactate-dehydrogenase-ld-totals-and-isoenzymes",
+    "date": "2026-11-26",
+    "note": "Two different destination temperatures are supported by the existing route. Keep the vendor-specific stability distinction.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Serum with two separately handled destination aliquots."
+      },
+      "preferredVolume": {
+        "evidence": "3 mL refrigerated for CK and 3 mL ambient for LD."
+      },
+      "additionalDrawRequirements": {
+        "evidence": "Separate CK and LD submitted portions; vendor accepts red-top or gel-barrier collection."
+      }
+    }
+  },
+  "labcorp:004800": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/004800/iron-deficiency-anemia-cascade-with-complete-blood-count-cbc-with-differential",
+    "date": "2026-11-26",
+    "note": "The exact order supports the split destinations. Confirm vial allocation and pediatric checklist locally.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Serum and EDTA blood."
+      },
+      "preferredVolume": {
+        "evidence": "4 mL total serum and a full 4 mL whole-blood tube for the described order."
+      },
+      "additionalDrawRequirements": {
+        "evidence": "Two serum destinations, ambient and refrigerated, and one original EDTA blood tube at ambient."
+      }
+    }
+  },
+  "labcorp:005249": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/005249/platelet-count",
+    "date": "2026-11-26",
+    "note": "The optional diagnostic smear comment does not mandate a prepared smear for this routine platelet count.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Lavender EDTA to tube capacity."
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL for pediatric capillary microcollection; fill the selected tube as directed."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient."
+      }
+    }
+  },
+  "labcorp:001487": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001487/protein-electrophoresis-serum",
+    "date": "2026-11-26",
+    "note": "Updated the default route and migration for legacy saved room-temperature defaults. Confirm local receiving-account acceptance.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "The exact storage instruction specifies refrigeration at 2–8 °C.",
+        "reviewedValueSha256": "e92aaa3ab1c4f9f959932be4d7b5a65a5505141131712df582252fd626e8fb78"
+      },
+      "transportTemperatureRaw": {
+        "evidence": "Use the stated refrigeration range; ambient stability is not the selected route.",
+        "reviewedValueSha256": "4458e00e904826404ef205ef8ad478ecf463aafd0b26f88686b08ac900ad7ecb"
+      },
+      "stability": {
+        "evidence": "3 days ambient; 14 refrigerated or frozen; three freeze/thaw cycles.",
+        "reviewedValueSha256": "25d669fd181d37717fd09b7c63a2bd7c47762b9280e3dd5aefce54080419d256"
+      },
+      "specialInstructions": {
+        "evidence": "Use serum. Hemolysis and plasma are rejected. Refrigerate.",
+        "reviewedValueSha256": "78caab2bcd65d8a75506234e635b017e2c0cd4239242bb0a0ef5749a5c065fcd"
+      }
+    }
+  },
+  "labcorp:001637": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001637/alkaline-phosphatase-isoenzymes",
+    "date": "2026-11-26",
+    "note": "Updated the default route and migration for legacy saved room-temperature defaults. Confirm local receiving-account acceptance.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "The exact storage instruction requires prompt refrigeration at 2–8 °C.",
+        "reviewedValueSha256": "e92aaa3ab1c4f9f959932be4d7b5a65a5505141131712df582252fd626e8fb78"
+      },
+      "transportTemperatureRaw": {
+        "evidence": "Use the stated refrigeration range for the route.",
+        "reviewedValueSha256": "4458e00e904826404ef205ef8ad478ecf463aafd0b26f88686b08ac900ad7ecb"
+      },
+      "stability": {
+        "evidence": "7 days ambient or refrigerated; 3 months frozen; three freeze/thaw cycles.",
+        "reviewedValueSha256": "b2ef4f7add739986d8bef9ede33126144aa5d2ebc6c43cf0536ed10fb8088782"
+      },
+      "specialInstructions": {
+        "evidence": "Preserve both supported source paths. Follow the lab's serum separation and lithium-heparin transfer requirements. Reject unsupported anticoagulants and record age and sex.",
+        "reviewedValueSha256": "95b0f8b9244c2be52c03b66cc12689e936a1a304a8685c93860650e5d625a8a9"
+      },
+      "fastingStatus": {
+        "evidence": "The Labcorp page rejects specimens collected without fasting.",
+        "reviewedValueSha256": "cf51937bad8b2f6948b8edf1bd3289f3bc332ec610f99df2f5aff0218b3a554b"
+      },
+      "fastingInstructions": {
+        "evidence": "The source states the rejection criterion but does not give a fasting duration.",
+        "reviewedValueSha256": "64c1abeccb4af69b9e875af2cef8acfa54bcbc43ac694ffcbe00aef7a7a015ae"
+      }
+    }
+  },
+  "labcorp:322000": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W",
+    "date": "2026-11-26",
+    "note": "Published components support the existing candidate against the Tampa Quest CMP. Receiving-account and order-level checks remain open.",
+    "fields": {
+      "resultLoinc": {
+        "evidence": "18 result assignments including eGFR. The source publishes order LOINC 24323-8."
+      },
+      "specimenType": {
+        "evidence": "Published Labcorp comprehensive metabolic panel uses serum or plasma."
+      }
+    }
+  },
+  "labcorp:790500": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/790500/clobazam-serum-or-plasma",
+    "date": "2026-11-26",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Ambient shipment for less than three days. Longer storage is refrigerated or frozen."
+      }
+    },
+    "note": "The current vendor temperature was compared with the selected route. Other fields and receiving-account requirements remain open."
+  },
+  "labcorp:842104": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/842104/tiagabine-serum-or-plasma",
+    "date": "2026-11-26",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Ambient shipment for less than three days. Longer storage is refrigerated or frozen."
+      }
+    },
+    "note": "The current vendor temperature was compared with the selected route. Other fields and receiving-account requirements remain open."
+  },
+  "labcorp:808315": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/808315/vigabatrin-serum-or-plasma",
+    "date": "2026-11-26",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Ambient shipment for less than three days. Longer storage is refrigerated or frozen."
+      }
+    },
+    "note": "The current vendor temperature was compared with the selected route. Other fields and receiving-account requirements remain open."
+  },
+  "labcorp:716795": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/716795/mycophenolic-acid-mpa-and-metabolite",
+    "date": "2026-11-26",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "The exact public order lists ambient handling."
+      }
+    },
+    "note": "The current vendor temperature was compared with the selected route. Other fields and receiving-account requirements remain open."
+  },
+  "labcorp:071712": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/071712/clonazepam",
+    "date": "2026-11-26",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "The exact public order specifies refrigerated handling for the current route."
+      }
+    },
+    "note": "The current vendor temperature was compared with the selected route. Other fields and receiving-account requirements remain open."
+  },
+  "labcorp:284191": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/284191/rufinamide-serum-or-plasma",
+    "date": "2026-11-26",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Ambient shipment for less than three days. Longer storage is refrigerated or frozen."
+      }
+    },
+    "note": "The current vendor temperature was compared with the selected route. Other fields and receiving-account requirements remain open."
+  },
+  "labcorp:702790": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/702790/eslicarbazepine-acetate-immunoassay-serum-or-plasma",
+    "date": "2026-11-26",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Ambient shipment for less than three days. Longer storage is refrigerated or frozen."
+      }
+    },
+    "note": "The current vendor temperature was compared with the selected route. Other fields and receiving-account requirements remain open."
+  },
+  "labcorp:007989": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/007989/diazepam-serum-or-plasma",
+    "date": "2026-11-26",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "The storage instructions specify refrigeration.",
+        "reviewedValueSha256": "e92aaa3ab1c4f9f959932be4d7b5a65a5505141131712df582252fd626e8fb78"
+      },
+      "transportTemperatureRaw": {
+        "evidence": "Refrigerate.",
+        "reviewedValueSha256": "31c927c695d31e582739f1eb2a66267d4b7125412b6132085ce4a80e08fb9c9a"
+      },
+      "drawContainer": {
+        "evidence": "Use the existing non-gel source; the test rejects gel-barrier specimens."
+      },
+      "transportContainer": {
+        "evidence": "Transfer separated serum or plasma to a plastic tube."
+      }
+    },
+    "note": "The current vendor temperature was compared with the selected route. Other fields and receiving-account requirements remain open."
   }
 }

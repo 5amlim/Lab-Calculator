@@ -13,18 +13,18 @@ Audit date November 26, 2026. Baseline commit `b81f79958661971bad3a6799d6a0465a7
 | Blocked runtime records | 514 | 514 | 455 | 457 |
 | Pending runtime records | 0 | 0 | 131 | 129 |
 | Fully clinically verified in this audit | 0 | 0 | 0 | 0 |
-| Partially verified in this audit | 0 | 15 | 0 | 48 |
-| Clinical conflict recorded | 0 | 2 | 0 | 1 |
+| Partially verified in this audit | 0 | 28 | 0 | 71 |
+| Clinical conflict recorded | 0 | 4 | 0 | 1 |
 | Current source inaccessible | 0 | 3 | 0 | 0 |
-| Specific official field unavailable | 0 | 0 | 0 | 2 |
-| Official review unstarted in this audit | 3,829 | 3,808 | 6,601 | 6,520 |
+| Specific official field unavailable | 0 | 1 | 0 | 2 |
+| Official review unstarted in this audit | 3,829 | 3,792 | 6,601 | 6,497 |
 | Runtime records added or removed | 0 | 0 | 0 | 0 |
 
 The active catalogs retain every baseline code and record ID. A collection review flag keeps a test visible in search and addable to the cart. The cart, printout and CSV show the reason. The specimen plan excludes those routes from automatic collection counts, submission bags and STAT. The converter does not propose those flagged orders as candidates. The [flag register](COLLECTION_REVIEW_FLAGS.csv) has all 35 codes, reasons and sources. Two previously pending Labcorp codes now appear in the exclusions register under vendor deletion notices.
 
 Quest also contains an uncoded active `XXX` 24-hour urine reference outside the numeric search index. Its shipment temperature remains an open audit warning. The counts exclude browser overrides, staff-created tests and patient data.
 
-All 10,430 runtime records have a reproducible inventory. The field evidence ledger covers 21 Quest and 81 Labcorp records. Separate Labcorp intake attempted 250 public pages and captured 246 exact order pages. Clinical verification, national catalog completeness and service-area acceptance remain open.
+All 10,430 runtime records have a reproducible inventory. The field evidence ledger covers 37 Quest and 104 Labcorp records. Separate Labcorp intake attempted 340 public pages and captured 336 exact order pages. Clinical verification, national catalog completeness and service-area acceptance remain open.
 
 ## Labcorp public listing reconciliation
 
@@ -35,6 +35,13 @@ Labcorp CDOS lists 6,510 exact codes. All are present in the runtime catalog. Th
 The [manual review queue](MANUAL_REVIEW_REQUIRED.csv) preserves the reason for all 129 pending records. The [exclusions register](EXCLUDED_TESTS.csv) records the runtime reason for every blocked Quest and Labcorp record. An exact vendor page in the intake queue establishes the code identity and captured fields. Collection remains on hold for pending records until their route is reviewed. The [Labcorp pending evidence report](LABCORP_PENDING_EVIDENCE_REVIEW.csv) distinguishes 101 orders with captured fields, 23 with identity-only captures and five without an exact page.
 
 ## Changes and clinical review
+
+- Labcorp 001487, 001637 and 007989 now use refrigerated shipment. The old room-temperature defaults are migrated when present in saved orders. The current exact-code page for 001637 also establishes fasting as required and leaves its duration unspecified.
+- Quest 17306 now displays the published fasting preference in the cart and printout. Fasting remains optional.
+- The public Labcorp capture was screened against active single-route records. The [routine comparison table](LABCORP_ROUTINE_FIELD_COMPARISON.csv) matches 643 comparable volume or explicit storage fields across 264 orders after the corrections. Another 221 fields and eight orders with multiple routes require review. This comparison establishes agreement only for the fields reported.
+- Quest 249 and 927 public views give different specimen volumes from the current calculator route. Quest 8659 requires a service-area selection. The [clinical conflict queue](CLINICAL_CONFLICTS_REQUIRING_REVIEW.csv) records these account-specific questions.
+- Quest 10231 in Tampa and Labcorp 322000 publish the same 18 result LOINCs, including eGFR. The [LOINC review](LOINC_AUDIT.csv) distinguishes those result identifiers from Labcorp's published order identifier. This supports the existing candidate. Test interchangeability still requires the receiving-account and assay review.
+
 
 - The November Labcorp bulletin names 36 deleted codes. The 18 previously active records remain searchable with vendor deletion flags. One previously pending record is blocked. Five obsolete converter links were removed. Vendor alternatives remain visible as references for order-scope review.
 - The May bulletin marks one active record for collection review, blocks one pending record and supersedes one conversion link. The other five May deletions were absent from the runtime catalog.
@@ -51,7 +58,7 @@ The [manual review queue](MANUAL_REVIEW_REQUIRED.csv) preserves the reason for a
 - Quest 34329, 34499 and 6447 and Labcorp 164798 have collection review flags while their exact shipment instructions are unresolved. Two workbook candidate links and one manual-review crosswalk link were removed. The uncoded Quest reference XXX still requires a temperature decision from the receiving laboratory.
 - Quest 93876 now shows a collection review flag because its exact directory entry lists frozen preferred serum and refrigerated shipment. Labcorp 502690 also has a flag while the receiving lab confirms vial count and capacity. Labcorp 120089's three draws and single dedicated vial match the vendor's instructions. Labcorp 501218's published volume and frozen plastic container are documented, with local usable vial capacity still open.
 - Labcorp 005215's official TAT starts at pickup and is already labeled accordingly in the calculator. No regional substitution was made.
-- Vendor-published LOINC results were recorded separately from order codes. No inferred mapping was promoted. The [Labcorp LOINC intake](LABCORP_PUBLISHED_LOINC_INTAKE.csv) records 187 published order assignments and 423 published result assignments from 219 exact codes. These captures passed the syntax and check-digit checks. Term axes and current release status remain open. Exact Quest order-to-result compendia and receiving-lab region exports are outstanding.
+- Vendor-published LOINC results were recorded separately from order codes. No inferred mapping was promoted. The [Labcorp LOINC intake](LABCORP_PUBLISHED_LOINC_INTAKE.csv) records 269 published order assignments and 541 published result assignments from 309 exact codes. These captures passed the syntax and check-digit checks. Term axes and current release status remain open. Exact Quest order-to-result compendia and receiving-lab region exports are outstanding.
 
 ## Conversion reconciliation
 
@@ -92,12 +99,15 @@ node scripts/audit-calculator-database.mjs --out ../calculator-current-report --
 node --test tests/*.test.cjs
 ```
 
-To rebuild the Labcorp pending and published LOINC tables, pass the retained exact-page JSONL capture files to `scripts/audit-labcorp-captured-evidence.py --captures` with `--pending audits/master/MANUAL_REVIEW_REQUIRED.csv --inventory audits/master/RECORD_CHECKPOINT.csv --out audits/master`. The output retains source URLs and page hashes. Run a licensed/current LOINC release comparison before promoting an assignment into term-level or equivalence evidence.
+To rebuild the Labcorp pending and published LOINC tables, pass the retained exact-page JSONL capture files to `scripts/audit-labcorp-captured-evidence.py --captures` with `--pending audits/master/MANUAL_REVIEW_REQUIRED.csv --inventory audits/master/RECORD_CHECKPOINT.csv --out audits/master`. Add `--routes` with the generated `SPECIMEN_CONTAINER_ROUTES.csv` to produce the routine field comparison. The output retains source URLs and page hashes. Run a licensed/current LOINC release comparison before promoting an assignment into term-level or equivalence evidence.
 
 ## Quest print baseline
 
-The saved SoCal Common Labs printout and the reproduced Gold SST cart had the same 78 tests and 46 draws. The submission totals were 38 room-temperature, nine refrigerated and five frozen containers across three bags. The pre-audit and audit browsers produced identical text and grouping for collection and submission cards, test details, fasting, precautions, and handling notes. Both headless PDFs paginated to 22 pages, whereas the supplied PDF is 21 pages. Exact pagination in the supplied PDF's original print environment remains unverified.
+The saved SoCal Common Labs printout and the reproduced Gold SST cart had the same 78 tests and 46 draws. The submission totals were 38 room-temperature, nine refrigerated and five frozen containers across three bags. The collection cards, submission cards and bag totals match the baseline. The expected text change is the optional fasting preference for Quest 17306. Both headless PDFs paginated to 22 pages, whereas the supplied PDF is 21 pages. Exact pagination in the supplied PDF's original print environment remains unverified.
 
 ## Outstanding scope
+
+The available public sources establish individual test fields and show why local verification is still necessary. Quest service areas can publish different handling requirements for the same code. Closing the clinical review requires current receiving-account compendia for the supported markets and order-to-result mappings with assay and reflex definitions. Public page capture and automated field comparisons remain tracked separately from full clinical verification.
+
 
 Continue the unexplored exact-code Quest and Labcorp records from the record inventory. The [collection-to-submission review queue](COLLECTION_SUBMISSION_COUNT_REVIEW.csv) captures 16 Quest and 27 Labcorp records flagged for high draw-to-vial ratios. The queue retains the verified Labcorp 120089 finding for traceability. The remaining entries are review triggers. Compare the receiving laboratory’s documented aliquot counts and the actual transport vial capacity before changing a plan. Resolve held specimen routes and calculate manual review priority for active tests with missing temperature, suspected discrepancies in declared versus calculated aliquot counts, and mixed or dedicated draws. Reconcile official catalog omissions, current discontinuations, regional acceptance, and special instructions in free text. Obtain authorized vendor extracts for order and result LOINC, verify candidate and unpaired orders from both sides, and record clinically significant panel and method differences. Review the index, cart, bag and print UI in supported browsers before deployment. A structural pass or passing test suite does not close these tasks.

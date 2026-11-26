@@ -207,3 +207,36 @@ test('recent volume and temperature discrepancies stay visible without collectio
     assert.equal(api.buildTransportBagPlan(api.expandedCollectionTests([row])).length, 0);
   }
 });
+
+
+test('reviewed orders use the published shipping and fasting instructions', async () => {
+  const {labs, loadCalculator} = await import('../scripts/load-calculator-catalog.mjs');
+  const labcorp = await loadCalculator(root, labs[1], {captureRecords: true});
+  const codes = ['001487', '001637', '007989'];
+  const records = labcorp.records.filter(row => codes.includes(row.testCode));
+  assert.equal(records.length, codes.length);
+  const api = openCalculator(labs[1].app, ['applyUserState', 'expandedCollectionTests', 'buildTransportBagPlan', 'fastingRequirement'], {records});
+  const overrides = records.map(row => ({
+    ...row, transportTemperature: 'Room Temperature',
+    transportTemperatureRaw: row.testCode === '007989'
+      ? 'Room temperature for shipment under 3 days; refrigerate for longer storage' : 'Room Temperature',
+    fastingStatus: '', fastingInstructions: '', specialInstructions: 'Local handling note'
+  }));
+  const restored = api.applyUserState({overrides}).filter(row => codes.includes(row.testCode));
+  assert(restored.every(row => row.status === 'active' && row.transportTemperature === 'Refrigerated'));
+  assert(records.filter(row => row.testCode !== '007989').every(row => row.specialInstructions.includes('2–8 °C')));
+  const diazepam = restored.find(row => row.testCode === '007989');
+  assert.equal(diazepam.drawContainer, 'Red Top');
+  assert.equal(diazepam.transportContainer, 'Transport Tube');
+  assert(restored.every(row => row.specialInstructions === 'Local handling note'));
+  assert.equal(api.buildTransportBagPlan(api.expandedCollectionTests(restored)).length, 1);
+  const isoenzymes = restored.find(row => row.testCode === '001637');
+  assert.equal(api.fastingRequirement(isoenzymes)?.level, 'required');
+  assert.match(api.fastingRequirement(isoenzymes)?.note, /Confirm the fasting duration/);
+
+  const quest = await loadCalculator(root, labs[0], {captureRecords: true});
+  const vitaminD = quest.records.find(row => row.testCode === '17306');
+  assert.equal(vitaminD.status, 'active');
+  assert.equal(vitaminD.fastingStatus, 'preferred');
+  assert.match(vitaminD.fastingInstructions, /optional/);
+});

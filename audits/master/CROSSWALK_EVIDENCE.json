@@ -78,5 +78,13 @@
     "labcorpUrl": "https://www.labcorp.com/tests/164798",
     "evidence": "The Labcorp destination is on collection hold because an exact shipping requirement could not be established.",
     "approvalStatus": "Clinical shipping confirmation required before reconsideration."
+  },
+  "10231|322000": {
+    "classification": "Directory-supported candidate",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP",
+    "labcorpUrl": "https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W",
+    "date": "2026-11-26",
+    "evidence": "All 18 published result LOINCs agree, including eGFR. The Quest result table is specific to Tampa. Labcorp publishes order LOINC 24323-8.",
+    "approvalStatus": "Candidate only. Confirm the full assay, result reporting and receiving-account scope before substitution."
   }
 }
