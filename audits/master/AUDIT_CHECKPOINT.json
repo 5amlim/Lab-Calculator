@@ -595,7 +595,7 @@
     "baselineActiveRecordsLost": 0,
     "flaggedCodes": {
       "quest": 5,
-      "labcorp": 30
+      "labcorp": 31
     },
     "register": "COLLECTION_REVIEW_FLAGS.csv"
   },

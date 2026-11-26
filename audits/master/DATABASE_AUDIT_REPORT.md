@@ -9,7 +9,7 @@ Audit date November 26, 2026. Baseline commit `b81f79958661971bad3a6799d6a0465a7
 | Runtime catalog records | 3,829 | 3,829 | 6,601 | 6,601 |
 | Active runtime records | 3,315 | 3,315 | 6,015 | 6,015 |
 | Active codes in published search | 3,314 | 3,314 | 6,015 | 6,015 |
-| Active codes with a collection review flag | 0 | 5 | 0 | 30 |
+| Active codes with a collection review flag | 0 | 5 | 0 | 31 |
 | Blocked runtime records | 514 | 514 | 455 | 457 |
 | Pending runtime records | 0 | 0 | 131 | 129 |
 | Fully clinically verified in this audit | 0 | 0 | 0 | 0 |
@@ -20,7 +20,7 @@ Audit date November 26, 2026. Baseline commit `b81f79958661971bad3a6799d6a0465a7
 | Official review unstarted in this audit | 3,829 | 3,768 | 6,601 | 6,201 |
 | Runtime records added or removed | 0 | 0 | 0 | 0 |
 
-The active catalogs retain every baseline code and record ID. A collection review flag keeps a test visible in search and addable to the cart. The cart, printout and CSV show the reason. The specimen plan excludes those routes from automatic collection counts, submission bags and STAT. The converter does not propose those flagged orders as candidates. The [flag register](COLLECTION_REVIEW_FLAGS.csv) has all 35 codes, reasons and sources. Two previously pending Labcorp codes now appear in the exclusions register under vendor deletion notices.
+The active catalogs retain every baseline code and record ID. A collection review flag keeps a test visible in search and addable to the cart. The cart, printout and CSV show the reason. The specimen plan excludes those routes from automatic collection counts, submission bags and STAT. The converter does not propose those flagged orders as candidates. The [flag register](COLLECTION_REVIEW_FLAGS.csv) has all 36 codes, reasons and sources. Two previously pending Labcorp codes now appear in the exclusions register under vendor deletion notices.
 
 Quest also contains an uncoded active `XXX` 24-hour urine reference outside the numeric search index. Its shipment temperature remains an open audit warning. The counts exclude browser overrides, staff-created tests and patient data.
 
@@ -124,3 +124,5 @@ Compared public exact pages for 234, 236 and 10165 with the committed seed route
 ### High-volume serum toxicology follow-up
 
 Exact Labcorp pages for 700834, 700845 and 700925 support the committed 7 mL preferred/3 mL minimum serum routes and ambient short-term shipping. The MedTox exact page for 700841 instead specifies refrigeration while Mission Health CDOS specifies ambient; the receiving account must resolve the conflict before use. No assumed vial capacity or blanket shipping change was made. Three further CDOS URLs could not be accessed. Existing display labels, pooling and active records remain unchanged.
+
+Labcorp 700841 now receives an explicit collection-review hold under the existing active-record preservation rule. It remains searchable and cart-addable, but the calculator suppresses collection and shipment quantities until the receiving account resolves the conflict. The underlying container names and route remain unchanged.

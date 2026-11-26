@@ -755,6 +755,10 @@
           + (archived && REVIEWED_DNP_20261121.has(code) ? ' ' + REVIEWED_DNP_20261121.get(code) : ''), source,
         ACTIVE_DELETION_REVIEW_CODES.has(code));
     }
+    if (code === '700841') {
+      return applyCollectionReview(test,
+        "Collection on hold. MedTox specifies refrigerated short-term shipment for this code, while an account-specific Labcorp directory specifies room temperature. Confirm the accepted shipment conditions and transport vial capacity with the receiving Labcorp laboratory before collection.", "https://medtox.labcorp.com/tests/700841/drug-screen-10-with-reflex-confirmation-amp-bar-bzo-coc-pcp-thc-opi-oxy-md-ppx-serum");
+    }
     if (code === '502690') {
       return applyCollectionReview(test,
         'Collection on hold. Confirm the right number and capacity of frozen transport vials and the required aliquot volumes with the receiving Labcorp laboratory.',

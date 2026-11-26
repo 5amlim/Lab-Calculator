@@ -7729,7 +7729,7 @@
     "status": "Clinical conflict",
     "url": "https://medtox.labcorp.com/tests/700841/drug-screen-10-with-reflex-confirmation-amp-bar-bzo-coc-pcp-thc-opi-oxy-md-ppx-serum",
     "date": "2026-11-26",
-    "note": "MedTox requires refrigerated shipment for less than three days while the account-specific Mission Health CDOS specifies ambient and matches the current bundled route. Confirm receiving laboratory before collection; no silent change. Both sources agree on specimen and volume. The transport vial's usable capacity is not established.",
+    "note": "MedTox requires refrigerated shipment for less than three days while the account-specific Mission Health CDOS specifies ambient and matches the current bundled route. Confirm receiving laboratory before collection; no silent change. Both sources agree on specimen and volume. The transport vial's usable capacity is not established. Active/searchable record receives an explicit collection-review hold; no quantities or automatic conversion until receiving-account confirmation.",
     "fields": {
       "specimenType": {
         "evidence": "Serum."

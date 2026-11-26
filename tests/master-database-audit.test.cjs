@@ -196,7 +196,8 @@ test('recent volume and temperature discrepancies stay visible without collectio
   const {labs, loadCalculator} = await import('../scripts/load-calculator-catalog.mjs');
   for (const [lab, code, reason] of [
     [labs[0], '93876', /frozen serum.*refrigerated shipment/],
-    [labs[1], '502690', /capacity of frozen transport vials/]
+    [labs[1], '502690', /capacity of frozen transport vials/],
+    [labs[1], '700841', /MedTox specifies refrigerated short-term shipment/]
   ]) {
     const {records, index} = await loadCalculator(root, lab, {captureRecords: true});
     const row = records.find(record => record.testCode === code);
