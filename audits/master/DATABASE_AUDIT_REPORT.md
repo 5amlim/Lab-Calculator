@@ -13,18 +13,18 @@ Audit date November 26, 2026. Baseline commit `b81f79958661971bad3a6799d6a0465a7
 | Blocked runtime records | 514 | 514 | 455 | 457 |
 | Pending runtime records | 0 | 0 | 131 | 129 |
 | Fully clinically verified in this audit | 0 | 0 | 0 | 0 |
-| Partially verified in this audit | 0 | 35 | 0 | 81 |
+| Partially verified in this audit | 0 | 35 | 0 | 252 |
 | Clinical conflict recorded | 0 | 4 | 0 | 1 |
 | Current source inaccessible | 0 | 4 | 0 | 0 |
 | Specific official field unavailable | 0 | 2 | 0 | 2 |
-| Official review unstarted in this audit | 3,829 | 3,783 | 6,601 | 6,487 |
+| Official review unstarted in this audit | 3,829 | 3,783 | 6,601 | 6,316 |
 | Runtime records added or removed | 0 | 0 | 0 | 0 |
 
 The active catalogs retain every baseline code and record ID. A collection review flag keeps a test visible in search and addable to the cart. The cart, printout and CSV show the reason. The specimen plan excludes those routes from automatic collection counts, submission bags and STAT. The converter does not propose those flagged orders as candidates. The [flag register](COLLECTION_REVIEW_FLAGS.csv) has all 35 codes, reasons and sources. Two previously pending Labcorp codes now appear in the exclusions register under vendor deletion notices.
 
 Quest also contains an uncoded active `XXX` 24-hour urine reference outside the numeric search index. Its shipment temperature remains an open audit warning. The counts exclude browser overrides, staff-created tests and patient data.
 
-All 10,430 runtime records have a reproducible inventory. The field evidence ledger covers 46 Quest and 114 Labcorp records. Separate Labcorp intake attempted 385 public pages and captured 381 exact order pages. Clinical verification, national catalog completeness and service-area acceptance remain open.
+All 10,430 runtime records have a reproducible inventory. The field evidence ledger covers 46 Quest and 285 Labcorp records. Separate Labcorp intake attempted 385 public pages and captured 381 exact order pages. Clinical verification, national catalog completeness and service-area acceptance remain open.
 
 ## Labcorp public listing reconciliation
 
@@ -43,7 +43,7 @@ The [manual review queue](MANUAL_REVIEW_REQUIRED.csv) preserves the reason for a
 
 - Labcorp 001487, 001637 and 007989 now use refrigerated shipment. The old room-temperature defaults are migrated when present in saved orders. The current exact-code page for 001637 also establishes fasting as required and leaves its duration unspecified.
 - Quest 17306 now displays the published fasting preference in the cart and printout. Fasting remains optional.
-- The public Labcorp capture was screened against active single-route records. The [routine comparison table](LABCORP_ROUTINE_FIELD_COMPARISON.csv) matches 715 comparable volume or explicit storage fields across 298 orders after the corrections. Another 281 fields and nine orders with multiple routes require review. This comparison establishes agreement only for the fields reported.
+- The public Labcorp capture was screened against active single-route records. The [routine comparison table](LABCORP_ROUTINE_FIELD_COMPARISON.csv) matches 715 comparable volume or explicit storage fields across 298 orders after the corrections. Another 281 fields and nine orders with multiple routes require review. This comparison establishes agreement only for the fields reported. Reconciliation into the evidence ledger adds 171 previously unlisted active single-record orders with all three matching fields (513 matches), each linked to its exact public page and matching capture SHA-256. No new vendor retrieval or full clinical verification is claimed; 111 other unlisted orders require further adjudication.
 - Quest 249 and 927 public views give different specimen volumes from the current calculator route. Quest 8659 requires a service-area selection. The [clinical conflict queue](CLINICAL_CONFLICTS_REQUIRING_REVIEW.csv) records these account-specific questions.
 - Quest 10231 in Tampa and Labcorp 322000 publish the same 18 result LOINCs, including eGFR. The [LOINC review](LOINC_AUDIT.csv) distinguishes those result identifiers from Labcorp's published order identifier. This supports the existing candidate. Test interchangeability still requires the receiving-account and assay review.
 
