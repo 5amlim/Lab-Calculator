@@ -12,11 +12,11 @@
   },
   "reviewedOrAttempted": {
     "quest": 84,
-    "labcorp": 424
+    "labcorp": 453
   },
   "notYetReviewed": {
     "quest": 3745,
-    "labcorp": 6177
+    "labcorp": 6148
   },
   "recordStatusSource": "FIELD_EVIDENCE.json. Every catalog row without a key has status Not yet reviewed.",
   "evidenceKeys": [
@@ -527,7 +527,36 @@
     "quest:14578",
     "quest:719",
     "quest:838",
-    "quest:37091"
+    "quest:37091",
+    "labcorp:829030",
+    "labcorp:505725",
+    "labcorp:402370",
+    "labcorp:816477",
+    "labcorp:834636",
+    "labcorp:827969",
+    "labcorp:502338",
+    "labcorp:501755",
+    "labcorp:806267",
+    "labcorp:823523",
+    "labcorp:823472",
+    "labcorp:833854",
+    "labcorp:833848",
+    "labcorp:724344",
+    "labcorp:072249",
+    "labcorp:071258",
+    "labcorp:791746",
+    "labcorp:016502",
+    "labcorp:833599",
+    "labcorp:484660",
+    "labcorp:484666",
+    "labcorp:484668",
+    "labcorp:484669",
+    "labcorp:484661",
+    "labcorp:484662",
+    "labcorp:484663",
+    "labcorp:484664",
+    "labcorp:484665",
+    "labcorp:484648"
   ],
   "inventoryCommand": "node scripts/audit-calculator-database.mjs --out ../calculator-current-report --check",
   "continueFrom": "Enumerate TEST_INVENTORY.csv where verification is Not yet reviewed, keeping laboratory and exact test code as strings. Use the appropriate service-area evidence and review every applicable route before marking a record fully verified.",
@@ -806,6 +835,43 @@
         "37091"
       ],
       "scope": "Exact vendor fields compared to normalized CI route outputs; stability captured but stored text and regional acceptance remain open.",
+      "runtimeChanges": 0
+    },
+    "bulkClientScreen": {
+      "date": "2026-11-26",
+      "source": "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog",
+      "codes": [
+        "829030",
+        "505725",
+        "402370",
+        "816477",
+        "834636",
+        "827969",
+        "502338",
+        "501755",
+        "806267",
+        "823523",
+        "823472",
+        "833854",
+        "833848",
+        "724344",
+        "072249",
+        "071258",
+        "791746",
+        "016502",
+        "833599",
+        "484660",
+        "484666",
+        "484668",
+        "484669",
+        "484661",
+        "484662",
+        "484663",
+        "484664",
+        "484665",
+        "484648"
+      ],
+      "scope": "Exact-code client listing partial comparison with prior CI normalized routes. No universal acceptance inferred; specific source discrepancies remain open.",
       "runtimeChanges": 0
     }
   }
