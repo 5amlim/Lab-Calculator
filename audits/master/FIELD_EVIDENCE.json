@@ -202,10 +202,10 @@
     "status": "Clinical conflict",
     "url": "https://specialtytesting.labcorp.com/tests/501533/metanephrines-fractionated-urine-includes-creatinine",
     "date": "2026-11-25",
-    "note": "Specialty page contradicts the CDOS workflow. Held across the active catalog and browser overrides.",
+    "note": "Specialty page contradicts the CDOS workflow. Collection warning persists in the catalog and across browser overrides.",
     "fields": {
       "status": {
-        "evidence": "Put on clinical hold."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       },
       "specialInstructions": {
         "evidence": "Follow facility escalation process for unresolved preservative and shipment discrepancy."
@@ -231,7 +231,7 @@
   "labcorp:164798": {
     "status": "Official information unavailable",
     "url": "https://www.labcorp.com/tests/164798/coccidioides-immitis-antibodies-igg-and-igm-eia",
-    "date": "2026-11-25",
+    "date": "2026-11-26",
     "note": "Official specimen section does not state shipment temperature. Confirm before shipment. Result LOINCs are published, but order-level LOINC is blank.",
     "fields": {
       "drawContainer": {
@@ -248,8 +248,12 @@
       },
       "loincResult": {
         "evidence": "164773 → 13947-7 and 164781 → 13948-5; order LOINC blank."
+      },
+      "status": {
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
-    }
+    },
+    "hold": true
   },
   "labcorp:102525": {
     "status": "Partially verified",
@@ -294,19 +298,29 @@
   "quest:34329": {
     "status": "Source inaccessible",
     "url": "https://testdirectory.questdiagnostics.com/test/test-detail/34329/?cc=MASTER",
-    "date": "2026-11-25",
+    "date": "2026-11-26",
     "note": "No current exact-code official specimen instructions retrieved.",
-    "fields": {}
+    "fields": {
+      "status": {
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
+      }
+    },
+    "hold": true
   },
   "quest:34499": {
     "status": "Source inaccessible",
     "url": "https://testdirectory.questdiagnostics.com/test/test-detail/34499/?cc=MASTER",
-    "date": "2026-11-25",
+    "date": "2026-11-26",
     "note": "Historical Quest publication confirms code and name but does not establish current service-area route.",
-    "fields": {},
+    "fields": {
+      "status": {
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
+      }
+    },
     "additionalSources": [
       "https://intellitestmanager.questdiagnostics.com/home/output/206663"
-    ]
+    ],
+    "hold": true
   },
   "quest:39749": {
     "status": "Discontinued",
@@ -315,7 +329,7 @@
     "note": "Quest discontinued the IgG nucleocapsid order on June 15, 2026. Its recommended alternative 39820 measures total spike antibody. Confirm intended target before any new order.",
     "fields": {
       "status": {
-        "evidence": "Blocked for collection and removed from active search and conversion. Retained for historical lookup."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       },
       "specialInstructions": {
         "evidence": "Explains the vendor discontinuation and the antibody-target difference."
@@ -328,9 +342,14 @@
   "quest:6447": {
     "status": "Source inaccessible",
     "url": "https://testdirectory.questdiagnostics.com/test/test-detail/6447/?cc=MASTER",
-    "date": "2026-11-25",
+    "date": "2026-11-26",
     "note": "Historical vendor notices identify 6447 and a performing-site change. The current exact-code page returned a browser notice. Regional acceptance and shipping remain unverified.",
-    "fields": {}
+    "fields": {
+      "status": {
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
+      }
+    },
+    "hold": true
   },
   "quest:18634": {
     "status": "Partially verified",
@@ -508,7 +527,7 @@
     "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
     "fields": {
       "status": {
-        "evidence": "Blocked by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     },
     "hold": true,
@@ -521,7 +540,7 @@
     "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
     "fields": {
       "status": {
-        "evidence": "Blocked by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     },
     "hold": true,
@@ -534,7 +553,7 @@
     "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
     "fields": {
       "status": {
-        "evidence": "Blocked by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     },
     "hold": true,
@@ -560,7 +579,7 @@
     "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
     "fields": {
       "status": {
-        "evidence": "Blocked by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     },
     "hold": true
@@ -572,7 +591,7 @@
     "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
     "fields": {
       "status": {
-        "evidence": "Blocked by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     },
     "hold": true
@@ -584,7 +603,7 @@
     "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
     "fields": {
       "status": {
-        "evidence": "Blocked by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     },
     "hold": true,
@@ -597,7 +616,7 @@
     "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
     "fields": {
       "status": {
-        "evidence": "Blocked by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     },
     "hold": true,
@@ -610,7 +629,7 @@
     "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
     "fields": {
       "status": {
-        "evidence": "Blocked by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     },
     "hold": true,
@@ -623,7 +642,7 @@
     "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
     "fields": {
       "status": {
-        "evidence": "Blocked by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     },
     "hold": true,
@@ -636,7 +655,7 @@
     "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
     "fields": {
       "status": {
-        "evidence": "Blocked by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     },
     "hold": true,
@@ -649,7 +668,7 @@
     "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
     "fields": {
       "status": {
-        "evidence": "Blocked by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     },
     "hold": true
@@ -661,7 +680,7 @@
     "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
     "fields": {
       "status": {
-        "evidence": "Blocked by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     },
     "hold": true
@@ -673,7 +692,7 @@
     "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
     "fields": {
       "status": {
-        "evidence": "Blocked by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     },
     "hold": true
@@ -685,7 +704,7 @@
     "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
     "fields": {
       "status": {
-        "evidence": "Blocked by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     },
     "hold": true
@@ -697,7 +716,7 @@
     "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
     "fields": {
       "status": {
-        "evidence": "Blocked by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     },
     "hold": true
@@ -709,7 +728,7 @@
     "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
     "fields": {
       "status": {
-        "evidence": "Blocked by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     },
     "hold": true
@@ -721,7 +740,7 @@
     "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
     "fields": {
       "status": {
-        "evidence": "Blocked by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     },
     "hold": true
@@ -733,7 +752,7 @@
     "note": "Labcorp November 2026 deleted-test listing. Confirm order scope before using any listed alternative.",
     "fields": {
       "status": {
-        "evidence": "Blocked by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     },
     "hold": true,
@@ -1228,7 +1247,7 @@
     "note": "Listed in the official May 2026 deleted-test bulletin. No specific replacement order is listed.",
     "fields": {
       "status": {
-        "evidence": "Held from collection and automatic conversion by exact vendor code."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     }
   },
@@ -1240,7 +1259,7 @@
     "note": "Official October 2026 Deleted Tests table, PDF page 29. Contact Labcorp",
     "fields": {
       "status": {
-        "evidence": "Vendor-deleted order held from collection and excluded from conversion."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     }
   },
@@ -1252,7 +1271,7 @@
     "note": "Official September 2026 Deleted Tests table, PDF page 20. Contact Labcorp",
     "fields": {
       "status": {
-        "evidence": "Vendor-deleted order held from collection and excluded from conversion."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     }
   },
@@ -1264,7 +1283,7 @@
     "note": "Official September 2026 Deleted Tests table, PDF page 20. Digital PCR reports percent mutant alleles. Verify requested assay and reporting.",
     "fields": {
       "status": {
-        "evidence": "Vendor-deleted order held from collection and excluded from conversion."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       },
       "vendorAlternative": {
         "evidence": "489477 is a vendor-listed option. Digital PCR reports percent mutant alleles. Verify requested assay and reporting."
@@ -1279,7 +1298,7 @@
     "note": "Official September 2026 Deleted Tests table, PDF page 20. Digital PCR reports percent mutant alleles. Verify requested assay and reporting.",
     "fields": {
       "status": {
-        "evidence": "Vendor-deleted order held from collection and excluded from conversion."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       },
       "vendorAlternative": {
         "evidence": "489477 is a vendor-listed option. Digital PCR reports percent mutant alleles. Verify requested assay and reporting."
@@ -1294,7 +1313,7 @@
     "note": "Official September 2026 Deleted Tests table, PDF page 20. Contact Labcorp",
     "fields": {
       "status": {
-        "evidence": "Vendor-deleted order held from collection and excluded from conversion."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     }
   },
@@ -1321,7 +1340,7 @@
     "note": "Official August 2026 Deleted Tests table, PDF page 20. Contact Labcorp",
     "fields": {
       "status": {
-        "evidence": "Vendor-deleted order held from collection and excluded from conversion."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     }
   },
@@ -1333,7 +1352,7 @@
     "note": "Official July 2026 Deleted Tests table, PDF page 178. Contact Labcorp",
     "fields": {
       "status": {
-        "evidence": "Vendor-deleted order held from collection and excluded from conversion."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     }
   },
@@ -1345,7 +1364,7 @@
     "note": "Official April 2026 Deleted Tests table, PDF page 54. Contact Labcorp",
     "fields": {
       "status": {
-        "evidence": "Vendor-deleted order held from collection and excluded from conversion."
+        "evidence": "Retained as an active catalog entry with a collection review flag. Excluded from automatic collection and conversion, pending review."
       }
     }
   },
@@ -1411,6 +1430,127 @@
       },
       "transportTemperature": {
         "evidence": "Collect refrigerated during collection, submit frozen."
+      }
+    }
+  },
+  "labcorp:144441": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/144441/pre-biologic-screening-profile",
+    "date": "2026-11-26",
+    "note": "Dedicated large SST substitution and same-day QuantiFERON handoff are unconfirmed.",
+    "hold": true,
+    "fields": {
+      "drawContainer": {
+        "evidence": "Public page lists two 10 mL gel-barrier tubes and a four-tube QuantiFERON set."
+      },
+      "transportTemperature": {
+        "evidence": "The published panel splits submission between room temperature, refrigerated and frozen specimens."
+      }
+    }
+  },
+  "labcorp:451830": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/451830/pompe-disease-enzyme-analysis",
+    "date": "2026-11-26",
+    "note": "The page describes submission on the lab-supplied card. Clarify how its mL volume applies to the preferred capillary route and confirm card stock.",
+    "hold": true,
+    "fields": {
+      "specimenType": {
+        "evidence": "The published submission is a dried blood spot prepared from fingerstick or EDTA whole blood."
+      },
+      "transportTemperature": {
+        "evidence": "The page calls for refrigerated shipment; freezing is excluded."
+      }
+    }
+  },
+  "labcorp:502421": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/502421/gonadotropin-releasing-hormone",
+    "date": "2026-11-26",
+    "note": "Verify Labcorp collection kit stock and clinic processing capability.",
+    "hold": true,
+    "fields": {
+      "drawContainer": {
+        "evidence": "Kit 33328 is required in the public specimen section."
+      },
+      "transportTemperature": {
+        "evidence": "The published shipment is frozen after immediate plasma separation."
+      }
+    }
+  },
+  "labcorp:505770": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/505770/lupus-monitor-profile",
+    "date": "2026-11-26",
+    "note": "Confirm kit stock, serum shipping instructions and local acceptance with the receiving laboratory.",
+    "hold": true,
+    "fields": {
+      "specimenType": {
+        "evidence": "The panel lists serum plus preserved EDTA plasma."
+      },
+      "drawContainer": {
+        "evidence": "The plasma route requires the specified Futhan kit."
+      },
+      "regionalAvailability": {
+        "evidence": "Labcorp states this panel’s Anti-C1q IgG component is unavailable in New York."
+      }
+    }
+  },
+  "quest:93876": {
+    "status": "Clinical conflict",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/93876?cc=MASTER",
+    "date": "2026-11-26",
+    "hold": true,
+    "note": "The preferred specimen is described as frozen serum, while the same exact-code page specifies refrigerated transport. Confirm the receiving service-area instructions.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "6 mL frozen serum; minimum 3 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Refrigerated with cold packs. The page also lists stability under refrigerated and frozen conditions."
+      }
+    }
+  },
+  "labcorp:502690": {
+    "status": "Official information unavailable",
+    "url": "https://cdos.halfpenny.com/labcorp/TestDisplay/502690",
+    "date": "2026-11-26",
+    "hold": true,
+    "note": "One generic frozen vial is calculated for a runtime minimum of 9.8 mL and preferred volume of 18.8 mL. The current exact page did not provide an accepted vial count or capacity. Confirm with Labcorp before collection.",
+    "fields": {
+      "submissionCount": {
+        "evidence": "Runtime singular vial count is calculated or defaulted. A current vendor-authorized allocation was not established."
+      }
+    }
+  },
+  "labcorp:120089": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/120089/serotonin-whole-blood",
+    "date": "2026-11-26",
+    "note": "The vendor describes three primary EDTA draws and one dedicated submission vial. The runtime count discrepancy is expected for this route.",
+    "fields": {
+      "collectionCount": {
+        "evidence": "Three 4 mL EDTA source tubes."
+      },
+      "submissionCount": {
+        "evidence": "One dedicated Labcorp 33314 transport tube for the combined specimen."
+      }
+    }
+  },
+  "labcorp:501218": {
+    "status": "Partially verified",
+    "url": "https://specialtytesting.labcorp.com/tests/501218/menopausal-transition-profile-i-postmenopausal-endocrine-sciences",
+    "date": "2026-11-26",
+    "note": "The vendor documents the required volume and a frozen plastic transport tube. Confirm the usable fill capacity and headspace of the stocked vial before depending on a one-vial plan.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "5 mL; minimum 2 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Ship frozen."
+      },
+      "transportContainer": {
+        "evidence": "One plastic transport tube described; maximum capacity not provided."
       }
     }
   }

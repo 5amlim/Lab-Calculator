@@ -243,10 +243,11 @@ const catalogMap=records=>new Map((records||[]).map(test=>{
   const name=Array.isArray(test)?test[1]:test.testName;
   return [String(code),{testName:String(name||'')}];
 }));
-const applyWorkbookMatches=records=>{
+const applyWorkbookMatches=(records,reviewCodes=[])=>{
   // On the Quest page, SEED_TESTS belongs to Quest, not LabCorp. Reapply
   // against the complete LabCorp index once the converter fetch finishes.
   const active=catalogMap(records);
+  for(const code of reviewCodes)active.delete(code);
   for(const row of rows){
     const code=lookup[String(row[0])];
     // The workbook fills unresolved rows. An explicit candidate, scope

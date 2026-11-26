@@ -69,9 +69,9 @@ for (const sample of datasets) {
     for (let i = 0; i < rows.length; i++) {
       const row = rows[i], raw = rawRows[i];
       if (sample.lab === 'Labcorp' && ['500108', '500152', '500161', '500167'].includes(row.testCode)) {
-        assert.equal(row.status, 'blocked');
-        assert.match(row.specialInstructions, /November 2026.*alternative/);
-        assert.equal(search.findMatches(row.testCode, 5)[0].test.status, 'blocked');
+        assert.equal(row.status, 'active');
+        assert.match(row.collectionReview, /November 2026.*alternative/);
+        assert.equal(search.findMatches(row.testCode, 5)[0].test.collectionReview, row.collectionReview);
         continue;
       }
       assert.equal(row.status, 'active', row.testCode);

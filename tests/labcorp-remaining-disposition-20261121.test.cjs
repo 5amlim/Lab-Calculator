@@ -15,7 +15,7 @@ const setup=source.slice(noticeStart,end);
 const evalCode=setup+'\n[...REVIEWED_DNP_20261121.entries()]';
 const codes=new Map(vm.runInNewContext(evalCode));
 assert.equal(codes.size,131,'122 earlier + 7 preceding + 2 additional blocked codes');
-const functionStart=source.indexOf('  function applySpecimenExclusions(test) {',end);
+const functionStart=source.indexOf('  function applyCollectionReview(',end);
 const functionEnd=source.indexOf('  function applyUserState(state) {',functionStart);
 const fn=source.slice(functionStart,functionEnd);
 const apply=vm.runInNewContext('const normalizeSearch=x=>String(x||" ").toLowerCase(); const additionalDrawRequirements=()=>[]; '+setup+fn+'\napplySpecimenExclusions');

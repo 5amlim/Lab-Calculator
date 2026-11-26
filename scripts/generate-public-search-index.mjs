@@ -26,7 +26,9 @@ async function build(source){
   assert(codes.has('18420'),'Missing active pediatric CSF assay');
   assert(!codes.has('92717'),'Blocked Quest 92717 leaked');
  }
- return {schema:1,lab:source.lab,tests};
+ const collectionReviewCodes = [...new Set(message.collectionReviewCodes || [])].sort();
+ assert(collectionReviewCodes.every(code=>codes.has(code)), source.lab+' review code missing from index');
+ return {schema:1,lab:source.lab,tests,collectionReviewCodes};
 }
 
 // Build both indexes fully before writing either one.

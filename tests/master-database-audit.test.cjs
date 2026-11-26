@@ -49,8 +49,8 @@ test('published catalogs execute the HTML overlays and apply clinical holds', as
   const [quest, labcorp] = await Promise.all(labs.map(lab => loadCalculator(root, lab, {captureRecords: true})));
   assert.equal(quest.records.filter(row => row.testCode === '10676').length, 1);
   assert.equal(quest.records.find(row => row.testCode === '10676').id, 'quest-tc-20261125-10676');
-  assert.equal(labcorp.records.find(row => row.testCode === '501533').status, 'blocked');
-  assert(!labcorp.index.tests.some(row => row[0] === '501533'));
+  assert.match(labcorp.records.find(row => row.testCode === '501533').collectionReview, /acid-preserved/);
+  assert(labcorp.index.tests.some(row => row[0] === '501533'));
   quest.globals.applyQuestLabcorpWorkbookMatches(labcorp.index.tests);
   const row = code => quest.globals.QUEST_TO_LABCORP_INDEX.find(row => row[0] === code);
   assert.equal(row('16802')[3], '102525');
@@ -98,26 +98,26 @@ test('Quest 18634 separates the four serum aliquots from one original EDTA shipm
   assert.equal(bags.length, 2);
 });
 
-test('Quest 39749 cannot return to the cart or converter through saved data', async () => {
+test('Quest 39749 remains searchable with its discontinuation warning', async () => {
   const {labs, loadCalculator} = await import('../scripts/load-calculator-catalog.mjs');
   const {records, index, globals} = await loadCalculator(root, labs[0], {captureRecords: true});
   const row = records.find(record => record.testCode === '39749');
-  assert.equal(row.status, 'blocked');
-  assert.match(row.specialInstructions, /39820.*spike.*nucleocapsid/);
-  assert(!index.tests.some(test => test[0] === '39749'));
+  assert.equal(row.status, 'active');
+  assert.match(row.collectionReview, /39820.*spike.*nucleocapsid/);
+  assert(index.tests.some(test => test[0] === '39749'));
   const crosswalk = globals.QUEST_TO_LABCORP_INDEX.find(row => row[0] === '39749');
   assert.equal(crosswalk[3], '');
   assert.equal(crosswalk[7], 'discontinued');
   const api = openCalculator(labs[0].app, ['applyUserState'], {records: [row]});
   const active = {...row, status: 'active', specialInstructions: ''};
   const loaded = api.applyUserState({overrides: [active], customTests: [{...active, id: 'custom-39749'}]});
-  assert.equal(loaded.filter(record => record.testCode === '39749' && record.status === 'blocked').length, 2);
+  assert.equal(loaded.filter(record => record.testCode === '39749' && record.status === 'active' && record.collectionReview === row.collectionReview).length, 2);
 });
 
-test('Labcorp vendor deletions stay blocked and six retired crosswalk targets stay unlinked', async () => {
+test('Labcorp vendor deletions retain previously active search entries and stay unlinked', async () => {
   const {labs, loadCalculator} = await import('../scripts/load-calculator-catalog.mjs');
   const [quest, labcorp] = await Promise.all(labs.map(lab => loadCalculator(root, lab, {captureRecords: true})));
-  const app = openCalculator(labs[1].app, ['NOVEMBER_2026_LABCORP_DELETIONS', 'MAY_2026_LABCORP_DELETIONS', 'ARCHIVED_2026_LABCORP_DELETIONS', 'applyUserState'], {
+  const app = openCalculator(labs[1].app, ['NOVEMBER_2026_LABCORP_DELETIONS', 'MAY_2026_LABCORP_DELETIONS', 'ARCHIVED_2026_LABCORP_DELETIONS', 'applyUserState', 'expandedCollectionTests'], {
     records: labcorp.records.filter(row => row.testCode === '070085')
   });
   const retired = app.NOVEMBER_2026_LABCORP_DELETIONS;
@@ -125,17 +125,21 @@ test('Labcorp vendor deletions stay blocked and six retired crosswalk targets st
   assert.equal(Object.keys(app.MAY_2026_LABCORP_DELETIONS).length, 7);
   const updated = labcorp.records.filter(row => Object.hasOwn(retired, row.testCode));
   assert.equal(updated.length, 19);
-  assert(updated.every(row => row.status === 'blocked'));
-  assert(!labcorp.index.tests.some(([code]) => Object.hasOwn(retired, code) || Object.hasOwn(app.MAY_2026_LABCORP_DELETIONS, code)));
-  assert(labcorp.records.filter(row => ['160721', '164000'].includes(row.testCode)).every(row =>
-    row.status === 'blocked' && /May 2026/.test(row.specialInstructions)));
+  assert.equal(updated.filter(row => row.status === 'active' && row.collectionReview).length, 18);
+  assert.equal(updated.filter(row => row.status === 'blocked').length, 1);
+  assert.equal(app.expandedCollectionTests(updated.filter(row => row.status === 'active')).length, 0);
+  assert.match(labcorp.records.find(row => row.testCode === '164000').collectionReview, /May 2026/);
+  const pendingDeletion = labcorp.records.find(row => row.testCode === '160721');
+  assert.equal(pendingDeletion.status, 'blocked');
+  assert.match(pendingDeletion.specialInstructions, /May 2026/);
   const archive = app.ARCHIVED_2026_LABCORP_DELETIONS;
   assert.equal(Object.keys(archive).length, 9);
   for (const [code, [month]] of Object.entries(archive)) {
     const record = labcorp.records.find(row => row.testCode === code);
-    assert.equal(record?.status, 'blocked', code);
-    assert(record.specialInstructions.includes(month + ' 2026'), code);
-    assert(!labcorp.index.tests.some(([indexed]) => indexed === code), code);
+    const expectedActive = code !== '483496';
+    assert.equal(record?.status, expectedActive ? 'active' : 'blocked', code);
+    assert((record.collectionReview || record.specialInstructions).includes(month + ' 2026'), code);
+    assert.equal(labcorp.index.tests.some(([indexed]) => indexed === code), expectedActive, code);
   }
   const crosswalk = quest.globals.QUEST_TO_LABCORP_INDEX;
   assert(!crosswalk.some(row => Object.hasOwn(archive, row[3]) ||
@@ -155,5 +159,51 @@ test('Labcorp vendor deletions stay blocked and six retired crosswalk targets st
     const row = quest.globals.QUEST_TO_LABCORP_INDEX.find(record => record[0] === code);
     assert.match(row[6], /Labcorp deleted/);
     assert.equal(row[3], '');
+  }
+});
+
+test('unresolved shipping warnings persist in search and cannot enter collection plans', async () => {
+  const {labs, loadCalculator} = await import('../scripts/load-calculator-catalog.mjs');
+  for (const lab of labs) {
+    const codes = lab.lab === 'quest' ? ['34329', '34499', '6447'] : ['164798'];
+    const {records, index, globals} = await loadCalculator(root, lab, {captureRecords: true});
+    for (const code of codes) {
+      const row = records.find(record => record.testCode === code);
+      assert.equal(row?.status, 'active', code);
+      assert.match(row.collectionReview, /Collection on hold.*ship/i);
+      assert(index.tests.some(([indexed]) => indexed === code), code);
+      assert(index.collectionReviewCodes.includes(code), code);
+      const app = openCalculator(lab.app, ['applyUserState', 'expandedCollectionTests'], {records: [row]});
+      const override = {...row, status: 'active', specialInstructions: '', transportTemperature: 'Frozen'};
+      const restored = app.applyUserState({overrides: [override], customTests: [{...override, id: 'custom-hold'}]});
+      assert.equal(restored.filter(record => record.testCode === code && record.status === 'active' && record.collectionReview === row.collectionReview).length, 2);
+      assert.equal(app.expandedCollectionTests(restored.filter(record => record.testCode === code)).length, 0);
+    }
+    const crosswalk = globals.QUEST_TO_LABCORP_INDEX;
+    if (lab.lab === 'quest') {
+      for (const code of codes) {
+        const row = crosswalk.find(record => record[0] === code);
+        assert.equal(row[7], 'hold', code);
+        assert(!row[3] && !row[8]?.length, code);
+      }
+    } else {
+      assert(!crosswalk.some(row => row[3] === '164798' || row[8]?.some(([code]) => code === '164798')));
+    }
+  }
+});
+
+test('recent volume and temperature discrepancies stay visible without collection quantities', async () => {
+  const {labs, loadCalculator} = await import('../scripts/load-calculator-catalog.mjs');
+  for (const [lab, code, reason] of [
+    [labs[0], '93876', /frozen serum.*refrigerated shipment/],
+    [labs[1], '502690', /capacity of frozen transport vials/]
+  ]) {
+    const {records, index} = await loadCalculator(root, lab, {captureRecords: true});
+    const row = records.find(record => record.testCode === code);
+    assert.equal(row.status, 'active');
+    assert.match(row.collectionReview, reason);
+    assert(index.tests.some(([indexed]) => indexed === code));
+    const api = openCalculator(lab.app, ['expandedCollectionTests', 'buildTransportBagPlan']);
+    assert.equal(api.buildTransportBagPlan(api.expandedCollectionTests([row])).length, 0);
   }
 });

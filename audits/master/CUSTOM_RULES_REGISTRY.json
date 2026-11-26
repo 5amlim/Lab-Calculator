@@ -362,7 +362,7 @@
     "testCodes": [
       "501533"
     ],
-    "expectedBehavior": "Keep Labcorp 501533 unavailable for collection until the receiving laboratory resolves the conflicting preservative and shipment requirements.",
+    "expectedBehavior": "Keep previously active codes searchable and addable to the cart with warnings. Exclude flagged routes from collection, shipment and automatic conversion.",
     "reason": "The exact specialty directory and historical CDOS record disagree.",
     "evidence": [
       "https://specialtytesting.labcorp.com/tests/501533/metanephrines-fractionated-urine-includes-creatinine",
@@ -659,5 +659,99 @@
     "regressionTests": [
       "tests/master-database-audit.test.cjs"
     ]
+  },
+  {
+    "id": "unverified-shipment-holds",
+    "category": "collection",
+    "description": "Hold the specified exact orders while essential shipping requirements are unresolved.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [
+      "Serum"
+    ],
+    "container": [],
+    "testCodes": [
+      "34329",
+      "34499",
+      "6447",
+      "164798"
+    ],
+    "expectedBehavior": "Keep previously active codes searchable and addable to the cart with warnings. Exclude flagged routes from collection, shipment and automatic conversion.",
+    "reason": "The Quest exact-code requirements could not be retrieved and the Labcorp specimen section does not give a shipping temperature.",
+    "evidence": [
+      "https://testdirectory.questdiagnostics.com/test/test-detail/34329/?cc=MASTER",
+      "https://testdirectory.questdiagnostics.com/test/test-detail/34499/?cc=MASTER",
+      "https://testdirectory.questdiagnostics.com/test/test-detail/6447/?cc=MASTER",
+      "https://www.labcorp.com/tests/164798/coccidioides-immitis-antibodies-igg-and-igm-eia"
+    ],
+    "implementation": [
+      "assets/js/app.js",
+      "labcorp-app.js",
+      "labcorp-crosswalk-data.js"
+    ],
+    "regressionTests": [
+      "tests/master-database-audit.test.cjs"
+    ],
+    "approvalStatus": "Audit hold pending receiving laboratory confirmation."
+  },
+  {
+    "id": "active-test-collection-review",
+    "category": "collection",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "description": "Preserve active catalog entries with vendor and operational review flags.",
+    "testCodes": [
+      "34329",
+      "34499",
+      "39749",
+      "6447",
+      "93876",
+      "004100",
+      "004705",
+      "070037",
+      "070078",
+      "070083",
+      "070085",
+      "070090",
+      "070120",
+      "070132",
+      "070145",
+      "123027",
+      "140244",
+      "144691",
+      "146316",
+      "164000",
+      "164798",
+      "165750",
+      "481020",
+      "489200",
+      "500108",
+      "500124",
+      "500152",
+      "500161",
+      "500167",
+      "500309",
+      "501533",
+      "502690",
+      "602666",
+      "620009",
+      "620046"
+    ],
+    "expectedBehavior": "Preserve search and cart access, show the reason on screen and in print/CSV, and suppress generated quantities, STAT selection and candidate conversion.",
+    "reason": "Preserve the active catalog while unresolved or discontinued orders require explicit review.",
+    "implementation": [
+      "assets/js/app.js",
+      "labcorp-app.js",
+      "scripts/audit-calculator-database.mjs",
+      "labcorp-crosswalk-ui.js"
+    ],
+    "regressionTests": [
+      "tests/master-database-audit.test.cjs"
+    ],
+    "approvalStatus": "User requested active tests be retained with flags."
   }
 ]

@@ -64,7 +64,10 @@ for(const [lab,page,app] of [
 ]){
   test(lab+': complete active catalog quantity and physical-bag audit',{timeout:180000},async()=>{
     const api=await load(page,app,lab);
-    const active=api.database.filter(row=>row.status==='active');
+    const active=api.database.filter(row=>row.status==='active' && !row.collectionReview);
+    for (const row of api.database.filter(test => test.collectionReview)) {
+      assert.equal(api.expandedCollectionTests([row]).length, 0, row.testCode);
+    }
     const buckets={};
     const flags={sourceCount:[],submissionCount:[],nonsensicalSource:[],nonsensicalSubmit:[],
       printMismatch:[],unaccounted:[],sourceToBagRatio:[],zeroShipment:[],negativeOrNaN:[],timeout:[]};

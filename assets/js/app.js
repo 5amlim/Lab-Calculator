@@ -305,7 +305,8 @@
     }
     window.parent.postMessage({
       type:'labcentral:published-tests', lab:'quest', schema:1,
-      tests:Array.from(byCode.values())
+      tests:Array.from(byCode.values()),
+      collectionReviewCodes: published.filter(test => test.status === 'active' && test.collectionReview).map(test => test.testCode)
     },window.location.origin);
     return;
   }
@@ -710,11 +711,25 @@
   }
 
 
+  function applyCollectionReview(test, message, source, retainActive = true) {
+    if (retainActive && test.status === 'active') return { ...test, collectionReview: message, source };
+    return { ...test, status: 'blocked', specialInstructions: message, source };
+  }
+
   function applySpecimenExclusions(test) {
-    if (String(test.testCode || '').trim() === '39749') {
-      return { ...test, status: 'blocked',
-        specialInstructions: 'Quest discontinued this order effective June 15, 2026. Do not collect for code 39749. Quest lists 39820 as an alternative, which measures total antibody to spike rather than IgG to nucleocapsid. Confirm the intended test with the ordering provider.',
-        source: 'Quest IntelliTest Manager: https://intellitestmanager.questdiagnostics.com/home/output/300102' };
+    const code = String(test.testCode || '').trim();
+    if (['34329', '34499', '6447'].includes(code)) {
+      return applyCollectionReview(test,
+        'Collection on hold. Confirm the current order code, accepted specimen and shipping temperature with the receiving Quest laboratory before collection.', 'https://testdirectory.questdiagnostics.com/test/test-detail/' + code + '/?cc=MASTER');
+    }
+    if (code === '93876') {
+      return applyCollectionReview(test,
+        'Collection on hold. The Quest directory lists frozen serum as preferred and refrigerated shipment. Confirm the required preparation and shipping temperature with the receiving Quest laboratory.',
+        'https://testdirectory.questdiagnostics.com/test/test-detail/93876?cc=MASTER');
+    }
+    if (code === '39749') {
+      return applyCollectionReview(test,
+        'Quest discontinued this order effective June 15, 2026. Do not collect for code 39749. Quest lists 39820 as an alternative, which measures total antibody to spike rather than IgG to nucleocapsid. Confirm the intended test with the ordering provider.', 'Quest IntelliTest Manager: https://intellitestmanager.questdiagnostics.com/home/output/300102');
     }
     const title = normalizeSearch(test.testName);
     const routes = [test, ...additionalDrawRequirements(test)];
@@ -743,7 +758,7 @@
       const index = byId.get(override.id) ?? byKey.get(databaseKey(override));
       if (index !== undefined) {
         const base = builtIns[index];
-        if (applySpecimenExclusions(base) !== base) return;
+        if (base.status === 'blocked' && applySpecimenExclusions(base) !== base) return;
         if (base.testCode === '92701') {
           // Replace only the outdated values from earlier built-in releases.
           // Preserve staff-entered changes that differ from those legacy defaults.
@@ -816,7 +831,7 @@
       }
     });
 
-    const excludedByCode = new Map(builtIns.filter(test => applySpecimenExclusions(test) !== test)
+    const excludedByCode = new Map(builtIns.filter(test => test.status === 'blocked' && applySpecimenExclusions(test) !== test)
       .map(test => [test.testCode, test]));
     const customTests = (state.customTests || []).map(normalizeRecord).map(test => {
       const excluded = excludedByCode.get(test.testCode);
@@ -1077,7 +1092,7 @@
   }
 
   function expandedCollectionTests(tests) {
-    return tests.flatMap(test => {
+    return tests.filter(test => !test.collectionReview).flatMap(test => {
       const expanded = [test];
       additionalDrawRequirements(test).forEach((requirement, index) => {
         const count = Math.max(Number(requirement.count) || 1, 1);
@@ -1953,7 +1968,7 @@
     const selected = selectedIds.includes(choice.test.id);
     const rowClass = blocked ? 'unmatched' : needsConfirmation ? 'needs-confirmation' : 'exact-match';
     const exactLabel = autoSafe ? 'Exact match' : 'Confirm test code/name';
-    const status = blocked
+    const status = choice.test.collectionReview ? collectionReviewBadge(choice.test) : blocked
       ? '<span class="batch-match-warning is-blocked">Review collection</span>'
       : autoSafe
         ? `<span class="batch-match-exact">${exactLabel}</span>`
@@ -1991,7 +2006,7 @@
               ${isStatEligible(test) ? `<button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" data-priority="stat" data-source="match" data-stat-note="Confirm receiving-lab acceptance"><span>+ Add as <b>STAT</b></span></button>` : ''}
             </div>` : ''}
             <div class="batch-choice-test-details" id="batch-choice-details-${row.index}-${matchIndex}" hidden>
-              <div><b>Specimen:</b> ${escapeHtml(test.specimenType || 'Verify in directory')}</div>
+              ${test.collectionReview ? `<div>${escapeHtml(test.collectionReview)}</div>` : `<div><b>Specimen:</b> ${escapeHtml(test.specimenType || 'Verify in directory')}</div>
               <div><b>Collect:</b> ${escapeHtml(test.drawContainer || 'Verify in directory')}</div>
               <div><b>Submit:</b> ${escapeHtml(test.transportContainer || test.drawContainer || 'Verify in directory')}</div>
               <div><b>Temperature:</b> ${escapeHtml(test.transportTemperature || 'Verify in directory')}</div>
@@ -1999,7 +2014,7 @@
               ${test.minimumVolume ? `<div><b>Minimum volume:</b> ${escapeHtml(test.minimumVolume)}</div>` : ''}
               ${test.stability ? `<div><b>Stability:</b> ${escapeHtml(test.stability)}</div>` : ''}
               ${conciseSpecimenLabel(test, { originalTube: isOriginalContainerSubmission(test) }).label ? `<div><b>Label:</b> ${escapeHtml(conciseSpecimenLabel(test, { originalTube: isOriginalContainerSubmission(test) }).label)}</div>` : ''}${conciseSpecimenLabel(test, { originalTube: isOriginalContainerSubmission(test) }).processing.map(note => `<div><b>Processing:</b> ${escapeHtml(note)}</div>`).join('')}
-              ${test.specialInstructions ? `<div><b>Handling:</b> ${escapeHtml(test.specialInstructions)}</div>` : ''}
+              ${test.specialInstructions ? `<div><b>Handling:</b> ${escapeHtml(test.specialInstructions)}</div>` : ''}`}
               <a href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noopener noreferrer">Verify in official directory ↗</a>
             </div>
           </div>`).join('')}
@@ -2876,6 +2891,10 @@
       '<div class="order-of-draw-note">' + escapeHtml(regionNote) + ' Schedules and reflex testing may extend turnaround. Result dates can vary.</div>';
   }
 
+  function collectionReviewBadge(test) {
+    return test.collectionReview ? '<span class="badge temp-unknown">Collection review required</span>' : '';
+  }
+
   function renderLibraryRow(test) {
     // A Quest catalog identity can be verified while its local handling route
     // is still not cleared. Show the review state without enabling Add.
@@ -2904,10 +2923,10 @@
     const primaryOnlyNote = hasMultipleContainers ? '<div class="library-container-primary-note">First path only</div>' : '';
     return `<tr class="${selected ? 'is-selected' : ''}">
       <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
-      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${window.LabRegionalRestrictions.badge(test, 'quest')}${manualLibraryTag(test)}${gestationalWarningBadge(test)}${isStatEligible(test) ? `<span class="library-stat-eligible${statSelectedIds.includes(test.id) ? ' selected' : ''}" title="Eligible on the selected receiving laboratory's STAT menu. Confirm current acceptance before sending.">${statSelectedIds.includes(test.id) ? 'STAT selected' : 'STAT eligible'}</span>` : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
-      <td data-label="Container">${menuContainerBadges(test)}${hasMultipleContainers ? '' : '<div class="subtext specimen-line">' + requiredSpecimenBadges(test) + '</div>'}</td>
-      <td data-label="Temperature"><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span>${primaryOnlyNote}</td>
-      <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(menuVolumeText(primaryDisplay, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(menuVolumeText(primaryDisplay, 'minimum') || '—')}</div>${primaryOnlyNote}</td>
+      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${window.LabRegionalRestrictions.badge(test, 'quest')}${manualLibraryTag(test)}${collectionReviewBadge(test)}${gestationalWarningBadge(test)}${isStatEligible(test) ? `<span class="library-stat-eligible${statSelectedIds.includes(test.id) ? ' selected' : ''}" title="Eligible on the selected receiving laboratory's STAT menu. Confirm current acceptance before sending.">${statSelectedIds.includes(test.id) ? 'STAT selected' : 'STAT eligible'}</span>` : ''}</div><div class="subtext">${escapeHtml(test.collectionReview || truncate(test.specialInstructions, 95))}</div></td>
+      <td data-label="Container">${test.collectionReview ? 'Review required' : `${menuContainerBadges(test)}${hasMultipleContainers ? '' : '<div class="subtext specimen-line">' + requiredSpecimenBadges(test) + '</div>'}`}</td>
+      <td data-label="Temperature">${test.collectionReview ? 'Review required' : `<span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span>${primaryOnlyNote}`}</td>
+      <td data-label="Volume">${test.collectionReview ? 'Review required' : `<span class="preferred-volume-chip">${escapeHtml(menuVolumeText(primaryDisplay, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(menuVolumeText(primaryDisplay, 'minimum') || '—')}</div>${primaryOnlyNote}`}</td>
       <td class="row-actions" data-label="Actions">
         ${blocked ? '<span class="badge temp-unknown">Review collection</span>' : selected
           ? `<button class="mini-button" disabled>✓ Added${statSelectedIds.includes(test.id) ? ' · STAT' : ''}</button>`
@@ -3173,7 +3192,7 @@
   }
 
   function isStatEligible(test) {
-    if (!test || test.status !== 'active') return false;
+    if (!test || test.status !== 'active' || test.collectionReview) return false;
     return STAT_AREAS[statArea].codes.includes(String(test.testCode || '').trim());
   }
 
@@ -3717,8 +3736,9 @@
     renderTestsOverview(tests);
     renderDrawPlan(collectionTests);
     renderOrderOfDraw(collectionTests);
-    renderTurnaroundTime(tests);
-    renderAlerts(tests);
+    const plannedTests = tests.filter(test => !test.collectionReview);
+    renderTurnaroundTime(plannedTests);
+    renderAlerts(plannedTests);
     if (!tests.length) {
       els.selectedList.className = 'selected-list empty-state';
       els.selectedList.textContent = 'No tests selected.';
@@ -3728,16 +3748,16 @@
     els.selectedList.innerHTML = tests.map(test => `
       <article class="selected-card${test.isStat ? ' is-stat' : ''}">
         <div class="selected-card-top">
-          <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}${manualLibraryTag(test)}</div><div class="subtext specimen-line">${requiredSpecimenBadges(test)} <span>·</span> <span class="preferred-volume-inline">${escapeHtml(combinedVolumeText(test, 'preferred') || 'verify')}</span> <span>· Minimum ${escapeHtml(combinedVolumeText(test, 'minimum') || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}${gestationalWarningBadge(test, 'selected-gestational-warning')}</div>
+          <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}${manualLibraryTag(test)}${collectionReviewBadge(test)}</div>${test.collectionReview ? '' : `<div class="subtext specimen-line">${requiredSpecimenBadges(test)} <span>·</span> <span class="preferred-volume-inline">${escapeHtml(combinedVolumeText(test, 'preferred') || 'verify')}</span> <span>· Minimum ${escapeHtml(combinedVolumeText(test, 'minimum') || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}${gestationalWarningBadge(test, 'selected-gestational-warning')}`}</div>
           <div>${isStatEligible(test) ? `<button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Mark STAT'}</button>` : ''}<a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove selected-card-delete" data-action="remove" data-id="${escapeAttr(test.id)}" type="button" aria-label="Delete ${escapeAttr(test.testName)}">Delete</button></div>
         </div>
-        <div class="selected-details">
+        ${test.collectionReview ? `<div class="selected-note">${escapeHtml(test.collectionReview)}</div>` : `<div class="selected-details">
           ${requiredDrawContainerBadges(test)}
           <span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span>
           <span class="badge temp-unknown">Spin: ${escapeHtml(test.spin)}</span>
         </div>
         ${additionalRequirementSummary(test)}
-        ${test.specialInstructions ? `<div class="selected-note">${escapeHtml(truncate(test.specialInstructions, 190))}</div>` : ''}
+        ${test.specialInstructions ? `<div class="selected-note">${escapeHtml(truncate(test.specialInstructions, 190))}</div>` : ''}`}
       </article>`).join('');
   }
 
@@ -3762,7 +3782,7 @@
       <div class="tests-overview-row${test.isStat ? ' is-stat' : ''}${!isStatEligible(test) ? ' no-stat-action' : ''}">
         <div class="tests-overview-ident">
           <strong class="tests-overview-code">${escapeHtml(displayCode(test))}</strong>
-          <span class="tests-overview-name">${escapeHtml(test.testName)}</span>${window.LabRegionalRestrictions.badge(test, 'quest')}
+          <span class="tests-overview-name">${escapeHtml(test.testName)}</span>${collectionReviewBadge(test)}${window.LabRegionalRestrictions.badge(test, 'quest')}
         </div>
         ${isStatEligible(test) ? `<button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Mark STAT'}</button>` : ''}
         <button class="mini-button remove remove-flex tests-overview-remove" type="button" data-action="remove" data-id="${escapeAttr(test.id)}" aria-label="Remove ${escapeAttr(test.testName)}"><span class="remove-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7.3 6.1 12 10.8l4.7-4.7 1.2 1.2-4.7 4.7 4.7 4.7-1.2 1.2-4.7-4.7-4.7 4.7-1.2-1.2 4.7-4.7-4.7-4.7 1.2-1.2Z"/></svg></span><span class="remove-text" aria-hidden="true">Delete</span></button>
@@ -4484,7 +4504,9 @@
     const published = seedDatabase.find(test => test.testCode === record.testCode);
     if (published) {
       const excluded = applySpecimenExclusions(published);
-      if (excluded !== published) Object.assign(record, { status: 'blocked', specialInstructions: excluded.specialInstructions });
+      if (excluded !== published && excluded.status === 'blocked') {
+        Object.assign(record, { status: 'blocked', specialInstructions: excluded.specialInstructions });
+      }
     }
     const requiredFields = [
       { element: els.testCode, value: els.testCode.value.trim(), message: 'Enter a test code before saving.' },
@@ -7965,13 +7987,15 @@
   function printSummary() {
     const tests = selectedTests();
     if (!tests.length) return showToast('Add at least one test before printing.');
-    const printDetailWithNotes = tests.some(test =>
+    const plannedTests = tests.filter(test => !test.collectionReview);
+    const reviewTests = tests.filter(test => test.collectionReview);
+    const printDetailWithNotes = plannedTests.some(test =>
       Boolean(tatBadge(test, true)) || printDetailRoutes(test).some(printDetailHasNotes));
     // Pre-draw warnings already appear in Collection precautions.
-    const preparationTexts = new Set(tests.flatMap(test =>
+    const preparationTexts = new Set(plannedTests.flatMap(test =>
       preCollectionPrecautions(test).map(req => `${displayCode(test)} ${test.testName}: ${req.note}`)
     ));
-    const alerts = collectAlerts(tests).filter(alert => !preparationTexts.has(alert.text));
+    const alerts = collectAlerts(plannedTests).filter(alert => !preparationTexts.has(alert.text));
     els.printSheet.innerHTML = `
       <div class="print-header">
         <div class="print-header-identity"><h1 class="print-title">Quest Collection Summary</h1><div class="print-subtitle">Send-out workflow</div></div>
@@ -7979,17 +8003,18 @@
       </div>
       ${window.LabRegionalRestrictions.printNotice(tests, 'quest')}
       ${tests.some(isManuallyAddedTest) ? '<div class="print-manual-test-notice"><strong>Manual entry:</strong> Confirm the test code, specimen, collection tubes, and submission requirements in the official lab directory before collecting.</div>' : ''}
-      ${printCollectionSubmissionPlan(tests)}
-      <section class="print-detail-table-section${tests.length <= 3 ? ' print-brief-order' : ''}">
-      ${printCompactAlertSummary(tests, alerts)}
+      ${reviewTests.length ? `<div class="print-manual-test-notice"><strong>Collection review required</strong><ul>${reviewTests.map(test => `<li><strong>${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</strong> ${escapeHtml(test.collectionReview)}</li>`).join('')}</ul></div>` : ''}
+      ${plannedTests.length ? printCollectionSubmissionPlan(plannedTests) : ''}
+      ${plannedTests.length ? `<section class="print-detail-table-section${plannedTests.length <= 3 ? ' print-brief-order' : ''}">
+      ${printCompactAlertSummary(plannedTests, alerts)}
       <table class="print-table">
         ${printDetailWithNotes
           ? '<colgroup><col style="width:19%"><col style="width:25%"><col style="width:16%"><col style="width:9%"><col style="width:31%"></colgroup>'
           : '<colgroup><col style="width:21%"><col style="width:45%"><col style="width:20%"><col style="width:14%"></colgroup>'}
         <thead><tr class="print-detail-title-row"><th colspan="${printDetailWithNotes ? 5 : 4}" class="print-detail-title-cell"><div class="print-detail-lab-heading"><strong>Test details</strong><span class="print-detail-lab-badge">QUEST</span></div></th></tr><tr><th>Code / test</th><th>Collection / transport</th><th>Temperature / stability</th><th>Volume</th>${printDetailWithNotes ? '<th>Notes</th>' : ''}</tr></thead>
-        ${tests.map(test => printDetailRows(test, printDetailWithNotes)).join('')}
+        ${plannedTests.map(test => printDetailRows(test, printDetailWithNotes)).join('')}
       </table>
-      </section>
+      </section>` : ''}
       ${printNotesFooter()}
 `;
     // Keep the same two-column card layout. On a phone, fit the print sheet
@@ -8143,7 +8168,9 @@
     const tests = selectedTests();
     if (!tests.length) return showToast('Add at least one test before exporting.');
     const headers = ['Priority','Test Code','Test Name','Specimen Type','Draw Container','Additional Required Draws','Alternative Container','Transport Tube / Container','Preferred Volume','Minimum Volume','Transport Temperature','Raw Temperature','Stability','Spin','Special Labeling','Special Instructions'];
-    const rows = tests.map(test => [test.isStat ? 'STAT' : 'Routine',test.testCode,test.testName,[test.specimenType, ...additionalDrawRequirements(test).map(item => item.specimenType)].filter(Boolean).join(' + '),test.drawContainer,additionalDrawRequirements(test).map(item => `${item.container}${item.specimenType ? ` (${item.specimenType})` : ''}`).join(' + '),test.alternativeContainer,test.transportContainer,combinedVolumeText(test, 'preferred'),combinedVolumeText(test, 'minimum'),test.transportTemperature,test.transportTemperatureRaw,test.stability,test.spin,test.specialLabeling,test.specialInstructions]);
+    const rows = tests.map(test => test.collectionReview
+      ? ['Review required', test.testCode, test.testName, ...Array(12).fill(''), test.collectionReview]
+      : [test.isStat ? 'STAT' : 'Routine',test.testCode,test.testName,[test.specimenType, ...additionalDrawRequirements(test).map(item => item.specimenType)].filter(Boolean).join(' + '),test.drawContainer,additionalDrawRequirements(test).map(item => `${item.container}${item.specimenType ? ` (${item.specimenType})` : ''}`).join(' + '),test.alternativeContainer,test.transportContainer,combinedVolumeText(test, 'preferred'),combinedVolumeText(test, 'minimum'),test.transportTemperature,test.transportTemperatureRaw,test.stability,test.spin,test.specialLabeling,test.specialInstructions]);
     const csv = [headers, ...rows].map(row => row.map(csvCell).join(',')).join('\r\n');
     downloadBlob(csv, `lab-collection-summary-${isoDate()}.csv`, 'text/csv;charset=utf-8');
   }

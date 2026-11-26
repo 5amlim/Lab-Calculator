@@ -1,7 +1,7 @@
 {
   "baselineRevision": "b81f79958661971bad3a6799d6a0465a7525156e",
   "date": "2026-11-26",
-  "checkpoint": "Runtime inventory, Labcorp public listings, and 2026 bulletin deletion reconciliation",
+  "checkpoint": "Full runtime inventory, active-test preservation, source listing reconciliation and targeted clinical review",
   "catalogRecordsAccountedFor": {
     "quest": 3829,
     "labcorp": 6601
@@ -11,12 +11,12 @@
     "labcorp": 0
   },
   "reviewedOrAttempted": {
-    "quest": 20,
-    "labcorp": 74
+    "quest": 21,
+    "labcorp": 81
   },
   "notYetReviewed": {
-    "quest": 3809,
-    "labcorp": 6527
+    "quest": 3808,
+    "labcorp": 6520
   },
   "recordStatusSource": "FIELD_EVIDENCE.json. Every catalog row without a key has status Not yet reviewed.",
   "evidenceKeys": [
@@ -113,7 +113,15 @@
     "quest:91475",
     "quest:91477",
     "quest:14867",
-    "quest:14435"
+    "quest:14435",
+    "labcorp:144441",
+    "labcorp:451830",
+    "labcorp:502421",
+    "labcorp:505770",
+    "quest:93876",
+    "labcorp:502690",
+    "labcorp:120089",
+    "labcorp:501218"
   ],
   "inventoryCommand": "node scripts/audit-calculator-database.mjs --out ../calculator-current-report --check",
   "continueFrom": "Enumerate TEST_INVENTORY.csv where verification is Not yet reviewed, keeping laboratory and exact test code as strings. Use the appropriate service-area evidence and review every applicable route before marking a record fully verified.",
@@ -136,18 +144,18 @@
     "cdosMissing": 0,
     "runtimeAbsentFromBoth": 69,
     "dispositionInPublic": {
-      "active": 3014,
-      "blocked": 249,
+      "active": 3020,
+      "blocked": 243,
       "pending": 17
     },
     "dispositionInCdos": {
-      "blocked": 447,
-      "active": 5939,
+      "active": 5944,
+      "blocked": 442,
       "pending": 124
     }
   },
   "exactPageIntake": {
-    "publicPagesAttempted": 164,
+    "publicPagesAttempted": 250,
     "cdosPagesAttempted": 188,
     "interpretation": "Capture and code identity are intake milestones. Field-level adjudication remains in FIELD_EVIDENCE.json.",
     "checkpoint": "LABCORP_EXACT_PAGE_CHECKPOINT.csv",
@@ -174,8 +182,8 @@
     "noticeRows": 259,
     "distinctCodes": 258,
     "matchedRuntimeCodes": 9,
-    "newlyBlocked": 8,
-    "report": "LABCORP_ARCHIVE_DELETIONS.csv"
+    "report": "LABCORP_ARCHIVE_DELETIONS.csv",
+    "newlyFlaggedActive": 8
   },
   "questNotices": {
     "reviewedFieldsAddedFor": [
@@ -196,5 +204,39 @@
       "90137",
       "38480"
     ]
+  },
+  "labcorpCapturedEvidence": {
+    "pendingEvidence": {
+      "Fields captured. Review missing requirements and clinic capability.": 101,
+      "Exact code captured. Clinical fields unavailable.": 23,
+      "Exact page unavailable. Request receiving-lab documentation.": 5
+    },
+    "publishedLoincAssignments": {
+      "order": 187,
+      "result": 423
+    },
+    "publicCodesWithPublishedAssignments": 219,
+    "formatIssues": 0
+  },
+  "activeTestPreservation": {
+    "baselineActiveRecordsLost": 0,
+    "flaggedCodes": {
+      "quest": 5,
+      "labcorp": 30
+    },
+    "register": "COLLECTION_REVIEW_FLAGS.csv"
+  },
+  "savedQuestBaselineComparison": {
+    "tests": 78,
+    "goldMode": true,
+    "drawContainers": 46,
+    "bagContainers": {
+      "roomTemperature": 38,
+      "refrigerated": 9,
+      "frozen": 5
+    },
+    "savedBaselinePages": 21,
+    "controlledHeadlessPagesBefore": 22,
+    "controlledHeadlessPagesAfter": 22
   }
 }

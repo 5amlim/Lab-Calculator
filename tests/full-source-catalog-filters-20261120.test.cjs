@@ -100,8 +100,8 @@ for(const [lab,page,app] of [
      const reviewedCodes = '001875 008201 071538 115101 120 140 180232 183444 183469 183531 190256 372 373 480566 489590 591 631596 738534 808417 504965 504980 008136 008482 188243 086884 140046 140111 085506 086868 180026 186015 186031'.split(' ');
      const expandedCodes = '008003 008900 008904 008185 008565 008573 086876 180787 183476 310 325 336 480260 505805 511402 519020 123260 058099 201752 806813 909231 209641 130021 212183 343818 087817 140551 284332 510390 819333 823304 180018 824009 809175 809638 284462 188284 031757 844219 910625 819217 822972 824153 830746 835240 007914 878678'.split(' ');
      const sourceTAT = new Set('008003 008900 008904 008185 008565 008573 086876 180787 183476 310 325 336 480260 505805 511402 519020 123260 201752 806813 909231 087817 284332 819333 823304 824009 809175 809638 284462 910625 819217 822972 824153 830746 835240'.split(' '));
-     assert.equal(expandedCodes.length,47,'One previously active order is on an exact-code collection hold');
-     assert(!rows.some(test => test.testCode === '501533'), 'Clinical hold is not searchable as an active test');
+     assert.equal(expandedCodes.length,47,'Ordinary collection-ready codes in the batch');
+     assert.match(rows.find(test => test.testCode === '501533')?.collectionReview, /acid-preserved, frozen/);
      for(const code of expandedCodes){
        const row=rows.find(test=>test.testCode===code);
        assert(row,'New code missing from actual live active catalog: '+code);

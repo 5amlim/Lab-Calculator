@@ -73,7 +73,7 @@ test('original collection and destination bags reconcile 7 submitted containers 
   assert.equal(byTemp.get('Room Temperature'), 2);
   assert.equal(byTemp.get('Refrigerated'), 4);
   assert.equal(byTemp.get('Frozen'), 1);
-  const volumes = rows.map(row => {
+  const volumes = rows.filter(row => !row.collectionReview).map(row => {
     const text = String(row.preferredVolume);
     const double = text.match(/\b(?:two|2)\s+(\d+(?:\.\d+)?)\s*mL\s+aliquots?\b/i);
     const single = text.match(/\b(\d+(?:\.\d+)?)\s*mL\b/i);
@@ -88,13 +88,14 @@ test('original collection and destination bags reconcile 7 submitted containers 
 test('501533 stays on collection hold even with a legacy active override or saved custom record', () => {
   const {api} = openTimedUrineCart();
   const source = api.database.find(row => row.testCode === '501533');
-  assert.equal(source.status, 'blocked');
-  assert.match(source.specialInstructions, /acid-preserved, frozen/);
+  assert.equal(source.status, 'active');
+  assert.match(source.collectionReview, /acid-preserved, frozen/);
   const active = {...source, status: 'active', specialInstructions: ''};
   const rows = api.applyUserState({
     overrides: [active],
     customTests: [{...active, id: 'custom-501533'}]
   }).filter(row => row.testCode === '501533');
   assert.equal(rows.length, 2);
-  assert(rows.every(row => row.status === 'blocked'));
+  assert(rows.every(row => row.status === 'active' && row.collectionReview === source.collectionReview));
+  assert.equal(api.expandedCollectionTests(rows).length, 0);
 });

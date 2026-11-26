@@ -10,13 +10,13 @@
   "cdosMissing": 0,
   "runtimeAbsentFromBoth": 69,
   "dispositionInPublic": {
-    "active": 3014,
-    "blocked": 249,
+    "active": 3020,
+    "blocked": 243,
     "pending": 17
   },
   "dispositionInCdos": {
-    "blocked": 447,
-    "active": 5939,
+    "active": 5944,
+    "blocked": 442,
     "pending": 124
   }
 }

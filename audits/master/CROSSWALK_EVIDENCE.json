@@ -54,5 +54,29 @@
     "previousSourcePair": "92473|489200 and 92473|481020",
     "evidence": "Labcorp replaced two retired order options with digital PCR reporting percent mutant alleles. Confirm assay, specimen and reporting against the requested Quest order.",
     "approvalStatus": "Manual review only. Never send as an automatic match."
+  },
+  "6447|164099": {
+    "classification": "Removed from converter pending shipment confirmation",
+    "date": "2026-11-26",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/6447/?cc=MASTER",
+    "labcorpUrl": "https://www.labcorp.com/tests/164099",
+    "evidence": "The Quest source order is on collection hold because an exact shipping requirement could not be established.",
+    "approvalStatus": "Clinical shipping confirmation required before reconsideration."
+  },
+  "34499|164055": {
+    "classification": "Removed from converter pending shipment confirmation",
+    "date": "2026-11-26",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/34499/?cc=MASTER",
+    "labcorpUrl": "https://www.labcorp.com/tests/164055",
+    "evidence": "The Quest source order is on collection hold because an exact shipping requirement could not be established.",
+    "approvalStatus": "Clinical shipping confirmation required before reconsideration."
+  },
+  "19963|164798": {
+    "classification": "Removed from converter pending shipment confirmation",
+    "date": "2026-11-26",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/19963/?cc=MASTER",
+    "labcorpUrl": "https://www.labcorp.com/tests/164798",
+    "evidence": "The Labcorp destination is on collection hold because an exact shipping requirement could not be established.",
+    "approvalStatus": "Clinical shipping confirmation required before reconsideration."
   }
 }

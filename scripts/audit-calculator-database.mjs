@@ -22,8 +22,8 @@ const namedLabcorpCodes = new Set(['PROM-CELIAC-PLUS', 'PROM-CELIAC-SEROLOGY']);
 const countsBy = (items, key) => Object.fromEntries(Object.entries(Object.groupBy(items, key))
   .sort(([a], [b]) => a.localeCompare(b)).map(([value, group]) => [value, group.length]));
 const hash = value => createHash('sha256').update(JSON.stringify(value)).digest('hex');
-const disposition = row => row.status === 'blocked' || row.status === 'reference' || row.status === 'pending'
-  ? row.specialInstructions : '';
+const disposition = row => row.collectionReview || (row.status === 'blocked' || row.status === 'reference' || row.status === 'pending'
+  ? row.specialInstructions : '');
 const measurements = ['preferredVolume', 'minimumVolume'];
 const clinical = [
   'status', 'specimenType', 'drawContainer', 'alternativeContainer', 'transportContainer',
@@ -45,6 +45,7 @@ const flag = (severity, issue, lab, key, detail = '') => findings.push({severity
 const snapshot = {schema: 1, ...(values.revision ? {revision: values.revision} : {}), labs: {}, rules: {}};
 const inventory = [];
 const routes = [];
+const collectionReviews = [];
 const catalogs = new Map();
 const fieldChanges = [];
 
@@ -53,6 +54,11 @@ for (const lab of labs) {
   const active = new Set(index.tests.map(row => row[0]));
   const committed = read('assets/search/'+lab.lab+'-tests.json');
   const committedByCode = new Map(committed.tests.map(row => [row[0], hash(row)]));
+  const reviewCodes = new Set(records.filter(row => row.status === 'active' && row.collectionReview && active.has(row.testCode))
+    .map(row => row.testCode));
+  if ([...(committed.collectionReviewCodes || [])].sort().join(',') !== [...reviewCodes].sort().join(',')) {
+    flag('critical', 'stale-search-review-flags', lab.lab, 'published');
+  }
   const stale = index.tests.filter(row => committedByCode.get(row[0]) !== hash(row)).map(row => row[0]);
   for (const row of committed.tests) if (!active.has(row[0])) stale.push(row[0]);
   if (stale.length) flag('critical', 'stale-search-index', lab.lab, 'published', stale.join(' '));
@@ -69,9 +75,18 @@ for (const lab of labs) {
     if (!validCode) flag('critical', 'nonstandard-code', lab.lab, recordKey);
     const review = evidence[key];
     const verification = review?.status ?? 'Not yet reviewed';
-    if (review?.hold && row.status === 'active') flag('critical', 'active-clinical-hold', lab.lab, recordKey, review.note);
+    if (review?.hold && row.status === 'active' && !row.collectionReview) {
+      flag('critical', 'active-clinical-hold', lab.lab, recordKey, review.note);
+    }
+    if (row.collectionReview && !review?.hold) {
+      flag('critical', 'undocumented-collection-review', lab.lab, recordKey);
+    }
     inventory.push({lab: lab.lab, code, id: row.id, name: row.testName, disposition: row.status,
       indexed: active.has(code), verification, source: row.source, reason: disposition(row)});
+    if (row.status === 'active' && row.collectionReview) {
+      collectionReviews.push({lab: lab.lab, code, name: row.testName, verification,
+        flag: row.collectionReview, source: review?.url || row.source});
+    }
     for (const [routeIndex, route] of [row, ...(row.additionalDrawRequirements || [])].entries()) {
       const draw = route.drawContainer || route.container;
       const submit = route.transportContainer;
@@ -80,7 +95,7 @@ for (const lab of labs) {
       routes.push({lab: lab.lab, code, id: row.id, route: routeIndex, disposition: row.status,
         specimen, draw, submit, temperature, spin: route.spin, preferredVolume: route.preferredVolume,
         minimumVolume: route.minimumVolume});
-      if (row.status !== 'active') continue;
+      if (row.status !== 'active' || row.collectionReview) continue;
       const routeKey = recordKey+'|'+routeIndex;
       if (!row.testName || !specimen || !draw || /^(verify|unknown|not specified)/i.test(draw)) {
         flag('warning', 'incomplete-collection-route', lab.lab, routeKey);
@@ -104,29 +119,32 @@ for (const lab of labs) {
     if (count > 1) flag('warning', 'multiple-active-records-for-code', lab.lab, code, String(count));
   }
   snapshot.labs[lab.lab] = {total: records.length, rawLoaded: globals.SEED_TESTS.length,
-    indexed: index.tests.length, statuses: countsBy(records, row => row.status),
+    indexed: index.tests.length, collectionReviewCodes: reviewCodes.size, statuses: countsBy(records, row => row.status),
     verification: countsBy(inventory.filter(row => row.lab === lab.lab), row => row.verification),
     records: recordHashes};
-  catalogs.set(lab.lab, {active, globals});
+  catalogs.set(lab.lab, {active, globals, reviewCodes});
 }
 
 const crosswalk = [];
 const relationshipKeys = new Set();
-const {active: activeQuest, globals} = catalogs.get('quest');
-const {active: activeLabcorp} = catalogs.get('labcorp');
+const {active: activeQuest, globals, reviewCodes: questReviewCodes} = catalogs.get('quest');
+const {active: activeLabcorp, reviewCodes: labcorpReviewCodes} = catalogs.get('labcorp');
 const labcorpPublished = read('assets/search/labcorp-tests.json');
-globals.applyQuestLabcorpWorkbookMatches?.(labcorpPublished.tests);
+globals.applyQuestLabcorpWorkbookMatches?.(labcorpPublished.tests, labcorpPublished.collectionReviewCodes);
 const questRows = new Set();
 for (const row of globals.QUEST_TO_LABCORP_INDEX) {
   const [questCode, , , labcorpCode, , , basis, rawScope, references = []] = row;
   const scope = rawScope || (questCode === 'XXX' ? 'uncoded' : 'active');
-  if (scope === 'active') {
+  if (scope === 'active' || questReviewCodes.has(questCode)) {
     if (questRows.has(questCode)) flag('critical', 'duplicate-active-crosswalk-row', 'quest', questCode);
     if (!activeQuest.has(questCode)) flag('critical', 'inactive-quest-crosswalk-row', 'quest', questCode);
     questRows.add(questCode);
   }
   for (const [code, baseClassification] of (labcorpCode ? [[labcorpCode, 'Candidate, verification pending']]
     : references.map(([code]) => [code, 'Manual review required']))) {
+    if (questReviewCodes.has(questCode) || labcorpReviewCodes.has(code)) {
+      flag('critical', 'crosswalk-uses-collection-review-code', 'shared', questCode+'|'+code);
+    }
     if (!activeLabcorp.has(code)) flag('critical', 'crosswalk-destination-outside-active-index', 'labcorp', questCode+'|'+code);
     const classification = baseClassification === 'Manual review required' && /^Partial panel match/.test(basis || '')
       ? 'Partial panel match' : baseClassification;
@@ -163,6 +181,11 @@ if (baseline) {
     const before = baseline.labs[lab].records;
     const added = Object.keys(records).filter(key => !before[key]);
     const removed = Object.keys(before).filter(key => !records[key]);
+    for (const [key, previous] of Object.entries(before)) {
+      if (previous.status === 'active' && records[key]?.status !== 'active') {
+        flag('critical', 'previously-active-record-lost', lab, key);
+      }
+    }
     const modified = Object.keys(records).filter(key => before[key] && before[key].hash !== records[key].hash);
     for (const key of [...added, ...modified]) {
       const changed = clinical.filter(field => before[key]?.fields[field] !== records[key].fields[field]);
@@ -200,6 +223,7 @@ writeJson('DATABASE_AUDIT_SUMMARY.json', {
   crosswalk: summaryCrosswalk, changes, findings
 });
 writeCsv('TEST_INVENTORY.csv', ['lab', 'code', 'id', 'name', 'disposition', 'indexed', 'verification', 'source', 'reason'], inventory);
+writeCsv('COLLECTION_REVIEW_FLAGS.csv', ['lab', 'code', 'name', 'verification', 'flag', 'source'], collectionReviews);
 writeCsv('SPECIMEN_CONTAINER_ROUTES.csv', ['lab', 'code', 'id', 'route', 'disposition', 'specimen',
   'draw', 'submit', 'temperature', 'spin', ...measurements], routes);
 writeCsv('CROSSWALK_AUDIT.csv', ['questCode', 'labcorpCode', 'scope', 'classification', 'basis'], crosswalk);

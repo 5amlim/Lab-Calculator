@@ -13,13 +13,14 @@ const rows=Array.from(ctx.window.QUEST_TO_LABCORP_INDEX);
 const active=rows.filter(r=>r[7]==='active');
 const legacy=rows.filter(r=>r[7]==='legacy');
 const uncoded=rows.filter(r=>r[0]==='XXX');
-const byQuest=new Map(active.map(r=>[r[0],r]));
+const byQuest=new Map(rows.filter(r=>['active','hold','discontinued'].includes(r[7])).map(r=>[r[0],r]));
 const labcodes=new Set(indexedLab.map(r=>r[0]));
 test('every current active Quest code occurs exactly once in crosswalk',()=>{
  assert.equal(new Set(indexedQuest.map(r=>r[0])).size,indexedQuest.length);
  assert.equal(ctx.window.QUEST_TO_LABCORP_METADATA.questActiveCount,indexedQuest.length);
- assert.equal(active.length,indexedQuest.length);
- assert.equal(new Set(active.map(r=>r[0])).size,indexedQuest.length);
+ const represented=rows.filter(r=>['active','hold','discontinued'].includes(r[7]));
+ assert.equal(represented.length,indexedQuest.length);
+ assert.equal(byQuest.size,indexedQuest.length);
  for(const q of indexedQuest)assert.ok(byQuest.has(q[0]),'Missing Quest '+q[0]);
  assert.equal(legacy.length,8);
  assert.equal(uncoded.length,16);
@@ -318,9 +319,9 @@ test('workbook mappings load from LabCorp index even without LabCorp SEED_TESTS'
 
 test('both badges count the same active candidate relationships after workbook overrides',()=>{
   const ui=fs.readFileSync('labcorp-crosswalk-ui.js','utf8');
-  assert.ok(ui.indexOf('window.applyQuestLabcorpWorkbookMatches?.(index.tests)') <
+  assert.ok(ui.indexOf('window.applyQuestLabcorpWorkbookMatches?.(index.tests,index.collectionReviewCodes)') <
     ui.indexOf('reverse=buildReverse(index)'));
-  const start=ui.indexOf("    const questActive=rows.filter(r=>sourceType(r)==='active');",ui.indexOf('  function render(){'));
+  const start=ui.indexOf('    const questActive=rows.filter(',ui.indexOf('  function render(){'));
   const end=ui.indexOf('    status.textContent=pending?',start);
   assert.ok(start>=0&&end>start);
   const code=ui.slice(start,end);
