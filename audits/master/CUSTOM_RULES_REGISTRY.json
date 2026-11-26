@@ -1,0 +1,491 @@
+[
+  {
+    "id": "gold-tiger-sst",
+    "category": "volume",
+    "description": "Preserve 2.5 mL usable yield for Gold SST (5 mL draw) and 4 mL for Tiger SST (7.5 mL draw), selected by the existing toggle.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [
+      "Serum"
+    ],
+    "container": [
+      "Gold SST",
+      "Tiger SST"
+    ],
+    "testCodes": [],
+    "expectedBehavior": "Preserve 2.5 mL usable yield for Gold SST (5 mL draw) and 4 mL for Tiger SST (7.5 mL draw), selected by the existing toggle.",
+    "reason": "Preserve the collection planning policy and make assumed yield distinct from blood draw volume.",
+    "evidence": [
+      "docs/TUBE_VOLUME_PLANNING_20261108.md"
+    ],
+    "implementation": [
+      "assets/js/app.js",
+      "labcorp-app.js"
+    ],
+    "regressionTests": [
+      "tests/source-tube-volume-regression.test.cjs"
+    ],
+    "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
+  },
+  {
+    "id": "sst-minimum-floor",
+    "category": "volume",
+    "description": "For a documented minimum of 4 mL or more, set a minimum of two SSTs and honor higher required counts and capacity.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [
+      "Serum"
+    ],
+    "container": [
+      "Gold SST",
+      "Tiger SST"
+    ],
+    "testCodes": [],
+    "expectedBehavior": "For a documented minimum of 4 mL or more, set a minimum of two SSTs and honor higher required counts and capacity.",
+    "reason": "Protect the independent collection floor.",
+    "evidence": [
+      "docs/SERUM_SST_AUDIT.md"
+    ],
+    "implementation": [
+      "assets/js/app.js:needsTwoSstForMinimum",
+      "labcorp-app.js:needsTwoSstForMinimum"
+    ],
+    "regressionTests": [
+      "tests/source-tube-volume-regression.test.cjs"
+    ],
+    "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
+  },
+  {
+    "id": "blood-pool-target",
+    "category": "pooling",
+    "description": "Use the midpoint for 1–9 eligible tests and one-fifth above minimum for 10 or more eligible tests, subject to application route and dedicated rules.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [
+      "Serum",
+      "Plasma",
+      "Whole Blood"
+    ],
+    "container": [],
+    "testCodes": [],
+    "expectedBehavior": "Use the midpoint for 1–9 eligible tests and one-fifth above minimum for 10 or more eligible tests, subject to application route and dedicated rules.",
+    "reason": "Use the established volume policy within the compatible physical pool.",
+    "evidence": [
+      "docs/CHANGELOG.md"
+    ],
+    "implementation": [
+      "assets/js/app.js:questPolicyVolume",
+      "labcorp-app.js:planningTargetOrExistingVolume"
+    ],
+    "regressionTests": [
+      "tests/master-database-audit.test.cjs",
+      "tests/full-catalog-container-math-audit-20261120.test.cjs"
+    ],
+    "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
+  },
+  {
+    "id": "timed-no-pooling",
+    "category": "collection",
+    "description": "Keep independent draw time points and dedicated containers separate in collection and submission.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [],
+    "container": [],
+    "testCodes": [],
+    "expectedBehavior": "Keep independent draw time points and dedicated containers separate in collection and submission.",
+    "reason": "A shared tube or bag label cannot collapse independent specimens.",
+    "evidence": [
+      "1141b06",
+      "31f6912"
+    ],
+    "implementation": [
+      "assets/js/app.js",
+      "labcorp-app.js"
+    ],
+    "regressionTests": [
+      "tests/print-timed-specimen-grouping.test.cjs"
+    ],
+    "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
+  },
+  {
+    "id": "specimen-transfer-spin",
+    "category": "processing",
+    "description": "Suppress spin for routine whole blood transfers, preserve separation for applicable serum, plasma and red cell routes, and preserve original-container and swab routes.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [
+      "Whole Blood",
+      "Serum",
+      "Plasma",
+      "Red blood cells",
+      "Swab"
+    ],
+    "container": [],
+    "testCodes": [],
+    "expectedBehavior": "Suppress spin for routine whole blood transfers, preserve separation for applicable serum, plasma and red cell routes, and preserve original-container and swab routes.",
+    "reason": "Prevent processing intended for separated specimens from being applied to originals or whole blood.",
+    "evidence": [
+      "audits/FULL_SPECIMEN_COLLECTION_AND_BAG_AUDIT_20261120.md"
+    ],
+    "implementation": [
+      "assets/js/app.js",
+      "labcorp-app.js"
+    ],
+    "regressionTests": [
+      "tests/print-transfer-spin.test.cjs",
+      "tests/swab-original-container-20261115.test.cjs"
+    ],
+    "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
+  },
+  {
+    "id": "transport-display",
+    "category": "container naming",
+    "description": "Keep physical transport badges independent of bag temperature. Preserve plasma or serum labels, specialized source additives and royal blue additive stripes.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [
+      "Plasma",
+      "Serum",
+      "Whole Blood"
+    ],
+    "container": [
+      "Transport tube",
+      "Royal blue serum",
+      "Royal blue EDTA"
+    ],
+    "testCodes": [],
+    "expectedBehavior": "Keep physical transport badges independent of bag temperature. Preserve plasma or serum labels, specialized source additives and royal blue additive stripes.",
+    "reason": "Temperature and additive convey distinct collection details.",
+    "evidence": [
+      "docs/transport-tube-unified-codes-2026-11-15.txt",
+      "docs/CONTAINER_GROUPING_AUDIT_20261114.md"
+    ],
+    "implementation": [
+      "assets/js/app.js",
+      "labcorp-app.js",
+      "assets/js/calculator-container-gallery.js"
+    ],
+    "regressionTests": [
+      "tests/transport-print-label-aliases-20261117.test.cjs",
+      "tests/print-source-label-badges-20261115.test.cjs"
+    ],
+    "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
+  },
+  {
+    "id": "specimen-specific-stock",
+    "category": "container naming",
+    "description": "Keep specimen-specific submission labels for stool, urine, CSF and swabs, specify actual microtainer type, and retain Salivette color and label.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [
+      "Stool",
+      "Urine",
+      "CSF",
+      "Swab",
+      "Saliva"
+    ],
+    "container": [
+      "Sterile cup",
+      "Microtainer",
+      "Salivette"
+    ],
+    "testCodes": [],
+    "expectedBehavior": "Keep specimen-specific submission labels for stool, urine, CSF and swabs, specify actual microtainer type, and retain Salivette color and label.",
+    "reason": "Group physical inventory without obscuring what to collect or submit.",
+    "evidence": [
+      "audits/NONBLOOD_CONTAINER_SUBMISSION_AUDIT_20261117.md",
+      "audits/salivette-blue-cap-print-audit-20261117.md"
+    ],
+    "implementation": [
+      "assets/js/app.js",
+      "labcorp-app.js"
+    ],
+    "regressionTests": [
+      "tests/quest-sterile-cup-specimen-print-groups-20261115.test.cjs",
+      "tests/container-filter-completeness-20261117.test.cjs"
+    ],
+    "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
+  },
+  {
+    "id": "gray-plasma-routing",
+    "category": "manual override",
+    "description": "Preserve the additive-free plasma vial route for the reviewed Quest 8477 and 1430 workflows and keep 1430 time points separate. Confirm local acceptance before changing routes.",
+    "laboratory": [
+      "quest"
+    ],
+    "specimen": [
+      "Plasma"
+    ],
+    "container": [
+      "Gray fluoride/oxalate",
+      "Plasma transport vial"
+    ],
+    "testCodes": [
+      "8477",
+      "1430"
+    ],
+    "expectedBehavior": "Preserve the additive-free plasma vial route for the reviewed Quest 8477 and 1430 workflows and keep 1430 time points separate. Confirm local acceptance before changing routes.",
+    "reason": "Quest lists gray-top as preferred and explicitly offers an additive-free plastic vial alternative. A fresh additive tube is a distinct route.",
+    "evidence": [
+      "5e036f0",
+      "18a58c0",
+      "https://testdirectory.questdiagnostics.com/test/test-detail/8477/?cc=MASTER",
+      "https://testdirectory.questdiagnostics.com/test/test-detail/1430/?cc=MASTER"
+    ],
+    "implementation": [
+      "assets/js/quest-gray-plasma-processing-20261114.js"
+    ],
+    "regressionTests": [
+      "tests/quest-gray-plasma-20261114.test.cjs",
+      "tests/container-grouping-parity-20261115.test.cjs"
+    ],
+    "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
+  },
+  {
+    "id": "quest-timed-urine",
+    "category": "manual override",
+    "description": "Retain the exact timed urine source and UA blue-fill-line alternative for 8280. Review local acceptance of the sterile cup display for 229 against the official transport-tube entry.",
+    "laboratory": [
+      "quest"
+    ],
+    "specimen": [
+      "Timed Urine"
+    ],
+    "container": [
+      "Urinalysis transport tube",
+      "Sterile cup",
+      "24-hour urine jug"
+    ],
+    "testCodes": [
+      "8280",
+      "229"
+    ],
+    "expectedBehavior": "Retain the exact timed urine source and UA blue-fill-line alternative for 8280. Review local acceptance of the sterile cup display for 229 against the official transport-tube entry.",
+    "reason": "Avoid conflating collection jug, aliquot and preservative tube.",
+    "evidence": [
+      "a80f268",
+      "https://testdirectory.questdiagnostics.com/test/test-detail/8280/?cc=MASTER",
+      "https://testdirectory.questdiagnostics.com/test/test-detail/229/?cc=MASTER"
+    ],
+    "implementation": [
+      "assets/js/app.js",
+      "assets/js/quest-verified-urine-20261114.js"
+    ],
+    "regressionTests": [
+      "tests/container-grouping-parity-20261115.test.cjs"
+    ],
+    "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
+  },
+  {
+    "id": "unsupported-workflows",
+    "category": "operational exclusion",
+    "description": "Preserve scope-specific exclusions for acid-preserved urine, green-label Aptima, InSure, hair, nails, slides and smears, tumor specimens, cytology/Pap/ThinPrep and Streck, including the historical Quest 10676 urine-only exception as separately reviewed.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [],
+    "container": [],
+    "testCodes": [],
+    "expectedBehavior": "Preserve scope-specific exclusions for acid-preserved urine, green-label Aptima, InSure, hair, nails, slides and smears, tumor specimens, cytology/Pap/ThinPrep and Streck, including the historical Quest 10676 urine-only exception as separately reviewed.",
+    "reason": "Preserve supported clinic routes and avoid promotion of an unsupported alternative.",
+    "evidence": [
+      "README.md",
+      "audits/labcorp-remaining-review-20261121.csv"
+    ],
+    "implementation": [
+      "assets/js/app.js:applySpecimenExclusions",
+      "labcorp-app.js:applySpecimenExclusions"
+    ],
+    "regressionTests": [
+      "tests/labcorp-remaining-disposition-20261121.test.cjs",
+      "tests/quest-requested-tc-11-20261117.test.cjs"
+    ],
+    "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
+  },
+  {
+    "id": "quest-92717-hold",
+    "category": "operational exclusion",
+    "description": "Keep 92717 blocked even when a saved override or custom row supplies an active status.",
+    "laboratory": [
+      "quest"
+    ],
+    "specimen": [
+      "Whole Blood"
+    ],
+    "container": [
+      "Lavender EDTA"
+    ],
+    "testCodes": [
+      "92717"
+    ],
+    "expectedBehavior": "Keep 92717 blocked even when a saved override or custom row supplies an active status.",
+    "reason": "Preserve the established clinic exclusion.",
+    "evidence": [
+      "assets/js/quest-requested-tc-11-20261117.js"
+    ],
+    "implementation": [
+      "assets/js/app.js:applyUserState"
+    ],
+    "regressionTests": [
+      "tests/quest-requested-tc-11-20261117.test.cjs"
+    ],
+    "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
+  },
+  {
+    "id": "labcorp-501533-hold",
+    "category": "clinical conflict",
+    "description": "Keep Labcorp 501533 unavailable for collection until the receiving laboratory resolves the conflicting preservative and shipment requirements.",
+    "laboratory": [
+      "labcorp"
+    ],
+    "specimen": [
+      "24-hour Urine"
+    ],
+    "container": [
+      "24-hour urine jug"
+    ],
+    "testCodes": [
+      "501533"
+    ],
+    "expectedBehavior": "Keep Labcorp 501533 unavailable for collection until the receiving laboratory resolves the conflicting preservative and shipment requirements.",
+    "reason": "The exact specialty directory and historical CDOS record disagree.",
+    "evidence": [
+      "https://specialtytesting.labcorp.com/tests/501533/metanephrines-fractionated-urine-includes-creatinine",
+      "https://cdos.halfpenny.com/labcorp/TestDisplay/501533"
+    ],
+    "implementation": [
+      "labcorp-app.js:applySpecimenExclusions"
+    ],
+    "regressionTests": [
+      "tests/labcorp-timed-urine-bag-reconciliation-20261120.test.cjs"
+    ],
+    "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
+  },
+  {
+    "id": "regional-tat",
+    "category": "regional",
+    "description": "Keep remembered regional selection, distinguish fallback from regional estimates, and preserve each source’s turnaround time start point.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [],
+    "container": [],
+    "testCodes": [],
+    "expectedBehavior": "Keep remembered regional selection, distinguish fallback from regional estimates, and preserve each source’s turnaround time start point.",
+    "reason": "General Labcorp public estimates start at pickup; Quest schedule and service area are separate evidence.",
+    "evidence": [
+      "https://www.labcorp.com/tests/005215/erythrocyte-sedimentation-rate-whe"
+    ],
+    "implementation": [
+      "assets/js/market-restrictions.js",
+      "assets/js/regional-catalog-20261115.js",
+      "assets/js/labcorp-directory-tat.js",
+      "assets/js/quest-directory-tat.js"
+    ],
+    "regressionTests": [
+      "tests/regional-test-catalog-20261115.test.cjs",
+      "tests/market-restrictions.test.cjs"
+    ],
+    "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
+  },
+  {
+    "id": "search-code-and-aliases",
+    "category": "search",
+    "description": "Match exact string codes first, preserve leading zeros and curated aliases, and keep review and excluded records out of the active public index.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [],
+    "container": [],
+    "testCodes": [],
+    "expectedBehavior": "Match exact string codes first, preserve leading zeros and curated aliases, and keep review and excluded records out of the active public index.",
+    "reason": "Published searchable records must agree with clean production policy.",
+    "evidence": [
+      "README.md",
+      "docs/QUEST_WORKBOOK_NAME_AUDIT.md"
+    ],
+    "implementation": [
+      "assets/js/app.js",
+      "labcorp-app.js",
+      "scripts/generate-public-search-index.mjs"
+    ],
+    "regressionTests": [
+      "tests/autocomplete-exact-code-suppression.test.cjs",
+      "tests/catalog-discoverability-tat-20261120.test.cjs"
+    ],
+    "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
+  },
+  {
+    "id": "print-separate-physical-routes",
+    "category": "printout",
+    "description": "Preserve specimen-specific collection and submission labels, code plus name, distinct temperatures, handling warnings and separate STAT routing.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [],
+    "container": [],
+    "testCodes": [],
+    "expectedBehavior": "Preserve specimen-specific collection and submission labels, code plus name, distinct temperatures, handling warnings and separate STAT routing.",
+    "reason": "The printed plan must agree with the actual physical containers and tests.",
+    "evidence": [
+      "audits/FULL_SPECIMEN_COLLECTION_AND_BAG_AUDIT_20261120.md"
+    ],
+    "implementation": [
+      "assets/js/app.js",
+      "labcorp-app.js"
+    ],
+    "regressionTests": [
+      "tests/full-catalog-container-math-audit-20261120.test.cjs",
+      "tests/print-identical-container-grouping.test.cjs"
+    ],
+    "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
+  },
+  {
+    "id": "crosswalk-review-only",
+    "category": "conversion",
+    "description": "Display candidate references in both directions, keep partial panel relationships out of automatic conversion, and preserve explicit review decisions over workbook suggestions.",
+    "laboratory": [
+      "quest",
+      "labcorp"
+    ],
+    "specimen": [],
+    "container": [],
+    "testCodes": [
+      "16802",
+      "937"
+    ],
+    "expectedBehavior": "Display candidate references in both directions, keep partial panel relationships out of automatic conversion, and preserve explicit review decisions over workbook suggestions.",
+    "reason": "A component match or the same analyte can omit required results or options.",
+    "evidence": [
+      "docs/crosswalk-audit-20261125.md"
+    ],
+    "implementation": [
+      "labcorp-crosswalk-data.js",
+      "labcorp-quest-workbook-crosswalk-overrides.js",
+      "labcorp-crosswalk-ui.js"
+    ],
+    "regressionTests": [
+      "tests/full-quest-labcorp-crosswalk-20261121.test.cjs",
+      "tests/master-database-audit.test.cjs"
+    ],
+    "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
+  }
+]
