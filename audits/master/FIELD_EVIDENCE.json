@@ -1348,5 +1348,70 @@
         "evidence": "Vendor-deleted order held from collection and excluded from conversion."
       }
     }
+  },
+  "quest:37386": {
+    "status": "Partially verified",
+    "url": "https://intellitestmanager.questdiagnostics.com/home/output/305852",
+    "date": "2026-11-26",
+    "note": "November 16 update changes the BNP plasma stability bands. Frozen shipment remains the calculator route.",
+    "fields": {
+      "stability": {
+        "evidence": "Ambient unacceptable, refrigerated one hour, frozen nine months.",
+        "reviewedValueSha256": "196e773bf4705ad98bb4991f35731fb16c9181f0639353bd4464d510ded4e48a"
+      }
+    }
+  },
+  "quest:91475": {
+    "status": "Partially verified",
+    "url": "https://intellitestmanager.questdiagnostics.com/home/output/305852",
+    "date": "2026-11-26",
+    "note": "November 16 update gives separate quantities for the swab and urine options. The calculator plans the standard vaginal swab.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "One swab minimum for the primary Aptima swab route. Two mL applies to the separate urine option.",
+        "reviewedValueSha256": "6c0366e93eed139871e3e0b10cec09aee6fb649604e0c484c92ee17a52e05ad4"
+      }
+    }
+  },
+  "quest:91477": {
+    "status": "Partially verified",
+    "url": "https://intellitestmanager.questdiagnostics.com/home/output/305852",
+    "date": "2026-11-26",
+    "note": "November 16 update distinguishes the vaginal swab, male urethral swab and male urine alternatives.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "One swab minimum for the primary Aptima swab route. Two mL applies to the separate male urine option.",
+        "reviewedValueSha256": "6c0366e93eed139871e3e0b10cec09aee6fb649604e0c484c92ee17a52e05ad4"
+      },
+      "specialInstructions": {
+        "evidence": "Vendor instructs transfer of 2 mL of first-catch male urine into the Aptima urine tube within 24 hours, to the clear pane on its label.",
+        "reviewedValueSha256": "b83cb95c28491117d98f616b8564008ef3756d18415520545e1c28855aa732b3"
+      }
+    }
+  },
+  "quest:14867": {
+    "status": "Partially verified",
+    "url": "https://intellitestmanager.questdiagnostics.com/home/output/300102",
+    "date": "2026-11-26",
+    "note": "June 22 notice explicitly removes throat swabs and permits BAL in VCM. Existing calculator route collects a nasopharyngeal swab only.",
+    "fields": {
+      "specialInstructions": {
+        "evidence": "Existing clinic route correctly excludes throat swabs, dry swabs, sputum and non-viral medium."
+      }
+    }
+  },
+  "quest:14435": {
+    "status": "Partially verified",
+    "url": "https://intellitestmanager.questdiagnostics.com/home/output/301671",
+    "date": "2026-11-26",
+    "note": "July 20 update identifies formerly used code 8832. The runtime already reflects the new number and the frozen watery stool workflow.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Watery liquid feces only; formed stool rejected."
+      },
+      "transportTemperature": {
+        "evidence": "Collect refrigerated during collection, submit frozen."
+      }
+    }
   }
 }
