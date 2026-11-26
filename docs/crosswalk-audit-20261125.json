@@ -1,0 +1,1814 @@
+{
+  "date": "2026-11-25",
+  "scope": "Complete structural audit of active catalog entries; targeted directory evidence, not full clinical validation.",
+  "catalogs": {
+    "quest": 3314,
+    "labcorp": 6015
+  },
+  "before": {
+    "questMatchedActive": 1450,
+    "labcorpMatched": 1390,
+    "questReviewedOnly": 613,
+    "labcorpReviewedOnly": 555,
+    "questPending": 1251
+  },
+  "after": {
+    "questMatchedActive": 1456,
+    "labcorpMatched": 1396,
+    "questReviewedOnly": 630,
+    "labcorpReviewedOnly": 610,
+    "questPending": 1228
+  },
+  "reverseExclusive": {
+    "candidate": 1396,
+    "review": 465,
+    "pending": 4154
+  },
+  "candidatePairs": [
+    [
+      "16581",
+      "138880",
+      "BK virus DNA quantitative urine PCR; shared result LOINC 32285-9 and cobas urine PCR media."
+    ],
+    [
+      "16504",
+      "188730",
+      "Rectal gonorrhea NAAT; same site and Aptima Multitest collection."
+    ],
+    [
+      "70049",
+      "188748",
+      "Pharyngeal gonorrhea NAAT; same site and Aptima Multitest collection."
+    ],
+    [
+      "70048",
+      "188714",
+      "Pharyngeal chlamydia NAAT; same site and Aptima Multitest collection."
+    ],
+    [
+      "70051",
+      "188698",
+      "Combined pharyngeal CT/GC NAAT; matching analytes, site and Aptima Multitest collection."
+    ],
+    [
+      "8889",
+      "163402",
+      "Deamidated gliadin peptide IgG and IgA, serum; Labcorp result LOINCs 58709-7 and 58710-5; Quest LOINCs not independently obtained."
+    ]
+  ],
+  "existingEvidence": [
+    [
+      "35167",
+      "501902",
+      "Shared free T4 by dialysis result LOINC 6892-4."
+    ],
+    [
+      "10600",
+      "139149",
+      "Shared CMV quantitative plasma PCR result LOINCs 72493-0 and 72494-8; EDTA plasma. Compare interpretation/reflex components."
+    ],
+    [
+      "16505",
+      "188706",
+      "Rectal chlamydia NAAT and Aptima Multitest collection."
+    ],
+    [
+      "16506",
+      "188672",
+      "Combined rectal CT/GC NAAT and Aptima Multitest collection."
+    ]
+  ],
+  "reviewPairs": [
+    [
+      "10379",
+      "503205",
+      "Shared result LOINCs do not resolve different HbA1c reflex thresholds for GlycoMark."
+    ],
+    [
+      "12084",
+      "140230",
+      "Quest viral transport medium versus Labcorp dry lesion swab; do not substitute collection."
+    ],
+    [
+      "91475",
+      "180076",
+      "Overlapping M. genitalium NAAT but different accepted specimen routes."
+    ],
+    [
+      "19550",
+      "188052",
+      "Overlapping Trichomonas NAAT but verify route, method and specimen scope."
+    ],
+    [
+      "58792",
+      "183560",
+      "Urine Histoplasma antigen; verify quantitative MVista versus Labcorp result scale and assay."
+    ],
+    [
+      "637",
+      "007773",
+      "Overlapping mercury/creatinine LOINC; verify random versus 24-hour collection."
+    ],
+    [
+      "13808",
+      "005009",
+      "Quest standalone smear review requires submitted slides and CBC results; Labcorp CBC with reflex review is not a direct substitute."
+    ]
+  ],
+  "addedReview": [
+    [
+      "10285",
+      "602629"
+    ],
+    [
+      "10285",
+      "607100"
+    ],
+    [
+      "10285",
+      "676536"
+    ],
+    [
+      "10286",
+      "606599"
+    ],
+    [
+      "10286",
+      "607022"
+    ],
+    [
+      "10286",
+      "676544"
+    ],
+    [
+      "10643",
+      "602627"
+    ],
+    [
+      "10643",
+      "606995"
+    ],
+    [
+      "10643",
+      "676510"
+    ],
+    [
+      "10644",
+      "602628"
+    ],
+    [
+      "10644",
+      "607111"
+    ],
+    [
+      "10644",
+      "676528"
+    ],
+    [
+      "10646",
+      "602632"
+    ],
+    [
+      "10646",
+      "607099"
+    ],
+    [
+      "10646",
+      "676551"
+    ],
+    [
+      "10647",
+      "602633"
+    ],
+    [
+      "10647",
+      "607115"
+    ],
+    [
+      "10647",
+      "676569"
+    ],
+    [
+      "10648",
+      "602634"
+    ],
+    [
+      "10648",
+      "607125"
+    ],
+    [
+      "10648",
+      "676577"
+    ],
+    [
+      "10649",
+      "602635"
+    ],
+    [
+      "10649",
+      "607020"
+    ],
+    [
+      "10649",
+      "676585"
+    ],
+    [
+      "10650",
+      "602639"
+    ],
+    [
+      "10650",
+      "607105"
+    ],
+    [
+      "10650",
+      "676593"
+    ],
+    [
+      "10651",
+      "602640"
+    ],
+    [
+      "10651",
+      "607025"
+    ],
+    [
+      "10651",
+      "676601"
+    ],
+    [
+      "10653",
+      "602641"
+    ],
+    [
+      "10653",
+      "607050"
+    ],
+    [
+      "10653",
+      "676619"
+    ],
+    [
+      "10654",
+      "603719"
+    ],
+    [
+      "10654",
+      "607055"
+    ],
+    [
+      "10654",
+      "676627"
+    ],
+    [
+      "10655",
+      "602643"
+    ],
+    [
+      "10655",
+      "607075"
+    ],
+    [
+      "10655",
+      "676635"
+    ],
+    [
+      "10657",
+      "602645"
+    ],
+    [
+      "10657",
+      "607005"
+    ],
+    [
+      "10657",
+      "676668"
+    ],
+    [
+      "10658",
+      "602985"
+    ],
+    [
+      "10658",
+      "606990"
+    ],
+    [
+      "10658",
+      "676676"
+    ],
+    [
+      "10668",
+      "602644"
+    ],
+    [
+      "10668",
+      "607090"
+    ],
+    [
+      "10668",
+      "676643"
+    ],
+    [
+      "10669",
+      "602638"
+    ],
+    [
+      "10669",
+      "607095"
+    ],
+    [
+      "10669",
+      "676650"
+    ],
+    [
+      "10673",
+      "602986"
+    ],
+    [
+      "10673",
+      "606980"
+    ],
+    [
+      "10673",
+      "676684"
+    ],
+    [
+      "38828",
+      "606600"
+    ],
+    [
+      "38828",
+      "606985"
+    ],
+    [
+      "38828",
+      "650820"
+    ],
+    [
+      "58792",
+      "183560"
+    ],
+    [
+      "637",
+      "007773"
+    ]
+  ],
+  "regionAudit": [
+    {
+      "quest": "10285",
+      "region": 3,
+      "labcorp": [
+        "602629",
+        "607100",
+        "676536"
+      ]
+    },
+    {
+      "quest": "10286",
+      "region": 4,
+      "labcorp": [
+        "606599",
+        "607022",
+        "676544"
+      ]
+    },
+    {
+      "quest": "10643",
+      "region": 1,
+      "labcorp": [
+        "602627",
+        "606995",
+        "676510"
+      ]
+    },
+    {
+      "quest": "10644",
+      "region": 2,
+      "labcorp": [
+        "602628",
+        "607111",
+        "676528"
+      ]
+    },
+    {
+      "quest": "10646",
+      "region": 5,
+      "labcorp": [
+        "602632",
+        "607099",
+        "676551"
+      ]
+    },
+    {
+      "quest": "10647",
+      "region": 6,
+      "labcorp": [
+        "602633",
+        "607115",
+        "676569"
+      ]
+    },
+    {
+      "quest": "10648",
+      "region": 7,
+      "labcorp": [
+        "602634",
+        "607125",
+        "676577"
+      ]
+    },
+    {
+      "quest": "10649",
+      "region": 8,
+      "labcorp": [
+        "602635",
+        "607020",
+        "676585"
+      ]
+    },
+    {
+      "quest": "10650",
+      "region": 9,
+      "labcorp": [
+        "602639",
+        "607105",
+        "676593"
+      ]
+    },
+    {
+      "quest": "10651",
+      "region": 10,
+      "labcorp": [
+        "602640",
+        "607025",
+        "676601"
+      ]
+    },
+    {
+      "quest": "10653",
+      "region": 11,
+      "labcorp": [
+        "602641",
+        "607050",
+        "676619"
+      ]
+    },
+    {
+      "quest": "10654",
+      "region": 12,
+      "labcorp": [
+        "603719",
+        "607055",
+        "676627"
+      ]
+    },
+    {
+      "quest": "10655",
+      "region": 13,
+      "labcorp": [
+        "602643",
+        "607075",
+        "676635"
+      ]
+    },
+    {
+      "quest": "10657",
+      "region": 16,
+      "labcorp": [
+        "602645",
+        "607005",
+        "676668"
+      ]
+    },
+    {
+      "quest": "10658",
+      "region": 17,
+      "labcorp": [
+        "602985",
+        "606990",
+        "676676"
+      ]
+    },
+    {
+      "quest": "10668",
+      "region": 14,
+      "labcorp": [
+        "602644",
+        "607090",
+        "676643"
+      ]
+    },
+    {
+      "quest": "10669",
+      "region": 15,
+      "labcorp": [
+        "602638",
+        "607095",
+        "676650"
+      ]
+    },
+    {
+      "quest": "10673",
+      "region": 18,
+      "labcorp": [
+        "602986",
+        "606980",
+        "676684"
+      ]
+    },
+    {
+      "quest": "38828",
+      "region": 19,
+      "labcorp": [
+        "606600",
+        "606985",
+        "650820"
+      ]
+    }
+  ],
+  "flags": [
+    {
+      "quest": "22",
+      "questName": "Activated Protein C-Resistance",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "117762",
+      "labcorpName": "Activated Protein C Resistance (APCR)",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "216",
+      "questName": "Antithrombin III Activity",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "015040",
+      "labcorpName": "Antithrombin (AT) Activity",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "331",
+      "questName": "Factor II Activity, Clotting",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "086231",
+      "labcorpName": "Factor II Activity",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "344",
+      "questName": "Factor V Activity, Clotting",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "086249",
+      "labcorpName": "Factor V Activity",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "346",
+      "questName": "Factor VII Activity, Clotting",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "800599",
+      "labcorpName": "Factor VII Activity",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "347",
+      "questName": "Factor VIII Activity, Clotting",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "086264",
+      "labcorpName": "Factor VIII Activity",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "352",
+      "questName": "Factor IX Activity, Clotting",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "086298",
+      "labcorpName": "Factor IX Activity",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "359",
+      "questName": "Factor X Activity, Clotting",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "086306",
+      "labcorpName": "Factor X Activity",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "360",
+      "questName": "Factor XI Activity, Clotting",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "086314",
+      "labcorpName": "Factor XI Activity",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "362",
+      "questName": "Factor XII Activity, Clotting",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "086322",
+      "labcorpName": "Factor XII Activity",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "363",
+      "questName": "Copper",
+      "questSpecimen": "Plasma",
+      "labcorp": "001586",
+      "labcorpName": "Copper, Serum or Plasma",
+      "labcorpSpecimen": "Serum",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "458",
+      "questName": "Fibrinogen Degradation Products (FDP)",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "115402",
+      "labcorpName": "Fibrinogen Degradation Products (FDP), Plasma",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "462",
+      "questName": "Euglobulin Clot Lysis Time",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "086145",
+      "labcorpName": "Euglobulin Clot Lysis Time (ECLT)",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "498",
+      "questName": "Hepatitis B Surface Antigen with Reflex Confirmation",
+      "questSpecimen": "Serum",
+      "labcorp": "006510",
+      "labcorpName": "Hepatitis B Surface Antigen (HBsAg), Qualitative",
+      "labcorpSpecimen": "Serum",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "820",
+      "questName": "Silver, Serum/Plasma",
+      "questSpecimen": "Serum",
+      "labcorp": "790700",
+      "labcorpName": "Silver, Serum or Plasma",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "883",
+      "questName": "Thrombin Clotting Time",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "015230",
+      "labcorpName": "Thrombin Time",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "951",
+      "questName": "Manganese, Serum",
+      "questSpecimen": "Serum",
+      "labcorp": "834160",
+      "labcorpName": "Manganese, Serum/Plasma",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "1777",
+      "questName": "Protein C Activity",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "117705",
+      "labcorpName": "Protein C, Functional",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "1779",
+      "questName": "Protein S Activity",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "164525",
+      "labcorpName": "Protein S, Functional",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "2958",
+      "questName": "Aluminum",
+      "questSpecimen": "Serum",
+      "labcorp": "071548",
+      "labcorpName": "Aluminum, Plasma or Serum",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "4458",
+      "questName": "Plasminogen Activity",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "117713",
+      "labcorpName": "Plasminogen Activity",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "4696",
+      "questName": "Nickel, Serum/Plasma",
+      "questSpecimen": "Serum",
+      "labcorp": "071571",
+      "labcorpName": "Nickel, Plasma",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "4919",
+      "questName": "von Willebrand Factor Antigen",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "086280",
+      "labcorpName": "von Willebrand Factor (vWF) Antigen",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "4948",
+      "questName": "Protein C Antigen",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "080465",
+      "labcorpName": "Protein C Antigen",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "4953",
+      "questName": "Alpha-2-Antiplasmin",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "117739",
+      "labcorpName": "Alpha-2 Antiplasmin (α2-Antiplasmin)",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "5158",
+      "questName": "Antithrombin III Antigen",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "015057",
+      "labcorpName": "Antithrombin (AT) Antigen, Immunologic",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "5168",
+      "questName": "von Willebrand Antigen, Multimeric",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "117245",
+      "labcorpName": "von Willebrand Factor (vWF) Multimers",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "5375",
+      "questName": "Barium, Serum/Plasma",
+      "questSpecimen": "Serum",
+      "labcorp": "811554",
+      "labcorpName": "Barium, Serum or Plasma",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "5386",
+      "questName": "Vanadium, Serum/Plasma",
+      "questSpecimen": "Serum",
+      "labcorp": "087833",
+      "labcorpName": "Vanadium",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "6041",
+      "questName": "Arsenic, Serum/Plasma",
+      "questSpecimen": "Serum",
+      "labcorp": "809383",
+      "labcorpName": "Arsenic, Serum or Plasma",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "6213",
+      "questName": "Molybdenum, Serum/Plasma",
+      "questSpecimen": "Serum",
+      "labcorp": "809484",
+      "labcorpName": "Molybdenum, Serum or Plasma",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "6270",
+      "questName": "Platinum, Serum/Plasma",
+      "questSpecimen": "Serum",
+      "labcorp": "810358",
+      "labcorpName": "Platinum",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "6399",
+      "questName": "CBC w/ diff",
+      "questSpecimen": "Whole Blood",
+      "labcorp": "005009",
+      "labcorpName": "Complete Blood Count (CBC) With Differential, Reflex to Peripheral Smear Review",
+      "labcorpSpecimen": "Whole Blood",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "6732",
+      "questName": "Cytomegalovirus (CMV) IgG, IgM",
+      "questSpecimen": "Serum",
+      "labcorp": "006131",
+      "labcorpName": "CMV Antibodies IgM and IgG With Reflex to IgG Avidity",
+      "labcorpSpecimen": "Serum",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "7017",
+      "questName": "Antithrombin III Activity and Antigen",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "015594",
+      "labcorpName": "Antithrombin (AT) Deficiency Profile",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "7079",
+      "questName": "Lupus Anticoagulant Evaluation with Reflex",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "117892",
+      "labcorpName": "Lupus Anticoagulant With Reflex",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "7131",
+      "questName": "Beryllium, Serum/Plasma",
+      "questSpecimen": "Serum",
+      "labcorp": "811745",
+      "labcorpName": "Beryllium, Serum or Plasma",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "8467",
+      "questName": "Respiratory Syncytial Virus (RSV), Immunoassay",
+      "questSpecimen": "Swab",
+      "labcorp": "014548",
+      "labcorpName": "Respiratory Syncytial Virus (RSV), Immunoassay",
+      "labcorpSpecimen": "Nasopharyngeal Swab",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "8659",
+      "questName": "D-Dimer, Quantitative",
+      "questSpecimen": "Whole Blood",
+      "labcorp": "115188",
+      "labcorpName": "D-Dimer, Quantitative (Frozen Citrate Plasma)",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "10162",
+      "questName": "Thrombin-Antithrombin (TAT) Complex",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "015045",
+      "labcorpName": "Thrombin-Antithrombin Complex",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "11040",
+      "questName": "Silicon, Serum/Plasma",
+      "questSpecimen": "Serum",
+      "labcorp": "823579",
+      "labcorpName": "Silicon, Serum/Plasma",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "11188",
+      "questName": "Pro BNP N-terminal",
+      "questSpecimen": "Plasma",
+      "labcorp": "143000",
+      "labcorpName": "NT-proBNP",
+      "labcorpSpecimen": "Serum",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "11365",
+      "questName": "Bordetella pertussis/parapertussis DNA, Qualitative, Real-Time PCR",
+      "questSpecimen": "Swab",
+      "labcorp": "138677",
+      "labcorpName": "Bordetella pertussis and parapertussis, Real-time DNA PCR",
+      "labcorpSpecimen": "Nasopharyngeal Swab",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "14461",
+      "questName": "Factor XIII, Functional",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "086340",
+      "labcorpName": "Factor XIII Activity",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "14532",
+      "questName": "ADAMTS13 Activity with Reflex to Inhibitor",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "117921",
+      "labcorpName": "ADAMTS13 Activity Reflex Profile",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "16049",
+      "questName": "Factor VIII Activity, Chromogenic",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "086295",
+      "labcorpName": "Factor VIII Activity, Chromogenic",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "16122",
+      "questName": "Prolactin, Total and Monomeric",
+      "questSpecimen": "Serum",
+      "labcorp": "500324",
+      "labcorpName": "Macroprolactin (Esoterix Specialty)",
+      "labcorpSpecimen": "Serum or Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "16189",
+      "questName": "Anaplasma phagocytophilum Antibodies (IgG, IgM) with Reflex to Titers",
+      "questSpecimen": "Serum",
+      "labcorp": "164672",
+      "labcorpName": "Anaplasma phagocytophilum Antibodies IgG/IgM",
+      "labcorpSpecimen": "Serum",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "16194",
+      "questName": "Babesia microti Antibodies (IgG, IgM) with Reflex to Titers",
+      "questSpecimen": "Serum",
+      "labcorp": "138315",
+      "labcorpName": "Babesia microti IgG and IgM Antibody Panel",
+      "labcorpSpecimen": "Serum",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "16197",
+      "questName": "Ehrlichia chaffeensis Antibodies (IgG, IgM) with Reflex to Titers",
+      "questSpecimen": "Serum",
+      "labcorp": "164680",
+      "labcorpName": "Ehrlichia chaffeensis Antibodies IgG/IgM",
+      "labcorpSpecimen": "Serum",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "16504",
+      "questName": "Neisseria gonorrhoeae RNA, TMA, Rectal",
+      "questSpecimen": "Swab",
+      "labcorp": "188730",
+      "labcorpName": "Neisseria gonorrhoeae, Rectal Swab, NAA",
+      "labcorpSpecimen": "Rectal Swab",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "16505",
+      "questName": "Chlamydia trachomatis RNA, TMA, Rectal",
+      "questSpecimen": "Swab",
+      "labcorp": "188706",
+      "labcorpName": "Chlamydia trachomatis, Rectal Swab, NAA",
+      "labcorpSpecimen": "Rectal Swab",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "16506",
+      "questName": "Chlamydia trachomatis/Neisseria gonorrhoeae RNA, TMA, Rectal",
+      "questSpecimen": "Swab",
+      "labcorp": "188672",
+      "labcorpName": "Chlamydia/Gonococcus, Rectal Swab, NAA",
+      "labcorpSpecimen": "Multitest Rectal Swab",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "16599",
+      "questName": "Iodine, Serum/Plasma",
+      "questSpecimen": "Serum",
+      "labcorp": "070034",
+      "labcorpName": "Iodine, Serum or Plasma",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "17133",
+      "questName": "Selenium, RBC",
+      "questSpecimen": "Whole Blood",
+      "labcorp": "810820",
+      "labcorpName": "Selenium, RBC",
+      "labcorpSpecimen": "RBCs",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "17844",
+      "questName": "Factor V Activity and Human Inhibitor",
+      "questSpecimen": "Plasma",
+      "labcorp": "086250",
+      "labcorpName": "Factor V Activity With Inhibitor Reflex",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "17845",
+      "questName": "Factor IX Activity and Human Inhibitor",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "086300",
+      "labcorpName": "Factor IX Activity With Inhibitor Reflex",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label",
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "17854",
+      "questName": "Factor XI Activity and Human Inhibitor",
+      "questSpecimen": "Plasma",
+      "labcorp": "086302",
+      "labcorpName": "Factor XI Activity With Inhibitor Reflex",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "18456",
+      "questName": "Mycoplasma genitalium rRNA, NAAT with Reflex to Macrolide Resistance",
+      "questSpecimen": "Swab",
+      "labcorp": "180092",
+      "labcorpName": "Mycoplasma genitalium, NAA, Swab With Reflex to Macrolide Resistance",
+      "labcorpSpecimen": "Vaginal, endocervical or male urethral swab",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "20907",
+      "questName": "Calcium, Total, RBC",
+      "questSpecimen": "RBC",
+      "labcorp": "825265",
+      "labcorpName": "Calcium, RBC",
+      "labcorpSpecimen": "RBCs",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "26499",
+      "questName": "Mercury, Serum/Plasma",
+      "questSpecimen": "Serum",
+      "labcorp": "810259",
+      "labcorpName": "Mercury, Serum or Plasma",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "30292",
+      "questName": "Heparin, Anti-Xa",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "117101",
+      "labcorpName": "Heparin Anti-Xa",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "31789",
+      "questName": "Homocysteine",
+      "questSpecimen": "Serum",
+      "labcorp": "706994",
+      "labcorpName": "Homocyst(e)ine",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "32499",
+      "questName": "CBC, Platelet Count, RDW and Differential (REFL)",
+      "questSpecimen": "Whole Blood",
+      "labcorp": "005009",
+      "labcorpName": "Complete Blood Count (CBC) With Differential, Reflex to Peripheral Smear Review",
+      "labcorpSpecimen": "Whole Blood",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "34257",
+      "questName": "Herpes Simplex Virus, Type 1 and 2 DNA, Qualitative, Real-Time PCR",
+      "questSpecimen": "Swab",
+      "labcorp": "188056",
+      "labcorpName": "HSV 1/2 NAA (Lesion PCR Swab)",
+      "labcorpSpecimen": "Lesion Swab",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "36457",
+      "questName": "Protein S Antigen, Total and Free",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "164517",
+      "labcorpName": "Protein S Antigen, Total and Free",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "37674",
+      "questName": "Prothrombin Fragment 1.2",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "117230",
+      "labcorpName": "Prothrombin Fragment 1+2",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "37700",
+      "questName": "Reptilase Clotting Time",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "117180",
+      "labcorpName": "Reptilase Time",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "37900",
+      "questName": "Cow's Milk (f2) IgE with Reflex to Milk Component Panel",
+      "questSpecimen": "Serum",
+      "labcorp": "603927",
+      "labcorpName": "Allergen Profile, Milk IgE With Component Reflexes",
+      "labcorpSpecimen": "Serum",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "37906",
+      "questName": "Egg White (f1) IgE with Reflex to Egg Component Panel",
+      "questSpecimen": "Serum",
+      "labcorp": "603940",
+      "labcorpName": "Allergen Profile, Egg White IgE With Component Reflexes",
+      "labcorpSpecimen": "Serum",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "70048",
+      "questName": "Chlamydia trachomatis RNA, TMA, Throat",
+      "questSpecimen": "Swab",
+      "labcorp": "188714",
+      "labcorpName": "Chlamydia trachomatis, Pharyngeal Swab, NAA",
+      "labcorpSpecimen": "Pharyngeal Swab",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "70049",
+      "questName": "Neisseria gonorrhoeae RNA, TMA, Throat",
+      "questSpecimen": "Swab",
+      "labcorp": "188748",
+      "labcorpName": "Neisseria gonorrhoeae, Pharyngeal Swab, NAA",
+      "labcorpSpecimen": "Pharyngeal Swab",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "90879",
+      "questName": "Factor VIII Antigen",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "086015",
+      "labcorpName": "Factor VIII Antigen",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "91053",
+      "questName": "Factor IX Antigen",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "086310",
+      "labcorpName": "Factor IX Antigen",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "91431",
+      "questName": "HIV-1/2 Antigen and Antibodies, Fourth Generation, with Reflexes",
+      "questSpecimen": "Serum",
+      "labcorp": "083935",
+      "labcorpName": "HIV p24 Antigen/Antibody With Reflex to Confirmation (4th Generation)",
+      "labcorpSpecimen": "Serum",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "91665",
+      "questName": "STRATIFY JCV® DxSelect™ Antibody (with Index) with Reflex to Inhibition",
+      "questSpecimen": "Serum",
+      "labcorp": "819372",
+      "labcorpName": "Stratify JCV(TM) Ab w/Index",
+      "labcorpSpecimen": "Serum",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "91684",
+      "questName": "Culture, Urine, Prenatal, with GBS Susceptibilities",
+      "questSpecimen": "Urine",
+      "labcorp": "008851",
+      "labcorpName": "Urine Culture, Prenatal, With Group B Streptococcus Susceptibility Reflex",
+      "labcorpSpecimen": "Urine",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "91733",
+      "questName": "Cardio IQ® Homocysteine",
+      "questSpecimen": "Serum",
+      "labcorp": "706994",
+      "labcorpName": "Homocyst(e)ine",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "91747",
+      "questName": "Peanut, Total with Reflex to Peanut Component Panel",
+      "questSpecimen": "Serum",
+      "labcorp": "603916",
+      "labcorpName": "Allergen Profile, Peanut Whole IgE With Component Reflexes",
+      "labcorpSpecimen": "Serum",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "94223",
+      "questName": "Apixaban",
+      "questSpecimen": "Platelet-poor plasma",
+      "labcorp": "117085",
+      "labcorpName": "Apixaban",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "94345",
+      "questName": "Hepatitis C Antibody with Reflex to HCV RNA, PCR with Reflex to Genotype",
+      "questSpecimen": "Serum",
+      "labcorp": "144127",
+      "labcorpName": "Hepatitis C Virus (HCV) Antibody Cascade to Quantitative PCRand Genotyping",
+      "labcorpSpecimen": "Serum",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "94464",
+      "questName": "Brazil Nut (f18) IgE with Reflex to Component",
+      "questSpecimen": "Serum",
+      "labcorp": "603972",
+      "labcorpName": "Allergen Profile, Brazil Nut IgE With Component Reflexes",
+      "labcorpSpecimen": "Serum",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "94467",
+      "questName": "Walnut (f256) IgE with Reflex to Component Panel",
+      "questSpecimen": "Serum",
+      "labcorp": "604600",
+      "labcorpName": "Allergen Profile, Walnut IgE With Component Reflexes",
+      "labcorpSpecimen": "Serum",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "94468",
+      "questName": "Hazelnut (f17) IgE with Reflex to Component Panel",
+      "questSpecimen": "Serum",
+      "labcorp": "604734",
+      "labcorpName": "Allergen Profile, Hazelnut IgE With Component Reflexes",
+      "labcorpSpecimen": "Serum",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "94612",
+      "questName": "Copper-Free, Serum/Plasma",
+      "questSpecimen": "Serum",
+      "labcorp": "279071",
+      "labcorpName": "Copper, Free",
+      "labcorpSpecimen": "Plasma",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "229",
+      "questName": "Aldosterone, 24-Hour Urine",
+      "questSpecimen": "24-Hour Urine",
+      "labcorp": "004291",
+      "labcorpName": "Aldosterone, 24-Hour Urine",
+      "labcorpSpecimen": "Urine",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "232",
+      "questName": "Alpha-Fetoprotein, Amniotic Fluid and Reflex to AchE and Fetal Hgb",
+      "questSpecimen": "Amniotic Fluid",
+      "labcorp": "510305",
+      "labcorpName": "Alpha-Fetoprotein (AFP), AChE, Amniotic Fluid With Reflexto Fetal Hemoglobin (Hb F)",
+      "labcorpSpecimen": "Amniotic Fluid",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "381",
+      "questName": "Creatinine, 24-Hour Urine",
+      "questSpecimen": "24-Hour Urine",
+      "labcorp": "003012",
+      "labcorpName": "Creatinine, 24-Hour Urine",
+      "labcorpSpecimen": "Urine",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "523",
+      "questName": "5-Hydroxyindoleacetic Acid (5-HIAA), 24-Hour Urine without Creatinine",
+      "questSpecimen": "24-Hour Urine",
+      "labcorp": "004069",
+      "labcorpName": "5-HIAA, Quantitative, 24-Hour Urine",
+      "labcorpSpecimen": "Urine",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "592",
+      "questName": "Creatine, 24-Hour Urine",
+      "questSpecimen": "24-Hour Urine",
+      "labcorp": "003475",
+      "labcorpName": "Creatine, 24-Hour Urine",
+      "labcorpSpecimen": "Urine",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "726",
+      "questName": "Porphobilinogen, Quantitative, 24-Hour Urine",
+      "questSpecimen": "24-Hour Urine",
+      "labcorp": "003103",
+      "labcorpName": "Porphobilinogen (PBG), Quantitative, 24-Hour Urine",
+      "labcorpSpecimen": "Urine",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "934",
+      "questName": "VMA (Vanillylmandelic Acid), 24-Hour Urine without Creatinine",
+      "questSpecimen": "24-Hour Urine",
+      "labcorp": "004143",
+      "labcorpName": "Vanillylmandelic Acid (VMA), 24-Hour Urine",
+      "labcorpSpecimen": "Urine, 24-Hour",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "946",
+      "questName": "Zinc, 24-Hour Urine",
+      "questSpecimen": "Urine",
+      "labcorp": "003434",
+      "labcorpName": "Zinc, Urine (Random or 24-Hour)",
+      "labcorpSpecimen": "Urine, Random",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "973",
+      "questName": "Urea Nitrogen, 24-Hour Urine without Creatinine",
+      "questSpecimen": "24-Hour Urine",
+      "labcorp": "003541",
+      "labcorpName": "Urea Nitrogen, 24-Hour Urine",
+      "labcorpSpecimen": "Urine",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "2691",
+      "questName": "Varicella-Zoster Virus, Rapid Method, Culture",
+      "questSpecimen": "Site-Specific Culture Swab",
+      "labcorp": "186031",
+      "labcorpName": "Virus Culture, Rapid, Varicella Zoster Virus (VZV)",
+      "labcorpSpecimen": "Lesion Swab",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "3382",
+      "questName": "Potassium, RBC",
+      "questSpecimen": "Whole Blood",
+      "labcorp": "202314",
+      "labcorpName": "Potassium, RBC",
+      "labcorpSpecimen": "RBCs",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "4555",
+      "questName": "Albumin, 24-Hour Urine without Creatinine",
+      "questSpecimen": "24-Hour Urine",
+      "labcorp": "140050",
+      "labcorpName": "Albumin, 24-Hour Urine",
+      "labcorpSpecimen": "Urine",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "4946",
+      "questName": "Histamine, 24-Hour Urine",
+      "questSpecimen": "24-Hour Urine",
+      "labcorp": "144618",
+      "labcorpName": "Histamine Determination, 24-Hour Urine",
+      "labcorpSpecimen": "Urine, 24 Hour",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "5617",
+      "questName": "Streptococcus Group B Culture",
+      "questSpecimen": "Vaginal-Rectal Swab",
+      "labcorp": "188130",
+      "labcorpName": "Group B Streptococcus Colonization Detection Culture",
+      "labcorpSpecimen": "Vaginal and Rectal Swab",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "10153",
+      "questName": "Candida auris Surveillance, Qualitative PCR, Axilla/Groin",
+      "questSpecimen": "Swab",
+      "labcorp": "140092",
+      "labcorpName": "Candida auris, Surveillance, Qualitative PCR, Axilla/Groin",
+      "labcorpSpecimen": "Axilla and Groin Swab",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "11278",
+      "questName": "Chromium, Urine",
+      "questSpecimen": "Urine",
+      "labcorp": "071530",
+      "labcorpName": "Chromium, Urine (Random)",
+      "labcorpSpecimen": "Urine, Random",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "11314",
+      "questName": "Chloride, 24-Hour Urine without Creatinine",
+      "questSpecimen": "24-Hour Urine",
+      "labcorp": "003160",
+      "labcorpName": "Chloride, 24-Hour Urine",
+      "labcorpSpecimen": "Urine",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "11316",
+      "questName": "Potassium, 24-Hour Urine without Creatinine",
+      "questSpecimen": "24-Hour Urine",
+      "labcorp": "003186",
+      "labcorpName": "Potassium, 24-Hour Urine",
+      "labcorpSpecimen": "Urine",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "11317",
+      "questName": "Sodium, 24-Hour Urine without Creatinine",
+      "questSpecimen": "24-Hour Urine",
+      "labcorp": "003178",
+      "labcorpName": "Sodium, 24-Hour Urine",
+      "labcorpSpecimen": "Urine",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "11320",
+      "questName": "Protein, Total, 24-Hour Urine without Creatinine",
+      "questSpecimen": "24-Hour Urine",
+      "labcorp": "003277",
+      "labcorpName": "Protein, Total, Quantitative, 24-Hour Urine",
+      "labcorpSpecimen": "Urine",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "11321",
+      "questName": "Uric Acid, 24-Hour Urine without Creatinine",
+      "questSpecimen": "24-Hour Urine",
+      "labcorp": "003418",
+      "labcorpName": "Uric Acid, 24-Hour Urine",
+      "labcorpSpecimen": "Urine",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "14761",
+      "questName": "Cobalt, 24-Hour Urine",
+      "questSpecimen": "Urine",
+      "labcorp": "071514",
+      "labcorpName": "Cobalt, Urine (Random or 24-Hour)",
+      "labcorpSpecimen": "Urine, Random",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "16602",
+      "questName": "Iodine, 24-Hour Urine",
+      "questSpecimen": "24-Hour Urine",
+      "labcorp": "070222",
+      "labcorpName": "Iodine, 24-Hour Urine",
+      "labcorpSpecimen": "Urine",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "17515",
+      "questName": "Iron, 24-Hour Urine",
+      "questSpecimen": "Urine",
+      "labcorp": "087238",
+      "labcorpName": "Iron, 24-Hour Urine",
+      "labcorpSpecimen": "24-Hour Urine",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "36433",
+      "questName": "Arsenic, 24-Hour Urine",
+      "questSpecimen": "Urine",
+      "labcorp": "720847",
+      "labcorpName": "Arsenic, Urine 24 Hr",
+      "labcorpSpecimen": "24-Hour Urine",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "36434",
+      "questName": "Cadmium, 24-Hour Urine",
+      "questSpecimen": "Urine",
+      "labcorp": "072249",
+      "labcorpName": "Cadmium, Urine (Random / 24-Hour)",
+      "labcorpSpecimen": "Urine, Random",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "36440",
+      "questName": "Lead, 24-Hour Urine",
+      "questSpecimen": "Urine",
+      "labcorp": "007633",
+      "labcorpName": "Lead, Urine (Random / 24-Hour)",
+      "labcorpSpecimen": "Urine, Random",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "36441",
+      "questName": "Mercury, 24-Hour Urine",
+      "questSpecimen": "Urine",
+      "labcorp": "007773",
+      "labcorpName": "Mercury, Urine (Random / 24-Hour)",
+      "labcorpSpecimen": "Urine, Random",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "36597",
+      "questName": "West Nile Virus Antibodies (IgG, IgM), CSF",
+      "questSpecimen": "CSF",
+      "labcorp": "138966",
+      "labcorpName": "West Nile Virus (WNV) Antibody, IgG and IgM, CSF",
+      "labcorpSpecimen": "Cerebrospinal Fluid",
+      "flags": [
+        "specimen label"
+      ]
+    },
+    {
+      "quest": "91615",
+      "questName": "Alpha-Fetoprotein and Acetylcholinesterase, Amniotic Fluid with Reflex to HbF",
+      "questSpecimen": "Amniotic Fluid",
+      "labcorp": "510305",
+      "labcorpName": "Alpha-Fetoprotein (AFP), AChE, Amniotic Fluid With Reflexto Fetal Hemoglobin (Hb F)",
+      "labcorpSpecimen": "Amniotic Fluid",
+      "flags": [
+        "reflex wording"
+      ]
+    },
+    {
+      "quest": "94263",
+      "questName": "C-Peptide, 24-Hour Urine",
+      "questSpecimen": "Urine",
+      "labcorp": "003236",
+      "labcorpName": "C-Peptide, 24-Hour Urine",
+      "labcorpSpecimen": "24-Hour Urine",
+      "flags": [
+        "specimen label"
+      ]
+    }
+  ],
+  "limitations": [
+    "Complete current vendor order-to-result LOINC exports unavailable; historical workbook could not be retrieved.",
+    "A shared result LOINC does not establish order-level equivalence.",
+    "Specimen and reflex wording flags are not confirmed errors.",
+    "No clinical sign-off or deployment verification."
+  ]
+}
