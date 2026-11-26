@@ -142,7 +142,7 @@
   // Do not animate typing, disabled buttons or controls that were removed.
   document.addEventListener('click', event => {
     const button = event.target.closest?.('button:not(:disabled):not([aria-disabled="true"]), summary, .mobile-summary');
-    if (!button) return;
+    if (!button || button.closest('.calc-sliding-toggle')) return;
     requestAnimationFrame(() => {
       if (!button.isConnected || !visible(button.getBoundingClientRect())) return;
       microMotion(button, [
