@@ -8125,5 +8125,379 @@
         "evidence": "Separate before shipping; laboratory receipt within five days."
       }
     }
+  },
+  "quest:10016": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/10016/sureswab-advanced-bacterial-vaginosis-bv-tma?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Exact public source reviewed; normalized per-code route and all receiving accounts still require comparison. Preserve the clinic's orange-label kit and existing label aliases. Do not extrapolate the freezing allowance to Labcorp.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Orange-label Aptima Multitest kit for a single vaginal swab."
+      },
+      "transportContainer": {
+        "evidence": "Submit the swab in its original Aptima Multitest tube."
+      },
+      "preferredVolume": {
+        "evidence": "One swab"
+      },
+      "minimumVolume": {
+        "evidence": "One swab"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature"
+      },
+      "stability": {
+        "evidence": "30 days ambient or refrigerated; 60 days frozen per exact Quest listing."
+      }
+    }
+  },
+  "quest:10119": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/10119/sureswab-advanced-vaginitis-tma?cc=MASTER&p=r",
+    "date": "2026-11-26",
+    "note": "Exact public source reviewed; normalized per-code route and all receiving accounts still require comparison. Preserve the clinic's orange-label kit and existing label aliases. Do not extrapolate the freezing allowance to Labcorp.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Orange-label Aptima Multitest kit for a single vaginal swab."
+      },
+      "transportContainer": {
+        "evidence": "Submit the swab in its original Aptima Multitest tube."
+      },
+      "preferredVolume": {
+        "evidence": "One swab"
+      },
+      "minimumVolume": {
+        "evidence": "One swab"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature"
+      },
+      "stability": {
+        "evidence": "30 days ambient or refrigerated; 60 days frozen per exact Quest listing."
+      }
+    }
+  },
+  "quest:10120": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/10120/sureswab-r-advanced-vaginitis-plus-tma?cc=DAL",
+    "date": "2026-11-26",
+    "note": "Exact public source reviewed; normalized per-code route and all receiving accounts still require comparison. Preserve the clinic's orange-label kit and existing label aliases. Do not extrapolate the freezing allowance to Labcorp.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Orange-label Aptima Multitest kit for a single vaginal swab."
+      },
+      "transportContainer": {
+        "evidence": "Submit the swab in its original Aptima Multitest tube."
+      },
+      "preferredVolume": {
+        "evidence": "One swab"
+      },
+      "minimumVolume": {
+        "evidence": "One swab"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature"
+      },
+      "stability": {
+        "evidence": "30 days ambient or refrigerated; 60 days frozen per exact Quest listing."
+      }
+    }
+  },
+  "quest:10123": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/10123?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Exact public source reviewed; normalized per-code route and all receiving accounts still require comparison. Preserve the clinic's orange-label kit and existing label aliases. Do not extrapolate the freezing allowance to Labcorp.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Orange-label Aptima Multitest kit for a single vaginal swab."
+      },
+      "transportContainer": {
+        "evidence": "Submit the swab in its original Aptima Multitest tube."
+      },
+      "preferredVolume": {
+        "evidence": "One swab"
+      },
+      "minimumVolume": {
+        "evidence": "One swab"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature"
+      },
+      "stability": {
+        "evidence": "30 days ambient or refrigerated; 60 days frozen per exact Quest listing."
+      }
+    }
+  },
+  "quest:6631": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/6631/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Indexed exact Quest directory supports existing neonatal override for original spun amber Microtainers; existing regression fixture also asserts two tubes. Direct page access returned a browser notice; receiving-account and full runtime comparison remain open.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Two amber serum separator Microtainers, or foil-protected equivalent SST Microtainers."
+      },
+      "transportContainer": {
+        "evidence": "Two centrifuged amber SST Microtainers or transport vial."
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature"
+      },
+      "stability": {
+        "evidence": "Protected from light: 24 hours ambient, 72 hours refrigerated, 90 days frozen."
+      }
+    }
+  },
+  "quest:20381": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/20381/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Exact Quest page returned browser notice. DLO's same-code page supports two spun amber SST Microtainers as a shipment option (https://www.dlolab.com/bilirubin-total-neonatal); do not treat this as receiving-account confirmation. Existing override retained.",
+    "fields": {}
+  },
+  "quest:34162": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/34162/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Exact Quest page unavailable. Existing neonatal override retained, not independently confirmed in this pass.",
+    "fields": {}
+  },
+  "labcorp:180021": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/180021/vaginitis-plus-vg-nuswab",
+    "date": "2026-11-26",
+    "note": "Exact vendor container and temperature agree with located raw catalog entry. Runtime plan and receiving account still open.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Vaginal Aptima Multitest or Unisex kit; the clinic's existing supported selection is retained."
+      },
+      "transportContainer": {
+        "evidence": "Original Aptima swab tube containing one correct collection swab."
+      },
+      "preferredVolume": {
+        "evidence": "One swab"
+      },
+      "minimumVolume": {
+        "evidence": "One swab"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature or refrigerated; do not freeze."
+      },
+      "stability": {
+        "evidence": "30 days ambient or refrigerated; frozen unacceptable."
+      }
+    }
+  },
+  "labcorp:180039": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/180039/vaginitis-vg-nuswab",
+    "date": "2026-11-26",
+    "note": "Exact vendor source reviewed; normalized per-code route still needs comparison. Do not assume kit compatibility or change existing aliases.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Vaginal Aptima Multitest or Unisex kit; the clinic's existing supported selection is retained."
+      },
+      "transportContainer": {
+        "evidence": "Original Aptima swab tube containing one correct collection swab."
+      },
+      "preferredVolume": {
+        "evidence": "One swab"
+      },
+      "minimumVolume": {
+        "evidence": "One swab"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature or refrigerated; do not freeze."
+      },
+      "stability": {
+        "evidence": "30 days ambient or refrigerated; frozen unacceptable."
+      }
+    }
+  },
+  "labcorp:180042": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/180042/vaginitis-vg-with-candida-six-species-nuswab",
+    "date": "2026-11-26",
+    "note": "Exact vendor container and temperature agree with located raw catalog entry. Runtime plan and receiving account still open.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Vaginal Aptima Multitest or Unisex kit; the clinic's existing supported selection is retained."
+      },
+      "transportContainer": {
+        "evidence": "Original Aptima swab tube containing one correct collection swab."
+      },
+      "preferredVolume": {
+        "evidence": "One swab"
+      },
+      "minimumVolume": {
+        "evidence": "One swab"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature or refrigerated; do not freeze."
+      },
+      "stability": {
+        "evidence": "30 days ambient or refrigerated; frozen unacceptable."
+      }
+    }
+  },
+  "labcorp:180066": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/180066/vaginitis-plus-vg-herpes-simplex-virus-hsv-nuswab",
+    "date": "2026-11-26",
+    "note": "Exact vendor source reviewed; normalized per-code route still needs comparison. Do not assume kit compatibility or change existing aliases.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Vaginal Aptima Multitest or Unisex kit; the clinic's existing supported selection is retained."
+      },
+      "transportContainer": {
+        "evidence": "Original Aptima swab tube containing one correct collection swab."
+      },
+      "preferredVolume": {
+        "evidence": "One swab"
+      },
+      "minimumVolume": {
+        "evidence": "One swab"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature or refrigerated; do not freeze."
+      },
+      "stability": {
+        "evidence": "HSV-specific rejection after seven days; do not use 30-day general window."
+      }
+    }
+  },
+  "labcorp:180068": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/180068/vaginitis-plus-vg-with-candida-six-species-nuswab",
+    "date": "2026-11-26",
+    "note": "Exact vendor source reviewed; normalized per-code route still needs comparison. Do not assume kit compatibility or change existing aliases.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Vaginal Aptima Multitest or Unisex kit; the clinic's existing supported selection is retained."
+      },
+      "transportContainer": {
+        "evidence": "Original Aptima swab tube containing one correct collection swab."
+      },
+      "preferredVolume": {
+        "evidence": "One swab"
+      },
+      "minimumVolume": {
+        "evidence": "One swab"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature or refrigerated; do not freeze."
+      },
+      "stability": {
+        "evidence": "30 days ambient or refrigerated; frozen unacceptable."
+      }
+    }
+  },
+  "labcorp:180071": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/180071/vaginitis-vg-herpes-simplex-virus-hsv-nuswab",
+    "date": "2026-11-26",
+    "note": "Exact vendor source reviewed; normalized per-code route still needs comparison. Do not assume kit compatibility or change existing aliases.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Vaginal Aptima Multitest or Unisex kit; the clinic's existing supported selection is retained."
+      },
+      "transportContainer": {
+        "evidence": "Original Aptima swab tube containing one correct collection swab."
+      },
+      "preferredVolume": {
+        "evidence": "One swab"
+      },
+      "minimumVolume": {
+        "evidence": "One swab"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature or refrigerated; do not freeze."
+      },
+      "stability": {
+        "evidence": "General table states 30 days ambient/refrigerated; verify HSV-specific limit separately."
+      }
+    }
+  },
+  "labcorp:180026": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/180026/vaginitis-vaginosis-dna-probe",
+    "date": "2026-11-26",
+    "note": "Exact source reviewed; compare normalized route in next pass. Aptima is not a substitute for this order.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Affirm VPIII ATTS kit, vaginal swab."
+      },
+      "transportContainer": {
+        "evidence": "Original Affirm ATTS device."
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature"
+      },
+      "stability": {
+        "evidence": "72 hours ambient."
+      }
+    }
+  },
+  "labcorp:138677": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/138677/bordetella-pertussis-and-bordetella-parapertussis-real-time-dna-pcr",
+    "date": "2026-11-26",
+    "note": "Exact source agrees with located raw preferred pathway. Other validated routes and runtime plan still open.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Preferred flocked NP dry swab with plastic sleeve 93307; alternate charcoal medium or UTM as specified."
+      },
+      "transportContainer": {
+        "evidence": "Original dry sleeve for preferred pathway."
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature or refrigerated"
+      },
+      "stability": {
+        "evidence": "Dry swab 5 days ambient, 7 refrigerated; do not freeze dry or charcoal swabs."
+      }
+    }
+  },
+  "labcorp:180800": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/180800/group-a-streptococcus-detection-naa?letter=B",
+    "date": "2026-11-26",
+    "note": "Exact source reviewed; compare normalized per-code route and receiving account.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Single throat ESwab in liquid Amies, item 130839."
+      },
+      "transportContainer": {
+        "evidence": "Original ESwab only."
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature"
+      },
+      "stability": {
+        "evidence": "48 hours ambient; six days refrigerated; no frozen route published."
+      }
+    }
+  },
+  "labcorp:015602": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/015602/bilirubin-total-neonatal",
+    "date": "2026-11-26",
+    "note": "Exact source reviewed; verify calculator's selected route. Do not extrapolate Quest's two-Microtainer rule to Labcorp.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Red-top, gel separator, or lithium heparin; no EDTA/citrate/oxalate."
+      },
+      "transportContainer": {
+        "evidence": "Transfer separated material when using plain red-top or plasma; protect from light."
+      },
+      "preferredVolume": {
+        "evidence": "0.2 mL"
+      },
+      "transportTemperature": {
+        "evidence": "Refrigerated"
+      }
+    }
   }
 }

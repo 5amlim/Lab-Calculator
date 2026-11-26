@@ -11,12 +11,12 @@
     "labcorp": 0
   },
   "reviewedOrAttempted": {
-    "quest": 62,
-    "labcorp": 414
+    "quest": 69,
+    "labcorp": 424
   },
   "notYetReviewed": {
-    "quest": 3767,
-    "labcorp": 6187
+    "quest": 3760,
+    "labcorp": 6177
   },
   "recordStatusSource": "FIELD_EVIDENCE.json. Every catalog row without a key has status Not yet reviewed.",
   "evidenceKeys": [
@@ -495,7 +495,24 @@
     "labcorp:551870",
     "labcorp:284459",
     "labcorp:071548",
-    "labcorp:081162"
+    "labcorp:081162",
+    "quest:10016",
+    "quest:10119",
+    "quest:10120",
+    "quest:10123",
+    "quest:6631",
+    "quest:20381",
+    "quest:34162",
+    "labcorp:180021",
+    "labcorp:180039",
+    "labcorp:180042",
+    "labcorp:180066",
+    "labcorp:180068",
+    "labcorp:180071",
+    "labcorp:180026",
+    "labcorp:138677",
+    "labcorp:180800",
+    "labcorp:015602"
   ],
   "inventoryCommand": "node scripts/audit-calculator-database.mjs --out ../calculator-current-report --check",
   "continueFrom": "Enumerate TEST_INVENTORY.csv where verification is Not yet reviewed, keeping laboratory and exact test code as strings. Use the appropriate service-area evidence and review every applicable route before marking a record fully verified.",
@@ -716,6 +733,29 @@
         "081162"
       ],
       "remaining": "Local vial capacity, exact volumes and processing where not independently established; 500335 listing confirmed identity only, no exact container detail."
+    },
+    "swabAndNeonatalFollowup": {
+      "date": "2026-11-26",
+      "newEvidenceRecords": [
+        "quest:10016",
+        "quest:10119",
+        "quest:10120",
+        "quest:10123",
+        "quest:6631",
+        "quest:20381",
+        "quest:34162",
+        "labcorp:180021",
+        "labcorp:180039",
+        "labcorp:180042",
+        "labcorp:180066",
+        "labcorp:180068",
+        "labcorp:180071",
+        "labcorp:180026",
+        "labcorp:138677",
+        "labcorp:180800",
+        "labcorp:015602"
+      ],
+      "remaining": "Compare normalized routes for source-only entries, confirm regional acceptance, and resolve inaccessible neonatal codes. Existing custom container labels and all active records retained."
     }
   }
 }

@@ -1,5 +1,5 @@
 lab,code,id,disposition,verification
-quest,10016,quest-10016-20260915,active,Not yet reviewed
+quest,10016,quest-10016-20260915,active,Partially verified
 quest,10018,quest-10018-20260916,active,Not yet reviewed
 quest,10019,quest-verified-audit-ninth20-20261116-10019,active,Not yet reviewed
 quest,10024,quest-master-review-10024,blocked,Not yet reviewed
@@ -13,10 +13,10 @@ quest,10099,quest-master-review-10099,blocked,Not yet reviewed
 quest,10104,quest-10104-20260915,active,Not yet reviewed
 quest,10106,quest-10106-20260915,active,Not yet reviewed
 quest,10107,quest-master-review-10107,blocked,Not yet reviewed
-quest,10119,quest-10119-20260915,active,Not yet reviewed
-quest,10120,seed-210,active,Not yet reviewed
+quest,10119,quest-10119-20260915,active,Partially verified
+quest,10120,seed-210,active,Partially verified
 quest,10121,quest-10121-20260915,active,Not yet reviewed
-quest,10123,quest-10123-20260915,active,Not yet reviewed
+quest,10123,quest-10123-20260915,active,Partially verified
 quest,10124,seed-93,active,Not yet reviewed
 quest,10135,quest-10135-20260915,active,Not yet reviewed
 quest,10140,quest-10140-20260915,active,Not yet reviewed
@@ -1303,7 +1303,7 @@ quest,19982,quest-19982-20260915,active,Not yet reviewed
 quest,201,quest-201-20260915,active,Not yet reviewed
 quest,20210,quest-verified-audit-after19412-next100-20261116-20210,active,Not yet reviewed
 quest,20341,quest-20341-20260915,active,Not yet reviewed
-quest,20381,seed-119,active,Not yet reviewed
+quest,20381,seed-119,active,Source inaccessible
 quest,20400,quest-verified-panel-20400,active,Not yet reviewed
 quest,20449,quest-master-review-20449,blocked,Not yet reviewed
 quest,20450,quest-master-review-20450,blocked,Not yet reviewed
@@ -1815,7 +1815,7 @@ quest,34144,quest-34144-20260915,active,Not yet reviewed
 quest,3415,seed-3415-quest-expansion-20260914,active,Not yet reviewed
 quest,34151,quest-34151-20260915,active,Not yet reviewed
 quest,34153,quest-34153-20260915,active,Not yet reviewed
-quest,34162,seed-129,active,Not yet reviewed
+quest,34162,seed-129,active,Source inaccessible
 quest,34164,quest-verified-candidate-review-next6-20261117-34164,active,Not yet reviewed
 quest,34166,seed-195,active,Not yet reviewed
 quest,34168,quest-34168-20260915,active,Not yet reviewed
@@ -2851,7 +2851,7 @@ quest,6547,quest-6547-20260915,active,Not yet reviewed
 quest,659,quest-659-20260915,active,Not yet reviewed
 quest,660,seed-36,active,Not yet reviewed
 quest,663,quest-verified-20261116-batch23-663,active,Not yet reviewed
-quest,6631,seed-74,active,Not yet reviewed
+quest,6631,seed-74,active,Partially verified
 quest,6634,quest-6634-20260915,active,Not yet reviewed
 quest,6635,quest-verified-20261116-batch21-6635,active,Not yet reviewed
 quest,6641,quest-master-review-6641,blocked,Not yet reviewed
@@ -4317,7 +4317,7 @@ labcorp,015057,labcorp-015057,active,Not yet reviewed
 labcorp,015099,labcorp-compendium-review-015099,active,Not yet reviewed
 labcorp,015230,labcorp-015230,active,Not yet reviewed
 labcorp,015594,labcorp-015594,active,Not yet reviewed
-labcorp,015602,labcorp-015602,active,Not yet reviewed
+labcorp,015602,labcorp-015602,active,Partially verified
 labcorp,015610,labcorp-015610,active,Not yet reviewed
 labcorp,015795,labcorp-015795,active,Not yet reviewed
 labcorp,015796,labcorp-015796,active,Not yet reviewed
@@ -5058,7 +5058,7 @@ labcorp,138636,labcorp-compendium-review-138636,active,Not yet reviewed
 labcorp,138644,labcorp-verified-20261118-batch37-138644,active,Not yet reviewed
 labcorp,138651,labcorp-verified-20261118-batch40-138651,active,Not yet reviewed
 labcorp,138662,labcorp-compendium-review-138662,active,Not yet reviewed
-labcorp,138677,labcorp-138677,active,Not yet reviewed
+labcorp,138677,labcorp-138677,active,Partially verified
 labcorp,138685,labcorp-verified-20261116-batch24-138685,active,Not yet reviewed
 labcorp,138693,labcorp-compendium-review-138693,active,Not yet reviewed
 labcorp,138697,labcorp-compendium-review-138697,active,Not yet reviewed
@@ -5498,14 +5498,14 @@ labcorp,176174,labcorp-verified-next-176174,active,Not yet reviewed
 labcorp,176548,labcorp-compendium-review-176548,active,Not yet reviewed
 labcorp,180010,labcorp-180010,active,Not yet reviewed
 labcorp,180018,labcorp-compendium-hold-180018,active,Not yet reviewed
-labcorp,180021,labcorp-180021,active,Not yet reviewed
+labcorp,180021,labcorp-180021,active,Partially verified
 labcorp,180025,labcorp-180025,active,Not yet reviewed
-labcorp,180026,labcorp-verified-20261120-extra-180026,active,Not yet reviewed
+labcorp,180026,labcorp-verified-20261120-extra-180026,active,Partially verified
 labcorp,180033,labcorp-compendium-review-180033,active,Not yet reviewed
 labcorp,180034,labcorp-compendium-review-180034,active,Not yet reviewed
-labcorp,180039,labcorp-180039,active,Not yet reviewed
+labcorp,180039,labcorp-180039,active,Partially verified
 labcorp,180040,labcorp-compendium-review-180040,active,Not yet reviewed
-labcorp,180042,labcorp-180042,active,Not yet reviewed
+labcorp,180042,labcorp-180042,active,Partially verified
 labcorp,180043,labcorp-180043,active,Not yet reviewed
 labcorp,180045,labcorp-180045,active,Not yet reviewed
 labcorp,180047,labcorp-compendium-hold-180047,active,Not yet reviewed
@@ -5513,10 +5513,10 @@ labcorp,180049,labcorp-verified-20261118-batch33-180049,active,Not yet reviewed
 labcorp,180051,labcorp-verified-20261118-batch33-180051,active,Not yet reviewed
 labcorp,180055,labcorp-180055,active,Not yet reviewed
 labcorp,180060,labcorp-180060,active,Not yet reviewed
-labcorp,180066,labcorp-verified-20261118-batch42-180066,active,Not yet reviewed
-labcorp,180068,labcorp-verified-20261118-batch42-180068,active,Not yet reviewed
+labcorp,180066,labcorp-verified-20261118-batch42-180066,active,Partially verified
+labcorp,180068,labcorp-verified-20261118-batch42-180068,active,Partially verified
 labcorp,180069,labcorp-compendium-review-180069,active,Not yet reviewed
-labcorp,180071,labcorp-verified-20261118-batch42-180071,active,Not yet reviewed
+labcorp,180071,labcorp-verified-20261118-batch42-180071,active,Partially verified
 labcorp,180073,labcorp-180073,active,Not yet reviewed
 labcorp,180076,labcorp-180076,active,Not yet reviewed
 labcorp,180078,labcorp-compendium-review-180078,active,Not yet reviewed
@@ -5540,7 +5540,7 @@ labcorp,180315,labcorp-compendium-hold-180315,blocked,Not yet reviewed
 labcorp,180448,labcorp-compendium-review-180448,active,Not yet reviewed
 labcorp,180764,labcorp-180764,active,Not yet reviewed
 labcorp,180787,labcorp-compendium-hold-180787,active,Not yet reviewed
-labcorp,180800,labcorp-compendium-review-180800,active,Not yet reviewed
+labcorp,180800,labcorp-compendium-review-180800,active,Partially verified
 labcorp,180802,labcorp-verified-20261116-batch24-180802,active,Not yet reviewed
 labcorp,180803,labcorp-verified-20261118-batch37-180803,active,Not yet reviewed
 labcorp,180815,labcorp-compendium-review-180815,active,Not yet reviewed

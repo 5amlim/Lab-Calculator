@@ -12,10 +12,10 @@
       "verification": {
         "Clinical conflict": 4,
         "Discontinued": 1,
-        "Not yet reviewed": 3767,
+        "Not yet reviewed": 3760,
         "Official information unavailable": 2,
-        "Partially verified": 39,
-        "Source inaccessible": 16
+        "Partially verified": 44,
+        "Source inaccessible": 18
       }
     },
     "labcorp": {
@@ -31,9 +31,9 @@
       "verification": {
         "Clinical conflict": 2,
         "Discontinued": 30,
-        "Not yet reviewed": 6187,
+        "Not yet reviewed": 6177,
         "Official information unavailable": 2,
-        "Partially verified": 380
+        "Partially verified": 390
       }
     }
   },
@@ -68,6 +68,10 @@
         "93876|quest-93876-20260915"
       ],
       "verificationChanged": [
+        "10016|quest-10016-20260915",
+        "10119|quest-10119-20260915",
+        "10120|seed-210",
+        "10123|quest-10123-20260915",
         "10165|seed-94",
         "10231|seed-95",
         "1025|quest-1025-20260915",
@@ -84,11 +88,13 @@
         "18216|quest-verified-unusable-audit-next100b-20261116-18216",
         "18634|quest-18634-verified-20261027",
         "19483|quest-19483-20260915",
+        "20381|seed-119",
         "229|quest-official-229-20261114",
         "234|seed-4",
         "236|quest-236-20260915",
         "249|seed-6",
         "303|seed-11",
+        "34162|seed-129",
         "34329|seed-130",
         "34499|seed-134",
         "36378|seed-144",
@@ -112,6 +118,7 @@
         "6215|quest-6215-20260915",
         "6399|seed-70",
         "6447|seed-72",
+        "6631|seed-74",
         "7065|seed-77",
         "7600|seed-83",
         "809|seed-44",
@@ -516,6 +523,7 @@
         "010801|labcorp-010801",
         "010991|labcorp-010991",
         "011254|labcorp-compendium-hold-011254",
+        "015602|labcorp-015602",
         "016865|labcorp-016865",
         "028142|labcorp-028142",
         "042580|labcorp-042580",
@@ -537,6 +545,7 @@
         "120220|labcorp-120220",
         "123027|labcorp-verified-20261118-batch36-123027",
         "123075|labcorp-compendium-review-123075",
+        "138677|labcorp-138677",
         "140244|labcorp-140244",
         "140768|labcorp-140768",
         "140822|labcorp-140822",
@@ -569,6 +578,14 @@
         "165142|labcorp-165142",
         "165750|labcorp-directory-20261118-165750",
         "167015|labcorp-167015",
+        "180021|labcorp-180021",
+        "180026|labcorp-verified-20261120-extra-180026",
+        "180039|labcorp-180039",
+        "180042|labcorp-180042",
+        "180066|labcorp-verified-20261118-batch42-180066",
+        "180068|labcorp-verified-20261118-batch42-180068",
+        "180071|labcorp-verified-20261118-batch42-180071",
+        "180800|labcorp-compendium-review-180800",
         "284191|labcorp-284191",
         "284459|labcorp-directory-20261119-284459",
         "310|labcorp-verified-20261120-next-310",
