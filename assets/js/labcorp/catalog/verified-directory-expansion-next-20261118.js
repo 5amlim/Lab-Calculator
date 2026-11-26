@@ -616,9 +616,10 @@
     "transportTemperatureRaw": "Room Temperature",
     "preferredVolume": "1.5 mL serum",
     "minimumVolume": "0.7 mL serum",
+    "stability": "Room temperature: 14 days. Refrigerated: 14 days. Frozen: 28 days. Stable through 3 freeze/thaw cycles.",
     "spin": "Yes",
     "specialLabeling": "",
-    "specialInstructions": "Submit the original spun SST.",
+    "specialInstructions": "Submit the original spun SST at room temperature. Gross hemolysis or visible microbial contamination is unacceptable.",
     "source": "Labcorp individual test directory • https://www.labcorp.com/tests/164090/sars-cov-2-semi-quantitative-total-antibody-spike"
   },
   {
