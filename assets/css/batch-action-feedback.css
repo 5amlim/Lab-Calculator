@@ -251,15 +251,15 @@
 
 /* Lightweight interaction motion: no layout changes, no delayed actions. */
 @keyframes calc-motion-reveal {
-  from { opacity: 0; translate: 0 4px; }
+  from { opacity: 0; translate: 0 7px; }
   to { opacity: 1; translate: 0 0; }
 }
 @keyframes calc-motion-menu {
-  from { opacity: 0; translate: 0 -3px; }
+  from { opacity: 0; translate: 0 -6px; }
   to { opacity: 1; translate: 0 0; }
 }
 @keyframes calc-motion-dialog {
-  from { opacity: 0; scale: .985; }
+  from { opacity: 0; scale: .965; }
   to { opacity: 1; scale: 1; }
 }
 @keyframes calc-motion-backdrop {
@@ -268,16 +268,20 @@
 }
 @media screen and (prefers-reduced-motion: no-preference) {
   :is(button:not(:disabled):not([aria-disabled="true"]), .mobile-summary, summary):active {
-    scale: .98;
+    scale: .96;
   }
   :is(.calc-suggestions, .batch-choice-menu, .batch-choice-stat-options,
       .portal-select-menu, #statAreaOptions):not(.hidden):not([hidden]):not([aria-hidden="true"]) {
-    animation: calc-motion-menu 130ms ease-out;
+    animation: calc-motion-menu 230ms ease-out;
   }
   :is(#catalogFilterPanel, #statMenuPanel, #blockedListPanel, #testsDetailsPanel,
       .batch-choice-test-details, #customDrawContainerRow, #customTransportContainerRow):not(.hidden):not([hidden]) {
-    animation: calc-motion-reveal 170ms ease-out;
+    animation: calc-motion-reveal 280ms ease-out;
   }
-  dialog[open] { animation: calc-motion-dialog 160ms ease-out; }
-  dialog[open]::backdrop { animation: calc-motion-backdrop 150ms ease-out; }
+  dialog[open] { animation: calc-motion-dialog 260ms ease-out; }
+  dialog[open]::backdrop { animation: calc-motion-backdrop 230ms ease-out; }
+}
+
+@media screen {
+  #selectedCount, #mobileCount, #testsOverviewTitle { display: inline-block; }
 }
