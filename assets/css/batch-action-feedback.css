@@ -270,11 +270,6 @@
   :is(button:not(:disabled):not([aria-disabled="true"]), .mobile-summary, summary):active {
     scale: .98;
   }
-  :is(.mini-button, .icon-button, .test-mode-option, .portal-select-button,
-      .calc-suggestion-option, .crosswalk-cart-add):not(:disabled) {
-    transition: scale 110ms ease-out, background-color 140ms ease-out,
-                border-color 140ms ease-out, box-shadow 140ms ease-out;
-  }
   :is(.calc-suggestions, .batch-choice-menu, .batch-choice-stat-options,
       .portal-select-menu, #statAreaOptions):not(.hidden):not([hidden]):not([aria-hidden="true"]) {
     animation: calc-motion-menu 130ms ease-out;
