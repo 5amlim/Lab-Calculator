@@ -711,6 +711,11 @@
 
 
   function applySpecimenExclusions(test) {
+    if (String(test.testCode || '').trim() === '39749') {
+      return { ...test, status: 'blocked',
+        specialInstructions: 'Quest discontinued this order effective June 15, 2026. Do not collect for code 39749. Quest lists 39820 as an alternative, which measures total antibody to spike rather than IgG to nucleocapsid. Confirm the intended test with the ordering provider.',
+        source: 'Quest IntelliTest Manager: https://intellitestmanager.questdiagnostics.com/home/output/300102' };
+    }
     const title = normalizeSearch(test.testName);
     const routes = [test, ...additionalDrawRequirements(test)];
     const materials = routes.map(route => normalizeSearch(route.specimenType)).join(' ');
@@ -761,6 +766,17 @@
         } else if (String(base.testCode || '') === '10676' && base.status === 'active' && /DO NOT PERFORM ONSITE|Hold pending verification|DIRECTORY REFERENCE ONLY|Cytology specimens are outside the clinic collection workflow/i.test(override.specialInstructions || '')) {
           // Retire obsolete directory-only overrides for the verified urine-only route.
           builtIns[index] = { ...base };
+        } else if (['18634', '18216'].includes(base.testCode)) {
+          // Keep saved labels and status preferences while applying the reviewed
+          // route, its instructions, and its explicit collection and vial counts.
+          const updated = { ...override };
+          for (const field of ['specimenType', 'drawContainer', 'alternativeContainer', 'transportContainer',
+            'preferredVolume', 'minimumVolume', 'transportTemperature', 'transportTemperatureRaw',
+            'stability', 'spin', 'collectionCount', 'submissionCount', 'additionalDrawRequirements',
+            'specialInstructions', 'source']) {
+            updated[field] = base[field];
+          }
+          builtIns[index] = updated;
         } else if (String(base.testCode || '') === '92717') {
           // Clinic-wide Do Not Perform: old saved active/reference overrides cannot reactivate it.
           builtIns[index] = { ...override, ...base, id: base.id, status: 'blocked' };
