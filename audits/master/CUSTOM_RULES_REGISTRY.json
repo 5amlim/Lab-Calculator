@@ -753,5 +753,36 @@
       "tests/master-database-audit.test.cjs"
     ],
     "approvalStatus": "User requested active tests be retained with flags."
+  },
+  {
+    "id": "quest-8477-transport-stock-label",
+    "category": "container naming",
+    "description": "Quest 8477 uses the exact label Transport Tube, retaining the gray fluoride/oxalate draw and additive-free separated-plasma submission route.",
+    "laboratory": [
+      "quest"
+    ],
+    "specimen": [
+      "Plasma"
+    ],
+    "container": [
+      "Transport Tube"
+    ],
+    "testCodes": [
+      "8477"
+    ],
+    "expectedBehavior": "Show Transport Tube in search, cart, print and exports; keep dedicated count, badge, spin, labeling and temperature unchanged.",
+    "reason": "Explicit clinic stock naming instruction on 2026-11-26.",
+    "evidence": [
+      "Clinic instruction 2026-11-26",
+      "https://testdirectory.questdiagnostics.com/test/test-detail/8477/?cc=MASTER"
+    ],
+    "implementation": [
+      "assets/js/quest-gray-plasma-processing-20261114.js",
+      "assets/js/app.js"
+    ],
+    "regressionTests": [
+      "tests/quest-gray-plasma-20261114.test.cjs"
+    ],
+    "approvalStatus": "User-confirmed stock label; receiving-lab acceptance remains open."
   }
 ]

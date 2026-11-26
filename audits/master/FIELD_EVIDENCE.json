@@ -3,13 +3,14 @@
     "status": "Partially verified",
     "url": "https://testdirectory.questdiagnostics.com/test/test-detail/8477/?cc=MASTER",
     "date": "2026-11-25",
-    "note": "Confirm accepting service area. A fresh second additive gray tube is not listed as the vial alternative.",
+    "note": "Confirm accepting service area. A fresh second additive gray tube is not listed as the vial alternative. Clinic confirmed the generic Transport Tube label and selected transport-vial workflow on 2026-11-26.",
     "fields": {
       "drawContainer": {
         "evidence": "Preferred gray fluoride/oxalate source. Directory expressly accepts a plastic screw-cap vial containing separated fluoride/oxalate plasma."
       },
       "transportContainer": {
-        "evidence": "Gray-top listed as preferred transport. The plastic vial is a test-specific alternate route used by the calculator."
+        "evidence": "Quest lists an additive-free plastic screw-cap vial as an alternate route; clinic explicitly confirmed the stock label Transport Tube on 2026-11-26. No physical route change.",
+        "reviewedValueSha256": "24f29051223f8e12ec790c8a60b23e1f1e5cfec6e619dd9613e8159950d684a9"
       },
       "preferredVolume": {
         "evidence": "1 mL plasma."

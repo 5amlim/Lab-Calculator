@@ -1007,6 +1007,11 @@
 
   function normalizeRecord(record, index = 0) {
     record = { ...record };
+    // Clinic stock label for 8477; migrate the old display name without changing the route.
+    if (String(record.testCode || '').trim() === '8477' &&
+        /^Plastic (?:Screw-Cap Plasma Vial \(No Additive; Fluoride\/Oxalate Plasma\)|Plasma Transport Vial \(Additive-Free\))$/i.test(String(record.transportContainer || '').trim())) {
+      record.transportContainer = 'Transport Tube';
+    }
     if (String(record.testCode || '').trim() === '16983') {
       const previous = 'Send plasma in a single 10 mL pour-off tube. If a 10 mL pour-off tube is not available, two (2) 5 mL pour-off tubes can be used.';
       if (String(record.specialInstructions || '').includes(previous)) {
@@ -6285,7 +6290,8 @@
     const code = String(test.testCode || '').trim();
     return /^(?:8477|19833|484|1430|19834|16292|35181|23475|18927|6745)$/.test(code)
       && /gray|fluoride/i.test(String(test.drawContainer || ''))
-      && /plastic screw-cap plasma vial/i.test(String(test.transportContainer || ''))
+      && (/plastic screw-cap plasma vial/i.test(String(test.transportContainer || '')) ||
+        (code === '8477' && /^transport tube$/i.test(String(test.transportContainer || '').trim())))
       && /^plasma$/i.test(String(test.specimenType || '').trim());
   }
 
@@ -6425,7 +6431,7 @@
       const timepoint = String(test.specialLabeling || 'record exact draw time').trim();
       return [{
         key: `gray-oxalate-separated-plasma|${test.id}`,
-        label: 'Plastic Plasma Transport Vial (Additive-Free)',
+        label: String(test.testCode || '').trim() === '8477' ? 'Transport Tube' : 'Plastic Plasma Transport Vial (Additive-Free)',
         className: 'tube-transport tube-transport-green-top',
         count: explicitSubmissionCount(test),
         detail: `Spun gray fluoride/oxalate source · separated plasma · ${timepoint} · each timed specimen in its own labeled additive-free vial`

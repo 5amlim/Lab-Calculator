@@ -24,7 +24,8 @@ test('Quest fluoride/oxalate glucose tests all produce a separated-plasma submis
     assert.equal(t.spin, 'Yes', code);
     assert.equal(t.specimenType, 'Plasma', code);
     assert.match(t.drawContainer, /Gray Top.*Fluoride/i, code);
-    assert.match(t.transportContainer, /Plastic Screw-Cap Plasma Vial.*No Additive/i, code);
+    if (code === '8477') assert.equal(t.transportContainer, 'Transport Tube');
+    else assert.match(t.transportContainer, /Plastic Screw-Cap Plasma Vial.*No Additive/i, code);
     assert.match(t.specialInstructions, /promptly centrifuge according to the receiving laboratory/i, code);
     assert.match(t.specialInstructions, /NEW, clean, additive-free plastic screw-cap transport vial/i, code);
     assert.match(t.specialInstructions, /Do NOT transfer separated plasma into another additive-containing gray-top Vacutainer/i, code);
@@ -84,4 +85,43 @@ test('New data loads after other verified test records and before directory-only
  const d=html.indexOf('quest-missing-directory-loader-20261114.js');
  const a=html.indexOf('assets/js/app.js?v=');
  assert.ok(v>=0&&v<p&&p<d&&d<a);
+});
+
+test('Quest 8477 uses only the standard Transport Tube stock label and keeps its dedicated plasma route', () => {
+  const openCalculator = require('./helpers/calculator-vm.cjs');
+  const {SEED_TESTS} = load();
+  const api = openCalculator('assets/js/app.js', [
+    'normalizeRecord', 'isGrayFluoridePlasmaTransfer', 'splitSubmissionContainers',
+    'librarySubmissionBadges', 'menuSingleContainerPath', 'printContainerBadges',
+    'printTransportTubeLabel', 'expandedCollectionTests', 'buildTransportBagPlan',
+    'buildCollectionPlan', 'buildSubmissionContents'
+  ], {records: SEED_TESTS});
+  const row = api.normalizeRecord(SEED_TESTS.find(test => test.testCode === '8477'));
+  const legacy = api.normalizeRecord({...row, transportContainer: 'Plastic Screw-Cap Plasma Vial (No Additive; Fluoride/Oxalate Plasma)'});
+  for (const specimen of [row, legacy]) {
+    assert.equal(specimen.transportContainer, 'Transport Tube');
+    assert.equal(specimen.spin, 'Yes');
+    assert.equal(specimen.transportTemperature, 'Room Temperature');
+    assert(api.isGrayFluoridePlasmaTransfer(specimen));
+    const [item] = api.splitSubmissionContainers(specimen);
+    assert.equal(item.label, 'Transport Tube');
+    assert.equal(item.count, 1);
+    assert.equal(item.className, 'tube-transport tube-transport-green-top');
+    assert.match(item.key, /^gray-oxalate-separated-plasma\\|/);
+    assert.match(item.detail, /additive-free vial/);
+    assert.equal(api.printTransportTubeLabel(item.label, [specimen]), 'Transport Tube');
+    for (const html of [api.librarySubmissionBadges(specimen), api.menuSingleContainerPath(specimen), api.printContainerBadges(specimen)]) {
+      assert.match(html, />Transport Tube</);
+      assert.doesNotMatch(html, />Plastic (?:Screw-Cap Plasma Vial|Plasma Transport Vial)/);
+    }
+    const expanded = api.expandedCollectionTests([specimen]);
+    const bags = api.buildTransportBagPlan(expanded);
+    assert.equal(bags.length, 1);
+    assert.equal(api.buildCollectionPlan(expanded, bags).reduce((n, item) => n + item.count, 0), 1);
+    const submitted = api.buildSubmissionContents(bags[0]);
+    assert.equal(submitted.reduce((n, item) => n + item.count, 0), 1);
+    assert.equal(submitted[0].label, 'Transport Tube');
+  }
+  const other = api.normalizeRecord(SEED_TESTS.find(test => test.testCode === '1430'));
+  assert.match(other.transportContainer, /Plastic Screw-Cap Plasma Vial/);
 });
