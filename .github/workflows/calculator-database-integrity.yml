@@ -1,0 +1,45 @@
+name: Calculator database integrity
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Catalog and clinical data checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Snapshot base catalog
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_COMMIT: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git worktree add --detach "$RUNNER_TEMP/calculator-base" "$BASE_COMMIT"
+          node scripts/audit-calculator-database.mjs --root "$RUNNER_TEMP/calculator-base" --out "$RUNNER_TEMP/catalog-baseline"
+      - name: Validate catalog and write health report
+        run: |
+          if [ -f "$RUNNER_TEMP/catalog-baseline/DATABASE_SNAPSHOT.json" ]; then
+            node scripts/audit-calculator-database.mjs --out "$RUNNER_TEMP/catalog-health" --baseline "$RUNNER_TEMP/catalog-baseline/DATABASE_SNAPSHOT.json" --check
+          else
+            node scripts/audit-calculator-database.mjs --out "$RUNNER_TEMP/catalog-health" --check
+          fi
+      - name: Run complete calculator test suite
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/catalog-health"
+          node --test --test-reporter=tap tests/*.test.cjs | tee "$RUNNER_TEMP/catalog-health/tests.tap"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: calculator-database-health
+          path: ${{ runner.temp }}/catalog-health
