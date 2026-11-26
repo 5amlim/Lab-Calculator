@@ -7753,7 +7753,8 @@
         "evidence": "MedTox specifies refrigerated short-term shipment; Mission Health CDOS specifies ambient.",
         "alternateSource": "https://cdos.halfpenny.com/labcorp/missionhealth/TestDisplay/700841"
       }
-    }
+    },
+    "hold": true
   },
   "labcorp:700845": {
     "status": "Partially verified",
