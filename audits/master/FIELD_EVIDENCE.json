@@ -1231,5 +1231,122 @@
         "evidence": "Held from collection and automatic conversion by exact vendor code."
       }
     }
+  },
+  "labcorp:123027": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW10%20-%20Diagnostics%20Update%20October%202026.pdf",
+    "date": "2026-11-26",
+    "hold": true,
+    "note": "Official October 2026 Deleted Tests table, PDF page 29. Contact Labcorp",
+    "fields": {
+      "status": {
+        "evidence": "Vendor-deleted order held from collection and excluded from conversion."
+      }
+    }
+  },
+  "labcorp:620046": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW9%20-%20Diagnostics%20Update%20September%202026.pdf",
+    "date": "2026-11-26",
+    "hold": true,
+    "note": "Official September 2026 Deleted Tests table, PDF page 20. Contact Labcorp",
+    "fields": {
+      "status": {
+        "evidence": "Vendor-deleted order held from collection and excluded from conversion."
+      }
+    }
+  },
+  "labcorp:489200": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW9%20-%20Diagnostics%20Update%20September%202026.pdf",
+    "date": "2026-11-26",
+    "hold": true,
+    "note": "Official September 2026 Deleted Tests table, PDF page 20. Digital PCR reports percent mutant alleles. Verify requested assay and reporting.",
+    "fields": {
+      "status": {
+        "evidence": "Vendor-deleted order held from collection and excluded from conversion."
+      },
+      "vendorAlternative": {
+        "evidence": "489477 is a vendor-listed option. Digital PCR reports percent mutant alleles. Verify requested assay and reporting."
+      }
+    }
+  },
+  "labcorp:481020": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW9%20-%20Diagnostics%20Update%20September%202026.pdf",
+    "date": "2026-11-26",
+    "hold": true,
+    "note": "Official September 2026 Deleted Tests table, PDF page 20. Digital PCR reports percent mutant alleles. Verify requested assay and reporting.",
+    "fields": {
+      "status": {
+        "evidence": "Vendor-deleted order held from collection and excluded from conversion."
+      },
+      "vendorAlternative": {
+        "evidence": "489477 is a vendor-listed option. Digital PCR reports percent mutant alleles. Verify requested assay and reporting."
+      }
+    }
+  },
+  "labcorp:620009": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW9%20-%20Diagnostics%20Update%20September%202026.pdf",
+    "date": "2026-11-26",
+    "hold": true,
+    "note": "Official September 2026 Deleted Tests table, PDF page 20. Contact Labcorp",
+    "fields": {
+      "status": {
+        "evidence": "Vendor-deleted order held from collection and excluded from conversion."
+      }
+    }
+  },
+  "labcorp:483496": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW9%20-%20Diagnostics%20Update%20September%202026.pdf",
+    "date": "2026-11-26",
+    "hold": true,
+    "note": "Official September 2026 Deleted Tests table, PDF page 21. Broader Lynch syndrome panel. No automatic substitution for the retired single-gene order.",
+    "fields": {
+      "status": {
+        "evidence": "Vendor-deleted order held from collection and excluded from conversion."
+      },
+      "vendorAlternative": {
+        "evidence": "898017 is a vendor-listed option. Broader Lynch syndrome panel. No automatic substitution for the retired single-gene order."
+      }
+    }
+  },
+  "labcorp:602666": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW8%20-%20Diagnostics%20Update%20August%202026.pdf",
+    "date": "2026-11-26",
+    "hold": true,
+    "note": "Official August 2026 Deleted Tests table, PDF page 20. Contact Labcorp",
+    "fields": {
+      "status": {
+        "evidence": "Vendor-deleted order held from collection and excluded from conversion."
+      }
+    }
+  },
+  "labcorp:165750": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW7%20-%20Diagnostics%20Update%20July%202026.pdf",
+    "date": "2026-11-26",
+    "hold": true,
+    "note": "Official July 2026 Deleted Tests table, PDF page 178. Contact Labcorp",
+    "fields": {
+      "status": {
+        "evidence": "Vendor-deleted order held from collection and excluded from conversion."
+      }
+    }
+  },
+  "labcorp:500309": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW4%20-%20Diagnostics%20Update%20April%202026.pdf",
+    "date": "2026-11-26",
+    "hold": true,
+    "note": "Official April 2026 Deleted Tests table, PDF page 54. Contact Labcorp",
+    "fields": {
+      "status": {
+        "evidence": "Vendor-deleted order held from collection and excluded from conversion."
+      }
+    }
   }
 }
