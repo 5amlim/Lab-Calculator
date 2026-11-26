@@ -5,7 +5,8 @@ const vm=require('node:vm');
 const {test}=require('node:test');
 const source=fs.readFileSync('labcorp-crosswalk-data.js','utf8');
 const indexedQuest=JSON.parse(fs.readFileSync('assets/search/quest-tests.json','utf8')).tests;
-const indexedLab=JSON.parse(fs.readFileSync('assets/search/labcorp-tests.json','utf8')).tests;
+const labIndex=JSON.parse(fs.readFileSync('assets/search/labcorp-tests.json','utf8'));
+const indexedLab=labIndex.tests;
 const ctx={window:{SEED_TESTS:indexedLab.map(x=>({testCode:x[0],testName:x[1]}))}};
 vm.runInNewContext(source,ctx);
 vm.runInNewContext(fs.readFileSync('labcorp-quest-workbook-crosswalk-overrides.js','utf8'),ctx);
@@ -309,12 +310,14 @@ test('workbook mappings load from LabCorp index even without LabCorp SEED_TESTS'
   const beforeCount=new Set(before.filter(r=>r[3]).map(r=>r[3])).size;
   assert.ok(beforeCount>0&&beforeCount<indexedLab.length,'Baseline has indexed LabCorp links before workbook loading');
   assert.equal(typeof bare.window.applyQuestLabcorpWorkbookMatches,'function');
-  bare.window.applyQuestLabcorpWorkbookMatches(indexedLab);
+  bare.window.applyQuestLabcorpWorkbookMatches(indexedLab,labIndex.collectionReviewCodes);
   const activeAfter=bare.window.QUEST_TO_LABCORP_INDEX.filter(r=>r[7]==='active');
   const linked=activeAfter.filter(r=>r[3]);
   assert.equal(linked.length,ctx.window.QUEST_TO_LABCORP_METADATA.questMatchedActive);
   assert.equal(new Set(linked.map(r=>r[3])).size,ctx.window.QUEST_TO_LABCORP_METADATA.labcorpMatched);
   assert.equal(activeAfter.find(r=>r[0]==='637')[3],'','Protected mercury exception');
+  assert.equal(activeAfter.find(r=>r[0]==='5244')[3],'','Preserved urine collection hold must not become an automatic candidate');
+  assert.ok(!linked.some(r=>labIndex.collectionReviewCodes.includes(r[3])),'Collection-review orders must never be automatic candidates');
 });
 
 test('both badges count the same active candidate relationships after workbook overrides',()=>{
