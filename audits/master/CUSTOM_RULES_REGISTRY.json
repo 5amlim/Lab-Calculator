@@ -261,7 +261,7 @@
   {
     "id": "quest-timed-urine",
     "category": "manual override",
-    "description": "Retain the exact timed urine source and UA blue-fill-line alternative for 8280. Review local acceptance of the sterile cup display for 229 against the official transport-tube entry.",
+    "description": "Retain the exact timed urine source and UA blue-fill-line alternative for 8280. Preserve Sterile cup submission for Quest 229, confirmed by the clinic Lab Supervisor on 2026-11-26.",
     "laboratory": [
       "quest"
     ],
@@ -277,21 +277,23 @@
       "8280",
       "229"
     ],
-    "expectedBehavior": "Retain the exact timed urine source and UA blue-fill-line alternative for 8280. Review local acceptance of the sterile cup display for 229 against the official transport-tube entry.",
+    "expectedBehavior": "Retain the exact timed urine source and UA blue-fill-line alternative for 8280. Preserve Sterile cup submission for Quest 229, confirmed by the clinic Lab Supervisor on 2026-11-26.",
     "reason": "Avoid conflating collection jug, aliquot and preservative tube.",
     "evidence": [
       "a80f268",
       "https://testdirectory.questdiagnostics.com/test/test-detail/8280/?cc=MASTER",
-      "https://testdirectory.questdiagnostics.com/test/test-detail/229/?cc=MASTER"
+      "https://testdirectory.questdiagnostics.com/test/test-detail/229/?cc=MASTER",
+      "Clinic Lab Supervisor confirmation, 2026-11-26, Quest 229 only."
     ],
     "implementation": [
       "assets/js/app.js",
       "assets/js/quest-verified-urine-20261114.js"
     ],
     "regressionTests": [
-      "tests/container-grouping-parity-20261115.test.cjs"
+      "tests/container-grouping-parity-20261115.test.cjs",
+      "tests/master-database-audit.test.cjs"
     ],
-    "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
+    "approvalStatus": "Quest 229 sterile cup locally confirmed by user; other dimensions and universal vendor acceptance not implied."
   },
   {
     "id": "unsupported-workflows",

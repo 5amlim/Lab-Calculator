@@ -763,7 +763,15 @@
       "genericReferenceHold": "XXX",
       "falsePositiveCorrected": "229",
       "indexedHoldCodesUnchanged": true,
-      "remaining": "Quest 229 sterile cup acceptance remains unresolved; no clinical verification claimed."
+      "remaining": "Quest 229 sterile cup locally confirmed by user on 2026-11-26. No universal acceptance or full clinical verification claimed."
+    },
+    "localContainerConfirmations": {
+      "quest:229": {
+        "date": "2026-11-26",
+        "container": "Sterile cup",
+        "source": "Clinic Lab Supervisor confirmation",
+        "scope": "Quest 229 only"
+      }
     }
   }
 }

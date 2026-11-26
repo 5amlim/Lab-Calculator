@@ -7,7 +7,7 @@ const openCalculator = require('./helpers/calculator-vm.cjs');
 const root = resolve(__dirname,'..');
 const read = path => readFileSync(resolve(root,path),'utf8');
 const rules = JSON.parse(read('audits/master/CUSTOM_RULES_REGISTRY.json'));
-test('custom rules are traceable, unique and cover explicit user-required routes and labels',()=>{
+test('custom rules are traceable, unique and cover explicit user-required routes and labels',async()=>{
   const byId = new Map(rules.map(rule=>[rule.id,rule]));
   assert.equal(byId.size,rules.length);
   for(const rule of rules){
@@ -18,7 +18,17 @@ test('custom rules are traceable, unique and cover explicit user-required routes
   for(const id of ["gold-tiger-sst","sst-minimum-floor","blood-pool-target","timed-no-pooling","specimen-transfer-spin","transport-display","specimen-specific-stock","gray-plasma-routing","quest-timed-urine","unsupported-workflows","quest-92717-hold","labcorp-501533-hold","regional-tat","search-code-and-aliases","print-separate-physical-routes","crosswalk-review-only","quest-39749-discontinued","labcorp-november-2026-deletions","labcorp-november-2026-notice-fields","labcorp-may-2026-deletions","unverified-shipment-holds","active-test-collection-review","quest-8477-transport-stock-label","quest-16983-two-pour-off-tubes","alternatives-not-additional-draws","specific-source-and-specimen-badges","urine-and-stool-stock-aliases","original-container-and-swab","transport-label-aliases","compatible-pool-isolation","microtainer-neonatal-original"]) assert(byId.has(id),id);
   const registered = [...byId.get('active-test-collection-review').testCodes].sort();
   const indexed = ['quest','labcorp'].flatMap(lab=>JSON.parse(read('assets/search/'+lab+'-tests.json')).collectionReviewCodes).sort();
-  assert.deepEqual(registered,indexed,'all active collection holds must appear in the protected registry');
+  const {labs,loadCalculator}=await import('../scripts/load-calculator-catalog.mjs');
+  const runtime=[];
+  for(const lab of labs){
+    const {records,index}=await loadCalculator(root,lab,{captureRecords:true});
+    const searchable=new Set(index.tests.map(row=>row[0]));
+    const holds=records.filter(row=>row.status==='active'&&row.collectionReview).map(row=>row.testCode);
+    runtime.push(...holds);
+    assert.deepEqual([...new Set(holds.filter(code=>searchable.has(code)))].sort(),[...index.collectionReviewCodes].sort(),lab.lab+' published holds must be searchable');
+  }
+  assert.deepEqual(registered,[...new Set(runtime)].sort(),'all active runtime holds must appear in the protected registry');
+  assert.deepEqual(registered.filter(code=>code!=='XXX'),indexed,'only orderable indexed holds appear in public indexes');
 });
 for(const app of ['assets/js/app.js','labcorp-app.js']){
   test(app+' preserves alternative versus required specimens and exact nonblood and RBC badges',()=>{

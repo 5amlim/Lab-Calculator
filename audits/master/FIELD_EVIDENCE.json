@@ -82,10 +82,10 @@
     }
   },
   "quest:229": {
-    "status": "Clinical conflict",
+    "status": "Partially verified",
     "url": "https://testdirectory.questdiagnostics.com/test/test-detail/229/?cc=MASTER",
-    "date": "2026-11-25",
-    "note": "Directory names a transport tube. Local acceptance of the calculator sterile cup has not been established. Container tracker false positive corrected: explicit no HCl is not acid preservation. Existing user-required sterile cup retained; receiving-laboratory acceptance remains open.",
+    "date": "2026-11-26",
+    "note": "Quest directory names a transport tube. On 2026-11-26 the clinic Lab Supervisor explicitly confirmed that a sterile cup can be submitted for Quest 229. Retain this clinic-specific override; not a claim of universal Quest acceptance or full clinical verification. Explicit no HCl is not acid preservation.",
     "fields": {
       "specimenType": {
         "evidence": "24-hour urine with total volume documented."
@@ -94,7 +94,12 @@
         "evidence": "24-hour collection container. Refrigerate during and after collection."
       },
       "transportContainer": {
-        "evidence": "Quest lists a transport tube. Calculator uses sterile cup for the aliquot. Confirm with receiving laboratory."
+        "evidence": "Quest lists a transport tube; clinic Lab Supervisor confirms Sterile cup submission for this exact order on 2026-11-26. Preserve existing label and timed urine collection route.",
+        "localConfirmation": {
+          "date": "2026-11-26",
+          "source": "User confirmation in audit conversation",
+          "scope": "Quest 229 only"
+        }
       },
       "preferredVolume": {
         "evidence": "5 mL aliquot."

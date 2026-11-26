@@ -68,3 +68,7 @@ Source intake is not normalized runtime verification. No clinical runtime change
 - Quest XXX: generic 24-hour urine reference, not an orderable code. Retained active and placed on collection-review hold; no assumed temperature or generated specimen quantities. Source: https://www.questdiagnostics.com/healthcare-professionals/test-directory/specimen-handling/specimen-collection
 
 Both changes are on the audit branch only; final CI pending.
+
+## Quest 229 local container confirmation
+
+2026-11-26: Clinic Lab Supervisor explicitly confirmed Sterile cup submission for Quest 229. Retain the existing timed urine collection jug and no-HCl route. The local vessel discrepancy is resolved for this clinic workflow, not a universal Quest directory change. No other container aliases or orders changed. The generic XXX reference is held, not indexed; corrected the published hold filter and registry test to distinguish runtime and searchable holds.

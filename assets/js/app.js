@@ -306,7 +306,7 @@
     window.parent.postMessage({
       type:'labcentral:published-tests', lab:'quest', schema:1,
       tests:Array.from(byCode.values()),
-      collectionReviewCodes: published.filter(test => test.status === 'active' && test.collectionReview).map(test => test.testCode)
+      collectionReviewCodes: [...new Set(published.filter(test => test.status === 'active' && test.collectionReview && byCode.has(String(test.testCode).trim())).map(test => String(test.testCode).trim()))]
     },window.location.origin);
     return;
   }
