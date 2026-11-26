@@ -11,11 +11,11 @@
     "labcorp": 0
   },
   "reviewedOrAttempted": {
-    "quest": 15,
+    "quest": 20,
     "labcorp": 74
   },
   "notYetReviewed": {
-    "quest": 3814,
+    "quest": 3809,
     "labcorp": 6527
   },
   "recordStatusSource": "FIELD_EVIDENCE.json. Every catalog row without a key has status Not yet reviewed.",
@@ -108,7 +108,12 @@
     "labcorp:483496",
     "labcorp:602666",
     "labcorp:165750",
-    "labcorp:500309"
+    "labcorp:500309",
+    "quest:37386",
+    "quest:91475",
+    "quest:91477",
+    "quest:14867",
+    "quest:14435"
   ],
   "inventoryCommand": "node scripts/audit-calculator-database.mjs --out ../calculator-current-report --check",
   "continueFrom": "Enumerate TEST_INVENTORY.csv where verification is Not yet reviewed, keeping laboratory and exact test code as strings. Use the appropriate service-area evidence and review every applicable route before marking a record fully verified.",
@@ -171,5 +176,25 @@
     "matchedRuntimeCodes": 9,
     "newlyBlocked": 8,
     "report": "LABCORP_ARCHIVE_DELETIONS.csv"
+  },
+  "questNotices": {
+    "reviewedFieldsAddedFor": [
+      "14867",
+      "14435",
+      "37386",
+      "91475",
+      "91477"
+    ],
+    "corrected": [
+      "37386",
+      "91475",
+      "91477"
+    ],
+    "nextEffectiveDate": "2026-11-30",
+    "nextCodes": [
+      "213",
+      "90137",
+      "38480"
+    ]
   }
 }
