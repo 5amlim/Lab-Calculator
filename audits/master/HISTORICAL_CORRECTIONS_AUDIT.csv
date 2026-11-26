@@ -1,0 +1,10 @@
+lab,code_or_scope,history,evidence,disposition
+Quest,8477 and 1430,5e036f0 and 18a58c0,Quest gray plasma bundle and official exact-code directory,Additive-free vial alternative retained
+Quest,8280,a80f268,Exact-code directory and normalizer,Preserved UA fill-line alternative retained
+Quest,229,03f232b,Exact-code directory and clinician-facing acceptance note,Verify local cup acceptance
+Quest,10676,149dd14 and cab41ae and dac457c,Quest cytology manual and urine-only exception,Maintained with wording correction
+Shared,Timed draw isolation,1141b06 and 31f6912,Existing timed specimen tests,Retained
+Labcorp,Dedicated and component-level volume overrides,179d712 and cb46c81,Volume policy and source-tube tests,Retained
+Labcorp,Whole blood and SST thresholds,c02541f,Volume policy and new boundary tests,Retained
+Shared,Salivette and microtainer badges,f860e10 and 14d8b4e,Container reference and print regressions,Retained
+Shared,Other historical overrides,Additional history pending,Git history and catalog bundles,Not yet inventoried individually
