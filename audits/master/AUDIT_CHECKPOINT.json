@@ -12,11 +12,11 @@
   },
   "reviewedOrAttempted": {
     "quest": 61,
-    "labcorp": 396
+    "labcorp": 400
   },
   "notYetReviewed": {
     "quest": 3768,
-    "labcorp": 6205
+    "labcorp": 6201
   },
   "recordStatusSource": "FIELD_EVIDENCE.json. Every catalog row without a key has status Not yet reviewed.",
   "evidenceKeys": [
@@ -476,7 +476,11 @@
     "quest:836",
     "quest:905",
     "quest:866",
-    "quest:7065"
+    "quest:7065",
+    "labcorp:700834",
+    "labcorp:700841",
+    "labcorp:700845",
+    "labcorp:700925"
   ],
   "inventoryCommand": "node scripts/audit-calculator-database.mjs --out ../calculator-current-report --check",
   "continueFrom": "Enumerate TEST_INVENTORY.csv where verification is Not yet reviewed, keeping laboratory and exact test code as strings. Use the appropriate service-area evidence and review every applicable route before marking a record fully verified.",
@@ -615,5 +619,27 @@
     "seedRoutePartialComparisons": 3,
     "browserInterstitial": 12,
     "remaining": "Retry alternate canonical or receiving-service-area URL; no clinical claim for blocked captures."
+  },
+  "highVolumeFollowup": {
+    "date": "2026-11-26",
+    "partiallyVerified": [
+      "700834",
+      "700845",
+      "700925"
+    ],
+    "conflictingSources": [
+      "700841"
+    ],
+    "unresolvedVialCapacity": [
+      "700834",
+      "700841",
+      "700845",
+      "700925"
+    ],
+    "sourceAccessFailures": [
+      "700844",
+      "702879",
+      "284459"
+    ]
   }
 }

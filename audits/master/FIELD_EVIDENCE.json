@@ -7692,5 +7692,131 @@
     "date": "2026-11-26",
     "note": "Exact public MASTER URL returned browser upgrade interstitial, not collection requirements. No clinical fields verified; retry a service-area or canonical detail URL. Existing active route unchanged.",
     "fields": {}
+  },
+  "labcorp:700834": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/700834/tetrahydrocannabinol-thc-screen-with-reflex-confirmation-serum",
+    "date": "2026-11-26",
+    "note": "Exact vendor page compared to committed catalog source and high-volume count register. Specimen, volumes, draw, transfer and short-term shipping agree; local vial capacity and receiving-account requirements remain open. Runtime overlay review pending.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Serum."
+      },
+      "drawContainer": {
+        "evidence": "Plain red-top collection; no separator gel."
+      },
+      "transportContainer": {
+        "evidence": "Transfer separated serum into plastic transport tube. Existing Transport Tube stock label retained."
+      },
+      "preferredVolume": {
+        "evidence": "7 mL."
+      },
+      "minimumVolume": {
+        "evidence": "3 mL."
+      },
+      "spin": {
+        "evidence": "Separation from cells required."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient short-term transport; longer storage requires refrigeration or freezing."
+      },
+      "specialInstructions": {
+        "evidence": "Separate serum from cells within two hours."
+      }
+    }
+  },
+  "labcorp:700841": {
+    "status": "Clinical conflict",
+    "url": "https://medtox.labcorp.com/tests/700841/drug-screen-10-with-reflex-confirmation-amp-bar-bzo-coc-pcp-thc-opi-oxy-md-ppx-serum",
+    "date": "2026-11-26",
+    "note": "MedTox requires refrigerated shipment for less than three days while the account-specific Mission Health CDOS specifies ambient and matches the current bundled route. Confirm receiving laboratory before collection; no silent change. Both sources agree on specimen and volume. The transport vial's usable capacity is not established.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Serum."
+      },
+      "drawContainer": {
+        "evidence": "Plain red-top collection; no separator gel."
+      },
+      "transportContainer": {
+        "evidence": "Transfer separated serum into plastic transport tube. Existing Transport Tube stock label retained."
+      },
+      "preferredVolume": {
+        "evidence": "7 mL."
+      },
+      "minimumVolume": {
+        "evidence": "3 mL."
+      },
+      "spin": {
+        "evidence": "Separation from cells required."
+      },
+      "transportTemperature": {
+        "evidence": "MedTox specifies refrigerated short-term shipment; Mission Health CDOS specifies ambient.",
+        "alternateSource": "https://cdos.halfpenny.com/labcorp/missionhealth/TestDisplay/700841"
+      }
+    }
+  },
+  "labcorp:700845": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/700845/drug-screen-12-with-reflex-confirmation-amp-bar-bzo-coc-pcp-thc-opi-oxy-md-fen-ppx-tram-serum",
+    "date": "2026-11-26",
+    "note": "Exact vendor page compared to committed catalog source and high-volume count register. Specimen, volumes, draw, transfer and short-term shipping agree; local vial capacity and receiving-account requirements remain open. Runtime overlay review pending.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Serum."
+      },
+      "drawContainer": {
+        "evidence": "Plain red-top collection; no separator gel."
+      },
+      "transportContainer": {
+        "evidence": "Transfer separated serum into plastic transport tube. Existing Transport Tube stock label retained."
+      },
+      "preferredVolume": {
+        "evidence": "7 mL."
+      },
+      "minimumVolume": {
+        "evidence": "3 mL."
+      },
+      "spin": {
+        "evidence": "Separation from cells required."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient short-term transport; longer storage requires refrigeration or freezing."
+      },
+      "specialInstructions": {
+        "evidence": "Separate serum from cells within two hours."
+      }
+    }
+  },
+  "labcorp:700925": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/700925/amphetamines-screen-with-reflex-confirmation-serum",
+    "date": "2026-11-26",
+    "note": "Exact vendor page compared to committed catalog source and high-volume count register. Specimen, volumes, draw, transfer and short-term shipping agree; local vial capacity and receiving-account requirements remain open. Runtime overlay review pending.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Serum."
+      },
+      "drawContainer": {
+        "evidence": "Plain red-top collection; no separator gel."
+      },
+      "transportContainer": {
+        "evidence": "Transfer separated serum into plastic transport tube. Existing Transport Tube stock label retained."
+      },
+      "preferredVolume": {
+        "evidence": "7 mL."
+      },
+      "minimumVolume": {
+        "evidence": "3 mL."
+      },
+      "spin": {
+        "evidence": "Separation from cells required."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient short-term transport; longer storage requires refrigeration or freezing."
+      },
+      "specialInstructions": {
+        "evidence": "Separate serum from cells within two hours."
+      }
+    }
   }
 }

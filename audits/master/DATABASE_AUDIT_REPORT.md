@@ -13,18 +13,18 @@ Audit date November 26, 2026. Baseline commit `b81f79958661971bad3a6799d6a0465a7
 | Blocked runtime records | 514 | 514 | 455 | 457 |
 | Pending runtime records | 0 | 0 | 131 | 129 |
 | Fully clinically verified in this audit | 0 | 0 | 0 | 0 |
-| Partially verified in this audit | 0 | 38 | 0 | 363 |
-| Clinical conflict recorded | 0 | 4 | 0 | 1 |
+| Partially verified in this audit | 0 | 38 | 0 | 366 |
+| Clinical conflict recorded | 0 | 4 | 0 | 2 |
 | Current source inaccessible | 0 | 16 | 0 | 0 |
 | Specific official field unavailable | 0 | 2 | 0 | 2 |
-| Official review unstarted in this audit | 3,829 | 3,768 | 6,601 | 6,205 |
+| Official review unstarted in this audit | 3,829 | 3,768 | 6,601 | 6,201 |
 | Runtime records added or removed | 0 | 0 | 0 | 0 |
 
 The active catalogs retain every baseline code and record ID. A collection review flag keeps a test visible in search and addable to the cart. The cart, printout and CSV show the reason. The specimen plan excludes those routes from automatic collection counts, submission bags and STAT. The converter does not propose those flagged orders as candidates. The [flag register](COLLECTION_REVIEW_FLAGS.csv) has all 35 codes, reasons and sources. Two previously pending Labcorp codes now appear in the exclusions register under vendor deletion notices.
 
 Quest also contains an uncoded active `XXX` 24-hour urine reference outside the numeric search index. Its shipment temperature remains an open audit warning. The counts exclude browser overrides, staff-created tests and patient data.
 
-All 10,430 runtime records have a reproducible inventory. The field evidence ledger covers 61 Quest and 396 Labcorp records. Separate Labcorp intake attempted 385 public pages and captured 381 exact order pages. Clinical verification, national catalog completeness and service-area acceptance remain open.
+All 10,430 runtime records have a reproducible inventory. The field evidence ledger covers 61 Quest and 400 Labcorp records. Separate Labcorp intake attempted 385 public pages and captured 381 exact order pages. Clinical verification, national catalog completeness and service-area acceptance remain open.
 
 ## Labcorp public listing reconciliation
 
@@ -120,3 +120,7 @@ Continue the unexplored exact-code Quest and Labcorp records from the record inv
 ### Quest exact-page intake and regression checkpoint
 
 Compared public exact pages for 234, 236 and 10165 with the committed seed route. The listed fields agree; additional stability detail, runtime overlays and service-area requirements remain open. Twelve other exact MASTER URLs returned a browser interstitial and remain unverified. No clinical data or stock conventions were changed in this pass. GitHub Actions run 45898373589 completed successfully: 467 tests passed, zero failed, including the 8477 label and mixed physical-plan checks. New evidence-only commit requires its own CI run.
+
+### High-volume serum toxicology follow-up
+
+Exact Labcorp pages for 700834, 700845 and 700925 support the committed 7 mL preferred/3 mL minimum serum routes and ambient short-term shipping. The MedTox exact page for 700841 instead specifies refrigeration while Mission Health CDOS specifies ambient; the receiving account must resolve the conflict before use. No assumed vial capacity or blanket shipping change was made. Three further CDOS URLs could not be accessed. Existing display labels, pooling and active records remain unchanged.

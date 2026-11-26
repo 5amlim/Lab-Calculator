@@ -29,11 +29,11 @@
         "pending": 129
       },
       "verification": {
-        "Clinical conflict": 1,
+        "Clinical conflict": 2,
         "Discontinued": 30,
-        "Not yet reviewed": 6205,
+        "Not yet reviewed": 6201,
         "Official information unavailable": 2,
-        "Partially verified": 363
+        "Partially verified": 366
       }
     }
   },
@@ -593,6 +593,10 @@
         "620009|labcorp-verified-20261116-batch22-620009",
         "620046|labcorp-620046",
         "700433|labcorp-directory-next-700433",
+        "700834|labcorp-directory-next-700834",
+        "700841|labcorp-directory-next-700841",
+        "700845|labcorp-directory-next-700845",
+        "700925|labcorp-directory-next-700925",
         "702790|labcorp-702790",
         "706200|labcorp-compendium-review-706200",
         "716795|labcorp-716795",
