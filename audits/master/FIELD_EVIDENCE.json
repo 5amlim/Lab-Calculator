@@ -5982,5 +5982,1553 @@
         "sourceSha256": "80901156305f51b01664c1769017b222b9deea1cd7bf23cd8b988441217195d8"
       }
     }
+  },
+  "labcorp:001149": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001149/thyroxine-t4",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "5153d0afdfa837e235640632185275a03caf5b043a6f3492a7697b6b479c8f49"
+      }
+    }
+  },
+  "labcorp:001156": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001156/t3-uptake",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "36adcd0be6326e75c734d1e800be1f1556e4797ce4aa83f236c7795157313dd4"
+      }
+    }
+  },
+  "labcorp:001180": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001180/potassium",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "bc4f0adde94b6196966cbdfe4f4e2059e246272e738ef0f6e28d3a8dd78c9840"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.7 mL.",
+        "sourceSha256": "bc4f0adde94b6196966cbdfe4f4e2059e246272e738ef0f6e28d3a8dd78c9840"
+      }
+    }
+  },
+  "labcorp:001354": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001354/fecal-fat-quantitative",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "342beff93d1166ecb7243e1da9a1499fe31fbe80e298e2f7978cac084578fb92"
+      }
+    }
+  },
+  "labcorp:001628": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001628/haptoglobin",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 2 mL.",
+        "sourceSha256": "bbb58f0ea581b1513b687f38c5bef92832403e84bbc82fcde822ca72f0b41b57"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "bbb58f0ea581b1513b687f38c5bef92832403e84bbc82fcde822ca72f0b41b57"
+      }
+    }
+  },
+  "labcorp:001750": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001750/vitamin-a-and-carotene",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "d19b925e9be6a0df82eb6a613c6786ae862284a84100ac1cb2be9fdd5f8198f0"
+      }
+    }
+  },
+  "labcorp:001768": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001768/immunoglobulins-quantitative-iga-igg-igm",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: minimumVolume, transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 2 mL.",
+        "sourceSha256": "2ccd3a600f6d1d222370f766ffaf12cf9e6f34657a4fc0a3a2a96c591274c7f3"
+      }
+    }
+  },
+  "labcorp:001792": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001792/immunoglobulin-m-quantitative",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.4 mL.",
+        "sourceSha256": "1eeb2fc4da1251687cb9cf57475711824109139c4060674958d40d433a25f3b1"
+      }
+    }
+  },
+  "labcorp:001818": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001818/glucose-plasma",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "5ad5d00b4627f60238b31b9762c523da995855a11260bf1047e9997d05d53b1c"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "5ad5d00b4627f60238b31b9762c523da995855a11260bf1047e9997d05d53b1c"
+      }
+    }
+  },
+  "labcorp:001834": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001834/complement-c4",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "d7690e35028b52b818a51856db9eabeacb4f5d612dbff42efc2fd5682eeb5d02"
+      }
+    }
+  },
+  "labcorp:001875": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/001875/fructose-semen-analysis",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Frozen.",
+        "sourceSha256": "5ffa55f23dcea48612ece8b8652aa84ca25c49181a1b300f4c66ec01f68a1f3c"
+      }
+    }
+  },
+  "labcorp:002014": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/002014/folate-folic-acid",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "4e280f93004b1ef3a1aabd5b451a119b7c75575954ab074ad44ec4cc65b7d55b"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.7 mL.",
+        "sourceSha256": "4e280f93004b1ef3a1aabd5b451a119b7c75575954ab074ad44ec4cc65b7d55b"
+      }
+    }
+  },
+  "labcorp:002022": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/002022/glucose-two-hour-postprandial",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "93863b79e5e214f6071fb5335d875f568432408ef73f23e023b04e7ef6dc914d"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "93863b79e5e214f6071fb5335d875f568432408ef73f23e023b04e7ef6dc914d"
+      }
+    }
+  },
+  "labcorp:002048": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/002048/glucose-cerebrospinal-fluid",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.2 mL.",
+        "sourceSha256": "280742f5bc57bfdb0dac14f30a837bc0bd326283cb0ad36a77b534eeea396186"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "280742f5bc57bfdb0dac14f30a837bc0bd326283cb0ad36a77b534eeea396186"
+      }
+    }
+  },
+  "labcorp:002055": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/002055/protein-total-cerebrospinal-fluid",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.3 mL.",
+        "sourceSha256": "f2e230d07d1346846d5d3392ecd2a66d7c94ddb9c4bea5389507d365a5acd76e"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "f2e230d07d1346846d5d3392ecd2a66d7c94ddb9c4bea5389507d365a5acd76e"
+      }
+    }
+  },
+  "labcorp:002246": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/002246/protein-electrophoresis-cerebrospinal-fluid",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "2771b3abc9f522eb09f11bc573ed1311f9481ba4d2c98bda2587f97a2968e15c"
+      }
+    }
+  },
+  "labcorp:002295": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/002295/immunoglobulins-quantitative-iga-ige-igg-igm",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: minimumVolume, transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 3 mL.",
+        "sourceSha256": "c934617cdbcf62346687adb51574b9f733e34b0e5cdb0af029b85b371bfafe28"
+      }
+    }
+  },
+  "labcorp:003012": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003012/creatinine-24-hour-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "3f24a6b4f9596ae722bf475c22d8aa256a1eb1009c4157ececdcddf0127c074f"
+      }
+    }
+  },
+  "labcorp:003065": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003065/porphobilinogen-pbg-quantitative-random-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "3e005f84edd7759caa50d50cdbb612260692d66d3fe8e7ff63622464ea5b3ab2"
+      }
+    }
+  },
+  "labcorp:003079": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003079/myoglobin-quantitative-random-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "b00e6eb7c17a314ab71193daff0b3b7918969f4d10b7d1533bb154b49c2eca87"
+      }
+    }
+  },
+  "labcorp:003129": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003129/protein-and-creatinine-random-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "6c9d1b5b21fb16d3425ced93d2200b339eef59db3717ef542420774ccea62183"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "6c9d1b5b21fb16d3425ced93d2200b339eef59db3717ef542420774ccea62183"
+      }
+    }
+  },
+  "labcorp:003160": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003160/chloride-24-hour-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "72a1514be7bc7897d0aeb7fa45eea39682008bb34dfd957135814888c5ad2cba"
+      }
+    }
+  },
+  "labcorp:003178": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003178/sodium-24-hour-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "a527d98e92c4c7f8a3729d6fb9692964babb5314f5611d5a4b612dd1dcd4734a"
+      }
+    }
+  },
+  "labcorp:003186": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003186/potassium-24-hour-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "6f7eeee60fa93b5f1009932f83fdebe2b83ed8144509112f89b7b15f5afd22e4"
+      }
+    }
+  },
+  "labcorp:003194": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003194/porphyrins-quantitative-24-hour-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "08dc3c502b0102891038bb6bccbf88a0f95034e36ce6c3d0380c56d518b21e34"
+      }
+    }
+  },
+  "labcorp:003236": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003236/c-peptide-24-hour-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "b4f01578b47353c2ade8c41ccc6cd1659bc7f846aa65ad5e026b14a673161a9e"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Frozen.",
+        "sourceSha256": "b4f01578b47353c2ade8c41ccc6cd1659bc7f846aa65ad5e026b14a673161a9e"
+      }
+    }
+  },
+  "labcorp:003269": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003269/calcium-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "11f5f5dc777019aef55ec2eec23194ca933bd3449fe55394627b247b24926975"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "11f5f5dc777019aef55ec2eec23194ca933bd3449fe55394627b247b24926975"
+      }
+    }
+  },
+  "labcorp:003277": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003277/protein-total-quantitative-24-hour-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "bb8fed177b8a6f654beccafaf5e2e9f6f4c4c10947f20964e7801ba573d4d6e9"
+      }
+    }
+  },
+  "labcorp:003293": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003293/amylase-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "357ceba1c9a2fe0306ee78186c87684e4d88d48ac1fdf40d72f32498a47d0c8c"
+      }
+    }
+  },
+  "labcorp:003343": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003343/copper-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1.3 mL.",
+        "sourceSha256": "48b41dd7c750abf45d9a4c7dd2b0fc4d82234835fd6029631ce054843aef881d"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "48b41dd7c750abf45d9a4c7dd2b0fc4d82234835fd6029631ce054843aef881d"
+      }
+    }
+  },
+  "labcorp:003400": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003400/magnesium-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 2.2 mL.",
+        "sourceSha256": "42b575223e4715d49b444ca92d84e58590fc5acfb06a16ee681ba15ccf383830"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "42b575223e4715d49b444ca92d84e58590fc5acfb06a16ee681ba15ccf383830"
+      }
+    }
+  },
+  "labcorp:003434": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003434/zinc-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1.7 mL.",
+        "sourceSha256": "1ca37d0fb2c80deb5933a323ba26366aafdfe1d3138eca6f0a0e3128c5300648"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "1ca37d0fb2c80deb5933a323ba26366aafdfe1d3138eca6f0a0e3128c5300648"
+      }
+    }
+  },
+  "labcorp:003442": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003442/osmolality-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.2 mL.",
+        "sourceSha256": "07d47832c99410a78f580af5129f222d1b2ce3f063f68477c74a3be7341b7572"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "07d47832c99410a78f580af5129f222d1b2ce3f063f68477c74a3be7341b7572"
+      }
+    }
+  },
+  "labcorp:003475": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003475/creatine-24-hour-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Frozen.",
+        "sourceSha256": "de2f3fc9567c3b57cc177101da32c7a643501ead64841516318722cf30f4f092"
+      }
+    }
+  },
+  "labcorp:003541": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003541/urea-nitrogen-24-hour-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "476c0f1490f147a25316b2da9c33d34b84b9ea15e424f6171776d417ec8af92d"
+      }
+    }
+  },
+  "labcorp:003855": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003855/creatine-and-creatinine-24-hour-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Frozen.",
+        "sourceSha256": "607deffbc5032b57e5a0683f10db733202ed8ebd44d2dfa071fde6aa00e7ede7"
+      }
+    }
+  },
+  "labcorp:004036": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/004036/pregnancy-test-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "ba4a97715b045bbaaebf1668fdffc8e5a84d348c4c873291bc62e518134253eb"
+      }
+    }
+  },
+  "labcorp:004069": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/004069/5-hydroxyindoleacetic-acid-hiaa-quantitative-24-hour-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "d72a4649564050a3023e2b4f96902cb30b22a51b193ae8bd1a3aa352cd2285e5"
+      }
+    }
+  },
+  "labcorp:004110": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/004110/galectin-3",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.8 mL.",
+        "sourceSha256": "c6aa4992b2683672a5dc3d033d0972e4048bcb6083ded55b9ffcfe9e4aedb038"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.4 mL.",
+        "sourceSha256": "c6aa4992b2683672a5dc3d033d0972e4048bcb6083ded55b9ffcfe9e4aedb038"
+      }
+    }
+  },
+  "labcorp:004176": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/004176/catecholamines-fractionated-urinary-free-24-hour-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "53618f9872b46d758718f8d59d227e961303b2abb48693b7b882573f2cc9fd51"
+      }
+    }
+  },
+  "labcorp:004210": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/004210/neuromyelitis-optica-igg-autoantibodies",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.2 mL.",
+        "sourceSha256": "0a766cf43dcb7d8de6231d8c4681b51c0cf1afc3c503a228c151d469e8f6a13a"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "0a766cf43dcb7d8de6231d8c4681b51c0cf1afc3c503a228c151d469e8f6a13a"
+      }
+    }
+  },
+  "labcorp:004234": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/004234/metanephrines-fractionated-quantitative-24-hour-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "c9ab69c16abf30e3a94b3bbbe08f0cf7ef7916cb4eb218b5d7eb35102da93a87"
+      }
+    }
+  },
+  "labcorp:004389": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/004389/dhea-by-ionify-lc-ms-ms",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1.5 mL.",
+        "sourceSha256": "1ec5d2953823ebde44dc182952807384e14eaa0363675dcfc1446ce86dc72ccc"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.7 mL.",
+        "sourceSha256": "1ec5d2953823ebde44dc182952807384e14eaa0363675dcfc1446ce86dc72ccc"
+      }
+    }
+  },
+  "labcorp:004432": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/004432/cortisol-urinary-free",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "f24aebd6b47a9ed0102857b65a951b853616fc37ed7709b08d6fb68ac369cf29"
+      }
+    }
+  },
+  "labcorp:004593": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/004593/thyroid-stimulating-hormone-tsh-in-pregnancy",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "96bc3d974733a84b6d50df79590a77c6bd31f8a69f1c38fab920b50c1e95b269"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.7 mL.",
+        "sourceSha256": "96bc3d974733a84b6d50df79590a77c6bd31f8a69f1c38fab920b50c1e95b269"
+      }
+    }
+  },
+  "labcorp:004655": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/004655/vitamin-b6-plasma",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.25 mL.",
+        "sourceSha256": "cfa2112778bdc457d34ae9e0b4e55411c8af156e87c270d720efed9bfb583035"
+      }
+    }
+  },
+  "labcorp:004804": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/004804/calcium-ionized",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "c87361a22f9c763402e7fbe575d3fc431a6dd0ac1909ec57aff47e396ca6ae90"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "c87361a22f9c763402e7fbe575d3fc431a6dd0ac1909ec57aff47e396ca6ae90"
+      }
+    }
+  },
+  "labcorp:004900": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/004900/mannose-binding-lectin-mbl",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "73ff46256800cc61341fec945761633405e273e0c15cfd4e2b3a7a8fdd0a8577"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.1 mL.",
+        "sourceSha256": "73ff46256800cc61341fec945761633405e273e0c15cfd4e2b3a7a8fdd0a8577"
+      }
+    }
+  },
+  "labcorp:004937": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/004937/transferrin",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "1ab358417efdd57d6d3ca298bdd0260a4903f1014b5e9e5121d4aba4ee4bc5f2"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "1ab358417efdd57d6d3ca298bdd0260a4903f1014b5e9e5121d4aba4ee4bc5f2"
+      }
+    }
+  },
+  "labcorp:005013": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/005013/neutrophil-to-lymphocyte-ratio-nlr-complete-blood-count-cbc-with-differential-and-platelet",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "b39c8cd93f0053a4264bd12252b4b4d2fccfb8eb3ff08844ca258a1bd8c3233c"
+      }
+    }
+  },
+  "labcorp:005033": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/005033/red-blood-cell-rbc-count",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "5c70d8f136670376d0d3d365db446beaf8b7e608e7dd797c4697b01e6194806b"
+      }
+    }
+  },
+  "labcorp:005041": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/005041/hemoglobin-hb",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "5dc67a002816d15540f9c572ad3153127e55375098d3ccdaae5e9b2b26335639"
+      }
+    }
+  },
+  "labcorp:005058": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/005058/hematocrit",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "ba6952deeb63543564e28dd82a99f48fe3a36a432700617a440d4e523afda401"
+      }
+    }
+  },
+  "labcorp:005200": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/005200/dilute-prothrombin-time",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Frozen.",
+        "sourceSha256": "69af582bae3ec572f53cce55ee6acc52cca88dc9721077162a067bd6017b45c2"
+      }
+    }
+  },
+  "labcorp:005231": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/005231/cell-count-synovial-fluid-with-crystals",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "e0ea0aa534c5efb9bad83b0c3645effbb005acbe9d06f12386856d3d8819de12"
+      }
+    }
+  },
+  "labcorp:005240": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/005240/cell-count-serous-fluid",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "bec0484976cf03bf2f9443d7607da78a00d480a164cc96eace654acb18977c4d"
+      }
+    }
+  },
+  "labcorp:005256": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/005256/cell-count-cerebrospinal-fluid",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "9a51e31c1c504ed24118d65cfde00fd34fc4120198c9c12a31cefac91e6bca84"
+      }
+    }
+  },
+  "labcorp:005280": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/005280/reticulocyte-count",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "4b26ee096cfcc5baebb026b88bae3e86dd833fcb6dee7a73558a217a9b83aad3"
+      }
+    }
+  },
+  "labcorp:005298": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/005298/eosinophil-count",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "029749999834a20643493b14d0f4b75c18da41ad496a492a440befffcfe53212"
+      }
+    }
+  },
+  "labcorp:005355": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/005355/crystals-synovial-joint-fluid",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "403c88effbc5b27398e965363c3e7b07ba09de9719213f401db423fc580a04d1"
+      }
+    }
+  },
+  "labcorp:005595": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/005595/hemoglobin-hb-free-plasma",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "99fa9b18573cbe77a30df210ba5e620423e46f7ed8aa1b71757d9f2cbaee945d"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.1 mL.",
+        "sourceSha256": "99fa9b18573cbe77a30df210ba5e620423e46f7ed8aa1b71757d9f2cbaee945d"
+      }
+    }
+  },
+  "labcorp:006002": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006002/red-blood-cell-rbc-antigen-typing-a1",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "7b312cc9a2b081d21464bd1daada37f3d222c9dca6a9200b1923a9874d3fecc8"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "7b312cc9a2b081d21464bd1daada37f3d222c9dca6a9200b1923a9874d3fecc8"
+      }
+    }
+  },
+  "labcorp:006010": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006010/red-blood-cell-rbc-antigen-typing-c-c",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "3eed3ba4ee6b1342adba0716421f4cd8bfef3d84ed6b1fce5169093a65c37ee0"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "3eed3ba4ee6b1342adba0716421f4cd8bfef3d84ed6b1fce5169093a65c37ee0"
+      }
+    }
+  },
+  "labcorp:006015": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006015/antibody-screen",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 4 mL.",
+        "sourceSha256": "f17ca0283b371b54120620d8e4dae67e2855cbce4ea6758ed62bfb13d2d07bba"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "f17ca0283b371b54120620d8e4dae67e2855cbce4ea6758ed62bfb13d2d07bba"
+      }
+    }
+  },
+  "labcorp:006018": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006018/red-blood-cell-rbc-antigen-typing-e-e",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "a1b6d4c19c0ac0dea2dead5936b2bb788ed70643d41ebf9730a8d9db21f2aa6a"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "a1b6d4c19c0ac0dea2dead5936b2bb788ed70643d41ebf9730a8d9db21f2aa6a"
+      }
+    }
+  },
+  "labcorp:006025": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006025/red-blood-cell-rbc-antigen-typing-fya-fyb",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "c76f2b3363b1a62e8accd8764dbc92ecae624a64c9817f967a0fa00b8aabd392"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "c76f2b3363b1a62e8accd8764dbc92ecae624a64c9817f967a0fa00b8aabd392"
+      }
+    }
+  },
+  "labcorp:006030": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006030/red-blood-cell-rbc-antigen-typing-jka-jkb",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "910120501b230212905f0d7d0b258972804e693738dcfc421739ee09d75203aa"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "910120501b230212905f0d7d0b258972804e693738dcfc421739ee09d75203aa"
+      }
+    }
+  },
+  "labcorp:006034": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006034/red-blood-cell-rbc-antigen-typing-lea-leb",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "9754659636c1b8d8d48d18776e754fd9fd45641a4c7a8e36b35782b34cc55c82"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "9754659636c1b8d8d48d18776e754fd9fd45641a4c7a8e36b35782b34cc55c82"
+      }
+    }
+  },
+  "labcorp:006040": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006040/red-blood-cell-rbc-antigen-typing-s-s",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "65f67c2d1d4cf700b6970f0e29ce85db24bc74c0f13924ccd485a6d40cff60b6"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "65f67c2d1d4cf700b6970f0e29ce85db24bc74c0f13924ccd485a6d40cff60b6"
+      }
+    }
+  },
+  "labcorp:006048": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006048/red-blood-cell-rbc-antigen-typing-m",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "bdf3ee4355ba9a0cd01bbc897a8a5f2876d567d322c2124f5601e13f33caa908"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "bdf3ee4355ba9a0cd01bbc897a8a5f2876d567d322c2124f5601e13f33caa908"
+      }
+    }
+  },
+  "labcorp:006049": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006049/abo-grouping-and-rho-d-typing",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 4 mL.",
+        "sourceSha256": "0670f43c17b9dc49591b5ce42e8362ba1f8564c70b1e170c36312a3e080b66c1"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "0670f43c17b9dc49591b5ce42e8362ba1f8564c70b1e170c36312a3e080b66c1"
+      }
+    }
+  },
+  "labcorp:006056": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006056/abo-grouping",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 4 mL.",
+        "sourceSha256": "676eb8bee96e489e993f1bda50ac22f41e508b1784356b7b51b4a18d129dd528"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "676eb8bee96e489e993f1bda50ac22f41e508b1784356b7b51b4a18d129dd528"
+      }
+    }
+  },
+  "labcorp:006060": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006060/red-blood-cell-rbc-antigen-typing-n",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "9b3e9b2950c78f1f8b3b30d0e3acf24e0ad5fe5b10367c529022181d16fdb76a"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "9b3e9b2950c78f1f8b3b30d0e3acf24e0ad5fe5b10367c529022181d16fdb76a"
+      }
+    }
+  },
+  "labcorp:006064": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006064/rh-typing",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 4 mL.",
+        "sourceSha256": "06fedcfbc29c927d772c7a7ee83887b5bf633453efd5610a8a58308219e7f0b7"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "06fedcfbc29c927d772c7a7ee83887b5bf633453efd5610a8a58308219e7f0b7"
+      }
+    }
+  },
+  "labcorp:006068": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006068/red-blood-cell-rbc-antigen-typing-k-kell",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "186561a81bb872f46347d8634be3732d8c34eac3b11bd2c82239167b1345ee3d"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "186561a81bb872f46347d8634be3732d8c34eac3b11bd2c82239167b1345ee3d"
+      }
+    }
+  },
+  "labcorp:006096": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006096/red-blood-cell-rbc-antigen-typing-k-cellano",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "f41560318c349851462a75d121451389e30bec1660121d6a9a2d06355694ee62"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "f41560318c349851462a75d121451389e30bec1660121d6a9a2d06355694ee62"
+      }
+    }
+  },
+  "labcorp:006270": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006270/coombs-direct",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 4 mL.",
+        "sourceSha256": "21d1204703190bc25f205e013db85ccedb85025c8de7d515e746b69f18b7cd1b"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "21d1204703190bc25f205e013db85ccedb85025c8de7d515e746b69f18b7cd1b"
+      }
+    }
+  },
+  "labcorp:006445": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006445/syphilis-vdrl-csf",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "73b7a7bd0ba02815164152d820224fc4f4af401c2b2a91cdf8ba39081ed1c20c"
+      }
+    }
+  },
+  "labcorp:006452": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006452/complement-c3",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "494582f2df375ba919846c759e177a309d271aa2b4d9fc43e8b2efc478d4c189"
+      }
+    }
+  },
+  "labcorp:006627": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006627/c-reactive-protein-crp-quantitative",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "322aa04714567300d2edcd122c0dce9162f3f7a448cef46de0fa08774263cb48"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "322aa04714567300d2edcd122c0dce9162f3f7a448cef46de0fa08774263cb48"
+      }
+    }
+  },
+  "labcorp:006866": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006866/rotavirus-direct-detection-immunoassay",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "366c118c72b55f985f16e57955bbd4177aa74bd9e74af33247744f0486986b56"
+      }
+    }
+  },
+  "labcorp:006924": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006924/hla-b-27-disease-association",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "4f2da8eb336b7c257ca7d387cc509fe6aa2f4802a54dfad20fec0de7317a2e37"
+      }
+    }
+  },
+  "labcorp:007012": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/007012/lacosamide",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.25 mL.",
+        "sourceSha256": "c6f1fc88ebd2c480a3bb40c3388d8159db6b5ea2f1a8e303a8eb35837340c297"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.1 mL (published numeric value 0.10 mL).",
+        "sourceSha256": "c6f1fc88ebd2c480a3bb40c3388d8159db6b5ea2f1a8e303a8eb35837340c297"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "c6f1fc88ebd2c480a3bb40c3388d8159db6b5ea2f1a8e303a8eb35837340c297"
+      }
+    }
+  },
+  "labcorp:007045": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/007045/arsenic-exposure-profile-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 2.5 mL.",
+        "sourceSha256": "f01039848fd65eea512a426f04bc2c7ffe40e880c1400481d8f510b2163f0989"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "f01039848fd65eea512a426f04bc2c7ffe40e880c1400481d8f510b2163f0989"
+      }
+    }
+  },
+  "labcorp:007046": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/007046/heavy-metals-profile-i-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 5.3 mL.",
+        "sourceSha256": "6405c624b339a1ba572cf1b52615e1c7b6b21c78973ec718b4f5347271ca47cb"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "6405c624b339a1ba572cf1b52615e1c7b6b21c78973ec718b4f5347271ca47cb"
+      }
+    }
+  },
+  "labcorp:007054": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/007054/ammonia-plasma",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "d7a112b9ebdd8f8bb4ca46268d76eba01f9de4382ce6df29daa73c2738ff746c"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "d7a112b9ebdd8f8bb4ca46268d76eba01f9de4382ce6df29daa73c2738ff746c"
+      }
+    }
+  },
+  "labcorp:007069": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/007069/common-alloy-elements-profile",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 7.5 mL.",
+        "sourceSha256": "b6634ba943ac614000734e62eb87e2d2fef1a0ba43935a3e2443680f179f9f76"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "b6634ba943ac614000734e62eb87e2d2fef1a0ba43935a3e2443680f179f9f76"
+      }
+    }
+  },
+  "labcorp:007154": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/007154/tobramycin-serum-peak",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.3 mL.",
+        "sourceSha256": "813d10c897c817534178a3c41f54c81eac6f7b5ba3f408a5ace6621891a40fa9"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "813d10c897c817534178a3c41f54c81eac6f7b5ba3f408a5ace6621891a40fa9"
+      }
+    }
+  },
+  "labcorp:007633": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/007633/lead-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 2.5 mL.",
+        "sourceSha256": "866f56f4f451410e32e8d2d747b064813c912d1a3bc04f8addc6c4170b82961b"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "866f56f4f451410e32e8d2d747b064813c912d1a3bc04f8addc6c4170b82961b"
+      }
+    }
+  },
+  "labcorp:007700": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/007700/glutathione-total",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "6391562b5392e8e392b217a8a3aa0faf97d267d48bbaa55e9a1f76f01fce68ab"
+      }
+    }
+  },
+  "labcorp:007773": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/007773/mercury-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 2.5 mL.",
+        "sourceSha256": "d6c50e33fc7385102fe4460e0da9b61da4a228aba5eee6a42122f5c01efff7ec"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "d6c50e33fc7385102fe4460e0da9b61da4a228aba5eee6a42122f5c01efff7ec"
+      }
+    }
+  },
+  "labcorp:008136": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/008136/fungus-stain",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "206c1e5fcc324a370e75c9d147ab90603374c6e6690ad5d0c67936cd316dbe0c"
+      }
+    }
+  },
+  "labcorp:008144": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/008144/stool-culture",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "791d47a753ee1a690f668c93c9b9b84e0edcdbec69375c1b065b9ced56a3a01e"
+      }
+    }
+  },
+  "labcorp:008169": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/008169/b-hemolytic-streptococcus-culture-group-a-only",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "fc31182e4c0af5561b6078d03b249b9f13e728833b97b463ba05686d0ba19038"
+      }
+    }
+  },
+  "labcorp:008219": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/008219/parasite-identification-worm",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "687affb96ac44182a64adbe8e699f50e33d65523654b8d03775d834d50899a1b"
+      }
+    }
+  },
+  "labcorp:008250": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/008250/herpes-simplex-virus-hsv-culture-and-typing",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "5f3a5ef9a93d0e00c18b434730547de415a6eee7a27280d36fd280432ef84d04"
+      }
+    }
+  },
+  "labcorp:008300": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/008300/blood-culture-routine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "74913f70ee4d0cdc0b05b67bdaae050132a3765d9d5ca085d8a3b98540557c8a"
+      }
+    }
+  },
+  "labcorp:008342": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/008342/upper-respiratory-culture-routine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "40e4c10588d0a7ae4b5bf9518b12786429d1c94b2f82945dc118fa74d0bee841"
+      }
+    }
+  },
+  "labcorp:008540": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/008540/gram-stain",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "a98fbb9cb4fbf0d9329759d325ffc3962e69faf79584d128721c2c224ee1a65c"
+      }
+    }
+  },
+  "labcorp:008623": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/008623/ova-and-parasites-examination",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "8ef53865a55dc50ab7357d1bc8d2f25d0fcc7e97d59d8ea39876f6ec539af01c"
+      }
+    }
+  },
+  "labcorp:008629": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/008629/ova-and-parasites-examination-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 3 mL.",
+        "sourceSha256": "39a5b502c23422a8182c45be450dcf843cdd298f4c032b5e30974d02ef9ba06e"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "39a5b502c23422a8182c45be450dcf843cdd298f4c032b5e30974d02ef9ba06e"
+      }
+    }
+  },
+  "labcorp:008631": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/008631/pinworm-preparation",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "8b9127655fb0bf59c231c2a75643de1dd3c01ac07c48280e683b5886d0fe382b"
+      }
+    }
+  },
+  "labcorp:008649": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/008649/aerobic-bacterial-culture-general",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "62dbc79af4afb2d9f6f8c86d88106aa0f7e9f03d2b573881ff7c833e41e1698a"
+      }
+    }
+  },
+  "labcorp:008656": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/008656/white-blood-cells-wbc-stool",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "a563fe41eb0731919c9ba152a13c00a217f9f3fca584bca44fcbfc1de29047d9"
+      }
+    }
+  },
+  "labcorp:008851": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/008851/urine-culture-prenatal-with-group-b-streptococcus-susceptibility-reflex",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "1a040c0a4bb133ac4b51bd13b0c41133c6893fff0ec1851db7e4a1b8003158fd"
+      }
+    }
+  },
+  "labcorp:010173": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/010173/b2-microglobulin-urine",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "f177c06f04b88587d2b6389cbca887800dce13232b5c983c45c00fa8c744ad82"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
+        "sourceSha256": "f177c06f04b88587d2b6389cbca887800dce13232b5c983c45c00fa8c744ad82"
+      }
+    }
+  },
+  "labcorp:010180": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/010180/zinc-protoporphyrin-zpp-workplace",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 7 mL.",
+        "sourceSha256": "fff33da67427d1844f56db77c1757711bfe335a26e3b1d4077ea9dd0fb1ace4e"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.2 mL.",
+        "sourceSha256": "fff33da67427d1844f56db77c1757711bfe335a26e3b1d4077ea9dd0fb1ace4e"
+      }
+    }
+  },
+  "labcorp:010447": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/010447/antidiuretic-hormone-adh-plasma",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 2 mL.",
+        "sourceSha256": "d0adb876d39da1ffcf865f98b7b397294302e8f7d7ac45b0378e2caba01fb8be"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Frozen.",
+        "sourceSha256": "d0adb876d39da1ffcf865f98b7b397294302e8f7d7ac45b0378e2caba01fb8be"
+      }
+    }
+  },
+  "labcorp:010505": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/010505/copeptin",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: transportTemperature. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.5 mL.",
+        "sourceSha256": "816a23e40359129d779e5f079e55f46e59011090faec2aa61cae11202731da6f"
+      },
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 0.3 mL.",
+        "sourceSha256": "816a23e40359129d779e5f079e55f46e59011090faec2aa61cae11202731da6f"
+      }
+    }
+  },
+  "labcorp:010991": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/010991/ph-stool",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "f6c3bc52e18100d30a0d39254e9f8cb01febb088f550dba0b5367f36c8b0c9a4"
+      }
+    }
+  },
+  "labcorp:011254": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/011254/ph-body-fluid",
+    "date": "2026-11-26",
+    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "fields": {
+      "minimumVolume": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "sourceSha256": "3b46a9c750e59f506da76d6db17268d16330d30777dacb95fceda4861b8b21d2"
+      },
+      "transportTemperature": {
+        "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
+        "sourceSha256": "3b46a9c750e59f506da76d6db17268d16330d30777dacb95fceda4861b8b21d2"
+      }
+    }
   }
 }

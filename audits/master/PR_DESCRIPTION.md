@@ -13,4 +13,6 @@
 
 - Reconcile 171 additional Labcorp records with 513 existing exact-page field matches and matching source capture hashes. These are partial evidence only; no new vendor retrieval or clinical record changes. Add duplicate and identity checks for published search indexes and a targeted regression test.
 
-The clinical evidence ledger now covers 331 catalog records. The clinical audit remains open for complete exact-code evidence, CA/NV/NY/FL receiving-lab acceptance, and term- and assay-level verification of crosswalk relationships. See the audit report and flag register for the exact remaining work.
+- Reconcile the remaining 111 previously unlisted Labcorp orders for 165 exact-capture field matches. Unmatched fields remain open. Quest 8477 uses the clinic's exact Transport Tube stock label, retaining dedicated gray-top plasma handling; update integration assertions for the explicit naming instruction.
+
+The clinical evidence ledger now covers 442 catalog records. The clinical audit remains open for complete exact-code evidence, CA/NV/NY/FL receiving-lab acceptance, and term- and assay-level verification of crosswalk relationships. See the audit report and flag register for the exact remaining work.

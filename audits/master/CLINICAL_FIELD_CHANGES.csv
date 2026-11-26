@@ -5,6 +5,7 @@ lab,code,key,fields,previousStatus,status
 "quest","18216","18216|quest-verified-unusable-audit-next100b-20261116-18216","specialInstructions","active","active"
 "quest","18634","18634|quest-18634-verified-20261027","specimenType; transportTemperatureRaw; stability; preferredVolume; minimumVolume; specialInstructions; additionalDrawRequirements","active","active"
 "quest","37386","37386|seed-149","stability","active","active"
+"quest","8477","8477|quest-8477-20261018-stat","transportContainer","active","active"
 "quest","91475","91475|quest-91475-20260915","minimumVolume","active","active"
 "quest","91477","91477|quest-91477-20260915","minimumVolume; specialInstructions","active","active"
 "labcorp","001487","001487|labcorp-001487","transportTemperature; transportTemperatureRaw; stability; specialInstructions","active","active"
