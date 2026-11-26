@@ -8522,5 +8522,444 @@
         "evidence": "Preservative and collection requirements vary by ordered test."
       }
     }
+  },
+  "quest:285": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/285/bilirubin-direct?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Normalized selected draw, transfer, quantities and temperature agree with exact directory. Stability source captured, but stored text not independently compared. Alternative heparin-plasma route is not enabled automatically.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Serum"
+      },
+      "drawContainer": {
+        "evidence": "SST accepted; current gold SST route compatible."
+      },
+      "transportContainer": {
+        "evidence": "Amber plastic screw-cap vial or foil-wrapped spun SST accepted; existing amber route retained."
+      },
+      "preferredVolume": {
+        "evidence": "1 mL light-protected serum"
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature"
+      },
+      "spin": {
+        "evidence": "Separate serum and protect from light; avoid hemolysis."
+      },
+      "stability": {
+        "evidence": "Light-protected: 24 h ambient, 72 h refrigerated, 90 d frozen."
+      }
+    }
+  },
+  "quest:287": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/287/bilirubin-total?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Normalized selected draw, transfer, quantities and temperature agree with exact directory. Stability source captured, but stored text not independently compared. Alternative heparin-plasma route is not enabled automatically.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Serum"
+      },
+      "drawContainer": {
+        "evidence": "SST accepted; current gold SST route compatible."
+      },
+      "transportContainer": {
+        "evidence": "Amber plastic screw-cap vial or foil-wrapped spun SST accepted; existing amber route retained."
+      },
+      "preferredVolume": {
+        "evidence": "1 mL light-protected serum"
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature"
+      },
+      "spin": {
+        "evidence": "Separate serum and protect from light; avoid hemolysis."
+      },
+      "stability": {
+        "evidence": "Light-protected: 72 h ambient, 72 h refrigerated, 90 d frozen."
+      }
+    }
+  },
+  "quest:733": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/733/potassium-serum?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Normalized original-SST serum route, volumes and temperature match. Do not substitute plasma code 11014. Stability recorded from source only.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Serum; plasma rejected for this code."
+      },
+      "drawContainer": {
+        "evidence": "SST"
+      },
+      "transportContainer": {
+        "evidence": "Original spun SST"
+      },
+      "preferredVolume": {
+        "evidence": "1 mL"
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature"
+      },
+      "spin": {
+        "evidence": "Separate from cells promptly after clot formation."
+      },
+      "stability": {
+        "evidence": "7 d ambient or refrigerated, 28 d frozen."
+      }
+    }
+  },
+  "quest:723": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/723/platelet-count-edta?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Current normalized standard adult route agrees. Do not infer automatic pediatric or tan-top substitution. Stability source captured; runtime text and regional availability remain open.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Whole blood"
+      },
+      "drawContainer": {
+        "evidence": "Full lavender EDTA tube"
+      },
+      "transportContainer": {
+        "evidence": "Original EDTA tube"
+      },
+      "preferredVolume": {
+        "evidence": "Full tube"
+      },
+      "minimumVolume": {
+        "evidence": "1 mL adult tube; 0.5 mL Microtainer option"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature"
+      },
+      "spin": {
+        "evidence": "Do not centrifuge; avoid refrigeration."
+      },
+      "stability": {
+        "evidence": "48 h ambient."
+      }
+    }
+  },
+  "quest:32499": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/32499/cbc-platelet-count-rdw-and-differential-refl?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Current normalized standard adult route agrees. Do not infer automatic pediatric or tan-top substitution. Stability source captured; runtime text and regional availability remain open.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Whole blood"
+      },
+      "drawContainer": {
+        "evidence": "Full lavender EDTA tube"
+      },
+      "transportContainer": {
+        "evidence": "Original EDTA tube"
+      },
+      "preferredVolume": {
+        "evidence": "Full tube"
+      },
+      "minimumVolume": {
+        "evidence": "1 mL adult tube; 0.5 mL Microtainer option"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature"
+      },
+      "spin": {
+        "evidence": "Do not centrifuge; avoid refrigeration."
+      },
+      "stability": {
+        "evidence": "48 h ambient."
+      }
+    }
+  },
+  "quest:7048": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/7048/urinalysis-screen?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Existing normalized preserved swirl route compatible; do not treat unpreserved route as interchangeable or use UA tube for culture. Stored stability text and receiving account remain open.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Urine"
+      },
+      "drawContainer": {
+        "evidence": "Collect midstream; existing sterile collection cup."
+      },
+      "transportContainer": {
+        "evidence": "Vendor accepts yellow/red swirl preservative tube as alternative to yellow-top blue-line UA tube; existing swirl selection retained."
+      },
+      "preferredVolume": {
+        "evidence": "10 mL preserved urine"
+      },
+      "minimumVolume": {
+        "evidence": "3 mL preserved; separate unpreserved route has 1 mL minimum."
+      },
+      "transportTemperature": {
+        "evidence": "Preserved ambient; unpreserved refrigerated."
+      },
+      "spin": {
+        "evidence": "No spin for routine submission."
+      },
+      "stability": {
+        "evidence": "Preserved 72 h ambient/refrigerated; unpreserved refrigerated 24 h; no frozen route."
+      }
+    }
+  },
+  "quest:8563": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/8563/urinalysis-microscopic?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Existing normalized preserved swirl route compatible; do not treat unpreserved route as interchangeable or use UA tube for culture. Stored stability text and receiving account remain open.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Urine"
+      },
+      "drawContainer": {
+        "evidence": "Collect midstream; existing sterile collection cup."
+      },
+      "transportContainer": {
+        "evidence": "Vendor accepts yellow/red swirl preservative tube as alternative to yellow-top blue-line UA tube; existing swirl selection retained."
+      },
+      "preferredVolume": {
+        "evidence": "10 mL preserved urine"
+      },
+      "minimumVolume": {
+        "evidence": "3 mL preserved; separate unpreserved route has 1 mL minimum."
+      },
+      "transportTemperature": {
+        "evidence": "Preserved ambient; unpreserved refrigerated."
+      },
+      "spin": {
+        "evidence": "No spin for routine submission."
+      },
+      "stability": {
+        "evidence": "Preserved 72 h ambient/refrigerated; unpreserved refrigerated 24 h; no frozen route."
+      }
+    }
+  },
+  "quest:8347": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/8347/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Normalized selected cup, volumes and ambient shipment agree; no change to the established stock label. Source stability recorded, stored text and regional acceptance still open.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Random urine without preservative"
+      },
+      "drawContainer": {
+        "evidence": "Plastic urine cup; clinic Sterile cup mapping retained."
+      },
+      "transportContainer": {
+        "evidence": "Plastic urine container, original cup"
+      },
+      "preferredVolume": {
+        "evidence": "10 mL"
+      },
+      "minimumVolume": {
+        "evidence": "2 mL"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature"
+      },
+      "stability": {
+        "evidence": "7 d ambient/refrigerated, 28 d frozen"
+      }
+    }
+  },
+  "quest:14522": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/14522/sodium-random-urine-without-creatinine?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Normalized selected cup, volumes and ambient shipment agree; no change to the established stock label. Source stability recorded, stored text and regional acceptance still open.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Random urine without preservative"
+      },
+      "drawContainer": {
+        "evidence": "Plastic urine cup; clinic Sterile cup mapping retained."
+      },
+      "transportContainer": {
+        "evidence": "Plastic urine container, original cup"
+      },
+      "preferredVolume": {
+        "evidence": "10 mL"
+      },
+      "minimumVolume": {
+        "evidence": "2 mL"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature"
+      },
+      "stability": {
+        "evidence": "14 d ambient/refrigerated, 60 d frozen"
+      }
+    }
+  },
+  "quest:14523": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/14523/urine-protein-total-random-without-creatinine?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Normalized selected cup, volumes and ambient shipment agree; no change to the established stock label. Source stability recorded, stored text and regional acceptance still open.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Random urine without preservative"
+      },
+      "drawContainer": {
+        "evidence": "Plastic urine cup; clinic Sterile cup mapping retained."
+      },
+      "transportContainer": {
+        "evidence": "Plastic urine container, original cup"
+      },
+      "preferredVolume": {
+        "evidence": "10 mL"
+      },
+      "minimumVolume": {
+        "evidence": "2 mL"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature"
+      },
+      "stability": {
+        "evidence": "4 d ambient, 5 d refrigerated, 30 d frozen"
+      }
+    }
+  },
+  "quest:14578": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/14578/calcium-random-urine-without-creatinine?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Current normalized refrigerated unpreserved route supported. Do not enable acid route. Stability applicability and regional confirmation open.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Random urine, unpreserved alternative"
+      },
+      "drawContainer": {
+        "evidence": "Plastic screw-cap container, no acid for selected alternative."
+      },
+      "transportContainer": {
+        "evidence": "Plastic urine container; clinic Sterile cup label retained."
+      },
+      "preferredVolume": {
+        "evidence": "10 mL"
+      },
+      "minimumVolume": {
+        "evidence": "2 mL"
+      },
+      "transportTemperature": {
+        "evidence": "Unpreserved: refrigerated; preserved: ambient."
+      },
+      "specialInstructions": {
+        "evidence": "Directory expressly accepts unpreserved urine as an alternative to HCl-preserved collection."
+      },
+      "stability": {
+        "evidence": "Published general table: ambient 5 d, refrigerated 5 weeks, frozen 6 months; clarify applicability by preservative."
+      }
+    }
+  },
+  "quest:719": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/719/phosphate-24-hour-urine-with-creatinine?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Existing normalized unpreserved refrigerated route supported; acid route remains excluded. Stability and detailed instruction text require comparison.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Timed 24-hour urine, unpreserved alternate"
+      },
+      "drawContainer": {
+        "evidence": "Unpreserved timed collection jug; keep cold during and after collection."
+      },
+      "transportContainer": {
+        "evidence": "Plastic urine aliquot container; clinic Sterile cup label retained."
+      },
+      "preferredVolume": {
+        "evidence": "10 mL"
+      },
+      "minimumVolume": {
+        "evidence": "2 mL"
+      },
+      "transportTemperature": {
+        "evidence": "Unpreserved refrigerated; preserved ambient."
+      },
+      "specialInstructions": {
+        "evidence": "Record total volume and duration; no acid for selected alternate."
+      },
+      "stability": {
+        "evidence": "Unpreserved: 48 h ambient stability, 7 d refrigerated, 28 d frozen; transport refrigerated."
+      }
+    }
+  },
+  "quest:838": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/838/sodium-24-hour-urine-with-creatinine?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Current normalized no-preservative route and quantities agree; do not enable acid alternatives.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Timed 24-hour unpreserved urine"
+      },
+      "drawContainer": {
+        "evidence": "No-preservative collection jug"
+      },
+      "transportContainer": {
+        "evidence": "Plastic urine aliquot container; clinic Sterile cup label retained."
+      },
+      "preferredVolume": {
+        "evidence": "10 mL"
+      },
+      "minimumVolume": {
+        "evidence": "2 mL"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature"
+      },
+      "specialInstructions": {
+        "evidence": "Record total collection volume and duration."
+      },
+      "stability": {
+        "evidence": "7 d ambient/refrigerated, 28 d frozen."
+      }
+    }
+  },
+  "quest:37091": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/37091/creatine-serum?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Current normalized route, volumes, spin and shipment match. Stability text and regional acceptance remain open.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Serum"
+      },
+      "drawContainer": {
+        "evidence": "Plain red top without gel"
+      },
+      "transportContainer": {
+        "evidence": "Transport Tube"
+      },
+      "preferredVolume": {
+        "evidence": "2 mL"
+      },
+      "minimumVolume": {
+        "evidence": "1 mL"
+      },
+      "transportTemperature": {
+        "evidence": "Frozen"
+      },
+      "spin": {
+        "evidence": "Separate serum, transfer and freeze."
+      },
+      "stability": {
+        "evidence": "4 h ambient, 24 h refrigerated, 30 d frozen."
+      }
+    }
   }
 }

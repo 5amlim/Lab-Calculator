@@ -11,11 +11,11 @@
     "labcorp": 0
   },
   "reviewedOrAttempted": {
-    "quest": 70,
+    "quest": 84,
     "labcorp": 424
   },
   "notYetReviewed": {
-    "quest": 3759,
+    "quest": 3745,
     "labcorp": 6177
   },
   "recordStatusSource": "FIELD_EVIDENCE.json. Every catalog row without a key has status Not yet reviewed.",
@@ -513,7 +513,21 @@
     "labcorp:138677",
     "labcorp:180800",
     "labcorp:015602",
-    "quest:XXX"
+    "quest:XXX",
+    "quest:285",
+    "quest:287",
+    "quest:733",
+    "quest:723",
+    "quest:32499",
+    "quest:7048",
+    "quest:8563",
+    "quest:8347",
+    "quest:14522",
+    "quest:14523",
+    "quest:14578",
+    "quest:719",
+    "quest:838",
+    "quest:37091"
   ],
   "inventoryCommand": "node scripts/audit-calculator-database.mjs --out ../calculator-current-report --check",
   "continueFrom": "Enumerate TEST_INVENTORY.csv where verification is Not yet reviewed, keeping laboratory and exact test code as strings. Use the appropriate service-area evidence and review every applicable route before marking a record fully verified.",
@@ -772,6 +786,27 @@
         "source": "Clinic Lab Supervisor confirmation",
         "scope": "Quest 229 only"
       }
+    },
+    "routineQuestBulkComparison": {
+      "date": "2026-11-26",
+      "codes": [
+        "285",
+        "287",
+        "733",
+        "723",
+        "32499",
+        "7048",
+        "8563",
+        "8347",
+        "14522",
+        "14523",
+        "14578",
+        "719",
+        "838",
+        "37091"
+      ],
+      "scope": "Exact vendor fields compared to normalized CI route outputs; stability captured but stored text and regional acceptance remain open.",
+      "runtimeChanges": 0
     }
   }
 }
