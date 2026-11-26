@@ -23,7 +23,12 @@ for(const [code,reason] of codes){
   assert.match(code,/^\d{6}$/);
   const actual=apply({testCode:code,testName:'Review sample',specimenType:'Unverified',status:'pending'});
   assert.equal(actual.status,'blocked',code);
-  assert.equal(actual.specialInstructions,reason,code);
+  if (code === '483496') {
+    assert.match(actual.specialInstructions, /September 2026.*898017/);
+    assert(actual.specialInstructions.endsWith(reason));
+  } else {
+    assert.equal(actual.specialInstructions,reason,code);
+  }
 }
 const csv=readFileSync(resolve(root,'audits/labcorp-remaining-review-20261121.csv'),'utf8');
 function parseCsv(s){let rows=[],row=[],field='',inside=false;for(let i=0;i<s.length;i++){let c=s[i];if(inside){if(c==='"'){if(s[i+1]==='"'){field+='"';i++}else inside=false}else field+=c}else if(c==='"')inside=true;else if(c===','){row.push(field);field=''}else if(c==='\n'){row.push(field.replace(/\r$/,''));rows.push(row);row=[];field=''}else field+=c}if(row.length||field){row.push(field);rows.push(row)}return rows}
