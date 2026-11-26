@@ -191,3 +191,52 @@
     opacity: 1;
   }
 }
+
+
+/* Sliding selected surface, shared by Find/Convert and collection toggles. */
+@media screen {
+  .calc-toggle-positioned { position: relative; isolation: isolate; }
+  .calc-sliding-toggle::before {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    left: 0;
+    top: 0;
+    width: var(--calc-toggle-w);
+    height: var(--calc-toggle-h);
+    transform: translate(var(--calc-toggle-x), var(--calc-toggle-y));
+    box-sizing: border-box;
+    border-radius: 9px;
+    background: #fff;
+    border: 1px solid #d2dfe4;
+    box-shadow: 0 1px 4px rgba(14, 45, 65, .11);
+  }
+  .sst-mode-toggle.calc-sliding-toggle::before {
+    border-radius: 999px;
+    background: #e4ecef;
+    border-color: #c5d3d8;
+    box-shadow: none;
+  }
+  .calc-sliding-toggle > button {
+    position: relative;
+    z-index: 1;
+    transition: color 160ms ease, background-color 160ms ease;
+  }
+  .calc-sliding-toggle > button:is(.is-active, .is-selected, [aria-selected="true"], [aria-pressed="true"]) {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+  }
+  .calc-sliding-toggle > button:active { scale: 1; }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .calc-sliding-toggle-ready::before {
+    transition: transform 320ms cubic-bezier(.25,.8,.25,1),
+                width 320ms cubic-bezier(.25,.8,.25,1),
+                height 320ms cubic-bezier(.25,.8,.25,1);
+  }
+}
+@media screen and (prefers-reduced-motion: reduce) {
+  .calc-sliding-toggle > button { transition: none; }
+}
