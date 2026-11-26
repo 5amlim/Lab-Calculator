@@ -1,0 +1,172 @@
+{
+  "labs": {
+    "quest": {
+      "total": 3829,
+      "rawLoaded": 3829,
+      "indexed": 3314,
+      "statuses": {
+        "active": 3315,
+        "blocked": 514
+      },
+      "verification": {
+        "Clinical conflict": 1,
+        "Not yet reviewed": 3817,
+        "Partially verified": 7,
+        "Source inaccessible": 4
+      }
+    },
+    "labcorp": {
+      "total": 6601,
+      "rawLoaded": 6601,
+      "indexed": 6014,
+      "statuses": {
+        "active": 6014,
+        "blocked": 456,
+        "pending": 131
+      },
+      "verification": {
+        "Clinical conflict": 1,
+        "Not yet reviewed": 6595,
+        "Official information unavailable": 1,
+        "Partially verified": 4
+      }
+    }
+  },
+  "crosswalk": {
+    "candidatePairs": 1456,
+    "questCodesWithCandidate": 1456,
+    "labcorpCodesWithCandidate": 1396,
+    "relationshipRows": 2258,
+    "activeReviewPairs": 800,
+    "unmatchedQuestRows": 1227,
+    "representedQuestCodes": 3314
+  },
+  "changes": {
+    "quest": {
+      "added": [],
+      "removed": [],
+      "modified": [
+        "10676|quest-tc-20261125-10676"
+      ],
+      "verificationChanged": [
+        "10676|quest-tc-20261125-10676",
+        "1430|quest-official-1430-20261114",
+        "16802|seed-109",
+        "229|quest-official-229-20261114",
+        "34329|seed-130",
+        "34499|seed-134",
+        "39749|seed-153",
+        "467|seed-21",
+        "6447|seed-72",
+        "8280|quest-official-8280-20261114",
+        "8477|quest-8477-20261018-stat",
+        "937|quest-937-20260915"
+      ]
+    },
+    "labcorp": {
+      "added": [],
+      "removed": [],
+      "modified": [
+        "501533|labcorp-501533"
+      ],
+      "verificationChanged": [
+        "005215|labcorp-005215",
+        "028142|labcorp-028142",
+        "102525|labcorp-102525",
+        "164798|labcorp-164798",
+        "310|labcorp-verified-20261120-next-310",
+        "501533|labcorp-501533"
+      ]
+    },
+    "relations": {
+      "added": [
+        "active|937|028142|"
+      ],
+      "removed": [],
+      "modified": [
+        "active|16802|102525|"
+      ]
+    },
+    "rules": {
+      "added": [
+        "gold-tiger-sst",
+        "sst-minimum-floor",
+        "blood-pool-target",
+        "timed-no-pooling",
+        "specimen-transfer-spin",
+        "transport-display",
+        "specimen-specific-stock",
+        "gray-plasma-routing",
+        "quest-timed-urine",
+        "unsupported-workflows",
+        "quest-92717-hold",
+        "labcorp-501533-hold",
+        "regional-tat",
+        "search-code-and-aliases",
+        "print-separate-physical-routes",
+        "crosswalk-review-only"
+      ],
+      "removed": [],
+      "modified": []
+    }
+  },
+  "findings": [
+    {
+      "severity": "warning",
+      "issue": "temperature-needs-review",
+      "lab": "quest",
+      "key": "34329|seed-130|0",
+      "detail": "Not specified"
+    },
+    {
+      "severity": "warning",
+      "issue": "temperature-needs-review",
+      "lab": "quest",
+      "key": "34499|seed-134|0",
+      "detail": "Not specified"
+    },
+    {
+      "severity": "warning",
+      "issue": "temperature-needs-review",
+      "lab": "quest",
+      "key": "39749|seed-153|0",
+      "detail": "Not specified"
+    },
+    {
+      "severity": "warning",
+      "issue": "temperature-needs-review",
+      "lab": "quest",
+      "key": "6447|seed-72|0",
+      "detail": "Not specified"
+    },
+    {
+      "severity": "warning",
+      "issue": "temperature-needs-review",
+      "lab": "quest",
+      "key": "XXX|seed-245|0",
+      "detail": "Not specified"
+    },
+    {
+      "severity": "warning",
+      "issue": "temperature-needs-review",
+      "lab": "labcorp",
+      "key": "164798|labcorp-164798|0",
+      "detail": "Not specified"
+    }
+  ],
+  "tests": {
+    "passed": 457,
+    "failed": 0,
+    "skipped": 0
+  },
+  "officialVerificationComplete": false,
+  "newTestsAdded": 0,
+  "verifiedResultLoincMappings": {
+    "quest": 1,
+    "labcorp": 2
+  },
+  "verifiedOrderLoincMappings": {
+    "quest": 0,
+    "labcorp": 0
+  }
+}
