@@ -103,6 +103,9 @@
       },
       "transportTemperature": {
         "evidence": "Room-temperature transport does not cancel refrigeration during collection."
+      },
+      "panelComponents": {
+        "evidence": "Quest expressly includes creatinine. Review the panel scope when converting to an order that lists only aldosterone."
       }
     }
   },
@@ -293,20 +296,202 @@
     "url": "https://testdirectory.questdiagnostics.com/test/test-detail/34499/?cc=MASTER",
     "date": "2026-11-25",
     "note": "Historical Quest publication confirms code and name but does not establish current service-area route.",
-    "fields": {}
+    "fields": {},
+    "additionalSources": [
+      "https://intellitestmanager.questdiagnostics.com/home/output/206663"
+    ]
   },
   "quest:39749": {
-    "status": "Source inaccessible",
-    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/39749/?cc=MASTER",
+    "status": "Discontinued",
+    "url": "https://intellitestmanager.questdiagnostics.com/home/output/300102",
     "date": "2026-11-25",
-    "note": "2023 change notice names the performing site at that time; current exact-code requirements could not be retrieved.",
-    "fields": {}
+    "note": "Quest discontinued the IgG nucleocapsid order on June 15, 2026. Its recommended alternative 39820 measures total spike antibody. Confirm intended target before any new order.",
+    "fields": {
+      "status": {
+        "evidence": "Blocked for collection and removed from active search and conversion. Retained for historical lookup."
+      },
+      "specialInstructions": {
+        "evidence": "Explains the vendor discontinuation and the antibody-target difference."
+      }
+    },
+    "hold": true,
+    "replacementIdentified": "39820",
+    "effectiveDate": "2026-06-15"
   },
   "quest:6447": {
     "status": "Source inaccessible",
     "url": "https://testdirectory.questdiagnostics.com/test/test-detail/6447/?cc=MASTER",
     "date": "2026-11-25",
-    "note": "Historical Quest test menu names this code; the exact-code page returned a browser notice.",
+    "note": "Historical vendor notices identify 6447 and a performing-site change. The current exact-code page returned a browser notice. Regional acceptance and shipping remain unverified.",
     "fields": {}
+  },
+  "quest:18634": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/18634/cognitive-assessment-panel-with-reflex-to-t4-free?cc=MASTER",
+    "date": "2026-11-25",
+    "note": "Current MASTER specimen requirements reviewed. Exact regional availability, schedule and result mapping require service-area evidence.",
+    "fields": {
+      "specimenType": {
+        "evidence": "The primary homocysteine collection contributes one serum aliquot. The other serum and the original EDTA whole blood are independent routes.",
+        "reviewedValueSha256": "d43afdd9f53d76d3b981fe88c9d87328d753589b3c745b63b600ad1b8dc72abe"
+      },
+      "preferredVolume": {
+        "evidence": "Quest publishes 9.7 mL serum total, spread across four transport tubes, with a full EDTA tube. The total is recorded in the instructions to avoid assigning it entirely to the red-top route.",
+        "reviewedValueSha256": "dff2d25e5563a03b4eb7c295c777a21b4fa5a5d5edb79148ba223464e5e280ea"
+      },
+      "minimumVolume": {
+        "evidence": "Quest publishes a combined serum minimum of 4.8 mL and a whole-blood minimum of 1.5 mL. It does not assign the combined serum minimum to one vial.",
+        "reviewedValueSha256": "27f20862ad97d1ba379a55f1630badc13f591a8f80586c3a40b34e58d1771363"
+      },
+      "transportTemperatureRaw": {
+        "evidence": "Serum ships on cold packs. The original EDTA tube ships at room temperature.",
+        "reviewedValueSha256": "1b45a01323e2fc5155536a9d9ae012bfd0483ba58a8e8eb1ade8909f5b00e2da"
+      },
+      "stability": {
+        "evidence": "Serum is reported stable for 36 h at room temperature or 72 h refrigerated. Frozen is unacceptable. EDTA stability is tracked separately from shipping temperature.",
+        "reviewedValueSha256": "b134a2bd29d8c08f4a42073e304c715ad0565f4705dc09663882dd52b3a79ff9"
+      },
+      "specialInstructions": {
+        "evidence": "Quest separates the chilled homocysteine route from the three SST draws and original EDTA route. The calculator now spells out the combined serum volume without applying it as a single draw requirement.",
+        "reviewedValueSha256": "8e5ecf3bc5ede4ae1bedd05d899f8748325763c1f619be6bc4ecc78bbb5a0ece"
+      },
+      "additionalDrawRequirements": {
+        "evidence": "Add three SST draws and three separate serum aliquots for the remaining serum assays. Submit one separate original lavender EDTA tube at room temperature.",
+        "reviewedValueSha256": "52fc6addb116838c5c3e3cfb41615e25251fc4e934690726af81d7415dd230ab"
+      }
+    }
+  },
+  "quest:18216": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/18216/multiple-sclerosis-ms-differential-evaluation-with-reflexes?cc=MASTER&p=r",
+    "date": "2026-11-25",
+    "note": "MASTER specimen requirements reviewed. Confirm receiving site and vial capacity. Exact regional setup and reflex reference table remain open.",
+    "fields": {
+      "collectionCount": {
+        "evidence": "Nine plain red-top tubes are explicitly specified."
+      },
+      "submissionCount": {
+        "evidence": "Quest names plastic screw-cap vial(s) and gives no fixed vial count. Three remains a calculator planning estimate subject to actual vial capacity."
+      },
+      "preferredVolume": {
+        "evidence": "11 mL pooled serum volume across the source collection."
+      },
+      "minimumVolume": {
+        "evidence": "4.7 mL serum."
+      },
+      "specialInstructions": {
+        "evidence": "Distinguishes the calculator estimate from the directory requirement. Reiterates separate source tubes, centrifugation, labeled serum vials and refrigerated shipment.",
+        "reviewedValueSha256": "1bd2f0db579ce0085f6f4b5fb22304a194899bdc53763b0e51fba2dff9cbc607"
+      },
+      "transportTemperature": {
+        "evidence": "Refrigerated with cold packs, room-temperature shipment excluded."
+      }
+    }
+  },
+  "quest:39820": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/39820/sars-cov-2-total-antibody-spike-semi-quantitative?cc=MASTER",
+    "date": "2026-11-25",
+    "note": "Active MASTER listing reviewed. Does not measure the same target as the retired 39749.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Serum."
+      },
+      "preferredVolume": {
+        "evidence": "1 mL serum."
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL serum."
+      },
+      "transportContainer": {
+        "evidence": "Transport tube."
+      },
+      "transportTemperature": {
+        "evidence": "Refrigerated with cold packs."
+      },
+      "stability": {
+        "evidence": "72 h at room temperature, 7 days refrigerated, 28 days frozen."
+      }
+    }
+  },
+  "labcorp:123075": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/123075/multiple-sclerosis-ms-profile",
+    "date": "2026-11-25",
+    "note": "Public Labcorp specification reviewed. The shared subject of multiple sclerosis does not establish a match to Quest 18216.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Paired serum and CSF from the same collection time."
+      },
+      "preferredVolume": {
+        "evidence": "2 mL serum and 1.5 mL CSF."
+      },
+      "minimumVolume": {
+        "evidence": "0.8 mL serum and 0.6 mL CSF."
+      },
+      "transportContainer": {
+        "evidence": "Separate transport tubes."
+      },
+      "transportTemperature": {
+        "evidence": "Room-temperature storage."
+      },
+      "panelComponents": {
+        "evidence": "Includes oligoclonal banding and CSF IgG-related measurements."
+      },
+      "loincResult": {
+        "evidence": "Five results have published mappings. Order LOINC is blank."
+      }
+    }
+  },
+  "labcorp:004291": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/004291/aldosterone-24-hour-urine",
+    "date": "2026-11-25",
+    "note": "Public listing describes urine aldosterone and does not list creatinine as a result of this order.",
+    "fields": {
+      "specimenType": {
+        "evidence": "24-hour urine, no preservative, pH 4 to 8."
+      },
+      "preferredVolume": {
+        "evidence": "10 mL."
+      },
+      "minimumVolume": {
+        "evidence": "1 mL."
+      },
+      "turnaroundTime": {
+        "evidence": "4–9 days from specimen pickup."
+      },
+      "methodology": {
+        "evidence": "LC-MS/MS."
+      },
+      "panelComponents": {
+        "evidence": "Urine aldosterone. Creatinine is not listed."
+      }
+    }
+  },
+  "labcorp:164090": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/164090/sars-cov-2-semi-quantitative-total-antibody-spike",
+    "date": "2026-11-25",
+    "note": "Public Labcorp order and result table reviewed. Use lab-specific collection instructions.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Serum or plasma publicly accepted. Calculator uses one supported serum route."
+      },
+      "stability": {
+        "evidence": "14 days each at room temperature or refrigerated, 28 days frozen and three freeze/thaw cycles.",
+        "reviewedValueSha256": "a8f11448d37622609493219a3666b5d3f40e72f5b148310fe2129e521ec65e72"
+      },
+      "specialInstructions": {
+        "evidence": "Labcorp lists room-temperature storage, gross hemolysis and visible microbial contamination rejection.",
+        "reviewedValueSha256": "10bf3b79e3bdc04a378d06d7012a5dade7cb10f2f18ccf4725e25cc0f2148b8a"
+      },
+      "loincOrder": {
+        "evidence": "Order 164090 maps to 94769-7."
+      },
+      "loincResult": {
+        "evidence": "Result 164091 maps to 94769-7 and result 164092 maps to 94661-6."
+      }
+    }
   }
 }
