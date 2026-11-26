@@ -38,6 +38,11 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/catalog-health"
           node --test --test-reporter=tap tests/*.test.cjs | tee "$RUNNER_TEMP/catalog-health/tests.tap"
+      - name: Bulk Labcorp client catalog screening
+        if: always()
+        run: |
+          python3 scripts/test-audit-labcorp-bulk-client.py
+          python3 scripts/audit-labcorp-bulk-client.py --routes "$RUNNER_TEMP/catalog-health/SPECIMEN_CONTAINER_ROUTES.csv" --out "$RUNNER_TEMP/catalog-health"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

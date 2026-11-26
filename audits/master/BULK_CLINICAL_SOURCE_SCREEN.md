@@ -1,0 +1,5 @@
+# Bulk clinical source screening
+
+One public client print-catalog retrieval is compared against every active Labcorp exact code. Results are uploaded with the existing integrity workflow. The client listing is not the Sollis account directory. No catalog change, clinical approval, or clinical evidence ledger promotion happens automatically. Complex container choices, multiple required routes, conflicting source rows, and conditional temperatures remain review items. Counts reflect the exact-code source screen only; full clinical verification still requires official detail, receiving-account acceptance and actual route/volume/processing review. Network and parser failures are explicitly reported instead of being counted as success. The local runner can reuse a saved HTML snapshot with --html.
+
+Reports: LABCORP_BULK_CLIENT_SCREEN.json, LABCORP_BULK_CLIENT_SCREEN.csv. Sort possible differences first and confirm on the exact official detail page before making a correction. All current stock names and forced overrides are preserved.
