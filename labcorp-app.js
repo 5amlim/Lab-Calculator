@@ -44,6 +44,12 @@
   });
   const NOVEMBER_2026_LABCORP_NOTICE = 'https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf';
 
+  const MAY_2026_LABCORP_DELETIONS = Object.freeze({
+    '160721': '', '117199': '117330', '096719': '008482', '016824': '',
+    '164000': '', '470115': '', '470074': ''
+  });
+  const MAY_2026_LABCORP_NOTICE = 'https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW5%20-%20Diagnostics%20Update%20May%202026.pdf';
+
   const REVIEWED_DNP_GROUPS_20261121 = [
     { reason: "Requires acid-preserved urine, which the clinic does not collect.", codes: "007351" },
     { reason: "Requires a prepared blood film. The clinic does not prepare slides or smears.", codes: "150201" },
@@ -705,10 +711,13 @@
 
   function applySpecimenExclusions(test) {
     const code = String(test.testCode || '').trim();
-    if (Object.hasOwn(NOVEMBER_2026_LABCORP_DELETIONS, code)) {
-      const alternate = NOVEMBER_2026_LABCORP_DELETIONS[code];
-      return { ...test, status: 'blocked', source: NOVEMBER_2026_LABCORP_NOTICE,
-        specialInstructions: 'Labcorp listed this order as deleted in its November 2026 notice. Do not collect for this code. '
+    const november = Object.hasOwn(NOVEMBER_2026_LABCORP_DELETIONS, code);
+    if (november || Object.hasOwn(MAY_2026_LABCORP_DELETIONS, code)) {
+      const alternate = november ? NOVEMBER_2026_LABCORP_DELETIONS[code] : MAY_2026_LABCORP_DELETIONS[code];
+      const source = november ? NOVEMBER_2026_LABCORP_NOTICE : MAY_2026_LABCORP_NOTICE;
+      const month = november ? 'November' : 'May';
+      return { ...test, status: 'blocked', source,
+        specialInstructions: 'Labcorp listed this order as deleted in its ' + month + ' 2026 notice. Do not collect for this code. '
           + (alternate ? 'Labcorp lists ' + alternate + ' as an alternative. Confirm the requested test and collection requirements before changing the order.'
             : 'Contact Labcorp to confirm testing options.') };
     }
