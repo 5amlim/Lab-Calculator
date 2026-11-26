@@ -7920,5 +7920,32 @@
     "date": "2026-11-26",
     "hold": true,
     "note": "Exact vendor container requirement reviewed against committed active route. Clinic excludes acid-preserved urine systems. Retained active with a collection-review flag; confirm receiving-lab alternative before collection. Prior evidence retained where applicable."
+  },
+  "quest:14263": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/14263/hpv-dna-16-18-other-high-risk-pcr-vaginal-self-collected?cc=MASTER",
+    "date": "2026-11-26",
+    "hold": true,
+    "note": "Exact public directory requires ThinPrep for both listed vaginal self-collection devices. Clinic excludes ThinPrep. Service-area acceptance remains unverified; active code retained on collection review.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "COPAN FLOQSwab 552C.RM or Evalyn Brush, alternatives not simultaneous draws."
+      },
+      "transportContainer": {
+        "evidence": "ThinPrep vial required; ordinary swab transport is not a supported substitute."
+      },
+      "minimumVolume": {
+        "evidence": "1.5 mL"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature"
+      },
+      "stability": {
+        "evidence": "30 days ambient or refrigerated; frozen unacceptable."
+      },
+      "status": {
+        "evidence": "Active with collection-review flag; suppress generated collection/shipment quantities."
+      }
+    }
   }
 }

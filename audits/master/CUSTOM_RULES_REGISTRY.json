@@ -308,6 +308,7 @@
       "003970",
       "004176",
       "016865",
+      "14263",
       "316203"
     ],
     "expectedBehavior": "Preserve scope-specific exclusions for acid-preserved urine, green-label Aptima, InSure, hair, nails, slides and smears, tumor specimens, cytology/Pap/ThinPrep and Streck, including the historical Quest 10676 urine-only exception as separately reviewed.",
@@ -730,6 +731,7 @@
       "070145",
       "123027",
       "140244",
+      "14263",
       "144691",
       "146316",
       "164000",

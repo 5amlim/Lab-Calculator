@@ -722,6 +722,9 @@
       return applyCollectionReview(test,
         'Collection on hold. Confirm the current order code, accepted specimen and shipping temperature with the receiving Quest laboratory before collection.', 'https://testdirectory.questdiagnostics.com/test/test-detail/' + code + '/?cc=MASTER');
     }
+    if (code === '14263') {
+      return applyCollectionReview(test, "Collection on hold. Quest requires a ThinPrep vial for this self-collected HPV test, which is outside the clinic collection workflow. Confirm an approved collection route with the receiving laboratory before collection.", "https://testdirectory.questdiagnostics.com/test/test-detail/14263/hpv-dna-16-18-other-high-risk-pcr-vaginal-self-collected?cc=MASTER");
+    }
     if (code === '93876') {
       return applyCollectionReview(test,
         'Collection on hold. The Quest directory lists frozen serum as preferred and refrigerated shipment. Confirm the required preparation and shipping temperature with the receiving Quest laboratory.',

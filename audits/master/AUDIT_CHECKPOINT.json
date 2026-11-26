@@ -11,11 +11,11 @@
     "labcorp": 0
   },
   "reviewedOrAttempted": {
-    "quest": 61,
+    "quest": 62,
     "labcorp": 403
   },
   "notYetReviewed": {
-    "quest": 3768,
+    "quest": 3767,
     "labcorp": 6198
   },
   "recordStatusSource": "FIELD_EVIDENCE.json. Every catalog row without a key has status Not yet reviewed.",
@@ -483,7 +483,8 @@
     "labcorp:700925",
     "labcorp:003970",
     "labcorp:016865",
-    "labcorp:316203"
+    "labcorp:316203",
+    "quest:14263"
   ],
   "inventoryCommand": "node scripts/audit-calculator-database.mjs --out ../calculator-current-report --check",
   "continueFrom": "Enumerate TEST_INVENTORY.csv where verification is Not yet reviewed, keeping laboratory and exact test code as strings. Use the appropriate service-area evidence and review every applicable route before marking a record fully verified.",
@@ -597,7 +598,7 @@
   "activeTestPreservation": {
     "baselineActiveRecordsLost": 0,
     "flaggedCodes": {
-      "quest": 5,
+      "quest": 6,
       "labcorp": 36
     },
     "register": "COLLECTION_REVIEW_FLAGS.csv"
@@ -682,6 +683,11 @@
       "316203"
     ],
     "notes": "No container aliases, other routes or pooling rules changed. Citrate has a published frozen unpreserved option; Oxalate has a post-receipt acidification option. Confirm before enabling either. 316203 Monovette has corrosive preservative.",
-    "remaining": "Review all other container types, unknown or multi-route records, local vial capacity, and exact vendor routes."
+    "remaining": "Review all other container types, unknown or multi-route records, local vial capacity, and exact vendor routes.",
+    "thinPrepFollowup": {
+      "code": "14263",
+      "disposition": "Active collection-review hold",
+      "source": "https://testdirectory.questdiagnostics.com/test/test-detail/14263/hpv-dna-16-18-other-high-risk-pcr-vaginal-self-collected?cc=MASTER"
+    }
   }
 }

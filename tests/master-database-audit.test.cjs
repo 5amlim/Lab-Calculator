@@ -290,3 +290,22 @@ test('acid-preserved urine orders stay searchable without unsupported collection
   globals.applyQuestLabcorpWorkbookMatches(index.tests,index.collectionReviewCodes);
   assert(!globals.QUEST_TO_LABCORP_INDEX.some(row=>codes.includes(row[3])||row[8]?.some(([code])=>codes.includes(code))));
 });
+
+
+test('Quest 14263 remains searchable but excluded from collection plans when ThinPrep is required', async () => {
+  const {labs,loadCalculator}=await import('../scripts/load-calculator-catalog.mjs');
+  const {records,index,globals}=await loadCalculator(root,labs[0],{captureRecords:true});
+  const row=records.find(r=>r.testCode==='14263');
+  assert.equal(row.status,'active');
+  assert.match(row.collectionReview,/ThinPrep/);
+  assert(index.tests.some(([code])=>code==='14263'));
+  assert(index.collectionReviewCodes.includes('14263'));
+  const api=openCalculator(labs[0].app,['applyUserState','expandedCollectionTests','buildTransportBagPlan'],{records:[row]});
+  assert.equal(api.expandedCollectionTests([row]).length,0);
+  assert.equal(api.buildTransportBagPlan(api.expandedCollectionTests([row])).length,0);
+  const restored=api.applyUserState({overrides:[{...row,collectionReview:undefined}]}).find(r=>r.testCode==='14263');
+  assert.match(restored.collectionReview,/ThinPrep/);
+  const crosswalk=globals.QUEST_TO_LABCORP_INDEX.find(r=>r[0]==='14263');
+  assert.equal(crosswalk[7],'hold');
+  assert(!crosswalk[3]&&!crosswalk[8]?.length);
+});

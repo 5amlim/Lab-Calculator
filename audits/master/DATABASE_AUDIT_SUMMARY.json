@@ -4,7 +4,7 @@
       "total": 3829,
       "rawLoaded": 3829,
       "indexed": 3314,
-      "collectionReviewCodes": 5,
+      "collectionReviewCodes": 6,
       "statuses": {
         "active": 3315,
         "blocked": 514
@@ -12,9 +12,9 @@
       "verification": {
         "Clinical conflict": 4,
         "Discontinued": 1,
-        "Not yet reviewed": 3768,
+        "Not yet reviewed": 3767,
         "Official information unavailable": 2,
-        "Partially verified": 38,
+        "Partially verified": 39,
         "Source inaccessible": 16
       }
     },
@@ -52,6 +52,7 @@
       "removed": [],
       "modified": [
         "10676|quest-tc-20261125-10676",
+        "14263|quest-14263-expansion-20261027",
         "16983|quest-16983-20260915",
         "17306|seed-115",
         "18216|quest-verified-unusable-audit-next100b-20261116-18216",
@@ -71,6 +72,7 @@
         "10231|seed-95",
         "1025|quest-1025-20260915",
         "10676|quest-tc-20261125-10676",
+        "14263|quest-14263-expansion-20261027",
         "1430|quest-official-1430-20261114",
         "14435|quest-master-verified-14435-20261115-b2",
         "14867|quest-verified-unusable-audit-next50c-20261116-14867",

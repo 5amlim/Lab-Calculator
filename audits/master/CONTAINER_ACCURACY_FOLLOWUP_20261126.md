@@ -18,3 +18,8 @@ Reviewed the committed inventory at a7a76744d41e685f24dc02589ed99ef43dec43a6. Th
 - The collection/submission count register contains 41 high-volume entries. Resolve remaining approved vial capacity and exact aliquot requirements independently of collection counts.
 
 This follow-up is a partial evidence/triage note, not a regenerated clinical ledger. No records are counted as newly fully verified; no clinical runtime change or active-test removal was made in this note. Keep 8477 Transport Tube and 16983 two 5 mL transport tubes, all other naming/grouping/pooling rules, and existing holds intact.
+
+## ThinPrep exception resolved at exact-code level
+
+Quest 14263 is the identified active route. The exact directory confirms both supported self-collection devices require ThinPrep and states the minimum as 1.5 mL. The code remains active/searchable with a collection-review hold, suppression of automatic collection/shipment counts, and no automatic crosswalk mapping. No substitute container was assumed. Source: https://testdirectory.questdiagnostics.com/test/test-detail/14263/hpv-dna-16-18-other-high-risk-pcr-vaginal-self-collected?cc=MASTER
+
