@@ -12,11 +12,11 @@
   },
   "reviewedOrAttempted": {
     "quest": 62,
-    "labcorp": 403
+    "labcorp": 414
   },
   "notYetReviewed": {
     "quest": 3767,
-    "labcorp": 6198
+    "labcorp": 6187
   },
   "recordStatusSource": "FIELD_EVIDENCE.json. Every catalog row without a key has status Not yet reviewed.",
   "evidenceKeys": [
@@ -484,7 +484,18 @@
     "labcorp:003970",
     "labcorp:016865",
     "labcorp:316203",
-    "quest:14263"
+    "quest:14263",
+    "labcorp:700844",
+    "labcorp:702879",
+    "labcorp:502013",
+    "labcorp:502511",
+    "labcorp:502577",
+    "labcorp:502669",
+    "labcorp:551725",
+    "labcorp:551870",
+    "labcorp:284459",
+    "labcorp:071548",
+    "labcorp:081162"
   ],
   "inventoryCommand": "node scripts/audit-calculator-database.mjs --out ../calculator-current-report --check",
   "continueFrom": "Enumerate TEST_INVENTORY.csv where verification is Not yet reviewed, keeping laboratory and exact test code as strings. Use the appropriate service-area evidence and review every applicable route before marking a record fully verified.",
@@ -688,6 +699,23 @@
       "code": "14263",
       "disposition": "Active collection-review hold",
       "source": "https://testdirectory.questdiagnostics.com/test/test-detail/14263/hpv-dna-16-18-other-high-risk-pcr-vaginal-self-collected?cc=MASTER"
+    },
+    "highVolumeAndMetalsFollowup": {
+      "date": "2026-11-26",
+      "newEvidenceRecords": [
+        "700844",
+        "702879",
+        "502013",
+        "502511",
+        "502577",
+        "502669",
+        "551725",
+        "551870",
+        "284459",
+        "071548",
+        "081162"
+      ],
+      "remaining": "Local vial capacity, exact volumes and processing where not independently established; 500335 listing confirmed identity only, no exact container detail."
     }
   }
 }

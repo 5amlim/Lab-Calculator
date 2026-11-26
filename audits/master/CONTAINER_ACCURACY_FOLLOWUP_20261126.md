@@ -23,3 +23,19 @@ This follow-up is a partial evidence/triage note, not a regenerated clinical led
 
 Quest 14263 is the identified active route. The exact directory confirms both supported self-collection devices require ThinPrep and states the minimum as 1.5 mL. The code remains active/searchable with a collection-review hold, suppression of automatic collection/shipment counts, and no automatic crosswalk mapping. No substitute container was assumed. Source: https://testdirectory.questdiagnostics.com/test/test-detail/14263/hpv-dna-16-18-other-high-risk-pcr-vaginal-self-collected?cc=MASTER
 
+
+## High-volume and trace-metal follow-up
+
+- 700844: Plain red-top; no separator gel; Room Temperature for routine transport; refrigerate or freeze for storage beyond 3 days. Collection tube and account-specific transport verified; 7 mL and vial allocation not verified. Source: https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog
+- 702879: Plain red-top; no separator gel; Room Temperature for routine transport under 3 days. Collection tube and account-specific transport verified; 7 mL and vial allocation not verified. Source: https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog
+- 502013: Gel-barrier tube or plain red-top; Frozen. SST selected in catalog; source tube and freezing supported, exact volume and frozen-vial type/count remain unverified. Source: https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog
+- 502511: Gel-barrier tube or plain red-top; Frozen. SST selected in catalog; source tube and freezing supported, exact volume and frozen-vial type/count remain unverified. Source: https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog
+- 502577: Gel-barrier tube; Frozen. SST selected in catalog; source tube and freezing supported, exact volume and frozen-vial type/count remain unverified. Source: https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog
+- 502669: Gel-barrier tube or plain red-top; Frozen. SST selected in catalog; source tube and freezing supported, exact volume and frozen-vial type/count remain unverified. Source: https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog
+- 551725: EDTA lavender or PPT; Frozen. Reconciled previously recorded exact-code client listing; volume and vial allocation remain unverified. Source: https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog
+- 551870: EDTA lavender or PPT; Frozen. Reconciled previously recorded exact-code client listing; volume and vial allocation remain unverified. Source: https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog
+- 284459: EDTA lavender; Refrigerated. Indexed SJMC client listing excerpt supports current draw and temperature. Full listing and exact page could not be retrieved; separation time, volumes and shipment vessel remain open. Do not substitute requirements from 138962. Source: https://cdos.halfpenny.com/labcorp/sjmc/Home/PrintCatalog
+- 071548: Royal blue EDTA for plasma or royal blue without EDTA for serum; Room Temperature. Exact vendor source reviewed. Existing search selects plasma; confirm actual normalized source and certified transport tube 111166, available fill capacity and regional acceptance before closing. Source: https://www.labcorp.com/tests/071548/aluminum-serum-or-plasma
+- 081162: Metal-free royal blue EDTA; Refrigerated. Exact vendor source reviewed. Existing runtime explicitly separates plasma and packed RBC outputs; confirm draw yields and five-day receiving limit in complete plan. Source: https://www.labcorp.com/tests/081162/copper-rbc-and-plasma
+
+Labcorp 500335: public catalog lists the two-measurement order, but exact-code container/volume details were unavailable. Do not extrapolate from single-order 500138. Remains open. No runtime, custom stock naming, grouping, pooling or search changes in this batch.

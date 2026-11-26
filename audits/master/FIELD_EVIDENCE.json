@@ -7947,5 +7947,183 @@
         "evidence": "Active with collection-review flag; suppress generated collection/shipment quantities."
       }
     }
+  },
+  "labcorp:700844": {
+    "status": "Partially verified",
+    "url": "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog",
+    "date": "2026-11-26",
+    "note": "Collection tube and account-specific transport verified; 7 mL and vial allocation not verified.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Plain red-top; no separator gel"
+      },
+      "transportTemperature": {
+        "evidence": "Room Temperature for routine transport; refrigerate or freeze for storage beyond 3 days"
+      }
+    }
+  },
+  "labcorp:702879": {
+    "status": "Partially verified",
+    "url": "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog",
+    "date": "2026-11-26",
+    "note": "Collection tube and account-specific transport verified; 7 mL and vial allocation not verified.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Plain red-top; no separator gel"
+      },
+      "transportTemperature": {
+        "evidence": "Room Temperature for routine transport under 3 days"
+      }
+    }
+  },
+  "labcorp:502013": {
+    "status": "Partially verified",
+    "url": "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog",
+    "date": "2026-11-26",
+    "note": "SST selected in catalog; source tube and freezing supported, exact volume and frozen-vial type/count remain unverified.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Gel-barrier tube or plain red-top"
+      },
+      "transportTemperature": {
+        "evidence": "Frozen"
+      }
+    }
+  },
+  "labcorp:502511": {
+    "status": "Partially verified",
+    "url": "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog",
+    "date": "2026-11-26",
+    "note": "SST selected in catalog; source tube and freezing supported, exact volume and frozen-vial type/count remain unverified.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Gel-barrier tube or plain red-top"
+      },
+      "transportTemperature": {
+        "evidence": "Frozen"
+      }
+    }
+  },
+  "labcorp:502577": {
+    "status": "Partially verified",
+    "url": "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog",
+    "date": "2026-11-26",
+    "note": "SST selected in catalog; source tube and freezing supported, exact volume and frozen-vial type/count remain unverified.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Gel-barrier tube"
+      },
+      "transportTemperature": {
+        "evidence": "Frozen"
+      }
+    }
+  },
+  "labcorp:502669": {
+    "status": "Partially verified",
+    "url": "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog",
+    "date": "2026-11-26",
+    "note": "SST selected in catalog; source tube and freezing supported, exact volume and frozen-vial type/count remain unverified.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Gel-barrier tube or plain red-top"
+      },
+      "transportTemperature": {
+        "evidence": "Frozen"
+      }
+    }
+  },
+  "labcorp:551725": {
+    "status": "Partially verified",
+    "url": "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog",
+    "date": "2026-11-26",
+    "note": "Reconciled previously recorded exact-code client listing; volume and vial allocation remain unverified.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "EDTA lavender or PPT"
+      },
+      "transportTemperature": {
+        "evidence": "Frozen"
+      }
+    }
+  },
+  "labcorp:551870": {
+    "status": "Partially verified",
+    "url": "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog",
+    "date": "2026-11-26",
+    "note": "Reconciled previously recorded exact-code client listing; volume and vial allocation remain unverified.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "EDTA lavender or PPT"
+      },
+      "transportTemperature": {
+        "evidence": "Frozen"
+      }
+    }
+  },
+  "labcorp:284459": {
+    "status": "Partially verified",
+    "url": "https://cdos.halfpenny.com/labcorp/sjmc/Home/PrintCatalog",
+    "date": "2026-11-26",
+    "note": "Indexed SJMC client listing excerpt supports current draw and temperature. Full listing and exact page could not be retrieved; separation time, volumes and shipment vessel remain open. Do not substitute requirements from 138962.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "EDTA lavender"
+      },
+      "transportTemperature": {
+        "evidence": "Refrigerated"
+      }
+    }
+  },
+  "labcorp:071548": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/071548/aluminum-serum-or-plasma",
+    "date": "2026-11-26",
+    "note": "Exact vendor source reviewed. Existing search selects plasma; confirm actual normalized source and certified transport tube 111166, available fill capacity and regional acceptance before closing.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Royal blue EDTA for plasma or royal blue without EDTA for serum"
+      },
+      "transportTemperature": {
+        "evidence": "Room Temperature"
+      },
+      "transportContainer": {
+        "evidence": "Certified metal-free transport tube 111166"
+      },
+      "preferredVolume": {
+        "evidence": "7 mL"
+      },
+      "minimumVolume": {
+        "evidence": "0.6 mL"
+      },
+      "processing": {
+        "evidence": "Separate immediately and transfer to the specified metal-free tube."
+      }
+    }
+  },
+  "labcorp:081162": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/081162/copper-rbc-and-plasma",
+    "date": "2026-11-26",
+    "note": "Exact vendor source reviewed. Existing runtime explicitly separates plasma and packed RBC outputs; confirm draw yields and five-day receiving limit in complete plan.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Metal-free royal blue EDTA"
+      },
+      "transportTemperature": {
+        "evidence": "Refrigerated"
+      },
+      "transportContainer": {
+        "evidence": "Two separate trace-metal-free/acid-washed plastic tubes, one per specimen."
+      },
+      "preferredVolume": {
+        "evidence": "3 mL per material"
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL per material"
+      },
+      "processing": {
+        "evidence": "Separate before shipping; laboratory receipt within five days."
+      }
+    }
   }
 }
