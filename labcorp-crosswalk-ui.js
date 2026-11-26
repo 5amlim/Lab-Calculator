@@ -79,7 +79,7 @@
   function renderQuest(r){
     const [qc,qn,qs,lc,ln,blocked,basis]=r;
     const type=sourceType(r);
-    const marker=type==='legacy'?'Legacy Quest reference':type==='uncoded'?'No Quest code supplied':'';
+    const marker=type==='discontinued'?'Discontinued Quest order':type==='legacy'?'Legacy Quest reference':type==='uncoded'?'No Quest code supplied':'';
     const basisNote=basis?'<details class="crosswalk-row-note"><summary>Review notes</summary><p>'+escape(basis)+'</p></details>':'';
     let candidate='<span class="crosswalk-state crosswalk-state--none">No match identified</span>';
     if(lc){
@@ -101,7 +101,7 @@
       (marker?'<small class="crosswalk-legacy">'+escape(marker)+'</small>':'')+'</td>'+
       '<td><strong class="crosswalk-test-name">'+escape(qn)+'</strong>'+
       '<small class="crosswalk-specimen">Specimen · '+escape(qs||'Unknown')+'</small>'+
-      (blocked?'<small class="crosswalk-protected">Original do-not-perform reference</small>':'')+'</td>'+
+      (blocked&&type!=='discontinued'?'<small class="crosswalk-protected">Original do-not-perform reference</small>':'')+'</td>'+
       '<td class="crosswalk-match-cell">'+candidate+basisNote+'</td><td>'+action+'</td></tr>';
   }
   function reverseReviewNote(match){
