@@ -268,3 +268,25 @@ test('Quest 16983 defaults to two frozen 5 mL pour-off tubes without changing th
   assert.equal(shipment.label, 'Transport Tube (5 mL pour-off)');
   assert.equal(api.buildCollectionPlan([restored], bags).reduce((count, item) => count + item.count, 0), 5);
 });
+
+
+test('acid-preserved urine orders stay searchable without unsupported collection plans', async () => {
+  const {labs, loadCalculator} = await import('../scripts/load-calculator-catalog.mjs');
+  const {records,index} = await loadCalculator(root,labs[1],{captureRecords:true});
+  const codes=["003269","003970","004176","016865","316203"];
+  const api=openCalculator(labs[1].app,['applyUserState','expandedCollectionTests','buildTransportBagPlan'],{records:records.filter(row=>codes.includes(row.testCode))});
+  for(const code of codes){
+    const row=records.find(record=>record.testCode===code);
+    assert.equal(row.status,'active',code);
+    assert.match(row.collectionReview,/Collection on hold/);
+    assert(index.tests.some(([indexed])=>indexed===code));
+    assert(index.collectionReviewCodes.includes(code));
+    assert.equal(api.buildTransportBagPlan(api.expandedCollectionTests([row])).length,0);
+    const restored=api.applyUserState({customTests:[],overrides:[{...row,collectionReview:undefined}]}).find(test=>test.testCode===code);
+    assert.match(restored.collectionReview,/Collection on hold/);
+  }
+  assert(!records.find(row=>row.testCode==='809523').collectionReview,'metal-free urine is not an acid-preservation exclusion');
+  const {globals}=await loadCalculator(root,labs[0]);
+  globals.applyQuestLabcorpWorkbookMatches(index.tests,index.collectionReviewCodes);
+  assert(!globals.QUEST_TO_LABCORP_INDEX.some(row=>codes.includes(row[3])||row[8]?.some(([code])=>codes.includes(code))));
+});

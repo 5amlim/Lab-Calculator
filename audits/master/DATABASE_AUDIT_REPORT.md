@@ -9,22 +9,22 @@ Audit date November 26, 2026. Baseline commit `b81f79958661971bad3a6799d6a0465a7
 | Runtime catalog records | 3,829 | 3,829 | 6,601 | 6,601 |
 | Active runtime records | 3,315 | 3,315 | 6,015 | 6,015 |
 | Active codes in published search | 3,314 | 3,314 | 6,015 | 6,015 |
-| Active codes with a collection review flag | 0 | 5 | 0 | 31 |
+| Active codes with a collection review flag | 0 | 5 | 0 | 36 |
 | Blocked runtime records | 514 | 514 | 455 | 457 |
 | Pending runtime records | 0 | 0 | 131 | 129 |
 | Fully clinically verified in this audit | 0 | 0 | 0 | 0 |
-| Partially verified in this audit | 0 | 38 | 0 | 366 |
+| Partially verified in this audit | 0 | 38 | 0 | 369 |
 | Clinical conflict recorded | 0 | 4 | 0 | 2 |
 | Current source inaccessible | 0 | 16 | 0 | 0 |
 | Specific official field unavailable | 0 | 2 | 0 | 2 |
-| Official review unstarted in this audit | 3,829 | 3,768 | 6,601 | 6,201 |
+| Official review unstarted in this audit | 3,829 | 3,768 | 6,601 | 6,198 |
 | Runtime records added or removed | 0 | 0 | 0 | 0 |
 
-The active catalogs retain every baseline code and record ID. A collection review flag keeps a test visible in search and addable to the cart. The cart, printout and CSV show the reason. The specimen plan excludes those routes from automatic collection counts, submission bags and STAT. The converter does not propose those flagged orders as candidates. The [flag register](COLLECTION_REVIEW_FLAGS.csv) has all 36 codes, reasons and sources. Two previously pending Labcorp codes now appear in the exclusions register under vendor deletion notices.
+The active catalogs retain every baseline code and record ID. A collection review flag keeps a test visible in search and addable to the cart. The cart, printout and CSV show the reason. The specimen plan excludes those routes from automatic collection counts, submission bags and STAT. The converter does not propose those flagged orders as candidates. The [flag register](COLLECTION_REVIEW_FLAGS.csv) has all 41 codes, reasons and sources. Two previously pending Labcorp codes now appear in the exclusions register under vendor deletion notices.
 
 Quest also contains an uncoded active `XXX` 24-hour urine reference outside the numeric search index. Its shipment temperature remains an open audit warning. The counts exclude browser overrides, staff-created tests and patient data.
 
-All 10,430 runtime records have a reproducible inventory. The field evidence ledger covers 61 Quest and 400 Labcorp records. Separate Labcorp intake attempted 385 public pages and captured 381 exact order pages. Clinical verification, national catalog completeness and service-area acceptance remain open.
+All 10,430 runtime records have a reproducible inventory. The field evidence ledger covers 61 Quest and 403 Labcorp records. Separate Labcorp intake attempted 385 public pages and captured 381 exact order pages. Clinical verification, national catalog completeness and service-area acceptance remain open.
 
 ## Labcorp public listing reconciliation
 
@@ -70,12 +70,12 @@ The [manual review queue](MANUAL_REVIEW_REQUIRED.csv) preserves the reason for a
 | Measure | Before | After |
 |---|---:|---:|
 | Active Quest codes represented | 3,314 | 3,314 |
-| Unique active candidate pairs | 1,456 | 1,446 |
-| Distinct active Quest codes with a candidate | 1,456 | 1,446 |
-| Distinct active Labcorp codes with a candidate | 1,396 | 1,387 |
+| Unique active candidate pairs | 1,456 | 1,445 |
+| Distinct active Quest codes with a candidate | 1,456 | 1,445 |
+| Distinct active Labcorp codes with a candidate | 1,396 | 1,386 |
 | Active review-only pairs | 799 | 798 |
-| Relationship rows, including legacy and uncoded | 2,257 | 2,246 |
-| Quest active codes without a candidate or review reference | 1,228 | 1,238 |
+| Relationship rows, including legacy and uncoded | 2,257 | 2,245 |
+| Quest active codes without a candidate or review reference | 1,228 | 1,239 |
 
 The count of distinct destination codes is lower because multiple Quest orders can have the same Labcorp candidate. The raw 16802 pair now consistently points to Labcorp 102525, which includes eAG. The previous raw target, 001453, did not specify eAG. The workbook had already applied that correction in the fully loaded browser, so the runtime candidate count is unchanged. Workbook fallback now preserves explicit candidates and review-only decisions. Quest 937 and Labcorp 028142 are a partial panel relationship visible from both directions and excluded from automatic conversion. Quest 229 and Labcorp 004291 now require manual review because only Quest lists creatinine. Quest 18216 and Labcorp 123075 have different specimen and result scopes, now stated explicitly in both directions. The discontinued 39749 relationship was removed. Existing candidate pairs require separate clinical review.
 
@@ -130,3 +130,7 @@ Labcorp 700841 now receives an explicit collection-review hold under the existin
 ### Custom-rule-only preservation checkpoint
 
 Expanded the rule registry from 23 to 31 explicit protections, including 16983, alternative versus additional collections, specimen/source badges, compatible-only aliases, original devices, isolated pools and neonatal microtainers. Reconciled the active review registry with 700841. No runtime behavior, clinical record, stock label, or collection quantity was changed in this checkpoint. The 1430 physical route and existing specialty label were retained; the explicit 8477 exact label instruction was not extended to other codes. All previously registered implementation and test files exist. New targeted regression checks require CI. Historical override inventory and final baseline comparison remain open.
+
+### Container accuracy: preserved urine routes
+
+Compared exact Labcorp pages for 003269, 003970, 004176, 016865 and 316203 against active catalog routes. All five retained in search and cart with review flags; no unsupported acid-preserved collection generated. Citrate explicitly allows an unpreserved frozen specimen; oxalate describes acidification after receipt. Confirm receiving-account details before changing routes. Random catecholamines requires preserved transport or a pH-stabilized Monovette containing corrosive preservative per the official urine guide. The 004176 page also contains differing aliquot-volume statements. Removed the automatic Quest 5244 to Labcorp 316203 candidate pending route resolution. Acid-washed metal-free vessels are not acid-preserved urine and remain unaffected. Three records added to the evidence ledger, two enriched. No stock labels or general grouping rules changed. New CI pending.

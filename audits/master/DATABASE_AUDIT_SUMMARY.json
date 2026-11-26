@@ -22,7 +22,7 @@
       "total": 6601,
       "rawLoaded": 6601,
       "indexed": 6015,
-      "collectionReviewCodes": 31,
+      "collectionReviewCodes": 36,
       "statuses": {
         "active": 6015,
         "blocked": 457,
@@ -31,19 +31,19 @@
       "verification": {
         "Clinical conflict": 2,
         "Discontinued": 30,
-        "Not yet reviewed": 6201,
+        "Not yet reviewed": 6198,
         "Official information unavailable": 2,
-        "Partially verified": 366
+        "Partially verified": 369
       }
     }
   },
   "crosswalk": {
-    "candidatePairs": 1446,
-    "questCodesWithCandidate": 1446,
-    "labcorpCodesWithCandidate": 1387,
-    "relationshipRows": 2246,
+    "candidatePairs": 1445,
+    "questCodesWithCandidate": 1445,
+    "labcorpCodesWithCandidate": 1386,
+    "relationshipRows": 2245,
     "activeReviewPairs": 798,
-    "unmatchedQuestRows": 1238,
+    "unmatchedQuestRows": 1239,
     "representedQuestCodes": 3314
   },
   "changes": {
@@ -306,6 +306,7 @@
         "003475|labcorp-003475",
         "003541|labcorp-directory-next-003541",
         "003855|labcorp-003855",
+        "003970|labcorp-003970",
         "004020|labcorp-004020",
         "004036|labcorp-directory-next-004036",
         "004044|labcorp-compendium-review-004044",
@@ -513,6 +514,7 @@
         "010801|labcorp-010801",
         "010991|labcorp-010991",
         "011254|labcorp-compendium-hold-011254",
+        "016865|labcorp-016865",
         "028142|labcorp-028142",
         "042580|labcorp-042580",
         "070037|labcorp-070037",
@@ -565,6 +567,7 @@
         "167015|labcorp-167015",
         "284191|labcorp-284191",
         "310|labcorp-verified-20261120-next-310",
+        "316203|labcorp-316203",
         "322000|labcorp-322000",
         "340897|labcorp-340897",
         "382965|labcorp-382965",
@@ -629,7 +632,8 @@
         "active|34499|164055|",
         "active|39749|164068|",
         "active|92473|481020|",
-        "active|92473|489200|"
+        "active|92473|489200|",
+        "active|5244|316203|"
       ],
       "modified": [
         "active|16802|102525|",

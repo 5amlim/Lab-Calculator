@@ -303,7 +303,13 @@
     ],
     "specimen": [],
     "container": [],
-    "testCodes": [],
+    "testCodes": [
+      "003269",
+      "003970",
+      "004176",
+      "016865",
+      "316203"
+    ],
     "expectedBehavior": "Preserve scope-specific exclusions for acid-preserved urine, green-label Aptima, InSure, hair, nails, slides and smears, tumor specimens, cytology/Pap/ThinPrep and Streck, including the historical Quest 10676 urine-only exception as separately reviewed.",
     "reason": "Preserve supported clinic routes and avoid promotion of an unsupported alternative.",
     "evidence": [
@@ -708,8 +714,12 @@
     ],
     "description": "Preserve active catalog entries with vendor and operational review flags.",
     "testCodes": [
+      "003269",
+      "003970",
       "004100",
+      "004176",
       "004705",
+      "016865",
       "070037",
       "070078",
       "070083",
@@ -725,6 +735,7 @@
       "164000",
       "164798",
       "165750",
+      "316203",
       "34329",
       "34499",
       "39749",

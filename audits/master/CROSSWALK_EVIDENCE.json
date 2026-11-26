@@ -86,5 +86,13 @@
     "date": "2026-11-26",
     "evidence": "All 18 published result LOINCs agree, including eGFR. The Quest result table is specific to Tampa. Labcorp publishes order LOINC 24323-8.",
     "approvalStatus": "Candidate only. Confirm the full assay, result reporting and receiving-account scope before substitution."
+  },
+  "5244|316203": {
+    "classification": "Collection review; automatic candidate removed",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/5244/?cc=MASTER",
+    "labcorpUrl": "https://www.labcorp.com/tests/316203/catecholamines-fractionated-urinary-free-random-urine",
+    "date": "2026-11-26",
+    "evidence": "Labcorp requires acid-preserved transport or the designated corrosive pH-stabilized Monovette. Clinic does not collect acid-preserved urine.",
+    "approvalStatus": "No auto-conversion while flagged; confirm order and route."
   }
 }

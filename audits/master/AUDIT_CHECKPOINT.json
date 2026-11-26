@@ -12,11 +12,11 @@
   },
   "reviewedOrAttempted": {
     "quest": 61,
-    "labcorp": 400
+    "labcorp": 403
   },
   "notYetReviewed": {
     "quest": 3768,
-    "labcorp": 6201
+    "labcorp": 6198
   },
   "recordStatusSource": "FIELD_EVIDENCE.json. Every catalog row without a key has status Not yet reviewed.",
   "evidenceKeys": [
@@ -480,7 +480,10 @@
     "labcorp:700834",
     "labcorp:700841",
     "labcorp:700845",
-    "labcorp:700925"
+    "labcorp:700925",
+    "labcorp:003970",
+    "labcorp:016865",
+    "labcorp:316203"
   ],
   "inventoryCommand": "node scripts/audit-calculator-database.mjs --out ../calculator-current-report --check",
   "continueFrom": "Enumerate TEST_INVENTORY.csv where verification is Not yet reviewed, keeping laboratory and exact test code as strings. Use the appropriate service-area evidence and review every applicable route before marking a record fully verified.",
@@ -595,7 +598,7 @@
     "baselineActiveRecordsLost": 0,
     "flaggedCodes": {
       "quest": 5,
-      "labcorp": 31
+      "labcorp": 36
     },
     "register": "COLLECTION_REVIEW_FLAGS.csv"
   },
@@ -655,5 +658,30 @@
       "Other historical overrides not yet individually inventoried.",
       "Compare the identical saved 78-test baseline against final output."
     ]
+  },
+  "containerAccuracy": {
+    "date": "2026-11-26",
+    "scope": "Exact-code review of five preserved urine routes found in the container inventory",
+    "reviewed": [
+      "003269",
+      "003970",
+      "004176",
+      "016865",
+      "316203"
+    ],
+    "holds": [
+      "003269",
+      "003970",
+      "004176",
+      "016865",
+      "316203"
+    ],
+    "newEvidenceRecords": [
+      "003970",
+      "016865",
+      "316203"
+    ],
+    "notes": "No container aliases, other routes or pooling rules changed. Citrate has a published frozen unpreserved option; Oxalate has a post-receipt acidification option. Confirm before enabling either. 316203 Monovette has corrosive preservative.",
+    "remaining": "Review all other container types, unknown or multi-route records, local vial capacity, and exact vendor routes."
   }
 }

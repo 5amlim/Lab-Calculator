@@ -6335,17 +6335,30 @@
     "status": "Partially verified",
     "url": "https://www.labcorp.com/tests/003269/calcium-urine",
     "date": "2026-11-26",
-    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "note": "Exact vendor container requirement reviewed against committed active route. Clinic excludes acid-preserved urine systems. Retained active with a collection-review flag; confirm receiving-lab alternative before collection. Prior evidence retained where applicable.",
     "fields": {
       "minimumVolume": {
-        "evidence": "Existing public exact-code directory comparison agrees for this field: 1 mL.",
+        "evidence": "1 mL",
         "sourceSha256": "11f5f5dc777019aef55ec2eec23194ca933bd3449fe55394627b247b24926975"
       },
       "transportTemperature": {
         "evidence": "Existing public exact-code directory comparison agrees for this field: Room Temperature.",
         "sourceSha256": "11f5f5dc777019aef55ec2eec23194ca933bd3449fe55394627b247b24926975"
+      },
+      "drawContainer": {
+        "evidence": "24-hour urine collection in a container with hydrochloric acid; vendor specifies final pH below 2."
+      },
+      "transportContainer": {
+        "evidence": "Preserved urine aliquot; exact compatible vessel and receiving-account route require confirmation."
+      },
+      "preferredVolume": {
+        "evidence": "25 mL aliquot"
+      },
+      "status": {
+        "evidence": "Active searchable order, collection review only; suppress generated quantities and automatic conversion."
       }
-    }
+    },
+    "hold": true
   },
   "labcorp:003277": {
     "status": "Partially verified",
@@ -6515,13 +6528,29 @@
     "status": "Partially verified",
     "url": "https://www.labcorp.com/tests/004176/catecholamines-fractionated-urinary-free-24-hour-urine",
     "date": "2026-11-26",
-    "note": "Reconciled captured exact-page comparison and source hash for the listed fields only. Not established by this comparison: preferredVolume, minimumVolume. Specimen type, containers, processing, stability, patient preparation, regional acceptance and other requirements remain open. No new vendor retrieval or clinical change.",
+    "note": "Exact vendor container requirement reviewed against committed active route. Clinic excludes acid-preserved urine systems. Retained active with a collection-review flag; confirm receiving-lab alternative before collection. Prior evidence retained where applicable.",
     "fields": {
       "transportTemperature": {
         "evidence": "Existing public exact-code directory comparison agrees for this field: Refrigerated.",
         "sourceSha256": "53618f9872b46d758718f8d59d227e961303b2abb48693b7b882573f2cc9fd51"
+      },
+      "drawContainer": {
+        "evidence": "24-hour brown urine container with hydrochloric acid preservative."
+      },
+      "transportContainer": {
+        "evidence": "Preserved urine aliquot; exact compatible vessel and receiving-account route require confirmation."
+      },
+      "preferredVolume": {
+        "evidence": "30 mL aliquot in specimen requirements; collection text separately says 20 mL; clarify."
+      },
+      "minimumVolume": {
+        "evidence": "4 mL"
+      },
+      "status": {
+        "evidence": "Active searchable order, collection review only; suppress generated quantities and automatic conversion."
       }
-    }
+    },
+    "hold": true
   },
   "labcorp:004210": {
     "status": "Partially verified",
@@ -7819,5 +7848,77 @@
         "evidence": "Separate serum from cells within two hours."
       }
     }
+  },
+  "labcorp:003970": {
+    "fields": {
+      "drawContainer": {
+        "evidence": "24-hour urine acid-preserved route. Vendor also describes unpreserved specimens acidified after receipt, before aliquoting; timing and receiving-account acceptance must be confirmed."
+      },
+      "transportContainer": {
+        "evidence": "Preserved urine aliquot; exact compatible vessel and receiving-account route require confirmation."
+      },
+      "preferredVolume": {
+        "evidence": "10 mL aliquot"
+      },
+      "minimumVolume": {
+        "evidence": "2.5 mL"
+      },
+      "status": {
+        "evidence": "Active searchable order, collection review only; suppress generated quantities and automatic conversion."
+      }
+    },
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/003970/oxalate-quantitative-24-hour-urine",
+    "date": "2026-11-26",
+    "hold": true,
+    "note": "Exact vendor container requirement reviewed against committed active route. Clinic excludes acid-preserved urine systems. Retained active with a collection-review flag; confirm receiving-lab alternative before collection. Prior evidence retained where applicable."
+  },
+  "labcorp:016865": {
+    "fields": {
+      "drawContainer": {
+        "evidence": "Acidified 24-hour urine is the listed container route; Labcorp explicitly permits freezing without acid as an alternative."
+      },
+      "transportContainer": {
+        "evidence": "Preserved urine aliquot; exact compatible vessel and receiving-account route require confirmation."
+      },
+      "preferredVolume": {
+        "evidence": "2 mL aliquot"
+      },
+      "minimumVolume": {
+        "evidence": "1 mL"
+      },
+      "status": {
+        "evidence": "Active searchable order, collection review only; suppress generated quantities and automatic conversion."
+      }
+    },
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/016865/citric-acid-citrate-24-hour-urine",
+    "date": "2026-11-26",
+    "hold": true,
+    "note": "Exact vendor container requirement reviewed against committed active route. Clinic excludes acid-preserved urine systems. Retained active with a collection-review flag; confirm receiving-lab alternative before collection. Prior evidence retained where applicable."
+  },
+  "labcorp:316203": {
+    "fields": {
+      "drawContainer": {
+        "evidence": "Random urine with 6N HCl transport or the designated 56015 pH-stabilized Monovette. Labcorp urine guide identifies the Monovette contents as corrosive."
+      },
+      "transportContainer": {
+        "evidence": "Random urine with 6N HCl transport or the designated 56015 pH-stabilized Monovette. Labcorp urine guide identifies the Monovette contents as corrosive."
+      },
+      "preferredVolume": {
+        "evidence": "10 mL aliquot"
+      },
+      "minimumVolume": {
+        "evidence": "4 mL"
+      },
+      "status": {
+        "evidence": "Active searchable order, collection review only; suppress generated quantities and automatic conversion."
+      }
+    },
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/316203/catecholamines-fractionated-urinary-free-random-urine",
+    "date": "2026-11-26",
+    "hold": true,
+    "note": "Exact vendor container requirement reviewed against committed active route. Clinic excludes acid-preserved urine systems. Retained active with a collection-review flag; confirm receiving-lab alternative before collection. Prior evidence retained where applicable."
   }
 }
