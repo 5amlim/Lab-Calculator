@@ -1134,7 +1134,7 @@ code,runtimeDisposition,CDOSListing,publicListing
 123020,active,yes,yes
 123023,active,yes,yes
 123026,active,yes,yes
-123027,active,,
+123027,blocked,,
 123034,active,yes,yes
 123041,active,yes,yes
 123045,active,yes,yes
@@ -1599,7 +1599,7 @@ code,runtimeDisposition,CDOSListing,publicListing
 165592,active,yes,yes
 165605,active,yes,yes
 165620,active,yes,yes
-165750,active,yes,yes
+165750,blocked,yes,yes
 167015,active,yes,yes
 167095,active,yes,yes
 167096,active,yes,yes
@@ -2739,7 +2739,7 @@ code,runtimeDisposition,CDOSListing,publicListing
 480940,active,yes,yes
 480947,active,yes,
 480985,blocked,yes,yes
-481020,active,,yes
+481020,blocked,,yes
 481025,active,yes,yes
 481044,blocked,yes,yes
 481051,blocked,yes,yes
@@ -2864,7 +2864,7 @@ code,runtimeDisposition,CDOSListing,publicListing
 489140,active,yes,yes
 489150,active,yes,yes
 489170,active,yes,yes
-489200,active,,yes
+489200,blocked,,yes
 489280,blocked,yes,yes
 489450,active,yes,yes
 489477,active,yes,yes
@@ -2909,7 +2909,7 @@ code,runtimeDisposition,CDOSListing,publicListing
 500179,active,yes,yes
 500183,active,yes,yes
 500285,active,yes,yes
-500309,active,yes,
+500309,blocked,yes,
 500324,active,yes,yes
 500335,active,yes,
 500348,active,yes,
@@ -3729,7 +3729,7 @@ code,runtimeDisposition,CDOSListing,publicListing
 602662,active,yes,yes
 602663,active,yes,yes
 602665,active,yes,yes
-602666,active,,
+602666,blocked,,
 602667,active,yes,yes
 602668,active,yes,yes
 602669,active,yes,yes
@@ -4297,8 +4297,8 @@ code,runtimeDisposition,CDOSListing,publicListing
 608118,active,yes,
 608222,active,yes,
 608576,active,yes,
-620009,active,,
-620046,active,,
+620009,blocked,,
+620046,blocked,,
 630428,pending,,
 630978,active,yes,yes
 630988,active,yes,yes
