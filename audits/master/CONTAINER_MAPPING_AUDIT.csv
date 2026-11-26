@@ -67,7 +67,7 @@ labcorp,collect,Labcorp Bordetella Charcoal Transport Kit,1,Runtime inventoried;
 labcorp,collect,Labcorp CVS Specimen Transport Tube,6,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Labcorp Lymph Node Aspirate Kit Saline Vial,1,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Labcorp Oral Fluid Collection Kit,3,Runtime inventoried; per-route official verification tracked separately
-labcorp,collect,Lavender EDTA,1127,Runtime inventoried; per-route official verification tracked separately
+labcorp,collect,Lavender EDTA,1124,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Lavender EDTA Microtainer,1,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Light Blue Citrate,5,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Light Blue Sodium Citrate,128,Runtime inventoried; per-route official verification tracked separately
@@ -94,7 +94,7 @@ labcorp,collect,Royal Blue EDTA (Metal-Free),4,Runtime inventoried; per-route of
 labcorp,collect,Royal Blue EDTA (purple stripe),40,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Royal Blue Top (EDTA),1,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Royal Blue Top (No Additive),1,Runtime inventoried; per-route official verification tracked separately
-labcorp,collect,SST / Gold,3072,Runtime inventoried; per-route official verification tracked separately
+labcorp,collect,SST / Gold,3070,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,SST / Tiger,3,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Salivette,21,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Salivette Kit (123724),6,Runtime inventoried; per-route official verification tracked separately
@@ -104,12 +104,12 @@ labcorp,collect,Sterile Plastic Conical Tube,31,Runtime inventoried; per-route o
 labcorp,collect,Sterile Screw-Cap Tube,7,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Sterile Synovial Fluid Tube,1,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Sterile Tissue Container With Ringer’s Lactate,7,Runtime inventoried; per-route official verification tracked separately
-labcorp,collect,Sterile cup,1314,Runtime inventoried; per-route official verification tracked separately
+labcorp,collect,Sterile cup,1312,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Three Lavender EDTA Tubes,1,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Timed Urine Collection Container (no preservative),5,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Timed Urine Collection Jug,1,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Trace Metal-Free Plastic Container,21,Runtime inventoried; per-route official verification tracked separately
-labcorp,collect,Transport Tube,3,Runtime inventoried; per-route official verification tracked separately
+labcorp,collect,Transport Tube,2,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Two Lavender EDTA Tubes,1,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Universal Transport Medium (UTM),1,Runtime inventoried; per-route official verification tracked separately
 labcorp,collect,Universal Transport Medium (UTM) Swab,23,Runtime inventoried; per-route official verification tracked separately
@@ -210,7 +210,6 @@ labcorp,submit,Frozen Transport Tube,50,Runtime inventoried; per-route official 
 labcorp,submit,Frozen Transport Tube (Purple Cap),452,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Frozen Transport Tube (Purple PP Transpak 49482),4,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Frozen Transport Tube (serum),3,Runtime inventoried; per-route official verification tracked separately
-labcorp,submit,Frozen Urine Transport Container,1,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Gray Fluoride / Oxalate Blood Tube,6,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Gray PVA O&P Vial,2,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Gray Sodium Fluoride,3,Runtime inventoried; per-route official verification tracked separately
@@ -232,7 +231,7 @@ labcorp,submit,Labcorp Lymph Node Aspirate Kit Saline Vial,1,Runtime inventoried
 labcorp,submit,Labcorp Oral Fluid Collection Kit,3,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Labcorp frozen purple PP transpak (49482),1,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Lavender EDTA,484,Runtime inventoried; per-route official verification tracked separately
-labcorp,submit,Lavender EDTA (original tube),421,Runtime inventoried; per-route official verification tracked separately
+labcorp,submit,Lavender EDTA (original tube),418,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Lavender EDTA (original whole blood tube),5,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Lavender EDTA Microtainer,1,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Light Blue Citrate (original tube),2,Runtime inventoried; per-route official verification tracked separately
@@ -275,7 +274,7 @@ labcorp,submit,Royal Blue EDTA,8,Runtime inventoried; per-route official verific
 labcorp,submit,Royal Blue EDTA (original tube),3,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Royal Blue EDTA (purple stripe),20,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,SST / Gold (spun original tube),1,Runtime inventoried; per-route official verification tracked separately
-labcorp,submit,SST / Gold (spun),2335,Runtime inventoried; per-route official verification tracked separately
+labcorp,submit,SST / Gold (spun),2333,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,"SST / Gold (spun), room temperature; separate serum transport tube refrigerated",1,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,"SST / Gold (spun, original tube)",1,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,"SST / Gold (spun, original unopened tube)",1,Runtime inventoried; per-route official verification tracked separately
@@ -293,7 +292,7 @@ labcorp,submit,Sterile Screw-Cap Tube,7,Runtime inventoried; per-route official 
 labcorp,submit,Sterile Screw-cap Container,4,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Sterile Screw-cap Stool Vial (Para-Pak white clean),1,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Sterile Tissue Container With Ringer’s Lactate,7,Runtime inventoried; per-route official verification tracked separately
-labcorp,submit,Sterile cup,1209,Runtime inventoried; per-route official verification tracked separately
+labcorp,submit,Sterile cup,1208,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Stool Culture Transport (Cary Blair / Para-Pak Orange),1,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Submit Entire Approved Stool Can,1,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Submit Unopened Original Tube,2,Runtime inventoried; per-route official verification tracked separately
@@ -307,7 +306,7 @@ labcorp,submit,Trace Metal Plasma Transport Tube,10,Runtime inventoried; per-rou
 labcorp,submit,Trace Metal-Free Plasma Transport Tube,7,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Trace Metal-Free Plastic Container,23,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Trace Metal-Free Red Blood Cell Transport Tube,4,Runtime inventoried; per-route official verification tracked separately
-labcorp,submit,Transport Tube,847,Runtime inventoried; per-route official verification tracked separately
+labcorp,submit,Transport Tube,846,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Two Metal-Free Transport Tubes (RBCs + Plasma),1,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Universal Transport Medium (UTM),1,Runtime inventoried; per-route official verification tracked separately
 labcorp,submit,Universal Transport Medium (UTM) Swab,23,Runtime inventoried; per-route official verification tracked separately
