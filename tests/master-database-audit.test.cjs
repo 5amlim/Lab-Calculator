@@ -114,18 +114,21 @@ test('Quest 39749 cannot return to the cart or converter through saved data', as
   assert.equal(loaded.filter(record => record.testCode === '39749' && record.status === 'blocked').length, 2);
 });
 
-test('Labcorp November deletions stay blocked and five retired crosswalk targets stay unlinked', async () => {
+test('Labcorp vendor deletions stay blocked and six retired crosswalk targets stay unlinked', async () => {
   const {labs, loadCalculator} = await import('../scripts/load-calculator-catalog.mjs');
   const [quest, labcorp] = await Promise.all(labs.map(lab => loadCalculator(root, lab, {captureRecords: true})));
-  const app = openCalculator(labs[1].app, ['NOVEMBER_2026_LABCORP_DELETIONS', 'applyUserState'], {
+  const app = openCalculator(labs[1].app, ['NOVEMBER_2026_LABCORP_DELETIONS', 'MAY_2026_LABCORP_DELETIONS', 'applyUserState'], {
     records: labcorp.records.filter(row => row.testCode === '070085')
   });
   const retired = app.NOVEMBER_2026_LABCORP_DELETIONS;
   assert.equal(Object.keys(retired).length, 36);
+  assert.equal(Object.keys(app.MAY_2026_LABCORP_DELETIONS).length, 7);
   const updated = labcorp.records.filter(row => Object.hasOwn(retired, row.testCode));
   assert.equal(updated.length, 19);
   assert(updated.every(row => row.status === 'blocked'));
-  assert(!labcorp.index.tests.some(([code]) => Object.hasOwn(retired, code)));
+  assert(!labcorp.index.tests.some(([code]) => Object.hasOwn(retired, code) || Object.hasOwn(app.MAY_2026_LABCORP_DELETIONS, code)));
+  assert(labcorp.records.filter(row => ['160721', '164000'].includes(row.testCode)).every(row =>
+    row.status === 'blocked' && /May 2026/.test(row.specialInstructions)));
   const restored = app.applyUserState({overrides: [], customTests: [{id: 'custom-deleted', testCode: '231819', status: 'active'}]});
   assert.equal(restored.find(row => row.id === 'custom-deleted').status, 'blocked');
 
@@ -134,7 +137,7 @@ test('Labcorp November deletions stay blocked and five retired crosswalk targets
   labcorp.globals.applyQuestLabcorpWorkbookMatches(labcorp.index.tests);
   assert(!rows.some(row => Object.hasOwn(retired, row[3]) ||
     row[8]?.some(option => Object.hasOwn(retired, option[0]))));
-  for (const code of ['17180', '17182', '17183', '19894', '30289']) {
+  for (const code of ['17180', '17182', '17183', '19894', '30289', '34309']) {
     const row = quest.globals.QUEST_TO_LABCORP_INDEX.find(record => record[0] === code);
     assert.match(row[6], /Labcorp deleted/);
     assert.equal(row[3], '');
