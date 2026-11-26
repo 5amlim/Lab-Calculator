@@ -283,5 +283,45 @@
 }
 
 @media screen {
-  #selectedCount, #mobileCount, #testsOverviewTitle { display: inline-block; }
+  #mobileCount, #testsOverviewTitle { display: inline-block; }
+}
+
+/* Prominent count at the right edge of the collection summary heading. */
+@media screen {
+  #collectionSummary .order-top {
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  #collectionSummary .order-top > .collection-summary-heading {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  #collectionSummary .order-top #selectedCount {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 52px;
+    height: 52px;
+    padding: 0 10px;
+    margin: 0;
+    border: 0;
+    border-radius: 999px;
+    background: #087e83;
+    color: #fff;
+    font-size: 26px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    box-shadow: 0 3px 9px rgba(8,126,131,.18);
+  }
+  @media (max-width: 480px) {
+    #collectionSummary .order-top #selectedCount {
+      min-width: 46px;
+      height: 46px;
+      font-size: 23px;
+    }
+  }
 }
