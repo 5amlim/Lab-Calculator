@@ -1,3 +1,7 @@
 lab,code,key,fields,previousStatus,status
 "quest","10676","10676|quest-tc-20261125-10676","preferredVolume","active","active"
+"quest","18216","18216|quest-verified-unusable-audit-next100b-20261116-18216","specialInstructions","active","active"
+"quest","18634","18634|quest-18634-verified-20261027","specimenType; transportTemperatureRaw; stability; preferredVolume; minimumVolume; specialInstructions; additionalDrawRequirements","active","active"
+"quest","39749","39749|seed-153","status; specialInstructions","active","blocked"
+"labcorp","164090","164090|labcorp-directory-next-164090","stability; specialInstructions","active","active"
 "labcorp","501533","501533|labcorp-501533","status; specialInstructions","active","blocked"
