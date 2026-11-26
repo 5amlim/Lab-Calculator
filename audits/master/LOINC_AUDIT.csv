@@ -2,3 +2,11 @@ lab,orderCode,resultCode,loinc,kind,scope,orderLoinc,source,accessDate,status
 quest,467,55066600,2283-0,result,East,,https://testdirectory.questdiagnostics.com/test/test-detail/467/folate-rbc?cc=PHP&p=r&q=467,2026-11-25,Quest published result; LOINC term active at https://loinc.org/2283-0
 labcorp,164798,164773,13947-7,result,Public directory,,https://www.labcorp.com/tests/164798/coccidioides-immitis-antibodies-igg-and-igm-eia,2026-11-25,Labcorp published result; order LOINC blank
 labcorp,164798,164781,13948-5,result,Public directory,,https://www.labcorp.com/tests/164798/coccidioides-immitis-antibodies-igg-and-igm-eia,2026-11-25,Labcorp published result; order LOINC blank
+labcorp,164090,,94769-7,order,Public directory,94769-7,https://www.labcorp.com/tests/164090/sars-cov-2-semi-quantitative-total-antibody-spike,2026-11-25,Labcorp published order mapping
+labcorp,164090,164091,94769-7,result,Public directory,94769-7,https://www.labcorp.com/tests/164090/sars-cov-2-semi-quantitative-total-antibody-spike,2026-11-25,Labcorp published result mapping
+labcorp,164090,164092,94661-6,result,Public directory,94769-7,https://www.labcorp.com/tests/164090/sars-cov-2-semi-quantitative-total-antibody-spike,2026-11-25,Labcorp published result mapping
+labcorp,123075,012212,2464-6,result,Public directory,,https://www.labcorp.com/tests/123075/multiple-sclerosis-ms-profile,2026-11-25,Labcorp published result mapping; order LOINC blank
+labcorp,123075,012230,1746-7,result,Public directory,,https://www.labcorp.com/tests/123075/multiple-sclerosis-ms-profile,2026-11-25,Labcorp published result mapping; order LOINC blank
+labcorp,123075,001081,1751-7,result,Public directory,,https://www.labcorp.com/tests/123075/multiple-sclerosis-ms-profile,2026-11-25,Labcorp published result mapping; order LOINC blank
+labcorp,123075,001776,2465-3,result,Public directory,,https://www.labcorp.com/tests/123075/multiple-sclerosis-ms-profile,2026-11-25,Labcorp published result mapping; order LOINC blank
+labcorp,123075,160311,2470-3,result,Public directory,,https://www.labcorp.com/tests/123075/multiple-sclerosis-ms-profile,2026-11-25,Labcorp published result mapping; order LOINC blank
