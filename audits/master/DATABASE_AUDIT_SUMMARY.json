@@ -19,27 +19,28 @@
     "labcorp": {
       "total": 6601,
       "rawLoaded": 6601,
-      "indexed": 6014,
+      "indexed": 5996,
       "statuses": {
-        "active": 6014,
-        "blocked": 456,
-        "pending": 131
+        "active": 5996,
+        "blocked": 475,
+        "pending": 130
       },
       "verification": {
         "Clinical conflict": 1,
-        "Not yet reviewed": 6592,
+        "Discontinued": 19,
+        "Not yet reviewed": 6538,
         "Official information unavailable": 1,
-        "Partially verified": 7
+        "Partially verified": 42
       }
     }
   },
   "crosswalk": {
-    "candidatePairs": 1455,
-    "questCodesWithCandidate": 1455,
-    "labcorpCodesWithCandidate": 1395,
-    "relationshipRows": 2257,
+    "candidatePairs": 1450,
+    "questCodesWithCandidate": 1450,
+    "labcorpCodesWithCandidate": 1390,
+    "relationshipRows": 2252,
     "activeReviewPairs": 800,
-    "unmatchedQuestRows": 1227,
+    "unmatchedQuestRows": 1232,
     "representedQuestCodes": 3313
   },
   "changes": {
@@ -74,19 +75,128 @@
       "added": [],
       "removed": [],
       "modified": [
+        "004100|labcorp-004100",
+        "004705|labcorp-004705",
+        "007245|labcorp-007245",
+        "007625|labcorp-007625",
+        "042580|labcorp-042580",
+        "070037|labcorp-070037",
+        "070078|labcorp-070078",
+        "070083|labcorp-070083",
+        "070085|labcorp-070085",
+        "070090|labcorp-070090",
+        "070120|labcorp-070120",
+        "070132|labcorp-070132",
+        "070145|labcorp-070145",
+        "085324|labcorp-085324",
+        "085340|labcorp-085340",
+        "102525|labcorp-102525",
+        "120220|labcorp-120220",
+        "140244|labcorp-140244",
+        "140768|labcorp-140768",
+        "140822|labcorp-140822",
+        "144691|labcorp-144691",
+        "146316|labcorp-146316",
+        "161646|labcorp-161646",
+        "161687|labcorp-161687",
+        "161802|labcorp-161802",
+        "161810|labcorp-161810",
+        "161828|labcorp-161828",
+        "161836|labcorp-161836",
+        "161950|labcorp-161950",
+        "163002|labcorp-163002",
+        "163059|labcorp-163059",
+        "163061|labcorp-163061",
+        "163067|labcorp-163067",
+        "163882|labcorp-163882",
+        "163900|labcorp-163900",
+        "163908|labcorp-163908",
+        "163915|labcorp-163915",
+        "164002|labcorp-164002",
+        "164010|labcorp-164010",
         "164090|labcorp-directory-next-164090",
-        "501533|labcorp-501533"
+        "164947|labcorp-164947",
+        "165126|labcorp-165126",
+        "165142|labcorp-165142",
+        "167015|labcorp-167015",
+        "340897|labcorp-340897",
+        "382965|labcorp-382965",
+        "500108|labcorp-500108",
+        "500124|labcorp-compendium-review-500124",
+        "500152|labcorp-500152",
+        "500161|labcorp-500161",
+        "500167|labcorp-500167",
+        "501533|labcorp-501533",
+        "520117|labcorp-520117",
+        "700433|labcorp-directory-next-700433",
+        "706200|labcorp-compendium-review-706200",
+        "717009|labcorp-717009",
+        "717016|labcorp-compendium-review-717016"
       ],
       "verificationChanged": [
+        "004100|labcorp-004100",
         "004291|labcorp-004291",
+        "004705|labcorp-004705",
         "005215|labcorp-005215",
+        "007245|labcorp-007245",
+        "007625|labcorp-007625",
         "028142|labcorp-028142",
+        "042580|labcorp-042580",
+        "070037|labcorp-070037",
+        "070078|labcorp-070078",
+        "070083|labcorp-070083",
+        "070085|labcorp-070085",
+        "070090|labcorp-070090",
+        "070120|labcorp-070120",
+        "070132|labcorp-070132",
+        "070145|labcorp-070145",
+        "085324|labcorp-085324",
+        "085340|labcorp-085340",
         "102525|labcorp-102525",
+        "120220|labcorp-120220",
         "123075|labcorp-compendium-review-123075",
+        "140244|labcorp-140244",
+        "140768|labcorp-140768",
+        "140822|labcorp-140822",
+        "144691|labcorp-144691",
+        "146316|labcorp-146316",
+        "161646|labcorp-161646",
+        "161687|labcorp-161687",
+        "161802|labcorp-161802",
+        "161810|labcorp-161810",
+        "161828|labcorp-161828",
+        "161836|labcorp-161836",
+        "161950|labcorp-161950",
+        "163002|labcorp-163002",
+        "163059|labcorp-163059",
+        "163061|labcorp-163061",
+        "163067|labcorp-163067",
+        "163882|labcorp-163882",
+        "163900|labcorp-163900",
+        "163908|labcorp-163908",
+        "163915|labcorp-163915",
+        "164002|labcorp-164002",
+        "164010|labcorp-164010",
         "164090|labcorp-directory-next-164090",
         "164798|labcorp-164798",
+        "164947|labcorp-164947",
+        "165126|labcorp-165126",
+        "165142|labcorp-165142",
+        "167015|labcorp-167015",
         "310|labcorp-verified-20261120-next-310",
-        "501533|labcorp-501533"
+        "340897|labcorp-340897",
+        "382965|labcorp-382965",
+        "500108|labcorp-500108",
+        "500124|labcorp-compendium-review-500124",
+        "500152|labcorp-500152",
+        "500161|labcorp-500161",
+        "500167|labcorp-500167",
+        "501533|labcorp-501533",
+        "520117|labcorp-520117",
+        "700433|labcorp-directory-next-700433",
+        "706200|labcorp-compendium-review-706200",
+        "717009|labcorp-717009",
+        "717016|labcorp-compendium-review-717016"
       ]
     },
     "relations": {
@@ -94,6 +204,11 @@
         "active|937|028142|"
       ],
       "removed": [
+        "active|17180|070085|",
+        "active|17182|004705|",
+        "active|17183|500167|",
+        "active|19894|004100|",
+        "active|30289|140244|",
         "active|39749|164068|"
       ],
       "modified": [
@@ -121,7 +236,9 @@
         "search-code-and-aliases",
         "print-separate-physical-routes",
         "crosswalk-review-only",
-        "quest-39749-discontinued"
+        "quest-39749-discontinued",
+        "labcorp-november-2026-deletions",
+        "labcorp-november-2026-notice-fields"
       ],
       "removed": [],
       "modified": []
@@ -165,7 +282,7 @@
     }
   ],
   "tests": {
-    "passed": 459,
+    "passed": 460,
     "failed": 0,
     "skipped": 0
   },
@@ -178,5 +295,27 @@
   "verifiedOrderLoincMappings": {
     "quest": 0,
     "labcorp": 1
+  },
+  "sourceListingReconciliation": {
+    "accessDate": "2026-11-26",
+    "publicSitemap": "https://www.labcorp.com/en.sitemap.tests-sitemap.xml",
+    "cdosCatalog": "https://cdos.halfpenny.com/labcorp/Home/PrintCatalog",
+    "publicCodes": 3303,
+    "cdosCodes": 6510,
+    "runtimeRecords": 6601,
+    "unionCodes": 6555,
+    "publicMissing": 23,
+    "cdosMissing": 0,
+    "runtimeAbsentFromBoth": 69,
+    "dispositionInPublic": {
+      "active": 3018,
+      "blocked": 245,
+      "pending": 17
+    },
+    "dispositionInCdos": {
+      "active": 5942,
+      "pending": 124,
+      "blocked": 444
+    }
   }
 }
