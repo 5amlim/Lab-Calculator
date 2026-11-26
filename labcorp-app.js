@@ -50,6 +50,25 @@
   });
   const MAY_2026_LABCORP_NOTICE = 'https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW5%20-%20Diagnostics%20Update%20May%202026.pdf';
 
+  const ARCHIVED_2026_LABCORP_NOTICES = Object.freeze({
+    April: 'https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW4%20-%20Diagnostics%20Update%20April%202026.pdf',
+    July: 'https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW7%20-%20Diagnostics%20Update%20July%202026.pdf',
+    August: 'https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW8%20-%20Diagnostics%20Update%20August%202026.pdf',
+    September: 'https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW9%20-%20Diagnostics%20Update%20September%202026.pdf',
+    October: 'https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW10%20-%20Diagnostics%20Update%20October%202026.pdf',
+  });
+  const ARCHIVED_2026_LABCORP_DELETIONS = Object.freeze({
+    '123027': ['October', ''],
+    '620046': ['September', ''],
+    '489200': ['September', '489477'],
+    '481020': ['September', '489477'],
+    '620009': ['September', ''],
+    '483496': ['September', '898017'],
+    '602666': ['August', ''],
+    '165750': ['July', ''],
+    '500309': ['April', ''],
+  });
+
   const REVIEWED_DNP_GROUPS_20261121 = [
     { reason: "Requires acid-preserved urine, which the clinic does not collect.", codes: "007351" },
     { reason: "Requires a prepared blood film. The clinic does not prepare slides or smears.", codes: "150201" },
@@ -712,14 +731,17 @@
   function applySpecimenExclusions(test) {
     const code = String(test.testCode || '').trim();
     const november = Object.hasOwn(NOVEMBER_2026_LABCORP_DELETIONS, code);
-    if (november || Object.hasOwn(MAY_2026_LABCORP_DELETIONS, code)) {
-      const alternate = november ? NOVEMBER_2026_LABCORP_DELETIONS[code] : MAY_2026_LABCORP_DELETIONS[code];
-      const source = november ? NOVEMBER_2026_LABCORP_NOTICE : MAY_2026_LABCORP_NOTICE;
-      const month = november ? 'November' : 'May';
+    const may = Object.hasOwn(MAY_2026_LABCORP_DELETIONS, code);
+    const archived = Object.hasOwn(ARCHIVED_2026_LABCORP_DELETIONS, code) ? ARCHIVED_2026_LABCORP_DELETIONS[code] : null;
+    if (november || may || archived) {
+      const [month, alternate, source] = november ? ['November', NOVEMBER_2026_LABCORP_DELETIONS[code], NOVEMBER_2026_LABCORP_NOTICE]
+        : may ? ['May', MAY_2026_LABCORP_DELETIONS[code], MAY_2026_LABCORP_NOTICE]
+        : [archived[0], archived[1], ARCHIVED_2026_LABCORP_NOTICES[archived[0]]];
       return { ...test, status: 'blocked', source,
         specialInstructions: 'Labcorp listed this order as deleted in its ' + month + ' 2026 notice. Do not collect for this code. '
           + (alternate ? 'Labcorp lists ' + alternate + ' as an alternative. Confirm the requested test and collection requirements before changing the order.'
-            : 'Contact Labcorp to confirm testing options.') };
+            : 'Contact Labcorp to confirm testing options.')
+          + (archived && REVIEWED_DNP_20261121.has(code) ? ' ' + REVIEWED_DNP_20261121.get(code) : '') };
     }
     // The exact specialty order conflicts with the CDOS route in the catalog.
     // Apply the hold by code so historical browser overrides cannot bypass it.
