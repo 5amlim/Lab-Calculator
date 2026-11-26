@@ -1550,7 +1550,7 @@
     const csv='\uFEFF'+lines.map(r=>r.map(q).join(',')).join('\r\n');
     const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
     const url=URL.createObjectURL(blob),a=document.createElement('a');
-    a.href=url;a.download=lab?'labcorp-to-quest-all-6015.csv':'quest-to-labcorp-all-3313.csv';
+    a.href=url;a.download=lab?'labcorp-to-quest-all-'+reverse.length+'.csv':'quest-to-labcorp-all-'+rows.filter(r=>r[7]==='active').length+'.csv';
     document.body.appendChild(a);a.click();a.remove();
     setTimeout(()=>URL.revokeObjectURL(url),1000);
   }

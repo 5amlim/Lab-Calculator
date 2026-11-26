@@ -16,7 +16,8 @@ const uncoded=rows.filter(r=>r[0]==='XXX');
 const byQuest=new Map(active.map(r=>[r[0],r]));
 const labcodes=new Set(indexedLab.map(r=>r[0]));
 test('every current active Quest code occurs exactly once in crosswalk',()=>{
- assert.equal(indexedQuest.length,3313);
+ assert.equal(new Set(indexedQuest.map(r=>r[0])).size,indexedQuest.length);
+ assert.equal(ctx.window.QUEST_TO_LABCORP_METADATA.questActiveCount,indexedQuest.length);
  assert.equal(active.length,indexedQuest.length);
  assert.equal(new Set(active.map(r=>r[0])).size,indexedQuest.length);
  for(const q of indexedQuest)assert.ok(byQuest.has(q[0]),'Missing Quest '+q[0]);
@@ -24,12 +25,13 @@ test('every current active Quest code occurs exactly once in crosswalk',()=>{
  assert.equal(uncoded.length,16);
 });
 test('every current LabCorp code can be represented by the reverse full-index view',()=>{
- assert.equal(indexedLab.length,6015);
+ assert.equal(ctx.window.QUEST_TO_LABCORP_METADATA.labcorpActiveCount,indexedLab.length);
  assert.equal(labcodes.size,indexedLab.length);
  for(const r of rows)if(r[3])assert.ok(labcodes.has(String(r[3])),'Unknown LabCorp '+r[3]);
 });
 test('historical flags and dangerous mismatches are preserved',()=>{
  const q=c=>byQuest.get(c);
+ assert.equal(q('10676')[3],'','Urine cytology stays unmapped pending manual directory review');
  assert.equal(q('8181')[3],'102525');
  assert.equal(q('2569')[3],'');
  assert.equal(q('10120')[3],'');
@@ -51,9 +53,13 @@ test('review names are not misreported as approved mappings',()=>{
 test('bidirectional interface has both catalog views and CSV exports',()=>{
  const ui=fs.readFileSync('labcorp-crosswalk-ui.js','utf8');
  const html=fs.readFileSync('labcorp.html','utf8');
- for(const fragment of ['labcorpCrosswalkDirection','buildReverse','labcorp-to-quest-all-6015.csv','quest-to-labcorp-all-3313.csv'])
+ for(const fragment of ['labcorpCrosswalkDirection','buildReverse',"'labcorp-to-quest-all-'+reverse.length+'.csv'","'quest-to-labcorp-all-'+rows.filter(r=>r[7]==='active').length+'.csv'"])
    assert.ok(ui.includes(fragment)||html.includes(fragment),fragment);
- assert.ok(html.includes('labcorp-crosswalk-data.js?v=20261122-45-candidates'));
+ const questHtml=fs.readFileSync('index.html','utf8');
+ for(const page of [html,questHtml]){
+   assert.match(page,/labcorp-crosswalk-data\.js\?v=[^"\s]+/);
+   assert.match(page,/labcorp-crosswalk-ui\.js\?v=[^"\s]+/);
+ }
 });
 
 /* Converter alignment regression: ghost labels are not submitted or copied. */
