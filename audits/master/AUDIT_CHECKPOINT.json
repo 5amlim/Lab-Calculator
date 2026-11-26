@@ -1,7 +1,7 @@
 {
   "baselineRevision": "b81f79958661971bad3a6799d6a0465a7525156e",
   "date": "2026-11-25",
-  "checkpoint": "Production catalog inventory complete; official clinical verification begun",
+  "checkpoint": "Production catalog inventory and second targeted clinical review batch",
   "catalogRecordsAccountedFor": {
     "quest": 3829,
     "labcorp": 6601
@@ -11,12 +11,12 @@
     "labcorp": 0
   },
   "reviewedOrAttempted": {
-    "quest": 12,
-    "labcorp": 6
+    "quest": 15,
+    "labcorp": 9
   },
   "notYetReviewed": {
-    "quest": 3817,
-    "labcorp": 6595
+    "quest": 3814,
+    "labcorp": 6592
   },
   "recordStatusSource": "FIELD_EVIDENCE.json. Every catalog row without a key has status Not yet reviewed.",
   "evidenceKeys": [
@@ -37,7 +37,13 @@
     "quest:34329",
     "quest:34499",
     "quest:39749",
-    "quest:6447"
+    "quest:6447",
+    "quest:18634",
+    "quest:18216",
+    "quest:39820",
+    "labcorp:123075",
+    "labcorp:004291",
+    "labcorp:164090"
   ],
   "inventoryCommand": "node scripts/audit-calculator-database.mjs --out ../calculator-current-report --check",
   "continueFrom": "Enumerate TEST_INVENTORY.csv where verification is Not yet reviewed, keeping laboratory and exact test code as strings. Use the appropriate service-area evidence and review every applicable route before marking a record fully verified.",
