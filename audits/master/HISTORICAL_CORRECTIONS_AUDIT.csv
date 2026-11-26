@@ -8,3 +8,6 @@ Labcorp,Dedicated and component-level volume overrides,179d712 and cb46c81,Volum
 Labcorp,Whole blood and SST thresholds,c02541f,Volume policy and new boundary tests,Retained
 Shared,Salivette and microtainer badges,f860e10 and 14d8b4e,Container reference and print regressions,Retained
 Shared,Other historical overrides,Additional history pending,Git history and catalog bundles,Not yet inventoried individually
+Quest,18634,Follow-up to October source bundle,https://testdirectory.questdiagnostics.com/test/test-detail/18634/cognitive-assessment-panel-with-reflex-to-t4-free?cc=MASTER,Corrected explicit aliquot counts and maintained separate EDTA
+Quest,18216,Follow-up to November review bundle,https://testdirectory.questdiagnostics.com/test/test-detail/18216/multiple-sclerosis-ms-differential-evaluation-with-reflexes?cc=MASTER&p=r,Nine source tubes verified. Three-vial calculator estimate clarified
+Quest,39749,"Vendor discontinuation effective June 15, 2026",https://intellitestmanager.questdiagnostics.com/home/output/300102,Held from collection and automated conversion
