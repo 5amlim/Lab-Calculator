@@ -166,25 +166,15 @@
     if(tableWrap)requestAnimationFrame(sizeCrosswalkViewport);
     const questActive=rows.filter(r=>sourceType(r)==='active');
     const activeMatches=questActive.filter(r=>Boolean(r[3])).length;
-    // Count distinct LabCorp codes linked to active Quest tests only.
-    // The reverse table also contains legacy/uncoded references, which do
-    // not belong in the active-match count.
-    const activeLabMatches=new Set(questActive.filter(r=>r[3]).map(r=>String(r[3]))).size;
-    const badgeMatches=reverse===null?(meta.labcorpMatched??activeLabMatches):activeLabMatches;
-    if(isQuestPage){
-      summary.textContent=(meta.questActiveCount||questActive.length).toLocaleString()+' Quest tests · '+
-        Number(badgeMatches).toLocaleString()+' LabCorp equivalents';
-    }else{
-      // Reverse badge: count indexed LabCorp tests and distinct active Quest
-      // references linked to those LabCorp tests. Review-only or legacy rows
-      // are informational and must not inflate the equivalent count.
-      const questEquivalents=reverse
-        ?new Set(reverse.flatMap(r=>r.matches.filter(m=>m.status==='suggested'&&m.source==='active').map(m=>String(m.code)))).size
-        :Number(meta.questMatchedActive??activeMatches);
-      const labcorpCount=reverse?.length??Number(meta.labcorpActiveCount||0);
-      summary.textContent=labcorpCount.toLocaleString()+' LabCorp tests · '+
-        questEquivalents.toLocaleString()+' Quest equivalents';
-    }
+    // Count active Quest-to-LabCorp candidate relationships, not unique
+    // destination codes. Both calculators show the same number of pairs.
+    // Before the reverse index loads, metadata includes workbook overrides.
+    const candidateMatches=reverse
+      ?reverse.reduce((count,r)=>count+r.matches.filter(m=>m.status==='suggested'&&m.source==='active').length,0)
+      :Number(meta.questMatchedActive??activeMatches);
+    const catalogCount=isQuestPage?questActive.length:(reverse?.length??Number(meta.labcorpActiveCount||0));
+    summary.textContent=catalogCount.toLocaleString()+(isQuestPage?' Quest tests · ':' LabCorp tests · ')+
+      candidateMatches.toLocaleString()+' candidate matches';
     status.textContent=pending?(loadError?'LabCorp directory unavailable':'Loading LabCorp index…'):
       'Loaded '+Math.min(visible,matched.length).toLocaleString()+' of '+matched.length.toLocaleString()+
       (lab?' LabCorp':' Quest')+' tests · 3 visible at a time';

@@ -314,12 +314,24 @@ test('workbook mappings load from LabCorp index even without LabCorp SEED_TESTS'
   assert.equal(activeAfter.find(r=>r[0]==='637')[3],'','Protected mercury exception');
 });
 
-test('badge counts active LabCorp links after workbook is applied',()=>{
+test('both badges count the same active candidate relationships after workbook overrides',()=>{
   const ui=fs.readFileSync('labcorp-crosswalk-ui.js','utf8');
-  assert.ok(ui.includes('window.applyQuestLabcorpWorkbookMatches?.(index.tests)'));
   assert.ok(ui.indexOf('window.applyQuestLabcorpWorkbookMatches?.(index.tests)') <
     ui.indexOf('reverse=buildReverse(index)'));
-  assert.ok(ui.includes('new Set(questActive.filter(r=>r[3]).map(r=>String(r[3]))).size'));
+  const start=ui.indexOf("    const questActive=rows.filter(r=>sourceType(r)==='active');",ui.indexOf('  function render(){'));
+  const end=ui.indexOf('    status.textContent=pending?',start);
+  assert.ok(start>=0&&end>start);
+  const code=ui.slice(start,end);
+  const rows=[['1','','','100'],['2','','','100'],['3','','',''],['4','','','200']];
+  const reverse=[{matches:[{code:'1',status:'suggested',source:'active'},{code:'2',status:'suggested',source:'active'},{code:'3',status:'review',source:'active'}]},{matches:[{code:'4',status:'suggested',source:'legacy'}]}];
+  const counts=[];
+  for(const isQuestPage of [true,false])for(const index of [null,reverse]){
+    const context={rows,reverse:index,meta:{questMatchedActive:2,labcorpActiveCount:2},isQuestPage,summary:{},sourceType:r=>r[0]==='4'?'legacy':'active'};
+    vm.runInNewContext(code,context);
+    assert.match(context.summary.textContent,/ · 2 candidate matches$/);
+    counts.push(context.summary.textContent);
+  }
+  assert.deepEqual(counts,['3 Quest tests · 2 candidate matches','3 Quest tests · 2 candidate matches','2 LabCorp tests · 2 candidate matches','2 LabCorp tests · 2 candidate matches']);
 });
 
 
