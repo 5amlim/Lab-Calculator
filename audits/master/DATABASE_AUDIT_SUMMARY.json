@@ -11,8 +11,8 @@
       "verification": {
         "Clinical conflict": 1,
         "Discontinued": 1,
-        "Not yet reviewed": 3814,
-        "Partially verified": 10,
+        "Not yet reviewed": 3809,
+        "Partially verified": 15,
         "Source inaccessible": 3
       }
     },
@@ -51,23 +51,31 @@
         "10676|quest-tc-20261125-10676",
         "18216|quest-verified-unusable-audit-next100b-20261116-18216",
         "18634|quest-18634-verified-20261027",
-        "39749|seed-153"
+        "37386|seed-149",
+        "39749|seed-153",
+        "91475|quest-91475-20260915",
+        "91477|quest-91477-20260915"
       ],
       "verificationChanged": [
         "10676|quest-tc-20261125-10676",
         "1430|quest-official-1430-20261114",
+        "14435|quest-master-verified-14435-20261115-b2",
+        "14867|quest-verified-unusable-audit-next50c-20261116-14867",
         "16802|seed-109",
         "18216|quest-verified-unusable-audit-next100b-20261116-18216",
         "18634|quest-18634-verified-20261027",
         "229|quest-official-229-20261114",
         "34329|seed-130",
         "34499|seed-134",
+        "37386|seed-149",
         "39749|seed-153",
         "39820|quest-39820-20260915",
         "467|seed-21",
         "6447|seed-72",
         "8280|quest-official-8280-20261114",
         "8477|quest-8477-20261018-stat",
+        "91475|quest-91475-20260915",
+        "91477|quest-91477-20260915",
         "937|quest-937-20260915"
       ]
     },
@@ -309,11 +317,6 @@
       "detail": "Not specified"
     }
   ],
-  "tests": {
-    "passed": 460,
-    "failed": 0,
-    "skipped": 0
-  },
   "officialVerificationComplete": false,
   "newTestsAdded": 0,
   "verifiedResultLoincMappings": {
@@ -345,5 +348,10 @@
       "active": 5939,
       "pending": 124
     }
+  },
+  "tests": {
+    "passed": 461,
+    "failed": 0,
+    "skipped": 0
   }
 }
