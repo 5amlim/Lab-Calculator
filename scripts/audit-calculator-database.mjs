@@ -236,6 +236,48 @@ if (baseline) {
   }
 }
 const {relationships, ...summaryCrosswalk} = snapshot.crosswalk;
+// Track clinical source coverage by field, independently of structural passes.
+// A field in the existing evidence ledger is a review/intake event, not
+// necessarily a match. Never treat an order-level partial status as verified.
+const fieldGroups = {
+  collectionContainer: ['drawContainer'],
+  submissionContainer: ['transportContainer'],
+  specimenType: ['specimenType'],
+  preferredVolume: ['preferredVolume'],
+  minimumVolume: ['minimumVolume'],
+  processing: ['spin', 'processing', 'specialInstructions'],
+  shipmentTemperature: ['transportTemperature', 'transportTemperatureRaw'],
+  stability: ['stability'],
+  fasting: ['fastingStatus', 'fastingInstructions'],
+  alternativeAndAdditionalRoutes: ['alternativeContainer', 'additionalDrawRequirements', 'vendorAlternative'],
+  physicalCounts: ['collectionCount', 'submissionCount'],
+  regionalAcceptance: ['regionalAvailability', 'performingLaboratory'],
+  turnaroundTime: ['turnaroundTime', 'testSetup']
+};
+const activeInventory = inventory.filter(row => row.disposition === 'active');
+const fieldQueue = [];
+for (const row of activeInventory) {
+  const review = evidence[row.lab+':'+row.code];
+  for (const [category, fields] of Object.entries(fieldGroups)) {
+    const matchedFields = fields.filter(field => review?.fields?.[field]);
+    const status = matchedFields.length ? 'Evidence recorded' :
+      /unavailable|inaccessible/i.test(review?.status || '') ? 'Source unavailable' : 'Pending';
+    fieldQueue.push({lab:row.lab,code:row.code,id:row.id,category,status,
+      fields:matchedFields.join('; '),source:review?.url || '',recordStatus:review?.status || 'Not yet reviewed'});
+  }
+}
+const fieldSummary = Object.fromEntries(['quest','labcorp','combined'].map(lab => {
+  const orders = activeInventory.filter(row=>lab==='combined'||row.lab===lab).length;
+  return [lab,{orders,categories:Object.fromEntries(Object.keys(fieldGroups).map(category=>{
+    const rows=fieldQueue.filter(row=>row.category===category&&(lab==='combined'||row.lab===lab));
+    const counts=countsBy(rows,row=>row.status);
+    return [category,{...counts,evidenceCoveragePct:orders?Number(((counts['Evidence recorded']||0)*100/orders).toFixed(2)):0}];
+  }))}];
+}));
+writeJson('CLINICAL_FIELD_COVERAGE.json',{scope:'Active normalized records, including held records. Evidence presence is not verification; groups containing multiple fields require separate exact-route adjudication.',byLab:fieldSummary});
+writeCsv('CLINICAL_FIELD_REVIEW_QUEUE.csv',['lab','code','id','category','status','fields','source','recordStatus'],fieldQueue);
+console.log('CLINICAL_FIELD_COVERAGE '+JSON.stringify(fieldSummary.combined));
+
 writeJson('DATABASE_SNAPSHOT.json', snapshot);
 writeJson('DATABASE_AUDIT_SUMMARY.json', {
   labs: Object.fromEntries(Object.entries(snapshot.labs).map(([lab, {records, ...summary}]) => [lab, summary])),
