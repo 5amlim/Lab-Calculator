@@ -663,6 +663,12 @@
 
 
   function applySpecimenExclusions(test) {
+    // The exact specialty order conflicts with the CDOS route in the catalog.
+    // Apply the hold by code so historical browser overrides cannot bypass it.
+    if (String(test.testCode || '').trim() === '501533') {
+      return { ...test, status: 'blocked',
+        specialInstructions: 'Collection on hold. Labcorp specialty lists an acid-preserved, frozen specimen for this code, while the client directory lists an unpreserved, refrigerated route. Confirm the accepted route with the receiving lab and contact the Lab Supervisor before collection.' };
+    }
     const reviewedReason = REVIEWED_DNP_20261121.get(String(test.testCode || '').trim());
     if (reviewedReason) return { ...test, status: 'blocked', specialInstructions: reviewedReason };
     const title = normalizeSearch(test.testName);
@@ -6222,12 +6228,6 @@
           && collectionSpecimenGroupForItem(item) === 'urine'
           && item.tests.every(test => !isOriginalContainerSubmission(test))) {
         item.detail = describeTimedUrineSource(item);
-        // Do not assume the general Labcorp unpreserved route is accepted
-        // for the Esoterix-specific 501533 order: its direct instructions
-        // name an acid-preserved, frozen specimen.
-        if (item.tests.some(test => String(test.testCode || '').trim() === '501533')) {
-          item.detail += ' VERIFY BEFORE COLLECTION: Labcorp specialty 501533 lists 6N HCl preservative and frozen shipment; the available CDOS entry lists unpreserved/refrigerated. Do not pool with other 24-hour urine until the receiving lab confirms its accepted route.';
-        }
       }
       if (item.className === 'tube-nmr-lipotube') {
         item.detail = 'Clot upright 30 minutes, centrifuge 1600–1800 ×g for 10–15 minutes, do not open, refrigerate at 2–8°C, and ship with frozen cool packs.';
