@@ -117,7 +117,7 @@ test('Quest 39749 cannot return to the cart or converter through saved data', as
 test('Labcorp vendor deletions stay blocked and six retired crosswalk targets stay unlinked', async () => {
   const {labs, loadCalculator} = await import('../scripts/load-calculator-catalog.mjs');
   const [quest, labcorp] = await Promise.all(labs.map(lab => loadCalculator(root, lab, {captureRecords: true})));
-  const app = openCalculator(labs[1].app, ['NOVEMBER_2026_LABCORP_DELETIONS', 'MAY_2026_LABCORP_DELETIONS', 'applyUserState'], {
+  const app = openCalculator(labs[1].app, ['NOVEMBER_2026_LABCORP_DELETIONS', 'MAY_2026_LABCORP_DELETIONS', 'ARCHIVED_2026_LABCORP_DELETIONS', 'applyUserState'], {
     records: labcorp.records.filter(row => row.testCode === '070085')
   });
   const retired = app.NOVEMBER_2026_LABCORP_DELETIONS;
@@ -129,6 +129,20 @@ test('Labcorp vendor deletions stay blocked and six retired crosswalk targets st
   assert(!labcorp.index.tests.some(([code]) => Object.hasOwn(retired, code) || Object.hasOwn(app.MAY_2026_LABCORP_DELETIONS, code)));
   assert(labcorp.records.filter(row => ['160721', '164000'].includes(row.testCode)).every(row =>
     row.status === 'blocked' && /May 2026/.test(row.specialInstructions)));
+  const archive = app.ARCHIVED_2026_LABCORP_DELETIONS;
+  assert.equal(Object.keys(archive).length, 9);
+  for (const [code, [month]] of Object.entries(archive)) {
+    const record = labcorp.records.find(row => row.testCode === code);
+    assert.equal(record?.status, 'blocked', code);
+    assert(record.specialInstructions.includes(month + ' 2026'), code);
+    assert(!labcorp.index.tests.some(([indexed]) => indexed === code), code);
+  }
+  const crosswalk = quest.globals.QUEST_TO_LABCORP_INDEX;
+  assert(!crosswalk.some(row => Object.hasOwn(archive, row[3]) ||
+    row[8]?.some(option => Object.hasOwn(archive, option[0]))));
+  const digital = crosswalk.find(row => row[0] === '92473');
+  assert.equal(digital[3], '');
+  assert(digital[8].some(([code]) => code === '489477'));
   const restored = app.applyUserState({overrides: [], customTests: [{id: 'custom-deleted', testCode: '231819', status: 'active'}]});
   assert.equal(restored.find(row => row.id === 'custom-deleted').status, 'blocked');
 
