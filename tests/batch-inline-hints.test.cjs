@@ -47,7 +47,7 @@ test('multiline hints keep one visual row per input row and never modify the val
   };
   function element(tag) {
     const node = {
-      tag, style: {}, children: [], className: '', textContent: '', attrs: {},
+      tag, style: {}, dataset: {}, children: [], className: '', textContent: '', attrs: {},
       setAttribute(key, val) { this.attrs[key] = val; },
       appendChild(child) { this.children.push(child); },
       replaceChildren() { this.children = []; },
@@ -67,7 +67,7 @@ test('multiline hints keep one visual row per input row and never modify the val
   const textarea = {
     parentElement: root, value: '809\nSed Rate\nunknown\n',
     offsetWidth: 390, clientWidth: 388, offsetHeight: 120,
-    offsetLeft: 0, offsetTop: 0, scrollTop: 0,
+    offsetLeft: 0, offsetTop: 0, scrollLeft: 0, scrollTop: 0,
     addEventListener(type, fn) { listeners[type] = fn; },
   };
   const style = {
@@ -104,7 +104,10 @@ test('multiline hints keep one visual row per input row and never modify the val
 
   textarea.scrollTop = 20;
   listeners.scroll();
-  assert.equal(root.overlay.children[0].style.transform, 'translateY(-20px)');
+  assert.equal(root.overlay.children[0].style.transform, 'translate(0px, -20px)');
+  textarea.scrollLeft = 25;
+  listeners.scroll();
+  assert.equal(root.overlay.children[0].style.transform, 'translate(-25px, -20px)');
 });
 
 test('unmatched and approximate Add Tests lines keep the first-line search button and no spellcheck', () => {
