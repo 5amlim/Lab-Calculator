@@ -10,6 +10,7 @@ Command `node --test --test-reporter=tap tests/*.test.cjs` with Node v24.22.3.
 | Third audit checkpoint | 461 | 0 | 0 |
 | Active test preservation and review flags | 463 | 0 | 0 |
 | Vendor shipping and patient preparation continuation | 464 | 0 | 0 |
+| Quest pour-off and patient-state restriction review | 465 | 0 | 0 |
 
 The baseline failures came from a browser test stub missing dataset and horizontal scroll, three stale assertions about the size of a Quest catalog fixture after the 10676 addition, and historical Labcorp exclusion wording that differed from runtime text. Updated tests assert the underlying material requirements. Unqualified Node discovery also treated the browser script `assets/js/test-mode-toggle.js` as a test based on its name. The explicit glob runs all 103 original test files, plus the new audit regression file.
 
@@ -24,3 +25,5 @@ The Quest notice test checks the exact BNP temperature stability bands, the swab
 The collection review regressions check exact-code search, custom and saved data, absence of collection routes and bags, public flags, converter rows, and two high-volume or temperature conflicts. The 78-test print baseline matches draw counts, bag counts, and test detail across both builds.
 
 The latest browser run checked three corrected Labcorp codes at 390 px and 1280 px. All three appeared in one refrigerated bag, and 001637 showed fasting as required. The Quest baseline kept its collection groups and all bag totals, with the expected optional fasting update for 17306.
+
+Quest 16983 browser checks at 390 px and 1280 px verified a five-source-tube plan, a frozen bag marked with the 10 mL pour-off capacity, and the New York restriction in print. The 78-test Quest baseline still matched the 46 collection containers and all bag totals.

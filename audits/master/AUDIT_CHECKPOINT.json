@@ -1,7 +1,7 @@
 {
   "baselineRevision": "b81f79958661971bad3a6799d6a0465a7525156e",
   "date": "2026-11-26",
-  "checkpoint": "Public-directory clinical comparison, active-test preservation, and full runtime inventory",
+  "checkpoint": "Public-directory clinical comparison and high-volume collection and submission review",
   "catalogRecordsAccountedFor": {
     "quest": 3829,
     "labcorp": 6601
@@ -11,12 +11,12 @@
     "labcorp": 0
   },
   "reviewedOrAttempted": {
-    "quest": 37,
-    "labcorp": 104
+    "quest": 46,
+    "labcorp": 114
   },
   "notYetReviewed": {
-    "quest": 3792,
-    "labcorp": 6497
+    "quest": 3783,
+    "labcorp": 6487
   },
   "recordStatusSource": "FIELD_EVIDENCE.json. Every catalog row without a key has status Not yet reviewed.",
   "evidenceKeys": [
@@ -160,7 +160,26 @@
     "labcorp:071712",
     "labcorp:284191",
     "labcorp:702790",
-    "labcorp:007989"
+    "labcorp:007989",
+    "quest:16983",
+    "quest:36378",
+    "quest:91691",
+    "quest:93888",
+    "quest:6215",
+    "quest:19483",
+    "quest:16440",
+    "quest:39149",
+    "quest:1025",
+    "labcorp:551660",
+    "labcorp:551697",
+    "labcorp:551700",
+    "labcorp:551871",
+    "labcorp:551920",
+    "labcorp:790554",
+    "labcorp:790560",
+    "labcorp:808577",
+    "labcorp:823573",
+    "labcorp:008482"
   ],
   "inventoryCommand": "node scripts/audit-calculator-database.mjs --out ../calculator-current-report --check",
   "continueFrom": "Enumerate TEST_INVENTORY.csv where verification is Not yet reviewed, keeping laboratory and exact test code as strings. Use the appropriate service-area evidence and review every applicable route before marking a record fully verified.",
@@ -194,7 +213,7 @@
     }
   },
   "exactPageIntake": {
-    "publicPagesAttempted": 340,
+    "publicPagesAttempted": 385,
     "cdosPagesAttempted": 188,
     "interpretation": "Capture and code identity are intake milestones. Field-level adjudication remains in FIELD_EVIDENCE.json.",
     "checkpoint": "LABCORP_EXACT_PAGE_CHECKPOINT.csv",
@@ -251,16 +270,16 @@
       "Exact page unavailable. Request receiving-lab documentation.": 5
     },
     "publishedLoincAssignments": {
-      "order": 269,
-      "result": 541
+      "order": 309,
+      "result": 600
     },
-    "publicCodesWithPublishedAssignments": 309,
+    "publicCodesWithPublishedAssignments": 354,
     "formatIssues": 0,
     "routineFieldComparison": {
-      "ordersWithComparableFields": 264,
-      "matches": 643,
-      "not_comparable": 221,
-      "multiple_routes_for_review": 8
+      "ordersWithComparableFields": 298,
+      "matches": 715,
+      "not_comparable": 281,
+      "multiple_routes_for_review": 9
     }
   },
   "activeTestPreservation": {

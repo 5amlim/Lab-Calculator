@@ -105,7 +105,7 @@ def direct_storage_temperature(instructions):
     # handling, stability tables and split samples need field-level review.
     primary = re.match(r"^(?:maintain specimen at )?"
                        r"(room temperature|refrigerate|freeze)\b", instructions, re.IGNORECASE)
-    if not primary or re.search(r"\b(?:or|if|depending|stable|except|unacceptable)\b",
+    if not primary or re.search(r"\b(?:or|if|depending|stable|except|unacceptable|all others)\b",
                                 instructions, re.IGNORECASE):
         return None
     return {"room temperature": "Room Temperature", "refrigerate": "Refrigerated",

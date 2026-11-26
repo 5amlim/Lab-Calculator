@@ -642,3 +642,75 @@ code,field,calculatorValue,publishedValue,outcome,source,accessDate,sourceSha256
 007989,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/007989/diazepam-serum-or-plasma,2026-11-26,56d99bd6e88455b7fc6677d7d169328a187ba880599acba6f24a8bc738d2a6e9
 008136,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008136/fungus-stain,2026-11-26,206c1e5fcc324a370e75c9d147ab90603374c6e6690ad5d0c67936cd316dbe0c
 008144,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008144/stool-culture,2026-11-26,791d47a753ee1a690f668c93c9b9b84e0edcdbec69375c1b065b9ced56a3a01e
+008169,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008169/b-hemolytic-streptococcus-culture-group-a-only,2026-11-26,fc31182e4c0af5561b6078d03b249b9f13e728833b97b463ba05686d0ba19038
+008219,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008219/parasite-identification-worm,2026-11-26,687affb96ac44182a64adbe8e699f50e33d65523654b8d03775d834d50899a1b
+008250,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/008250/herpes-simplex-virus-hsv-culture-and-typing,2026-11-26,5f3a5ef9a93d0e00c18b434730547de415a6eee7a27280d36fd280432ef84d04
+008300,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008300/blood-culture-routine,2026-11-26,74913f70ee4d0cdc0b05b67bdaae050132a3765d9d5ca085d8a3b98540557c8a
+008342,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008342/upper-respiratory-culture-routine,2026-11-26,40e4c10588d0a7ae4b5bf9518b12786429d1c94b2f82945dc118fa74d0bee841
+008540,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008540/gram-stain,2026-11-26,a98fbb9cb4fbf0d9329759d325ffc3962e69faf79584d128721c2c224ee1a65c
+008623,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008623/ova-and-parasites-examination,2026-11-26,8ef53865a55dc50ab7357d1bc8d2f25d0fcc7e97d59d8ea39876f6ec539af01c
+008629,minimumVolume,3,3,Match,https://www.labcorp.com/tests/008629/ova-and-parasites-examination-urine,2026-11-26,39a5b502c23422a8182c45be450dcf843cdd298f4c032b5e30974d02ef9ba06e
+008629,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008629/ova-and-parasites-examination-urine,2026-11-26,39a5b502c23422a8182c45be450dcf843cdd298f4c032b5e30974d02ef9ba06e
+008631,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008631/pinworm-preparation,2026-11-26,8b9127655fb0bf59c231c2a75643de1dd3c01ac07c48280e683b5886d0fe382b
+008649,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008649/aerobic-bacterial-culture-general,2026-11-26,62dbc79af4afb2d9f6f8c86d88106aa0f7e9f03d2b573881ff7c833e41e1698a
+008656,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008656/white-blood-cells-wbc-stool,2026-11-26,a563fe41eb0731919c9ba152a13c00a217f9f3fca584bca44fcbfc1de29047d9
+008851,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008851/urine-culture-prenatal-with-group-b-streptococcus-susceptibility-reflex,2026-11-26,1a040c0a4bb133ac4b51bd13b0c41133c6893fff0ec1851db7e4a1b8003158fd
+010035,preferredVolume,1,1,Match,https://www.labcorp.com/tests/010035/drug-induced-liver-injury-pattern-assessment-with-calculation-of-r-value,2026-11-26,b8e0afdf8d86ff86456f8643d026f55e9fad2e6d34150ec6472f0a973bf7b717
+010035,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/010035/drug-induced-liver-injury-pattern-assessment-with-calculation-of-r-value,2026-11-26,b8e0afdf8d86ff86456f8643d026f55e9fad2e6d34150ec6472f0a973bf7b717
+010035,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/010035/drug-induced-liver-injury-pattern-assessment-with-calculation-of-r-value,2026-11-26,b8e0afdf8d86ff86456f8643d026f55e9fad2e6d34150ec6472f0a973bf7b717
+010108,preferredVolume,0.8,0.8,Match,https://www.labcorp.com/tests/010108/c-peptide,2026-11-26,3a7eb7c0ff0474f30198abb711e1a1dd4b66d83df38a197bd5406d695cd2414d
+010108,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/010108/c-peptide,2026-11-26,3a7eb7c0ff0474f30198abb711e1a1dd4b66d83df38a197bd5406d695cd2414d
+010108,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/010108/c-peptide,2026-11-26,3a7eb7c0ff0474f30198abb711e1a1dd4b66d83df38a197bd5406d695cd2414d
+010116,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/010116/angiotensin-converting-enzyme-ace,2026-11-26,fea0b33b6040bfceee08a8e643072f64fc4bf1f4458d5cf81dd7228323780240
+010116,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/010116/angiotensin-converting-enzyme-ace,2026-11-26,fea0b33b6040bfceee08a8e643072f64fc4bf1f4458d5cf81dd7228323780240
+010116,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/010116/angiotensin-converting-enzyme-ace,2026-11-26,fea0b33b6040bfceee08a8e643072f64fc4bf1f4458d5cf81dd7228323780240
+010173,minimumVolume,1,1,Match,https://www.labcorp.com/tests/010173/b2-microglobulin-urine,2026-11-26,f177c06f04b88587d2b6389cbca887800dce13232b5c983c45c00fa8c744ad82
+010173,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/010173/b2-microglobulin-urine,2026-11-26,f177c06f04b88587d2b6389cbca887800dce13232b5c983c45c00fa8c744ad82
+010180,preferredVolume,7,7,Match,https://www.labcorp.com/tests/010180/zinc-protoporphyrin-zpp-workplace,2026-11-26,fff33da67427d1844f56db77c1757711bfe335a26e3b1d4077ea9dd0fb1ace4e
+010180,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/010180/zinc-protoporphyrin-zpp-workplace,2026-11-26,fff33da67427d1844f56db77c1757711bfe335a26e3b1d4077ea9dd0fb1ace4e
+010181,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/010181/b2-microglobulin,2026-11-26,c5447be5f91b1c42e2961e7f1ace53cb5f34f892b0314ef8f3eea6f35f3aa950
+010181,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/010181/b2-microglobulin,2026-11-26,c5447be5f91b1c42e2961e7f1ace53cb5f34f892b0314ef8f3eea6f35f3aa950
+010181,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/010181/b2-microglobulin,2026-11-26,c5447be5f91b1c42e2961e7f1ace53cb5f34f892b0314ef8f3eea6f35f3aa950
+010249,preferredVolume,0.8,0.8,Match,https://www.labcorp.com/tests/010249/osteocalcin-serum,2026-11-26,9c437a03b2165d115e3e753cbf88f7ea99353c5975c297504854dea741dc665e
+010249,minimumVolume,0.4,0.4,Match,https://www.labcorp.com/tests/010249/osteocalcin-serum,2026-11-26,9c437a03b2165d115e3e753cbf88f7ea99353c5975c297504854dea741dc665e
+010249,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/010249/osteocalcin-serum,2026-11-26,9c437a03b2165d115e3e753cbf88f7ea99353c5975c297504854dea741dc665e
+010272,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/010272/epstein-barr-virus-ebv-nuclear-antigen-antibodies-igg,2026-11-26,3296ef3cb23eca65095ee9e70b4ce85cc69458c909e10236454f66ac5207f935
+010272,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/010272/epstein-barr-virus-ebv-nuclear-antigen-antibodies-igg,2026-11-26,3296ef3cb23eca65095ee9e70b4ce85cc69458c909e10236454f66ac5207f935
+010272,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/010272/epstein-barr-virus-ebv-nuclear-antigen-antibodies-igg,2026-11-26,3296ef3cb23eca65095ee9e70b4ce85cc69458c909e10236454f66ac5207f935
+010314,preferredVolume,1,1,Match,https://www.labcorp.com/tests/010314/thyrotropin-receptor-antibody-serum,2026-11-26,381fa53fa7c18d550f1159a2c7e59030557eb0520f97484f812cc956e210a9a2
+010314,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/010314/thyrotropin-receptor-antibody-serum,2026-11-26,381fa53fa7c18d550f1159a2c7e59030557eb0520f97484f812cc956e210a9a2
+010314,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/010314/thyrotropin-receptor-antibody-serum,2026-11-26,381fa53fa7c18d550f1159a2c7e59030557eb0520f97484f812cc956e210a9a2
+010322,preferredVolume,1,1,Match,https://www.labcorp.com/tests/010322/prostate-specific-antigen-psa,2026-11-26,75e2c9377ef08a9e148bf9fcfda52970af1ffdfe3d974aa14bf8f7c5ee6f9fb3
+010322,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/010322/prostate-specific-antigen-psa,2026-11-26,75e2c9377ef08a9e148bf9fcfda52970af1ffdfe3d974aa14bf8f7c5ee6f9fb3
+010322,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/010322/prostate-specific-antigen-psa,2026-11-26,75e2c9377ef08a9e148bf9fcfda52970af1ffdfe3d974aa14bf8f7c5ee6f9fb3
+010330,preferredVolume,1,1,Match,https://www.labcorp.com/tests/010330/bile-acids,2026-11-26,60df08aa2497eda87c3061c5a1f4ea68c4d7940b200dce1099d66c0b053616b2
+010330,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/010330/bile-acids,2026-11-26,60df08aa2497eda87c3061c5a1f4ea68c4d7940b200dce1099d66c0b053616b2
+010330,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/010330/bile-acids,2026-11-26,60df08aa2497eda87c3061c5a1f4ea68c4d7940b200dce1099d66c0b053616b2
+010363,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/010363/insulin-like-growth-factor-1-igf-1,2026-11-26,10ddeb2b650a7332de0c9844874b1393ac3659608e21e0faa58c4fae735ce0f9
+010363,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/010363/insulin-like-growth-factor-1-igf-1,2026-11-26,10ddeb2b650a7332de0c9844874b1393ac3659608e21e0faa58c4fae735ce0f9
+010363,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/010363/insulin-like-growth-factor-1-igf-1,2026-11-26,10ddeb2b650a7332de0c9844874b1393ac3659608e21e0faa58c4fae735ce0f9
+010389,preferredVolume,1,1,Match,https://www.labcorp.com/tests/010389/triiodothyronine-t3-free,2026-11-26,132d8544c585d1e1367f552cb7f2b96921ad77706537e059a0309b141dcb8d1c
+010389,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/010389/triiodothyronine-t3-free,2026-11-26,132d8544c585d1e1367f552cb7f2b96921ad77706537e059a0309b141dcb8d1c
+010389,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/010389/triiodothyronine-t3-free,2026-11-26,132d8544c585d1e1367f552cb7f2b96921ad77706537e059a0309b141dcb8d1c
+010397,preferredVolume,0.6,0.6,Match,https://www.labcorp.com/tests/010397/vasoactive-intestinal-polypeptide-vip-plasma,2026-11-26,22f9799a5ccea5084ccf95cee25be1607e4fe160814af6ce3ba0f09834523a08
+010397,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/010397/vasoactive-intestinal-polypeptide-vip-plasma,2026-11-26,22f9799a5ccea5084ccf95cee25be1607e4fe160814af6ce3ba0f09834523a08
+010397,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/010397/vasoactive-intestinal-polypeptide-vip-plasma,2026-11-26,22f9799a5ccea5084ccf95cee25be1607e4fe160814af6ce3ba0f09834523a08
+010405,preferredVolume,1,1,Match,https://www.labcorp.com/tests/010405/myoglobin,2026-11-26,5c4088faa675c46b47bb1d583c1d4573613279e1d2d7c51291cc10b7d733cbce
+010405,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/010405/myoglobin,2026-11-26,5c4088faa675c46b47bb1d583c1d4573613279e1d2d7c51291cc10b7d733cbce
+010405,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/010405/myoglobin,2026-11-26,5c4088faa675c46b47bb1d583c1d4573613279e1d2d7c51291cc10b7d733cbce
+010413,preferredVolume,2,2,Match,https://www.labcorp.com/tests/010413/intrinsic-factor-blocking-antibodies,2026-11-26,63ad986c6efa2d82cb4c4c3a436144f638a70faddc6d0e152faaa31fd590287e
+010413,minimumVolume,1,1,Match,https://www.labcorp.com/tests/010413/intrinsic-factor-blocking-antibodies,2026-11-26,63ad986c6efa2d82cb4c4c3a436144f638a70faddc6d0e152faaa31fd590287e
+010413,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/010413/intrinsic-factor-blocking-antibodies,2026-11-26,63ad986c6efa2d82cb4c4c3a436144f638a70faddc6d0e152faaa31fd590287e
+010447,preferredVolume,2,2,Match,https://www.labcorp.com/tests/010447/antidiuretic-hormone-adh-plasma,2026-11-26,d0adb876d39da1ffcf865f98b7b397294302e8f7d7ac45b0378e2caba01fb8be
+010447,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/010447/antidiuretic-hormone-adh-plasma,2026-11-26,d0adb876d39da1ffcf865f98b7b397294302e8f7d7ac45b0378e2caba01fb8be
+010505,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/010505/copeptin,2026-11-26,816a23e40359129d779e5f079e55f46e59011090faec2aa61cae11202731da6f
+010505,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/010505/copeptin,2026-11-26,816a23e40359129d779e5f079e55f46e59011090faec2aa61cae11202731da6f
+010540,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/010540/insulin-like-growth-factor-1-igf-1-with-z-score,2026-11-26,6ed0e1173e2217280c29debfbbeea589e05a275563e3134aac5841950ccc92af
+010540,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/010540/insulin-like-growth-factor-1-igf-1-with-z-score,2026-11-26,6ed0e1173e2217280c29debfbbeea589e05a275563e3134aac5841950ccc92af
+010540,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/010540/insulin-like-growth-factor-1-igf-1-with-z-score,2026-11-26,6ed0e1173e2217280c29debfbbeea589e05a275563e3134aac5841950ccc92af
+010801,preferredVolume,3,3,Match,https://www.labcorp.com/tests/010801/a-fetoprotein-afp-maternal-serum-for-open-spina-bifida,2026-11-26,80901156305f51b01664c1769017b222b9deea1cd7bf23cd8b988441217195d8
+010801,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/010801/a-fetoprotein-afp-maternal-serum-for-open-spina-bifida,2026-11-26,80901156305f51b01664c1769017b222b9deea1cd7bf23cd8b988441217195d8
+010801,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/010801/a-fetoprotein-afp-maternal-serum-for-open-spina-bifida,2026-11-26,80901156305f51b01664c1769017b222b9deea1cd7bf23cd8b988441217195d8
+010991,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/010991/ph-stool,2026-11-26,f6c3bc52e18100d30a0d39254e9f8cb01febb088f550dba0b5367f36c8b0c9a4
+011254,minimumVolume,1,1,Match,https://www.labcorp.com/tests/011254/ph-body-fluid,2026-11-26,3b46a9c750e59f506da76d6db17268d16330d30777dacb95fceda4861b8b21d2
+011254,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/011254/ph-body-fluid,2026-11-26,3b46a9c750e59f506da76d6db17268d16330d30777dacb95fceda4861b8b21d2

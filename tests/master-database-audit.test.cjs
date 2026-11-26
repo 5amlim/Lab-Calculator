@@ -240,3 +240,26 @@ test('reviewed orders use the published shipping and fasting instructions', asyn
   assert.equal(vitaminD.fastingStatus, 'preferred');
   assert.match(vitaminD.fastingInstructions, /optional/);
 });
+
+
+test('Quest 16983 displays the vendor pour-off capacity and NY order restriction', async () => {
+  const {labs, loadCalculator} = await import('../scripts/load-calculator-catalog.mjs');
+  const {records, globals} = await loadCalculator(root, labs[0], {captureRecords: true});
+  const row = records.find(test => test.testCode === '16983');
+  assert.equal(row.status, 'active');
+  assert.match(globals.LabRegionalRestrictions.badge(row, 'quest'), /Not for NY patients/);
+  assert.match(globals.LabRegionalRestrictions.printNotice([row], 'quest'), /16984/);
+  const api = openCalculator(labs[0].app, [
+    'buildTransportBagPlan', 'buildSubmissionContents', 'buildCollectionPlan'
+  ]);
+  const bags = api.buildTransportBagPlan([row]);
+  const [shipment] = api.buildSubmissionContents(bags[0]);
+  assert.equal(shipment.count, 1);
+  assert.equal(shipment.label, 'Transport Tube (10 mL pour-off)');
+  assert.match(row.specialInstructions, /two \(2\) 5 mL pour-off tubes/);
+  assert.equal(api.buildCollectionPlan([row], bags).reduce((count, item) => count + item.count, 0), 5);
+  const two = {...row, submissionCount: 2};
+  const [paired] = api.buildSubmissionContents(api.buildTransportBagPlan([two])[0]);
+  assert.equal(paired.count, 2);
+  assert.equal(paired.label, 'Transport Tube (5 mL pour-off)');
+});

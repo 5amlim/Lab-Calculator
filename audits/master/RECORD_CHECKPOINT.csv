@@ -61,7 +61,7 @@ quest,10240,quest-10240-20260915,active,Not yet reviewed
 quest,10242,quest-10242-20260915,active,Not yet reviewed
 quest,10244,quest-10244-20260915,active,Not yet reviewed
 quest,10247,quest-10247-20260915,active,Not yet reviewed
-quest,1025,quest-1025-20260915,active,Not yet reviewed
+quest,1025,quest-1025-20260915,active,Source inaccessible
 quest,10251,quest-10251-20260915,active,Not yet reviewed
 quest,10254,quest-10254-20260915,active,Not yet reviewed
 quest,10255,quest-10255-20260915,active,Not yet reviewed
@@ -738,7 +738,7 @@ quest,16381,quest-master-review-16381,blocked,Not yet reviewed
 quest,16382,quest-master-review-16382,blocked,Not yet reviewed
 quest,16404,quest-master-review-16404,blocked,Not yet reviewed
 quest,16425,quest-16425-20260915,active,Not yet reviewed
-quest,16440,quest-16440-20260915,active,Not yet reviewed
+quest,16440,quest-16440-20260915,active,Partially verified
 quest,16441,quest-source-verified-remaining-20261117-16441,active,Not yet reviewed
 quest,16442,quest-verified-audit-next100-20261116-16442,active,Not yet reviewed
 quest,16446,quest-16446-20260915,active,Not yet reviewed
@@ -836,7 +836,7 @@ quest,16965,quest-master-review-16965,blocked,Not yet reviewed
 quest,16967,quest-master-review-16967,blocked,Not yet reviewed
 quest,16971,quest-master-review-16971,blocked,Not yet reviewed
 quest,16973,quest-regional-16973-20261115,active,Not yet reviewed
-quest,16983,quest-16983-20260915,active,Not yet reviewed
+quest,16983,quest-16983-20260915,active,Partially verified
 quest,16985,quest-16985-20260915,active,Not yet reviewed
 quest,16993,quest-verified-audit-next100-20261116-16993,active,Not yet reviewed
 quest,16997,quest-master-review-16997,blocked,Not yet reviewed
@@ -1218,7 +1218,7 @@ quest,19412,quest-master-review-19412,blocked,Not yet reviewed
 quest,19420,quest-master-review-19420,blocked,Not yet reviewed
 quest,19439,quest-master-review-19439,blocked,Not yet reviewed
 quest,19470,quest-master-review-19470,blocked,Not yet reviewed
-quest,19483,quest-19483-20260915,active,Not yet reviewed
+quest,19483,quest-19483-20260915,active,Partially verified
 quest,19485,quest-19485-20260915,active,Not yet reviewed
 quest,19493,quest-19493-20260915,active,Not yet reviewed
 quest,19502,quest-19502-20260915,active,Not yet reviewed
@@ -2037,7 +2037,7 @@ quest,36350,quest-36350-20260915,active,Not yet reviewed
 quest,36352,quest-36352-20260915,active,Not yet reviewed
 quest,36355,quest-36355-20260915,active,Not yet reviewed
 quest,3636,quest-3636-20260915,active,Not yet reviewed
-quest,36378,seed-144,active,Not yet reviewed
+quest,36378,seed-144,active,Partially verified
 quest,36399,quest-36399-20260915,active,Not yet reviewed
 quest,36406,quest-36406-20260915,active,Not yet reviewed
 quest,36420,quest-36420-20260915,active,Not yet reviewed
@@ -2394,7 +2394,7 @@ quest,39035,quest-39035-20260915,active,Not yet reviewed
 quest,39044,quest-39044-20260915,active,Not yet reviewed
 quest,391,quest-391-20260915,active,Not yet reviewed
 quest,39128,quest-master-review-39128,blocked,Not yet reviewed
-quest,39149,quest-39149-20260915,active,Not yet reviewed
+quest,39149,quest-39149-20260915,active,Official information unavailable
 quest,39151,quest-39151-20260915,active,Not yet reviewed
 quest,39152,quest-39152-20260915,active,Not yet reviewed
 quest,39153,quest-39153-20260915,active,Not yet reviewed
@@ -2812,7 +2812,7 @@ quest,618,quest-618-20260915,active,Not yet reviewed
 quest,6183,quest-verified-unusable-audit-seventh20-20261116-6183,active,Not yet reviewed
 quest,619,quest-619-20260915,active,Not yet reviewed
 quest,6213,quest-6213-20260915,active,Not yet reviewed
-quest,6215,quest-6215-20260915,active,Not yet reviewed
+quest,6215,quest-6215-20260915,active,Partially verified
 quest,622,seed-33,active,Not yet reviewed
 quest,623,seed-34,active,Not yet reviewed
 quest,625,quest-master-review-625,blocked,Not yet reviewed
@@ -3432,7 +3432,7 @@ quest,91681,quest-91681-20260915,active,Not yet reviewed
 quest,91682,quest-91682-20260915,active,Not yet reviewed
 quest,91683,quest-91683-20260915,active,Not yet reviewed
 quest,91684,quest-91684-20260915,active,Not yet reviewed
-quest,91691,quest-91691-20260915,active,Not yet reviewed
+quest,91691,quest-91691-20260915,active,Partially verified
 quest,91692,quest-91692-20260915,active,Not yet reviewed
 quest,91697,quest-91697-20260915,active,Not yet reviewed
 quest,917,quest-917-20260915,active,Not yet reviewed
@@ -3678,7 +3678,7 @@ quest,93876,quest-93876-20260915,active,Clinical conflict
 quest,93881,quest-93881-20260915,active,Not yet reviewed
 quest,93882,quest-93882-20260915,active,Not yet reviewed
 quest,93883,quest-93883-20260915,active,Not yet reviewed
-quest,93888,quest-93888-20260915,active,Not yet reviewed
+quest,93888,quest-93888-20260915,active,Partially verified
 quest,93890,quest-93890-20260915,active,Not yet reviewed
 quest,93891,quest-93891-20260915,active,Not yet reviewed
 quest,93892,quest-93892-20260915,active,Not yet reviewed
@@ -4218,7 +4218,7 @@ labcorp,008334,labcorp-008334,active,Not yet reviewed
 labcorp,008342,labcorp-008342,active,Not yet reviewed
 labcorp,008458,labcorp-compendium-hold-008458,blocked,Not yet reviewed
 labcorp,008474,labcorp-compendium-hold-008474,blocked,Not yet reviewed
-labcorp,008482,labcorp-008482,active,Not yet reviewed
+labcorp,008482,labcorp-008482,active,Partially verified
 labcorp,008540,labcorp-008540,active,Not yet reviewed
 labcorp,008565,labcorp-compendium-hold-008565,active,Not yet reviewed
 labcorp,008573,labcorp-008573,active,Not yet reviewed
@@ -7338,10 +7338,10 @@ labcorp,550978,labcorp-compendium-review-550978,active,Not yet reviewed
 labcorp,551300,labcorp-compendium-review-551300,active,Not yet reviewed
 labcorp,551610,labcorp-compendium-review-551610,active,Not yet reviewed
 labcorp,551620,labcorp-compendium-review-551620,active,Not yet reviewed
-labcorp,551660,labcorp-compendium-review-551660,active,Not yet reviewed
+labcorp,551660,labcorp-compendium-review-551660,active,Partially verified
 labcorp,551690,labcorp-compendium-review-551690,active,Not yet reviewed
-labcorp,551697,labcorp-compendium-review-551697,active,Not yet reviewed
-labcorp,551700,labcorp-compendium-review-551700,active,Not yet reviewed
+labcorp,551697,labcorp-compendium-review-551697,active,Partially verified
+labcorp,551700,labcorp-compendium-review-551700,active,Partially verified
 labcorp,551710,labcorp-verified-20261118-batch35-551710,active,Not yet reviewed
 labcorp,551722,labcorp-verified-20261118-batch33-551722,active,Not yet reviewed
 labcorp,551725,labcorp-compendium-review-551725,active,Not yet reviewed
@@ -7352,8 +7352,8 @@ labcorp,551750,labcorp-verified-20261118-batch35-551750,active,Not yet reviewed
 labcorp,551776,labcorp-compendium-review-551776,active,Not yet reviewed
 labcorp,551800,labcorp-compendium-review-551800,active,Not yet reviewed
 labcorp,551870,labcorp-compendium-review-551870,active,Not yet reviewed
-labcorp,551871,labcorp-compendium-review-551871,active,Not yet reviewed
-labcorp,551920,labcorp-compendium-review-551920,active,Not yet reviewed
+labcorp,551871,labcorp-compendium-review-551871,active,Partially verified
+labcorp,551920,labcorp-compendium-review-551920,active,Partially verified
 labcorp,551965,labcorp-compendium-review-551965,active,Not yet reviewed
 labcorp,552014,labcorp-compendium-review-552014,active,Not yet reviewed
 labcorp,552020,labcorp-compendium-review-552020,active,Not yet reviewed
@@ -8762,8 +8762,8 @@ labcorp,790530,labcorp-compendium-review-790530,active,Not yet reviewed
 labcorp,790532,labcorp-compendium-review-790532,active,Not yet reviewed
 labcorp,790540,labcorp-compendium-hold-790540,active,Not yet reviewed
 labcorp,790552,labcorp-directory-next-790552,active,Not yet reviewed
-labcorp,790554,labcorp-directory-next-790554,active,Not yet reviewed
-labcorp,790560,labcorp-compendium-review-790560,active,Not yet reviewed
+labcorp,790554,labcorp-directory-next-790554,active,Partially verified
+labcorp,790560,labcorp-compendium-review-790560,active,Partially verified
 labcorp,790580,labcorp-compendium-review-790580,active,Not yet reviewed
 labcorp,790600,labcorp-directory-next-790600,active,Not yet reviewed
 labcorp,790620,labcorp-directory-20261118-790620,active,Not yet reviewed
@@ -9019,7 +9019,7 @@ labcorp,808548,labcorp-verified-20261116-batch27-808548,active,Not yet reviewed
 labcorp,808559,labcorp-directory-20261118-808559,active,Not yet reviewed
 labcorp,808562,labcorp-directory-20261118-808562,active,Not yet reviewed
 labcorp,808567,labcorp-compendium-review-808567,active,Not yet reviewed
-labcorp,808577,labcorp-compendium-review-808577,active,Not yet reviewed
+labcorp,808577,labcorp-compendium-review-808577,active,Partially verified
 labcorp,808580,labcorp-directory-next-808580,active,Not yet reviewed
 labcorp,808583,labcorp-compendium-review-808583,active,Not yet reviewed
 labcorp,808626,labcorp-compendium-review-808626,active,Not yet reviewed
@@ -9313,7 +9313,7 @@ labcorp,823523,labcorp-directory-next-823523,active,Not yet reviewed
 labcorp,823551,labcorp-directory-next-823551,active,Not yet reviewed
 labcorp,823556,labcorp-directory-next-823556,active,Not yet reviewed
 labcorp,823562,labcorp-directory-next-823562,active,Not yet reviewed
-labcorp,823573,labcorp-compendium-review-823573,active,Not yet reviewed
+labcorp,823573,labcorp-compendium-review-823573,active,Partially verified
 labcorp,823579,labcorp-compendium-review-823579,active,Not yet reviewed
 labcorp,823616,labcorp-compendium-review-823616,active,Not yet reviewed
 labcorp,823633,labcorp-compendium-review-823633,active,Not yet reviewed

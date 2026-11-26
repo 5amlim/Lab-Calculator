@@ -12,10 +12,10 @@
       "verification": {
         "Clinical conflict": 4,
         "Discontinued": 1,
-        "Not yet reviewed": 3792,
-        "Official information unavailable": 1,
-        "Partially verified": 28,
-        "Source inaccessible": 3
+        "Not yet reviewed": 3783,
+        "Official information unavailable": 2,
+        "Partially verified": 35,
+        "Source inaccessible": 4
       }
     },
     "labcorp": {
@@ -31,9 +31,9 @@
       "verification": {
         "Clinical conflict": 1,
         "Discontinued": 30,
-        "Not yet reviewed": 6497,
+        "Not yet reviewed": 6487,
         "Official information unavailable": 2,
-        "Partially verified": 71
+        "Partially verified": 81
       }
     }
   },
@@ -66,20 +66,26 @@
       ],
       "verificationChanged": [
         "10231|seed-95",
+        "1025|quest-1025-20260915",
         "10676|quest-tc-20261125-10676",
         "1430|quest-official-1430-20261114",
         "14435|quest-master-verified-14435-20261115-b2",
         "14867|quest-verified-unusable-audit-next50c-20261116-14867",
+        "16440|quest-16440-20260915",
         "16796|seed-222",
         "16802|seed-109",
+        "16983|quest-16983-20260915",
         "17306|seed-115",
         "18216|quest-verified-unusable-audit-next100b-20261116-18216",
         "18634|quest-18634-verified-20261027",
+        "19483|quest-19483-20260915",
         "229|quest-official-229-20261114",
         "249|seed-6",
         "34329|seed-130",
         "34499|seed-134",
+        "36378|seed-144",
         "37386|seed-149",
+        "39149|quest-39149-20260915",
         "39441|quest-39441-20260916",
         "395|quest-395-20260915",
         "39749|seed-153",
@@ -88,6 +94,7 @@
         "457|seed-19",
         "467|seed-21",
         "496|seed-24",
+        "6215|quest-6215-20260915",
         "6399|seed-70",
         "6447|seed-72",
         "7600|seed-83",
@@ -99,9 +106,11 @@
         "91431|seed-162",
         "91475|quest-91475-20260915",
         "91477|quest-91477-20260915",
+        "91691|quest-91691-20260915",
         "927|seed-51",
         "937|quest-937-20260915",
-        "93876|quest-93876-20260915"
+        "93876|quest-93876-20260915",
+        "93888|quest-93888-20260915"
       ]
     },
     "labcorp": {
@@ -204,6 +213,7 @@
         "007245|labcorp-007245",
         "007625|labcorp-007625",
         "007989|labcorp-007989",
+        "008482|labcorp-008482",
         "028142|labcorp-028142",
         "042580|labcorp-042580",
         "070037|labcorp-070037",
@@ -275,6 +285,11 @@
         "502690|labcorp-directory-20261119-502690",
         "505770|labcorp-505770",
         "520117|labcorp-520117",
+        "551660|labcorp-compendium-review-551660",
+        "551697|labcorp-compendium-review-551697",
+        "551700|labcorp-compendium-review-551700",
+        "551871|labcorp-compendium-review-551871",
+        "551920|labcorp-compendium-review-551920",
         "602666|labcorp-602666",
         "620009|labcorp-verified-20261116-batch22-620009",
         "620046|labcorp-620046",
@@ -285,7 +300,11 @@
         "717009|labcorp-717009",
         "717016|labcorp-compendium-review-717016",
         "790500|labcorp-790500",
+        "790554|labcorp-directory-next-790554",
+        "790560|labcorp-compendium-review-790560",
         "808315|labcorp-808315",
+        "808577|labcorp-compendium-review-808577",
+        "823573|labcorp-compendium-review-823573",
         "842104|labcorp-842104"
       ]
     },
@@ -387,7 +406,7 @@
     }
   },
   "tests": {
-    "passed": 464,
+    "passed": 465,
     "failed": 0,
     "skipped": 0
   },
@@ -398,16 +417,16 @@
       "Exact page unavailable. Request receiving-lab documentation.": 5
     },
     "publishedLoincAssignments": {
-      "order": 269,
-      "result": 541
+      "order": 309,
+      "result": 600
     },
-    "publicCodesWithPublishedAssignments": 309,
+    "publicCodesWithPublishedAssignments": 354,
     "formatIssues": 0,
     "routineFieldComparison": {
-      "ordersWithComparableFields": 264,
-      "matches": 643,
-      "not_comparable": 221,
-      "multiple_routes_for_review": 8
+      "ordersWithComparableFields": 298,
+      "matches": 715,
+      "not_comparable": 281,
+      "multiple_routes_for_review": 9
     }
   }
 }

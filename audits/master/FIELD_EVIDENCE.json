@@ -2239,5 +2239,322 @@
       }
     },
     "note": "The current vendor temperature was compared with the selected route. Other fields and receiving-account requirements remain open."
+  },
+  "quest:16983": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/16983/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Vendor count and capacity confirmed. Print one 10 mL pour-off vial for the default route. Quest accepts two 5 mL pour-off vials when a single 10 mL vial is unavailable.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "10 mL frozen EDTA plasma; minimum 5 mL."
+      },
+      "collectionCount": {
+        "evidence": "Five standard EDTA source tubes, or two 10 mL EDTA source tubes."
+      },
+      "submissionCount": {
+        "evidence": "One 10 mL or two 5 mL pour-off tubes. The calculator supports the existing default count of one."
+      },
+      "regionalAvailability": {
+        "evidence": "Quest specifies 16984 for New York patient testing. Confirm that exact order and its separate route."
+      }
+    }
+  },
+  "quest:36378": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/36378/?cc=SEA",
+    "date": "2026-11-26",
+    "note": "Seattle view specifies three full larger SSTs. Confirm receiving-lab acceptance of stocked source tubes and the appropriate submission vial or original-tube route.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "9 mL serum; minimum 6 mL."
+      },
+      "collectionCount": {
+        "evidence": "Three full 8.5 mL SSTs in this service-area view."
+      },
+      "transportContainer": {
+        "evidence": "The red-top alternative requires a transport vial; this view does not state a fixed vial count."
+      },
+      "transportTemperature": {
+        "evidence": "Refrigerated."
+      }
+    }
+  },
+  "quest:91691": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/91691/hiv-1-rna-quantitative-real-time-pcr-with-reflex-to-genotype-rti-pi-integrase?cc=MASTER&p=r",
+    "date": "2026-11-26",
+    "note": "Exact entry confirms a frozen transferred sample. Confirm usable capacity and any permitted split with the receiving lab.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "7 mL EDTA plasma; minimum 3.7 mL."
+      },
+      "transportContainer": {
+        "evidence": "Transfer to a separate vial. The original draw tube is rejected."
+      },
+      "transportTemperature": {
+        "evidence": "Frozen."
+      }
+    }
+  },
+  "quest:93888": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/93888/autoimmune-neurology-antibody-comprehensive-panel-with-reflexes-serum?cc=MASTER&p=r",
+    "date": "2026-11-26",
+    "note": "Exact Quest entry permits transport tube(s). Confirm the number and capacity of the stocked vials before planning the preferred 10 mL shipment.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "10 mL no-gel red-top serum; minimum 5 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Refrigerated."
+      },
+      "drawContainer": {
+        "evidence": "No-gel red top. SST is rejected."
+      }
+    }
+  },
+  "quest:6215": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/6215/?cc=MASTER",
+    "date": "2026-11-26",
+    "note": "Exact Quest volume and ambient route checked. Confirm usable transport vial capacity.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "5 mL no-gel red-top serum."
+      },
+      "minimumVolume": {
+        "evidence": "2.5 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient."
+      }
+    }
+  },
+  "quest:19483": {
+    "status": "Partially verified",
+    "url": "https://intellitestmanager.questdiagnostics.com/home/output/231688",
+    "date": "2026-11-26",
+    "note": "Historical vendor notice supports the stored volumes and ambient route. Obtain the current exact receiving-lab route and usable transport vial capacity.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "The June 2022 notice listed 10 mL no-gel red-top serum."
+      },
+      "minimumVolume": {
+        "evidence": "Historical notice listed 5 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Historical notice listed ambient."
+      }
+    }
+  },
+  "quest:16440": {
+    "status": "Partially verified",
+    "url": "https://intellitestmanager.questdiagnostics.com/home/output/298313",
+    "date": "2026-11-26",
+    "note": "The dated exact-code bulletin identifies the performing lab. The current source tube and vial allocation still require receiving-lab confirmation.",
+    "fields": {
+      "performingLaboratory": {
+        "evidence": "Quest Nichols Institute, San Juan Capistrano per the published notice."
+      }
+    }
+  },
+  "quest:39149": {
+    "status": "Official information unavailable",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/39149/interstitial-lung-disease-panel?cc=MASTER&p=r",
+    "date": "2026-11-26",
+    "note": "Exact order identified. The current collection and shipment quantities remain account-specific and need confirmation.",
+    "fields": {
+      "sourceIdentity": {
+        "evidence": "Official exact-code title and order number agree with the calculator."
+      }
+    }
+  },
+  "quest:1025": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/1025/drug-screen-clinical-1-without-confirmation-serum?cc=MASTER&p=r",
+    "date": "2026-11-26",
+    "note": "The public exact-code page returned a service notice. Confirm current orderability and tube requirements with the receiving lab.",
+    "fields": {
+      "sourceIdentity": {
+        "evidence": "Exact slug located but current details could not be retrieved."
+      }
+    }
+  },
+  "labcorp:551660": {
+    "status": "Partially verified",
+    "url": "https://td.halfpenny.com/labcorp/duke/testdisplay/551660",
+    "date": "2026-11-26",
+    "note": "Duke CDOS confirms the exact EDI order and allows more than one shipment vial. Confirm the receiving account and allowable vial capacity.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "4 mL plasma; 2 mL minimum for the published Duke route."
+      },
+      "collectionCount": {
+        "evidence": "Three EDTA or PPT source tubes."
+      },
+      "submissionCount": {
+        "evidence": "One or more suitable screw-cap polypropylene vials."
+      }
+    }
+  },
+  "labcorp:551697": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/551697/human-immunodeficiency-virus-1-hiv-1-genosure-mg-genotyping?letter=Z",
+    "date": "2026-11-26",
+    "note": "Vendor specifies three source tubes and permits one or more transport vials. Confirm approved frozen-vial fill capacity; the single calculated vial is not a fixed vendor count.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "5 mL frozen plasma."
+      },
+      "collectionCount": {
+        "evidence": "Three EDTA or PPT source tubes."
+      },
+      "submissionCount": {
+        "evidence": "One or more polypropylene screw-cap vials."
+      },
+      "transportTemperature": {
+        "evidence": "Frozen."
+      }
+    }
+  },
+  "labcorp:551700": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/551700/human-immunodeficiency-virus-1-hiv-1-genosure-prime",
+    "date": "2026-11-26",
+    "note": "Vendor specifies three source tubes and permits one or more transport vials. Confirm approved frozen-vial fill capacity; the single calculated vial is not a fixed vendor count.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "5 mL frozen plasma."
+      },
+      "collectionCount": {
+        "evidence": "Three EDTA or PPT source tubes."
+      },
+      "submissionCount": {
+        "evidence": "One or more polypropylene screw-cap vials."
+      },
+      "transportTemperature": {
+        "evidence": "Frozen."
+      }
+    }
+  },
+  "labcorp:551871": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/551871/human-immunodeficiency-virus-1-hiv-1-genosure-integrase?letter=B",
+    "date": "2026-11-26",
+    "note": "Vendor specifies three source tubes and permits one or more transport vials. Confirm approved frozen-vial fill capacity; the single calculated vial is not a fixed vendor count.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "5 mL frozen plasma."
+      },
+      "collectionCount": {
+        "evidence": "Three EDTA or PPT source tubes."
+      },
+      "submissionCount": {
+        "evidence": "One or more polypropylene screw-cap vials."
+      },
+      "transportTemperature": {
+        "evidence": "Frozen."
+      }
+    }
+  },
+  "labcorp:551920": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/551920/human-immunodeficiency-virus-1-hiv-1-phenosense-gt-plus-integrase-monogram-phenotype-genotype",
+    "date": "2026-11-26",
+    "note": "Vendor specifies three source tubes and permits one or more transport vials. Confirm approved frozen-vial fill capacity; the single calculated vial is not a fixed vendor count.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "5 mL frozen plasma."
+      },
+      "collectionCount": {
+        "evidence": "Three EDTA or PPT source tubes."
+      },
+      "submissionCount": {
+        "evidence": "One or more polypropylene screw-cap vials."
+      },
+      "transportTemperature": {
+        "evidence": "Frozen."
+      }
+    }
+  },
+  "labcorp:790554": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/790554/opiates-unconjugated-expanded-serum-or-plasma",
+    "date": "2026-11-26",
+    "note": "The single plastic transport tube is a planning value; confirm a tube that can hold the preferred 10 mL or an accepted split.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "10 mL serum or plasma; minimum 2 mL."
+      },
+      "transportContainer": {
+        "evidence": "Separated serum or plasma in plastic transport. No gel-barrier source."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient for shipment under three days. Longer storage uses refrigerated or frozen conditions."
+      }
+    }
+  },
+  "labcorp:790560": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/790560/heroin-confirmation-serum-plasma-or-whole-blood",
+    "date": "2026-11-26",
+    "note": "The selected serum route and temperature match the order. Confirm the appropriate vial capacity and optional whole-blood route separately.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "7 mL; minimum 2 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Refrigerated; frozen is a vendor alternative."
+      },
+      "transportContainer": {
+        "evidence": "Serum or plasma goes in plastic transport. The vendor also lists an original whole-blood route."
+      }
+    }
+  },
+  "labcorp:808577": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/808577/lsd-screen-and-confirmation-serum-or-plasma",
+    "date": "2026-11-26",
+    "note": "Retain the amber label. Confirm the receiving lab accepts the stocked light-protected frozen vial and its usable capacity.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "7 mL serum or plasma; minimum 3 mL."
+      },
+      "transportContainer": {
+        "evidence": "Use a light-protected plastic transport tube."
+      },
+      "transportTemperature": {
+        "evidence": "Frozen."
+      }
+    }
+  },
+  "labcorp:823573": {
+    "status": "Partially verified",
+    "url": "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog",
+    "date": "2026-11-26",
+    "note": "Client directory listing confirms the non-gel collection choices and freezing for this exact code. Confirm the required volumes and vial allocation against the receiving account.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Client directory names red top or lavender EDTA."
+      },
+      "transportTemperature": {
+        "evidence": "Frozen."
+      }
+    }
+  },
+  "labcorp:008482": {
+    "status": "Partially verified",
+    "date": "2026-11-26",
+    "url": "https://www.labcorp.com/tests/008482/fungus-mycology-culture",
+    "note": "Vendor storage text depends on specimen. The calculator plans the body-fluid route. A sentence about a different specimen does not change it.",
+    "fields": {
+      "transportTemperature": {
+        "evidence": "The exact order uses ambient handling for this selected route. The vendor distinguishes a different rule for nonsterile respiratory specimens."
+      },
+      "transportContainer": {
+        "evidence": "The selected fluid route uses a sterile screw-capped container."
+      }
+    }
   }
 }

@@ -6469,11 +6469,13 @@
     // Generic Quest frozen serum/plasma and platelet-poor plasma aliquots use the
     // standard plastic screw-cap transport badge, but remain separate aliquots.
     if (isFrozenSerumPlasmaTransport(test, transport)) {
+      const count = explicitSubmissionCount(test);
+      const pourOffSize = test.testCode === '16983' ? {1: '10 mL', 2: '5 mL'}[count] : '';
       return [{
         key: `frozen-processed|${normalizeSearch(requiresDistinctDrawTransport(test) ? test.id : (test.sourceTestId || test.id || test.testCode))}`,
-        label: 'Transport Tube',
+        label: pourOffSize ? `Transport Tube (${pourOffSize} pour-off)` : 'Transport Tube',
         className: 'tube-transport tube-transport-green-top',
-        count: explicitSubmissionCount(test),
+        count,
         detail: specimenSourceDetail(test) + ' · dedicated frozen aliquot, ship frozen'
       }];
     }
