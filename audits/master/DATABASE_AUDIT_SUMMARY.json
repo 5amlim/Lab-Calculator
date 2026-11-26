@@ -19,28 +19,28 @@
     "labcorp": {
       "total": 6601,
       "rawLoaded": 6601,
-      "indexed": 5996,
+      "indexed": 5995,
       "statuses": {
-        "active": 5996,
-        "blocked": 475,
-        "pending": 130
+        "active": 5995,
+        "blocked": 477,
+        "pending": 129
       },
       "verification": {
         "Clinical conflict": 1,
-        "Discontinued": 19,
-        "Not yet reviewed": 6538,
+        "Discontinued": 21,
+        "Not yet reviewed": 6536,
         "Official information unavailable": 1,
         "Partially verified": 42
       }
     }
   },
   "crosswalk": {
-    "candidatePairs": 1450,
-    "questCodesWithCandidate": 1450,
-    "labcorpCodesWithCandidate": 1390,
-    "relationshipRows": 2252,
+    "candidatePairs": 1449,
+    "questCodesWithCandidate": 1449,
+    "labcorpCodesWithCandidate": 1389,
+    "relationshipRows": 2251,
     "activeReviewPairs": 800,
-    "unmatchedQuestRows": 1232,
+    "unmatchedQuestRows": 1233,
     "representedQuestCodes": 3313
   },
   "changes": {
@@ -97,6 +97,7 @@
         "140822|labcorp-140822",
         "144691|labcorp-144691",
         "146316|labcorp-146316",
+        "160721|labcorp-160721",
         "161646|labcorp-161646",
         "161687|labcorp-161687",
         "161802|labcorp-161802",
@@ -112,6 +113,7 @@
         "163900|labcorp-163900",
         "163908|labcorp-163908",
         "163915|labcorp-163915",
+        "164000|labcorp-164000",
         "164002|labcorp-164002",
         "164010|labcorp-164010",
         "164090|labcorp-directory-next-164090",
@@ -160,6 +162,7 @@
         "140822|labcorp-140822",
         "144691|labcorp-144691",
         "146316|labcorp-146316",
+        "160721|labcorp-160721",
         "161646|labcorp-161646",
         "161687|labcorp-161687",
         "161802|labcorp-161802",
@@ -175,6 +178,7 @@
         "163900|labcorp-163900",
         "163908|labcorp-163908",
         "163915|labcorp-163915",
+        "164000|labcorp-164000",
         "164002|labcorp-164002",
         "164010|labcorp-164010",
         "164090|labcorp-directory-next-164090",
@@ -209,6 +213,7 @@
         "active|17183|500167|",
         "active|19894|004100|",
         "active|30289|140244|",
+        "active|34309|164000|",
         "active|39749|164068|"
       ],
       "modified": [
@@ -238,7 +243,8 @@
         "crosswalk-review-only",
         "quest-39749-discontinued",
         "labcorp-november-2026-deletions",
-        "labcorp-november-2026-notice-fields"
+        "labcorp-november-2026-notice-fields",
+        "labcorp-may-2026-deletions"
       ],
       "removed": [],
       "modified": []
@@ -308,14 +314,14 @@
     "cdosMissing": 0,
     "runtimeAbsentFromBoth": 69,
     "dispositionInPublic": {
-      "active": 3018,
-      "blocked": 245,
+      "active": 3017,
+      "blocked": 246,
       "pending": 17
     },
     "dispositionInCdos": {
-      "active": 5942,
-      "pending": 124,
-      "blocked": 444
+      "active": 5941,
+      "blocked": 445,
+      "pending": 124
     }
   }
 }
