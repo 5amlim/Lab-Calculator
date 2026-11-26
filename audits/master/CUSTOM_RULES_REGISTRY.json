@@ -631,5 +631,33 @@
     "regressionTests": [
       "tests/master-database-audit.test.cjs"
     ]
+  },
+  {
+    "id": "labcorp-may-2026-deletions",
+    "category": "vendor discontinuation",
+    "description": "Keep Labcorp May 2026 deleted codes unavailable for collection and conversion.",
+    "laboratory": [
+      "labcorp"
+    ],
+    "testCodes": [
+      "160721",
+      "117199",
+      "096719",
+      "016824",
+      "164000",
+      "470115",
+      "470074"
+    ],
+    "expectedBehavior": "Preserve vendor deletion by exact code and prevent automatic substitution.",
+    "reason": "Labcorp official May deleted-test listing.",
+    "evidence": [
+      "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW5%20-%20Diagnostics%20Update%20May%202026.pdf"
+    ],
+    "implementation": [
+      "labcorp-app.js"
+    ],
+    "regressionTests": [
+      "tests/master-database-audit.test.cjs"
+    ]
   }
 ]
