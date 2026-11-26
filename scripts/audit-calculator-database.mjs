@@ -53,6 +53,25 @@ for (const lab of labs) {
   const {records, index, globals} = await loadCalculator(root, lab, {captureRecords: true});
   const active = new Set(index.tests.map(row => row[0]));
   const committed = read('assets/search/'+lab.lab+'-tests.json');
+  // Compare identity and multiplicity before collapsing rows into a map.
+  // Identical duplicates otherwise pass the per-code content check below.
+  for (const [origin, published] of [['runtime', index], ['committed', committed]]) {
+    if (published.lab !== lab.lab || published.schema !== index.schema) {
+      flag('critical', 'search-index-identity-mismatch', lab.lab, origin,
+        JSON.stringify({lab: published.lab, schema: published.schema}));
+    }
+    const seen = new Set();
+    for (const [position, row] of published.tests.entries()) {
+      const code = row?.[0];
+      if (!Array.isArray(row) || typeof code !== 'string' || !code.trim() || code.trim() !== code) {
+        flag('critical', 'invalid-search-index-code', lab.lab, origin+'|'+position, JSON.stringify(code));
+      }
+      if (seen.has(code)) {
+        flag('critical', 'duplicate-search-index-code', lab.lab, origin+'|'+code);
+      }
+      seen.add(code);
+    }
+  }
   const committedByCode = new Map(committed.tests.map(row => [row[0], hash(row)]));
   const reviewCodes = new Set(records.filter(row => row.status === 'active' && row.collectionReview && active.has(row.testCode))
     .map(row => row.testCode));
