@@ -487,5 +487,33 @@
       "tests/master-database-audit.test.cjs"
     ],
     "approvalStatus": "Repository policy or documented behavior. Formal clinical approval not established."
+  },
+  {
+    "id": "quest-39749-discontinued",
+    "category": "vendor discontinuation",
+    "description": "Keep the retired 39749 order visible for historical lookup and block collection and automatic conversion.",
+    "laboratory": [
+      "quest"
+    ],
+    "specimen": [
+      "Serum"
+    ],
+    "container": [],
+    "testCodes": [
+      "39749"
+    ],
+    "expectedBehavior": "Saved data cannot restore cart eligibility. 39820 is documented as a different-target vendor alternative.",
+    "reason": "Quest discontinued the test on June 15, 2026. The suggested replacement measures a different antibody target.",
+    "evidence": [
+      "https://intellitestmanager.questdiagnostics.com/home/output/300102"
+    ],
+    "implementation": [
+      "assets/js/app.js:applySpecimenExclusions",
+      "labcorp-crosswalk-data.js"
+    ],
+    "regressionTests": [
+      "tests/master-database-audit.test.cjs"
+    ],
+    "approvalStatus": "Vendor discontinuation reviewed. Intent of any replacement order requires provider confirmation."
   }
 ]
