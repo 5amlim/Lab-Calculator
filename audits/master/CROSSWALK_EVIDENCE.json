@@ -18,5 +18,29 @@
     "date": "2026-11-25",
     "evidence": "Quest orders a standalone WBC count. Labcorp includes WBC within a CBC with additional results.",
     "approvalStatus": "Manual review only. Never send as an automatic match."
+  },
+  "229|004291": {
+    "classification": "Partial panel match",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/229/aldosterone-24-hour-urine?cc=MASTER",
+    "labcorpUrl": "https://www.labcorp.com/tests/004291/aldosterone-24-hour-urine",
+    "date": "2026-11-25",
+    "evidence": "Quest includes creatinine; the Labcorp order lists urine aldosterone without creatinine. Route volumes differ.",
+    "approvalStatus": "Confirm the requested results and receiving-laboratory requirements."
+  },
+  "18216|123075": {
+    "classification": "Different clinical order, review only",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/18216/multiple-sclerosis-ms-differential-evaluation-with-reflexes?cc=MASTER&p=r",
+    "labcorpUrl": "https://www.labcorp.com/tests/123075/multiple-sclerosis-ms-profile",
+    "date": "2026-11-25",
+    "evidence": "Quest is a serum differential workup with reflex testing. Labcorp is a same-time paired serum and CSF oligoclonal banding/IgG profile.",
+    "approvalStatus": "Confirm the requested results and receiving-laboratory requirements."
+  },
+  "39820|164090": {
+    "classification": "Directory-supported candidate",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/39820/sars-cov-2-total-antibody-spike-semi-quantitative?cc=MASTER",
+    "labcorpUrl": "https://www.labcorp.com/tests/164090/sars-cov-2-semi-quantitative-total-antibody-spike",
+    "date": "2026-11-25",
+    "evidence": "Both orders measure total spike antibody semi-quantitatively. Acceptable matrices and shipment/storage differ.",
+    "approvalStatus": "Confirm the requested results and receiving-laboratory requirements."
   }
 }
