@@ -49,6 +49,82 @@
     });
   }
 
+
+  // Capture the origin before the app replaces its search results or closes a menu.
+  let lastOrigin = null;
+  const visible = rect => rect.width > 0 && rect.height > 0 &&
+    rect.bottom > 0 && rect.right > 0 && rect.top < window.innerHeight &&
+    rect.left < window.innerWidth;
+  function rememberOrigin(element) {
+    if (!element) return;
+    const rect = element.getBoundingClientRect();
+    if (visible(rect)) lastOrigin = { rect, at: Date.now() };
+  }
+  document.addEventListener('click', event => {
+    const control = event.target.closest?.('button, [role="option"], [role="button"]');
+    if (control && (control.matches('#addBestButton, #crosswalkAddToCart, [data-action*="add"], [data-action*="confirm"]') ||
+        control.closest('#batchResults, #libraryBody, #statMenuResults'))) {
+      rememberOrigin(control);
+    }
+  }, true);
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') rememberOrigin(event.target);
+  }, true);
+
+  function bubbleToCart(addedNames) {
+    if (!addedNames.length || window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ||
+        typeof Element.prototype.animate !== 'function') return;
+    const mobile = document.querySelector('.mobile-summary');
+    const title = $('testsOverviewTitle') || cart;
+    const mobileRect = mobile?.getBoundingClientRect();
+    const target = mobileRect && visible(mobileRect) ? mobile : title;
+    const targetRect = target.getBoundingClientRect();
+    const origin = lastOrigin && Date.now() - lastOrigin.at < 15000 ?
+      lastOrigin.rect : search.getBoundingClientRect();
+    if (!visible(origin)) return;
+    const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+    const x = clamp(origin.left + origin.width / 2, 18, window.innerWidth - 18);
+    const y = clamp(origin.top + origin.height / 2, 18, window.innerHeight - 18);
+    const tx = clamp(targetRect.left + targetRect.width / 2, 18, window.innerWidth - 18);
+    const ty = clamp(targetRect.top + targetRect.height / 2, 18, window.innerHeight - 18);
+    const labels = addedNames.length > 3 ? [addedNames[0], '+' + (addedNames.length - 1) + ' tests'] : addedNames;
+    labels.forEach((label, index) => {
+      const bubble = document.createElement('span');
+      bubble.className = 'no-print calculator-cart-flight';
+      bubble.setAttribute('aria-hidden', 'true');
+      bubble.textContent = label;
+      Object.assign(bubble.style, {
+        position: 'fixed', left: x + 'px', top: y + 'px',
+        zIndex: '10000', pointerEvents: 'none', whiteSpace: 'nowrap',
+        maxWidth: 'min(240px, 75vw)', overflow: 'hidden', textOverflow: 'ellipsis',
+        padding: '6px 11px', borderRadius: '999px', fontSize: '12px',
+        fontWeight: '650', lineHeight: '1.3', color: '#146448',
+        background: '#e9f8f0', border: '1px solid #9dd9bc',
+        boxShadow: '0 3px 12px rgba(22, 101, 71, .16)',
+        transform: 'translate(-50%, -50%)', opacity: '0'
+      });
+      document.body.appendChild(bubble);
+      const dx = tx - x, dy = ty - y;
+      const move = (a, b, scale) =>
+        'translate(calc(-50% + ' + a + 'px), calc(-50% + ' + b + 'px)) scale(' + scale + ')';
+      const flight = bubble.animate([
+        { transform: move(0, 0, .8), opacity: 0, offset: 0 },
+        { transform: move(dx * .12, -24, 1.08), opacity: 1, offset: .22 },
+        { transform: move(dx * .65, dy * .65 - 40, .87), opacity: 1, offset: .66 },
+        { transform: move(dx, dy, .22), opacity: 0, offset: 1 }
+      ], { duration: 650, delay: index * 90, easing: 'cubic-bezier(.25,.65,.35,1)', fill: 'both' });
+      flight.onfinish = () => {
+        bubble.remove();
+        if (index === labels.length - 1 && visible(target.getBoundingClientRect())) {
+          target.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.045)' },
+            { transform: 'scale(1)' }], { duration: 220, easing: 'ease-out' });
+        }
+      };
+      flight.oncancel = () => bubble.remove();
+      setTimeout(() => bubble.remove(), 1200 + index * 90);
+    });
+  }
+
   function watchNewCartItems() {
     const overview = $('testsOverviewList');
     const details = $('selectedList');
@@ -73,6 +149,11 @@
       // After a genuine addition, reveal the newest test at the bottom of
       // the cart's own scrollable list without moving the main page.
       if (addedNow.length) {
+        const names = [...overview.querySelectorAll('.tests-overview-row')]
+          .filter(row => addedNow.includes(row.querySelector('.tests-overview-remove[data-id]')?.dataset.id))
+          .map(row => row.querySelector('.tests-overview-name')?.textContent?.trim())
+          .filter(Boolean);
+        bubbleToCart(names);
         const viewport = $('cartTestsViewport');
         if (viewport) {
           window.requestAnimationFrame(() => {
