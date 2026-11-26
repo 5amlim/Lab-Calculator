@@ -139,8 +139,24 @@
     { opacity: .55, translate: '0 3px' }, { opacity: 1, translate: '0 0' }
   ]);
   const pulse = element => microMotion(element, [
-    { scale: '1' }, { scale: '1.06', offset: .45 }, { scale: '1' }
+    { scale: '1', opacity: 1 }, { scale: '1.06', opacity: .78, offset: .45 }, { scale: '1', opacity: 1 }
   ], 200);
+
+  // Show a quick entrance on newly revealed catalog rows after Show more.
+  // Never animate the full table on every search/filter keystroke.
+  for (const id of ['loadMoreButton', 'loadMoreInlineButton']) {
+    $(id)?.addEventListener('click', () => {
+      const body = $('libraryBody');
+      if (!body) return;
+      const priorCount = body.rows.length;
+      setTimeout(() => {
+        const addedRows = Array.from(body.rows).slice(priorCount, priorCount + 8);
+        for (const row of addedRows) {
+          if (visible(row.getBoundingClientRect())) reveal(row);
+        }
+      }, 0);
+    }, true);
+  }
 
   // Animate intentional mode changes, not rerenders during typing.
   for (const id of ['findTestsView', 'convertTestsView']) {
