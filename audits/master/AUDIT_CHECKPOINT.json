@@ -12,11 +12,11 @@
   },
   "reviewedOrAttempted": {
     "quest": 15,
-    "labcorp": 63
+    "labcorp": 65
   },
   "notYetReviewed": {
     "quest": 3814,
-    "labcorp": 6538
+    "labcorp": 6536
   },
   "recordStatusSource": "FIELD_EVIDENCE.json. Every catalog row without a key has status Not yet reviewed.",
   "evidenceKeys": [
@@ -97,7 +97,9 @@
     "labcorp:085324",
     "labcorp:140822",
     "labcorp:167015",
-    "labcorp:120220"
+    "labcorp:120220",
+    "labcorp:160721",
+    "labcorp:164000"
   ],
   "inventoryCommand": "node scripts/audit-calculator-database.mjs --out ../calculator-current-report --check",
   "continueFrom": "Enumerate TEST_INVENTORY.csv where verification is Not yet reviewed, keeping laboratory and exact test code as strings. Use the appropriate service-area evidence and review every applicable route before marking a record fully verified.",
@@ -120,23 +122,38 @@
     "cdosMissing": 0,
     "runtimeAbsentFromBoth": 69,
     "dispositionInPublic": {
-      "active": 3018,
-      "blocked": 245,
+      "active": 3017,
+      "blocked": 246,
       "pending": 17
     },
     "dispositionInCdos": {
-      "active": 5942,
-      "pending": 124,
-      "blocked": 444
+      "active": 5941,
+      "blocked": 445,
+      "pending": 124
     }
   },
   "exactPageIntake": {
-    "publicPagesAttempted": 117,
-    "cdosPagesAttempted": 108,
+    "publicPagesAttempted": 164,
+    "cdosPagesAttempted": 165,
     "interpretation": "Capture and code identity are intake milestones. Field-level adjudication remains in FIELD_EVIDENCE.json.",
     "checkpoint": "LABCORP_EXACT_PAGE_CHECKPOINT.csv",
     "resume": "Use scripts/audit-labcorp-public-sources.py with a dated sitemap, CDOS export, runtime inventory and retained JSONL working checkpoint.",
-    "pendingWithExactPage": 110,
-    "pendingRecords": 130
+    "pendingWithExactPage": 124,
+    "pendingRecords": 129
+  },
+  "browserSmoke": {
+    "engine": "Chromium",
+    "viewportWidths": [
+      390,
+      1280
+    ],
+    "scopes": [
+      "Exact code and cart",
+      "Blocked code",
+      "Printed layout content",
+      "Convert Tests in both directions",
+      "Region and SST persistence",
+      "Page width"
+    ]
   }
 }
