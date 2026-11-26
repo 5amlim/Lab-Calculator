@@ -1,0 +1,22 @@
+{
+  "16802|102525": {
+    "classification": "Directory-supported candidate",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/16802?cc=MASTER",
+    "labcorpUrl": "https://www.labcorp.com/tests/102525/hemoglobin-hb-a1c-with-eag",
+    "date": "2026-11-25",
+    "previousSourcePair": "16802|001453 in the base file; the workbook already corrected the browser view",
+    "evidence": "Both orders explicitly include HbA1c with eAG. The alternative Labcorp 001453 lists HbA1c alone.",
+    "additionalSources": [
+      "https://www.labcorp.com/tests/001453/hemoglobin-hb-a1c"
+    ],
+    "approvalStatus": "Candidate only. Method and receiving laboratory route require confirmation."
+  },
+  "937|028142": {
+    "classification": "Partial panel match",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/937/white-blood-cell-count-wbc?cc=MASTER",
+    "labcorpUrl": "https://www.labcorp.com/tests/028142/complete-blood-count-cbc-without-differential?letter=B",
+    "date": "2026-11-25",
+    "evidence": "Quest orders a standalone WBC count. Labcorp includes WBC within a CBC with additional results.",
+    "approvalStatus": "Manual review only. Never send as an automatic match."
+  }
+}
