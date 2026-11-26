@@ -48,7 +48,12 @@ function riskChecks(route){
       ||/\b(?:microscope slide|prepared slide|prepared smear|slide carrier)\b/.test(labels)
       ||/^(?:hair|nail|hair specimen|nail specimen)$/.test(s))
     add('excluded-container-review',labels);
-  if(/\burine\b/.test(s)&&/(?:\bhcl\b|hydrochloric acid|acid[- ]preserved|acid preservative|6n acid)/.test(labels))
+  // Negative preservative labels (e.g. Quest 229 "no HCl") are not
+  // acid-preserved routes. Remove only explicitly negated terms, per vessel,
+  // so an acid-containing submission still triggers review.
+  const acidTerms=/(?:\bhcl\b|hydrochloric acid|acid[- ]preserved|acid preservative|6n acid)/;
+  const withoutNegatedAcid=v=>v.replace(/\b(?:no|without|free of|not using)\s+(?:added\s+)?(?:6n\s+)?(?:hcl\b|hydrochloric acid\b|acid preservative\b|acid[- ]preserved\b|6n acid\b)/g,'');
+  if(/\burine\b/.test(s)&&[d,t].some(v=>acidTerms.test(withoutNegatedAcid(v))))
     add('acid-preserved-urine-review',labels);
   // Distinct swab families must not be silently substituted. Only compare explicit families.
   function swabFamily(v){

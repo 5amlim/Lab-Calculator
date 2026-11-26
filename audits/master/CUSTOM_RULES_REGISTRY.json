@@ -756,7 +756,8 @@
       "620046",
       "6447",
       "700841",
-      "93876"
+      "93876",
+      "XXX"
     ],
     "expectedBehavior": "Preserve search and cart access, show the reason on screen and in print/CSV, and suppress generated quantities, STAT selection and candidate conversion.",
     "reason": "Preserve the active catalog while unresolved or discontinued orders require explicit review.",

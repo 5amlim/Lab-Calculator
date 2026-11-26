@@ -309,3 +309,25 @@ test('Quest 14263 remains searchable but excluded from collection plans when Thi
   assert.equal(crosswalk[7],'hold');
   assert(!crosswalk[3]&&!crosswalk[8]?.length);
 });
+
+test('generic Quest 24-hour urine reference stays active but cannot produce a collection plan', async () => {
+  const {labs,loadCalculator}=await import('../scripts/load-calculator-catalog.mjs');
+  const {records,index}=await loadCalculator(root,labs[0],{captureRecords:true});
+  const row=records.find(r=>r.testCode==='XXX');
+  assert.equal(row.status,'active');
+  assert.match(row.collectionReview,/not an orderable Quest test code/);
+  assert(!index.tests.some(([code])=>code==='XXX'));
+  assert(!index.collectionReviewCodes.includes('XXX'));
+  const api=openCalculator(labs[0].app,['applyUserState','expandedCollectionTests','buildTransportBagPlan','buildCollectionPlan'],{records:[row]});
+  const restored=api.applyUserState({overrides:[{...row,collectionReview:undefined,transportTemperature:'Room Temperature'}]}).find(r=>r.testCode==='XXX');
+  assert.match(restored.collectionReview,/not an orderable Quest test code/);
+  const expanded=api.expandedCollectionTests([restored]);
+  assert.equal(expanded.length,0);
+  assert.equal(api.buildTransportBagPlan(expanded).length,0);
+  assert.equal(api.buildCollectionPlan(expanded,[]).length,0);
+  const aldosterone=records.find(r=>r.testCode==='229');
+  assert.equal(aldosterone.status,'active');
+  assert(!aldosterone.collectionReview);
+  assert.match(aldosterone.drawContainer,/no HCl/i);
+  assert.equal(aldosterone.transportContainer,'Sterile cup');
+});

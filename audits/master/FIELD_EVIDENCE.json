@@ -85,7 +85,7 @@
     "status": "Clinical conflict",
     "url": "https://testdirectory.questdiagnostics.com/test/test-detail/229/?cc=MASTER",
     "date": "2026-11-25",
-    "note": "Directory names a transport tube. Local acceptance of the calculator sterile cup has not been established.",
+    "note": "Directory names a transport tube. Local acceptance of the calculator sterile cup has not been established. Container tracker false positive corrected: explicit no HCl is not acid preservation. Existing user-required sterile cup retained; receiving-laboratory acceptance remains open.",
     "fields": {
       "specimenType": {
         "evidence": "24-hour urine with total volume documented."
@@ -8497,6 +8497,24 @@
       },
       "transportTemperature": {
         "evidence": "Refrigerated"
+      }
+    }
+  },
+  "quest:XXX": {
+    "status": "Partially verified",
+    "url": "https://www.questdiagnostics.com/healthcare-professionals/test-directory/specimen-handling/specimen-collection",
+    "date": "2026-11-26",
+    "hold": true,
+    "note": "Generic informational entry, not an orderable Quest code. Quest requires test-specific specimen requirements for urine chemistry. Do not assign a generic shipment temperature or generate a specimen plan.",
+    "fields": {
+      "status": {
+        "evidence": "Retain active generic reference; collection review only."
+      },
+      "transportTemperature": {
+        "evidence": "No exact ordered test; temperature intentionally unspecified."
+      },
+      "drawContainer": {
+        "evidence": "Preservative and collection requirements vary by ordered test."
       }
     }
   }

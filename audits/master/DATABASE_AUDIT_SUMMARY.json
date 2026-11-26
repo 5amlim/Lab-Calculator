@@ -12,9 +12,9 @@
       "verification": {
         "Clinical conflict": 4,
         "Discontinued": 1,
-        "Not yet reviewed": 3760,
+        "Not yet reviewed": 3759,
         "Official information unavailable": 2,
-        "Partially verified": 44,
+        "Partially verified": 45,
         "Source inaccessible": 18
       }
     },
@@ -65,7 +65,8 @@
         "8477|quest-8477-20261018-stat",
         "91475|quest-91475-20260915",
         "91477|quest-91477-20260915",
-        "93876|quest-93876-20260915"
+        "93876|quest-93876-20260915",
+        "XXX|seed-245"
       ],
       "verificationChanged": [
         "10016|quest-10016-20260915",
@@ -136,7 +137,8 @@
         "927|seed-51",
         "937|quest-937-20260915",
         "93876|quest-93876-20260915",
-        "93888|quest-93888-20260915"
+        "93888|quest-93888-20260915",
+        "XXX|seed-245"
       ]
     },
     "labcorp": {
@@ -710,15 +712,7 @@
       "modified": []
     }
   },
-  "findings": [
-    {
-      "severity": "warning",
-      "issue": "temperature-needs-review",
-      "lab": "quest",
-      "key": "XXX|seed-245|0",
-      "detail": "Not specified"
-    }
-  ],
+  "findings": [],
   "officialVerificationComplete": false,
   "newTestsAdded": 0,
   "verifiedResultLoincMappings": {

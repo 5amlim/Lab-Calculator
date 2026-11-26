@@ -718,6 +718,9 @@
 
   function applySpecimenExclusions(test) {
     const code = String(test.testCode || '').trim();
+    if (code === 'XXX') {
+      return applyCollectionReview(test, "Collection on hold. This is a generic 24-hour urine reference, not an orderable Quest test code. Identify the exact ordered test and confirm its container, preservative and collection and shipping temperatures before collection.", "https://www.questdiagnostics.com/healthcare-professionals/test-directory/specimen-handling/specimen-collection");
+    }
     if (['34329', '34499', '6447'].includes(code)) {
       return applyCollectionReview(test,
         'Collection on hold. Confirm the current order code, accepted specimen and shipping temperature with the receiving Quest laboratory before collection.', 'https://testdirectory.questdiagnostics.com/test/test-detail/' + code + '/?cc=MASTER');

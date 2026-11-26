@@ -11,11 +11,11 @@
     "labcorp": 0
   },
   "reviewedOrAttempted": {
-    "quest": 69,
+    "quest": 70,
     "labcorp": 424
   },
   "notYetReviewed": {
-    "quest": 3760,
+    "quest": 3759,
     "labcorp": 6177
   },
   "recordStatusSource": "FIELD_EVIDENCE.json. Every catalog row without a key has status Not yet reviewed.",
@@ -512,7 +512,8 @@
     "labcorp:180026",
     "labcorp:138677",
     "labcorp:180800",
-    "labcorp:015602"
+    "labcorp:015602",
+    "quest:XXX"
   ],
   "inventoryCommand": "node scripts/audit-calculator-database.mjs --out ../calculator-current-report --check",
   "continueFrom": "Enumerate TEST_INVENTORY.csv where verification is Not yet reviewed, keeping laboratory and exact test code as strings. Use the appropriate service-area evidence and review every applicable route before marking a record fully verified.",
@@ -626,7 +627,7 @@
   "activeTestPreservation": {
     "baselineActiveRecordsLost": 0,
     "flaggedCodes": {
-      "quest": 6,
+      "quest": 7,
       "labcorp": 36
     },
     "register": "COLLECTION_REVIEW_FLAGS.csv"
@@ -756,6 +757,13 @@
         "labcorp:015602"
       ],
       "remaining": "Compare normalized routes for source-only entries, confirm regional acceptance, and resolve inaccessible neonatal codes. Existing custom container labels and all active records retained."
+    },
+    "structuralDiscrepancies": {
+      "date": "2026-11-26",
+      "genericReferenceHold": "XXX",
+      "falsePositiveCorrected": "229",
+      "indexedHoldCodesUnchanged": true,
+      "remaining": "Quest 229 sterile cup acceptance remains unresolved; no clinical verification claimed."
     }
   }
 }

@@ -61,3 +61,10 @@ Labcorp 500335: public catalog lists the two-measurement order, but exact-code c
 - labcorp 015602: Partially verified. Exact source reviewed; verify calculator's selected route. Do not extrapolate Quest's two-Microtainer rule to Labcorp. Source: https://www.labcorp.com/tests/015602/bilirubin-total-neonatal
 
 Source intake is not normalized runtime verification. No clinical runtime changes; no active-test removal or new holds. The Quest and Labcorp stability rules must remain distinct.
+
+## First structural tracker findings
+
+- Quest 229: false positive from the explicit no-HCl label. Corrected detector negation handling and added positive and negative regression cases. The user-specified sterile cup remains unchanged; Quest's listed transport tube and local cup acceptance are a separate unresolved clinical issue.
+- Quest XXX: generic 24-hour urine reference, not an orderable code. Retained active and placed on collection-review hold; no assumed temperature or generated specimen quantities. Source: https://www.questdiagnostics.com/healthcare-professionals/test-directory/specimen-handling/specimen-collection
+
+Both changes are on the audit branch only; final CI pending.

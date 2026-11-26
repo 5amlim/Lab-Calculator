@@ -25,3 +25,14 @@ test('container tracker flags suspect mapping without rewriting it and counts he
   assert.equal(held.structural,'hold-pass');assert.equal(held.clinical,'held');
   const s=summarize([r,held]);assert.equal(s.orders,2);assert.equal(s.structuralPassPct,50);assert.equal(s.clinicalVerifiedPct,0);
 });
+
+test('acid-preservation detector honors no HCl without masking a positive acid route',()=>{
+  const {riskChecks}=require('../scripts/container-audit-tracker.cjs');
+  const route={specimen:'24-Hour Urine',draw:'24-Hour Urine Container (no HCl)',transport:'Sterile cup',effectiveTransport:'Sterile cup',temperature:'Room Temperature',spin:'No'};
+  const hasAcid=r=>riskChecks(r).some(x=>x.code==='acid-preserved-urine-review');
+  assert.equal(hasAcid(route),false);
+  assert.equal(hasAcid({...route,draw:'24-Hour Urine Container (6N HCl)'}),true);
+  assert.equal(hasAcid({...route,transport:'Transport tube with HCl',effectiveTransport:'Transport tube with HCl'}),true);
+  assert.equal(hasAcid({...route,draw:'24-Hour Urine Container (without hydrochloric acid)'}),false);
+  assert.equal(hasAcid({...route,draw:'24-Hour Urine Container (acid-preserved)'}),true);
+});
