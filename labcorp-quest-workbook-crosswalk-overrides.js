@@ -254,7 +254,12 @@ const applyWorkbookMatches=records=>{
   const active=catalogMap(records);
   for(const row of rows){
     const code=lookup[String(row[0])];
-    if(code&&active.has(code)){row[3]=code;row[4]=active.get(code).testName;}
+    // The workbook fills unresolved rows. An explicit candidate, scope
+    // warning, or review-only disposition in the primary index takes priority.
+    if (code && active.has(code) && !row[3] && !row[8]?.length && !row[5]) {
+      row[3] = code;
+      row[4] = active.get(code).testName;
+    }
   }
   return active;
 };
