@@ -1207,5 +1207,29 @@
     "additionalSources": [
       "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf"
     ]
+  },
+  "labcorp:160721": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW5%20-%20Diagnostics%20Update%20May%202026.pdf",
+    "date": "2026-11-25",
+    "hold": true,
+    "note": "Listed in the official May 2026 deleted-test bulletin. No specific replacement order is listed.",
+    "fields": {
+      "status": {
+        "evidence": "Held from collection and automatic conversion by exact vendor code."
+      }
+    }
+  },
+  "labcorp:164000": {
+    "status": "Discontinued",
+    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW5%20-%20Diagnostics%20Update%20May%202026.pdf",
+    "date": "2026-11-25",
+    "hold": true,
+    "note": "Listed in the official May 2026 deleted-test bulletin. No specific replacement order is listed.",
+    "fields": {
+      "status": {
+        "evidence": "Held from collection and automatic conversion by exact vendor code."
+      }
+    }
   }
 }
