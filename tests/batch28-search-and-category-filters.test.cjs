@@ -68,6 +68,12 @@ for (const sample of datasets) {
 
     for (let i = 0; i < rows.length; i++) {
       const row = rows[i], raw = rawRows[i];
+      if (sample.lab === 'Labcorp' && ['500108', '500152', '500161', '500167'].includes(row.testCode)) {
+        assert.equal(row.status, 'blocked');
+        assert.match(row.specialInstructions, /November 2026.*alternative/);
+        assert.equal(search.findMatches(row.testCode, 5)[0].test.status, 'blocked');
+        continue;
+      }
       assert.equal(row.status, 'active', row.testCode);
       assert.equal(row.specimenType, sample.expectedSpecimen, row.testCode);
       assert.equal(row.transportContainer, raw.transportContainer, row.testCode);
