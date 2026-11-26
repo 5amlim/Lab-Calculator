@@ -1,31 +1,31 @@
 # Quest and Labcorp calculator audit
 
-Audit date November 25, 2026. Baseline commit `b81f79958661971bad3a6799d6a0465a7525156e`. This checkpoint covers the production runtime inventory and targeted clinical review and the Labcorp public listing and November bulletin reconciliation. Clinical verification remains incomplete.
+Audit date November 26, 2026. Baseline commit `b81f79958661971bad3a6799d6a0465a7525156e`. This checkpoint covers the production runtime inventory and targeted clinical review and the Labcorp public listing and 2026 bulletin reconciliation. Clinical verification remains incomplete.
 
 ## Catalog reconciliation
 
 | Measure | Quest before | Quest after | Labcorp before | Labcorp after |
 |---|---:|---:|---:|---:|
 | Runtime catalog records | 3,829 | 3,829 | 6,601 | 6,601 |
-| Active runtime records | 3,315 | 3,314 | 6,015 | 5,995 |
-| Active codes in published search | 3,314 | 3,313 | 6,015 | 5,995 |
-| Blocked runtime records | 514 | 515 | 455 | 477 |
+| Active runtime records | 3,315 | 3,314 | 6,015 | 5,987 |
+| Active codes in published search | 3,314 | 3,313 | 6,015 | 5,987 |
+| Blocked runtime records | 514 | 515 | 455 | 485 |
 | Pending runtime records | 0 | 0 | 131 | 129 |
 | Fully clinically verified in this audit | 0 | 0 | 0 | 0 |
 | Partially verified in this audit | 0 | 10 | 0 | 42 |
 | Clinical conflict recorded | 0 | 1 | 0 | 1 |
 | Current source inaccessible | 0 | 3 | 0 | 0 |
 | Specific official field unavailable | 0 | 0 | 0 | 1 |
-| Official review unstarted in this audit | 3,829 | 3,814 | 6,601 | 6,536 |
-| Runtime records corrected | 0 | 4 | 0 | 59 |
+| Official review unstarted in this audit | 3,829 | 3,814 | 6,601 | 6,527 |
+| Runtime records corrected | 0 | 4 | 0 | 68 |
 | Runtime records added or removed | 0 | 0 | 0 | 0 |
 | Published result-level LOINC mappings captured in this audit | 0 | 1 | 0 | 9 |
 | Published order-level LOINC mappings captured in this audit | 0 | 0 | 0 | 1 |
-| Verified discontinued orders held from collection | 0 | 1 | 0 | 21 |
+| Verified discontinued orders held from collection | 0 | 1 | 0 | 30 |
 
 Quest's additional active row is the existing uncoded `XXX` 24-hour urine reference. It stays outside the numeric published search index. Labcorp's 129 pending rows are directory references held from normal collection. Runtime active status, published indexing and local regional acceptance answer different questions. These counts exclude staff-created data, browser overrides, and patient data.
 
-All 10,430 runtime records have a reproducible inventory and audit status. The field evidence ledger now covers 15 Quest and 65 Labcorp runtime records. Automated page capture is tracked separately. An inventory status does not establish clinical accuracy. A complete national and service-area denominator remains open. The public Labcorp listing comparison and all 23 exact-code exceptions are documented separately.
+All 10,430 runtime records have a reproducible inventory and audit status. The field evidence ledger now covers 15 Quest and 74 Labcorp runtime records. Automated page capture is tracked separately. An inventory status does not establish clinical accuracy. A complete national and service-area denominator remains open. The public Labcorp listing comparison and all 23 exact-code exceptions are documented separately.
 
 ## Labcorp public listing reconciliation
 
@@ -39,6 +39,7 @@ The [manual review queue](MANUAL_REVIEW_REQUIRED.csv) preserves the reason for a
 
 - The November Labcorp bulletin names 36 deleted codes. All 19 existing runtime records are blocked, including 18 previously active and one previously pending. Five obsolete converter links were removed. Vendor alternatives remain visible as references for order-scope review.
 - The May bulletin accounts for two further calculator holds and one obsolete conversion link. The other five May deletions were absent from the runtime catalog.
+- The January through October archive, excluding the previously reviewed May edition, yielded [259 deleted-order rows covering 258 codes](LABCORP_ARCHIVE_DELETIONS.csv). Eight cart-ready codes were blocked and a ninth, already blocked, gained explicit vendor evidence. The conversion tool removed one candidate pair and two manual-review pairs. One vendor-proposed alternative was added for manual review.
 - Exact-code bulletin changes update stability, Apolipoprotein B volumes and the functional C1 esterase inhibitor rejection criteria. These changes preserve each test's existing shipment rules.
 
 - Labcorp 501533 is blocked before cart selection and public indexing. The exact specialty test page specifies a different preservative and temperature than the historical CDOS route. Receiving-lab confirmation is required before the code can return to the cart.
@@ -57,12 +58,12 @@ The [manual review queue](MANUAL_REVIEW_REQUIRED.csv) preserves the reason for a
 | Measure | Before | After |
 |---|---:|---:|
 | Active Quest codes represented | 3,314 | 3,313 |
-| Unique active candidate pairs | 1,456 | 1,449 |
-| Distinct active Quest codes with a candidate | 1,456 | 1,449 |
-| Distinct active Labcorp codes with a candidate | 1,396 | 1,389 |
-| Active review-only pairs | 799 | 800 |
-| Relationship rows, including legacy and uncoded | 2,257 | 2,251 |
-| Quest active codes without a candidate or review reference | 1,228 | 1,233 |
+| Unique active candidate pairs | 1,456 | 1,448 |
+| Distinct active Quest codes with a candidate | 1,456 | 1,448 |
+| Distinct active Labcorp codes with a candidate | 1,396 | 1,388 |
+| Active review-only pairs | 799 | 799 |
+| Relationship rows, including legacy and uncoded | 2,257 | 2,249 |
+| Quest active codes without a candidate or review reference | 1,228 | 1,234 |
 
 The count of distinct destination codes is lower because multiple Quest orders can have the same Labcorp candidate. The raw 16802 pair now consistently points to Labcorp 102525, which includes eAG. The previous raw target, 001453, did not specify eAG. The workbook had already applied that correction in the fully loaded browser, so the runtime candidate count is unchanged. Workbook fallback now preserves explicit candidates and review-only decisions. Quest 937 and Labcorp 028142 are a partial panel relationship visible from both directions and excluded from automatic conversion. Quest 229 and Labcorp 004291 now require manual review because only Quest lists creatinine. Quest 18216 and Labcorp 123075 have different specimen and result scopes, now stated explicitly in both directions. The discontinued 39749 relationship was removed. Existing candidate pairs require separate clinical review.
 
