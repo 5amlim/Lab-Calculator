@@ -1,0 +1,312 @@
+{
+  "quest:8477": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/8477/?cc=MASTER",
+    "date": "2026-11-25",
+    "note": "Confirm accepting service area. A fresh second additive gray tube is not listed as the vial alternative.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Preferred gray fluoride/oxalate source. Directory expressly accepts a plastic screw-cap vial containing separated fluoride/oxalate plasma."
+      },
+      "transportContainer": {
+        "evidence": "Gray-top listed as preferred transport. The plastic vial is a test-specific alternate route used by the calculator."
+      },
+      "preferredVolume": {
+        "evidence": "1 mL plasma."
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature."
+      },
+      "fastingStatus": {
+        "evidence": "Fasting is not required."
+      },
+      "additionalDrawRequirements": {
+        "evidence": "One draw, one hour after glucose load."
+      }
+    }
+  },
+  "quest:1430": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/1430/?cc=MASTER",
+    "date": "2026-11-25",
+    "note": "Retain the calculator vial alternative and separate timed labels. Confirm accepting service area.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Preferred gray fluoride/oxalate source with two 1 mL plasma draws."
+      },
+      "transportContainer": {
+        "evidence": "Directory permits separated fluoride/oxalate plasma in a plastic screw-cap vial."
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL per draw."
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature."
+      },
+      "fastingStatus": {
+        "evidence": "At least eight hours fasting, water allowed."
+      },
+      "additionalDrawRequirements": {
+        "evidence": "Separate fasting and 1-hour specimens."
+      }
+    }
+  },
+  "quest:8280": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/8280/?cc=MASTER",
+    "date": "2026-11-25",
+    "note": "Preserved UA tube is a listed alternate, distinct from the preferred unpreserved aliquot.",
+    "fields": {
+      "specimenType": {
+        "evidence": "Well-mixed timed urine, with total volume and duration documented."
+      },
+      "drawContainer": {
+        "evidence": "Preferred timed urine collection without preservative."
+      },
+      "transportContainer": {
+        "evidence": "Yellow-top urinalysis transport tube with blue fill line is a named alternative."
+      },
+      "preferredVolume": {
+        "evidence": "Preferred aliquot 5 mL."
+      },
+      "minimumVolume": {
+        "evidence": "Directory minimum 2 mL. Preserved fill line is kept in the calculator."
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature."
+      }
+    }
+  },
+  "quest:229": {
+    "status": "Clinical conflict",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/229/?cc=MASTER",
+    "date": "2026-11-25",
+    "note": "Directory names a transport tube. Local acceptance of the calculator sterile cup has not been established.",
+    "fields": {
+      "specimenType": {
+        "evidence": "24-hour urine with total volume documented."
+      },
+      "drawContainer": {
+        "evidence": "24-hour collection container. Refrigerate during and after collection."
+      },
+      "transportContainer": {
+        "evidence": "Quest lists a transport tube. Calculator uses sterile cup for the aliquot. Confirm with receiving laboratory."
+      },
+      "preferredVolume": {
+        "evidence": "5 mL aliquot."
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Room-temperature transport does not cancel refrigeration during collection."
+      }
+    }
+  },
+  "quest:10676": {
+    "status": "Partially verified",
+    "url": "https://www.questdiagnostics.com/healthcare-professionals/test-directory/specimen-handling/anatomic-pathology/cytology",
+    "date": "2026-11-25",
+    "note": "General official collection manual available. Exact public detail page, site acceptance, urine-specific volume and stability remain unverified.",
+    "fields": {
+      "preferredVolume": {
+        "evidence": "The official cytology collection manual does not specify a urine-specific preferred volume. Preserve the requirement to confirm it locally.",
+        "reviewedValueSha256": "99fd1524290f33f91fd376d7cc171bda7794cbf645206d45f7bcc5966b9bfcdb"
+      },
+      "specimenType": {
+        "evidence": "Quest general cytology instructions include urine for this code. The application applies the historical urine-only exception."
+      }
+    }
+  },
+  "quest:467": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/467/folate-rbc?cc=PHP&p=r&q=467",
+    "date": "2026-11-25",
+    "note": "East-region page only. Do not use its result code as an order code or infer another region’s setup.",
+    "fields": {
+      "loincResult": {
+        "evidence": "Result 55066600 maps to 2283-0 on the East-region page."
+      },
+      "testSetup": {
+        "evidence": "East performing laboratory lists Monday to Saturday, all shifts, and one day to report."
+      }
+    }
+  },
+  "quest:16802": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/16802?cc=MASTER",
+    "date": "2026-11-25",
+    "note": "Order name includes eAG; use that scope in the converter.",
+    "fields": {
+      "testName": {
+        "evidence": "Hemoglobin A1c with eAG."
+      },
+      "methodology": {
+        "evidence": "Turbidimetric inhibition immunoassay."
+      },
+      "specimenType": {
+        "evidence": "EDTA whole blood."
+      }
+    }
+  },
+  "quest:937": {
+    "status": "Partially verified",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/937/white-blood-cell-count-wbc?cc=MASTER",
+    "date": "2026-11-25",
+    "note": "Standalone WBC order. The Labcorp CBC is a partial panel relationship.",
+    "fields": {
+      "testName": {
+        "evidence": "White Blood Cell Count (WBC)."
+      }
+    }
+  },
+  "labcorp:005215": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/005215/erythrocyte-sedimentation-rate-whe",
+    "date": "2026-11-25",
+    "note": "Published TAT starts at pickup. Regional acceptance and result mappings were not independently confirmed.",
+    "fields": {
+      "testName": {
+        "evidence": "Erythrocyte sedimentation rate."
+      },
+      "specimenType": {
+        "evidence": "Whole blood."
+      },
+      "drawContainer": {
+        "evidence": "Lavender EDTA, filled to capacity."
+      },
+      "minimumVolume": {
+        "evidence": "2 mL, with insufficient volume for repeat testing."
+      },
+      "transportContainer": {
+        "evidence": "Original lavender EDTA tube; whole-blood transfer is rejected."
+      },
+      "transportTemperature": {
+        "evidence": "Refrigerate."
+      },
+      "stability": {
+        "evidence": "24 hours refrigerated."
+      },
+      "turnaroundTime": {
+        "evidence": "Within 1 day from specimen pickup."
+      }
+    }
+  },
+  "labcorp:501533": {
+    "status": "Clinical conflict",
+    "url": "https://specialtytesting.labcorp.com/tests/501533/metanephrines-fractionated-urine-includes-creatinine",
+    "date": "2026-11-25",
+    "note": "Specialty page contradicts the CDOS workflow. Held across the active catalog and browser overrides.",
+    "fields": {
+      "status": {
+        "evidence": "Put on clinical hold."
+      },
+      "specialInstructions": {
+        "evidence": "Follow facility escalation process for unresolved preservative and shipment discrepancy."
+      },
+      "drawContainer": {
+        "evidence": "Specialty page specifies acid-preserved 24-hour collection."
+      },
+      "transportTemperature": {
+        "evidence": "Specialty page specifies frozen shipment."
+      },
+      "preferredVolume": {
+        "evidence": "10 mL aliquot."
+      },
+      "minimumVolume": {
+        "evidence": "1 mL aliquot."
+      }
+    },
+    "hold": true,
+    "additionalSources": [
+      "https://cdos.halfpenny.com/labcorp/TestDisplay/501533"
+    ]
+  },
+  "labcorp:164798": {
+    "status": "Official information unavailable",
+    "url": "https://www.labcorp.com/tests/164798/coccidioides-immitis-antibodies-igg-and-igm-eia",
+    "date": "2026-11-25",
+    "note": "Official specimen section does not state shipment temperature. Confirm before shipment. Result LOINCs are published, but order-level LOINC is blank.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Gel-barrier source or serum from a red-top tube."
+      },
+      "preferredVolume": {
+        "evidence": "1 mL serum."
+      },
+      "minimumVolume": {
+        "evidence": "0.2 mL serum."
+      },
+      "transportContainer": {
+        "evidence": "When using a non-gel tube, transfer separated serum to a transport tube."
+      },
+      "loincResult": {
+        "evidence": "164773 → 13947-7 and 164781 → 13948-5; order LOINC blank."
+      }
+    }
+  },
+  "labcorp:102525": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/102525/hemoglobin-hb-a1c-with-eag",
+    "date": "2026-11-25",
+    "note": "Both directory orders list HbA1c with eAG. Methods are described separately.",
+    "fields": {
+      "panelComponents": {
+        "evidence": "HbA1c by immunoassay plus eAG."
+      }
+    }
+  },
+  "labcorp:028142": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/028142/complete-blood-count-cbc-without-differential?letter=B",
+    "date": "2026-11-25",
+    "note": "Includes white blood cell count and additional CBC components.",
+    "fields": {
+      "panelComponents": {
+        "evidence": "WBC appears within a CBC panel, alongside other cell counts and indices."
+      }
+    }
+  },
+  "labcorp:310": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/310/maternal-serum-alpha-fetoprotein-msafp-whe",
+    "date": "2026-11-25",
+    "note": "The public listing uses its short exact code; do not zero-pad it.",
+    "fields": {
+      "testCode": {
+        "evidence": "Labcorp publishes the exact test number 310."
+      }
+    }
+  },
+  "quest:34329": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/34329/?cc=MASTER",
+    "date": "2026-11-25",
+    "note": "No current exact-code official specimen instructions retrieved.",
+    "fields": {}
+  },
+  "quest:34499": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/34499/?cc=MASTER",
+    "date": "2026-11-25",
+    "note": "Historical Quest publication confirms code and name but does not establish current service-area route.",
+    "fields": {}
+  },
+  "quest:39749": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/39749/?cc=MASTER",
+    "date": "2026-11-25",
+    "note": "2023 change notice names the performing site at that time; current exact-code requirements could not be retrieved.",
+    "fields": {}
+  },
+  "quest:6447": {
+    "status": "Source inaccessible",
+    "url": "https://testdirectory.questdiagnostics.com/test/test-detail/6447/?cc=MASTER",
+    "date": "2026-11-25",
+    "note": "Historical Quest test menu names this code; the exact-code page returned a browser notice.",
+    "fields": {}
+  }
+}
