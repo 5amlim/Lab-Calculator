@@ -356,11 +356,16 @@
           colorUnavailable: false,
           lineTone: query => {
             const value = String(query || '').trim();
-            // Only unresolved names: numeric/code-like entries, recognized
-            // categories and all actual candidate matches remain icon-free.
-            if (!/[a-z]/i.test(value) || /^[a-z]{0,4}\d+[a-z0-9]*$/i.test(value) ||
-                /^\d[\d\s-]*$/.test(value)) return null;
+            // Offer official directory lookup for unresolved names or codes.
+            // Exact catalog entries (including restricted ones) and candidate
+            // matches do not need a second search.
+            if (!/[a-z0-9]/i.test(value)) return null;
             if (findCategoryMatches(value)) return null;
+            const q = normalizeSearch(value);
+            if (database.some(test => {
+              const index = librarySearchIndex(test);
+              return index.code === q || index.name === q || index.aliases.includes(q);
+            })) return null;
             return findMatches(value, 1).length ? null : 'unavailable';
           },
           onStatusRows: rows => lookup?.sync(rows)
