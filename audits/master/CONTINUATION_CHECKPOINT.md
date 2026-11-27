@@ -9,5 +9,17 @@
 - The custom rules registry includes 35 entries. The 31 starting rule entries are unchanged, and four existing Quest overrides were registered. Existing and new rule checks run in the Node suite. CI enforces the starting rule fingerprints and active record identities; required branch protection has not been verified.
 - The archived 78-test Quest SoCal Common Labs Gold SST selection was recovered from the November 26 PDF and tested against the original and continuation builds. Both produced 46 collection containers and three routine bags with 38 ambient, nine refrigerated, and five frozen submissions. The fixture checks quantities and availability. Print pagination, visual layout, per-route labels, instructions, and TAT still need an independent comparison for this continuation.
 - This batch added evidence to three previously reviewed Labcorp records and completed missing stability text for 505725. That correction does not change frozen shipment on dry ice. 724344 confirms two specimen routes, pending local urine vessel and pH workflow. 829030 confirms frozen shipment and direct-vessel examples, pending local sterile cup acceptance. The three updates add field evidence without increasing unique partial record coverage.
-- 833848, 816477, and 827969 retain prior partial findings. Targeted detail lookups did not return usable content. Confirm acid-washed stock, the CSF vessel, and the initial collection device respectively. Quest 16983 refers New York patients to 16984, but independent 16984 route evidence is still outstanding. The 16983 route is unchanged.
+- 833848, 816477, and 827969 retain prior partial findings. Targeted detail lookups did not return usable content. Confirm acid-washed stock, the CSF vessel, and the initial collection device respectively. Quest 16984 was verified independently against its exact public page and remains in the missing-order receiving-account queue. The 16983 route is unchanged.
 - Resume container verification with the six Labcorp orders above, starting with dry-ice capability for 505725 and local vessel confirmation for 829030. Request exact receiving-account evidence for the open routes. Next, use `CONTAINER_AUDIT_ORDERS.csv` and `CLINICAL_FIELD_REVIEW_QUEUE.csv` to resume the unreviewed active records. The remaining clinical categories, conversion expansion and application audits stay open. Production clearance is pending.
+
+## Quest 16984 missing-order evidence
+
+The [exact Quest 16984 page](https://testdirectory.questdiagnostics.com/test/test-detail/16984/?cc=MASTER)
+was checked November 26, 2026. It lists New York patient testing with frozen
+EDTA plasma, 10 mL preferred and 5 mL minimum. Collect in two 10 mL lavender
+EDTA tubes or five standard lavender EDTA tubes. Separate and combine plasma
+and submit in one 10 mL pour-off tube, or two 5 mL pour-offs if the 10 mL tube
+is unavailable. Frozen stability is 28 days. Ambient or refrigerated receipt
+is unacceptable. The 16984 page does not specify the four-hour processing
+deadline shown for 16983. Confirm processing timing, local stock and account
+availability before adding a runtime route.
