@@ -5,7 +5,7 @@
 - Protection commit: `86111caf33cbc543a5422f8af72f5bbd813aaa52`.
 - Scope: 10,430 total records, including 3,829 Quest and 6,601 Labcorp. The active container scope is 9,330 records (3,315 Quest, 6,015 Labcorp), including the existing uncoded Quest reference hold. Search contains 9,329 orderable codes.
 - Active container structural checks: 9,330 of 9,330, including 43 correctly held orders. Zero active records lost against either baseline. All 9,330 remain pending complete fingerprint-bound clinical verification.
-- Active container evidence categories: 478 partial, 17 source unavailable, 43 held, and 8,792 pending. Partial evidence coverage is 478/9,330 (5.12%). Full container verification is 0/9,330. These mutually exclusive counts use the container tracker, which classifies held records first. The broader catalog ledger uses different statuses and includes inactive records.
+- Active container evidence categories: 486 partial, 17 source unavailable, 43 held, and 8,784 pending. Partial evidence coverage is 486/9,330 (5.21%). Full container verification is 0/9,330. These mutually exclusive counts use the container tracker, which classifies held records first. The broader catalog ledger uses different statuses and includes inactive records.
 - The custom rules registry includes 35 entries. The 31 starting rule entries are unchanged, and four existing Quest overrides were registered. Existing and new rule checks run in the Node suite. CI enforces the starting rule fingerprints and active record identities; required branch protection has not been verified.
 - The archived 78-test Quest SoCal Common Labs Gold SST selection was recovered from the November 26 PDF and tested against the original and continuation builds. Both produced 46 collection containers and three routine bags with 38 ambient, nine refrigerated, and five frozen submissions. The fixture checks quantities and availability. Print pagination, visual layout, per-route labels, instructions, and TAT still need an independent comparison for this continuation.
 - This batch added evidence to three previously reviewed Labcorp records and completed missing stability text for 505725. That correction does not change frozen shipment on dry ice. 724344 confirms two specimen routes, pending local urine vessel and pH workflow. 829030 confirms frozen shipment and direct-vessel examples, pending local sterile cup acceptance. The three updates add field evidence without increasing unique partial record coverage.
@@ -23,3 +23,22 @@ is unavailable. Frozen stability is 28 days. Ambient or refrigerated receipt
 is unacceptable. The 16984 page does not specify the four-hour processing
 deadline shown for 16983. Confirm processing timing, local stock and account
 availability before adding a runtime route.
+
+## Labcorp follow-up batch
+
+Eight previously unreviewed active orders now have partial exact-code evidence:
+006213, 008185, 017996, 046557, 054494, 070038, 070195, and 071255.
+Updated the stability display for 070038 and 070195. No route, quantity,
+stock label, or active status changed. Database integrity passed against
+both baselines and all 479 regression tests passed.
+
+Local verification remains open for tube count on 006213, refrigerated
+centrifugation and immediate freezing on 046557, and validated deep-freeze
+or dry ice on 054494. The currently displayed handling notes already list
+the required conditions for the latter two. Exact detail endpoints for
+833848, 816477, and 827969 remained inaccessible. Their earlier partial
+findings remain in the ledger.
+
+Resume with the remaining pending higher-risk routes and exact public
+Labcorp pages for 008003, 008201, 008565, 008573, 008900, and 008904.
+Use the existing route queue and preserve local collection exclusions.

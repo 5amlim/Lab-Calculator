@@ -9790,5 +9790,208 @@
       "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog",
       "https://www.labcatalog.net/tests/?test=23232"
     ]
+  },
+  "labcorp:006213": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/006213/antibody-identification",
+    "date": "2026-11-26",
+    "note": "Public page supports EDTA and both volumes. It does not state a two-tube count. Validate the two-tube stock configuration with the receiving account.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Lavender EDTA without gel."
+      },
+      "preferredVolume": {
+        "evidence": "8 mL whole blood."
+      },
+      "minimumVolume": {
+        "evidence": "4 mL whole blood."
+      },
+      "stability": {
+        "evidence": "Test promptly and within 72 hours. Store at 2–8 °C when delayed. Do not freeze."
+      }
+    }
+  },
+  "labcorp:008185": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/008185/parasite-examination-whole-blood",
+    "date": "2026-11-26",
+    "note": "The existing venous EDTA route appears as an acceptable option. Excluded slides and smears remain outside calculator scope.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Fresh venous whole blood in lavender EDTA."
+      },
+      "preferredVolume": {
+        "evidence": "3–5 mL venous whole blood."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient for the venous EDTA route."
+      },
+      "stability": {
+        "evidence": "Hold EDTA whole blood at room temperature no longer than the published 24–48 hour window."
+      }
+    }
+  },
+  "labcorp:017996": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/017996/ethanol-whole-blood",
+    "date": "2026-11-26",
+    "note": "Existing preferred gray top and unopened original-tube route match the public directory. The published red-top alternative is not activated by this batch.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Gray sodium fluoride tube preferred. Red top is listed as an alternative."
+      },
+      "transportContainer": {
+        "evidence": "Original, unopened collection tube."
+      },
+      "preferredVolume": {
+        "evidence": "7 mL."
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature."
+      },
+      "specialInstructions": {
+        "evidence": "Use an alcohol-free site preparation. Do not remove the stopper or centrifuge and separate red-top serum."
+      }
+    }
+  },
+  "labcorp:046557": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/046557/antidiuretic-hormone-adh-profile",
+    "date": "2026-11-26",
+    "note": "Both existing routes match the public listing. Confirm refrigerated centrifuge availability and immediate freezing before collection.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Gel-barrier serum tube and lavender EDTA plasma tube."
+      },
+      "transportContainer": {
+        "evidence": "Two separately labeled plastic transport tubes."
+      },
+      "preferredVolume": {
+        "evidence": "1 mL serum and 2 mL plasma."
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL serum and 1 mL plasma."
+      },
+      "transportTemperature": {
+        "evidence": "Refrigerated serum and immediately frozen plasma."
+      },
+      "specialInstructions": {
+        "evidence": "Separate both in a refrigerated centrifuge and keep the frozen plasma submission separate."
+      }
+    }
+  },
+  "labcorp:054494": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/054494/immune-complexes-profile",
+    "date": "2026-11-26",
+    "note": "Public directory confirms two aliquots. Confirm access to −70 °C or dry ice and the shipping procedure. A conventional −20 °C freezer cannot meet this requirement.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Red top or gel-barrier tube."
+      },
+      "transportContainer": {
+        "evidence": "Two distinct plastic transport tubes."
+      },
+      "preferredVolume": {
+        "evidence": "Two 1 mL serum aliquots."
+      },
+      "minimumVolume": {
+        "evidence": "Two 0.1 mL serum aliquots."
+      },
+      "submissionCount": {
+        "evidence": "Two."
+      },
+      "transportTemperature": {
+        "evidence": "Freeze at −70 °C or put on dry ice within six hours."
+      },
+      "stability": {
+        "evidence": "14 days at −70 °C. Storage at −20 °C can yield erroneous results."
+      }
+    }
+  },
+  "labcorp:070038": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/070038/testosterone-free-equilibrium-ultrafiltration-with-total-testosterone-lc-ms-ms",
+    "date": "2026-11-26",
+    "note": "Public directory confirms serum collection, separation and transfer. Updated the stability display only.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Red top or gel-barrier tube."
+      },
+      "transportContainer": {
+        "evidence": "Plastic serum transport tube."
+      },
+      "preferredVolume": {
+        "evidence": "2.2 mL serum."
+      },
+      "minimumVolume": {
+        "evidence": "1.8 mL serum; insufficient for repeat testing."
+      },
+      "specialInstructions": {
+        "evidence": "Separate serum from cells within one hour of collection and transfer."
+      },
+      "stability": {
+        "evidence": "Room temperature or refrigerated: 7 days. Frozen: 5.58 years. Stable through nine freeze/thaw cycles.",
+        "previousValue": "Room/refrigerated 7 days; frozen extended per LabCorp",
+        "reviewedValueSha256": "83732c274b0564e47557f170b3862909c45c40d33cb029863286fa5af09b0cee"
+      }
+    }
+  },
+  "labcorp:070195": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/070195/testosterone-free-direct-with-total-testosterone-lc-ms-ms",
+    "date": "2026-11-26",
+    "note": "Public directory confirms serum collection, separation and transfer. Updated the stability display only.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Red top or gel-barrier tube."
+      },
+      "transportContainer": {
+        "evidence": "Plastic serum transport tube."
+      },
+      "preferredVolume": {
+        "evidence": "2 mL serum."
+      },
+      "minimumVolume": {
+        "evidence": "1.3 mL serum; insufficient for repeat testing."
+      },
+      "specialInstructions": {
+        "evidence": "Separate serum from cells within one hour of collection and transfer."
+      },
+      "stability": {
+        "evidence": "Room temperature, refrigerated or frozen: 14 days. Stable through three freeze/thaw cycles.",
+        "previousValue": "Room/refrigerated/frozen 14 days",
+        "reviewedValueSha256": "5fffce79ecbfd7b488ee973daad29fee81595a4aa64bf4f92d23abee85e5ca23"
+      }
+    }
+  },
+  "labcorp:071255": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/071255/nicotine-and-metabolite-quantitative-plasma-whole-blood-or-serum",
+    "date": "2026-11-26",
+    "note": "Existing whole-blood EDTA route is supported. The source also lists plasma and serum without a complete container-by-matrix mapping. Confirm preparation and submission requirements before adding alternatives.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Public listing allows lavender EDTA, green heparin or red top."
+      },
+      "specimenType": {
+        "evidence": "Plasma, whole blood or serum."
+      },
+      "preferredVolume": {
+        "evidence": "1 mL."
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature."
+      },
+      "stability": {
+        "evidence": "14 days ambient, refrigerated or frozen."
+      }
+    }
   }
 }
