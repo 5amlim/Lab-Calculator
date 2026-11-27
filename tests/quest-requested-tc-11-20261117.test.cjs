@@ -7,14 +7,16 @@ const vm=require('node:vm');
 const root=path.resolve(__dirname,'..');
 const src=fs.readFileSync(path.join(root,'assets/js/quest-requested-tc-11-20261117.js'),'utf8');
 function seed(before=[]){const window={SEED_TESTS:before};vm.runInNewContext(src,{window});return window.SEED_TESTS;}
-const codes=['15434','15060','10380','38470','30673','672','270','94569','13808','92717','19593'];
-test('the 11 requested Quest codes are cataloged once, with normal and restricted statuses',()=>{
+const codes=['10676','15434','15060','10380','38470','30673','672','270','94569','13808','92717','19593'];
+test('the 12 requested Quest codes are cataloged once, with normal and restricted statuses',()=>{
  const rows=seed();const by=new Map(rows.map(x=>[x.testCode,x]));
  assert.equal(rows.map(x=>x.testCode).join(','),codes.join(','));
- assert.equal(new Set(by.keys()).size,11);
- assert.equal(rows.filter(x=>x.status==='active').length,9);
+ assert.equal(by.size,codes.length);
+ assert.equal(rows.filter(x=>x.status==='active').length,10);
  assert.equal(rows.filter(x=>x.status==='reference').length,1);
  assert.equal(rows.filter(x=>x.status==='blocked').length,1);
+ assert.equal(by.get('10676').status,'active');
+ assert.equal(by.get('10676').specimenType,'Urine');
  assert.equal(by.get('92717').status,'blocked');
  assert.equal(by.get('94569').status,'reference');
  for(const t of rows){
@@ -26,7 +28,7 @@ test('the 11 requested Quest codes are cataloged once, with normal and restricte
 });
 test('catalog protects blocked and existing active records and promotes reference-only records',()=>{
  const rows=seed([{testCode:'15434',status:'blocked',id:'blocked'},{testCode:'15060',status:'active',id:'already-active'},{testCode:'30673',status:'reference',id:'old-ref'},{testCode:'19593',status:'pending',id:'old-pending'}]);
- assert.equal(rows.length,11);
+ assert.equal(rows.length,codes.length);
  const by=new Map(rows.map(x=>[x.testCode,x]));
  assert.equal(by.get('15434').status,'blocked');
  assert.equal(by.get('15060').id,'already-active');
@@ -70,7 +72,7 @@ test('Quest 92717 always appears as Do Not Perform, including legacy active reco
  for(const prior of ['reference','pending','active','blocked']){
   const rows=seed([{id:'legacy-'+prior,testCode:'92717',status:prior,additionalDrawRequirements:[]}]);
   const b=rows.find(x=>x.testCode==='92717');
-  assert.equal(rows.length,11);
+  assert.equal(rows.length,codes.length);
   assert.equal(b.id,'legacy-'+prior);
   assert.equal(b.status,'blocked');
   assert.ok(b.specialInstructions.startsWith('DO NOT PERFORM ONSITE.'));
