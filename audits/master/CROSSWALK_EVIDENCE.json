@@ -1,0 +1,98 @@
+{
+  "16802|102525": {
+    "classification": "Directory-supported candidate",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/16802?cc=MASTER",
+    "labcorpUrl": "https://www.labcorp.com/tests/102525/hemoglobin-hb-a1c-with-eag",
+    "date": "2026-11-25",
+    "previousSourcePair": "16802|001453 in the base file; the workbook already corrected the browser view",
+    "evidence": "Both orders explicitly include HbA1c with eAG. The alternative Labcorp 001453 lists HbA1c alone.",
+    "additionalSources": [
+      "https://www.labcorp.com/tests/001453/hemoglobin-hb-a1c"
+    ],
+    "approvalStatus": "Candidate only. Method and receiving laboratory route require confirmation."
+  },
+  "937|028142": {
+    "classification": "Partial panel match",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/937/white-blood-cell-count-wbc?cc=MASTER",
+    "labcorpUrl": "https://www.labcorp.com/tests/028142/complete-blood-count-cbc-without-differential?letter=B",
+    "date": "2026-11-25",
+    "evidence": "Quest orders a standalone WBC count. Labcorp includes WBC within a CBC with additional results.",
+    "approvalStatus": "Manual review only. Never send as an automatic match."
+  },
+  "229|004291": {
+    "classification": "Partial panel match",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/229/aldosterone-24-hour-urine?cc=MASTER",
+    "labcorpUrl": "https://www.labcorp.com/tests/004291/aldosterone-24-hour-urine",
+    "date": "2026-11-25",
+    "evidence": "Quest includes creatinine; the Labcorp order lists urine aldosterone without creatinine. Route volumes differ.",
+    "approvalStatus": "Confirm the requested results and receiving-laboratory requirements."
+  },
+  "18216|123075": {
+    "classification": "Different clinical order, review only",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/18216/multiple-sclerosis-ms-differential-evaluation-with-reflexes?cc=MASTER&p=r",
+    "labcorpUrl": "https://www.labcorp.com/tests/123075/multiple-sclerosis-ms-profile",
+    "date": "2026-11-25",
+    "evidence": "Quest is a serum differential workup with reflex testing. Labcorp is a same-time paired serum and CSF oligoclonal banding/IgG profile.",
+    "approvalStatus": "Confirm the requested results and receiving-laboratory requirements."
+  },
+  "39820|164090": {
+    "classification": "Directory-supported candidate",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/39820/sars-cov-2-total-antibody-spike-semi-quantitative?cc=MASTER",
+    "labcorpUrl": "https://www.labcorp.com/tests/164090/sars-cov-2-semi-quantitative-total-antibody-spike",
+    "date": "2026-11-25",
+    "evidence": "Both orders measure total spike antibody semi-quantitatively. Acceptable matrices and shipment/storage differ.",
+    "approvalStatus": "Confirm the requested results and receiving-laboratory requirements."
+  },
+  "92473|489477": {
+    "classification": "Candidate alternative with meaningful differences",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/92473?cc=MASTER",
+    "labcorpUrl": "https://www.labcorp.com/tests/489477/jak2v617f-digital",
+    "additionalSources": [
+      "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW9%20-%20Diagnostics%20Update%20September%202026.pdf"
+    ],
+    "date": "2026-11-26",
+    "previousSourcePair": "92473|489200 and 92473|481020",
+    "evidence": "Labcorp replaced two retired order options with digital PCR reporting percent mutant alleles. Confirm assay, specimen and reporting against the requested Quest order.",
+    "approvalStatus": "Manual review only. Never send as an automatic match."
+  },
+  "6447|164099": {
+    "classification": "Removed from converter pending shipment confirmation",
+    "date": "2026-11-26",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/6447/?cc=MASTER",
+    "labcorpUrl": "https://www.labcorp.com/tests/164099",
+    "evidence": "The Quest source order is on collection hold because an exact shipping requirement could not be established.",
+    "approvalStatus": "Clinical shipping confirmation required before reconsideration."
+  },
+  "34499|164055": {
+    "classification": "Removed from converter pending shipment confirmation",
+    "date": "2026-11-26",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/34499/?cc=MASTER",
+    "labcorpUrl": "https://www.labcorp.com/tests/164055",
+    "evidence": "The Quest source order is on collection hold because an exact shipping requirement could not be established.",
+    "approvalStatus": "Clinical shipping confirmation required before reconsideration."
+  },
+  "19963|164798": {
+    "classification": "Removed from converter pending shipment confirmation",
+    "date": "2026-11-26",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/19963/?cc=MASTER",
+    "labcorpUrl": "https://www.labcorp.com/tests/164798",
+    "evidence": "The Labcorp destination is on collection hold because an exact shipping requirement could not be established.",
+    "approvalStatus": "Clinical shipping confirmation required before reconsideration."
+  },
+  "10231|322000": {
+    "classification": "Directory-supported candidate",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/10231/?cc=TMP",
+    "labcorpUrl": "https://www.labcorp.com/tests/322000/metabolic-panel-14-comprehensive?letter=W",
+    "date": "2026-11-26",
+    "evidence": "All 18 published result LOINCs agree, including eGFR. The Quest result table is specific to Tampa. Labcorp publishes order LOINC 24323-8.",
+    "approvalStatus": "Candidate only. Confirm the full assay, result reporting and receiving-account scope before substitution."
+  },
+  "5244|316203": {
+    "classification": "Collection review; automatic candidate removed",
+    "questUrl": "https://testdirectory.questdiagnostics.com/test/test-detail/5244/?cc=MASTER",
+    "labcorpUrl": "https://www.labcorp.com/tests/316203/catecholamines-fractionated-urinary-free-random-urine",
+    "date": "2026-11-26",
+    "evidence": "Labcorp requires acid-preserved transport or the designated corrosive pH-stabilized Monovette. Clinic does not collect acid-preserved urine.",
+    "approvalStatus": "No auto-conversion while flagged; confirm order and route."
+  }
+}

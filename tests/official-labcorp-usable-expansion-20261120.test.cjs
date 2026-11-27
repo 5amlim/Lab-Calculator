@@ -42,7 +42,8 @@ test('Cart and searchable catalog load all new Labcorp tests',()=>{
  assert(html.includes('src="'+script+'?'), 'Verified overlay not loaded');
  assert(html.indexOf('src="'+script+'?')<html.indexOf('src="labcorp-app.js?'),
   'Overlay must load before calculator');
- const list=JSON.parse(read('assets/search/labcorp-tests.json')).tests;
- const indexed=new Set(list.map(row=>row[0]));
- for(const code of codes)assert(indexed.has(code),'New active code not searchable '+code);
+ const index=JSON.parse(read('assets/search/labcorp-tests.json'));
+ const indexed=new Set(index.tests.map(row=>row[0]));
+ for(const code of codes) assert(indexed.has(code), code);
+ for(const code of ['481020', '489200']) assert(index.collectionReviewCodes.includes(code), code);
 });

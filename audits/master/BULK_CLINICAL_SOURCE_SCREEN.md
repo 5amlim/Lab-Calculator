@@ -1,0 +1,28 @@
+# Bulk clinical source screening
+
+One public client print-catalog retrieval is compared against every active Labcorp exact code. Results are uploaded with the existing integrity workflow. The client listing is not the Sollis account directory. No catalog change, clinical approval, or clinical evidence ledger promotion happens automatically. Complex container choices, multiple required routes, conflicting source rows, and conditional temperatures remain review items. Counts reflect the exact-code source screen only; full clinical verification still requires official detail, receiving-account acceptance and actual route/volume/processing review. Network and parser failures are explicitly reported instead of being counted as success. The local runner can reuse a saved HTML snapshot with --html.
+
+Reports: LABCORP_BULK_CLIENT_SCREEN.json, LABCORP_BULK_CLIENT_SCREEN.csv. Sort possible differences first and confirm on the exact official detail page before making a correction. All current stock names and forced overrides are preserved.
+
+## Manual source-screen checkpoint
+
+29 additional active exact-code client listing rows compared to prior CI normalized routes; the source is not the clinic receiving account. No clinical approval or runtime changes. The source-to-runtime notes are recorded individually in FIELD_EVIDENCE.json. Priority confirmations: 505725 dry ice, 833848 acid-washed vessel certification, 829030/816477 sterile vessel geometry, 827969 initial collection, and 724344 dual-specimen handling. Source: https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog
+
+## First bulk screen adjudication
+
+Run 45903447567 matched 4,884 of 6,015 active codes. Fourteen simple discrepancies (7 container and 7 temperature) reviewed against exact official/specialty pages, except 834968 which has exact referral and regional sources. Correct 048462 and 096001 to refrigerated; retain the other eleven official-source-supported routes; 834968 receiving-account confirmation remains open. Dry-ice shipment capability remains open on affected specialty routes. No changes to naming, grouping, count, pool or exclusion rules. Full clinical verification is not implied.
+
+- 048462 (corrected): Exact directory confirms plain red top, separated serum in plastic transfer vessel, 1 mL minimum, refrigeration; existing source/transfer labels unchanged. Ambient stability is not shipping instruction. https://www.labcorp.com/tests/048462/hirsutism-profile
+- 096001 (corrected): Exact page confirms refrigeration; existing SST and red-top alternative retained. Original tube route not separately validated. https://www.labcorp.com/tests/096001/coxsackie-b-virus-antibodies?letter=A
+- 161802 (retain): Official directory instructs ambient storage, in contrast with KSB client listing. Retain room-temperature route; confirm local account if different. https://www.labcorp.com/tests/161802/anticardiolipin-antibodies-aca-igg-igm-quantitative
+- 164763 (retain): Exact directory supports existing refrigerated serum route. SST and red-top accepted; client listing ambient differs. https://www.labcorp.com/tests/164763/anaplasma-phagocytophilum-hge-antibody-igg-ifa?letter=L
+- 500159 (retain): Exact specialty directory accepts refrigerated shipment or frozen on dry ice. Current refrigerated route supported. https://specialtytesting.labcorp.com/tests/500159/testosterone-total-serum-mass-spectrometry
+- 500644 (retain): Exact specialty page supports red-top serum and frozen shipping; dry-ice capability must be confirmed locally. https://specialtytesting.labcorp.com/tests/500644/insulin-like-growth-factor-binding-protein-3-igfbp-3
+- 500156 (retain): Official specialty page accepts SST or red top. Do not replace existing SST route solely on client listing. Dry-ice capability open. https://specialtytesting.labcorp.com/tests/500156/dehydroepiandrosterone-dhea
+- 500477 (retain): Official specialty page accepts SST or red top. Existing source selection retained. Dry-ice capability open. https://specialtytesting.labcorp.com/tests/500477/thyroid-stimulating-hormone-tsh-icma
+- 500712 (retain): Exact specialty directory specifies red top, not a reason to substitute SST based on client listing. Dry-ice capability open. https://specialtytesting.labcorp.com/tests/500712/thyroid-function-adult-thyroid-test-group
+- 500713 (retain): Exact specialty directory specifies red top. Dry-ice capability open. https://specialtytesting.labcorp.com/tests/500713/thyroid-function-adult-hyperthyroid-tsh-suppression-test-group
+- 502350 (retain): Exact specialty directory specifies red top. Published minimum 1 mL should be checked against the stored minimum before changing volume. Dry-ice capability open. https://specialtytesting.labcorp.com/tests/502350/congenital-adrenal-hyperplasia-cah-pediatric-profile-3-17-oh-deficiency-screen
+- 503192 (retain): Exact specialty directory specifies red top. No minimum published on this page. Dry-ice capability open. https://specialtytesting.labcorp.com/tests/503192/congenital-adrenal-hyperplasia-cah-test-group-i-adult-late-onset
+- 503194 (retain): Exact specialty directory specifies red top. No minimum published on this page. Dry-ice capability open. https://specialtytesting.labcorp.com/tests/503194/congenital-adrenal-hyperplasia-cah-test-group-ii-adult-late-onset
+- 834968 (local confirmation): Allina exact referral code identifies ambient preferred; Labcorp Oklahoma identifies ambient or refrigerated. KSB specifies refrigeration. Retain current ambient route pending local account confirmation. Do not extrapolate six-week Allina stability to all accounts. https://labs.allinahealth.org/Lab/View?customObjectUID=62a113a2-feef-4f76-9206-a0e92c7c6453&templateUID=ff24f908-cdc8-4068-84eb-6ce60783f288

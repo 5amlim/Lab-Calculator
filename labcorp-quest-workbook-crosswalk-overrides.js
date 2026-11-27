@@ -126,18 +126,13 @@ const lookup={
   "16796": "123255",
   "16802": "102525",
   "17169": "164099",
-  "17180": "070085",
-  "17182": "004705",
-  "17183": "500167",
   "17306": "081950",
   "17406": "500089",
   "17569": "480772",
   "18944": "144980",
   "19826": "120251",
-  "19894": "004100",
   "22060": "716944",
   "23244": "004564",
-  "30289": "140244",
   "30551": "140749",
   "30740": "082016",
   "31493": "140707",
@@ -248,13 +243,19 @@ const catalogMap=records=>new Map((records||[]).map(test=>{
   const name=Array.isArray(test)?test[1]:test.testName;
   return [String(code),{testName:String(name||'')}];
 }));
-const applyWorkbookMatches=records=>{
+const applyWorkbookMatches=(records,reviewCodes=[])=>{
   // On the Quest page, SEED_TESTS belongs to Quest, not LabCorp. Reapply
   // against the complete LabCorp index once the converter fetch finishes.
   const active=catalogMap(records);
+  for(const code of reviewCodes)active.delete(code);
   for(const row of rows){
     const code=lookup[String(row[0])];
-    if(code&&active.has(code)){row[3]=code;row[4]=active.get(code).testName;}
+    // The workbook fills unresolved rows. An explicit candidate, scope
+    // warning, or review-only disposition in the primary index takes priority.
+    if (code && active.has(code) && !row[3] && !row[8]?.length && !row[5]) {
+      row[3] = code;
+      row[4] = active.get(code).testName;
+    }
   }
   return active;
 };

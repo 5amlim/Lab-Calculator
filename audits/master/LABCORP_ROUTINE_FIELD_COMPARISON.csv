@@ -1,0 +1,716 @@
+code,field,calculatorValue,publishedValue,outcome,source,accessDate,sourceSha256
+000455,preferredVolume,1,1,Match,https://www.labcorp.com/tests/000455/thyroid-profile,2026-11-26,36651518d0d9c8ac3442de1e81780135091f7540df77758c09ab7f3d3771b105
+000455,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/000455/thyroid-profile,2026-11-26,36651518d0d9c8ac3442de1e81780135091f7540df77758c09ab7f3d3771b105
+000455,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/000455/thyroid-profile,2026-11-26,36651518d0d9c8ac3442de1e81780135091f7540df77758c09ab7f3d3771b105
+000620,preferredVolume,2,2,Match,https://www.labcorp.com/tests/000620/thyroid-profile-with-tsh,2026-11-26,cce75b06e001a1c24f132313d14a92ac9b44815caaaa702fa463979bff00d8be
+000620,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/000620/thyroid-profile-with-tsh,2026-11-26,cce75b06e001a1c24f132313d14a92ac9b44815caaaa702fa463979bff00d8be
+000620,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/000620/thyroid-profile-with-tsh,2026-11-26,cce75b06e001a1c24f132313d14a92ac9b44815caaaa702fa463979bff00d8be
+000810,preferredVolume,1.5,1.5,Match,https://www.labcorp.com/tests/000810/vitamin-b12-and-folates,2026-11-26,2701a961df8d438e8c4b0cd58def4a5d94a7801986e38e326d89616907cde9de
+000810,minimumVolume,0.6,0.6,Match,https://www.labcorp.com/tests/000810/vitamin-b12-and-folates,2026-11-26,2701a961df8d438e8c4b0cd58def4a5d94a7801986e38e326d89616907cde9de
+001016,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001016/calcium,2026-11-26,057c3b297cdc9a3b66240941c74e8d1ee1dee6ee4a1d4bf94fb1c92c7c9da04e
+001016,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001016/calcium,2026-11-26,057c3b297cdc9a3b66240941c74e8d1ee1dee6ee4a1d4bf94fb1c92c7c9da04e
+001016,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001016/calcium,2026-11-26,057c3b297cdc9a3b66240941c74e8d1ee1dee6ee4a1d4bf94fb1c92c7c9da04e
+001024,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001024/phosphorus,2026-11-26,f630666325769e10c35ab02ff7bc9fe7819a01b0001e8c33b3308444f19c954e
+001024,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001024/phosphorus,2026-11-26,f630666325769e10c35ab02ff7bc9fe7819a01b0001e8c33b3308444f19c954e
+001024,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001024/phosphorus,2026-11-26,f630666325769e10c35ab02ff7bc9fe7819a01b0001e8c33b3308444f19c954e
+001032,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001032/glucose,2026-11-26,eb7b089e78056abe79661ac4bd7030fa39134d20b6023a44e1a3d52d4e8fdeba
+001032,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001032/glucose,2026-11-26,eb7b089e78056abe79661ac4bd7030fa39134d20b6023a44e1a3d52d4e8fdeba
+001032,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001032/glucose,2026-11-26,eb7b089e78056abe79661ac4bd7030fa39134d20b6023a44e1a3d52d4e8fdeba
+001040,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001040/urea-nitrogen,2026-11-26,a26b9361b789b82bc7db74966ef60be1140b6b7298962a808bdc64999cb007a9
+001040,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001040/urea-nitrogen,2026-11-26,a26b9361b789b82bc7db74966ef60be1140b6b7298962a808bdc64999cb007a9
+001040,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001040/urea-nitrogen,2026-11-26,a26b9361b789b82bc7db74966ef60be1140b6b7298962a808bdc64999cb007a9
+001057,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001057/uric-acid,2026-11-26,133a55c0ae8b180d6d9d4a228bd7a1e5a68979b1d83d1e67f204ad5b99053a82
+001057,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001057/uric-acid,2026-11-26,133a55c0ae8b180d6d9d4a228bd7a1e5a68979b1d83d1e67f204ad5b99053a82
+001057,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001057/uric-acid,2026-11-26,133a55c0ae8b180d6d9d4a228bd7a1e5a68979b1d83d1e67f204ad5b99053a82
+001065,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001065/cholesterol-total,2026-11-26,60130ad8cce3357260ca91cb302789a1eaf05852fe70d2814d4ee3466561ce25
+001065,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001065/cholesterol-total,2026-11-26,60130ad8cce3357260ca91cb302789a1eaf05852fe70d2814d4ee3466561ce25
+001065,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001065/cholesterol-total,2026-11-26,60130ad8cce3357260ca91cb302789a1eaf05852fe70d2814d4ee3466561ce25
+001073,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001073/protein-total,2026-11-26,e83c0fc3b2959a2d04eae850e15a6c6fc09e884668c43b825cda1dccab614666
+001073,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001073/protein-total,2026-11-26,e83c0fc3b2959a2d04eae850e15a6c6fc09e884668c43b825cda1dccab614666
+001073,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001073/protein-total,2026-11-26,e83c0fc3b2959a2d04eae850e15a6c6fc09e884668c43b825cda1dccab614666
+001081,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001081/albumin,2026-11-26,efeae2c8df59697575968c210ff071d42ac41e4608286950dde4d9f062053fd1
+001081,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001081/albumin,2026-11-26,efeae2c8df59697575968c210ff071d42ac41e4608286950dde4d9f062053fd1
+001081,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001081/albumin,2026-11-26,efeae2c8df59697575968c210ff071d42ac41e4608286950dde4d9f062053fd1
+001099,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001099/bilirubin-total,2026-11-26,54668151b81f50ce31230b117618d4f9b2d40bb108e77a3511bd8ce7f53b7057
+001099,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001099/bilirubin-total,2026-11-26,54668151b81f50ce31230b117618d4f9b2d40bb108e77a3511bd8ce7f53b7057
+001099,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001099/bilirubin-total,2026-11-26,54668151b81f50ce31230b117618d4f9b2d40bb108e77a3511bd8ce7f53b7057
+001107,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001107/alkaline-phosphatase-whe,2026-11-26,c1ee4ecc02b3a5411dd80e1a5d3c36084817900fa9e08c5e6a1944e2ffc07ad5
+001107,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001107/alkaline-phosphatase-whe,2026-11-26,c1ee4ecc02b3a5411dd80e1a5d3c36084817900fa9e08c5e6a1944e2ffc07ad5
+001107,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001107/alkaline-phosphatase-whe,2026-11-26,c1ee4ecc02b3a5411dd80e1a5d3c36084817900fa9e08c5e6a1944e2ffc07ad5
+001115,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001115/lactic-acid-dehydrogenase-ld,2026-11-26,8ea8141b8e79db7b86112cffd117e0e38ab6e5248ae43a7d0d026bd6c6017bc5
+001115,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001115/lactic-acid-dehydrogenase-ld,2026-11-26,8ea8141b8e79db7b86112cffd117e0e38ab6e5248ae43a7d0d026bd6c6017bc5
+001115,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001115/lactic-acid-dehydrogenase-ld,2026-11-26,8ea8141b8e79db7b86112cffd117e0e38ab6e5248ae43a7d0d026bd6c6017bc5
+001123,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001123/aspartate-aminotransferase-ast-sgot,2026-11-26,da1f506fa484e22c355bc7f1b3e51bafa8d17b6a6ea3caf9bcbc6a47075051f9
+001123,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001123/aspartate-aminotransferase-ast-sgot,2026-11-26,da1f506fa484e22c355bc7f1b3e51bafa8d17b6a6ea3caf9bcbc6a47075051f9
+001123,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001123/aspartate-aminotransferase-ast-sgot,2026-11-26,da1f506fa484e22c355bc7f1b3e51bafa8d17b6a6ea3caf9bcbc6a47075051f9
+001149,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001149/thyroxine-t4,2026-11-26,5153d0afdfa837e235640632185275a03caf5b043a6f3492a7697b6b479c8f49
+001156,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001156/t3-uptake,2026-11-26,36adcd0be6326e75c734d1e800be1f1556e4797ce4aa83f236c7795157313dd4
+001172,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001172/triglycerides,2026-11-26,6cb1908c7c5dc1e9283ce629d20d34d1d7b893f163df8b764f06dd3a62f3ab95
+001172,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001172/triglycerides,2026-11-26,6cb1908c7c5dc1e9283ce629d20d34d1d7b893f163df8b764f06dd3a62f3ab95
+001172,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001172/triglycerides,2026-11-26,6cb1908c7c5dc1e9283ce629d20d34d1d7b893f163df8b764f06dd3a62f3ab95
+001180,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001180/potassium,2026-11-26,bc4f0adde94b6196966cbdfe4f4e2059e246272e738ef0f6e28d3a8dd78c9840
+001180,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001180/potassium,2026-11-26,bc4f0adde94b6196966cbdfe4f4e2059e246272e738ef0f6e28d3a8dd78c9840
+001198,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001198/sodium,2026-11-26,62454d0195a320bd263f37dfe3501c13defe496f77f9d45803cb64ad361fc675
+001198,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001198/sodium,2026-11-26,62454d0195a320bd263f37dfe3501c13defe496f77f9d45803cb64ad361fc675
+001198,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001198/sodium,2026-11-26,62454d0195a320bd263f37dfe3501c13defe496f77f9d45803cb64ad361fc675
+001206,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001206/chloride-whe,2026-11-26,1f9dddec95fbc46259b3e940e74bde23abf6c8d34fc3e5422c378f64b9600965
+001206,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001206/chloride-whe,2026-11-26,1f9dddec95fbc46259b3e940e74bde23abf6c8d34fc3e5422c378f64b9600965
+001206,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001206/chloride-whe,2026-11-26,1f9dddec95fbc46259b3e940e74bde23abf6c8d34fc3e5422c378f64b9600965
+001214,preferredVolume,3,3,Match,https://www.labcorp.com/tests/001214/bilirubin-total-and-direct,2026-11-26,b4f7bbc6f22bd514d042a89ba7cb0810fadcce6e9fbe3e22232baca2db89bd2f
+001214,minimumVolume,1,1,Match,https://www.labcorp.com/tests/001214/bilirubin-total-and-direct,2026-11-26,b4f7bbc6f22bd514d042a89ba7cb0810fadcce6e9fbe3e22232baca2db89bd2f
+001214,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/001214/bilirubin-total-and-direct,2026-11-26,b4f7bbc6f22bd514d042a89ba7cb0810fadcce6e9fbe3e22232baca2db89bd2f
+001222,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001222/bilirubin-direct,2026-11-26,e6fefe3861ce3d271d1bb30277d1da194143a148be7cb3285b9389ce9e34a47b
+001222,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001222/bilirubin-direct,2026-11-26,e6fefe3861ce3d271d1bb30277d1da194143a148be7cb3285b9389ce9e34a47b
+001222,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/001222/bilirubin-direct,2026-11-26,e6fefe3861ce3d271d1bb30277d1da194143a148be7cb3285b9389ce9e34a47b
+001339,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001339/iron,2026-11-26,8a68abd3c681134a0f89882c4c855bfd27539f9133c8a3897c4c1df114a1e5f7
+001339,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001339/iron,2026-11-26,8a68abd3c681134a0f89882c4c855bfd27539f9133c8a3897c4c1df114a1e5f7
+001339,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001339/iron,2026-11-26,8a68abd3c681134a0f89882c4c855bfd27539f9133c8a3897c4c1df114a1e5f7
+001354,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/001354/fecal-fat-quantitative,2026-11-26,342beff93d1166ecb7243e1da9a1499fe31fbe80e298e2f7978cac084578fb92
+001362,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001362/creatine-kinase-ck-total,2026-11-26,52c27316056c0d538b57b4931a938dec97c3df5682648c39a0dc9228dd50d88b
+001362,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001362/creatine-kinase-ck-total,2026-11-26,52c27316056c0d538b57b4931a938dec97c3df5682648c39a0dc9228dd50d88b
+001362,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001362/creatine-kinase-ck-total,2026-11-26,52c27316056c0d538b57b4931a938dec97c3df5682648c39a0dc9228dd50d88b
+001370,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001370/creatinine-whe,2026-11-26,4a8716d38dffbcf5319ffa508920fef1ff8af4d481e850806f14694ce3e569c9
+001370,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001370/creatinine-whe,2026-11-26,4a8716d38dffbcf5319ffa508920fef1ff8af4d481e850806f14694ce3e569c9
+001370,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001370/creatinine-whe,2026-11-26,4a8716d38dffbcf5319ffa508920fef1ff8af4d481e850806f14694ce3e569c9
+001396,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001396/amylase,2026-11-26,f4c2e1eec9c032aadb45819b4f0893fa7d15b0aac5e0bb7d57a743bc5cd9ece9
+001396,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001396/amylase,2026-11-26,f4c2e1eec9c032aadb45819b4f0893fa7d15b0aac5e0bb7d57a743bc5cd9ece9
+001396,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001396/amylase,2026-11-26,f4c2e1eec9c032aadb45819b4f0893fa7d15b0aac5e0bb7d57a743bc5cd9ece9
+001404,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001404/lipase,2026-11-26,d9cc60c844a4120f4a91c93a3c74ec8e8aff274e6697cc898285e18defcd9188
+001404,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001404/lipase,2026-11-26,d9cc60c844a4120f4a91c93a3c74ec8e8aff274e6697cc898285e18defcd9188
+001404,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001404/lipase,2026-11-26,d9cc60c844a4120f4a91c93a3c74ec8e8aff274e6697cc898285e18defcd9188
+001438,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/001438/immunofixation-ife-and-protein-electrophoresis-cerebrospinal-fluid,2026-11-26,c99e19911f994aef2f9c83ffae4489459182cf7c26ab9f44ed63677768f31864
+001487,preferredVolume,2,2,Match,https://www.labcorp.com/tests/001487/protein-electrophoresis-serum,2026-11-26,de2ca726061c45f807740839367cfb7252a327fd9a1726bd59e90d7504589d52
+001487,minimumVolume,1,1,Match,https://www.labcorp.com/tests/001487/protein-electrophoresis-serum,2026-11-26,de2ca726061c45f807740839367cfb7252a327fd9a1726bd59e90d7504589d52
+001487,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/001487/protein-electrophoresis-serum,2026-11-26,de2ca726061c45f807740839367cfb7252a327fd9a1726bd59e90d7504589d52
+001495,preferredVolume,5,5,Match,https://www.labcorp.com/tests/001495/immunofixation-ife-serum-and-protein-electrophoresis-serum,2026-11-26,13cf362eb8b31e62bc60f793fce87238f21e8ac87366d95a06fd57f83b7f599b
+001495,minimumVolume,2,2,Match,https://www.labcorp.com/tests/001495/immunofixation-ife-serum-and-protein-electrophoresis-serum,2026-11-26,13cf362eb8b31e62bc60f793fce87238f21e8ac87366d95a06fd57f83b7f599b
+001495,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/001495/immunofixation-ife-serum-and-protein-electrophoresis-serum,2026-11-26,13cf362eb8b31e62bc60f793fce87238f21e8ac87366d95a06fd57f83b7f599b
+001503,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001503/vitamin-b12,2026-11-26,b2696d401672f172cc356d2d037e50aa531638416324f1a4452066b96f2fd72b
+001503,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001503/vitamin-b12,2026-11-26,b2696d401672f172cc356d2d037e50aa531638416324f1a4452066b96f2fd72b
+001503,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001503/vitamin-b12,2026-11-26,b2696d401672f172cc356d2d037e50aa531638416324f1a4452066b96f2fd72b
+001529,preferredVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001529/carotene-b,2026-11-26,314264364ee6b8e1a587a7c2b2afad8de2579f5cf15faead6cbb5ef2622ab7c3
+001529,minimumVolume,0.4,0.4,Match,https://www.labcorp.com/tests/001529/carotene-b,2026-11-26,314264364ee6b8e1a587a7c2b2afad8de2579f5cf15faead6cbb5ef2622ab7c3
+001529,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001529/carotene-b,2026-11-26,314264364ee6b8e1a587a7c2b2afad8de2579f5cf15faead6cbb5ef2622ab7c3
+001537,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001537/magnesium,2026-11-26,49d21cda8c02136987232ff674f30437cdc0d80c23f7dec3fa45887106a4a7f2
+001537,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001537/magnesium,2026-11-26,49d21cda8c02136987232ff674f30437cdc0d80c23f7dec3fa45887106a4a7f2
+001537,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001537/magnesium,2026-11-26,49d21cda8c02136987232ff674f30437cdc0d80c23f7dec3fa45887106a4a7f2
+001545,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001545/alanine-aminotransferase-alt-sgpt,2026-11-26,74730c445d92f6fe7d823b1e764de6a0c55f1588e91539830619113c6f71d632
+001545,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001545/alanine-aminotransferase-alt-sgpt,2026-11-26,74730c445d92f6fe7d823b1e764de6a0c55f1588e91539830619113c6f71d632
+001545,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001545/alanine-aminotransferase-alt-sgpt,2026-11-26,74730c445d92f6fe7d823b1e764de6a0c55f1588e91539830619113c6f71d632
+001560,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001560/ceruloplasmin,2026-11-26,efb55f06780c8fa5f9d7f597149717b0475e3795f4a46dcc64b75bb4196f9b77
+001560,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/001560/ceruloplasmin,2026-11-26,efb55f06780c8fa5f9d7f597149717b0475e3795f4a46dcc64b75bb4196f9b77
+001560,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/001560/ceruloplasmin,2026-11-26,efb55f06780c8fa5f9d7f597149717b0475e3795f4a46dcc64b75bb4196f9b77
+001578,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001578/carbon-dioxide-total,2026-11-26,66948ae60ead2b7344ba150144615a539930936aa2cb825245fbcc2adda7f7ef
+001578,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001578/carbon-dioxide-total,2026-11-26,66948ae60ead2b7344ba150144615a539930936aa2cb825245fbcc2adda7f7ef
+001578,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001578/carbon-dioxide-total,2026-11-26,66948ae60ead2b7344ba150144615a539930936aa2cb825245fbcc2adda7f7ef
+001586,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001586/copper-serum-or-plasma,2026-11-26,78ee1fde2ca78f61ddc0e5a460338a2faceb04934e6cb4aede2e8d16ce5b3e09
+001586,minimumVolume,0.4,0.4,Match,https://www.labcorp.com/tests/001586/copper-serum-or-plasma,2026-11-26,78ee1fde2ca78f61ddc0e5a460338a2faceb04934e6cb4aede2e8d16ce5b3e09
+001586,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001586/copper-serum-or-plasma,2026-11-26,78ee1fde2ca78f61ddc0e5a460338a2faceb04934e6cb4aede2e8d16ce5b3e09
+001628,preferredVolume,2,2,Match,https://www.labcorp.com/tests/001628/haptoglobin,2026-11-26,bbb58f0ea581b1513b687f38c5bef92832403e84bbc82fcde822ca72f0b41b57
+001628,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001628/haptoglobin,2026-11-26,bbb58f0ea581b1513b687f38c5bef92832403e84bbc82fcde822ca72f0b41b57
+001637,preferredVolume,1.6,1.6,Match,https://www.labcorp.com/tests/001637/alkaline-phosphatase-isoenzymes,2026-11-26,6068065375a2cdbe6bbbfac0f57049929f5d449e1a6382dff72c5f9c853f1b01
+001637,minimumVolume,0.8,0.8,Match,https://www.labcorp.com/tests/001637/alkaline-phosphatase-isoenzymes,2026-11-26,6068065375a2cdbe6bbbfac0f57049929f5d449e1a6382dff72c5f9c853f1b01
+001637,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/001637/alkaline-phosphatase-isoenzymes,2026-11-26,6068065375a2cdbe6bbbfac0f57049929f5d449e1a6382dff72c5f9c853f1b01
+001677,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/001677/fecal-fat-qualitative,2026-11-26,82a4832c889f57300aab723ba63953126cee03036caeb9d2681ea7f51d10c24c
+001685,preferredVolume,2,2,Match,https://www.labcorp.com/tests/001685/immunofixation-ife-serum,2026-11-26,c276ab3710c813a970079449a29324f0c5b62f69dbe51b2ba1f587ecbcc9a06c
+001685,minimumVolume,1,1,Match,https://www.labcorp.com/tests/001685/immunofixation-ife-serum,2026-11-26,c276ab3710c813a970079449a29324f0c5b62f69dbe51b2ba1f587ecbcc9a06c
+001685,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001685/immunofixation-ife-serum,2026-11-26,c276ab3710c813a970079449a29324f0c5b62f69dbe51b2ba1f587ecbcc9a06c
+001701,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001701/5-nucleotidase,2026-11-26,75bf39854da2d0d846aa08232263a9b6c10114cc3ebee8b7281e220ae7578863
+001701,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/001701/5-nucleotidase,2026-11-26,75bf39854da2d0d846aa08232263a9b6c10114cc3ebee8b7281e220ae7578863
+001701,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001701/5-nucleotidase,2026-11-26,75bf39854da2d0d846aa08232263a9b6c10114cc3ebee8b7281e220ae7578863
+001735,preferredVolume,0.8,0.8,Match,https://www.labcorp.com/tests/001735/thyroxine-binding-globulin-tbg-serum,2026-11-26,3125811a8f384a1c45e644ce54c74456be365638e5ffcc25eedbc4fd45507b97
+001735,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/001735/thyroxine-binding-globulin-tbg-serum,2026-11-26,3125811a8f384a1c45e644ce54c74456be365638e5ffcc25eedbc4fd45507b97
+001735,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/001735/thyroxine-binding-globulin-tbg-serum,2026-11-26,3125811a8f384a1c45e644ce54c74456be365638e5ffcc25eedbc4fd45507b97
+001750,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001750/vitamin-a-and-carotene,2026-11-26,d19b925e9be6a0df82eb6a613c6786ae862284a84100ac1cb2be9fdd5f8198f0
+001768,preferredVolume,2,2,Match,https://www.labcorp.com/tests/001768/immunoglobulins-quantitative-iga-igg-igm,2026-11-26,2ccd3a600f6d1d222370f766ffaf12cf9e6f34657a4fc0a3a2a96c591274c7f3
+001792,minimumVolume,0.4,0.4,Match,https://www.labcorp.com/tests/001792/immunoglobulin-m-quantitative,2026-11-26,1eeb2fc4da1251687cb9cf57475711824109139c4060674958d40d433a25f3b1
+001800,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001800/zinc-serum-or-plasma,2026-11-26,a4884a9c9a8e2ce621ab4867877a8aa756cfc5ed7d103dbb17107acaad6d39db
+001800,minimumVolume,0.4,0.4,Match,https://www.labcorp.com/tests/001800/zinc-serum-or-plasma,2026-11-26,a4884a9c9a8e2ce621ab4867877a8aa756cfc5ed7d103dbb17107acaad6d39db
+001800,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001800/zinc-serum-or-plasma,2026-11-26,a4884a9c9a8e2ce621ab4867877a8aa756cfc5ed7d103dbb17107acaad6d39db
+001805,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/001805/vitamin-c,2026-11-26,b420a4ead64e070ebb6b3b7a394887dc4cc998c61d03dc8ab14c6e1db1567986
+001805,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/001805/vitamin-c,2026-11-26,b420a4ead64e070ebb6b3b7a394887dc4cc998c61d03dc8ab14c6e1db1567986
+001818,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/001818/glucose-plasma,2026-11-26,5ad5d00b4627f60238b31b9762c523da995855a11260bf1047e9997d05d53b1c
+001818,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001818/glucose-plasma,2026-11-26,5ad5d00b4627f60238b31b9762c523da995855a11260bf1047e9997d05d53b1c
+001834,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001834/complement-c4,2026-11-26,d7690e35028b52b818a51856db9eabeacb4f5d612dbff42efc2fd5682eeb5d02
+001842,preferredVolume,2,2,Match,https://www.labcorp.com/tests/001842/lactate-dehydrogenase-ld-isoenzymes,2026-11-26,0db14afadb0777de5c9ca4946839ea329b23e5d2ac9ac8c406a12edb6946de1d
+001842,minimumVolume,1,1,Match,https://www.labcorp.com/tests/001842/lactate-dehydrogenase-ld-isoenzymes,2026-11-26,0db14afadb0777de5c9ca4946839ea329b23e5d2ac9ac8c406a12edb6946de1d
+001842,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001842/lactate-dehydrogenase-ld-isoenzymes,2026-11-26,0db14afadb0777de5c9ca4946839ea329b23e5d2ac9ac8c406a12edb6946de1d
+001875,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/001875/fructose-semen-analysis,2026-11-26,5ffa55f23dcea48612ece8b8652aa84ca25c49181a1b300f4c66ec01f68a1f3c
+001925,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001925/high-density-lipoprotein-cholesterol-hdl-c,2026-11-26,0695ee34d3946a12624a4623a6b0752b154aff90c8dda87edad60ba6534d3cc5
+001925,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001925/high-density-lipoprotein-cholesterol-hdl-c,2026-11-26,0695ee34d3946a12624a4623a6b0752b154aff90c8dda87edad60ba6534d3cc5
+001925,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001925/high-density-lipoprotein-cholesterol-hdl-c,2026-11-26,0695ee34d3946a12624a4623a6b0752b154aff90c8dda87edad60ba6534d3cc5
+001941,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001941/complement-total-ch50,2026-11-26,888a796254188a94762e897426cc61297627e91a147c696e1f9205fdec9d437c
+001941,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/001941/complement-total-ch50,2026-11-26,888a796254188a94762e897426cc61297627e91a147c696e1f9205fdec9d437c
+001941,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/001941/complement-total-ch50,2026-11-26,888a796254188a94762e897426cc61297627e91a147c696e1f9205fdec9d437c
+001958,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001958/y-glutamyl-transferase-ggt,2026-11-26,c10390a9d1df65a759abc3f96db3b5db37779daf90e62e9d01e8f46b6e97c222
+001958,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001958/y-glutamyl-transferase-ggt,2026-11-26,c10390a9d1df65a759abc3f96db3b5db37779daf90e62e9d01e8f46b6e97c222
+001958,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001958/y-glutamyl-transferase-ggt,2026-11-26,c10390a9d1df65a759abc3f96db3b5db37779daf90e62e9d01e8f46b6e97c222
+001974,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001974/thyroxine-t4-free-direct,2026-11-26,e139ffb6b962fbd3b824a3e66878fc3c2165291e265c63dfa9f0187f19df8fe9
+001974,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/001974/thyroxine-t4-free-direct,2026-11-26,e139ffb6b962fbd3b824a3e66878fc3c2165291e265c63dfa9f0187f19df8fe9
+001974,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001974/thyroxine-t4-free-direct,2026-11-26,e139ffb6b962fbd3b824a3e66878fc3c2165291e265c63dfa9f0187f19df8fe9
+001982,preferredVolume,1,1,Match,https://www.labcorp.com/tests/001982/a1-antitrypsin,2026-11-26,263ea67a7016541589ba6e11c443165e97ba8450cdaeec7f2da868ece4fe7428
+001982,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/001982/a1-antitrypsin,2026-11-26,263ea67a7016541589ba6e11c443165e97ba8450cdaeec7f2da868ece4fe7428
+001982,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/001982/a1-antitrypsin,2026-11-26,263ea67a7016541589ba6e11c443165e97ba8450cdaeec7f2da868ece4fe7428
+002006,preferredVolume,1,1,Match,https://www.labcorp.com/tests/002006/renin-activity-plasma,2026-11-26,d426afa4c44283a7606c5760f3b267658b2503295a5c7defce9f420bf1c75070
+002006,minimumVolume,0.8,0.8,Match,https://www.labcorp.com/tests/002006/renin-activity-plasma,2026-11-26,d426afa4c44283a7606c5760f3b267658b2503295a5c7defce9f420bf1c75070
+002006,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/002006/renin-activity-plasma,2026-11-26,d426afa4c44283a7606c5760f3b267658b2503295a5c7defce9f420bf1c75070
+002014,preferredVolume,1,1,Match,https://www.labcorp.com/tests/002014/folate-folic-acid,2026-11-26,4e280f93004b1ef3a1aabd5b451a119b7c75575954ab074ad44ec4cc65b7d55b
+002014,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/002014/folate-folic-acid,2026-11-26,4e280f93004b1ef3a1aabd5b451a119b7c75575954ab074ad44ec4cc65b7d55b
+002022,preferredVolume,1,1,Match,https://www.labcorp.com/tests/002022/glucose-two-hour-postprandial,2026-11-26,93863b79e5e214f6071fb5335d875f568432408ef73f23e023b04e7ef6dc914d
+002022,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/002022/glucose-two-hour-postprandial,2026-11-26,93863b79e5e214f6071fb5335d875f568432408ef73f23e023b04e7ef6dc914d
+002030,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/002030/aldolase,2026-11-26,87ec531b8aa9d4a24e9cec0c6db650cdd61103247c1301610fdc163c3b425178
+002030,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/002030/aldolase,2026-11-26,87ec531b8aa9d4a24e9cec0c6db650cdd61103247c1301610fdc163c3b425178
+002030,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/002030/aldolase,2026-11-26,87ec531b8aa9d4a24e9cec0c6db650cdd61103247c1301610fdc163c3b425178
+002048,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/002048/glucose-cerebrospinal-fluid,2026-11-26,280742f5bc57bfdb0dac14f30a837bc0bd326283cb0ad36a77b534eeea396186
+002048,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/002048/glucose-cerebrospinal-fluid,2026-11-26,280742f5bc57bfdb0dac14f30a837bc0bd326283cb0ad36a77b534eeea396186
+002055,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/002055/protein-total-cerebrospinal-fluid,2026-11-26,f2e230d07d1346846d5d3392ecd2a66d7c94ddb9c4bea5389507d365a5acd76e
+002055,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/002055/protein-total-cerebrospinal-fluid,2026-11-26,f2e230d07d1346846d5d3392ecd2a66d7c94ddb9c4bea5389507d365a5acd76e
+002071,preferredVolume,2,2,Match,https://www.labcorp.com/tests/002071/osmolality,2026-11-26,91e67982ee7ceb3a961184a08ff875b661b24a8c90337bb222656ba37149bb13
+002071,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/002071/osmolality,2026-11-26,91e67982ee7ceb3a961184a08ff875b661b24a8c90337bb222656ba37149bb13
+002071,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/002071/osmolality,2026-11-26,91e67982ee7ceb3a961184a08ff875b661b24a8c90337bb222656ba37149bb13
+002139,preferredVolume,1,1,Match,https://www.labcorp.com/tests/002139/carcinoembryonic-antigen-cea,2026-11-26,a0958ab9cfdafdfbd982c21540273b754d8833b8647a60d0b0baecbabde8b939
+002139,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/002139/carcinoembryonic-antigen-cea,2026-11-26,a0958ab9cfdafdfbd982c21540273b754d8833b8647a60d0b0baecbabde8b939
+002139,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/002139/carcinoembryonic-antigen-cea,2026-11-26,a0958ab9cfdafdfbd982c21540273b754d8833b8647a60d0b0baecbabde8b939
+002162,preferredVolume,1,1,Match,https://www.labcorp.com/tests/002162/immunoglobulin-d-quantitative,2026-11-26,9d2b45e2fcf31f255e348fb69aaacecddc3c024949006dee48c2eb7b13c0b062
+002162,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/002162/immunoglobulin-d-quantitative,2026-11-26,9d2b45e2fcf31f255e348fb69aaacecddc3c024949006dee48c2eb7b13c0b062
+002162,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/002162/immunoglobulin-d-quantitative,2026-11-26,9d2b45e2fcf31f255e348fb69aaacecddc3c024949006dee48c2eb7b13c0b062
+002170,preferredVolume,0.8,0.8,Match,https://www.labcorp.com/tests/002170/immunoglobulin-e-total,2026-11-26,32daab70afcb6d771ad22b38ced56e34047594e155c90e661cbb125c8324aeff
+002170,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/002170/immunoglobulin-e-total,2026-11-26,32daab70afcb6d771ad22b38ced56e34047594e155c90e661cbb125c8324aeff
+002170,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/002170/immunoglobulin-e-total,2026-11-26,32daab70afcb6d771ad22b38ced56e34047594e155c90e661cbb125c8324aeff
+002188,preferredVolume,1,1,Match,https://www.labcorp.com/tests/002188/triiodothyronine-t3,2026-11-26,32f3c348e73d9f0f12627b2e75393c75d04fc8622dbfd4fec5bc4d068fefe766
+002188,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/002188/triiodothyronine-t3,2026-11-26,32f3c348e73d9f0f12627b2e75393c75d04fc8622dbfd4fec5bc4d068fefe766
+002188,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/002188/triiodothyronine-t3,2026-11-26,32f3c348e73d9f0f12627b2e75393c75d04fc8622dbfd4fec5bc4d068fefe766
+002246,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/002246/protein-electrophoresis-cerebrospinal-fluid,2026-11-26,2771b3abc9f522eb09f11bc573ed1311f9481ba4d2c98bda2587f97a2968e15c
+002253,preferredVolume,1,1,Match,https://www.labcorp.com/tests/002253/a-fetoprotein-afp-tumor-marker,2026-11-26,222269b56c6902c76c7e29354dfa54d6009c0e4d54f66cb9bcfcba3bb5f198dc
+002253,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/002253/a-fetoprotein-afp-tumor-marker,2026-11-26,222269b56c6902c76c7e29354dfa54d6009c0e4d54f66cb9bcfcba3bb5f198dc
+002253,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/002253/a-fetoprotein-afp-tumor-marker,2026-11-26,222269b56c6902c76c7e29354dfa54d6009c0e4d54f66cb9bcfcba3bb5f198dc
+002261,preferredVolume,1,1,Match,https://www.labcorp.com/tests/002261/carbohydrate-antigen-ca-19-9,2026-11-26,ea62c4358694630d826a73c8bf5a0ea325f026ac9ec4316a6d2839ac4b7711d3
+002261,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/002261/carbohydrate-antigen-ca-19-9,2026-11-26,ea62c4358694630d826a73c8bf5a0ea325f026ac9ec4316a6d2839ac4b7711d3
+002261,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/002261/carbohydrate-antigen-ca-19-9,2026-11-26,ea62c4358694630d826a73c8bf5a0ea325f026ac9ec4316a6d2839ac4b7711d3
+002295,preferredVolume,3,3,Match,https://www.labcorp.com/tests/002295/immunoglobulins-quantitative-iga-ige-igg-igm,2026-11-26,c934617cdbcf62346687adb51574b9f733e34b0e5cdb0af029b85b371bfafe28
+002303,preferredVolume,1,1,Match,https://www.labcorp.com/tests/002303/cancer-antigen-ca-125,2026-11-26,9388f3054d8fdd4232c29e8733a8cc6f1ef52cc4e01e1858c3d55701f68f024c
+002303,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/002303/cancer-antigen-ca-125,2026-11-26,9388f3054d8fdd4232c29e8733a8cc6f1ef52cc4e01e1858c3d55701f68f024c
+002303,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/002303/cancer-antigen-ca-125,2026-11-26,9388f3054d8fdd4232c29e8733a8cc6f1ef52cc4e01e1858c3d55701f68f024c
+002311,preferredVolume,3,3,Match,https://www.labcorp.com/tests/002311/creatine-kinase-ck-mb-and-total,2026-11-26,4ddc33796b58a13dc3e635d81c776d11d9acdba1312089c6e9e62fc3af886b27
+002311,minimumVolume,0.6,0.6,Match,https://www.labcorp.com/tests/002311/creatine-kinase-ck-mb-and-total,2026-11-26,4ddc33796b58a13dc3e635d81c776d11d9acdba1312089c6e9e62fc3af886b27
+002311,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/002311/creatine-kinase-ck-mb-and-total,2026-11-26,4ddc33796b58a13dc3e635d81c776d11d9acdba1312089c6e9e62fc3af886b27
+002402,preferredVolume,1,1,Match,https://www.labcorp.com/tests/002402/creatine,2026-11-26,9d98ad92299335d3c99554799cf4635726686f82a8928381b9646720b21d3456
+002402,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/002402/creatine,2026-11-26,9d98ad92299335d3c99554799cf4635726686f82a8928381b9646720b21d3456
+002402,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/002402/creatine,2026-11-26,9d98ad92299335d3c99554799cf4635726686f82a8928381b9646720b21d3456
+003012,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/003012/creatinine-24-hour-urine,2026-11-26,3f24a6b4f9596ae722bf475c22d8aa256a1eb1009c4157ececdcddf0127c074f
+003065,minimumVolume,1,1,Match,https://www.labcorp.com/tests/003065/porphobilinogen-pbg-quantitative-random-urine,2026-11-26,3e005f84edd7759caa50d50cdbb612260692d66d3fe8e7ff63622464ea5b3ab2
+003079,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/003079/myoglobin-quantitative-random-urine,2026-11-26,b00e6eb7c17a314ab71193daff0b3b7918969f4d10b7d1533bb154b49c2eca87
+003129,minimumVolume,1,1,Match,https://www.labcorp.com/tests/003129/protein-and-creatinine-random-urine,2026-11-26,6c9d1b5b21fb16d3425ced93d2200b339eef59db3717ef542420774ccea62183
+003129,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/003129/protein-and-creatinine-random-urine,2026-11-26,6c9d1b5b21fb16d3425ced93d2200b339eef59db3717ef542420774ccea62183
+003160,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/003160/chloride-24-hour-urine,2026-11-26,72a1514be7bc7897d0aeb7fa45eea39682008bb34dfd957135814888c5ad2cba
+003178,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/003178/sodium-24-hour-urine,2026-11-26,a527d98e92c4c7f8a3729d6fb9692964babb5314f5611d5a4b612dd1dcd4734a
+003186,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/003186/potassium-24-hour-urine,2026-11-26,6f7eeee60fa93b5f1009932f83fdebe2b83ed8144509112f89b7b15f5afd22e4
+003194,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/003194/porphyrins-quantitative-24-hour-urine,2026-11-26,08dc3c502b0102891038bb6bccbf88a0f95034e36ce6c3d0380c56d518b21e34
+003236,minimumVolume,1,1,Match,https://www.labcorp.com/tests/003236/c-peptide-24-hour-urine,2026-11-26,b4f01578b47353c2ade8c41ccc6cd1659bc7f846aa65ad5e026b14a673161a9e
+003236,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/003236/c-peptide-24-hour-urine,2026-11-26,b4f01578b47353c2ade8c41ccc6cd1659bc7f846aa65ad5e026b14a673161a9e
+003269,minimumVolume,1,1,Match,https://www.labcorp.com/tests/003269/calcium-urine,2026-11-26,11f5f5dc777019aef55ec2eec23194ca933bd3449fe55394627b247b24926975
+003269,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/003269/calcium-urine,2026-11-26,11f5f5dc777019aef55ec2eec23194ca933bd3449fe55394627b247b24926975
+003277,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/003277/protein-total-quantitative-24-hour-urine,2026-11-26,bb8fed177b8a6f654beccafaf5e2e9f6f4c4c10947f20964e7801ba573d4d6e9
+003293,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/003293/amylase-urine,2026-11-26,357ceba1c9a2fe0306ee78186c87684e4d88d48ac1fdf40d72f32498a47d0c8c
+003343,minimumVolume,1.3,1.3,Match,https://www.labcorp.com/tests/003343/copper-urine,2026-11-26,48b41dd7c750abf45d9a4c7dd2b0fc4d82234835fd6029631ce054843aef881d
+003343,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/003343/copper-urine,2026-11-26,48b41dd7c750abf45d9a4c7dd2b0fc4d82234835fd6029631ce054843aef881d
+003400,minimumVolume,2.2,2.2,Match,https://www.labcorp.com/tests/003400/magnesium-urine,2026-11-26,42b575223e4715d49b444ca92d84e58590fc5acfb06a16ee681ba15ccf383830
+003400,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/003400/magnesium-urine,2026-11-26,42b575223e4715d49b444ca92d84e58590fc5acfb06a16ee681ba15ccf383830
+003434,minimumVolume,1.7,1.7,Match,https://www.labcorp.com/tests/003434/zinc-urine,2026-11-26,1ca37d0fb2c80deb5933a323ba26366aafdfe1d3138eca6f0a0e3128c5300648
+003434,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/003434/zinc-urine,2026-11-26,1ca37d0fb2c80deb5933a323ba26366aafdfe1d3138eca6f0a0e3128c5300648
+003442,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/003442/osmolality-urine,2026-11-26,07d47832c99410a78f580af5129f222d1b2ce3f063f68477c74a3be7341b7572
+003442,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/003442/osmolality-urine,2026-11-26,07d47832c99410a78f580af5129f222d1b2ce3f063f68477c74a3be7341b7572
+003475,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/003475/creatine-24-hour-urine,2026-11-26,de2f3fc9567c3b57cc177101da32c7a643501ead64841516318722cf30f4f092
+003541,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/003541/urea-nitrogen-24-hour-urine,2026-11-26,476c0f1490f147a25316b2da9c33d34b84b9ea15e424f6171776d417ec8af92d
+003855,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/003855/creatine-and-creatinine-24-hour-urine,2026-11-26,607deffbc5032b57e5a0683f10db733202ed8ebd44d2dfa071fde6aa00e7ede7
+004020,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004020/dehydroepiandrosterone-dhea-sulfate,2026-11-26,2a2c519f9f254718a790493d621b4f16d40b8808d91a79aa03c2d330d3320351
+004020,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/004020/dehydroepiandrosterone-dhea-sulfate,2026-11-26,2a2c519f9f254718a790493d621b4f16d40b8808d91a79aa03c2d330d3320351
+004020,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004020/dehydroepiandrosterone-dhea-sulfate,2026-11-26,2a2c519f9f254718a790493d621b4f16d40b8808d91a79aa03c2d330d3320351
+004036,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/004036/pregnancy-test-urine,2026-11-26,ba4a97715b045bbaaebf1668fdffc8e5a84d348c4c873291bc62e518134253eb
+004044,preferredVolume,10,10,Match,https://www.labcorp.com/tests/004044/metanephrines-pheochromocytoma-evaluation,2026-11-26,9e62c49c6e3f953b533eb510df4851673870b72f969ffd056304f80ddbb8d598
+004044,minimumVolume,2.5,2.5,Match,https://www.labcorp.com/tests/004044/metanephrines-pheochromocytoma-evaluation,2026-11-26,9e62c49c6e3f953b533eb510df4851673870b72f969ffd056304f80ddbb8d598
+004044,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004044/metanephrines-pheochromocytoma-evaluation,2026-11-26,9e62c49c6e3f953b533eb510df4851673870b72f969ffd056304f80ddbb8d598
+004051,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004051/cortisol,2026-11-26,38994a19c8841b5af4e0552546e7aac40e5fd86d95b43e5ee7b17244111d91a5
+004051,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/004051/cortisol,2026-11-26,38994a19c8841b5af4e0552546e7aac40e5fd86d95b43e5ee7b17244111d91a5
+004051,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004051/cortisol,2026-11-26,38994a19c8841b5af4e0552546e7aac40e5fd86d95b43e5ee7b17244111d91a5
+004069,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004069/5-hydroxyindoleacetic-acid-hiaa-quantitative-24-hour-urine,2026-11-26,d72a4649564050a3023e2b4f96902cb30b22a51b193ae8bd1a3aa352cd2285e5
+004110,preferredVolume,0.8,0.8,Match,https://www.labcorp.com/tests/004110/galectin-3,2026-11-26,c6aa4992b2683672a5dc3d033d0972e4048bcb6083ded55b9ffcfe9e4aedb038
+004110,minimumVolume,0.4,0.4,Match,https://www.labcorp.com/tests/004110/galectin-3,2026-11-26,c6aa4992b2683672a5dc3d033d0972e4048bcb6083ded55b9ffcfe9e4aedb038
+004176,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/004176/catecholamines-fractionated-urinary-free-24-hour-urine,2026-11-26,53618f9872b46d758718f8d59d227e961303b2abb48693b7b882573f2cc9fd51
+004180,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/004180/eosinophil-cationic-protein-ecp,2026-11-26,d3d1c9337d4e6cb0b6ef80ef5bf82bef14fd6bd0827c60890554a05fabebe1f9
+004180,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/004180/eosinophil-cationic-protein-ecp,2026-11-26,d3d1c9337d4e6cb0b6ef80ef5bf82bef14fd6bd0827c60890554a05fabebe1f9
+004180,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/004180/eosinophil-cationic-protein-ecp,2026-11-26,d3d1c9337d4e6cb0b6ef80ef5bf82bef14fd6bd0827c60890554a05fabebe1f9
+004210,preferredVolume,0.2,0.2,Match,https://www.labcorp.com/tests/004210/neuromyelitis-optica-igg-autoantibodies,2026-11-26,0a766cf43dcb7d8de6231d8c4681b51c0cf1afc3c503a228c151d469e8f6a13a
+004210,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/004210/neuromyelitis-optica-igg-autoantibodies,2026-11-26,0a766cf43dcb7d8de6231d8c4681b51c0cf1afc3c503a228c151d469e8f6a13a
+004226,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004226/testosterone-total,2026-11-26,f59fe8152145c92b731a41419e993e1f92eb9a03a888f501dbd92048514a7856
+004226,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/004226/testosterone-total,2026-11-26,f59fe8152145c92b731a41419e993e1f92eb9a03a888f501dbd92048514a7856
+004226,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004226/testosterone-total,2026-11-26,f59fe8152145c92b731a41419e993e1f92eb9a03a888f501dbd92048514a7856
+004234,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004234/metanephrines-fractionated-quantitative-24-hour-urine,2026-11-26,c9ab69c16abf30e3a94b3bbbe08f0cf7ef7916cb4eb218b5d7eb35102da93a87
+004259,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004259/thyroid-stimulating-hormone-tsh,2026-11-26,cb792046c29ef5223686af907040bc5401545ea5d74de78cf194d6ce61d7ce2d
+004259,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/004259/thyroid-stimulating-hormone-tsh,2026-11-26,cb792046c29ef5223686af907040bc5401545ea5d74de78cf194d6ce61d7ce2d
+004259,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004259/thyroid-stimulating-hormone-tsh,2026-11-26,cb792046c29ef5223686af907040bc5401545ea5d74de78cf194d6ce61d7ce2d
+004275,preferredVolume,0.8,0.8,Match,https://www.labcorp.com/tests/004275/growth-hormone,2026-11-26,2d139e97c51fbb0c794ec651ae629ef86e7c900cc973c7e4f9ece4274fd60e44
+004275,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/004275/growth-hormone,2026-11-26,2d139e97c51fbb0c794ec651ae629ef86e7c900cc973c7e4f9ece4274fd60e44
+004275,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/004275/growth-hormone,2026-11-26,2d139e97c51fbb0c794ec651ae629ef86e7c900cc973c7e4f9ece4274fd60e44
+004280,preferredVolume,0.7,0.7,Match,https://www.labcorp.com/tests/004280/tryptase,2026-11-26,3a7c2ad6e5de941e7a16c0e5119ad3b1f15f6011c1091b62aab6426267899429
+004280,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/004280/tryptase,2026-11-26,3a7c2ad6e5de941e7a16c0e5119ad3b1f15f6011c1091b62aab6426267899429
+004280,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/004280/tryptase,2026-11-26,3a7c2ad6e5de941e7a16c0e5119ad3b1f15f6011c1091b62aab6426267899429
+004283,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004283/luteinizing-hormone-lh,2026-11-26,1685359dcdc8dca189505cf5ddb9c6c48a5f9f90d4cebe5a0f6f3437761952f1
+004283,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/004283/luteinizing-hormone-lh,2026-11-26,1685359dcdc8dca189505cf5ddb9c6c48a5f9f90d4cebe5a0f6f3437761952f1
+004283,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004283/luteinizing-hormone-lh,2026-11-26,1685359dcdc8dca189505cf5ddb9c6c48a5f9f90d4cebe5a0f6f3437761952f1
+004291,minimumVolume,1,1,Match,https://www.labcorp.com/tests/004291/aldosterone-24-hour-urine,2026-11-26,180275472f9c7fa3ed96a5bf15271c3e4899af890c7f45577666cf97e2bc9aca
+004291,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/004291/aldosterone-24-hour-urine,2026-11-26,180275472f9c7fa3ed96a5bf15271c3e4899af890c7f45577666cf97e2bc9aca
+004309,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004309/follicle-stimulating-hormone-fsh,2026-11-26,de33d116f810bb7a6f8aaa83c1796d8f7668f52676e62c3f193d579bbcdfbc52
+004309,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/004309/follicle-stimulating-hormone-fsh,2026-11-26,de33d116f810bb7a6f8aaa83c1796d8f7668f52676e62c3f193d579bbcdfbc52
+004309,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004309/follicle-stimulating-hormone-fsh,2026-11-26,de33d116f810bb7a6f8aaa83c1796d8f7668f52676e62c3f193d579bbcdfbc52
+004317,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004317/progesterone,2026-11-26,0ef230eb24bcc1d97639f41b073c8fa65327f71afe440413aa45d5257a37b0e1
+004317,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/004317/progesterone,2026-11-26,0ef230eb24bcc1d97639f41b073c8fa65327f71afe440413aa45d5257a37b0e1
+004317,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004317/progesterone,2026-11-26,0ef230eb24bcc1d97639f41b073c8fa65327f71afe440413aa45d5257a37b0e1
+004333,preferredVolume,0.8,0.8,Match,https://www.labcorp.com/tests/004333/insulin,2026-11-26,e4d4056d9de628c1ce34536884f4e6b4afe66b6e03c0baf30fc0332da72836ec
+004333,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/004333/insulin,2026-11-26,e4d4056d9de628c1ce34536884f4e6b4afe66b6e03c0baf30fc0332da72836ec
+004333,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/004333/insulin,2026-11-26,e4d4056d9de628c1ce34536884f4e6b4afe66b6e03c0baf30fc0332da72836ec
+004374,preferredVolume,1.2,1.2,Match,https://www.labcorp.com/tests/004374/aldosterone-lc-ms,2026-11-26,2b24393f88766ec8d6cdcb0242d44a4b5e16ff8344f301ea1162f4454eb01b20
+004374,minimumVolume,1,1,Match,https://www.labcorp.com/tests/004374/aldosterone-lc-ms,2026-11-26,2b24393f88766ec8d6cdcb0242d44a4b5e16ff8344f301ea1162f4454eb01b20
+004374,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/004374/aldosterone-lc-ms,2026-11-26,2b24393f88766ec8d6cdcb0242d44a4b5e16ff8344f301ea1162f4454eb01b20
+004380,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004380/fibroblast-growth-factor-23,2026-11-26,327811ff730976ae58fb407205b7cec019013606c5dc0472da85f92f452f60a2
+004380,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/004380/fibroblast-growth-factor-23,2026-11-26,327811ff730976ae58fb407205b7cec019013606c5dc0472da85f92f452f60a2
+004380,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/004380/fibroblast-growth-factor-23,2026-11-26,327811ff730976ae58fb407205b7cec019013606c5dc0472da85f92f452f60a2
+004389,preferredVolume,1.5,1.5,Match,https://www.labcorp.com/tests/004389/dhea-by-ionify-lc-ms-ms,2026-11-26,1ec5d2953823ebde44dc182952807384e14eaa0363675dcfc1446ce86dc72ccc
+004389,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/004389/dhea-by-ionify-lc-ms-ms,2026-11-26,1ec5d2953823ebde44dc182952807384e14eaa0363675dcfc1446ce86dc72ccc
+004390,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/004390/gastrin,2026-11-26,77bfc50405042d8b6f48ced76a5a058877a94d04c1f0fd4eafdcfdb26313de57
+004390,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/004390/gastrin,2026-11-26,77bfc50405042d8b6f48ced76a5a058877a94d04c1f0fd4eafdcfdb26313de57
+004390,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/004390/gastrin,2026-11-26,77bfc50405042d8b6f48ced76a5a058877a94d04c1f0fd4eafdcfdb26313de57
+004416,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004416/human-chorionic-gonadotropin-hcg-b-subunit-quantitative,2026-11-26,03a2eec38a4eaca4e651de5d0f88b4e7db2de66a0b5e10eaf52dfa9e7671b626
+004416,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/004416/human-chorionic-gonadotropin-hcg-b-subunit-quantitative,2026-11-26,03a2eec38a4eaca4e651de5d0f88b4e7db2de66a0b5e10eaf52dfa9e7671b626
+004416,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004416/human-chorionic-gonadotropin-hcg-b-subunit-quantitative,2026-11-26,03a2eec38a4eaca4e651de5d0f88b4e7db2de66a0b5e10eaf52dfa9e7671b626
+004432,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004432/cortisol-urinary-free,2026-11-26,f24aebd6b47a9ed0102857b65a951b853616fc37ed7709b08d6fb68ac369cf29
+004440,preferredVolume,0.8,0.8,Match,https://www.labcorp.com/tests/004440/adrenocorticotropic-hormone-acth-plasma,2026-11-26,11dcb825793f4a4b0c7fad4f38aef7ec674d6301a5e47f90e9c81a15a55d1777
+004440,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/004440/adrenocorticotropic-hormone-acth-plasma,2026-11-26,11dcb825793f4a4b0c7fad4f38aef7ec674d6301a5e47f90e9c81a15a55d1777
+004440,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/004440/adrenocorticotropic-hormone-acth-plasma,2026-11-26,11dcb825793f4a4b0c7fad4f38aef7ec674d6301a5e47f90e9c81a15a55d1777
+004457,preferredVolume,2,2,Match,https://www.labcorp.com/tests/004457/thyroxine-t4-thyroxine-binding-globulin-tbg-and-t4-tbg-index,2026-11-26,7e2ab817319cfe3c31a50755dd9fc1449fa1a21dea19fc753ac53de3cffc5d2d
+004457,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/004457/thyroxine-t4-thyroxine-binding-globulin-tbg-and-t4-tbg-index,2026-11-26,7e2ab817319cfe3c31a50755dd9fc1449fa1a21dea19fc753ac53de3cffc5d2d
+004457,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/004457/thyroxine-t4-thyroxine-binding-globulin-tbg-and-t4-tbg-index,2026-11-26,7e2ab817319cfe3c31a50755dd9fc1449fa1a21dea19fc753ac53de3cffc5d2d
+004465,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004465/prolactin,2026-11-26,3ecc399c66ab8f2a10b62db845143f63d0d9c33032e1ca3be4f1db7bcdd94f6a
+004465,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/004465/prolactin,2026-11-26,3ecc399c66ab8f2a10b62db845143f63d0d9c33032e1ca3be4f1db7bcdd94f6a
+004465,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/004465/prolactin,2026-11-26,3ecc399c66ab8f2a10b62db845143f63d0d9c33032e1ca3be4f1db7bcdd94f6a
+004500,preferredVolume,1.5,1.5,Match,https://www.labcorp.com/tests/004500/prolactin-pituitary-macroadenoma-serum,2026-11-26,b4b2dedf0da38ae609dacfdffd69b6148b9380c809a0ed4ec166ae70a6e51dd0
+004500,minimumVolume,1,1,Match,https://www.labcorp.com/tests/004500/prolactin-pituitary-macroadenoma-serum,2026-11-26,b4b2dedf0da38ae609dacfdffd69b6148b9380c809a0ed4ec166ae70a6e51dd0
+004500,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/004500/prolactin-pituitary-macroadenoma-serum,2026-11-26,b4b2dedf0da38ae609dacfdffd69b6148b9380c809a0ed4ec166ae70a6e51dd0
+004515,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004515/estradiol,2026-11-26,f2f60567002fbb5d89c6470a18221824a9086d9608ee8f86b254b175ff409942
+004515,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/004515/estradiol,2026-11-26,f2f60567002fbb5d89c6470a18221824a9086d9608ee8f86b254b175ff409942
+004515,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004515/estradiol,2026-11-26,f2f60567002fbb5d89c6470a18221824a9086d9608ee8f86b254b175ff409942
+004549,preferredVolume,0.8,0.8,Match,https://www.labcorp.com/tests/004549/estrogens-total,2026-11-26,9896eaffaf0686b855697ed940147bd3a5d460b156de22d9c4c3f4b4a66b59e5
+004549,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/004549/estrogens-total,2026-11-26,9896eaffaf0686b855697ed940147bd3a5d460b156de22d9c4c3f4b4a66b59e5
+004549,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004549/estrogens-total,2026-11-26,9896eaffaf0686b855697ed940147bd3a5d460b156de22d9c4c3f4b4a66b59e5
+004556,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004556/human-chorionic-gonadotropin-hcg-b-subunit-qualitative,2026-11-26,d8c5a749aec1534191ca4da232b32462a5340cffd82d215538d0d80610ccdcd5
+004556,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/004556/human-chorionic-gonadotropin-hcg-b-subunit-qualitative,2026-11-26,d8c5a749aec1534191ca4da232b32462a5340cffd82d215538d0d80610ccdcd5
+004556,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004556/human-chorionic-gonadotropin-hcg-b-subunit-qualitative,2026-11-26,d8c5a749aec1534191ca4da232b32462a5340cffd82d215538d0d80610ccdcd5
+004564,preferredVolume,0.6,0.6,Match,https://www.labcorp.com/tests/004564/estrone,2026-11-26,717ceccc102e4814baf7fe8d8c68c11acfb1200374bbb5bd0e22296fc0a4feb6
+004564,minimumVolume,0.4,0.4,Match,https://www.labcorp.com/tests/004564/estrone,2026-11-26,717ceccc102e4814baf7fe8d8c68c11acfb1200374bbb5bd0e22296fc0a4feb6
+004564,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004564/estrone,2026-11-26,717ceccc102e4814baf7fe8d8c68c11acfb1200374bbb5bd0e22296fc0a4feb6
+004575,preferredVolume,1.5,1.5,Match,https://www.labcorp.com/tests/004575/estradiol-by-ionify-lc-ms-ms,2026-11-26,f4a12bfa385003ce3b5ee43e95f92e9c0e9c45b6bab9b9c6e72689432877837a
+004575,minimumVolume,0.75,0.75,Match,https://www.labcorp.com/tests/004575/estradiol-by-ionify-lc-ms-ms,2026-11-26,f4a12bfa385003ce3b5ee43e95f92e9c0e9c45b6bab9b9c6e72689432877837a
+004575,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/004575/estradiol-by-ionify-lc-ms-ms,2026-11-26,f4a12bfa385003ce3b5ee43e95f92e9c0e9c45b6bab9b9c6e72689432877837a
+004593,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004593/thyroid-stimulating-hormone-tsh-in-pregnancy,2026-11-26,96bc3d974733a84b6d50df79590a77c6bd31f8a69f1c38fab920b50c1e95b269
+004593,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/004593/thyroid-stimulating-hormone-tsh-in-pregnancy,2026-11-26,96bc3d974733a84b6d50df79590a77c6bd31f8a69f1c38fab920b50c1e95b269
+004598,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004598/ferritin,2026-11-26,b2278ff5cef8279cb47a28481e40a61d801f48afa2944b5c83ce1d88aeac7087
+004598,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/004598/ferritin,2026-11-26,b2278ff5cef8279cb47a28481e40a61d801f48afa2944b5c83ce1d88aeac7087
+004598,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004598/ferritin,2026-11-26,b2278ff5cef8279cb47a28481e40a61d801f48afa2944b5c83ce1d88aeac7087
+004614,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004614/estriol,2026-11-26,70387835d50d5a2a488a0a2e643225132796450969c0a9848d7afbc04913ad77
+004614,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/004614/estriol,2026-11-26,70387835d50d5a2a488a0a2e643225132796450969c0a9848d7afbc04913ad77
+004614,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/004614/estriol,2026-11-26,70387835d50d5a2a488a0a2e643225132796450969c0a9848d7afbc04913ad77
+004622,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004622/glucagon-plasma,2026-11-26,808ec795ecabb4b68fb5296deda5e98e4112b1b6ffc7791c95b63d399da6a5d8
+004622,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/004622/glucagon-plasma,2026-11-26,808ec795ecabb4b68fb5296deda5e98e4112b1b6ffc7791c95b63d399da6a5d8
+004622,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/004622/glucagon-plasma,2026-11-26,808ec795ecabb4b68fb5296deda5e98e4112b1b6ffc7791c95b63d399da6a5d8
+004648,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004648/complement-c1-esterase-inhibitor,2026-11-26,74d7e5866a371670253ff1ca0a89294661fc72baa89e2e4ed7fe7d52298b8e6a
+004648,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/004648/complement-c1-esterase-inhibitor,2026-11-26,74d7e5866a371670253ff1ca0a89294661fc72baa89e2e4ed7fe7d52298b8e6a
+004648,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004648/complement-c1-esterase-inhibitor,2026-11-26,74d7e5866a371670253ff1ca0a89294661fc72baa89e2e4ed7fe7d52298b8e6a
+004650,preferredVolume,0.3,0.3,Match,https://www.labcorp.com/tests/004650/adiponectin,2026-11-26,291b53dc1069799b09fd8cde7cfaebcc4176a7fbf053bfa3a198696cde383699
+004650,minimumVolume,0.1,0.1,Match,https://www.labcorp.com/tests/004650/adiponectin,2026-11-26,291b53dc1069799b09fd8cde7cfaebcc4176a7fbf053bfa3a198696cde383699
+004650,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/004650/adiponectin,2026-11-26,291b53dc1069799b09fd8cde7cfaebcc4176a7fbf053bfa3a198696cde383699
+004655,minimumVolume,0.25,0.25,Match,https://www.labcorp.com/tests/004655/vitamin-b6-plasma,2026-11-26,cfa2112778bdc457d34ae9e0b4e55411c8af156e87c270d720efed9bfb583035
+004747,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/004747/prostatic-acid-phosphatase-pap,2026-11-26,9d46b8f66816951100ef99e9a6731d2dc9af3c9e01c1ba111340f0118367c6cf
+004747,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/004747/prostatic-acid-phosphatase-pap,2026-11-26,9d46b8f66816951100ef99e9a6731d2dc9af3c9e01c1ba111340f0118367c6cf
+004747,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/004747/prostatic-acid-phosphatase-pap,2026-11-26,9d46b8f66816951100ef99e9a6731d2dc9af3c9e01c1ba111340f0118367c6cf
+004770,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004770/lactic-acid-plasma,2026-11-26,3c2fb8b5f8c3b59e7af2ba3c9caaf9157790707f629901b2e550edb4cf65b8bd
+004770,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/004770/lactic-acid-plasma,2026-11-26,3c2fb8b5f8c3b59e7af2ba3c9caaf9157790707f629901b2e550edb4cf65b8bd
+004770,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004770/lactic-acid-plasma,2026-11-26,3c2fb8b5f8c3b59e7af2ba3c9caaf9157790707f629901b2e550edb4cf65b8bd
+004774,preferredVolume,1.5,1.5,Match,https://www.labcorp.com/tests/004774/androstenedione-by-ionify-lc-ms-ms,2026-11-26,1ea204e5151074664c73df139b6f12e617496e446abf98d9c32fe4e2c999412c
+004774,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/004774/androstenedione-by-ionify-lc-ms-ms,2026-11-26,1ea204e5151074664c73df139b6f12e617496e446abf98d9c32fe4e2c999412c
+004774,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/004774/androstenedione-by-ionify-lc-ms-ms,2026-11-26,1ea204e5151074664c73df139b6f12e617496e446abf98d9c32fe4e2c999412c
+004804,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004804/calcium-ionized,2026-11-26,c87361a22f9c763402e7fbe575d3fc431a6dd0ac1909ec57aff47e396ca6ae90
+004804,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004804/calcium-ionized,2026-11-26,c87361a22f9c763402e7fbe575d3fc431a6dd0ac1909ec57aff47e396ca6ae90
+004861,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004861/viscosity,2026-11-26,445f4538ffcaee7f3d0a1de06545d0e30ca3230a764dc4da966b033485630b2a
+004861,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/004861/viscosity,2026-11-26,445f4538ffcaee7f3d0a1de06545d0e30ca3230a764dc4da966b033485630b2a
+004861,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/004861/viscosity,2026-11-26,445f4538ffcaee7f3d0a1de06545d0e30ca3230a764dc4da966b033485630b2a
+004895,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004895/calcitonin-thyrocalcitonin,2026-11-26,caca0a29dd709902972686b6f46011b240464c2610abe348240067b0fc29ecd3
+004895,minimumVolume,0.4,0.4,Match,https://www.labcorp.com/tests/004895/calcitonin-thyrocalcitonin,2026-11-26,caca0a29dd709902972686b6f46011b240464c2610abe348240067b0fc29ecd3
+004895,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/004895/calcitonin-thyrocalcitonin,2026-11-26,caca0a29dd709902972686b6f46011b240464c2610abe348240067b0fc29ecd3
+004900,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/004900/mannose-binding-lectin-mbl,2026-11-26,73ff46256800cc61341fec945761633405e273e0c15cfd4e2b3a7a8fdd0a8577
+004900,minimumVolume,0.1,0.1,Match,https://www.labcorp.com/tests/004900/mannose-binding-lectin-mbl,2026-11-26,73ff46256800cc61341fec945761633405e273e0c15cfd4e2b3a7a8fdd0a8577
+004937,preferredVolume,1,1,Match,https://www.labcorp.com/tests/004937/transferrin,2026-11-26,1ab358417efdd57d6d3ca298bdd0260a4903f1014b5e9e5121d4aba4ee4bc5f2
+004937,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/004937/transferrin,2026-11-26,1ab358417efdd57d6d3ca298bdd0260a4903f1014b5e9e5121d4aba4ee4bc5f2
+004984,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/004984/cyclic-amp-plasma,2026-11-26,00ebc5130a7db024097ba9bd9f52c4e299879d61d3dcad6f4d09de980c47902b
+004984,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/004984/cyclic-amp-plasma,2026-11-26,00ebc5130a7db024097ba9bd9f52c4e299879d61d3dcad6f4d09de980c47902b
+004984,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/004984/cyclic-amp-plasma,2026-11-26,00ebc5130a7db024097ba9bd9f52c4e299879d61d3dcad6f4d09de980c47902b
+005013,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/005013/neutrophil-to-lymphocyte-ratio-nlr-complete-blood-count-cbc-with-differential-and-platelet,2026-11-26,b39c8cd93f0053a4264bd12252b4b4d2fccfb8eb3ff08844ca258a1bd8c3233c
+005033,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/005033/red-blood-cell-rbc-count,2026-11-26,5c70d8f136670376d0d3d365db446beaf8b7e608e7dd797c4697b01e6194806b
+005041,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/005041/hemoglobin-hb,2026-11-26,5dc67a002816d15540f9c572ad3153127e55375098d3ccdaae5e9b2b26335639
+005058,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/005058/hematocrit,2026-11-26,ba6952deeb63543564e28dd82a99f48fe3a36a432700617a440d4e523afda401
+005134,preferredVolume,1.5,1.5,Match,https://www.labcorp.com/tests/005134/17-oh-progesterone-by-ionify-lc-ms-ms,2026-11-26,589ab8b786e642d816e8e831f17d8e7aaf00b2a89f2b98410a4d348dec93d7b1
+005134,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/005134/17-oh-progesterone-by-ionify-lc-ms-ms,2026-11-26,589ab8b786e642d816e8e831f17d8e7aaf00b2a89f2b98410a4d348dec93d7b1
+005134,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/005134/17-oh-progesterone-by-ionify-lc-ms-ms,2026-11-26,589ab8b786e642d816e8e831f17d8e7aaf00b2a89f2b98410a4d348dec93d7b1
+005148,preferredVolume,1.5,1.5,Match,https://www.labcorp.com/tests/005148/progesterone-by-ionify-lc-ms-ms,2026-11-26,ab04bd0012eec0b423fb9d795bed656f0d633ca4e5f8676c0a9b841f3e924917
+005148,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/005148/progesterone-by-ionify-lc-ms-ms,2026-11-26,ab04bd0012eec0b423fb9d795bed656f0d633ca4e5f8676c0a9b841f3e924917
+005148,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/005148/progesterone-by-ionify-lc-ms-ms,2026-11-26,ab04bd0012eec0b423fb9d795bed656f0d633ca4e5f8676c0a9b841f3e924917
+005165,preferredVolume,1.5,1.5,Match,https://www.labcorp.com/tests/005165/dhea-sulfate-by-ionify-lc-ms-ms,2026-11-26,5aa668df1ca4ef2c5264c6e616a2338d075ddb79eedaedcdee9215f39c3bc192
+005165,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/005165/dhea-sulfate-by-ionify-lc-ms-ms,2026-11-26,5aa668df1ca4ef2c5264c6e616a2338d075ddb79eedaedcdee9215f39c3bc192
+005165,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/005165/dhea-sulfate-by-ionify-lc-ms-ms,2026-11-26,5aa668df1ca4ef2c5264c6e616a2338d075ddb79eedaedcdee9215f39c3bc192
+005200,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/005200/dilute-prothrombin-time,2026-11-26,69af582bae3ec572f53cce55ee6acc52cca88dc9721077162a067bd6017b45c2
+005223,preferredVolume,1,1,Match,https://www.labcorp.com/tests/005223/hemoglobin-hb-solubility,2026-11-26,0623f92383750a098f9619984637381a31da6e3fdfdc7c4fd544ddf71d9675a2
+005223,minimumVolume,0.1,0.1,Match,https://www.labcorp.com/tests/005223/hemoglobin-hb-solubility,2026-11-26,0623f92383750a098f9619984637381a31da6e3fdfdc7c4fd544ddf71d9675a2
+005223,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/005223/hemoglobin-hb-solubility,2026-11-26,0623f92383750a098f9619984637381a31da6e3fdfdc7c4fd544ddf71d9675a2
+005231,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/005231/cell-count-synovial-fluid-with-crystals,2026-11-26,e0ea0aa534c5efb9bad83b0c3645effbb005acbe9d06f12386856d3d8819de12
+005240,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/005240/cell-count-serous-fluid,2026-11-26,bec0484976cf03bf2f9443d7607da78a00d480a164cc96eace654acb18977c4d
+005249,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/005249/platelet-count,2026-11-26,2cb80b1c466f6166d2efc23b74d71dea4c8707861672ffcc0daa468d7411c1b5
+005256,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/005256/cell-count-cerebrospinal-fluid,2026-11-26,9a51e31c1c504ed24118d65cfde00fd34fc4120198c9c12a31cefac91e6bca84
+005280,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/005280/reticulocyte-count,2026-11-26,4b26ee096cfcc5baebb026b88bae3e86dd833fcb6dee7a73558a217a9b83aad3
+005298,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/005298/eosinophil-count,2026-11-26,029749999834a20643493b14d0f4b75c18da41ad496a492a440befffcfe53212
+005330,preferredVolume,1,1,Match,https://www.labcorp.com/tests/005330/hemoglobin-hb-solubility-with-reflex-to-hemoglobinopathy-fractionation-cascade-blood,2026-11-26,17b38875823db4f51ab9525c2b7913dc149ee4fea791ba62cd3b4678e147fa85
+005330,minimumVolume,0.6,0.6,Match,https://www.labcorp.com/tests/005330/hemoglobin-hb-solubility-with-reflex-to-hemoglobinopathy-fractionation-cascade-blood,2026-11-26,17b38875823db4f51ab9525c2b7913dc149ee4fea791ba62cd3b4678e147fa85
+005330,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/005330/hemoglobin-hb-solubility-with-reflex-to-hemoglobinopathy-fractionation-cascade-blood,2026-11-26,17b38875823db4f51ab9525c2b7913dc149ee4fea791ba62cd3b4678e147fa85
+005355,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/005355/crystals-synovial-joint-fluid,2026-11-26,403c88effbc5b27398e965363c3e7b07ba09de9719213f401db423fc580a04d1
+005595,preferredVolume,1,1,Match,https://www.labcorp.com/tests/005595/hemoglobin-hb-free-plasma,2026-11-26,99fa9b18573cbe77a30df210ba5e620423e46f7ed8aa1b71757d9f2cbaee945d
+005595,minimumVolume,0.1,0.1,Match,https://www.labcorp.com/tests/005595/hemoglobin-hb-free-plasma,2026-11-26,99fa9b18573cbe77a30df210ba5e620423e46f7ed8aa1b71757d9f2cbaee945d
+006002,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006002/red-blood-cell-rbc-antigen-typing-a1,2026-11-26,7b312cc9a2b081d21464bd1daada37f3d222c9dca6a9200b1923a9874d3fecc8
+006002,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006002/red-blood-cell-rbc-antigen-typing-a1,2026-11-26,7b312cc9a2b081d21464bd1daada37f3d222c9dca6a9200b1923a9874d3fecc8
+006010,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006010/red-blood-cell-rbc-antigen-typing-c-c,2026-11-26,3eed3ba4ee6b1342adba0716421f4cd8bfef3d84ed6b1fce5169093a65c37ee0
+006010,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006010/red-blood-cell-rbc-antigen-typing-c-c,2026-11-26,3eed3ba4ee6b1342adba0716421f4cd8bfef3d84ed6b1fce5169093a65c37ee0
+006015,preferredVolume,4,4,Match,https://www.labcorp.com/tests/006015/antibody-screen,2026-11-26,f17ca0283b371b54120620d8e4dae67e2855cbce4ea6758ed62bfb13d2d07bba
+006015,minimumVolume,1,1,Match,https://www.labcorp.com/tests/006015/antibody-screen,2026-11-26,f17ca0283b371b54120620d8e4dae67e2855cbce4ea6758ed62bfb13d2d07bba
+006018,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006018/red-blood-cell-rbc-antigen-typing-e-e,2026-11-26,a1b6d4c19c0ac0dea2dead5936b2bb788ed70643d41ebf9730a8d9db21f2aa6a
+006018,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006018/red-blood-cell-rbc-antigen-typing-e-e,2026-11-26,a1b6d4c19c0ac0dea2dead5936b2bb788ed70643d41ebf9730a8d9db21f2aa6a
+006025,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006025/red-blood-cell-rbc-antigen-typing-fya-fyb,2026-11-26,c76f2b3363b1a62e8accd8764dbc92ecae624a64c9817f967a0fa00b8aabd392
+006025,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006025/red-blood-cell-rbc-antigen-typing-fya-fyb,2026-11-26,c76f2b3363b1a62e8accd8764dbc92ecae624a64c9817f967a0fa00b8aabd392
+006027,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006027/cytomegalovirus-cmv-antibodies-igg-with-reflex-to-igg-avidity,2026-11-26,538904b7642483b918f9575b571f6935811e138bd0141b75fa38688fd963d738
+006027,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006027/cytomegalovirus-cmv-antibodies-igg-with-reflex-to-igg-avidity,2026-11-26,538904b7642483b918f9575b571f6935811e138bd0141b75fa38688fd963d738
+006027,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006027/cytomegalovirus-cmv-antibodies-igg-with-reflex-to-igg-avidity,2026-11-26,538904b7642483b918f9575b571f6935811e138bd0141b75fa38688fd963d738
+006030,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006030/red-blood-cell-rbc-antigen-typing-jka-jkb,2026-11-26,910120501b230212905f0d7d0b258972804e693738dcfc421739ee09d75203aa
+006030,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006030/red-blood-cell-rbc-antigen-typing-jka-jkb,2026-11-26,910120501b230212905f0d7d0b258972804e693738dcfc421739ee09d75203aa
+006031,preferredVolume,2,2,Match,https://www.labcorp.com/tests/006031/antistreptolysin-o-aso-antibodies,2026-11-26,219222800ad5eee2c19336f401bb161dfa7757f88ebf6f7342d26d407f21ff41
+006031,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006031/antistreptolysin-o-aso-antibodies,2026-11-26,219222800ad5eee2c19336f401bb161dfa7757f88ebf6f7342d26d407f21ff41
+006031,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006031/antistreptolysin-o-aso-antibodies,2026-11-26,219222800ad5eee2c19336f401bb161dfa7757f88ebf6f7342d26d407f21ff41
+006034,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006034/red-blood-cell-rbc-antigen-typing-lea-leb,2026-11-26,9754659636c1b8d8d48d18776e754fd9fd45641a4c7a8e36b35782b34cc55c82
+006034,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006034/red-blood-cell-rbc-antigen-typing-lea-leb,2026-11-26,9754659636c1b8d8d48d18776e754fd9fd45641a4c7a8e36b35782b34cc55c82
+006040,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006040/red-blood-cell-rbc-antigen-typing-s-s,2026-11-26,65f67c2d1d4cf700b6970f0e29ce85db24bc74c0f13924ccd485a6d40cff60b6
+006040,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006040/red-blood-cell-rbc-antigen-typing-s-s,2026-11-26,65f67c2d1d4cf700b6970f0e29ce85db24bc74c0f13924ccd485a6d40cff60b6
+006048,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006048/red-blood-cell-rbc-antigen-typing-m,2026-11-26,bdf3ee4355ba9a0cd01bbc897a8a5f2876d567d322c2124f5601e13f33caa908
+006048,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006048/red-blood-cell-rbc-antigen-typing-m,2026-11-26,bdf3ee4355ba9a0cd01bbc897a8a5f2876d567d322c2124f5601e13f33caa908
+006049,preferredVolume,4,4,Match,https://www.labcorp.com/tests/006049/abo-grouping-and-rho-d-typing,2026-11-26,0670f43c17b9dc49591b5ce42e8362ba1f8564c70b1e170c36312a3e080b66c1
+006049,minimumVolume,1,1,Match,https://www.labcorp.com/tests/006049/abo-grouping-and-rho-d-typing,2026-11-26,0670f43c17b9dc49591b5ce42e8362ba1f8564c70b1e170c36312a3e080b66c1
+006054,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006054/toxoplasma-gondii-antibodies-igg-with-reflex-to-igg-avidity,2026-11-26,0db8466a7dc9d294ef438d9a4c833bc2de10601fcefba821917e96077e44b1af
+006054,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006054/toxoplasma-gondii-antibodies-igg-with-reflex-to-igg-avidity,2026-11-26,0db8466a7dc9d294ef438d9a4c833bc2de10601fcefba821917e96077e44b1af
+006054,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006054/toxoplasma-gondii-antibodies-igg-with-reflex-to-igg-avidity,2026-11-26,0db8466a7dc9d294ef438d9a4c833bc2de10601fcefba821917e96077e44b1af
+006056,preferredVolume,4,4,Match,https://www.labcorp.com/tests/006056/abo-grouping,2026-11-26,676eb8bee96e489e993f1bda50ac22f41e508b1784356b7b51b4a18d129dd528
+006056,minimumVolume,1,1,Match,https://www.labcorp.com/tests/006056/abo-grouping,2026-11-26,676eb8bee96e489e993f1bda50ac22f41e508b1784356b7b51b4a18d129dd528
+006060,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006060/red-blood-cell-rbc-antigen-typing-n,2026-11-26,9b3e9b2950c78f1f8b3b30d0e3acf24e0ad5fe5b10367c529022181d16fdb76a
+006060,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006060/red-blood-cell-rbc-antigen-typing-n,2026-11-26,9b3e9b2950c78f1f8b3b30d0e3acf24e0ad5fe5b10367c529022181d16fdb76a
+006064,preferredVolume,4,4,Match,https://www.labcorp.com/tests/006064/rh-typing,2026-11-26,06fedcfbc29c927d772c7a7ee83887b5bf633453efd5610a8a58308219e7f0b7
+006064,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006064/rh-typing,2026-11-26,06fedcfbc29c927d772c7a7ee83887b5bf633453efd5610a8a58308219e7f0b7
+006068,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006068/red-blood-cell-rbc-antigen-typing-k-kell,2026-11-26,186561a81bb872f46347d8634be3732d8c34eac3b11bd2c82239167b1345ee3d
+006068,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006068/red-blood-cell-rbc-antigen-typing-k-kell,2026-11-26,186561a81bb872f46347d8634be3732d8c34eac3b11bd2c82239167b1345ee3d
+006072,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006072/syphilis-rpr-monitor-with-reflex-to-rpr-titer,2026-11-26,2cacac0a893f4862f7c2e04e3e2d0f0c0221e13b8d1b0ae94824d8f05535ec46
+006072,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006072/syphilis-rpr-monitor-with-reflex-to-rpr-titer,2026-11-26,2cacac0a893f4862f7c2e04e3e2d0f0c0221e13b8d1b0ae94824d8f05535ec46
+006072,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006072/syphilis-rpr-monitor-with-reflex-to-rpr-titer,2026-11-26,2cacac0a893f4862f7c2e04e3e2d0f0c0221e13b8d1b0ae94824d8f05535ec46
+006096,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006096/red-blood-cell-rbc-antigen-typing-k-cellano,2026-11-26,f41560318c349851462a75d121451389e30bec1660121d6a9a2d06355694ee62
+006096,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006096/red-blood-cell-rbc-antigen-typing-k-cellano,2026-11-26,f41560318c349851462a75d121451389e30bec1660121d6a9a2d06355694ee62
+006131,preferredVolume,1.5,1.5,Match,https://www.labcorp.com/tests/006131/cytomegalovirus-cmv-antibodies-igm-and-igg-with-reflex-to-igg-avidity,2026-11-26,028bb266131db878bd4c3966771ffd4a89150a3af1626a6de67193c3081232a2
+006131,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/006131/cytomegalovirus-cmv-antibodies-igm-and-igg-with-reflex-to-igg-avidity,2026-11-26,028bb266131db878bd4c3966771ffd4a89150a3af1626a6de67193c3081232a2
+006131,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006131/cytomegalovirus-cmv-antibodies-igm-and-igg-with-reflex-to-igg-avidity,2026-11-26,028bb266131db878bd4c3966771ffd4a89150a3af1626a6de67193c3081232a2
+006189,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006189/mononucleosis-test-qualitative,2026-11-26,57030c4de3c91db83a15dfb6f1bf9f2490755dbaf93e966d1e1c1aceab7b8ee5
+006189,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006189/mononucleosis-test-qualitative,2026-11-26,57030c4de3c91db83a15dfb6f1bf9f2490755dbaf93e966d1e1c1aceab7b8ee5
+006189,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006189/mononucleosis-test-qualitative,2026-11-26,57030c4de3c91db83a15dfb6f1bf9f2490755dbaf93e966d1e1c1aceab7b8ee5
+006197,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006197/rubella-antibodies-igg,2026-11-26,a157dc180c6d6909a850ff078f00862937b4ae385dada108582bff94340055b0
+006197,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/006197/rubella-antibodies-igg,2026-11-26,a157dc180c6d6909a850ff078f00862937b4ae385dada108582bff94340055b0
+006197,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006197/rubella-antibodies-igg,2026-11-26,a157dc180c6d6909a850ff078f00862937b4ae385dada108582bff94340055b0
+006270,preferredVolume,4,4,Match,https://www.labcorp.com/tests/006270/coombs-direct,2026-11-26,21d1204703190bc25f205e013db85ccedb85025c8de7d515e746b69f18b7cd1b
+006270,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006270/coombs-direct,2026-11-26,21d1204703190bc25f205e013db85ccedb85025c8de7d515e746b69f18b7cd1b
+006338,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006338/antiextractable-nuclear-antigens,2026-11-26,5fb00c405bf94bb31fcb9a6e116221a797fc1de113da0080906f77067f1ebed1
+006338,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006338/antiextractable-nuclear-antigens,2026-11-26,5fb00c405bf94bb31fcb9a6e116221a797fc1de113da0080906f77067f1ebed1
+006338,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006338/antiextractable-nuclear-antigens,2026-11-26,5fb00c405bf94bb31fcb9a6e116221a797fc1de113da0080906f77067f1ebed1
+006353,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006353/cold-agglutinin-titer-quantitative,2026-11-26,f1ef4fc701851187cf641217876c99771e7393b213d5c1917d3eda2f0c52a261
+006353,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006353/cold-agglutinin-titer-quantitative,2026-11-26,f1ef4fc701851187cf641217876c99771e7393b213d5c1917d3eda2f0c52a261
+006353,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/006353/cold-agglutinin-titer-quantitative,2026-11-26,f1ef4fc701851187cf641217876c99771e7393b213d5c1917d3eda2f0c52a261
+006395,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006395/hepatitis-b-surface-antibody-qualitative,2026-11-26,e0c33293110c2cb12a8bb60c16d61ad39bdbb220a97170eb26385e9dc0d49d1f
+006395,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/006395/hepatitis-b-surface-antibody-qualitative,2026-11-26,e0c33293110c2cb12a8bb60c16d61ad39bdbb220a97170eb26385e9dc0d49d1f
+006395,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006395/hepatitis-b-surface-antibody-qualitative,2026-11-26,e0c33293110c2cb12a8bb60c16d61ad39bdbb220a97170eb26385e9dc0d49d1f
+006403,preferredVolume,2,2,Match,https://www.labcorp.com/tests/006403/prep-use-only-rpr-with-reflex-to-titer-and-treponemal-antibodies,2026-11-26,98038f9c92db65e3d78b55f815f5c4375d4cf520b7c08e8c67107a0d4df68cb4
+006403,minimumVolume,1,1,Match,https://www.labcorp.com/tests/006403/prep-use-only-rpr-with-reflex-to-titer-and-treponemal-antibodies,2026-11-26,98038f9c92db65e3d78b55f815f5c4375d4cf520b7c08e8c67107a0d4df68cb4
+006403,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006403/prep-use-only-rpr-with-reflex-to-titer-and-treponemal-antibodies,2026-11-26,98038f9c92db65e3d78b55f815f5c4375d4cf520b7c08e8c67107a0d4df68cb4
+006445,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/006445/syphilis-vdrl-csf,2026-11-26,73b7a7bd0ba02815164152d820224fc4f4af401c2b2a91cdf8ba39081ed1c20c
+006452,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/006452/complement-c3,2026-11-26,494582f2df375ba919846c759e177a309d271aa2b4d9fc43e8b2efc478d4c189
+006467,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006467/toxoplasma-gondii-igg-avidity,2026-11-26,ea095b282a0beb8e3ef6ea59e61388be4aa91a7da67ad5dacd7f69dc2ed1de30
+006467,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006467/toxoplasma-gondii-igg-avidity,2026-11-26,ea095b282a0beb8e3ef6ea59e61388be4aa91a7da67ad5dacd7f69dc2ed1de30
+006467,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006467/toxoplasma-gondii-igg-avidity,2026-11-26,ea095b282a0beb8e3ef6ea59e61388be4aa91a7da67ad5dacd7f69dc2ed1de30
+006478,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006478/toxoplasma-gondii-antibodies-igg,2026-11-26,14a5275e4f4c7f480e0640c7fb99dee226251b5ae2b56e11dbe046b3e0399876
+006478,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/006478/toxoplasma-gondii-antibodies-igg,2026-11-26,14a5275e4f4c7f480e0640c7fb99dee226251b5ae2b56e11dbe046b3e0399876
+006478,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006478/toxoplasma-gondii-antibodies-igg,2026-11-26,14a5275e4f4c7f480e0640c7fb99dee226251b5ae2b56e11dbe046b3e0399876
+006486,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006486/antiparietal-cell-antibody-apca,2026-11-26,97a383c253a91dc6dd441356db1f51c28677bf6ae34f6e2d85d3a1f7b0816aab
+006486,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/006486/antiparietal-cell-antibody-apca,2026-11-26,97a383c253a91dc6dd441356db1f51c28677bf6ae34f6e2d85d3a1f7b0816aab
+006486,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006486/antiparietal-cell-antibody-apca,2026-11-26,97a383c253a91dc6dd441356db1f51c28677bf6ae34f6e2d85d3a1f7b0816aab
+006494,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006494/cytomegalovirus-cmv-antibodies-igg,2026-11-26,ab04acac338cfc958180027c329eead1b02da15d76bd8ad33e024e02ec14e87b
+006494,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/006494/cytomegalovirus-cmv-antibodies-igg,2026-11-26,ab04acac338cfc958180027c329eead1b02da15d76bd8ad33e024e02ec14e87b
+006494,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006494/cytomegalovirus-cmv-antibodies-igg,2026-11-26,ab04acac338cfc958180027c329eead1b02da15d76bd8ad33e024e02ec14e87b
+006502,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006502/rheumatoid-factor-rf,2026-11-26,40d8ee9f848ac9aeb7eb22dc092a8dba8d7f916c06e72300fb792ba8d7865b03
+006502,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006502/rheumatoid-factor-rf,2026-11-26,40d8ee9f848ac9aeb7eb22dc092a8dba8d7f916c06e72300fb792ba8d7865b03
+006502,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006502/rheumatoid-factor-rf,2026-11-26,40d8ee9f848ac9aeb7eb22dc092a8dba8d7f916c06e72300fb792ba8d7865b03
+006505,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006505/cytomegalovirus-cmv-igg-avidity,2026-11-26,d834856e798f1c55095c3693ef72a6fcd573b8d2b51c4977259f9f8b0f4471cd
+006505,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006505/cytomegalovirus-cmv-igg-avidity,2026-11-26,d834856e798f1c55095c3693ef72a6fcd573b8d2b51c4977259f9f8b0f4471cd
+006505,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006505/cytomegalovirus-cmv-igg-avidity,2026-11-26,d834856e798f1c55095c3693ef72a6fcd573b8d2b51c4977259f9f8b0f4471cd
+006510,preferredVolume,3.5,3.5,Match,https://www.labcorp.com/tests/006510/hepatitis-b-surface-antigen-hbsag-screen-qualitative,2026-11-26,86263f0fec695c0e4f1936306095fcf1f553f129fcd9b470a104515b3e167acb
+006510,minimumVolume,1.5,1.5,Match,https://www.labcorp.com/tests/006510/hepatitis-b-surface-antigen-hbsag-screen-qualitative,2026-11-26,86263f0fec695c0e4f1936306095fcf1f553f129fcd9b470a104515b3e167acb
+006510,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006510/hepatitis-b-surface-antigen-hbsag-screen-qualitative,2026-11-26,86263f0fec695c0e4f1936306095fcf1f553f129fcd9b470a104515b3e167acb
+006514,preferredVolume,4,4,Match,https://www.labcorp.com/tests/006514/hepatitis-b-surface-antigen-hbsag-screen-qualitative-with-reflex-to-hepatitis-d-virus-hdv-antibody,2026-11-26,3f8c1a93dd73366036e8f3206fb48f6b662b36430f152a2c0d3e04d4b41d6eed
+006514,minimumVolume,1.7,1.7,Match,https://www.labcorp.com/tests/006514/hepatitis-b-surface-antigen-hbsag-screen-qualitative-with-reflex-to-hepatitis-d-virus-hdv-antibody,2026-11-26,3f8c1a93dd73366036e8f3206fb48f6b662b36430f152a2c0d3e04d4b41d6eed
+006514,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006514/hepatitis-b-surface-antigen-hbsag-screen-qualitative-with-reflex-to-hepatitis-d-virus-hdv-antibody,2026-11-26,3f8c1a93dd73366036e8f3206fb48f6b662b36430f152a2c0d3e04d4b41d6eed
+006530,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006530/hepatitis-b-surface-antibody-quantitative,2026-11-26,83bce68ff568b0b07731a0054aaec65e1b8625a81ace16abd8ccf0f9c333c01d
+006530,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006530/hepatitis-b-surface-antibody-quantitative,2026-11-26,83bce68ff568b0b07731a0054aaec65e1b8625a81ace16abd8ccf0f9c333c01d
+006530,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006530/hepatitis-b-surface-antibody-quantitative,2026-11-26,83bce68ff568b0b07731a0054aaec65e1b8625a81ace16abd8ccf0f9c333c01d
+006536,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006536/mononucleosis-test-qualitative-with-reflex-to-titer-on-positives,2026-11-26,65defb2a583098b764d60e4a3e4494604e0922b5b6788e26e7f6f709a42a2a55
+006536,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006536/mononucleosis-test-qualitative-with-reflex-to-titer-on-positives,2026-11-26,65defb2a583098b764d60e4a3e4494604e0922b5b6788e26e7f6f709a42a2a55
+006536,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006536/mononucleosis-test-qualitative-with-reflex-to-titer-on-positives,2026-11-26,65defb2a583098b764d60e4a3e4494604e0922b5b6788e26e7f6f709a42a2a55
+006619,preferredVolume,1.5,1.5,Match,https://www.labcorp.com/tests/006619/hepatitis-be-antigen,2026-11-26,66a3b97bbeaeaad306629d2542432787f1090f89640fc9f762d24a9a39aeed37
+006619,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006619/hepatitis-be-antigen,2026-11-26,66a3b97bbeaeaad306629d2542432787f1090f89640fc9f762d24a9a39aeed37
+006619,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006619/hepatitis-be-antigen,2026-11-26,66a3b97bbeaeaad306629d2542432787f1090f89640fc9f762d24a9a39aeed37
+006627,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006627/c-reactive-protein-crp-quantitative,2026-11-26,322aa04714567300d2edcd122c0dce9162f3f7a448cef46de0fa08774263cb48
+006627,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006627/c-reactive-protein-crp-quantitative,2026-11-26,322aa04714567300d2edcd122c0dce9162f3f7a448cef46de0fa08774263cb48
+006635,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006635/hepatitis-be-antibody,2026-11-26,23239645e6f65c202971d782ce182cfee7fa3dafd7bf14fc62210c3c17eae6a0
+006635,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/006635/hepatitis-be-antibody,2026-11-26,23239645e6f65c202971d782ce182cfee7fa3dafd7bf14fc62210c3c17eae6a0
+006635,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006635/hepatitis-be-antibody,2026-11-26,23239645e6f65c202971d782ce182cfee7fa3dafd7bf14fc62210c3c17eae6a0
+006643,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006643/actin-smooth-muscle-antibody-asma,2026-11-26,de905b923b7690e0cc7b82fb2527a67e3fc1a23c8ea77129d2452e057bbc81d6
+006643,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/006643/actin-smooth-muscle-antibody-asma,2026-11-26,de905b923b7690e0cc7b82fb2527a67e3fc1a23c8ea77129d2452e057bbc81d6
+006643,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006643/actin-smooth-muscle-antibody-asma,2026-11-26,de905b923b7690e0cc7b82fb2527a67e3fc1a23c8ea77129d2452e057bbc81d6
+006650,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006650/mitochondrial-m2-antibody,2026-11-26,46df456104cc22cc66dfd1fd34f45265df0ec96d02294fa963cad12d66ee40e3
+006650,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/006650/mitochondrial-m2-antibody,2026-11-26,46df456104cc22cc66dfd1fd34f45265df0ec96d02294fa963cad12d66ee40e3
+006650,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006650/mitochondrial-m2-antibody,2026-11-26,46df456104cc22cc66dfd1fd34f45265df0ec96d02294fa963cad12d66ee40e3
+006676,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006676/thyroid-peroxidase-tpo-antibodies,2026-11-26,27aca3b80e859c82a36e4288d199a6c07b43b5bf862005bbbf813c19a5e97be4
+006676,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/006676/thyroid-peroxidase-tpo-antibodies,2026-11-26,27aca3b80e859c82a36e4288d199a6c07b43b5bf862005bbbf813c19a5e97be4
+006676,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006676/thyroid-peroxidase-tpo-antibodies,2026-11-26,27aca3b80e859c82a36e4288d199a6c07b43b5bf862005bbbf813c19a5e97be4
+006684,preferredVolume,2,2,Match,https://www.labcorp.com/tests/006684/thyroid-antibodies,2026-11-26,e685a305f43df49eba18081fcdd56e6ee546c6cb5be85405272471869f899025
+006684,minimumVolume,0.8,0.8,Match,https://www.labcorp.com/tests/006684/thyroid-antibodies,2026-11-26,e685a305f43df49eba18081fcdd56e6ee546c6cb5be85405272471869f899025
+006684,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006684/thyroid-antibodies,2026-11-26,e685a305f43df49eba18081fcdd56e6ee546c6cb5be85405272471869f899025
+006685,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006685/thyroglobulin-antibody,2026-11-26,839f502deffd437a9157e86b68ab5cf4e5046ff836fa0e3a7b31d189d42294df
+006685,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/006685/thyroglobulin-antibody,2026-11-26,839f502deffd437a9157e86b68ab5cf4e5046ff836fa0e3a7b31d189d42294df
+006685,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006685/thyroglobulin-antibody,2026-11-26,839f502deffd437a9157e86b68ab5cf4e5046ff836fa0e3a7b31d189d42294df
+006718,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006718/hepatitis-b-core-antibody-total,2026-11-26,e8467b54fdf171d9c454be46fa6349d58dd4f98cdd2815ab73b7801a0a3b4c43
+006718,minimumVolume,0.4,0.4,Match,https://www.labcorp.com/tests/006718/hepatitis-b-core-antibody-total,2026-11-26,e8467b54fdf171d9c454be46fa6349d58dd4f98cdd2815ab73b7801a0a3b4c43
+006718,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006718/hepatitis-b-core-antibody-total,2026-11-26,e8467b54fdf171d9c454be46fa6349d58dd4f98cdd2815ab73b7801a0a3b4c43
+006726,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006726/hepatitis-a-virus-hav-antibody-total,2026-11-26,4625afa15ec7a177ebcf12440efcc8e9321affb3be7074d3e5786bf9a005e08a
+006726,minimumVolume,0.4,0.4,Match,https://www.labcorp.com/tests/006726/hepatitis-a-virus-hav-antibody-total,2026-11-26,4625afa15ec7a177ebcf12440efcc8e9321affb3be7074d3e5786bf9a005e08a
+006726,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006726/hepatitis-a-virus-hav-antibody-total,2026-11-26,4625afa15ec7a177ebcf12440efcc8e9321affb3be7074d3e5786bf9a005e08a
+006734,preferredVolume,1,1,Match,https://www.labcorp.com/tests/006734/hepatitis-a-antibody-igm,2026-11-26,c98160b89269ab46b166c68372252bdfb4e60f4dd3d53494c3bdf07e34865588
+006734,minimumVolume,0.4,0.4,Match,https://www.labcorp.com/tests/006734/hepatitis-a-antibody-igm,2026-11-26,c98160b89269ab46b166c68372252bdfb4e60f4dd3d53494c3bdf07e34865588
+006734,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/006734/hepatitis-a-antibody-igm,2026-11-26,c98160b89269ab46b166c68372252bdfb4e60f4dd3d53494c3bdf07e34865588
+006866,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/006866/rotavirus-direct-detection-immunoassay,2026-11-26,366c118c72b55f985f16e57955bbd4177aa74bd9e74af33247744f0486986b56
+006924,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/006924/hla-b-27-disease-association,2026-11-26,4f2da8eb336b7c257ca7d387cc509fe6aa2f4802a54dfad20fec0de7317a2e37
+007012,preferredVolume,0.25,0.25,Match,https://www.labcorp.com/tests/007012/lacosamide,2026-11-26,c6f1fc88ebd2c480a3bb40c3388d8159db6b5ea2f1a8e303a8eb35837340c297
+007012,minimumVolume,0.1,0.10,Match,https://www.labcorp.com/tests/007012/lacosamide,2026-11-26,c6f1fc88ebd2c480a3bb40c3388d8159db6b5ea2f1a8e303a8eb35837340c297
+007012,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007012/lacosamide,2026-11-26,c6f1fc88ebd2c480a3bb40c3388d8159db6b5ea2f1a8e303a8eb35837340c297
+007013,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007013/lidocaine-serum-or-plasma,2026-11-26,b7adefd022c9d952aff7e4ee098cee6ea782be2594fbd3e702ff36620d4f033a
+007013,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007013/lidocaine-serum-or-plasma,2026-11-26,b7adefd022c9d952aff7e4ee098cee6ea782be2594fbd3e702ff36620d4f033a
+007013,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007013/lidocaine-serum-or-plasma,2026-11-26,b7adefd022c9d952aff7e4ee098cee6ea782be2594fbd3e702ff36620d4f033a
+007045,minimumVolume,2.5,2.5,Match,https://www.labcorp.com/tests/007045/arsenic-exposure-profile-urine,2026-11-26,f01039848fd65eea512a426f04bc2c7ffe40e880c1400481d8f510b2163f0989
+007045,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007045/arsenic-exposure-profile-urine,2026-11-26,f01039848fd65eea512a426f04bc2c7ffe40e880c1400481d8f510b2163f0989
+007046,minimumVolume,5.3,5.3,Match,https://www.labcorp.com/tests/007046/heavy-metals-profile-i-urine,2026-11-26,6405c624b339a1ba572cf1b52615e1c7b6b21c78973ec718b4f5347271ca47cb
+007046,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007046/heavy-metals-profile-i-urine,2026-11-26,6405c624b339a1ba572cf1b52615e1c7b6b21c78973ec718b4f5347271ca47cb
+007054,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007054/ammonia-plasma,2026-11-26,d7a112b9ebdd8f8bb4ca46268d76eba01f9de4382ce6df29daa73c2738ff746c
+007054,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/007054/ammonia-plasma,2026-11-26,d7a112b9ebdd8f8bb4ca46268d76eba01f9de4382ce6df29daa73c2738ff746c
+007062,preferredVolume,7,7,Match,https://www.labcorp.com/tests/007062/volatiles-whole-blood,2026-11-26,d3b5803f0d211998157c41d3d9000912cd766e42335a0a85f313b0204be56383
+007062,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/007062/volatiles-whole-blood,2026-11-26,d3b5803f0d211998157c41d3d9000912cd766e42335a0a85f313b0204be56383
+007062,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007062/volatiles-whole-blood,2026-11-26,d3b5803f0d211998157c41d3d9000912cd766e42335a0a85f313b0204be56383
+007069,minimumVolume,7.5,7.5,Match,https://www.labcorp.com/tests/007069/common-alloy-elements-profile,2026-11-26,b6634ba943ac614000734e62eb87e2d2fef1a0ba43935a3e2443680f179f9f76
+007069,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007069/common-alloy-elements-profile,2026-11-26,b6634ba943ac614000734e62eb87e2d2fef1a0ba43935a3e2443680f179f9f76
+007130,preferredVolume,2,2,Match,https://www.labcorp.com/tests/007130/hepatitis-b-surface-antigen-quantitative-monitor,2026-11-26,b1c42b3a4a1ed6912fa28cc8ae15ca621883820b4d2ed7b67432b0f930c36197
+007130,minimumVolume,1,1,Match,https://www.labcorp.com/tests/007130/hepatitis-b-surface-antigen-quantitative-monitor,2026-11-26,b1c42b3a4a1ed6912fa28cc8ae15ca621883820b4d2ed7b67432b0f930c36197
+007130,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/007130/hepatitis-b-surface-antigen-quantitative-monitor,2026-11-26,b1c42b3a4a1ed6912fa28cc8ae15ca621883820b4d2ed7b67432b0f930c36197
+007154,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007154/tobramycin-serum-peak,2026-11-26,813d10c897c817534178a3c41f54c81eac6f7b5ba3f408a5ace6621891a40fa9
+007154,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007154/tobramycin-serum-peak,2026-11-26,813d10c897c817534178a3c41f54c81eac6f7b5ba3f408a5ace6621891a40fa9
+007155,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007155/tobramycin-serum-trough,2026-11-26,011faec5e7d9f07a27e3f6073227e54177a0ac64d4552d175f5d07f9a232db5b
+007155,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007155/tobramycin-serum-trough,2026-11-26,011faec5e7d9f07a27e3f6073227e54177a0ac64d4552d175f5d07f9a232db5b
+007155,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007155/tobramycin-serum-trough,2026-11-26,011faec5e7d9f07a27e3f6073227e54177a0ac64d4552d175f5d07f9a232db5b
+007162,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007162/gentamicin-serum-peak,2026-11-26,73821884bb89f44f2e67fd99c1a396eb352eeae99480783ac2fcb973d18c3125
+007162,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007162/gentamicin-serum-peak,2026-11-26,73821884bb89f44f2e67fd99c1a396eb352eeae99480783ac2fcb973d18c3125
+007162,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007162/gentamicin-serum-peak,2026-11-26,73821884bb89f44f2e67fd99c1a396eb352eeae99480783ac2fcb973d18c3125
+007187,preferredVolume,7,7,Match,https://www.labcorp.com/tests/007187/carbon-monoxide-whole-blood,2026-11-26,ce124b3953efa9ccb67bde414bfd5498b847d6eda2e773fb92a23c58fffa7a9c
+007187,minimumVolume,0.6,0.6,Match,https://www.labcorp.com/tests/007187/carbon-monoxide-whole-blood,2026-11-26,ce124b3953efa9ccb67bde414bfd5498b847d6eda2e773fb92a23c58fffa7a9c
+007187,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/007187/carbon-monoxide-whole-blood,2026-11-26,ce124b3953efa9ccb67bde414bfd5498b847d6eda2e773fb92a23c58fffa7a9c
+007204,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007204/amikacin-peak,2026-11-26,ce928285a379e3fd3728ef92a6cf3617f4c8e966367ad7de85d3a02c2633a98d
+007204,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007204/amikacin-peak,2026-11-26,ce928285a379e3fd3728ef92a6cf3617f4c8e966367ad7de85d3a02c2633a98d
+007204,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007204/amikacin-peak,2026-11-26,ce928285a379e3fd3728ef92a6cf3617f4c8e966367ad7de85d3a02c2633a98d
+007205,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007205/amikacin-trough,2026-11-26,3e55b88693a9e0f1d5e3269e2196b21d1aea4444afed264b444128f4ee55fb14
+007205,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007205/amikacin-trough,2026-11-26,3e55b88693a9e0f1d5e3269e2196b21d1aea4444afed264b444128f4ee55fb14
+007205,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007205/amikacin-trough,2026-11-26,3e55b88693a9e0f1d5e3269e2196b21d1aea4444afed264b444128f4ee55fb14
+007211,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/007211/cholinesterase,2026-11-26,e746c521fb60646cbaaabee5df8c4c0703a9c017cf928e71ddd202b579cafe77
+007211,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/007211/cholinesterase,2026-11-26,e746c521fb60646cbaaabee5df8c4c0703a9c017cf928e71ddd202b579cafe77
+007211,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007211/cholinesterase,2026-11-26,e746c521fb60646cbaaabee5df8c4c0703a9c017cf928e71ddd202b579cafe77
+007245,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007245/arsenic-whole-blood,2026-11-26,25d6f8f3246a20b0348b259dc24802a001001e7fd646a8898b29af87a568d8a6
+007245,minimumVolume,0.6,0.6,Match,https://www.labcorp.com/tests/007245/arsenic-whole-blood,2026-11-26,25d6f8f3246a20b0348b259dc24802a001001e7fd646a8898b29af87a568d8a6
+007252,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007252/procainamide-serum-or-plasma,2026-11-26,4b2c5105ef388744a26b98cd96f0371728a1f8b1ff5ea2940f0b8e9e45aa5cfd
+007252,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007252/procainamide-serum-or-plasma,2026-11-26,4b2c5105ef388744a26b98cd96f0371728a1f8b1ff5ea2940f0b8e9e45aa5cfd
+007252,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/007252/procainamide-serum-or-plasma,2026-11-26,4b2c5105ef388744a26b98cd96f0371728a1f8b1ff5ea2940f0b8e9e45aa5cfd
+007260,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007260/valproic-acid-serum-or-plasma,2026-11-26,79c2822ec4262c72901d9c682bac76abdf721fbaef30ff54bc50622f10f18ae3
+007260,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007260/valproic-acid-serum-or-plasma,2026-11-26,79c2822ec4262c72901d9c682bac76abdf721fbaef30ff54bc50622f10f18ae3
+007260,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007260/valproic-acid-serum-or-plasma,2026-11-26,79c2822ec4262c72901d9c682bac76abdf721fbaef30ff54bc50622f10f18ae3
+007336,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007336/theophylline,2026-11-26,e0fd2799b8075d2f093d5cd682ccbe2efb361c592d34bcc715b6662c33544464
+007336,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007336/theophylline,2026-11-26,e0fd2799b8075d2f093d5cd682ccbe2efb361c592d34bcc715b6662c33544464
+007336,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007336/theophylline,2026-11-26,e0fd2799b8075d2f093d5cd682ccbe2efb361c592d34bcc715b6662c33544464
+007385,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007385/digoxin,2026-11-26,ace4c1d43ac9b358fa6c1106695c95d346fe07dd192fcab85a69ce3c7ca1b848
+007385,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/007385/digoxin,2026-11-26,ace4c1d43ac9b358fa6c1106695c95d346fe07dd192fcab85a69ce3c7ca1b848
+007385,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007385/digoxin,2026-11-26,ace4c1d43ac9b358fa6c1106695c95d346fe07dd192fcab85a69ce3c7ca1b848
+007393,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007393/nortriptyline,2026-11-26,4e384bd5ae14af8cefd27a15a8fd1b9d86d8d890771ed732f1a88e028553c1de
+007393,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007393/nortriptyline,2026-11-26,4e384bd5ae14af8cefd27a15a8fd1b9d86d8d890771ed732f1a88e028553c1de
+007393,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007393/nortriptyline,2026-11-26,4e384bd5ae14af8cefd27a15a8fd1b9d86d8d890771ed732f1a88e028553c1de
+007401,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007401/phenytoin-serum-or-plasma,2026-11-26,bc580cd9a40584213854e15b1c395becfb98dbdf0c270008a4adfb51fefc9c6b
+007401,minimumVolume,0.8,0.8,Match,https://www.labcorp.com/tests/007401/phenytoin-serum-or-plasma,2026-11-26,bc580cd9a40584213854e15b1c395becfb98dbdf0c270008a4adfb51fefc9c6b
+007401,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007401/phenytoin-serum-or-plasma,2026-11-26,bc580cd9a40584213854e15b1c395becfb98dbdf0c270008a4adfb51fefc9c6b
+007419,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007419/carbamazepine-serum-or-plasma,2026-11-26,bd3c663bb4abf4b55378184d3c0e3cc61c0f999b17d40687f238f572260688ff
+007419,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007419/carbamazepine-serum-or-plasma,2026-11-26,bd3c663bb4abf4b55378184d3c0e3cc61c0f999b17d40687f238f572260688ff
+007419,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007419/carbamazepine-serum-or-plasma,2026-11-26,bd3c663bb4abf4b55378184d3c0e3cc61c0f999b17d40687f238f572260688ff
+007441,preferredVolume,0.6,0.6,Match,https://www.labcorp.com/tests/007441/soluble-liver-antigen-sla-igg-antibody,2026-11-26,a9288e903ceef59548834eb3f9bc63066eab1fdde0a24249e246e25d857b6f62
+007441,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007441/soluble-liver-antigen-sla-igg-antibody,2026-11-26,a9288e903ceef59548834eb3f9bc63066eab1fdde0a24249e246e25d857b6f62
+007441,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007441/soluble-liver-antigen-sla-igg-antibody,2026-11-26,a9288e903ceef59548834eb3f9bc63066eab1fdde0a24249e246e25d857b6f62
+007443,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007443/ethosuximide-serum-or-plasma,2026-11-26,d019a0368b46ce56cde7814797b5ac3c21e6cc89f6efa98dd7719c2695d9ab80
+007443,minimumVolume,0.6,0.6,Match,https://www.labcorp.com/tests/007443/ethosuximide-serum-or-plasma,2026-11-26,d019a0368b46ce56cde7814797b5ac3c21e6cc89f6efa98dd7719c2695d9ab80
+007443,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007443/ethosuximide-serum-or-plasma,2026-11-26,d019a0368b46ce56cde7814797b5ac3c21e6cc89f6efa98dd7719c2695d9ab80
+007468,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007468/imipramine,2026-11-26,da35f93edd161231f7caf2525016db5a6b88977643dbf87d044d7e2401842b02
+007468,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007468/imipramine,2026-11-26,da35f93edd161231f7caf2525016db5a6b88977643dbf87d044d7e2401842b02
+007468,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007468/imipramine,2026-11-26,da35f93edd161231f7caf2525016db5a6b88977643dbf87d044d7e2401842b02
+007476,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007476/amitriptyline,2026-11-26,aeb8aedd44a08230bc38950f288393ab8e89012ce7aea571cb67a19c18f0ea5a
+007476,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007476/amitriptyline,2026-11-26,aeb8aedd44a08230bc38950f288393ab8e89012ce7aea571cb67a19c18f0ea5a
+007476,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007476/amitriptyline,2026-11-26,aeb8aedd44a08230bc38950f288393ab8e89012ce7aea571cb67a19c18f0ea5a
+007534,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007534/meperidine-serum-or-plasma,2026-11-26,e8c2d86ae758cfac6dcf294221693a21e67086e7282f8d02ce5232db6830d032
+007534,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007534/meperidine-serum-or-plasma,2026-11-26,e8c2d86ae758cfac6dcf294221693a21e67086e7282f8d02ce5232db6830d032
+007534,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007534/meperidine-serum-or-plasma,2026-11-26,e8c2d86ae758cfac6dcf294221693a21e67086e7282f8d02ce5232db6830d032
+007566,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007566/digoxin-random,2026-11-26,a2c890451eae6c3916dedb85466a94d0eb859d9737dc2442c99f8a0eccdb097b
+007566,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/007566/digoxin-random,2026-11-26,a2c890451eae6c3916dedb85466a94d0eb859d9737dc2442c99f8a0eccdb097b
+007566,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007566/digoxin-random,2026-11-26,a2c890451eae6c3916dedb85466a94d0eb859d9737dc2442c99f8a0eccdb097b
+007609,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007609/doxepin,2026-11-26,91722731d0b3f078203c7fdecf66da4eafb1aafda4df3bac737e29c8e36bcb2d
+007609,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007609/doxepin,2026-11-26,91722731d0b3f078203c7fdecf66da4eafb1aafda4df3bac737e29c8e36bcb2d
+007609,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007609/doxepin,2026-11-26,91722731d0b3f078203c7fdecf66da4eafb1aafda4df3bac737e29c8e36bcb2d
+007625,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/007625/lead-whole-blood-adult,2026-11-26,0be1948309276845d756f458a0ec4978ef7f82e5db6e8ff2b21671cbf0618c8f
+007625,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007625/lead-whole-blood-adult,2026-11-26,0be1948309276845d756f458a0ec4978ef7f82e5db6e8ff2b21671cbf0618c8f
+007633,minimumVolume,2.5,2.5,Match,https://www.labcorp.com/tests/007633/lead-urine,2026-11-26,866f56f4f451410e32e8d2d747b064813c912d1a3bc04f8addc6c4170b82961b
+007633,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007633/lead-urine,2026-11-26,866f56f4f451410e32e8d2d747b064813c912d1a3bc04f8addc6c4170b82961b
+007658,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007658/methotrexate-mtx-serum-or-plasma,2026-11-26,94498d6fe520444d552d0721870a39d57612614a801af32cd1585aaea56b3ece
+007658,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007658/methotrexate-mtx-serum-or-plasma,2026-11-26,94498d6fe520444d552d0721870a39d57612614a801af32cd1585aaea56b3ece
+007658,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007658/methotrexate-mtx-serum-or-plasma,2026-11-26,94498d6fe520444d552d0721870a39d57612614a801af32cd1585aaea56b3ece
+007700,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007700/glutathione-total,2026-11-26,6391562b5392e8e392b217a8a3aa0faf97d267d48bbaa55e9a1f76f01fce68ab
+007708,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007708/lithium,2026-11-26,c3ccfb33cd4de1ac4abf482f6da0806226259840bba5afc9239c923044fce8b7
+007708,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007708/lithium,2026-11-26,c3ccfb33cd4de1ac4abf482f6da0806226259840bba5afc9239c923044fce8b7
+007708,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/007708/lithium,2026-11-26,c3ccfb33cd4de1ac4abf482f6da0806226259840bba5afc9239c923044fce8b7
+007740,preferredVolume,2,2,Match,https://www.labcorp.com/tests/007740/acetaminophen,2026-11-26,3fafd357d8ef7da3f1f01a930f2372bc3b58991c539a83d62915dab408615396
+007740,minimumVolume,0.6,0.6,Match,https://www.labcorp.com/tests/007740/acetaminophen,2026-11-26,3fafd357d8ef7da3f1f01a930f2372bc3b58991c539a83d62915dab408615396
+007740,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007740/acetaminophen,2026-11-26,3fafd357d8ef7da3f1f01a930f2372bc3b58991c539a83d62915dab408615396
+007765,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007765/desipramine,2026-11-26,205e78736a4b04e89dd6773d464e53c94796bd62bbe6b76ee99afe17af401e44
+007765,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007765/desipramine,2026-11-26,205e78736a4b04e89dd6773d464e53c94796bd62bbe6b76ee99afe17af401e44
+007765,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007765/desipramine,2026-11-26,205e78736a4b04e89dd6773d464e53c94796bd62bbe6b76ee99afe17af401e44
+007773,minimumVolume,2.5,2.5,Match,https://www.labcorp.com/tests/007773/mercury-urine,2026-11-26,d6c50e33fc7385102fe4460e0da9b61da4a228aba5eee6a42122f5c01efff7ec
+007773,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007773/mercury-urine,2026-11-26,d6c50e33fc7385102fe4460e0da9b61da4a228aba5eee6a42122f5c01efff7ec
+007781,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007781/methadone-serum-or-plasma,2026-11-26,aff67093be0a0976ec212b79bf7f6e9c5eaf7d0c4d7d6b41dcac5d881baf79f2
+007781,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007781/methadone-serum-or-plasma,2026-11-26,aff67093be0a0976ec212b79bf7f6e9c5eaf7d0c4d7d6b41dcac5d881baf79f2
+007781,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007781/methadone-serum-or-plasma,2026-11-26,aff67093be0a0976ec212b79bf7f6e9c5eaf7d0c4d7d6b41dcac5d881baf79f2
+007784,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007784/methadone-peak-level-serum-or-plasma,2026-11-26,e5b5a6e7e64a2693981e755f312992a58c013b107f8f5846a3355fc8653e5233
+007784,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007784/methadone-peak-level-serum-or-plasma,2026-11-26,e5b5a6e7e64a2693981e755f312992a58c013b107f8f5846a3355fc8653e5233
+007784,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/007784/methadone-peak-level-serum-or-plasma,2026-11-26,e5b5a6e7e64a2693981e755f312992a58c013b107f8f5846a3355fc8653e5233
+007823,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007823/phenobarbital-serum-or-plasma,2026-11-26,d6ca8644313f7e7497ec10a9bad6069c8e88c79029b96a341cbb8e9094c09dc8
+007823,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007823/phenobarbital-serum-or-plasma,2026-11-26,d6ca8644313f7e7497ec10a9bad6069c8e88c79029b96a341cbb8e9094c09dc8
+007823,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007823/phenobarbital-serum-or-plasma,2026-11-26,d6ca8644313f7e7497ec10a9bad6069c8e88c79029b96a341cbb8e9094c09dc8
+007849,preferredVolume,2,2,Match,https://www.labcorp.com/tests/007849/salicylate,2026-11-26,505037e49f21238c9c66fc479669c1b5ecc696e9186cf6b262dc0aa3f41b2113
+007849,minimumVolume,0.6,0.6,Match,https://www.labcorp.com/tests/007849/salicylate,2026-11-26,505037e49f21238c9c66fc479669c1b5ecc696e9186cf6b262dc0aa3f41b2113
+007849,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007849/salicylate,2026-11-26,505037e49f21238c9c66fc479669c1b5ecc696e9186cf6b262dc0aa3f41b2113
+007856,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007856/primidone-serum-or-plasma,2026-11-26,0c56b47db05aeb9352d4b36ee40d4282c316397963ce8ab4c9dccf86e6450cfe
+007856,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007856/primidone-serum-or-plasma,2026-11-26,0c56b47db05aeb9352d4b36ee40d4282c316397963ce8ab4c9dccf86e6450cfe
+007856,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007856/primidone-serum-or-plasma,2026-11-26,0c56b47db05aeb9352d4b36ee40d4282c316397963ce8ab4c9dccf86e6450cfe
+007915,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/007915/zonisamide-serum-or-plasma,2026-11-26,a30f65f6254ab6e956a07f324425991be156ef6684356e0d85dbb8f0847fd975
+007915,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/007915/zonisamide-serum-or-plasma,2026-11-26,a30f65f6254ab6e956a07f324425991be156ef6684356e0d85dbb8f0847fd975
+007915,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/007915/zonisamide-serum-or-plasma,2026-11-26,a30f65f6254ab6e956a07f324425991be156ef6684356e0d85dbb8f0847fd975
+007930,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007930/clorazepate-serum-or-plasma,2026-11-26,113f34b36426b60913f0dbbb9c1306c77b6c4374fa9d74b9706a57f6a4578159
+007930,minimumVolume,0.4,0.4,Match,https://www.labcorp.com/tests/007930/clorazepate-serum-or-plasma,2026-11-26,113f34b36426b60913f0dbbb9c1306c77b6c4374fa9d74b9706a57f6a4578159
+007930,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/007930/clorazepate-serum-or-plasma,2026-11-26,113f34b36426b60913f0dbbb9c1306c77b6c4374fa9d74b9706a57f6a4578159
+007989,preferredVolume,1,1,Match,https://www.labcorp.com/tests/007989/diazepam-serum-or-plasma,2026-11-26,56d99bd6e88455b7fc6677d7d169328a187ba880599acba6f24a8bc738d2a6e9
+007989,minimumVolume,0.4,0.4,Match,https://www.labcorp.com/tests/007989/diazepam-serum-or-plasma,2026-11-26,56d99bd6e88455b7fc6677d7d169328a187ba880599acba6f24a8bc738d2a6e9
+007989,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/007989/diazepam-serum-or-plasma,2026-11-26,56d99bd6e88455b7fc6677d7d169328a187ba880599acba6f24a8bc738d2a6e9
+008136,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008136/fungus-stain,2026-11-26,206c1e5fcc324a370e75c9d147ab90603374c6e6690ad5d0c67936cd316dbe0c
+008144,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008144/stool-culture,2026-11-26,791d47a753ee1a690f668c93c9b9b84e0edcdbec69375c1b065b9ced56a3a01e
+008169,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008169/b-hemolytic-streptococcus-culture-group-a-only,2026-11-26,fc31182e4c0af5561b6078d03b249b9f13e728833b97b463ba05686d0ba19038
+008219,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008219/parasite-identification-worm,2026-11-26,687affb96ac44182a64adbe8e699f50e33d65523654b8d03775d834d50899a1b
+008250,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/008250/herpes-simplex-virus-hsv-culture-and-typing,2026-11-26,5f3a5ef9a93d0e00c18b434730547de415a6eee7a27280d36fd280432ef84d04
+008300,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008300/blood-culture-routine,2026-11-26,74913f70ee4d0cdc0b05b67bdaae050132a3765d9d5ca085d8a3b98540557c8a
+008342,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008342/upper-respiratory-culture-routine,2026-11-26,40e4c10588d0a7ae4b5bf9518b12786429d1c94b2f82945dc118fa74d0bee841
+008540,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008540/gram-stain,2026-11-26,a98fbb9cb4fbf0d9329759d325ffc3962e69faf79584d128721c2c224ee1a65c
+008623,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008623/ova-and-parasites-examination,2026-11-26,8ef53865a55dc50ab7357d1bc8d2f25d0fcc7e97d59d8ea39876f6ec539af01c
+008629,minimumVolume,3,3,Match,https://www.labcorp.com/tests/008629/ova-and-parasites-examination-urine,2026-11-26,39a5b502c23422a8182c45be450dcf843cdd298f4c032b5e30974d02ef9ba06e
+008629,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008629/ova-and-parasites-examination-urine,2026-11-26,39a5b502c23422a8182c45be450dcf843cdd298f4c032b5e30974d02ef9ba06e
+008631,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008631/pinworm-preparation,2026-11-26,8b9127655fb0bf59c231c2a75643de1dd3c01ac07c48280e683b5886d0fe382b
+008649,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008649/aerobic-bacterial-culture-general,2026-11-26,62dbc79af4afb2d9f6f8c86d88106aa0f7e9f03d2b573881ff7c833e41e1698a
+008656,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008656/white-blood-cells-wbc-stool,2026-11-26,a563fe41eb0731919c9ba152a13c00a217f9f3fca584bca44fcbfc1de29047d9
+008851,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/008851/urine-culture-prenatal-with-group-b-streptococcus-susceptibility-reflex,2026-11-26,1a040c0a4bb133ac4b51bd13b0c41133c6893fff0ec1851db7e4a1b8003158fd
+010035,preferredVolume,1,1,Match,https://www.labcorp.com/tests/010035/drug-induced-liver-injury-pattern-assessment-with-calculation-of-r-value,2026-11-26,b8e0afdf8d86ff86456f8643d026f55e9fad2e6d34150ec6472f0a973bf7b717
+010035,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/010035/drug-induced-liver-injury-pattern-assessment-with-calculation-of-r-value,2026-11-26,b8e0afdf8d86ff86456f8643d026f55e9fad2e6d34150ec6472f0a973bf7b717
+010035,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/010035/drug-induced-liver-injury-pattern-assessment-with-calculation-of-r-value,2026-11-26,b8e0afdf8d86ff86456f8643d026f55e9fad2e6d34150ec6472f0a973bf7b717
+010108,preferredVolume,0.8,0.8,Match,https://www.labcorp.com/tests/010108/c-peptide,2026-11-26,3a7eb7c0ff0474f30198abb711e1a1dd4b66d83df38a197bd5406d695cd2414d
+010108,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/010108/c-peptide,2026-11-26,3a7eb7c0ff0474f30198abb711e1a1dd4b66d83df38a197bd5406d695cd2414d
+010108,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/010108/c-peptide,2026-11-26,3a7eb7c0ff0474f30198abb711e1a1dd4b66d83df38a197bd5406d695cd2414d
+010116,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/010116/angiotensin-converting-enzyme-ace,2026-11-26,fea0b33b6040bfceee08a8e643072f64fc4bf1f4458d5cf81dd7228323780240
+010116,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/010116/angiotensin-converting-enzyme-ace,2026-11-26,fea0b33b6040bfceee08a8e643072f64fc4bf1f4458d5cf81dd7228323780240
+010116,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/010116/angiotensin-converting-enzyme-ace,2026-11-26,fea0b33b6040bfceee08a8e643072f64fc4bf1f4458d5cf81dd7228323780240
+010173,minimumVolume,1,1,Match,https://www.labcorp.com/tests/010173/b2-microglobulin-urine,2026-11-26,f177c06f04b88587d2b6389cbca887800dce13232b5c983c45c00fa8c744ad82
+010173,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/010173/b2-microglobulin-urine,2026-11-26,f177c06f04b88587d2b6389cbca887800dce13232b5c983c45c00fa8c744ad82
+010180,preferredVolume,7,7,Match,https://www.labcorp.com/tests/010180/zinc-protoporphyrin-zpp-workplace,2026-11-26,fff33da67427d1844f56db77c1757711bfe335a26e3b1d4077ea9dd0fb1ace4e
+010180,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/010180/zinc-protoporphyrin-zpp-workplace,2026-11-26,fff33da67427d1844f56db77c1757711bfe335a26e3b1d4077ea9dd0fb1ace4e
+010181,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/010181/b2-microglobulin,2026-11-26,c5447be5f91b1c42e2961e7f1ace53cb5f34f892b0314ef8f3eea6f35f3aa950
+010181,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/010181/b2-microglobulin,2026-11-26,c5447be5f91b1c42e2961e7f1ace53cb5f34f892b0314ef8f3eea6f35f3aa950
+010181,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/010181/b2-microglobulin,2026-11-26,c5447be5f91b1c42e2961e7f1ace53cb5f34f892b0314ef8f3eea6f35f3aa950
+010249,preferredVolume,0.8,0.8,Match,https://www.labcorp.com/tests/010249/osteocalcin-serum,2026-11-26,9c437a03b2165d115e3e753cbf88f7ea99353c5975c297504854dea741dc665e
+010249,minimumVolume,0.4,0.4,Match,https://www.labcorp.com/tests/010249/osteocalcin-serum,2026-11-26,9c437a03b2165d115e3e753cbf88f7ea99353c5975c297504854dea741dc665e
+010249,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/010249/osteocalcin-serum,2026-11-26,9c437a03b2165d115e3e753cbf88f7ea99353c5975c297504854dea741dc665e
+010272,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/010272/epstein-barr-virus-ebv-nuclear-antigen-antibodies-igg,2026-11-26,3296ef3cb23eca65095ee9e70b4ce85cc69458c909e10236454f66ac5207f935
+010272,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/010272/epstein-barr-virus-ebv-nuclear-antigen-antibodies-igg,2026-11-26,3296ef3cb23eca65095ee9e70b4ce85cc69458c909e10236454f66ac5207f935
+010272,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/010272/epstein-barr-virus-ebv-nuclear-antigen-antibodies-igg,2026-11-26,3296ef3cb23eca65095ee9e70b4ce85cc69458c909e10236454f66ac5207f935
+010314,preferredVolume,1,1,Match,https://www.labcorp.com/tests/010314/thyrotropin-receptor-antibody-serum,2026-11-26,381fa53fa7c18d550f1159a2c7e59030557eb0520f97484f812cc956e210a9a2
+010314,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/010314/thyrotropin-receptor-antibody-serum,2026-11-26,381fa53fa7c18d550f1159a2c7e59030557eb0520f97484f812cc956e210a9a2
+010314,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/010314/thyrotropin-receptor-antibody-serum,2026-11-26,381fa53fa7c18d550f1159a2c7e59030557eb0520f97484f812cc956e210a9a2
+010322,preferredVolume,1,1,Match,https://www.labcorp.com/tests/010322/prostate-specific-antigen-psa,2026-11-26,75e2c9377ef08a9e148bf9fcfda52970af1ffdfe3d974aa14bf8f7c5ee6f9fb3
+010322,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/010322/prostate-specific-antigen-psa,2026-11-26,75e2c9377ef08a9e148bf9fcfda52970af1ffdfe3d974aa14bf8f7c5ee6f9fb3
+010322,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/010322/prostate-specific-antigen-psa,2026-11-26,75e2c9377ef08a9e148bf9fcfda52970af1ffdfe3d974aa14bf8f7c5ee6f9fb3
+010330,preferredVolume,1,1,Match,https://www.labcorp.com/tests/010330/bile-acids,2026-11-26,60df08aa2497eda87c3061c5a1f4ea68c4d7940b200dce1099d66c0b053616b2
+010330,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/010330/bile-acids,2026-11-26,60df08aa2497eda87c3061c5a1f4ea68c4d7940b200dce1099d66c0b053616b2
+010330,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/010330/bile-acids,2026-11-26,60df08aa2497eda87c3061c5a1f4ea68c4d7940b200dce1099d66c0b053616b2
+010363,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/010363/insulin-like-growth-factor-1-igf-1,2026-11-26,10ddeb2b650a7332de0c9844874b1393ac3659608e21e0faa58c4fae735ce0f9
+010363,minimumVolume,0.2,0.2,Match,https://www.labcorp.com/tests/010363/insulin-like-growth-factor-1-igf-1,2026-11-26,10ddeb2b650a7332de0c9844874b1393ac3659608e21e0faa58c4fae735ce0f9
+010363,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/010363/insulin-like-growth-factor-1-igf-1,2026-11-26,10ddeb2b650a7332de0c9844874b1393ac3659608e21e0faa58c4fae735ce0f9
+010389,preferredVolume,1,1,Match,https://www.labcorp.com/tests/010389/triiodothyronine-t3-free,2026-11-26,132d8544c585d1e1367f552cb7f2b96921ad77706537e059a0309b141dcb8d1c
+010389,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/010389/triiodothyronine-t3-free,2026-11-26,132d8544c585d1e1367f552cb7f2b96921ad77706537e059a0309b141dcb8d1c
+010389,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/010389/triiodothyronine-t3-free,2026-11-26,132d8544c585d1e1367f552cb7f2b96921ad77706537e059a0309b141dcb8d1c
+010397,preferredVolume,0.6,0.6,Match,https://www.labcorp.com/tests/010397/vasoactive-intestinal-polypeptide-vip-plasma,2026-11-26,22f9799a5ccea5084ccf95cee25be1607e4fe160814af6ce3ba0f09834523a08
+010397,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/010397/vasoactive-intestinal-polypeptide-vip-plasma,2026-11-26,22f9799a5ccea5084ccf95cee25be1607e4fe160814af6ce3ba0f09834523a08
+010397,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/010397/vasoactive-intestinal-polypeptide-vip-plasma,2026-11-26,22f9799a5ccea5084ccf95cee25be1607e4fe160814af6ce3ba0f09834523a08
+010405,preferredVolume,1,1,Match,https://www.labcorp.com/tests/010405/myoglobin,2026-11-26,5c4088faa675c46b47bb1d583c1d4573613279e1d2d7c51291cc10b7d733cbce
+010405,minimumVolume,0.7,0.7,Match,https://www.labcorp.com/tests/010405/myoglobin,2026-11-26,5c4088faa675c46b47bb1d583c1d4573613279e1d2d7c51291cc10b7d733cbce
+010405,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/010405/myoglobin,2026-11-26,5c4088faa675c46b47bb1d583c1d4573613279e1d2d7c51291cc10b7d733cbce
+010413,preferredVolume,2,2,Match,https://www.labcorp.com/tests/010413/intrinsic-factor-blocking-antibodies,2026-11-26,63ad986c6efa2d82cb4c4c3a436144f638a70faddc6d0e152faaa31fd590287e
+010413,minimumVolume,1,1,Match,https://www.labcorp.com/tests/010413/intrinsic-factor-blocking-antibodies,2026-11-26,63ad986c6efa2d82cb4c4c3a436144f638a70faddc6d0e152faaa31fd590287e
+010413,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/010413/intrinsic-factor-blocking-antibodies,2026-11-26,63ad986c6efa2d82cb4c4c3a436144f638a70faddc6d0e152faaa31fd590287e
+010447,preferredVolume,2,2,Match,https://www.labcorp.com/tests/010447/antidiuretic-hormone-adh-plasma,2026-11-26,d0adb876d39da1ffcf865f98b7b397294302e8f7d7ac45b0378e2caba01fb8be
+010447,transportTemperature,Frozen,Frozen,Match,https://www.labcorp.com/tests/010447/antidiuretic-hormone-adh-plasma,2026-11-26,d0adb876d39da1ffcf865f98b7b397294302e8f7d7ac45b0378e2caba01fb8be
+010505,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/010505/copeptin,2026-11-26,816a23e40359129d779e5f079e55f46e59011090faec2aa61cae11202731da6f
+010505,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/010505/copeptin,2026-11-26,816a23e40359129d779e5f079e55f46e59011090faec2aa61cae11202731da6f
+010540,preferredVolume,0.5,0.5,Match,https://www.labcorp.com/tests/010540/insulin-like-growth-factor-1-igf-1-with-z-score,2026-11-26,6ed0e1173e2217280c29debfbbeea589e05a275563e3134aac5841950ccc92af
+010540,minimumVolume,0.3,0.3,Match,https://www.labcorp.com/tests/010540/insulin-like-growth-factor-1-igf-1-with-z-score,2026-11-26,6ed0e1173e2217280c29debfbbeea589e05a275563e3134aac5841950ccc92af
+010540,transportTemperature,Refrigerated,Refrigerated,Match,https://www.labcorp.com/tests/010540/insulin-like-growth-factor-1-igf-1-with-z-score,2026-11-26,6ed0e1173e2217280c29debfbbeea589e05a275563e3134aac5841950ccc92af
+010801,preferredVolume,3,3,Match,https://www.labcorp.com/tests/010801/a-fetoprotein-afp-maternal-serum-for-open-spina-bifida,2026-11-26,80901156305f51b01664c1769017b222b9deea1cd7bf23cd8b988441217195d8
+010801,minimumVolume,0.5,0.5,Match,https://www.labcorp.com/tests/010801/a-fetoprotein-afp-maternal-serum-for-open-spina-bifida,2026-11-26,80901156305f51b01664c1769017b222b9deea1cd7bf23cd8b988441217195d8
+010801,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/010801/a-fetoprotein-afp-maternal-serum-for-open-spina-bifida,2026-11-26,80901156305f51b01664c1769017b222b9deea1cd7bf23cd8b988441217195d8
+010991,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/010991/ph-stool,2026-11-26,f6c3bc52e18100d30a0d39254e9f8cb01febb088f550dba0b5367f36c8b0c9a4
+011254,minimumVolume,1,1,Match,https://www.labcorp.com/tests/011254/ph-body-fluid,2026-11-26,3b46a9c750e59f506da76d6db17268d16330d30777dacb95fceda4861b8b21d2
+011254,transportTemperature,Room Temperature,Room Temperature,Match,https://www.labcorp.com/tests/011254/ph-body-fluid,2026-11-26,3b46a9c750e59f506da76d6db17268d16330d30777dacb95fceda4861b8b21d2

@@ -14,8 +14,8 @@ const codes=new Set(index.map(x=>String(x[0])));
 const eq=(code,labCode)=>assert.equal(byCode.get(code)?.[3],labCode);
 test('complete source crosswalk, one uncoded directory reference and deduplicated workbook rows',()=>{
  const indexed=JSON.parse(fs.readFileSync('assets/search/quest-tests.json','utf8')).tests;
- assert.equal(rows.filter(x=>x[7]==='active').length,indexed.length);
- assert.equal(new Set(rows.filter(x=>x[7]==='active').map(x=>x[0])).size,indexed.length);
+ assert.equal(rows.filter(x=>['active','hold','discontinued'].includes(x[7])).length,indexed.length);
+ assert.equal(new Set(rows.filter(x=>['active','hold','discontinued'].includes(x[7])).map(x=>x[0])).size,indexed.length);
  assert.equal(rows.filter(x=>x[7]==='legacy').length,8);
  assert.equal(rows.filter(x=>x[0]==='XXX').length,16);
 });

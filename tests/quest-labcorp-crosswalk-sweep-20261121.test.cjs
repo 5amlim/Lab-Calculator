@@ -9,8 +9,8 @@ const rows=Array.from(ctx.window.QUEST_TO_LABCORP_INDEX);
 const byCode=new Map(rows.map(r=>[r[0],r]));
 test('crosswalk sweep preserves unique source records and recognizes uncoded Quest placeholder',()=>{
  const indexed=JSON.parse(fs.readFileSync('assets/search/quest-tests.json','utf8')).tests;
- assert.equal(rows.filter(r=>r[7]==='active').length,indexed.length);
- assert.equal(new Set(rows.filter(r=>r[7]==='active').map(r=>r[0])).size,indexed.length);
+ assert.equal(rows.filter(r=>['active','hold','discontinued'].includes(r[7])).length,indexed.length);
+ assert.equal(new Set(rows.filter(r=>['active','hold','discontinued'].includes(r[7])).map(r=>r[0])).size,indexed.length);
  assert.equal(rows.filter(r=>r[7]==='legacy').length,8);
  assert.equal(rows.filter(r=>r[0]==='XXX').length,1);
  assert.equal(byCode.size,rows.length);

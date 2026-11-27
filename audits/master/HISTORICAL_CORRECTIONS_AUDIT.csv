@@ -1,0 +1,16 @@
+lab,code_or_scope,history,evidence,disposition
+Quest,8477 and 1430,5e036f0 and 18a58c0,Quest gray plasma bundle and official exact-code directory,Additive-free vial alternative retained
+Quest,8280,a80f268,Exact-code directory and normalizer,Preserved UA fill-line alternative retained
+Quest,229,03f232b,Exact-code directory and clinician-facing acceptance note,Verify local cup acceptance
+Quest,10676,149dd14 and cab41ae and dac457c,Quest cytology manual and urine-only exception,Maintained with wording correction
+Shared,Timed draw isolation,1141b06 and 31f6912,Existing timed specimen tests,Retained
+Labcorp,Dedicated and component-level volume overrides,179d712 and cb46c81,Volume policy and source-tube tests,Retained
+Labcorp,Whole blood and SST thresholds,c02541f,Volume policy and new boundary tests,Retained
+Shared,Salivette and microtainer badges,f860e10 and 14d8b4e,Container reference and print regressions,Retained
+Shared,Other historical overrides,Additional history pending,Git history and catalog bundles,Not yet inventoried individually
+Quest,18634,Follow-up to October source bundle,https://testdirectory.questdiagnostics.com/test/test-detail/18634/cognitive-assessment-panel-with-reflex-to-t4-free?cc=MASTER,Corrected explicit aliquot counts and maintained separate EDTA
+Quest,18216,Follow-up to November review bundle,https://testdirectory.questdiagnostics.com/test/test-detail/18216/multiple-sclerosis-ms-differential-evaluation-with-reflexes?cc=MASTER&p=r,Nine source tubes verified. Three-vial calculator estimate clarified
+Quest,39749,"Vendor discontinuation effective June 15, 2026",https://intellitestmanager.questdiagnostics.com/home/output/300102,Held from collection and automated conversion
+Quest,8477,User-confirmed November 26 stock label,tests/quest-gray-plasma-plan-integration-20261114.test.cjs,Exact Transport Tube label with dedicated plasma route retained
+Quest,16983,User-confirmed two-vial default,tests/master-database-audit.test.cjs,Five source draws and two 5 mL frozen pour-off tubes retained
+Shared,Custom rule registry,November 26 custom-only review,tests/custom-rule-preservation.test.cjs,Expanded rule coverage and current flag reconciliation

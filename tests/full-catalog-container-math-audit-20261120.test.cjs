@@ -2,13 +2,21 @@
 // Full live-catalog audit for actual source counts, transfer counts, volume
 // parsing and the relationship between physical submissions and bag cards.
 // Use the exact same HTML loader order as the production calculators.
-const {test}=require('node:test');
+const {test,after}=require('node:test');
+const containerTracker=require('../scripts/container-audit-tracker.cjs');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
 const vm=require('node:vm');
 const root=path.resolve(__dirname,'..');
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
+const tracked=[];
+const observedLabs=[];
+const evidence=containerTracker.loadEvidence(root);
+after(()=>{
+  const out=process.env.CONTAINER_AUDIT_OUT||(process.env.RUNNER_TEMP?path.join(process.env.RUNNER_TEMP,'catalog-health'):path.join(root,'audits','container-generated'));
+  containerTracker.writeReports(out,tracked,{complete:observedLabs.length===2,observedLabs});
+});
 
 async function load(page,app,lab){
   const files=[...read(page).matchAll(/<script\b[^>]*\bsrc="([^"]+)"[^>]*>/gi)]
@@ -40,7 +48,7 @@ async function load(page,app,lab){
     'normalizeRecord,expandedCollectionTests,buildTransportBagPlan,buildCollectionPlan,'+
     'buildSubmissionContents,splitSubmissionContainers,isOriginalContainerSubmission,'+
     'canonicalCollectionContainer,urineCollectionType,groupSubmissionContainersForPrint,'+
-    'parseVolumeMl,parseSimpleMl};'),
+    'parseVolumeMl,parseSimpleMl,finalTransportContainer};'),
     context,{filename:app,timeout:30000});
   await Promise.resolve(); await Promise.resolve();
   assert(sandbox.__fullMathAudit,lab+' full audit API was not initialized');
@@ -64,7 +72,15 @@ for(const [lab,page,app] of [
 ]){
   test(lab+': complete active catalog quantity and physical-bag audit',{timeout:180000},async()=>{
     const api=await load(page,app,lab);
-    const active=api.database.filter(row=>row.status==='active');
+    const active=api.database.filter(row=>row.status==='active' && !row.collectionReview);
+    for (const row of api.database.filter(test => test.status==='active' && test.collectionReview)) {
+      const expanded=api.expandedCollectionTests([row]);
+      const bags=api.buildTransportBagPlan(expanded);
+      const physicalCollection=api.buildCollectionPlan(expanded,bags);
+      const physicalSubmission=bags.flatMap(bag=>api.buildSubmissionContents(bag));
+      tracked.push(containerTracker.assess({lab,row,api,expanded,bags,physicalCollection,physicalSubmission,printedTotal:bags.reduce((sum,bag)=>sum+total(api.groupSubmissionContainersForPrint(api.buildSubmissionContents(bag))),0),...evidence}));
+      assert.equal(expanded.length, row.testCode === 'XXX' ? 0 : 1+(row.additionalDrawRequirements||[]).length, row.testCode);
+    }
     const buckets={};
     const flags={sourceCount:[],submissionCount:[],nonsensicalSource:[],nonsensicalSubmit:[],
       printMismatch:[],unaccounted:[],sourceToBagRatio:[],zeroShipment:[],negativeOrNaN:[],timeout:[]};
@@ -113,6 +129,7 @@ for(const [lab,page,app] of [
         // Group *per bag*, preserving priority and temperature separation.
         const grouped=bags.flatMap(bag=>api.groupSubmissionContainersForPrint(api.buildSubmissionContents(bag)));
         const printedTotal=total(grouped);
+        tracked.push(containerTracker.assess({lab,row,api,expanded:tests,bags,physicalCollection,physicalSubmission,printedTotal,...evidence}));
         if(printedTotal!==submitTotal)flags.printMismatch.push([code,cat,sourceTotal,submitTotal,printedTotal,printed]);
         if(!Number.isFinite(sourceTotal)||!Number.isFinite(submitTotal)||sourceTotal>250||submitTotal>250)
           flags.negativeOrNaN.push([code,cat,sourceTotal,submitTotal,draw,dest]);
@@ -122,9 +139,15 @@ for(const [lab,page,app] of [
           examples[cat]={code,sourceTotal,submitTotal,draw,dest};
         }
       } catch(e){
+        if(!tracked.some(r=>r.lab===lab&&r.id===String(row.id)))tracked.push(containerTracker.assess({lab,row,error:e,...evidence}));
         flags.timeout.push([code,cat,String(e.message||e).slice(0,160)]);
       }
     }
+    const expected=api.database.filter(row=>row.status==='active').length;
+    const observed=tracked.filter(row=>row.lab===lab);
+    assert.equal(observed.length,expected,lab+' container tracker must account for every active record');
+    assert.equal(new Set(observed.map(r=>r.id)).size,expected,lab+' container tracker duplicate record ID');
+    observedLabs.push(lab);
     // Cross-test carts: collection pooling, original submission and bag
     // allocation must remain coherent when unlike matrices are ordered together.
     const specimenPools=new Map();
@@ -197,3 +220,21 @@ for(const [lab,page,app] of [
     assert.equal(flags.timeout.length,0,'Calculator throws for live active specimen orders');
   });
 }
+
+test('saved Quest SoCal Common Labs Gold SST cart preserves published collection and bag totals', async () => {
+  const api = await load('index.html', 'assets/js/app.js', 'quest');
+  // Exact test-code sequence from the November 26, 2026 specimen collection PDF.
+  const codes = '7600 6399 10231 899 457 17306 927 496 395 249 4420 809 91431 8472 498 4418 3020 11173 5704 5081 16796 8625 39441 7655 10255 16492 16506 70051 90801 4914 8659 763 461 7079 1304 926 19897 16846 14693 5616 91716 718 905 482 593 285 793 5463 623 6354 326 5507 467 372 31789 8340 10124 561 91604 91729 94218 5224 8847 34429 866 867 859 7260 861 90963 746 5363 15983 10233 921 10198 10189 6775'.split(' ');
+  const tests = codes.map(code => {
+    const row = api.database.find(test => test.testCode === code && test.status === 'active');
+    assert.ok(row, code);
+    return row;
+  });
+  assert.equal(new Set(tests).size, 78);
+  const expanded = api.expandedCollectionTests(tests);
+  const bags = api.buildTransportBagPlan(expanded);
+  assert.equal(total(api.buildCollectionPlan(expanded, bags)), 46);
+  assert.equal(bags.length, 3);
+  const counts = Object.fromEntries(bags.map(bag => [bag.key, total(api.buildSubmissionContents(bag))]));
+  assert.deepEqual(counts, {'routine-room': 38, 'routine-refrigerated': 9, 'routine-frozen': 5});
+});

@@ -46,7 +46,11 @@ test('For all ten verified gray-top glucose assays, planner outputs the correct 
     assert.equal(p.submissionCount,count,'submit count '+code);
     assert.equal(p.submits.length,count,'one distinct vial per timed draw '+code);
     assert.ok(p.sources.every(x=>x.spin==='Yes'),'every timepoint must spin '+code);
-    assert.ok(p.submits.every(x=>x.label==='Plastic Plasma Transport Vial (Additive-Free)'),'correct additiveless vial '+code);
+    const stockLabel=code==='8477'?'Transport Tube':'Plastic Plasma Transport Vial (Additive-Free)';
+    assert.ok(p.submits.every(x=>x.label===stockLabel),'correct stock label '+code);
+    assert.ok(p.submits.every(x=>x.className==='tube-transport tube-transport-green-top'),'correct vial badge '+code);
+    assert.ok(p.submits.every(x=>/additive-free vial/i.test(x.detail)),'preserve additive-free handling '+code);
+    assert.ok(p.submits.every(x=>/^gray-oxalate-separated-plasma\|/.test(x.key)),'dedicated plasma route '+code);
     assert.equal(new Set(p.submits.map(x=>x.key)).size,count,'no vial sharing '+code);
   }
 });

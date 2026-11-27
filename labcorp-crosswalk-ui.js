@@ -36,18 +36,19 @@
       const labCode=String(r[3]||'');
       if(labCode){
         if(!byCode.has(labCode))byCode.set(labCode,[]);
-        byCode.get(labCode).push({code:r[0],name:r[1],source:sourceType(r),status:'suggested'});
+        byCode.get(labCode).push({code:r[0],name:r[1],source:sourceType(r),status:'suggested',basis:r[6]});
       } else if(Array.isArray(r[8])){
         for(const review of r[8]){
           const code=String(review[0]);
           if(!byCode.has(code))byCode.set(code,[]);
-          byCode.get(code).push({code:r[0],name:r[1],source:sourceType(r),status:'review'});
+          byCode.get(code).push({code:r[0],name:r[1],source:sourceType(r),status:'review',basis:r[6]});
         }
       }
     }
+    const reviewCodes=new Set(index.collectionReviewCodes);
     return index.tests.map(l=>{
       const matches=byCode.get(String(l[0]))||[];
-      return {code:String(l[0]),name:String(l[1]),specimen:String(l[2]||''),matches,
+      return {code:String(l[0]),name:String(l[1]),specimen:String(l[2]||''),matches,collectionReview:reviewCodes.has(String(l[0])),
         status:matches.some(x=>x.status==='suggested')?'suggested':matches.length?'review':'pending'};
     }).sort((a,b)=>a.name.localeCompare(b.name)||a.code.localeCompare(b.code));
   }
@@ -79,7 +80,7 @@
   function renderQuest(r){
     const [qc,qn,qs,lc,ln,blocked,basis]=r;
     const type=sourceType(r);
-    const marker=type==='legacy'?'Legacy Quest reference':type==='uncoded'?'No Quest code supplied':'';
+    const marker=type==='hold'?'Quest collection on hold':type==='discontinued'?'Discontinued Quest order':type==='legacy'?'Legacy Quest reference':type==='uncoded'?'No Quest code supplied':'';
     const basisNote=basis?'<details class="crosswalk-row-note"><summary>Review notes</summary><p>'+escape(basis)+'</p></details>':'';
     let candidate='<span class="crosswalk-state crosswalk-state--none">No match identified</span>';
     if(lc){
@@ -101,8 +102,13 @@
       (marker?'<small class="crosswalk-legacy">'+escape(marker)+'</small>':'')+'</td>'+
       '<td><strong class="crosswalk-test-name">'+escape(qn)+'</strong>'+
       '<small class="crosswalk-specimen">Specimen · '+escape(qs||'Unknown')+'</small>'+
-      (blocked?'<small class="crosswalk-protected">Original do-not-perform reference</small>':'')+'</td>'+
+      (blocked&&type!=='discontinued'&&type!=='hold'?'<small class="crosswalk-protected">Original do-not-perform reference</small>':'')+'</td>'+
       '<td class="crosswalk-match-cell">'+candidate+basisNote+'</td><td>'+action+'</td></tr>';
+  }
+  function reverseReviewNote(match){
+    if(!match.basis)return '';
+    return '<details class="crosswalk-row-note"><summary>Review notes · '+escape(match.code)+
+      '</summary><p>'+escape(match.basis)+'</p></details>';
   }
   function renderLabcorp(r){
     const matches=r.matches.filter(x=>x.status==='suggested');
@@ -111,19 +117,21 @@
     if(matches.length){
       content=matches.slice(0,5).map(x=>
           '<strong class="crosswalk-match-name">'+escape(x.code)+' · '+escape(x.name)+'</strong>'+
-          (x.source==='active'?'':'<small class="crosswalk-legacy">Legacy or uncoded reference, verify validity</small>')
+          (x.source==='active'?'':'<small class="crosswalk-legacy">Legacy or uncoded reference, verify validity</small>')+reverseReviewNote(x)
         ).join('')+
         '<span class="crosswalk-state crosswalk-state--possible">Possible match</span>'+
         '<small class="crosswalk-match-caption">Verify clinical equivalence</small>'+
         (matches.length>5?'<small>+'+(matches.length-5)+' additional Quest references in CSV</small>':'');
-    }else if(reviews.length){
-      content='<span class="crosswalk-state crosswalk-state--review">Review related tests</span>'+
+    }
+    if(reviews.length){
+      content=(matches.length?content:'')+'<span class="crosswalk-state crosswalk-state--review">Review related tests</span>'+
         '<div class="crosswalk-related-list">'+reviews.slice(0,4).map(x=>
-          '<span>'+escape(x.code)+' · '+escape(x.name)+'</span>').join('')+
+          '<span>'+escape(x.code)+' · '+escape(x.name)+'</span>'+reverseReviewNote(x)).join('')+
           (reviews.length>4?'<small>+'+(reviews.length-4)+' additional references in CSV</small>':'')+'</div>';
     }
     return '<tr><td><strong class="crosswalk-test-code">'+escape(r.code)+'</strong></td>'+
       '<td><strong class="crosswalk-test-name">'+escape(r.name)+'</strong>'+
+      (r.collectionReview?'<small class="crosswalk-legacy">Collection review required</small>':'')+
       '<small class="crosswalk-specimen">Specimen · '+escape(r.specimen||'Unknown')+'</small></td>'+
       '<td class="crosswalk-match-cell">'+content+'</td>'+
       '<td><div class="crosswalk-row-links">'+
@@ -164,7 +172,7 @@
     more.hidden=pending||matched.length<=visible;
     if(!more.hidden)more.textContent='Show '+Math.min(PAGE_SIZE,matched.length-visible)+' more tests';
     if(tableWrap)requestAnimationFrame(sizeCrosswalkViewport);
-    const questActive=rows.filter(r=>sourceType(r)==='active');
+    const questActive=rows.filter(r=>['active','hold','discontinued'].includes(sourceType(r)) && (sourceType(r)==='active' || /^\d+$/.test(r[0])));
     const activeMatches=questActive.filter(r=>Boolean(r[3])).length;
     // Count active Quest-to-LabCorp candidate relationships, not unique
     // destination codes. Both calculators show the same number of pairs.
@@ -1581,7 +1589,7 @@
     .then(index=>{
       // Reapply workbook pairs using the full LabCorp active index. SEED_TESTS
       // may belong to Quest (or be incomplete) when the override script loads.
-      window.applyQuestLabcorpWorkbookMatches?.(index.tests);
+      window.applyQuestLabcorpWorkbookMatches?.(index.tests,index.collectionReviewCodes);
       reverse=buildReverse(index);
       loadError=false;
       render();

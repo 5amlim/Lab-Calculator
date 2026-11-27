@@ -1,0 +1,3 @@
+## Clinical field coverage
+
+`node scripts/audit-calculator-database.mjs --out <directory> --check` now generates `CLINICAL_FIELD_COVERAGE.json` and `CLINICAL_FIELD_REVIEW_QUEUE.csv`. Both are included in the existing CI artifact. Denominator: all active normalized records, including held orders. Coverage means at least one field in a category has evidence in the ledger, not that the value matches or all applicable routes have been reviewed. A missing field remains pending even if another field on the same order is reviewed. Source access failures are separate. No change to runtime or pooling. Use the queue to prioritize exact-code comparisons and retain all custom rules. Regional and multi-route requirements are not inferred from national data.

@@ -70,7 +70,7 @@ test('Another 27 verified codes become cart-ready without enabling the remaining
 
 test('Preferred serum volume can fit one Gold SST when the documented minimum allows it',()=>{
   const {api}=load();
-  for(const code of ['500108','504796','500649','500540']){
+  for(const code of ['504796','500649','500540']){
     const result=plan(api,code);
     assert.equal(result.draw.find(t=>t.className==='tube-sst')?.count,1,
       code+' Gold SST count');

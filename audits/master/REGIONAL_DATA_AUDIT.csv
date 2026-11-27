@@ -1,0 +1,7 @@
+lab,code,scope,field,observed,source,accessDate
+quest,467,East,test setup,"Monday to Saturday, all shifts; report available 1 day.",https://testdirectory.questdiagnostics.com/test/test-detail/467/folate-rbc?cc=PHP&p=r&q=467,2026-11-25
+quest,8477,MASTER,availability,MASTER entry flags San Juan Capistrano Nichols Institute. Verify exact service-area orderability.,https://testdirectory.questdiagnostics.com/test/test-detail/8477/?cc=MASTER,2026-11-25
+labcorp,005215,Public directory,turnaround time,Within one day from pickup. No region-specific schedule established.,https://www.labcorp.com/tests/005215/erythrocyte-sedimentation-rate-whe,2026-11-25
+shared,,CA/NV/NY/FL,regional full coverage,Pending exact service-area and performing-site evidence.,,
+labcorp,505770,NY,component availability,The Labcorp panel page states Anti-C1q IgG is unavailable in New York; verify current panel orderability before collection.,https://www.labcorp.com/tests/505770/lupus-monitor-profile,2026-11-26
+quest,16983,NY,patient-state restriction,Quest specifies 16984 for New York patient testing. The order still requires local receiving-lab confirmation.,https://testdirectory.questdiagnostics.com/test/test-detail/16983/?cc=MASTER,2026-11-26

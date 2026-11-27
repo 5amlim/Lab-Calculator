@@ -8281,7 +8281,7 @@
     "spin": "Yes",
     "specialInstructions": "Fill the lavender EDTA tube. Within 40 minutes, centrifuge above 1,500 × g for 10 minutes. Transfer EDTA plasma to a Labcorp polypropylene screw-cap transport tube and seal. Ship on dry ice. Before packing, hold up to 24 hours below −10 °C or up to 10 hours refrigerated.",
     "specialLabeling": "Label EDTA PLASMA",
-    "stability": "Refrigerated: 10 hours. Frozen at −10 °C: 24 hours. Frozen below −60 °C: 100 days.",
+    "stability": "Room temperature: 4 hours. Refrigerated: 10 hours. Frozen at −10 °C: 24 hours. Frozen below −60 °C: 100 days. Stable through one freeze/thaw cycle.",
     "clinicalCategories": [
       "neurology"
     ],

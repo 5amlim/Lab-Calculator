@@ -154,7 +154,7 @@ for(const profile of profiles){
     specimenType:"Plasma",
     drawContainer:"Gray Top (Sodium Fluoride/Potassium Oxalate)",
     alternativeContainer:"Quest-preferred gray-top submission after appropriate separation; alternate plasma from gray tube in additive-free plastic screw-cap vial (selected workflow). Other alternative specimen types require their own verified collection pathway.",
-    transportContainer:"Plastic Screw-Cap Plasma Vial (No Additive; Fluoride/Oxalate Plasma)",
+    transportContainer:code==="8477" ? "Transport Tube" : "Plastic Screw-Cap Plasma Vial (No Additive; Fluoride/Oxalate Plasma)",
     preferredVolume:"1 mL fluoride/oxalate plasma per timepoint",
     minimumVolume:"0.5 mL fluoride/oxalate plasma per timepoint",
     transportTemperature:"Room Temperature",

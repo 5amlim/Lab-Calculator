@@ -14,7 +14,7 @@ const additions=[
   "drawContainer": "Sterile cup",
   "alternativeContainer": "",
   "transportContainer": "Sterile cup",
-  "preferredVolume": "Confirm urine volume with receiving Quest laboratory",
+  "preferredVolume": "Confirm urine volume with the receiving laboratory",
   "minimumVolume": "Not specified for urine",
   "collectionCount": 1,
   "submissionCount": 1,

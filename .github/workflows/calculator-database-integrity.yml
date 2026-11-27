@@ -1,0 +1,58 @@
+name: Calculator database integrity
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Catalog and clinical data checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Snapshot base catalog
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_COMMIT: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git worktree add --detach "$RUNNER_TEMP/calculator-base" "$BASE_COMMIT"
+          node scripts/audit-calculator-database.mjs --root "$RUNNER_TEMP/calculator-base" --out "$RUNNER_TEMP/catalog-baseline"
+      - name: Snapshot protected calculator checkpoint
+        env:
+          PROTECTED_REVISION: 1ef5d140f9f6febbc81f6b3824d42dd3d91ec9b3
+        run: |
+          git worktree add --detach "$RUNNER_TEMP/calculator-protected" "$PROTECTED_REVISION"
+          node scripts/audit-calculator-database.mjs --root "$RUNNER_TEMP/calculator-protected" --out "$RUNNER_TEMP/catalog-protected"
+      - name: Validate catalog and write health report
+        shell: bash
+        run: |
+          args=(--protected-baseline "$RUNNER_TEMP/catalog-protected/DATABASE_SNAPSHOT.json")
+          if [ -f "$RUNNER_TEMP/catalog-baseline/DATABASE_SNAPSHOT.json" ]; then
+            node scripts/audit-calculator-database.mjs "${args[@]}" --out "$RUNNER_TEMP/catalog-health" --baseline "$RUNNER_TEMP/catalog-baseline/DATABASE_SNAPSHOT.json" --check
+          else
+            node scripts/audit-calculator-database.mjs "${args[@]}" --out "$RUNNER_TEMP/catalog-health" --check
+          fi
+      - name: Run complete calculator test suite
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/catalog-health"
+          node --test --test-reporter=tap tests/*.test.cjs | tee "$RUNNER_TEMP/catalog-health/tests.tap"
+      - name: Bulk Labcorp client catalog screening
+        if: always()
+        run: |
+          python3 scripts/test-audit-labcorp-bulk-client.py
+          python3 scripts/audit-labcorp-bulk-client.py --routes "$RUNNER_TEMP/catalog-health/SPECIMEN_CONTAINER_ROUTES.csv" --out "$RUNNER_TEMP/catalog-health"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: calculator-database-health
+          path: ${{ runner.temp }}/catalog-health

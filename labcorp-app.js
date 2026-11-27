@@ -3,6 +3,77 @@
 
   // 2026-11-21: hard exclusions from the previously directory-only Labcorp 273.
   // Unknown availability, unverified kits, and uncertain transport protocols remain directory-only.
+  // Labcorp Diagnostics Update, November 2026, Deleted Tests.
+  const NOVEMBER_2026_LABCORP_DELETIONS = Object.freeze({
+    "004705": "004774",
+    "500152": "004774",
+    "004100": "004389",
+    "140768": "004389",
+    "231819": "",
+    "231821": "",
+    "231822": "",
+    "231823": "",
+    "231824": "",
+    "231825": "",
+    "231826": "",
+    "144691": "",
+    "146315": "",
+    "146316": "",
+    "146317": "",
+    "146318": "",
+    "146319": "",
+    "146321": "",
+    "500161": "005165",
+    "500108": "004575",
+    "140244": "004575",
+    "500124": "160117",
+    "070085": "005134",
+    "070037": "",
+    "070078": "",
+    "070083": "",
+    "070090": "",
+    "070120": "",
+    "070132": "",
+    "070145": "",
+    "252773": "899337",
+    "252777": "899337",
+    "252780": "899337",
+    "252784": "899337",
+    "252794": "899337",
+    "500167": "005148"
+  });
+  const NOVEMBER_2026_LABCORP_NOTICE = 'https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf';
+
+  const MAY_2026_LABCORP_DELETIONS = Object.freeze({
+    '160721': '', '117199': '117330', '096719': '008482', '016824': '',
+    '164000': '', '470115': '', '470074': ''
+  });
+  const MAY_2026_LABCORP_NOTICE = 'https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW5%20-%20Diagnostics%20Update%20May%202026.pdf';
+
+  const ARCHIVED_2026_LABCORP_NOTICES = Object.freeze({
+    April: 'https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW4%20-%20Diagnostics%20Update%20April%202026.pdf',
+    July: 'https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW7%20-%20Diagnostics%20Update%20July%202026.pdf',
+    August: 'https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW8%20-%20Diagnostics%20Update%20August%202026.pdf',
+    September: 'https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW9%20-%20Diagnostics%20Update%20September%202026.pdf',
+    October: 'https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW10%20-%20Diagnostics%20Update%20October%202026.pdf',
+  });
+  const ARCHIVED_2026_LABCORP_DELETIONS = Object.freeze({
+    '123027': ['October', ''],
+    '620046': ['September', ''],
+    '489200': ['September', '489477'],
+    '481020': ['September', '489477'],
+    '620009': ['September', ''],
+    '483496': ['September', '898017'],
+    '602666': ['August', ''],
+    '165750': ['July', ''],
+    '500309': ['April', ''],
+  });
+
+  // These were active at the audit baseline. Keep their vendor warnings visible in search.
+  const ACTIVE_DELETION_REVIEW_CODES = new Set(
+    '004100 004705 070037 070078 070083 070085 070090 070120 070132 070145 123027 140244 144691 '.concat(
+      '146316 164000 165750 481020 489200 500108 500124 500152 500161 500167 500309 602666 620009 620046').split(' '));
+
   const REVIEWED_DNP_GROUPS_20261121 = [
     { reason: "Requires acid-preserved urine, which the clinic does not collect.", codes: "007351" },
     { reason: "Requires a prepared blood film. The clinic does not prepare slides or smears.", codes: "150201" },
@@ -308,7 +379,8 @@
     }
     window.parent.postMessage({
       type:'labcentral:published-tests', lab:'labcorp', schema:1,
-      tests:Array.from(byCode.values())
+      tests:Array.from(byCode.values()),
+      collectionReviewCodes: published.filter(test => test.status === 'active' && test.collectionReview).map(test => test.testCode)
     },window.location.origin);
     return;
   }
@@ -662,7 +734,52 @@
   }
 
 
+  function applyCollectionReview(test, message, source, retainActive = true) {
+    if (retainActive && test.status === 'active') return { ...test, collectionReview: message, source };
+    return { ...test, status: 'blocked', specialInstructions: message, source };
+  }
+
   function applySpecimenExclusions(test) {
+    const code = String(test.testCode || '').trim();
+    const november = Object.hasOwn(NOVEMBER_2026_LABCORP_DELETIONS, code);
+    const may = Object.hasOwn(MAY_2026_LABCORP_DELETIONS, code);
+    const archived = Object.hasOwn(ARCHIVED_2026_LABCORP_DELETIONS, code) ? ARCHIVED_2026_LABCORP_DELETIONS[code] : null;
+    if (november || may || archived) {
+      const [month, alternate, source] = november ? ['November', NOVEMBER_2026_LABCORP_DELETIONS[code], NOVEMBER_2026_LABCORP_NOTICE]
+        : may ? ['May', MAY_2026_LABCORP_DELETIONS[code], MAY_2026_LABCORP_NOTICE]
+        : [archived[0], archived[1], ARCHIVED_2026_LABCORP_NOTICES[archived[0]]];
+      return applyCollectionReview(test,
+        'Labcorp listed this order as deleted in its ' + month + ' 2026 notice. Do not collect for this code. '
+          + (alternate ? 'Labcorp lists ' + alternate + ' as an alternative. Confirm the requested test and collection requirements before changing the order.'
+            : 'Contact Labcorp to confirm testing options.')
+          + (archived && REVIEWED_DNP_20261121.has(code) ? ' ' + REVIEWED_DNP_20261121.get(code) : ''), source,
+        ACTIVE_DELETION_REVIEW_CODES.has(code));
+    }
+    // The clinic does not stock acid-preserved urine collection systems. Retain the exact orders for lookup, but do not generate an unsupported collection plan.
+    if (code === '003269') return applyCollectionReview(test, "Collection on hold. The published route uses acid-preserved 24-hour urine, which is outside the clinic collection workflow. Confirm an approved non-acid collection option with the receiving laboratory before collection.", "https://www.labcorp.com/tests/003269/calcium-urine");
+    if (code === '003970') return applyCollectionReview(test, "Collection on hold. The current route uses acid-preserved urine. Labcorp describes post-receipt acidification for unpreserved specimens; confirm an approved acid-free clinic collection and transport route with the receiving laboratory.", "https://www.labcorp.com/tests/003970/oxalate-quantitative-24-hour-urine");
+    if (code === '004176') return applyCollectionReview(test, "Collection on hold. Labcorp specifies acid-preserved 24-hour urine, which is outside the clinic collection workflow. Confirm an approved alternative and clarify the published aliquot volume with the receiving laboratory.", "https://www.labcorp.com/tests/004176/catecholamines-fractionated-urinary-free-24-hour-urine");
+    if (code === '016865') return applyCollectionReview(test, "Collection on hold. The current route uses acid-preserved urine. Labcorp permits a frozen, unpreserved alternative; confirm the collection container, freezing and shipment requirements with the receiving laboratory before switching routes.", "https://www.labcorp.com/tests/016865/citric-acid-citrate-24-hour-urine");
+    if (code === '316203') return applyCollectionReview(test, "Collection on hold. Labcorp specifies acid-preserved urine transport or its designated pH-stabilized Monovette, which contains corrosive preservative. Confirm an approved clinic workflow and available device with the receiving laboratory.", "https://www.labcorp.com/tests/316203/catecholamines-fractionated-urinary-free-random-urine");
+    if (code === '700841') {
+      return applyCollectionReview(test,
+        "Collection on hold. MedTox specifies refrigerated short-term shipment for this code, while an account-specific Labcorp directory specifies room temperature. Confirm the accepted shipment conditions and transport vial capacity with the receiving Labcorp laboratory before collection.", "https://medtox.labcorp.com/tests/700841/drug-screen-10-with-reflex-confirmation-amp-bar-bzo-coc-pcp-thc-opi-oxy-md-ppx-serum");
+    }
+    if (code === '502690') {
+      return applyCollectionReview(test,
+        'Collection on hold. Confirm the right number and capacity of frozen transport vials and the required aliquot volumes with the receiving Labcorp laboratory.',
+        test.source);
+    }
+    if (code === '164798') {
+      return applyCollectionReview(test,
+        'Collection on hold. The official test page does not specify the shipping temperature. Confirm the accepted shipment conditions with the receiving Labcorp laboratory before collection.', 'https://www.labcorp.com/tests/164798/coccidioides-immitis-antibodies-igg-and-igm-eia');
+    }
+    // The exact specialty order conflicts with the CDOS route in the catalog.
+    // Apply the hold by code so historical browser overrides cannot bypass it.
+    if (String(test.testCode || '').trim() === '501533') {
+      return applyCollectionReview(test,
+        'Collection on hold. Labcorp specialty lists an acid-preserved, frozen specimen for this code, while the client directory lists an unpreserved, refrigerated route. Confirm the accepted route with the receiving lab and contact the Lab Supervisor before collection.', test.source);
+    }
     const reviewedReason = REVIEWED_DNP_20261121.get(String(test.testCode || '').trim());
     if (reviewedReason) return { ...test, status: 'blocked', specialInstructions: reviewedReason };
     const title = normalizeSearch(test.testName);
@@ -685,6 +802,38 @@
     return reason ? { ...test, status: 'blocked', specialInstructions: reason } : test;
   }
 
+  function refreshReviewedLabcorpShipping(base, override) {
+    const previous = {
+      '048462': {},
+      '096001': {},
+      '007989': {
+        temperatureRaw: 'Room temperature for shipment under 3 days; refrigerate for longer storage'
+      },
+      '001487': {
+        stability: 'Room temperature 3 days; refrigerated or frozen 14 days.',
+        instructions: 'Serum only. Avoid hemolysis; if red top, separate serum from cells.'
+      },
+      '001637': {
+        stability: '7 days room temperature',
+        instructions: 'Serum or lithium heparin plasma. For serum, separate from cells after clotting. Green-top lithium heparin plasma must be centrifuged, transferred into labeled plastic transport and identified as lithium heparin plasma.'
+      }
+    }[base.testCode];
+    if (!previous || base.testCode !== override.testCode) return override;
+    const updated = { ...override };
+    // Replace the old bundled room-temperature default on saved records.
+    if (override.transportTemperature === 'Room Temperature' && override.transportTemperatureRaw === (previous.temperatureRaw || 'Room Temperature')) {
+      updated.transportTemperature = base.transportTemperature;
+      updated.transportTemperatureRaw = base.transportTemperatureRaw;
+      if (override.stability === previous.stability) updated.stability = base.stability;
+      if (override.specialInstructions === previous.instructions) updated.specialInstructions = base.specialInstructions;
+    }
+    if (base.fastingStatus === 'required' && override.fastingStatus !== 'required') {
+      updated.fastingStatus = base.fastingStatus;
+      updated.fastingInstructions = base.fastingInstructions;
+    }
+    return updated;
+  }
+
   function applyUserState(state) {
     // Separate LabCorp records and local edits; no Quest code migrations.
     const builtIns = seedDatabase.map(test => applySpecimenExclusions({ ...test }));
@@ -695,7 +844,7 @@
       if (index === undefined) return;
       const base = builtIns[index];
       if (base.status === 'blocked') return;
-      builtIns[index] = override;
+      builtIns[index] = refreshReviewedLabcorpShipping(base, override);
     });
     const blockedByCode = new Map(builtIns.filter(test => test.status === 'blocked' && test.testCode)
       .map(test => [test.testCode, test]));
@@ -703,7 +852,14 @@
       const blocked = blockedByCode.get(test.testCode);
       return blocked ? { ...test, status: 'blocked', specialInstructions: blocked.specialInstructions } : test;
     });
-    return [...customTests, ...builtIns].map(verifiedAffirmRecord).map(blockHairOrNailSpecimen).map(applySpecimenExclusions);
+    return [...customTests, ...builtIns]
+      .map(verifiedAffirmRecord)
+      .map(blockHairOrNailSpecimen)
+      .map(applySpecimenExclusions)
+      .map(test => {
+        const update = window.LabcorpNovember2026Updates?.get(test.testCode);
+        return update && test.status === 'active' ? { ...test, ...update } : test;
+      });
   }
 
   function verifiedAffirmRecord(test) {
@@ -1888,7 +2044,7 @@
     const selected = selectedIds.includes(choice.test.id);
     const rowClass = blocked || pending ? 'unmatched' : needsConfirmation ? 'needs-confirmation' : 'exact-match';
     const exactLabel = autoSafe ? 'Exact match' : 'Confirm test code/name';
-    const status = blocked
+    const status = choice.test.collectionReview ? collectionReviewBadge(choice.test) : blocked
       ? '<span class="batch-match-warning is-blocked">Review collection</span>'
       : pending ? '<span class="batch-match-warning">Verify LabCorp details</span>'
       : autoSafe
@@ -1927,7 +2083,7 @@
               ${isStatEligible(test) ? `<button type="button" data-action="add-batch-option" data-batch-index="${row.index}" data-id="${escapeAttr(test.id)}" data-priority="stat" data-source="match" data-stat-note="Confirm receiving-lab acceptance"><span>+ Add as <b>STAT</b></span></button>` : ''}
             </div>` : ''}
             <div class="batch-choice-test-details" id="batch-choice-details-${row.index}-${matchIndex}" hidden>
-              <div><b>Specimen:</b> ${escapeHtml(test.specimenType || 'Verify in directory')}</div>
+              ${test.collectionReview ? `<div>${escapeHtml(test.collectionReview)}</div>` : `<div><b>Specimen:</b> ${escapeHtml(test.specimenType || 'Verify in directory')}</div>
               <div><b>Collect:</b> ${escapeHtml(test.drawContainer || 'Verify in directory')}</div>
               <div><b>Submit:</b> ${escapeHtml(test.transportContainer || test.drawContainer || 'Verify in directory')}</div>
               <div><b>Temperature:</b> ${escapeHtml(test.transportTemperature || 'Verify in directory')}</div>
@@ -1935,7 +2091,7 @@
               ${test.minimumVolume ? `<div><b>Minimum volume:</b> ${escapeHtml(test.minimumVolume)}</div>` : ''}
               ${test.stability ? `<div><b>Stability:</b> ${escapeHtml(test.stability)}</div>` : ''}
               ${conciseSpecimenLabel(test, { originalTube: isOriginalContainerSubmission(test) }).label ? `<div><b>Label:</b> ${escapeHtml(conciseSpecimenLabel(test, { originalTube: isOriginalContainerSubmission(test) }).label)}</div>` : ''}${conciseSpecimenLabel(test, { originalTube: isOriginalContainerSubmission(test) }).processing.map(note => `<div><b>Processing:</b> ${escapeHtml(note)}</div>`).join('')}
-              ${test.specialInstructions ? `<div><b>Handling:</b> ${escapeHtml(test.specialInstructions)}</div>` : ''}
+              ${test.specialInstructions ? `<div><b>Handling:</b> ${escapeHtml(test.specialInstructions)}</div>` : ''}`}
               <a href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noopener noreferrer">Verify in official directory ↗</a>
             </div>
           </div>`).join('')}
@@ -2833,6 +2989,10 @@
       '<div class="order-of-draw-note">' + escapeHtml(regionNote) + ' Schedules and reflex testing may extend turnaround. Result dates can vary.</div>';
   }
 
+  function collectionReviewBadge(test) {
+    return test.collectionReview ? '<span class="badge temp-unknown">Collection review required</span>' : '';
+  }
+
   function renderLibraryRow(test) {
     const selected = selectedIds.includes(test.id);
     const blocked = test.status === 'blocked';
@@ -2842,10 +3002,10 @@
     const primaryOnlyNote = hasMultipleContainers ? '<div class="library-container-primary-note">First path only</div>' : '';
     return `<tr class="${selected ? 'is-selected' : ''}">
       <td class="code-cell" data-label="Code">${escapeHtml(displayCode(test))}</td>
-      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${window.LabRegionalRestrictions.badge(test, 'labcorp')}${manualLibraryTag(test)}${gestationalWarningBadge(test)}${statSelectedIds.includes(test.id) && isStatEligible(test) ? '<span class="library-stat-eligible selected" title="Manually marked STAT; verify receiving-lab acceptance and courier routing.">STAT selected</span>' : ''}</div><div class="subtext">${escapeHtml(truncate(test.specialInstructions, 95))}</div></td>
-      <td data-label="Container">${menuContainerBadges(test)}${hasMultipleContainers ? '' : '<div class="subtext specimen-line">' + requiredSpecimenBadges(test) + '</div>'}</td>
-      <td data-label="Temperature"><span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span>${primaryOnlyNote}</td>
-      <td data-label="Volume"><span class="preferred-volume-chip">${escapeHtml(menuVolumeText(primaryDisplay, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(menuVolumeText(primaryDisplay, 'minimum') || '—')}</div>${primaryOnlyNote}</td>
+      <td data-label="Test"><div class="test-name">${escapeHtml(test.testName)}${window.LabRegionalRestrictions.badge(test, 'labcorp')}${manualLibraryTag(test)}${collectionReviewBadge(test)}${gestationalWarningBadge(test)}${statSelectedIds.includes(test.id) && isStatEligible(test) ? '<span class="library-stat-eligible selected" title="Manually marked STAT; verify receiving-lab acceptance and courier routing.">STAT selected</span>' : ''}</div><div class="subtext">${escapeHtml(test.collectionReview || truncate(test.specialInstructions, 95))}</div></td>
+      <td data-label="Container">${test.collectionReview ? 'Review required' : `${menuContainerBadges(test)}${hasMultipleContainers ? '' : '<div class="subtext specimen-line">' + requiredSpecimenBadges(test) + '</div>'}`}</td>
+      <td data-label="Temperature">${test.collectionReview ? 'Review required' : `<span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span>${primaryOnlyNote}`}</td>
+      <td data-label="Volume">${test.collectionReview ? 'Review required' : `<span class="preferred-volume-chip">${escapeHtml(menuVolumeText(primaryDisplay, 'preferred') || 'Verify')}</span><div class="subtext">Minimum: ${escapeHtml(menuVolumeText(primaryDisplay, 'minimum') || '—')}</div>${primaryOnlyNote}`}</td>
       <td class="row-actions" data-label="Actions">
         ${blocked ? '<span class="badge temp-unknown">Review collection</span>' : pending ? '<span class="badge temp-unknown">Verification required</span>' : selected
           ? `<button class="mini-button" disabled>✓ Added${statSelectedIds.includes(test.id) ? ' · STAT' : ''}</button>`
@@ -3114,7 +3274,7 @@
     // Only an explicitly verified per-region LabCorp code may be marked STAT.
     // Selecting a region alone is NOT eligibility. An empty list disables STAT.
     const area = STAT_AREAS[statArea];
-    return Boolean(test && test.status === 'active' && area &&
+    return Boolean(test && test.status === 'active' && !test.collectionReview && area &&
       statArea !== 'unselected' &&
       area.codes.some(code => String(code) === String(test.testCode || '').trim()));
   }
@@ -3657,8 +3817,9 @@
     renderTestsOverview(tests);
     renderDrawPlan(collectionTests);
     renderOrderOfDraw(collectionTests);
-    renderTurnaroundTime(tests);
-    renderAlerts(tests);
+    const plannedTests = tests.filter(test => !test.collectionReview);
+    renderTurnaroundTime(plannedTests);
+    renderAlerts(plannedTests);
     if (!tests.length) {
       els.selectedList.className = 'selected-list empty-state';
       els.selectedList.textContent = 'No tests selected.';
@@ -3668,16 +3829,16 @@
     els.selectedList.innerHTML = tests.map(test => `
       <article class="selected-card${test.isStat ? ' is-stat' : ''}">
         <div class="selected-card-top">
-          <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}${manualLibraryTag(test)}</div><div class="subtext specimen-line">${requiredSpecimenBadges(test)} <span>·</span> <span class="preferred-volume-inline">${escapeHtml(combinedVolumeText(test, 'preferred') || 'verify')}</span> <span>· Minimum ${escapeHtml(combinedVolumeText(test, 'minimum') || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}${gestationalWarningBadge(test, 'selected-gestational-warning')}</div>
+          <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}${manualLibraryTag(test)}${collectionReviewBadge(test)}</div>${test.collectionReview ? '' : `<div class="subtext specimen-line">${requiredSpecimenBadges(test)} <span>·</span> <span class="preferred-volume-inline">${escapeHtml(combinedVolumeText(test, 'preferred') || 'verify')}</span> <span>· Minimum ${escapeHtml(combinedVolumeText(test, 'minimum') || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}${gestationalWarningBadge(test, 'selected-gestational-warning')}`}</div>
           <div>${isStatEligible(test) ? `<button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Mark STAT'}</button>` : ''}<a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove selected-card-delete" data-action="remove" data-id="${escapeAttr(test.id)}" type="button" aria-label="Delete ${escapeAttr(test.testName)}">Delete</button></div>
         </div>
-        <div class="selected-details">
+        ${test.collectionReview ? `<div class="selected-note">${escapeHtml(test.collectionReview)}<br>Totals include provisional quantities from this stored record.</div>` : `<div class="selected-details">
           ${requiredDrawContainerBadges(test)}
           <span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span>
           <span class="badge temp-unknown">Spin: ${escapeHtml(test.spin)}</span>
         </div>
         ${additionalRequirementSummary(test)}
-        ${test.specialInstructions ? `<div class="selected-note">${escapeHtml(truncate(test.specialInstructions, 190))}</div>` : ''}
+        ${test.specialInstructions ? `<div class="selected-note">${escapeHtml(truncate(test.specialInstructions, 190))}</div>` : ''}`}
       </article>`).join('');
   }
 
@@ -3702,7 +3863,7 @@
       <div class="tests-overview-row${test.isStat ? ' is-stat' : ''}${!isStatEligible(test) ? ' no-stat-action' : ''}">
         <div class="tests-overview-ident">
           <strong class="tests-overview-code">${escapeHtml(displayCode(test))}</strong>
-          <span class="tests-overview-name">${escapeHtml(test.testName)}</span>${window.LabRegionalRestrictions.badge(test, 'labcorp')}
+          <span class="tests-overview-name">${escapeHtml(test.testName)}</span>${collectionReviewBadge(test)}${window.LabRegionalRestrictions.badge(test, 'labcorp')}
         </div>
         ${isStatEligible(test) ? `<button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Mark STAT'}</button>` : ''}
         <button class="mini-button remove remove-flex tests-overview-remove" type="button" data-action="remove" data-id="${escapeAttr(test.id)}" aria-label="Remove ${escapeAttr(test.testName)}"><span class="remove-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7.3 6.1 12 10.8l4.7-4.7 1.2 1.2-4.7 4.7 4.7 4.7-1.2 1.2-4.7-4.7-4.7 4.7-1.2-1.2 4.7-4.7-4.7-4.7 1.2-1.2Z"/></svg></span><span class="remove-text" aria-hidden="true">Delete</span></button>
@@ -4421,7 +4582,9 @@
     const published = seedDatabase.find(test => test.testCode === record.testCode);
     if (published) {
       const excluded = applySpecimenExclusions(published);
-      if (excluded !== published) Object.assign(record, { status: 'blocked', specialInstructions: excluded.specialInstructions });
+      if (excluded !== published && excluded.status === 'blocked') {
+        Object.assign(record, { status: 'blocked', specialInstructions: excluded.specialInstructions });
+      }
     }
     const requiredFields = [
       { element: els.testCode, value: els.testCode.value.trim(), message: 'Enter a test code before saving.' },
@@ -6222,12 +6385,6 @@
           && collectionSpecimenGroupForItem(item) === 'urine'
           && item.tests.every(test => !isOriginalContainerSubmission(test))) {
         item.detail = describeTimedUrineSource(item);
-        // Do not assume the general Labcorp unpreserved route is accepted
-        // for the Esoterix-specific 501533 order: its direct instructions
-        // name an acid-preserved, frozen specimen.
-        if (item.tests.some(test => String(test.testCode || '').trim() === '501533')) {
-          item.detail += ' VERIFY BEFORE COLLECTION: Labcorp specialty 501533 lists 6N HCl preservative and frozen shipment; the available CDOS entry lists unpreserved/refrigerated. Do not pool with other 24-hour urine until the receiving lab confirms its accepted route.';
-        }
       }
       if (item.className === 'tube-nmr-lipotube') {
         item.detail = 'Clot upright 30 minutes, centrifuge 1600–1800 ×g for 10–15 minutes, do not open, refrigerate at 2–8°C, and ship with frozen cool packs.';
@@ -8509,13 +8666,15 @@
   function printSummary() {
     const tests = selectedTests();
     if (!tests.length) return showToast('Add at least one test before printing.');
-    const printDetailWithNotes = tests.some(test =>
+    const plannedTests = tests.filter(test => !test.collectionReview);
+    const reviewTests = tests.filter(test => test.collectionReview);
+    const printDetailWithNotes = plannedTests.some(test =>
       Boolean(tatBadge(test, true)) || printDetailRoutes(test).some(printDetailHasNotes));
     // Pre-draw warnings already appear in Collection precautions.
-    const preparationTexts = new Set(tests.flatMap(test =>
+    const preparationTexts = new Set(plannedTests.flatMap(test =>
       preCollectionPrecautions(test).map(req => `${displayCode(test)} ${test.testName}: ${req.note}`)
     ));
-    const alerts = collectAlerts(tests).filter(alert => !preparationTexts.has(alert.text));
+    const alerts = collectAlerts(plannedTests).filter(alert => !preparationTexts.has(alert.text));
     els.printSheet.innerHTML = `
       <div class="print-header">
         <div class="print-header-identity"><h1 class="print-title">LabCorp Collection Summary</h1><div class="print-subtitle">Send-out workflow</div></div>
@@ -8523,17 +8682,18 @@
       </div>
       ${window.LabRegionalRestrictions.printNotice(tests, 'labcorp')}
       ${tests.some(isManuallyAddedTest) ? '<div class="print-manual-test-notice"><strong>Manual entry:</strong> Confirm the test code, specimen, collection tubes, and submission requirements in the official lab directory before collecting.</div>' : ''}
-      ${printCollectionSubmissionPlan(tests)}
-      <section class="print-detail-table-section${tests.length <= 3 ? ' print-brief-order' : ''}">
-      ${printCompactAlertSummary(tests, alerts)}
+      ${reviewTests.length ? `<div class="print-manual-test-notice"><strong>Collection review required</strong><p>Totals include provisional quantities from stored records. Follow the collection warnings below before using these quantities.</p><ul>${reviewTests.map(test => `<li><strong>${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</strong> ${escapeHtml(test.collectionReview)}</li>`).join('')}</ul></div>` : ''}
+      ${expandedCollectionTests(tests).length ? printCollectionSubmissionPlan(tests) : ''}
+      ${plannedTests.length ? `<section class="print-detail-table-section${plannedTests.length <= 3 ? ' print-brief-order' : ''}">
+      ${printCompactAlertSummary(plannedTests, alerts)}
       <table class="print-table">
         ${printDetailWithNotes
           ? '<colgroup><col style="width:19%"><col style="width:25%"><col style="width:16%"><col style="width:9%"><col style="width:31%"></colgroup>'
           : '<colgroup><col style="width:21%"><col style="width:45%"><col style="width:20%"><col style="width:14%"></colgroup>'}
         <thead><tr class="print-detail-title-row"><th colspan="${printDetailWithNotes ? 5 : 4}" class="print-detail-title-cell"><div class="print-detail-lab-heading"><strong>Test details</strong><span class="print-detail-lab-badge">LABCORP</span></div></th></tr><tr><th>Code / test</th><th>Collection / transport</th><th>Temperature / stability</th><th>Volume</th>${printDetailWithNotes ? '<th>Notes</th>' : ''}</tr></thead>
-        ${tests.map(test => printDetailRows(test, printDetailWithNotes)).join('')}
+        ${plannedTests.map(test => printDetailRows(test, printDetailWithNotes)).join('')}
       </table>
-      </section>
+      </section>` : ''}
       ${printNotesFooter()}
 `;
     // Keep the same two-column card layout. On a phone, fit the print sheet
@@ -8687,7 +8847,9 @@
     const tests = selectedTests();
     if (!tests.length) return showToast('Add at least one test before exporting.');
     const headers = ['Priority','Test Code','Test Name','Specimen Type','Draw Container','Additional Required Draws','Alternative Container','Transport Tube / Container','Preferred Volume','Minimum Volume','Transport Temperature','Raw Temperature','Stability','Spin','Special Labeling','Special Instructions'];
-    const rows = tests.map(test => [test.isStat ? 'STAT' : 'Routine',test.testCode,test.testName,[test.specimenType, ...additionalDrawRequirements(test).map(item => item.specimenType)].filter(Boolean).join(' + '),test.drawContainer,additionalDrawRequirements(test).filter(item => !item.transportOnly).map(item => `${item.container}${item.specimenType ? ` (${item.specimenType})` : ''}`).join(' + '),test.alternativeContainer,(['001750', '144057', '081162'].includes(String(test.testCode))
+    const rows = tests.map(test => test.collectionReview
+      ? ['Review required', test.testCode, test.testName, ...Array(12).fill(''), test.collectionReview]
+      : [test.isStat ? 'STAT' : 'Routine',test.testCode,test.testName,[test.specimenType, ...additionalDrawRequirements(test).map(item => item.specimenType)].filter(Boolean).join(' + '),test.drawContainer,additionalDrawRequirements(test).filter(item => !item.transportOnly).map(item => `${item.container}${item.specimenType ? ` (${item.specimenType})` : ''}`).join(' + '),test.alternativeContainer,(['001750', '144057', '081162'].includes(String(test.testCode))
       ? splitSubmissionContainers(test).map(container => container.label).join(' + ')
       : [test.transportContainer, ...additionalDrawRequirements(test).map(item => item.transportContainer)].filter(Boolean).join(' + ')),combinedVolumeText(test, 'preferred'),combinedVolumeText(test, 'minimum'),test.transportTemperature,test.transportTemperatureRaw,test.stability,test.spin,test.specialLabeling,test.specialInstructions]);
     const csv = [headers, ...rows].map(row => row.map(csvCell).join(',')).join('\r\n');
