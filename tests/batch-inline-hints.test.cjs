@@ -69,7 +69,7 @@ test('multiline hints keep one visual row per input row and never modify the val
     return node;
   }
   const textarea = {
-    parentElement: root, value: '809\nSed Rate\n999\nunknown\n',
+    parentElement: root, classList: { contains: () => false }, value: '809\nSed Rate\n999\nunknown\n',
     offsetWidth: 390, clientWidth: 388, offsetHeight: 120,
     offsetLeft: 0, offsetTop: 0, scrollTop: 0, scrollLeft: 0,
     addEventListener(type, fn) { listeners[type] = fn; },
@@ -112,41 +112,19 @@ test('multiline hints keep one visual row per input row and never modify the val
   assert.equal(root.overlay.children[0].style.transform, 'translate(0px, -20px)');
 });
 
-test('unmatched and approximate Add Tests lines keep the first-line search button and no spellcheck', () => {
+test('Add Tests connects inline status rows to directory lookup without editing input text', () => {
   for (const [app, page] of [
     ['assets/js/app.js', 'index.html'], ['labcorp-app.js', 'labcorp.html']
   ]) {
     const code = fs.readFileSync(path.join(__dirname, '..', app), 'utf8');
     const html = fs.readFileSync(path.join(__dirname, '..', page), 'utf8');
-    const hintStart = code.indexOf('refreshBatchHints = window.LabBatchInlineHints.mount');
-    const start = code.indexOf('          lineTone: query => {', hintStart);
-    const end = code.indexOf('\n          }\n        });', start);
-    assert.ok(hintStart >= 0 && start >= hintStart && end > start, app + ' must configure lineTone');
-    const tone = code.slice(start, end + '\n          }'.length);
-    const settings = code.slice(hintStart, end);
-    assert.match(settings, /colorUnavailable:\s*false/);
-    assert.ok(!tone.includes('findMatches('), app + ' cannot suppress lookup for fuzzy suggestions');
-    const database = [
-      { testCode: '123', testName: 'Assay', status: 'active', aliases: [] },
-      { testCode: '005215', testName: 'Sed Rate', status: 'active', aliases: ['esr'] },
-      { testCode: '999999', testName: 'Blocked', status: 'blocked', aliases: [] }
-    ];
-    const context = {
-      database,
-      normalizeSearch: normalize,
-      findCategoryMatches: query => query === 'hematology' ? {label:'Hematology'} : null,
-      librarySearchIndex: test => ({
-        code:normalize(test.testCode), name:normalize(test.testName), aliases:test.aliases
-      })
-    };
-    vm.runInNewContext('const options = {' + tone + '}; tones = [' +
-      "options.lineTone('Assad'), options.lineTone('Stunt'), options.lineTone('Guinbbf'), " +
-      "options.lineTone('Assay'), options.lineTone('005215'), options.lineTone('Sed Rate'), " +
-      "options.lineTone('esr'), options.lineTone('999999'), options.lineTone('hematology')];",
-      context);
-    assert.deepEqual(Array.from(context.tones), [
-      'unavailable','unavailable','unavailable',null,null,null,null,'unavailable',null
-    ], app);
+    const start = code.indexOf('refreshBatchHints = window.LabBatchInlineHints.mount');
+    const end = code.indexOf('\n        });', start);
+    assert.ok(start >= 0 && end > start, app);
+    const setup = code.slice(start, end);
+    assert.match(setup, /colorUnavailable:\s*false/);
+    assert.match(setup, /onStatusRows:\s*rows => lookup\?\.sync\(rows\)/);
+    assert.match(code, /mountDirectoryLinks\(els\.searchInput, directorySearchUrl\)/);
     assert.match(html, /<textarea id="searchInput"[^>]*spellcheck="false"/);
     assert.match(html, /<textarea id="searchInput"[^>]*autocorrect="off"/);
     assert.match(html, /<textarea id="searchInput"[^>]*autocapitalize="off"/);
