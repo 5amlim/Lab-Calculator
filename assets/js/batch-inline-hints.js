@@ -184,10 +184,19 @@
               (row + visualRows - 1) * lineHeight + (lineHeight - 20) / 2
           });
         }
-        // A hover-only visual copy of an unresolved line. The textarea remains
-        // the sole editable value; converter overlays are not affected.
+        // A stable visual layer for unresolved entries, not a hover-only
+        // replacement. Hover changes only its paint color. Keep native text
+        // visible on the caret/selection rows so editing stays unobstructed.
         if (tone === 'unavailable' && textarea.classList.contains('batch-directory-gutter')) {
-          colorMirror(line,row,visualRows,index,'batch-directory-hover-text','var(--brand,#0d6672)');
+          var selectionFirst = textarea.value.slice(0,textarea.selectionStart || 0).split('\n').length - 1;
+          var selectionLast = textarea.value.slice(0,textarea.selectionEnd || 0).split('\n').length - 1;
+          var editingRow = document.activeElement === textarea &&
+            index >= selectionFirst && index <= selectionLast;
+          if (!editingRow) {
+            var mirror = colorMirror(line,row,visualRows,index,'batch-directory-hover-text',
+              'var(--batch-directory-entry-color)');
+            mirror.style.setProperty('--batch-directory-normal-color',style.color);
+          }
         }
         if (tone && document.activeElement === textarea &&
             textarea.selectionStart != null) {
@@ -345,6 +354,9 @@
     });
     textarea.addEventListener('focus', refresh);
     textarea.addEventListener('blur', refresh);
+    if (textarea.classList.contains('batch-directory-gutter')) {
+      textarea.addEventListener('select', refresh);
+    }
     textarea.addEventListener('scroll', syncScroll, { passive: true });
     window.addEventListener('resize', refresh, { passive: true });
     if (window.ResizeObserver) new window.ResizeObserver(refresh).observe(textarea);
