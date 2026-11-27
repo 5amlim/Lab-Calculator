@@ -590,7 +590,7 @@
         if(!label)continue;
         const rect=label.getBoundingClientRect();
         const top=rect.top-containerRect.top+(rect.height-20)/2;
-        const left=rect.left-containerRect.left+3;
+        const left=Math.max(0,rect.left-containerRect.left-5);
         if(top<-20||top>outputContainer.clientHeight-3)continue;
         // The text may ellipsize, but its leading search icon stays visible.
         if(left<0||left+26>outputContainer.clientWidth-2)continue;

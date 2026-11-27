@@ -103,6 +103,50 @@
         syncScroll();
         return;
       }
+      // Use native textarea rendering for recolored text, rather than a
+      // span with subtly different glyph metrics (especially on mobile).
+      // Each noninteractive mirror covers its entire row, including trailing
+      // glyphs, without modifying the original input, caret or copied value.
+      function colorMirror(line, row, visualRows, index, className, color) {
+        var mirror = document.createElement('textarea');
+        mirror.className = className + ' batch-native-color-mirror';
+        mirror.dataset.lineIndex = String(index);
+        mirror.setAttribute('aria-hidden', 'true');
+        mirror.tabIndex = -1;
+        mirror.readOnly = true;
+        mirror.wrap = textarea.wrap === 'off' ? 'off' : 'soft';
+        mirror.value = line;
+        var width = innerWidth;
+        if (mirror.wrap === 'off') {
+          width = Math.max(width, ctx.measureText(line).width +
+            letterSpacing * line.length + wordSpacing * (line.match(/ /g) || []).length + 12);
+        }
+        var props = {
+          position:'absolute',display:'block',boxSizing:'border-box',
+          left:(borderLeft + paddingLeft)+'px',
+          top:(borderTop + paddingTop + row*lineHeight)+'px',
+          width:width+'px',height:(visualRows*lineHeight)+'px',
+          minWidth:'0',minHeight:'0',maxWidth:'none',maxHeight:'none',
+          margin:'0',padding:'0',border:'0',borderRadius:'0',outline:'0',
+          boxShadow:'none',resize:'none',overflow:'hidden',pointerEvents:'none',
+          backgroundColor:style.backgroundColor || '#fff',
+          color:color,transform:'none',animation:'none',transition:'none'
+        };
+        for (var property of ['fontFamily','fontSize','fontWeight','fontStyle',
+          'fontStretch','fontVariant','fontKerning','fontFeatureSettings',
+          'fontVariationSettings','fontOpticalSizing','letterSpacing',
+          'wordSpacing','tabSize','textTransform','textAlign','direction','lineHeight']) {
+          if (style[property]) props[property] = style[property];
+        }
+        for (var key in props) {
+          mirror.style.setProperty(key.replace(/[A-Z]/g,function(m){return '-'+m.toLowerCase();}),props[key],'important');
+        }
+        mirror.style.setProperty('-webkit-text-fill-color',color,'important');
+        mirror.style.setProperty('-webkit-text-size-adjust','100%','important');
+        mirror.style.setProperty('text-size-adjust','100%','important');
+        layer.appendChild(mirror);
+        return mirror;
+      }
       var row = 0;
       var statusRows = [];
       var lines = textarea.value.split('\n');
@@ -143,31 +187,7 @@
         // A hover-only visual copy of an unresolved line. The textarea remains
         // the sole editable value; converter overlays are not affected.
         if (tone === 'unavailable' && textarea.classList.contains('batch-directory-gutter')) {
-          var hoverLabel = document.createElement('span');
-          hoverLabel.className = 'batch-inline-ghost-status-text batch-directory-hover-text';
-          hoverLabel.dataset.lineIndex = String(index);
-          hoverLabel.textContent = line;
-          hoverLabel.style.left = (borderLeft + paddingLeft) + 'px';
-          hoverLabel.style.top = (borderTop + paddingTop + row * lineHeight) + 'px';
-          hoverLabel.style.width = innerWidth + 'px';
-          hoverLabel.style.height = (visualRows * lineHeight) + 'px';
-          hoverLabel.style.backgroundColor = style.backgroundColor || '#fff';
-          // Copy each computed typography property, not a font shorthand
-          // which can reset metrics or fail when a family has spaces.
-          for (var property of ['fontFamily','fontSize','fontWeight','fontStyle',
-            'fontStretch','fontVariant','fontKerning','fontFeatureSettings',
-            'fontVariationSettings','fontOpticalSizing','textTransform',
-            'textIndent','textAlign','direction','lineHeight']) {
-            hoverLabel.style[property] = style[property];
-          }
-          hoverLabel.style.setProperty('-webkit-text-size-adjust',
-            style.getPropertyValue('-webkit-text-size-adjust') || 'none');
-          hoverLabel.style.setProperty('text-size-adjust',
-            style.getPropertyValue('text-size-adjust') || 'none');
-          hoverLabel.style.letterSpacing = style.letterSpacing;
-          hoverLabel.style.wordSpacing = style.wordSpacing;
-          hoverLabel.style.tabSize = style.tabSize;
-          layer.appendChild(hoverLabel);
+          colorMirror(line,row,visualRows,index,'batch-directory-hover-text','var(--brand,#0d6672)');
         }
         if (tone && document.activeElement === textarea &&
             textarea.selectionStart != null) {
@@ -175,22 +195,8 @@
           var caretLine = (caretPrefix.match(/\n/g)||[]).length;
           if (caretLine === index) tone = null;
         }
-        if (tone === 'unavailable' && visualRows === 1 && options.colorUnavailable !== false) {
-          var colored = document.createElement('span');
-          colored.className='batch-inline-ghost-status-text batch-inline-ghost-status-unavailable';
-          colored.dataset.lineIndex=String(index);
-          colored.textContent=line;
-          colored.style.left=(borderLeft+paddingLeft-2)+'px';
-          colored.style.top=(borderTop+paddingTop+row*lineHeight)+'px';
-          colored.style.maxWidth=(innerWidth+2)+'px';
-          colored.style.backgroundColor=style.backgroundColor||'#fff';
-          colored.style.fontFamily=style.fontFamily;
-          colored.style.fontSize=style.fontSize;
-          colored.style.fontWeight=style.fontWeight;
-          colored.style.fontStyle=style.fontStyle;
-          colored.style.letterSpacing=style.letterSpacing;
-          colored.style.lineHeight=style.lineHeight;
-          layer.appendChild(colored);
+        if (tone === 'unavailable' && options.colorUnavailable !== false) {
+          colorMirror(line,row,visualRows,index,'batch-inline-ghost-status-unavailable','#b34b36');
         }
         // An optional empty-line hint supports converter rows with no candidate.
         // It is visual-only, never inserted into copied or submitted test codes.

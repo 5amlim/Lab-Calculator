@@ -339,3 +339,8 @@
 #batchAutocomplete .batch-directory-hover-text{visibility:hidden;padding:0;white-space:pre-wrap;overflow-wrap:break-word;word-break:normal;color:var(--brand,#0d6672);transform:none;scale:none;animation:none;transition:none}
 #batchAutocomplete .batch-directory-hover-text.is-highlighted{visibility:visible}
 #batchAutocomplete .batch-directory-lookup:hover,#batchAutocomplete .batch-directory-lookup:focus-visible{color:var(--brand,#0d6672)}
+
+/* Identical native glyph metrics for actual entry and readonly color mirrors. */
+#batchAutocomplete,#crosswalkOutputAutocomplete{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.batch-inline-ghost .batch-native-color-mirror{appearance:none;-webkit-appearance:none;user-select:none;-webkit-user-select:none;caret-color:transparent;scrollbar-width:none;z-index:2}
+.batch-inline-ghost .batch-native-color-mirror::-webkit-scrollbar{display:none}

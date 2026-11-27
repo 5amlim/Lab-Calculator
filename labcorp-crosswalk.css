@@ -1216,7 +1216,7 @@
   /* The clickable magnifier replaces ↔ before actionable no-match text. */
   #crosswalkOutputAutocomplete .batch-inline-ghost-no-match.crosswalk-no-match-actionable {
     box-sizing: border-box;
-    padding-left: 32px;
+    padding-left: 24px;
   }
   #crosswalkOutputAutocomplete .batch-inline-ghost-no-match.crosswalk-no-match-actionable::before {
     display: none;
