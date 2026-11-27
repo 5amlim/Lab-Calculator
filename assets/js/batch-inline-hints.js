@@ -152,7 +152,18 @@
           hoverLabel.style.width = innerWidth + 'px';
           hoverLabel.style.height = (visualRows * lineHeight) + 'px';
           hoverLabel.style.backgroundColor = style.backgroundColor || '#fff';
-          hoverLabel.style.font = [style.fontStyle, style.fontWeight, style.fontSize + '/' + lineHeight + 'px', style.fontFamily].join(' ');
+          // Copy each computed typography property, not a font shorthand
+          // which can reset metrics or fail when a family has spaces.
+          for (var property of ['fontFamily','fontSize','fontWeight','fontStyle',
+            'fontStretch','fontVariant','fontKerning','fontFeatureSettings',
+            'fontVariationSettings','fontOpticalSizing','textTransform',
+            'textIndent','textAlign','direction','lineHeight']) {
+            hoverLabel.style[property] = style[property];
+          }
+          hoverLabel.style.setProperty('-webkit-text-size-adjust',
+            style.getPropertyValue('-webkit-text-size-adjust') || 'none');
+          hoverLabel.style.setProperty('text-size-adjust',
+            style.getPropertyValue('text-size-adjust') || 'none');
           hoverLabel.style.letterSpacing = style.letterSpacing;
           hoverLabel.style.wordSpacing = style.wordSpacing;
           hoverLabel.style.tabSize = style.tabSize;

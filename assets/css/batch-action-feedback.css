@@ -336,6 +336,6 @@
 @media(prefers-reduced-motion:reduce){#batchAutocomplete .batch-directory-lookup{transition:none}}
 
 /* Hovering the directory link also tints its corresponding entry, never the input value. */
-#batchAutocomplete .batch-directory-hover-text{visibility:hidden;padding:0;white-space:pre-wrap;overflow-wrap:break-word;word-break:normal;color:var(--brand,#0d6672)}
+#batchAutocomplete .batch-directory-hover-text{visibility:hidden;padding:0;white-space:pre-wrap;overflow-wrap:break-word;word-break:normal;color:var(--brand,#0d6672);transform:none;scale:none;animation:none;transition:none}
 #batchAutocomplete .batch-directory-hover-text.is-highlighted{visibility:visible}
 #batchAutocomplete .batch-directory-lookup:hover,#batchAutocomplete .batch-directory-lookup:focus-visible{color:var(--brand,#0d6672)}
