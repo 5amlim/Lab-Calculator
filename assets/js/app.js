@@ -3565,6 +3565,7 @@
       renderOrder();
       renderLibrary();
       showToast('Cart cleared.');
+      document.dispatchEvent?.(new CustomEvent('calculator:cart-cleared'));
     } finally {
       clearOrderPending = false;
     }

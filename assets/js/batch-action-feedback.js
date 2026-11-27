@@ -155,6 +155,33 @@
     { scale: '1', opacity: 1 }, { scale: '1.10', opacity: .60, offset: .45 }, { scale: '1', opacity: 1 }
   ], 280);
 
+  // A confirmed Clear All has its own feedback, separate from ordinary removals
+  // and startup restoration. The cart is already empty; never delay the update.
+  document.addEventListener('calculator:cart-cleared', () => {
+    requestAnimationFrame(() => {
+      if (selectedCount() !== 0) return;
+      const empty = $('testsOverviewList');
+      if (empty?.classList.contains('empty-state') && visible(empty.getBoundingClientRect())) {
+        microMotion(empty, [
+          { opacity: .35, translate: '0 -8px', scale: '.98' },
+          { opacity: 1, translate: '0 0', scale: '1' }
+        ], 380);
+        microMotion(empty.querySelector('.empty-symbol'), [
+          { scale: '.65', opacity: .4 },
+          { scale: '1.12', opacity: 1, offset: .65 },
+          { scale: '1', opacity: 1 }
+        ], 420);
+      }
+      const mobile = document.querySelector('.mobile-summary');
+      if (mobile && visible(mobile.getBoundingClientRect())) {
+        microMotion(mobile, [
+          { scale: '1' }, { scale: '.94', offset: .32 },
+          { scale: '1.035', offset: .68 }, { scale: '1' }
+        ], 380);
+      }
+    });
+  });
+
   // Show a quick entrance on newly revealed catalog rows after Show more.
   // Never animate the full table on every search/filter keystroke.
   for (const id of ['loadMoreButton', 'loadMoreInlineButton']) {
