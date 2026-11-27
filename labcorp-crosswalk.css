@@ -1258,9 +1258,13 @@
     outline:2px solid currentColor;
     outline-offset:1px;
   }
-  #crosswalkOutputAutocomplete .crosswalk-no-match-actionable.is-lookup-highlighted {
+  #crosswalkOutputAutocomplete .crosswalk-no-match-actionable.is-lookup-highlighted .crosswalk-no-match-query {
     color:var(--brand,#0d6672);
   }
+  /* Hover changes paint only. Native entry geometry and hint typography stay fixed. */
+  #crosswalkQuestAutocomplete .crosswalk-remove-hover-text {visibility:hidden;}
+  #crosswalkQuestAutocomplete .crosswalk-remove-hover-text.is-remove-highlighted {visibility:visible;}
+  #crosswalkQuestAutocomplete .batch-inline-ghost-label.is-remove-highlighted {color:var(--crosswalk-remove-hover-color,#a94838);}
   @media (prefers-reduced-motion:reduce) {
     #crosswalkOutputAutocomplete .crosswalk-no-match-search {transition:none;}
   }

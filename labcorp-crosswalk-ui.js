@@ -378,6 +378,7 @@
       const nameMatches=questByName.get(normalize(query))||[];
       return nameMatches.length===1?String(nameMatches[0][0]):null;
     },{
+      sourceRemoveHover:true,
       emptyLineHint:index=>manualSourceHints.get(index)||null,
       minLineCount:()=>manualSourceHints.size?Math.max(...manualSourceHints.keys())+1:0
     })||(()=>{});
@@ -637,8 +638,7 @@
         b.type='button';
         b.className='crosswalk-no-match-search';
         b.dataset.row=String(index);
-        // Only this existing ghost label changes color. No copied text,
-        // font overrides or resizing are needed.
+        // Only the quoted query span changes paint color; the label stays unchanged.
         const syncHighlight=()=>label.classList.toggle('is-lookup-highlighted',
           b.matches(':hover,:focus-visible'));
         for(const type of ['pointerenter','pointerleave','focus','blur']){
@@ -661,6 +661,7 @@
     function renderSourceEntryActions(){
       if(!sourceActionLayer)return;
       sourceActionLayer.replaceChildren();
+      for(const node of sourceContainer.querySelectorAll('.is-remove-highlighted')) node.classList.remove('is-remove-highlighted');
       const fieldRect=sourceContainer.getBoundingClientRect();
       const textLines=converterInput.value.split('\n');
       const style=window.getComputedStyle(converterInput);
@@ -704,6 +705,13 @@
         button.textContent='×';
         button.title='Remove '+fromLab+' entry '+current;
         button.setAttribute('aria-label','Remove '+fromLab+' entry '+current+' on line '+(sourceLine+1));
+        const syncRemoveHighlight=()=>{
+          const active=button.matches(':hover,:focus-visible');
+          for(const node of sourceContainer.querySelectorAll('.crosswalk-remove-hover-text[data-line-index="'+sourceLine+'"],.batch-inline-ghost-label[data-line-index="'+sourceLine+'"]')){
+            node.classList.toggle('is-remove-highlighted',active);
+          }
+        };
+        for(const type of ['pointerenter','pointerleave','focus','blur']) button.addEventListener(type,syncRemoveHighlight);
         button.addEventListener('pointerdown',event=>event.preventDefault());
         button.addEventListener('click',event=>{
           event.preventDefault();

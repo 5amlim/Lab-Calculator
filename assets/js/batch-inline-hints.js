@@ -207,6 +207,15 @@
         if (tone === 'unavailable' && options.colorUnavailable !== false) {
           colorMirror(line,row,visualRows,index,'batch-inline-ghost-status-unavailable','#b34b36');
         }
+        // Prebuild a native-font, noninteractive paint layer for the source remove action.
+        // Its geometry never changes on hover and it does not own the editable value.
+        if (query && options.sourceRemoveHover) {
+          var removeMirror = colorMirror(line,row,visualRows,index,'crosswalk-remove-hover-text','var(--crosswalk-remove-hover-color,#a94838)');
+          if (textarea.wrap === 'off') {
+            var codeWidth = ctx.measureText(line).width + letterSpacing * line.length + wordSpacing * (line.match(/ /g) || []).length;
+            removeMirror.style.setProperty('width',Math.ceil(codeWidth + 3)+'px','important');
+          }
+        }
         // An optional empty-line hint supports converter rows with no candidate.
         // It is visual-only, never inserted into copied or submitted test codes.
         var hint = query ? resolveExactHint(query) :
@@ -232,6 +241,16 @@
               label.classList.add('batch-inline-ghost-no-match');
               if(typeof options.onNoMatchAction === 'function'){
                 label.classList.add('crosswalk-no-match-actionable');
+                // Keep the prefix and quotation marks unchanged; tint only the query.
+                var quoted = hintText.match(/^(No match for ")(.*)(")$/);
+                if (quoted) {
+                  label.textContent = quoted[1];
+                  var querySpan = document.createElement('span');
+                  querySpan.className = 'crosswalk-no-match-query';
+                  querySpan.textContent = quoted[2];
+                  label.appendChild(querySpan);
+                  label.appendChild(document.createTextNode(quoted[3]));
+                }
                 // The clickable magnifier now precedes the read-only no-match
                 // message instead of appearing after its closing quote.
                 label.style.maxWidth = space+'px';
