@@ -78,8 +78,8 @@ for(const [lab,page,app] of [
       const bags=api.buildTransportBagPlan(expanded);
       const physicalCollection=api.buildCollectionPlan(expanded,bags);
       const physicalSubmission=bags.flatMap(bag=>api.buildSubmissionContents(bag));
-      tracked.push(containerTracker.assess({lab,row,api,expanded,bags,physicalCollection,physicalSubmission,printedTotal:0,...evidence}));
-      assert.equal(expanded.length, 0, row.testCode);
+      tracked.push(containerTracker.assess({lab,row,api,expanded,bags,physicalCollection,physicalSubmission,printedTotal:bags.reduce((sum,bag)=>sum+total(api.groupSubmissionContainersForPrint(api.buildSubmissionContents(bag))),0),...evidence}));
+      assert.equal(expanded.length, row.testCode === 'XXX' ? 0 : 1+(row.additionalDrawRequirements||[]).length, row.testCode);
     }
     const buckets={};
     const flags={sourceCount:[],submissionCount:[],nonsensicalSource:[],nonsensicalSubmit:[],

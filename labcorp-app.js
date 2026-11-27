@@ -1150,7 +1150,7 @@
   }
 
   function expandedCollectionTests(tests) {
-    return tests.filter(test => !test.collectionReview).flatMap(test => {
+    return tests.flatMap(test => {
       const expanded = [test];
       additionalDrawRequirements(test).forEach((requirement, index) => {
         const count = Math.max(Number(requirement.count) || 1, 1);
@@ -3832,7 +3832,7 @@
           <div><div class="test-name">${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}${manualLibraryTag(test)}${collectionReviewBadge(test)}</div>${test.collectionReview ? '' : `<div class="subtext specimen-line">${requiredSpecimenBadges(test)} <span>·</span> <span class="preferred-volume-inline">${escapeHtml(combinedVolumeText(test, 'preferred') || 'verify')}</span> <span>· Minimum ${escapeHtml(combinedVolumeText(test, 'minimum') || 'verify')}</span></div>${fastingBadge(test, 'selected-fasting-badge')}${gestationalWarningBadge(test, 'selected-gestational-warning')}`}</div>
           <div>${isStatEligible(test) ? `<button class="mini-button stat-toggle${test.isStat ? ' is-stat' : ''}" type="button" data-action="toggle-stat" data-id="${escapeAttr(test.id)}" aria-pressed="${test.isStat ? 'true' : 'false'}" title="Mark as STAT or Routine">${test.isStat ? 'STAT ✓' : 'Mark STAT'}</button>` : ''}<a class="mini-button edit" href="${escapeAttr(directoryUrl(test))}" target="_blank" rel="noreferrer">Official directory ↗</a><button class="mini-button edit" data-action="edit" data-id="${escapeAttr(test.id)}">Edit</button><button class="mini-button remove selected-card-delete" data-action="remove" data-id="${escapeAttr(test.id)}" type="button" aria-label="Delete ${escapeAttr(test.testName)}">Delete</button></div>
         </div>
-        ${test.collectionReview ? `<div class="selected-note">${escapeHtml(test.collectionReview)}</div>` : `<div class="selected-details">
+        ${test.collectionReview ? `<div class="selected-note">${escapeHtml(test.collectionReview)}<br>Totals include provisional quantities from this stored record.</div>` : `<div class="selected-details">
           ${requiredDrawContainerBadges(test)}
           <span class="badge ${temperatureClass(test.transportTemperature)}">${escapeHtml(test.transportTemperature)}</span>
           <span class="badge temp-unknown">Spin: ${escapeHtml(test.spin)}</span>
@@ -8682,8 +8682,8 @@
       </div>
       ${window.LabRegionalRestrictions.printNotice(tests, 'labcorp')}
       ${tests.some(isManuallyAddedTest) ? '<div class="print-manual-test-notice"><strong>Manual entry:</strong> Confirm the test code, specimen, collection tubes, and submission requirements in the official lab directory before collecting.</div>' : ''}
-      ${reviewTests.length ? `<div class="print-manual-test-notice"><strong>Collection review required</strong><ul>${reviewTests.map(test => `<li><strong>${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</strong> ${escapeHtml(test.collectionReview)}</li>`).join('')}</ul></div>` : ''}
-      ${plannedTests.length ? printCollectionSubmissionPlan(plannedTests) : ''}
+      ${reviewTests.length ? `<div class="print-manual-test-notice"><strong>Collection review required</strong><p>Totals include provisional quantities from stored records. Follow the collection warnings below before using these quantities.</p><ul>${reviewTests.map(test => `<li><strong>${escapeHtml(displayCode(test))} · ${escapeHtml(test.testName)}</strong> ${escapeHtml(test.collectionReview)}</li>`).join('')}</ul></div>` : ''}
+      ${expandedCollectionTests(tests).length ? printCollectionSubmissionPlan(tests) : ''}
       ${plannedTests.length ? `<section class="print-detail-table-section${plannedTests.length <= 3 ? ' print-brief-order' : ''}">
       ${printCompactAlertSummary(plannedTests, alerts)}
       <table class="print-table">

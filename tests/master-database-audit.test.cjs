@@ -136,7 +136,7 @@ test('Labcorp vendor deletions retain previously active search entries and stay 
   assert.equal(updated.length, 19);
   assert.equal(updated.filter(row => row.status === 'active' && row.collectionReview).length, 18);
   assert.equal(updated.filter(row => row.status === 'blocked').length, 1);
-  assert.equal(app.expandedCollectionTests(updated.filter(row => row.status === 'active')).length, 0);
+  assert.equal(app.expandedCollectionTests(updated.filter(row => row.status === 'active')).length, 18);
   assert.match(labcorp.records.find(row => row.testCode === '164000').collectionReview, /May 2026/);
   const pendingDeletion = labcorp.records.find(row => row.testCode === '160721');
   assert.equal(pendingDeletion.status, 'blocked');
@@ -186,7 +186,7 @@ test('unresolved shipping warnings persist in search and cannot enter collection
       const override = {...row, status: 'active', specialInstructions: '', transportTemperature: 'Frozen'};
       const restored = app.applyUserState({overrides: [override], customTests: [{...override, id: 'custom-hold'}]});
       assert.equal(restored.filter(record => record.testCode === code && record.status === 'active' && record.collectionReview === row.collectionReview).length, 2);
-      assert.equal(app.expandedCollectionTests(restored.filter(record => record.testCode === code)).length, 0);
+      assert.equal(app.expandedCollectionTests(restored.filter(record => record.testCode === code)).length, 2);
     }
     const crosswalk = globals.QUEST_TO_LABCORP_INDEX;
     if (lab.lab === 'quest') {
@@ -201,7 +201,7 @@ test('unresolved shipping warnings persist in search and cannot enter collection
   }
 });
 
-test('recent volume and temperature discrepancies stay visible without collection quantities', async () => {
+test('recent volume and temperature discrepancies retain provisional collection quantities', async () => {
   const {labs, loadCalculator} = await import('../scripts/load-calculator-catalog.mjs');
   for (const [lab, code, reason] of [
     [labs[0], '93876', /frozen serum.*refrigerated shipment/],
@@ -214,7 +214,7 @@ test('recent volume and temperature discrepancies stay visible without collectio
     assert.match(row.collectionReview, reason);
     assert(index.tests.some(([indexed]) => indexed === code));
     const api = openCalculator(lab.app, ['expandedCollectionTests', 'buildTransportBagPlan']);
-    assert.equal(api.buildTransportBagPlan(api.expandedCollectionTests([row])).length, 0);
+    assert.equal(api.buildTransportBagPlan(api.expandedCollectionTests([row])).length, 1);
   }
 });
 
@@ -279,7 +279,7 @@ test('Quest 16983 defaults to two frozen 5 mL pour-off tubes without changing th
 });
 
 
-test('acid-preserved urine orders stay searchable without unsupported collection plans', async () => {
+test('acid-preserved urine orders stay searchable with warnings and provisional quantities', async () => {
   const {labs, loadCalculator} = await import('../scripts/load-calculator-catalog.mjs');
   const {records,index} = await loadCalculator(root,labs[1],{captureRecords:true});
   const codes=["003269","003970","004176","016865","316203"];
@@ -290,7 +290,7 @@ test('acid-preserved urine orders stay searchable without unsupported collection
     assert.match(row.collectionReview,/Collection on hold/);
     assert(index.tests.some(([indexed])=>indexed===code));
     assert(index.collectionReviewCodes.includes(code));
-    assert.equal(api.buildTransportBagPlan(api.expandedCollectionTests([row])).length,0);
+    assert.equal(api.buildTransportBagPlan(api.expandedCollectionTests([row])).length,1);
     const restored=api.applyUserState({customTests:[],overrides:[{...row,collectionReview:undefined}]}).find(test=>test.testCode===code);
     assert.match(restored.collectionReview,/Collection on hold/);
   }
@@ -301,7 +301,7 @@ test('acid-preserved urine orders stay searchable without unsupported collection
 });
 
 
-test('Quest 14263 remains searchable but excluded from collection plans when ThinPrep is required', async () => {
+test('Quest 14263 retains its ThinPrep warning and provisional quantities', async () => {
   const {labs,loadCalculator}=await import('../scripts/load-calculator-catalog.mjs');
   const {records,index,globals}=await loadCalculator(root,labs[0],{captureRecords:true});
   const row=records.find(r=>r.testCode==='14263');
@@ -310,8 +310,8 @@ test('Quest 14263 remains searchable but excluded from collection plans when Thi
   assert(index.tests.some(([code])=>code==='14263'));
   assert(index.collectionReviewCodes.includes('14263'));
   const api=openCalculator(labs[0].app,['applyUserState','expandedCollectionTests','buildTransportBagPlan'],{records:[row]});
-  assert.equal(api.expandedCollectionTests([row]).length,0);
-  assert.equal(api.buildTransportBagPlan(api.expandedCollectionTests([row])).length,0);
+  assert.equal(api.expandedCollectionTests([row]).length,1);
+  assert.equal(api.buildTransportBagPlan(api.expandedCollectionTests([row])).length,1);
   const restored=api.applyUserState({overrides:[{...row,collectionReview:undefined}]}).find(r=>r.testCode==='14263');
   assert.match(restored.collectionReview,/ThinPrep/);
   const crosswalk=globals.QUEST_TO_LABCORP_INDEX.find(r=>r[0]==='14263');

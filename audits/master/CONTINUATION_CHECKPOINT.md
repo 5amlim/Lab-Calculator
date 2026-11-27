@@ -42,3 +42,12 @@ findings remain in the ledger.
 Resume with the remaining pending higher-risk routes and exact public
 Labcorp pages for 008003, 008201, 008565, 008573, 008900, and 008904.
 Use the existing route queue and preserve local collection exclusions.
+
+## Approved collection-review quantity change
+
+The user explicitly approved provisional collection and shipment quantities
+for every held test code, including vendor-discontinued orders. Cart and
+print retain the review warnings. Counts use the stored route and do not
+establish permission to collect or ship. Quest XXX remains an uncoded
+reference and produces no quantities. STAT and automatic conversion
+restrictions remain in effect.

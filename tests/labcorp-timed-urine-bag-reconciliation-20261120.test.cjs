@@ -48,21 +48,21 @@ test('12-hour protein urine never becomes a 24-hour collection because of the ju
 
 test('24-hour source jugs count physical collections rather than every test or every aliquot', () => {
   const {collected,api} = openTimedUrineCart();
-  assert.equal(sum(collected), 3, 'Separate 12-hour source, compatible unpreserved 24-hour source, and 17-ketosteroids source');
+  assert.equal(sum(collected), 4, 'Three routine sources and one provisional 501533 source');
   const shared = collected.find(item => ['201752','209641','375002','909231']
     .every(code => item.tests.some(test => test.testCode === code)));
   assert(shared, 'Compatible unpreserved 24-hour urine has one shared source');
   assert.equal(shared.count, 1);
-  assert.equal(collected.some(item => item.tests.some(t => t.testCode === '501533')), false);
+  assert.equal(collected.some(item => item.tests.some(t => t.testCode === '501533')), true);
   const html = api.printCollectionGroups(collected, []);
   assert(!/>\s*168\s*</.test(html),'Never show 168 urine collection jugs');
   assert.match(html, /listed aliquots total/i);
   assert.match(html, /original collection jug is not an additional shipping container/i);
 });
 
-test('original collection and destination bags reconcile 7 submitted containers and 73 mL of aliquots', () => {
+test('original collection and destination bags reconcile 8 submitted containers and 83 mL of aliquots', () => {
   const {rows,bags,submitted} = openTimedUrineCart();
-  assert.equal(sum(submitted), 7);
+  assert.equal(sum(submitted), 8);
   const byTemp = new Map(bags.map(bag => {
     const temp = bag.tests[0].transportTemperature;
     assert(bag.tests.every(item => item.transportTemperature === temp));
@@ -71,16 +71,16 @@ test('original collection and destination bags reconcile 7 submitted containers 
     return [temp, sum(items)];
   }));
   assert.equal(byTemp.get('Room Temperature'), 2);
-  assert.equal(byTemp.get('Refrigerated'), 4);
+  assert.equal(byTemp.get('Refrigerated'), 5);
   assert.equal(byTemp.get('Frozen'), 1);
-  const volumes = rows.filter(row => !row.collectionReview).map(row => {
+  const volumes = rows.map(row => {
     const text = String(row.preferredVolume);
     const double = text.match(/\b(?:two|2)\s+(\d+(?:\.\d+)?)\s*mL\s+aliquots?\b/i);
     const single = text.match(/\b(\d+(?:\.\d+)?)\s*mL\b/i);
     assert(double || single, 'Volume missing ' + row.testCode);
     return double ? Number(double[1])*2 : Number(single[1]);
   });
-  assert.equal(volumes.reduce((a,b)=>a+b,0),73);
+  assert.equal(volumes.reduce((a,b)=>a+b,0),83);
   assert(rows.every(row=>!submitted.some(item=>item.originalTube && item.tests.includes(row))),
     'Transport aliquots never double-count source jugs as bag contents');
 });
@@ -97,5 +97,5 @@ test('501533 stays on collection hold even with a legacy active override or save
   }).filter(row => row.testCode === '501533');
   assert.equal(rows.length, 2);
   assert(rows.every(row => row.status === 'active' && row.collectionReview === source.collectionReview));
-  assert.equal(api.expandedCollectionTests(rows).length, 0);
+  assert.equal(api.expandedCollectionTests(rows).length, 2);
 });

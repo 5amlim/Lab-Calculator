@@ -94,8 +94,8 @@ function assess({lab,row,api,expanded,bags,physicalCollection,physicalSubmission
   const failures=[];
   const fail=(code,detail='')=>failures.push({code,detail});
   if(error)fail('planner-exception',String(error.message||error));
-  if(held){
-    if(error||!expanded||expanded.length||bags?.length||physicalCollection?.length||physicalSubmission?.length)fail('held-order-produces-plan');
+  if(held && row.testCode === 'XXX'){
+    if(error||!expanded||expanded.length||bags?.length||physicalCollection?.length||physicalSubmission?.length)fail('reference-record-produces-plan');
   }else if(!error){
     if(!expanded?.length)fail('no-expanded-routes');
     if(expanded?.length!==1+(row.additionalDrawRequirements||[]).length)fail('additional-route-count-mismatch');

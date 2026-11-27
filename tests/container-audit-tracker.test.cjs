@@ -21,7 +21,7 @@ test('container tracker distinguishes structure, partial evidence and strict cli
 test('container tracker flags suspect mapping without rewriting it and counts held records separately',()=>{
   const wrong={...row,drawContainer:'Lavender EDTA'};
   const r=assess({...inputs,row:wrong,expanded:[wrong]});assert.equal(r.structural,'review');assert(r.risks.some(x=>x.code==='serum-anticoagulant-review'));assert.equal(wrong.drawContainer,'Lavender EDTA');
-  const held=assess({...inputs,row:{...row,collectionReview:'Review required'},expanded:[],bags:[],physicalCollection:[],physicalSubmission:[],printedTotal:0});
+  const held=assess({...inputs,row:{...row,collectionReview:'Review required'}});
   assert.equal(held.structural,'hold-pass');assert.equal(held.clinical,'held');
   const s=summarize([r,held]);assert.equal(s.orders,2);assert.equal(s.structuralPassPct,50);assert.equal(s.clinicalVerifiedPct,0);
 });

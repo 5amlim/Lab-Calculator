@@ -761,7 +761,7 @@
       "93876",
       "XXX"
     ],
-    "expectedBehavior": "Preserve search and cart access, show the reason on screen and in print/CSV, and suppress generated quantities, STAT selection and candidate conversion.",
+    "expectedBehavior": "Preserve search and cart access, show the reason on screen and in print/CSV, and include provisional collection and shipping quantities for held test codes. Suppress STAT selection and candidate conversion. The uncoded Quest reference generates no quantities.",
     "reason": "Preserve the active catalog while unresolved or discontinued orders require explicit review.",
     "implementation": [
       "assets/js/app.js",
