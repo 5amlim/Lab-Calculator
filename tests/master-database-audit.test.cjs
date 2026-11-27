@@ -55,6 +55,11 @@ test('published catalogs execute the HTML overlays and apply clinical holds', as
   assert(quest.index.tests.some(([code]) => code === '10676'));
   assert.match(labcorp.records.find(row => row.testCode === '501533').collectionReview, /acid-preserved/);
   assert(labcorp.index.tests.some(row => row[0] === '501533'));
+  const amyloid = labcorp.records.find(row => row.testCode === '505725');
+  assert.equal(amyloid.status, 'active');
+  assert.equal(amyloid.transportTemperature, 'Frozen');
+  assert.match(amyloid.specialInstructions, /ship on dry ice/i);
+  assert.match(amyloid.stability, /Room temperature: 4 hours.*one freeze\/thaw cycle/);
   quest.globals.applyQuestLabcorpWorkbookMatches(labcorp.index.tests);
   const row = code => quest.globals.QUEST_TO_LABCORP_INDEX.find(row => row[0] === code);
   assert.equal(row('16802')[3], '102525');

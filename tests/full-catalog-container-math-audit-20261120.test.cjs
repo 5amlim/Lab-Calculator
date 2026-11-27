@@ -220,3 +220,21 @@ for(const [lab,page,app] of [
     assert.equal(flags.timeout.length,0,'Calculator throws for live active specimen orders');
   });
 }
+
+test('saved Quest SoCal Common Labs Gold SST cart preserves published collection and bag totals', async () => {
+  const api = await load('index.html', 'assets/js/app.js', 'quest');
+  // Exact test-code sequence from the November 26, 2026 specimen collection PDF.
+  const codes = '7600 6399 10231 899 457 17306 927 496 395 249 4420 809 91431 8472 498 4418 3020 11173 5704 5081 16796 8625 39441 7655 10255 16492 16506 70051 90801 4914 8659 763 461 7079 1304 926 19897 16846 14693 5616 91716 718 905 482 593 285 793 5463 623 6354 326 5507 467 372 31789 8340 10124 561 91604 91729 94218 5224 8847 34429 866 867 859 7260 861 90963 746 5363 15983 10233 921 10198 10189 6775'.split(' ');
+  const tests = codes.map(code => {
+    const row = api.database.find(test => test.testCode === code && test.status === 'active');
+    assert.ok(row, code);
+    return row;
+  });
+  assert.equal(new Set(tests).size, 78);
+  const expanded = api.expandedCollectionTests(tests);
+  const bags = api.buildTransportBagPlan(expanded);
+  assert.equal(total(api.buildCollectionPlan(expanded, bags)), 46);
+  assert.equal(bags.length, 3);
+  const counts = Object.fromEntries(bags.map(bag => [bag.key, total(api.buildSubmissionContents(bag))]));
+  assert.deepEqual(counts, {'routine-room': 38, 'routine-refrigerated': 9, 'routine-frozen': 5});
+});

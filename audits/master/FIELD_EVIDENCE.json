@@ -8970,29 +8970,64 @@
   },
   "labcorp:829030": {
     "status": "Partially verified",
-    "url": "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog",
+    "url": "https://cdos.halfpenny.com/labcorp/pch/TestDisplay/829030",
     "date": "2026-11-26",
-    "note": "Exact code in public KSB client print catalog; source is not the Sollis receiving account. Sterile cup is not confirmed by the examples; verify exact collection and submission vessel.",
+    "note": "Exact code in a Labcorp CDOS client listing, with the same frozen shipment as the KSB listing. This is a different receiving account. The named direct-collection vessels do not establish acceptance of the local sterile cup. The swab or gauze fallback has not been enabled.",
     "fields": {
       "transportTemperature": {
         "evidence": "Frozen"
       },
       "drawContainer": {
         "evidence": "Sterile vessel listed, but examples are tubes or a capped syringe; local cup acceptance not established."
+      },
+      "specimenType": {
+        "evidence": "Aural or nasal fluid."
+      },
+      "preferredVolume": {
+        "evidence": "2 mL direct fluid."
+      },
+      "minimumVolume": {
+        "evidence": "1 mL direct fluid, insufficient for repeat testing."
+      },
+      "transportContainer": {
+        "evidence": "Sterile additive-free tube, microtube, or capped needleless syringe for direct collection. The directory lists an alternate plain swab or gauze route in a sterile vessel when direct collection is infeasible."
+      },
+      "stability": {
+        "evidence": "Two weeks under ambient, refrigerated or frozen conditions. Shipment is frozen."
       }
     }
   },
   "labcorp:505725": {
     "status": "Partially verified",
-    "url": "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog",
+    "url": "https://www.labcorp.com/tests/505725/beta-amyloid-42-40-ratio-plasma",
     "date": "2026-11-26",
-    "note": "Exact code in public KSB client print catalog; source is not the Sollis receiving account. Selected EDTA and frozen route agree at a high level. Verify dry-ice transport capability and pre-shipment storage restrictions; a standard frozen bag alone does not establish compliance.",
+    "note": "Exact public Labcorp page. Current stock labels and dry-ice shipment wording already reflect the directory. Expanded incomplete stability text only. Ambient stability does not authorize ambient shipment. Local dry-ice supply and receiving-account acceptance remain open.",
     "fields": {
       "transportTemperature": {
         "evidence": "Frozen shipment on dry ice required"
       },
       "drawContainer": {
         "evidence": "EDTA lavender tube"
+      },
+      "specimenType": {
+        "evidence": "EDTA plasma."
+      },
+      "preferredVolume": {
+        "evidence": "2 mL plasma."
+      },
+      "minimumVolume": {
+        "evidence": "1 mL plasma, insufficient for repeat testing."
+      },
+      "spin": {
+        "evidence": "Centrifuge at more than 1500 × g for 10 minutes within 40 minutes of collection."
+      },
+      "transportContainer": {
+        "evidence": "Separate and seal plasma in a Labcorp polypropylene transport tube."
+      },
+      "stability": {
+        "evidence": "Room temperature: 4 hours. Refrigerated: 10 hours. Frozen at −10 °C: 24 hours. Frozen below −60 °C: 100 days. Stable through one freeze/thaw cycle.",
+        "previousValue": "Refrigerated: 10 hours. Frozen at −10 °C: 24 hours. Frozen below −60 °C: 100 days.",
+        "reviewedValueSha256": "a24449af7f29f50fbd573d9416d63f3a36822d51df9ef0178cfa3e8e90c1ab5a"
       }
     }
   },
@@ -9152,15 +9187,30 @@
   },
   "labcorp:724344": {
     "status": "Partially verified",
-    "url": "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog",
+    "url": "https://www.labcorp.com/tests/724344/cadmium-standard-profile",
     "date": "2026-11-26",
-    "note": "Exact code in public KSB client print catalog; source is not the Sollis receiving account. Both blood and urine routes are represented in runtime; verify separate submission volumes and delayed storage handling.",
+    "note": "Exact public Labcorp page confirms two required specimen routes and confirms conditional refrigeration when submission is delayed beyond two days. Compare local urine vessel acceptance and the clinic pH-adjustment workflow before route approval.",
     "fields": {
       "transportTemperature": {
         "evidence": "Ambient; refrigerate for delayed submission per listing"
       },
       "drawContainer": {
         "evidence": "Royal blue EDTA plus plastic urine vessel"
+      },
+      "specimenType": {
+        "evidence": "Whole blood and random urine are both required."
+      },
+      "preferredVolume": {
+        "evidence": "2 mL blood and 5 mL urine."
+      },
+      "minimumVolume": {
+        "evidence": "0.6 mL blood and 2.4 mL urine."
+      },
+      "additionalDrawRequirements": {
+        "evidence": "Separate plastic urine container in addition to royal-blue EDTA whole-blood tube."
+      },
+      "specialInstructions": {
+        "evidence": "Time the urine collection and adjust pH to 6–8 when necessary according to the vendor procedure."
       }
     }
   },
