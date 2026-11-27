@@ -23,6 +23,26 @@
   const PAGE_SIZE=10;
   const VIEWPORT_ROWS=3;
   let visible=PAGE_SIZE,reverse=null,loadError=false;
+  const labcorpDirectoryAliases = new Map();
+  const categorySearchTerms = new Set((window.LabClinicalCategories?.options || [])
+    .flatMap(({id, label}) => [id, label]).map(normalize));
+  const directorySearchRecords = new WeakMap();
+
+  function directorySearchRecord(row, directoryLab) {
+    if (!directorySearchRecords.has(row)) {
+      const [code, name] = Array.isArray(row) ? row : [row.code, row.name];
+      const searchAliases = directoryLab === 'quest'
+        ? window.QUEST_WORKBOOK_SEARCH_ALIASES?.[code] || []
+        : labcorpDirectoryAliases.get(code) || [];
+      directorySearchRecords.set(row, {testCode: code, testName: name, searchAliases, directoryLab});
+    }
+    return directorySearchRecords.get(row);
+  }
+
+  function rankDirectorySearch(query, row, directoryLab) {
+    const rank = window.rankLabDirectorySearch;
+    return rank ? rank(query, directorySearchRecord(row, directoryLab)) : 0;
+  }
   function sourceType(row){return row[7]||(row[0]==='XXX'?'uncoded':'active');}
   function statusQuest(row){
     if(row[3])return 'suggested';
@@ -47,6 +67,8 @@
     }
     return index.tests.map(l=>{
       const matches=byCode.get(String(l[0]))||[];
+      if (Array.isArray(l[3])) labcorpDirectoryAliases.set(String(l[0]),
+        l[3].filter(alias => !categorySearchTerms.has(normalize(alias))));
       return {code:String(l[0]),name:String(l[1]),specimen:String(l[2]||''),matches,
         status:matches.some(x=>x.status==='suggested')?'suggested':matches.length?'review':'pending'};
     }).sort((a,b)=>a.name.localeCompare(b.name)||a.code.localeCompare(b.code));
@@ -54,27 +76,26 @@
   function getRows(){
     const isQuest=direction.value!=='labcorp';
     const source=isQuest?rows:(reverse||[]);
-    const terms=normalize(search.value).split(' ').filter(Boolean);
-    return source.filter(r=>{
-      const kind=isQuest?statusQuest(r):r.status;
-      const legacy=isQuest&&sourceType(r)!=='active';
-      if(filter.value==='suggested'&&kind!=='suggested')return false;
-      if(filter.value==='review'&&kind!=='review')return false;
-      if(filter.value==='pending'&&kind!=='pending')return false;
-      if(filter.value==='legacy'&&!legacy)return false;
-      const parts=isQuest?[r[0],r[1],r[2],r[3],r[4],r[6],...(r[8]||[]).flatMap(a=>a.slice(0,2))]
-        :[r.code,r.name,r.specimen,...r.matches.flatMap(m=>[m.code,m.name])];
-      const content=normalize(parts.join(' '));
-      return terms.every(t=>content.includes(t));
-    }).sort((a,b)=>{
-      // Prioritize actual candidate cross-references, then related review-only
-      // entries, and finally rows with no match. The existing alphabetical
-      // order is preserved within each status group (stable Array.sort).
-      const priority={suggested:0,review:1,pending:2};
-      const aStatus=isQuest?statusQuest(a):a.status;
-      const bStatus=isQuest?statusQuest(b):b.status;
-      return (priority[aStatus]??3)-(priority[bStatus]??3);
-    });
+    const query = normalize(search.value);
+    const terms = query.split(' ').filter(Boolean);
+    const priority = {suggested: 0, review: 1, pending: 2};
+    const results = [];
+    for (const row of source) {
+      const kind = isQuest ? statusQuest(row) : row.status;
+      const legacy = isQuest && sourceType(row) !== 'active';
+      if (filter.value === 'legacy' ? !legacy : filter.value !== 'all' && kind !== filter.value) continue;
+      let score = query ? rankDirectorySearch(query, row, isQuest ? 'quest' : 'labcorp') : 0;
+      if (query && score < 500) {
+        const parts = isQuest
+          ? [row[0], row[1], row[2], row[3], row[4], row[6], ...(row[8] || []).flatMap(item => item.slice(0, 2))]
+          : [row.code, row.name, row.specimen, ...row.matches.flatMap(match => [match.code, match.name])];
+        const content = normalize(parts.join(' '));
+        if (!terms.every(term => content.includes(term))) continue;
+        score = 400;
+      }
+      results.push({row, score, priority: priority[kind] ?? 3});
+    }
+    return results.sort((a, b) => b.score - a.score || a.priority - b.priority).map(item => item.row);
   }
   function renderQuest(r){
     const [qc,qn,qs,lc,ln,blocked,basis]=r;
@@ -214,45 +235,8 @@
     const suggestionPanel=document.getElementById('crosswalkQuestSuggestions');
     const suggestionItems=Array.from(questByCode.values());
     let suggestionMatches=[],suggestionActive=-1,suggestionEntry=null;
-    const aliases=[
-      [/^complete blood count\b|\bcbc\b/i,['cbc','blood count']],
-      [/^comprehensive metabolic panel\b/i,['cmp','chem 14']],
-      [/^basic metabolic panel\b/i,['bmp','chem 7']],
-      [/^thyroid stimulating hormone\b|\btsh\b/i,['tsh','thyrotropin']],
-      [/\b(?:hemoglobin a1c|hba1c|glycated hemoglobin)\b/i,['a1c','hba1c']],
-      [/^erythrocyte sedimentation rate\b|^sedimentation rate\b/i,['esr','sed rate']],
-      [/^c reactive protein\b/i,['crp']],
-      [/^urinalysis\b/i,['ua','urine analysis']],
-      [/^lipid panel\b|^lipid profile\b/i,['lipid','cholesterol panel']],
-      [/\bhuman chorionic gonadotropin\b|\bhcg\b/i,['hcg','pregnancy']],
-      [/^prothrombin time\b/i,['pt','inr']],
-      [/^activated partial thromboplastin time\b|^partial thromboplastin time\b/i,['aptt','ptt']]
-    ];
-    const aliasCache=new Map();
-    function searchAliases(row){
-      const code=String(row[0]);
-      if(aliasCache.has(code))return aliasCache.get(code);
-      const name=String(row[1]||'');
-      const list=aliases.filter(([pattern])=>pattern.test(name)).flatMap(([,words])=>words).map(normalize);
-      aliasCache.set(code,list);
-      return list;
-    }
-    function editDistanceAtMost(a,b,maxEdits){
-      if(Math.abs(a.length-b.length)>maxEdits)return false;
-      let prev=Array.from({length:b.length+1},(_,j)=>j);
-      for(let i=1;i<=a.length;i++){
-        const next=[i];let min=i;
-        for(let j=1;j<=b.length;j++){
-          next[j]=Math.min(prev[j]+1,next[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));
-          if(next[j]<min)min=next[j];
-        }
-        if(min>maxEdits)return false;
-        prev=next;
-      }
-      return prev[b.length]<=maxEdits;
-    }
-    function scoreSuggestion(row,query){
-      const code=String(row[0]),name=normalize(row[1]),terms=query.split(' ').filter(Boolean);
+    function scoreSuggestion(row,query,directoryLab){
+      const code=String(row[0]),name=normalize(row[1]);
       if(code===query)return 3000;
       if(/^\d+$/.test(query)){
         if(code.startsWith(query))return 2500-(code.length-query.length);
@@ -260,20 +244,9 @@
         return query.length>=3&&code.includes(query)?1900:0;
       }
       if(name===query)return 2800;
-      if(name.startsWith(query))return 2400-Math.min(100,name.length-query.length);
-      if(name.includes(query))return 2100-Math.min(100,name.length-query.length);
-      const a=searchAliases(row);
-      if(a.includes(query))return 2300;
-      if(a.some(x=>x.startsWith(query)))return 1850;
-      const words=name.split(' ');
-      if(terms.every(term=>words.some(word=>word===term||word.startsWith(term))))return 1750+terms.length*10;
-      if(terms.every(term=>words.some(word=>word.includes(term))))return 1450+terms.length*10;
-      if(query.length>=4&&query.length<=25&&terms.length<=2){
-        const edits=query.length>=7?2:1;
-        if(words.some(word=>editDistanceAtMost(query,word,edits))||
-           a.some(term=>editDistanceAtMost(query,term,edits)))return 850;
-      }
-      return 0;
+      if (!window.rankLabDirectorySearch) return name.includes(query) ? 1000 : 0;
+      const score = rankDirectorySearch(query, row, directoryLab);
+      return score >= 500 ? score : 0;
     }
     // The caret determines which entry gets replaced, even with other lines already present.
     function activeConverterEntry(){
@@ -326,7 +299,7 @@
       if(!suggestionPanel)return;
       const entry=activeConverterEntry(),query=normalize(entry.query);
       if(!query){hideSuggestions();return;}
-      const matches=suggestionItems.map(row=>({row,score:scoreSuggestion(row,query)}))
+      const matches=suggestionItems.map(row=>({row,score:scoreSuggestion(row,query,isQuestPage ? 'labcorp' : 'quest')}))
         .filter(item=>item.score>0)
         .sort((a,b)=>b.score-a.score||
           (a.row[1].length-b.row[1].length)||
@@ -503,7 +476,7 @@
     // Selection is provisional until verified against the official directory.
     const indexedDestinationTests=destinationCatalog.filter(row=>row[0]&&row[1])
       .map(row=>({code:String(row[0]).trim(),name:String(row[1]).trim(),
-        specimen:String(row[2]||'').trim(),normalized:normalize(row[1])}));
+        specimen:String(row[2]||'').trim(),row}));
     const outputContainer=document.getElementById('crosswalkOutputAutocomplete');
     const sourceContainer=document.getElementById('crosswalkQuestAutocomplete');
     const actionLayer=outputContainer?document.createElement('div'):null;
@@ -562,21 +535,10 @@
     function searchDestinationDirectory(){
       if(!drawer||!drawerSource)return;
       updateDestinationDirectoryLink();
-      const q=normalize(drawerSearch.value),terms=q.split(' ').filter(Boolean);
-      const scored=q?indexedDestinationTests.map(test=>{
-        const name=test.normalized,code=test.code;
-        let score=0;
-        if(code===q)score=5000;
-        else if(/^\d+$/.test(q)&&code.startsWith(q))score=4400;
-        else if(name===q)score=4200;
-        else if(name.startsWith(q))score=3700;
-        else if(name.includes(q))score=3400;
-        else if(terms.every(t=>name.split(' ').some(word=>word===t||word.startsWith(t))))score=2900;
-        else if(terms.every(t=>name.includes(t)))score=2400;
-        else if(terms.some(t=>t.length>=3&&name.includes(t)))score=900+
-          100*terms.filter(t=>t.length>=3&&name.includes(t)).length;
-        return {test,score};
-      }).filter(item=>item.score>0).sort((a,b)=>b.score-a.score||
+      const q=normalize(drawerSearch.value);
+      const scored=q?indexedDestinationTests.map(test=>({
+        test, score: scoreSuggestion(test.row, q, isQuestPage ? 'quest' : 'labcorp')
+      })).filter(item=>item.score>0).sort((a,b)=>b.score-a.score||
         a.test.name.localeCompare(b.test.name)||a.test.code.localeCompare(b.test.code)):[];
       drawerStatus.textContent=!q?'Enter a '+toLab+' test name or code':
         scored.length?'Showing '+Math.min(scored.length,25)+' of '+scored.length+' '+toLab+' directory references':
@@ -820,7 +782,7 @@
         return;
       }
       if(!query){hideOutputSuggestions();return;}
-      const matches=outputSuggestionItems.map(row=>({row,score:scoreSuggestion(row,query)}))
+      const matches=outputSuggestionItems.map(row=>({row,score:scoreSuggestion(row,query,isQuestPage ? 'quest' : 'labcorp')}))
         .filter(item=>item.score>0)
         .sort((a,b)=>b.score-a.score||a.row[1].length-b.row[1].length||
           String(a.row[0]).localeCompare(String(b.row[0])))

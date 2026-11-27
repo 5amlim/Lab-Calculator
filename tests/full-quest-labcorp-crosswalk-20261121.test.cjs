@@ -359,6 +359,11 @@ function comparisonFixture(directionValue,filterValue='all',searchValue=''){
   const ctx={
     rows:q,reverse:rev,filter:{value:filterValue},direction:{value:directionValue},
     search:{value:searchValue},
+    rankDirectorySearch(query, row) {
+      const code = row.code || row[0];
+      const name = row.name || row[1];
+      return code === query ? 2000 : name.toLowerCase() === query ? 1500 : 0;
+    },
     normalize:s=>String(s??'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim()
   };
   return Array.from(vm.runInNewContext(comparisonFunctions+'\ngetRows()',ctx));

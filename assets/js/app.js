@@ -196,7 +196,7 @@
     { name: /^lipoprotein a\b/, terms: ['lp a', 'lpa', 'lipoprotein a'] },
     { name: /^(?:crp|c reactive protein)$/, terms: ['c reactive protein', 'standard crp', 'crp'] },
     { name: /^(?:hs crp|cardioiq hs crp|cardio iq hs crp)\b/, terms: ['hscrp', 'hs crp', 'high sensitivity crp', 'high sensitive c reactive protein', 'cardiac crp'] },
-    { name: /^(?:esr|erythrocyte sedimentation rate|sedimentation rate)\b/, terms: ['sed rate', 'sedimentation rate', 'erythrocyte sedimentation rate', 'esr'] },
+    { name: /^(?:esr(?: westergren)?$|erythrocyte sedimentation rate\b|sedimentation rate\b)/, terms: ['sed rate', 'sedimentation rate', 'erythrocyte sedimentation rate', 'esr'] },
     { name: /^ana screen\b/, terms: ['antinuclear antibody', 'anti nuclear antibody', 'ana screening', 'ana screen'] },
     { name: /^pt\s+inr\b/, terms: ['protime', 'prothrombin time', 'pt inr', 'prothrombin time inr'] },
     { name: /^partial thromboplastin time activated\b/, terms: ['ptt', 'aptt', 'activated partial thromboplastin time', 'partial thromboplastin time'] },
@@ -1574,7 +1574,8 @@
     const name = normalizeSearch(test.testName);
     const code = normalizeSearch(test.testCode);
     // Retain code-specific shorthand from the user's Quest workbook after official-name cleanup.
-    const workbookAliases = window.QUEST_WORKBOOK_SEARCH_ALIASES?.[String(test.testCode || '').trim()] || [];
+    const workbookAliases = test.directoryLab === 'labcorp' ? [] :
+      window.QUEST_WORKBOOK_SEARCH_ALIASES?.[String(test.testCode || '').trim()] || [];
     const aliases = Array.from(new Set([...curatedLabAliases(name), ...workbookAliases, ...(Array.isArray(test.searchAliases) ? test.searchAliases : [])]
       .map(normalizeSearch).filter(Boolean)));
     const aliasWords = Array.from(new Set(aliases.flatMap(value => value.split(' '))));
@@ -1585,7 +1586,11 @@
       test.transportContainer, test.transportTemperature, test.specialLabeling,
       test.specialInstructions
     ].join(' '));
-    const indexed = { name, code, aliases, nameWords, aliasWords, info };
+    const compactTerms = new Set([name, ...aliases].map(term => term.replace(/ /g, '')));
+    const shorthand = nameWords
+      .filter(word => !/^(?:a|an|and|by|for|in|of|or|the|with)$/.test(word))
+      .map(word => /^\d/.test(word) ? word : word[0]).join('');
+    const indexed = { name, code, aliases, nameWords, aliasWords, info, compactTerms, shorthand };
     librarySearchIndexCache.set(test, indexed);
     return indexed;
   }
@@ -1614,21 +1619,33 @@
     return prev[b.length] <= maxEdits;
   }
 
-  function libraryWordMatch(token, words, allowTypo) {
+  const exactSearchMarkers = /^(?:i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii|hbsag|hbsab|hbcag|hbcab|hbeag|hbeab|hcv|hbv|hiv|igg|igm|iga|ige|anti|hstni|hstnt|hscrp|tni|tnt)$/;
+  const searchQualifierPairs = [
+    [/\b(?:qualitative|qual)\b/, /\b(?:quantitative|quant)\b/],
+    [/\b(?:with|w) (?:diff|differential)\b/, /\b(?:without|no|w o) (?:diff|differential)\b/],
+    [/\bfree\b/, /\btotal\b/],
+    [/\b(?:antigen|ag)\b/, /\b(?:antibody|antibodies|ab)\b/],
+    [/\b(?:igg)\b/, /\b(?:igm)\b/],
+  ];
+
+  function conflictsWithSearchQualifier(query, name) {
+    return searchQualifierPairs.some(([first, second]) =>
+      (first.test(query) && !second.test(query) && second.test(name) && !first.test(name)) ||
+      (second.test(query) && !first.test(query) && first.test(name) && !second.test(name)));
+  }
+
+  function libraryWordMatch(token, words) {
     if (words.includes(token)) return 3;
-    if (/^\d+$/.test(token)) return 0;
-    // Roman numerals (VII, VIII) must match whole tokens, never a prefix.
-    // That avoids confusing Factor VII with Factor VIII or Troponin I with II.
-    if (/^(?:i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii)$/.test(token)) return 0;
-    if (words.some(word => word.startsWith(token))) return 2;
+    if (/^\d+$/.test(token) || exactSearchMarkers.test(token)) return 0;
+    if (token.length >= 2 && words.some(word => word.startsWith(token))) return 2;
     if (token.length >= 3 && words.some(word => word.includes(token))) return 1;
-    // Do not "correct" clinically distinct abbreviated markers into each
-    // other (e.g. HBsAg ≠ HBsAb). These short clinical aliases require exact
-    // spelling; longer ordinary name words still tolerate small typos.
-    if (!allowTypo || token.length < 4 || /\d/.test(token) || /^(?:hbsag|hbsab|anti|hcv|hiv|ft3|ft4)$/.test(token)) return 0;
-    const maxEdits = token.length >= 6 ? 2 : 1;
-    return words.some(word => !/^(?:hbsag|hbsab)$/.test(word)
-      && libraryEditDistanceWithin(token, word, maxEdits)) ? -1 : 0;
+    if (!/^[a-z]{4,}$/.test(token)) return 0;
+    const maxEdits = token.length >= 8 ? 2 : 1;
+    const candidates = words.filter(word => Math.abs(word.length - token.length) <= maxEdits &&
+      /^[a-z]{4,}$/.test(word) && !exactSearchMarkers.test(word));
+    if (candidates.some(word => libraryEditDistanceWithin(token, word, 1))) return -1;
+    if (maxEdits === 2 && candidates.some(word => libraryEditDistanceWithin(token, word, 2))) return -2;
+    return 0;
   }
 
   function troponinSearchType(query) {
@@ -1643,7 +1660,7 @@
   function rankLibraryTest(query, test) {
     const q = normalizeSearch(query);
     if (!q) return 0;
-    const { code, name, aliases, nameWords, aliasWords, info } = librarySearchIndex(test);
+    const { code, name, aliases, nameWords, aliasWords, info, compactTerms, shorthand } = librarySearchIndex(test);
     if (code && q === code) return 2000;
     if (/^\d+$/.test(q)) {
       if (code.startsWith(q)) return 1650;
@@ -1658,12 +1675,15 @@
     const catalogTroponin = requestedTroponin && troponinSearchType(name);
     if (catalogTroponin && catalogTroponin !== requestedTroponin) return 0;
     if (name === q) return 1500;
+    // A catalog alias can describe a method (such as fluorescent antibody
+    // detection) while the assay name describes its target antigen.
+    if (aliases.includes(q)) return 1480 - Math.min(75, name.length / 2);
+    if (conflictsWithSearchQualifier(q, name)) return 0;
     const clinicalQuery = window.LabClinicalCategories?.matchQuery(q);
     if (clinicalQuery && !clinicalQuery.rest)
       return window.LabClinicalCategories.forTest(test).includes(clinicalQuery.id) ? 1000 : 0;
-    // Curated full aliases precede prefix/substring matches so PTT finds aPTT
-    // instead of incidentally preferring PTT-LA. Exact name/code still wins.
-    if (aliases.includes(q)) return 1480 - Math.min(75, name.length / 2);
+    const compact = q.replace(/ /g, '');
+    if (compact.length >= 3 && compactTerms.has(compact)) return 1410;
     const tokens = q.split(' ').filter(Boolean);
     const finalIsRoman = /^(?:i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii)$/.test(tokens[tokens.length - 1]);
     const exactNumericWords = tokens.every(token => !/^\d+$/.test(token) || nameWords.includes(token));
@@ -1673,16 +1693,17 @@
     if (exactNumericWords && name.includes(q) && (!finalIsRoman || name.includes(`${q} `) || name.endsWith(q))) {
       return 1360 - Math.min(100, name.length - q.length);
     }
-    const nameMatches = tokens.map(token => libraryWordMatch(token, nameWords, true));
+    if (/^[a-z]{3,8}$/.test(q) && q === shorthand) return 950;
+    const nameMatches = tokens.map(token => libraryWordMatch(token, nameWords));
     if (nameMatches.every(score => score !== 0)) {
-      const fuzzy = nameMatches.filter(score => score < 0).length;
+      const fuzzy = nameMatches.reduce((edits, score) => edits + Math.max(0, -score), 0);
       const exact = nameMatches.filter(score => score === 3).length;
       return (fuzzy ? 820 - fuzzy * 75 : 1120) + exact * 8 + tokens.length * 5 - Math.min(nameWords.length, 25);
     }
     const combinedWords = nameWords.concat(aliasWords);
-    const aliasMatches = tokens.map(token => libraryWordMatch(token, combinedWords, true));
+    const aliasMatches = tokens.map(token => libraryWordMatch(token, combinedWords));
     if (aliasMatches.every(score => score !== 0)) {
-      const fuzzy = aliasMatches.filter(score => score < 0).length;
+      const fuzzy = aliasMatches.reduce((edits, score) => edits + Math.max(0, -score), 0);
       return (fuzzy ? 665 - fuzzy * 60 : 930) + tokens.length * 5 - Math.min(nameWords.length, 25);
     }
     // Combined clinical category + test query must match both terms.
@@ -2421,7 +2442,6 @@
     if (!q) return [];
     const numeric = /^\d+$/.test(q);
     const codePlusName = q.match(/^(\d{2,})\s+(.+)$/);
-    const shorterTokens = q.split(' ').filter(Boolean);
     return database
       .filter(test => kind !== 'library' || matchesLibraryFilters(test))
       .map(test => {
@@ -2442,33 +2462,13 @@
           if (codePlusName && code === codePlusName[1] &&
             rankLibraryTest(codePlusName[2], test) >= 500) score = 2800;
           else score = rankLibraryTest(q, test);
-          if (index.aliases.includes(q)) score = Math.max(score, 1550);
-          else if (q.length >= 2 && index.aliases.some(alias => alias.startsWith(q)))
+          if (q.length >= 2 && index.aliases.some(alias => alias.startsWith(q)))
             score = Math.max(score, 1260 - Math.min(100, name.length / 2));
-          // Search suggestions should include common misspellings of a full
-          // shorthand, not just misspellings of canonical test-name words.
-          if (q.length >= 5 && shorterTokens.length === 1 &&
-            !/^(?:hbsag|hbsab|hbcab|hbcag|hstni|hstnt|hscrp|ft3|ft4|tni|tnt)$/.test(q) &&
-            index.aliases.some(alias => !alias.includes(' ') && alias.length >= 5 &&
-              !/^(?:hbsag|hbsab|hbcab|hbcag|hstni|hstnt|hscrp|ft3|ft4|tni|tnt)$/.test(alias) &&
-              libraryEditDistanceWithin(q, alias, q.length >= 7 ? 2 : 1)))
-            score = Math.max(score, 725);
-          // Do not suggest a clinically different qualified assay as though
-          // it were the exact one requested.
-          const requestedDiff = /\b(?:cbc|blood count)\b.*\b(?:diff|differential)\b/.test(q);
-          const queryNoDiff = /\b(?:without|no|w o)\s+(?:diff|differential)\b/.test(q);
-          const nameNoDiff = /\b(?:without|no)\s+(?:diff|differential)\b/.test(name);
-          if (requestedDiff && queryNoDiff && !nameNoDiff &&
-            /\b(?:with|w)\s+(?:diff|differential)\b/.test(name)) score = 0;
-          if (requestedDiff && !queryNoDiff && nameNoDiff) score = 0;
-          if (/\b(?:qualitative|qual)\b/.test(q) &&
-            /\bquantitative\b/.test(name) && !/\bqualitative\b/.test(name)) score = 0;
-          if (/\b(?:quantitative|quant)\b/.test(q) &&
-            /\bqualitative\b/.test(name) && !/\bquantitative\b/.test(name)) score = 0;
         }
         const requestedTroponin = troponinSearchType(q);
         const catalogTroponin = requestedTroponin && troponinSearchType(name);
-        if (catalogTroponin && catalogTroponin !== requestedTroponin) score = 0;
+        if ((catalogTroponin && catalogTroponin !== requestedTroponin) ||
+          (name !== q && !index.aliases.includes(q) && conflictsWithSearchQualifier(q, name))) score = 0;
         return { test, score };
       })
       .filter(item => item.score >= 500)
@@ -8414,6 +8414,9 @@
     els.toast.classList.add('show');
     toastTimer = setTimeout(() => els.toast.classList.remove('show'), 2300);
   }
+  // Convert Tests uses the same text ranking for directory suggestions.
+  // Candidate relationships still come from the crosswalk data.
+  window.rankLabDirectorySearch = rankLibraryTest;
   init();
   };
   const directoryReady = window.QUEST_MISSING_DIRECTORY_READY;
