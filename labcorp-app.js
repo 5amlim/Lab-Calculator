@@ -2378,7 +2378,7 @@
     const codePlusName = q.match(/^(\d{2,})\s+(.+)$/);
     const shorterTokens = q.split(' ').filter(Boolean);
     return database
-      .filter(test => test.status !== 'blocked' && (kind !== 'library' || matchesLibraryFilters(test)))
+      .filter(test => kind !== 'library' || matchesLibraryFilters(test))
       .map(test => {
         const index = librarySearchIndex(test);
         const code = index.code;
@@ -2439,8 +2439,9 @@
   // Keep the dropdown for partial codes, names, and duplicate exact codes.
   function hasSingleExactCodeMatch(query, matches) {
     const code = String(query || '').trim();
-    return /^\d+$/.test(code) &&
-      matches.filter(({ test }) => String(test.testCode || '').trim() === code).length === 1;
+    if (!/^\d+$/.test(code)) return false;
+    const exact = matches.filter(({ test }) => String(test.testCode || '').trim() === code);
+    return exact.length === 1 && exact[0].test.status !== 'blocked';
   }
 
   // An unambiguous full test name is already confirmed by the inline code hint.
@@ -2460,8 +2461,10 @@
     const state = suggestionState[kind];
     state.items = matches.map(item => item.test);
     state.active = -1;
+    const hasExactBlockedName = matches.some(({ test }) =>
+      test.status === 'blocked' && normalizeSearch(test.testName) === normalizeSearch(query));
     if (!matches.length || hasSingleExactCodeMatch(query, matches) ||
-      (kind === 'batch' && hasSingleExactNameMatch(query))) {
+      (kind === 'batch' && !hasExactBlockedName && hasSingleExactNameMatch(query))) {
       closeSuggestions(kind);
       return;
     }
@@ -2469,13 +2472,17 @@
     panel.innerHTML = '<div class="calc-suggestion-heading">' + label + '</div>' +
       matches.map(({test}, index) => {
         const code = displayCode(test);
-        const meta = [test.specimenType, test.transportTemperature].filter(Boolean).join(' · ');
+        const blocked = test.status === 'blocked';
+        const meta = blocked ? 'Do Not Perform' :
+          [test.specimenType, test.transportTemperature].filter(Boolean).join(' · ');
         return '<button type="button" class="calc-suggestion-option" role="option" id="' +
           kind + '-suggestion-' + index + '" aria-selected="false" data-index="' + index +
-          '" tabindex="-1"><span class="calc-suggestion-code">' + escapeHtml(code) +
+          '"' + (blocked ? ' aria-disabled="true"' : '') +
+          ' tabindex="-1"><span class="calc-suggestion-code">' + escapeHtml(code) +
           '</span><span class="calc-suggestion-copy"><strong>' + escapeHtml(test.testName) +
           '</strong><small>' + escapeHtml(meta) +
-          '</small></span><span class="calc-suggestion-arrow" aria-hidden="true">›</span></button>';
+          '</small></span>' +
+          (blocked ? '' : '<span class="calc-suggestion-arrow" aria-hidden="true">›</span>') + '</button>';
       }).join('') +
       '<div class="calc-suggestion-footer">' +
       (kind === 'batch' ? 'Click to fill this test and start the next line · Enter also starts a new line' :
@@ -2502,7 +2509,7 @@
 
   function chooseSuggestion(kind, index) {
     const test = suggestionState[kind].items[index];
-    if (!test) return;
+    if (!test || test.status === 'blocked') return;
     const value = String(test.testCode || '').trim() || test.testName;
     if (kind === 'library') {
       els.libraryFilter.value = value;
