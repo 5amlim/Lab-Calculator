@@ -68,6 +68,17 @@ const converterBegin=converterUI.indexOf('    function updateConverter(){');
 const converterEnd=converterUI.indexOf("    converterInput.addEventListener('input'",converterBegin);
 assert.ok(converterBegin>=0&&converterEnd>converterBegin,'Converter entry point is present');
 const converterFunction=converterUI.slice(converterBegin,converterEnd);
+const alignmentBegin=converterUI.indexOf('    const alignmentPadding=new WeakMap();');
+const alignmentEnd=converterUI.indexOf('    function syncConverterScroll(',alignmentBegin);
+assert.ok(alignmentBegin>=0&&alignmentEnd>alignmentBegin,'Real pane alignment helpers are present');
+const alignmentFunctions=converterUI.slice(alignmentBegin,alignmentEnd);
+function fixturePane(value,placeholder=''){
+  return {value,placeholder,scrollTop:0,clientHeight:96,selectionStart:0,selectionEnd:0,
+    selectionDirection:'none',
+    get scrollHeight(){return Math.max(this.clientHeight,this.value.split('\n').length*24)},
+    setSelectionRange(start,end,direction){this.selectionStart=start;this.selectionEnd=end;this.selectionDirection=direction}
+  };
+}
 function convertFixture(input,manual=[],chosen=[],questPage=true){
   const ctx={
     isQuestPage:questPage,fromLab:questPage?'LabCorp':'Quest',toLab:questPage?'Quest':'LabCorp',
@@ -80,21 +91,25 @@ function convertFixture(input,manual=[],chosen=[],questPage=true){
       ['000111',['000111','Shared destination','','809','',0,'','active',[],['809']]]
     ]),
     questByName:new Map(),
-    converterInput:{value:input},
-    converterOutput:{value:'',placeholder:'Matching Quest codes'},
+    converterInput:fixturePane(input),
+    converterOutput:fixturePane('','Matching Quest codes'),
     outputPlaceholder:'Matching Quest codes',
     converterWarning:{hidden:true,textContent:''},
-    emptyOutputHints:new Map(),
+    emptyOutputHints:new Map(),manualSourceHints:new Map(),
     generatedMatchRows:new Map(),
     generatedOutputRows:[],
     chosenMatches:new Map(chosen),
     manualOutputCodes:new Set(manual),
     cartCandidateCodes:[],matchFeedback:[],actionFeedback:'',
-    refreshOutputHints(){},refreshManualSourceHints(){},
+    refreshOutputHints(){},refreshManualSourceHints(){},refreshConverterHints(){},
     renderNoMatchActions(){},renderSourceEntryActions(){},
     renderCart(){},syncConverterScroll(){}
   };
-  vm.runInNewContext(converterFunction+'\nupdateConverter();',ctx);
+  vm.runInNewContext('const mirroredScroll=new WeakMap();\n'+alignmentFunctions+'\n'+converterFunction+
+    '\nupdateConverter(); logicalInput=logicalPaneValue(converterInput);',ctx);
+  assert.equal(ctx.logicalInput,input,'Synthetic scroll padding must not alter logical input');
+  assert.equal(ctx.converterInput.value.split('\n').length,ctx.converterOutput.value.split('\n').length,
+    'Both panes must have equal native row counts');
   return ctx;
 }
 test('unmatched LabCorp row keeps its visual position ahead of a matched Quest code',()=>{
@@ -517,16 +532,16 @@ test('crosswalk displays three rows and loads ten only on Show more click',()=>{
 });
 
 
-test('Add Tests magnifier remains available for fuzzy first-row entries in both calculators',()=>{
+test('Add Tests magnifier appears for unresolved names and codes in both calculators',()=>{
   for(const [app,page] of [['assets/js/app.js','index.html'],['labcorp-app.js','labcorp.html']]){
     const source=fs.readFileSync(app,'utf8'),html=fs.readFileSync(page,'utf8');
     const anchor=source.indexOf('refreshBatchHints = window.LabBatchInlineHints.mount');
     const start=source.indexOf('          lineTone: query => {',anchor);
-    const end=source.indexOf('\n          }\n        });',start);
+    const end=source.indexOf('\n          },\n          onStatusRows:',start);
     assert.ok(anchor>=0&&start>anchor&&end>start,app+' must configure inline line tone');
     const tone=source.slice(start,end+'\n          }'.length);
     assert.match(source.slice(anchor,start),/colorUnavailable:\s*false/);
-    assert.ok(!tone.includes('findMatches('),app+' must not hide finder for fuzzy suggestions');
+    assert.ok(tone.includes('findMatches('),app+' must distinguish fuzzy candidates from unresolved entries');
     const catalog=[
       {testCode:'123',testName:'Assay',status:'active',aliases:[]},
       {testCode:'005215',testName:'Sed Rate',status:'active',aliases:['esr']},
@@ -537,6 +552,7 @@ test('Add Tests magnifier remains available for fuzzy first-row entries in both 
       database:catalog,
       normalizeSearch,
       findCategoryMatches:q=>q==='hematology'?{label:'Hematology'}:null,
+      findMatches:q=>q==='Assad'?[catalog[0]]:[],
       librarySearchIndex:test=>({
         code:normalizeSearch(test.testCode),name:normalizeSearch(test.testName),aliases:test.aliases
       })
@@ -544,9 +560,9 @@ test('Add Tests magnifier remains available for fuzzy first-row entries in both 
     vm.runInNewContext('const opts={'+tone+'};result=['+
       "opts.lineTone('Assad'),opts.lineTone('Stunt'),opts.lineTone('Guinbbf'),"+
       "opts.lineTone('Assay'),opts.lineTone('005215'),opts.lineTone('esr'),"+
-      "opts.lineTone('999999'),opts.lineTone('hematology')];",context);
+      "opts.lineTone('999999'),opts.lineTone('hematology'),opts.lineTone('777777'),opts.lineTone('')];",context);
     assert.deepEqual(Array.from(context.result),
-      ['unavailable','unavailable','unavailable',null,null,null,'unavailable',null],app);
+      [null,'unavailable','unavailable',null,null,null,null,null,'unavailable',null],app);
     assert.match(html,/<textarea id="searchInput"[^>]*spellcheck="false"/);
     assert.match(html,/<textarea id="searchInput"[^>]*autocorrect="off"/);
     assert.match(html,/<textarea id="searchInput"[^>]*autocapitalize="off"/);
