@@ -577,6 +577,9 @@
     function renderNoMatchActions(){
       if(!actionLayer)return;
       actionLayer.replaceChildren();
+      for(const label of outputContainer.querySelectorAll('.crosswalk-no-match-actionable.is-lookup-highlighted')){
+        label.classList.remove('is-lookup-highlighted');
+      }
       // The magnifier replaces ↔ before the no-match message. Use the
       // label's actual rectangle to stay aligned with scrolling and zoom.
       const containerRect=outputContainer.getBoundingClientRect();
@@ -590,11 +593,18 @@
         const left=rect.left-containerRect.left+3;
         if(top<-20||top>outputContainer.clientHeight-3)continue;
         // The text may ellipsize, but its leading search icon stays visible.
-        if(left<0||left+20>outputContainer.clientWidth-2)continue;
+        if(left<0||left+26>outputContainer.clientWidth-2)continue;
         const b=document.createElement('button');
         b.type='button';
         b.className='crosswalk-no-match-search';
         b.dataset.row=String(index);
+        // Only this existing ghost label changes color. No copied text,
+        // font overrides or resizing are needed.
+        const syncHighlight=()=>label.classList.toggle('is-lookup-highlighted',
+          b.matches(':hover,:focus-visible'));
+        for(const type of ['pointerenter','pointerleave','focus','blur']){
+          b.addEventListener(type,syncHighlight);
+        }
         b.style.top=top+'px';
         b.style.left=left+'px';
         b.title='Find a '+toLab+' test for this '+fromLab+' entry';

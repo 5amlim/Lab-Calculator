@@ -1216,7 +1216,7 @@
   /* The clickable magnifier replaces ↔ before actionable no-match text. */
   #crosswalkOutputAutocomplete .batch-inline-ghost-no-match.crosswalk-no-match-actionable {
     box-sizing: border-box;
-    padding-left: 29px;
+    padding-left: 32px;
   }
   #crosswalkOutputAutocomplete .batch-inline-ghost-no-match.crosswalk-no-match-actionable::before {
     display: none;
@@ -1231,26 +1231,38 @@
   }
   #crosswalkOutputAutocomplete .crosswalk-no-match-search {
     position:absolute;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    width:20px;
+    display:grid;
+    place-items:center;
+    width:26px;
     height:20px;
-    padding:2px;
-    border:1px solid #c7dce8;
-    border-radius:6px;
-    background:#eff7fc;
-    color:#2a688c;
+    padding:0;
+    border:1px solid transparent;
+    border-radius:5px;
+    background:transparent;
+    color:var(--brand-dark,#526b78);
     pointer-events:auto;
     cursor:pointer;
     box-sizing:border-box;
+    opacity:.72;
+    transition:opacity .15s,background .15s,border-color .15s,color .15s;
   }
-  #crosswalkOutputAutocomplete .crosswalk-no-match-search svg {width:14px;height:14px;}
+  #crosswalkOutputAutocomplete .crosswalk-no-match-search svg {display:block;width:14px;height:14px;flex:none;}
   #crosswalkOutputAutocomplete .crosswalk-no-match-search:hover,
   #crosswalkOutputAutocomplete .crosswalk-no-match-search:focus-visible {
-    background:#dceef8;
-    border-color:#80b1cc;
-    outline-offset:2px;
+    opacity:1;
+    background:var(--surface,#fff);
+    border-color:currentColor;
+    color:var(--brand,#0d6672);
+  }
+  #crosswalkOutputAutocomplete .crosswalk-no-match-search:focus-visible {
+    outline:2px solid currentColor;
+    outline-offset:1px;
+  }
+  #crosswalkOutputAutocomplete .crosswalk-no-match-actionable.is-lookup-highlighted {
+    color:var(--brand,#0d6672);
+  }
+  @media (prefers-reduced-motion:reduce) {
+    #crosswalkOutputAutocomplete .crosswalk-no-match-search {transition:none;}
   }
   #crosswalkQuestAutocomplete .crosswalk-source-match-actions {
     position:absolute;
