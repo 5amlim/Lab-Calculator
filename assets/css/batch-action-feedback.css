@@ -325,3 +325,12 @@
     }
   }
 }
+
+/* Inline official-directory fallback, reserved gutter prevents covering text. */
+#findTestsView #searchInput.batch-directory-gutter{padding-right:36px!important}
+#batchAutocomplete .batch-directory-links{position:absolute;inset:0;pointer-events:none;z-index:3}
+#batchAutocomplete .batch-directory-lookup{position:absolute;display:grid;place-items:center;width:26px;height:20px;box-sizing:border-box;border:1px solid transparent;border-radius:5px;color:var(--brand-dark,#526b78);background:transparent;text-decoration:none;pointer-events:auto;opacity:.72;transition:opacity .15s,background .15s,border-color .15s}
+#batchAutocomplete .batch-directory-lookup svg{display:block;width:14px;height:14px;flex:none}
+#batchAutocomplete .batch-directory-lookup:hover,#batchAutocomplete .batch-directory-lookup:focus-visible{opacity:1;background:var(--surface,#fff);border-color:currentColor}
+#batchAutocomplete .batch-directory-lookup:focus-visible{outline:2px solid currentColor;outline-offset:1px}
+@media(prefers-reduced-motion:reduce){#batchAutocomplete .batch-directory-lookup{transition:none}}

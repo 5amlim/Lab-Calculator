@@ -191,5 +191,46 @@
     };
   }
 
-  window.LabBatchMatchFinder = { mount };
+  // Direct official-directory links for unresolved names. No cart mutation,
+  // replacement of typed text or extra directory drawer.
+  function mountDirectoryLinks(textarea, directoryUrl) {
+    const host = textarea?.parentElement;
+    if (!host || typeof directoryUrl !== 'function') return {sync(){}};
+    textarea.classList.add('batch-directory-gutter');
+    const layer = document.createElement('div');
+    layer.className = 'batch-directory-links';
+    host.appendChild(layer);
+    const links = new Map();
+    let rows = [];
+    function draw() {
+      const wanted = new Set();
+      for (const row of rows) {
+        if (row.tone !== 'unavailable' || !row.query) continue;
+        const top = row.top - textarea.scrollTop;
+        if (top < textarea.offsetTop || top + 20 > textarea.offsetTop + textarea.clientHeight) continue;
+        const key = row.index + ':' + row.query;
+        wanted.add(key);
+        let link = links.get(key);
+        if (!link) {
+          link = document.createElement('a');
+          link.className = 'batch-directory-lookup';
+          link.href = directoryUrl(row.query);
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.title = 'Search official directory';
+          link.setAttribute('aria-label', 'Search official directory for ' + row.query);
+          link.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>';
+          links.set(key, link);
+          layer.appendChild(link);
+        }
+        link.style.top = top + 'px';
+        link.style.left = (textarea.offsetLeft + textarea.clientWidth - 30) + 'px';
+      }
+      for (const [key,link] of links) if (!wanted.has(key)) {link.remove();links.delete(key);}
+    }
+    textarea.addEventListener('scroll',draw,{passive:true});
+    window.addEventListener('resize',draw,{passive:true});
+    return {sync(next){rows=Array.isArray(next)?next:[];draw();}};
+  }
+  window.LabBatchMatchFinder = { mount, mountDirectoryLinks };
 })();

@@ -347,33 +347,20 @@
           `<option value="${id}">${label.replace(/&/g, '&amp;')}</option>`).join('');
     }
     if (window.LabBatchInlineHints) {
-      // Keep this search inside the active catalog. A manual selection only
-      // replaces its original input line; Add/Review remain separate actions.
+      const lookup = window.LabBatchMatchFinder?.mountDirectoryLinks(els.searchInput, directorySearchUrl);
       refreshBatchHints = window.LabBatchInlineHints.mount(els.searchInput, query =>
         window.LabBatchInlineHints.resolveExact(query, database, normalizeSearch), {
-          // A non-addable exact code is distinct from an unverified candidate.
-          // Preserve normal text color for active codes, categories, shorthands,
-          // and tests whose possible matches still require review.
-          // Keep all Add Tests input text the same color. Status still drives
-          // directory lookup buttons for unmatched lines.
           colorUnavailable: false,
           lineTone: query => {
             const value = String(query || '').trim();
-            if (!value) return null;
+            // Only unresolved names: numeric/code-like entries, recognized
+            // categories and all actual candidate matches remain icon-free.
+            if (!/[a-z]/i.test(value) || /^[a-z]{0,4}\d+[a-z0-9]*$/i.test(value) ||
+                /^\d[\d\s-]*$/.test(value)) return null;
             if (findCategoryMatches(value)) return null;
-            // A fuzzy suggestion is not a confirmed test match. Keep the
-            // directory magnifier on every row without an exact active code,
-            // test name, or recognized shorthand, including the first line.
-            const q = normalizeSearch(value);
-            const direct = database.some(test => {
-              if (test.status !== 'active') return false;
-              const index = librarySearchIndex(test);
-              return index.code === q || index.name === q ||
-                index.aliases.includes(q) ||
-                (Boolean(index.code) && q === index.code + ' ' + index.name);
-            });
-            return direct ? null : 'unavailable';
-          }
+            return findMatches(value, 1).length ? null : 'unavailable';
+          },
+          onStatusRows: rows => lookup?.sync(rows)
         });
     }
     restoreTatRegion();
