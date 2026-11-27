@@ -1051,5 +1051,105 @@
       "tests/container-filter-completeness-20261117.test.cjs"
     ],
     "approvalStatus": "Previously established calculator policy; receiving-laboratory acceptance is separate."
+  },
+  {
+    "id": "quest-1430-gray-plasma",
+    "category": "forced-test-override",
+    "laboratory": [
+      "quest"
+    ],
+    "regions": [
+      "All calculator regions; receiving-account acceptance is separately reviewed"
+    ],
+    "testCodes": [
+      "1430"
+    ],
+    "expectedBehavior": "Collect separate gray oxalate draws and centrifuge and submit separated plasma in additive-free transport tubes.",
+    "exceptions": [],
+    "evidence": [
+      "audits/master/FIELD_EVIDENCE.json"
+    ],
+    "implementation": [
+      "assets/js/quest-verified-urine-20261114.js"
+    ],
+    "regressionTests": [
+      "tests/container-grouping-parity-20261115.test.cjs"
+    ],
+    "approvalStatus": "Protected operational rule. Explicit user approval is required for changes."
+  },
+  {
+    "id": "quest-8280-ua-stock",
+    "category": "forced-test-override",
+    "laboratory": [
+      "quest"
+    ],
+    "regions": [
+      "All calculator regions; receiving-account acceptance is separately reviewed"
+    ],
+    "testCodes": [
+      "8280"
+    ],
+    "expectedBehavior": "Preserve the established UA container configuration for the timed urinalysis route.",
+    "exceptions": [],
+    "evidence": [
+      "audits/master/FIELD_EVIDENCE.json"
+    ],
+    "implementation": [
+      "assets/js/quest-verified-urine-20261114.js"
+    ],
+    "regressionTests": [
+      "tests/quest-verified-20261114.test.cjs"
+    ],
+    "approvalStatus": "Protected operational rule. Explicit user approval is required for changes."
+  },
+  {
+    "id": "quest-229-sterile-cup",
+    "category": "forced-test-override",
+    "laboratory": [
+      "quest"
+    ],
+    "regions": [
+      "All calculator regions; receiving-account acceptance is separately reviewed"
+    ],
+    "testCodes": [
+      "229"
+    ],
+    "expectedBehavior": "Preserve the timed urine collection without HCl and the sterile-cup aliquot submission.",
+    "exceptions": [],
+    "evidence": [
+      "80e0219"
+    ],
+    "implementation": [
+      "assets/js/app.js"
+    ],
+    "regressionTests": [
+      "tests/container-grouping-parity-20261115.test.cjs"
+    ],
+    "approvalStatus": "Protected operational rule. Explicit user approval is required for changes."
+  },
+  {
+    "id": "quest-10676-urine-only",
+    "category": "forced-test-override",
+    "laboratory": [
+      "quest"
+    ],
+    "regions": [
+      "All calculator regions; receiving-account acceptance is separately reviewed"
+    ],
+    "testCodes": [
+      "10676"
+    ],
+    "expectedBehavior": "Keep the single refrigerated urine cytology record active and searchable under the urine-only exception. The general cytology exclusion still applies.",
+    "exceptions": [],
+    "evidence": [
+      "cab41ae"
+    ],
+    "implementation": [
+      "assets/js/app.js"
+    ],
+    "regressionTests": [
+      "tests/master-database-audit.test.cjs"
+    ],
+    "approvalStatus": "Protected operational rule. Explicit user approval is required for changes."
   }
 ]

@@ -7,6 +7,7 @@ import {labs, loadCalculator} from './load-calculator-catalog.mjs';
 const {values} = parseArgs({options: {
   out: {type: 'string', default: 'audits/master'},
   baseline: {type: 'string'},
+  'protected-baseline': {type: 'string'},
   check: {type: 'boolean'},
   revision: {type: 'string'},
   root: {type: 'string', default: '.'}
@@ -233,6 +234,21 @@ if (baseline) {
   }
   for (const id of changes.rules.removed) {
     flag('critical', 'custom-rule-removed', 'shared', id);
+  }
+}
+if (values['protected-baseline']) {
+  const protectedBaseline = JSON.parse(readFileSync(values['protected-baseline'], 'utf8'));
+  for (const [lab, {records}] of Object.entries(protectedBaseline.labs)) {
+    for (const [key, previous] of Object.entries(records)) {
+      if (previous.status === 'active' && snapshot.labs[lab].records[key]?.status !== 'active') {
+        flag('critical', 'checkpoint-active-record-lost', lab, key);
+      }
+    }
+  }
+  for (const [id, fingerprint] of Object.entries(protectedBaseline.rules)) {
+    if (snapshot.rules[id] !== fingerprint) {
+      flag('critical', 'checkpoint-custom-rule-changed', 'shared', id);
+    }
   }
 }
 const {relationships, ...summaryCrosswalk} = snapshot.crosswalk;

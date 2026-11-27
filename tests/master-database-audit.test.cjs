@@ -49,6 +49,10 @@ test('published catalogs execute the HTML overlays and apply clinical holds', as
   const [quest, labcorp] = await Promise.all(labs.map(lab => loadCalculator(root, lab, {captureRecords: true})));
   assert.equal(quest.records.filter(row => row.testCode === '10676').length, 1);
   assert.equal(quest.records.find(row => row.testCode === '10676').id, 'quest-tc-20261125-10676');
+  const urineCytology = quest.records.find(row => row.testCode === '10676');
+  assert.equal(urineCytology.status, 'active');
+  assert.equal(urineCytology.transportTemperature, 'Refrigerated');
+  assert(quest.index.tests.some(([code]) => code === '10676'));
   assert.match(labcorp.records.find(row => row.testCode === '501533').collectionReview, /acid-preserved/);
   assert(labcorp.index.tests.some(row => row[0] === '501533'));
   quest.globals.applyQuestLabcorpWorkbookMatches(labcorp.index.tests);

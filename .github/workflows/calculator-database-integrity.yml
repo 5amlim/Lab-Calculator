@@ -25,12 +25,20 @@ jobs:
         run: |
           git worktree add --detach "$RUNNER_TEMP/calculator-base" "$BASE_COMMIT"
           node scripts/audit-calculator-database.mjs --root "$RUNNER_TEMP/calculator-base" --out "$RUNNER_TEMP/catalog-baseline"
-      - name: Validate catalog and write health report
+      - name: Snapshot protected calculator checkpoint
+        env:
+          PROTECTED_REVISION: 1ef5d140f9f6febbc81f6b3824d42dd3d91ec9b3
         run: |
+          git worktree add --detach "$RUNNER_TEMP/calculator-protected" "$PROTECTED_REVISION"
+          node scripts/audit-calculator-database.mjs --root "$RUNNER_TEMP/calculator-protected" --out "$RUNNER_TEMP/catalog-protected"
+      - name: Validate catalog and write health report
+        shell: bash
+        run: |
+          args=(--protected-baseline "$RUNNER_TEMP/catalog-protected/DATABASE_SNAPSHOT.json")
           if [ -f "$RUNNER_TEMP/catalog-baseline/DATABASE_SNAPSHOT.json" ]; then
-            node scripts/audit-calculator-database.mjs --out "$RUNNER_TEMP/catalog-health" --baseline "$RUNNER_TEMP/catalog-baseline/DATABASE_SNAPSHOT.json" --check
+            node scripts/audit-calculator-database.mjs "${args[@]}" --out "$RUNNER_TEMP/catalog-health" --baseline "$RUNNER_TEMP/catalog-baseline/DATABASE_SNAPSHOT.json" --check
           else
-            node scripts/audit-calculator-database.mjs --out "$RUNNER_TEMP/catalog-health" --check
+            node scripts/audit-calculator-database.mjs "${args[@]}" --out "$RUNNER_TEMP/catalog-health" --check
           fi
       - name: Run complete calculator test suite
         if: always()
