@@ -214,11 +214,18 @@
     let previouslySelected = selectedIds();
     let previousPriorities = priorities();
     const recentAdditions = new Map();
+    // Only successful add operations can queue feedback. Restored or rerendered
+    // cart rows must not be mistaken for new user additions.
+    const pendingAdditions = new Set();
+    document.addEventListener('calculator:cart-test-added', event => {
+      if (event.detail?.id != null) pendingAdditions.add(String(event.detail.id));
+    });
 
     const onCartChange = () => {
       const current = selectedIds();
       const now = Date.now();
-      const addedNow = [...current].filter(id => !previouslySelected.has(id));
+      const addedNow = [...current].filter(id => pendingAdditions.has(id) && !previouslySelected.has(id));
+      for (const id of current) pendingAdditions.delete(id);
       for (const id of addedNow) recentAdditions.set(id, now + DURATION);
       const removedNow = [...previouslySelected].filter(id => !current.has(id));
       const nextPriorities = priorities();

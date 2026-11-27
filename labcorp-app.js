@@ -3482,6 +3482,7 @@
     if (!test || test.status !== 'active') return false;
     if (selectedIds.includes(id)) return false;
     selectedIds.push(id);
+    document.dispatchEvent?.(new CustomEvent('calculator:cart-test-added', { detail: { id: String(id) } }));
     if (DEFAULT_STAT_TEST_CODES.has(String(test.testCode)) && isStatEligible(test)) {
       if (!statSelectedIds.includes(id)) statSelectedIds.push(id);
       saveStatSelectedIds();
@@ -4467,6 +4468,7 @@
     const shouldAdd = existingIndex < 0 && els.addToSummary.checked && record.status !== 'blocked';
     if (shouldAdd && !selectedIds.includes(record.id)) {
       selectedIds.push(record.id);
+      document.dispatchEvent?.(new CustomEvent('calculator:cart-test-added', { detail: { id: String(record.id) } }));
       if (DEFAULT_STAT_TEST_CODES.has(record.testCode) && isStatEligible(record)) {
         if (!statSelectedIds.includes(record.id)) statSelectedIds.push(record.id);
         saveStatSelectedIds();
