@@ -448,6 +448,45 @@
     // Programmatic scroll events are ignored to avoid loops when one pane has
     // extra manual entries or additional candidate rows.
     const mirroredScroll=new WeakMap();
+    // Equal native scroll ranges, even when one side contains only ghost
+    // rows or extra destination candidates. Synthetic blank rows are never
+    // converted into source entries and never appear in copied codes.
+    const alignmentPadding=new WeakMap();
+    function logicalPaneValue(pane){
+      const value=pane.value;
+      const trailing=(value.match(/\n+$/)||[''])[0].length;
+      const count=Math.min(trailing,alignmentPadding.get(pane)||0);
+      return count?value.slice(0,-count):value;
+    }
+    function alignConverterPanes(preferred){
+      const source=preferred|| (document.activeElement===converterOutput?converterOutput:converterInput);
+      const offset=Math.max(0,source.scrollTop);
+      const left=logicalPaneValue(converterInput);
+      const right=logicalPaneValue(converterOutput);
+      const hintRows=Math.max(0,...[...manualSourceHints.keys(),...emptyOutputHints.keys()].map(index=>index+2));
+      const rowCount=Math.max(left.split('\n').length,right.split('\n').length,hintRows);
+      for(const [pane,value] of [[converterInput,left],[converterOutput,right]]){
+        const extra=rowCount-value.split('\n').length;
+        const padded=value+'\n'.repeat(extra);
+        if(pane.value!==padded){
+          const start=pane.selectionStart,end=pane.selectionEnd;
+          const direction=pane.selectionDirection;
+          pane.value=padded;
+          pane.setSelectionRange(Math.min(start,padded.length),Math.min(end,padded.length),direction);
+        }
+        alignmentPadding.set(pane,extra);
+      }
+      // Both panes now have identical row counts, heights and line metrics.
+      const top=Math.min(offset,
+        Math.max(0,converterInput.scrollHeight-converterInput.clientHeight),
+        Math.max(0,converterOutput.scrollHeight-converterOutput.clientHeight));
+      for(const pane of [converterInput,converterOutput]){
+        if(Math.abs(pane.scrollTop-top)>=1){
+          mirroredScroll.set(pane,top);
+          pane.scrollTop=top;
+        }
+      }
+    }
     function syncConverterScroll(source,target){
       const ignored=mirroredScroll.get(source);
       if(ignored!==undefined){
@@ -734,6 +773,9 @@
     converterOutput.addEventListener('scroll',renderNoMatchActions,{passive:true});
     converterInput.addEventListener('scroll',renderSourceEntryActions,{passive:true});
     window.addEventListener('resize',()=>{
+      alignConverterPanes();
+      refreshOutputHints();
+      refreshConverterHints();
       renderNoMatchActions();
       renderSourceEntryActions();
     });
@@ -1168,6 +1210,9 @@
         // Keep one free row after the final locked hint for new tests.
         const missingRows=lastHintRow+2-existingRows;
         if(missingRows>0){
+          // A real editable row is being created for a manual destination.
+          // The prior alignment blanks now form part of that row structure.
+          alignmentPadding.delete(converterInput);
           const end=converterInput.value.length;
           converterInput.setRangeText('\n'.repeat(missingRows),end,end,'preserve');
         }
@@ -1264,9 +1309,12 @@
       manualOutputCodes=new Set(outputCodes().filter(code=>!candidates.has(code)));
       actionFeedback='';
       renderCart();
-      refreshOutputHints();
-      renderNoMatchActions();
       refreshManualSourceHints();
+      alignConverterPanes(converterOutput);
+      refreshOutputHints();
+      refreshConverterHints();
+      renderNoMatchActions();
+      renderSourceEntryActions();
       renderOutputSuggestions();
     });
     cartAdd.addEventListener('click',()=>{
@@ -1290,7 +1338,8 @@
     function updateConverter(){
       // Names are allowed as a full line. Retain compatibility with pasted
       // whitespace-separated numeric codes without splitting multiword test names.
-      const inputRows=converterInput.value.split('\n').flatMap(line=>
+      const logicalSource=logicalPaneValue(converterInput);
+      const inputRows=logicalSource.split('\n').flatMap(line=>
         line.split(/[,;\t]+/).flatMap(value=>{
           const trimmed=value.trim();
           return /^\d+(?:\s+\d+)+$/.test(trimmed)?trimmed.split(/\s+/):[trimmed];
@@ -1300,7 +1349,7 @@
       // Track the source textarea line for each candidate. The input remains
       // editable and its X removes only that source line and generated results.
       // Extra candidates (where a source has several) follow the aligned rows.
-      const inputSourceLines=converterInput.value.split('\n').flatMap((line,sourceLine)=>
+      const inputSourceLines=logicalSource.split('\n').flatMap((line,sourceLine)=>
         line.split(/[,;\t]+/).flatMap(value=>{
           const trimmed=value.trim();
           return /^\d+(?:\s+\d+)+$/.test(trimmed)
@@ -1414,6 +1463,7 @@
         line.trim()?index:last,-1);
       const lastGhostIndex=ghosts.size?Math.max(...ghosts.keys()):-1;
       const lastContentIndex=Math.max(lastCodeIndex,lastGhostIndex);
+      alignmentPadding.delete(converterOutput);
       if(lastContentIndex<0){
         converterOutput.value='';
       }else{
@@ -1429,9 +1479,10 @@
       converterOutput.placeholder=ghosts.has(0)&&!converterOutput.value?'':outputPlaceholder;
       // Setting textarea.value can reset its scroll position. Restore the
       // source row before painting the ghost text layer.
-      syncConverterScroll(converterInput,converterOutput);
-      refreshOutputHints();
       refreshManualSourceHints();
+      alignConverterPanes(converterInput);
+      refreshOutputHints();
+      refreshConverterHints();
       if(!inputCodes.length){
         matchFeedback=[{text:'Enter '+fromLab+' test codes to see possible matches.',tone:'note',icon:'i'}];
       }else{

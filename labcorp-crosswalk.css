@@ -1698,3 +1698,24 @@
     gap: 7px 14px;
   }
 }
+
+/* Converter panes share identical native row geometry and viewport height. */
+@media screen {
+  #convertTestsView #crosswalkQuestInput,
+  #convertTestsView #crosswalkLabcorpOutput {
+    box-sizing:border-box; width:100%; height:194px; min-height:194px; max-height:194px;
+    font-size:16px; line-height:24px; font-weight:500; padding:12px 13px;
+    resize:none; overflow-x:scroll; overflow-y:auto; scrollbar-gutter:stable;
+    -webkit-text-size-adjust:100%; text-size-adjust:100%;
+  }
+  #convertTestsView .crosswalk-autocomplete .batch-inline-ghost-label {
+    font-size:16px; line-height:24px;
+  }
+  #convertTestsView .crosswalk-autocomplete {-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  @media(max-width:680px) {
+    #convertTestsView #crosswalkQuestInput,
+    #convertTestsView #crosswalkLabcorpOutput {
+      height:132px; min-height:132px; max-height:132px; padding:9px 10px;
+    }
+  }
+}
