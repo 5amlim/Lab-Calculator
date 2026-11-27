@@ -182,20 +182,74 @@
     });
   });
 
-  // Show a quick entrance on newly revealed catalog rows after Show more.
-  // Never animate the full table on every search/filter keystroke.
-  for (const id of ['loadMoreButton', 'loadMoreInlineButton']) {
-    $(id)?.addEventListener('click', () => {
-      const body = $('libraryBody');
-      if (!body) return;
-      const priorCount = body.rows.length;
-      setTimeout(() => {
-        const addedRows = Array.from(body.rows).slice(priorCount, priorCount + 8);
-        for (const row of addedRows) {
-          if (visible(row.getBoundingClientRect())) reveal(row);
-        }
-      }, 0);
-    }, true);
+  // Search feedback only follows an intentional search/filter/review action.
+  // Passive cart rerenders, saved-cart restoration and startup are silent.
+  const searchSurfaces = [
+    { id:'libraryBody', rows:'tr',
+      controls:'#libraryFilter,#catalogFilterPanel input,#catalogFilterPanel select,#catalogFilterReset,#loadMoreButton,#loadMoreInlineButton',
+      key:row=>[row.querySelector('.code-cell')?.textContent,row.querySelector('.test-name')?.firstChild?.textContent||row.textContent.trim()].join('|') },
+    { id:'batchResults', rows:'.batch-grid > .batch-row',
+      controls:'#previewButton,#addBestButton,#searchInput',
+      key:row=>[row.dataset.batchIndex,row.querySelector('.batch-query')?.textContent,row.querySelector('.batch-match strong,.batch-choice-selected')?.textContent,row.querySelector('.batch-category-title')?.textContent].join('|') },
+    { id:'labcorpCrosswalkBody', rows:'tr',
+      controls:'#labcorpCrosswalkSearch,#labcorpCrosswalkDirection,#labcorpCrosswalkFilter,#labcorpCrosswalkMore',
+      key:row=>[ $('labcorpCrosswalkDirection')?.value,row.querySelector('.crosswalk-test-code')?.textContent,row.querySelector('.crosswalk-test-name')?.textContent||row.textContent.trim()].join('|') }
+  ];
+  for (const config of searchSurfaces) {
+    const surface = $(config.id);
+    if (!surface) continue;
+    const rows = () => [...surface.querySelectorAll(config.rows)];
+    const keys = items => new Set(items.map(config.key));
+    let previous = keys(rows()), intentUntil = 0, timer = 0, token = 0;
+    const markIntent = event => {
+      const control = event.target.closest?.(config.controls);
+      if (!control) return;
+      if (event.type === 'keydown' && event.key !== 'Enter') return;
+      // Batch search text by itself does not request a review; actual review
+      // buttons and the keyboard add/review shortcut do.
+      if (config.id === 'batchResults' && control.id === 'searchInput' &&
+          (event.type !== 'keydown' || !(event.ctrlKey || event.metaKey))) return;
+      intentUntil = Date.now() + 1600;
+    };
+    for (const type of ['input','change','click','keydown']) document.addEventListener(type,markIntent,true);
+    const observer = new MutationObserver(() => {
+      clearTimeout(timer);
+      const generation = ++token;
+      if (surface.classList.contains('hidden')) {
+        previous = new Set(); return;
+      }
+      if (Date.now() > intentUntil) {
+        previous = keys(rows()); return;
+      }
+      timer = setTimeout(() => {
+        if (generation !== token || surface.classList.contains('hidden')) return;
+        const current = rows();
+        const fresh = current.filter(row => !previous.has(config.key(row)) &&
+          visible(row.getBoundingClientRect())).slice(0,8);
+        previous = keys(current);
+        fresh.forEach((row,i) => setTimeout(() => {
+          if (generation === token && row.isConnected && visible(row.getBoundingClientRect()))
+            microMotion(row,[{opacity:.55,translate:'0 5px'},{opacity:1,translate:'0 0'}],210);
+        },i*15));
+      },config.id === 'batchResults' ? 0 : 90);
+    });
+    observer.observe(surface,{childList:true,subtree:true,
+      ...(config.id === 'batchResults' ? {attributes:true,attributeFilter:['class']} : {})});
+  }
+
+  // Animate autocomplete only when it opens, not as suggestions are replaced
+  // on every keystroke. Includes both sides of the converter.
+  for (const id of ['batchSuggestions','librarySuggestions','crosswalkQuestSuggestions','crosswalkOutputSuggestions']) {
+    const panel = $(id);
+    if (!panel) continue;
+    let wasHidden = panel.classList.contains('hidden');
+    new MutationObserver(() => {
+      const hidden = panel.classList.contains('hidden');
+      if (wasHidden && !hidden) microMotion(panel,[
+        {opacity:.6,translate:'0 -4px'},{opacity:1,translate:'0 0'}
+      ],180);
+      wasHidden = hidden;
+    }).observe(panel,{attributes:true,attributeFilter:['class']});
   }
 
   // Animate intentional mode changes, not rerenders during typing.
