@@ -844,16 +844,22 @@
   },
   "labcorp:161802": {
     "status": "Partially verified",
-    "url": "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
-    "date": "2026-11-25",
-    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable.",
+    "url": "https://www.labcorp.com/tests/161802/anticardiolipin-antibodies-aca-igg-igm-quantitative",
+    "date": "2026-11-26",
+    "note": "This review confirms the fields listed in the November bulletin. Unlisted fields and service-area acceptance remain separately reviewable. Official directory instructs ambient storage, in contrast with KSB client listing. Retain room-temperature route; confirm local account if different.",
     "fields": {
       "stability": {
         "evidence": "Room temperature 14 days, refrigerated 14 days, frozen 14 days, freeze/thaw capacity 5.",
         "reviewedValueSha256": "a8b57f5750406eee00705790bd1fdcd69e5e01a6b58e7e1ff884b9593677feba"
+      },
+      "transportTemperature": {
+        "evidence": "Room temperature."
       }
     },
-    "additionalSources": []
+    "additionalSources": [
+      "https://www.labcorp.com/content/dam/labcorp/files/providers-launch/diagnostics-update/L2027350_NEW11%20-%20Diagnostics%20Update%20November%202026.pdf",
+      "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog"
+    ]
   },
   "labcorp:161828": {
     "status": "Partially verified",
@@ -9367,5 +9373,372 @@
         "evidence": "EDTA lavender or ACD-A yellow; alternate buccal or saliva collection kits"
       }
     }
+  },
+  "labcorp:048462": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/048462/hirsutism-profile",
+    "date": "2026-11-26",
+    "note": "Exact directory confirms plain red top, separated serum in plastic transfer vessel, 1 mL minimum, refrigeration; existing source/transfer labels unchanged. Ambient stability is not shipping instruction.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Plain red top; gel not accepted."
+      },
+      "transportContainer": {
+        "evidence": "Separated serum in plastic transport tube."
+      },
+      "minimumVolume": {
+        "evidence": "1 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Refrigerated.",
+        "reviewedValueSha256": "e92aaa3ab1c4f9f959932be4d7b5a65a5505141131712df582252fd626e8fb78"
+      },
+      "transportTemperatureRaw": {
+        "evidence": "Refrigerated.",
+        "reviewedValueSha256": "e92aaa3ab1c4f9f959932be4d7b5a65a5505141131712df582252fd626e8fb78"
+      },
+      "stability": {
+        "evidence": "14 days ambient/refrigerated/frozen; two freeze/thaw cycles."
+      }
+    },
+    "additionalSources": [
+      "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog"
+    ]
+  },
+  "labcorp:096001": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/096001/coxsackie-b-virus-antibodies?letter=A",
+    "date": "2026-11-26",
+    "note": "Exact page confirms refrigeration; existing SST and red-top alternative retained. Original tube route not separately validated.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "SST or red top."
+      },
+      "preferredVolume": {
+        "evidence": "1 mL."
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Refrigerated.",
+        "reviewedValueSha256": "e92aaa3ab1c4f9f959932be4d7b5a65a5505141131712df582252fd626e8fb78"
+      },
+      "transportTemperatureRaw": {
+        "evidence": "Refrigerated.",
+        "reviewedValueSha256": "e92aaa3ab1c4f9f959932be4d7b5a65a5505141131712df582252fd626e8fb78"
+      },
+      "stability": {
+        "evidence": "14 days at each listed temperature; three freeze/thaw cycles."
+      }
+    },
+    "additionalSources": [
+      "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog"
+    ]
+  },
+  "labcorp:164763": {
+    "status": "Partially verified",
+    "url": "https://www.labcorp.com/tests/164763/anaplasma-phagocytophilum-hge-antibody-igg-ifa?letter=L",
+    "date": "2026-11-26",
+    "note": "Exact directory supports existing refrigerated serum route. SST and red-top accepted; client listing ambient differs.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "SST or red top."
+      },
+      "preferredVolume": {
+        "evidence": "0.4 mL."
+      },
+      "minimumVolume": {
+        "evidence": "0.2 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Refrigerated."
+      }
+    },
+    "additionalSources": [
+      "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog"
+    ]
+  },
+  "labcorp:500159": {
+    "status": "Partially verified",
+    "url": "https://specialtytesting.labcorp.com/tests/500159/testosterone-total-serum-mass-spectrometry",
+    "date": "2026-11-26",
+    "note": "Exact specialty directory accepts refrigerated shipment or frozen on dry ice. Current refrigerated route supported.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "SST or red top."
+      },
+      "transportContainer": {
+        "evidence": "Plastic transport tube."
+      },
+      "preferredVolume": {
+        "evidence": "0.8 mL."
+      },
+      "minimumVolume": {
+        "evidence": "0.4 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Refrigerated or frozen on dry ice."
+      },
+      "processing": {
+        "evidence": "Separate within one hour."
+      }
+    },
+    "additionalSources": [
+      "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog"
+    ]
+  },
+  "labcorp:500644": {
+    "status": "Partially verified",
+    "url": "https://specialtytesting.labcorp.com/tests/500644/insulin-like-growth-factor-binding-protein-3-igfbp-3",
+    "date": "2026-11-26",
+    "note": "Exact specialty page supports red-top serum and frozen shipping; dry-ice capability must be confirmed locally.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Red top for serum; lavender EDTA for plasma."
+      },
+      "transportContainer": {
+        "evidence": "Plastic transfer tube."
+      },
+      "preferredVolume": {
+        "evidence": "1 mL."
+      },
+      "minimumVolume": {
+        "evidence": "0.1 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Frozen on dry ice."
+      },
+      "processing": {
+        "evidence": "Separate within one hour."
+      }
+    },
+    "additionalSources": [
+      "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog"
+    ]
+  },
+  "labcorp:500156": {
+    "status": "Partially verified",
+    "url": "https://specialtytesting.labcorp.com/tests/500156/dehydroepiandrosterone-dhea",
+    "date": "2026-11-26",
+    "note": "Official specialty page accepts SST or red top. Do not replace existing SST route solely on client listing. Dry-ice capability open.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "SST or red top."
+      },
+      "transportContainer": {
+        "evidence": "Plastic transfer tube."
+      },
+      "preferredVolume": {
+        "evidence": "0.5 mL."
+      },
+      "minimumVolume": {
+        "evidence": "0.3 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Frozen on dry ice."
+      },
+      "processing": {
+        "evidence": "Separate within one hour."
+      }
+    },
+    "additionalSources": [
+      "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog"
+    ]
+  },
+  "labcorp:500477": {
+    "status": "Partially verified",
+    "url": "https://specialtytesting.labcorp.com/tests/500477/thyroid-stimulating-hormone-tsh-icma",
+    "date": "2026-11-26",
+    "note": "Official specialty page accepts SST or red top. Existing source selection retained. Dry-ice capability open.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "SST or red top."
+      },
+      "transportContainer": {
+        "evidence": "Plastic transfer tube."
+      },
+      "preferredVolume": {
+        "evidence": "1.2 mL."
+      },
+      "minimumVolume": {
+        "evidence": "1 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Frozen on dry ice."
+      },
+      "processing": {
+        "evidence": "Separate within 45 minutes."
+      }
+    },
+    "additionalSources": [
+      "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog"
+    ]
+  },
+  "labcorp:500712": {
+    "status": "Partially verified",
+    "url": "https://specialtytesting.labcorp.com/tests/500712/thyroid-function-adult-thyroid-test-group",
+    "date": "2026-11-26",
+    "note": "Exact specialty directory specifies red top, not a reason to substitute SST based on client listing. Dry-ice capability open.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Red top."
+      },
+      "transportContainer": {
+        "evidence": "Plastic transfer tube."
+      },
+      "preferredVolume": {
+        "evidence": "1 mL."
+      },
+      "minimumVolume": {
+        "evidence": "0.2 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Frozen on dry ice."
+      },
+      "processing": {
+        "evidence": "Separate within one hour."
+      }
+    },
+    "additionalSources": [
+      "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog"
+    ]
+  },
+  "labcorp:500713": {
+    "status": "Partially verified",
+    "url": "https://specialtytesting.labcorp.com/tests/500713/thyroid-function-adult-hyperthyroid-tsh-suppression-test-group",
+    "date": "2026-11-26",
+    "note": "Exact specialty directory specifies red top. Dry-ice capability open.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Red top."
+      },
+      "transportContainer": {
+        "evidence": "Plastic transfer tube."
+      },
+      "preferredVolume": {
+        "evidence": "2 mL."
+      },
+      "minimumVolume": {
+        "evidence": "0.8 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Frozen on dry ice."
+      },
+      "processing": {
+        "evidence": "Separate within one hour."
+      }
+    },
+    "additionalSources": [
+      "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog"
+    ]
+  },
+  "labcorp:502350": {
+    "status": "Partially verified",
+    "url": "https://specialtytesting.labcorp.com/tests/502350/congenital-adrenal-hyperplasia-cah-pediatric-profile-3-17-oh-deficiency-screen",
+    "date": "2026-11-26",
+    "note": "Exact specialty directory specifies red top. Published minimum 1 mL should be checked against the stored minimum before changing volume. Dry-ice capability open.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Red top."
+      },
+      "transportContainer": {
+        "evidence": "Plastic transfer tube."
+      },
+      "preferredVolume": {
+        "evidence": "3 mL."
+      },
+      "minimumVolume": {
+        "evidence": "1 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Frozen on dry ice."
+      },
+      "processing": {
+        "evidence": "Separate within one hour."
+      }
+    },
+    "additionalSources": [
+      "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog"
+    ]
+  },
+  "labcorp:503192": {
+    "status": "Partially verified",
+    "url": "https://specialtytesting.labcorp.com/tests/503192/congenital-adrenal-hyperplasia-cah-test-group-i-adult-late-onset",
+    "date": "2026-11-26",
+    "note": "Exact specialty directory specifies red top. No minimum published on this page. Dry-ice capability open.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Red top."
+      },
+      "transportContainer": {
+        "evidence": "Plastic transfer tube."
+      },
+      "preferredVolume": {
+        "evidence": "3 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Frozen on dry ice."
+      },
+      "processing": {
+        "evidence": "Separate within one hour."
+      }
+    },
+    "additionalSources": [
+      "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog"
+    ]
+  },
+  "labcorp:503194": {
+    "status": "Partially verified",
+    "url": "https://specialtytesting.labcorp.com/tests/503194/congenital-adrenal-hyperplasia-cah-test-group-ii-adult-late-onset",
+    "date": "2026-11-26",
+    "note": "Exact specialty directory specifies red top. No minimum published on this page. Dry-ice capability open.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "Red top."
+      },
+      "transportContainer": {
+        "evidence": "Plastic transfer tube."
+      },
+      "preferredVolume": {
+        "evidence": "3 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Frozen on dry ice."
+      },
+      "processing": {
+        "evidence": "Separate within one hour."
+      }
+    },
+    "additionalSources": [
+      "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog"
+    ]
+  },
+  "labcorp:834968": {
+    "status": "Partially verified",
+    "url": "https://labs.allinahealth.org/Lab/View?customObjectUID=62a113a2-feef-4f76-9206-a0e92c7c6453&templateUID=ff24f908-cdc8-4068-84eb-6ce60783f288",
+    "date": "2026-11-26",
+    "note": "Allina exact referral code identifies ambient preferred; Labcorp Oklahoma identifies ambient or refrigerated. KSB specifies refrigeration. Retain current ambient route pending local account confirmation. Do not extrapolate six-week Allina stability to all accounts.",
+    "fields": {
+      "drawContainer": {
+        "evidence": "SST or red top."
+      },
+      "transportContainer": {
+        "evidence": "Serum transfer vial."
+      },
+      "preferredVolume": {
+        "evidence": "1 mL."
+      },
+      "minimumVolume": {
+        "evidence": "0.5 mL."
+      },
+      "transportTemperature": {
+        "evidence": "Ambient or refrigerated supported in exact referral and regional sources; KSB requires refrigerated."
+      }
+    },
+    "additionalSources": [
+      "https://cdos.halfpenny.com/labcorp/ksb/Home/PrintCatalog",
+      "https://www.labcatalog.net/tests/?test=23232"
+    ]
   }
 }

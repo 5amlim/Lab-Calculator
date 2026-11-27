@@ -331,3 +331,26 @@ test('generic Quest 24-hour urine reference stays active but cannot produce a co
   assert.match(aldosterone.drawContainer,/no HCl/i);
   assert.equal(aldosterone.transportContainer,'Sterile cup');
 });
+
+test('bulk client screen confirmed shipping corrections preserve source and submission routes', async () => {
+  const {labs,loadCalculator}=await import('../scripts/load-calculator-catalog.mjs');
+  const {records,index}=await loadCalculator(root,labs[1],{captureRecords:true});
+  const expected={'048462':['Red Top','Transport Tube'],'096001':['SST / Gold','SST / Gold (spun)']};
+  const rows=records.filter(r=>Object.hasOwn(expected,r.testCode));
+  assert.equal(rows.length,2);
+  const api=openCalculator(labs[1].app,['applyUserState','expandedCollectionTests','buildTransportBagPlan'],{records:rows});
+  for(const row of rows){
+    assert.equal(row.status,'active');
+    assert(!row.collectionReview);
+    assert.equal(row.transportTemperature,'Refrigerated');
+    assert.deepEqual([row.drawContainer,row.transportContainer],expected[row.testCode]);
+    assert(index.tests.some(([c])=>c===row.testCode));
+    const restored=api.applyUserState({overrides:[{...row,transportTemperature:'Room Temperature',transportTemperatureRaw:'Room Temperature',specialInstructions:'Local handling note'}]}).find(r=>r.testCode===row.testCode);
+    assert.equal(restored.transportTemperature,'Refrigerated');
+    assert.equal(restored.specialInstructions,'Local handling note');
+    assert.deepEqual([restored.drawContainer,restored.transportContainer],expected[row.testCode]);
+    const bags=api.buildTransportBagPlan(api.expandedCollectionTests([restored]));
+    assert.equal(bags.length,1);
+    assert.match(bags[0].key,/refrigerated/);
+  }
+});

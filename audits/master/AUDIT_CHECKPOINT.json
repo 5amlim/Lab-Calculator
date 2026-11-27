@@ -12,11 +12,11 @@
   },
   "reviewedOrAttempted": {
     "quest": 84,
-    "labcorp": 453
+    "labcorp": 466
   },
   "notYetReviewed": {
     "quest": 3745,
-    "labcorp": 6148
+    "labcorp": 6135
   },
   "recordStatusSource": "FIELD_EVIDENCE.json. Every catalog row without a key has status Not yet reviewed.",
   "evidenceKeys": [
@@ -556,7 +556,20 @@
     "labcorp:484663",
     "labcorp:484664",
     "labcorp:484665",
-    "labcorp:484648"
+    "labcorp:484648",
+    "labcorp:048462",
+    "labcorp:096001",
+    "labcorp:164763",
+    "labcorp:500159",
+    "labcorp:500644",
+    "labcorp:500156",
+    "labcorp:500477",
+    "labcorp:500712",
+    "labcorp:500713",
+    "labcorp:502350",
+    "labcorp:503192",
+    "labcorp:503194",
+    "labcorp:834968"
   ],
   "inventoryCommand": "node scripts/audit-calculator-database.mjs --out ../calculator-current-report --check",
   "continueFrom": "Enumerate TEST_INVENTORY.csv where verification is Not yet reviewed, keeping laboratory and exact test code as strings. Use the appropriate service-area evidence and review every applicable route before marking a record fully verified.",
@@ -873,6 +886,43 @@
       ],
       "scope": "Exact-code client listing partial comparison with prior CI normalized routes. No universal acceptance inferred; specific source discrepancies remain open.",
       "runtimeChanges": 0
+    },
+    "bulkScreenDiscrepancyReview": {
+      "date": "2026-11-26",
+      "sourceRun": 45903447567,
+      "reviewed": 14,
+      "newEvidenceRecords": 13,
+      "corrected": [
+        "048462",
+        "096001"
+      ],
+      "retained": [
+        "161802",
+        "164763",
+        "500159",
+        "500644",
+        "500156",
+        "500477",
+        "500712",
+        "500713",
+        "502350",
+        "503192",
+        "503194"
+      ],
+      "localConfirmation": [
+        "834968"
+      ],
+      "dryIceCapabilityOpen": [
+        "500644",
+        "500156",
+        "500477",
+        "500712",
+        "500713",
+        "502350",
+        "503192",
+        "503194"
+      ],
+      "scope": "Exact official or specialty directory adjudication, or named referral sources for 834968. Clinical approval remains open."
     }
   }
 }

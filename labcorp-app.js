@@ -804,6 +804,8 @@
 
   function refreshReviewedLabcorpShipping(base, override) {
     const previous = {
+      '048462': {},
+      '096001': {},
       '007989': {
         temperatureRaw: 'Room temperature for shipment under 3 days; refrigerate for longer storage'
       },
