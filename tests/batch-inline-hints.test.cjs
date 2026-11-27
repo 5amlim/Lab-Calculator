@@ -22,20 +22,23 @@ const catalog = [
   { testCode: 'AB-23', testName: 'Alphanumeric assay', status: 'active' },
 ];
 
-test('hints require a unique, active, exact code or name', () => {
+test('hints show active exact matches and mark exact blocked codes', () => {
   const { resolveExact } = loadHints();
   const cases = new Map([
     ['809', 'Sed Rate'], ['sed rate', '809'], [' SED-RATE ', '809'],
     ['001234', 'Glycated Hemoglobin'], ['1234', null],
     ['Glycated Hemoglobin', '001234'], ['Glycated', null],
     ['Ambiguous Panel', null], ['200', 'Ambiguous Panel'],
-    ['999', null], ['Blocked Test', null], ['77', null],
+    ['99', null], ['Blocked Test', null], ['77', null],
     ['AB-23', 'Alphanumeric assay'], ['alphanumeric assay', 'AB-23'],
     ['', null], ['unknown', null],
   ]);
   for (const [query, expected] of cases) {
     assert.equal(resolveExact(query, catalog, normalize), expected, query);
   }
+  const blockedHint = resolveExact(' 999 ', catalog, normalize);
+  assert.equal(blockedHint.text, 'Blocked Test');
+  assert.equal(blockedHint.tone, 'blocked');
   assert.equal(catalog.length, 8);
 });
 
@@ -47,7 +50,8 @@ test('multiline hints keep one visual row per input row and never modify the val
   };
   function element(tag) {
     const node = {
-      tag, style: {}, children: [], className: '', textContent: '', attrs: {},
+      tag, style: {}, children: [], className: '', textContent: '', attrs: {}, dataset: {},
+      classList: { add(name) { node.className += ' ' + name; } },
       setAttribute(key, val) { this.attrs[key] = val; },
       appendChild(child) { this.children.push(child); },
       replaceChildren() { this.children = []; },
@@ -65,9 +69,9 @@ test('multiline hints keep one visual row per input row and never modify the val
     return node;
   }
   const textarea = {
-    parentElement: root, value: '809\nSed Rate\nunknown\n',
+    parentElement: root, value: '809\nSed Rate\n999\nunknown\n',
     offsetWidth: 390, clientWidth: 388, offsetHeight: 120,
-    offsetLeft: 0, offsetTop: 0, scrollTop: 0,
+    offsetLeft: 0, offsetTop: 0, scrollTop: 0, scrollLeft: 0,
     addEventListener(type, fn) { listeners[type] = fn; },
   };
   const style = {
@@ -87,10 +91,11 @@ test('multiline hints keep one visual row per input row and never modify the val
   const { mount, resolveExact } = loadHints(context);
   mount(textarea, query => resolveExact(query, catalog, normalize));
   const labels = () => root.overlay.children[0].children;
-  assert.equal(textarea.value, '809\nSed Rate\nunknown\n');
+  assert.equal(textarea.value, '809\nSed Rate\n999\nunknown\n');
   assert.equal(root.overlay.attrs['aria-hidden'], 'true');
-  assert.deepEqual(labels().map(node => node.textContent), ['• Sed Rate', '• 809']);
-  assert.deepEqual(labels().map(node => node.style.top), ['13px', '37px']);
+  assert.deepEqual(labels().map(node => node.textContent), ['• Sed Rate', '• 809', '• Blocked Test']);
+  assert.deepEqual(labels().map(node => node.style.top), ['13px', '37px', '61px']);
+  assert.match(labels()[2].className, /batch-inline-ghost-blocked/);
   textarea.value = '809\nGlycated\n';
   listeners.input();
   assert.equal(textarea.value, '809\nGlycated\n');
@@ -104,7 +109,7 @@ test('multiline hints keep one visual row per input row and never modify the val
 
   textarea.scrollTop = 20;
   listeners.scroll();
-  assert.equal(root.overlay.children[0].style.transform, 'translateY(-20px)');
+  assert.equal(root.overlay.children[0].style.transform, 'translate(0px, -20px)');
 });
 
 test('unmatched and approximate Add Tests lines keep the first-line search button and no spellcheck', () => {

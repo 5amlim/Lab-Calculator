@@ -178,6 +178,9 @@
     color: #8798a7;
     font-weight: 400;
   }
+  #findTestsView .batch-inline-ghost-label.batch-inline-ghost-blocked {
+    color: #b42318;
+  }
   /* Same placeholder color and opacity as the Convert Tests textareas. */
   #findTestsView #searchInput::placeholder {
     color: #9aaebc;

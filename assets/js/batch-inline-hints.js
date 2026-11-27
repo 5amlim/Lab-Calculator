@@ -9,8 +9,12 @@
       return String(test.testCode || '').trim().toLowerCase() === value.toLowerCase();
     });
     if (codeMatches.length) {
-      return codeMatches.length === 1 && codeMatches[0].status === 'active'
-        ? String(codeMatches[0].testName || '').trim() || null : null;
+      if (codeMatches.length !== 1) return null;
+      var match = codeMatches[0];
+      var name = String(match.testName || '').trim();
+      if (!name) return null;
+      if (match.status === 'blocked') return { text: name, tone: 'blocked' };
+      return match.status === 'active' ? name : null;
     }
     var normalized = normalizeSearch(value);
     if (!normalized) return null;
@@ -190,6 +194,7 @@
               }
             }
             if (hint && typeof hint === 'object') {
+              if (hint.tone === 'blocked') label.classList.add('batch-inline-ghost-blocked');
               if (hint.tone === 'manual') label.classList.add('batch-inline-ghost-manual');
               if (hint.tone === 'reference') {
                 label.classList.add('batch-inline-ghost-reference');
