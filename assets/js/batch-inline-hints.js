@@ -140,6 +140,24 @@
               (row + visualRows - 1) * lineHeight + (lineHeight - 20) / 2
           });
         }
+        // A hover-only visual copy of an unresolved line. The textarea remains
+        // the sole editable value; converter overlays are not affected.
+        if (tone === 'unavailable' && textarea.classList.contains('batch-directory-gutter')) {
+          var hoverLabel = document.createElement('span');
+          hoverLabel.className = 'batch-inline-ghost-status-text batch-directory-hover-text';
+          hoverLabel.dataset.lineIndex = String(index);
+          hoverLabel.textContent = line;
+          hoverLabel.style.left = (borderLeft + paddingLeft) + 'px';
+          hoverLabel.style.top = (borderTop + paddingTop + row * lineHeight) + 'px';
+          hoverLabel.style.width = innerWidth + 'px';
+          hoverLabel.style.height = (visualRows * lineHeight) + 'px';
+          hoverLabel.style.backgroundColor = style.backgroundColor || '#fff';
+          hoverLabel.style.font = [style.fontStyle, style.fontWeight, style.fontSize + '/' + lineHeight + 'px', style.fontFamily].join(' ');
+          hoverLabel.style.letterSpacing = style.letterSpacing;
+          hoverLabel.style.wordSpacing = style.wordSpacing;
+          hoverLabel.style.tabSize = style.tabSize;
+          layer.appendChild(hoverLabel);
+        }
         if (tone && document.activeElement === textarea &&
             textarea.selectionStart != null) {
           var caretPrefix = textarea.value.slice(0,textarea.selectionStart);

@@ -191,7 +191,7 @@
     };
   }
 
-  // Direct official-directory links for unresolved names. No cart mutation,
+  // Direct official-directory links for unresolved names and codes. No cart mutation,
   // replacement of typed text or extra directory drawer.
   function mountDirectoryLinks(textarea, directoryUrl) {
     const host = textarea?.parentElement;
@@ -202,6 +202,12 @@
     host.appendChild(layer);
     const links = new Map();
     let rows = [];
+    function syncHover() {
+      const hovered = [...links.values()].find(link => link.matches(':hover,:focus-visible'));
+      for (const label of host.querySelectorAll('.batch-directory-hover-text')) {
+        label.classList.toggle('is-highlighted', Boolean(hovered && label.dataset.lineIndex === hovered.dataset.lineIndex));
+      }
+    }
     function draw() {
       const wanted = new Set();
       for (const row of rows) {
@@ -214,6 +220,10 @@
         if (!link) {
           link = document.createElement('a');
           link.className = 'batch-directory-lookup';
+          link.dataset.lineIndex = String(row.index);
+          for (const type of ['pointerenter','pointerleave','focus','blur']) {
+            link.addEventListener(type, syncHover);
+          }
           link.href = directoryUrl(row.query);
           link.target = '_blank';
           link.rel = 'noopener noreferrer';
@@ -227,6 +237,7 @@
         link.style.left = (textarea.offsetLeft + textarea.clientWidth - 30) + 'px';
       }
       for (const [key,link] of links) if (!wanted.has(key)) {link.remove();links.delete(key);}
+      syncHover();
     }
     textarea.addEventListener('scroll',draw,{passive:true});
     window.addEventListener('resize',draw,{passive:true});
