@@ -826,9 +826,16 @@
           const names=questByName.get(normalize(current))||[];
           const record=questByCode.get(current)||(names.length===1?names[0]:null);
           const sourceKey=record?String(record[0]):current;
-          lines.splice(sourceLine,1);
+          const last=lastGroupedMatchRow(sourceLine);
+          lines.splice(sourceLine,last-sourceLine+1);
+          // Keep old cue indices in sync with the physical rows being removed.
+          const count=last-sourceLine+1;
+          const retained=[...manualSourceHints].filter(([index])=>index<sourceLine||index>last);
+          manualSourceHints.clear();
+          retained.forEach(([index,hint])=>manualSourceHints.set(index>last?index-count:index,hint));
           if(!lines.length)lines.push('');
           converterInput.value=lines.join('\n');
+          alignmentPadding.delete(converterInput);
           // Keep a manual directory selection only while a matching source
           // entry remains, including when removing one of two duplicates.
           const stillExists=lines.some(line=>{
@@ -1052,6 +1059,13 @@
       else if(generatedMatchRows.has(index))refreshOutputHints.shakeCodeLine?.(index);
       else refreshOutputHints.shakeLine?.(index);
     }
+    function lastGroupedMatchRow(row){
+      const match=generatedMatchRows.get(row);
+      if(!match)return row;
+      let last=row;
+      while(generatedMatchRows.get(last+1)?.source===match.source)last++;
+      return last;
+    }
     function insertAlignedRowAfterMatch(outputRow){
       const match=generatedMatchRows.get(outputRow);
       if(!match)return false;
@@ -1060,14 +1074,17 @@
       // refreshing the generated Quest results and their decorative labels.
       const sourceLines=converterInput.value.split('\n');
       const outputLines=converterOutput.value.split('\n');
-      sourceLines.splice(match.sourceLine+1,0,'');
-      outputLines.splice(outputRow+1,0,'');
+      const last=lastGroupedMatchRow(outputRow);
+      sourceLines.splice(last+1,0,'');
+      outputLines.splice(last+1,0,'');
+      alignmentPadding.delete(converterInput);
+      alignmentPadding.delete(converterOutput);
       converterInput.value=sourceLines.join('\n');
       converterOutput.value=outputLines.join('\n');
       hideOutputSuggestions();
       updateConverter();
       const refreshed=converterOutput.value.split('\n');
-      const nextRow=Math.min(outputRow+1,refreshed.length-1);
+      const nextRow=Math.min(last+1,refreshed.length-1);
       const caret=refreshed.slice(0,nextRow).reduce((pos,line)=>pos+line.length+1,0);
       converterOutput.focus({preventScroll:true});
       converterOutput.setSelectionRange(caret,caret);
@@ -1146,6 +1163,28 @@
         return null;
       }
       function blockEdit(event,kind,data){
+        if(textarea===converterInput&&
+           (kind==='insertLineBreak'||kind==='insertParagraph')&&
+           textarea.selectionStart===textarea.selectionEnd){
+          const value=textarea.value,caret=textarea.selectionStart;
+          const row=rowAt(value,caret),last=lastGroupedMatchRow(row);
+          if(last>row&&(caret===value.length||value[caret]==='\n')){
+            // Enter on a multi-match source advances past its entire group.
+            event.preventDefault();
+            const lines=value.split('\n');
+            const next=last+1;
+            if(lines[next]?.trim()||isLockedRow(textarea,next)){
+              lines.splice(next,0,'');
+            }else if(next>=lines.length)lines.push('');
+            textarea.value=lines.join('\n');
+            alignmentPadding.delete(textarea);
+            const pos=lines.slice(0,next).reduce((n,line)=>n+line.length+1,0);
+            textarea.setSelectionRange(pos,pos);
+            draftRow=null;
+            updateConverter();
+            return true;
+          }
+        }
         // Backspace from a blank LabCorp row removes the aligned blank row
         // in Quest as well. It must not erase a manual Quest entry or
         // merge an existing LabCorp test into another row.
@@ -1245,7 +1284,7 @@
       textarea.addEventListener('keydown',event=>{
         if(event.defaultPrevented||event.isComposing)return;
         if(event.key==='Enter'){
-          if(blockedRow('insertLineBreak')!==null)blockEdit(event,'insertLineBreak');
+          blockEdit(event,'insertLineBreak');
           return;
         }
         if(event.key==='Backspace'||event.key==='Delete')
@@ -1463,28 +1502,31 @@
     function updateConverter(){
       // Names are allowed as a full line. Retain compatibility with pasted
       // whitespace-separated numeric codes without splitting multiword test names.
+      const originalSource=converterInput.value;
       const logicalSource=logicalPaneValue(converterInput);
-      const inputRows=logicalSource.split('\n').flatMap(line=>
-        line.split(/[,;\t]+/).flatMap(value=>{
+      const oldReferenceRows=new Set([...manualSourceHints].filter(([,hint])=>hint.tone==='reference').map(([index])=>index));
+      const oldCaret=converterInput.selectionStart??originalSource.length;
+      const oldCaretRow=originalSource.slice(0,oldCaret).split('\n').length-1;
+      const oldCaretColumn=oldCaret-(originalSource.lastIndexOf('\n',oldCaret-1)+1);
+      const oldLines=logicalSource.split('\n');
+      const inputRows=[];
+      oldLines.forEach((line,index)=>{
+        // Generated cue rows are display space, not independent source entries.
+        if(!line.trim()&&oldReferenceRows.has(index))return;
+        const values=line.split(/[,;\t]+/).flatMap(value=>{
           const trimmed=value.trim();
           return /^\d+(?:\s+\d+)+$/.test(trimmed)?trimmed.split(/\s+/):[trimmed];
-        }));
-      const inputCodes=inputRows.filter(Boolean);
+        });
+        values.forEach((code,i)=>inputRows.push({code,raw:values.length===1?line:code,oldLine:index,part:i}));
+      });
+      const inputCodes=inputRows.filter(item=>item.code);
       const seenQuest=new Set(),seenLabcorp=new Set(),converted=[],unmatched=[],unknown=[];
-      // Track the source textarea line for each candidate. The input remains
-      // editable and its X removes only that source line and generated results.
-      // Extra candidates (where a source has several) follow the aligned rows.
-      const inputSourceLines=logicalSource.split('\n').flatMap((line,sourceLine)=>
-        line.split(/[,;\t]+/).flatMap(value=>{
-          const trimmed=value.trim();
-          return /^\d+(?:\s+\d+)+$/.test(trimmed)
-            ?trimmed.split(/\s+/).map(()=>sourceLine):[sourceLine];
-        }));
-      const aligned=[],extras=[],ghosts=new Map();
+      // Every real source row owns a contiguous block of selected destination rows.
+      const aligned=[],displaySource=[],ghosts=new Map(),oldToNew=new Map();
       multiBySourceLine=new Map();
       pendingMultiRows=new Set();
       let pendingMultiCount=0;
-      const alignedMatches=[],extraMatches=[];
+      const alignedMatches=[];
       const blankWithHint=text=>{
         ghosts.set(aligned.length,text);
         aligned.push('');
@@ -1492,8 +1534,10 @@
       };
       let duplicates=0,matched=0,manualSelections=0;
       for(let inputIndex=0;inputIndex<inputRows.length;inputIndex++){
-        const code=inputRows[inputIndex];
-        const sourceLine=inputSourceLines[inputIndex];
+        const {code,raw,oldLine}=inputRows[inputIndex];
+        const sourceLine=displaySource.length;
+        if(!oldToNew.has(oldLine))oldToNew.set(oldLine,sourceLine);
+        displaySource.push(raw);
         if(!code){aligned.push('');alignedMatches.push(null);continue;}
         const byName=questByName.get(normalize(code))||[];
         const row=questByCode.get(code)||(byName.length===1?byName[0]:null);
@@ -1512,7 +1556,7 @@
             aligned.push(selected.code);
             alignedMatches.push({
               source:uniqueCode,code:selected.code,
-              sourceLine,raw:converterInput.value.split('\n')[sourceLine]?.trim()
+              sourceLine,raw:raw.trim()
             });
             manualSelections++;
           }else blankWithHint('Already listed: '+selected.code);
@@ -1556,16 +1600,11 @@
           converted.push(match);
         }
         if(fresh.length){
-          aligned.push(fresh[0]);
-          alignedMatches.push({
-            source:uniqueCode,code:fresh[0],
-            sourceLine,raw:converterInput.value.split('\n')[sourceLine]?.trim()
+          fresh.forEach((match,index)=>{
+            if(index)displaySource.push('');
+            aligned.push(match);
+            alignedMatches.push({source:uniqueCode,code:match,sourceLine,raw:raw.trim()});
           });
-          extras.push(...fresh.slice(1));
-          extraMatches.push(...fresh.slice(1).map(match=>({
-            source:uniqueCode,code:match,
-            sourceLine,raw:converterInput.value.split('\n')[sourceLine]?.trim()
-          })));
         }else{
           blankWithHint('Already listed: '+code);
         }
@@ -1573,10 +1612,27 @@
       for(const key of multiSelections.keys()){
         if(!seenQuest.has(key))multiSelections.delete(key);
       }
-      const outputLines=[...aligned,...extras];
+      const outputLines=aligned.slice();
       generatedOutputRows=outputLines.slice();
-      generatedMatchRows=new Map([...alignedMatches,...extraMatches]
-        .flatMap((match,index)=>match?[[index,match]]:[]));
+      generatedMatchRows=new Map(alignedMatches.flatMap((match,index)=>match?[[index,match]]:[]));
+      // Always leave an editable line after the last generated cue.
+      if(!displaySource.length||displaySource[displaySource.length-1].trim()||
+         generatedMatchRows.has(displaySource.length-1))displaySource.push('');
+      const nextSource=displaySource.join('\n');
+      if(nextSource!==originalSource){
+        let nextRow=oldToNew.get(oldCaretRow);
+        if(nextRow===undefined){
+          const previous=[...oldToNew].filter(([old])=>old<oldCaretRow).pop();
+          nextRow=previous?lastGroupedMatchRow(previous[1])+1:0;
+        }
+        nextRow=Math.min(nextRow,displaySource.length-1);
+        while(nextRow<displaySource.length-1&&generatedMatchRows.has(nextRow)&&!displaySource[nextRow].trim())nextRow++;
+        const nextCaret=displaySource.slice(0,nextRow).reduce((n,line)=>n+line.length+1,0)+
+          Math.min(oldCaretColumn,displaySource[nextRow].length);
+        converterInput.value=nextSource;
+        converterInput.setSelectionRange(nextCaret,nextCaret);
+      }
+      alignmentPadding.delete(converterInput);
       // Keep manually entered destination codes in their existing blank rows.
       // This also preserves alignment when a mirrored reference is edited
       // below another manual destination with no available crosswalk.
@@ -1587,9 +1643,10 @@
         // A manually entered Quest code must not appear opposite an edited
         // LabCorp row without a verified candidate. Keep its own blank source
         // row or append it after the converted rows instead.
-        const sourceLine=converterInput.value.split('\n')[index]?.trim();
-        if(index<outputLines.length&&!outputLines[index]&&!sourceLine&&!ghosts.has(index)){
-          outputLines[index]=manualCode;
+        const targetIndex=oldToNew.get(index);
+        const sourceLine=targetIndex===undefined?null:displaySource[targetIndex]?.trim();
+        if(targetIndex!==undefined&&targetIndex<outputLines.length&&!outputLines[targetIndex]&&!sourceLine&&!ghosts.has(targetIndex)){
+          outputLines[targetIndex]=manualCode;
           seenLabcorp.add(manualCode);
         }
       }
