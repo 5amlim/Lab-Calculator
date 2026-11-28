@@ -320,7 +320,8 @@
         matches.map(({row},i)=>{
           const code=escape(row[0]),name=escape(row[1]);
           const specimen=String(row[2]||'').trim(),match=String(row[3]||'').trim();
-          const hint=[specimen,match?toLab+' candidate: '+match:'No '+toLab+' code mapped'].filter(Boolean).join(' · ');
+          const count=isQuestPage?(row[9]||[]).length:match?1:0;
+          const hint=[specimen,count>1?count+' '+toLab+' candidates':match?toLab+' candidate: '+match:'No '+toLab+' code mapped'].filter(Boolean).join(' · ');
           return '<button type="button" class="calc-suggestion-option" role="option" id="crosswalk-quest-option-'+i+
             '" aria-selected="false" tabindex="-1" data-index="'+i+'">'+
             '<span class="calc-suggestion-code">'+code+'</span>'+
@@ -444,6 +445,87 @@
     let generatedMatchRows=new Map();
     // Selected reference pairs remain provisional and session-local.
     const chosenMatches=new Map();
+    // Explicit choices are separate from provisional manual directory selections.
+    const multiSelections=new Map();
+    let multiBySourceLine=new Map(), pendingMultiRows=new Set();
+    const multiDialog=document.createElement('dialog');
+    multiDialog.className='crosswalk-multi-dialog';
+    multiDialog.setAttribute('aria-labelledby','crosswalkMultiTitle');
+    multiDialog.innerHTML='<div class="crosswalk-multi-head"><strong id="crosswalkMultiTitle">Choose '+toLab+' matches</strong><button type="button" data-multi-close aria-label="Close match selection">×</button></div>'+
+      '<p class="crosswalk-multi-note">Select one or more candidate tests. Confirm specimen, method and clinical equivalence before ordering.</p>'+
+      '<div class="crosswalk-multi-groups"></div><div class="crosswalk-multi-foot"><button type="button" data-multi-close>Cancel</button><button type="button" data-multi-apply>Apply selection</button></div>';
+    document.body.appendChild(multiDialog);
+    const multiGroups=multiDialog.querySelector('.crosswalk-multi-groups');
+    const multiApply=multiDialog.querySelector('[data-multi-apply]');
+    let multiDraft=new Map(), multiOpenGroups=[], multiReturnLine=-1;
+    function openMultiDialog(sourceLine){
+      const groups=multiBySourceLine.get(sourceLine)||[];
+      if(!groups.length)return;
+      multiOpenGroups=groups;
+      multiReturnLine=sourceLine;
+      multiDraft=new Map(groups.map(group=>[group.code,new Set(multiSelections.get(group.code)||[])]));
+      multiDialog.style.fontSize=window.getComputedStyle(converterInput).fontSize;
+      multiGroups.innerHTML=groups.map((group,i)=>
+        '<section class="crosswalk-multi-group" data-group="'+i+'"><div class="crosswalk-multi-group-head"><strong>'+escape(group.code)+' · '+escape(group.name)+'</strong><label class="crosswalk-multi-all"><input type="checkbox" data-multi-all> Select all</label></div>'+
+        group.candidates.map((code,j)=>{
+          const test=destinationCatalog.find(row=>row[0]===code);
+          return '<label class="crosswalk-multi-option"><input type="checkbox" data-option="'+j+'" '+(multiDraft.get(group.code).has(code)?'checked':'')+'><span><strong>'+escape(code)+'</strong> · '+escape(test?.[1]||code)+
+            (test?.[2]?'<span class="crosswalk-multi-specimen">'+escape(test[2])+'</span>':'')+'</span></label>';
+        }).join('')+'</section>').join('');
+      syncMultiDialog();
+      multiDialog.showModal();
+    }
+    function syncMultiDialog(){
+      let count=0;
+      multiOpenGroups.forEach((group,i)=>{
+        const section=multiGroups.querySelector('[data-group="'+i+'"]');
+        const selected=multiDraft.get(group.code);
+        const all=section.querySelector('[data-multi-all]');
+        all.checked=selected.size===group.candidates.length;
+        all.indeterminate=selected.size>0&&!all.checked;
+        section.querySelectorAll('[data-option]').forEach(input=>{
+          input.checked=selected.has(group.candidates[Number(input.dataset.option)]);
+        });
+        count+=selected.size;
+      });
+      multiApply.textContent=count?'Apply '+count+' selected':'Apply selection';
+    }
+    multiDialog.addEventListener('change',event=>{
+      const input=event.target;
+      const section=input.closest('[data-group]');
+      if(!section)return;
+      const group=multiOpenGroups[Number(section.dataset.group)];
+      const selected=multiDraft.get(group.code);
+      if(input.hasAttribute('data-multi-all')){
+        selected.clear();
+        if(input.checked)group.candidates.forEach(code=>selected.add(code));
+      }else if(input.hasAttribute('data-option')){
+        const code=group.candidates[Number(input.dataset.option)];
+        if(input.checked)selected.add(code);else selected.delete(code);
+      }
+      syncMultiDialog();
+    });
+    multiDialog.addEventListener('click',event=>{
+      if(event.target.closest('[data-multi-close]')){multiDialog.close();return;}
+      if(!event.target.closest('[data-multi-apply]'))return;
+      const current=multiBySourceLine.get(multiReturnLine)||[];
+      if(current.length!==multiOpenGroups.length||current.some((group,i)=>
+        group.code!==multiOpenGroups[i].code||group.candidates.join(',')!==multiOpenGroups[i].candidates.join(','))){
+        multiDialog.close();return;
+      }
+      for(const group of multiOpenGroups){
+        const selected=multiDraft.get(group.code);
+        multiSelections.set(group.code,group.candidates.filter(code=>selected.has(code)));
+      }
+      actionFeedback='';
+      updateConverter();
+      multiDialog.close();
+    });
+    multiDialog.addEventListener('close',()=>{
+      const trigger=sourceActionLayer?.querySelector('[data-multi-line="'+multiReturnLine+'"]');
+      (trigger||converterInput).focus({preventScroll:true});
+      multiOpenGroups=[];multiDraft.clear();
+    });
     // The two panes represent the same source rows. Mirror vertical scrolling
     // in either direction so long lists remain aligned while reviewing matches.
     // Programmatic scroll events are ignored to avoid loops when one pane has
@@ -679,12 +761,14 @@
         if(!current)continue;
         const label=sourceContainer.querySelector(
           '.batch-inline-ghost-label[data-line-index="'+sourceLine+'"]');
+        const multiGroupsForLine=multiBySourceLine.get(sourceLine)||[];
+        const hasMulti=multiGroupsForLine.length>0;
         let top,left;
         if(label){
           const initial=label.getBoundingClientRect();
           const start=initial.left-fieldRect.left;
           // Reserve space when a long source test name is ellipsized.
-          label.style.maxWidth=Math.max(0,maxLeft-start-6)+'px';
+          label.style.maxWidth=Math.max(0,maxLeft-start-6-(hasMulti?108:0))+'px';
           const rect=label.getBoundingClientRect();
           top=rect.top-fieldRect.top+(rect.height-18)/2;
           left=Math.min(maxLeft,rect.right-fieldRect.left+6);
@@ -696,6 +780,27 @@
             paddingLeft+codeWidth+9-converterInput.scrollLeft);
         }
         if(top<-18||top>sourceContainer.clientHeight-3||left<0)continue;
+        if(hasMulti){
+          const total=multiGroupsForLine.reduce((n,group)=>n+group.candidates.length,0);
+          const selected=multiGroupsForLine.reduce((n,group)=>n+(multiSelections.get(group.code)||[]).length,0);
+          const choose=document.createElement('button');
+          choose.type='button';
+          choose.className='crosswalk-multi-trigger';
+          choose.dataset.multiLine=String(sourceLine);
+          choose.style.top=top+'px';
+          choose.style.right='27px';
+          choose.style.fontSize=style.fontSize;
+          choose.textContent=selected?selected+'/'+total+' selected':total+' matches';
+          choose.title='Choose '+toLab+' candidate matches';
+          choose.setAttribute('aria-label',selected+' of '+total+' '+toLab+' candidates selected; choose matches');
+          choose.setAttribute('aria-haspopup','dialog');
+          choose.addEventListener('pointerdown',event=>event.preventDefault());
+          choose.addEventListener('click',event=>{
+            event.preventDefault();event.stopPropagation();hideSuggestions();openMultiDialog(sourceLine);
+          });
+          sourceActionLayer.appendChild(choose);
+          left=maxLeft;
+        }
         const button=document.createElement('button');
         button.type='button';
         button.className='crosswalk-source-match-remove';
@@ -936,7 +1041,7 @@
     // Generated matches and decorative no-match rows are protected.
     const noMatchRow=index=>{
       const hint=emptyOutputHints.get(index);
-      return typeof hint==='string'&&hint.startsWith('No match for ');
+      return pendingMultiRows.has(index)||(typeof hint==='string'&&hint.startsWith('No match for '));
     };
     const isLockedRow=(textarea,index)=>textarea===converterInput
       ? manualSourceHints.get(index)?.tone==='manual' &&
@@ -1364,6 +1469,9 @@
             ?trimmed.split(/\s+/).map(()=>sourceLine):[sourceLine];
         }));
       const aligned=[],extras=[],ghosts=new Map();
+      multiBySourceLine=new Map();
+      pendingMultiRows=new Set();
+      let pendingMultiCount=0;
       const alignedMatches=[],extraMatches=[];
       const blankWithHint=text=>{
         ghosts.set(aligned.length,text);
@@ -1403,8 +1511,21 @@
           blankWithHint('No match for "'+code+'"');
           continue;
         }
-        const candidates=(isQuestPage?(row[9]||[]):[row[3]])
-          .map(candidate=>String(candidate||'').trim()).filter(Boolean);
+        let candidates=[...new Set((isQuestPage?(row[9]||[]):[row[3]])
+          .map(candidate=>String(candidate||'').trim()).filter(Boolean))];
+        if(candidates.length>1){
+          const groups=multiBySourceLine.get(sourceLine)||[];
+          groups.push({code:uniqueCode,name:String(row[1]||uniqueCode),candidates:candidates.slice()});
+          multiBySourceLine.set(sourceLine,groups);
+          const selectedCodes=new Set(multiSelections.get(uniqueCode)||[]);
+          candidates=candidates.filter(candidate=>selectedCodes.has(candidate));
+          if(!candidates.length){
+            pendingMultiRows.add(aligned.length);
+            pendingMultiCount++;
+            blankWithHint('Choose matches for "'+uniqueCode+'"');
+            continue;
+          }
+        }
         if(!candidates.length){
           unmatched.push(code);
           // The resolved source entry supplies the canonical code and test
@@ -1436,6 +1557,9 @@
         }else{
           blankWithHint('Already listed: '+code);
         }
+      }
+      for(const key of multiSelections.keys()){
+        if(!seenQuest.has(key))multiSelections.delete(key);
       }
       const outputLines=[...aligned,...extras];
       generatedOutputRows=outputLines.slice();
@@ -1498,6 +1622,9 @@
           {text:matched+' of '+seenQuest.size+' '+fromLab+' '+(seenQuest.size===1?'test':'tests')+' with possible matches',
             tone:matched===seenQuest.size?'matched':'partial',icon:'↔'}
         ];
+        if(pendingMultiCount){
+          matchFeedback.push({text:pendingMultiCount+' '+(pendingMultiCount===1?'test needs':'tests need')+' match selection',tone:'partial',icon:'!'});
+        }
         if(manualSelections){
           matchFeedback.push({text:manualSelections+' selected manually · verify equivalence',
             tone:'note',icon:'⌕'});
