@@ -1787,3 +1787,23 @@
 @media (prefers-reduced-motion:reduce) {
   .crosswalk-multi-dialog *,#crosswalkQuestAutocomplete .crosswalk-multi-trigger {transition:none;}
 }
+
+
+/* Extra converted rows: read-only source reference with the same match cue. */
+@media screen {
+  #crosswalkQuestAutocomplete .batch-inline-ghost-reference {
+    display:inline-flex;align-items:baseline;gap:0;text-overflow:clip;
+    font-size:inherit;line-height:inherit;
+  }
+  #crosswalkQuestAutocomplete .batch-inline-ghost-reference-code {
+    flex:0 0 auto;color:#8798a7;font-size:inherit;line-height:inherit;
+  }
+  #crosswalkQuestAutocomplete .batch-inline-ghost-reference-name {
+    min-width:0;flex:0 1 auto;overflow:hidden;white-space:pre;text-overflow:ellipsis;
+    font-size:inherit;line-height:inherit;
+  }
+  #crosswalkQuestAutocomplete .batch-inline-ghost-reference::after {
+    content:"↔";flex:0 0 auto;margin-left:.38em;color:#2b8190;
+    font-size:.88em;font-weight:650;line-height:1;
+  }
+}
