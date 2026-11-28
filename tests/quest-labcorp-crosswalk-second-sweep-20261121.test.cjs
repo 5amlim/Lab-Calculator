@@ -27,7 +27,7 @@ test('second sweep codes preserve targeted analyte classes and avoid false match
  eq('10278','605224');eq('17686','605321');eq('7462','026898');
  eq('7468','208835');eq('8181','102525');eq('498','006510');
  eq('751','007856');eq('15447','096248');eq('785','006056');
- eq('2569','');eq('2657','602994');eq('10120','');
+ eq('2569','602778');eq('2657','602994');eq('10120','');
 });
 test('candidate-only data does not include imported orderable container rules',()=>{
  assert.ok(rows.filter(r=>r[3]).length>=700);

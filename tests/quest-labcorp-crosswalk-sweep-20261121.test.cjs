@@ -20,7 +20,7 @@ test('new candidates remain informational and never import collection rules',()=
  assert.equal(byCode.get('201')[3],'007740');
  assert.equal(byCode.get('273')[3],'602478');
  assert.equal(byCode.get('2801')[3],'602452');
- assert.equal(byCode.get('2569')[3],''); // IgE cannot map to IgG
+ assert.equal(byCode.get('2569')[3],'602778'); // F217 specific IgE, never IgG
 });
 test('corrected one-to-one candidates',()=>{
  assert.equal(byCode.get('785')[3],'006056');

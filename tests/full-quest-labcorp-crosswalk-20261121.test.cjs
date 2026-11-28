@@ -33,7 +33,7 @@ test('historical flags and dangerous mismatches are preserved',()=>{
  const q=c=>byQuest.get(c);
  assert.equal(q('10676')[3],'','Urine cytology stays unmapped pending manual directory review');
  assert.equal(q('8181')[3],'102525');
- assert.equal(q('2569')[3],'');
+ assert.equal(q('2569')[3],'602778');
  assert.equal(q('10120')[3],'');
  assert.equal(q('15319')[3],'133440');
  assert.equal(q('637')[3],'');
@@ -309,7 +309,7 @@ test('review-only alternatives are visible but never automatically converted',()
     assert.ok(row[8]?.some(l=>l[0]===labCode),questCode+' review contains '+labCode);
   }
   assert.equal(byQuest.get('637')[3],'','Ambiguous mercury urine test must remain review-only');
-  assert.equal(byQuest.get('2569')[3],'','IgE must not become IgG');
+  assert.equal(byQuest.get('2569')[3],'602778','F217 must map only to specific IgE');
   assert.equal(byQuest.get('10120')[3],'','Protected non-equivalent stays unmapped');
 });
 
@@ -438,7 +438,7 @@ test('uncertain 2026-11-22 near matches remain informational, not automatically 
     assert.equal(q[3],'','Review-only row was promoted '+quest);
     assert.ok(q[8]?.some(r=>r[0]===labcorp),'Review candidate missing for '+quest);
   }
-  for(const code of ['2569','11351','92739']){
+  for(const code of ['11351','92739']){
     assert.equal(byQuest.get(code)?.[3],'','High-risk method/Ig class mismatch '+code);
   }
 });
@@ -595,7 +595,7 @@ test('expanded individual allergen and specialty candidates preserve exact index
  for(const [qc,lc] of pairs){const q=byQuest.get(qc),l=labMap.get(lc);assert.ok(q&&l,qc+' / '+lc);assert.equal(q[3],lc,qc);assert.equal(q[4],l[1],qc);assert.equal(q[2].toLowerCase(),l[2].toLowerCase(),qc);assert.ok(!q[8]?.length,qc);}
 });
 test('expanded related alternatives remain manual-review only',()=>{
- const pairs=[["2736","602481,602488"],["6696","602560"],["17040","602511"],["23894","602567"],["30531","602817"],["17591","101170"],["17592","101170"],["39625","004069"],["10379","503205"],["10380","503205"],["19593","005009"],["10265","004556,004416"],["19108","303758,335362"],["19113","303758,209603"],["34391","303755"],["34471","550390,550470,550520"],["8757","324732,336050"],["95084","504904,504907"],["6635","791194"],["236","007203,007204,007205"],["481","007161,007162,007163"],["888","007153,007154,007155"],["917","070326,070327,070328"],["801","910625"],["15434","303756"],["30673","001842"],["8856","182246"]];
+ const pairs=[["2736","602481,602488"],["6696","602560"],["17040","602511"],["23894","602567"],["30531","602817"],["17591","101170"],["17592","101170"],["39625","004069"],["10379","503205"],["10380","503205"],["19593","005009"],["10265","004556,004416"],["19108","303758,335362"],["19113","303758,209603"],["34391","303755"],["34471","550390,550470,550520"],["8757","324732,336050"],["95084","504904,504907"],["6635","791194"],["801","910625"],["15434","303756"],["30673","001842"],["8856","182246"]];
  for(const [qc,codes] of pairs){const q=byQuest.get(qc);assert.ok(q,qc);assert.equal(q[3],'',qc);for(const lc of codes.split(','))assert.ok(q[8]?.some(x=>x[0]===lc),qc+' / '+lc);}
 });
 
@@ -730,4 +730,32 @@ test('re-reviewed assays are available as converter candidates under their activ
     assert.match(quest[6], /Possible match/, questCode);
     assert.equal(quest[8], undefined, questCode);
   }
+});
+
+
+test('re-reviewed and newly linked orders use the indexed Labcorp order codes in both directions',()=>{
+ const pairs=[
+  ['236','007203'],['481','007161'],['888','007153'],['917','070326'],
+  ['2569','602778'],['792','006064'],['327','005240'],['6740','005240'],
+  ['7709','005240'],['318','004176'],['968','120071'],['14578','013706'],
+  ['90844','001073'],['2649','008250'],['8837','054601']
+ ];
+ const labNames=new Map(indexedLab.map(([code,name])=>[code,name]));
+ const ui=fs.readFileSync('labcorp-crosswalk-ui.js','utf8');
+ const reverseStart=ui.indexOf('  function buildReverse(');
+ const reverseEnd=ui.indexOf('  function getRows(',reverseStart);
+ const reverse=vm.runInNewContext(ui.slice(reverseStart,reverseEnd)+
+   '\nbuildReverse({schema:1,lab:"labcorp",tests:indexedLab});',{
+   rows,indexedLab,sourceType:r=>r[7]||'uncoded',
+   labcorpDirectoryAliases:new Map(),categorySearchTerms:new Set(),
+   normalize:s=>s.toLowerCase()
+ });
+ const byLabcorp=new Map(reverse.map(r=>[r.code,r]));
+ for(const [qc,lc] of pairs){
+  const q=byQuest.get(qc);
+  assert.equal(q[3],lc,qc);
+  assert.equal(q[4],labNames.get(lc),lc);
+  assert.equal(q[8],undefined,qc);
+  assert.ok(byLabcorp.get(lc).matches.some(m=>m.code===qc&&m.status==='suggested'),lc);
+ }
 });
