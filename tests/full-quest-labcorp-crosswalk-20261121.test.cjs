@@ -79,7 +79,7 @@ function fixturePane(value,placeholder=''){
     setSelectionRange(start,end,direction){this.selectionStart=start;this.selectionEnd=end;this.selectionDirection=direction}
   };
 }
-function convertFixture(input,manual=[],chosen=[],questPage=true){
+function convertFixture(input,manual=[],chosen=[],questPage=true,multi=[]){
   const ctx={
     isQuestPage:questPage,fromLab:questPage?'LabCorp':'Quest',toLab:questPage?'Quest':'LabCorp',
     normalize:s=>String(s).toLowerCase().trim(),
@@ -99,6 +99,7 @@ function convertFixture(input,manual=[],chosen=[],questPage=true){
     generatedMatchRows:new Map(),
     generatedOutputRows:[],
     chosenMatches:new Map(chosen),
+    multiSelections:new Map(multi),multiBySourceLine:new Map(),pendingMultiRows:new Set(),
     manualOutputCodes:new Set(manual),
     cartCandidateCodes:[],matchFeedback:[],actionFeedback:'',
     refreshOutputHints(){},refreshManualSourceHints(){},refreshConverterHints(){},
@@ -107,7 +108,8 @@ function convertFixture(input,manual=[],chosen=[],questPage=true){
   };
   vm.runInNewContext('const mirroredScroll=new WeakMap();\n'+alignmentFunctions+'\n'+converterFunction+
     '\nupdateConverter(); logicalInput=logicalPaneValue(converterInput);',ctx);
-  assert.equal(ctx.logicalInput,input,'Synthetic scroll padding must not alter logical input');
+  assert.equal(ctx.logicalInput.split('\n').filter(Boolean).join('\n'),input,
+    'Generated display rows preserve typed source codes');
   assert.equal(ctx.converterInput.value.split('\n').length,ctx.converterOutput.value.split('\n').length,
     'Both panes must have equal native row counts');
   return ctx;
@@ -151,15 +153,18 @@ test('single unmatched entry keeps an editable blank destination without adding 
   assert.equal(state.emptyOutputHints.get(0),'No match for "809523 · Lithium, Urine"');
 });
 test('manual code and multiple candidate codes survive line-aligned conversion',()=>{
-  const state=convertFixture('809523\n123456\n005215',['908']);
-  assert.equal(state.converterOutput.value,'\n201\n809\n223\n908\n');
+  const state=convertFixture('809523\n123456\n005215',['908'],[],true,[['123456',['201','223']]]);
+  assert.equal(state.converterOutput.value,'\n201\n223\n809\n908\n');
   assert.equal(state.emptyOutputHints.get(0),'No match for "809523 · Lithium, Urine"');
   assert.deepEqual(Array.from(state.cartCandidateCodes),['201','223','809']);
 });
 
 
 test('automated and manually chosen matches remain separately tracked from editable codes',()=>{
-  const automatic=convertFixture('005215\n123456');
+  const pending=convertFixture('005215\n123456');
+  assert.deepEqual(Array.from(pending.cartCandidateCodes),['809']);
+  assert.equal(pending.emptyOutputHints.get(1),'Choose matches for "123456"');
+  const automatic=convertFixture('005215\n123456',[],[],true,[['123456',['201','223']]]);
   assert.equal(automatic.generatedMatchRows.get(0).code,'809');
   assert.equal(automatic.generatedMatchRows.get(1).code,'201');
   assert.equal(automatic.generatedMatchRows.get(2).code,'223');
@@ -601,7 +606,7 @@ test('specialty and urine drug candidates preserve indexed codes, names and spec
  for(const [qc,lc] of pairs){const q=byQuest.get(qc),l=labMap.get(lc);assert.ok(q&&l,qc+' / '+lc);assert.equal(q[3],lc,qc);assert.equal(q[4],l[1],qc);assert.equal(q[2].toLowerCase(),l[2].toLowerCase(),qc);assert.ok(!q[8]?.length,qc);}
 });
 test('further specialty and drug alternatives remain manual-review only',()=>{
- const pairs=[["13590","083971"],["13670","083909"],["39246","141330"],["5789","083885,820138"],["39360","701874"],["39368","737693"],["39378","737740"],["39379","737026"],["11831","702515"],["13113","738610"],["39384","701737"],["39386","714766"],["39387","701732"],["39389","701735"],["39391","701279"],["39395","701747"],["39398","701738"],["39399","701742"],["39403","701736"],["39409","791170"],["39410","702508"],["39414","702518"],["39431","791750"],["39435","081100"],["18713","817203"],["18728","607740"],["94469","603972"],["94470","604159"],["3423","602928"],["92857","605191"],["70107","706500,824197"],["93875","141330"],["16141","900049"],["90903","906006"],["90912","900133"],["19872","117079"],["90923","117310"],["19955","334971"],["15681","334971"],["17612","334971"],["14325","005280"],["15122","121137"],["90810","042045"],["36742","504796"],["13817","002006,500458"],["19724","138644"],["19723","138479"],["2339","716563,790856"],["3303","807644"],["18365","121022"],["70240","828679,828689"],["4661","161836"],["4662","161810"],["4663","161828"],["7352","161950"],["345","071506"],["5248","071522"],["400","808891"],["7649","164284"],["36330","716936,911186"],["10294","164657"],["10295","164657"],["92474","115101"],["36187","123110"],["91003","379720"],["91068","164624"],["11790","832400"],["15586","117157"],["90129","830732"],["93888","505500"]];
+ const pairs=[["13590","083971"],["13670","083909"],["39246","141330"],["5789","083885,820138"],["39360","701874"],["39368","737693"],["39378","737740"],["39379","737026"],["11831","702515"],["39384","701737"],["39386","714766"],["39387","701732"],["39389","701735"],["39391","701279"],["39395","701747"],["39398","701738"],["39399","701742"],["39403","701736"],["39409","791170"],["39410","702508"],["39414","702518"],["39431","791750"],["39435","081100"],["18713","817203"],["18728","607740"],["94469","603972"],["94470","604159"],["3423","602928"],["92857","605191"],["70107","706500,824197"],["93875","141330"],["16141","900049"],["90903","906006"],["90912","900133"],["19872","117079"],["90923","117310"],["19955","334971"],["15681","334971"],["17612","334971"],["14325","005280"],["15122","121137"],["90810","042045"],["36742","504796"],["13817","002006,500458"],["19724","138644"],["19723","138479"],["2339","716563,790856"],["3303","807644"],["18365","121022"],["70240","828679,828689"],["4661","161836"],["4662","161810"],["4663","161828"],["7352","161950"],["345","071506"],["5248","071522"],["400","808891"],["7649","164284"],["36330","716936,911186"],["10294","164657"],["10295","164657"],["92474","115101"],["36187","123110"],["91003","379720"],["91068","164624"],["11790","832400"],["15586","117157"],["90129","830732"],["93888","505500"]];
  for(const [qc,codes] of pairs){const q=byQuest.get(qc);assert.ok(q,qc);assert.equal(q[3],'',qc);for(const lc of codes.split(','))assert.ok(q[8]?.some(x=>x[0]===lc),qc+' / '+lc);}
 });
 
@@ -613,6 +618,10 @@ test('broad catalog candidates retain exact indexed names and codes',()=>{
  for(const [qc,lc] of pairs){const q=byQuest.get(qc),l=labMap.get(lc);assert.ok(q&&l,qc+' / '+lc);assert.equal(q[3],lc,qc);assert.equal(q[4],l[1],qc);if(!specimenExceptions.has(qc))assert.equal(q[2].toLowerCase(),l[2].toLowerCase(),qc);assert.ok(!q[8]?.length,qc);}
  assert.equal(byQuest.get('8474')[3],'096230','VCA IgG must never use IgM');
  assert.equal(byQuest.get('2657')[3],'602994','Mouse epithelium IgE must never use mouse urine or IgG');
+});
+test('directory-verified phentermine confirmation is a converter candidate',()=>{
+ assert.equal(byQuest.get('13113')[3],'738610');
+ assert.equal(byQuest.get('13113')[8],undefined);
 });
 test('new broader references are manual-review only',()=>{
  const pairs=[["1175","899828"],["13574","510940"],["13694","489140"],["15485","167259,167190"],["16515","452423"],["17347","480566"],["17813","511200"],["19525","167660,167297"],["19526","176082,176098"],["37859","001941,006452,001834"],["38312","505295"],["38321","505295,821075"],["39510","512143"],["70159","253801,163067"],["90382","505295,821075"],["90924","550066,550072"],["91065","480481,481544,481552"],["92140","898000,898047"],["92414","143008"],["92560","452423"],["93941","844017"],["95732","176082,176098"],["97112","167245,167190"],["10372","402145,403604"],["12735","402145,402175"],["12736","402145,402175"],["30555","403604,402145"],["30710","402145,403604"],["38313","505758"],["38323","505758"],["27","006635,006619"],["7942","324732,165100"],["15561","042045"],["30278","042045,006685"],["10104","165620"],["10211","165620"],["7432","221010"],["7311","007914"],["36581","096149,806649"],["6646","163600"],["17904","511154"],["70071","791886"],["91378","811653"],["19880","164947"],["37669","001768,002295"],["94761","164075"],["10177","833591"],["37231","550672"],["90071","164065"],["93859","165620"],["14890","117079"],["1776","700068"],["19779","700068"],["10583","606656"],["10558","606650"],["10569","606659"],["94463","604764"],["36763","608005"],["36766","608035"],["18739","608035"],["10662","716795"],["10719","706556"],["11068","138880,139380"],["11173","164914,520008"],["11177","186197"],["11447","117985"],["12084","140230"],["13600","083973"],["13646","082339"],["13986","010397"],["14312","139825"],["14598","511045,899373"],["14599","511045"],["14601","511035"],["15061","121137"],["15076","121228"],["15087","121228"],["15109","914280"],["15498","138420"],["15714","700603"],["15948","070228,868141"],["16284","150018"],["16446","139380"],["16553","138880"],["16845","004354"],["18218","504594"],["18224","504567"],["19502","815892"],["19550","188052"],["29477","163600"],["30340","330173"],["34282","138529,161075"],["34296","139326"],["34469","550653"],["36294","503890"],["36295","503890"],["36298","503890"],["36299","503890"],["36301","503870"],["36303","503870"],["36333","161802"],["36552","163900"],["36553","163908"],["36554","330173"],["36725","001974"],["36733","253801"],["37093","830721"],["37088","505016"],["37477","163295"],["37547","835027"],["37740","010505"],["37742","512300"],["38916","830721"],["39438","146704"],["39749","164068"],["90990","188730"],["91299","829670"],["91474","086884"],["91475","180076"]];
