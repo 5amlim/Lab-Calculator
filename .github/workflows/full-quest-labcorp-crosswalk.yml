@@ -9,10 +9,16 @@ on:
       - 'labcorp-quest-workbook-crosswalk-overrides.js'
       - 'labcorp-crosswalk-ui.js'
       - 'labcorp.html'
+      - 'index.html'
+      - 'assets/js/batch-inline-hints.js'
+      - 'assets/js/batch-no-match-finder.js'
+      - 'AGENTS.md'
       - 'tests/full-quest-labcorp-crosswalk-20261121.test.cjs'
       - 'tests/quest-labcorp-crosswalk-sweep-20261121.test.cjs'
       - 'tests/quest-labcorp-crosswalk-second-sweep-20261121.test.cjs'
       - '.github/workflows/full-quest-labcorp-crosswalk.yml'
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
