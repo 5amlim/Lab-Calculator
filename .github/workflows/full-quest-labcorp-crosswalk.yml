@@ -8,14 +8,15 @@ on:
       - 'labcorp-crosswalk-data.js'
       - 'labcorp-quest-workbook-crosswalk-overrides.js'
       - 'labcorp-crosswalk-ui.js'
+      - 'labcorp-crosswalk.css'
+      - 'scripts/check-crosswalk.sh'
       - 'labcorp.html'
       - 'index.html'
       - 'assets/js/batch-inline-hints.js'
       - 'assets/js/batch-no-match-finder.js'
       - 'AGENTS.md'
-      - 'tests/full-quest-labcorp-crosswalk-20261121.test.cjs'
-      - 'tests/quest-labcorp-crosswalk-sweep-20261121.test.cjs'
-      - 'tests/quest-labcorp-crosswalk-second-sweep-20261121.test.cjs'
+      - 'tests/*crosswalk*.test.cjs'
+      - 'tests/helpers/**'
       - '.github/workflows/full-quest-labcorp-crosswalk.yml'
   pull_request:
     branches: [main]
@@ -31,6 +32,4 @@ jobs:
         with:
           node-version: '22'
       - name: Check syntax and all indexed rows
-        run: |
-          node --check labcorp-crosswalk-ui.js
-          node --test tests/full-quest-labcorp-crosswalk-20261121.test.cjs tests/quest-labcorp-crosswalk-second-sweep-20261121.test.cjs tests/quest-labcorp-crosswalk-sweep-20261121.test.cjs
+        run: bash scripts/check-crosswalk.sh

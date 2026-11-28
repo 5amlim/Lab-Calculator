@@ -11,10 +11,7 @@ For every Quest/LabCorp equivalent expansion, correction, or converter UI change
 - Before pushing to main or merging, run the complete crosswalk preflight from the repository root with Node 22:
 
 ```sh
-node --check labcorp-crosswalk-ui.js
-node --check labcorp-crosswalk-data.js
-node --check labcorp-quest-workbook-crosswalk-overrides.js
-node --test tests/full-quest-labcorp-crosswalk-20261121.test.cjs tests/quest-labcorp-crosswalk-second-sweep-20261121.test.cjs tests/quest-labcorp-crosswalk-sweep-20261121.test.cjs
+bash scripts/check-crosswalk.sh
 ```
 
 - Require zero failures and zero skipped tests. If local execution is unavailable, validate on a separate branch via the crosswalk pull request workflow before merging; do not treat a source-only inspection as passing CI. Check the workflow on the exact final commit and report its result.
